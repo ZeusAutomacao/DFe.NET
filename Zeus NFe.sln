@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Classes", "NFe.Classes\NFe.Classes.csproj", "{29CA1DA2-440D-484B-951A-CF1B2EB27984}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Utils", "NFe.Utils\NFe.Utils.csproj", "{E35E7C4A-5690-4979-8B43-002975B48EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.AppTeste", "NFe.AppTeste\NFe.AppTeste.csproj", "{BB030128-9609-46D5-941C-1F53D95157E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Servicos", "NFe.Servicos\NFe.Servicos.csproj", "{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://zeusdev.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = NFe.AppTeste\\NFe.AppTeste.csproj
+		SccProjectName1 = NFe.AppTeste
+		SccLocalPath1 = NFe.AppTeste
+		SccProjectUniqueName2 = NFe.Classes\\NFe.Classes.csproj
+		SccProjectName2 = NFe.Classes
+		SccLocalPath2 = NFe.Classes
+		SccProjectUniqueName3 = NFe.Servicos\\NFe.Servicos.csproj
+		SccProjectName3 = NFe.Servicos
+		SccLocalPath3 = NFe.Servicos
+		SccProjectUniqueName4 = NFe.Utils\\NFe.Utils.csproj
+		SccProjectName4 = NFe.Utils
+		SccLocalPath4 = NFe.Utils
+		SccProjectUniqueName5 = NFe.Wsdl\\NFe.Wsdl.csproj
+		SccProjectName5 = NFe.Wsdl
+		SccLocalPath5 = NFe.Wsdl
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29CA1DA2-440D-484B-951A-CF1B2EB27984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29CA1DA2-440D-484B-951A-CF1B2EB27984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29CA1DA2-440D-484B-951A-CF1B2EB27984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29CA1DA2-440D-484B-951A-CF1B2EB27984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E35E7C4A-5690-4979-8B43-002975B48EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E35E7C4A-5690-4979-8B43-002975B48EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E35E7C4A-5690-4979-8B43-002975B48EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E35E7C4A-5690-4979-8B43-002975B48EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB030128-9609-46D5-941C-1F53D95157E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB030128-9609-46D5-941C-1F53D95157E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB030128-9609-46D5-941C-1F53D95157E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB030128-9609-46D5-941C-1F53D95157E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

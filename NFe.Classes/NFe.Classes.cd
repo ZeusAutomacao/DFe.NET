@@ -1,0 +1,1306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NFe.Classes.Assinatura.CanonicalizationMethod" Collapsed="true">
+    <Position X="52.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Assinatura\CanonicalizationMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.DigestMethod" Collapsed="true">
+    <Position X="47" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Assinatura\DigestMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.KeyInfo" Collapsed="true">
+    <Position X="59.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\KeyInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.Reference" Collapsed="true">
+    <Position X="50.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAiAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\Reference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.Signature" Collapsed="true">
+    <Position X="57.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAASAAAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\Signature.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.SignatureMethod" Collapsed="true">
+    <Position X="59.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Assinatura\SignatureMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.SignedInfo" Collapsed="true">
+    <Position X="61" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\SignedInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.Transform" Collapsed="true">
+    <Position X="47" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Assinatura\Transform.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Assinatura.X509Data" Collapsed="true">
+    <Position X="55.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\X509Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.NFe" Collapsed="true">
+    <Position X="45.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACE=</HashCode>
+      <FileName>NFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.nfeProc" Collapsed="true">
+    <Position X="47" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAABAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>nfeProc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.autXML" Collapsed="true">
+    <Position X="47" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAECAAAAIAAAAAIAAAAAAACA=</HashCode>
+      <FileName>Informacoes\autXML.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.avulsa" Collapsed="true">
+    <Position X="48.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAACACAAAgAAAAAAAgAAAAgAIAAAABAAABAABAAE=</HashCode>
+      <FileName>Informacoes\avulsa.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.compra" Collapsed="true">
+    <Position X="61" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAABAAAAAAgAAA=</HashCode>
+      <FileName>Informacoes\compra.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.entrega" Collapsed="true">
+    <Position X="57.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAgAAAAAAAAABgECAAFgIAAAAAIAAAAAAACA=</HashCode>
+      <FileName>Informacoes\entrega.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.exporta" Collapsed="true">
+    <Position X="48.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAIAEAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\exporta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.infNFe" Collapsed="true">
+    <Position X="45.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gCACAAACAAgAAAACEAAAgAAAAAFACAQAAEAAAgAAAgA=</HashCode>
+      <FileName>Informacoes\infNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.retirada" Collapsed="true">
+    <Position X="52.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAgAAAAAAAAABgECAAFgIAAAAAIAAAAAAACA=</HashCode>
+      <FileName>Informacoes\retirada.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cana.cana" Collapsed="true">
+    <Position X="50.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAAAAAAAIAAEAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Cana\cana.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cana.deduc" Collapsed="true">
+    <Position X="52.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAQAEAAAAAAAAAAAAAAAAAAAAAAAAAABABAAAAA=</HashCode>
+      <FileName>Informacoes\Cana\deduc.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cana.forDia" Collapsed="true">
+    <Position X="54" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAACAAAAAEAAAAAAAAAIAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Cana\forDia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cobranca.cobr" Collapsed="true">
+    <Position X="57.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Cobranca\cobr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cobranca.dup" Collapsed="true">
+    <Position X="48.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAE=</HashCode>
+      <FileName>Informacoes\Cobranca\dup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Cobranca.fat" Collapsed="true">
+    <Position X="52.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAACAAEAEAAAAAAAAAAAAAAAAAIAAACAABAAAA=</HashCode>
+      <FileName>Informacoes\Cobranca\fat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Destinatario.dest" Collapsed="true">
+    <Position X="55.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAEAEAQgAAAQAECAAAoIAAAAAIAAAQBAACA=</HashCode>
+      <FileName>Informacoes\Destinatario\dest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Destinatario.enderDest" Collapsed="true">
+    <Position X="54" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAiBAAAAAAAABgAAAAFgAIAAEAAAEAAAAAAE=</HashCode>
+      <FileName>Informacoes\Destinatario\enderDest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao.adi" Collapsed="true">
+    <Position X="45.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAABAAAAMAAAAAAAAAAAAAAAAAEAAAAAABAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\DeclaracaoImportacao\adi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao.DI" Collapsed="true">
+    <Position X="45.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAQIAAgAANBAAAAAAIAAQAAACAAAQCAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\DeclaracaoImportacao\DI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.det" Collapsed="true">
+    <Position X="57.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\det.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.impostoDevol" Collapsed="true">
+    <Position X="47" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\impostoDevol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.IPIDevolvido" Collapsed="true">
+    <Position X="54" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\IPIDevolvido.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.prod" Collapsed="true">
+    <Position X="61" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAJQAoBJCAAAAJACFBBCCCiAAgAQAAAABBQAAAABguA=</HashCode>
+      <FileName>Informacoes\Detalhe\prod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Exportacao.detExport" Collapsed="true">
+    <Position X="61" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Exportacao\detExport.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Exportacao.exportInd" Collapsed="true">
+    <Position X="50.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Exportacao\exportInd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.arma">
+    <Position X="0.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAABAAAEAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\arma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.CIDE" Collapsed="true">
+    <Position X="55.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\CIDE.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.comb">
+    <Position X="2.75" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAAAAAAAAAAAAyAgAAQAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\comb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.med">
+    <Position X="5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAEAgAAAAAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\med.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.ProdutoEspecifico">
+    <Position X="3.75" Y="15.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\ProdutoEspecifico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Produto_Específico.veicProd">
+    <Position X="7.25" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAgAKIQAQEAGAEQAAIBEABAFEAAAABAAAAAUBgA=</HashCode>
+      <FileName>Informacoes\Detalhe\Produto Específico\veicProd.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS" Collapsed="true">
+    <Position X="55.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS00">
+    <Position X="24.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAAABAIACAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS00.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS10">
+    <Position X="29.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAAChAICCAAAABAAAIACAAAAAAAAAAAAAEEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS10.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS20">
+    <Position X="33.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAEAAAAABgIACAEACAABAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS20.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS30">
+    <Position X="38.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAChgACAAEACBABAIACAAAAAAAAAAAAAEEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS30.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS40">
+    <Position X="40.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABgAAAAEACAABAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS40.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS51">
+    <Position X="2.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQKEEAjAAABAIAGAAAAAAAAAAAAABJAAACAAAAQEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS51.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS60">
+    <Position X="4.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIABAAAAAAAAQAAAAAAAAAABAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS60.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS70">
+    <Position X="9" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAEAAAAChgICCAEACBABAIACAAAAAAAAAAAAAEEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS70.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS90">
+    <Position X="11.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIEEAAAAChgICGBEACBABAJAGAAEJAAACAAAAAEEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMS90.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSPart">
+    <Position X="13.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAEAACAChAICCAAAABAAAKACAAAIAAAAAAAAAEEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSPart.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN101">
+    <Position X="15.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAABAAAAAAAAAAAAAAAAAAAAACAAAAAIAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN101.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN102">
+    <Position X="18" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN102.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN201">
+    <Position X="20.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAChAACAAAAABAAAIACAAAAAACAAAAAIAEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN201.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN202">
+    <Position X="22.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAChAACAAAAABAAAIACAAAAAACAAAAAAAEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN202.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN500">
+    <Position X="27" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIABAAAAAAAAQAAAAAAAAAABACAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN500.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSSN900">
+    <Position X="31.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIEUAAAACpAICGBAAABAAAJAGAAEJAACCAAAAIAEg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSSN900.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSST">
+    <Position X="36" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIABAAAAAAAAADAAAAAAAAABAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\ICMSST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSBasico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSNormal">
+    <Position X="42.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAAAAAAIACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSNormalST">
+    <Position X="42.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACgAACAAAAAAAAAIACAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormalST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSSTSomente">
+    <Position X="6.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACgAACAAAAAAAAAIACAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSSTSomente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINS" Collapsed="true">
+    <Position X="59.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSAliq">
+    <Position X="12.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAwAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINSAliq.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSNT">
+    <Position X="14.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINSNT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSOutr">
+    <Position X="17" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAxAAAAAAEAIAAAAAAAAAAAAAgAAAIAQAQCAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINSOutr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSQtde">
+    <Position X="19.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINSQtde.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSST">
+    <Position X="21.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAxAAAAAAEAIAAAAAAAAAAAAAgAAAIAQAQCAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\COFINSST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.II" Collapsed="true">
+    <Position X="61" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAQAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\II.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI" Collapsed="true">
+    <Position X="52.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEIAEAAAIAAAAAAEgAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\IPI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPINT">
+    <Position X="12.25" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\IPINT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPITrib">
+    <Position X="14.5" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAIAAAAQAAAAIACACAQBAAACAAAAAFAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\IPITrib.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PIS" Collapsed="true">
+    <Position X="55.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PIS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISAliq">
+    <Position X="0.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PISAliq.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISNT">
+    <Position X="2.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PISNT.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISOutr">
+    <Position X="5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZAAAEAAAAIAAAABAAAAAAAAAAAAIAAAYCAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PISOutr.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISQtde">
+    <Position X="7.25" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAJAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAEAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PISQtde.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISST">
+    <Position X="9.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZAAAEAAAAIAAAABAAAAAAAAAAAAIAAAYCAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\PISST.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.COFINSBasico">
+    <Position X="17" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\COFINSBasico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.IPIBasico">
+    <Position X="13.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\IPIBasico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.PISBasico">
+    <Position X="5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\PISBasico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.imposto" Collapsed="true">
+    <Position X="45.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAgAAQAAAAAAAAAAAAAAAAAIiAAABAAAAAAAACAAAE=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\imposto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.ISSQN" Collapsed="true">
+    <Position X="55.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAwAAAQBAAAgACAgQABDAAhAEQEAIgAEAAAAAAAAAYA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Municipal\ISSQN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Emitente.emit" Collapsed="true">
+    <Position X="50.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAQAEAAAAAAQAECBAAWIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Emitente\emit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Emitente.enderEmit" Collapsed="true">
+    <Position X="55.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAiBAAAAAAAABgAAAAFgAIAAEAAAEAAAAAAE=</HashCode>
+      <FileName>Informacoes\Emitente\enderEmit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Identificacao.ide" Collapsed="true">
+    <Position X="59.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABCAAQEAAAIIAAIABABgJBRAIAACAQQAiQAgDACBAEA=</HashCode>
+      <FileName>Informacoes\Identificacao\ide.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Identificacao.NFref" Collapsed="true">
+    <Position X="48.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\NFref.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Identificacao.refECF" Collapsed="true">
+    <Position X="48.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAACAAQAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\refECF.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Identificacao.refNF" Collapsed="true">
+    <Position X="52.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAABABAQAAAAIAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\refNF.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Identificacao.refNFP" Collapsed="true">
+    <Position X="54" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAEAABAABABASAAAAIAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\refNFP.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Observacoes.infAdic" Collapsed="true">
+    <Position X="48.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAAAAwAA=</HashCode>
+      <FileName>Informacoes\Observacoes\infAdic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Observacoes.obsCont" Collapsed="true">
+    <Position X="50.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Informacoes\Observacoes\obsCont.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Observacoes.obsFisco" Collapsed="true">
+    <Position X="52.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Informacoes\Observacoes\obsFisco.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Observacoes.procRef" Collapsed="true">
+    <Position X="59.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Observacoes\procRef.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Pagamento.card" Collapsed="true">
+    <Position X="54" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Informacoes\Pagamento\card.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Pagamento.pag" Collapsed="true">
+    <Position X="54" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Informacoes\Pagamento\pag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Total.ICMSTot" Collapsed="true">
+    <Position X="57.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAZCAAAAAAAAAACCBEQCAAAEAgAAAAAAAAAAAAIAgIA=</HashCode>
+      <FileName>Informacoes\Total\ICMSTot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Total.ISSQNtot" Collapsed="true">
+    <Position X="57.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kA4AFAEBAAAAACAAAABAABgAAgEIAAgQAACAAAAAAYA=</HashCode>
+      <FileName>Informacoes\Total\ISSQNtot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Total.retTrib" Collapsed="true">
+    <Position X="55.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAEEAAQAAAAAsQAAAAAAAgAAAAAAAAQIAAAIAAAgAE=</HashCode>
+      <FileName>Informacoes\Total\retTrib.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Total.total" Collapsed="true">
+    <Position X="45.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAACBAAAA=</HashCode>
+      <FileName>Informacoes\Total\total.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.lacres" Collapsed="true">
+    <Position X="61" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\lacres.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.reboque" Collapsed="true">
+    <Position X="47" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACgAAACAAgAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\reboque.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.retTransp" Collapsed="true">
+    <Position X="54" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAFAAACBAAAAAACAAAAAAAAAAAIA=</HashCode>
+      <FileName>Informacoes\Transporte\retTransp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.transp" Collapsed="true">
+    <Position X="48.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAACAAAEAAACAAAAAAAACgAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\transp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.transporta" Collapsed="true">
+    <Position X="50.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAEAAAAAAAgECABAgIAAAAAIAAAAAAACA=</HashCode>
+      <FileName>Informacoes\Transporte\transporta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.veicTransp" Collapsed="true">
+    <Position X="52.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAgAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\veicTransp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Informacoes.Transporte.vol" Collapsed="true">
+    <Position X="54" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QACAAEAAAAAQAEAAAQAAAAAAABAIAAAAAAAEAgAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\vol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Protocolo.infProt" Collapsed="true">
+    <Position X="47" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAAAIAAAACAQAAAAAAAAAAAAAgAEAAoAE=</HashCode>
+      <FileName>Protocolo\infProt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Protocolo.protNFe" Collapsed="true">
+    <Position X="45.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocolo\protNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Autorizacao.enviNFe3" Collapsed="true">
+    <Position X="45.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAEAAAABAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Servicos\Autorizacao\enviNFe3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Consulta.consSitNFe" Collapsed="true">
+    <Position X="48.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAggAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Consulta\consSitNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Consulta.procEventoNFe" Collapsed="true">
+    <Position X="57.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Consulta\procEventoNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Consulta.retConsSitNFe" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="59.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAACAgAAAIAAABCAAIAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Servicos\Consulta\retConsSitNFe.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.ConsCad" Collapsed="true">
+    <Position X="45.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\ConsCad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.ender" Collapsed="true">
+    <Position X="52.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAgBAAAAAAAABAAAAAFgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\ender.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.infCad" Collapsed="true">
+    <Position X="50.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAQAQAEAABAAABgACAASQIAACADAABAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\infCad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.infConsEnv" Collapsed="true">
+    <Position X="52.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAEAAAAABAgECAAAQIAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\infConsEnv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.infConsRet" Collapsed="true">
+    <Position X="54" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIEAAAAABCgACAAAAIAACAAAAgAEAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\infConsRet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.ConsultaCadastro.retConsCad" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="55.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\retConsCad.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.dest" Collapsed="true">
+    <Position X="54" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABCAEAQCAAAAgECEAAwIAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Servicos\Evento\dest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.detEvento" Collapsed="true">
+    <Position X="59.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACEIQAgAGAACAAAggAEAAAAAKAAAIQAgAVAAgcA=</HashCode>
+      <FileName>Servicos\Evento\detEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.envEvento" Collapsed="true">
+    <Position X="59.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAQAAA=</HashCode>
+      <FileName>Servicos\Evento\envEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.evento" Collapsed="true">
+    <Position X="47" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Servicos\Evento\evento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.infEventoEnv" Collapsed="true">
+    <Position X="55.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAASAQQAAIAAAAIAAAAAAECBAABIAAAAAIAEAAAAACA=</HashCode>
+      <FileName>Servicos\Evento\infEventoEnv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.infEventoRet" Collapsed="true">
+    <Position X="57.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QgACIQAAAIAACAKFAAACIEABAAAAAAAEAIAkAEAAgCE=</HashCode>
+      <FileName>Servicos\Evento\infEventoRet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.retEnvEvento" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="45.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAgAAAIAAAACAAABAAAAAAAAAAAgAEAQAAA=</HashCode>
+      <FileName>Servicos\Evento\retEnvEvento.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Evento.retEvento" Collapsed="true">
+    <Position X="48.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Evento\retEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Inutilizacao.infInutEnv" Collapsed="true">
+    <Position X="59.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACASACAgAAAAIAAABABAAAAAAIAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Servicos\Inutilizacao\infInutEnv.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Inutilizacao.infInutRet" Collapsed="true">
+    <Position X="61" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IEACASACAQAAAAIAACBCBAAAAAAIAAAAQAAgAGAQoAA=</HashCode>
+      <FileName>Servicos\Inutilizacao\infInutRet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Inutilizacao.inutNFe" Collapsed="true">
+    <Position X="50.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Servicos\Inutilizacao\inutNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Inutilizacao.retInutNFe" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="50.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Servicos\Inutilizacao\retInutNFe.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Recepcao.enviNFe2" Collapsed="true">
+    <Position X="61" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAABAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Servicos\Recepcao\enviNFe2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Recepcao.infRec" Collapsed="true">
+    <Position X="48.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Recepcao\infRec.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Recepcao.retEnviNFe" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="47" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAIAAABCAAAAAAAAAAAAAAAgAFAAIAA=</HashCode>
+      <FileName>Servicos\Recepcao\retEnviNFe.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Recepcao.Retorno.consReciNFe" Collapsed="true">
+    <Position X="47" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAggAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Recepcao\Retorno\consReciNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Recepcao.Retorno.retConsReciNFe" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="57.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAggAAIAAAJCAAIAAAAEAAQAAAAgAEAAAAA=</HashCode>
+      <FileName>Servicos\Recepcao\Retorno\retConsReciNFe.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Status.consStatServ" Collapsed="true">
+    <Position X="50.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAggAAAIAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Status\consStatServ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Classes.Servicos.Status.retConsStatServ" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="61" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAIAAABCAAAAAAAAAAAAAAAgAEAAAAA=</HashCode>
+      <FileName>Servicos\Status\retConsStatServ.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Interface Name="NFe.Classes.Servicos.IRetornoServico" Collapsed="true">
+    <Position X="45.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\IRetornoServico.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="NFe.Classes.Estado" Collapsed="true">
+    <Position X="50.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KACEADCAEABIEmBAABABAAAgQIkAQABAAAAAAADBQAA=</HashCode>
+      <FileName>Enums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Destinatario.indIEDest" Collapsed="true">
+    <Position X="50.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAACAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Informacoes\Destinatario\destTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.IndicadorTotal" Collapsed="true">
+    <Position X="48.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.TipoTransporteInternacional" Collapsed="true">
+    <Position X="52.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIAAAAIAAAAABIAABQAAACAQAAAAAggAAAABAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.TipoIntermediacao" Collapsed="true">
+    <Position X="61" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAgABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.TipoOperacao" Collapsed="true">
+    <Position X="47" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAAAAAAgAAAAAAYAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.CondicaoVin" Collapsed="true">
+    <Position X="48.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.CondicaoVeiculo" Collapsed="true">
+    <Position X="47" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAQQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.TipoRestricao" Collapsed="true">
+    <Position X="50.5" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAgAAAACAAIAAAAAAAAAAAAAAAAAAAgAgAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.TipoArma" Collapsed="true">
+    <Position X="54" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\prodTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria" Collapsed="true">
+    <Position X="59.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAQEBAAAAAAAAAAAAAAAAAAQAAAAAgAAEAAAgAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.CSTICMS" Collapsed="true">
+    <Position X="57.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAACPgHAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms" Collapsed="true">
+    <Position X="47" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEBABAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcmsST" Collapsed="true">
+    <Position X="48.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAABAAAAACA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.CSOSNICMS" Collapsed="true">
+    <Position X="54" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAIAAAAAAAAAgAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.MotivoDesoneracaoICMS" Collapsed="true">
+    <Position X="57.5" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgACAABgAAQAAAAEgAAAgEAAAAAAAAAAACAAAAAAgA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTCOFINS" Collapsed="true">
+    <Position X="55.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DocAAIBwOEEAAAAA3CEAAAAQDgAAAAAAAAARAgAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\COFINSTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTIPI" Collapsed="true">
+    <Position X="59.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACQAAAAAAAAkACQAAAAAC0AAAAAgEQCAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\IPITipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTPIS" Collapsed="true">
+    <Position X="61" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>qwcBAADQUAAAAABo7QEAAAAIXgAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Federal\Tipos\PISTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.indIncentivo" Collapsed="true">
+    <Position X="52.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Municipal\ISSQNTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.IndicadorISS" Collapsed="true">
+    <Position X="59.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAEAEAAAAAAAAAAAAAAAAABAAAAAEQAAAAAABAAAA=</HashCode>
+      <FileName>Informacoes\Detalhe\Tributacao\Municipal\ISSQNTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Emitente.CRT" Collapsed="true">
+    <Position X="52.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAQABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Emitente\emitTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.IndicadorPagamento" Collapsed="true">
+    <Position X="61" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.ModeloDocumento" Collapsed="true">
+    <Position X="55.75" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.TipoNFe" Collapsed="true">
+    <Position X="45.25" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.DestinoOperacao" Collapsed="true">
+    <Position X="45.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.TipoImpressao" Collapsed="true">
+    <Position X="59.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQBACAAAAAAAEAAAAAgAIAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.TipoEmissao" Collapsed="true">
+    <Position X="57.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAIAABgAAAgEAEAAAAAEAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente" Collapsed="true">
+    <Position X="52.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.FinalidadeNFe" Collapsed="true">
+    <Position X="52.25" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAIAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.ProcessoEmissao" Collapsed="true">
+    <Position X="45.25" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAIAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.ConsumidorFinal" Collapsed="true">
+    <Position X="50.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAgA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Identificacao.Tipos.PresencaComprador" Collapsed="true">
+    <Position X="61" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAQAAAAAAAAAIAAAAAAAgAAQAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Informacoes\Identificacao\Tipos\ideTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Observacoes.IndicadorProcesso" Collapsed="true">
+    <Position X="45.25" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAEAhAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Informacoes\Observacoes\procRefTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Pagamento.FormaPagamento" Collapsed="true">
+    <Position X="54" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAIABAABAAAIAgAAAQAAAAAAAAAAAAAAAEAQI=</HashCode>
+      <FileName>Informacoes\Pagamento\pagTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Pagamento.BandeiraCartao" Collapsed="true">
+    <Position X="45.25" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAKAAAAAAAAACAAAAQAAAA=</HashCode>
+      <FileName>Informacoes\Pagamento\pagTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Total.RegTribISSQN" Collapsed="true">
+    <Position X="47" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAACAAAAEAAAABAAAAAAAAAAAAABAAgAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Total\ISSQNtotTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Informacoes.Transporte.ModalidadeFrete" Collapsed="true">
+    <Position X="54" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAACAACAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Informacoes\Transporte\transpTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.ConsultaCadastro.SituacaoContribuinte" Collapsed="true">
+    <Position X="50.5" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAgAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.ConsultaCadastro.IndicadorCredenciamentoNfe" Collapsed="true">
+    <Position X="57.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAIAAAAAAAAAAAAQAAAAAEEAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.ConsultaCadastro.IndicadorCredenciamentoCte" Collapsed="true">
+    <Position X="55.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAIAAAAAAAAAAAAQAAAAAEEAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.Evento.TipoAutor" Collapsed="true">
+    <Position X="55.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAgAAAAAABAAAAAABIABA=</HashCode>
+      <FileName>Servicos\Evento\detEventoTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.Tipos.ServicoNFe" Collapsed="true">
+    <Position X="48.75" Y="14" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IhAAAEAAAQAAAIAIAAIABAAAAQAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Servicos\Tipos\ServicosTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.Tipos.TipoRecepcaoEvento" Collapsed="true">
+    <Position X="48.75" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAQAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Tipos\ServicosTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.Tipos.VersaoServico" Collapsed="true">
+    <Position X="54" Y="14.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Tipos\ServicosTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NFe.Classes.Servicos.Tipos.IndicadorSincronizacao" Collapsed="true">
+    <Position X="47" Y="13.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Servicos\Tipos\ServicosTipos.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

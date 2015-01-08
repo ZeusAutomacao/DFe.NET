@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NFe.Servicos.DefinicaoWsdlCampos">
+    <Position X="28.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAgAAAAAABAAAAAAAAIAAAAAAAACAAAAAAAAAg=</HashCode>
+      <FileName>DefinicaoWSDL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.DefinicaoWsdl">
+    <Position X="26" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAABAAAAAgAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DefinicaoWSDL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.ServicosNFe">
+    <Position X="26" Y="3.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IDAAAEAAAwAKgIAIAAIABAAEAAAAACAAAAEABAAAAAA=</HashCode>
+      <FileName>ServicosNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoBasico">
+    <Position X="12" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAACAAAA=</HashCode>
+      <FileName>Retorno\RetornoBasico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeConsultaProtocolo">
+    <Position X="3" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoConsulta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNFeAutorizacao">
+    <Position X="8.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNFeAutorizacao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeConsultaCadastro">
+    <Position X="14.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNfeConsultaCadastro.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeInutilizacao">
+    <Position X="23" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNfeInutilizacao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeRecepcao">
+    <Position X="0.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNfeRecepcao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNFeRetAutorizacao">
+    <Position X="11.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNFeRetAutorizacao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeRetRecepcao">
+    <Position X="17.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNfeRetRecepcao.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoNfeStatusServico">
+    <Position X="20.25" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoNfeStatusServico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Servicos.Retorno.RetornoRecepcaoEvento">
+    <Position X="6" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Retorno\RetornoRecepcaoEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
