@@ -152,6 +152,8 @@ namespace NFe.AppTeste
             try
             {
                 _configuracoes = !File.Exists(path + ArquivoConfiguracao) ? new ConfiguracaoApp() : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoApp>(path + ArquivoConfiguracao);
+                if (_configuracoes.CfgServico.TimeOut == 0)
+                    _configuracoes.CfgServico.TimeOut = 100;//mínimo
             }
             catch (Exception ex)
             {
