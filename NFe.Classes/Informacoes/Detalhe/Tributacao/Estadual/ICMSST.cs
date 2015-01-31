@@ -44,17 +44,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
-        public CSTICMS CST { get; set; }
+        public Csticms CST { get; set; }
 
         /// <summary>
         ///     N26 - Valor da BC do ICMS ST retido
         /// </summary>
-        private decimal vBCSTRet { get; set; }
+        public decimal vBCSTRet { get; set; }
 
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
-        private decimal vICMSSTRet { get; set; }
+        public decimal vICMSSTRet { get; set; }
 
         /// <summary>
         ///     N31 - Valor da BC do ICMS ST da UF destino

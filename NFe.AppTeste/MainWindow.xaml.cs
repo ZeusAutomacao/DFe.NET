@@ -141,7 +141,7 @@ namespace NFe.AppTeste
             catch (Exception ex)
             {
                 if (!String.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                    Funcoes.Mensagem(String.Format("{0} \nDetalhes: {1}", ex.Message, ex.InnerException.Message), "Erro", MessageBoxButton.OK);                
             }
         }
 
@@ -827,9 +827,7 @@ namespace NFe.AppTeste
             //    xFant = "FIOLUX COMERCIAL LTDA",
             //    IE = "270844821",
             //};
-            emit.enderEmit = GetEnderecoEmitente();
-            emit.CRT = CRT.SimplesNacional;
-            emit.CPF = "";
+            emit.enderEmit = GetEnderecoEmitente();            
             return emit;
         }
 
@@ -898,7 +896,7 @@ namespace NFe.AppTeste
                     vTotTrib = decimal.Parse("0,17"),
                     ICMS = new ICMS
                     {
-                        TipoICMS = InformarCSOSN(CSOSNICMS.csosn102)
+                        TipoICMS = InformarCSOSN(Csosnicms.Csosn102)
                     },
                     COFINS = new COFINS {TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}},
                     PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}}
@@ -941,55 +939,55 @@ namespace NFe.AppTeste
             return p;
         }
 
-        protected virtual ICMSBasico InformarICMS(CSTICMS CST, VersaoServico versao)
+        protected virtual ICMSBasico InformarICMS(Csticms CST, VersaoServico versao)
         {
             var icms20 = new ICMS20
             {
-                orig = OrigemMercadoria.omNacional,
-                CST = CSTICMS.cst20,
-                modBC = DeterminacaoBaseIcms.dbiValorOperacao,
+                orig = OrigemMercadoria.OmNacional,
+                CST = Csticms.Cst20,
+                modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                 vBC = decimal.Parse("1,00"),
                 pICMS = decimal.Parse("17"),
                 vICMS = decimal.Parse("0,17"),
-                motDesICMS = MotivoDesoneracaoICMS.mdiTaxi
+                motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             if (versao == VersaoServico.ve310)
                 icms20.vICMSDeson = decimal.Parse("0,10"); //V3.00 ou maior Somente
 
             switch (CST)
             {
-                case CSTICMS.cst00:
+                case Csticms.Cst00:
                     return new ICMS00
                     {
-                        CST = CSTICMS.cst00,
-                        modBC = DeterminacaoBaseIcms.dbiValorOperacao,
-                        orig = OrigemMercadoria.omNacional,
+                        CST = Csticms.Cst00,
+                        modBC = DeterminacaoBaseIcms.DbiValorOperacao,
+                        orig = OrigemMercadoria.OmNacional,
                         pICMS = decimal.Parse("17.0"),
                         vBC = decimal.Parse("1,00"),
                         vICMS = decimal.Parse("0,17,00")
                     };
-                case CSTICMS.cst20:
+                case Csticms.Cst20:
                     return icms20;
             }
 
             return new ICMS10();
         }
 
-        protected virtual ICMSBasico InformarCSOSN(CSOSNICMS CST)
+        protected virtual ICMSBasico InformarCSOSN(Csosnicms CST)
         {
             switch (CST)
             {
-                case CSOSNICMS.csosn101:
+                case Csosnicms.Csosn101:
                     return new ICMSSN101
                     {
-                        CSOSN = CSOSNICMS.csosn101,
-                        orig = OrigemMercadoria.omNacional
+                        CSOSN = Csosnicms.Csosn101,
+                        orig = OrigemMercadoria.OmNacional
                     };
-                case CSOSNICMS.csosn102:
+                case Csosnicms.Csosn102:
                     return new ICMSSN102
                     {
-                        CSOSN = CSOSNICMS.csosn102,
-                        orig = OrigemMercadoria.omNacional
+                        CSOSN = Csosnicms.Csosn102,
+                        orig = OrigemMercadoria.OmNacional
                     };
                 default:
                     return new ICMSSN201();

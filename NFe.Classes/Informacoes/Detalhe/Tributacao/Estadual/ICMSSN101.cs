@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N12a - Código de Situação da Operação – Simples Nacional
         /// </summary>
-        public CSOSNICMS CSOSN { get; set; }
+        public Csosnicms CSOSN { get; set; }
 
         /// <summary>
         ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).

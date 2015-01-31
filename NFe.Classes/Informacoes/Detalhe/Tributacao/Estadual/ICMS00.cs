@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
-        public CSTICMS CST { get; set; }
+        public Csticms CST { get; set; }
 
         /// <summary>
         ///     N13 - Modalidade de determinação da BC do ICMS

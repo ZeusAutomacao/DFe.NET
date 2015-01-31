@@ -56,7 +56,7 @@ namespace NFe.Utils
         public string SerialCertificado { get; set; }
 
         /// <summary>
-        ///     Tempo máximo de espera pela resposta do webservice
+        ///     Tempo máximo de espera pela resposta do webservice, em milisegundos
         /// </summary>
         public int TimeOut { get; set; }
 

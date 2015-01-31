@@ -47,7 +47,7 @@ namespace NFe.AppTeste
             CfgServico = ConfiguracaoServico.Instancia;
             CfgServico.tpAmb = TipoAmbiente.taHomologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
-            Emitente = new emit();
+            Emitente = new emit {CRT = CRT.SimplesNacional, CPF = ""};
             EnderecoEmitente = new enderEmit();
         }
 

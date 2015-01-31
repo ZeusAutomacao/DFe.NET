@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
-        public CSTICMS CST { get; set; }
+        public Csticms CST { get; set; }
 
         /// <summary>
         ///     N27a - Valor do ICMS desonerado
@@ -54,7 +54,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N28 - Motivo da desoneração do ICMS
         /// </summary>
-        public MotivoDesoneracaoICMS? motDesICMS { get; set; }
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
         public bool ShouldSerializevICMSDeson()
         {

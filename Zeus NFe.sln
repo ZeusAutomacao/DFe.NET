@@ -14,27 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://zeusdev.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = NFe.AppTeste\\NFe.AppTeste.csproj
-		SccProjectName1 = NFe.AppTeste
-		SccLocalPath1 = NFe.AppTeste
-		SccProjectUniqueName2 = NFe.Classes\\NFe.Classes.csproj
-		SccProjectName2 = NFe.Classes
-		SccLocalPath2 = NFe.Classes
-		SccProjectUniqueName3 = NFe.Servicos\\NFe.Servicos.csproj
-		SccProjectName3 = NFe.Servicos
-		SccLocalPath3 = NFe.Servicos
-		SccProjectUniqueName4 = NFe.Utils\\NFe.Utils.csproj
-		SccProjectName4 = NFe.Utils
-		SccLocalPath4 = NFe.Utils
-		SccProjectUniqueName5 = NFe.Wsdl\\NFe.Wsdl.csproj
-		SccProjectName5 = NFe.Wsdl
-		SccLocalPath5 = NFe.Wsdl
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

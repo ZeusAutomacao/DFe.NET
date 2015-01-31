@@ -50,15 +50,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum OrigemMercadoria
     {
-        [XmlEnum("0")] omNacional,
-        [XmlEnum("1")] omEstrangeiraImportacaoDireta,
-        [XmlEnum("2")] omEstrangeiraAdquiridaBrasil,
-        [XmlEnum("3")] omNacionalConteudoImportacaoSuperior40,
-        [XmlEnum("4")] omNacionalProcessosBasicos,
-        [XmlEnum("5")] omNacionalConteudoImportacaoInferiorIgual40,
-        [XmlEnum("6")] omEstrangeiraImportacaoDiretaSemSimilar,
-        [XmlEnum("7")] omEstrangeiraAdquiridaBrasilSemSimilar,
-        [XmlEnum("8")] omNacionalConteudoImportacaoSuperior70
+        [XmlEnum("0")] OmNacional = 0,
+        [XmlEnum("1")] OmEstrangeiraImportacaoDireta = 1,
+        [XmlEnum("2")] OmEstrangeiraAdquiridaBrasil = 2,
+        [XmlEnum("3")] OmNacionalConteudoImportacaoSuperior40 = 3,
+        [XmlEnum("4")] OmNacionalProcessosBasicos = 4,
+        [XmlEnum("5")] OmNacionalConteudoImportacaoInferiorIgual40 = 5,
+        [XmlEnum("6")] OmEstrangeiraImportacaoDiretaSemSimilar = 6,
+        [XmlEnum("7")] OmEstrangeiraAdquiridaBrasilSemSimilar = 7,
+        [XmlEnum("8")] OmNacionalConteudoImportacaoSuperior70 = 8
     }
 
     #endregion
@@ -78,19 +78,22 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>70 - Com redução de base de cálculo e cobrança do ICMS por substituição tributária</para>
     ///     <para>90 - Outras</para>
     /// </summary>
-    public enum CSTICMS
+    public enum Csticms
     {
-        [XmlEnum("00")] cst00,
-        [XmlEnum("10")] cst10,
-        [XmlEnum("20")] cst20,
-        [XmlEnum("30")] cst30,
-        [XmlEnum("40")] cst40,
-        [XmlEnum("41")] cst41,
-        [XmlEnum("50")] cst50,
-        [XmlEnum("51")] cst51,
-        [XmlEnum("60")] cst60,
-        [XmlEnum("70")] cst70,
-        [XmlEnum("90")] cst90
+        [XmlEnum("00")] Cst00,
+        [XmlEnum("10")] Cst10,
+        [XmlEnum("10")] CstPart10,
+        [XmlEnum("20")] Cst20,
+        [XmlEnum("30")] Cst30,
+        [XmlEnum("40")] Cst40,
+        [XmlEnum("41")] Cst41,
+        [XmlEnum("41")] CstRep41,
+        [XmlEnum("50")] Cst50,
+        [XmlEnum("51")] Cst51,
+        [XmlEnum("60")] Cst60,
+        [XmlEnum("70")] Cst70,
+        [XmlEnum("90")] Cst90,
+        [XmlEnum("90")] CstPart90
     }
 
     #endregion
@@ -105,10 +108,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum DeterminacaoBaseIcms
     {
-        [XmlEnum("0")] dbiMargemValorAgregado,
-        [XmlEnum("1")] dbiPauta,
-        [XmlEnum("2")] dbiPrecoTabelado,
-        [XmlEnum("3")] dbiValorOperacao
+        [XmlEnum("0")] DbiMargemValorAgregado = 0,
+        [XmlEnum("1")] DbiPauta = 1,
+        [XmlEnum("2")] DbiPrecoTabelado = 2,
+        [XmlEnum("3")] DbiValorOperacao = 3
     }
 
     #endregion
@@ -123,14 +126,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>4 - Margem Valor Agregado (%);</para>
     ///     <para>5 - Pauta (valor);</para>
     /// </summary>
-    public enum DeterminacaoBaseIcmsST
+    public enum DeterminacaoBaseIcmsSt
     {
-        [XmlEnum("0")] dbisPrecoTabelado,
-        [XmlEnum("1")] dbisListaNegativa,
-        [XmlEnum("2")] dbisListaPositiva,
-        [XmlEnum("3")] dbisListaNeutra,
-        [XmlEnum("4")] dbisMargemValorAgregado,
-        [XmlEnum("5")] dbisPauta
+        [XmlEnum("0")] DbisPrecoTabelado = 0,
+        [XmlEnum("1")] DbisListaNegativa = 1,
+        [XmlEnum("2")] DbisListaPositiva = 2,
+        [XmlEnum("3")] DbisListaNeutra = 3,
+        [XmlEnum("4")] DbisMargemValorAgregado = 4,
+        [XmlEnum("5")] DbisPauta = 5
     }
 
     #endregion
@@ -158,18 +161,18 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>500 – ICMS cobrado anterirmente por substituição tributária (substituído) ou por antecipação (v.2.0)</para>
     ///     <para>Tributação pelo ICMS 900 - Outros(v2.0)</para>
     /// </summary>
-    public enum CSOSNICMS
+    public enum Csosnicms
     {
-        [XmlEnum("101")] csosn101,
-        [XmlEnum("102")] csosn102,
-        [XmlEnum("103")] csosn103,
-        [XmlEnum("201")] csosn201,
-        [XmlEnum("202")] csosn202,
-        [XmlEnum("203")] csosn203,
-        [XmlEnum("300")] csosn300,
-        [XmlEnum("400")] csosn400,
-        [XmlEnum("500")] csosn500,
-        [XmlEnum("900")] csosn900
+        [XmlEnum("101")] Csosn101 = 101,
+        [XmlEnum("102")] Csosn102 = 102,
+        [XmlEnum("103")] Csosn103 = 103,
+        [XmlEnum("201")] Csosn201 = 201,
+        [XmlEnum("202")] Csosn202 = 202,
+        [XmlEnum("203")] Csosn203 = 203,
+        [XmlEnum("300")] Csosn300 = 300,
+        [XmlEnum("400")] Csosn400 = 400,
+        [XmlEnum("500")] Csosn500 = 500,
+        [XmlEnum("900")] Csosn900 = 900
     }
 
     #endregion
@@ -193,21 +196,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>11 – Deficiente não Condutor (Convênio ICMS 38/12). (v3.1)</para>
     ///     <para>12 - Orgão Fomento</para>
     /// </summary>
-    public enum MotivoDesoneracaoICMS
+    public enum MotivoDesoneracaoIcms
     {
-        [XmlEnum("1")] mdiTaxi,
-
-        [XmlEnum("2")] mdiDeficienteFisico,
-        [XmlEnum("3")] mdiProdutorAgropecuario,
-        [XmlEnum("4")] mdiFrotistaLocadora,
-        [XmlEnum("5")] mdiDiplomaticoConsular,
-        [XmlEnum("6")] mdiAmazoniaLivreComercio,
-        [XmlEnum("7")] mdiSuframa,
-        [XmlEnum("8")] mdiVendaOrgaosPublicos,
-        [XmlEnum("9")] mdiOutros,
-        [XmlEnum("10")] mdiDeficienteCondutor,
-        [XmlEnum("11")] mdiDeficienteNaoCondutor,
-        [XmlEnum("12")] mdiOrgaoFomento
+        [XmlEnum("1")] MdiTaxi = 1,
+        [XmlEnum("2")] MdiDeficienteFisico = 2,
+        [XmlEnum("3")] MdiProdutorAgropecuario = 3,
+        [XmlEnum("4")] MdiFrotistaLocadora = 4,
+        [XmlEnum("5")] MdiDiplomaticoConsular = 5,
+        [XmlEnum("6")] MdiAmazoniaLivreComercio = 6,
+        [XmlEnum("7")] MdiSuframa = 7,
+        [XmlEnum("8")] MdiVendaOrgaosPublicos = 8,
+        [XmlEnum("9")] MdiOutros = 9,
+        [XmlEnum("10")] MdiDeficienteCondutor = 10,
+        [XmlEnum("11")] MdiDeficienteNaoCondutor = 11,
+        [XmlEnum("12")] MdiOrgaoFomento = 12
     }
 
     #endregion
