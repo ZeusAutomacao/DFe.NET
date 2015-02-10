@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
 using System.Xml.Serialization;
 using PropertyChanged;
 
@@ -120,6 +122,11 @@ namespace NFe.Classes.Informacoes.Emitente
         public bool ShouldSerializefone()
         {
             return fone.HasValue;
+        }
+
+        public bool ShouldSerializexCpl()
+        {
+            return !String.IsNullOrEmpty(xCpl);
         }
     }
 }

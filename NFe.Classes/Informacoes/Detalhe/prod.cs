@@ -223,22 +223,22 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         public bool ShouldSerializevFrete()
         {
-            return vFrete.HasValue;
+            return vFrete.HasValue && vFrete > 0;
         }
 
         public bool ShouldSerializevSeg()
         {
-            return vSeg.HasValue;
+            return vSeg.HasValue && vSeg > 0;
         }
 
         public bool ShouldSerializevDesc()
         {
-            return vDesc.HasValue;
+            return vDesc.HasValue && vDesc > 0;
         }
 
         public bool ShouldSerializevOutro()
         {
-            return vOutro.HasValue;
+            return vOutro.HasValue && vOutro > 0;
         }
     }
 }
