@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Identificacao.Tipos
@@ -120,8 +122,13 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoAmbiente
     {
-        [XmlEnum("1")] taProducao = 1,
-        [XmlEnum("2")] taHomologacao = 2
+        [XmlEnum("1")] 
+        [Description("Produção")]
+        taProducao = 1,
+        
+        [XmlEnum("2")]
+        [Description("Homologação")]
+        taHomologacao = 2
     }
 
     /// <summary>

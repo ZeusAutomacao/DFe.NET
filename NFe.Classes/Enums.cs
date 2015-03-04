@@ -63,6 +63,6 @@ namespace NFe.Classes
         [XmlEnum("28")] SE = 28,
         [XmlEnum("35")] SP = 35,
         [XmlEnum("17")] TO = 17,
-        [XmlEnum("91")] AN = 90
+        [XmlEnum("91")] AN = 91
     }
 }

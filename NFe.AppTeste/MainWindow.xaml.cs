@@ -499,7 +499,7 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numeronota), ModeloDocumento.NFe, _configuracoes.CfgServico.VersaoNFeAutorizacao);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEpec = servicoNFe.RecepcaoEventoEPEC(Convert.ToInt16(idlote), Convert.ToInt16(sequenciaEvento), _nfe, "3.10");
+                var retornoEpec = servicoNFe.RecepcaoEventoEpec(Convert.ToInt16(idlote), Convert.ToInt16(sequenciaEvento), _nfe, "3.10");
                 TrataRetorno(retornoEpec);
 
                 #endregion

@@ -384,9 +384,9 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idlote + "-eve.xml", retornoXmlString);
 
-            if (!_cFgServico.SalvarXmlServicos) return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString, retEnvEvento);
-
             #region Obtém um procEventoNFe de cada evento e salva em arquivo
+
+            var listprocEventoNFe = new List<procEventoNFe>();
 
             foreach (var evento in eventos)
             {
@@ -396,13 +396,15 @@ namespace NFe.Servicos
                     select retevento).Single();
 
                 var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = new List<retEvento> {query}};
+                listprocEventoNFe.Add(procevento);
+                if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
                 SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
             }
 
             #endregion
 
-            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString, retEnvEvento);
+            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString, retEnvEvento, listprocEventoNFe);
 
             #endregion
         }
@@ -486,7 +488,7 @@ namespace NFe.Servicos
         /// <param name="nfe"></param>
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoEPEC(int idlote, int sequenciaEvento, Classes.NFe nfe, string veraplic)
+        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe, string veraplic)
         {
             var versaoServico = Auxiliar.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
 
