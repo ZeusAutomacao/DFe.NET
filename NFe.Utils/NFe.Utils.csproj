@@ -63,6 +63,7 @@
     <Compile Include="Evento\ExtretEnvEvento.cs" />
     <Compile Include="Inutilizacao\ExtinutNFe.cs" />
     <Compile Include="Inutilizacao\ExtretInutNFe.cs" />
+    <Compile Include="NFe\ExtNfeProc.cs" />
     <Compile Include="Recepcao\ExtconsReciNFe.cs" />
     <Compile Include="Recepcao\ExtenviNFe2.cs" />
     <Compile Include="Recepcao\ExtretConsReciNFe.cs" />
