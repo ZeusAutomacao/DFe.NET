@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Linq;
 using System.Xml.Serialization;
 using PropertyChanged;
 
@@ -40,6 +41,8 @@ namespace NFe.Classes.Informacoes.Emitente
     [ImplementPropertyChanged] //Ao usar este plugin, é necessário definir explicitamente a ordem em que os atributos serão serializados.
     public class enderEmit
     {
+        private string _cep;
+
         /// <summary>
         ///     C06 - Logradouro
         /// </summary>
@@ -88,7 +91,18 @@ namespace NFe.Classes.Informacoes.Emitente
         ///     <para>Informar os zeros não significativos. (NT 2011/004)</para>
         /// </summary>
         [XmlElement(Order = 8)]
-        public long CEP { get; set; }
+        public string CEP
+        {
+            get { return _cep; }
+            set
+            {
+                if (!value.All(Char.IsDigit))
+                    throw new Exception(@"enderEmit\CEP deve receber somente números!");
+                if (value.Length != 8)
+                    throw new Exception(String.Format(@"enderEmit\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
+                _cep = value;
+            }
+        }
 
         /// <summary>
         ///     C14 - Código do País

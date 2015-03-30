@@ -32,11 +32,14 @@
 /********************************************************************************/
 
 using System;
+using System.Linq;
 
 namespace NFe.Classes.Informacoes.Destinatario
 {
     public class enderDest
     {
+        private string _cep;
+
         /// <summary>
         ///     E06 - Logradouro
         /// </summary>
@@ -77,7 +80,18 @@ namespace NFe.Classes.Informacoes.Destinatario
         ///     E13 - Código do CEP
         ///     <para>Informar os zeros não significativos. (NT 2011/004)</para>
         /// </summary>
-        public long CEP { get; set; }
+        public string CEP
+        {
+            get { return _cep; }
+            set
+            {
+                if (!value.All(Char.IsDigit))
+                    throw new Exception(@"enderDest\CEP deve receber somente números!");
+                if (value.Length != 8)
+                    throw new Exception(String.Format(@"enderDest\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
+                _cep = value;
+            }
+        }
 
         /// <summary>
         ///     E14 - Código do País

@@ -878,7 +878,7 @@ namespace NFe.AppTeste
                 cMun = 2802908,
                 xMun = "ITABAIANA",
                 UF = "SE",
-                CEP = 49500000,
+                CEP = "49500000",
                 cPais = 1058,
                 xPais = "BRASIL"
             };

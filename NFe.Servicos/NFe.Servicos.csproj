@@ -57,7 +57,6 @@
     <Compile Include="Retorno\RetornoNFeRetAutorizacao.cs" />
     <Compile Include="Retorno\RetornoNfeRetRecepcao.cs" />
     <Compile Include="Retorno\RetornoNfeStatusServico.cs" />
-    <Compile Include="Retorno\teste.cs" />
     <Compile Include="ServicosNFe.cs" />
   </ItemGroup>
   <ItemGroup>
