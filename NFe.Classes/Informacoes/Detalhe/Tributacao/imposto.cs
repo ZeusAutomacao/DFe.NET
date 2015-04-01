@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         public decimal? vTotTrib { get; set; }
 
         /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST<
+        ///     N01 - Dados do ICMS Normal e ST
         /// </summary>
         public ICMS ICMS { get; set; }
 

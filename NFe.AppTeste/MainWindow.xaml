@@ -6,6 +6,7 @@
     xmlns:nfecls="clr-namespace:NFe.Classes;assembly=NFe.Classes"
     xmlns:nfeclservicostipos="clr-namespace:NFe.Classes.Servicos.Tipos;assembly=NFe.Classes"
     xmlns:nfeclsidetipos="clr-namespace:NFe.Classes.Informacoes.Identificacao.Tipos;assembly=NFe.Classes"
+    xmlns:nfceemit="clr-namespace:NFe.Classes.Informacoes.Emitente;assembly=NFe.Classes"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,6 +16,7 @@
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <local:EnumParaBool x:Key="EnumParaBool" />
+        <local:EnumParaInteger x:Key="EnumParaInteger"></local:EnumParaInteger>
         <CollectionViewSource x:Key="Estados">
             <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
             <CollectionViewSource.SortDescriptions>
@@ -26,6 +28,19 @@
                     ObjectType="{x:Type sys:Enum}">
                     <ObjectDataProvider.MethodParameters>
                         <x:Type TypeName="nfecls:Estado" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+
+        <CollectionViewSource x:Key="Crts">
+            <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
+            <CollectionViewSource.Source>
+                <ObjectDataProvider
+                    MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="nfceemit:CRT" />
                     </ObjectDataProvider.MethodParameters>
                 </ObjectDataProvider>
             </CollectionViewSource.Source>
@@ -477,6 +492,11 @@
                                           ItemsSource="{Binding Source={StaticResource Estados}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
+                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,83"
+                            	ItemsSource="{Binding Source={StaticResource Crts}}"
+                            	SelectedItem="{Binding Emitente.CRT}" />
+                            <Label Content="CRT" HorizontalAlignment="Left" Margin="10,362,0,0"
+                            	VerticalAlignment="Top" />
                         </Grid>
                     </TabItem>
                     <TabItem Header="Email">

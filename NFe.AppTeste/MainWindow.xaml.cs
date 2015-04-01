@@ -33,6 +33,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -745,7 +746,6 @@ namespace NFe.AppTeste
                 ide = GetIdentificacao(numero, modelo, versao),
                 emit = GetEmitente(),
                 dest = GetDestinatario(versao),
-                total = GetTotal(versao),
                 transp = GetTransporte()
             };
             if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
@@ -757,8 +757,9 @@ namespace NFe.AppTeste
 
             for (var i = 0; i < 1; i++)
             {
-                infNFe.det.Add(GetDetalhe(i));
+                infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT));
             }
+            infNFe.total = GetTotal(versao, infNFe.det);
 
             return infNFe;
         }
@@ -885,7 +886,7 @@ namespace NFe.AppTeste
             return enderDest;
         }
 
-        protected virtual det GetDetalhe(int i)
+        protected virtual det GetDetalhe(int i, CRT crt)
         {
             var det = new det
             {
@@ -896,11 +897,11 @@ namespace NFe.AppTeste
                     vTotTrib = decimal.Parse("0,17"),
                     ICMS = new ICMS
                     {
-                        TipoICMS = InformarCSOSN(Csosnicms.Csosn102)
+                        TipoICMS = crt == CRT.SimplesNacional ? InformarCSOSN(Csosnicms.Csosn102) : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
                     COFINS = new COFINS {TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}},
-                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}}
-                    //IPI = new IPI() { TipoIPI = new IPITrib() { CST = CSTIPI.ipi00 } }
+                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}},
+                    IPI = new IPI() { cEnq = "999", TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = Decimal.Parse("0,05")} }
                 }
             };
 
@@ -927,7 +928,8 @@ namespace NFe.AppTeste
                 uTrib = "UNID",
                 qTrib = decimal.Parse("1,000"),
                 vUnTrib = decimal.Parse("1,00"),
-                indTot = IndicadorTotal.ValorDoItemCompoeTotalNF
+                indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
+                
                 //ProdutoEspecifico = new arma
                 //{
                 //    tpArma = TipoArma.UsoPermitido,
@@ -946,8 +948,8 @@ namespace NFe.AppTeste
                 orig = OrigemMercadoria.OmNacional,
                 CST = Csticms.Cst20,
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
-                vBC = decimal.Parse("1,00"),
-                pICMS = decimal.Parse("17"),
+                vBC = 1,
+                pICMS = 17,
                 vICMS = decimal.Parse("0,17"),
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
@@ -962,12 +964,13 @@ namespace NFe.AppTeste
                         CST = Csticms.Cst00,
                         modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                         orig = OrigemMercadoria.OmNacional,
-                        pICMS = decimal.Parse("17.0"),
-                        vBC = decimal.Parse("1,00"),
-                        vICMS = decimal.Parse("0,17,00")
+                        pICMS = 17,
+                        vBC = 1,
+                        vICMS = decimal.Parse("0,17")
                     };
                 case Csticms.Cst20:
                     return icms20;
+                //Outros casos aqui
             }
 
             return new ICMS10();
@@ -989,20 +992,46 @@ namespace NFe.AppTeste
                         CSOSN = Csosnicms.Csosn102,
                         orig = OrigemMercadoria.OmNacional
                     };
+                    //Outros casos aqui
                 default:
                     return new ICMSSN201();
             }
         }
 
-        protected virtual total GetTotal(VersaoServico versao)
+        protected virtual total GetTotal(VersaoServico versao, List<det> produtos)
         {
-            var icmsTot = new ICMSTot {vProd = 1, vNF = Decimal.Parse("0,90"), vDesc = Decimal.Parse("0,10"), vTotTrib = Decimal.Parse("0,17")};
+            var icmsTot = new ICMSTot
+            {
+                vProd = produtos.Sum(p => p.prod.vProd),
+                vNF = produtos.Sum(p => p.prod.vProd) - produtos.Sum(p => p.prod.vDesc ?? 0),
+                vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
+                vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
+            };
             if (versao == VersaoServico.ve310)
                 icmsTot.vICMSDeson = 0;
+
+            foreach (var produto in produtos)
+            {
+                if (produto.imposto.IPI.TipoIPI.GetType() == typeof(IPITrib))
+                    icmsTot.vIPI = icmsTot.vIPI + ((IPITrib)produto.imposto.IPI.TipoIPI).vIPI ?? 0;
+                if (produto.imposto.ICMS.TipoICMS.GetType() == typeof (ICMS00))
+                {
+                    icmsTot.vBC = icmsTot.vBC + ((ICMS00)produto.imposto.ICMS.TipoICMS).vBC;
+                    icmsTot.vICMS = icmsTot.vICMS + ((ICMS00)produto.imposto.ICMS.TipoICMS).vICMS;  
+                }
+                if (produto.imposto.ICMS.TipoICMS.GetType() == typeof(ICMS20))
+                {
+                    icmsTot.vBC = icmsTot.vBC + ((ICMS20)produto.imposto.ICMS.TipoICMS).vBC;
+                    icmsTot.vICMS = icmsTot.vICMS + ((ICMS20)produto.imposto.ICMS.TipoICMS).vICMS;
+                }
+                //Outros Ifs aqui, caso vá usar as classes ICMS00, ICMS10 para totalizar
+            }
 
             var t = new total {ICMSTot = icmsTot};
             return t;
         }
+
+
 
         protected virtual transp GetTransporte()
         {
