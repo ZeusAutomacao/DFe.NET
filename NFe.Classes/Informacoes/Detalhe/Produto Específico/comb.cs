@@ -34,6 +34,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
 {
     public class comb : ProdutoEspecifico
     {
+        private decimal? _pMixGn;
+        private decimal? _qTemp;
+
         /// <summary>
         ///     LA02 - Código de produto da ANP
         /// </summary>
@@ -42,7 +45,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// <summary>
         ///     LA03 - Percentual de Gás Natural para o produto GLP (cProdANP=210203001)
         /// </summary>
-        public decimal? pMixGN { get; set; }
+        public decimal? pMixGN
+        {
+            get { return _pMixGn; }
+            set { _pMixGn = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     LA04 - Código de autorização / registro do CODIF
@@ -52,7 +59,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// <summary>
         ///     LA05 - Quantidade de combustível faturada à temperatura ambiente
         /// </summary>
-        public decimal? qTemp { get; set; }
+        public decimal? qTemp
+        {
+            get { return _qTemp; }
+            set { _qTemp = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     LA06 - Sigla da UF de consumo

@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes
 {
     public class avulsa
     {
+        private decimal _vDar;
+
         /// <summary>
         ///     D02 - CNPJ do órgão emitente
         /// </summary>
@@ -77,7 +79,11 @@ namespace NFe.Classes.Informacoes
         /// <summary>
         ///     D10 - Valor Total constante no Documento de arrecadação de Receita
         /// </summary>
-        public decimal vDAR { get; set; }
+        public decimal vDAR
+        {
+            get { return _vDar; }
+            set { _vDar = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     D11 - Repartição Fiscal emitente

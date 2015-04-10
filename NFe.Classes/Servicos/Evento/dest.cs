@@ -40,6 +40,9 @@ namespace NFe.Classes.Servicos.Evento
         private string _cnpj;
         private string _cpf;
         private string _idEstrangeiro;
+        private decimal _vNf;
+        private decimal _vIcms;
+        private decimal _vSt;
 
         /// <summary>
         ///     P27 - Sigla da UF do destinatário.
@@ -114,17 +117,29 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P32 - Valor total da NF-e
         /// </summary>
-        public decimal vNF { get; set; }
+        public decimal vNF
+        {
+            get { return _vNf; }
+            set { _vNf = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     P33 - Valor total do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     P34 - Valor total do ICMS de Substituição Tributária
         /// </summary>
-        public decimal vST { get; set; }
+        public decimal vST
+        {
+            get { return _vSt; }
+            set { _vSt = Valor.Arredondar(value, 2); }
+        }
 
         public bool ShouldSerializeIE()
         {

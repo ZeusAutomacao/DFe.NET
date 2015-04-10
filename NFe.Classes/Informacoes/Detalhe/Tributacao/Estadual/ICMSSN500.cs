@@ -36,6 +36,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
     public class ICMSSN500 : ICMSBasico
     {
+        private decimal? _vBcstRet;
+        private decimal? _vIcmsstRet;
+
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
@@ -49,12 +52,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N26 - Valor da BC do ICMS ST retido
         /// </summary>
-        public decimal? vBCSTRet { get; set; }
+        public decimal? vBCSTRet
+        {
+            get { return _vBcstRet; }
+            set { _vBcstRet = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
-        public decimal? vICMSSTRet { get; set; }
+        public decimal? vICMSSTRet
+        {
+            get { return _vIcmsstRet; }
+            set { _vIcmsstRet = Valor.Arredondar(value, 2); }
+        }
 
         public bool ShouldSerializevBCSTRet()
         {

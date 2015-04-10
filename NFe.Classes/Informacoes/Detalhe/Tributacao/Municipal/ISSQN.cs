@@ -34,20 +34,41 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
 {
     public class ISSQN
     {
+        private decimal _vBc;
+        private decimal _vAliq;
+        private decimal _vIssqn;
+        private decimal? _vDeducao;
+        private decimal? _vOutro;
+        private decimal? _vDescIncond;
+        private decimal? _vDescCond;
+        private decimal? _vIssRet;
+
         /// <summary>
         ///     U02 - Valor da Base de Cálculo do ISSQN
         /// </summary>
-        public decimal vBC { get; set; }
+        public decimal vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U03 - Alíquota do ISSQN
         /// </summary>
-        public decimal vAliq { get; set; }
+        public decimal vAliq
+        {
+            get { return _vAliq; }
+            set { _vAliq = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U04 - Valor do ISSQN
         /// </summary>
-        public decimal vISSQN { get; set; }
+        public decimal vISSQN
+        {
+            get { return _vIssqn; }
+            set { _vIssqn = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U05 - Código do município de ocorrência do fato gerador do ISSQN
@@ -62,27 +83,47 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// <summary>
         ///     U07 - Valor dedução para redução da Base de Cálculo
         /// </summary>
-        public decimal? vDeducao { get; set; }
+        public decimal? vDeducao
+        {
+            get { return _vDeducao; }
+            set { _vDeducao = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U08 - Valor outras retenções
         /// </summary>
-        public decimal? vOutro { get; set; }
+        public decimal? vOutro
+        {
+            get { return _vOutro; }
+            set { _vOutro = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U09 - Valor desconto incondicionado
         /// </summary>
-        public decimal? vDescIncond { get; set; }
+        public decimal? vDescIncond
+        {
+            get { return _vDescIncond; }
+            set { _vDescIncond = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U10 - Valor desconto condicionado
         /// </summary>
-        public decimal? vDescCond { get; set; }
+        public decimal? vDescCond
+        {
+            get { return _vDescCond; }
+            set { _vDescCond = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U11 - Valor retenção ISS
         /// </summary>
-        public decimal? vISSRet { get; set; }
+        public decimal? vISSRet
+        {
+            get { return _vIssRet; }
+            set { _vIssRet = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     U12 - Indicador da exigibilidade do ISS

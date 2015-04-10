@@ -36,30 +36,56 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
     public class COFINSST : COFINSBasico
     {
+        private decimal? _vBc;
+        private decimal? _pCofins;
+        private decimal? _qBcProd;
+        private decimal? _vAliqProd;
+        private decimal? _vCofins;
+
         /// <summary>
         ///     T02 - Valor da Base de Cálculo da COFINS
         /// </summary>
-        public decimal? vBC { get; set; }
+        public decimal? vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     T03 - Alíquota da COFINS (em percentual)
         /// </summary>
-        public decimal? pCOFINS { get; set; }
+        public decimal? pCOFINS
+        {
+            get { return _pCofins; }
+            set { _pCofins = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     T04 - Quantidade Vendida
         /// </summary>
-        public decimal? qBCProd { get; set; }
+        public decimal? qBCProd
+        {
+            get { return _qBcProd; }
+            set { _qBcProd = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     T05 - Alíquota da COFINS (em reais)
         /// </summary>
-        public decimal? vAliqProd { get; set; }
+        public decimal? vAliqProd
+        {
+            get { return _vAliqProd; }
+            set { _vAliqProd = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     T06 - Valor da COFINS
         /// </summary>
-        public decimal? vCOFINS { get; set; }
+        public decimal? vCOFINS
+        {
+            get { return _vCofins; }
+            set { _vCofins = Valor.Arredondar(value, 2); }
+        }
 
         public bool ShouldSerializevBC()
         {

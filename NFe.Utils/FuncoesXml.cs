@@ -186,7 +186,7 @@ namespace NFe.Utils
                 select d).FirstOrDefault();
 
             if (xmlString == null)
-                throw new Exception(String.Format("Nenhum objeto {0} encontrada no xml!", nomeDoNode));
+                throw new Exception(String.Format("Nenhum objeto {0} encontrado no xml!", nomeDoNode));
             return xmlString.ToString();
         }
     }

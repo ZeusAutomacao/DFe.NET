@@ -34,6 +34,11 @@ namespace NFe.Classes.Informacoes.Cana
 {
     public class deduc
     {
+        private decimal _vDed;
+        private decimal _vFor;
+        private decimal _vTotDed;
+        private decimal _vLiqFor;
+
         /// <summary>
         ///     ZC11 - Descrição da Dedução
         /// </summary>
@@ -42,21 +47,37 @@ namespace NFe.Classes.Informacoes.Cana
         /// <summary>
         ///     ZC12 - Valor da Dedução
         /// </summary>
-        public decimal vDed { get; set; }
+        public decimal vDed
+        {
+            get { return _vDed; }
+            set { _vDed = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     ZC13 - Valor dos Fornecimentos
         /// </summary>
-        public decimal vFor { get; set; }
+        public decimal vFor
+        {
+            get { return _vFor; }
+            set { _vFor = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     ZC14 - Valor Total da Dedução
         /// </summary>
-        public decimal vTotDed { get; set; }
+        public decimal vTotDed
+        {
+            get { return _vTotDed; }
+            set { _vTotDed = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     ZC15 - Valor Líquido dos Fornecimentos
         /// </summary>
-        public decimal vLiqFor { get; set; }
+        public decimal vLiqFor
+        {
+            get { return _vLiqFor; }
+            set { _vLiqFor = Valor.Arredondar(value, 2); }
+        }
     }
 }

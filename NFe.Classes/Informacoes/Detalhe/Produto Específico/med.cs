@@ -34,6 +34,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
 {
     public class med : ProdutoEspecifico
     {
+        private decimal _qLote;
+        private decimal _vPmc;
+
         /// <summary>
         ///     K02 - Número do Lote de medicamentos ou de matérias-primas farmacêuticas
         /// </summary>
@@ -42,7 +45,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// <summary>
         ///     K03 - Quantidade de produto no Lote de medicamentos ou de matérias-primas farmacêuticas
         /// </summary>
-        public decimal qLote { get; set; }
+        public decimal qLote
+        {
+            get { return _qLote; }
+            set { _qLote = Valor.Arredondar(value, 3); }
+        }
 
         /// <summary>
         ///     K04 - Data de fabricação. Formato: “AAAA-MM-DD”
@@ -57,6 +64,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// <summary>
         ///     K06 - Preço máximo consumidor
         /// </summary>
-        public decimal vPMC { get; set; }
+        public decimal vPMC
+        {
+            get { return _vPmc; }
+            set { _vPmc = Valor.Arredondar(value, 2); }
+        }
     }
 }

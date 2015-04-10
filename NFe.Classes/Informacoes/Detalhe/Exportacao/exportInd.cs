@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Exportacao
 {
     public class exportInd
     {
+        private decimal _qExport;
+
         /// <summary>
         ///     I53 - Número do Registro de Exportação
         /// </summary>
@@ -47,6 +49,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Exportacao
         /// <summary>
         ///     I55 - Quantidade do item realmente exportado
         /// </summary>
-        public decimal qExport { get; set; }
+        public decimal qExport
+        {
+            get { return _qExport; }
+            set { _qExport = Valor.Arredondar(value, 4); }
+        }
     }
 }

@@ -894,18 +894,18 @@ namespace NFe.AppTeste
                 prod = GetProduto(i + 1),
                 imposto = new imposto
                 {
-                    vTotTrib = decimal.Parse("0,17"),
+                    vTotTrib = 0.17m,
                     ICMS = new ICMS
                     {
                         TipoICMS = crt == CRT.SimplesNacional ? InformarCSOSN(Csosnicms.Csosn102) : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
                     COFINS = new COFINS {TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}},
                     PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}},
-                    IPI = new IPI() { cEnq = "999", TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = Decimal.Parse("0,05")} }
+                    IPI = new IPI() { cEnq = "999", TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m} }
                 }
             };
 
-            //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = decimal.Parse("10") }, pDevol = decimal.Parse("100") };
+            //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;
         }
@@ -920,14 +920,14 @@ namespace NFe.AppTeste
                 NCM = "73269000",
                 CFOP = 5102,
                 uCom = "UNID",
-                qCom = decimal.Parse("1,000"),
-                vUnCom = decimal.Parse("1,00"),
-                vProd = decimal.Parse("1,00"),
-                vDesc = decimal.Parse("0,10"),
+                qCom = 1,
+                vUnCom = 1,
+                vProd = 1,
+                vDesc = 0.10m,
                 cEANTrib = "7770000000012",
                 uTrib = "UNID",
-                qTrib = decimal.Parse("1,000"),
-                vUnTrib = decimal.Parse("1,00"),
+                qTrib = 1,
+                vUnTrib = 1,
                 indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
                 
                 //ProdutoEspecifico = new arma
@@ -950,11 +950,11 @@ namespace NFe.AppTeste
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                 vBC = 1,
                 pICMS = 17,
-                vICMS = decimal.Parse("0,17"),
+                vICMS = 0.17m,
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             if (versao == VersaoServico.ve310)
-                icms20.vICMSDeson = decimal.Parse("0,10"); //V3.00 ou maior Somente
+                icms20.vICMSDeson = 0.10m; //V3.00 ou maior Somente
 
             switch (CST)
             {
@@ -966,7 +966,7 @@ namespace NFe.AppTeste
                         orig = OrigemMercadoria.OmNacional,
                         pICMS = 17,
                         vBC = 1,
-                        vICMS = decimal.Parse("0,17")
+                        vICMS = 0.17m
                     };
                 case Csticms.Cst20:
                     return icms20;
@@ -1064,8 +1064,8 @@ namespace NFe.AppTeste
                 fat = new fat {nFat = "12345678910", vLiq = 90},
                 dup = new List<dup>
                 {
-                    new dup {nDup = "12345678", vDup = decimal.Parse("0,45")},
-                    new dup {nDup = "987654321", vDup = decimal.Parse("0,45")}
+                    new dup {nDup = "12345678", vDup = 0.45m},
+                    new dup {nDup = "987654321", vDup = 0.45m}
                 }
             };
 
@@ -1076,8 +1076,8 @@ namespace NFe.AppTeste
         {
             var p = new List<pag>
             {
-                new pag {tPag = FormaPagamento.fpDinheiro, vPag = decimal.Parse("0,45")},
-                new pag {tPag = FormaPagamento.fpCheque, vPag = decimal.Parse("0,45")}
+                new pag {tPag = FormaPagamento.fpDinheiro, vPag = 0.45m},
+                new pag {tPag = FormaPagamento.fpCheque, vPag = 0.45m}
             };
             return p;
         }

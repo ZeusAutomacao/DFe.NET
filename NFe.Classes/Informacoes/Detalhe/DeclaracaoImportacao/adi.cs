@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
 {
     public class adi
     {
+        private decimal? _vDescDi;
+
         /// <summary>
         ///     I26 - Numero da Adição
         /// </summary>
@@ -52,7 +54,11 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         /// <summary>
         ///     I29 - Valor do desconto do item da DI – Adição
         /// </summary>
-        public decimal? vDescDI { get; set; }
+        public decimal? vDescDI
+        {
+            get { return _vDescDi; }
+            set { _vDescDi = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     I29a - Número do ato concessório de Drawback

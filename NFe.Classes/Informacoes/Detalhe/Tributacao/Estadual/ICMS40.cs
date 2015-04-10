@@ -36,6 +36,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
     public class ICMS40 : ICMSBasico
     {
+        private decimal? _vIcmsDeson;
+
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
@@ -49,7 +51,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N27a - Valor do ICMS desonerado
         /// </summary>
-        public decimal? vICMSDeson { get; set; }
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson; }
+            set { _vIcmsDeson = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N28 - Motivo da desoneração do ICMS

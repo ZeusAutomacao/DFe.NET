@@ -34,6 +34,10 @@ namespace NFe.Classes.Informacoes.Cobranca
 {
     public class fat
     {
+        private decimal? _vOrig;
+        private decimal? _vDesc;
+        private decimal? _vLiq;
+
         /// <summary>
         ///     Y03 - Número da Fatura
         /// </summary>
@@ -42,17 +46,29 @@ namespace NFe.Classes.Informacoes.Cobranca
         /// <summary>
         ///     Y04 - Valor Original da Fatura
         /// </summary>
-        public decimal? vOrig { get; set; }
+        public decimal? vOrig
+        {
+            get { return _vOrig; }
+            set { _vOrig = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     Y05 - Valor do desconto
         /// </summary>
-        public decimal? vDesc { get; set; }
+        public decimal? vDesc
+        {
+            get { return _vDesc; }
+            set { _vDesc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     Y06 - Valor Líquido da Fatura
         /// </summary>
-        public decimal? vLiq { get; set; }
+        public decimal? vLiq
+        {
+            get { return _vLiq; }
+            set { _vLiq = Valor.Arredondar(value, 2); }
+        }
 
         public bool ShouldSerializevOrig()
         {

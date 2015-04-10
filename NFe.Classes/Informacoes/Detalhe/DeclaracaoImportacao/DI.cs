@@ -36,6 +36,8 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
 {
     public class DI
     {
+        private decimal? _vAfrmm;
+
         /// <summary>
         ///     I19 - Número do Documento de Importação (DI, DSI, DIRE, ...)
         /// </summary>
@@ -69,7 +71,11 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         /// <summary>
         ///     I23b - Valor da AFRMM - Adicional ao Frete para Renovação da Marinha Mercante
         /// </summary>
-        public decimal? vAFRMM { get; set; }
+        public decimal? vAFRMM
+        {
+            get { return _vAfrmm; }
+            set { _vAfrmm = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     I23c - Forma de importação quanto a intermediação

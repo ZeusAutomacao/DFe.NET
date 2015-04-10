@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes.Cobranca
 {
     public class dup
     {
+        private decimal _vDup;
+
         /// <summary>
         ///     Y08 - Número da Duplicata
         /// </summary>
@@ -47,6 +49,10 @@ namespace NFe.Classes.Informacoes.Cobranca
         /// <summary>
         ///     Y10 - Valor da duplicata
         /// </summary>
-        public decimal vDup { get; set; }
+        public decimal vDup
+        {
+            get { return _vDup; }
+            set { _vDup = Valor.Arredondar(value, 2); }
+        }
     }
 }

@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes.Pagamento
 {
     public class pag
     {
+        private decimal _vPag;
+
         /// <summary>
         ///     YA02 - Forma de pagamento
         /// </summary>
@@ -42,7 +44,11 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// <summary>
         ///     YA03 - Valor do Pagamento
         /// </summary>
-        public decimal vPag { get; set; }
+        public decimal vPag
+        {
+            get { return _vPag; }
+            set { _vPag = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     YA04 - Grupo de Cartões

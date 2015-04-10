@@ -34,6 +34,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
 {
     public abstract class ICMSNormal : ICMSBasico
     {
+        private decimal _vBc;
+        private decimal _pIcms;
+        private decimal _vIcms;
+
         /// <summary>
         ///     Modalidade de determinação da BC do ICMS
         ///     <para>0 - Margem Valor Agregado (%);</para>
@@ -46,16 +50,28 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// <summary>
         ///     Valor da BC do ICMS
         /// </summary>
-        public decimal vBC { get; set; }
+        public decimal vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     Alíquota do ICMS
         /// </summary>
-        public decimal pICMS { get; set; }
+        public decimal pICMS
+        {
+            get { return _pIcms; }
+            set { _pIcms = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     Valor do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = Valor.Arredondar(value, 2); }
+        }
     }
 }

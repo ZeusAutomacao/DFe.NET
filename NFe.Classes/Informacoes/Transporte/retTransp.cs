@@ -34,20 +34,36 @@ namespace NFe.Classes.Informacoes.Transporte
 {
     public class retTransp
     {
+        private decimal _vServ;
+        private decimal _vBcRet;
+        private decimal _pIcmsRet;
+
         /// <summary>
         ///     X12 - Valor do Serviço
         /// </summary>
-        public decimal vServ { get; set; }
+        public decimal vServ
+        {
+            get { return _vServ; }
+            set { _vServ = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     X13 - BC da Retenção do ICMS
         /// </summary>
-        public decimal vBCRet { get; set; }
+        public decimal vBCRet
+        {
+            get { return _vBcRet; }
+            set { _vBcRet = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     X14 - Alíquota da Retenção
         /// </summary>
-        public decimal pICMSRet { get; set; }
+        public decimal pICMSRet
+        {
+            get { return _pIcmsRet; }
+            set { _pIcmsRet = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     X15 - Valor do ICMS Retido

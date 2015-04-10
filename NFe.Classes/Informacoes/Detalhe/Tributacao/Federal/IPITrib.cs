@@ -36,6 +36,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
     public class IPITrib : IPIBasico
     {
+        private decimal? _vBc;
+        private decimal? _pIpi;
+        private decimal? _qUnid;
+        private decimal? _vUnid;
+        private decimal? _vIpi;
+
         /// <summary>
         ///     O09 - Código da Situação Tributária do IPI:
         /// </summary>
@@ -44,27 +50,47 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O10 - Valor da BC do IPI
         /// </summary>
-        public decimal? vBC { get; set; }
+        public decimal? vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     O13 - Alíquota do IPI
         /// </summary>
-        public decimal? pIPI { get; set; }
+        public decimal? pIPI
+        {
+            get { return _pIpi; }
+            set { _pIpi = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     O11 - Quantidade total na unidade padrão para tributação (somente para os produtos tributados por unidade)
         /// </summary>
-        public decimal? qUnid { get; set; }
+        public decimal? qUnid
+        {
+            get { return _qUnid; }
+            set { _qUnid = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     O12 - Valor por Unidade Tributável
         /// </summary>
-        public decimal? vUnid { get; set; }
+        public decimal? vUnid
+        {
+            get { return _vUnid; }
+            set { _vUnid = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     O14 - Valor do IPI
         /// </summary>
-        public decimal? vIPI { get; set; }
+        public decimal? vIPI
+        {
+            get { return _vIpi; }
+            set { _vIpi = Valor.Arredondar(value, 2); }
+        }
 
         public bool ShouldSerializevBC()
         {

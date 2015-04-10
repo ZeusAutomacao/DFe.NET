@@ -37,6 +37,9 @@ namespace NFe.Classes.Informacoes.Transporte
 {
     public class vol
     {
+        private decimal? _pesoL;
+        private decimal? _pesoB;
+
         /// <summary>
         ///     X27 - Quantidade de volumes transportados
         /// </summary>
@@ -60,12 +63,20 @@ namespace NFe.Classes.Informacoes.Transporte
         /// <summary>
         ///     X31 - Peso Líquido (em kg)
         /// </summary>
-        public decimal? pesoL { get; set; }
+        public decimal? pesoL
+        {
+            get { return _pesoL; }
+            set { _pesoL = Valor.Arredondar(value, 3); }
+        }
 
         /// <summary>
         ///     X32 - Peso Bruto (em kg)
         /// </summary>
-        public decimal? pesoB { get; set; }
+        public decimal? pesoB
+        {
+            get { return _pesoB; }
+            set { _pesoB = Valor.Arredondar(value, 3); }
+        }
 
         /// <summary>
         ///     X33 - Grupo Lacres

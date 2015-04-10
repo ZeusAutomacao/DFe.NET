@@ -36,6 +36,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
     public class ICMS20 : ICMSBasico
     {
+        private decimal _pRedBc;
+        private decimal _vBc;
+        private decimal _pIcms;
+        private decimal _vIcms;
+        private decimal? _vIcmsDeson;
+
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
@@ -54,27 +60,47 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N14 - Percentual de redução da BC
         /// </summary>
-        public decimal pRedBC { get; set; }
+        public decimal pRedBC
+        {
+            get { return _pRedBc; }
+            set { _pRedBc = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
-        public decimal vBC { get; set; }
+        public decimal vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
-        public decimal pICMS { get; set; }
+        public decimal pICMS
+        {
+            get { return _pIcms; }
+            set { _pIcms = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N27a - Valor do ICMS desonerado
         /// </summary>
-        public decimal? vICMSDeson { get; set; }
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson; }
+            set { _vIcmsDeson = value.HasValue ? decimal.Round(value.Value, 2) : (decimal?) null; }
+        }
 
         /// <summary>
         ///     N28 - Motivo da desoneração do ICMS

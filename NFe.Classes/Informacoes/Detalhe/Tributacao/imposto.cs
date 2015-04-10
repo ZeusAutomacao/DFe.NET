@@ -38,10 +38,16 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 {
     public class imposto
     {
+        private decimal? _vTotTrib;
+
         /// <summary>
         ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
         /// </summary>
-        public decimal? vTotTrib { get; set; }
+        public decimal? vTotTrib
+        {
+            get { return _vTotTrib; }
+            set { _vTotTrib = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N01 - Dados do ICMS Normal e ST

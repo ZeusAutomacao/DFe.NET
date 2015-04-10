@@ -36,6 +36,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
     public class ICMS00 : ICMSBasico
     {
+        private decimal _vBc;
+        private decimal _pIcms;
+        private decimal _vIcms;
+
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
@@ -54,16 +58,28 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
-        public decimal vBC { get; set; }
+        public decimal vBC
+        {
+            get { return _vBc; }
+            set { _vBc = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
-        public decimal pICMS { get; set; }
+        public decimal pICMS
+        {
+            get { return _pIcms; }
+            set { _pIcms = Valor.Arredondar(value, 4); }
+        }
 
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = Valor.Arredondar(value, 2); }
+        }
     }
 }
