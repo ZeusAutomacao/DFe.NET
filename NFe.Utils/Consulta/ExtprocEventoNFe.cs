@@ -45,5 +45,17 @@ namespace NFe.Utils.Consulta
         {
             return FuncoesXml.ClasseParaXmlString(procEventoNFe);
         }
+
+        /// <summary>
+        ///     Coverte uma string XML no formato procEventoNFe para um objeto procEventoNFe
+        /// </summary>
+        /// <param name="procEventoNFe"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo procEventoNFe</returns>
+        public static procEventoNFe CarregarDeXmlString(this procEventoNFe procEventoNFe, string xmlString)
+        {
+            var s = FuncoesXml.ObterNodeDeStringXml(typeof(procEventoNFe).Name, xmlString);
+            return FuncoesXml.XmlStringParaClasse<procEventoNFe>(s);
+        }
     }
 }

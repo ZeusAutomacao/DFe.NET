@@ -83,12 +83,12 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoImpressao
     {
-        [XmlEnum("0")] tiSemGeracao,
-        [XmlEnum("1")] tiRetrato,
-        [XmlEnum("2")] tiPaisagem,
-        [XmlEnum("3")] tiSimplificado,
-        [XmlEnum("4")] tiNFCe,
-        [XmlEnum("5")] tiMsgEletronica
+        [XmlEnum("0")] tiSemGeracao = 0,
+        [XmlEnum("1")] tiRetrato = 1,
+        [XmlEnum("2")] tiPaisagem = 2,
+        [XmlEnum("3")] tiSimplificado = 3,
+        [XmlEnum("4")] tiNFCe = 4,
+        [XmlEnum("5")] tiMsgEletronica = 5
     }
 
     /// <summary>

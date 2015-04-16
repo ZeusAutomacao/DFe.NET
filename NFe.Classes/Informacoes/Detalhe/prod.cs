@@ -51,6 +51,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         private decimal? _vSeg;
         private decimal? _vDesc;
         private decimal? _vOutro;
+        private string _cEan;
+        private string _cEanTrib;
 
         /// <summary>
         ///     I02 - Código do produto ou serviço
@@ -60,7 +62,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// <summary>
         ///     I03 - GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras
         /// </summary>
-        public string cEAN { get; set; }
+        public string cEAN
+        {
+            get { return _cEan; }
+            set { _cEan = value ?? String.Empty; }
+        }
 
         /// <summary>
         ///     I04 - Descrição do produto ou serviço
@@ -119,7 +125,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// <summary>
         ///     I12 - GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras
         /// </summary>
-        public string cEANTrib { get; set; }
+        public string cEANTrib
+        {
+            get { return _cEanTrib; }
+            set { _cEanTrib = value ?? String.Empty; }
+        }
 
         /// <summary>
         ///     I13 - Unidade Tributável
@@ -265,5 +275,6 @@ namespace NFe.Classes.Informacoes.Detalhe
         {
             return vOutro.HasValue && vOutro > 0;
         }
+
     }
 }
