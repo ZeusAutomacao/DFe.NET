@@ -83,7 +83,7 @@ namespace NFe.Utils.Assinatura
 
             foreach (var item in store.Certificates)
             {
-                if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper()))
+                if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
                     certificado = item;
             }
 
