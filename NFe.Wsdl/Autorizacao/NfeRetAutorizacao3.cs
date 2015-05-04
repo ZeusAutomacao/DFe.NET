@@ -39,10 +39,10 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Autorizacao
 {
-    [WebServiceBinding(Name = "NfeRetAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-    public class NfeRetAutorizacao : SoapHttpClientProtocol, INfeServico
+    [WebServiceBinding(Name = "NfeRetAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3")]
+    public class NfeRetAutorizacao3 : SoapHttpClientProtocol, INfeServico
     {
-        public NfeRetAutorizacao(string url, X509Certificate certificado, int timeOut)
+        public NfeRetAutorizacao3(string url, X509Certificate certificado, int timeOut)
         {
             SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;
@@ -50,16 +50,16 @@ namespace NFe.Wsdl.Autorizacao
             ClientCertificates.Add(certificado);
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeRetAutorizacaoLote")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")] XmlNode nfeDadosMsg)
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3/NfeRetAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [WebMethod(MessageName = "nfeRetAutorizacao")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("nfeRetAutorizacaoLote", new object[] {nfeDadosMsg});
+            var results = Invoke("nfeRetAutorizacao", new object[] {nfeDadosMsg});
             return ((XmlNode) (results[0]));
         }
     }

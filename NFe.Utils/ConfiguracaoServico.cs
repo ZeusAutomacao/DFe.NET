@@ -76,6 +76,11 @@ namespace NFe.Utils
         public TipoEmissao tpEmis { get; set; }
 
         /// <summary>
+        ///     Tipo de documento que está sendo referenciado nos webservices
+        /// </summary>
+        public ModeloDocumento ModeloDocumento { get; set; }
+
+        /// <summary>
         ///     Versão do serviço RecepcaoEvento
         /// </summary>
         public VersaoServico VersaoRecepcaoEvento { get; set; }

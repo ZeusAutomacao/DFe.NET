@@ -757,7 +757,7 @@ namespace NFe.AppTeste
 
             for (var i = 0; i < 1; i++)
             {
-                infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT));
+                infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT, modelo));
             }
             infNFe.total = GetTotal(versao, infNFe.det);
 
@@ -886,7 +886,7 @@ namespace NFe.AppTeste
             return enderDest;
         }
 
-        protected virtual det GetDetalhe(int i, CRT crt)
+        protected virtual det GetDetalhe(int i, CRT crt, ModeloDocumento modelo)
         {
             var det = new det
             {
@@ -900,11 +900,12 @@ namespace NFe.AppTeste
                         TipoICMS = crt == CRT.SimplesNacional ? InformarCSOSN(Csosnicms.Csosn102) : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
                     COFINS = new COFINS {TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}},
-                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}},
-                    IPI = new IPI() { cEnq = "999", TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m} }
+                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}}
                 }
             };
 
+            if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
+                det.imposto.IPI = new IPI() {cEnq = "999", TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}};
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;
@@ -1012,7 +1013,7 @@ namespace NFe.AppTeste
 
             foreach (var produto in produtos)
             {
-                if (produto.imposto.IPI.TipoIPI.GetType() == typeof(IPITrib))
+                if (produto.imposto.IPI != null && produto.imposto.IPI.TipoIPI.GetType() == typeof(IPITrib))
                     icmsTot.vIPI = icmsTot.vIPI + ((IPITrib)produto.imposto.IPI.TipoIPI).vIPI ?? 0;
                 if (produto.imposto.ICMS.TipoICMS.GetType() == typeof (ICMS00))
                 {

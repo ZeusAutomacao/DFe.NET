@@ -45,7 +45,7 @@ namespace NFe.Servicos
     /// </summary>
     internal class DefinicaoWsdlCampos
     {
-        public DefinicaoWsdlCampos(ServicoNFe servicoNFe, VersaoServico versaoServico, TipoAmbiente tipoAmbiente, TipoEmissao tipoEmissao, Estado estado, string url)
+        public DefinicaoWsdlCampos(ServicoNFe servicoNFe, VersaoServico versaoServico, TipoAmbiente tipoAmbiente, TipoEmissao tipoEmissao, Estado estado, ModeloDocumento modeloDocumento, string url)
         {
             ServicoNFe = servicoNFe;
             VersaoServico = versaoServico;
@@ -53,6 +53,7 @@ namespace NFe.Servicos
             TipoEmissao = tipoEmissao;
             Estado = estado;
             Url = url;
+            ModeloDocumento = modeloDocumento;
         }
 
         public ServicoNFe ServicoNFe { get; private set; }
@@ -60,6 +61,7 @@ namespace NFe.Servicos
         public TipoAmbiente TipoAmbiente { get; private set; }
         public TipoEmissao TipoEmissao { get; private set; }
         public Estado Estado { get; private set; }
+        public ModeloDocumento ModeloDocumento { get; private set; }
         public string Url { get; private set; }
     }
 
@@ -68,6 +70,10 @@ namespace NFe.Servicos
     {
         private static readonly List<DefinicaoWsdlCampos> Definicoes = new List<DefinicaoWsdlCampos>();
 
+        /// <summary>
+        /// Adiciona as urls dos webservices de todos os estados
+        /// Obs: UFs que disponibilizaram urls diferentes para NFCe, até 04/05/2015: SVRS, AM, MT, PR, RS e SP
+        /// </summary>
         static DefinicaoWsdl()
         {
             #region Listas
@@ -140,6 +146,8 @@ namespace NFe.Servicos
 
             var todosOsEstados = Enum.GetValues(typeof (Estado)).Cast<Estado>().ToList();
 
+            var todosOsModelos = Enum.GetValues(typeof(ModeloDocumento)).Cast<ModeloDocumento>().ToList();
+
             #endregion
 
             #region AM
@@ -148,38 +156,72 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                        TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                         "https://homnfe.sefaz.am.gov.br/services2/services/RecepcaoEvento"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                     "https://homnfe.sefaz.am.gov.br/services2/services/NfeRecepcao2"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                     "https://homnfe.sefaz.am.gov.br/services2/services/NfeRetRecepcao2"));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                        TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                         "https://homnfe.sefaz.am.gov.br/services2/services/NfeInutilizacao2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                        TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                         "https://homnfe.sefaz.am.gov.br/services2/services/NfeConsulta2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                        TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                         "https://homnfe.sefaz.am.gov.br/services2/services/NfeStatusServico2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                        TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                         "https://homnfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                     "https://homnfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.AM,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                     "https://homnfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeAutorizacao"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeRetAutorizacao"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeConsulta2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeRecepcao2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/RecepcaoEvento"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeStatusServico2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeRetRecepcao2"));                
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeInutilizacao2"));
+
+                #endregion
+
             }
 
             #endregion
@@ -188,39 +230,74 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.AM,
+                        TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                         "https://nfe.sefaz.am.gov.br/services2/services/RecepcaoEvento"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.AM,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                     "https://nfe.sefaz.am.gov.br/services2/services/NfeRecepcao2"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.AM,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                     "https://nfe.sefaz.am.gov.br/services2/services/NfeRetRecepcao2"));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.AM,
+                        TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                         "https://nfe.sefaz.am.gov.br/services2/services/NfeInutilizacao2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.AM,
+                        TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                         "https://nfe.sefaz.am.gov.br/services2/services/NfeConsulta2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.AM,
+                        TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                         "https://nfe.sefaz.am.gov.br/services2/services/NfeStatusServico2")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.AM,
+                        TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                         "https://nfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.AM,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                     "https://nfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.AM,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                     "https://nfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeAutorizacao"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeRetAutorizacao"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeConsulta2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeRecepcao2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/RecepcaoEvento"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeStatusServico2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeRetRecepcao2"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeInutilizacao2"));
+
+                #endregion
+
             }
+
 
             #endregion
 
@@ -232,45 +309,48 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeRetRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/nfeinutilizacao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/nfeconsulta2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeStatusServico2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/CadConsultaCadastro2.asmx")));
-                if (emissao != TipoEmissao.teDPEC)
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeRetRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/nfeconsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/NfeStatusServico2.asmx"));
                     Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, versao,
-                            TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                            "https://hnfe.sefaz.ba.gov.br/webservices/sre/recepcaoevento.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/NfeInutilizacao/NfeInutilizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/NfeConsulta/NfeConsulta.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/NfeStatusServico/NfeStatusServico.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.BA,
-                    "https://hnfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                            "https://hnfe.sefaz.ba.gov.br/webservices/nfenw/CadConsultaCadastro2.asmx")));
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, versao,
+                                TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                                "https://hnfe.sefaz.ba.gov.br/webservices/sre/recepcaoevento.asmx")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/NfeInutilizacao/NfeInutilizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/NfeConsulta/NfeConsulta.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/NfeStatusServico/NfeStatusServico.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.BA, modelo,
+                        "https://hnfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                    
+                }
             }
 
             #endregion
@@ -279,45 +359,48 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeRetRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/nfenw/nfeinutilizacao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/nfenw/nfeconsulta2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeStatusServico2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.BA,
-                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/CadConsultaCadastro2.asmx")));
-                if (emissao != TipoEmissao.teDPEC)
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeRetRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/nfeconsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/nfenw/NfeStatusServico2.asmx"));
                     Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, versao,
-                            TipoAmbiente.taProducao, emissao, Estado.BA,
-                            "https://nfe.sefaz.ba.gov.br/webservices/sre/recepcaoevento.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/NfeInutilizacao/NfeInutilizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/NfeConsulta/NfeConsulta.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/NfeStatusServico/NfeStatusServico.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.BA,
-                    "https://nfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                            "https://nfe.sefaz.ba.gov.br/webservices/nfenw/CadConsultaCadastro2.asmx")));
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, versao,
+                                TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                                "https://nfe.sefaz.ba.gov.br/webservices/sre/recepcaoevento.asmx")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/NfeInutilizacao/NfeInutilizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/NfeConsulta/NfeConsulta.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/NfeStatusServico/NfeStatusServico.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.BA, modelo,
+                        "https://nfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                    
+                }
             }
 
             #endregion
@@ -330,42 +413,45 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                    "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                    "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                    "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.CE,
-                    "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                            "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.CE, modelo,
+                        "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -374,42 +460,45 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.CE,
-                    "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.CE,
-                    "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.CE,
-                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.CE,
-                    "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.CE,
-                    "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                            "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.CE, modelo,
+                        "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -422,38 +511,41 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/RecepcaoEvento?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                    "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRecepcao2?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                    "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRetRecepcao2?wsdl"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeInutilizacao2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeConsulta2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeStatusServico2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/CadConsultaCadastro2?wsdl")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                    "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.GO,
-                    "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                            "https://homolog.sefaz.go.gov.br/nfe/services/v2/RecepcaoEvento?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRecepcao2?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRetRecepcao2?wsdl"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                            "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeInutilizacao2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                            "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeConsulta2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                            "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeStatusServico2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                            "https://homolog.sefaz.go.gov.br/nfe/services/v2/CadConsultaCadastro2?wsdl")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo,
+                        "https://homolog.sefaz.go.gov.br/nfe/services/v2/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -462,38 +554,41 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.GO,
-                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/RecepcaoEvento?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.GO,
-                    "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRecepcao2?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.GO,
-                    "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRetRecepcao2?wsdl"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.GO,
-                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeInutilizacao2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.GO,
-                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeConsulta2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.GO,
-                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeStatusServico2?wsdl")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.GO,
-                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/CadConsultaCadastro2?wsdl")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.GO,
-                    "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.GO,
-                    "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                            "https://nfe.sefaz.go.gov.br/nfe/services/v2/RecepcaoEvento?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRecepcao2?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRetRecepcao2?wsdl"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                            "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeInutilizacao2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                            "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeConsulta2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                            "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeStatusServico2?wsdl")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                            "https://nfe.sefaz.go.gov.br/nfe/services/v2/CadConsultaCadastro2?wsdl")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.GO, modelo,
+                        "https://nfe.sefaz.go.gov.br/nfe/services/v2/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -506,38 +601,41 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                    "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                    "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetRecepcao2"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeInutilizacao2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeConsulta2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeStatusServico2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                    "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MG,
-                    "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                            "https://hnfe.fazenda.mg.gov.br/nfe2/services/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetRecepcao2"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                            "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeInutilizacao2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                            "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeConsulta2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                            "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeStatusServico2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                            "https://hnfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MG, modelo,
+                        "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));                    
+                }
             }
 
             #endregion
@@ -546,34 +644,37 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeInutilizacao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeConsulta2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeStatus2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2"));
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, Estado.MG,
-                        "https://nfe.fazenda.mg.gov.br/nfe2/services/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MG,
-                    "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeInutilizacao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeConsulta2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeStatus2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/cadconsultacadastro2"));
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
+                            TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                            "https://nfe.fazenda.mg.gov.br/nfe2/services/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.MG, modelo,
+                        "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));                    
+                }
             }
 
             #endregion
@@ -586,9 +687,12 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MA,
-                    "https://sistemas.sefaz.ma.gov.br/wscadastro/CadConsultaCadastro2?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MA, modelo,
+                        "https://sistemas.sefaz.ma.gov.br/wscadastro/CadConsultaCadastro2?wsdl"));                    
+                }
             }
 
             #endregion
@@ -597,9 +701,12 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MA,
-                    "https://sistemas.sefaz.ma.gov.br/wscadastro/CadConsultaCadastro2?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MA, modelo,
+                        "https://sistemas.sefaz.ma.gov.br/wscadastro/CadConsultaCadastro2?wsdl"));                    
+                }
             }
 
             #endregion
@@ -612,37 +719,40 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                    "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                    "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                    "https://homologacao.nfe.ms.gov.br/homologacao/services2/CadConsultaCadastro2"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeInutilizacao2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeConsulta2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeStatusServico2")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                    "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeAutorizacao"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MS,
-                    "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetAutorizacao"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                            "https://homologacao.nfe.ms.gov.br/homologacao/services2/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/CadConsultaCadastro2"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                            "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeInutilizacao2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                            "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeConsulta2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                            "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeStatusServico2")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeAutorizacao"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MS, modelo,
+                        "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetAutorizacao"));                    
+                }
             }
 
             #endregion
@@ -651,37 +761,40 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.MS,
-                        "https://nfe.fazenda.ms.gov.br/producao/services2/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MS,
-                    "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MS,
-                    "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MS,
-                    "https://nfe.fazenda.ms.gov.br/producao/services2/CadConsultaCadastro2"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MS,
-                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MS,
-                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeConsulta2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MS,
-                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeStatusServico2")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MS,
-                    "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MS,
-                    "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                            "https://nfe.fazenda.ms.gov.br/producao/services2/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                        "https://nfe.fazenda.ms.gov.br/producao/services2/CadConsultaCadastro2"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                            "https://nfe.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                            "https://nfe.fazenda.ms.gov.br/producao/services2/NfeConsulta2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                            "https://nfe.fazenda.ms.gov.br/producao/services2/NfeStatusServico2")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.MS, modelo,
+                        "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao"));                    
+                }
             }
 
             #endregion
@@ -694,34 +807,62 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                        TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                         "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.MT,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeAutorizacao?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeRetAutorizacao?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeInutilizacao2?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
+
+                #endregion
+
             }
 
             #endregion
@@ -730,39 +871,67 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MT,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                     "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.MT,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                     "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetRecepcao2?wsdl"));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MT,
+                        TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                         "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MT,
+                        TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                         "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MT,
+                        TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                         "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl")));
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.MT,
+                        TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                         "https://nfe.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl")));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.AddRange(
                         versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, versao,
-                            TipoAmbiente.taProducao, emissao, Estado.MT,
+                            TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                             "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MT,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                     "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.MT,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, 
                     "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
+
+                #endregion
+
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeAutorizacao?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeRetAutorizacao?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeInutilizacao2?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe,
+                    "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
+
+                #endregion
             }
 
             #endregion
@@ -775,34 +944,37 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                    "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                    "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetRecepcao2"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeInutilizacao2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeConsulta2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeStatusServico2")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                    "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PE,
-                    "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                            "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetRecepcao2"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                            "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeInutilizacao2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                            "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeConsulta2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                            "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeStatusServico2")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PE, modelo,
+                        "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -811,38 +983,41 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
-                if (emissao != TipoEmissao.teDPEC)
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.PE,
-                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/RecepcaoEvento"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PE,
-                    "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRecepcao2"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PE,
-                    "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetRecepcao2"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.PE,
-                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeInutilizacao2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.PE,
-                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeConsulta2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.PE,
-                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeStatusServico2")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.PE,
-                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro2")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PE,
-                    "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PE,
-                    "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    if (emissao != TipoEmissao.teDPEC)
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                            "https://nfe.sefaz.pe.gov.br/nfe-service/services/RecepcaoEvento"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRecepcao2"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetRecepcao2"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                            "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeInutilizacao2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                            "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeConsulta2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                            "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeStatusServico2")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
+                            TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                            "https://nfe.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro2")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.PE, modelo,
+                        "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));                    
+                }
             }
 
             #endregion
@@ -855,50 +1030,79 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeInutilizacao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeConsulta2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/NFeStatusServico2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe2.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                         "https://homologacao.nfe2.fazenda.pr.gov.br/nfe-evento/NFeRecepcaoEvento?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeInutilizacao3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeConsulta3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeStatusServico3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                        TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                         "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.PR,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeAutorizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeRetAutorizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeConsulta3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeInutilizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeStatusServico3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento"));
+
+                #endregion
+
+
             }
 
             #endregion
@@ -907,50 +1111,77 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/NFeRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/NFeRetRecepcao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/NFeInutilizacao2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/NFeConsulta2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/NFeStatusServico2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe2.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, Estado.PR,
+                        TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                         "https://nfe2.fazenda.pr.gov.br/nfe-evento/NFeRecepcaoEvento?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/NFeInutilizacao3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/NFeConsulta3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/NFeStatusServico3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, Estado.PR,
+                        TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                         "https://nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.PR,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe,
                     "https://nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeAutorizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeRetAutorizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeConsulta3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeInutilizacao3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeStatusServico3"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento"));
+
+                #endregion
             }
 
             #endregion
@@ -963,43 +1194,62 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                        "https://homologacao.nfe.sefaz.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
+                        TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve100,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/nfeDownloadNF/nfeDownloadNF.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaDest, VersaoServico.ve100,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/nfeConsultaDest/nfeConsultaDest.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://sef.sefaz.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaDest, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/nfeConsultaDest/nfeConsultaDest.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/nfeDownloadNF/nfeDownloadNF.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                        "https://homologacao.nfe.sefaz.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                        "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                        "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://cad.sefazrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+
+                #endregion
+
             }
 
             #endregion
@@ -1008,43 +1258,61 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://cad.sefazrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, Estado.RS,
-                        "https://nfe.sefaz.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://nfe.sefaz.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://homologacao.nfe.sefaz.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://sef.sefaz.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaDest, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://nfe.sefaz.rs.gov.br/ws/nfeConsultaDest/nfeConsultaDest.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://nfe.sefaz.rs.gov.br/ws/nfeDownloadNF/nfeDownloadNF.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.RS,
-                        "https://nfe.sefaz.rs.gov.br/ws/NfeInutilizacao/NfeInutilizacao2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.RS,
-                        "https://nfe.sefaz.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, emissao, Estado.RS,
-                        "https://nfe.sefaz.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
+                        TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                        "https://nfe.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve100,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/nfeDownloadNF/nfeDownloadNF.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaDest, VersaoServico.ve100,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/nfeConsultaDest/nfeConsultaDest.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://nfe.sefaz.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.RS,
-                    "https://nfe.sefaz.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe,
+                    "https://nfe.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe,
+                    "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+
+                #endregion
             }
 
             #endregion
@@ -1057,50 +1325,83 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/cadconsultacadastro2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/NfeRecepcao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/NfeRetRecepcao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/nfeinutilizacao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/nfeconsulta2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/nfeweb/services/nfestatusservico2.asmx"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                        TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                         "https://homologacao.nfe.fazenda.sp.gov.br/eventosWEB/services/RecepcaoEvento.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeinutilizacao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeconsulta2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/cadconsultacadastro2.asmx"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                        TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                         "https://homologacao.nfe.fazenda.sp.gov.br/ws/recepcaoevento.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, emissao, Estado.SP,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.sp.gov.br/ws/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.sp.gov.br/ws/nfeconsulta2.asmx"));
+                //SP possui um endereço diferente para EPEC de NFCe, serviço "RecepcaoEvento", conforme http://www.nfce.fazenda.sp.gov.br/NFCePortal/Paginas/URLWebServices.aspx
+                if (emissao != TipoEmissao.teDPEC)
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                        "https://homologacao.nfce.fazenda.sp.gov.br/ws/recepcaoevento.asmx"));
+                else
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                        "https://homologacao.nfce.epec.fazenda.sp.gov.br/EPECws/RecepcaoEPEC.asmx"));                
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://homologacao.nfce.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
+
+                #endregion
             }
 
             #endregion
@@ -1109,50 +1410,84 @@ namespace NFe.Servicos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/nferecepcao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/nferetrecepcao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/nfeinutilizacao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/nfeconsulta2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/nfestatusservico2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/nfeweb/services/cadconsultacadastro2.asmx"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, Estado.SP,
+                        TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                         "https://nfe.fazenda.sp.gov.br/eventosWEB/services/RecepcaoEvento.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/nfeinutilizacao2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/nfeconsulta2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/cadconsultacadastro2.asmx"));
                 if (emissao != TipoEmissao.teDPEC)
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, Estado.SP,
+                        TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                         "https://nfe.fazenda.sp.gov.br/ws/recepcaoevento.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, emissao, Estado.SP,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe,
                     "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+
+                #endregion
+
+                #region NFCe
+
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.sp.gov.br/ws/nfeinutilizacao2.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.sp.gov.br/ws/nfeconsulta2.asmx"));
+                //SP possui um endereço diferente para EPEC de NFCe, serviço "RecepcaoEvento", conforme http://www.nfce.fazenda.sp.gov.br/NFCePortal/Paginas/URLWebServices.aspx
+                if (emissao != TipoEmissao.teDPEC)
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                        "https://nfce.fazenda.sp.gov.br/ws/recepcaoevento.asmx"));
+                else
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                        "https://nfce.epec.fazenda.sp.gov.br/EPECws/RecepcaoEPEC.asmx"));
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                    TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe,
+                    "https://nfce.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
+
+                #endregion
+
             }
 
             #endregion
@@ -1167,37 +1502,40 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
-                    if (emissao != TipoEmissao.teDPEC)
-                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://hom.sefazvirtual.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://hom.sefazvirtual.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://hom.sefazvirtual.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://hom.sefazvirtual.fazenda.gov.br/NfeInutilizacao2/NfeInutilizacao2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://hom.sefazvirtual.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://hom.sefazvirtual.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://hom.sefazvirtual.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://hom.sefazvirtual.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://hom.sefazvirtual.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                    foreach (var modelo in todosOsModelos)
+                    {
+                        if (emissao != TipoEmissao.teDPEC)
+                            Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                                TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                                "https://hom.sefazvirtual.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://hom.sefazvirtual.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://hom.sefazvirtual.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                                TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                                "https://hom.sefazvirtual.fazenda.gov.br/NfeInutilizacao2/NfeInutilizacao2.asmx")));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                                TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                                "https://hom.sefazvirtual.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                                TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                                "https://hom.sefazvirtual.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve310,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://hom.sefazvirtual.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://hom.sefazvirtual.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://hom.sefazvirtual.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                        
+                    }
                 }
             }
 
@@ -1209,37 +1547,40 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
-                    if (emissao != TipoEmissao.teDPEC)
-                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://www.sefazvirtual.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://www.sefazvirtual.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://www.sefazvirtual.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://www.sefazvirtual.fazenda.gov.br/NfeInutilizacao2/NfeInutilizacao2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://www.sefazvirtual.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://www.sefazvirtual.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://www.sefazvirtual.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://www.sefazvirtual.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://www.sefazvirtual.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                    foreach (var modelo in todosOsModelos)
+                    {
+                        if (emissao != TipoEmissao.teDPEC)
+                            Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                                TipoAmbiente.taProducao, emissao, estado, modelo,
+                                "https://www.sefazvirtual.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://www.sefazvirtual.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://www.sefazvirtual.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
+                                TipoAmbiente.taProducao, emissao, estado, modelo,
+                                "https://www.sefazvirtual.fazenda.gov.br/NfeInutilizacao2/NfeInutilizacao2.asmx")));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                                TipoAmbiente.taProducao, emissao, estado, modelo,
+                                "https://www.sefazvirtual.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
+                        Definicoes.AddRange(
+                            versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                                TipoAmbiente.taProducao, emissao, estado, modelo,
+                                "https://www.sefazvirtual.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeDownloadNF, VersaoServico.ve310,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://www.sefazvirtual.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://www.sefazvirtual.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://www.sefazvirtual.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                        
+                    }
                 }
             }
 
@@ -1255,34 +1596,56 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
+                    #region NFe
+
                     if (emissao != TipoEmissao.teDPEC)
                         Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                            TipoAmbiente.taHomologacao, emissao, estado,
-                            "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
+                            TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                            "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+
+                    #endregion
+
+                    #region NFCe
+
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+
+                    #endregion
+                      
                 }
             }
 
@@ -1290,9 +1653,12 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado,
-                        "https://homologacao.sef.sefaz.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
+                    foreach (var modelo in todosOsModelos)
+                    {
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                            TipoAmbiente.taHomologacao, emissao, estado, modelo,
+                            "https://homologacao.sef.sefaz.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));                        
+                    }
                 }
             }
 
@@ -1304,34 +1670,56 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
+                    #region NFe
+
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve100,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
                     if (emissao != TipoEmissao.teDPEC)
                         Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://nfe.sefazvirtual.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://nfe.sefazvirtual.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://nfe.sefazvirtual.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                    Definicoes.AddRange(
-                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                            TipoAmbiente.taProducao, emissao, estado,
-                            "https://nfe.sefazvirtual.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
+                            TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                            "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+
+                    #endregion
+
+                    #region NFCe
+
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, 
+                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
+                        "https://nfce.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+
+                    #endregion
+                    
                 }
             }
 
@@ -1339,9 +1727,12 @@ namespace NFe.Servicos
             {
                 foreach (var emissao in emissaoComum)
                 {
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                        TipoAmbiente.taProducao, emissao, estado,
-                        "https://svp-ws.sefazvirtual.rs.gov.br/ws/CadConsultaCadastro/CadConsultaCadastro2.asmx"));
+                    foreach (var modelo in todosOsModelos)
+                    {
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                            TipoAmbiente.taProducao, emissao, estado, modelo,
+                            "https://svp-ws.sefazvirtual.rs.gov.br/ws/CadConsultaCadastro/CadConsultaCadastro2.asmx"));                        
+                    }
                 }
             }
 
@@ -1430,29 +1821,32 @@ namespace NFe.Servicos
 
             foreach (var estado in svcanEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                    "https://hom.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                    "https://hom.svc.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                    "https://hom.svc.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                        "https://hom.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                        "https://hom.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                    "https://hom.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado,
-                    "https://hom.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://hom.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://hom.svc.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://hom.svc.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                            "https://hom.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                            "https://hom.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://hom.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://hom.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                    
+                }
             }
 
             #endregion
@@ -1461,29 +1855,32 @@ namespace NFe.Servicos
 
             foreach (var estado in svcanEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                    "https://www.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                    "https://www.svc.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                    "https://www.svc.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                        "https://www.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                        "https://www.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                    "https://www.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado,
-                    "https://www.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://www.svc.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://www.svc.fazenda.gov.br/NfeRecepcao2/NfeRecepcao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://www.svc.fazenda.gov.br/NfeRetRecepcao2/NfeRetRecepcao2.asmx"));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
+                            TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                            "https://www.svc.fazenda.gov.br/NfeConsulta2/NfeConsulta2.asmx")));
+                    Definicoes.AddRange(
+                        versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
+                            TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                            "https://www.svc.fazenda.gov.br/NfeStatusServico2/NfeStatusServico2.asmx")));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://www.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCAN, estado, modelo,
+                        "https://www.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));                    
+                }
             }
 
             #endregion
@@ -1496,29 +1893,27 @@ namespace NFe.Servicos
 
             foreach (var estado in svcRsEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                    "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                    "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                    "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                        "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                    "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado,
-                    "https://homologacao.nfe.sefazvirtual.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taHomologacao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));                    
+                }
             }
 
             #endregion
@@ -1527,29 +1922,27 @@ namespace NFe.Servicos
 
             foreach (var estado in svcRsEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                    "https://nfe.sefazvirtual.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                    "https://nfe.sefazvirtual.rs.gov.br/ws/Nferecepcao/NFeRecepcao2.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                    "https://nfe.sefazvirtual.rs.gov.br/ws/NfeRetRecepcao/NfeRetRecepcao2.asmx"));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, versao,
-                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx")));
-                Definicoes.AddRange(
-                    versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, versao,
-                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                        "https://nfe.sefazvirtual.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx")));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                    "https://nfe.sefazvirtual.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
-                    TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado,
-                    "https://nfe.sefazvirtual.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310,
+                        TipoAmbiente.taProducao, TipoEmissao.teSVCRS, estado, modelo,
+                        "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));                   
+                }
             }
 
             #endregion
@@ -1562,9 +1955,14 @@ namespace NFe.Servicos
 
             foreach (var estado in todosOsEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taHomologacao, TipoEmissao.teDPEC, estado,
-                    "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    //SP possui um endereço diferente para EPEC de NFCe, serviço "RecepcaoEvento", conforme http://www.nfce.fazenda.sp.gov.br/NFCePortal/Paginas/URLWebServices.aspx
+                    if (!(estado == Estado.SP & modelo == ModeloDocumento.NFCe))                    
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taHomologacao, TipoEmissao.teDPEC, estado, modelo,
+                            "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));                    
+                }
             }
 
             #endregion
@@ -1573,9 +1971,14 @@ namespace NFe.Servicos
 
             foreach (var estado in todosOsEstados)
             {
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
-                    TipoAmbiente.taProducao, TipoEmissao.teDPEC, estado,
-                    "https://www.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));
+                foreach (var modelo in todosOsModelos)
+                {
+                    //SP possui um endereço diferente para EPEC de NFCe, serviço "RecepcaoEvento", conforme http://www.nfce.fazenda.sp.gov.br/NFCePortal/Paginas/URLWebServices.aspx
+                    if (!(estado == Estado.SP & modelo == ModeloDocumento.NFCe))                    
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
+                            TipoAmbiente.taProducao, TipoEmissao.teDPEC, estado, modelo,
+                            "https://www.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx"));                    
+                }
             }
 
             #endregion
@@ -1631,10 +2034,13 @@ namespace NFe.Servicos
         /// <returns></returns>
         private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
-            return "Serviço " + servico + ", versão " +
-                   Auxiliar.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " +
-                   Auxiliar.tpAmbParaString(cfgServico.tpAmb) +
-                   " para emissão tipo " + Auxiliar.TipoEmissaoParaString(cfgServico.tpEmis) + "!";
+            return 
+                "Serviço " + servico + 
+                ", versão " + Auxiliar.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + 
+                ", não disponível para a UF " + cfgServico.cUF + 
+                ", no ambiente de " + Auxiliar.TpAmbParaString(cfgServico.tpAmb) +
+                " para emissão tipo " + Auxiliar.TipoEmissaoParaString(cfgServico.tpEmis) + 
+                ", documento: " + Auxiliar.ModeloDocumentoParaString(cfgServico.ModeloDocumento) + "!";
         }
 
         /// <summary>
@@ -1653,8 +2059,9 @@ namespace NFe.Servicos
 
             var definicao = from d in Definicoes
                 where d.Estado == cfgServico.cUF && d.ServicoNFe == servico && d.TipoAmbiente == cfgServico.tpAmb
-                      && d.TipoEmissao == tipoEmissao &&
-                      d.VersaoServico == ObterVersaoServico(servico, cfgServico)
+                      && d.TipoEmissao == tipoEmissao 
+                      && d.VersaoServico == ObterVersaoServico(servico, cfgServico)
+                      && d.ModeloDocumento == cfgServico.ModeloDocumento
                 select d.Url;
             var listaRetorno = definicao as IList<string> ?? definicao.ToList();
             var qtdeRetorno = listaRetorno.Count();

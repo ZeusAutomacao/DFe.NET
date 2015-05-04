@@ -123,13 +123,21 @@ namespace NFe.Servicos
                         return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
                     }
                     return new NfeConsulta2(url, _certificado, _cFgServico.TimeOut);
+                
                 case ServicoNFe.NfeRecepcao:
                     return new NfeRecepcao2(url, _certificado, _cFgServico.TimeOut);
+                
                 case ServicoNFe.NfeRetRecepcao:
                     return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
+                
                 case ServicoNFe.NFeAutorizacao:
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
+                        return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
+                
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
+                        return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
@@ -144,7 +152,11 @@ namespace NFe.Servicos
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.RecepcaoEvento:
+                    if (_cFgServico.cUF == Estado.SP & _cFgServico.VersaoRecepcaoEvento == VersaoServico.ve310 &
+                        _cFgServico.ModeloDocumento == ModeloDocumento.NFCe & tipoRecepcaoEvento == TipoRecepcaoEvento.Epec) 
+                        return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+                
                 case ServicoNFe.NfeConsultaCadastro:
                     return new CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
             }

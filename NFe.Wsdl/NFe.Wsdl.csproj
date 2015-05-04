@@ -47,6 +47,12 @@
     <Compile Include="Autorizacao\NfeAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\NfeAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -60,6 +66,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\RecepcaoEPEC.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\RecepcaoEvento.cs">

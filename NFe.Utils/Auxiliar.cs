@@ -58,7 +58,7 @@ namespace NFe.Utils
             return "";
         }
 
-        public static string tpAmbParaString(TipoAmbiente? tpAmb)
+        public static string TpAmbParaString(TipoAmbiente? tpAmb)
         {
             switch (tpAmb)
             {
@@ -90,7 +90,7 @@ namespace NFe.Utils
             return s != null ? s.Substring(2) : "";
         }
 
-        public static string CRTParaString(CRT crt)
+        public static string CrtParaString(CRT crt)
         {
             switch (crt)
             {
@@ -103,6 +103,18 @@ namespace NFe.Utils
                 default:
                     throw new ArgumentOutOfRangeException("crt");
             }
+        }
+
+        public static string ModeloDocumentoParaString(ModeloDocumento modelo)
+        {
+            switch (modelo)
+            {
+                case ModeloDocumento.NFe:
+                    return "NF-e";
+                case ModeloDocumento.NFCe:
+                    return "NFC-e";
+            }
+            return null;
         }
     }
 }

@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -37,12 +38,12 @@ using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.Autorizacao
+namespace NFe.Wsdl.Evento
 {
-    [WebServiceBinding(Name = "NfeRetAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-    public class NfeRetAutorizacao : SoapHttpClientProtocol, INfeServico
+    [WebServiceBinding(Name = "RecepcaoEPECSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+    public class RecepcaoEPEC : SoapHttpClientProtocol, INfeServico
     {
-        public NfeRetAutorizacao(string url, X509Certificate certificado, int timeOut)
+        public RecepcaoEPEC(string url, X509Certificate certificado, int timeOut)
         {
             SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;
@@ -50,16 +51,16 @@ namespace NFe.Wsdl.Autorizacao
             ClientCertificates.Add(certificado);
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeRetAutorizacaoLote")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")] XmlNode nfeDadosMsg)
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [WebMethod(MessageName = "nfeRecepcaoEvento")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("nfeRetAutorizacaoLote", new object[] {nfeDadosMsg});
+            var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
             return ((XmlNode) (results[0]));
         }
     }
