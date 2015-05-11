@@ -14,6 +14,17 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013.
 - NFe.Servicos: Biblioteca que implementa o consumo e retorno dos serviços da NFe/NFCe;
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
+ 
+**TODO:**
+- [ ] Implementar consumo do serviço NfeDownloadNF;
+- [ ] Implementar envio síncrono na versão 3.10;
+- [ ] Implementar envio de nfe compactada para a versão 3.10;
+- [ ] Implementar impressão de Danfes;
+- [ ] Implementar envio de emails;
+- [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
+- [ ] Implementar consumo do serviço NfeConsultaDest;
+- [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001).
+
 
 **Telas do aplicativo de demonstração de Uso da biblioteca:**
 
