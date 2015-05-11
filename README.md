@@ -6,13 +6,14 @@ Biblioteca para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços 
 A biblioteca foi desenvolvida com o Visual Studio Community 2013.
 
 **Instruções para compilar a solução**
-- (Windows 7 e 8): Procure por todas as dlls do diretório e desbloqueie-as[1], ou configure o visual studio para permitir dlls remotas[2]. [1]: http://msdn.microsoft.com/en-us/library/ee890038(v=vs.100).aspx, [2]: http://msdn.microsoft.com/en-us/library/dd409252(v=vs.100).aspx
 - No visual studio, abra o arquivo "Zeus NFe.sln", defina o "NFe.AppTeste" como projeto de inicialização e compile.
 
-**Dependências de terceiros**
-- Aplicativo de demonstração: FirstFloor.ModernUI (https://mui.codeplex.com)
-
-- Bibliotecas NFe.Classes e NFe.Utils: PropertyChanged (https://github.com/Fody/PropertyChanged)
+**Projetos na Solução**
+- NFe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
+- NFe.Classes: Biblioteca com todas as classes para montagem da NFe/NFCe, de acordo com os manuais vigentes até 14/04/2015;
+- NFe.Servicos: Biblioteca que implementa o consumo e retorno dos serviços da NFe/NFCe;
+- NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
+- NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
 
 **Telas do aplicativo de demonstração de Uso da biblioteca:**
 
