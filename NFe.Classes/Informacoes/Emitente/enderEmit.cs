@@ -34,11 +34,9 @@
 using System;
 using System.Linq;
 using System.Xml.Serialization;
-using PropertyChanged;
 
 namespace NFe.Classes.Informacoes.Emitente
 {
-    [ImplementPropertyChanged] //Ao usar este plugin, é necessário definir explicitamente a ordem em que os atributos serão serializados.
     public class enderEmit
     {
         private string _cep;
@@ -46,51 +44,43 @@ namespace NFe.Classes.Informacoes.Emitente
         /// <summary>
         ///     C06 - Logradouro
         /// </summary>
-        [XmlElement(Order = 1)]
         public string xLgr { get; set; }
 
         /// <summary>
         ///     C07 - Número
         /// </summary>
-        [XmlElement(Order = 2)]
         public string nro { get; set; }
 
         /// <summary>
         ///     C08 - Complemento
         /// </summary>
-        [XmlElement(Order = 3)]
         public string xCpl { get; set; }
 
         /// <summary>
         ///     C09 - Bairro
         /// </summary>
-        [XmlElement(Order = 4)]
         public string xBairro { get; set; }
 
         /// <summary>
         ///     C10 - Código do município
         ///     <para>Código do município (utilizar a tabela do IBGE), informar 9999999 para operações com o exterior.</para>
         /// </summary>
-        [XmlElement(Order = 5)]
         public long cMun { get; set; }
 
         /// <summary>
         ///     C11 - Nome do município, informar EXTERIOR para operações com o exterior.
         /// </summary>
-        [XmlElement(Order = 6)]
         public string xMun { get; set; }
 
         /// <summary>
         ///     C12 - Sigla da UF, informar EX para operações com o exterior.
         /// </summary>
-        [XmlElement(Order = 7)]
         public string UF { get; set; }
 
         /// <summary>
         ///     C13 - Código do CEP
         ///     <para>Informar os zeros não significativos. (NT 2011/004)</para>
         /// </summary>
-        [XmlElement(Order = 8)]
         public string CEP
         {
             get { return _cep; }
@@ -108,14 +98,12 @@ namespace NFe.Classes.Informacoes.Emitente
         ///     C14 - Código do País
         ///     <para>1058 - Brasil</para>
         /// </summary>
-        [XmlElement(Order = 9)]
         public int? cPais { get; set; }
 
         /// <summary>
         ///     C15 - Nome do País
         ///     <para>Brasil ou BRASIL</para>
         /// </summary>
-        [XmlElement(Order = 10)]
         public string xPais { get; set; }
 
         /// <summary>
@@ -125,7 +113,6 @@ namespace NFe.Classes.Informacoes.Emitente
         ///         país + código da localidade + número do telefone (v.2.0)
         ///     </para>
         /// </summary>
-        [XmlElement(Order = 11)]
         public long? fone { get; set; }
 
         public bool ShouldSerializecPais()

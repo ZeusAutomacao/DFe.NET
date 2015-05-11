@@ -36,7 +36,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
-using FirstFloor.ModernUI.Windows.Controls;
 using Microsoft.Win32;
 
 namespace NFe.AppTeste
@@ -51,7 +50,7 @@ namespace NFe.AppTeste
         /// <param name="botoes"></param>
         public static void Mensagem(string mensagem, string titulo, MessageBoxButton botoes)
         {
-            ModernDialog.ShowMessage(mensagem, titulo, botoes);
+            MessageBox.Show(mensagem, titulo, botoes);
         }
 
         /// <summary>

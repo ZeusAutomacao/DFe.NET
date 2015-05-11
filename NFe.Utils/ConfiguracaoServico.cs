@@ -35,11 +35,9 @@ using System.IO;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
-using PropertyChanged;
 
 namespace NFe.Utils
 {
-    [ImplementPropertyChanged]
     public sealed class ConfiguracaoServico
     {
         private static ConfiguracaoServico _instancia;

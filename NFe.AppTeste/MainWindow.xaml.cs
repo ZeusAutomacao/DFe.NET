@@ -59,7 +59,6 @@ using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
 using NFe.Utils.NFe;
-using Xceed.Wpf.Toolkit.Core.Input;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -101,11 +100,6 @@ namespace NFe.AppTeste
         private void btnCertificado_Click(object sender, RoutedEventArgs e)
         {
             CarregaDadosCertificado();
-        }
-
-        private void txt_InputValidationError(object sender, InputValidationErrorEventArgs e)
-        {
-            Funcoes.Mensagem("Valor Inválido", TituloErro, MessageBoxButton.OK);
         }
 
         private void BtnStatusServico_Click(object sender, RoutedEventArgs e)

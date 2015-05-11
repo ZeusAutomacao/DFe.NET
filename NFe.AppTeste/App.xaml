@@ -4,13 +4,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- WPF 4.0 workaround -->
-            <Style TargetType="{x:Type Rectangle}" />
-            <!-- end of workaround -->
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.xaml" />
-                <ResourceDictionary Source="/FirstFloor.ModernUI;component/Assets/ModernUI.Light.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+           
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -30,14 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using PropertyChanged;
 
 namespace NFe.Classes.Informacoes.Emitente
 {
-    [ImplementPropertyChanged] //Ao usar este plugin, é necessário definir explicitamente a ordem em que os atributos serão serializados.
     public class emit
     {
         private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo emit!";
@@ -47,7 +45,6 @@ namespace NFe.Classes.Informacoes.Emitente
         /// <summary>
         ///     C02 - CNPJ do emitente
         /// </summary>
-        [XmlElement(Order = 1)]
         public string CNPJ
         {
             get { return _cnpj; }
@@ -67,7 +64,6 @@ namespace NFe.Classes.Informacoes.Emitente
         /// <summary>
         ///     C02a - CPF do remetente
         /// </summary>
-        [XmlElement(Order = 2)]
         public string CPF
         {
             get { return _cpf; }
@@ -86,19 +82,16 @@ namespace NFe.Classes.Informacoes.Emitente
         /// <summary>
         ///     C03 - Razão Social ou Nome do emitente
         /// </summary>
-        [XmlElement(Order = 3)]
         public string xNome { get; set; }
 
         /// <summary>
         ///     C04 - Nome fantasia
         /// </summary>
-        [XmlElement(Order = 4)]
         public string xFant { get; set; }
 
         /// <summary>
         ///     C05 - Grupo do Endereço do emitente
         /// </summary>
-        [XmlElement(Order = 5)]
         public enderEmit enderEmit { get; set; }
 
         /// <summary>
@@ -113,14 +106,12 @@ namespace NFe.Classes.Informacoes.Emitente
         ///         cadastro de contribuintes do ICMS e estejam emitindo NF-e avulsa;
         ///     </para>
         /// </summary>
-        [XmlElement(Order = 6)]
         public string IE { get; set; }
 
         /// <summary>
         ///     C18 - IE do Substituto Tributário
         ///     <para>Informar a IE do ST da UF de destino da mercadoria, quando houver a retenção do ICMS ST para a UF de destino.</para>
         /// </summary>
-        [XmlElement(Order = 7)]
         public string IEST { get; set; }
 
         /// <summary>
@@ -130,20 +121,18 @@ namespace NFe.Classes.Informacoes.Emitente
         ///         ao ISSQN e fornecimento de peças sujeitos ao ICMS.
         ///     </para>
         /// </summary>
-        [XmlElement(Order = 8)]
         public string IM { get; set; }
 
         /// <summary>
         ///     C20 - CNAE fiscal
         ///     <para>Este campo deve ser informado quando o campo IM (C19) for informado.</para>
         /// </summary>
-        [XmlElement(Order = 9)]
         public string CNAE { get; set; }
 
         /// <summary>
         ///     C21 - Código de Regime Tributário
         /// </summary>
-        [XmlElement(Order = 10)]
         public CRT CRT { get; set; }
+
     }
 }
