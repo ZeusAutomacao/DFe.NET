@@ -1629,7 +1629,7 @@ namespace NFe.Servicos
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
                         TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
                         "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310,
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
                         TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe,
                         "https://nfce-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
@@ -1703,7 +1703,7 @@ namespace NFe.Servicos
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeStatusServico, VersaoServico.ve310,
                         TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
                         "https://nfce.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, 
+                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, 
                         TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe,
                         "https://nfce.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
