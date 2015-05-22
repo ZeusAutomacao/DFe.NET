@@ -25,7 +25,8 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013.
 - [ ] Implementar consumo do serviço NfeConsultaDest;
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001).
 
-**Atenção: Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!**
+**Atenção:**
+Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
 
 **Telas do aplicativo de demonstração de Uso da biblioteca:**
 
