@@ -405,7 +405,7 @@ namespace NFe.Servicos
                 var eve = evento;
                 var query = (from retevento in retEnvEvento.retEvento
                     where retevento.infEvento.chNFe == eve.infEvento.chNFe && retevento.infEvento.tpEvento == eve.infEvento.tpEvento
-                    select retevento).Single();
+                    select retevento).SingleOrDefault();
 
                 var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = new List<retEvento> {query}};
                 listprocEventoNFe.Add(procevento);
