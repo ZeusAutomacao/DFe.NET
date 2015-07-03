@@ -47,6 +47,11 @@ namespace NFe.Classes.Informacoes.Observacoes
         /// </summary>
         public string infCpl { get; set; }
 
+        public bool ShouldSerializeinfCpl()
+        {
+            return !string.IsNullOrEmpty(infCpl);
+        }     
+
         /// <summary>
         ///     Z04 - Grupo Campo de uso livre do contribuinte
         ///     <para>Ocorrência: 0-10</para>
