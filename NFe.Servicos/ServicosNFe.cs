@@ -162,7 +162,7 @@ namespace NFe.Servicos
                         case Estado.CE:
                             return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
                     }
-                    return new Wsdl.ConsultaCadastro.SVRS.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
 
             }
 

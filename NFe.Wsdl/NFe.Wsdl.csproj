@@ -55,7 +55,7 @@
     <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaCadastro\SVRS\CadConsultaCadastro2.cs">
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta.cs">
