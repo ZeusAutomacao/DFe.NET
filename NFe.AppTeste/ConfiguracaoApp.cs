@@ -47,7 +47,7 @@ namespace NFe.AppTeste
             CfgServico = ConfiguracaoServico.Instancia;
             CfgServico.tpAmb = TipoAmbiente.taHomologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
-            Emitente = new emit {CPF = ""};
+            Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
         }
 
@@ -80,7 +80,7 @@ namespace NFe.AppTeste
             camposEmBranco.Remove(propinfo.Name);
 
             if (camposEmBranco.Count > 0)
-                throw new Exception("Informe os dados abaixo antes de salvar as Configurações:" + Environment.NewLine + String.Join(", ", camposEmBranco.ToArray()));
+                throw new Exception("Informe os dados abaixo antes de salvar as Configurações:" + Environment.NewLine + string.Join(", ", camposEmBranco.ToArray()));
 
             var dir = Path.GetDirectoryName(arquivo);
             if (dir != null && !Directory.Exists(dir))

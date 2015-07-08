@@ -62,7 +62,6 @@ using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Wsdl;
 using NFe.Wsdl.Autorizacao;
-using NFe.Wsdl.ConsultaCadastro;
 using NFe.Wsdl.ConsultaProtocolo;
 using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
@@ -158,7 +157,13 @@ namespace NFe.Servicos
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
                 
                 case ServicoNFe.NfeConsultaCadastro:
-                    return new CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    switch (_cFgServico.cUF)
+                    {
+                        case Estado.CE:
+                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    }
+                    return new Wsdl.ConsultaCadastro.SVRS.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+
             }
 
             return null;

@@ -105,19 +105,46 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Schemas\atuCadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cabecMsg_v1.02.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\cancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\CCe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\confRecebto_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\consCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\consNFeDest_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consReciNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\consReciNFe_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\consSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\consSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\consStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\consStatServ_v3.10.xsd">
@@ -156,6 +183,9 @@
     <None Include="Schemas\envConfRecebto_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\envDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\envEPEC_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -163,6 +193,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\envEvento_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\enviNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\enviNFe_v3.10.xsd">
@@ -177,7 +210,16 @@
     <None Include="Schemas\eventoEPEC_v0.01.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\inutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\inutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\LeiauteCadastroEmissorDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteCancNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteCCe_v1.00.xsd">
@@ -189,13 +231,28 @@
     <None Include="Schemas\leiauteConsNFeDest_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\leiauteConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteConsStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteConsStatServ_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\leiauteConsultaCadastro_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteConsultaCadastro_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteDownloadNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteDPEC_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteEPEC_v1.00.xsd">
@@ -207,13 +264,28 @@
     <None Include="Schemas\leiauteEvento_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\leiauteInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteNFe_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\leiauteSRE_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\nfe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\nfe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procCancNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\procCCeNFe_v1.00.xsd">
@@ -231,7 +303,13 @@
     <None Include="Schemas\procEventoNFe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\procInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\procInutNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\procNFe_v3.10.xsd">
@@ -243,13 +321,34 @@
     <None Include="Schemas\resNFe_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\retAtuCadEmiDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retCancNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsCad_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retconsNFeDest_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsReciNFe_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retConsReciNFe_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\retConsSitNFe_v2.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retConsSitNFe_v3.10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retConsStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retConsStatServ_v3.10.xsd">
@@ -259,6 +358,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retDownloadNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retDPEC_v1.01.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retEnvCCe_v1.00.xsd">
@@ -276,16 +378,25 @@
     <None Include="Schemas\retEnvEvento_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\retEnviNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retEnviNFe_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retEventoEPEC_v0.01.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\retInutNFe_v2.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retInutNFe_v3.10.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\tiposBasico_v1.03.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\tiposBasico_v1.03_OPENSSL.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\tiposBasico_v3.10.xsd">

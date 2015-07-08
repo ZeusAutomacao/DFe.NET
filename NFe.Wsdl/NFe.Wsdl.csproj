@@ -52,7 +52,10 @@
     <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaCadastro\CadConsultaCadastro2.cs">
+    <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\SVRS\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta.cs">

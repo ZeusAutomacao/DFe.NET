@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -37,9 +38,9 @@ using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.ConsultaCadastro
+namespace NFe.Wsdl.ConsultaCadastro.CE
 {
-    [WebServiceBinding(Name = "CadConsultaCadastro2Soap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
+    [WebServiceBinding(Name = "CadConsultaCadastro2Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
     public class CadConsultaCadastro2 : SoapHttpClientProtocol, INfeServico
     {
         public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut)
@@ -57,11 +58,11 @@ namespace NFe.Wsdl.ConsultaCadastro
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare
             )]
         [WebMethod(MessageName = "consultaCadastro2")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
+        [return: XmlElement("cadConsultaCadastro2Result", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("consultaCadastro2", new object[] {nfeDadosMsg});
-            return ((XmlNode) (results[0]));
+            var results = Invoke("consultaCadastro2", new object[] { nfeDadosMsg });
+            return ((XmlNode)(results[0]));
         }
     }
 }

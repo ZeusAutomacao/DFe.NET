@@ -184,7 +184,7 @@ namespace NFe.Servicos
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
                         TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
-                        "https://homnfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));
+                        "https://homnfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));//Este endereço não possui suporte a REST, de modo que não é possível obter o endpoint reference (EPR)  do webservice. Entrar em contato com a SEFAZ AM
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
                     TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, 
                     "https://homnfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
@@ -258,7 +258,7 @@ namespace NFe.Servicos
                 Definicoes.AddRange(
                     versaoDoisETres.Select(versao => new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, versao,
                         TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
-                        "https://nfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));
+                        "https://nfe.sefaz.am.gov.br/services2/services/cadconsultacadastro2")));//Este endereço não possui suporte a REST, de modo que não é possível obter o endpoint reference (EPR)  do webservice. Entrar em contato com a SEFAZ AM
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
                     TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe,
                     "https://nfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
@@ -829,7 +829,7 @@ namespace NFe.Servicos
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve200,
                         TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                         "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl"));
-                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310,
+                Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, 
                     TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe,
                     "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl"));
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
@@ -909,8 +909,7 @@ namespace NFe.Servicos
                     "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
 
                 #endregion
-
-
+                
                 #region NFCe
 
                 Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NFeAutorizacao, VersaoServico.ve310,
@@ -1591,9 +1590,6 @@ namespace NFe.Servicos
                         Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
                             TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
                             "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
-                        TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
-                        "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
                     Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeInutilizacao, VersaoServico.ve310,
                         TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe,
                         "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao2.asmx"));
@@ -1646,7 +1642,7 @@ namespace NFe.Servicos
                     {
                         Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
                             TipoAmbiente.taHomologacao, emissao, estado, modelo,
-                            "https://homologacao.sef.sefaz.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));                        
+                            "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));                        
                     }
                 }
             }
@@ -1661,9 +1657,6 @@ namespace NFe.Servicos
                 {
                     #region NFe
 
-                    Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve100,
-                        TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe,
-                        "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));
                     if (emissao != TipoEmissao.teDPEC)
                         Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.RecepcaoEvento, VersaoServico.ve100,
                             TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe,
@@ -1718,9 +1711,10 @@ namespace NFe.Servicos
                 {
                     foreach (var modelo in todosOsModelos)
                     {
-                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200,
+                        //Na relação de serviços web em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#SVRS marca 1.0, mas o serviço na verdade é 2.0
+                        Definicoes.Add(new DefinicaoWsdlCampos(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200, 
                             TipoAmbiente.taProducao, emissao, estado, modelo,
-                            "https://svp-ws.sefazvirtual.rs.gov.br/ws/CadConsultaCadastro/CadConsultaCadastro2.asmx"));                        
+                            "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro2.asmx"));                        
                     }
                 }
             }
