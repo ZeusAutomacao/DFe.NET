@@ -52,7 +52,10 @@
     <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaCadastro\CadConsultaCadastro2.cs">
+    <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta.cs">
@@ -62,6 +65,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Download\NfeDownloadNF.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\RecepcaoEPEC.cs">

@@ -58,8 +58,8 @@ namespace NFe.Classes.Servicos.Evento
             get { return _cnpj; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CPF) & String.IsNullOrEmpty(idEstrangeiro))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CPF) & string.IsNullOrEmpty(idEstrangeiro))
                     _cnpj = value;
                 else
                 {
@@ -76,8 +76,8 @@ namespace NFe.Classes.Servicos.Evento
             get { return _cpf; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CNPJ) & String.IsNullOrEmpty(idEstrangeiro))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(idEstrangeiro))
                     _cpf = value;
                 else
                 {
@@ -94,8 +94,8 @@ namespace NFe.Classes.Servicos.Evento
             get { return _idEstrangeiro; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CNPJ) & String.IsNullOrEmpty(CPF))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(CPF))
                     _idEstrangeiro = value;
                 else
                 {
@@ -143,7 +143,7 @@ namespace NFe.Classes.Servicos.Evento
 
         public bool ShouldSerializeIE()
         {
-            return !String.IsNullOrEmpty(IE) && IE.ToUpper() != "ISENTO";
+            return !string.IsNullOrEmpty(IE) && IE.ToUpper() != "ISENTO";
         }
     }
 }

@@ -30,38 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Services;
-using System.Web.Services.Description;
-using System.Web.Services.Protocols;
-using System.Xml;
+
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.ConsultaCadastro
-{
-    [WebServiceBinding(Name = "CadConsultaCadastro2Soap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
-    public class CadConsultaCadastro2 : SoapHttpClientProtocol, INfeServico
+namespace NFe.Classes.Servicos.Download
+{   
+    public class retNFe
     {
-        public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut)
-        {
-            SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);
-        }
+        /// <summary>
+        /// JR09 - Chave de acesso da NF-e 
+        /// </summary>
+        public string chNFe { get; set; }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
-        public nfeCabecMsg nfeCabecMsg { get; set; }
+        /// <summary>
+        /// JR10 - Código do status da resposta
+        /// </summary>
+        public int cStat { get; set; }
 
-        [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare
-            )]
-        [WebMethod(MessageName = "consultaCadastro2")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")] XmlNode nfeDadosMsg)
-        {
-            var results = Invoke("consultaCadastro2", new object[] {nfeDadosMsg});
-            return ((XmlNode) (results[0]));
-        }
+        /// <summary>
+        /// JR11 - Descrição literal do status da resposta
+        /// </summary>
+        public string xMotivo { get; set; }
+
+        /// <summary>
+        /// JR13 - Estrutura “procNFe”, compactado no padrão gZip, o tipo do campo é base64Binary. 
+        /// JR14 - Estrutura “procNFe”, descompactada
+        /// JR17 - Grupo contendo a NF-e compactada e o Protocolo de Autorização compactado
+        /// </summary>        
+        [XmlElementAttribute("procNFe", typeof(procNFe))]
+        [XmlElementAttribute("procNFeGrupoZip", typeof(procNFeGrupoZip))]
+        [XmlElementAttribute("procNFeZip", typeof(byte[]), DataType = "base64Binary")]
+        public object XmlNfe { get; set; }
+
     }
 }

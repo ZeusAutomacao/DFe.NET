@@ -117,7 +117,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -135,8 +135,8 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(String.Format("{0} \nDetalhes: {1}", ex.Message, ex.InnerException.Message), "Erro", MessageBoxButton.OK);                
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(string.Format("{0} \n\nDetalhes: {1}", ex.Message, ex.InnerException), "Erro", MessageBoxButton.OK);                
             }
         }
 
@@ -152,7 +152,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -164,7 +164,7 @@ namespace NFe.AppTeste
                 #region Consulta Situação NFe
 
                 var chave = Funcoes.InpuBox(this, "Consultar NFe pela Chave", "Chave da NFe:");
-                if (String.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -175,7 +175,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -190,7 +190,7 @@ namespace NFe.AppTeste
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
-                if (String.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -201,7 +201,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -213,10 +213,10 @@ namespace NFe.AppTeste
                 #region Cria e Envia NFe
 
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
-                if (String.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
+                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
-                if (String.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
+                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFe, _configuracoes.CfgServico.VersaoNfeRecepcao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
@@ -229,7 +229,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -246,7 +246,7 @@ namespace NFe.AppTeste
                 #region Gerar NFe
 
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
-                if (String.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
+                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina().Valida();
@@ -268,7 +268,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -280,7 +280,7 @@ namespace NFe.AppTeste
                 #region Consulta Recibo de lote
 
                 var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
-                if (String.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
+                if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoRecibo = servicoNFe.NfeRetRecepcao(recibo);
 
@@ -290,7 +290,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -302,10 +302,10 @@ namespace NFe.AppTeste
                 #region Cria e Envia NFe
 
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
-                if (String.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
+                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
-                if (String.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
+                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFe, _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
@@ -318,7 +318,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -330,7 +330,7 @@ namespace NFe.AppTeste
                 #region Consulta Recibo de lote
 
                 var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
-                if (String.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
+                if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoRecibo = servicoNFe.NFeRetAutorizacao(recibo);
 
@@ -340,7 +340,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -366,25 +366,25 @@ namespace NFe.AppTeste
                 #region Inutiliza Numeração
 
                 var ano = Funcoes.InpuBox(this, "Inutilizar Numeração", "Ano");
-                if (String.IsNullOrEmpty(ano)) throw new Exception("O Ano deve ser informado!");
+                if (string.IsNullOrEmpty(ano)) throw new Exception("O Ano deve ser informado!");
                 if (ano.Length > 2) throw new Exception("O Ano deve ter dois números apenas!");
 
                 var modelostr = Funcoes.InpuBox(this, "Inutilizar Numeração", "Modelo");
-                if (String.IsNullOrEmpty(modelostr)) throw new Exception("O Modelo deve ser informado!");
+                if (string.IsNullOrEmpty(modelostr)) throw new Exception("O Modelo deve ser informado!");
 
                 var modelo = (ModeloDocumento) Convert.ToInt16(modelostr);
 
                 var serie = Funcoes.InpuBox(this, "Inutilizar Numeração", "Série");
-                if (String.IsNullOrEmpty(serie)) throw new Exception("A série deve ser informada!");
+                if (string.IsNullOrEmpty(serie)) throw new Exception("A série deve ser informada!");
 
                 var numeroInicial = Funcoes.InpuBox(this, "Inutilizar Numeração", "Número Inicial");
-                if (String.IsNullOrEmpty(numeroInicial)) throw new Exception("O Número Inicial deve ser informado!");
+                if (string.IsNullOrEmpty(numeroInicial)) throw new Exception("O Número Inicial deve ser informado!");
 
                 var numeroFinal = Funcoes.InpuBox(this, "Inutilizar Numeração", "Número Final");
-                if (String.IsNullOrEmpty(numeroFinal)) throw new Exception("O Número Final deve ser informado!");
+                if (string.IsNullOrEmpty(numeroFinal)) throw new Exception("O Número Final deve ser informado!");
 
                 var justificativa = Funcoes.InpuBox(this, "Inutilizar Numeração", "Justificativa");
-                if (String.IsNullOrEmpty(justificativa)) throw new Exception("A Justificativa deve ser informada!");
+                if (string.IsNullOrEmpty(justificativa)) throw new Exception("A Justificativa deve ser informada!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeInutilizacao(_configuracoes.Emitente.CNPJ, Convert.ToInt16(ano), modelo, Convert.ToInt16(serie), Convert.ToInt16(numeroInicial),
@@ -396,7 +396,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -408,20 +408,20 @@ namespace NFe.AppTeste
                 #region Carta de correção
 
                 var idlote = Funcoes.InpuBox(this, "Carta de correção", "Identificador de controle do Lote de envio:");
-                if (String.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
 
                 var sequenciaEvento = Funcoes.InpuBox(this, "Carta de correção", "Número sequencial do evento:");
-                if (String.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
+                if (string.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
 
                 var chave = Funcoes.InpuBox(this, "Carta de correção", "Chave da NFe:");
-                if (String.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
                 var correcao = Funcoes.InpuBox(this, "Carta de correção", "Correção");
-                if (String.IsNullOrEmpty(correcao)) throw new Exception("A Correção deve ser informada!");
+                if (string.IsNullOrEmpty(correcao)) throw new Exception("A Correção deve ser informada!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var cpfcnpj = String.IsNullOrEmpty(_configuracoes.Emitente.CNPJ) ? _configuracoes.Emitente.CPF : _configuracoes.Emitente.CNPJ;
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ) ? _configuracoes.Emitente.CPF : _configuracoes.Emitente.CNPJ;
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt16(idlote), Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
                 TrataRetorno(retornoCartaCorrecao);
 
@@ -429,7 +429,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -441,23 +441,23 @@ namespace NFe.AppTeste
                 #region Cancelar NFe
 
                 var idlote = Funcoes.InpuBox(this, "Cancelar NFe", "Identificador de controle do Lote de envio:");
-                if (String.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
 
                 var sequenciaEvento = Funcoes.InpuBox(this, "Cancelar NFe", "Número sequencial do evento:");
-                if (String.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
+                if (string.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
 
                 var protocolo = Funcoes.InpuBox(this, "Cancelar NFe", "Protocolo de Autorização da NFe:");
-                if (String.IsNullOrEmpty(protocolo)) throw new Exception("O protocolo deve ser informado!");
+                if (string.IsNullOrEmpty(protocolo)) throw new Exception("O protocolo deve ser informado!");
 
                 var chave = Funcoes.InpuBox(this, "Cancelar NFe", "Chave da NFe:");
-                if (String.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
                 var justificativa = Funcoes.InpuBox(this, "Cancelar NFe", "Justificativa");
-                if (String.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
+                if (string.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var cpfcnpj = String.IsNullOrEmpty(_configuracoes.Emitente.CNPJ) ? _configuracoes.Emitente.CPF : _configuracoes.Emitente.CNPJ;
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ) ? _configuracoes.Emitente.CPF : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt16(idlote), Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
                 TrataRetorno(retornoCancelamento);
 
@@ -465,7 +465,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -483,13 +483,13 @@ namespace NFe.AppTeste
                 #region Enviar EPEC
 
                 var idlote = Funcoes.InpuBox(this, "Enviar EPEC", "Identificador de controle do Lote de envio:");
-                if (String.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
 
                 var sequenciaEvento = Funcoes.InpuBox(this, "Enviar EPEC", "Número sequencial do evento:");
-                if (String.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
+                if (string.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
 
                 var numeronota = Funcoes.InpuBox(this, "Enviar EPEC", "Número da Nota:");
-                if (String.IsNullOrEmpty(numeronota)) throw new Exception("O Número da Nota deve ser informado!");
+                if (string.IsNullOrEmpty(numeronota)) throw new Exception("O Número da Nota deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numeronota), ModeloDocumento.NFe, _configuracoes.CfgServico.VersaoNFeAutorizacao);
 
@@ -501,7 +501,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -526,7 +526,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -540,7 +540,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -569,12 +569,12 @@ namespace NFe.AppTeste
 
                 if (_nfe == null) return;
                 _nfe.Valida();
-                Funcoes.Mensagem(String.Format("NFe número {0} validada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção", MessageBoxButton.OK);
+                Funcoes.Mensagem(string.Format("NFe número {0} validada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção", MessageBoxButton.OK);
                 ExibeNfe();
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -590,12 +590,12 @@ namespace NFe.AppTeste
 
                 if (_nfe == null) return;
                 _nfe.Assina();
-                Funcoes.Mensagem(String.Format("NFe número {0} assinada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção", MessageBoxButton.OK);
+                Funcoes.Mensagem(string.Format("NFe número {0} assinada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção", MessageBoxButton.OK);
                 ExibeNfe();
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -607,10 +607,10 @@ namespace NFe.AppTeste
                 #region Cria e Envia NFe
 
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFCe", "Número da NFCe:");
-                if (String.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
+                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFCe", "Id do Lote:");
-                if (String.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
+                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFCe, _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
@@ -623,7 +623,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -638,7 +638,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -657,7 +657,7 @@ namespace NFe.AppTeste
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
-                if (String.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -671,7 +671,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -681,7 +681,7 @@ namespace NFe.AppTeste
             try
             {
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
-                if (String.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
+                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 BtnImportarXml_Click(sender, e);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
@@ -692,7 +692,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -704,11 +704,11 @@ namespace NFe.AppTeste
                 #region Consulta Cadastro
 
                 var uf = Funcoes.InpuBox(this, "Consultar Cadastro", "UF do Documento a ser Consultado:");
-                if (String.IsNullOrEmpty(uf)) throw new Exception("A UF deve ser informada!");
+                if (string.IsNullOrEmpty(uf)) throw new Exception("A UF deve ser informada!");
                 if (uf.Length != 2) throw new Exception("UF deve conter 2 caracteres!");
 
                 var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(CPF/CNPJ):");
-                if (String.IsNullOrEmpty(documento)) throw new Exception("O Documento(CPF/CNPJ) deve ser informado!");
+                if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(CPF/CNPJ) deve ser informado!");
                 if (documento.Length != 11 & documento.Length != 14) throw new Exception("O Documento(CPF/CNPJ) deve conter 11 ou 14 caracteres!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -719,7 +719,7 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (!String.IsNullOrEmpty(ex.Message))
+                if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
@@ -1118,5 +1118,37 @@ namespace NFe.AppTeste
         }
 
         #endregion
+
+        private void BtnDownlodNfe_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Download Nfe
+
+                var cnpj = Funcoes.InpuBox(this, "Download Nfe", "CNPJ do destinatário da NFe:");
+                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
+                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+
+                var chave = Funcoes.InpuBox(this, "Download Nfe", "Chave da NFe:");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { chave });
+                
+                //Se desejar consultar mais de uma chave, use o serviço como indicado abaixo. É permitido consultar até 10 nfes de uma vez.
+                //Leia atentamente as informações do consumo deste serviço constantes no manual
+                //var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { "28150707703290000189550010000009441000029953", "28150707703290000189550010000009431000029948" });
+                
+                TrataRetorno(retornoDownload);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 }

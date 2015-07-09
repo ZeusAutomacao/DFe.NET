@@ -51,6 +51,8 @@
     <Compile Include="ConsultaCadastro\ExtretConsCad.cs" />
     <Compile Include="Consulta\ExtconsSitNFe.cs" />
     <Compile Include="Consulta\ExtretConsSitNFe.cs" />
+    <Compile Include="Download\ExtdownloadNFe.cs" />
+    <Compile Include="Download\ExtretDownloadNFe.cs" />
     <Compile Include="Evento\ExtenvEvento.cs" />
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtretEnvEvento.cs" />

@@ -86,10 +86,10 @@ namespace NFe.Classes.Informacoes.Emitente
             get { return _cep; }
             set
             {
-                if (!value.All(Char.IsDigit))
+                if (!value.All(char.IsDigit))
                     throw new Exception(@"enderEmit\CEP deve receber somente números!");
                 if (value.Length != 8)
-                    throw new Exception(String.Format(@"enderEmit\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
+                    throw new Exception(string.Format(@"enderEmit\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
                 _cep = value;
             }
         }
@@ -127,7 +127,7 @@ namespace NFe.Classes.Informacoes.Emitente
 
         public bool ShouldSerializexCpl()
         {
-            return !String.IsNullOrEmpty(xCpl);
+            return !string.IsNullOrEmpty(xCpl);
         }
     }
 }

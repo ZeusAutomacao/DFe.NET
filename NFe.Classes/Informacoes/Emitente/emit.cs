@@ -50,8 +50,8 @@ namespace NFe.Classes.Informacoes.Emitente
             get { return _cnpj; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(_cpf))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cpf))
                     _cnpj = Regex.Match(value, @"\d+").Value;
 
                 else
@@ -69,8 +69,8 @@ namespace NFe.Classes.Informacoes.Emitente
             get { return _cpf; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(_cnpj))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cnpj))
                     _cpf = Regex.Match(value, @"\d+").Value;
                 else
                 {

@@ -155,7 +155,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B27 - versão do aplicativo utilizado no processo de emissão
         /// </summary>
-        public String verProc { get; set; }
+        public string verProc { get; set; }
 
         /// <summary>
         ///     B28 - Informar apenas para tpEmis diferente de 1

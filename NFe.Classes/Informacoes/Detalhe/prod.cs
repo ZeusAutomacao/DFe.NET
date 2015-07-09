@@ -65,7 +65,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string cEAN
         {
             get { return _cEan; }
-            set { _cEan = value ?? String.Empty; }
+            set { _cEan = value ?? string.Empty; }
         }
 
         /// <summary>
@@ -128,7 +128,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string cEANTrib
         {
             get { return _cEanTrib; }
-            set { _cEanTrib = value ?? String.Empty; }
+            set { _cEanTrib = value ?? string.Empty; }
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace NFe.Classes.Informacoes.Detalhe
             get { return _nRecopi; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(value)) return;
                 ProdutoEspecifico = null; //ProdutoEspecifico e nRECOPI são mutuamente exclusivos
                 _nRecopi = value;
             }

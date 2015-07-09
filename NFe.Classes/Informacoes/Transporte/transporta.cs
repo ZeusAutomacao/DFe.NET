@@ -48,8 +48,8 @@ namespace NFe.Classes.Informacoes.Transporte
             get { return cnpj; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(cpf))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(cpf))
                     cnpj = value;
                 else
                 {
@@ -66,8 +66,8 @@ namespace NFe.Classes.Informacoes.Transporte
             get { return cpf; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(cnpj))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(cnpj))
                     cpf = value;
                 else
                 {

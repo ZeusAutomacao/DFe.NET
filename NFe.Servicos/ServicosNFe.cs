@@ -42,6 +42,7 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Autorizacao;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Classes.Servicos.Download;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Inutilizacao;
 using NFe.Classes.Servicos.Recepcao;
@@ -54,6 +55,7 @@ using NFe.Utils.Assinatura;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
+using NFe.Utils.Download;
 using NFe.Utils.Evento;
 using NFe.Utils.Inutilizacao;
 using NFe.Utils.NFe;
@@ -62,8 +64,8 @@ using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Wsdl;
 using NFe.Wsdl.Autorizacao;
-using NFe.Wsdl.ConsultaCadastro;
 using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.Download;
 using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
@@ -158,7 +160,16 @@ namespace NFe.Servicos
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
                 
                 case ServicoNFe.NfeConsultaCadastro:
-                    return new CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    switch (_cFgServico.cUF)
+                    {
+                        case Estado.CE:
+                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    }
+                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+
+                case ServicoNFe.NfeDownloadNF:
+                    return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);                    
+
             }
 
             return null;
@@ -814,5 +825,59 @@ namespace NFe.Servicos
         }
 
         #endregion
+
+        /// <summary>
+        ///     Consulta a Situação da NFe
+        /// </summary>
+        /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
+        public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves)
+        {
+            var versaoServico = Auxiliar.VersaoServicoParaString(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF);
+
+            #region Cria o objeto wdsl para envio do pedido de Download
+
+            var ws = CriarServico(ServicoNFe.NfeDownloadNF, TipoRecepcaoEvento.Nenhum);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                //Embora em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#GO esse serviço está nas versões 2.00 e 3.10, ele rejeita se mandar a versão diferente de 1.00. Testado no Ambiente Nacional - (AN)
+                versaoDados = /*versaoServico*/ "1.00" 
+            };
+
+            #endregion
+
+            #region Cria o objeto downloadNFe
+
+            var pedDownload = new downloadNFe
+            {
+                //Embora em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#GO esse serviço está nas versões 2.00 e 3.10, ele rejeita se mandar a versão diferente de 1.00. Testado no Ambiente Nacional - (AN)
+                versao = /*versaoServico*/ "1.00",
+                CNPJ = cnpj,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaves
+            };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlDownload = pedDownload.ObterXmlString();
+            Validador.Valida(ServicoNFe.NfeDownloadNF, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeDownloadNF, xmlDownload);
+            var dadosDownload = new XmlDocument();
+            dadosDownload.LoadXml(xmlDownload);
+
+            SalvarArquivoXml(cnpj + "-ped-down.xml", xmlDownload);
+
+            var retorno = ws.Execute(dadosDownload);
+            var retornoXmlString = retorno.OuterXml;
+            var retDownload = new retDownloadNFe().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(cnpj + "-down.xml", retornoXmlString);
+
+            return new RetornoNfeDownload(pedDownload.ObterXmlString(), retDownload.ObterXmlString(), retornoXmlString, retDownload);
+
+            #endregion
+        }
     }
 }

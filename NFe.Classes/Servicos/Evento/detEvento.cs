@@ -62,7 +62,7 @@ namespace NFe.Classes.Servicos.Evento
             get { return _nprot; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(value)) return;
                 descEvento = "Cancelamento";
                 LimpaDadosCartaCorrecao();
                 LimpaDadosEpec();
@@ -80,7 +80,7 @@ namespace NFe.Classes.Servicos.Evento
             get { return _xjust; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(value)) return;
                 descEvento = "Cancelamento";
                 LimpaDadosCartaCorrecao();
                 LimpaDadosEpec();
@@ -102,7 +102,7 @@ namespace NFe.Classes.Servicos.Evento
             get { return _xcorrecao; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(value)) return;
                 descEvento = "Carta de Correção";
                 LimpaDadosCancelamento();
                 LimpaDadosEpec();
@@ -122,7 +122,7 @@ namespace NFe.Classes.Servicos.Evento
             get { return _xconduso; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(value)) return;
                 _xconduso = value;
             }
         }

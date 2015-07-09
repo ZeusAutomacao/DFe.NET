@@ -49,6 +49,11 @@
     <Compile Include="Assinatura\SignedInfo.cs" />
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
+    <Compile Include="Servicos\Download\downloadNFe.cs" />
+    <Compile Include="Servicos\Download\procNFe.cs" />
+    <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />
+    <Compile Include="Servicos\Download\retDownloadNFe.cs" />
+    <Compile Include="Servicos\Download\retNFe.cs" />
     <Compile Include="Valor.cs" />
     <Compile Include="Informacoes\Cana\cana.cs" />
     <Compile Include="Informacoes\Cana\deduc.cs" />

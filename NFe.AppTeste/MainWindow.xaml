@@ -434,7 +434,7 @@
                                        VerticalAlignment="Top" RenderTransformOrigin="0.467,-0.269" />
                                 <TextBox x:Name="TxtEmitCep" HorizontalAlignment="Left" Height="23"
                                          Margin="178,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
-                                         Text="{Binding EnderecoEmitente.CEP, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                         Text="{Binding EnderecoEmitente.CEP, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
                                 <Label Content="Logradouro" HorizontalAlignment="Left" Margin="10,204,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitLogradouro" HorizontalAlignment="Left" Height="23"
@@ -561,6 +561,8 @@
                             Margin="10,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnCarregaXmlEnvia_Click" />
                     <Button x:Name="BtnConsultaCadastro" Content="Consultar Cadastro" HorizontalAlignment="Left"
                             Margin="192,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaCadastro_Click" />
+                    <Button x:Name="BtnDownlodNfe" Content="Downlod NFe" HorizontalAlignment="Left"
+                    	Margin="374,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="NFC-e">

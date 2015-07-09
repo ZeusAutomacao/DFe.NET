@@ -65,8 +65,8 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
             get { return _ie; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CNPJ) & String.IsNullOrEmpty(CPF))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(CPF))
                     _ie = value;
                 else
                 {
@@ -84,8 +84,8 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
             get { return _cnpj; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CPF) & String.IsNullOrEmpty(IE))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CPF) & string.IsNullOrEmpty(IE))
                     _cnpj = value;
                 else
                 {
@@ -103,8 +103,8 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
             get { return _cpf; }
             set
             {
-                if (String.IsNullOrEmpty(value)) return;
-                if (String.IsNullOrEmpty(CNPJ) & String.IsNullOrEmpty(IE))
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(CNPJ) & string.IsNullOrEmpty(IE))
                     _cpf = value;
                 else
                 {
