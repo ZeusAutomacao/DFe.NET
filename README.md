@@ -16,7 +16,7 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013.
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
  
 **TODO:**
-- [ ] Implementar consumo do serviço NfeDownloadNF;
+- [x] Implementar consumo do serviço NfeDownloadNF;
 - [ ] Implementar envio síncrono na versão 3.10;
 - [ ] Implementar envio de nfe compactada para a versão 3.10;
 - [ ] Implementar impressão de Danfes;
