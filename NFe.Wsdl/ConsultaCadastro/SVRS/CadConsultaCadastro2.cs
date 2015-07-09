@@ -38,7 +38,7 @@ using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.ConsultaCadastro.SVRS
+namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 {
     [WebServiceBinding(Name = "CadConsultaCadastro2Soap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
     public class CadConsultaCadastro2 : SoapHttpClientProtocol, INfeServico
@@ -57,11 +57,11 @@ namespace NFe.Wsdl.ConsultaCadastro.SVRS
         [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare
             )]
-        [WebMethod(MessageName = "consultaCadastro2")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
+        [WebMethod(MessageName = "CadConsultaCadastro2")]
+        [return: XmlElement("consultaCadastro2Result", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("consultaCadastro2", new object[] {nfeDadosMsg});
+            var results = Invoke("CadConsultaCadastro2", new object[] { nfeDadosMsg });
             return ((XmlNode) (results[0]));
         }
     }

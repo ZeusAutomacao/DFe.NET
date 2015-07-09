@@ -1143,7 +1143,7 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoDownload);
 
                 #endregion
-            }
+    }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
