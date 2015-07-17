@@ -112,7 +112,7 @@ namespace NFe.Utils
             }
 
             var serializador = new XmlSerializer(typeof (T));
-            var stream = new FileStream(arquivo, FileMode.Open);
+            var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
                 return (T) serializador.Deserialize(stream);
