@@ -40,7 +40,7 @@ namespace NFe.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, Boolean loteNfe = true)
+        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, bool loteNfe = true)
         {
             switch (servicoNFe)
             {
@@ -94,7 +94,7 @@ namespace NFe.Utils.Validacao
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, string stringXml, Boolean loteNfe = true)
+        public static void Valida(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
         {
             var pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
 

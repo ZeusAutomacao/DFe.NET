@@ -15,7 +15,23 @@
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <local:EnumParaBool x:Key="EnumParaBool" />
-        <CollectionViewSource x:Key="Estados">
+        <CollectionViewSource x:Key="EstadosWebService">
+            <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription />
+            </CollectionViewSource.SortDescriptions>
+            <CollectionViewSource.Source>
+                <ObjectDataProvider
+                    MethodName="GetValues"
+                    ObjectType="{x:Type sys:Enum}">
+                    <ObjectDataProvider.MethodParameters>
+                        <x:Type TypeName="nfecls:Estado" />
+                    </ObjectDataProvider.MethodParameters>
+                </ObjectDataProvider>
+            </CollectionViewSource.Source>
+        </CollectionViewSource>
+
+        <CollectionViewSource x:Key="EstadosEmitente">
             <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription />
@@ -154,8 +170,8 @@
                                       Height="469" Width="298" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
-                                    <ComboBox x:Name="CmbUfDestino"
-                                              ItemsSource="{Binding Source={StaticResource Estados}}"
+                                    <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
+                                              ItemsSource="{Binding Source={StaticResource EstadosWebService}}"
                                               SelectedItem="{Binding CfgServico.cUF}" />
                                     <GroupBox x:Name="GpbAmbiente" Header="Selecione o Ambiente de Destino" Height="60">
                                         <Grid x:Name="GrdAmbiente">
@@ -468,7 +484,7 @@
                                 <Label Content="UF" HorizontalAlignment="Left" Margin="247,305,0,0"
                                        VerticalAlignment="Top" />
                                 <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,135"
-                                          ItemsSource="{Binding Source={StaticResource Estados}}"
+                                          ItemsSource="{Binding Source={StaticResource EstadosEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
                             <ComboBox x:Name="CmbCrt" Margin="10,383,10,83"
