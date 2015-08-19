@@ -24,7 +24,8 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013.
 - [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
 - [ ] Implementar consumo do serviço NfeConsultaDest;
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001).
-
+- [ ] Implementar "diversas atualizações e melhorias no Sistema da NF-e" (NT2015/002).
+ 
 **Atenção:**
 Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
 
