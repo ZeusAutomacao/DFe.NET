@@ -3,7 +3,7 @@ Zeus.Net.NFe.NFCe
 
 Biblioteca para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx
 
-A biblioteca foi desenvolvida com o Visual Studio Community 2013.
+A biblioteca foi desenvolvida com o Visual Studio Community 2013 e compatível com o Visual Studio Community 2015.
 
 **Instruções para compilar a solução**
 - No visual studio, abra o arquivo "Zeus NFe.sln", defina o "NFe.AppTeste" como projeto de inicialização, compile e execute.
