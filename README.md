@@ -21,12 +21,11 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013 e compatível c
 - Os recursos implementados na biblioteca foram: Visualização, personalização fácil por parte do usuário e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio Fast Reports;
 - A impressão segue rigorosamente o Manual de Especificacoes Tecnicas do DANFE NFC-e QRCode Versao 3.2).
 
-Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows.
-A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utlizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts.
-As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes.
-Instale as fontes informadas no PC que for imprimir o DANFE da NFCe.
+- Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utlizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts.
+- As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes.
+- Instale as fontes informadas no PC que for imprimir o DANFE da NFCe.
 
-Exemplo de impressão do DANFE da NFCe utilizando a bilbioteca:
+- Exemplo de impressão do DANFE da NFCe utilizando a bilbioteca:
 
 
 ```cs
