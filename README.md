@@ -17,7 +17,7 @@ A biblioteca foi desenvolvida com o Visual Studio Community 2013 e compatível c
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
 
 **DANFE**
-- Foi implementado em 09/09/2015 a impressão do NFCe em Fast Reports.
+- Foi implementado em 09/09/2015 a impressão do NFCe em Fast Reports (https://www.fast-report.com/pt/product/fast-report-net/).
 - Os recursos implementados na biblioteca de impressão foram: Visualização e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio Fast Reports;
 - A impressão segue rigorosamente o Manual de Especificacoes Tecnicas do DANFE NFC-e QRCode Versao 3.2).
 - Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utlizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts.
@@ -64,3 +64,4 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 ![](http://www.zeusautomacao.com.br/zeus/images/git/08.png)
 ![](http://www.zeusautomacao.com.br/zeus/images/git/09.png)
 ![](http://www.zeusautomacao.com.br/zeus/images/git/10.png)
+![](http://www.zeusautomacao.com.br/zeus/images/git/11.jpg)
