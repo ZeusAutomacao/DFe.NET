@@ -42,7 +42,7 @@ public static class ExtNfeProc
     /// <param name="nfeProc"></param>
     /// <param name="arquivoXml">arquivo XML</param>
     /// <returns>Retorna um nfeProc carregada com os dados do XML</returns>
-    public static nfeProc CarregarDeArquivoXml(nfeProc nfeProc, string arquivoXml)
+    public static nfeProc CarregarDeArquivoXml(this nfeProc nfeProc, string arquivoXml)
     {
         var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (nfeProc).Name, arquivoXml);
         return FuncoesXml.XmlStringParaClasse<nfeProc>(s);

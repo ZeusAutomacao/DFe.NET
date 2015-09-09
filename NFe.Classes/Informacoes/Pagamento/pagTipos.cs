@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Pagamento
@@ -48,24 +50,34 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum FormaPagamento
     {
+        [Description("Dinheiro")]
         [XmlEnum("01")] fpDinheiro,
 
+        [Description("Cheque")]
         [XmlEnum("02")] fpCheque,
 
+        [Description("Cartão de Crédito")]
         [XmlEnum("03")] fpCartaoCredito,
 
+        [Description("Cartão de Débito")]
         [XmlEnum("04")] fpCartaoDebito,
 
+        [Description("Crédito Loja")]
         [XmlEnum("05")] fpCreditoLoja,
 
+        [Description("Vale Alimentação")]
         [XmlEnum("10")] fpValeAlimentacao,
 
+        [Description("Vale Refeição")]
         [XmlEnum("11")] fpValeRefeicao,
 
+        [Description("Vale Presente")]
         [XmlEnum("12")] fpValePresente,
 
+        [Description("Vale Combustível")]
         [XmlEnum("13")] fpValeCombustivel,
 
+        [Description("Outros")]
         [XmlEnum("99")] fpOutro
     }
 
@@ -79,14 +91,19 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum BandeiraCartao
     {
+        [Description("Visa")]
         [XmlEnum("01")] bcVisa,
 
+        [Description("Mastercard")]
         [XmlEnum("02")] bcMasterCard,
 
+        [Description("American Express")]
         [XmlEnum("03")] bcAmericanExpress,
 
+        [Description("Sorocred")]
         [XmlEnum("04")] bcSorocred,
 
+        [Description("Outros")]
         [XmlEnum("99")] bcOutros
     }
 }

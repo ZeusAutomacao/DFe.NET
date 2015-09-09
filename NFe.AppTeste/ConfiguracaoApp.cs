@@ -34,6 +34,8 @@ using System;
 using System.IO;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Impressao;
+using NFe.Impressao.NFCe;
 using NFe.Utils;
 
 namespace NFe.AppTeste
@@ -49,6 +51,7 @@ namespace NFe.AppTeste
             CfgServico.tpEmis = TipoEmissao.teNormal;
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
+            ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, "", "");
         }
 
         public ConfiguracaoServico CfgServico
@@ -67,6 +70,7 @@ namespace NFe.AppTeste
 
         public emit Emitente { get; set; }
         public enderEmit EnderecoEmitente { get; set; }
+        public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
 
         /// <summary>
         ///     Salva os dados de CfgServico em um arquivo XML

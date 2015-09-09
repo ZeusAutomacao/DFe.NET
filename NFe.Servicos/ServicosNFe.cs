@@ -101,7 +101,7 @@ namespace NFe.Servicos
 
         private INfeServico CriarServico(ServicoNFe servico, TipoRecepcaoEvento tipoRecepcaoEvento)
         {
-            var url = DefinicaoWsdl.ObterUrl(servico, tipoRecepcaoEvento, _cFgServico);
+            var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:

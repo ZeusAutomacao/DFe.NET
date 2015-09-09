@@ -40,7 +40,8 @@ namespace NFe.Utils
 {
     public sealed class ConfiguracaoServico
     {
-        private static ConfiguracaoServico _instancia;
+        private static volatile ConfiguracaoServico _instancia;
+        private static readonly object SyncRoot = new object();
         private string _diretorioSchemas;
         private bool _salvarXmlServicos;
 
@@ -146,7 +147,7 @@ namespace NFe.Utils
             get { return _diretorioSchemas; }
             set
             {
-                if (!String.IsNullOrEmpty(value) && !Directory.Exists(value))
+                if (!string.IsNullOrEmpty(value) && !Directory.Exists(value))
                     throw new Exception("Diretório " + value + " não encontrado!");
                 _diretorioSchemas = value;
             }
@@ -176,7 +177,17 @@ namespace NFe.Utils
         /// </summary>
         public static ConfiguracaoServico Instancia
         {
-            get { return _instancia ?? (_instancia = new ConfiguracaoServico()); }
+            get
+            {
+                if (_instancia != null) return _instancia;
+                lock (SyncRoot)
+                {
+                    if (_instancia != null) return _instancia;
+                    _instancia = new ConfiguracaoServico();
+                }
+
+                return _instancia;
+            }
         }
     }
 }

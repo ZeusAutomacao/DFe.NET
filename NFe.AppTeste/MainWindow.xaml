@@ -9,9 +9,12 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:impressao="clr-namespace:NFe.Impressao;assembly=NFe.Impressao"
+    mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
-    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="620" Width="914" WindowStartupLocation="CenterScreen"
+    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="658" Width="914"
+    WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
         <local:EnumParaBool x:Key="EnumParaBool" />
@@ -62,8 +65,8 @@
     </Window.Resources>
     <Grid>
         <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="329">
-            <Grid HorizontalAlignment="Left" Height="569" Margin="0,10,-2,-12" VerticalAlignment="Top" Width="314">
-                <TabControl Height="517" VerticalAlignment="Top">
+            <Grid HorizontalAlignment="Left" Margin="0,10,0,-12" Width="314" Height="607" VerticalAlignment="Top">
+                <TabControl Height="553" VerticalAlignment="Top">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
                             <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -81,7 +84,8 @@
                                     <TextBox x:Name="TxtCertificado" HorizontalAlignment="Left" Height="23"
                                              Margin="10,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                              Width="250"
-                                             Text="{Binding CfgServico.SerialCertificado, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                                             Text="{Binding CfgServico.SerialCertificado, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             IsReadOnly="True" />
                                     <Button x:Name="BtnCertificado" Content="..." Margin="265,141,0,163" Width="21"
                                             HorizontalAlignment="Left" Click="btnCertificado_Click" />
 
@@ -127,7 +131,8 @@
                                     </Grid>
                                 </GroupBox>
 
-                                <GroupBox x:Name="GpbModeloDocumento" Header="Selecione o Tipo de Documento" Height="60" Margin="0,0,10,0">
+                                <GroupBox x:Name="GpbModeloDocumento" Header="Selecione o Tipo de Documento"
+                                          Height="60" Margin="0,0,10,0">
                                     <Grid x:Name="GrdModeloDocumento">
                                         <RadioButton x:Name="RbtNfe" Content="NFe"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -141,23 +146,32 @@
                                 </GroupBox>
 
                                 <StackPanel Margin="10,10,0,0">
-                                    <Label Content="Diretório dos Schemas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="132" />
+                                    <Label Content="Diretório dos Schemas" HorizontalAlignment="Left"
+                                           VerticalAlignment="Top" Width="132" />
                                     <DockPanel Margin="0,5,0,0">
-                                        <TextBox x:Name="TxtDiretorioSchema" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"
+                                        <TextBox x:Name="TxtDiretorioSchema" HorizontalAlignment="Left"
+                                                 TextWrapping="Wrap" VerticalAlignment="Top"
                                                  Width="250"
-                                                 Text="{Binding CfgServico.DiretorioSchemas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-                                        <Button x:Name="BtnDiretorioSchema" Content="..." Width="21" DockPanel.Dock="Right" Click="BtnDiretorioSchema_Click" />
+                                                 Text="{Binding CfgServico.DiretorioSchemas, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 IsReadOnly="True" />
+                                        <Button x:Name="BtnDiretorioSchema" Content="..." Width="21"
+                                                DockPanel.Dock="Right" Click="BtnDiretorioSchema_Click" />
                                     </DockPanel>
                                 </StackPanel>
 
                                 <StackPanel Margin="10,10,0,0">
-                                    <CheckBox Name="CbxSalvarXml" Content="Salvar arquivos XML's em:" HorizontalAlignment="Left"
+                                    <CheckBox Name="CbxSalvarXml" Content="Salvar arquivos XML's em:"
+                                              HorizontalAlignment="Left"
                                               VerticalAlignment="Top" Width="178"
-                                              IsChecked="{Binding CfgServico.SalvarXmlServicos}" Click="CbxSalvarXml_Click" />
+                                              IsChecked="{Binding CfgServico.SalvarXmlServicos}"
+                                              Click="CbxSalvarXml_Click" />
                                     <DockPanel Margin="0,5,0,0">
-                                        <TextBox x:Name="TxtDiretorioXml" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="250"
-                                                 Text="{Binding CfgServico.DiretorioSalvarXml, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-                                        <Button x:Name="BtnDiretorioXml" Content="..." Width="21" DockPanel.Dock="Right" Click="BtnDiretorioXml_Click" />
+                                        <TextBox x:Name="TxtDiretorioXml" HorizontalAlignment="Left"
+                                                 TextWrapping="Wrap" VerticalAlignment="Top" Width="250"
+                                                 Text="{Binding CfgServico.DiretorioSalvarXml, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 IsReadOnly="True" />
+                                        <Button x:Name="BtnDiretorioXml" Content="..." Width="21"
+                                                DockPanel.Dock="Right" Click="BtnDiretorioXml_Click" />
                                     </DockPanel>
 
                                 </StackPanel>
@@ -167,7 +181,7 @@
                     <TabItem Header="WeService">
                         <Grid Background="White">
                             <GroupBox Header="WebService" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Height="469" Width="298" Margin="10,10,0,0">
+                                      Height="485" Width="298" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
                                     <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
@@ -190,7 +204,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="RecepcaoEvento" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="RecepcaoEvento" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -208,7 +222,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeRecepcao" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeRecepcao" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -226,7 +240,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeRetRecepcao" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeRetRecepcao" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -244,7 +258,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeInutilizacao" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeInutilizacao" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -262,7 +276,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeConsultaProtocolo" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeConsultaProtocolo" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -280,7 +294,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeStatusServico" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -298,7 +312,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeConsultaCadastro" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeConsultaCadastro" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -316,7 +330,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NFeAutorizacao" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -334,7 +348,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NFeRetAutorizacao" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -352,7 +366,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NFeDistribuicaoDFe" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NFeDistribuicaoDFe" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -370,7 +384,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeConsultaDest" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeConsultaDest" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -388,7 +402,7 @@
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="NfeDownloadNF" Margin="5,0,0,0"
-                                                           HorizontalAlignment="Left" Width="124"/>
+                                                           HorizontalAlignment="Left" Width="124" />
                                                     <RadioButton GroupName="NfeDownloadNF" Content="1.00"
                                                                  HorizontalAlignment="Left" Margin="130,1,0,0"
                                                                  VerticalAlignment="Center"
@@ -409,8 +423,8 @@
                                         <Label Content="TimeOut (milisegundos)" HorizontalAlignment="Left"
                                                Margin="10,0,0,0" VerticalAlignment="Center" />
                                         <TextBox x:Name="TxtTimeOut" HorizontalAlignment="Left"
-                                                            Margin="0,0,0,0" VerticalAlignment="Center" Width="134"
-                                                            Text="{Binding CfgServico.TimeOut}" />
+                                                 Margin="0,0,0,0" VerticalAlignment="Center" Width="134"
+                                                 Text="{Binding CfgServico.TimeOut}" />
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
@@ -483,11 +497,11 @@
                                          Text="{Binding EnderecoEmitente.xMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Label Content="UF" HorizontalAlignment="Left" Margin="247,305,0,0"
                                        VerticalAlignment="Top" />
-                                <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,135"
+                                <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,151"
                                           ItemsSource="{Binding Source={StaticResource EstadosEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
-                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,83"
+                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,94"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
                                       SelectedItem="{Binding Emitente.CRT}" />
                             <Label Content="CRT" HorizontalAlignment="Left" Margin="10,357,0,0"
@@ -503,7 +517,7 @@
                             <Label Content="Porta" HorizontalAlignment="Left" Margin="243,5,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox x:Name="TxtPorta" HorizontalAlignment="Left" Height="23"
-                                                Margin="243,31,0,0" VerticalAlignment="Top" Width="55"/>
+                                     Margin="243,31,0,0" VerticalAlignment="Top" Width="55" />
                             <Label Content="Usuário" HorizontalAlignment="Left" Margin="10,55,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap"
@@ -526,9 +540,84 @@
                                    VerticalAlignment="Top" />
                         </Grid>
                     </TabItem>
+                    <TabItem Header="DANFE" HorizontalAlignment="Left">
+                        <Grid Background="White">
+                            <GroupBox Header="LogoMarca" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      Height="414" Width="308" Margin="0,10,0,0">
+                                <StackPanel Margin="0,0,0,12">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <Label Content="Informe a logomarca a ser usada no DANFE"
+                                               HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                        <WrapPanel Orientation="Horizontal">
+                                            <Border BorderThickness="1" BorderBrush="Black" Height="100" Width="250"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Image x:Name="LogoEmitente" />
+                                            </Border>
+                                            <StackPanel Margin="5" Width="35">
+                                                <Button x:Name="BtnLogo" Content="..." VerticalAlignment="Top"
+                                                        Click="btnLogo_Click" Height="35" />
+                                                <Button x:Name="BtnRemoveLogo" Content="x" VerticalAlignment="Top"
+                                                        Height="35" Click="btnRemoveLogo_Click" />
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                    <GroupBox Header="NFC-e" Height="240">
+                                        <StackPanel>
+                                            <GroupBox Header="Emissão Normal - Impressão dos produtos" Height="60"
+                                                      Margin="0,10,0,0">
+                                                <Grid>
+                                                    <RadioButton Content="Não imprimir"
+                                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                                 Margin="8,13,0,0"
+                                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.NaoImprimir}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton Content="Uma Linha"
+                                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                                 Margin="108,13,0,0"
+                                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton Content="Duas Linhas"
+                                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                                 Margin="190,13,0,0"
+                                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
+                                                </Grid>
+                                            </GroupBox>
+                                            <GroupBox Header="Contigência - Impressão dos produtos"
+                                                      Height="60" Margin="0,10,0,0">
+                                                <Grid>
+                                                    <RadioButton Content="Uma Linha"
+                                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                                 Margin="8,13,0,0"
+                                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static impressao:NfceDetalheVendaContigencia.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton Content="Duas Linhas"
+                                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                                 Margin="108,13,0,0"
+                                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static impressao:NfceDetalheVendaContigencia.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
+                                                </Grid>
+                                            </GroupBox>
+                                            <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="123*"/>
+                                                    <ColumnDefinition Width="161*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Content="Identificador do CSC:" Width="Auto" Grid.Column="0"/>
+                                                <TextBox Width="Auto" Text="{Binding ConfiguracaoDanfeNfce.cIdToken}" Grid.Column="1"></TextBox>
+                                            </Grid>
+                                            <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="10*"/>
+                                                    <ColumnDefinition Width="61*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label Content="CSC:" Width="Auto" Grid.Column="0"/>
+                                                <TextBox Width="Auto" Text="{Binding ConfiguracaoDanfeNfce.CSC}" Grid.Column="1"></TextBox>
+                                            </Grid>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
                 <Button x:Name="BtnSalvar" Content="Salvar Configurações" Width="150" HorizontalAlignment="Left"
-                        Height="27" Click="btnSalvar_Click" Margin="75,522,0,20" />
+                        Height="27" Click="btnSalvar_Click" Margin="75,558,0,22" />
             </Grid>
         </GroupBox>
         <TabControl Name="TabSuperior" Height="308" Margin="334,10,0,0" VerticalAlignment="Top">
@@ -571,20 +660,22 @@
                             Margin="192,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnValida_Click" />
                     <Button x:Name="BtnAssina" Content="Assinar NFe" HorizontalAlignment="Left"
                             Margin="10,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnAssina_Click" />
-                    <Button x:Name="BtnAdicionaNfeproc" Content="Adicionar nfeProc ao XML" HorizontalAlignment="Left"
+                    <Button x:Name="BtnAdicionaNfeproc" Content="Adicionar proc ao XML" HorizontalAlignment="Left"
                             Margin="374,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
                     <Button x:Name="BtnCarregaXmlEnvia" Content="Carregar XML e Enviar" HorizontalAlignment="Left"
                             Margin="10,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnCarregaXmlEnvia_Click" />
                     <Button x:Name="BtnConsultaCadastro" Content="Consultar Cadastro" HorizontalAlignment="Left"
                             Margin="192,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaCadastro_Click" />
                     <Button x:Name="BtnDownlodNfe" Content="Downlod NFe" HorizontalAlignment="Left"
-                    	Margin="374,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
+                            Margin="374,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
                 </Grid>
             </TabItem>
             <TabItem Header="NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnCriareEnviarNfce" Content="Criar e Enviar" HorizontalAlignment="Left"
                             Margin="10,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviarNfce_Click" />
+                    <Button x:Name="BtnNfceDanfe" Content="Imprimir DANFE" HorizontalAlignment="Left"
+                            Margin="192,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
                 </Grid>
             </TabItem>
         </TabControl>

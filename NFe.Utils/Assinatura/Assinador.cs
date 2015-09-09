@@ -54,7 +54,7 @@ namespace NFe.Utils.Assinatura
 
             var serialCertificado = ConfiguracaoServico.Instancia.SerialCertificado;
 
-            if (String.IsNullOrEmpty(serialCertificado))
+            if (string.IsNullOrEmpty(serialCertificado))
                 throw new Exception("O nº de série do certificado não foi informado para a função ObterAssinatura!");
 
             var certificado = CertificadoDigital.BuscaCertificado(serialCertificado);

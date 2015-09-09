@@ -145,6 +145,21 @@ namespace NFe.AppTeste
         }
 
         /// <summary>
+        ///     Abre o diálogo de busca de arquivo com o filtro configurado para arquivos do tipo ".png"
+        /// </summary>
+        /// <returns></returns>
+        public static string BuscarImagem()
+        {
+            var dlg = new OpenFileDialog
+            {
+                DefaultExt = ".png",
+                Filter = "PNG (*.png)|*.png|Bitmap (*.bmp)|*.bmp|JPEG (*.jpeg)|*.jpeg|JPG (*.jpg)|*.jpg|GIF (*.gif)|*.gif"
+            };
+            dlg.ShowDialog();            
+            return dlg.FileName;
+        }
+
+        /// <summary>
         ///     Obtém informações de uma propriedade de um objeto.
         ///     <example>var propinfo = Funcoes.ObterPropriedadeInfo(_cfgServico, c => c.DiretorioSalvarXml);</example>
         /// </summary>

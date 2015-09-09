@@ -1,21 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}</ProjectGuid>
+    <ProjectGuid>{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NFe.Servicos</RootNamespace>
-    <AssemblyName>NFe.Servicos</AssemblyName>
+    <RootNamespace>NFe.Impressao</RootNamespace>
+    <AssemblyName>NFe.Impressao</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>e448bd94</NuGetPackageImportStamp>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,26 +30,49 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastReport, Version=2015.3.10.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net Demo\FastReport.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enderecador.cs" />
+    <Compile Include="NFCe\ConfiguracaoDanfeNfce.cs" />
+    <Compile Include="ConfiguracaoDanfeNfe.cs" />
+    <Compile Include="NFCe\EnderecadorDanfeNfce.cs" />
+    <Compile Include="Enumns.cs" />
+    <Compile Include="NFCe\FastReports\DanfeFrNfce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Retorno\RetornoBasico.cs" />
-    <Compile Include="Retorno\RetornoNfeDownload.cs" />
-    <Compile Include="Retorno\RetornoConsulta.cs" />
-    <Compile Include="Retorno\RetornoNFeAutorizacao.cs" />
-    <Compile Include="Retorno\RetornoNfeConsultaCadastro.cs" />
-    <Compile Include="Retorno\RetornoRecepcaoEvento.cs" />
-    <Compile Include="Retorno\RetornoNfeInutilizacao.cs" />
-    <Compile Include="Retorno\RetornoNfeRecepcao.cs" />
-    <Compile Include="Retorno\RetornoNFeRetAutorizacao.cs" />
-    <Compile Include="Retorno\RetornoNfeRetRecepcao.cs" />
-    <Compile Include="Retorno\RetornoNfeStatusServico.cs" />
-    <Compile Include="ServicosNFe.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="NFCe\FastReports\NFCe.frx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NFCe\Fontes\LeiaMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NFCe\Fontes\OpenSans-CondBold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NFCe\Fontes\OpenSans-CondLight.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NFCe\Fontes\OpenSans-CondLightItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="NFCe\Fontes\UbuntuCondensed-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
@@ -62,17 +80,15 @@
       <Name>NFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
+      <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
       <Name>NFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj">
-      <Project>{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}</Project>
-      <Name>NFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFe.Servicos.cd" />
-    <None Include="NFe.Servicos.licenseheader" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
