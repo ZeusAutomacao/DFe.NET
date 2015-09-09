@@ -1236,7 +1236,6 @@ namespace NFe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                //proc.NFe.infNFe.dest = GetDestinatario(VersaoServico.ve310);
                 var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce);
                 danfe.Visualizar();
                 //danfe.Imprimir();
