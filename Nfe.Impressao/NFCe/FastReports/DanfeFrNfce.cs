@@ -39,10 +39,18 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Impressao.NFCe.FastReports
 {
+    /// <summary>
+    /// Classe reponsável pela impressão do DANFE da NFCe em Fast Reports
+    /// </summary>
     public class DanfeFrNfce
     {
         private readonly Report _relatorio;
 
+        /// <summary>
+        /// Construtor da classe reponsável pela impressão do DANFE da NFCe em Fast Reports
+        /// </summary>
+        /// <param name="proc">Objeto do tipo nfeProc</param>
+        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce)
         {
             #region Define as varíaveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
@@ -63,19 +71,34 @@ namespace NFe.Impressao.NFCe.FastReports
             #endregion
         }
 
+        /// <summary>
+        /// Abre a janela de visualização do DANFE da NFCe
+        /// </summary>
+        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
         public void Visualizar(bool modal = true)
         {
             _relatorio.Show(modal);
         }
 
+        /// <summary>
+        ///  Abre a janela de visualização do design do DANFE da NFCe.
+        /// Chame esse método se desja fazer alterações no design do DANFE em modo run-time
+        /// </summary>
+        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
         public void ExibirDesign(bool modal = false)
         {
             _relatorio.Design(modal);
         }
 
-        public void Imprimir(bool exibirDialogo = true)
+        /// <summary>
+        /// Envia a impressão do DANFE da NFCe diretamente para a impressora
+        /// </summary>
+        /// <param name="exibirDialogo">Se true exibe o diálogo Imprimindo...</param>
+        /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
+        public void Imprimir(bool exibirDialogo = true, string impressora = "")
         {
             _relatorio.PrintSettings.ShowDialog = exibirDialogo;
+            _relatorio.PrintSettings.Printer = impressora;
             _relatorio.Print();
         }
 
