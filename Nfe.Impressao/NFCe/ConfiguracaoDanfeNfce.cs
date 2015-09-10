@@ -89,11 +89,9 @@ namespace NFe.Impressao.NFCe
         {
             if (Logomarca == null)
                 return null;
-            using (var ms = new MemoryStream(Logomarca, 0, Logomarca.Length))
-            {
-                var image = Image.FromStream(ms, true);
-                return image;
-            }
+            var ms = new MemoryStream(Logomarca);
+            var image = Image.FromStream(ms);
+            return image;
         }
     }
 }
