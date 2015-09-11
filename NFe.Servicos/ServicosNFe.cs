@@ -93,7 +93,7 @@ namespace NFe.Servicos
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
         {
             if (!_cFgServico.SalvarXmlServicos) return;
-            var dir = String.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
+            var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
             var stw = new StreamWriter(dir + @"\" + nomeArquivo);
             stw.WriteLine(xmlString);
             stw.Close();
@@ -109,7 +109,7 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -120,7 +120,7 @@ namespace NFe.Servicos
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -147,7 +147,7 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
