@@ -52,10 +52,10 @@ namespace NFe.Impressao.NFCe
             Url = url;
         }
 
-        public TipoAmbiente TipoAmbiente { get; }
-        public Estado Estado { get; }
-        public TipoUrlDanfeNfce TipoUrlDanfeNfce { get; }
-        public string Url { get; }
+        public TipoAmbiente TipoAmbiente { get; protected set; }
+        public Estado Estado { get; protected set; }
+        public TipoUrlDanfeNfce TipoUrlDanfeNfce { get; protected set; }
+        public string Url { get; protected set; }
     }
 
     /// <summary>
