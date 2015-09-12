@@ -57,13 +57,13 @@ namespace NFe.Servicos
             ModeloDocumento = modeloDocumento;
         }
 
-        public ServicoNFe ServicoNFe { get; protected set; }
-        public VersaoServico VersaoServico { get; protected set; }
-        public TipoAmbiente TipoAmbiente { get; protected set; }
-        public TipoEmissao TipoEmissao { get; protected set; }
-        public Estado Estado { get; protected set; }
-        public ModeloDocumento ModeloDocumento { get; protected set; }
-        public string Url { get; protected set; }
+        public ServicoNFe ServicoNFe { get; private set; }
+        public VersaoServico VersaoServico { get; private set; }
+        public TipoAmbiente TipoAmbiente { get; private set; }
+        public TipoEmissao TipoEmissao { get; private set; }
+        public Estado Estado { get; private set; }
+        public ModeloDocumento ModeloDocumento { get; private set; }
+        public string Url { get; private set; }
     }
 
 
