@@ -191,12 +191,12 @@ namespace NFe.Impressao.NFCe
         public static string ObterUrlQrCode(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
-            var dhEmi = StringParaHex(proc.NFe.infNFe.ide.dhEmi);
+            var dhEmi = ObterHexDeString(proc.NFe.infNFe.ide.dhEmi);
 
             //Passo 2: Converter o valor do Digest Value da NFC-e (digVal) para HEXA;
             //Ao se efetuar a assinatura digital da NFCe emitida em contingência off-line, o campo digest value constante da XMl Signature deve obrigatoriamente ser idêntico ao encontrado quando da geração do digest value para a montagem QR Code.
             //Ver página 18 do Manual de Padrões Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2
-            var digVal = StringParaHex(proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal ? proc.protNFe.infProt.digVal : proc.NFe.Signature.SignedInfo.Reference.DigestValue);
+            var digVal = ObterHexDeString(proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal ? proc.protNFe.infProt.digVal : proc.NFe.Signature.SignedInfo.Reference.DigestValue);
 
             //Na hipótese do consumidor não se identificar, não existirá o parâmetro cDest no QR Code;
             var cDest = "";
@@ -212,28 +212,52 @@ namespace NFe.Impressao.NFCe
             var dadosParaSh1 = dadosBase + configuracaoDanfeNfce.CSC;
 
             //Passo 5: Aplicar o algoritmo SHA-1 sobre todos os parâmetros concatenados. Asaída do algoritmo SHA-1 deve ser em HEXADECIMAL.
-            var sha1ComCsc = ObterHashSha1(dadosParaSh1);
+            var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
             return ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
         }
 
-        private static string ObterHashSha1(string data)
+        /// <summary>
+        /// Obtém uma string SHA1, no formato hexadecimal da string passada no parâmeto        
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private static string ObterHexSha1DeString(string s)
         {
+            var bytes = Encoding.UTF8.GetBytes(s);
+
             var sha1 = SHA1.Create();
-            var hashData = sha1.ComputeHash(Encoding.Default.GetBytes(data));
-            var returnValue = new StringBuilder();
+            var hashBytes = sha1.ComputeHash(bytes);
 
-            foreach (var t in hashData)
-                returnValue.Append(t.ToString());
-
-            return returnValue.ToString();
+            return ObterHexDeByteArray(hashBytes);
         }
 
-        private static string StringParaHex(string asciiString)
+        /// <summary>
+        /// Obtém uma string Hexadecimal do array de bytes passado no parâmetro
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        private static string ObterHexDeByteArray(byte[] bytes)
+        {
+            var sb = new StringBuilder();
+            foreach (var b in bytes)
+            {
+                var hex = b.ToString("x2");
+                sb.Append(hex);
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Obtém uma string Hexadecimal de uma string passada no parâmetro
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private static string ObterHexDeString(string s)
         {
             var hex = "";
-            foreach (var c in asciiString)
+            foreach (var c in s)
             {
                 int tmp = c;
                 hex += string.Format("{0:x2}", Convert.ToUInt32(tmp.ToString()));
