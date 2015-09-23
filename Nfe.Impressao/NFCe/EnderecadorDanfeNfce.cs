@@ -147,10 +147,10 @@ namespace NFe.Impressao.NFCe
                 new EnderecoNfceDanfe(Estado.RR, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "https://www.sefaz.rr.gov.br/nfce/servlet/wp_consulta_nfce"),
                 new EnderecoNfceDanfe(Estado.RR, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlConsulta, "http://200.174.88.103:8080/nfce/servlet/wp_consulta_nfce"),
 
-                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlQrCode, "http://www.nfe.se.gov.br/portal/consultarNFCe.jsp"),
-                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "http://www.nfe.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/servicos/consultaDANFENFCe.htm"),
+                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlQrCode, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp"),
+                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "http://www.nfce.se.gov.br/portal"),
                 new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlQrCode, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp"),
-                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlConsulta, "http://www.hom.nfe.se.gov.br/portal/portalNoticias.jsp?jsp=barra-menu/servicos/consultaDANFENFCe.htm"),
+                new EnderecoNfceDanfe(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlConsulta, "http://www.hom.nfe.se.gov.br/portal"),
 
                 new EnderecoNfceDanfe(Estado.SP, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlQrCode, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"),
                 new EnderecoNfceDanfe(Estado.SP, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaPublica.aspx"),
