@@ -621,7 +621,7 @@
             </Grid>
         </GroupBox>
         <TabControl Name="TabSuperior" Height="308" Margin="334,10,0,0" VerticalAlignment="Top">
-            <TabItem Header="NF-e">
+            <TabItem Header="NF-e/NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
                             Margin="10,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnStatusServico_Click" />
@@ -634,7 +634,7 @@
                     <Button x:Name="BtnInutiliza" Content="Inutilizar Numeração" HorizontalAlignment="Left"
                             Margin="192,10,0,0"
                             VerticalAlignment="Top" Width="177" Click="BtnInutiliza_Click" />
-                    <Button x:Name="BtnGerarNfe2" Content="Gerar NFe 2.0" HorizontalAlignment="Left"
+                    <Button x:Name="BtnGerarNfe2" Content="Criar e Salvar XML 2.0" HorizontalAlignment="Left"
                             Margin="374,41,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe2_Click" />
                     <Button x:Name="BtnConsultarReciboLote2" Content="Consultar Recibo Lote 2.0"
                             HorizontalAlignment="Left" Margin="192,41,0,0" VerticalAlignment="Top" Width="177"
@@ -644,11 +644,11 @@
                     <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0"
                             HorizontalAlignment="Left" Margin="192,72,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote3_Click" />
-                    <Button x:Name="BtnGerarNfe3" Content="Gerar NFe 3.0" HorizontalAlignment="Left"
+                    <Button x:Name="BtnGerarNfe3" Content="Criar e Salvar XML 3.0" HorizontalAlignment="Left"
                             Margin="374,72,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe3_Click" />
                     <Button x:Name="BtnCartaCorrecao" Content="Carta de correção" HorizontalAlignment="Left"
                             Margin="10,134,0,0" VerticalAlignment="Top" Width="177" Click="BtnCartaCorrecao_Click" />
-                    <Button x:Name="BtnCancelarNFe" Content="Cancelar NFe" HorizontalAlignment="Left"
+                    <Button x:Name="BtnCancelarNFe" Content="Cancelar" HorizontalAlignment="Left"
                             Margin="192,134,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFe_Click" />
                     <Button x:Name="BtnEnviaEpec" Content="Enviar EPEC" HorizontalAlignment="Left"
                             Margin="374,103,0,0" VerticalAlignment="Top" Width="177" Click="BtnEnviaEpec_Click" />
@@ -656,9 +656,9 @@
                             Margin="374,134,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaEpec_Click" />
                     <Button x:Name="BtnImportarXml" Content="Importar XML" HorizontalAlignment="Left"
                             Margin="374,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnImportarXml_Click" />
-                    <Button x:Name="BtnValida" Content="Validar NFe" HorizontalAlignment="Left"
+                    <Button x:Name="BtnValida" Content="Validar" HorizontalAlignment="Left"
                             Margin="192,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnValida_Click" />
-                    <Button x:Name="BtnAssina" Content="Assinar NFe" HorizontalAlignment="Left"
+                    <Button x:Name="BtnAssina" Content="Assinar" HorizontalAlignment="Left"
                             Margin="10,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnAssina_Click" />
                     <Button x:Name="BtnAdicionaNfeproc" Content="Adicionar proc ao XML" HorizontalAlignment="Left"
                             Margin="374,165,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
@@ -668,16 +668,13 @@
                             Margin="192,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaCadastro_Click" />
                     <Button x:Name="BtnDownlodNfe" Content="Downlod NFe" HorizontalAlignment="Left"
                             Margin="374,196,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
+                    <Button x:Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"
+                    	Margin="10,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
+                    <Button x:Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
+                    	Margin="192,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="NFC-e">
-                <Grid Background="White">
-                    <Button x:Name="BtnCriareEnviarNfce" Content="Criar e Enviar" HorizontalAlignment="Left"
-                            Margin="10,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviarNfce_Click" />
-                    <Button x:Name="BtnNfceDanfe" Content="Imprimir DANFE" HorizontalAlignment="Left"
-                            Margin="192,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
-                </Grid>
-            </TabItem>
+
         </TabControl>
         <TabControl Name="TabInferior" Margin="334,323,0,0">
             <TabItem Header="Envio">

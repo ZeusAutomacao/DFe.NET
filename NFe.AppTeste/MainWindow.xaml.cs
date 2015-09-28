@@ -64,6 +64,7 @@ using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
 using NFe.Utils.NFe;
+using NFe = NFe.Classes.NFe;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -239,7 +240,7 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFe, _configuracoes.CfgServico.VersaoNfeRecepcao);
+                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> {_nfe});
@@ -257,7 +258,7 @@ namespace NFe.AppTeste
 
         private void BtnGerarNfe2_Click(object sender, RoutedEventArgs e)
         {
-            GeranNfe(_configuracoes.CfgServico.VersaoNfeRecepcao, ModeloDocumento.NFe);
+            GeranNfe(_configuracoes.CfgServico.VersaoNfeRecepcao, _configuracoes.CfgServico.ModeloDocumento);
         }
 
         private void GeranNfe(VersaoServico versaoServico, ModeloDocumento modelo)
@@ -328,7 +329,7 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFe,
+                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -379,7 +380,7 @@ namespace NFe.AppTeste
 
         private void BtnGerarNfe3_Click(object sender, RoutedEventArgs e)
         {
-            GeranNfe(_configuracoes.CfgServico.VersaoNFeAutorizacao, ModeloDocumento.NFe);
+            GeranNfe(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento);
         }
 
         private void BtnInutiliza_Click(object sender, RoutedEventArgs e)
@@ -524,7 +525,7 @@ namespace NFe.AppTeste
                 var numeronota = Funcoes.InpuBox(this, "Enviar EPEC", "Número da Nota:");
                 if (string.IsNullOrEmpty(numeronota)) throw new Exception("O Número da Nota deve ser informado!");
 
-                _nfe = GetNf(Convert.ToInt32(numeronota), ModeloDocumento.NFe,
+                _nfe = GetNf(Convert.ToInt32(numeronota), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -630,36 +631,6 @@ namespace NFe.AppTeste
                 Funcoes.Mensagem(string.Format("NFe número {0} assinada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção",
                     MessageBoxButton.OK);
                 ExibeNfe();
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
-        private void BtnCriareEnviarNfce_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Cria e Envia NFe
-
-                var numero = Funcoes.InpuBox(this, "Criar e Enviar NFCe", "Número da NFCe:");
-                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
-
-                var lote = Funcoes.InpuBox(this, "Criar e Enviar NFCe", "Id do Lote:");
-                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
-
-                _nfe = GetNf(Convert.ToInt32(numero), ModeloDocumento.NFCe,
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono,
-                    new List<Classes.NFe> {_nfe});
-
-                TrataRetorno(retornoEnvio);
-
-                #endregion
             }
             catch (Exception ex)
             {
@@ -1271,6 +1242,43 @@ namespace NFe.AppTeste
         {
             LogoEmitente.Source = null;
             _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
+        }
+
+        private void BtnNfceDanfeOff_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
+                    throw new Exception("O XML informado não é um NFCe!");
+
+                #endregion
+
+                #region Exibe a NFe no webbrowser (não é ncessário fazer isso em seu sistema!)
+
+                _nfe = nfe;
+                ExibeNfe();
+
+                #endregion
+
+                #region Abre a visualização do relatório para impressão
+
+                var danfe = new DanfeFrNfce(nfe, _configuracoes.ConfiguracaoDanfeNfce);
+                danfe.Visualizar();
+                //danfe.Imprimir();
+                //danfe.ExibirDesign();
+
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
         }
     }
 }

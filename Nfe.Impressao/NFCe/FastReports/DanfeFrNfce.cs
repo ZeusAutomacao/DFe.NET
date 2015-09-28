@@ -72,6 +72,16 @@ namespace NFe.Impressao.NFCe.FastReports
         }
 
         /// <summary>
+        /// Construtor da classe reponsável pela impressão do DANFE da NFCe em Fast Reports.
+        /// Use esse construtor apenas para impressão em contigência, já que neste modo ainda não é possível obter o grupo protNFe 
+        /// </summary>
+        /// <param name="nfe">Objeto do tipo NFe</param>
+        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
+        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce)
+        {
+        }
+
+        /// <summary>
         /// Abre a janela de visualização do DANFE da NFCe
         /// </summary>
         /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
