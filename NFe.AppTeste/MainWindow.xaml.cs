@@ -64,7 +64,6 @@ using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
 using NFe.Utils.NFe;
-using NFe = NFe.Classes.NFe;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
