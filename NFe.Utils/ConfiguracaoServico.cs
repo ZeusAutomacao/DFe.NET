@@ -47,12 +47,13 @@ namespace NFe.Utils
 
         private ConfiguracaoServico()
         {
+            Certificado = new ConfiguracaoCertificado();
         }
 
         /// <summary>
-        ///     Nº de série do certificado digital
+        ///     Configurações relativas ao Certificado Digital
         /// </summary>
-        public string SerialCertificado { get; set; }
+        public ConfiguracaoCertificado Certificado { get; set; }
 
         /// <summary>
         ///     Tempo máximo de espera pela resposta do webservice, em milisegundos

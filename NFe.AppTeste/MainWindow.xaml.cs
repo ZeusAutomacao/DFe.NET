@@ -92,9 +92,9 @@ namespace NFe.AppTeste
         {
             try
             {
-                var cert = new CertificadoDigital();
-                TxtCertificado.Text = cert.Serial;
-                //lblCertificadoValidade.Content = cert.Validade.ToString();
+                var cert = CertificadoDigital.ObterDoRepositorio();
+                TxtCertificado.Text = cert.SerialNumber;
+                //TxtValidade.Text = "Validade: " + cert.GetExpirationDateString();
             }
             catch (Exception ex)
             {
@@ -944,7 +944,7 @@ namespace NFe.AppTeste
             {
                 cProd = i.ToString().PadLeft(5, '0'),
                 cEAN = "7770000000012",
-                xProd = "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
+                xProd = i == 1 ? "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL" : "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
                 NCM = "73269000",
                 CFOP = 5102,
                 uCom = "UNID",
@@ -1278,6 +1278,11 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+        }
+
+        private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
+        {
+            TxtArquivoCertificado.Text = Funcoes.BuscarArquivoCertificado();
         }
     }
 }

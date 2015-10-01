@@ -30,57 +30,59 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Security.Cryptography.Xml;
-using System.Xml;
-using Signature = NFe.Classes.Assinatura.Signature;
+using System.ComponentModel;
+using NFe.Utils.Annotations;
 
-namespace NFe.Utils.Assinatura
+namespace NFe.Utils
 {
-    public static class Assinador
+    public class ConfiguracaoCertificado : INotifyPropertyChanged
     {
+        private string _serial;
+        private string _arquivo;
+
         /// <summary>
-        ///     Obtém a asinatura de um objeto serializável
+        ///     Nº de série do certificado digital
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="objeto"></param>
-        /// <param name="id"></param>
-        /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id) where T : class
+        public string Serial
         {
-            var objetoLocal = objeto;
-            if (id == null)
-                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
+            get { return _serial; }
+            set
+            {
+                if (value == _serial) return;
+                _serial = value;
+                if (!string.IsNullOrEmpty(value))
+                    Arquivo = null;
+                OnPropertyChanged(nameof(Serial));
+            }
+        }
 
-            var certificado = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
-                ? CertificadoDigital.ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial, ConfiguracaoServico.Instancia.Certificado.Senha)
-                : CertificadoDigital.ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo, ConfiguracaoServico.Instancia.Certificado.Senha);
+        /// <summary>
+        ///     Arquivo do certificado digital
+        /// </summary>
+        public string Arquivo
+        {
+            get { return _arquivo; }
+            set
+            {
+                if (value == _arquivo) return;
+                _arquivo = value;
+                if (!string.IsNullOrEmpty(value))
+                    Serial = null;
+                OnPropertyChanged(nameof(Arquivo));
+            }
+        }
 
-            var documento = new XmlDocument {PreserveWhitespace = true};
-            documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-            var docXml = new SignedXml(documento) {SigningKey = certificado.PrivateKey};
-            var reference = new Reference {Uri = "#" + id};
+        /// <summary>
+        ///     Senha do certificado digital
+        /// </summary>
+        public string Senha { get; set; }
 
-            // adicionando EnvelopedSignatureTransform a referencia
-            var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
-            reference.AddTransform(envelopedSigntature);
+        public event PropertyChangedEventHandler PropertyChanged;
 
-            var c14Transform = new XmlDsigC14NTransform();
-            reference.AddTransform(c14Transform);
-
-            docXml.AddReference(reference);
-
-            // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-            var keyInfo = new KeyInfo();
-            keyInfo.AddClause(new KeyInfoX509Data(certificado));
-
-            docXml.KeyInfo = keyInfo;
-            docXml.ComputeSignature();
-
-            //// recuperando a representacao do XML assinado
-            var xmlDigitalSignature = docXml.GetXml();
-            var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
-            return assinatura;
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

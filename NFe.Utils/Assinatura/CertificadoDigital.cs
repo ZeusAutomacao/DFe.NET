@@ -31,14 +31,21 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.IO;
+using System.Security;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 
 namespace NFe.Utils.Assinatura
 {
-    public class CertificadoDigital
+    public static class CertificadoDigital
     {
-        public CertificadoDigital()
+
+        /// <summary>
+        /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
+        /// </summary>
+        /// <returns></returns>
+        public static X509Certificate2 ObterDoRepositorio()
         {
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
@@ -53,28 +60,21 @@ namespace NFe.Utils.Assinatura
                 throw new Exception("Nenhum certificado foi selecionado!");
             }
 
-            foreach (var x509 in scollection)
-            {
-                try
-                {
-                    Serial = x509.SerialNumber;
-                    Validade = Convert.ToDateTime(x509.GetExpirationDateString());
-
-                    x509.Reset();
-                }
-                catch (CryptographicException)
-                {
-                    Console.WriteLine("Não foi possível obter as informações do certificado selecionado!");
-                }
-            }
             store.Close();
+            return scollection[0];
         }
 
-        public string Serial { get; private set; }
-        public DateTime Validade { get; private set; }
-
-        public static X509Certificate2 BuscaCertificado(string numeroSerial)
+        /// <summary>
+        /// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
+        /// </summary>
+        /// <param name="numeroSerial">Serial do certificado</param>
+        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação</param>
+        /// <returns></returns>
+        public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
         {
+            if (string.IsNullOrEmpty(numeroSerial))
+                throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
+
             X509Certificate2 certificado = null;
 
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
@@ -88,8 +88,46 @@ namespace NFe.Utils.Assinatura
             }
 
             if (certificado == null)
-                throw new Exception(String.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
+                throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
 
+            store.Close();
+            if (string.IsNullOrEmpty(senha)) return certificado;
+
+            //Se a senha for passada no parâmetro
+            var senhaSegura = new SecureString();
+            var passPhrase = senha.ToCharArray();
+            foreach (var t in passPhrase)
+            {
+                senhaSegura.AppendChar(t);
+            }
+
+            var chavePrivada = certificado.PrivateKey as RSACryptoServiceProvider;
+            if (chavePrivada == null) return certificado;
+
+            var cspParameters = new CspParameters(chavePrivada.CspKeyContainerInfo.ProviderType,
+                chavePrivada.CspKeyContainerInfo.ProviderName,
+                chavePrivada.CspKeyContainerInfo.KeyContainerName,
+                null,
+                senhaSegura);
+            var rsaCsp = new RSACryptoServiceProvider(cspParameters);
+            certificado.PrivateKey = rsaCsp;
+            return certificado;
+        }
+
+        /// <summary>
+        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
+        /// </summary>
+        /// <param name="arquivo">Arquivo do certificado digital</param>
+        /// <param name="senha">Senha do certificado digital</param>
+        /// <returns></returns>
+        public static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
+        {
+            if (!File.Exists(arquivo))
+            {
+                throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
+            }
+
+            var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
             return certificado;
         }
     }
