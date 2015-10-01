@@ -56,7 +56,6 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 
 **Telas do aplicativo de demonstração de Uso da biblioteca:**
 
-![](http://www.zeusautomacao.com.br/zeus/images/git/01.png)
 ![](http://www.zeusautomacao.com.br/zeus/images/git/02.png)
 ![](http://www.zeusautomacao.com.br/zeus/images/git/03.png)
 ![](http://www.zeusautomacao.com.br/zeus/images/git/04.png)
