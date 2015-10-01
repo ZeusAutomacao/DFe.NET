@@ -52,7 +52,7 @@ namespace NFe.Utils
                 _serial = value;
                 if (!string.IsNullOrEmpty(value))
                     Arquivo = null;
-                OnPropertyChanged(nameof(Serial));
+                OnPropertyChanged("Serial");
             }
         }
 
@@ -68,7 +68,7 @@ namespace NFe.Utils
                 _arquivo = value;
                 if (!string.IsNullOrEmpty(value))
                     Serial = null;
-                OnPropertyChanged(nameof(Arquivo));
+                OnPropertyChanged("Arquivo");
             }
         }
 
