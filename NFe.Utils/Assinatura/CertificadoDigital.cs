@@ -48,7 +48,7 @@ namespace NFe.Utils.Assinatura
         public static X509Certificate2 ObterDoRepositorio()
         {
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+            store.Open(OpenFlags.OpenExistingOnly | OpenFlags.MaxAllowed);
 
             var collection = store.Certificates;
             var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
@@ -78,7 +78,7 @@ namespace NFe.Utils.Assinatura
             X509Certificate2 certificado = null;
 
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
+            store.Open(OpenFlags.MaxAllowed);
 
 
             foreach (var item in store.Certificates)
