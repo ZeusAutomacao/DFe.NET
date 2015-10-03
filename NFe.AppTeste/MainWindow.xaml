@@ -133,7 +133,7 @@
                                         <RadioButton Content="EPEC" HorizontalAlignment="Left"
                                                      VerticalAlignment="Top" Margin="139,40,0,0"
                                                      RenderTransformOrigin="0.118,0.6"
-                                                     IsChecked="{Binding CfgServico.tpEmis, ConverterParameter={x:Static nfeclsidetipos:TipoEmissao.teDPEC}, Converter={StaticResource EnumParaBool}}" />
+                                                     IsChecked="{Binding CfgServico.tpEmis, ConverterParameter={x:Static nfeclsidetipos:TipoEmissao.teEPEC}, Converter={StaticResource EnumParaBool}}" />
                                         <RadioButton Content="FSDA" HorizontalAlignment="Left"
                                                      VerticalAlignment="Top" Margin="10,70,0,0"
                                                      IsChecked="{Binding CfgServico.tpEmis, ConverterParameter={x:Static nfeclsidetipos:TipoEmissao.teFSDA}, Converter={StaticResource EnumParaBool}}" />

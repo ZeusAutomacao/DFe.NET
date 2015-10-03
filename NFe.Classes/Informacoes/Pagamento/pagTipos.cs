@@ -50,60 +50,54 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum FormaPagamento
     {
-        [Description("Dinheiro")]
-        [XmlEnum("01")] fpDinheiro,
+        [Description("Dinheiro")] [XmlEnum("01")] fpDinheiro,
 
-        [Description("Cheque")]
-        [XmlEnum("02")] fpCheque,
+        [Description("Cheque")] [XmlEnum("02")] fpCheque,
 
-        [Description("Cartão de Crédito")]
-        [XmlEnum("03")] fpCartaoCredito,
+        [Description("Cartão de Crédito")] [XmlEnum("03")] fpCartaoCredito,
 
-        [Description("Cartão de Débito")]
-        [XmlEnum("04")] fpCartaoDebito,
+        [Description("Cartão de Débito")] [XmlEnum("04")] fpCartaoDebito,
 
-        [Description("Crédito Loja")]
-        [XmlEnum("05")] fpCreditoLoja,
+        [Description("Crédito Loja")] [XmlEnum("05")] fpCreditoLoja,
 
-        [Description("Vale Alimentação")]
-        [XmlEnum("10")] fpValeAlimentacao,
+        [Description("Vale Alimentação")] [XmlEnum("10")] fpValeAlimentacao,
 
-        [Description("Vale Refeição")]
-        [XmlEnum("11")] fpValeRefeicao,
+        [Description("Vale Refeição")] [XmlEnum("11")] fpValeRefeicao,
 
-        [Description("Vale Presente")]
-        [XmlEnum("12")] fpValePresente,
+        [Description("Vale Presente")] [XmlEnum("12")] fpValePresente,
 
-        [Description("Vale Combustível")]
-        [XmlEnum("13")] fpValeCombustivel,
+        [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel,
 
-        [Description("Outros")]
-        [XmlEnum("99")] fpOutro
+        [Description("Outros")] [XmlEnum("99")] fpOutro
     }
 
     /// <summary>
-    ///     <para>
-    ///         01=Visa/para>
-    ///         <para>02=Mastercard</para>
-    ///         <para>03=American Express</para>
-    ///         <para>04=Sorocred</para>
-    ///         <para>99=Outros</para>
+    ///     <para>01=Visa</para>
+    ///     <para>02=Mastercard</para>
+    ///     <para>03=American Express</para>
+    ///     <para>04=Sorocred</para>
+    ///     <para>99=Outros</para>
     /// </summary>
     public enum BandeiraCartao
     {
-        [Description("Visa")]
-        [XmlEnum("01")] bcVisa,
+        [Description("Visa")] [XmlEnum("01")] bcVisa,
 
-        [Description("Mastercard")]
-        [XmlEnum("02")] bcMasterCard,
+        [Description("Mastercard")] [XmlEnum("02")] bcMasterCard,
 
-        [Description("American Express")]
-        [XmlEnum("03")] bcAmericanExpress,
+        [Description("American Express")] [XmlEnum("03")] bcAmericanExpress,
 
-        [Description("Sorocred")]
-        [XmlEnum("04")] bcSorocred,
+        [Description("Sorocred")] [XmlEnum("04")] bcSorocred,
 
-        [Description("Outros")]
-        [XmlEnum("99")] bcOutros
+        [Description("Outros")] [XmlEnum("99")] bcOutros
+    }
+
+    /// <summary>
+    ///     <para>1=Pagamento integrado com o sistema de automação da empresa(Ex.: equipamento TEF, Comércio Eletrônico);</para>
+    ///     <para>Pagamento não integrado com o sistema de automação da empresa(Ex.: equipamento POS);</para>
+    /// </summary>
+    public enum TipoIntegracaoPagamento
+    {
+        TipIntegradoAutomacao = 1,
+        TipNaoIntegrado = 2
     }
 }

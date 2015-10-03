@@ -185,27 +185,29 @@ namespace NFe.Impressao.NFCe
         /// <summary>
         ///     Obtém a URL para uso no QR-Code
         /// </summary>
-        /// <param name="proc"></param>
+        /// <param name="nfe"></param>
         /// <param name="configuracaoDanfeNfce"></param>
         /// <returns></returns>
-        public static string ObterUrlQrCode(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce)
+        public static string ObterUrlQrCode(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
-            var dhEmi = ObterHexDeString(proc.NFe.infNFe.ide.dhEmi);
+            var dhEmi = ObterHexDeString(nfe.infNFe.ide.dhEmi);
 
             //Passo 2: Converter o valor do Digest Value da NFC-e (digVal) para HEXA;
             //Ao se efetuar a assinatura digital da NFCe emitida em contingência off-line, o campo digest value constante da XMl Signature deve obrigatoriamente ser idêntico ao encontrado quando da geração do digest value para a montagem QR Code.
             //Ver página 18 do Manual de Padrões Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2
-            var digVal = ObterHexDeString(proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal ? proc.protNFe.infProt.digVal : proc.NFe.Signature.SignedInfo.Reference.DigestValue);
+            if (nfe.Signature == null)
+                throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
+            var digVal = ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
 
             //Na hipótese do consumidor não se identificar, não existirá o parâmetro cDest no QR Code;
             var cDest = "";
-            if (proc.NFe.infNFe.dest != null)
-                cDest = "&cDest=" + proc.NFe.infNFe.dest.CPF + proc.NFe.infNFe.dest.CNPJ + proc.NFe.infNFe.dest.idEstrangeiro;
+            if (nfe.infNFe.dest != null)
+                cDest = "&cDest=" + nfe.infNFe.dest.CPF + nfe.infNFe.dest.CNPJ + nfe.infNFe.dest.idEstrangeiro;
 
             //Passo 3: Substituir os valores (“dhEmi” e “digVal”) nos parâmetros;
-            var dadosBase = "chNFe=" + proc.NFe.infNFe.Id.Substring(3) + "&nVersao=100&tpAmb=" + ((int) proc.NFe.infNFe.ide.tpAmb) + cDest + "&dhEmi=" + dhEmi + "&vNF=" +
-                            proc.NFe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.') + "&vICMS=" + proc.NFe.infNFe.total.ICMSTot.vICMS.ToString("0.00").Replace(',', '.') + "&digVal=" + digVal + "&cIdToken=" +
+            var dadosBase = "chNFe=" + nfe.infNFe.Id.Substring(3) + "&nVersao=100&tpAmb=" + ((int) nfe.infNFe.ide.tpAmb) + cDest + "&dhEmi=" + dhEmi + "&vNF=" +
+                            nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.') + "&vICMS=" + nfe.infNFe.total.ICMSTot.vICMS.ToString("0.00").Replace(',', '.') + "&digVal=" + digVal + "&cIdToken=" +
                             configuracaoDanfeNfce.cIdToken;
 
             //Passo 4: Adicionar, ao final dos parâmetros, o CSC (CSC do contribuinte disponibilizado pela SEFAZ do Estado onde a empresa esta localizada):
@@ -215,7 +217,7 @@ namespace NFe.Impressao.NFCe
             var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
-            return ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
+            return ObterUrl(nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
         }
 
         /// <summary>

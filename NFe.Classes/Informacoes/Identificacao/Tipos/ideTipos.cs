@@ -108,7 +108,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("1")] teNormal = 1,
         [XmlEnum("2")] teFSIA = 2,
         [XmlEnum("3")] teSCAN = 3,
-        [XmlEnum("4")] teDPEC = 4,
+        [XmlEnum("4")] teEPEC = 4,
         [XmlEnum("5")] teFSDA = 5,
         [XmlEnum("6")] teSVCAN = 6,
         [XmlEnum("7")] teSVCRS = 7,

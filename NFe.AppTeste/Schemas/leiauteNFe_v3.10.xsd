@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- PL_008  - 30/07/2013 - Nova versão nacional 3.10 (NT 2013/005), Resolução 13: FCI (NT 2013/006) -->
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by softwares@procergs.rs.gov.br (PROCERGS) -->
+<!-- PL_008g  alterações de esquema decorrentes da - NT2015.002  - 15/07/2015 -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v3.10.xsd"/>
@@ -1022,6 +1023,8 @@ Formato ”CFOP9999”.</xs:documentation>
 																		<xs:enumeration value="8"/>
 																		<xs:enumeration value="9"/>
 																		<xs:enumeration value="10"/>
+																		<xs:enumeration value="11"/>
+																		<xs:enumeration value="12"/>
 																	</xs:restriction>
 																</xs:simpleType>
 															</xs:element>
@@ -1665,6 +1668,70 @@ ambiente.</xs:documentation>
 																		</xs:sequence>
 																	</xs:complexType>
 																</xs:element>
+																<xs:element name="encerrante" minOccurs="0">
+																	<xs:annotation>
+																		<xs:documentation>Informações do grupo de "encerrante"</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="nBico">
+																				<xs:annotation>
+																					<xs:documentation>Numero de identificação do Bico utilizado no abastecimento</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:whiteSpace value="preserve"/>
+																						<xs:pattern value="[0-9]{1,3}"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="nBomba" minOccurs="0">
+																				<xs:annotation>
+																					<xs:documentation>Numero de identificação da bomba ao qual o bico está interligado</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:whiteSpace value="preserve"/>
+																						<xs:pattern value="[0-9]{1,3}"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="nTanque">
+																				<xs:annotation>
+																					<xs:documentation>Numero de identificação do tanque ao qual o bico está interligado</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:whiteSpace value="preserve"/>
+																						<xs:pattern value="[0-9]{1,3}"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="vEncIni">
+																				<xs:annotation>
+																					<xs:documentation>Valor do Encerrante no ínicio do abastecimento</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:whiteSpace value="preserve"/>
+																						<xs:pattern value="[0-9]{1,15}"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																			<xs:element name="vEncFin">
+																				<xs:annotation>
+																					<xs:documentation>Valor do Encerrante no final do abastecimento</xs:documentation>
+																				</xs:annotation>
+																				<xs:simpleType>
+																					<xs:restriction base="xs:string">
+																						<xs:whiteSpace value="preserve"/>
+																						<xs:pattern value="[0-9]{1,15}"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
 															</xs:sequence>
 														</xs:complexType>
 													</xs:element>
@@ -2120,7 +2187,9 @@ Informar o motivo da desoneração:
 8 - Venda a órgão Público;
 9 – Outros
 10- Deficiente Condutor
-11- Deficiente não condutor</xs:documentation>
+11- Deficiente não condutor
+16 - Olimpíadas Rio 2016
+							</xs:documentation>
 																						</xs:annotation>
 																						<xs:simpleType>
 																							<xs:restriction base="xs:string">
@@ -2135,6 +2204,7 @@ Informar o motivo da desoneração:
 																								<xs:enumeration value="9"/>
 																								<xs:enumeration value="10"/>
 																								<xs:enumeration value="11"/>
+																								<xs:enumeration value="16"/>
 																							</xs:restriction>
 																						</xs:simpleType>
 																					</xs:element>
@@ -4448,12 +4518,27 @@ Substituição Tributaria;</xs:documentation>
 										</xs:annotation>
 										<xs:complexType>
 											<xs:sequence>
-												<xs:element name="CNPJ" type="TCnpj">
+												<xs:element name="tpIntegra" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Tipo de Integração do processo de pagamento com o sistema de automação da empresa/ 
+																1=Pagamento integrado com o sistema de automação da empresa Ex. equipamento TEF , Comercio Eletronico
+																2=Pagamento não integrado com o sistema de automação da empresa Ex: equipamento POS
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:enumeration value="1"/>
+															<xs:enumeration value="2"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="CNPJ" type="TCnpj" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>CNPJ da credenciadora de cartão de crédito/débito</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="tBand">
+												<xs:element name="tBand" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>Bandeira da operadora de cartão de crédito/débito:01–Visa; 02–Mastercard; 03–American Express; 04–Sorocred; 99–Outros</xs:documentation>
 													</xs:annotation>
@@ -4468,7 +4553,7 @@ Substituição Tributaria;</xs:documentation>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
-												<xs:element name="cAut">
+												<xs:element name="cAut" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>Número de autorização da operação cartão de crédito/débito</xs:documentation>
 													</xs:annotation>
@@ -4825,6 +4910,28 @@ concessório</xs:documentation>
 					<xs:selector xpath="./*"/>
 					<xs:field xpath="@nItem"/>
 				</xs:unique>
+			</xs:element>
+			<xs:element name="infNFeSupl" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Informações suplementares Nota Fiscal</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="qrCode">
+							<xs:annotation>
+								<xs:documentation>Texto com o QR-Code impresso no DANFE NFC-e</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:minLength value="100"/>
+									<xs:maxLength value="600"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chNFe=[0-9]{44}&amp;nVersao=[0-9]{3}&amp;tpAmb=[1-2](&amp;cDest=([A-Za-z0-9.:+-/)(]{0}|[A-Za-z0-9.:+-/)(]{5,20})?)?&amp;dhEmi=[A-Fa-f0-9]{50}&amp;vNF=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;vICMS=(0|0\.[0-9]{2}|[1-9]{1}[0-9]{0,12}(\.[0-9]{2})?)&amp;digVal=[A-Fa-f0-9]{56}&amp;cIdToken=[0-9]{6}&amp;cHashQRCode=[A-Fa-f0-9]{40})"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
 			</xs:element>
 			<xs:element ref="ds:Signature"/>
 		</xs:sequence>
@@ -6808,7 +6915,7 @@ alterado para tamanho variavel 1-4. (NT2011/004)</xs:documentation>
 	</xs:simpleType>
 	<xs:simpleType name="TFinNFe">
 		<xs:annotation>
-			<xs:documentation>Tipo Finalidade da NF-e (!=Normal; 2=Complementar; 3=Ajuste; 4=Devolução/Retorno)</xs:documentation>
+			<xs:documentation>Tipo Finalidade da NF-e (1=Normal; 2=Complementar; 3=Ajuste; 4=Devolução/Retorno)</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>

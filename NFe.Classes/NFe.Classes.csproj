@@ -49,6 +49,8 @@
     <Compile Include="Assinatura\SignedInfo.cs" />
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
+    <Compile Include="infNFeSupl.cs" />
+    <Compile Include="Informacoes\Detalhe\Produto Específico\encerrante.cs" />
     <Compile Include="Servicos\Download\downloadNFe.cs" />
     <Compile Include="Servicos\Download\procNFe.cs" />
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />

@@ -226,7 +226,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     <para>129 (veicProd) - Detalhamento de Veículos novos</para>
         ///     <para>K01 (med) - Detalhamento de Medicamentos e de matérias-primas farmacêuticas</para>
         ///     <para>L01 (arma) - Detalhamento de Armamento</para>
-        ///     <para>162a (comb) - Informações específicas para combustíveis líquidos e lubrificantes</para>
+        ///     <para>LA01 (comb) - Informações específicas para combustíveis líquidos e lubrificantes</para>
         /// </summary>
         [XmlElement("veicProd", typeof (veicProd))]
         [XmlElement("med", typeof (med))]

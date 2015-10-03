@@ -32,62 +32,37 @@
 /********************************************************************************/
 namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
 {
-    public class comb : ProdutoEspecifico
+    public class encerrante
     {
-        private decimal? _pMixGn;
-        private decimal? _qTemp;
 
         /// <summary>
-        ///     LA02 - Código de produto da ANP
+        /// LA12 - Número de identificação do bico utilizado no abastecimento
         /// </summary>
-        public string cProdANP { get; set; }
+        public int nBico { get; set; }
 
         /// <summary>
-        ///     LA03 - Percentual de Gás Natural para o produto GLP (cProdANP=210203001)
+        /// LA13 - Número de identificação da bomba ao qual o bico está interligado
         /// </summary>
-        public decimal? pMixGN
+        public int? nBomba { get; set; }
+        public bool ShouldSerializenBomba()
         {
-            get { return _pMixGn; }
-            set { _pMixGn = Valor.Arredondar(value, 4); }
+            return nBomba.HasValue;
         }
 
         /// <summary>
-        ///     LA04 - Código de autorização / registro do CODIF
+        /// LA14 - Número de identificação do tanque ao qual o bico está interligado
         /// </summary>
-        public string CODIF { get; set; }
+        public int nTanque { get; set; }
 
         /// <summary>
-        ///     LA05 - Quantidade de combustível faturada à temperatura ambiente
+        /// LA15 - Valor do Encerrante no início do abastecimento
         /// </summary>
-        public decimal? qTemp
-        {
-            get { return _qTemp; }
-            set { _qTemp = Valor.Arredondar(value, 4); }
-        }
+        public decimal vEncIni { get; set; }
 
         /// <summary>
-        ///     LA06 - Sigla da UF de consumo
+        /// LA16 - Valor do Encerrante no final do abastecimento
         /// </summary>
-        public string UFCons { get; set; }
+        public decimal vEncFin { get; set; }
 
-        /// <summary>
-        ///     LA07 - Informações da CIDE
-        /// </summary>
-        public CIDE CIDE { get; set; }
-
-        /// <summary>
-        /// LA11 - Informações do grupo de “encerrante”
-        /// </summary>
-        public encerrante encerrante { get; set; }
-
-        public bool ShouldSerializepMixGN()
-        {
-            return pMixGN.HasValue;
-        }
-
-        public bool ShouldSerializeqTemp()
-        {
-            return qTemp.HasValue;
-        }
     }
 }

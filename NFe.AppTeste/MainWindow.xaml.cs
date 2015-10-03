@@ -58,6 +58,7 @@ using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Impressao.NFCe;
 using NFe.Impressao.NFCe.FastReports;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
@@ -270,7 +271,9 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
-                _nfe.Assina().Valida();
+                _nfe.Assina();
+                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
+                _nfe.Valida();
 
                 #endregion
 
@@ -331,6 +334,8 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono,
                     new List<Classes.NFe> {_nfe});
@@ -930,7 +935,7 @@ namespace NFe.AppTeste
             if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
                 det.imposto.IPI = new IPI()
                 {
-                    cEnq = "999",
+                    cEnq = 999,
                     TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
                 };
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };

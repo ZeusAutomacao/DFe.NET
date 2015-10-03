@@ -46,6 +46,12 @@ namespace NFe.Classes
         public infNFe infNFe { get; set; }
 
         /// <summary>
+        /// ZX01 - Informações suplementares da Nota Fiscal
+        /// </summary>
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        public infNFeSupl infNFeSupl { get; set; }
+
+        /// <summary>
         ///     XS01
         /// </summary>
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
