@@ -63,7 +63,7 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             ((PictureObject) _relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
             ((TextObject)_relatorio.FindObject("txtUrl")).Text = EnderecadorDanfeNfce.ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlConsulta);
-            ((BarcodeObject)_relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl.qrCode;
+            ((BarcodeObject)_relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl  == null ? EnderecadorDanfeNfce.ObterUrlQrCode(proc.NFe, configuracaoDanfeNfce) : proc.NFe.infNFeSupl.qrCode;
 
             //Segundo o Manual de Padrões Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2, página 9, nos casos de emissão em contigência deve ser impresso uma segunda cópia como via do estabelecimento
             _relatorio.PrintSettings.Copies = proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal ? 1 : 2;
