@@ -543,7 +543,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeRetAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeInutilizacao2?wsdl"));
-                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
 
@@ -581,7 +581,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeRetAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeInutilizacao2?wsdl"));
-                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/RecepcaoEvento?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
 
