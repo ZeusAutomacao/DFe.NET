@@ -1196,6 +1196,8 @@ namespace NFe.AppTeste
                 #region Carrega um XML com nfeProc para a variável
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
                 if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
@@ -1255,6 +1257,8 @@ namespace NFe.AppTeste
                 #region Carrega um XML com nfeProc para a variável
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
