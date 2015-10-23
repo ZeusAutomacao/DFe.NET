@@ -575,7 +575,7 @@
                                             </Border>
                                             <StackPanel Margin="5" Width="35">
                                                 <Button x:Name="BtnLogo" Content="..." VerticalAlignment="Top"
-                                                        Click="btnLogo_Click" Height="35" />
+                                                        Click="btnLogo_Click" Height="35" HorizontalAlignment="Left" Width="35" />
                                                 <Button x:Name="BtnRemoveLogo" Content="x" VerticalAlignment="Top"
                                                         Height="35" Click="btnRemoveLogo_Click" />
                                             </StackPanel>
@@ -694,6 +694,8 @@
                             Margin="10,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
                     <Button x:Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
                             Margin="192,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" />
+                    <Button x:Name="BtnNfeDanfe" Content="DANFE NFe" HorizontalAlignment="Left"
+                    	Margin="374,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfeDanfe_Click"/>
                 </Grid>
             </TabItem>
 
