@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal pRedBC
         {
-            get { return _pRedBc; }
+            get { return Valor.Arredondar(_pRedBc, 4); }
             set { _pRedBc = Valor.Arredondar(value, 4); }
         }
 
@@ -71,7 +71,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vBC
         {
-            get { return _vBc; }
+            get { return Valor.Arredondar(_vBc, 2); }
             set { _vBc = Valor.Arredondar(value, 2); }
         }
 
@@ -80,7 +80,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal pICMS
         {
-            get { return _pIcms; }
+            get { return Valor.Arredondar(_pIcms, 4); }
             set { _pIcms = Valor.Arredondar(value, 4); }
         }
 
@@ -89,7 +89,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vICMS
         {
-            get { return _vIcms; }
+            get { return Valor.Arredondar(_vIcms, 2); }
             set { _vIcms = Valor.Arredondar(value, 2); }
         }
 
@@ -98,7 +98,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSDeson
         {
-            get { return _vIcmsDeson; }
+            get { return Valor.Arredondar(_vIcmsDeson, 2); }
             set { _vIcmsDeson = value.HasValue ? decimal.Round(value.Value, 2) : (decimal?) null; }
         }
 
