@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vBC
         {
-            get { return _vBc; }
+            get { return Valor.Arredondar(_vBc, 2); }
             set { _vBc = Valor.Arredondar(value, 2); }
         }
 
@@ -61,7 +61,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? pIPI
         {
-            get { return _pIpi; }
+            get { return Valor.Arredondar(_pIpi, 4); }
             set { _pIpi = Valor.Arredondar(value, 4); }
         }
 
@@ -70,7 +70,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? qUnid
         {
-            get { return _qUnid; }
+            get { return Valor.Arredondar(_qUnid, 4); }
             set { _qUnid = Valor.Arredondar(value, 4); }
         }
 
@@ -79,7 +79,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vUnid
         {
-            get { return _vUnid; }
+            get { return Valor.Arredondar(_vUnid, 4); }
             set { _vUnid = Valor.Arredondar(value, 4); }
         }
 
@@ -88,7 +88,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vIPI
         {
-            get { return _vIpi; }
+            get { return Valor.Arredondar(_vIpi, 2); }
             set { _vIpi = Valor.Arredondar(value, 2); }
         }
 
