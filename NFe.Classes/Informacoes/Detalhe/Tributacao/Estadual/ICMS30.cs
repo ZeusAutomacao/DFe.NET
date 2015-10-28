@@ -108,7 +108,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSDeson
         {
-            get { return _vIcmsDeson ?? Valor.Arredondar(_vIcmsDeson, 2) : (decimal?) null; }
+            get { return _vIcmsDeson ?? Valor.Arredondar(_vIcmsDeson, 2); }
             set { _vIcmsDeson = value.HasValue ? decimal.Round(value.Value, 2) : (decimal?) null; }
         }
 
