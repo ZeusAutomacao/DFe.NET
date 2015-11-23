@@ -562,6 +562,26 @@
                     </TabItem>
                     <TabItem Header="DANFE" HorizontalAlignment="Left">
                         <Grid Background="White">
+<<<<<<< HEAD
+                            <GroupBox Header="LogoMarca" HorizontalAlignment="Left" VerticalAlignment="Top"
+                                      Height="414" Width="308" Margin="0,10,0,0">
+                                <StackPanel Margin="0,0,0,12">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <Label Content="Informe a logomarca a ser usada no DANFE"
+                                               HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                        <WrapPanel Orientation="Horizontal">
+                                            <Border BorderThickness="1" BorderBrush="Black" Height="100" Width="250"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Image x:Name="LogoEmitente" />
+                                            </Border>
+                                            <StackPanel Margin="5" Width="35">
+                                                <Button x:Name="BtnLogo" Content="..." VerticalAlignment="Top"
+                                                        Click="btnLogo_Click" Height="35" HorizontalAlignment="Left" Width="35" />
+                                                <Button x:Name="BtnRemoveLogo" Content="x" VerticalAlignment="Top"
+                                                        Height="35" Click="btnRemoveLogo_Click" />
+                                            </StackPanel>
+                                        </WrapPanel>
+=======
 
                             <StackPanel>
                                 <GroupBox Header="LogoMarca" HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -584,6 +604,7 @@
                                                 </StackPanel>
                                             </WrapPanel>
                                         </StackPanel>
+>>>>>>> refs/remotes/origin/master
                                     </StackPanel>
                                 </GroupBox>
 
@@ -710,6 +731,8 @@
                             Margin="10,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
                     <Button x:Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
                             Margin="192,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" />
+                    <Button x:Name="BtnNfeDanfe" Content="DANFE NFe" HorizontalAlignment="Left"
+                    	Margin="374,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfeDanfe_Click"/>
                 </Grid>
             </TabItem>
 

@@ -121,6 +121,9 @@
   <data name="NFCe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\FastReports\NFCe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="NFe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\NFe\FastReports\NFe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="OpenSans_CondBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

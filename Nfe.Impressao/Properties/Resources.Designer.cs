@@ -73,6 +73,16 @@ namespace NFe.Impressao.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Byte[].
         /// </summary>
+        internal static byte[] NFe {
+            get {
+                object obj = ResourceManager.GetObject("NFe", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Byte[].
+        /// </summary>
         internal static byte[] OpenSans_CondBold {
             get {
                 object obj = ResourceManager.GetObject("OpenSans_CondBold", resourceCulture);
