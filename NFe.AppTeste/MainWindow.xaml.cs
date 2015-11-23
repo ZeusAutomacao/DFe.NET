@@ -59,7 +59,6 @@ using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Impressao.NFCe;
 using NFe.Impressao.NFCe.FastReports;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
@@ -775,7 +774,7 @@ namespace NFe.AppTeste
             if (infNFe.ide.mod == ModeloDocumento.NFCe)
                 infNFe.pag = GetPagamento(); //NFCe Somente               
 
-            for (var i = 0; i < 1; i++)
+            for (var i = 0; i < 5; i++)
             {
                 infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT, modelo));
             }
