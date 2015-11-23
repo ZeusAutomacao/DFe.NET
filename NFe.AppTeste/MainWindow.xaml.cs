@@ -54,6 +54,7 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
@@ -272,7 +273,8 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
+                //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
                 _nfe.Valida();
 
                 #endregion
@@ -335,7 +337,8 @@ namespace NFe.AppTeste
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
+                //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono,
                     new List<Classes.NFe> {_nfe});
@@ -777,6 +780,9 @@ namespace NFe.AppTeste
                 infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT, modelo));
             }
             infNFe.total = GetTotal(versao, infNFe.det);
+
+            if (infNFe.ide.mod == ModeloDocumento.NFCe)
+                infNFe.infAdic = new infAdic() {infCpl = "Troco: 10,00"}; //Susgestão para impressão do troco em NFCe
 
             return infNFe;
         }
