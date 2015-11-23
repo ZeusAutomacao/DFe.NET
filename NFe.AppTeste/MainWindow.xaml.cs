@@ -59,13 +59,7 @@ using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.Tipos;
-<<<<<<< HEAD
-using NFe.Impressao;
-using NFe.Impressao.NFCe;
-=======
->>>>>>> refs/remotes/origin/master
 using NFe.Impressao.NFCe.FastReports;
-using NFe.Impressao.NFe.FastReports;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
@@ -167,8 +161,8 @@ namespace NFe.AppTeste
 
                 #region Carrega a logo no controle logoEmitente
 
-                if (_configuracoes.LogomarcaEmitente != null && _configuracoes.LogomarcaEmitente.Length > 0)
-                    using (var stream = new MemoryStream(_configuracoes.LogomarcaEmitente))
+                if (_configuracoes.ConfiguracaoDanfeNfce.Logomarca != null && _configuracoes.ConfiguracaoDanfeNfce.Logomarca.Length > 0)
+                    using (var stream = new MemoryStream(_configuracoes.ConfiguracaoDanfeNfce.Logomarca))
                     {
                         LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     }
@@ -1202,11 +1196,6 @@ namespace NFe.AppTeste
 
         private void BtnNfceDanfe_Click(object sender, RoutedEventArgs e)
         {
-            ImprimirDanfeNormal(ModeloDocumento.NFCe);
-        }
-
-        private void ImprimirDanfeNormal(ModeloDocumento modelo)
-        {
             try
             {
                 #region Carrega um XML com nfeProc para a variável
@@ -1215,8 +1204,8 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(arquivoXml))
                     return;
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
-                if (proc.NFe.infNFe.ide.mod != modelo)
-                    throw new Exception(string.Format("O XML informado não é uma {0}!", modelo));
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
+                    throw new Exception("O XML informado não é um NFCe!");
 
                 #endregion
 
@@ -1229,22 +1218,10 @@ namespace NFe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                IDanfe danfe;
-                if (modelo == ModeloDocumento.NFCe)
-                {
-                    _configuracoes.ConfiguracaoDanfeNfce.Logomarca = _configuracoes.LogomarcaEmitente;
-                    danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce);
-                }
-
-                else
-                {
-                    _configuracoes.ConfiguracaoDanfeNfe.Logomarca = _configuracoes.LogomarcaEmitente;
-                    danfe = new DanfeFrNfe(proc, _configuracoes.ConfiguracaoDanfeNfe);
-                }
-
-                //danfe.Visualizar();
+                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce);
+                danfe.Visualizar();
                 //danfe.Imprimir();
-                danfe.ExibirDesign();
+                //danfe.ExibirDesign();
 
                 #endregion
 
@@ -1256,7 +1233,6 @@ namespace NFe.AppTeste
             }
         }
 
-
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
             var arquivo = Funcoes.BuscarImagem();
@@ -1264,19 +1240,19 @@ namespace NFe.AppTeste
             var imagem = Image.FromFile(arquivo);
             LogoEmitente.Source = new BitmapImage(new Uri(arquivo));
 
-            _configuracoes.LogomarcaEmitente = new byte[0];
+            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = new byte[0];
             using (var stream = new MemoryStream())
             {
                 imagem.Save(stream, ImageFormat.Png);
                 stream.Close();
-                _configuracoes.LogomarcaEmitente = stream.ToArray();
+                _configuracoes.ConfiguracaoDanfeNfce.Logomarca = stream.ToArray();
             }
         }
 
         private void btnRemoveLogo_Click(object sender, RoutedEventArgs e)
         {
             LogoEmitente.Source = null;
-            _configuracoes.LogomarcaEmitente = null;
+            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
         }
 
         private void BtnNfceDanfeOff_Click(object sender, RoutedEventArgs e)
@@ -1321,11 +1297,6 @@ namespace NFe.AppTeste
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
             TxtArquivoCertificado.Text = Funcoes.BuscarArquivoCertificado();
-        }
-
-        private void BtnNfeDanfe_Click(object sender, RoutedEventArgs e)
-        {
-            ImprimirDanfeNormal(ModeloDocumento.NFe);
         }
     }
 }

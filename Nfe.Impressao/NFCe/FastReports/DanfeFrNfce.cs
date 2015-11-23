@@ -42,7 +42,7 @@ namespace NFe.Impressao.NFCe.FastReports
     /// <summary>
     /// Classe reponsável pela impressão do DANFE da NFCe em Fast Reports
     /// </summary>
-    public class DanfeFrNfce : IDanfe
+    public class DanfeFrNfce
     {
         private readonly Report _relatorio;
 
@@ -61,12 +61,8 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
             _relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             _relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
-<<<<<<< HEAD
-            ((PictureObject) _relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterImagemDeLogoMarca();
-=======
             _relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
             ((PictureObject) _relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
->>>>>>> refs/remotes/origin/master
             ((TextObject)_relatorio.FindObject("txtUrl")).Text = EnderecadorDanfeNfce.ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlConsulta);
             ((BarcodeObject)_relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl  == null ? EnderecadorDanfeNfce.ObterUrlQrCode(proc.NFe, configuracaoDanfeNfce) : proc.NFe.infNFeSupl.qrCode;
 
