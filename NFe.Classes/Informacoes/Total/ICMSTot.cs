@@ -50,6 +50,9 @@ namespace NFe.Classes.Informacoes.Total
         private decimal _vOutro;
         private decimal _vNf;
         private decimal _vTotTrib;
+        private decimal? _vFcpufDest;
+        private decimal? _vIcmsufDest;
+        private decimal? _vIcmsufRemet;
 
         /// <summary>
         ///     W03 - Base de Cálculo do ICMS
@@ -77,6 +80,53 @@ namespace NFe.Classes.Informacoes.Total
             get { return _vIcmsDeson; }
             set { _vIcmsDeson = Valor.Arredondar(value, 2); }
         } //Nulable por conta da v2.00
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue;
+        }
+
+        /// <summary>
+        /// W04c - Valor total do ICMS relativo Fundo de Combate à Pobreza(FCP) da UF de destino
+        /// </summary>
+        public decimal? vFCPUFDest
+        {
+            get { return _vFcpufDest; }
+            set { _vFcpufDest = Valor.Arredondar(value, 2); }
+        }
+
+        public bool ShouldSerializevFCPUFDest()
+        {
+            return vFCPUFDest.HasValue;
+        }
+
+        /// <summary>
+        /// W04e - Valor total do ICMS Interestadual para a UF de destino
+        /// </summary>
+        public decimal? vICMSUFDest
+        {
+            get { return _vIcmsufDest; }
+            set { _vIcmsufDest = Valor.Arredondar(value, 2); }
+        }
+
+        public bool ShouldSerializevICMSUFDest()
+        {
+            return vICMSUFDest.HasValue;
+        }
+
+        /// <summary>
+        /// W04g - Valor total do ICMS Interestadual para a UF do remetente
+        /// </summary>
+        public decimal? vICMSUFRemet
+        {
+            get { return _vIcmsufRemet; }
+            set { _vIcmsufRemet = Valor.Arredondar(value, 2); }
+        }
+
+        public bool ShouldSerializevICMSUFRemet()
+        {
+            return vICMSUFRemet.HasValue;
+        }
 
         /// <summary>
         ///     W05 - Base de Cálculo do ICMS ST
@@ -195,9 +245,5 @@ namespace NFe.Classes.Informacoes.Total
             set { _vTotTrib = Valor.Arredondar(value, 2); }
         }
 
-        public bool ShouldSerializevICMSDeson()
-        {
-            return vICMSDeson.HasValue;
-        }
     }
 }

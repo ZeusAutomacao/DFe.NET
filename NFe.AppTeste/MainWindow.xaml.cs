@@ -928,6 +928,17 @@ namespace NFe.AppTeste
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
+                    //ICMSUFDest = new ICMSUFDest()
+                    //{
+                    //    pFCPUFDest = 0,
+                    //    pICMSInter = 12,
+                    //    pICMSInterPart = 0,
+                    //    pICMSUFDest = 0,
+                    //    vBCUFDest = 0,
+                    //    vFCPUFDest = 0,
+                    //    vICMSUFDest = 0,
+                    //    vICMSUFRemet = 0
+                    //},
                     COFINS =
                         new COFINS
                         {
@@ -955,7 +966,7 @@ namespace NFe.AppTeste
                 cProd = i.ToString().PadLeft(5, '0'),
                 cEAN = "7770000000012",
                 xProd = i == 1 ? "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL" : "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
-                NCM = "73269000",
+                NCM = "84159090",
                 CFOP = 5102,
                 uCom = "UNID",
                 qCom = 1,
@@ -967,6 +978,7 @@ namespace NFe.AppTeste
                 qTrib = 1,
                 vUnTrib = 1,
                 indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
+                //CEST = ?
 
                 //ProdutoEspecifico = new arma
                 //{
