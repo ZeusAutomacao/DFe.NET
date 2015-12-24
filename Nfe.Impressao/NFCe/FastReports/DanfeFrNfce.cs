@@ -34,6 +34,7 @@
 using System.IO;
 using FastReport;
 using FastReport.Barcode;
+using FastReport.Export.Pdf;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
@@ -111,6 +112,12 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.PrintSettings.ShowDialog = exibirDialogo;
             _relatorio.PrintSettings.Printer = impressora;
             _relatorio.Print();
+        }
+
+        public void ExportarPdf(string arquivo)
+        {
+            _relatorio.Prepare();
+            _relatorio.Export(new PDFExport(), arquivo);
         }
 
     }

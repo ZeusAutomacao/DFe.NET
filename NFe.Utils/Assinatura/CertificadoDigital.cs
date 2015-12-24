@@ -68,7 +68,7 @@ namespace NFe.Utils.Assinatura
         /// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
         /// </summary>
         /// <param name="numeroSerial">Serial do certificado</param>
-        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação</param>
+        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
         /// <returns></returns>
         public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
         {

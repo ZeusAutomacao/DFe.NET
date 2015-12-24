@@ -1234,6 +1234,7 @@ namespace NFe.AppTeste
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"c:\teste.pdf");
 
                 #endregion
 
