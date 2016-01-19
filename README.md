@@ -1,9 +1,10 @@
 Zeus.Net.NFe.NFCe
 =================
 
-Biblioteca para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx
+Biblioteca gratuita para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx
 
-A biblioteca foi desenvolvida com o Visual Studio Community 2013 e compatível com o Visual Studio Community 2015.
+A biblioteca foi desenvolvida com o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2015 Update 1.
+Está licenciada sobre a LGPL.
 
 **Instruções para compilar a solução**
 - No visual studio, abra o arquivo "Zeus NFe.sln", defina o "NFe.AppTeste" como projeto de inicialização, compile e execute.
@@ -59,14 +60,14 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 
 **Telas do aplicativo de demonstração de Uso da biblioteca:**
 
-![](http://www.zeusautomacao.com.br/zeus/images/git/01.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/02.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/03.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/04.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/05.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/06.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/08.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/09.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/10.png)
-![](http://www.zeusautomacao.com.br/zeus/images/git/11.jpg)
+![](http://www.zeusautomacao.com.br/imagens/git/01.png)
+![](http://www.zeusautomacao.com.br/imagens/git/02.png)
+![](http://www.zeusautomacao.com.br/imagens/git/03.png)
+![](http://www.zeusautomacao.com.br/imagens/git/04.png)
+![](http://www.zeusautomacao.com.br/imagens/git/05.png)
+![](http://www.zeusautomacao.com.br/imagens/git/06.png)
+![](http://www.zeusautomacao.com.br/imagens/git/08.png)
+![](http://www.zeusautomacao.com.br/imagens/git/09.png)
+![](http://www.zeusautomacao.com.br/imagens/git/10.png)
+![](http://www.zeusautomacao.com.br/imagens/git/11.jpg)
 
