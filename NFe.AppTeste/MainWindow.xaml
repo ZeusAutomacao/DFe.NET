@@ -65,7 +65,7 @@
     </Window.Resources>
     <Grid>
         <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="329">
-            <Grid HorizontalAlignment="Left" Margin="0,10,0,-12" Width="314" Height="607" VerticalAlignment="Top">
+            <StackPanel HorizontalAlignment="Left" Margin="0,10,0,-12" Width="314" Height="607" VerticalAlignment="Top">
                 <TabControl Height="553" VerticalAlignment="Top">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
@@ -654,9 +654,13 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <Button x:Name="BtnSalvar" Content="Salvar Configurações" Width="150" HorizontalAlignment="Left"
-                        Height="27" Click="btnSalvar_Click" Margin="75,558,0,22" />
-            </Grid>
+                <DockPanel Dock="Bottom" Height="45">
+                    <Button x:Name="BtnSalvar" Content="Salvar Configurações para arquivo" Width="203" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Height="27" Click="btnSalvar_Click"/>
+                </DockPanel>
+
+
+            </StackPanel>
         </GroupBox>
         <TabControl Name="TabSuperior" Height="308" Margin="334,10,0,0" VerticalAlignment="Top">
             <TabItem Header="NF-e/NFC-e">

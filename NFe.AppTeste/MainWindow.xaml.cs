@@ -137,7 +137,7 @@ namespace NFe.AppTeste
         {
             try
             {
-                _configuracoes.Salvar(_path + ArquivoConfiguracao);
+                _configuracoes.SalvarParaAqruivo(_path + ArquivoConfiguracao);
             }
             catch (Exception ex)
             {
