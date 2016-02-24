@@ -114,6 +114,10 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.Print();
         }
 
+        /// <summary>
+        /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
         public void ExportarPdf(string arquivo)
         {
             _relatorio.Prepare();
