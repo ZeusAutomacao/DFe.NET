@@ -46,6 +46,7 @@ namespace NFe.Impressao.NFCe
             Logomarca = logomarca;
             this.cIdToken = cIdToken;
             CSC = csc;
+            ImprimeDescontoItem = imprimeDescontoItem;
         }
 
         /// <summary>
