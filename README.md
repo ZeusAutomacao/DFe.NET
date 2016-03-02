@@ -40,7 +40,7 @@ danfe.Visualizar();
 **TODO:**
 - [x] Implementar consumo do serviço NfeDownloadNF;
 - [ ] Implementar envio síncrono na versão 3.10;
-- [ ] Implementar envio de nfe compactada para a versão 3.10;
+- [x] Implementar envio de nfe compactada para a versão 3.10;
 - [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
 - [ ] Implementar impressão do DANFE de NFCe A4;
 - [ ] Implementar impressão do DANFE de NFe;
