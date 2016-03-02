@@ -41,7 +41,7 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.Autorizacao
 {
     [WebServiceBinding(Name = "NfeAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")]
-    public class NfeAutorizacao3 : SoapHttpClientProtocol, INfeServico
+    public class NfeAutorizacao3 : SoapHttpClientProtocol, INfeServicoAutorizacao
     {
         public NfeAutorizacao3(string url, X509Certificate certificado, int timeOut)
         {
@@ -69,13 +69,11 @@ namespace NFe.Wsdl.Autorizacao
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3/nfeAutorizacaoLoteZip", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         [WebMethod(MessageName = "nfeAutorizacaoLoteZip")]
         [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")]
-        public XmlNode ExecuteZip([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")] XmlNode nfeDadosMsgZip)
+        public XmlNode ExecuteZip([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")] string nfeDadosMsgZip)
         {
             var results = Invoke("nfeAutorizacaoLoteZip", new object[] {nfeDadosMsgZip});
             return ((XmlNode)(results[0]));
         }
-
-
     }
 }
     

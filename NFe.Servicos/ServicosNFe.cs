@@ -101,6 +101,17 @@ namespace NFe.Servicos
             stw.Close();
         }
 
+        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico, TipoRecepcaoEvento tipoRecepcaoEvento)
+        {
+            var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
+            if (servico != ServicoNFe.NFeAutorizacao)
+                throw new Exception(
+                    $"O serviço {servico} não pode ser criado no método {MethodBase.GetCurrentMethod().Name}!");
+            if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
+                return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
+            return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
+        }
+
         private INfeServico CriarServico(ServicoNFe servico, TipoRecepcaoEvento tipoRecepcaoEvento)
         {
             var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
@@ -135,10 +146,8 @@ namespace NFe.Servicos
                     return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
                 
                 case ServicoNFe.NFeAutorizacao:
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
-                        return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
-                    return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
-                
+                    throw new Exception($"O serviço {servico} não pode ser criado no método {MethodBase.GetCurrentMethod().Name}!");
+
                 case ServicoNFe.NFeRetAutorizacao:
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                         return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -727,18 +736,19 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia uma ou mais NFe
         /// </summary>
-        /// <param name="idLote"></param>
-        /// <param name="indSinc"></param>
-        /// <param name="nFes"></param>
+        /// <param name="idLote">ID do Lote</param>
+        /// <param name="indSinc">Indicador de Sincronização</param>
+        /// <param name="nFes">Lista de NFes a serem enviadas</param>
+        /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes)
+        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem = false)
         {
             var versaoServico = Auxiliar.VersaoServicoParaString(ServicoNFe.NFeAutorizacao,
                 _cFgServico.VersaoNFeAutorizacao);
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NFeAutorizacao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, TipoRecepcaoEvento.Nenhum);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -765,7 +775,16 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
-            var retorno = ws.Execute(dadosEnvio);
+            XmlNode retorno;
+
+            if (compactarMensagem)
+            {
+                var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                retorno = ws.ExecuteZip(xmlCompactado);
+            }
+            else
+                retorno = ws.Execute(dadosEnvio);
+
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
 
