@@ -94,6 +94,11 @@ namespace NFe.Impressao.NFCe
                 new EnderecoNfceDanfe(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"),
                 new EnderecoNfceDanfe(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
 
+                new EnderecoNfceDanfe(Estado.GO, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/jsp/ConsultaDANFENFCe.jsf"),
+                new EnderecoNfceDanfe(Estado.GO, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "http://nfe.sefaz.go.gov.br/nfeweb/jsp/ConsultaDANFENFCe.jsf"),
+                new EnderecoNfceDanfe(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlQrCode, "http://homolog.sefaz.go.gov.br/nfeweb/jsp/ConsultaDANFENFCe.jsf​​"),
+                new EnderecoNfceDanfe(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlConsulta, "http://homolog.sefaz.go.gov.br/nfeweb/jsp/ConsultaDANFENFCe.jsf​​"),
+
                 new EnderecoNfceDanfe(Estado.MA, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlQrCode, "http://www.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
                 new EnderecoNfceDanfe(Estado.MA, TipoAmbiente.taProducao, TipoUrlDanfeNfce.UrlConsulta, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do"),
                 new EnderecoNfceDanfe(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlDanfeNfce.UrlQrCode, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
