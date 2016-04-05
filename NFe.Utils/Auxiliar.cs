@@ -116,10 +116,5 @@ namespace NFe.Utils
             }
             return null;
         }
-
-        public static object VersaoServicoParaString(ServicoNFe nfceAdministracaoCSC, object versaoNfceAministracaoCSC)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

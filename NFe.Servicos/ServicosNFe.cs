@@ -922,7 +922,7 @@ namespace NFe.Servicos
             ws.nfeCabecMsg = new nfeCabecMsg
             {
                 cUF = _cFgServico.cUF,
-                versaoDados = /*versaoServico*/ "1.00"
+                versaoDados = versaoServico
             };
 
             #endregion
@@ -931,7 +931,7 @@ namespace NFe.Servicos
 
             var admCscNFCe = new admCscNFCe
             {
-                versao = /*versaoServico*/ "1.00",
+                versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
                 indOp = identificadorOperacaoCsc,
                 raizCNPJ = cnpj.Remove(8)

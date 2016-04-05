@@ -31,16 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Services.Protocols;
-using System.Web.Services;
 using System.Security.Cryptography.X509Certificates;
-using System.Xml.Serialization;
-using System.Xml;
+using System.Web.Services;
 using System.Web.Services.Description;
+using System.Web.Services.Protocols;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace NFe.Wsdl.AdmCsc
 {

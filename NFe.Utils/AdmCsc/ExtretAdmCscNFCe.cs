@@ -31,10 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NFe.Classes.Servicos.AdmCsc;
 
 namespace NFe.Utils.AdmCsc
@@ -44,7 +40,7 @@ namespace NFe.Utils.AdmCsc
         /// <summary>
         ///     Carrega um objeto do tipo retAdmCscNFCe a partir de uma string no formato XML
         /// </summary>
-        /// <param name="retDownloadNFe"></param>
+        /// <param name="retAdmCscNFCe"></param>
         /// <param name="xmlString"></param>
         /// <returns>Retorna um objeto retAdmCscNFCe com as informações da string XML</returns>
         public static retAdmCscNFCe CarregarDeXmlString(this retAdmCscNFCe retAdmCscNFCe, string xmlString)
