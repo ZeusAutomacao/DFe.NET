@@ -141,6 +141,11 @@ namespace NFe.Utils
         public VersaoServico VersaoNfeDownloadNF { get; set; }
 
         /// <summary>
+        ///     Versão do serviço admCscNFCe
+        /// </summary>
+        public VersaoServico VersaoNfceAministracaoCSC { get; set; }
+
+        /// <summary>
         ///     Diretório onde estão aramazenados os schemas para validação
         /// </summary>
         public string DiretorioSchemas

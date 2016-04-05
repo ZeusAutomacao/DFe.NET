@@ -30,96 +30,54 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using NFe.Classes.Informacoes.Emitente;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils
+namespace NFe.Classes.Servicos.AdmCsc
 {
-    public static class Auxiliar
+    /// <summary>
+    /// AR01 - Estrutura com os dados de retorno para administrar o CSC
+    /// </summary>
+    [Serializable()]
+    [XmlType(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot("retAdmCscNFCe",Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class retAdmCscNFCe : IRetornoServico
     {
-        public static string VersaoServicoParaString(ServicoNFe servicoNFe, VersaoServico? versaoServico)
-        {
-            switch (versaoServico)
-            {
-                case VersaoServico.ve100:
-                    return "1.00";
-                case VersaoServico.ve200:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.NfeConsultaProtocolo:
-                            return "2.01";
-                    }
-                    return "2.00";
-                case VersaoServico.ve310:
-                    return "3.10";
-            }
-            return "";
-        }
+        /// <summary>
+        /// AR02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute]
+        public string versao { get; set; }
 
-        public static string TpAmbParaString(TipoAmbiente? tpAmb)
-        {
-            switch (tpAmb)
-            {
-                case TipoAmbiente.taHomologacao:
-                    return "Homologação";
-                case TipoAmbiente.taProducao:
-                    return "Produção";
-            }
-            return "";
-        }
+        /// <summary>
+        /// AR03 - Identificação do Ambiente: 1=Produção/2=Homologação 
+        /// </summary>
+        public TipoAmbiente tpAmb { get; set; }
 
-        public static string VersaoServicoParaString(VersaoServico versao)
-        {
-            switch (versao)
-            {
-                case VersaoServico.ve100:
-                    return "1.00";
-                case VersaoServico.ve200:
-                    return "2.00";
-                case VersaoServico.ve310:
-                    return "3.10";
-            }
-            return null;
-        }
+        /// <summary>
+        /// AR04 - Identificador do tipo de operação: 1 - Consulta CSC Ativos / 2 - Solicita novo CSC / 3 - Revoga CSC Ativo
+        /// </summary>
+        public IdentificadorOperacaoCsc indOp { get; set; }
 
-        public static string TipoEmissaoParaString(TipoEmissao tipoEmissao)
-        {
-            var s = Enum.GetName(typeof (TipoEmissao), tipoEmissao);
-            return s != null ? s.Substring(2) : "";
-        }
+        /// <summary>
+        /// AR05 - Código do resultado do processamento da solicitação
+        /// </summary>
+        public int cStat { get; set; }
 
-        public static string CrtParaString(CRT crt)
-        {
-            switch (crt)
-            {
-                case CRT.SimplesNacional:
-                    return "Simples Nacional";
-                case CRT.SimplesNacionalExcessoSublimite:
-                    return "Simples Nacional - subimite excedido";
-                case CRT.RegimeNormal:
-                    return "Normal";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(crt));
-            }
-        }
+        /// <summary>
+        /// AR06 - Descrição literal do resultado do processamento da solicitação
+        /// </summary>
+        public string xMotivo { get; set; }
 
-        public static string ModeloDocumentoParaString(ModeloDocumento modelo)
-        {
-            switch (modelo)
-            {
-                case ModeloDocumento.NFe:
-                    return "NF-e";
-                case ModeloDocumento.NFCe:
-                    return "NFC-e";
-            }
-            return null;
-        }
-
-        public static object VersaoServicoParaString(ServicoNFe nfceAdministracaoCSC, object versaoNfceAministracaoCSC)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// AR07 - Tag de grupo para retorno dos dados de até dois CSC
+        /// </summary>
+        [XmlElement("dadosCsc", Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        public List<dadosCsc> dadosCsc { get; set; }
     }
 }
