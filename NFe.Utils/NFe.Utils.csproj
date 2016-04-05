@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdmCsc\ExtAdmCscNFCe.cs" />
+    <Compile Include="AdmCsc\ExtretAdmCscNFCe.cs" />
     <Compile Include="Assinatura\Assinador.cs" />
     <Compile Include="Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="Auxiliar.cs" />

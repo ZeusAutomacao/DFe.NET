@@ -96,7 +96,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço destinado ao atendimento de solicitações de download de Notas Fiscais Eletrônicas por seus destinatários
         /// </summary>
-        NfeDownloadNF
+        NfeDownloadNF,
+
+        /// <summary>
+        ///     Serviço destinado a administração do CSC.
+        /// </summary>
+        NfceAdministracaoCSC
     }
 
     /// <summary>

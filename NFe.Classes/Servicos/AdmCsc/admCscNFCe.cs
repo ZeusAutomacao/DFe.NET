@@ -30,96 +30,47 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using NFe.Classes.Informacoes.Emitente;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils
+namespace NFe.Classes.Servicos.AdmCsc
 {
-    public static class Auxiliar
+    /// <summary>
+    /// AP01 - Estrutura com os dados para administrar o CSC
+    /// </summary>
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class admCscNFCe
     {
-        public static string VersaoServicoParaString(ServicoNFe servicoNFe, VersaoServico? versaoServico)
-        {
-            switch (versaoServico)
-            {
-                case VersaoServico.ve100:
-                    return "1.00";
-                case VersaoServico.ve200:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.NfeConsultaProtocolo:
-                            return "2.01";
-                    }
-                    return "2.00";
-                case VersaoServico.ve310:
-                    return "3.10";
-            }
-            return "";
-        }
+        /// <summary>
+        ///     AP02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute]
+        public string versao { get; set; }
 
-        public static string TpAmbParaString(TipoAmbiente? tpAmb)
-        {
-            switch (tpAmb)
-            {
-                case TipoAmbiente.taHomologacao:
-                    return "Homologação";
-                case TipoAmbiente.taProducao:
-                    return "Produção";
-            }
-            return "";
-        }
+        /// <summary>
+        /// AP03 - Identificação do Ambiente: 1=Produção/2=Homologação 
+        /// </summary>
+        public TipoAmbiente tpAmb { get; set; }
 
-        public static string VersaoServicoParaString(VersaoServico versao)
-        {
-            switch (versao)
-            {
-                case VersaoServico.ve100:
-                    return "1.00";
-                case VersaoServico.ve200:
-                    return "2.00";
-                case VersaoServico.ve310:
-                    return "3.10";
-            }
-            return null;
-        }
+        /// <summary>
+        /// AP04 - Identificador do tipo de operação: 1 - Consulta CSC Ativos / 2 - Solicita novo CSC / 3 - Revoga CSC Ativo
+        /// </summary>
+        public IdentificadorOperacaoCsc indOp { get; set; }
 
-        public static string TipoEmissaoParaString(TipoEmissao tipoEmissao)
-        {
-            var s = Enum.GetName(typeof (TipoEmissao), tipoEmissao);
-            return s != null ? s.Substring(2) : "";
-        }
+        /// <summary>
+        /// AP05 - Raiz do CNPJ do contribuinte
+        /// </summary>
+        public string raizCNPJ { get; set; }
 
-        public static string CrtParaString(CRT crt)
-        {
-            switch (crt)
-            {
-                case CRT.SimplesNacional:
-                    return "Simples Nacional";
-                case CRT.SimplesNacionalExcessoSublimite:
-                    return "Simples Nacional - subimite excedido";
-                case CRT.RegimeNormal:
-                    return "Normal";
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(crt));
-            }
-        }
-
-        public static string ModeloDocumentoParaString(ModeloDocumento modelo)
-        {
-            switch (modelo)
-            {
-                case ModeloDocumento.NFe:
-                    return "NF-e";
-                case ModeloDocumento.NFCe:
-                    return "NFC-e";
-            }
-            return null;
-        }
-
-        public static object VersaoServicoParaString(ServicoNFe nfceAdministracaoCSC, object versaoNfceAministracaoCSC)
-        {
-            throw new NotImplementedException();
-        }
+        /// <summary>
+        /// AP06 - Dados do CSC a ser revogado
+        /// </summary>
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+        public dadosCsc dadosCsc { get; set; }
     }
 }

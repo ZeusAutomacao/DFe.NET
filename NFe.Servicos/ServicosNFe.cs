@@ -30,15 +30,9 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Xml;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Classes.Servicos.ConsultaCadastro;
@@ -51,6 +45,7 @@ using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
+using NFe.Utils.AdmCsc;
 using NFe.Utils.Assinatura;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
@@ -63,6 +58,7 @@ using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Wsdl;
+using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.ConsultaProtocolo;
 using NFe.Wsdl.Download;
@@ -70,6 +66,13 @@ using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Servicos
 {
@@ -179,7 +182,10 @@ namespace NFe.Servicos
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeDownloadNF:
-                    return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);                    
+                    return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);
+
+                case ServicoNFe.NfceAdministracaoCSC:
+                    return new NfceCsc(url, _certificado, _cFgServico.TimeOut);
 
             }
 
@@ -902,5 +908,65 @@ namespace NFe.Servicos
 
             #endregion
         }
+
+        #region Adm CSC
+
+        public RetornoAdmCscNFCe AdmCscNFCe(string cnpj, IdentificadorOperacaoCsc identificadorOperacaoCsc, string idCscASerRevogado = null, string codigoCscASerRevogado = null)
+        {
+            var versaoServico = Auxiliar.VersaoServicoParaString(ServicoNFe.NfceAdministracaoCSC, _cFgServico.VersaoNfceAministracaoCSC);
+
+            #region Cria o objeto wdsl para envio do pedido de Download
+
+            var ws = CriarServico(ServicoNFe.NfceAdministracaoCSC, TipoRecepcaoEvento.Nenhum);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = /*versaoServico*/ "1.00"
+            };
+
+            #endregion
+
+            #region Cria o objeto downloadNFe
+
+            var admCscNFCe = new admCscNFCe
+            {
+                versao = /*versaoServico*/ "1.00",
+                tpAmb = _cFgServico.tpAmb,
+                indOp = identificadorOperacaoCsc,
+                raizCNPJ = cnpj.Remove(8)
+            };
+
+            if (identificadorOperacaoCsc == IdentificadorOperacaoCsc.ioRevogaCscAtivo)
+            {
+                admCscNFCe.dadosCsc = new dadosCsc
+                {
+                    codigoCsc = codigoCscASerRevogado,
+                    idCsc = idCscASerRevogado
+                };
+            }
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlAdmCscNfe = admCscNFCe.ObterXmlString();
+            var dadosAdmnistracaoCsc = new XmlDocument();
+            dadosAdmnistracaoCsc.LoadXml(xmlAdmCscNfe);
+
+            SalvarArquivoXml(cnpj + "-adm-csc.xml", xmlAdmCscNfe);
+
+            var retorno = ws.Execute(dadosAdmnistracaoCsc);
+            var retornoXmlString = retorno.OuterXml;
+            var retCsc = new retAdmCscNFCe().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(cnpj + "-ret-adm-csc.xml", retornoXmlString);
+
+            return new RetornoAdmCscNFCe(admCscNFCe.ObterXmlString(), retCsc.ObterXmlString(), retornoXmlString, retCsc);
+
+            #endregion
+        }
+
+        #endregion
     }
 }

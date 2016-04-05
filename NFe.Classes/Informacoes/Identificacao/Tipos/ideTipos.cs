@@ -190,4 +190,20 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("4")] pcEntregaDomicilio = 4,
         [XmlEnum("9")] pcOutros = 9
     }
+
+    /// <summary>
+    /// Indicador do tipo de Operação do CSC
+    /// <para>1 - Consulta CSC Ativos;</para>
+    /// <para>2 - Solicita novo CSC;</para>
+    /// <para>3 - Revoga CSC Ativo</para>
+    /// </summary>
+    public enum IdentificadorOperacaoCsc
+    {
+        [XmlEnum("1")]
+        ioConsultaCscAtivos = 1,
+        [XmlEnum("2")]
+        ioSolicitaNovoCsc = 2,
+        [XmlEnum("3")]
+        ioRevogaCscAtivo = 3
+    }
 }

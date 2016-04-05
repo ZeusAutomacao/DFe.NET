@@ -53,6 +53,9 @@
     <Compile Include="infNFeSupl.cs" />
     <Compile Include="Informacoes\Detalhe\Produto Específico\encerrante.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
+    <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
+    <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
+    <Compile Include="Servicos\AdmCsc\retAdmCscNFCe.cs" />
     <Compile Include="Servicos\Download\downloadNFe.cs" />
     <Compile Include="Servicos\Download\procNFe.cs" />
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />

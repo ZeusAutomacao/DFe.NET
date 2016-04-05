@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdmCsc\NfceCsc.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
