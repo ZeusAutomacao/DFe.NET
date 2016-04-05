@@ -11,7 +11,8 @@
     <AssemblyName>NFe.Classes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>89173db9</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -51,6 +52,7 @@
     <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="infNFeSupl.cs" />
     <Compile Include="Informacoes\Detalhe\Produto Específico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
     <Compile Include="Servicos\Download\downloadNFe.cs" />
     <Compile Include="Servicos\Download\procNFe.cs" />
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />

@@ -45,6 +45,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _pIcmsst;
         private decimal _vIcmsst;
         private decimal? _vIcmsDeson;
+        private decimal _vIcms;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -91,7 +92,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     N18 - Modalidade de determinação da BC do ICMS ST

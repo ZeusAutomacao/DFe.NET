@@ -40,7 +40,7 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.Autorizacao
 {
     [WebServiceBinding(Name = "NfeAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao")]
-    public class NfeAutorizacao : SoapHttpClientProtocol, INfeServico
+    public class NfeAutorizacao : SoapHttpClientProtocol, INfeServicoAutorizacao
     {
         public NfeAutorizacao(string url, X509Certificate certificado, int timeOut)
         {

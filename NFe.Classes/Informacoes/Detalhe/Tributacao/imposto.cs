@@ -85,6 +85,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         public COFINSST COFINSST { get; set; }
 
         /// <summary>
+        /// NA01 - Informação do ICMS Interestadua
+        /// </summary>
+        public ICMSUFDest ICMSUFDest { get; set; }
+
+        /// <summary>
         ///     U01 - Grupo ISSQN
         /// </summary>
         public ISSQN ISSQN { get; set; }

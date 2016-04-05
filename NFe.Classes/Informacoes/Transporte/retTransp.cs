@@ -37,6 +37,7 @@ namespace NFe.Classes.Informacoes.Transporte
         private decimal _vServ;
         private decimal _vBcRet;
         private decimal _pIcmsRet;
+        private decimal _vIcmsRet;
 
         /// <summary>
         ///     X12 - Valor do Serviço
@@ -68,7 +69,11 @@ namespace NFe.Classes.Informacoes.Transporte
         /// <summary>
         ///     X15 - Valor do ICMS Retido
         /// </summary>
-        public decimal vICMSRet { get; set; }
+        public decimal vICMSRet
+        {
+            get { return _vIcmsRet; }
+            set { _vIcmsRet = Valor.Arredondar(value, 2); }
+        }
 
         /// <summary>
         ///     X16 - CFOP

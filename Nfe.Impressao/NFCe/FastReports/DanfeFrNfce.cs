@@ -34,6 +34,7 @@
 using System.IO;
 using FastReport;
 using FastReport.Barcode;
+using FastReport.Export.Pdf;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
@@ -61,6 +62,7 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
             _relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             _relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
+            _relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
             ((PictureObject) _relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
             ((TextObject)_relatorio.FindObject("txtUrl")).Text = EnderecadorDanfeNfce.ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlDanfeNfce.UrlConsulta);
             ((BarcodeObject)_relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl  == null ? EnderecadorDanfeNfce.ObterUrlQrCode(proc.NFe, configuracaoDanfeNfce) : proc.NFe.infNFeSupl.qrCode;
@@ -110,6 +112,16 @@ namespace NFe.Impressao.NFCe.FastReports
             _relatorio.PrintSettings.ShowDialog = exibirDialogo;
             _relatorio.PrintSettings.Printer = impressora;
             _relatorio.Print();
+        }
+
+        /// <summary>
+        /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
+        public void ExportarPdf(string arquivo)
+        {
+            _relatorio.Prepare();
+            _relatorio.Export(new PDFExport(), arquivo);
         }
 
     }

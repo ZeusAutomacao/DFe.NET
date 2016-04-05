@@ -34,6 +34,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
 {
     public class encerrante
     {
+        private decimal _vEncIni;
+        private decimal _vEncFin;
 
         /// <summary>
         /// LA12 - Número de identificação do bico utilizado no abastecimento
@@ -57,12 +59,19 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// <summary>
         /// LA15 - Valor do Encerrante no início do abastecimento
         /// </summary>
-        public decimal vEncIni { get; set; }
+        public decimal vEncIni
+        {
+            get { return _vEncIni; }
+            set { _vEncIni = Valor.Arredondar(value, 3); }
+        }
 
         /// <summary>
         /// LA16 - Valor do Encerrante no final do abastecimento
         /// </summary>
-        public decimal vEncFin { get; set; }
-
+        public decimal vEncFin
+        {
+            get { return _vEncFin; }
+            set { _vEncFin = Valor.Arredondar(value, 3); }
+        }
     }
 }

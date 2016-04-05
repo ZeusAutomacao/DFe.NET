@@ -54,6 +54,7 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
@@ -137,7 +138,7 @@ namespace NFe.AppTeste
         {
             try
             {
-                _configuracoes.Salvar(_path + ArquivoConfiguracao);
+                _configuracoes.SalvarParaAqruivo(_path + ArquivoConfiguracao);
             }
             catch (Exception ex)
             {
@@ -272,6 +273,7 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
+                //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
                 _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
                 _nfe.Valida();
 
@@ -335,10 +337,10 @@ namespace NFe.AppTeste
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+                //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
                 _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono,
-                    new List<Classes.NFe> {_nfe});
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
 
@@ -707,8 +709,7 @@ namespace NFe.AppTeste
                 BtnImportarXml_Click(sender, e);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono,
-                    new List<Classes.NFe> {_nfe});
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
             }
@@ -764,19 +765,22 @@ namespace NFe.AppTeste
                 emit = GetEmitente(),
                 dest = GetDestinatario(versao),
                 transp = GetTransporte()
-            };
-            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
-            {
-                infNFe.cobr = GetCobranca(); //V3.00 Somente
-            }
-            if (infNFe.ide.mod == ModeloDocumento.NFCe)
-                infNFe.pag = GetPagamento(); //NFCe Somente               
+            };          
 
-            for (var i = 0; i < 1; i++)
+            for (var i = 0; i < 5; i++)
             {
                 infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT, modelo));
             }
+
             infNFe.total = GetTotal(versao, infNFe.det);
+
+            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
+                infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 Somente
+            if (infNFe.ide.mod == ModeloDocumento.NFCe)
+                infNFe.pag = GetPagamento(infNFe.total.ICMSTot); //NFCe Somente  
+
+            if (infNFe.ide.mod == ModeloDocumento.NFCe)
+                infNFe.infAdic = new infAdic() {infCpl = "Troco: 10,00"}; //Susgestão para impressão do troco em NFCe
 
             return infNFe;
         }
@@ -923,6 +927,17 @@ namespace NFe.AppTeste
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
+                    //ICMSUFDest = new ICMSUFDest()
+                    //{
+                    //    pFCPUFDest = 0,
+                    //    pICMSInter = 12,
+                    //    pICMSInterPart = 0,
+                    //    pICMSUFDest = 0,
+                    //    vBCUFDest = 0,
+                    //    vFCPUFDest = 0,
+                    //    vICMSUFDest = 0,
+                    //    vICMSUFRemet = 0
+                    //},
                     COFINS =
                         new COFINS
                         {
@@ -950,7 +965,7 @@ namespace NFe.AppTeste
                 cProd = i.ToString().PadLeft(5, '0'),
                 cEAN = "7770000000012",
                 xProd = i == 1 ? "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL" : "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
-                NCM = "73269000",
+                NCM = "84159090",
                 CFOP = 5102,
                 uCom = "UNID",
                 qCom = 1,
@@ -962,6 +977,7 @@ namespace NFe.AppTeste
                 qTrib = 1,
                 vUnTrib = 1,
                 indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
+                //CEST = ?
 
                 //ProdutoEspecifico = new arma
                 //{
@@ -1090,27 +1106,29 @@ namespace NFe.AppTeste
             return v;
         }
 
-        protected virtual cobr GetCobranca()
+        protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
+            var valorParcela = Valor.Arredondar(icmsTot.vProd/2, 2);
             var c = new cobr
             {
-                fat = new fat {nFat = "12345678910", vLiq = 90},
+                fat = new fat {nFat = "12345678910", vLiq = icmsTot .vProd},
                 dup = new List<dup>
                 {
-                    new dup {nDup = "12345678", vDup = 0.45m},
-                    new dup {nDup = "987654321", vDup = 0.45m}
+                    new dup {nDup = "12345678", vDup = valorParcela},
+                    new dup {nDup = "987654321", vDup = icmsTot.vProd - valorParcela}
                 }
             };
 
             return c;
         }
 
-        protected virtual List<pag> GetPagamento()
+        protected virtual List<pag> GetPagamento(ICMSTot icmsTot)
         {
+            var valorPagto = Valor.Arredondar(icmsTot.vProd / 2, 2);
             var p = new List<pag>
             {
-                new pag {tPag = FormaPagamento.fpDinheiro, vPag = 0.45m},
-                new pag {tPag = FormaPagamento.fpCheque, vPag = 0.45m}
+                new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
+                new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
             };
             return p;
         }
@@ -1196,6 +1214,8 @@ namespace NFe.AppTeste
                 #region Carrega um XML com nfeProc para a variável
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
                 if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
@@ -1215,6 +1235,7 @@ namespace NFe.AppTeste
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion
 
@@ -1255,6 +1276,8 @@ namespace NFe.AppTeste
                 #region Carrega um XML com nfeProc para a variável
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
@@ -1274,6 +1297,7 @@ namespace NFe.AppTeste
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by softwares@procergs.rs.gov.br (PROCERGS) -->
 <!-- PL_008g  alterações de esquema decorrentes da - NT2015.002  - 15/07/2015 -->
+<!-- PL_008h  alterações de esquema decorrentes da - NT2015.003 - 17/09/2015 -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v3.10.xsd"/>
@@ -852,6 +853,18 @@ Formato ”CFOP9999”.</xs:documentation>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
+												<xs:element name="CEST" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Codigo especificador da Substuicao Tributaria - CEST, que identifica a mercadoria sujeita aos regimes de  substituicao tributária e de antecipação do recolhimento  do imposto
+														</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:pattern value="[0-9]{7}"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
 												<xs:element name="EXTIPI" minOccurs="0">
 													<xs:annotation>
 														<xs:documentation>Código EX TIPI (3 posições)</xs:documentation>
@@ -1607,10 +1620,16 @@ N-NormalVIN </xs:documentation>
 														</xs:annotation>
 														<xs:complexType>
 															<xs:sequence>
-																<xs:element name="cProdANP" type="TcProdANP">
+																<xs:element name="cProdANP">
 																	<xs:annotation>
 																		<xs:documentation>Código de produto da ANP. codificação de produtos do SIMP (http://www.anp.gov.br)</xs:documentation>
 																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:whiteSpace value="preserve"/>
+																			<xs:pattern value="[0-9]{9}"/>
+																		</xs:restriction>
+																	</xs:simpleType>
 																</xs:element>
 																<xs:element name="pMixGN" type="TDec_0204v" minOccurs="0">
 																	<xs:annotation>
@@ -1707,27 +1726,15 @@ ambiente.</xs:documentation>
 																					</xs:restriction>
 																				</xs:simpleType>
 																			</xs:element>
-																			<xs:element name="vEncIni">
+																			<xs:element name="vEncIni" type="TDec_1203">
 																				<xs:annotation>
 																					<xs:documentation>Valor do Encerrante no ínicio do abastecimento</xs:documentation>
 																				</xs:annotation>
-																				<xs:simpleType>
-																					<xs:restriction base="xs:string">
-																						<xs:whiteSpace value="preserve"/>
-																						<xs:pattern value="[0-9]{1,15}"/>
-																					</xs:restriction>
-																				</xs:simpleType>
 																			</xs:element>
-																			<xs:element name="vEncFin">
+																			<xs:element name="vEncFin" type="TDec_1203">
 																				<xs:annotation>
 																					<xs:documentation>Valor do Encerrante no final do abastecimento</xs:documentation>
 																				</xs:annotation>
-																				<xs:simpleType>
-																					<xs:restriction base="xs:string">
-																						<xs:whiteSpace value="preserve"/>
-																						<xs:pattern value="[0-9]{1,15}"/>
-																					</xs:restriction>
-																				</xs:simpleType>
 																			</xs:element>
 																		</xs:sequence>
 																	</xs:complexType>
@@ -3886,6 +3893,63 @@ Substituição Tributaria;</xs:documentation>
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
+												<xs:element name="ICMSUFDest" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Grupo a ser informado nas vendas interestarduais para consumidor final, não contribuinte de ICMS</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="vBCUFDest" type="TDec_1302">
+																<xs:annotation>
+																	<xs:documentation>Valor da Base de Cálculo do ICMS na UF do destinatário. </xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="pFCPUFDest" type="TDec_0302a04">
+																<xs:annotation>
+																	<xs:documentation>Percentual adicional inserido na alíquota interna da UF de destino, relativo ao Fundo de Combate à Pobreza (FCP) naquela UF. </xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="pICMSUFDest" type="TDec_0302a04">
+																<xs:annotation>
+																	<xs:documentation>Alíquota adotada nas operações internas na UF do destinatário para o produto / mercadoria.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="pICMSInter">
+																<xs:annotation>
+																	<xs:documentation>Alíquota interestadual das UF envolvidas: - 4% alíquota interestadual para produtos importados; - 7% para os Estados de origem do Sul e Sudeste (exceto ES), destinado para os Estados do Norte e Nordeste  ou ES; - 12% para os demais casos.</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:whiteSpace value="preserve"/>
+																		<xs:enumeration value="4.00"/>
+																		<xs:enumeration value="7.00"/>
+																		<xs:enumeration value="12.00"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:element name="pICMSInterPart" type="TDec_0302a04">
+																<xs:annotation>
+																	<xs:documentation>Percentual de partilha para a UF do destinatário: - 40% em 2016; - 60% em 2017; - 80% em 2018; - 100% a partir de 2019.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="vFCPUFDest" type="TDec_1302">
+																<xs:annotation>
+																	<xs:documentation>Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) da UF de destino.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="vICMSUFDest" type="TDec_1302">
+																<xs:annotation>
+																	<xs:documentation>Valor do ICMS de partilha para a UF do destinatário. </xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="vICMSUFRemet" type="TDec_1302">
+																<xs:annotation>
+																	<xs:documentation>Valor do ICMS de partilha para a UF do remetente. Nota: A partir de 2019, este valor será zero.</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
 											</xs:sequence>
 										</xs:complexType>
 									</xs:element>
@@ -3964,6 +4028,21 @@ Substituição Tributaria;</xs:documentation>
 												<xs:element name="vICMSDeson" type="TDec_1302">
 													<xs:annotation>
 														<xs:documentation>Valor Total do ICMS desonerado</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vFCPUFDest" type="TDec_1302" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor total do ICMS relativo ao Fundo de Combate à Pobreza (FCP) para a UF de destino.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vICMSUFDest" type="TDec_1302" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor total do ICMS de partilha para a UF do destinatário</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="vICMSUFRemet" type="TDec_1302" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Valor total do ICMS de partilha para a UF do remetente</xs:documentation>
 													</xs:annotation>
 												</xs:element>
 												<xs:element name="vBCST" type="TDec_1302">
@@ -6060,806 +6139,6 @@ alterado para tamanho variavel 1-4. (NT2011/004)</xs:documentation>
 			<xs:enumeration value="7667"/>
 			<xs:enumeration value="7930"/>
 			<xs:enumeration value="7949"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="TcProdANP">
-		<xs:annotation>
-			<xs:documentation>Código de produto da ANP de acordo com o Sistema de Movimentação de produtos - SIMP</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:whiteSpace value="preserve"/>
-			<xs:enumeration value="110203073"/>
-			<xs:enumeration value="110204001"/>
-			<xs:enumeration value="110204002"/>
-			<xs:enumeration value="140101027"/>
-			<xs:enumeration value="140101026"/>
-			<xs:enumeration value="740101005"/>
-			<xs:enumeration value="740101004"/>
-			<xs:enumeration value="740101001"/>
-			<xs:enumeration value="740101006"/>
-			<xs:enumeration value="740101002"/>
-			<xs:enumeration value="110203083"/>
-			<xs:enumeration value="910101001"/>
-			<xs:enumeration value="110103001"/>
-			<xs:enumeration value="330101001"/>
-			<xs:enumeration value="110203091"/>
-			<xs:enumeration value="120204001"/>
-			<xs:enumeration value="110106001"/>
-			<xs:enumeration value="120206001"/>
-			<xs:enumeration value="110101001"/>
-			<xs:enumeration value="110101042"/>
-			<xs:enumeration value="810201001"/>
-			<xs:enumeration value="110204003"/>
-			<xs:enumeration value="330201005"/>
-			<xs:enumeration value="330201006"/>
-			<xs:enumeration value="330201004"/>
-			<xs:enumeration value="110105001"/>
-			<xs:enumeration value="110203072"/>
-			<xs:enumeration value="110203001"/>
-			<xs:enumeration value="110201001"/>
-			<xs:enumeration value="110101002"/>
-			<xs:enumeration value="110203002"/>
-			<xs:enumeration value="120205010"/>
-			<xs:enumeration value="110203003"/>
-			<xs:enumeration value="110204004"/>
-			<xs:enumeration value="110204005"/>
-			<xs:enumeration value="110204006"/>
-			<xs:enumeration value="110204007"/>
-			<xs:enumeration value="110204008"/>
-			<xs:enumeration value="110204009"/>
-			<xs:enumeration value="110204010"/>
-			<xs:enumeration value="110204011"/>
-			<xs:enumeration value="110105027"/>
-			<xs:enumeration value="110103003"/>
-			<xs:enumeration value="110103002"/>
-			<xs:enumeration value="110105002"/>
-			<xs:enumeration value="110205001"/>
-			<xs:enumeration value="120203002"/>
-			<xs:enumeration value="120205001"/>
-			<xs:enumeration value="110203004"/>
-			<xs:enumeration value="120203001"/>
-			<xs:enumeration value="530102001"/>
-			<xs:enumeration value="530101002"/>
-			<xs:enumeration value="110108001"/>
-			<xs:enumeration value="110105017"/>
-			<xs:enumeration value="110206019"/>
-			<xs:enumeration value="110205023"/>
-			<xs:enumeration value="110203092"/>
-			<xs:enumeration value="110201002"/>
-			<xs:enumeration value="120202001"/>
-			<xs:enumeration value="110101003"/>
-			<xs:enumeration value="110101004"/>
-			<xs:enumeration value="110103004"/>
-			<xs:enumeration value="110103005"/>
-			<xs:enumeration value="110101005"/>
-			<xs:enumeration value="110204012"/>
-			<xs:enumeration value="110204013"/>
-			<xs:enumeration value="110204014"/>
-			<xs:enumeration value="110102001"/>
-			<xs:enumeration value="120207003"/>
-			<xs:enumeration value="110201003"/>
-			<xs:enumeration value="110201004"/>
-			<xs:enumeration value="110201005"/>
-			<xs:enumeration value="110201006"/>
-			<xs:enumeration value="110206001"/>
-			<xs:enumeration value="110205002"/>
-			<xs:enumeration value="110203005"/>
-			<xs:enumeration value="110205003"/>
-			<xs:enumeration value="330201001"/>
-			<xs:enumeration value="110206002"/>
-			<xs:enumeration value="110101006"/>
-			<xs:enumeration value="110101007"/>
-			<xs:enumeration value="110101038"/>
-			<xs:enumeration value="120205002"/>
-			<xs:enumeration value="820101001"/>
-			<xs:enumeration value="820101010"/>
-			<xs:enumeration value="820101999"/>
-			<xs:enumeration value="110206003"/>
-			<xs:enumeration value="110201007"/>
-			<xs:enumeration value="120201001"/>
-			<xs:enumeration value="110201008"/>
-			<xs:enumeration value="110103017"/>
-			<xs:enumeration value="110205004"/>
-			<xs:enumeration value="110203077"/>
-			<xs:enumeration value="110101008"/>
-			<xs:enumeration value="110203006"/>
-			<xs:enumeration value="110203007"/>
-			<xs:enumeration value="110201009"/>
-			<xs:enumeration value="110203008"/>
-			<xs:enumeration value="110203009"/>
-			<xs:enumeration value="110203010"/>
-			<xs:enumeration value="120203004"/>
-			<xs:enumeration value="110206004"/>
-			<xs:enumeration value="610101009"/>
-			<xs:enumeration value="120205003"/>
-			<xs:enumeration value="110205005"/>
-			<xs:enumeration value="110203092"/>
-			<xs:enumeration value="110204015"/>
-			<xs:enumeration value="210202003"/>
-			<xs:enumeration value="210202001"/>
-			<xs:enumeration value="210202002"/>
-			<xs:enumeration value="110105018"/>
-			<xs:enumeration value="110203011"/>
-			<xs:enumeration value="110203012"/>
-			<xs:enumeration value="110101009"/>
-			<xs:enumeration value="110104001"/>
-			<xs:enumeration value="110104006"/>
-			<xs:enumeration value="110106010"/>
-			<xs:enumeration value="110202007"/>
-			<xs:enumeration value="110106002"/>
-			<xs:enumeration value="110111002"/>
-			<xs:enumeration value="110103006"/>
-			<xs:enumeration value="110105003"/>
-			<xs:enumeration value="110201010"/>
-			<xs:enumeration value="110201011"/>
-			<xs:enumeration value="110201012"/>
-			<xs:enumeration value="110101010"/>
-			<xs:enumeration value="110101011"/>
-			<xs:enumeration value="110108002"/>
-			<xs:enumeration value="110107001"/>
-			<xs:enumeration value="120202002"/>
-			<xs:enumeration value="110106003"/>
-			<xs:enumeration value="110108003"/>
-			<xs:enumeration value="110203085"/>
-			<xs:enumeration value="110201013"/>
-			<xs:enumeration value="110207001"/>
-			<xs:enumeration value="110105023"/>
-			<xs:enumeration value="110101012"/>
-			<xs:enumeration value="110201014"/>
-			<xs:enumeration value="620501002"/>
-			<xs:enumeration value="620501001"/>
-			<xs:enumeration value="610101005"/>
-			<xs:enumeration value="610101006"/>
-			<xs:enumeration value="530101001"/>
-			<xs:enumeration value="530101020"/>
-			<xs:enumeration value="530101018"/>
-			<xs:enumeration value="110205006"/>
-			<xs:enumeration value="110201015"/>
-			<xs:enumeration value="110203013"/>
-			<xs:enumeration value="110202001"/>
-			<xs:enumeration value="120104001"/>
-			<xs:enumeration value="120102001"/>
-			<xs:enumeration value="110205024"/>
-			<xs:enumeration value="120205009"/>
-			<xs:enumeration value="540101002"/>
-			<xs:enumeration value="540101001"/>
-			<xs:enumeration value="110107002"/>
-			<xs:enumeration value="620601003"/>
-			<xs:enumeration value="110201016"/>
-			<xs:enumeration value="110101013"/>
-			<xs:enumeration value="120207001"/>
-			<xs:enumeration value="110206020"/>
-			<xs:enumeration value="110104008"/>
-			<xs:enumeration value="110201017"/>
-			<xs:enumeration value="110108004"/>
-			<xs:enumeration value="110201018"/>
-			<xs:enumeration value="330201007"/>
-			<xs:enumeration value="110205007"/>
-			<xs:enumeration value="110203086"/>
-			<xs:enumeration value="110205008"/>
-			<xs:enumeration value="340101002"/>
-			<xs:enumeration value="130202002"/>
-			<xs:enumeration value="430101002"/>
-			<xs:enumeration value="130202003"/>
-			<xs:enumeration value="560101002"/>
-			<xs:enumeration value="130202004"/>
-			<xs:enumeration value="820101026"/>
-			<xs:enumeration value="820101032"/>
-			<xs:enumeration value="820101027"/>
-			<xs:enumeration value="820101004"/>
-			<xs:enumeration value="820101005"/>
-			<xs:enumeration value="820101022"/>
-			<xs:enumeration value="820101007"/>
-			<xs:enumeration value="820101002"/>
-			<xs:enumeration value="820101009"/>
-			<xs:enumeration value="820101008"/>
-			<xs:enumeration value="820101014"/>
-			<xs:enumeration value="820101006"/>
-			<xs:enumeration value="820101016"/>
-			<xs:enumeration value="820101015"/>
-			<xs:enumeration value="820101014"/>
-			<xs:enumeration value="820101006"/>
-			<xs:enumeration value="820101031"/>
-			<xs:enumeration value="820101030"/>
-			<xs:enumeration value="820101016"/>
-			<xs:enumeration value="820101015"/>
-			<xs:enumeration value="820101025"/>
-			<xs:enumeration value="820101007"/>
-			<xs:enumeration value="820101002"/>
-			<xs:enumeration value="820101026"/>
-			<xs:enumeration value="820101009"/>
-			<xs:enumeration value="820101008"/>
-			<xs:enumeration value="820101027"/>
-			<xs:enumeration value="820101007"/>
-			<xs:enumeration value="820101002"/>
-			<xs:enumeration value="820101028"/>
-			<xs:enumeration value="820101029"/>
-			<xs:enumeration value="820101009"/>
-			<xs:enumeration value="820101008"/>
-			<xs:enumeration value="820101011"/>
-			<xs:enumeration value="820101003"/>
-			<xs:enumeration value="820101013"/>
-			<xs:enumeration value="820101012"/>
-			<xs:enumeration value="820101017"/>
-			<xs:enumeration value="820101018"/>
-			<xs:enumeration value="820101019"/>
-			<xs:enumeration value="820101020"/>
-			<xs:enumeration value="820101021"/>
-			<xs:enumeration value="330101003"/>
-			<xs:enumeration value="130202006"/>
-			<xs:enumeration value="110203014"/>
-			<xs:enumeration value="420201001"/>
-			<xs:enumeration value="420201003"/>
-			<xs:enumeration value="120204010"/>
-			<xs:enumeration value="110103007"/>
-			<xs:enumeration value="110204017"/>
-			<xs:enumeration value="110204051"/>
-			<xs:enumeration value="110204018"/>
-			<xs:enumeration value="110205022"/>
-			<xs:enumeration value="110203069"/>
-			<xs:enumeration value="110203015"/>
-			<xs:enumeration value="110206005"/>
-			<xs:enumeration value="110203016"/>
-			<xs:enumeration value="110203017"/>
-			<xs:enumeration value="110203018"/>
-			<xs:enumeration value="110203088"/>
-			<xs:enumeration value="110203019"/>
-			<xs:enumeration value="530101003"/>
-			<xs:enumeration value="530101019"/>
-			<xs:enumeration value="110101014"/>
-			<xs:enumeration value="620101002"/>
-			<xs:enumeration value="720101001"/>
-			<xs:enumeration value="720101002"/>
-			<xs:enumeration value="120205004"/>
-			<xs:enumeration value="110203079"/>
-			<xs:enumeration value="110203020"/>
-			<xs:enumeration value="110201019"/>
-			<xs:enumeration value="110203021"/>
-			<xs:enumeration value="110108005"/>
-			<xs:enumeration value="110101015"/>
-			<xs:enumeration value="110104002"/>
-			<xs:enumeration value="110101016"/>
-			<xs:enumeration value="620101007"/>
-			<xs:enumeration value="140102001"/>
-			<xs:enumeration value="110105004"/>
-			<xs:enumeration value="110107003"/>
-			<xs:enumeration value="110203095"/>
-			<xs:enumeration value="210301001"/>
-			<xs:enumeration value="810102001"/>
-			<xs:enumeration value="810102004"/>
-			<xs:enumeration value="810102002"/>
-			<xs:enumeration value="130201002"/>
-			<xs:enumeration value="810102003"/>
-			<xs:enumeration value="810101002"/>
-			<xs:enumeration value="810101001"/>
-			<xs:enumeration value="810101003"/>
-			<xs:enumeration value="210301002"/>
-			<xs:enumeration value="330201010"/>
-			<xs:enumeration value="110204016"/>
-			<xs:enumeration value="110105005"/>
-			<xs:enumeration value="110105006"/>
-			<xs:enumeration value="110105007"/>
-			<xs:enumeration value="110104003"/>
-			<xs:enumeration value="110206006"/>
-			<xs:enumeration value="110206007"/>
-			<xs:enumeration value="110203022"/>
-			<xs:enumeration value="110204019"/>
-			<xs:enumeration value="110206008"/>
-			<xs:enumeration value="110206009"/>
-			<xs:enumeration value="110101043"/>
-			<xs:enumeration value="110201020"/>
-			<xs:enumeration value="110203023"/>
-			<xs:enumeration value="110101017"/>
-			<xs:enumeration value="110101018"/>
-			<xs:enumeration value="210302004"/>
-			<xs:enumeration value="210101001"/>
-			<xs:enumeration value="210302003"/>
-			<xs:enumeration value="210302002"/>
-			<xs:enumeration value="210204001"/>
-			<xs:enumeration value="220101003"/>
-			<xs:enumeration value="220101004"/>
-			<xs:enumeration value="220101002"/>
-			<xs:enumeration value="220101001"/>
-			<xs:enumeration value="220101005"/>
-			<xs:enumeration value="220101006"/>
-			<xs:enumeration value="130202001"/>
-			<xs:enumeration value="130202005"/>
-			<xs:enumeration value="520101001"/>
-			<xs:enumeration value="320101001"/>
-			<xs:enumeration value="320101003"/>
-			<xs:enumeration value="320101002"/>
-			<xs:enumeration value="320103001"/>
-			<xs:enumeration value="320102002"/>
-			<xs:enumeration value="320102001"/>
-			<xs:enumeration value="320102004"/>
-			<xs:enumeration value="320102003"/>
-			<xs:enumeration value="320201001"/>
-			<xs:enumeration value="320201002"/>
-			<xs:enumeration value="220102001"/>
-			<xs:enumeration value="320301002"/>
-			<xs:enumeration value="110204020"/>
-			<xs:enumeration value="110203024"/>
-			<xs:enumeration value="120205012"/>
-			<xs:enumeration value="110207002"/>
-			<xs:enumeration value="110203087"/>
-			<xs:enumeration value="730101002"/>
-			<xs:enumeration value="210203001"/>
-			<xs:enumeration value="210203002"/>
-			<xs:enumeration value="110104005"/>
-			<xs:enumeration value="140101023"/>
-			<xs:enumeration value="140101024"/>
-			<xs:enumeration value="140101025"/>
-			<xs:enumeration value="650101001"/>
-			<xs:enumeration value="110207003"/>
-			<xs:enumeration value="110201021"/>
-			<xs:enumeration value="110103013"/>
-			<xs:enumeration value="110201022"/>
-			<xs:enumeration value="110203025"/>
-			<xs:enumeration value="110203026"/>
-			<xs:enumeration value="110206011"/>
-			<xs:enumeration value="110206010"/>
-			<xs:enumeration value="110203027"/>
-			<xs:enumeration value="110203028"/>
-			<xs:enumeration value="110203028"/>
-			<xs:enumeration value="330101008"/>
-			<xs:enumeration value="330101002"/>
-			<xs:enumeration value="330101009"/>
-			<xs:enumeration value="620101001"/>
-			<xs:enumeration value="610201001"/>
-			<xs:enumeration value="610201002"/>
-			<xs:enumeration value="610201003"/>
-			<xs:enumeration value="710101001"/>
-			<xs:enumeration value="110203074"/>
-			<xs:enumeration value="110201023"/>
-			<xs:enumeration value="110103008"/>
-			<xs:enumeration value="110203029"/>
-			<xs:enumeration value="120205005"/>
-			<xs:enumeration value="110204021"/>
-			<xs:enumeration value="110204022"/>
-			<xs:enumeration value="110204023"/>
-			<xs:enumeration value="620101004"/>
-			<xs:enumeration value="620101005"/>
-			<xs:enumeration value="330101010"/>
-			<xs:enumeration value="110202002"/>
-			<xs:enumeration value="110202003"/>
-			<xs:enumeration value="110207004"/>
-			<xs:enumeration value="110101046"/>
-			<xs:enumeration value="110204024"/>
-			<xs:enumeration value="110113001"/>
-			<xs:enumeration value="110105015"/>
-			<xs:enumeration value="110101019"/>
-			<xs:enumeration value="110103015"/>
-			<xs:enumeration value="110205025"/>
-			<xs:enumeration value="110204025"/>
-			<xs:enumeration value="110204026"/>
-			<xs:enumeration value="110204027"/>
-			<xs:enumeration value="120204009"/>
-			<xs:enumeration value="110205026"/>
-			<xs:enumeration value="110204028"/>
-			<xs:enumeration value="110204029"/>
-			<xs:enumeration value="110203080"/>
-			<xs:enumeration value="120207004"/>
-			<xs:enumeration value="110203030"/>
-			<xs:enumeration value="110105025"/>
-			<xs:enumeration value="110203031"/>
-			<xs:enumeration value="110203084"/>
-			<xs:enumeration value="110203032"/>
-			<xs:enumeration value="110204030"/>
-			<xs:enumeration value="110205009"/>
-			<xs:enumeration value="110104004"/>
-			<xs:enumeration value="110201024"/>
-			<xs:enumeration value="110201025"/>
-			<xs:enumeration value="110201026"/>
-			<xs:enumeration value="110201027"/>
-			<xs:enumeration value="110201028"/>
-			<xs:enumeration value="110201029"/>
-			<xs:enumeration value="110201030"/>
-			<xs:enumeration value="110207005"/>
-			<xs:enumeration value="110204031"/>
-			<xs:enumeration value="110207006"/>
-			<xs:enumeration value="110201031"/>
-			<xs:enumeration value="110201032"/>
-			<xs:enumeration value="110201033"/>
-			<xs:enumeration value="120204002"/>
-			<xs:enumeration value="110101020"/>
-			<xs:enumeration value="220102002"/>
-			<xs:enumeration value="110105008"/>
-			<xs:enumeration value="110203033"/>
-			<xs:enumeration value="110105009"/>
-			<xs:enumeration value="110201034"/>
-			<xs:enumeration value="110203034"/>
-			<xs:enumeration value="110203035"/>
-			<xs:enumeration value="640201001"/>
-			<xs:enumeration value="120205011"/>
-			<xs:enumeration value="110101021"/>
-			<xs:enumeration value="120103001"/>
-			<xs:enumeration value="110203036"/>
-			<xs:enumeration value="120204003"/>
-			<xs:enumeration value="110201035"/>
-			<xs:enumeration value="110204032"/>
-			<xs:enumeration value="110101022"/>
-			<xs:enumeration value="110201036"/>
-			<xs:enumeration value="110101023"/>
-			<xs:enumeration value="110101024"/>
-			<xs:enumeration value="110101025"/>
-			<xs:enumeration value="110101039"/>
-			<xs:enumeration value="110204033"/>
-			<xs:enumeration value="120207002"/>
-			<xs:enumeration value="110202004"/>
-			<xs:enumeration value="110202005"/>
-			<xs:enumeration value="110203037"/>
-			<xs:enumeration value="110203037"/>
-			<xs:enumeration value="110201037"/>
-			<xs:enumeration value="110203078"/>
-			<xs:enumeration value="120203005"/>
-			<xs:enumeration value="120204010"/>
-			<xs:enumeration value="110201038"/>
-			<xs:enumeration value="110201039"/>
-			<xs:enumeration value="120101001"/>
-			<xs:enumeration value="110201040"/>
-			<xs:enumeration value="110201041"/>
-			<xs:enumeration value="740101007"/>
-			<xs:enumeration value="420201003"/>
-			<xs:enumeration value="640101001"/>
-			<xs:enumeration value="110205027"/>
-			<xs:enumeration value="110103009"/>
-			<xs:enumeration value="110103010"/>
-			<xs:enumeration value="110205010"/>
-			<xs:enumeration value="820101018"/>
-			<xs:enumeration value="820101017"/>
-			<xs:enumeration value="820101006"/>
-			<xs:enumeration value="820101014"/>
-			<xs:enumeration value="820101006"/>
-			<xs:enumeration value="820101016"/>
-			<xs:enumeration value="820101015"/>
-			<xs:enumeration value="820101006"/>
-			<xs:enumeration value="820101005"/>
-			<xs:enumeration value="820101004"/>
-			<xs:enumeration value="820101003"/>
-			<xs:enumeration value="820101011"/>
-			<xs:enumeration value="820101003"/>
-			<xs:enumeration value="820101013"/>
-			<xs:enumeration value="820101012"/>
-			<xs:enumeration value="820101002"/>
-			<xs:enumeration value="820101007"/>
-			<xs:enumeration value="820101002"/>
-			<xs:enumeration value="820101009"/>
-			<xs:enumeration value="820101008"/>
-			<xs:enumeration value="110301001"/>
-			<xs:enumeration value="110208001"/>
-			<xs:enumeration value="110203038"/>
-			<xs:enumeration value="110203089"/>
-			<xs:enumeration value="110201042"/>
-			<xs:enumeration value="110101026"/>
-			<xs:enumeration value="620502001"/>
-			<xs:enumeration value="110203039"/>
-			<xs:enumeration value="110202008"/>
-			<xs:enumeration value="110204034"/>
-			<xs:enumeration value="110110001"/>
-			<xs:enumeration value="310102001"/>
-			<xs:enumeration value="310103001"/>
-			<xs:enumeration value="310101001"/>
-			<xs:enumeration value="110101027"/>
-			<xs:enumeration value="110205011"/>
-			<xs:enumeration value="110201062"/>
-			<xs:enumeration value="110203040"/>
-			<xs:enumeration value="610101002"/>
-			<xs:enumeration value="610401002"/>
-			<xs:enumeration value="610101003"/>
-			<xs:enumeration value="610401003"/>
-			<xs:enumeration value="610101004"/>
-			<xs:enumeration value="610401004"/>
-			<xs:enumeration value="110203041"/>
-			<xs:enumeration value="110203042"/>
-			<xs:enumeration value="110203043"/>
-			<xs:enumeration value="110203094"/>
-			<xs:enumeration value="110203044"/>
-			<xs:enumeration value="110203044"/>
-			<xs:enumeration value="430101001"/>
-			<xs:enumeration value="110206021"/>
-			<xs:enumeration value="120204004"/>
-			<xs:enumeration value="110207007"/>
-			<xs:enumeration value="110203045"/>
-			<xs:enumeration value="110201043"/>
-			<xs:enumeration value="110203046"/>
-			<xs:enumeration value="110203047"/>
-			<xs:enumeration value="110203048"/>
-			<xs:enumeration value="110203081"/>
-			<xs:enumeration value="430101004"/>
-			<xs:enumeration value="510101003"/>
-			<xs:enumeration value="510101001"/>
-			<xs:enumeration value="510101002"/>
-			<xs:enumeration value="510102003"/>
-			<xs:enumeration value="510102001"/>
-			<xs:enumeration value="510102002"/>
-			<xs:enumeration value="510201001"/>
-			<xs:enumeration value="510201002"/>
-			<xs:enumeration value="510201003"/>
-			<xs:enumeration value="510301003"/>
-			<xs:enumeration value="140101015"/>
-			<xs:enumeration value="140101009"/>
-			<xs:enumeration value="140101016"/>
-			<xs:enumeration value="140101017"/>
-			<xs:enumeration value="140101005"/>
-			<xs:enumeration value="140101014"/>
-			<xs:enumeration value="140101018"/>
-			<xs:enumeration value="140101006"/>
-			<xs:enumeration value="140101028"/>
-			<xs:enumeration value="140101021"/>
-			<xs:enumeration value="140101010"/>
-			<xs:enumeration value="140101012"/>
-			<xs:enumeration value="140101013"/>
-			<xs:enumeration value="140101001"/>
-			<xs:enumeration value="140101011"/>
-			<xs:enumeration value="140101003"/>
-			<xs:enumeration value="140101002"/>
-			<xs:enumeration value="140101008"/>
-			<xs:enumeration value="140101007"/>
-			<xs:enumeration value="140101019"/>
-			<xs:enumeration value="140101004"/>
-			<xs:enumeration value="560101001"/>
-			<xs:enumeration value="420105001"/>
-			<xs:enumeration value="420101005"/>
-			<xs:enumeration value="420101004"/>
-			<xs:enumeration value="420101003"/>
-			<xs:enumeration value="420102006"/>
-			<xs:enumeration value="420102005"/>
-			<xs:enumeration value="420102004"/>
-			<xs:enumeration value="420102003"/>
-			<xs:enumeration value="420104001"/>
-			<xs:enumeration value="820101033"/>
-			<xs:enumeration value="820101034"/>
-			<xs:enumeration value="820101011"/>
-			<xs:enumeration value="820101003"/>
-			<xs:enumeration value="820101028"/>
-			<xs:enumeration value="820101029"/>
-			<xs:enumeration value="820101013"/>
-			<xs:enumeration value="820101012"/>
-			<xs:enumeration value="420301003"/>
-			<xs:enumeration value="420101005"/>
-			<xs:enumeration value="420101002"/>
-			<xs:enumeration value="420101001"/>
-			<xs:enumeration value="420101003"/>
-			<xs:enumeration value="420101004"/>
-			<xs:enumeration value="420101003"/>
-			<xs:enumeration value="420201001"/>
-			<xs:enumeration value="420201002"/>
-			<xs:enumeration value="420102005"/>
-			<xs:enumeration value="420102004"/>
-			<xs:enumeration value="420102002"/>
-			<xs:enumeration value="420102001"/>
-			<xs:enumeration value="420102003"/>
-			<xs:enumeration value="420102003"/>
-			<xs:enumeration value="420202001"/>
-			<xs:enumeration value="420301001"/>
-			<xs:enumeration value="420102006"/>
-			<xs:enumeration value="420103002"/>
-			<xs:enumeration value="420103001"/>
-			<xs:enumeration value="420103003"/>
-			<xs:enumeration value="610601001"/>
-			<xs:enumeration value="610701001"/>
-			<xs:enumeration value="510301002"/>
-			<xs:enumeration value="620601001"/>
-			<xs:enumeration value="660101001"/>
-			<xs:enumeration value="620401001"/>
-			<xs:enumeration value="620301001"/>
-			<xs:enumeration value="620201001"/>
-			<xs:enumeration value="630101001"/>
-			<xs:enumeration value="110202006"/>
-			<xs:enumeration value="110203093"/>
-			<xs:enumeration value="110204035"/>
-			<xs:enumeration value="110203049"/>
-			<xs:enumeration value="110201044"/>
-			<xs:enumeration value="110201045"/>
-			<xs:enumeration value="110206012"/>
-			<xs:enumeration value="120203003"/>
-			<xs:enumeration value="320301001"/>
-			<xs:enumeration value="320103002"/>
-			<xs:enumeration value="650101002"/>
-			<xs:enumeration value="310102002"/>
-			<xs:enumeration value="640401001"/>
-			<xs:enumeration value="140101029"/>
-			<xs:enumeration value="740101003"/>
-			<xs:enumeration value="810201002"/>
-			<xs:enumeration value="530103001"/>
-			<xs:enumeration value="340101003"/>
-			<xs:enumeration value="430101003"/>
-			<xs:enumeration value="560101003"/>
-			<xs:enumeration value="210302001"/>
-			<xs:enumeration value="210204002"/>
-			<xs:enumeration value="130201001"/>
-			<xs:enumeration value="530104001"/>
-			<xs:enumeration value="140101022"/>
-			<xs:enumeration value="140101999"/>
-			<xs:enumeration value="610201004"/>
-			<xs:enumeration value="510301001"/>
-			<xs:enumeration value="420301002"/>
-			<xs:enumeration value="620601004"/>
-			<xs:enumeration value="620505001"/>
-			<xs:enumeration value="610501001"/>
-			<xs:enumeration value="620101008"/>
-			<xs:enumeration value="610101010"/>
-			<xs:enumeration value="110208002"/>
-			<xs:enumeration value="110110002"/>
-			<xs:enumeration value="130202008"/>
-			<xs:enumeration value="410103001"/>
-			<xs:enumeration value="610301002"/>
-			<xs:enumeration value="610302001"/>
-			<xs:enumeration value="330101007"/>
-			<xs:enumeration value="330201009"/>
-			<xs:enumeration value="730101001"/>
-			<xs:enumeration value="110203050"/>
-			<xs:enumeration value="110101028"/>
-			<xs:enumeration value="110101049"/>
-			<xs:enumeration value="110101029"/>
-			<xs:enumeration value="110101030"/>
-			<xs:enumeration value="110104007"/>
-			<xs:enumeration value="110111001"/>
-			<xs:enumeration value="120205006"/>
-			<xs:enumeration value="110203051"/>
-			<xs:enumeration value="110101050"/>
-			<xs:enumeration value="110105028"/>
-			<xs:enumeration value="110105016"/>
-			<xs:enumeration value="110201046"/>
-			<xs:enumeration value="110106007"/>
-			<xs:enumeration value="110101031"/>
-			<xs:enumeration value="110203082"/>
-			<xs:enumeration value="610301001"/>
-			<xs:enumeration value="110101032"/>
-			<xs:enumeration value="110101047"/>
-			<xs:enumeration value="110105021"/>
-			<xs:enumeration value="110105010"/>
-			<xs:enumeration value="620101003"/>
-			<xs:enumeration value="210201001"/>
-			<xs:enumeration value="210201002"/>
-			<xs:enumeration value="210201003"/>
-			<xs:enumeration value="110105020"/>
-			<xs:enumeration value="110105022"/>
-			<xs:enumeration value="110205012"/>
-			<xs:enumeration value="620601002"/>
-			<xs:enumeration value="120206003"/>
-			<xs:enumeration value="110204036"/>
-			<xs:enumeration value="110204037"/>
-			<xs:enumeration value="110204038"/>
-			<xs:enumeration value="410101001"/>
-			<xs:enumeration value="410101002"/>
-			<xs:enumeration value="410102001"/>
-			<xs:enumeration value="410102002"/>
-			<xs:enumeration value="110103014"/>
-			<xs:enumeration value="110203052"/>
-			<xs:enumeration value="330101005"/>
-			<xs:enumeration value="330101006"/>
-			<xs:enumeration value="110205029"/>
-			<xs:enumeration value="110203053"/>
-			<xs:enumeration value="120204008"/>
-			<xs:enumeration value="110203054"/>
-			<xs:enumeration value="110204039"/>
-			<xs:enumeration value="110201047"/>
-			<xs:enumeration value="110201048"/>
-			<xs:enumeration value="110103011"/>
-			<xs:enumeration value="340101001"/>
-			<xs:enumeration value="550101001"/>
-			<xs:enumeration value="550101005"/>
-			<xs:enumeration value="550101002"/>
-			<xs:enumeration value="550101003"/>
-			<xs:enumeration value="550101004"/>
-			<xs:enumeration value="130202007"/>
-			<xs:enumeration value="110105011"/>
-			<xs:enumeration value="110201049"/>
-			<xs:enumeration value="110101048"/>
-			<xs:enumeration value="110101033"/>
-			<xs:enumeration value="110101040"/>
-			<xs:enumeration value="110101045"/>
-			<xs:enumeration value="110101041"/>
-			<xs:enumeration value="110204040"/>
-			<xs:enumeration value="110105019"/>
-			<xs:enumeration value="110204041"/>
-			<xs:enumeration value="110105024"/>
-			<xs:enumeration value="110203070"/>
-			<xs:enumeration value="110203055"/>
-			<xs:enumeration value="110204042"/>
-			<xs:enumeration value="110203075"/>
-			<xs:enumeration value="110201050"/>
-			<xs:enumeration value="110201051"/>
-			<xs:enumeration value="110201052"/>
-			<xs:enumeration value="110201053"/>
-			<xs:enumeration value="120201002"/>
-			<xs:enumeration value="110105029"/>
-			<xs:enumeration value="110203056"/>
-			<xs:enumeration value="110204043"/>
-			<xs:enumeration value="110203090"/>
-			<xs:enumeration value="140101020"/>
-			<xs:enumeration value="110103018"/>
-			<xs:enumeration value="110106004"/>
-			<xs:enumeration value="110106005"/>
-			<xs:enumeration value="110106006"/>
-			<xs:enumeration value="110205028"/>
-			<xs:enumeration value="110105012"/>
-			<xs:enumeration value="120204005"/>
-			<xs:enumeration value="110205013"/>
-			<xs:enumeration value="110201054"/>
-			<xs:enumeration value="110101044"/>
-			<xs:enumeration value="110204044"/>
-			<xs:enumeration value="110203057"/>
-			<xs:enumeration value="110203058"/>
-			<xs:enumeration value="120206002"/>
-			<xs:enumeration value="120206004"/>
-			<xs:enumeration value="330201008"/>
-			<xs:enumeration value="330101004"/>
-			<xs:enumeration value="110204045"/>
-			<xs:enumeration value="110204046"/>
-			<xs:enumeration value="110201063"/>
-			<xs:enumeration value="110206013"/>
-			<xs:enumeration value="110203059"/>
-			<xs:enumeration value="110203060"/>
-			<xs:enumeration value="610101001"/>
-			<xs:enumeration value="610401001"/>
-			<xs:enumeration value="110206015"/>
-			<xs:enumeration value="110206014"/>
-			<xs:enumeration value="110204052"/>
-			<xs:enumeration value="110205015"/>
-			<xs:enumeration value="110205014"/>
-			<xs:enumeration value="110204047"/>
-			<xs:enumeration value="110205016"/>
-			<xs:enumeration value="110203061"/>
-			<xs:enumeration value="110205017"/>
-			<xs:enumeration value="110106009"/>
-			<xs:enumeration value="110203062"/>
-			<xs:enumeration value="110206016"/>
-			<xs:enumeration value="120205007"/>
-			<xs:enumeration value="120201003"/>
-			<xs:enumeration value="620101006"/>
-			<xs:enumeration value="120205008"/>
-			<xs:enumeration value="120204006"/>
-			<xs:enumeration value="110201055"/>
-			<xs:enumeration value="110201056"/>
-			<xs:enumeration value="110201057"/>
-			<xs:enumeration value="110103016"/>
-			<xs:enumeration value="110205018"/>
-			<xs:enumeration value="110107005"/>
-			<xs:enumeration value="330201002"/>
-			<xs:enumeration value="620504001"/>
-			<xs:enumeration value="620503001"/>
-			<xs:enumeration value="110101034"/>
-			<xs:enumeration value="110107004"/>
-			<xs:enumeration value="610101007"/>
-			<xs:enumeration value="610101008"/>
-			<xs:enumeration value="110105014"/>
-			<xs:enumeration value="110205019"/>
-			<xs:enumeration value="110103012"/>
-			<xs:enumeration value="110203063"/>
-			<xs:enumeration value="120204007"/>
-			<xs:enumeration value="110204048"/>
-			<xs:enumeration value="110105013"/>
-			<xs:enumeration value="110204049"/>
-			<xs:enumeration value="110206017"/>
-			<xs:enumeration value="110109001"/>
-			<xs:enumeration value="110107006"/>
-			<xs:enumeration value="110201059"/>
-			<xs:enumeration value="110201058"/>
-			<xs:enumeration value="640301001"/>
-			<xs:enumeration value="110101035"/>
-			<xs:enumeration value="110101036"/>
-			<xs:enumeration value="110101037"/>
-			<xs:enumeration value="110205020"/>
-			<xs:enumeration value="120207005"/>
-			<xs:enumeration value="110206018"/>
-			<xs:enumeration value="110108006"/>
-			<xs:enumeration value="110203076"/>
-			<xs:enumeration value="110205021"/>
-			<xs:enumeration value="330201003"/>
-			<xs:enumeration value="130101001"/>
-			<xs:enumeration value="110201060"/>
-			<xs:enumeration value="110203071"/>
-			<xs:enumeration value="110203065"/>
-			<xs:enumeration value="110203064"/>
-			<xs:enumeration value="110204050"/>
-			<xs:enumeration value="110203066"/>
-			<xs:enumeration value="110203067"/>
-			<xs:enumeration value="110201061"/>
-			<xs:enumeration value="110203068"/>
-			<xs:enumeration value="110105026"/>
-			<xs:enumeration value="110106008"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TCfopTransp">

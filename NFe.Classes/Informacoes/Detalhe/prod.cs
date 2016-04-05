@@ -86,6 +86,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string NVE { get; set; }
 
         /// <summary>
+        /// I05c - Código CEST
+        /// </summary>
+        public string CEST { get; set; }
+
+        /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
         /// </summary>
         public string EXTIPI { get; set; }

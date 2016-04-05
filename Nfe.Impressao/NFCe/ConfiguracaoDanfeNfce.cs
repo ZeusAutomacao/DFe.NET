@@ -39,13 +39,14 @@ namespace NFe.Impressao.NFCe
     public class ConfiguracaoDanfeNfce
     {
 
-        public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal, NfceDetalheVendaContigencia detalheVendaContigencia, string cIdToken, string csc, byte[] logomarca = null)
+        public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal, NfceDetalheVendaContigencia detalheVendaContigencia, string cIdToken, string csc, byte[] logomarca = null, bool imprimeDescontoItem = false)
         {
             DetalheVendaNormal = detalheVendaNormal;
             DetalheVendaContigencia = detalheVendaContigencia;
             Logomarca = logomarca;
             this.cIdToken = cIdToken;
             CSC = csc;
+            ImprimeDescontoItem = imprimeDescontoItem;
         }
 
         /// <summary>
@@ -93,5 +94,7 @@ namespace NFe.Impressao.NFCe
             var image = Image.FromStream(ms);
             return image;
         }
+
+        public bool ImprimeDescontoItem { get; set; }
     }
 }

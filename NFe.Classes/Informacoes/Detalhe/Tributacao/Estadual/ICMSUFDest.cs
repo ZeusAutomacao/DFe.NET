@@ -1,10 +1,4 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
-/*                                                                              */
-/* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
-/*                                       Zeusdev Tecnologia LTDA ME             */
+﻿/*                                       Zeusdev Tecnologia LTDA ME             */
 /*                                                                              */
 /*  Você pode obter a última versão desse arquivo no GitHub                     */
 /* localizado em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe               */
@@ -30,56 +24,92 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
-    public class ICMS00 : ICMSBasico
+    public class ICMSUFDest
     {
-        private decimal _vBc;
-        private decimal _pIcms;
-        private decimal _vIcms;
+        private decimal _vBcufDest;
+        private decimal _pFcpufDest;
+        private decimal _pIcmsufDest;
+        private decimal _pIcmsInter;
+        private decimal _pIcmsInterPart;
+        private decimal _vFcpufDest;
+        private decimal _vIcmsufDest;
+        private decimal _vIcmsufRemet;
 
         /// <summary>
-        ///     N11 - Origem da Mercadoria
+        /// NA03 - Valor da BC do ICMS na UF de destino
         /// </summary>
-        public OrigemMercadoria orig { get; set; }
-
-        /// <summary>
-        ///     N12- Situação Tributária
-        /// </summary>
-        public Csticms CST { get; set; }
-
-        /// <summary>
-        ///     N13 - Modalidade de determinação da BC do ICMS
-        /// </summary>
-        public DeterminacaoBaseIcms modBC { get; set; }
-
-        /// <summary>
-        ///     N15 - Valor da BC do ICMS
-        /// </summary>
-        public decimal vBC
+        public decimal vBCUFDest
         {
-            get { return Valor.Arredondar(_vBc, 2); }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            get { return _vBcufDest; }
+            set { _vBcufDest = Valor.Arredondar(value, 2); }
         }
 
         /// <summary>
-        ///     N16 - Alíquota do imposto
+        /// NA05 - Percentual do ICMS relativo ao Fundo de Combate à Pobreza (FCP) na UF de destino
         /// </summary>
-        public decimal pICMS
+        public decimal pFCPUFDest
         {
-            get { return Valor.Arredondar(_pIcms, 4); }
-            set { _pIcms = Valor.Arredondar(value, 4); }
+            get { return _pFcpufDest; }
+            set
+            {
+                _pFcpufDest = Valor.Arredondar(value, 4); }
         }
 
         /// <summary>
-        ///     N17 - Valor do ICMS
+        /// NA07 - Alíquota interna da UF de destino
         /// </summary>
-        public decimal vICMS
+        public decimal pICMSUFDest
         {
-            get { return Valor.Arredondar(_vIcms, 2); }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            get { return _pIcmsufDest; }
+            set { _pIcmsufDest = Valor.Arredondar(value, 4); }
+        }
+
+        /// <summary>
+        /// NA09 - Alíquota interestadual das UF envolvidas
+        /// </summary>
+        public decimal pICMSInter
+        {
+            get { return _pIcmsInter; }
+            set { _pIcmsInter = Valor.Arredondar(value, 2); }
+        }
+
+        /// <summary>
+        /// NA11 - Percentual provisório de partilha do ICMS Interestadual
+        /// </summary>
+        public decimal pICMSInterPart
+        {
+            get { return _pIcmsInterPart; }
+            set { _pIcmsInterPart = Valor.Arredondar(value, 4); }
+        }
+
+        /// <summary>
+        /// NA13 - Valor do ICMS relativo ao Fundo de Combate à Pobreza(FCP) da UF de destino
+        /// </summary>
+        public decimal vFCPUFDest
+        {
+            get { return _vFcpufDest; }
+            set { _vFcpufDest = Valor.Arredondar(value, 2); }
+        }
+
+        /// <summary>
+        /// NA15 - Valor do ICMS Interestadual para a UF de destino
+        /// </summary>
+        public decimal vICMSUFDest
+        {
+            get { return _vIcmsufDest; }
+            set { _vIcmsufDest = Valor.Arredondar(value, 2); }
+        }
+
+        /// <summary>
+        /// NA17 - Valor do ICMS Interestadual para a UF do remetente
+        /// </summary>
+        public decimal vICMSUFRemet
+        {
+            get { return _vIcmsufRemet; }
+            set { _vIcmsufRemet = Valor.Arredondar(value, 2); }
         }
     }
 }

@@ -97,7 +97,10 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum TipoIntegracaoPagamento
     {
+        [XmlEnum("1")]
         TipIntegradoAutomacao = 1,
+
+        [XmlEnum("2")]
         TipNaoIntegrado = 2
     }
 }

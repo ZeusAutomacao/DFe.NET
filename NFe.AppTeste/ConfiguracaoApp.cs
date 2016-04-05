@@ -76,7 +76,7 @@ namespace NFe.AppTeste
         ///     Salva os dados de CfgServico em um arquivo XML
         /// </summary>
         /// <param name="arquivo">Arquivo XML onde será salvo os dados</param>
-        public void Salvar(string arquivo)
+        public void SalvarParaAqruivo(string arquivo)
         {
             var camposEmBranco = Funcoes.ObterPropriedadesEmBranco(CfgServico);
 
