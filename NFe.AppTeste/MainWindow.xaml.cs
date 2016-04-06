@@ -158,7 +158,7 @@ namespace NFe.AppTeste
                     ? new ConfiguracaoApp()
                     : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoApp>(path + ArquivoConfiguracao);
                 if (_configuracoes.CfgServico.TimeOut == 0)
-                    _configuracoes.CfgServico.TimeOut = 100; //mínimo
+                    _configuracoes.CfgServico.TimeOut = 3000; //mínimo
 
                 #region Carrega a logo no controle logoEmitente
 
@@ -1351,7 +1351,7 @@ namespace NFe.AppTeste
                     var inteiro2 = int.TryParse(idCsc, out n2);
                     if (!inteiro2)
                         throw new Exception("O Número identificador do CSC deve conter apenas números!");
-                    if (raizCnpj.Length != 6)
+                    if (idCsc.Length != 6)
                         throw new Exception("O Número identificador do CSC deve conter 6 caracteres!");
 
                     //codigoCsc
@@ -1367,7 +1367,8 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
     }
