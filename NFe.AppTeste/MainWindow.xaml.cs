@@ -1313,5 +1313,62 @@ namespace NFe.AppTeste
         {
             TxtArquivoCertificado.Text = Funcoes.BuscarArquivoCertificado();
         }
+
+        private void BtnAdminCsc_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Administração do CSC
+
+                //indOp
+                var indOp = Funcoes.InpuBox(this, "Identificador do tipo de operação:", "1 - Consulta CSC Ativos;\n2 - Solicita novo CSC;\n3 - Revoga CSC Ativo");
+                if (string.IsNullOrEmpty(indOp)) throw new Exception("O Identificador do tipo de operação deve ser informado!");
+                int n1;
+                var inteiro = int.TryParse(indOp, out n1);
+                if (!inteiro)
+                    throw new Exception(string.Format("{0} não é um número inteiro!", indOp));
+                if (n1 < 1 | n1 > 3)
+                    throw new Exception("O Identificador do tipo de operação deve ser um número inteiro entre 1 e 3!");
+
+                //raizCnpj
+                var raizCnpj = Funcoes.InpuBox(this, "Administração do CSC", "Raiz do CNPJ do contribuinte que está efetuando a consulta (oito primeiros dígitos do CNPJ):");
+                if (string.IsNullOrEmpty(raizCnpj)) throw new Exception("A Raiz do CNPJ do contribuinte deve ser informada!");
+                long l;
+                var longo = long.TryParse(raizCnpj, out l);
+                if (!longo)
+                    throw new Exception("A Raiz do CNPJ do contribuinte deve conter apenas números!");
+                if (raizCnpj.Length != 8)
+                    throw new Exception("A Raiz do CNPJ do contribuinte deve conter 8 caracteres!");
+
+                var idCsc = "";
+                var codigoCsc = "";
+                if (int.Parse(indOp) == (int) IdentificadorOperacaoCsc.ioRevogaCscAtivo)
+                {
+                    //idCsc
+                    idCsc = Funcoes.InpuBox(this, "Administração do CSC", "Número identificador do CSC a ser revogado:");
+                    if (string.IsNullOrEmpty(idCsc)) throw new Exception("O Número identificador do CSC deve ser informado!");
+                    int n2;
+                    var inteiro2 = int.TryParse(idCsc, out n2);
+                    if (!inteiro2)
+                        throw new Exception("O Número identificador do CSC deve conter apenas números!");
+                    if (raizCnpj.Length != 6)
+                        throw new Exception("O Número identificador do CSC deve conter 6 caracteres!");
+
+                    //codigoCsc
+                    codigoCsc = Funcoes.InpuBox(this, "Administração do CSC", "Código alfanumérico do CSC a ser revogado: ");
+                    if (string.IsNullOrEmpty(codigoCsc)) throw new Exception("O Código alfanumérico do CSC deve ser informado!");
+                }
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoCsc = servicoNFe.AdmCscNFCe(raizCnpj, (IdentificadorOperacaoCsc)int.Parse(indOp), idCsc, codigoCsc);
+                TrataRetorno(retornoCsc);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 }

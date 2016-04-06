@@ -911,7 +911,7 @@ namespace NFe.Servicos
 
         #region Adm CSC
 
-        public RetornoAdmCscNFCe AdmCscNFCe(string cnpj, IdentificadorOperacaoCsc identificadorOperacaoCsc, string idCscASerRevogado = null, string codigoCscASerRevogado = null)
+        public RetornoAdmCscNFCe AdmCscNFCe(string raizCnpj, IdentificadorOperacaoCsc identificadorOperacaoCsc, string idCscASerRevogado = null, string codigoCscASerRevogado = null)
         {
             var versaoServico = Auxiliar.VersaoServicoParaString(ServicoNFe.NfceAdministracaoCSC, _cFgServico.VersaoNfceAministracaoCSC);
 
@@ -934,7 +934,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
                 indOp = identificadorOperacaoCsc,
-                raizCNPJ = cnpj.Remove(8)
+                raizCNPJ = raizCnpj
             };
 
             if (identificadorOperacaoCsc == IdentificadorOperacaoCsc.ioRevogaCscAtivo)
@@ -954,13 +954,13 @@ namespace NFe.Servicos
             var dadosAdmnistracaoCsc = new XmlDocument();
             dadosAdmnistracaoCsc.LoadXml(xmlAdmCscNfe);
 
-            SalvarArquivoXml(cnpj + "-adm-csc.xml", xmlAdmCscNfe);
+            SalvarArquivoXml(raizCnpj + "-adm-csc.xml", xmlAdmCscNfe);
 
             var retorno = ws.Execute(dadosAdmnistracaoCsc);
             var retornoXmlString = retorno.OuterXml;
             var retCsc = new retAdmCscNFCe().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(cnpj + "-ret-adm-csc.xml", retornoXmlString);
+            SalvarArquivoXml(raizCnpj + "-ret-adm-csc.xml", retornoXmlString);
 
             return new RetornoAdmCscNFCe(admCscNFCe.ObterXmlString(), retCsc.ObterXmlString(), retornoXmlString, retCsc);
 
