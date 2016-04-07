@@ -48,9 +48,10 @@ namespace NFe.AppTeste
         /// <param name="mensagem"></param>
         /// <param name="titulo"></param>
         /// <param name="botoes"></param>
-        public static void Mensagem(string mensagem, string titulo, MessageBoxButton botoes)
+        /// <param name="imagem"></param>
+        public static void Mensagem(string mensagem, string titulo, MessageBoxButton botoes, MessageBoxImage imagem = MessageBoxImage.None)
         {
-            MessageBox.Show(mensagem, titulo, botoes);
+            MessageBox.Show(mensagem, titulo, botoes, imagem);
         }
 
         /// <summary>
@@ -133,6 +134,11 @@ namespace NFe.AppTeste
         public static string BuscarArquivoXml()
         {
             return BuscarArquivo("Selecione o arquivo XML", ".xml", "Arquivo XML (.xml)|*.xml");
+        }
+
+        public static string BuscarArquivoPdf()
+        {
+            return BuscarArquivo("Selecione o arquivo Pdf", ".pdf", "Arquivo Pdf (.pdf)|*.pdf");
         }
 
         /// <summary>

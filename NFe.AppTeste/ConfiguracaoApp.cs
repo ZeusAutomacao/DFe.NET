@@ -37,6 +37,7 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Impressao;
 using NFe.Impressao.NFCe;
 using NFe.Utils;
+using NFe.Utils.Email;
 
 namespace NFe.AppTeste
 {
@@ -71,6 +72,7 @@ namespace NFe.AppTeste
         public emit Emitente { get; set; }
         public enderEmit EnderecoEmitente { get; set; }
         public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
+        public ConfiguracaoEmail ConfiguracaoEmail { get; set; }
 
         /// <summary>
         ///     Salva os dados de CfgServico em um arquivo XML
