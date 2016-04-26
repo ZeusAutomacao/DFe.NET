@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCUFDest
         {
             get { return _vBcufDest; }
-            set { _vBcufDest = Valor.Arredondar(value, 2); }
+            set { _vBcufDest = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _pFcpufDest; }
             set
             {
-                _pFcpufDest = Valor.Arredondar(value, 4); }
+                _pFcpufDest = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSUFDest
         {
             get { return _pIcmsufDest; }
-            set { _pIcmsufDest = Valor.Arredondar(value, 4); }
+            set { _pIcmsufDest = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSInter
         {
             get { return _pIcmsInter; }
-            set { _pIcmsInter = Valor.Arredondar(value, 2); }
+            set { _pIcmsInter = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSInterPart
         {
             get { return _pIcmsInterPart; }
-            set { _pIcmsInterPart = Valor.Arredondar(value, 4); }
+            set { _pIcmsInterPart = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vFCPUFDest
         {
             get { return _vFcpufDest; }
-            set { _vFcpufDest = Valor.Arredondar(value, 2); }
+            set { _vFcpufDest = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSUFDest
         {
             get { return _vIcmsufDest; }
-            set { _vIcmsufDest = Valor.Arredondar(value, 2); }
+            set { _vIcmsufDest = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSUFRemet
         {
             get { return _vIcmsufRemet; }
-            set { _vIcmsufRemet = Valor.Arredondar(value, 2); }
+            set { _vIcmsufRemet = value.Arredondar(2); }
         }
     }
 }

@@ -56,8 +56,8 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         /// </summary>
         public decimal? vDescDI
         {
-            get { return _vDescDi; }
-            set { _vDescDi = Valor.Arredondar(value, 2); }
+            get { return _vDescDi.Arredondar(2); }
+            set { _vDescDi = value.Arredondar(2); }
         }
 
         /// <summary>

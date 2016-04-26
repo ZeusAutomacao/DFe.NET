@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal vEncIni
         {
             get { return _vEncIni; }
-            set { _vEncIni = Valor.Arredondar(value, 3); }
+            set { _vEncIni = value.Arredondar(3); }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal vEncFin
         {
             get { return _vEncFin; }
-            set { _vEncFin = Valor.Arredondar(value, 3); }
+            set { _vEncFin = value.Arredondar(3); }
         }
     }
 }

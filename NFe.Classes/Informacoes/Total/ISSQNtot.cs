@@ -50,8 +50,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vServ
         {
-            get { return _vServ; }
-            set { _vServ = Valor.Arredondar(value, 2); }
+            get { return _vServ.Arredondar(2); }
+            set { _vServ = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -59,8 +59,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vBC
         {
-            get { return _vBc; }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vISS
         {
-            get { return _vIss; }
-            set { _vIss = Valor.Arredondar(value, 2); }
+            get { return _vIss.Arredondar(2); }
+            set { _vIss = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vPIS
         {
-            get { return _vPis; }
-            set { _vPis = Valor.Arredondar(value, 2); }
+            get { return _vPis.Arredondar(2); }
+            set { _vPis = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -86,8 +86,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vCOFINS
         {
-            get { return _vCofins; }
-            set { _vCofins = Valor.Arredondar(value, 2); }
+            get { return _vCofins.Arredondar(2); }
+            set { _vCofins = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -100,8 +100,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vDeducao
         {
-            get { return _vDeducao; }
-            set { _vDeducao = Valor.Arredondar(value, 2); }
+            get { return _vDeducao.Arredondar(2); }
+            set { _vDeducao = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vOutro
         {
-            get { return _vOutro; }
-            set { _vOutro = Valor.Arredondar(value, 2); }
+            get { return _vOutro.Arredondar(2); }
+            set { _vOutro = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vDescIncond
         {
-            get { return _vDescIncond; }
-            set { _vDescIncond = Valor.Arredondar(value, 2); }
+            get { return _vDescIncond.Arredondar(2); }
+            set { _vDescIncond = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -127,8 +127,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vDescCond
         {
-            get { return _vDescCond; }
-            set { _vDescCond = Valor.Arredondar(value, 2); }
+            get { return _vDescCond.Arredondar(2); }
+            set { _vDescCond = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vISSRet
         {
-            get { return _vIssRet; }
-            set { _vIssRet = Valor.Arredondar(value, 2); }
+            get { return _vIssRet.Arredondar(2); }
+            set { _vIssRet = value.Arredondar(2); }
         }
 
         /// <summary>

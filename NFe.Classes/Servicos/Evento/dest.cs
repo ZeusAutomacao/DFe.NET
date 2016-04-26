@@ -120,7 +120,7 @@ namespace NFe.Classes.Servicos.Evento
         public decimal vNF
         {
             get { return _vNf; }
-            set { _vNf = Valor.Arredondar(value, 2); }
+            set { _vNf = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace NFe.Classes.Servicos.Evento
         public decimal vICMS
         {
             get { return _vIcms; }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            set { _vIcms = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace NFe.Classes.Servicos.Evento
         public decimal vST
         {
             get { return _vSt; }
-            set { _vSt = Valor.Arredondar(value, 2); }
+            set { _vSt = value.Arredondar(2); }
         }
 
         public bool ShouldSerializeIE()

@@ -82,7 +82,7 @@ namespace NFe.Classes.Informacoes
         public decimal vDAR
         {
             get { return _vDar; }
-            set { _vDar = Valor.Arredondar(value, 2); }
+            set { _vDar = value.Arredondar(2); }
         }
 
         /// <summary>

@@ -45,8 +45,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         /// </summary>
         public decimal? vTotTrib
         {
-            get { return _vTotTrib; }
-            set { _vTotTrib = Valor.Arredondar(value, 2); }
+            get { return _vTotTrib.Arredondar(2); }
+            set { _vTotTrib = value.Arredondar(2); }
         }
 
         /// <summary>

@@ -54,8 +54,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vBCSTRet
         {
-            get { return _vBcstRet; }
-            set { _vBcstRet = Valor.Arredondar(value, 2); }
+            get { return _vBcstRet.Arredondar(2); }
+            set { _vBcstRet = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -63,8 +63,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSSTRet
         {
-            get { return _vIcmsstRet; }
-            set { _vIcmsstRet = Valor.Arredondar(value, 2); }
+            get { return _vIcmsstRet.Arredondar(2); }
+            set { _vIcmsstRet = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevBCSTRet()

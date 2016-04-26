@@ -47,8 +47,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// </summary>
         public decimal? pMixGN
         {
-            get { return _pMixGn; }
-            set { _pMixGn = Valor.Arredondar(value, 4); }
+            get { return _pMixGn.Arredondar(4); }
+            set { _pMixGn = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         /// </summary>
         public decimal? qTemp
         {
-            get { return _qTemp; }
-            set { _qTemp = Valor.Arredondar(value, 4); }
+            get { return _qTemp.Arredondar(4); }
+            set { _qTemp = value.Arredondar(4); }
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal qBCProd
         {
             get { return _qBcProd; }
-            set { _qBcProd = Valor.Arredondar(value, 4); }
+            set { _qBcProd = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal vAliqProd
         {
             get { return _vAliqProd; }
-            set { _vAliqProd = Valor.Arredondar(value, 4); }
+            set { _vAliqProd = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal vCIDE
         {
             get { return _vCide; }
-            set { _vCide = Valor.Arredondar(value, 2); }
+            set { _vCide = value.Arredondar(2); }
         }
     }
 }

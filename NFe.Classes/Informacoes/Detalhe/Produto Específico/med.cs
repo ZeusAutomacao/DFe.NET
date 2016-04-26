@@ -48,7 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal qLote
         {
             get { return _qLote; }
-            set { _qLote = Valor.Arredondar(value, 3); }
+            set { _qLote = value.Arredondar(3); }
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
         public decimal vPMC
         {
             get { return _vPmc; }
-            set { _vPmc = Valor.Arredondar(value, 2); }
+            set { _vPmc = value.Arredondar(2); }
         }
     }
 }

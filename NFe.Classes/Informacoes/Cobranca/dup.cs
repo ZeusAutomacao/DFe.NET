@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Cobranca
         public decimal vDup
         {
             get { return _vDup; }
-            set { _vDup = Valor.Arredondar(value, 2); }
+            set { _vDup = value.Arredondar(2); }
         }
     }
 }

@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Exportacao
         public decimal qExport
         {
             get { return _qExport; }
-            set { _qExport = Valor.Arredondar(value, 4); }
+            set { _qExport = value.Arredondar(4); }
         }
     }
 }

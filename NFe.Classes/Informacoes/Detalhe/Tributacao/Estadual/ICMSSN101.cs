@@ -55,7 +55,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pCredSN
         {
             get { return _pCredSn; }
-            set { _pCredSn = Valor.Arredondar(value, 4); }
+            set { _pCredSn = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vCredICMSSN
         {
             get { return _vCredIcmssn; }
-            set { _vCredIcmssn = Valor.Arredondar(value, 2); }
+            set { _vCredIcmssn = value.Arredondar(2); }
         }
     }
 }

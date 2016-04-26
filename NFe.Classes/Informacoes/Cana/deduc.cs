@@ -50,7 +50,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vDed
         {
             get { return _vDed; }
-            set { _vDed = Valor.Arredondar(value, 2); }
+            set { _vDed = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vFor
         {
             get { return _vFor; }
-            set { _vFor = Valor.Arredondar(value, 2); }
+            set { _vFor = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vTotDed
         {
             get { return _vTotDed; }
-            set { _vTotDed = Valor.Arredondar(value, 2); }
+            set { _vTotDed = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vLiqFor
         {
             get { return _vLiqFor; }
-            set { _vLiqFor = Valor.Arredondar(value, 2); }
+            set { _vLiqFor = value.Arredondar(2); }
         }
     }
 }

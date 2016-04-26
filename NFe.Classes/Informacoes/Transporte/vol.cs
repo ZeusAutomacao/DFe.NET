@@ -65,8 +65,8 @@ namespace NFe.Classes.Informacoes.Transporte
         /// </summary>
         public decimal? pesoL
         {
-            get { return _pesoL; }
-            set { _pesoL = Valor.Arredondar(value, 3); }
+            get { return _pesoL.Arredondar(3); }
+            set { _pesoL = value.Arredondar(3); }
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace NFe.Classes.Informacoes.Transporte
         /// </summary>
         public decimal? pesoB
         {
-            get { return _pesoB; }
-            set { _pesoB = Valor.Arredondar(value, 3); }
+            get { return _pesoB.Arredondar(3); }
+            set { _pesoB = value.Arredondar(3); }
         }
 
         /// <summary>

@@ -763,7 +763,7 @@ namespace NFe.AppTeste
                 versao = Auxiliar.VersaoServicoParaString(versao),
                 ide = GetIdentificacao(numero, modelo, versao),
                 emit = GetEmitente(),
-                dest = GetDestinatario(versao),
+                dest = GetDestinatario(versao, modelo),
                 transp = GetTransporte()
             };          
 
@@ -876,15 +876,18 @@ namespace NFe.AppTeste
             return enderEmit;
         }
 
-        protected virtual dest GetDestinatario(VersaoServico versao)
+        protected virtual dest GetDestinatario(VersaoServico versao, ModeloDocumento modelo)
         {
             var dest = new dest(versao)
             {
                 CNPJ = "99999999000191",
                 //CPF = "99999999999",
-                xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL",
-                enderDest = GetEnderecoDestinatario()
             };
+            if (modelo == ModeloDocumento.NFe)
+            {
+                dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"; //Obrigatório para NFe e opcional para NFCe
+                dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
+            }
 
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";

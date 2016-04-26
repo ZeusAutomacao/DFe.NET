@@ -64,8 +64,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pMVAST
         {
-            get { return _pMvast; }
-            set { _pMvast = Valor.Arredondar(value, 4); }
+            get { return _pMvast.Arredondar(4); }
+            set { _pMvast = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBCST
         {
-            get { return _pRedBcst; }
-            set { _pRedBcst = Valor.Arredondar(value, 4); }
+            get { return _pRedBcst.Arredondar(4); }
+            set { _pRedBcst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCST
         {
             get { return _vBcst; }
-            set { _vBcst = Valor.Arredondar(value, 2); }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSST
         {
             get { return _pIcmsst; }
-            set { _pIcmsst = Valor.Arredondar(value, 4); }
+            set { _pIcmsst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSST
         {
             get { return _vIcmsst; }
-            set { _vIcmsst = Valor.Arredondar(value, 2); }
+            set { _vIcmsst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pCredSN
         {
             get { return _pCredSn; }
-            set { _pCredSn = Valor.Arredondar(value, 4); }
+            set { _pCredSn = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vCredICMSSN
         {
             get { return _vCredIcmssn; }
-            set { _vCredIcmssn = Valor.Arredondar(value, 2); }
+            set { _vCredIcmssn = value.Arredondar(2); }
         }
 
         public bool ShouldSerializepMVAST()
