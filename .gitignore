@@ -49,3 +49,15 @@ Temporary Items
 /NFe.Servicos/obj/Debug
 /NFe.Utils/obj/Debug
 /NFe.Wsdl/obj/Debug
+/NFe.Wsdl/obj/Release
+/NFe.Wsdl/bin
+/NFe.Utils/obj/Release
+/NFe.Utils/bin
+/NFe.Servicos/obj/Release
+/NFe.Servicos/bin
+/Nfe.Impressao/obj/Release
+/Nfe.Impressao/bin
+/NFe.Classes/obj/Release
+/NFe.Classes/bin
+/NFe.AppTeste/obj/Release
+/NFe.AppTeste/bin

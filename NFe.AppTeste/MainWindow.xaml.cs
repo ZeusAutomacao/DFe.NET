@@ -580,6 +580,32 @@ namespace NFe.AppTeste
             {
                 CarregaArquivoNfe();
                 ExibeNfe();
+
+                //Ler os impostos de um XML carregado para o objeto do tipo NFe
+                /*
+                //ICMS
+                var icms = _nfe.infNFe.det[0].imposto.ICMS.TipoICMS as ICMSSN500;
+                if (icms != null)
+                    Funcoes.Mensagem(icms.CSOSN.ToString(), "CSOSN", MessageBoxButton.OK);
+
+                //IPI
+                var ipi = _nfe.infNFe.det[0].imposto.IPI.TipoIPI as IPITrib;
+                if (ipi != null)
+                {
+                    Funcoes.Mensagem(ipi.CST.ToString(), "CST", MessageBoxButton.OK);
+                    Funcoes.Mensagem(ipi.pIPI.ToString(), "pIPI", MessageBoxButton.OK);
+                    Funcoes.Mensagem(ipi.vIPI.ToString(), "vIPI", MessageBoxButton.OK);
+                }
+
+                //PIS
+                var pis = _nfe.infNFe.det[0].imposto.PIS.TipoPIS as PISOutr;
+                if (pis != null)
+                {
+                    Funcoes.Mensagem(pis.CST.ToString(), "CST", MessageBoxButton.OK);
+                    Funcoes.Mensagem(pis.pPIS.ToString(), "pPIS", MessageBoxButton.OK);
+                    Funcoes.Mensagem(pis.vPIS.ToString(), "vPIS", MessageBoxButton.OK);
+                }
+                */
             }
             catch (Exception ex)
             {
