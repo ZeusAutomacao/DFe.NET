@@ -678,7 +678,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeStatusServico3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teEPEC)
-                    endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
+                    endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
 
@@ -717,7 +717,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeStatusServico3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/CadConsultaCadastro2?wsdl"));
                 if (emissao != TipoEmissao.teEPEC)
-                    endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
+                    endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeRecepcaoEvento?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
 
