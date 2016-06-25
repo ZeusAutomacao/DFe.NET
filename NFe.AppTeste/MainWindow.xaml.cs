@@ -65,6 +65,7 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
+using NFe.Utils.Email;
 using NFe.Utils.NFe;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
@@ -1399,6 +1400,61 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+
+                if (string.IsNullOrEmpty(arquivoXml)) throw new ArgumentException("Opá\nSelecione um arquivo XML");
+
+                var arquivoPdf = Funcoes.BuscarArquivoPdf();
+
+                if (string.IsNullOrEmpty(arquivoPdf)) throw new ArgumentException("Opá\nSelecione um arquivo PDF");
+
+                var emailDoDestinatario = Funcoes.InpuBox(this, "Email do destinatario",
+                    "Digite o email do destinatario por favor\nObrigado");
+
+                if (string.IsNullOrEmpty(emailDoDestinatario))
+                    throw new ArgumentException("Opá\nDigite o email do destinatario");
+
+                var emailBuilder = new EmailBuilder(_configuracoes.ConfiguracaoEmail)
+                    .AddDestinatario(emailDoDestinatario)
+                    .AddAnexo(arquivoXml)
+                    .AddAnexo(arquivoPdf);
+
+                emailBuilder.AntesDeEnviarEmail += EventoAntesDeEnviarEmail;
+                emailBuilder.DepoisDeEnviarEmail += EventoDepoisDeEnviarEmail;
+
+                emailBuilder.Enviar();
+
+                Funcoes.Mensagem("Email enviado com sucesso!", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (ArgumentException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+        }
+
+        private void EventoDepoisDeEnviarEmail(object sender, EventArgs e)
+        {
+            Funcoes.Mensagem("Evento executado depois de enviar o email", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void EventoAntesDeEnviarEmail(object sender, EventArgs e)
+        {
+            Funcoes.Mensagem("Evento executado antes de enviar o email\nO ATRIBUTO TIMEOUT SE DEIXADO COM 0 ELE PEGA O PADRÃO! EQUIVALENTE Á 100000", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

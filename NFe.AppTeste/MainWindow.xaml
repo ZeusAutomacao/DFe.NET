@@ -550,34 +550,49 @@
                     </TabItem>
                     <TabItem Header="Email">
                         <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="17*"/>
+                                <ColumnDefinition Width="60*"/>
+                            </Grid.ColumnDefinitions>
                             <Label Content="Servidor SMTP" HorizontalAlignment="Left" Margin="10,5,0,0"
-                                   VerticalAlignment="Top" />
+                                   VerticalAlignment="Top" Grid.ColumnSpan="2" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap"
-                                     VerticalAlignment="Top" Width="228" />
-                            <Label Content="Porta" HorizontalAlignment="Left" Margin="243,5,0,0"
-                                   VerticalAlignment="Top" />
+                                     Text="{Binding ConfiguracaoEmail.ServidorSmtp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                      VerticalAlignment="Top" Width="228" Grid.ColumnSpan="2" />
+                            <Label Content="Porta" HorizontalAlignment="Left" Margin="174.667,5,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1" />
                             <TextBox x:Name="TxtPorta" HorizontalAlignment="Left" Height="23"
-                                     Margin="243,31,0,0" VerticalAlignment="Top" Width="55" />
+                                     Text="{Binding ConfiguracaoEmail.Porta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="174.667,31,0,0" VerticalAlignment="Top" Width="55" Grid.Column="1" />
                             <Label Content="Usuário" HorizontalAlignment="Left" Margin="10,55,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap"
-                                     VerticalAlignment="Top" Width="176" />
-                            <Label Content="Senha" HorizontalAlignment="Left" Margin="191,55,0,0"
-                                   VerticalAlignment="Top" />
-                            <TextBox HorizontalAlignment="Left" Height="23" Margin="191,81,0,0" TextWrapping="Wrap"
-                                     VerticalAlignment="Top" Width="107" />
+                                     Text="{Binding ConfiguracaoEmail.EmailDeUsuario, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Top" Width="176" Grid.ColumnSpan="2" />
+                            <Label Content="Senha" HorizontalAlignment="Left" Margin="122.667,55,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1" />
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="122.667,81,0,0" TextWrapping="Wrap"
+                                     Text="{Binding ConfiguracaoEmail.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Top" Width="107" Grid.Column="1" />
                             <Label Content="Assunto" HorizontalAlignment="Left" Margin="10,105,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,131,0,0" TextWrapping="Wrap"
-                                     VerticalAlignment="Top" Width="288" />
+                                     Text="{Binding ConfiguracaoEmail.Assunto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Top" Width="288" Grid.ColumnSpan="2" />
                             <CheckBox Content="SMTP Exige conexão segura" HorizontalAlignment="Left"
-                                      Margin="10,164,0,0" VerticalAlignment="Top" />
-                            <RichTextBox HorizontalAlignment="Left" Height="146" Margin="10,218,0,0"
-                                         VerticalAlignment="Top" Width="288">
-                                <FlowDocument />
-                            </RichTextBox>
-                            <Label Content="Mensagem do Email" HorizontalAlignment="Left" Margin="10,191,0,0"
-                                   VerticalAlignment="Top" />
+                                      IsChecked="{Binding ConfiguracaoEmail.Ssl}"
+                                      Margin="10,239,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                            <TextBox HorizontalAlignment="Left" Height="146" Margin="10,290,0,0" TextWrapping="Wrap" AcceptsReturn="True"
+                                         Text="{Binding ConfiguracaoEmail.MensagemDoEmail, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         VerticalAlignment="Top" Width="288" Grid.ColumnSpan="2">
+
+                            </TextBox>
+                            <Label Content="Mensagem do Email" HorizontalAlignment="Left" Margin="10,259,0,0"
+                                   VerticalAlignment="Top" Grid.ColumnSpan="2" />
+                            <Label x:Name="label" Content="Timeout" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="61"/>
+                            <TextBox x:Name="textBox" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,185,0,0" 
+                                     Text="{Binding ConfiguracaoEmail.Timeout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     VerticalAlignment="Top" Width="120"/>
                         </Grid>
                     </TabItem>
                     <TabItem Header="DANFE" HorizontalAlignment="Left">
@@ -665,11 +680,13 @@
                                                     <Label Content="CSC:" Width="Auto" Grid.Column="0" />
                                                     <TextBox Width="Auto" Text="{Binding ConfiguracaoDanfeNfce.CSC}"
                                                              Grid.Column="1" />
-                                                </Grid></StackPanel>
+                                                </Grid>
+                                            </StackPanel>
                                         </GroupBox>
-                                        
+
                                     </StackPanel>
-                                </GroupBox></StackPanel>
+                                </GroupBox>
+                            </StackPanel>
 
                         </Grid>
                     </TabItem>
@@ -736,6 +753,7 @@
                             Margin="192,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" />
                     <Button x:Name="BtnAdminCsc" Content="Administrar CSC" HorizontalAlignment="Left"
                     	Margin="374,227,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdminCsc_Click"/>
+                    <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick" HorizontalAlignment="Left" Margin="10,252,0,0" VerticalAlignment="Top" Width="177"/>
                 </Grid>
             </TabItem>
 
