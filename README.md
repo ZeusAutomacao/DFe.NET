@@ -44,7 +44,7 @@ danfe.Visualizar();
 - [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
 - [ ] Implementar impressão do DANFE de NFCe A4;
 - [ ] Implementar impressão do DANFE de NFe;
-- [ ] Implementar envio de emails;
+- [x] Implementar envio de emails (Concluído em 25/06/2016)
 - [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
 - [ ] Implementar consumo do serviço NfeConsultaDest;
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001);
