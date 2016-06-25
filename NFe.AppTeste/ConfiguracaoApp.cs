@@ -53,6 +53,7 @@ namespace NFe.AppTeste
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
             ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, "", "");
+            ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", "Segue a NFe...", "smtp.dominio.com", 587);
         }
 
         public ConfiguracaoServico CfgServico

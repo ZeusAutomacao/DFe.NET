@@ -136,7 +136,7 @@ namespace NFe.Classes.Servicos.Evento
         }
 
         /// <summary>
-        ///     HR24 - email do destinatário informado na NF-e.
+        ///     HR24 - e-mail do destinatário informado na NF-e.
         /// </summary>
         public string emailDest { get; set; }
 

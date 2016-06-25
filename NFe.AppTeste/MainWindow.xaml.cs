@@ -1408,53 +1408,53 @@ namespace NFe.AppTeste
             {
                 var arquivoXml = Funcoes.BuscarArquivoXml();
 
-                if (string.IsNullOrEmpty(arquivoXml)) throw new ArgumentException("Opá\nSelecione um arquivo XML");
+                if (string.IsNullOrEmpty(arquivoXml)) throw new ArgumentException("Opa\nSelecione um arquivo XML!");
 
                 var arquivoPdf = Funcoes.BuscarArquivoPdf();
 
-                if (string.IsNullOrEmpty(arquivoPdf)) throw new ArgumentException("Opá\nSelecione um arquivo PDF");
+                if (string.IsNullOrEmpty(arquivoPdf)) throw new ArgumentException("Opa\nSelecione um arquivo PDF!");
 
-                var emailDoDestinatario = Funcoes.InpuBox(this, "Email do destinatario",
-                    "Digite o email do destinatario por favor\nObrigado");
+                var emailDoDestinatario = Funcoes.InpuBox(this, "E-mail do destinatario",
+                    "Digite o e-mail do destinatario por favor\nObrigado");
 
                 if (string.IsNullOrEmpty(emailDoDestinatario))
-                    throw new ArgumentException("Opá\nDigite o email do destinatario");
+                    throw new ArgumentException("Opá\nDigite o e-mail do destinatario");
 
                 var emailBuilder = new EmailBuilder(_configuracoes.ConfiguracaoEmail)
-                    .AddDestinatario(emailDoDestinatario)
-                    .AddAnexo(arquivoXml)
-                    .AddAnexo(arquivoPdf);
+                    .AdicionarDestinatario(emailDoDestinatario)
+                    .AdicionarAnexo(arquivoXml)
+                    .AdicionarAnexo(arquivoPdf);
 
                 emailBuilder.AntesDeEnviarEmail += EventoAntesDeEnviarEmail;
                 emailBuilder.DepoisDeEnviarEmail += EventoDepoisDeEnviarEmail;
+                emailBuilder.ErroAoEnviarEmail += erro => Funcoes.Mensagem(erro.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
 
                 emailBuilder.Enviar();
-
-                Funcoes.Mensagem("Email enviado com sucesso!", "Sucesso!", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (ArgumentException ex)
             {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Information);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (InvalidOperationException ex)
             {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Information);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }
 
         private void EventoDepoisDeEnviarEmail(object sender, EventArgs e)
         {
-            Funcoes.Mensagem("Evento executado depois de enviar o email", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
+            Funcoes.Mensagem("Evento executado depois de enviar o e-mail", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private void EventoAntesDeEnviarEmail(object sender, EventArgs e)
         {
-            Funcoes.Mensagem("Evento executado antes de enviar o email\nO ATRIBUTO TIMEOUT SE DEIXADO COM 0 ELE PEGA O PADRÃO! EQUIVALENTE Á 100000", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
+            Funcoes.Mensagem("Evento executado antes de enviar o e-mail\nO ATRIBUTO TIMEOUT SE DEIXADO COM 0 ELE PEGA O PADRÃO! EQUIVALENTE A 100000 millisegundos ou 100 segundos", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

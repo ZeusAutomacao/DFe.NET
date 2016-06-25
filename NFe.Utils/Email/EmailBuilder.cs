@@ -7,10 +7,13 @@ using System.Text.RegularExpressions;
 
 namespace NFe.Utils.Email
 {
+    public delegate void ErroAoEnviarEmail(Exception erro);
+
     public sealed class EmailBuilder
     {
         public event EventHandler AntesDeEnviarEmail;
         public event EventHandler DepoisDeEnviarEmail;
+        public event ErroAoEnviarEmail ErroAoEnviarEmail = delegate { };
         private readonly ConfiguracaoEmail _configuracaoEmail;
         private readonly List<string> _destinatarios;
         private readonly List<string> _anexos;
@@ -22,83 +25,114 @@ namespace NFe.Utils.Email
             _anexos = new List<string>();
         }
 
-        public EmailBuilder AddDestinatario(string email)
+        /// <summary>
+        /// Adiciona um e-mail de destinatário
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public EmailBuilder AdicionarDestinatario(string email)
         {
-            if (EmailNaoEValido(email))
-                throw new ArgumentException("E-mail do destinatário e inválido");
+            if (!EmailValido(email))
+                throw new ArgumentException("E-mail do destinatário é inválido!");
 
             _destinatarios.Add(email);
             return this;
         }
 
-        public EmailBuilder AddAnexo(string anexo)
+        /// <summary>
+        /// Adiciona um anexo. Informar o path do arquivo a ser anexado.
+        /// </summary>
+        /// <param name="pathArquivo"></param>
+        /// <returns></returns>
+        public EmailBuilder AdicionarAnexo(string pathArquivo)
         {
-            _anexos.Add(anexo);
+            _anexos.Add(pathArquivo);
             return this;
         }
 
+        /// <summary>
+        /// Envia um e-mail
+        /// </summary>
         public void Enviar()
         {
             Verificacao();
+            
+            var mensagem = new MailMessage
+            {
+                From = new MailAddress(_configuracaoEmail.Email),
+                Subject = _configuracaoEmail.Assunto ?? string.Empty, //Se nenhum assunto foi informado, enviar vazio
+                Body = _configuracaoEmail.Mensagem ?? string.Empty, //Se nenhuma mensagem foi informada, enviar vazio
+                IsBodyHtml = _configuracaoEmail.MensagemEmHtml 
+                
+            };
+            _destinatarios.ForEach(mensagem.To.Add);
 
+            _anexos.ForEach(a => { mensagem.Attachments.Add(new Attachment(a, MediaTypeNames.Application.Octet)); });
 
-            var mailMessage = new MailMessage { From = new MailAddress(_configuracaoEmail.EmailDeUsuario) };
-
-            _destinatarios.ForEach(mailMessage.To.Add);
-
-            ColocaValoresPadoresEmAssuntoOuMensagem();
-
-            mailMessage.Subject = _configuracaoEmail.Assunto;
-            mailMessage.Body = _configuracaoEmail.MensagemDoEmail;
-
-            _anexos.ForEach(a => { mailMessage.Attachments.Add(new Attachment(a, MediaTypeNames.Application.Octet)); });
-
-            var smtpClient = new SmtpClient(_configuracaoEmail.ServidorSmtp, _configuracaoEmail.Porta)
+            var cliente = new SmtpClient(_configuracaoEmail.ServidorSmtp, _configuracaoEmail.Porta)
             {
                 EnableSsl = _configuracaoEmail.Ssl,
-                UseDefaultCredentials = true
+                UseDefaultCredentials = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
             };
-            var cred = new NetworkCredential(_configuracaoEmail.EmailDeUsuario,
+            cliente.SendCompleted += (sender, args) =>
+            {
+                if (args.Error != null)
+                    ErroAoEnviarEmail(args.Error);
+                else
+                    OnDepoisDeEnviarEmail();
+                mensagem.Dispose();
+                cliente.Dispose();
+            };
+
+            var cred = new NetworkCredential(_configuracaoEmail.Email,
                 _configuracaoEmail.Senha);
-            smtpClient.Credentials = cred;
+            cliente.Credentials = cred;
 
-            smtpClient.Timeout = _configuracaoEmail.Timeout == 0 ? smtpClient.Timeout : _configuracaoEmail.Timeout;
+            cliente.Timeout = _configuracaoEmail.Timeout == 0 ? cliente.Timeout : _configuracaoEmail.Timeout;
             OnAntesDeEnviarEmail();
-            smtpClient.Send(mailMessage);
-            OnDepoisDeEnviarEmail();
+            if (_configuracaoEmail.Assincrono)
+                cliente.SendAsync(mensagem, null);
+            else
+            {
+                cliente.Send(mensagem);
+                OnDepoisDeEnviarEmail();
+                mensagem.Dispose();
+                cliente.Dispose();
+            }
+
         }
 
-        private void ColocaValoresPadoresEmAssuntoOuMensagem()
-        {
-            if (string.IsNullOrEmpty(_configuracaoEmail.Assunto))
-                _configuracaoEmail.Assunto = string.Empty;
-
-            if (string.IsNullOrEmpty(_configuracaoEmail.MensagemDoEmail))
-                _configuracaoEmail.MensagemDoEmail = string.Empty;
-        }
-
+        /// <summary>
+        /// Valida a configuração antes de enviar
+        /// </summary>
         private void Verificacao()
         {
-            if (_configuracaoEmail == null) throw new InvalidOperationException("Porfavor configurar o envio de e-mail.");
+            if (_configuracaoEmail == null) throw new InvalidOperationException("Configure o envio de e-mail antes de usar esse recurso!");
 
-            if (string.IsNullOrEmpty(_configuracaoEmail.EmailDeUsuario))
-                throw new ArgumentException("Porfavor digitar um email de usuário");
+            if (string.IsNullOrEmpty(_configuracaoEmail.Email))
+                throw new ArgumentException("O e-mail do remetente não foi informado!");
 
-            if(EmailNaoEValido(_configuracaoEmail.EmailDeUsuario))
-                throw new ArgumentException("E-mail do usuário e inválido");
+            if(!EmailValido(_configuracaoEmail.Email))
+                throw new ArgumentException("E-mail do remetente é inválido!");
 
             if (string.IsNullOrEmpty(_configuracaoEmail.Senha))
-                throw new ArgumentException("Porfavor digitar uma senha de usuário");
+                throw new ArgumentException("A senha de e-mail do remetente não foi informada!");
 
             if (string.IsNullOrEmpty(_configuracaoEmail.ServidorSmtp))
-                throw new ArgumentException("Porfavor digitar um servidor smtp");
+                throw new ArgumentException("Servidor SMTP não foi informado!");
         }
 
-        private bool EmailNaoEValido(string email)
+        /// <summary>
+        /// Checa se um e-mail é válido com base em sua estrutura
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public static bool EmailValido(string email)
         {
             var rg = new Regex(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$");
 
-            return !rg.IsMatch(email);
+            return rg.IsMatch(email);
         }
 
         private void OnAntesDeEnviarEmail()
@@ -109,6 +143,7 @@ namespace NFe.Utils.Email
         private void OnDepoisDeEnviarEmail()
         {
             DepoisDeEnviarEmail?.Invoke(this, EventArgs.Empty);
+
         }
     }
 }
