@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.IO;
+using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Impressao;
@@ -53,7 +54,7 @@ namespace NFe.AppTeste
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
             ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, "", "");
-            ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", "Segue a NFe...", "smtp.dominio.com", 587);
+            ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
         }
 
         public ConfiguracaoServico CfgServico
