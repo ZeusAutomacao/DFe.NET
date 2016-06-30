@@ -137,13 +137,12 @@ namespace NFe.Utils.Email
 
         private void OnAntesDeEnviarEmail()
         {
-            AntesDeEnviarEmail?.Invoke(this, EventArgs.Empty);
+            if (AntesDeEnviarEmail != null) AntesDeEnviarEmail.Invoke(this, EventArgs.Empty);
         }
 
         private void OnDepoisDeEnviarEmail()
         {
-            DepoisDeEnviarEmail?.Invoke(this, EventArgs.Empty);
-
+            if (DepoisDeEnviarEmail != null) DepoisDeEnviarEmail.Invoke(this, EventArgs.Empty);
         }
     }
 }

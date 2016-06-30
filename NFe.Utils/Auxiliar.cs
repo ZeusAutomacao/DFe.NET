@@ -101,7 +101,7 @@ namespace NFe.Utils
                 case CRT.RegimeNormal:
                     return "Normal";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(crt));
+                    throw new ArgumentOutOfRangeException("crt", crt, null);
             }
         }
 
