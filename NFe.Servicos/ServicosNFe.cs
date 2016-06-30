@@ -109,7 +109,8 @@ namespace NFe.Servicos
             var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
-                    $"O serviço {servico} não pode ser criado no método {MethodBase.GetCurrentMethod().Name}!");
+                    string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
+                        MethodBase.GetCurrentMethod().Name));
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
@@ -149,7 +150,8 @@ namespace NFe.Servicos
                     return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
                 
                 case ServicoNFe.NFeAutorizacao:
-                    throw new Exception($"O serviço {servico} não pode ser criado no método {MethodBase.GetCurrentMethod().Name}!");
+                    throw new Exception(string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
+                        MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
