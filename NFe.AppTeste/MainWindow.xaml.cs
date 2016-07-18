@@ -59,8 +59,6 @@ using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Impressao.NFCe;
-using NFe.Impressao.NFCe.FastReports;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
@@ -160,18 +158,6 @@ namespace NFe.AppTeste
                     : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoApp>(path + ArquivoConfiguracao);
                 if (_configuracoes.CfgServico.TimeOut == 0)
                     _configuracoes.CfgServico.TimeOut = 3000; //mínimo
-
-                #region Carrega a logo no controle logoEmitente
-
-                if (_configuracoes.ConfiguracaoDanfeNfce.Logomarca != null && _configuracoes.ConfiguracaoDanfeNfce.Logomarca.Length > 0)
-                    using (var stream = new MemoryStream(_configuracoes.ConfiguracaoDanfeNfce.Logomarca))
-                    {
-                        LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    }
-
-                #endregion
-
-
 
             }
             catch (Exception ex)
@@ -275,7 +261,7 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
                 //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) };
                 _nfe.Valida();
 
                 #endregion
@@ -339,7 +325,7 @@ namespace NFe.AppTeste
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
                 //Descomente a linha abaixo se a SEFAZ de sua UF já habilitou a NT2015.002
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = EnderecadorDanfeNfce.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoDanfeNfce) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -1237,46 +1223,6 @@ namespace NFe.AppTeste
             }
         }
 
-        private void BtnNfceDanfe_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Carrega um XML com nfeProc para a variável
-
-                var arquivoXml = Funcoes.BuscarArquivoXml();
-                if (string.IsNullOrEmpty(arquivoXml))
-                    return;
-                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
-                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
-                    throw new Exception("O XML informado não é um NFCe!");
-
-                #endregion
-
-                #region Exibe a NFe no webbrowser (não é ncessário fazer isso em seu sistema!)
-
-                _nfe = proc.NFe;
-                ExibeNfe();
-
-                #endregion
-
-                #region Abre a visualização do relatório para impressão
-
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce);
-                danfe.Visualizar();
-                //danfe.Imprimir();
-                //danfe.ExibirDesign();
-                //danfe.ExportarPdf(@"d:\teste.pdf");
-
-                #endregion
-
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
             var arquivo = Funcoes.BuscarImagem();
@@ -1284,59 +1230,16 @@ namespace NFe.AppTeste
             var imagem = Image.FromFile(arquivo);
             LogoEmitente.Source = new BitmapImage(new Uri(arquivo));
 
-            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = new byte[0];
             using (var stream = new MemoryStream())
             {
                 imagem.Save(stream, ImageFormat.Png);
                 stream.Close();
-                _configuracoes.ConfiguracaoDanfeNfce.Logomarca = stream.ToArray();
             }
         }
 
         private void btnRemoveLogo_Click(object sender, RoutedEventArgs e)
         {
             LogoEmitente.Source = null;
-            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
-        }
-
-        private void BtnNfceDanfeOff_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Carrega um XML com nfeProc para a variável
-
-                var arquivoXml = Funcoes.BuscarArquivoXml();
-                if (string.IsNullOrEmpty(arquivoXml))
-                    return;
-                var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
-                if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
-                    throw new Exception("O XML informado não é um NFCe!");
-
-                #endregion
-
-                #region Exibe a NFe no webbrowser (não é ncessário fazer isso em seu sistema!)
-
-                _nfe = nfe;
-                ExibeNfe();
-
-                #endregion
-
-                #region Abre a visualização do relatório para impressão
-
-                var danfe = new DanfeFrNfce(nfe, _configuracoes.ConfiguracaoDanfeNfce);
-                danfe.Visualizar();
-                //danfe.Imprimir();
-                //danfe.ExibirDesign();
-                //danfe.ExportarPdf(@"d:\teste.pdf");
-
-                #endregion
-
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
         }
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
