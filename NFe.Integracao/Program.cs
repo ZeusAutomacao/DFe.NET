@@ -8,6 +8,9 @@ namespace NFe.Integracao
     {
         public static void Main(string[] args)
         {
+            NFeFacade x = new NFeFacade();
+
+
             //Comandos a serem executados.
             List<KeyValuePair<Comando, string>> listComandos = new List<KeyValuePair<Comando, string>>();
 
