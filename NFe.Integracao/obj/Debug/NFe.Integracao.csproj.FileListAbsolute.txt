@@ -1,0 +1,10 @@
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\obj\Debug\NFe.Integracao.csprojResolveAssemblyReference.cache
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Integracao.pdb
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Classes.dll
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Utils.dll
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Classes.pdb
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Utils.pdb
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\obj\Debug\NFe.Integracao.pdb
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Integracao.dll.config
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\bin\Debug\NFe.Integracao.dll
+D:\Projetos\Zeus.Net.NFe.NFCe\NFe.Integracao\obj\Debug\NFe.Integracao.dll

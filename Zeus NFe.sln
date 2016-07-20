@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Servicos", "NFe.Servico
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Integracao", "NFe.Integracao\NFe.Integracao.csproj", "{DD441D1C-1F4A-4631-AA72-015C4FA735D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD441D1C-1F4A-4631-AA72-015C4FA735D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD441D1C-1F4A-4631-AA72-015C4FA735D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD441D1C-1F4A-4631-AA72-015C4FA735D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD441D1C-1F4A-4631-AA72-015C4FA735D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
