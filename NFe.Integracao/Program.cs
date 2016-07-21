@@ -10,7 +10,6 @@ namespace NFe.Integracao
         {
             NFeFacade x = new NFeFacade();
 
-
             //Comandos a serem executados.
             List<KeyValuePair<Comando, string>> listComandos = new List<KeyValuePair<Comando, string>>();
 
@@ -24,6 +23,7 @@ namespace NFe.Integracao
                 "/s" - Status serviço
                 "/p" - Consultar protocolo
                 "/i" - Inutilizar numeração
+                "/f" - Criar arquivo de configurações
                 ====================================================================================
                 */
                 switch (args[i])
@@ -33,6 +33,7 @@ namespace NFe.Integracao
                     case "/s": listComandos.Add(new KeyValuePair<Comando, string>(Comando.StatusServico, string.Empty)); break;
                     case "/p": listComandos.Add(new KeyValuePair<Comando, string>(Comando.ConsultarProtocolo, args[i + 1])); break;
                     case "/i": listComandos.Add(new KeyValuePair<Comando, string>(Comando.InutilizarNumeracao, args[i + 1])); break;
+                    case "/f": listComandos.Add(new KeyValuePair<Comando, string>(Comando.CriarArquivoDeConfiguracoes, string.Empty)); break;
                     default: break;
                 }
             }

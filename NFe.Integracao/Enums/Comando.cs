@@ -12,6 +12,7 @@ namespace NFe.Integracao
         ConsultarRecibo,
         ConsultarProtocolo,
         StatusServico,
-        InutilizarNumeracao
+        InutilizarNumeracao,
+        CriarArquivoDeConfiguracoes
     }
 }
