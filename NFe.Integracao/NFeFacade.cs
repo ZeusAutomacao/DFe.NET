@@ -17,17 +17,15 @@ namespace NFe.Integracao
         //Nome do arquivo de configurações a ser considerado na execução do app.
         private string NomeArquivoConfiguracoes = "zeus.cfg"; 
 
-        public NFeFacade()
+        public NFeFacade(bool booPularCarregamentoDoArquivo = false)
         {
-            this.CarregarArquivoDeConfiguracoes();
+            if (!booPularCarregamentoDoArquivo) this.CarregarArquivoDeConfiguracoes();
         }
 
         public retConsStatServ ConsultarStatusServico(TipoAmbiente ambiente)
         {
             var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
-            var retornoStatus = servicoNFe.NfeStatusServico();
-
-            return retornoStatus.Retorno;
+            return servicoNFe.NfeStatusServico().Retorno;
         }
 
         public XmlNode EnviarNFe(Classes.NFe nfe)
@@ -40,14 +38,14 @@ namespace NFe.Integracao
             return new XmlDocument(); //TODO: Implementar "ConsultarRecibo"
         }
 
+        public XmlNode CancelarNFe(string chaveAcesso, string protocolo)
+        {
+            return new XmlDocument(); //TODO: Implementar "CancelarNFe"
+        }
+
         public XmlNode InutilizarNumeracao(int inicial, int final)
         {
             return new XmlDocument(); //TODO: Implementar "InutilizarNumeracao"
-        }
-
-        public XmlNode ConsultarProtocolo(string protocolo)
-        {
-            return new XmlDocument(); //TODO: Implementar "ConsultarProtocolo"
         }
 
         private void CarregarArquivoDeConfiguracoes()
@@ -175,63 +173,64 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.VersaoRecepcaoEvento = VersaoServico.ve310;
         }
 
-        public void GerarArquivoDeConfiguracoes()
+        public void CriarArquivoDeConfiguracoes()
         {
             StringBuilder strBuilderArquivoConfiguracoes = new StringBuilder();
             strBuilderArquivoConfiguracoes.AppendLine("#===========================================================================================");
-            strBuilderArquivoConfiguracoes.AppendLine("#ARQUIVO DE CONFIGURAÇÕES DO ZEUS                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#- Estrutura esperada -                                                                     ");
-            strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#certificado_arquivo={Caminho do arquivo .pfx}                                              ");
-            strBuilderArquivoConfiguracoes.AppendLine("#certificado_senha={Senha do certificado}                                                   ");
-            strBuilderArquivoConfiguracoes.AppendLine("#diretorio_xml={Caminho do diretório onde serão salvos os xml}                              ");
-            strBuilderArquivoConfiguracoes.AppendLine("#diretorio_schemas={Diretório onde estão os arquivos .xsd}                                  ");
-            strBuilderArquivoConfiguracoes.AppendLine("#estado_emitente={Código IBGE do estado do emitente}                                        ");
-            strBuilderArquivoConfiguracoes.AppendLine("#modelo_documento={Modelo do documento}                                                     ");
-            strBuilderArquivoConfiguracoes.AppendLine("#salvar_xml_servicos={SIM ou NAO}                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#time_out={Tempo de espera máximo dos serviços da sefaz em milisegundos}                    ");
-            strBuilderArquivoConfiguracoes.AppendLine("#tipo_ambiente={P ou H}                                                                     ");
-            strBuilderArquivoConfiguracoes.AppendLine("#tipo_emissao={1, 2, 3, 4, 5, 6, 7 ou 9}                                                    ");
-            strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("# - ATENÇÃO -                                                                               ");
-            strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("#Linhas em branco ou iniciadas por # serão ignoradas.                                       ");
-            strBuilderArquivoConfiguracoes.AppendLine("#Os tipos de emissao possíveis são:                                                         ");
-            strBuilderArquivoConfiguracoes.AppendLine("#1 - Normal                                                                                 ");
-            strBuilderArquivoConfiguracoes.AppendLine("#2 - FS-IA                                                                                  ");
-            strBuilderArquivoConfiguracoes.AppendLine("#3 - SCAN                                                                                   ");
-            strBuilderArquivoConfiguracoes.AppendLine("#4 - EPEC                                                                                   ");
-            strBuilderArquivoConfiguracoes.AppendLine("#5 - FS-DA                                                                                  ");
-            strBuilderArquivoConfiguracoes.AppendLine("#6 - SVC-AN                                                                                 ");
-            strBuilderArquivoConfiguracoes.AppendLine("#7 - SVC-RS                                                                                 ");
-            strBuilderArquivoConfiguracoes.AppendLine("#9 - Offline                                                                                ");
+            strBuilderArquivoConfiguracoes.AppendLine("#ARQUIVO DE CONFIGURAÇÕES DO ZEUS");
+            strBuilderArquivoConfiguracoes.AppendLine("#");
+            strBuilderArquivoConfiguracoes.AppendLine("#- Estrutura esperada -");
+            strBuilderArquivoConfiguracoes.AppendLine("#");
+            strBuilderArquivoConfiguracoes.AppendLine("#certificado_arquivo={Caminho do arquivo .pfx}");
+            strBuilderArquivoConfiguracoes.AppendLine("#certificado_senha={Senha do certificado}");
+            strBuilderArquivoConfiguracoes.AppendLine("#diretorio_xml={Caminho do diretório onde serão salvos os xml}");
+            strBuilderArquivoConfiguracoes.AppendLine("#diretorio_schemas={Diretório onde estão os arquivos .xsd}");
+            strBuilderArquivoConfiguracoes.AppendLine("#estado_emitente={Código IBGE do estado do emitente}");
+            strBuilderArquivoConfiguracoes.AppendLine("#modelo_documento={Modelo do documento}");
+            strBuilderArquivoConfiguracoes.AppendLine("#salvar_xml_servicos={SIM ou NAO}");
+            strBuilderArquivoConfiguracoes.AppendLine("#time_out={Tempo de espera máximo dos serviços da sefaz em milisegundos}");
+            strBuilderArquivoConfiguracoes.AppendLine("#tipo_ambiente={P ou H}");
+            strBuilderArquivoConfiguracoes.AppendLine("#tipo_emissao={1, 2, 3, 4, 5, 6, 7 ou 9}");
+            strBuilderArquivoConfiguracoes.AppendLine("#");
+            strBuilderArquivoConfiguracoes.AppendLine("#");
+            strBuilderArquivoConfiguracoes.AppendLine("# - ATENÇÃO -");
+            strBuilderArquivoConfiguracoes.AppendLine("#");
+            strBuilderArquivoConfiguracoes.AppendLine("#Linhas em branco ou iniciadas por # serão ignoradas.");
+            strBuilderArquivoConfiguracoes.AppendLine("#Os tipos de emissao possíveis são:");
+            strBuilderArquivoConfiguracoes.AppendLine("#1 - Normal");
+            strBuilderArquivoConfiguracoes.AppendLine("#2 - FS-IA");
+            strBuilderArquivoConfiguracoes.AppendLine("#3 - SCAN");
+            strBuilderArquivoConfiguracoes.AppendLine("#4 - EPEC");
+            strBuilderArquivoConfiguracoes.AppendLine("#5 - FS-DA");
+            strBuilderArquivoConfiguracoes.AppendLine("#6 - SVC-AN");
+            strBuilderArquivoConfiguracoes.AppendLine("#7 - SVC-RS");
+            strBuilderArquivoConfiguracoes.AppendLine("#9 - Offline");
             strBuilderArquivoConfiguracoes.AppendLine("#===========================================================================================");
-            strBuilderArquivoConfiguracoes.AppendLine("                                                                                            ");
-            strBuilderArquivoConfiguracoes.AppendLine("certificado_arquivo =                                                                       ");
-            strBuilderArquivoConfiguracoes.AppendLine("certificado_senha =                                                                         ");
-            strBuilderArquivoConfiguracoes.AppendLine("diretorio_xml = SIM                                                                         ");
-            strBuilderArquivoConfiguracoes.AppendLine("diretorio_schemas =                                                                         ");
-            strBuilderArquivoConfiguracoes.AppendLine("estado_emitente =                                                                           ");
-            strBuilderArquivoConfiguracoes.AppendLine("modelo_documento =                                                                          ");
-            strBuilderArquivoConfiguracoes.AppendLine("salvar_xml_servicos =                                                                       ");
-            strBuilderArquivoConfiguracoes.AppendLine("time_out =                                                                                  ");
-            strBuilderArquivoConfiguracoes.AppendLine("tipo_ambiente =                                                                             ");
-            strBuilderArquivoConfiguracoes.AppendLine("tipo_emissao =                                                                              ");
+            strBuilderArquivoConfiguracoes.AppendLine("");
+            strBuilderArquivoConfiguracoes.AppendLine("certificado_arquivo=");
+            strBuilderArquivoConfiguracoes.AppendLine("certificado_senha=");
+            strBuilderArquivoConfiguracoes.AppendLine("diretorio_xml=");
+            strBuilderArquivoConfiguracoes.AppendLine("diretorio_schemas=");
+            strBuilderArquivoConfiguracoes.AppendLine("estado_emitente=");
+            strBuilderArquivoConfiguracoes.AppendLine("modelo_documento=");
+            strBuilderArquivoConfiguracoes.AppendLine("salvar_xml_servicos=");
+            strBuilderArquivoConfiguracoes.AppendLine("time_out=");
+            strBuilderArquivoConfiguracoes.AppendLine("tipo_ambiente=");
+            strBuilderArquivoConfiguracoes.AppendLine("tipo_emissao=");
 
             try
             {
-                File.WriteAllText(this.NomeArquivoConfiguracoes, strBuilderArquivoConfiguracoes.ToString(), Encoding.Unicode);
+                string strPathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", NomeArquivoConfiguracoes);
+                File.WriteAllText(strPathArquivoConfiguracoes, strBuilderArquivoConfiguracoes.ToString(), Encoding.Unicode);
             }
             catch(UnauthorizedAccessException ex)
             {
-                string strMensagem = string.Format("Não foi possível criar o arquivo {0}. Você não tem as permissões necessárias.", this.NomeArquivoConfiguracoes);
+                string strMensagem = string.Format("Não foi possível criar o arquivo {0}. Você não tem as permissões necessárias.", NomeArquivoConfiguracoes);
                 throw new InvalidOperationException(strMensagem, ex);
             }
             catch(PathTooLongException ex)
             {
-                string strMensagem = string.Format("Não foi possível criar o arquivo {0}. O caminho até o diretório atual é muito longo.", this.NomeArquivoConfiguracoes);
+                string strMensagem = string.Format("Não foi possível criar o arquivo {0}. O caminho até o diretório atual é muito longo.", NomeArquivoConfiguracoes);
                 throw new InvalidOperationException(strMensagem, ex);
             }
             catch(Exception ex)

@@ -10,9 +10,8 @@ namespace NFe.Integracao
     {
         EnviarNFe,
         ConsultarRecibo,
-        ConsultarProtocolo,
         StatusServico,
         InutilizarNumeracao,
-        CriarArquivoDeConfiguracoes
+        CriarArquivoDeConfiguracoes,
     }
 }
