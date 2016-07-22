@@ -5,9 +5,10 @@ using System.IO;
 using System.Collections.Generic;
 using NFe.Classes;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Classes.Servicos.Status;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Servicos;
 using NFe.Utils;
-using NFe.Utils.Assinatura;
 
 namespace NFe.Integracao
 {
@@ -18,12 +19,15 @@ namespace NFe.Integracao
 
         public NFeFacade()
         {
-            //this.CarregarArquivoDeConfiguracoes();
+            this.CarregarArquivoDeConfiguracoes();
         }
 
-        public XmlNode ConsultarStatusServico(TipoAmbiente ambiente)
+        public retConsStatServ ConsultarStatusServico(TipoAmbiente ambiente)
         {
-            return new XmlDocument(); //TODO: Implementar "ConsultarStatusServico"
+            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            var retornoStatus = servicoNFe.NfeStatusServico();
+
+            return retornoStatus.Retorno;
         }
 
         public XmlNode EnviarNFe(Classes.NFe nfe)
@@ -51,10 +55,10 @@ namespace NFe.Integracao
             //Não há motivos para usar um arquivo externo durante o desenvolvimento
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                ConfiguracaoServico.Instancia.Certificado.Arquivo = "";
-                ConfiguracaoServico.Instancia.Certificado.Senha = "";
-                ConfiguracaoServico.Instancia.DiretorioSalvarXml = "";
-                ConfiguracaoServico.Instancia.DiretorioSchemas = "";
+                ConfiguracaoServico.Instancia.Certificado.Arquivo = @"C:\WiaTI\certificado_amorim.pfx";
+                ConfiguracaoServico.Instancia.Certificado.Senha = "jms2477";
+                ConfiguracaoServico.Instancia.DiretorioSalvarXml = @"D:\Temp";
+                ConfiguracaoServico.Instancia.DiretorioSchemas = @"D:\Temp\Schemas";
                 ConfiguracaoServico.Instancia.cUF = Estado.MG;
                 ConfiguracaoServico.Instancia.ModeloDocumento = ModeloDocumento.NFe;
                 ConfiguracaoServico.Instancia.SalvarXmlServicos = true;
@@ -62,10 +66,24 @@ namespace NFe.Integracao
                 ConfiguracaoServico.Instancia.tpAmb = TipoAmbiente.taHomologacao;
                 ConfiguracaoServico.Instancia.tpEmis = TipoEmissao.teNormal;
 
+                ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoRecepcaoEvento = VersaoServico.ve310;
+
                 return; // <------- ATENÇÃO 
             }
 
-            string strPathArquivoConfig = this.NomeArquivoConfiguracoes;
+            string strPathArquivoConfig = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", this.NomeArquivoConfiguracoes);
             List<string> listArquivoConfig = new List<string>();
             List<string> listArquivoConfigCompleto;
             try
@@ -90,7 +108,7 @@ namespace NFe.Integracao
             if (listArquivoConfig.Count != 10) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("certificado_arquivo=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("certificado_senha=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
-            if (!strArquivoConfigInline.Contains("salvar_xml=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
+            if (!strArquivoConfigInline.Contains("diretorio_xml=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("diretorio_schemas=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("estado_emitente=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("modelo_documento=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
@@ -112,7 +130,6 @@ namespace NFe.Integracao
                 {
                     case "modelo_documento": if (!int.TryParse(strValor, out intAux)) throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "time_out": if (!int.TryParse(strValor, out intAux)) throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
-                    case "salvar_xml": if (strValor != "SIM" && strValor != "NÃO") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "salvar_xml_servicos": if (strValor != "SIM" && strValor != "NÃO") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "tipo_ambiente": if (strValor != "H" && strValor != "P") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "tipo_emissao": if (strValor == "válido") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
@@ -131,7 +148,7 @@ namespace NFe.Integracao
                 {
                     case "certificado_arquivo": ConfiguracaoServico.Instancia.Certificado.Arquivo = strValor; break;
                     case "certificado_senha": ConfiguracaoServico.Instancia.Certificado.Senha = strValor; break;
-                    case "salvar_xml": ConfiguracaoServico.Instancia.DiretorioSalvarXml = strValor; break;
+                    case "diretorio_xml": ConfiguracaoServico.Instancia.DiretorioSalvarXml = strValor; break;
                     case "diretorio_schemas": ConfiguracaoServico.Instancia.DiretorioSchemas = strValor; break;
                     case "estado_emitente": ConfiguracaoServico.Instancia.cUF = (Estado)Enum.Parse(typeof(Estado), strValor); break;
                     case "modelo_documento": ConfiguracaoServico.Instancia.ModeloDocumento = ModeloDocumento.NFe; break;
@@ -168,7 +185,7 @@ namespace NFe.Integracao
             strBuilderArquivoConfiguracoes.AppendLine("#                                                                                           ");
             strBuilderArquivoConfiguracoes.AppendLine("#certificado_arquivo={Caminho do arquivo .pfx}                                              ");
             strBuilderArquivoConfiguracoes.AppendLine("#certificado_senha={Senha do certificado}                                                   ");
-            strBuilderArquivoConfiguracoes.AppendLine("#salvar_xml={SIM ou NAO}                                                                    ");
+            strBuilderArquivoConfiguracoes.AppendLine("#diretorio_xml={Caminho do diretório onde serão salvos os xml}                              ");
             strBuilderArquivoConfiguracoes.AppendLine("#diretorio_schemas={Diretório onde estão os arquivos .xsd}                                  ");
             strBuilderArquivoConfiguracoes.AppendLine("#estado_emitente={Código IBGE do estado do emitente}                                        ");
             strBuilderArquivoConfiguracoes.AppendLine("#modelo_documento={Modelo do documento}                                                     ");
@@ -194,7 +211,7 @@ namespace NFe.Integracao
             strBuilderArquivoConfiguracoes.AppendLine("                                                                                            ");
             strBuilderArquivoConfiguracoes.AppendLine("certificado_arquivo =                                                                       ");
             strBuilderArquivoConfiguracoes.AppendLine("certificado_senha =                                                                         ");
-            strBuilderArquivoConfiguracoes.AppendLine("salvar_xml = SIM                                                                            ");
+            strBuilderArquivoConfiguracoes.AppendLine("diretorio_xml = SIM                                                                         ");
             strBuilderArquivoConfiguracoes.AppendLine("diretorio_schemas =                                                                         ");
             strBuilderArquivoConfiguracoes.AppendLine("estado_emitente =                                                                           ");
             strBuilderArquivoConfiguracoes.AppendLine("modelo_documento =                                                                          ");
