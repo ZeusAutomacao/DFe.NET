@@ -13,5 +13,6 @@ namespace NFe.Integracao
         StatusServico,
         InutilizarNumeracao,
         CriarArquivoDeConfiguracoes,
+        Configurar
     }
 }

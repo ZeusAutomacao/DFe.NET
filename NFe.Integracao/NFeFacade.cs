@@ -8,6 +8,7 @@ using NFe.Classes.Servicos.Tipos;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Servicos;
+using NFe.Servicos.Retorno;
 using NFe.Utils;
 
 namespace NFe.Integracao
@@ -43,9 +44,10 @@ namespace NFe.Integracao
             return new XmlDocument(); //TODO: Implementar "CancelarNFe"
         }
 
-        public XmlNode InutilizarNumeracao(int inicial, int final)
+        public RetornoNfeInutilizacao InutilizarNumeracao(int ano, string cnpj, string justificativa, int numeroInicial, int numeroFinal, int serie)
         {
-            return new XmlDocument(); //TODO: Implementar "InutilizarNumeracao"
+            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            return servicoNFe.NfeInutilizacao(cnpj, Convert.ToInt16(ano.ToString().Substring(2,2)), ConfiguracaoServico.Instancia.ModeloDocumento, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial), Convert.ToInt32(numeroFinal), justificativa);
         }
 
         private void CarregarArquivoDeConfiguracoes()
@@ -236,6 +238,80 @@ namespace NFe.Integracao
             catch(Exception ex)
             {
                 string strMensagem = string.Format("Não foi possível criar o arquivo {0}. Ocorreu um erro inesperado.", this.NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+        }
+
+        public void AlterarArquivoDeConfiguracoes(string strChave, string strValor)
+        {
+            string strPathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", NomeArquivoConfiguracoes);
+            List<string> listArquivo;
+
+            bool booChaveCorreta =
+            (
+               strChave+"=" == "certificado_arquivo=" ||
+               strChave+"=" == "certificado_senha=" ||
+               strChave+"=" == "diretorio_xml=" ||
+               strChave+"=" == "diretorio_schemas=" ||
+               strChave+"=" == "estado_emitente=" ||
+               strChave+"=" == "modelo_documento=" ||
+               strChave+"=" == "salvar_xml_servicos=" ||
+               strChave+"=" == "time_out=" ||
+               strChave+"=" == "tipo_ambiente=" ||
+               strChave+"=" == "tipo_emissao="
+            );
+
+            try
+            {
+                listArquivo = new List<string>(File.ReadAllLines(strPathArquivoConfiguracoes, Encoding.Unicode));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. Você não tem as permissões necessárias.", NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+            catch (PathTooLongException ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. O caminho até o diretório atual é muito longo.", NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+            catch (Exception ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. Ocorreu um erro inesperado.", this.NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+
+            StringBuilder builderStrNovoArquivo = new StringBuilder();
+
+            foreach(string str in listArquivo)
+            {
+                string strLinha;
+
+                if (str.Split('=')[0] == strChave && str.Substring(0,1) != "#")
+                    strLinha = string.Format("{0}={1}", strChave, strValor);
+                else
+                    strLinha = str;
+
+                builderStrNovoArquivo.AppendLine(strLinha); 
+            }
+
+            try
+            {
+                File.WriteAllText(strPathArquivoConfiguracoes, builderStrNovoArquivo.ToString(), Encoding.Unicode);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. Você não tem as permissões necessárias.", NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+            catch (PathTooLongException ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. O caminho até o diretório atual é muito longo.", NomeArquivoConfiguracoes);
+                throw new InvalidOperationException(strMensagem, ex);
+            }
+            catch (Exception ex)
+            {
+                string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. Ocorreu um erro inesperado.", this.NomeArquivoConfiguracoes);
                 throw new InvalidOperationException(strMensagem, ex);
             }
         }

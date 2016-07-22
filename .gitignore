@@ -44,6 +44,7 @@ Temporary Items
 /BuildProcessTemplates
 /.vs/Zeus NFe/v14/.suo
 /NFe.AppTeste/obj/Debug
+/NFe.Integracao/obj/Debug
 /NFe.Classes/obj/Debug
 /Nfe.Impressao/obj/Debug
 /NFe.Servicos/obj/Debug
@@ -51,8 +52,11 @@ Temporary Items
 /NFe.Wsdl/obj/Debug
 /NFe.Wsdl/obj/Release
 /NFe.Wsdl/bin
+/NFe.Integracao/bin/Debug
 /NFe.Utils/obj/Release
+/NFe.Integracao/obj/Release
 /NFe.Utils/bin
+/NFe.Integracao/bin/Release
 /NFe.Servicos/obj/Release
 /NFe.Servicos/bin
 /Nfe.Impressao/obj/Release
