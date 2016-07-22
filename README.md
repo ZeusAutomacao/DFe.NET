@@ -26,7 +26,7 @@ Está licenciada sobre a LGPL.
 - [ ] Implementar consumo do serviço NfeConsultaDest;
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001);
 - [ ] Implementar possíveis mudanças no Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, versão 3.3 que será obrigatório a partir de  01/09/2016;
-- [ ] Alterações no DANFE de NFCe (Adicionar opção para definir o tamanho da logomarca);
+- [ ] Alterações no DANFE e DANFCE;
 
 **Atenção:**
 Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
