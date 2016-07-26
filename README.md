@@ -12,7 +12,6 @@ Está licenciada sobre a LGPL.
 **Projetos na Solução**
 - NFe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
 - NFe.Classes: Biblioteca com todas as classes para montagem da NFe/NFCe, de acordo com os manuais vigentes até 14/04/2015;
-- NFe.Impressao: Biblioteca que implementa a impressão da NFe/NFCe; 
 - NFe.Integracao: Aplicação console que fornece acesso aos recursos do Zeus via linha de comando.
 - NFe.Servicos: Biblioteca que implementa o consumo e retorno dos serviços da NFe/NFCe;
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
