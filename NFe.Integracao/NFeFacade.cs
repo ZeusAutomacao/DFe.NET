@@ -10,16 +10,23 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
+using NFe.Utils.Assinatura;
+using NFe.Utils.Email;
+using NFe.Utils.NFe;
 
 namespace NFe.Integracao
 {
     public class NFeFacade
     {
-        //Nome do arquivo de configurações a ser considerado na execução do app.
-        private string NomeArquivoConfiguracoes = "zeus.cfg"; 
+        //Nome e path do arquivo de configurações a ser considerado na execução do app.
+        private string NomeArquivoConfiguracoes;
+        private string PathArquivoConfiguracoes;
 
         public NFeFacade(bool booPularCarregamentoDoArquivo = false)
         {
+            this.NomeArquivoConfiguracoes = "zeus.cfg";
+            this.PathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", NomeArquivoConfiguracoes);
+
             if (!booPularCarregamentoDoArquivo) this.CarregarArquivoDeConfiguracoes();
         }
 
@@ -29,19 +36,23 @@ namespace NFe.Integracao
             return servicoNFe.NfeStatusServico().Retorno;
         }
 
-        public XmlNode EnviarNFe(Classes.NFe nfe)
+        public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, Classes.NFe nfe)
         {
-            return new XmlDocument(); //TODO: Implementar "EnviarNFe"
+            nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            return servicoNFe.NFeAutorizacao(numLote,IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { nfe });
         }
 
-        public XmlNode ConsultarRecibo(string recibo)
+        public RetornoNFeRetAutorizacao ConsultarReciboDeEnvio(string recibo)
         {
-            return new XmlDocument(); //TODO: Implementar "ConsultarRecibo"
+            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            return servicoNFe.NFeRetAutorizacao(recibo);
         }
 
-        public XmlNode CancelarNFe(string chaveAcesso, string protocolo)
+        public RetornoRecepcaoEvento CancelarNFe(string cnpjEmitente, Int32 numeroLote, Int16 sequenciaEvento, string chaveAcesso, string protocolo, string justificativa)
         {
-            return new XmlDocument(); //TODO: Implementar "CancelarNFe"
+            var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
+            return servicoNFe.RecepcaoEventoCancelamento(numeroLote, sequenciaEvento, protocolo, chaveAcesso, justificativa, cnpjEmitente);
         }
 
         public RetornoNfeInutilizacao InutilizarNumeracao(int ano, string cnpj, string justificativa, int numeroInicial, int numeroFinal, int serie)
@@ -103,7 +114,7 @@ namespace NFe.Integracao
             //=======================================================================================================================================
             //Validando o arquivo de configuração
             string strMensagemErroArquivoConfig = string.Format("O arquivo \"{0}\" está incorreto.",this.NomeArquivoConfiguracoes);
-            string strArquivoConfigInline = string.Join(",", listArquivoConfig);
+            string strArquivoConfigInline = string.Join(",", listArquivoConfig).ToLower();
 
             if (listArquivoConfig.Count != 10) throw new InvalidOperationException(strMensagemErroArquivoConfig);
             if (!strArquivoConfigInline.Contains("certificado_arquivo=")) throw new InvalidOperationException(strMensagemErroArquivoConfig);
@@ -119,8 +130,8 @@ namespace NFe.Integracao
 
             foreach (string str in listArquivoConfig)
             {
-                string strChave = str.Split('=')[0];
-                string strValor = str.Split('=')[1];
+                string strChave = str.Split('=')[0].ToLower();
+                string strValor = str.Split('=')[1].ToLower();
                 int intAux = 0; //Somente para poder usar o "TryParse"
 
                 if (strChave == "tipo_emissao") strValor = (new List<string>(Enum.GetNames(typeof(TipoEmissao))).Contains("ta" + strValor) ? "válido" : "inválido");
@@ -130,8 +141,8 @@ namespace NFe.Integracao
                 {
                     case "modelo_documento": if (!int.TryParse(strValor, out intAux)) throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "time_out": if (!int.TryParse(strValor, out intAux)) throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
-                    case "salvar_xml_servicos": if (strValor != "SIM" && strValor != "NÃO") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
-                    case "tipo_ambiente": if (strValor != "H" && strValor != "P") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
+                    case "salvar_xml_servicos": if (strValor != "sim" && strValor != "nao" && strValor != "não") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
+                    case "tipo_ambiente": if (strValor != "h" && strValor != "p") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "tipo_emissao": if (strValor == "válido") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                     case "estado_emitente": if (strValor == "válido") throw new InvalidOperationException(strMensagemErroArquivoConfig); break;
                 }
@@ -152,9 +163,9 @@ namespace NFe.Integracao
                     case "diretorio_schemas": ConfiguracaoServico.Instancia.DiretorioSchemas = strValor; break;
                     case "estado_emitente": ConfiguracaoServico.Instancia.cUF = (Estado)Enum.Parse(typeof(Estado), strValor); break;
                     case "modelo_documento": ConfiguracaoServico.Instancia.ModeloDocumento = ModeloDocumento.NFe; break;
-                    case "salvar_xml_servicos": ConfiguracaoServico.Instancia.SalvarXmlServicos = (strValor == "SIM"); break;
+                    case "salvar_xml_servicos": ConfiguracaoServico.Instancia.SalvarXmlServicos = (strValor == "sim"); break;
                     case "time_out": ConfiguracaoServico.Instancia.TimeOut = 5000; break;
-                    case "tipo_ambiente": ConfiguracaoServico.Instancia.tpAmb = (strValor == "P" ? TipoAmbiente.taProducao : TipoAmbiente.taHomologacao); break;
+                    case "tipo_ambiente": ConfiguracaoServico.Instancia.tpAmb = (strValor == "p" ? TipoAmbiente.taProducao : TipoAmbiente.taHomologacao); break;
                     case "tipo_emissao": ConfiguracaoServico.Instancia.tpEmis = (TipoEmissao)Enum.Parse(typeof(TipoEmissao), strValor); break;
                 }
             }
@@ -222,8 +233,7 @@ namespace NFe.Integracao
 
             try
             {
-                string strPathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", NomeArquivoConfiguracoes);
-                File.WriteAllText(strPathArquivoConfiguracoes, strBuilderArquivoConfiguracoes.ToString(), Encoding.Unicode);
+                File.WriteAllText(this.PathArquivoConfiguracoes, strBuilderArquivoConfiguracoes.ToString(), Encoding.Unicode);
             }
             catch(UnauthorizedAccessException ex)
             {
@@ -244,7 +254,6 @@ namespace NFe.Integracao
 
         public void AlterarArquivoDeConfiguracoes(string strChave, string strValor)
         {
-            string strPathArquivoConfiguracoes = @"{caminho}\{zeus}".Replace("{caminho}", Directory.GetCurrentDirectory()).Replace("{zeus}", NomeArquivoConfiguracoes);
             List<string> listArquivo;
 
             bool booChaveCorreta =
@@ -263,7 +272,7 @@ namespace NFe.Integracao
 
             try
             {
-                listArquivo = new List<string>(File.ReadAllLines(strPathArquivoConfiguracoes, Encoding.Unicode));
+                listArquivo = new List<string>(File.ReadAllLines(this.PathArquivoConfiguracoes, Encoding.Unicode));
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -297,7 +306,7 @@ namespace NFe.Integracao
 
             try
             {
-                File.WriteAllText(strPathArquivoConfiguracoes, builderStrNovoArquivo.ToString(), Encoding.Unicode);
+                File.WriteAllText(this.PathArquivoConfiguracoes, builderStrNovoArquivo.ToString(), Encoding.Unicode);
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -314,6 +323,11 @@ namespace NFe.Integracao
                 string strMensagem = string.Format("Não foi possível alterar o arquivo {0}. Ocorreu um erro inesperado.", this.NomeArquivoConfiguracoes);
                 throw new InvalidOperationException(strMensagem, ex);
             }
+        }
+
+        public List<string> CapturarConteudoArquivoDeConfiguracoes()
+        {
+            return new List<string>(File.ReadAllLines(this.PathArquivoConfiguracoes, Encoding.Unicode));
         }
     }
 }

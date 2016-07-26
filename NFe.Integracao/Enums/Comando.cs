@@ -9,10 +9,12 @@ namespace NFe.Integracao
     public enum Comando
     {
         EnviarNFe,
-        ConsultarRecibo,
+        ConsultarReciboEnvio,
         StatusServico,
         InutilizarNumeracao,
+        CancelarNFe,
         CriarArquivoDeConfiguracoes,
-        Configurar
+        Configurar,
+        Help
     }
 }
