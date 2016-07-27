@@ -9,45 +9,6 @@ namespace NFe.Integracao
     {
         public static void Main(string[] args)
         {
-            //Teste do config
-            //args = new string[1];
-            //args[0] = "/config";
-
-            //Teste de cancelamento
-            //args = new string[7]; 
-            //args[0] = "/cancelar";
-            //args[1] = "20079670000152";
-            //args[2] = "1234567890123456789012345678901234";
-            //args[3] = "Apenas um teste";
-            //args[4] = "12345678901223";
-            //args[5] = "1";
-            //args[6] = "1";
-
-            //Teste de consulta do recebibo
-            //args = new string[2];
-            //args[0] = "/recibo";
-            //args[1] = "310000048991579";
-
-            //Teste de envio
-            //args = new string[3];
-            //args[0] = "/enviar";
-            //args[1] = @"C:\wiati\nfe_de_teste.xml";
-            //args[2] = "9999";
-
-            //Teste do help
-            //args = new string[1];
-            //args[0] = "/?";
-
-            //Teste de inutilização
-            //args = new string[7];
-            //args[0] = "/inutilizar";
-            //args[1] = "2016";
-            //args[2] = "20079670000152";
-            //args[3] = "Apenas um teste";
-            //args[4] = "9999";
-            //args[5] = "9999";
-            //args[6] = "1";
-
             //Comandos a serem executados.
             List<KeyValuePair<Comando, string>> listComandos = new List<KeyValuePair<Comando, string>>();
 
@@ -192,16 +153,10 @@ namespace NFe.Integracao
 
             try
             {
-                Console.WriteLine("Consultando status do serviço...");
-                var retornoStatus = nfeFacade.ConsultarStatusServico(TipoAmbiente.taHomologacao);
+                bool booStatusOk = ConsultarStatusServico(nfeFacade);
 
-                if (retornoStatus.cStat == 107)
+                if (!booStatusOk)
                 {
-                    Console.WriteLine("#ServicoEmOperacao");
-                }
-                else
-                {
-                    Console.WriteLine("#ServicoIndisponivel");
                     return;
                 }
 
@@ -358,16 +313,10 @@ namespace NFe.Integracao
 
             try
             {
-                Console.WriteLine("Consultando status do serviço...");
-                var retornoStatus = nfeFacade.ConsultarStatusServico(TipoAmbiente.taHomologacao);
+                bool booStatusOk = ConsultarStatusServico(nfeFacade);
 
-                if (retornoStatus.cStat == 107)
+                if (!booStatusOk)
                 {
-                    Console.WriteLine("#ServicoEmOperacao");
-                }
-                else
-                {
-                    Console.WriteLine("#ServicoIndisponivel");
                     return;
                 }
 
@@ -396,7 +345,7 @@ namespace NFe.Integracao
         /// Consulta o status dos webservices relacionados as informações presentes no arquivo de configuração.
         /// </summary>
         /// <returns>True - Online, False - Offline</returns>
-        private static void ConsultarStatusServico(NFeFacade nfeFacade)
+        private static bool ConsultarStatusServico(NFeFacade nfeFacade)
         {
             try
             {
@@ -405,18 +354,26 @@ namespace NFe.Integracao
                 var retorno = nfeFacade.ConsultarStatusServico(TipoAmbiente.taHomologacao);
 
                 if (retorno.cStat == 107)
+                {
                     Console.WriteLine("#ServicoEmOperacao");
+                    return true;
+                }
                 else
+                {
                     Console.WriteLine("#ServicoIndisponivel");
+                    return false;
+                }
             }
             catch (InvalidOperationException ex)
             {
                 Console.WriteLine(ex.Message);
+                return false;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Ocorreu um erro não esperado.");
                 Console.WriteLine(string.Format("Detalhes: {0}", ex.Message));
+                return false;
             }
         }
 
@@ -456,16 +413,10 @@ namespace NFe.Integracao
 
             try
             {
-                Console.WriteLine("Consultando status do serviço...");
-                var retornoStatus = nfeFacade.ConsultarStatusServico(TipoAmbiente.taHomologacao);
+                bool booStatusOk = ConsultarStatusServico(nfeFacade);
 
-                if (retornoStatus.cStat == 107)
+                if (!booStatusOk)
                 {
-                    Console.WriteLine("#ServicoEmOperacao");
-                }
-                else
-                {
-                    Console.WriteLine("#ServicoIndisponivel");
                     return;
                 }
 
@@ -511,20 +462,17 @@ namespace NFe.Integracao
             }
         }
 
+        /// <summary>
+        /// Consulta a situação de um determinado recibo de envio.
+        /// </summary>
         private static void ConsultarReciboDeEnvio(NFeFacade nfeFacade,string numeroRecibo)
         {
             try
             {
-                Console.WriteLine("Consultando status do serviço...");
-                var retornoStatus = nfeFacade.ConsultarStatusServico(TipoAmbiente.taHomologacao);
+                bool booStatusOk = ConsultarStatusServico(nfeFacade);
 
-                if (retornoStatus.cStat == 107)
+                if (!booStatusOk)
                 {
-                    Console.WriteLine("#ServicoEmOperacao");
-                }
-                else
-                {
-                    Console.WriteLine("#ServicoIndisponivel");
                     return;
                 }
 
