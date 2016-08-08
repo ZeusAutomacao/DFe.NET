@@ -13,30 +13,10 @@ Está licenciada sobre a LGPL.
 **Projetos na Solução**
 - NFe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
 - NFe.Classes: Biblioteca com todas as classes para montagem da NFe/NFCe, de acordo com os manuais vigentes até 14/04/2015;
-- NFe.Impressao: Biblioteca que implementa a impressão da NFe/NFCe; 
+- NFe.Integracao: Aplicação console que fornece acesso aos recursos do Zeus via linha de comando.
 - NFe.Servicos: Biblioteca que implementa o consumo e retorno dos serviços da NFe/NFCe;
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
-
-**DANFE**
-- Foi implementado em 09/09/2015 a impressão do NFCe em Fast Reports (https://www.fast-report.com/pt/product/fast-report-net/);
-- Os recursos implementados na biblioteca de impressão foram: Visualização e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio Fast Reports;
-- A impressão segue rigorosamente o Manual de Especificacoes Tecnicas do DANFE NFC-e QRCode Versao 3.2);
-- Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utlizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
-- As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes;
-- Instale as fontes informadas no PC que for imprimir o DANFE da NFCe;
-- Impressão testada e funcionando 100% nas impressoras Bematech MP-4200, Daruma DR700 e Epson TM-81 e TM-20.
-
-Exemplo de impressão do DANFE da NFCe utilizando a bilbioteca:
-
-```cs
-var proc = new nfeProc().CarregarDeArquivoXml(Caminho_do_arquivo_XML);
-var danfe = new DanfeFrNfce(proc, new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, "00001", "XXXXXXXXXXXXXXXXXXXXXXXXXX", null/*Logomarca em byte[]*/));
-danfe.Visualizar();
-//danfe.Imprimir();
-//danfe.ExibirDesign();
-
-```
 
 **TODO:**
 - [x] Implementar consumo do serviço NfeDownloadNF;
