@@ -33,7 +33,6 @@
 
 using System;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Emitente
 {

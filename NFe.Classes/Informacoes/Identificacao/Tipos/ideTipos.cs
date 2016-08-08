@@ -168,8 +168,13 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum ConsumidorFinal
     {
-        [XmlEnum("0")] cfNao = 0,
-        [XmlEnum("1")] cfConsumidorFinal = 1
+        [Description("Normal")]
+        [XmlEnum("0")]
+        cfNao = 0,
+
+        [Description("Consumidor final")]
+        [XmlEnum("1")]
+        cfConsumidorFinal = 1
     }
 
     /// <summary>

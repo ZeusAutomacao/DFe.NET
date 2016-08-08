@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Classes", "NFe.Classes\NFe.Classes.csproj", "{29CA1DA2-440D-484B-951A-CF1B2EB27984}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Servicos", "NFe.Servicos\NFe.Servicos.csproj", "{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Impressao", "Nfe.Impressao\NFe.Impressao.csproj", "{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B7F6A2FF-FD0E-4B44-82B3-371605CD0510}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

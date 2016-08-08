@@ -10,7 +10,6 @@
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:impressao="clr-namespace:NFe.Impressao;assembly=NFe.Impressao"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="658" Width="914"
@@ -163,6 +162,30 @@
                                                      Margin="117,13,0,0"
                                                      IsChecked="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static nfeclsidetipos:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}" />
                                     </Grid>
+                                </GroupBox>
+
+                                <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0">
+                                    <StackPanel>
+                                        <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="123*" />
+                                                <ColumnDefinition Width="161*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="Identificador do CSC:" Width="Auto" Grid.Column="0" />
+                                            <TextBox Width="Auto"
+                                                             Text="{Binding ConfiguracaoCsc.CIdToken}"
+                                                             Grid.Column="1" />
+                                        </Grid>
+                                        <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="10*" />
+                                                <ColumnDefinition Width="61*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Label Content="CSC:" Width="Auto" Grid.Column="0" />
+                                            <TextBox Width="Auto" Text="{Binding ConfiguracaoCsc.Csc}"
+                                                             Grid.Column="1" />
+                                        </Grid>
+                                    </StackPanel>
                                 </GroupBox>
 
                                 <StackPanel Margin="10,10,0,0">
@@ -537,11 +560,11 @@
                                          Text="{Binding EnderecoEmitente.xMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Label Content="UF" HorizontalAlignment="Left" Margin="247,305,0,0"
                                        VerticalAlignment="Top" />
-                                <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,151"
+                                <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,171"
                                           ItemsSource="{Binding Source={StaticResource EstadosEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
-                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,94"
+                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,115"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
                                       SelectedItem="{Binding Emitente.CRT}" />
                             <Label Content="CRT" HorizontalAlignment="Left" Margin="10,357,0,0"
@@ -593,101 +616,6 @@
                             <CheckBox Content="Enviar mensagem como HTML" HorizontalAlignment="Left"
                             	IsChecked="{Binding ConfiguracaoEmail.MensagemEmHtml}"
                             	Margin="10,250,0,0" VerticalAlignment="Top" />
-                        </Grid>
-                    </TabItem>
-                    <TabItem Header="DANFE" HorizontalAlignment="Left">
-                        <Grid Background="White">
-
-                            <StackPanel>
-                                <GroupBox Header="LogoMarca" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                          Width="308" Margin="0,10,0,0">
-                                    <StackPanel Margin="0,0,0,12">
-                                        <StackPanel Margin="0,10,0,0">
-                                            <Label Content="Informe a logomarca a ser usada no DANFE"
-                                                   HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                            <WrapPanel Orientation="Horizontal">
-                                                <Border BorderThickness="1" BorderBrush="Black" Height="100"
-                                                        Width="250"
-                                                        HorizontalAlignment="Left" VerticalAlignment="Top">
-                                                    <Image x:Name="LogoEmitente" />
-                                                </Border>
-                                                <StackPanel Margin="5" Width="35">
-                                                    <Button x:Name="BtnLogo" Content="..." VerticalAlignment="Top"
-                                                            Click="btnLogo_Click" Height="35" />
-                                                    <Button x:Name="BtnRemoveLogo" Content="x" VerticalAlignment="Top"
-                                                            Height="35" Click="btnRemoveLogo_Click" />
-                                                </StackPanel>
-                                            </WrapPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </GroupBox>
-
-                                <GroupBox Header="NFC-e">
-                                    <StackPanel>
-                                        <GroupBox Header="Emissão Normal - Impressão dos produtos" Height="60"
-                                                  Margin="0,10,0,0">
-                                            <Grid>
-                                                <RadioButton Content="Não imprimir"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="8,13,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.NaoImprimir}, Converter={StaticResource EnumParaBool}}" />
-                                                <RadioButton Content="Uma Linha"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="108,13,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
-                                                <RadioButton Content="Duas Linhas"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="190,13,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static impressao:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
-                                            </Grid>
-                                        </GroupBox>
-                                        <GroupBox Header="Contigência - Impressão dos produtos"
-                                                  Height="60" Margin="0,10,0,0">
-                                            <Grid>
-                                                <RadioButton Content="Uma Linha"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="8,13,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static impressao:NfceDetalheVendaContigencia.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
-                                                <RadioButton Content="Duas Linhas"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="108,13,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static impressao:NfceDetalheVendaContigencia.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
-                                            </Grid>
-                                        </GroupBox>
-
-                                        <CheckBox Content="Imprimir desconto do item"
-                                                             HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                             Margin="0,10,0,0"
-                                                             IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeDescontoItem}"/>
-
-                                        <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0">
-                                            <StackPanel>
-                                                <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="123*" />
-                                                        <ColumnDefinition Width="161*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Content="Identificador do CSC:" Width="Auto" Grid.Column="0" />
-                                                    <TextBox Width="Auto"
-                                                             Text="{Binding ConfiguracaoDanfeNfce.cIdToken}"
-                                                             Grid.Column="1" />
-                                                </Grid>
-                                                <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="10*" />
-                                                        <ColumnDefinition Width="61*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Label Content="CSC:" Width="Auto" Grid.Column="0" />
-                                                    <TextBox Width="Auto" Text="{Binding ConfiguracaoDanfeNfce.CSC}"
-                                                             Grid.Column="1" />
-                                                </Grid>
-                                            </StackPanel>
-                                        </GroupBox>
-
-                                    </StackPanel>
-                                </GroupBox>
-                            </StackPanel>
-
                         </Grid>
                     </TabItem>
                 </TabControl>
@@ -747,13 +675,9 @@
                             Margin="192,160,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaCadastro_Click" />
                     <Button x:Name="BtnDownlodNfe" Content="Downlod NFe" HorizontalAlignment="Left"
                             Margin="374,160,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
-                    <Button x:Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"
-                            Margin="10,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" />
-                    <Button x:Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
-                            Margin="192,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" />
                     <Button x:Name="BtnAdminCsc" Content="Administrar CSC" HorizontalAlignment="Left"
-                    	Margin="374,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdminCsc_Click"/>
-                    <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="177"/>
+                    	Margin="192,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdminCsc_Click"/>
+                    <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="177"/>
                 </Grid>
             </TabItem>
 

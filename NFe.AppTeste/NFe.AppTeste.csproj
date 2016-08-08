@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfiguracaoCsc.cs" />
     <Compile Include="EnumParaInteger.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>
@@ -611,10 +612,6 @@
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nfe.Impressao\NFe.Impressao.csproj">
-      <Project>{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}</Project>
-      <Name>NFe.Impressao</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>

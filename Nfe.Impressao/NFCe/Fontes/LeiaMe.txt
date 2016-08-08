@@ -1,4 +1,0 @@
-Devido à boa legibilidade em tamanho pequeno, resolvi usar as fontes OpenSans e UbuntuCondensed. Ambas podem ser obtidas em https://www.google.com/fonts.
-A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade, daí a necessidade de encontrar uma fonte bem legível.
-
-Obs: Instale as fontes informadas no PC que vai imprimir o DANFE da Nfce
