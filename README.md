@@ -22,9 +22,6 @@ Está licenciada sobre a LGPL.
 - [x] Implementar consumo do serviço NfeDownloadNF;
 - [ ] Implementar envio síncrono na versão 3.10;
 - [x] Implementar envio de nfe compactada para a versão 3.10;
-- [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
-- [ ] Implementar impressão do DANFE de NFCe A4;
-- [ ] Implementar impressão do DANFE de NFe;
 - [x] Implementar envio de emails (Concluído em 25/06/2016)
 - [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
 - [ ] Implementar consumo do serviço NfeConsultaDest;
@@ -32,9 +29,6 @@ Está licenciada sobre a LGPL.
 - [x] Implementar "diversas atualizações e melhorias no Sistema da NF-e" (NT2015/002) entre 01/10/15 e 03/11/15(entrada em produção);
 - [x] Implementar "Cobrança do ICMS na Operação Interestadual" (NT2015/003) entre 01/10/15 e 03/11/15(entrada em produção);
 - [x] Implementar Serviço Administração do CSC para NFCe (implementado em 05/04/2016 por https://github.com/rodrigomartins50);
-- [ ] Implementar possíveis mudanças no Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, versão 3.3 que será obrigatório a partir de  01/09/2016;
-- [ ] Alterações no DANFE de NFCe (Adicionar opção para definir o tamanho da logomarca);
-- [x] Adicionar opção para determinar se o desconto por item deve ser impresso.
  
 **Atenção:**
 Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
