@@ -1,3 +1,4 @@
+[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 Zeus.Net.NFe.NFCe
 =================
 
