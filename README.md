@@ -18,6 +18,10 @@ Está licenciada sobre a LGPL.
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl. 
 
+**Impressão do DANFE da NFCe em Fast-Reports**
+- Ver a biblioteca Zeus.Net.NFe.NFCe.DANFE, disponível em https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe.DANFE
+
+
 **TODO:**
 - [x] Implementar consumo do serviço NfeDownloadNF;
 - [ ] Implementar envio síncrono na versão 3.10;
@@ -41,8 +45,3 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 ![](http://www.zeusautomacao.com.br/imagens/git/04.png)
 ![](http://www.zeusautomacao.com.br/imagens/git/05.png)
 ![](http://www.zeusautomacao.com.br/imagens/git/06.png)
-![](http://www.zeusautomacao.com.br/imagens/git/08.png)
-![](http://www.zeusautomacao.com.br/imagens/git/09.png)
-![](http://www.zeusautomacao.com.br/imagens/git/10.png)
-![](http://www.zeusautomacao.com.br/imagens/git/11.jpg)
-
