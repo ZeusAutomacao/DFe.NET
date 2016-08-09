@@ -62,7 +62,7 @@ namespace NFe.Integracao
                     switch (args[i])
                     {
                         case "/?": listComandos.Add(new KeyValuePair<Comando, string>(Comando.Help,string.Empty)); break;
-                        case "/enviar": listComandos.Add(new KeyValuePair<Comando, string>(Comando.EnviarNFe, string.Format("{0}#{1}", args[i + 1], args[i+2]))); break;
+                        case "/enviar": listComandos.Add(new KeyValuePair<Comando, string>(Comando.EnviarNFe, string.Format("{0}#{1}#{2}", args[i + 1], args[i+2], args[i + 3]))); break;
                         case "/recibo": listComandos.Add(new KeyValuePair<Comando, string>(Comando.ConsultarReciboEnvio, args[i + 1])); break;
                         case "/status": listComandos.Add(new KeyValuePair<Comando, string>(Comando.StatusServico, string.Empty)); break;
                         case "/inutilizar": listComandos.Add(new KeyValuePair<Comando, string>(Comando.InutilizarNumeracao, string.Format("{0}#{1}#{2}#{3}#{4}#{5}", args[i + 1], args[i + 2], args[i + 3], args[i + 4], args[i + 5], args[i + 6]))); break;
@@ -289,7 +289,7 @@ namespace NFe.Integracao
             Console.WriteLine("");
             Console.WriteLine("/config     - zeus /config \"tipo_ambiente\" \"h\"");
             Console.WriteLine("");
-            Console.WriteLine("/enviar     - zeus /enviar \"C:\\meu_arquivo_xml.xml\"");
+            Console.WriteLine("/enviar     - zeus /enviar \"C:\\meu_arquivo_xml.xml\" \"numero_do_lote\" \"tipo_documento(D=Destinatário - nfeProc; N=Nfe; L=Lote - enviNFe3\"");
             Console.WriteLine("");
             Console.WriteLine("/recibo     - zeus /recibo \"número_do_recibo\"");
             Console.WriteLine("");
@@ -420,10 +420,27 @@ namespace NFe.Integracao
         private static void EnviarNFe(NFeFacade nfeFacade, string dadosDoEnvio)
         {
             string strPathArquivoXml;
+            int numeroLote;
+            TipoXmlNFe tipoXml;
 
             try
             {
-                strPathArquivoXml = dadosDoEnvio.Split('#')[0];
+                var arrayStrDados = dadosDoEnvio.Split('#');
+                strPathArquivoXml = arrayStrDados[0];
+                numeroLote = int.Parse(arrayStrDados[1]);
+                switch (arrayStrDados[2])
+                {
+                    case "D": tipoXml = TipoXmlNFe.Destinatario;
+                        break;
+                    case "N":
+                        tipoXml = TipoXmlNFe.NFe;
+                        break;
+                    case "L":
+                        tipoXml = TipoXmlNFe.Lote;
+                        break;
+                    default:
+                        throw new ArgumentException();
+                }
             }
             catch
             {
@@ -453,9 +470,9 @@ namespace NFe.Integracao
                     return;
                 }
 
-                var nfeBuilder = new NFeBuilder(strPathArquivoXml,TipoXmlNFe.NFe);
+                var nfeBuilder = new NFeBuilder(strPathArquivoXml, tipoXml);
                 Console.WriteLine("Preparando a NFe...");
-                var retorno = nfeFacade.EnviarNFe(1,nfeBuilder.Build());
+                var retorno = nfeFacade.EnviarNFe(numeroLote, nfeBuilder.Build());
                 if (retorno.Retorno.cStat == 103)
                 {
                     Console.WriteLine("#NFe#"+retorno.Retorno.infRec.nRec);
@@ -513,6 +530,10 @@ namespace NFe.Integracao
                 if (retornoConsultaProtocolo.Retorno.protNFe[0].infProt.nProt != null)
                 {
                     Console.WriteLine("#NFe#" + retornoConsultaProtocolo.Retorno.protNFe[0].infProt.nProt);
+                }
+                if (retornoConsultaProtocolo.Retorno.protNFe[0].infProt != null)
+                {
+                    Console.WriteLine("#Erro#" + retornoConsultaProtocolo.Retorno.protNFe[0].infProt.xMotivo);
                 }
                 else
                 {
