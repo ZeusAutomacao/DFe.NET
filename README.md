@@ -44,4 +44,3 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 ![](http://www.zeusautomacao.com.br/imagens/git/03.png)
 ![](http://www.zeusautomacao.com.br/imagens/git/04.png)
 ![](http://www.zeusautomacao.com.br/imagens/git/05.png)
-![](http://www.zeusautomacao.com.br/imagens/git/06.png)
