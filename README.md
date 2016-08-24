@@ -28,7 +28,7 @@ Está licenciada sobre a LGPL.
 - [x] Implementar envio de nfe compactada para a versão 3.10;
 - [x] Implementar envio de emails (Concluído em 25/06/2016)
 - [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
-- ~~[ ] Implementar consumo do serviço NfeConsultaDest~~; Desativado em 02/02/15 pela NT 2014.002, Versão 1.01, de Agosto 2014.
+- [ ] ~~Implementar consumo do serviço NfeConsultaDest;~~ Desativado em 02/02/15 pela NT 2014.002, Versão 1.01, de Agosto 2014.
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001);
 - [x] Implementar "diversas atualizações e melhorias no Sistema da NF-e" (NT2015/002) entre 01/10/15 e 03/11/15(entrada em produção);
 - [x] Implementar "Cobrança do ICMS na Operação Interestadual" (NT2015/003) entre 01/10/15 e 03/11/15(entrada em produção);
