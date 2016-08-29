@@ -33,7 +33,8 @@ Está licenciada sobre a LGPL.
 - [x] Implementar "diversas atualizações e melhorias no Sistema da NF-e" (NT2015/002) entre 01/10/15 e 03/11/15(entrada em produção);
 - [x] Implementar "Cobrança do ICMS na Operação Interestadual" (NT2015/003) entre 01/10/15 e 03/11/15(entrada em produção);
 - [x] Implementar Serviço Administração do CSC para NFCe (implementado em 05/04/2016 por https://github.com/rodrigomartins50);
-- [ ] Aceitar certificado digital A1 em base64.
+- [ ] Aceitar certificado digital A1 em base64;
+- [ ] Revisar urls para qr-code de acordo com link (http://nfce.encat.org/desenvolvedor/qrcode/) divulgado na NT 2015/002, versão 1.41, publicada em 26/08/2016.
  
 **Atenção:**
 Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
