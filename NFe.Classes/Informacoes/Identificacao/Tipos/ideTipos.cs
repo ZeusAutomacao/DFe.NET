@@ -105,14 +105,37 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoEmissao
     {
-        [XmlEnum("1")] teNormal = 1,
-        [XmlEnum("2")] teFSIA = 2,
-        [XmlEnum("3")] teSCAN = 3,
-        [XmlEnum("4")] teEPEC = 4,
-        [XmlEnum("5")] teFSDA = 5,
-        [XmlEnum("6")] teSVCAN = 6,
-        [XmlEnum("7")] teSVCRS = 7,
-        [XmlEnum("9")] teOffLine = 9
+        [XmlEnum("1")]
+        [Description("Normal")]
+        teNormal = 1,
+
+        [XmlEnum("2")]
+        [Description("Contingência FS-IA")]
+        teFSIA = 2,
+
+        [XmlEnum("3")]
+        [Description("Contingência SCAN")]
+        teSCAN = 3,
+
+        [XmlEnum("4")]
+        [Description("Contingência DPEC")]
+        teEPEC = 4,
+
+        [XmlEnum("5")]
+        [Description("Contingência FS-DA")]
+        teFSDA = 5,
+
+        [XmlEnum("6")]
+        [Description("Contingência SVC-AN")]
+        teSVCAN = 6,
+
+        [XmlEnum("7")]
+        [Description("Contingência SVC-RS")]
+        teSVCRS = 7,
+
+        [XmlEnum("9")]
+        [Description("Contingência off-line")]
+        teOffLine = 9
     }
 
     /// <summary>

@@ -768,7 +768,7 @@ namespace NFe.AppTeste
         {
             var infNFe = new infNFe
             {
-                versao = Auxiliar.VersaoServicoParaString(versao),
+                versao = Conversao.VersaoServicoParaString(versao),
                 ide = GetIdentificacao(numero, modelo, versao),
                 emit = GetEmitente(),
                 dest = GetDestinatario(versao, modelo),

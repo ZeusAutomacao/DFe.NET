@@ -47,7 +47,7 @@
     <Compile Include="AdmCsc\ExtretAdmCscNFCe.cs" />
     <Compile Include="Assinatura\Assinador.cs" />
     <Compile Include="Autorizacao\ExtenviNFe3.cs" />
-    <Compile Include="Auxiliar.cs" />
+    <Compile Include="Conversao.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
     <Compile Include="Compressao.cs" />
     <Compile Include="ConfiguracaoCertificado.cs" />
@@ -67,6 +67,7 @@
     <Compile Include="InformacoesSuplementares\ExtinfNFeSupl.cs" />
     <Compile Include="Inutilizacao\ExtinutNFe.cs" />
     <Compile Include="Inutilizacao\ExtretInutNFe.cs" />
+    <Compile Include="NfeSituacao.cs" />
     <Compile Include="NFe\ExtNfeProc.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Recepcao\ExtconsReciNFe.cs" />

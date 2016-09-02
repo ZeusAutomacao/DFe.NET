@@ -1247,8 +1247,8 @@ namespace NFe.Servicos
         /// <returns></returns>
         private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
-            return "Serviço " + servico + ", versão " + Auxiliar.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + Auxiliar.TpAmbParaString(cfgServico.tpAmb) +
-                   " para emissão tipo " + Auxiliar.TipoEmissaoParaString(cfgServico.tpEmis) + ", documento: " + Auxiliar.ModeloDocumentoParaString(cfgServico.ModeloDocumento) + "!";
+            return "Serviço " + servico + ", versão " + Conversao.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + Conversao.TpAmbParaString(cfgServico.tpAmb) +
+                   " para emissão tipo " + Conversao.TipoEmissaoParaString(cfgServico.tpEmis) + ", documento: " + Conversao.ModeloDocumentoParaString(cfgServico.ModeloDocumento) + "!";
         }
 
         /// <summary>

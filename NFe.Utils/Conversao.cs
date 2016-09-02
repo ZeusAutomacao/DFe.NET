@@ -37,7 +37,7 @@ using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Utils
 {
-    public static class Auxiliar
+    public static class Conversao
     {
         public static string VersaoServicoParaString(ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
