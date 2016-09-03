@@ -212,7 +212,6 @@
     <Compile Include="Servicos\Tipos\ServicosTipos.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFe.Classes.cd" />
     <None Include="NFe.Classes.licenseheader" />
   </ItemGroup>
   <ItemGroup />
