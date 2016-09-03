@@ -33,7 +33,7 @@ Está licenciada sobre a LGPL.
 - Instale as fontes informadas no PC que for imprimir o DANFE da NFCe;
 - Impressão testada e funcionando 100% nas impressoras Bematech MP-4200, Daruma DR700 e Epson TM-81 e TM-20.
 
-**Exemplo de impressão do DANFE da NFCe utilizando a biblioteca:**
+**Exemplo de impressão do DANFE da NFCe utilizando a biblioteca NFe.Danfe.Fast:**
 
 ```cs
 var proc = new nfeProc().CarregarDeArquivoXml(Caminho_do_arquivo_XML);
@@ -82,7 +82,7 @@ Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui m
 ![](http://www.zeusautomacao.com.br/imagens/git/05.png)
 
 
-**Telas do aplicativo NFe.Danfe.AppTeste (demonstração de Uso da biblioteca):**
+**Telas do aplicativo NFe.Danfe.AppTeste (demonstração de Uso da biblioteca NFe.Danfe.Fast):**
 
 ![](http://www.zeusautomacao.com.br/imagens/git/07.png)
 ![](http://www.zeusautomacao.com.br/imagens/git/08.png)
