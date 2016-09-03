@@ -1,0 +1,584 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="08/10/2016 04:52:26" ReportInfo.CreatorVersion="2016.1.1.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void txtTipoNfe_BeforePrint(object sender, EventArgs e)
+    {
+      txtTipoNfe.Text = ((int) ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpNF&quot;)) ).ToString();
+    }
+
+    private void txtChaveNfe_BeforePrint(object sender, EventArgs e)
+    {
+      var chave = Substring( ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;)), 3);
+      if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
+      {
+        var chaveFormatada = &quot;&quot;;
+        for (int i = 0; i &lt; chave.Length; i += 4)  
+          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
+        txtChaveNfe.Text = chaveFormatada;      
+      }          
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="NFe" ReferenceName="NFe" DataType="null" Enabled="true">
+      <Column Name="versao" DataType="System.String"/>
+      <Column Name="NFe" DataType="null">
+        <Column Name="infNFe" DataType="null">
+          <Column Name="versao" DataType="System.String"/>
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="ide" DataType="null">
+            <Column Name="cUF" DataType="null"/>
+            <Column Name="cNF" DataType="System.String"/>
+            <Column Name="natOp" DataType="System.String"/>
+            <Column Name="indPag" DataType="null"/>
+            <Column Name="mod" DataType="null"/>
+            <Column Name="serie" DataType="System.Int32"/>
+            <Column Name="nNF" DataType="System.Int64"/>
+            <Column Name="dEmi" DataType="System.String"/>
+            <Column Name="dSaiEnt" DataType="System.String"/>
+            <Column Name="dhEmi" DataType="System.String"/>
+            <Column Name="dhSaiEnt" DataType="System.String"/>
+            <Column Name="tpNF" DataType="null"/>
+            <Column Name="idDest" DataType="null"/>
+            <Column Name="cMunFG" DataType="System.Int64"/>
+            <Column Name="tpImp" DataType="null"/>
+            <Column Name="tpEmis" DataType="null"/>
+            <Column Name="cDV" DataType="System.Int32"/>
+            <Column Name="tpAmb" DataType="null"/>
+            <Column Name="finNFe" DataType="null"/>
+            <Column Name="indFinal" DataType="null"/>
+            <Column Name="indPres" DataType="null"/>
+            <Column Name="procEmi" DataType="null"/>
+            <Column Name="verProc" DataType="System.String"/>
+            <Column Name="dhCont" DataType="System.String"/>
+            <Column Name="xJust" DataType="System.String"/>
+            <BusinessObjectDataSource Name="NFref" DataType="null" Enabled="true">
+              <Column Name="refNFe" DataType="System.String"/>
+              <Column Name="refNF" DataType="null">
+                <Column Name="cUF" DataType="null"/>
+                <Column Name="AAMM" DataType="System.String"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="mod" DataType="System.Int32"/>
+                <Column Name="serie" DataType="System.Int32"/>
+                <Column Name="nNF" DataType="System.Int32"/>
+              </Column>
+              <Column Name="refNFP" DataType="null">
+                <Column Name="cUF" DataType="null"/>
+                <Column Name="AAMM" DataType="System.String"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="CPF" DataType="System.Int64"/>
+                <Column Name="IE" DataType="System.String"/>
+                <Column Name="mod" DataType="System.Int32"/>
+                <Column Name="serie" DataType="System.Int32"/>
+                <Column Name="nNF" DataType="System.Int32"/>
+                <Column Name="refCTe" DataType="System.String"/>
+              </Column>
+              <Column Name="refECF" DataType="null">
+                <Column Name="mod" DataType="System.String"/>
+                <Column Name="nECF" DataType="System.Int32"/>
+                <Column Name="nCOO" DataType="System.Int32"/>
+              </Column>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="emit" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="xFant" DataType="System.String"/>
+            <Column Name="enderEmit" DataType="null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="xPais" DataType="System.String"/>
+              <Column Name="fone" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="IEST" DataType="System.String"/>
+            <Column Name="IM" DataType="System.String"/>
+            <Column Name="CNAE" DataType="System.String"/>
+            <Column Name="CRT" DataType="null"/>
+          </Column>
+          <Column Name="avulsa" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="xOrgao" DataType="System.String"/>
+            <Column Name="matr" DataType="System.String"/>
+            <Column Name="xAgente" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+            <Column Name="nDAR" DataType="System.String"/>
+            <Column Name="dEmi" DataType="System.String"/>
+            <Column Name="vDAR" DataType="System.Decimal"/>
+            <Column Name="repEmi" DataType="System.String"/>
+            <Column Name="dPag" DataType="System.String"/>
+          </Column>
+          <Column Name="dest" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="idEstrangeiro" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="enderDest" DataType="null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="xPais" DataType="System.String"/>
+              <Column Name="fone" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <Column Name="indIEDest" DataType="null"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="ISUF" DataType="System.String"/>
+            <Column Name="IM" DataType="System.String"/>
+            <Column Name="email" DataType="System.String"/>
+          </Column>
+          <Column Name="retirada" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xLgr" DataType="System.String"/>
+            <Column Name="nro" DataType="System.String"/>
+            <Column Name="xCpl" DataType="System.String"/>
+            <Column Name="xBairro" DataType="System.String"/>
+            <Column Name="cMun" DataType="System.Int64"/>
+            <Column Name="xMun" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+          </Column>
+          <Column Name="entrega" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xLgr" DataType="System.String"/>
+            <Column Name="nro" DataType="System.String"/>
+            <Column Name="xCpl" DataType="System.String"/>
+            <Column Name="xBairro" DataType="System.String"/>
+            <Column Name="cMun" DataType="System.Int64"/>
+            <Column Name="xMun" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+          </Column>
+          <BusinessObjectDataSource Name="autXML" DataType="null" Enabled="true">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <BusinessObjectDataSource Name="det" DataType="null" Enabled="true">
+            <Column Name="nItem" DataType="System.Int32"/>
+            <Column Name="prod" DataType="null">
+              <Column Name="cProd" DataType="System.String"/>
+              <Column Name="cEAN" DataType="System.String"/>
+              <Column Name="xProd" DataType="System.String"/>
+              <Column Name="NCM" DataType="System.String"/>
+              <Column Name="NVE" DataType="System.String"/>
+              <Column Name="EXTIPI" DataType="System.String"/>
+              <Column Name="CFOP" DataType="System.Int32"/>
+              <Column Name="uCom" DataType="System.String"/>
+              <Column Name="qCom" DataType="System.Decimal"/>
+              <Column Name="vUnCom" DataType="System.Decimal"/>
+              <Column Name="vProd" DataType="System.Decimal"/>
+              <Column Name="cEANTrib" DataType="System.String"/>
+              <Column Name="uTrib" DataType="System.String"/>
+              <Column Name="qTrib" DataType="System.Decimal"/>
+              <Column Name="vUnTrib" DataType="System.Decimal"/>
+              <Column Name="vFrete" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vSeg" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="indTot" DataType="null"/>
+              <BusinessObjectDataSource Name="DI" DataType="null" Enabled="true">
+                <Column Name="nDI" DataType="System.String"/>
+                <Column Name="dDI" DataType="System.String"/>
+                <Column Name="xLocDesemb" DataType="System.String"/>
+                <Column Name="UFDesemb" DataType="System.String"/>
+                <Column Name="dDesemb" DataType="System.String"/>
+                <Column Name="tpViaTransp" DataType="null"/>
+                <Column Name="vAFRMM" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="tpIntermedio" DataType="null"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="UFTerceiro" DataType="System.String"/>
+                <Column Name="cExportador" DataType="System.String"/>
+                <BusinessObjectDataSource Name="adi" DataType="null" Enabled="true">
+                  <Column Name="nAdicao" DataType="System.Int32"/>
+                  <Column Name="nSeqAdic" DataType="System.Int32"/>
+                  <Column Name="cFabricante" DataType="System.String"/>
+                  <Column Name="vDescDI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="nDraw" DataType="System.String"/>
+                </BusinessObjectDataSource>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="detExport" DataType="null" Enabled="true">
+                <Column Name="nDraw" DataType="System.String"/>
+                <Column Name="exportInd" DataType="null">
+                  <Column Name="nRE" DataType="System.String"/>
+                  <Column Name="chNFe" DataType="System.String"/>
+                  <Column Name="qExport" DataType="System.Decimal"/>
+                </Column>
+              </BusinessObjectDataSource>
+              <Column Name="xPed" DataType="System.String"/>
+              <Column Name="nItemPed" DataType="System.Int32"/>
+              <Column Name="nFCI" DataType="System.String"/>
+              <Column Name="ProdutoEspecifico" DataType="null"/>
+              <Column Name="nRECOPI" DataType="System.String"/>
+            </Column>
+            <Column Name="imposto" DataType="null">
+              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="ICMS" DataType="null">
+                <Column Name="TipoICMS" DataType="null">
+                  <Column Name="orig" DataType="null"/>
+                  <Column Name="CSOSN" DataType="null"/>
+                </Column>
+              </Column>
+              <Column Name="IPI" DataType="null">
+                <Column Name="clEnq" DataType="System.String"/>
+                <Column Name="CNPJProd" DataType="System.String"/>
+                <Column Name="cSelo" DataType="System.String"/>
+                <Column Name="qSelo" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cEnq" DataType="System.Int32"/>
+                <Column Name="TipoIPI" DataType="null"/>
+              </Column>
+              <Column Name="II" DataType="null">
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="vDespAdu" DataType="System.Decimal"/>
+                <Column Name="vII" DataType="System.Decimal"/>
+                <Column Name="vIOF" DataType="System.Decimal"/>
+              </Column>
+              <Column Name="PIS" DataType="null">
+                <Column Name="TipoPIS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </Column>
+              </Column>
+              <Column Name="PISST" DataType="null">
+                <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="pPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              </Column>
+              <Column Name="COFINS" DataType="null">
+                <Column Name="TipoCOFINS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </Column>
+              </Column>
+              <Column Name="COFINSST" DataType="null">
+                <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="pCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              </Column>
+              <Column Name="ISSQN" DataType="null">
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="vAliq" DataType="System.Decimal"/>
+                <Column Name="vISSQN" DataType="System.Decimal"/>
+                <Column Name="cMunFG" DataType="System.Int64"/>
+                <Column Name="cListServ" DataType="System.String"/>
+                <Column Name="vDeducao" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="IndicadorIss" DataType="null"/>
+                <Column Name="cServico" DataType="System.String"/>
+                <Column Name="cMun" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="nProcesso" DataType="System.String"/>
+                <Column Name="indIncentivo" DataType="null"/>
+              </Column>
+            </Column>
+            <Column Name="impostoDevol" DataType="null">
+              <Column Name="pDevol" DataType="System.Decimal"/>
+              <Column Name="IPI" DataType="null">
+                <Column Name="vIPIDevol" DataType="System.Decimal"/>
+              </Column>
+            </Column>
+            <Column Name="infAdProd" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <Column Name="total" DataType="null">
+            <Column Name="ICMSTot" DataType="null">
+              <Column Name="vBC" DataType="System.Decimal"/>
+              <Column Name="vICMS" DataType="System.Decimal"/>
+              <Column Name="vICMSDeson" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCST" DataType="System.Decimal"/>
+              <Column Name="vST" DataType="System.Decimal"/>
+              <Column Name="vProd" DataType="System.Decimal"/>
+              <Column Name="vFrete" DataType="System.Decimal"/>
+              <Column Name="vSeg" DataType="System.Decimal"/>
+              <Column Name="vDesc" DataType="System.Decimal"/>
+              <Column Name="vII" DataType="System.Decimal"/>
+              <Column Name="vIPI" DataType="System.Decimal"/>
+              <Column Name="vPIS" DataType="System.Decimal"/>
+              <Column Name="vCOFINS" DataType="System.Decimal"/>
+              <Column Name="vOutro" DataType="System.Decimal"/>
+              <Column Name="vNF" DataType="System.Decimal"/>
+              <Column Name="vTotTrib" DataType="System.Decimal"/>
+            </Column>
+            <Column Name="ISSQNtot" DataType="null">
+              <Column Name="vServ" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vISS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="dCompet" DataType="System.String"/>
+              <Column Name="vDeducao" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cRegTrib" DataType="null"/>
+            </Column>
+            <Column Name="retTrib" DataType="null">
+              <Column Name="vRetPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetCSLL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCIRRF" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vIRRF" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+          </Column>
+          <Column Name="transp" DataType="null">
+            <Column Name="modFrete" DataType="null"/>
+            <Column Name="transporta" DataType="null">
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="CPF" DataType="System.String"/>
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="IE" DataType="System.String"/>
+              <Column Name="xEnder" DataType="System.String"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+            </Column>
+            <Column Name="retTransp" DataType="null">
+              <Column Name="vServ" DataType="System.Decimal"/>
+              <Column Name="vBCRet" DataType="System.Decimal"/>
+              <Column Name="pICMSRet" DataType="System.Decimal"/>
+              <Column Name="vICMSRet" DataType="System.Decimal"/>
+              <Column Name="CFOP" DataType="System.Int32"/>
+              <Column Name="cMunFG" DataType="System.Int64"/>
+            </Column>
+            <Column Name="veicTransp" DataType="null">
+              <Column Name="placa" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="RNTC" DataType="System.String"/>
+            </Column>
+            <BusinessObjectDataSource Name="reboque" DataType="null" Enabled="true">
+              <Column Name="placa" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="RNTC" DataType="System.String"/>
+              <Column Name="vagao" DataType="System.String"/>
+              <Column Name="balsa" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="vol" DataType="null" Enabled="true">
+              <Column Name="qVol" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="esp" DataType="System.String"/>
+              <Column Name="marca" DataType="System.String"/>
+              <Column Name="nVol" DataType="System.String"/>
+              <Column Name="pesoL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="pesoB" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <BusinessObjectDataSource Name="lacres" DataType="null" Enabled="true">
+                <Column Name="nLacre" DataType="System.String"/>
+              </BusinessObjectDataSource>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="cobr" DataType="null">
+            <Column Name="fat" DataType="null">
+              <Column Name="nFat" DataType="System.String"/>
+              <Column Name="vOrig" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vLiq" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <BusinessObjectDataSource Name="dup" DataType="null" Enabled="true">
+              <Column Name="nDup" DataType="System.String"/>
+              <Column Name="dVenc" DataType="System.String"/>
+              <Column Name="vDup" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <BusinessObjectDataSource Name="pag" DataType="null" Enabled="true">
+            <Column Name="tPag" DataType="null"/>
+            <Column Name="vPag" DataType="System.Decimal"/>
+            <Column Name="card" DataType="null">
+              <Column Name="tpIntegra" DataType="null"/>
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="tBand" DataType="null"/>
+              <Column Name="cAut" DataType="System.String"/>
+            </Column>
+          </BusinessObjectDataSource>
+          <Column Name="infAdic" DataType="null">
+            <Column Name="infAdFisco" DataType="System.String"/>
+            <Column Name="infCpl" DataType="System.String"/>
+            <BusinessObjectDataSource Name="obsCont" DataType="null" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="obsFisco" DataType="null" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="procRef" DataType="null" Enabled="true">
+              <Column Name="nProc" DataType="System.String"/>
+              <Column Name="indProc" DataType="null"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="exporta" DataType="null">
+            <Column Name="UFSaidaPais" DataType="System.String"/>
+            <Column Name="xLocExporta" DataType="System.String"/>
+            <Column Name="xLocDespacho" DataType="System.String"/>
+          </Column>
+          <Column Name="compra" DataType="null">
+            <Column Name="xNEmp" DataType="System.String"/>
+            <Column Name="xPed" DataType="System.String"/>
+            <Column Name="xCont" DataType="System.String"/>
+          </Column>
+          <Column Name="cana" DataType="null">
+            <Column Name="safra" DataType="System.String"/>
+            <Column Name="ref" DataType="System.String"/>
+            <BusinessObjectDataSource Name="forDia" DataType="null" Enabled="true">
+              <Column Name="dia" DataType="System.Int32"/>
+              <Column Name="qtde" DataType="System.Decimal"/>
+              <Column Name="qTotMes" DataType="System.Decimal"/>
+              <Column Name="qTotAnt" DataType="System.Decimal"/>
+              <Column Name="qTotGer" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="deduc" DataType="null" Enabled="true">
+              <Column Name="xDed" DataType="System.String"/>
+              <Column Name="vDed" DataType="System.Decimal"/>
+              <Column Name="vFor" DataType="System.Decimal"/>
+              <Column Name="vTotDed" DataType="System.Decimal"/>
+              <Column Name="vLiqFor" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+          </Column>
+        </Column>
+        <Column Name="infNFeSupl" DataType="null">
+          <Column Name="qrCode" DataType="System.String"/>
+        </Column>
+        <Column Name="Signature" DataType="null">
+          <Column Name="SignedInfo" DataType="null">
+            <Column Name="CanonicalizationMethod" DataType="null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="SignatureMethod" DataType="null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="Reference" DataType="null">
+              <Column Name="URI" DataType="System.String"/>
+              <BusinessObjectDataSource Name="Transforms" DataType="null" Enabled="true">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="DigestMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="DigestValue" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="SignatureValue" DataType="System.String"/>
+          <Column Name="KeyInfo" DataType="null">
+            <Column Name="X509Data" DataType="null">
+              <Column Name="X509Certificate" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+      <Column Name="protNFe" DataType="null">
+        <Column Name="versao" DataType="System.String"/>
+        <Column Name="infProt" DataType="null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="tpAmb" DataType="null"/>
+          <Column Name="verAplic" DataType="System.String"/>
+          <Column Name="chNFe" DataType="System.String"/>
+          <Column Name="dhRecbto" DataType="System.DateTime"/>
+          <Column Name="nProt" DataType="System.String"/>
+          <Column Name="digVal" DataType="System.String"/>
+          <Column Name="cStat" DataType="System.Int32"/>
+          <Column Name="xMotivo" DataType="System.String"/>
+          <Column Name="Signature" DataType="null">
+            <Column Name="SignedInfo" DataType="null">
+              <Column Name="CanonicalizationMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="SignatureMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="Reference" DataType="null">
+                <Column Name="URI" DataType="System.String"/>
+                <BusinessObjectDataSource Name="Transforms1" Alias="Transforms" DataType="null" PropName="Transforms" Enabled="true">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="DigestMethod" DataType="null">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </Column>
+                <Column Name="DigestValue" DataType="System.String"/>
+              </Column>
+            </Column>
+            <Column Name="SignatureValue" DataType="System.String"/>
+            <Column Name="KeyInfo" DataType="null">
+              <Column Name="X509Data" DataType="null">
+                <Column Name="X509Certificate" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="ResumoCanhoto" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7">
+    <ReportTitleBand Name="Canhoto" Width="744.66" Height="79.38">
+      <TextObject Name="Text1" Width="642.6" Height="37.8" Border.Lines="All" Border.Width="0.5" Text="Recebemos de [NFe.NFe.infNFe.emit.xNome] os produtos e/ou serviços constantes da Nota Fiscal Eletrônica indicada ao lado. &#13;&#10;[ResumoCanhoto]" Padding="2, 2, 2, 0" Font="Times New Roman, 7pt"/>
+      <TextObject Name="Text2" Left="642.6" Width="102.06" Height="68.04" Border.Lines="All" Border.Width="0.5" Text="NF-e&#13;&#10;Nº [Format(&quot;{0:000'.'000'.'000}&quot;, [NFe.NFe.infNFe.ide.nNF] )]&#13;&#10;Série [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie] )]" Padding="2, 2, 2, 0" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Top="37.8" Width="113.4" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="DATA DO RECEBIMENTO" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text4" Left="113.4" Top="37.8" Width="529.2" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
+      <LineObject Name="Line1" Top="73.82" Width="744.66" Border.Style="Dash" Border.Width="0.5"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="81.88" Width="744.66" Height="177.66">
+      <TextObject Name="Text5" Width="302.4" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="[NFe.NFe.infNFe.emit.xNome]" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.28" Height="81.27"/>
+      <TextObject Name="Text6" Left="100.93" Top="37.8" Width="200.34" Height="81.27" Text="[NFe.NFe.infNFe.emit.enderEmit.xLgr], [NFe.NFe.infNFe.emit.enderEmit.nro], [NFe.NFe.infNFe.emit.enderEmit.xCpl] - [NFe.NFe.infNFe.emit.enderEmit.xBairro] - [NFe.NFe.infNFe.emit.enderEmit.xMun] - [NFe.NFe.infNFe.emit.enderEmit.UF]&#13;&#10;Fone: [Format(&quot;{0:(00)0000-0000}&quot;, [NFe.NFe.infNFe.emit.enderEmit.fone] )] - CEP: [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFe.NFe.infNFe.emit.enderEmit.CEP] ) )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text7" Left="302.4" Width="120.96" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="DANFE" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Left="304.29" Top="17.01" Width="117.18" Height="22.68" Text="Documento Auxiliar da &#13;&#10;Nota Fiscal Eletrônica" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text9" Left="304.29" Top="45.36" Width="75.6" Height="22.68" Text="0 - ENTRADA&#13;&#10;1 - SAÍDA" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="txtTipoNfe" Left="385.56" Top="45.36" Width="30.24" Height="22.68" Border.Lines="All" BeforePrintEvent="txtTipoNfe_BeforePrint" Text="[NFe.NFe.infNFe.ide.tpNF]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text10" Left="304.29" Top="70.69" Width="117.18" Height="49.14" Text="Nº [Format(&quot;{0:000'.'000'.'000}&quot;, [NFe.NFe.infNFe.ide.nNF] )]&#13;&#10;   SÉRIE [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie] )]&#13;&#10;   FOLHA [Page]/[TotalPages#]" Padding="0, 0, 0, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="423.36" Width="321.3" Height="49.14" Border.Lines="All" Border.Width="0.5" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <BarcodeObject Name="BarcodeChave" Left="445.66" Top="5.67" Width="277.07" Height="37.8" AutoSize="false" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text12" Left="423.36" Top="49.14" Width="321.3" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="CHAVE DE ACESSO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="txtChaveNfe" Left="423.36" Top="56.7" Width="321.3" Height="18.9" BeforePrintEvent="txtChaveNfe_BeforePrint" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text13" Top="120.96" Width="423.36" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="NATUREZA DA OPERAÇÃO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text14" Left="3.78" Top="129.28" Width="415.8" Height="17.01" BeforePrintEvent="txtChaveNfe_BeforePrint" Text="[NFe.NFe.infNFe.ide.natOp]" Padding="0, 0, 0, 0" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="262.04" Width="744.66" Height="75.6"/>
+    <PageFooterBand Name="PageFooter1" Top="340.14" Width="744.66" Height="18.9"/>
+  </ReportPage>
+</Report>
