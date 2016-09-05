@@ -11,7 +11,9 @@
         public static bool Cancelada(int cStat)
         {
             return cStat == 101 /*Cancelamento de NF-e homologado*/
-                | cStat == 151 /*Cancelamento de NF-e homologado fora de prazo*/;
+                | cStat == 151 /*Cancelamento de NF-e homologado fora de prazo*/
+                | cStat == 218 /*NF-e já está cancelada na base de dados da SEFAZ [nRec:999999999999999]*/
+                | cStat == 420 /*Rejeição: Cancelamento para NF-e já cancelada*/;
         }
 
         public static bool Denegada(int cStat)
@@ -35,5 +37,6 @@
             //if ((protNfeRetorno.infProt.cStat >= 201) & (protNfeRetorno.infProt.cStat <= 299) | (protNfeRetorno.infProt.cStat >= 401)) //Rejeitada (Antigo tratamento de rejeição)
             return cStat >= 201 & !Autorizada(cStat) & !Cancelada(cStat) & !Denegada(cStat) & !Inutilizada(cStat);
         }
+
     }
 }
