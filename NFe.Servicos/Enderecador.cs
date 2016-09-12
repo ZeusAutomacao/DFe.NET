@@ -1170,6 +1170,8 @@ namespace NFe.Servicos
                     if (estado != Estado.CE & estado != Estado.RS & !svanEstados.Contains(estado))
                         endServico.AddRange(
                             versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeDownloadNF, versao, TipoAmbiente.taHomologacao, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx")));
+                    if (modelo != ModeloDocumento.NFCe)
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeDistribuicaoDFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx"));
                 }
             }
 
@@ -1187,6 +1189,8 @@ namespace NFe.Servicos
                     //CE, RS e SVAN possuem endereços próprios para o serviço NfeDownloadNF
                     if (estado != Estado.CE & estado != Estado.RS & !svanEstados.Contains(estado))
                         endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeDownloadNF, versao, TipoAmbiente.taProducao, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx")));
+                    if (modelo != ModeloDocumento.NFCe)
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeDistribuicaoDFe, VersaoServico.ve100, TipoAmbiente.taProducao, TipoEmissao.teNormal, estado, modelo, "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx"));
                 }
             }
 

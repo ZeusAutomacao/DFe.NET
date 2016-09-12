@@ -43,6 +43,7 @@ using NFe.Classes.Servicos.Recepcao;
 using NFe.Classes.Servicos.Recepcao.Retorno;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
@@ -57,6 +58,7 @@ using NFe.Utils.NFe;
 using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
+using NFe.Utils.DistribuicaoDFe;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
@@ -66,6 +68,7 @@ using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
+using NFe.Wsdl.DistribuicaoDFe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -632,6 +635,70 @@ namespace NFe.Servicos
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-cad.xml", retornoXmlString);
 
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
+        /// </summary>
+        /// <param name="ufAutor">Código da UF do Autor</param>
+        /// <param name="documento">CNPJ/CPF do interessado no DF-e</param>
+        /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
+        /// <param name="nSU">Número Sequencial Único</param>
+        /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU, string nSU = "0")
+        {
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Cria o objeto distDFeInt
+
+            var pedDistDFeInt = new distDFeInt
+            {
+                versao = versaoServico,
+                tpAmb = _cFgServico.tpAmb,
+                cUFAutor = _cFgServico.cUF,
+                distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') }
+
+            };
+
+            if (documento.Length == 11)
+                pedDistDFeInt.CPF = documento;
+            if (documento.Length > 11)
+                pedDistDFeInt.CNPJ = documento;
+            if (!nSU.Equals("0"))
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = pedDistDFeInt.ObterXmlString();
+            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta);
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            var retorno = ws.Execute(dadosConsulta);
+            var retornoXmlString = retorno.OuterXml;
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
+
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
 
             #endregion
         }

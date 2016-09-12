@@ -1335,5 +1335,33 @@ namespace NFe.AppTeste
         {
             Funcoes.Mensagem("Evento executado antes de enviar o e-mail\nO ATRIBUTO TIMEOUT SE DEIXADO COM 0 ELE PEGA O PADRÃO! EQUIVALENTE A 100000 millisegundos ou 100 segundos", "Evento", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+
+        private void btn_NFeDistribuicaoDFe_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region NFeDistribuicaoDFe
+
+                var cnpj = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "CNPJ do destinatário da NFe:");
+                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
+                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+
+                var nsu = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Ultimo NSU Retornado");
+                if (string.IsNullOrEmpty(nsu)) throw new Exception("NSU deve ser informado!");
+                if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, nsu);
+
+                TrataRetorno(retornoNFeDistDFe);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 }
