@@ -78,14 +78,7 @@ namespace NFe.Classes.Servicos.Evento
         public string xJust
         {
             get { return _xjust; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                descEvento = "Cancelamento";
-                LimpaDadosCartaCorrecao();
-                LimpaDadosEpec();
-                _xjust = value;
-            }
+            set { _xjust = value; }
         }
 
         #endregion

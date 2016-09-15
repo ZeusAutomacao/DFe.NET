@@ -1363,5 +1363,52 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+
+        private void BtnManifestacaoDestinatario_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region ManifestacaoDestinatario
+                /* Justificativa = null*/
+
+                string justificativa = null;
+
+                var idlote = Funcoes.InpuBox(this, "Manifestação Destinatário", "Identificador de controle do Lote de envio:");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+
+                var sequenciaEvento = Funcoes.InpuBox(this, "Manifestação Destinatário", "Número sequencial do evento:");
+                if (string.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
+
+                var chave = Funcoes.InpuBox(this, "Manifestação Destinatário", "Chave da NFe:");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var CodigoEvento = Funcoes.InpuBox(this, "Manifestação Destinatário", "Código do Evento da Manifestação:");
+                if (string.IsNullOrEmpty(CodigoEvento)) throw new Exception("O Código do Evento da Manifestação deve ser informado!");
+                if (CodigoEvento.Length != 6) throw new Exception("O Código do Evento da Manifestação deve conter 6 caracteres!");
+
+                var cnpj = Funcoes.InpuBox(this, "Manifestação Destinatário", "CNPJ do destinatário da NFe:");
+                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
+                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+
+                if (CodigoEvento.Equals("210240"))
+                {
+                    justificativa = Funcoes.InpuBox(this, "Manifestação Destinatário", "Justificativa para a Operação Não Realizada");
+                    if (string.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
+                }
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoNFeDistDFe = servicoNFe.RecepcaoEventoManifestacaoDestinatario(int.Parse(idlote), int.Parse(sequenciaEvento), chave, int.Parse(CodigoEvento), cnpj, justificativa);
+
+                TrataRetorno(retornoNFeDistDFe);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 }

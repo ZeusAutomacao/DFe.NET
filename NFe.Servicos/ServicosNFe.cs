@@ -192,6 +192,9 @@ namespace NFe.Servicos
                 case ServicoNFe.NfceAdministracaoCSC:
                     return new NfceCsc(url, _certificado, _cFgServico.TimeOut);
 
+                case ServicoNFe.NFeDistribuicaoDFe:
+                    return new NfeDistDFeInteresse(url, _certificado, _cFgServico.TimeOut);
+
             }
 
             return null;
@@ -467,7 +470,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
-            var detEvento = new detEvento {nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa};
+            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -502,7 +505,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
-            var detEvento = new detEvento {versao = versaoServico, xCorrecao = correcao};
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -522,6 +525,41 @@ namespace NFe.Servicos
             var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
             var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, TipoRecepcaoEvento.CartaCorrecao);
+            return retorno;
+        }
+
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, int CodigoEvento, string cpfcnpj, string Justificativa = null)
+        {
+            string tmpDescEvento = string.Empty;
+            switch (CodigoEvento)
+            {
+                case 210200: tmpDescEvento = "Confirmacao da Operacao"; break;
+                case 210210: tmpDescEvento = "Ciencia da Operacao"; break;
+                case 210220: tmpDescEvento = "Desconhecimento da Operacao"; break;
+                case 210240: tmpDescEvento = "Operacao nao Realizada"; break;
+            }
+
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var detEvento = new detEvento { versao = versaoServico, descEvento = tmpDescEvento, xJust = Justificativa };
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = _cFgServico.cUF,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                tpEvento = CodigoEvento,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, TipoRecepcaoEvento.ManifestacaoDestinatario);
             return retorno;
         }
 

@@ -49,7 +49,7 @@ namespace NFe.AppTeste
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
             Close();
-            throw new Exception("");
+            /*throw new Exception("");*/
         }
 
         private void BtnOk_Click(object sender, RoutedEventArgs e)

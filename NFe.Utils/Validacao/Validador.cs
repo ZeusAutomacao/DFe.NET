@@ -55,6 +55,8 @@ namespace NFe.Utils.Validacao
                             return "envCCe_v1.00.xsd";
                         case TipoRecepcaoEvento.Epec:
                             return "envEPEC_v1.00.xsd";
+                        case TipoRecepcaoEvento.ManifestacaoDestinatario:
+                            return "envConfRecebto_v1.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeInutilizacao:
@@ -90,6 +92,8 @@ namespace NFe.Utils.Validacao
                     return "consCad_v2.00.xsd";
                 case ServicoNFe.NfeDownloadNF:
                     return "downloadNFe_v1.00.xsd";
+                case ServicoNFe.NFeDistribuicaoDFe:
+                    return "distDFeInt_v1.00.xsd";
             }
             return null;
         }
