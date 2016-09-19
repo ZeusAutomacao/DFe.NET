@@ -856,7 +856,6 @@ namespace NFe.Servicos
             foreach (var emissao in emissaoComum)
             {
                 #region NFe
-
                 if (emissao != TipoEmissao.teEPEC)
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEvento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/recepcaoevento.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/cadconsultacadastro2.asmx"));
