@@ -1280,7 +1280,6 @@ namespace NFe.Servicos
         ///     Obtém uma url a partir de uma lista armazenada em enderecoServico e povoada dinamicamente no create desta classe
         /// </summary>
         /// <param name="servico"></param>
-        /// <param name="tipoRecepcaoEvento"></param>
         /// <param name="cfgServico"></param>
         /// <returns></returns>
         public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico)

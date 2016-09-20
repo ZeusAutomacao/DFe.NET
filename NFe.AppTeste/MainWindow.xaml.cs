@@ -1383,22 +1383,24 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
-                var CodigoEvento = Funcoes.InpuBox(this, "Manifestação Destinatário", "Código do Evento da Manifestação:");
-                if (string.IsNullOrEmpty(CodigoEvento)) throw new Exception("O Código do Evento da Manifestação deve ser informado!");
-                if (CodigoEvento.Length != 6) throw new Exception("O Código do Evento da Manifestação deve conter 6 caracteres!");
+                var codigoEvento = Funcoes.InpuBox(this, "Manifestação Destinatário", "Código do Evento da Manifestação:");
+                if (string.IsNullOrEmpty(codigoEvento)) throw new Exception("O Código do Evento da Manifestação deve ser informado!");
+                if (codigoEvento.Length != 6) throw new Exception("O Código do Evento da Manifestação deve conter 6 caracteres!");
 
                 var cnpj = Funcoes.InpuBox(this, "Manifestação Destinatário", "CNPJ do destinatário da NFe:");
                 if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
                 if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
 
-                if (CodigoEvento.Equals("210240"))
+                var tipoEvento = (TipoEventoManifestacaoDestinatario) int.Parse(codigoEvento);
+
+                if (tipoEvento == TipoEventoManifestacaoDestinatario.TeMdOperacaoNaoRealizada)
                 {
                     justificativa = Funcoes.InpuBox(this, "Manifestação Destinatário", "Justificativa para a Operação Não Realizada");
                     if (string.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoNFeDistDFe = servicoNFe.RecepcaoEventoManifestacaoDestinatario(int.Parse(idlote), int.Parse(sequenciaEvento), chave, int.Parse(CodigoEvento), cnpj, justificativa);
+                var retornoNFeDistDFe = servicoNFe.RecepcaoEventoManifestacaoDestinatario(int.Parse(idlote), int.Parse(sequenciaEvento), chave, (TipoEventoManifestacaoDestinatario)int.Parse(codigoEvento), cnpj, justificativa);
 
                 TrataRetorno(retornoNFeDistDFe);
 

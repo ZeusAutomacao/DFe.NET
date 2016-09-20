@@ -349,7 +349,7 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = String.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+            var numId = string.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
                 pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod, pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'), pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
@@ -541,26 +541,17 @@ namespace NFe.Servicos
             return retorno;
         }
 
-        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, int CodigoEvento, string cpfcnpj, string Justificativa = null)
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj, string justificativa = null)
         {
-            string tmpDescEvento = string.Empty;
-            switch (CodigoEvento)
-            {
-                case 210200: tmpDescEvento = "Confirmacao da Operacao"; break;
-                case 210210: tmpDescEvento = "Ciencia da Operacao"; break;
-                case 210220: tmpDescEvento = "Desconhecimento da Operacao"; break;
-                case 210240: tmpDescEvento = "Operacao nao Realizada"; break;
-            }
-
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { versao = versaoServico, descEvento = tmpDescEvento, xJust = Justificativa };
+            var detEvento = new detEvento { versao = versaoServico, descEvento = tipoEventoManifestacaoDestinatario.Descricao(), xJust = justificativa };
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF,
+                cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN, //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                tpEvento = CodigoEvento,
+                tpEvento = (int) tipoEventoManifestacaoDestinatario,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -588,7 +579,7 @@ namespace NFe.Servicos
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
-            if (String.IsNullOrEmpty(nfe.infNFe.Id))
+            if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
 
             var detevento = new detEvento
@@ -597,7 +588,7 @@ namespace NFe.Servicos
                 cOrgaoAutor = nfe.infNFe.ide.cUF,
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
-                dhEmi = !String.IsNullOrEmpty(nfe.infNFe.ide.dhEmi) ? nfe.infNFe.ide.dhEmi : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEmi = !string.IsNullOrEmpty(nfe.infNFe.ide.dhEmi) ? nfe.infNFe.ide.dhEmi : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
                 dest = new dest

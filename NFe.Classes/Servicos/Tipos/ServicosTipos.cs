@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Servicos.Tipos
@@ -138,5 +140,23 @@ namespace NFe.Classes.Servicos.Tipos
     {
         [XmlEnum("0")] Assincrono = 0,
         [XmlEnum("1")] Sincrono = 1
+    }
+
+    /// <summary>
+    /// Tipo do evento de manifestação do destinatário.
+    /// </summary>
+    public enum TipoEventoManifestacaoDestinatario
+    {
+        [Description("Confirmacao da Operacao")]
+        TeMdConfirmacaoDaOperacao = 210200,
+
+        [Description("Ciencia da Emissao")]
+        TeMdCienciaDaEmissao = 210210,
+
+        [Description("Desconhecimento da Operacao")]
+        TeMdDesconhecimentoDaOperacao = 210220,
+
+        [Description("Operacao nao Realizada")]
+        TeMdOperacaoNaoRealizada = 210240
     }
 }
