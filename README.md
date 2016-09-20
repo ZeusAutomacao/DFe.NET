@@ -65,6 +65,7 @@ danfe.Visualizar();
 - [ ] Implementar impressão do DANFE de NFe (modelo 55);
 - [ ] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 3.3 que será obrigatório a
  partir de  01/09/2016;
+- [ ] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 4.0;
 - [ ] Alterações no DANFE de NFCe (Adicionar opção para definir o tamanho da logomarca);
 - [ ] Implementar impressão do DANFE sem dependências de bibliotecas de terceiros;
 - [x] Adicionar opção para determinar se o desconto por item deve ser impresso.
