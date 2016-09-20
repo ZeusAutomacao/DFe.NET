@@ -107,9 +107,9 @@ namespace NFe.Servicos
             stw.Close();
         }
 
-        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico, TipoRecepcaoEvento tipoRecepcaoEvento)
+        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
+            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
@@ -119,9 +119,9 @@ namespace NFe.Servicos
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
         }
 
-        private INfeServico CriarServico(ServicoNFe servico, TipoRecepcaoEvento tipoRecepcaoEvento)
+        private INfeServico CriarServico(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, tipoRecepcaoEvento, _cFgServico);
+            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
@@ -172,12 +172,13 @@ namespace NFe.Servicos
                     }
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
-                case ServicoNFe.RecepcaoEvento:
-                    if (_cFgServico.cUF == Estado.SP & _cFgServico.VersaoRecepcaoEvento == VersaoServico.ve310 &
-                        _cFgServico.ModeloDocumento == ModeloDocumento.NFCe & tipoRecepcaoEvento == TipoRecepcaoEvento.Epec) 
-                        return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
+                case ServicoNFe.RecepcaoEventoCancelmento:
+                case ServicoNFe.RecepcaoEventoCartaCorrecao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
-                
+                case ServicoNFe.RecepcaoEventoEpec:
+                    return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
+
                 case ServicoNFe.NfeConsultaCadastro:
                     switch (_cFgServico.cUF)
                     {
@@ -210,7 +211,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeStatusServico, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -234,7 +235,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlStatus = pedStatus.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeStatusServico, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeStatusServico, xmlStatus);
+            Validador.Valida(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico, xmlStatus);
             var dadosStatus = new XmlDocument();
             dadosStatus.LoadXml(xmlStatus);
 
@@ -261,7 +262,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -285,7 +286,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaProtocolo, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta);
+            Validador.Valida(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta);
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
@@ -319,7 +320,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeInutilizacao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeInutilizacao);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -360,7 +361,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlInutilizacao = pedInutilizacao.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeInutilizacao, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao);
+            Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao);
             var dadosInutilizacao = new XmlDocument();
             dadosInutilizacao.LoadXml(xmlInutilizacao);
 
@@ -382,15 +383,27 @@ namespace NFe.Servicos
         /// </summary>
         /// <param name="idlote"></param>
         /// <param name="eventos"></param>
-        /// <param name="tipoRecepcaoEvento"></param>
+        /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, TipoRecepcaoEvento tipoRecepcaoEvento)
+        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var listaEventos = new List<ServicoNFe>
+            {
+                ServicoNFe.RecepcaoEventoCartaCorrecao,
+                ServicoNFe.RecepcaoEventoCancelmento,
+                ServicoNFe.RecepcaoEventoEpec,
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+            };
+            if (
+                !listaEventos.Contains(servicoEvento))
+                throw new Exception(string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
+                    MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
+            
+            var versaoServico = Conversao.VersaoServicoParaString(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.RecepcaoEvento, tipoRecepcaoEvento);
+            var ws = CriarServico(servicoEvento);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -420,7 +433,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlEvento = pedEvento.ObterXmlString();
-            Validador.Valida(ServicoNFe.RecepcaoEvento, tipoRecepcaoEvento, _cFgServico.VersaoRecepcaoEvento, xmlEvento);
+            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento);
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
@@ -469,7 +482,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -489,7 +502,7 @@ namespace NFe.Servicos
 
             var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, TipoRecepcaoEvento.Cancelmento);
+            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCancelmento);
             return retorno;
         }
 
@@ -504,7 +517,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao };
             var infEvento = new infEventoEnv
             {
@@ -524,7 +537,7 @@ namespace NFe.Servicos
 
             var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, TipoRecepcaoEvento.CartaCorrecao);
+            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCartaCorrecao);
             return retorno;
         }
 
@@ -539,7 +552,7 @@ namespace NFe.Servicos
                 case 210240: tmpDescEvento = "Operacao nao Realizada"; break;
             }
 
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, descEvento = tmpDescEvento, xJust = Justificativa };
             var infEvento = new infEventoEnv
             {
@@ -559,7 +572,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, TipoRecepcaoEvento.ManifestacaoDestinatario);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
 
@@ -573,7 +586,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe, string veraplic)
         {
-            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             if (String.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
@@ -615,7 +628,7 @@ namespace NFe.Servicos
 
             var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, TipoRecepcaoEvento.Epec);
+            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
 
@@ -632,7 +645,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeConsultaCadastro, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -660,7 +673,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaCadastro, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta);
+            Validador.Valida(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta);
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
@@ -691,7 +704,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -724,7 +737,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
-            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta);
+            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta);
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
@@ -768,7 +781,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeRecepcao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeRecepcao);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -787,7 +800,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlEnvio = pedEnvio.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeRecepcao, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeRecepcao, xmlEnvio);
+            Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 
@@ -815,7 +828,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NfeRetRecepcao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeRetRecepcao);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -874,7 +887,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -895,7 +908,7 @@ namespace NFe.Servicos
             var xmlEnvio = pedEnvio.ObterXmlString();
             if (_cFgServico.cUF == Estado.PR) //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
-            Validador.Valida(ServicoNFe.NFeAutorizacao, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
+            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 
@@ -933,7 +946,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServico(ServicoNFe.NFeRetAutorizacao, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -985,7 +998,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para envio do pedido de Download
 
-            var ws = CriarServico(ServicoNFe.NfeDownloadNF, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfeDownloadNF);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -1012,7 +1025,7 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlDownload = pedDownload.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeDownloadNF, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNfeDownloadNF, xmlDownload);
+            Validador.Valida(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF, xmlDownload);
             var dadosDownload = new XmlDocument();
             dadosDownload.LoadXml(xmlDownload);
 
@@ -1037,7 +1050,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para envio do pedido de Download
 
-            var ws = CriarServico(ServicoNFe.NfceAdministracaoCSC, TipoRecepcaoEvento.Nenhum);
+            var ws = CriarServico(ServicoNFe.NfceAdministracaoCSC);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {

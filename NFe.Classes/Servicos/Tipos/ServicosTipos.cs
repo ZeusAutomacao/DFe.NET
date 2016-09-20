@@ -37,9 +37,24 @@ namespace NFe.Classes.Servicos.Tipos
     public enum ServicoNFe
     {
         /// <summary>
-        ///     serviço destinado à recepção de mensagem de Evento da NF-e
+        ///     serviço destinado à recepção de mensagem do Evento de Cancelamento da NF-e
         /// </summary>
-        RecepcaoEvento,
+        RecepcaoEventoCancelmento,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento de Carta de Correção da NF-e
+        /// </summary>
+        RecepcaoEventoCartaCorrecao,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento EPEC da NF-e
+        /// </summary>
+        RecepcaoEventoEpec,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
+        /// </summary>
+        RecepcaoEventoManifestacaoDestinatario,
 
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 2.0
@@ -102,19 +117,6 @@ namespace NFe.Classes.Servicos.Tipos
         ///     Serviço destinado a administração do CSC.
         /// </summary>
         NfceAdministracaoCSC
-    }
-
-    /// <summary>
-    ///     Usado para discriminar o tipo de evento, pois o serviço de cancelamento e carta de correção devem usar a url
-    ///     designada para UF da empresa, já o serviço EPEC usa a url do ambiente nacional
-    /// </summary>
-    public enum TipoRecepcaoEvento
-    {
-        Nenhum,
-        Cancelmento,
-        CartaCorrecao,
-        Epec,
-        ManifestacaoDestinatario
     }
 
     public enum VersaoServico
