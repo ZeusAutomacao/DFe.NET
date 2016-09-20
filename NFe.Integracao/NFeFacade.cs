@@ -119,7 +119,7 @@ namespace NFe.Integracao
                 ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
                 ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
                 ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-                ConfiguracaoServico.Instancia.VersaoRecepcaoEvento = VersaoServico.ve310;
+                ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
 
                 return; // <------- ATENÇÃO 
             }
@@ -212,7 +212,7 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEvento = VersaoServico.ve310;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
         }
 
         public void CriarArquivoDeConfiguracoes()

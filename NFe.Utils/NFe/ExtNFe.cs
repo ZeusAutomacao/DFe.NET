@@ -98,9 +98,9 @@ namespace NFe.Utils.NFe
             var xmlNfe = nfe.ObterXmlString();
             var cfgServico = ConfiguracaoServico.Instancia;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, TipoRecepcaoEvento.Nenhum, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
             if (versao >= 3)
-                Validador.Valida(ServicoNFe.NFeAutorizacao, TipoRecepcaoEvento.Nenhum, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
 
             return nfe; //Para uso no formato fluent
         }

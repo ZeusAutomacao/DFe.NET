@@ -50,7 +50,7 @@ danfe.Visualizar();
 - [ ] Implementar envio síncrono na versão 3.10;
 - [x] Implementar envio de nfe compactada para a versão 3.10;
 - [x] Implementar envio de emails (Concluído em 25/06/2016)
-- [ ] Implementar consumo do serviço NFeDistribuicaoDFe;
+- [ ] Implementar consumo do serviço NFeDistribuicaoDFe (quase pronto por https://github.com/ernanisp);
 - [ ] ~~Implementar consumo do serviço NfeConsultaDest;~~ Desativado em 02/02/15 pela NT 2014.002, Versão 1.01, de Agosto 2014.
 - [ ] Implementar Evento de Pedido de Prorrogação da Suspensão do ICMS na Remessa para Industrialização (NT2015/001);
 - [x] Implementar "diversas atualizações e melhorias no Sistema da NF-e" (NT2015/002) entre 01/10/15 e 03/11/15(entrada em produção);
@@ -58,13 +58,14 @@ danfe.Visualizar();
 - [x] Implementar Serviço Administração do CSC para NFCe (implementado em 05/04/2016 por https://github.com/rodrigomartins50);
 - [ ] Aceitar certificado digital A1 em base64;
 - [ ] Revisar urls para qr-code de acordo com link (http://nfce.encat.org/desenvolvedor/qrcode/) divulgado na NT 2015/002, versão 1.41, publicada em 26/08/2016;
-- [ ] Implementar consumo do serviço RecepcaoEvento – Manifestação do Destinatário;
+- [ ] Implementar consumo do serviço RecepcaoEvento – Manifestação do Destinatário (quase pronto por https://github.com/ernanisp);
 - ***TODO DANFE:***
 - [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
 - [ ] Implementar impressão do DANFE de NFCe A4;
 - [ ] Implementar impressão do DANFE de NFe (modelo 55);
 - [ ] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 3.3 que será obrigatório a
  partir de  01/09/2016;
+- [ ] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 4.0;
 - [ ] Alterações no DANFE de NFCe (Adicionar opção para definir o tamanho da logomarca);
 - [ ] Implementar impressão do DANFE sem dependências de bibliotecas de terceiros;
 - [x] Adicionar opção para determinar se o desconto por item deve ser impresso.
