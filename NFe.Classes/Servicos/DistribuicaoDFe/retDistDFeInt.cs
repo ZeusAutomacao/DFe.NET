@@ -30,43 +30,63 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot("retDistDFeInt", Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class retDistDFeInt : IRetornoServico
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// B02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute()]
+        public decimal versao { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        /// <summary>
+        /// B03 - Identificação do Ambiente: 1=Produção /2=Homologação
+        /// </summary>
+        public byte tpAmb { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        /// <summary>
+        ///  B04 - Versão do aplicativo que processou a consulta
+        /// </summary>
+        public string verAplic { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
+        /// <summary>
+        /// B05 - Código do status da resposta (vide item 5)
+        /// </summary>
+        public byte cStat { get; set; }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// B06 - Descrição literal do status da resposta
+        /// </summary>
+        public string xMotivo { get; set; }
+
+        /// <summary>
+        /// B07 - Data e hora da mensagem de Resposta
+        /// </summary>
+        public DateTime dhResp { get; set; }
+
+        /// <summary>
+        /// B08 - Último NSU pesquisado no Ambiente Nacional. Se for o caso, o solicitante pode continuar a consulta a partir 
+        /// deste NSU para obter novos resultados.
+        /// </summary>
+        public ushort ultNSU { get; set; }
+
+        /// <summary>
+        /// B09 - Maior NSU existente no Ambiente Nacional para o CNPJ/CPF informado
+        /// </summary>
+        public ushort maxNSU { get; set; }
+
+        [XmlArrayItem("docZip", IsNullable = false)]
+        public loteDistDFeInt[] loteDistDFeInt { get; set; }
+
     }
 }

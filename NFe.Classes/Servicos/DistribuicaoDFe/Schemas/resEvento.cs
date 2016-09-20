@@ -30,43 +30,75 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class resEvento
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// D02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute()]
+        public decimal versao { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        /// <summary>
+        /// D03 - Código do órgão de recepção do Evento. 
+        /// Utilizar 91 para identificar o Ambiente Nacional.
+        /// </summary>
+        public string cOrgao { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        /// <summary>
+        /// D04 - CNPJ do Emitente
+        /// </summary>
+        public ulong CNPJ { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
+        /// <summary>
+        /// D05 - CPF do Emitente
+        /// </summary>
+        public ulong CPF { get; set; }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// D06 - Chave de acesso da NF-e
+        /// </summary>
+        [XmlElement(DataType = "integer")]
+        public string chNFe { get; set; }
+
+        /// <summary>
+        /// D07 - Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        public DateTime dhEvento { get; set; }
+
+        /// <summary>
+        /// D08 - Código do evento
+        /// </summary>
+        public string tpEvento { get; set; }
+
+        /// <summary>
+        /// D09 - Número sequencial do evento
+        /// </summary>
+        public string nSeqEvento { get; set; }
+
+        /// <summary>
+        /// D10 - Descrição do evento
+        /// </summary>
+        public string xEvento { get; set; }
+
+        /// <summary>
+        /// D11 - Data de autorização do evento
+        /// </summary>
+        public DateTime dhRecbto { get; set; }
+
+        /// <summary>
+        /// D12 - Número de protocolo do evento
+        /// </summary>
+        public ulong nProt { get; set; }
     }
 }

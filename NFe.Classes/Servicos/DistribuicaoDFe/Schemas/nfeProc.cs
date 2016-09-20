@@ -30,43 +30,29 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Xml.Serialization;
+using NFe.Classes.Informacoes;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public partial class nfeProc
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        [XmlAttribute()]
+        public decimal versao { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        public infNFe NFe { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        public protNFe protNFe { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
     }
+
+    
+    
 }

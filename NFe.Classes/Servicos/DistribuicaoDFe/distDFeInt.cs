@@ -30,43 +30,82 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.Xml.Serialization;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot("distDFeInt", Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class distDFeInt
     {
-        public InputBoxWindow()
+        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo dest!";
+        private string _cNPJ;
+        private string _cPF;
+
+        /// <summary>
+        /// A02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute()]
+        public string versao { get; set; }
+
+        /// <summary>
+        /// A03 - Identificação do Ambiente: 1=Produção /2=Homologação
+        /// </summary>
+        public TipoAmbiente tpAmb { get; set; }
+
+        /// <summary>
+        /// A04 - Código da UF do Autor
+        /// </summary>
+        public Estado cUFAutor { get; set; }
+
+        /// <summary>
+        /// A05 - CNPJ do interessado no DF-e
+        /// </summary>
+        public string CNPJ
         {
-            InitializeComponent();
+            get { return _cNPJ; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cPF))
+                    _cNPJ = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// A06 - CPF do interessado no DF-e
+        /// </summary>
+        public string CPF
         {
-            Close();
-            /*throw new Exception("");*/
+            get { return _cPF; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cNPJ))
+                    _cPF = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        /// <summary>
+        /// A07 - Grupo para distribuir DF-e de interesse
+        /// </summary>
+        public distNSU distNSU { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// A08 - Grupo para consultar um DF-e a partir de um NSU específico
+        /// </summary>
+        public consNSU consNSU { get; set; }
     }
 }

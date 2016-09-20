@@ -30,43 +30,26 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
+
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
     /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
+    /// A09 - Grupo para consultar um DF-e a partir de um NSU específico
     /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class consNSU
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
-
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
-
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// A10 - Número Sequencial Único. Geralmente esta consulta será utilizada quando identificado pelo interessado um NSU faltante.
+        /// O Web Service retornará o documento ou informará que o NSU não existe no Ambiente Nacional. 
+        /// Assim, esta consulta fechará a lacuna do NSU identificado como faltante.
+        /// </summary>
+        public string NSU { get; set; }
     }
 }

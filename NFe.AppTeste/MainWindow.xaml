@@ -678,6 +678,8 @@
                     <Button x:Name="BtnAdminCsc" Content="Administrar CSC" HorizontalAlignment="Left"
                     	Margin="192,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdminCsc_Click"/>
                     <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="177"/>
+                    <Button x:Name="btn_NFeDistribuicaoDFe" Content="NFe Distribuição DFe" HorizontalAlignment="Left" Margin="374,185,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="btn_NFeDistribuicaoDFe_Click"/>
+                    <Button x:Name="BtnManifestacaoDestinatario" Content="Manifestação Destinatário" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="BtnManifestacaoDestinatario_Click"/>
                 </Grid>
             </TabItem>
 

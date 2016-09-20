@@ -30,43 +30,39 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Services;
+using System.Web.Services.Description;
+using System.Web.Services.Protocols;
+using System.Xml;
+using System.Xml.Serialization;
+
+namespace NFe.Wsdl.DistribuicaoDFe
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [WebServiceBinding(Name = "NFeDistribuicaoDFeSoap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+    public class NfeDistDFeInteresse : SoapHttpClientProtocol, INfeServico
     {
-        public InputBoxWindow()
+        public NfeDistDFeInteresse(string url, X509Certificate certificado, int timeOut)
         {
-            InitializeComponent();
+            SoapVersion = SoapProtocolVersion.Soap12;
+            Url = url;
+            Timeout = timeOut;
+            ClientCertificates.Add(certificado);
         }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+        public nfeCabecMsg nfeCabecMsg { get; set; }
+
+        [SoapHeader("nfeCabecMsg")]
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", RequestNamespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ResponseNamespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
+        [WebMethod(MessageName = "nfeDistDFeInteresse")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")] XmlNode nfeDadosMsg)
         {
-            Close();
-            /*throw new Exception("");*/
+            var results = Invoke("nfeDistDFeInteresse", new object[] { nfeDadosMsg });
+            return ((XmlNode)(results[0]));
         }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
     }
 }

@@ -30,43 +30,87 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class resNFe
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// C02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute()]
+        public decimal versao { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        /// <summary>
+        /// C03 - Chave de acesso da NF-e
+        /// </summary>
+        [XmlElement(DataType = "integer")]
+        public string chNFe { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        /// <summary>
+        /// C04 - CNPJ do Emitente
+        /// </summary>
+        public ulong CNPJ { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
+        /// <summary>
+        /// C05 - CPF do Emitente
+        /// </summary>
+        public ulong CPF { get; set; }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// C06 - Razão Social ou Nome do Emitente
+        /// </summary>
+        public string xNome { get; set; }
+
+        /// <summary>
+        /// C07 - IE do Emitente. Valores válidos: 
+        /// vazio  (não contribuinte do ICMS), 
+        /// ISENTO (contribuinte do ICMS ISENTO de Inscrição no Cadastro de Contribuintes) ou 
+        /// IE (Contribuinte do ICMS)
+        /// </summary>
+        public ulong IE { get; set; }
+
+        /// <summary>
+        /// C08 - Data de Emissão da NF-e no formato UTC (Universal Coordinated Time): AAAA-MM-DDThh:mm:ssTZD.
+        /// </summary>
+        public DateTime dhEmi { get; set; }
+
+        /// <summary>
+        /// C09 - Tipo de Operação da NF-e: 0=Entrada; 1=Saída
+        /// </summary>
+        public byte tpNF { get; set; }
+
+        /// <summary>
+        /// C10 - Valor Total da NF-e
+        /// </summary>
+        public decimal vNF { get; set; }
+
+        /// <summary>
+        /// C11 - Digest Value da NF-e na base de dados do Ambiente Nacional
+        /// </summary>
+        public string digVal { get; set; }
+
+        /// <summary>
+        /// C12 - Data de autorização da NF-e
+        /// </summary>
+        public DateTime dhRecbto { get; set; }
+
+        /// <summary>
+        /// C13 - Número de protocolo da NF-e
+        /// </summary>
+        public ulong nProt { get; set; }
+
+        /// <summary>
+        /// C14 - Situação da NF-e: 1=Uso autorizado; 2=Uso denegado.
+        /// </summary>
+        public byte cSitNFe { get; set; }
     }
 }

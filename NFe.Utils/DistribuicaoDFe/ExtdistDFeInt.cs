@@ -30,43 +30,22 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using NFe.Classes.Servicos.DistribuicaoDFe;
+
+namespace NFe.Utils.DistribuicaoDFe
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    public static class ExtdistDFeInt
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Recebe um objeto ExtdistDFeInt e devolve a string no formato XML
+        /// </summary>
+        /// <param name="pedDistDFeInt">Objeto do Tipo distDFeInt</param>
+        /// <returns>string com XML no do objeto distDFeInt</returns>
+        public static string ObterXmlString(this distDFeInt pedDistDFeInt)
         {
-            Close();
-            /*throw new Exception("");*/
-        }
-
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
+            return FuncoesXml.ClasseParaXmlString(pedDistDFeInt);
         }
     }
 }

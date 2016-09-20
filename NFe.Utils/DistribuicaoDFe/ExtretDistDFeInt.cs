@@ -30,43 +30,32 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using NFe.Classes.Servicos.DistribuicaoDFe;
+
+namespace NFe.Utils.DistribuicaoDFe
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    public static class ExtretDistDFeInt
     {
-        public InputBoxWindow()
+        /// <summary>
+        /// Carrega um objeto do tipo retDistDFeInt a partir de uma string no formato XML
+        /// </summary>
+        /// <param name="retDistDFeInt">Objeto do tipo retDistDFeInt</param>
+        /// <param name="xmlString">String com uma estrutura XML</param>
+        /// <returns>Retorna um objeto retDistDFeInt com as informações da string XML</returns>
+        public static retDistDFeInt CarregarDeXmlString(this retDistDFeInt retDistDFeInt, string xmlString)
         {
-            InitializeComponent();
+            return FuncoesXml.XmlStringParaClasse<retDistDFeInt>(xmlString);
         }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Converte um objeto do tipo retDistDFeInt para uma string no formato XML com os dados do objeto
+        /// </summary>
+        /// <param name="retDistDFeInt">Objeto do tipo retDistDFeInt</param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retDistDFeInt</returns>
+        public static string ObterXmlString(this retDistDFeInt retDistDFeInt)
         {
-            Close();
-            /*throw new Exception("");*/
-        }
-
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
+            return FuncoesXml.ClasseParaXmlString(retDistDFeInt);
         }
     }
 }

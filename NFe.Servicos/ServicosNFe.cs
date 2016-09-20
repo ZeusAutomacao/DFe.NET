@@ -43,6 +43,7 @@ using NFe.Classes.Servicos.Recepcao;
 using NFe.Classes.Servicos.Recepcao.Retorno;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
@@ -57,6 +58,7 @@ using NFe.Utils.NFe;
 using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
+using NFe.Utils.DistribuicaoDFe;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
@@ -66,6 +68,7 @@ using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
+using NFe.Wsdl.DistribuicaoDFe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -188,6 +191,9 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfceAdministracaoCSC:
                     return new NfceCsc(url, _certificado, _cFgServico.TimeOut);
+
+                case ServicoNFe.NFeDistribuicaoDFe:
+                    return new NfeDistDFeInteresse(url, _certificado, _cFgServico.TimeOut);
 
             }
 
@@ -464,7 +470,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
-            var detEvento = new detEvento {nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa};
+            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -499,7 +505,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
-            var detEvento = new detEvento {versao = versaoServico, xCorrecao = correcao};
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -519,6 +525,41 @@ namespace NFe.Servicos
             var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
             var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, TipoRecepcaoEvento.CartaCorrecao);
+            return retorno;
+        }
+
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, int CodigoEvento, string cpfcnpj, string Justificativa = null)
+        {
+            string tmpDescEvento = string.Empty;
+            switch (CodigoEvento)
+            {
+                case 210200: tmpDescEvento = "Confirmacao da Operacao"; break;
+                case 210210: tmpDescEvento = "Ciencia da Operacao"; break;
+                case 210220: tmpDescEvento = "Desconhecimento da Operacao"; break;
+                case 210240: tmpDescEvento = "Operacao nao Realizada"; break;
+            }
+
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEvento, _cFgServico.VersaoRecepcaoEvento);
+            var detEvento = new detEvento { versao = versaoServico, descEvento = tmpDescEvento, xJust = Justificativa };
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = _cFgServico.cUF,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                tpEvento = CodigoEvento,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, TipoRecepcaoEvento.ManifestacaoDestinatario);
             return retorno;
         }
 
@@ -632,6 +673,83 @@ namespace NFe.Servicos
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-cad.xml", retornoXmlString);
 
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+
+            #endregion
+        }
+
+        /// <summary>
+        /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
+        /// </summary>
+        /// <param name="ufAutor">Código da UF do Autor</param>
+        /// <param name="documento">CNPJ/CPF do interessado no DF-e</param>
+        /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
+        /// <param name="nSU">Número Sequencial Único</param>
+        /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU, string nSU = "0")
+        {
+            var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Cria o objeto distDFeInt
+
+            var pedDistDFeInt = new distDFeInt
+            {
+                versao = versaoServico,
+                tpAmb = _cFgServico.tpAmb,
+                cUFAutor = _cFgServico.cUF,
+                distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') }
+
+            };
+
+            if (documento.Length == 11)
+                pedDistDFeInt.CPF = documento;
+            if (documento.Length > 11)
+                pedDistDFeInt.CNPJ = documento;
+            if (!nSU.Equals("0"))
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = pedDistDFeInt.ObterXmlString();
+            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, TipoRecepcaoEvento.Nenhum, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta);
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            var retorno = ws.Execute(dadosConsulta);
+            var retornoXmlString = retorno.OuterXml;
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
+
+            #region Obtém um retDistDFeInt de cada evento e salva em arquivo
+            for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+            {
+
+                string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
+                var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+
+                SalvarArquivoXml(retConteudo.chNFe + "_" + schema[0] + ".xml", conteudo);
+
+            }
+            #endregion
+
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
 
             #endregion
         }

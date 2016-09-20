@@ -30,43 +30,26 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
+
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
     /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
+    /// A07 - Grupo para distribuir DF-e de interesse
     /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class distNSU
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
-
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
-
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// A08 - Último NSU recebido pelo ator.
+        /// Caso seja informado com zero, ou com um NSU muito antigo, a consulta retornará unicamente as informações resumidas e
+        /// documentos fiscais eletrônicos que tenham sido recepcionados pelo Ambiente Nacional nos últimos 3 meses.
+        /// </summary>
+        public string ultNSU { get; set; }
     }
 }

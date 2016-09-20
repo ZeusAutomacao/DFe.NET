@@ -30,43 +30,44 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Windows;
-using System.Windows.Input;
 
-namespace NFe.AppTeste
+using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
+
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
     /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
+    /// B10 - Conjunto de informações resumidas e documentos fiscais eletrônicos de interesse da pessoa ou empresa.
     /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class loteDistDFeInt
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        /// <summary>
+        /// B12 - NSU do documento fiscal
+        /// </summary>
+        [XmlAttribute()]
+        public ushort NSU { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        /// <summary>
+        /// B13 - Identificação do Schema XML que será utilizado para validar o XML existente no campo seguinte.
+        /// Vai identificar o tipo do documento e sua versão.
+        /// Exemplos:
+        /// - resNFe_v1.00.xsd
+        /// - procNFe_v3.10.xsd
+        /// - resEvento_1.00.xsd
+        /// - procEventoNFe_v1.00.xsd
+        /// </summary>
+        [XmlAttribute()]
+        public string schema { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        /// <summary>
+        /// Conteudo da Tag schema. 
+        /// O conteúdo desta tag estará compactado no padrão gZip.O tipo do campo é base64Binary.
+        /// </summary>
+        [XmlText(DataType = "base64Binary")]
+        public byte[] XmlNfe { get; set; }
     }
 }

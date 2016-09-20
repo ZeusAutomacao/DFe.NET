@@ -30,43 +30,42 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Windows;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace NFe.AppTeste
+namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    /// <summary>
-    ///     Lógica interna para InputBoxWindow.xaml
-    /// </summary>
-    public partial class InputBoxWindow
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class retInfEvento
     {
-        public InputBoxWindow()
-        {
-            InitializeComponent();
-        }
+        public byte tpAmb { get; set; }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-            /*throw new Exception("");*/
-        }
+        public string verAplic { get; set; }
 
-        private void BtnOk_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
+        public byte cOrgao { get; set; }
 
-        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key != Key.Enter) return;
-            e.Handled = true;
-            BtnOk.Focus();
-        }
+        public byte cStat { get; set; }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxtValor.Focus();
-        }
+        public string xMotivo { get; set; }
+
+        public string chNFe { get; set; }
+
+        public uint tpEvento { get; set; }
+
+        public string xEvento { get; set; }
+
+        public byte nSeqEvento { get; set; }
+
+        public string CNPJDest { get; set; }
+
+        public string emailDest { get; set; }
+
+        public DateTime dhRegEvento { get; set; }
+
+        public string nProt { get; set; }
     }
 }
