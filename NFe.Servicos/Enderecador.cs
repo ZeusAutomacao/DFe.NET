@@ -106,7 +106,7 @@ namespace NFe.Servicos
                 Estado.DF,
                 Estado.ES,
                 Estado.MA, //Somente NFCe. MA usa o SVAN para NFe. Rev: 09/09/2015
-                Estado.PA, //Somente NFCe. MA usa o SVAN para NFe. Rev: 09/09/2015
+                Estado.PA, //Somente NFCe. PA usa o SVAN para NFe. Rev: 09/09/2015
                 Estado.PB,
                 Estado.PI, //Somente NFCe. PI usa o SVAN para NFe. Rev: 09/09/2015
                 Estado.RJ,
