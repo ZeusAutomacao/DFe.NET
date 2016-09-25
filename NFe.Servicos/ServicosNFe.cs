@@ -518,7 +518,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao };
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null};
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
