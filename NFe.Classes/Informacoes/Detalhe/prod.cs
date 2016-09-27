@@ -41,6 +41,11 @@ namespace NFe.Classes.Informacoes.Detalhe
 {
     public class prod
     {
+        public prod()
+        {
+            NVE = new List<string>();
+        }
+
         private string _nRecopi;
         private ProdutoEspecifico _produtoEspecifico;
         private decimal _qcom;
@@ -82,8 +87,10 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         /// <summary>
         ///     105a - Nomenclatura de Valor aduaneio e Estatístico
+        ///     <para>Ocorrência: 0-8</para>
         /// </summary>
-        public string NVE { get; set; }
+        [XmlElement("NVE")]
+        public List<string> NVE { get; set; }
 
         /// <summary>
         /// I05c - Código CEST
