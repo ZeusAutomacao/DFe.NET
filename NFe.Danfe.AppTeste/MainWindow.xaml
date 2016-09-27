@@ -101,6 +101,20 @@
                                 </StackPanel>
                             </GroupBox>
 
+                            <GroupBox Header="Modo de impressão"
+                                          Height="60" Margin="0,10,0,0">
+                                <Grid>
+                                    <RadioButton Content="Múltiplas páginas"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                     Margin="8,13,0,0"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.ModoImpressao, ConverterParameter={x:Static base:NfceModoImpressao.MultiplasPaginas}, Converter={StaticResource EnumParaBool}}" />
+                                    <RadioButton Content="Única página"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                     Margin="138,13,0,0"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.ModoImpressao, ConverterParameter={x:Static base:NfceModoImpressao.UnicaPagina}, Converter={StaticResource EnumParaBool}}" />
+                                </Grid>
+                            </GroupBox>
+                            
                             <GroupBox Header="LogoMarca" VerticalAlignment="Top"
                                       Margin="0,10,0,0">
                                 <StackPanel Margin="0,0,0,12">

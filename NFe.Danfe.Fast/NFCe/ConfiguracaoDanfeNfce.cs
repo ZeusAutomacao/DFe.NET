@@ -39,7 +39,7 @@ namespace NFe.Danfe.Fast.NFCe
     {
         public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal,
             NfceDetalheVendaContigencia detalheVendaContigencia, byte[] logomarca = null,
-            bool imprimeDescontoItem = false, float margemEsquerda = 4.5F, float margemDireita = 4.5F)
+            bool imprimeDescontoItem = false, float margemEsquerda = 4.5F, float margemDireita = 4.5F, NfceModoImpressao modoImpressao = NfceModoImpressao.MultiplasPaginas)
         {
             DetalheVendaNormal = detalheVendaNormal;
             DetalheVendaContigencia = detalheVendaContigencia;
@@ -47,6 +47,7 @@ namespace NFe.Danfe.Fast.NFCe
             ImprimeDescontoItem = imprimeDescontoItem;
             MargemEsquerda = margemEsquerda;
             MargemDireita = margemDireita;
+            ModoImpressao = modoImpressao;
         }
 
         /// <summary>
@@ -81,5 +82,11 @@ namespace NFe.Danfe.Fast.NFCe
         /// Margem direita de impressão em milímetros
         /// </summary>
         public float MargemDireita { get; set; }
+
+        /// <summary>
+        /// Determina o modo de impressão do DANFE da NFCe.
+        /// 
+        /// </summary>
+        public NfceModoImpressao ModoImpressao { get; set; }
     }
 }

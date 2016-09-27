@@ -45,4 +45,13 @@ namespace NFe.Danfe.Base
         UmaLinha = 1,
         DuasLinhas = 2
     }
+
+    public enum NfceModoImpressao
+    {
+        //Imprime o conteúdo em múltiplas páginas
+        MultiplasPaginas,
+
+        //Imprime o conteúdo em uma única página, mesmo que o tamanho da página exceda o tamanho pré-definido (A4)
+        UnicaPagina
+    }
 }
