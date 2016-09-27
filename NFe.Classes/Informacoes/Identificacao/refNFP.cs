@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     BA14 - CPF do emitente
         /// </summary>
-        public long CPF { get; set; }
+        public string CPF { get; set; }
 
         /// <summary>
         ///     BA15 - IE do emitente
@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     BA16 - Modelo do Documento Fiscal
         /// </summary>
-        public int mod { get; set; }
+        public string mod { get; set; }
 
         /// <summary>
         ///     BA17 - Série do Documento Fiscal
@@ -73,10 +73,5 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     BA18 - Número do Documento Fiscal
         /// </summary>
         public int nNF { get; set; }
-
-        /// <summary>
-        ///     BA19 - Chave de acesso do CT-e referenciada
-        /// </summary>
-        public string refCTe { get; set; }
     }
 }
