@@ -988,6 +988,7 @@ namespace NFe.AppTeste
                 qTrib = 1,
                 vUnTrib = 1,
                 indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
+                //NVE = {"AA0001", "AB0002", "AC0002"},
                 //CEST = ?
 
                 //ProdutoEspecifico = new arma
