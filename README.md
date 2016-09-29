@@ -1,6 +1,7 @@
 [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 Zeus.Net.NFe.NFCe
 =================
+Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
 Biblioteca gratuita para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx
 
