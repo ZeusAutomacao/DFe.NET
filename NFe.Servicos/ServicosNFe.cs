@@ -796,9 +796,6 @@ namespace NFe.Servicos
             if (_cFgServico.cUF == Estado.PR) //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            //Usar CDATA para a url do qrCode. Regra ZX02-22, NT2015.002, v141
-            xmlEnvio = TrocarQrCodeAmpEscapePorCdata(xmlEnvio);
-
             Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
@@ -908,9 +905,6 @@ namespace NFe.Servicos
             if (_cFgServico.cUF == Estado.PR) //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            //Usar CDATA para a url do qrCode. Regra ZX02-22, NT2015.002, v141
-            xmlEnvio = TrocarQrCodeAmpEscapePorCdata(xmlEnvio);
-
             Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
@@ -935,16 +929,6 @@ namespace NFe.Servicos
             return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
 
             #endregion
-        }
-
-        private static string TrocarQrCodeAmpEscapePorCdata(string xmlEnvio)
-        {
-            var xdoc = XDocument.Parse(xmlEnvio);
-            var qrCodeNode = xdoc.Descendants().FirstOrDefault(a => a.Name.LocalName == "qrCode");
-            if (qrCodeNode != null)
-                qrCodeNode.ReplaceNodes(new XCData(qrCodeNode.Value.Replace("&amp;", "&")));
-            xmlEnvio = xdoc.ToString();
-            return xmlEnvio;
         }
 
         /// <summary>

@@ -47,7 +47,7 @@ namespace NFe.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="objeto"></param>
         /// <returns></returns>
-        public static String ClasseParaXmlString<T>(T objeto)
+        public static string ClasseParaXmlString<T>(T objeto)
         {
             XElement xml;
             var ser = new XmlSerializer(typeof (T));
@@ -60,27 +60,11 @@ namespace NFe.Utils
                     memory.Position = 0;
                     xml = XElement.Load(tr);
                     xml.Attributes().Where(x => x.Name.LocalName.Equals("xsd") || x.Name.LocalName.Equals("xsi")).Remove();
-
-                    /*
-                        var nodesaExcluir = from address in xml.Descendants()
-                                        where address.Name.LocalName.Equals(typeof(ICMSReducao).Name) || address.Name.LocalName.Equals(typeof(ICMSNormal).Name)
-                                        select address;
-
-                        foreach (XElement xEle in nodesaExcluir)
-                        {
-                            foreach (XElement xat in xEle.Descendants())
-                            {
-                                xEle.Parent.Add(xat);  //Adiciona os atributos do node a excluir em seu parent                              
-                            }
-                        }
-
-                        nodesaExcluir.Remove();  
-                        */
                 }
             }
             var result = XElement.Parse(xml.ToString()).ToString(SaveOptions.DisableFormatting);
 
-            return result;
+            return result.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&"); //Remove caracteres de escape para vlores "<", ">" e "&"
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by softwares@procergs.rs.gov.br (PROCERGS) -->
 <!-- PL_008g  alterações de esquema decorrentes da - NT2015.002  - 15/07/2015 -->
 <!-- PL_008h  alterações de esquema decorrentes da - NT2015.003 - 17/09/2015 -->
+<!-- PL_008i -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v3.10.xsd"/>
@@ -876,10 +877,16 @@ Formato ”CFOP9999”.</xs:documentation>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
-												<xs:element name="CFOP" type="TCfop">
+												<xs:element name="CFOP">
 													<xs:annotation>
-														<xs:documentation>Código Fiscal de Operações e Prestações</xs:documentation>
+														<xs:documentation>Cfop</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:pattern value="[1,2,3,5,6,7]{1}[0-9]{3}"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
 												<xs:element name="uCom">
 													<xs:annotation>
@@ -3337,10 +3344,16 @@ Operação interestadual para consumidor final com partilha do ICMS  devido na o
 																			<xs:documentation>Código do Município de Incidência do Imposto</xs:documentation>
 																		</xs:annotation>
 																	</xs:element>
-																	<xs:element name="cPais" type="Tpais" minOccurs="0">
+																	<xs:element name="cPais" minOccurs="0">
 																		<xs:annotation>
-																			<xs:documentation>Código do país onde o serviço foi prestado</xs:documentation>
+																			<xs:documentation>Código de Pais</xs:documentation>
 																		</xs:annotation>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:whiteSpace value="preserve"/>
+																				<xs:pattern value="[0-9]{1,4}"/>
+																			</xs:restriction>
+																		</xs:simpleType>
 																	</xs:element>
 																	<xs:element name="nProcesso" minOccurs="0">
 																		<xs:annotation>
@@ -4354,10 +4367,16 @@ Substituição Tributaria;</xs:documentation>
 														<xs:documentation>Valor do ICMS Retido</xs:documentation>
 													</xs:annotation>
 												</xs:element>
-												<xs:element name="CFOP" type="TCfopTransp">
+												<xs:element name="CFOP">
 													<xs:annotation>
-														<xs:documentation>Código Fiscal de Operações e Prestações // PL_006f - alterado para permitir somente CFOP de transportes </xs:documentation>
+														<xs:documentation>Código Fiscal de Operações e Prestações</xs:documentation>
 													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:pattern value="[1,2,3,5,6,7]{1}[0-9]{3}"/>
+														</xs:restriction>
+													</xs:simpleType>
 												</xs:element>
 												<xs:element name="cMunFG" type="TCodMunIBGE">
 													<xs:annotation>
@@ -5351,10 +5370,16 @@ alterado para tamanho variavel 1-4. (NT2011/004)</xs:documentation>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
-			<xs:element name="cPais" type="Tpais" minOccurs="0">
+			<xs:element name="cPais" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Código do país</xs:documentation>
+					<xs:documentation>Código de Pais</xs:documentation>
 				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="preserve"/>
+						<xs:pattern value="[0-9]{1,4}"/>
+					</xs:restriction>
+				</xs:simpleType>
 			</xs:element>
 			<xs:element name="xPais" minOccurs="0">
 				<xs:annotation>
@@ -5613,567 +5638,6 @@ alterado para tamanho variavel 1-4. (NT2011/004)</xs:documentation>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
-	<xs:simpleType name="TCfop">
-		<xs:annotation>
-			<xs:documentation>Tipo CFOP // maio/2009 - Atualização do Ajuste SINIEF 14/2009</xs:documentation>
-			<xs:documentation>Tipo CFOP - PL_005d - 11/08/09 - atualizaçãp do Ajuste SINIEF 05/2009</xs:documentation>
-			<xs:documentation>Tipo CFOP // 24/10/08 acrescentada a lista de CFOP validos // PL_06 eliminado os CFOP de prestação de serviços de comunicação // PL_006f eliminado os CFOP de prestação de serviços de transporte</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:whiteSpace value="preserve"/>
-			<xs:enumeration value="1101"/>
-			<xs:enumeration value="1102"/>
-			<xs:enumeration value="1111"/>
-			<xs:enumeration value="1113"/>
-			<xs:enumeration value="1116"/>
-			<xs:enumeration value="1117"/>
-			<xs:enumeration value="1118"/>
-			<xs:enumeration value="1120"/>
-			<xs:enumeration value="1121"/>
-			<xs:enumeration value="1122"/>
-			<xs:enumeration value="1124"/>
-			<xs:enumeration value="1125"/>
-			<xs:enumeration value="1126"/>
-			<xs:enumeration value="1128"/>
-			<xs:enumeration value="1151"/>
-			<xs:enumeration value="1152"/>
-			<xs:enumeration value="1153"/>
-			<xs:enumeration value="1154"/>
-			<xs:enumeration value="1201"/>
-			<xs:enumeration value="1202"/>
-			<xs:enumeration value="1203"/>
-			<xs:enumeration value="1204"/>
-			<xs:enumeration value="1205"/>
-			<xs:enumeration value="1206"/>
-			<xs:enumeration value="1207"/>
-			<xs:enumeration value="1208"/>
-			<xs:enumeration value="1209"/>
-			<xs:enumeration value="1251"/>
-			<xs:enumeration value="1252"/>
-			<xs:enumeration value="1253"/>
-			<xs:enumeration value="1254"/>
-			<xs:enumeration value="1255"/>
-			<xs:enumeration value="1256"/>
-			<xs:enumeration value="1257"/>
-			<xs:enumeration value="1301"/>
-			<xs:enumeration value="1302"/>
-			<xs:enumeration value="1303"/>
-			<xs:enumeration value="1304"/>
-			<xs:enumeration value="1305"/>
-			<xs:enumeration value="1306"/>
-			<xs:enumeration value="1351"/>
-			<xs:enumeration value="1352"/>
-			<xs:enumeration value="1353"/>
-			<xs:enumeration value="1354"/>
-			<xs:enumeration value="1355"/>
-			<xs:enumeration value="1356"/>
-			<xs:enumeration value="1360"/>
-			<xs:enumeration value="1401"/>
-			<xs:enumeration value="1403"/>
-			<xs:enumeration value="1406"/>
-			<xs:enumeration value="1407"/>
-			<xs:enumeration value="1408"/>
-			<xs:enumeration value="1409"/>
-			<xs:enumeration value="1410"/>
-			<xs:enumeration value="1411"/>
-			<xs:enumeration value="1414"/>
-			<xs:enumeration value="1415"/>
-			<xs:enumeration value="1451"/>
-			<xs:enumeration value="1452"/>
-			<xs:enumeration value="1501"/>
-			<xs:enumeration value="1503"/>
-			<xs:enumeration value="1504"/>
-			<xs:enumeration value="1505"/>
-			<xs:enumeration value="1506"/>
-			<xs:enumeration value="1551"/>
-			<xs:enumeration value="1552"/>
-			<xs:enumeration value="1553"/>
-			<xs:enumeration value="1554"/>
-			<xs:enumeration value="1555"/>
-			<xs:enumeration value="1556"/>
-			<xs:enumeration value="1557"/>
-			<xs:enumeration value="1601"/>
-			<xs:enumeration value="1602"/>
-			<xs:enumeration value="1603"/>
-			<xs:enumeration value="1604"/>
-			<xs:enumeration value="1605"/>
-			<xs:enumeration value="1651"/>
-			<xs:enumeration value="1652"/>
-			<xs:enumeration value="1653"/>
-			<xs:enumeration value="1658"/>
-			<xs:enumeration value="1659"/>
-			<xs:enumeration value="1660"/>
-			<xs:enumeration value="1661"/>
-			<xs:enumeration value="1662"/>
-			<xs:enumeration value="1663"/>
-			<xs:enumeration value="1664"/>
-			<xs:enumeration value="1901"/>
-			<xs:enumeration value="1902"/>
-			<xs:enumeration value="1903"/>
-			<xs:enumeration value="1904"/>
-			<xs:enumeration value="1905"/>
-			<xs:enumeration value="1906"/>
-			<xs:enumeration value="1907"/>
-			<xs:enumeration value="1908"/>
-			<xs:enumeration value="1909"/>
-			<xs:enumeration value="1910"/>
-			<xs:enumeration value="1911"/>
-			<xs:enumeration value="1912"/>
-			<xs:enumeration value="1913"/>
-			<xs:enumeration value="1914"/>
-			<xs:enumeration value="1915"/>
-			<xs:enumeration value="1916"/>
-			<xs:enumeration value="1917"/>
-			<xs:enumeration value="1918"/>
-			<xs:enumeration value="1919"/>
-			<xs:enumeration value="1920"/>
-			<xs:enumeration value="1921"/>
-			<xs:enumeration value="1922"/>
-			<xs:enumeration value="1923"/>
-			<xs:enumeration value="1924"/>
-			<xs:enumeration value="1925"/>
-			<xs:enumeration value="1926"/>
-			<xs:enumeration value="1931"/>
-			<xs:enumeration value="1932"/>
-			<xs:enumeration value="1933"/>
-			<xs:enumeration value="1934"/>
-			<xs:enumeration value="1949"/>
-			<xs:enumeration value="2101"/>
-			<xs:enumeration value="2102"/>
-			<xs:enumeration value="2111"/>
-			<xs:enumeration value="2113"/>
-			<xs:enumeration value="2116"/>
-			<xs:enumeration value="2117"/>
-			<xs:enumeration value="2118"/>
-			<xs:enumeration value="2120"/>
-			<xs:enumeration value="2121"/>
-			<xs:enumeration value="2122"/>
-			<xs:enumeration value="2124"/>
-			<xs:enumeration value="2125"/>
-			<xs:enumeration value="2126"/>
-			<xs:enumeration value="2128"/>
-			<xs:enumeration value="2151"/>
-			<xs:enumeration value="2152"/>
-			<xs:enumeration value="2153"/>
-			<xs:enumeration value="2154"/>
-			<xs:enumeration value="2201"/>
-			<xs:enumeration value="2202"/>
-			<xs:enumeration value="2203"/>
-			<xs:enumeration value="2204"/>
-			<xs:enumeration value="2205"/>
-			<xs:enumeration value="2206"/>
-			<xs:enumeration value="2207"/>
-			<xs:enumeration value="2208"/>
-			<xs:enumeration value="2209"/>
-			<xs:enumeration value="2251"/>
-			<xs:enumeration value="2252"/>
-			<xs:enumeration value="2253"/>
-			<xs:enumeration value="2254"/>
-			<xs:enumeration value="2255"/>
-			<xs:enumeration value="2256"/>
-			<xs:enumeration value="2257"/>
-			<xs:enumeration value="2301"/>
-			<xs:enumeration value="2302"/>
-			<xs:enumeration value="2303"/>
-			<xs:enumeration value="2304"/>
-			<xs:enumeration value="2305"/>
-			<xs:enumeration value="2306"/>
-			<xs:enumeration value="2351"/>
-			<xs:enumeration value="2352"/>
-			<xs:enumeration value="2353"/>
-			<xs:enumeration value="2354"/>
-			<xs:enumeration value="2355"/>
-			<xs:enumeration value="2356"/>
-			<xs:enumeration value="2401"/>
-			<xs:enumeration value="2403"/>
-			<xs:enumeration value="2406"/>
-			<xs:enumeration value="2407"/>
-			<xs:enumeration value="2408"/>
-			<xs:enumeration value="2409"/>
-			<xs:enumeration value="2410"/>
-			<xs:enumeration value="2411"/>
-			<xs:enumeration value="2414"/>
-			<xs:enumeration value="2415"/>
-			<xs:enumeration value="2501"/>
-			<xs:enumeration value="2503"/>
-			<xs:enumeration value="2504"/>
-			<xs:enumeration value="2505"/>
-			<xs:enumeration value="2506"/>
-			<xs:enumeration value="2551"/>
-			<xs:enumeration value="2552"/>
-			<xs:enumeration value="2553"/>
-			<xs:enumeration value="2554"/>
-			<xs:enumeration value="2555"/>
-			<xs:enumeration value="2556"/>
-			<xs:enumeration value="2557"/>
-			<xs:enumeration value="2603"/>
-			<xs:enumeration value="2651"/>
-			<xs:enumeration value="2652"/>
-			<xs:enumeration value="2653"/>
-			<xs:enumeration value="2658"/>
-			<xs:enumeration value="2659"/>
-			<xs:enumeration value="2660"/>
-			<xs:enumeration value="2661"/>
-			<xs:enumeration value="2662"/>
-			<xs:enumeration value="2663"/>
-			<xs:enumeration value="2664"/>
-			<xs:enumeration value="2901"/>
-			<xs:enumeration value="2902"/>
-			<xs:enumeration value="2903"/>
-			<xs:enumeration value="2904"/>
-			<xs:enumeration value="2905"/>
-			<xs:enumeration value="2906"/>
-			<xs:enumeration value="2907"/>
-			<xs:enumeration value="2908"/>
-			<xs:enumeration value="2909"/>
-			<xs:enumeration value="2910"/>
-			<xs:enumeration value="2911"/>
-			<xs:enumeration value="2912"/>
-			<xs:enumeration value="2913"/>
-			<xs:enumeration value="2914"/>
-			<xs:enumeration value="2915"/>
-			<xs:enumeration value="2916"/>
-			<xs:enumeration value="2917"/>
-			<xs:enumeration value="2918"/>
-			<xs:enumeration value="2919"/>
-			<xs:enumeration value="2920"/>
-			<xs:enumeration value="2921"/>
-			<xs:enumeration value="2922"/>
-			<xs:enumeration value="2923"/>
-			<xs:enumeration value="2924"/>
-			<xs:enumeration value="2925"/>
-			<xs:enumeration value="2931"/>
-			<xs:enumeration value="2932"/>
-			<xs:enumeration value="2933"/>
-			<xs:enumeration value="2934"/>
-			<xs:enumeration value="2949"/>
-			<xs:enumeration value="3101"/>
-			<xs:enumeration value="3102"/>
-			<xs:enumeration value="3126"/>
-			<xs:enumeration value="3127"/>
-			<xs:enumeration value="3128"/>
-			<xs:enumeration value="3201"/>
-			<xs:enumeration value="3202"/>
-			<xs:enumeration value="3205"/>
-			<xs:enumeration value="3206"/>
-			<xs:enumeration value="3207"/>
-			<xs:enumeration value="3211"/>
-			<xs:enumeration value="3251"/>
-			<xs:enumeration value="3301"/>
-			<xs:enumeration value="3351"/>
-			<xs:enumeration value="3352"/>
-			<xs:enumeration value="3353"/>
-			<xs:enumeration value="3354"/>
-			<xs:enumeration value="3355"/>
-			<xs:enumeration value="3356"/>
-			<xs:enumeration value="3503"/>
-			<xs:enumeration value="3551"/>
-			<xs:enumeration value="3553"/>
-			<xs:enumeration value="3556"/>
-			<xs:enumeration value="3651"/>
-			<xs:enumeration value="3652"/>
-			<xs:enumeration value="3653"/>
-			<xs:enumeration value="3930"/>
-			<xs:enumeration value="3949"/>
-			<xs:enumeration value="5101"/>
-			<xs:enumeration value="5102"/>
-			<xs:enumeration value="5103"/>
-			<xs:enumeration value="5104"/>
-			<xs:enumeration value="5105"/>
-			<xs:enumeration value="5106"/>
-			<xs:enumeration value="5109"/>
-			<xs:enumeration value="5110"/>
-			<xs:enumeration value="5111"/>
-			<xs:enumeration value="5112"/>
-			<xs:enumeration value="5113"/>
-			<xs:enumeration value="5114"/>
-			<xs:enumeration value="5115"/>
-			<xs:enumeration value="5116"/>
-			<xs:enumeration value="5117"/>
-			<xs:enumeration value="5118"/>
-			<xs:enumeration value="5119"/>
-			<xs:enumeration value="5120"/>
-			<xs:enumeration value="5122"/>
-			<xs:enumeration value="5123"/>
-			<xs:enumeration value="5124"/>
-			<xs:enumeration value="5125"/>
-			<xs:enumeration value="5151"/>
-			<xs:enumeration value="5152"/>
-			<xs:enumeration value="5153"/>
-			<xs:enumeration value="5155"/>
-			<xs:enumeration value="5156"/>
-			<xs:enumeration value="5201"/>
-			<xs:enumeration value="5202"/>
-			<xs:enumeration value="5205"/>
-			<xs:enumeration value="5206"/>
-			<xs:enumeration value="5207"/>
-			<xs:enumeration value="5208"/>
-			<xs:enumeration value="5209"/>
-			<xs:enumeration value="5210"/>
-			<xs:enumeration value="5251"/>
-			<xs:enumeration value="5252"/>
-			<xs:enumeration value="5253"/>
-			<xs:enumeration value="5254"/>
-			<xs:enumeration value="5255"/>
-			<xs:enumeration value="5256"/>
-			<xs:enumeration value="5257"/>
-			<xs:enumeration value="5258"/>
-			<xs:enumeration value="5401"/>
-			<xs:enumeration value="5402"/>
-			<xs:enumeration value="5403"/>
-			<xs:enumeration value="5405"/>
-			<xs:enumeration value="5408"/>
-			<xs:enumeration value="5409"/>
-			<xs:enumeration value="5410"/>
-			<xs:enumeration value="5411"/>
-			<xs:enumeration value="5412"/>
-			<xs:enumeration value="5413"/>
-			<xs:enumeration value="5414"/>
-			<xs:enumeration value="5415"/>
-			<xs:enumeration value="5451"/>
-			<xs:enumeration value="5501"/>
-			<xs:enumeration value="5502"/>
-			<xs:enumeration value="5503"/>
-			<xs:enumeration value="5504"/>
-			<xs:enumeration value="5505"/>
-			<xs:enumeration value="5551"/>
-			<xs:enumeration value="5552"/>
-			<xs:enumeration value="5553"/>
-			<xs:enumeration value="5554"/>
-			<xs:enumeration value="5555"/>
-			<xs:enumeration value="5556"/>
-			<xs:enumeration value="5557"/>
-			<xs:enumeration value="5601"/>
-			<xs:enumeration value="5602"/>
-			<xs:enumeration value="5603"/>
-			<xs:enumeration value="5605"/>
-			<xs:enumeration value="5606"/>
-			<xs:enumeration value="5651"/>
-			<xs:enumeration value="5652"/>
-			<xs:enumeration value="5653"/>
-			<xs:enumeration value="5654"/>
-			<xs:enumeration value="5655"/>
-			<xs:enumeration value="5656"/>
-			<xs:enumeration value="5657"/>
-			<xs:enumeration value="5658"/>
-			<xs:enumeration value="5659"/>
-			<xs:enumeration value="5660"/>
-			<xs:enumeration value="5661"/>
-			<xs:enumeration value="5662"/>
-			<xs:enumeration value="5663"/>
-			<xs:enumeration value="5664"/>
-			<xs:enumeration value="5665"/>
-			<xs:enumeration value="5666"/>
-			<xs:enumeration value="5667"/>
-			<xs:enumeration value="5901"/>
-			<xs:enumeration value="5902"/>
-			<xs:enumeration value="5903"/>
-			<xs:enumeration value="5904"/>
-			<xs:enumeration value="5905"/>
-			<xs:enumeration value="5906"/>
-			<xs:enumeration value="5907"/>
-			<xs:enumeration value="5908"/>
-			<xs:enumeration value="5909"/>
-			<xs:enumeration value="5910"/>
-			<xs:enumeration value="5911"/>
-			<xs:enumeration value="5912"/>
-			<xs:enumeration value="5913"/>
-			<xs:enumeration value="5914"/>
-			<xs:enumeration value="5915"/>
-			<xs:enumeration value="5916"/>
-			<xs:enumeration value="5917"/>
-			<xs:enumeration value="5918"/>
-			<xs:enumeration value="5919"/>
-			<xs:enumeration value="5920"/>
-			<xs:enumeration value="5921"/>
-			<xs:enumeration value="5922"/>
-			<xs:enumeration value="5923"/>
-			<xs:enumeration value="5924"/>
-			<xs:enumeration value="5925"/>
-			<xs:enumeration value="5926"/>
-			<xs:enumeration value="5927"/>
-			<xs:enumeration value="5928"/>
-			<xs:enumeration value="5929"/>
-			<xs:enumeration value="5931"/>
-			<xs:enumeration value="5932"/>
-			<xs:enumeration value="5933"/>
-			<xs:enumeration value="5934"/>
-			<xs:enumeration value="5949"/>
-			<xs:enumeration value="6101"/>
-			<xs:enumeration value="6102"/>
-			<xs:enumeration value="6103"/>
-			<xs:enumeration value="6104"/>
-			<xs:enumeration value="6105"/>
-			<xs:enumeration value="6106"/>
-			<xs:enumeration value="6107"/>
-			<xs:enumeration value="6108"/>
-			<xs:enumeration value="6109"/>
-			<xs:enumeration value="6110"/>
-			<xs:enumeration value="6111"/>
-			<xs:enumeration value="6112"/>
-			<xs:enumeration value="6113"/>
-			<xs:enumeration value="6114"/>
-			<xs:enumeration value="6115"/>
-			<xs:enumeration value="6116"/>
-			<xs:enumeration value="6117"/>
-			<xs:enumeration value="6118"/>
-			<xs:enumeration value="6119"/>
-			<xs:enumeration value="6120"/>
-			<xs:enumeration value="6122"/>
-			<xs:enumeration value="6123"/>
-			<xs:enumeration value="6124"/>
-			<xs:enumeration value="6125"/>
-			<xs:enumeration value="6151"/>
-			<xs:enumeration value="6152"/>
-			<xs:enumeration value="6153"/>
-			<xs:enumeration value="6155"/>
-			<xs:enumeration value="6156"/>
-			<xs:enumeration value="6201"/>
-			<xs:enumeration value="6202"/>
-			<xs:enumeration value="6205"/>
-			<xs:enumeration value="6206"/>
-			<xs:enumeration value="6207"/>
-			<xs:enumeration value="6208"/>
-			<xs:enumeration value="6209"/>
-			<xs:enumeration value="6210"/>
-			<xs:enumeration value="6251"/>
-			<xs:enumeration value="6252"/>
-			<xs:enumeration value="6253"/>
-			<xs:enumeration value="6254"/>
-			<xs:enumeration value="6255"/>
-			<xs:enumeration value="6256"/>
-			<xs:enumeration value="6257"/>
-			<xs:enumeration value="6258"/>
-			<xs:enumeration value="6401"/>
-			<xs:enumeration value="6402"/>
-			<xs:enumeration value="6403"/>
-			<xs:enumeration value="6404"/>
-			<xs:enumeration value="6408"/>
-			<xs:enumeration value="6409"/>
-			<xs:enumeration value="6410"/>
-			<xs:enumeration value="6411"/>
-			<xs:enumeration value="6412"/>
-			<xs:enumeration value="6413"/>
-			<xs:enumeration value="6414"/>
-			<xs:enumeration value="6415"/>
-			<xs:enumeration value="6501"/>
-			<xs:enumeration value="6502"/>
-			<xs:enumeration value="6503"/>
-			<xs:enumeration value="6504"/>
-			<xs:enumeration value="6505"/>
-			<xs:enumeration value="6551"/>
-			<xs:enumeration value="6552"/>
-			<xs:enumeration value="6553"/>
-			<xs:enumeration value="6554"/>
-			<xs:enumeration value="6555"/>
-			<xs:enumeration value="6556"/>
-			<xs:enumeration value="6557"/>
-			<xs:enumeration value="6603"/>
-			<xs:enumeration value="6651"/>
-			<xs:enumeration value="6652"/>
-			<xs:enumeration value="6653"/>
-			<xs:enumeration value="6654"/>
-			<xs:enumeration value="6655"/>
-			<xs:enumeration value="6656"/>
-			<xs:enumeration value="6657"/>
-			<xs:enumeration value="6658"/>
-			<xs:enumeration value="6659"/>
-			<xs:enumeration value="6660"/>
-			<xs:enumeration value="6661"/>
-			<xs:enumeration value="6662"/>
-			<xs:enumeration value="6663"/>
-			<xs:enumeration value="6664"/>
-			<xs:enumeration value="6665"/>
-			<xs:enumeration value="6666"/>
-			<xs:enumeration value="6667"/>
-			<xs:enumeration value="6901"/>
-			<xs:enumeration value="6902"/>
-			<xs:enumeration value="6903"/>
-			<xs:enumeration value="6904"/>
-			<xs:enumeration value="6905"/>
-			<xs:enumeration value="6906"/>
-			<xs:enumeration value="6907"/>
-			<xs:enumeration value="6908"/>
-			<xs:enumeration value="6909"/>
-			<xs:enumeration value="6910"/>
-			<xs:enumeration value="6911"/>
-			<xs:enumeration value="6912"/>
-			<xs:enumeration value="6913"/>
-			<xs:enumeration value="6914"/>
-			<xs:enumeration value="6915"/>
-			<xs:enumeration value="6916"/>
-			<xs:enumeration value="6917"/>
-			<xs:enumeration value="6918"/>
-			<xs:enumeration value="6919"/>
-			<xs:enumeration value="6920"/>
-			<xs:enumeration value="6921"/>
-			<xs:enumeration value="6922"/>
-			<xs:enumeration value="6923"/>
-			<xs:enumeration value="6924"/>
-			<xs:enumeration value="6925"/>
-			<xs:enumeration value="6929"/>
-			<xs:enumeration value="6931"/>
-			<xs:enumeration value="6932"/>
-			<xs:enumeration value="6933"/>
-			<xs:enumeration value="6934"/>
-			<xs:enumeration value="6949"/>
-			<xs:enumeration value="7101"/>
-			<xs:enumeration value="7102"/>
-			<xs:enumeration value="7105"/>
-			<xs:enumeration value="7106"/>
-			<xs:enumeration value="7127"/>
-			<xs:enumeration value="7201"/>
-			<xs:enumeration value="7202"/>
-			<xs:enumeration value="7205"/>
-			<xs:enumeration value="7206"/>
-			<xs:enumeration value="7207"/>
-			<xs:enumeration value="7210"/>
-			<xs:enumeration value="7211"/>
-			<xs:enumeration value="7251"/>
-			<xs:enumeration value="7501"/>
-			<xs:enumeration value="7551"/>
-			<xs:enumeration value="7553"/>
-			<xs:enumeration value="7556"/>
-			<xs:enumeration value="7651"/>
-			<xs:enumeration value="7654"/>
-			<xs:enumeration value="7667"/>
-			<xs:enumeration value="7930"/>
-			<xs:enumeration value="7949"/>
-		</xs:restriction>
-	</xs:simpleType>
-	<xs:simpleType name="TCfopTransp">
-		<xs:annotation>
-			<xs:documentation>Tipo CFOP - Transportes - uso exclusivo na retenção - 31/05/2010
-			Acrescimo dos CFOP de 5931/5932/6931/6932 no CFOP de retTransp
-</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:whiteSpace value="preserve"/>
-			<xs:enumeration value="5351"/>
-			<xs:enumeration value="5352"/>
-			<xs:enumeration value="5353"/>
-			<xs:enumeration value="5354"/>
-			<xs:enumeration value="5355"/>
-			<xs:enumeration value="5356"/>
-			<xs:enumeration value="5357"/>
-			<xs:enumeration value="5359"/>
-			<xs:enumeration value="5360"/>
-			<xs:enumeration value="5931"/>
-			<xs:enumeration value="5932"/>
-			<xs:enumeration value="6351"/>
-			<xs:enumeration value="6352"/>
-			<xs:enumeration value="6353"/>
-			<xs:enumeration value="6354"/>
-			<xs:enumeration value="6355"/>
-			<xs:enumeration value="6356"/>
-			<xs:enumeration value="6357"/>
-			<xs:enumeration value="6359"/>
-			<xs:enumeration value="6360"/>
-			<xs:enumeration value="6931"/>
-			<xs:enumeration value="6932"/>
-			<xs:enumeration value="7358"/>
-		</xs:restriction>
-	</xs:simpleType>
 	<xs:simpleType name="Torig">
 		<xs:annotation>
 			<xs:documentation>Tipo Origem da mercadoria CST ICMS  origem da mercadoria: 0-Nacional exceto as indicadas nos códigos 3, 4, 5 e 8;
