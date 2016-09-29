@@ -797,7 +797,7 @@ namespace NFe.Servicos
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
             //Usar CDATA para a url do qrCode. Regra ZX02-22, NT2015.002, v141
-            xmlEnvio = TrocarAmpEscapePorCdata(xmlEnvio);
+            xmlEnvio = TrocarQrCodeAmpEscapePorCdata(xmlEnvio);
 
             Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
@@ -909,7 +909,7 @@ namespace NFe.Servicos
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
             //Usar CDATA para a url do qrCode. Regra ZX02-22, NT2015.002, v141
-            xmlEnvio = TrocarAmpEscapePorCdata(xmlEnvio);
+            xmlEnvio = TrocarQrCodeAmpEscapePorCdata(xmlEnvio);
 
             Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
@@ -937,11 +937,12 @@ namespace NFe.Servicos
             #endregion
         }
 
-        private static string TrocarAmpEscapePorCdata(string xmlEnvio)
+        private static string TrocarQrCodeAmpEscapePorCdata(string xmlEnvio)
         {
             var xdoc = XDocument.Parse(xmlEnvio);
             var qrCodeNode = xdoc.Descendants().FirstOrDefault(a => a.Name.LocalName == "qrCode");
-            qrCodeNode?.ReplaceNodes(new XCData(qrCodeNode.Value.Replace("&amp;", "&")));
+            if (qrCodeNode != null)
+                qrCodeNode.ReplaceNodes(new XCData(qrCodeNode.Value.Replace("&amp;", "&")));
             xmlEnvio = xdoc.ToString();
             return xmlEnvio;
         }
