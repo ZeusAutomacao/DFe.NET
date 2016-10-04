@@ -695,10 +695,13 @@ namespace NFe.AppTeste
                     protNFe = retornoConsulta.Retorno.protNFe,
                     versao = retornoConsulta.Retorno.versao
                 };
-                var novoArquivo = Path.GetDirectoryName(arquivoXml) + @"\" + nfeproc.protNFe.infProt.chNFe +
-                                  "-procNfe.xml";
-                FuncoesXml.ClasseParaArquivoXml(nfeproc, novoArquivo);
-                Funcoes.Mensagem("Arquivo salvo em " + novoArquivo, "Atenção", MessageBoxButton.OK);
+                if (nfeproc.protNFe != null)
+                {
+                    var novoArquivo = Path.GetDirectoryName(arquivoXml) + @"\" + nfeproc.protNFe.infProt.chNFe +
+                                      "-procNfe.xml";
+                    FuncoesXml.ClasseParaArquivoXml(nfeproc, novoArquivo);
+                    Funcoes.Mensagem("Arquivo salvo em " + novoArquivo, "Atenção", MessageBoxButton.OK);
+                }
             }
             catch (Exception ex)
             {

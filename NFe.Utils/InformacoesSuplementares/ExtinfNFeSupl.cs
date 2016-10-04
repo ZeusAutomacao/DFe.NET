@@ -222,9 +222,8 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <param name="nfe"></param>
         /// <param name="cIdToken"></param>
         /// <param name="csc"></param>
-        /// <param name="formatoCdata">Montar URL do qrcode no formato CDATA? (NT2015.002, V141, regra ZX02-22</param>
         /// <returns></returns>
-        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc, bool formatoCdata = true)
+        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
             var dhEmi = ObterHexDeString(nfe.infNFe.ide.dhEmi);
@@ -252,8 +251,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
-            var qrCode = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
-            return formatoCdata ? new XCData(qrCode.Replace("&amp;", "&")).ToString() : qrCode;
+            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
         }
 
         /// <summary>

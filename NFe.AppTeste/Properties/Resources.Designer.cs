@@ -61,16 +61,17 @@ namespace NFe.AppTeste.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h1&gt;Nota Fiscal Eletrônica&lt;/h1&gt;
+        ///   Looks up a localized string similar to &lt;html&gt;
+        ///&lt;h1&gt;Nota Fiscal Eletrônica&lt;/h1&gt;
         ///&lt;h2&gt;Prezado Cliente,&lt;/h2&gt;
         ///&lt;p&gt;Segue anexo a Nota Fiscal eletrônica (xml e pdf), conforme pedido número 1234.&lt;/p&gt;
         ///&lt;p&gt;
         ///&lt;b&gt;Chave de acesso:&lt;/b&gt; 0123 4567 8901 2345 6789 0123 4567 8901 2345 6789 0123
         ///&lt;br&gt;&lt;b&gt;Número:&lt;/b&gt; 000123456
         ///&lt;br&gt;&lt;b&gt;Valor Total:&lt;/b&gt; 1.234,56
-        ///&lt;/p
+        ///&lt;/p&gt;
         ///&lt;p&gt;Consulte a autencidade de sua NFe acessando &lt;a href=&quot;http://www.nfe.fazenda.gov.br/portal/consulta.aspx?tipoConsulta=completa&amp;tipoConteudo=XbSeqxE8pl8=&quot;&gt;Consulta NFe Completa&lt;/a&gt; &lt;/p&gt;
-        ///ZEUS Automação.
+        ///ZEUS Automação [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string MensagemHtml {
             get {

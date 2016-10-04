@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NFe.Classes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Zeus.Net.NFe.NFCe.1.0.1.171\lib\net40\NFe.Classes.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
@@ -95,6 +91,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
+      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Name>NFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
       <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
       <Name>NFe.Danfe.Base</Name>
