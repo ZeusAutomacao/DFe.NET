@@ -96,8 +96,16 @@ namespace NFe.AppTeste
             }
 
             //Converte a mensagem em html para CDATA, para posterior serialização
-            ConfiguracaoEmail.Mensagem = new XCData(ConfiguracaoEmail.Mensagem).ToString();
-            FuncoesXml.ClasseParaArquivoXml(this, arquivo);
+            var msgAnterior = ConfiguracaoEmail.Mensagem;
+            try
+            {
+                ConfiguracaoEmail.Mensagem = new XCData(msgAnterior).ToString();
+                FuncoesXml.ClasseParaArquivoXml(this, arquivo);
+            }
+            finally
+            {
+                ConfiguracaoEmail.Mensagem = msgAnterior;
+            }
         }
     }
 }
