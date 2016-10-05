@@ -59,7 +59,7 @@ danfe.Visualizar();
 - [x] Implementar Serviço Administração do CSC para NFCe (implementado em 05/04/2016 por https://github.com/rodrigomartins50);
 - [ ] Aceitar certificado digital A1 em base64;
 - [x] Revisar urls para qr-code de acordo com link (http://nfce.encat.org/desenvolvedor/qrcode/) divulgado na NT 2015/002, versão 1.41, publicada em 26/08/2016;
-- [ ] Implementar consumo do serviço RecepcaoEvento – Manifestação do Destinatário (quase pronto por https://github.com/ernanisp);
+- [x] Implementar consumo do serviço RecepcaoEvento – Manifestação do Destinatário (feito por https://github.com/ernanisp);
 - ***TODO DANFE:***
 - [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
 - [ ] Implementar impressão do DANFE de NFCe A4;
