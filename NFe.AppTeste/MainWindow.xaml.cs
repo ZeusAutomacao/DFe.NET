@@ -112,10 +112,13 @@ namespace NFe.AppTeste
             {
                 #region Status do serviço
 
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoStatus = servicoNFe.NfeStatusServico();
-
-                TrataRetorno(retornoStatus);
+                //Exemplo com using para chamar o método Dispose da classe.
+                //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
+                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
+                {
+                    var retornoStatus = servicoNFe.NfeStatusServico();
+                    TrataRetorno(retornoStatus);
+                }
 
                 #endregion
             }
@@ -323,6 +326,8 @@ namespace NFe.AppTeste
                 _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                //Para consumir o serviço de forma síncrona, use a linha abaixo:
+                //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
 

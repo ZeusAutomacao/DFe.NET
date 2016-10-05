@@ -78,19 +78,24 @@ namespace NFe.Utils.Assinatura
             X509Certificate2 certificado = null;
 
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.MaxAllowed);
-
-
-            foreach (var item in store.Certificates)
+            try
             {
-                if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
-                    certificado = item;
+                store.Open(OpenFlags.MaxAllowed);
+
+                foreach (var item in store.Certificates)
+                {
+                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
+                        certificado = item;
+                }
+
+                if (certificado == null)
+                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
             }
-
-            if (certificado == null)
-                throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
-
-            store.Close();
+            finally
+            {
+                store.Close();
+            }
+            
             if (string.IsNullOrEmpty(senha)) return certificado;
 
             //Se a senha for passada no parâmetro

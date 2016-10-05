@@ -76,11 +76,10 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using System.Xml.Linq;
 
 namespace NFe.Servicos
 {
-    public class ServicosNFe
+    public sealed class ServicosNFe: IDisposable
     {
         private readonly X509Certificate _certificado;
         private readonly ConfiguracaoServico _cFgServico;
@@ -1095,6 +1094,37 @@ namespace NFe.Servicos
             return new RetornoAdmCscNFCe(admCscNFCe.ObterXmlString(), retCsc.ObterXmlString(), retornoXmlString, retCsc);
 
             #endregion
+        }
+
+        #endregion
+
+
+        #region Implementação do padrão Dispose
+
+        // Flag: Dispose já foi chamado?
+        private bool _disposed;
+        
+        // Implementação protegida do padrão Dispose.
+        private void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+                _certificado.Reset();
+
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~ServicosNFe()
+        {
+            Dispose(false);
         }
 
         #endregion
