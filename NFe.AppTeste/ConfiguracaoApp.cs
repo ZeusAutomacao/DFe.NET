@@ -32,7 +32,6 @@
 /********************************************************************************/
 using System;
 using System.IO;
-using System.Xml.Linq;
 using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -94,18 +93,7 @@ namespace NFe.AppTeste
             {
                 throw new DirectoryNotFoundException("Diretório " + dir + " não encontrado!");
             }
-
-            //Converte a mensagem em html para CDATA, para posterior serialização
-            var msgAnterior = ConfiguracaoEmail.Mensagem;
-            try
-            {
-                ConfiguracaoEmail.Mensagem = new XCData(msgAnterior).ToString();
-                FuncoesXml.ClasseParaArquivoXml(this, arquivo);
-            }
-            finally
-            {
-                ConfiguracaoEmail.Mensagem = msgAnterior;
-            }
+            FuncoesXml.ClasseParaArquivoXml(this, arquivo);
         }
     }
 }

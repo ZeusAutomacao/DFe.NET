@@ -51,17 +51,17 @@ namespace NFe.Classes
         /// O atributo qrCode deve ser serializado como CDATA, conforme NT2015.002, V141, regra ZX02-22
         /// </summary>
         [XmlElement(ElementName = "qrCode")]
-        public string qrCodeXCData
+        public System.Xml.XmlCDataSection qrCodeXCData
         {
             get
             {
                 //Responsabilidade pela serialização do qrCode no formato CDATA movida pra cá, pois toda vez que for serializado(inclusive ao enviar para a SEFAZ), espera-se que esse atributo vá como CDATA.
                 //Já o atributo qrCode ficará no formato original, pois dessa forma poderá ser usado para impressão sem necessidade de tratamento adicional.
-                return new XCData(qrCode.Replace("&amp;", "&")).ToString();
+                return new System.Xml.XmlDocument().CreateCDataSection(qrCode);
             }
             set
             {
-                qrCode = value;
+                qrCode = value.Value;
             }
         }
     }

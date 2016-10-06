@@ -62,9 +62,7 @@ namespace NFe.Utils
                     xml.Attributes().Where(x => x.Name.LocalName.Equals("xsd") || x.Name.LocalName.Equals("xsi")).Remove();
                 }
             }
-            var result = XElement.Parse(xml.ToString()).ToString(SaveOptions.DisableFormatting);
-
-            return result.Replace("&lt;", "<").Replace("&gt;", ">").Replace("&amp;", "&"); //Remove caracteres de escape para vlores "<", ">" e "&"
+            return XElement.Parse(xml.ToString()).ToString(SaveOptions.DisableFormatting);
         }
 
         /// <summary>
