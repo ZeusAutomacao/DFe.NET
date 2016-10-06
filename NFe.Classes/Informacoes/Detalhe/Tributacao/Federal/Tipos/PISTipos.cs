@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
@@ -71,38 +72,38 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
     /// </summary>
     public enum CSTPIS
     {
-        [XmlEnum("01")] pis01,
-        [XmlEnum("02")] pis02,
-        [XmlEnum("03")] pis03,
-        [XmlEnum("04")] pis04,
-        [XmlEnum("05")] pis05,
-        [XmlEnum("06")] pis06,
-        [XmlEnum("07")] pis07,
-        [XmlEnum("08")] pis08,
-        [XmlEnum("09")] pis09,
-        [XmlEnum("49")] pis49,
-        [XmlEnum("50")] pis50,
-        [XmlEnum("51")] pis51,
-        [XmlEnum("52")] pis52,
-        [XmlEnum("53")] pis53,
-        [XmlEnum("54")] pis54,
-        [XmlEnum("55")] pis55,
-        [XmlEnum("56")] pis56,
-        [XmlEnum("60")] pis60,
-        [XmlEnum("61")] pis61,
-        [XmlEnum("62")] pis62,
-        [XmlEnum("63")] pis63,
-        [XmlEnum("64")] pis64,
-        [XmlEnum("65")] pis65,
-        [XmlEnum("66")] pis66,
-        [XmlEnum("67")] pis67,
-        [XmlEnum("70")] pis70,
-        [XmlEnum("71")] pis71,
-        [XmlEnum("72")] pis72,
-        [XmlEnum("73")] pis73,
-        [XmlEnum("74")] pis74,
-        [XmlEnum("75")] pis75,
-        [XmlEnum("98")] pis98,
-        [XmlEnum("99")] pis99
+        [XmlEnum("01")] pis01 = 01,
+        [XmlEnum("02")] pis02 = 02,
+        [XmlEnum("03")] pis03 = 03,
+        [XmlEnum("04")] pis04 = 04,
+        [XmlEnum("05")] pis05 = 05,
+        [XmlEnum("06")] pis06 = 06,
+        [XmlEnum("07")] pis07 = 07,
+        [XmlEnum("08")] pis08 = 08,
+        [XmlEnum("09")] pis09 = 09,
+        [XmlEnum("49")] pis49 = 49,
+        [XmlEnum("50")] pis50 = 50,
+        [XmlEnum("51")] pis51 = 51,
+        [XmlEnum("52")] pis52 = 52,
+        [XmlEnum("53")] pis53 = 53,
+        [XmlEnum("54")] pis54 = 54,
+        [XmlEnum("55")] pis55 = 55,
+        [XmlEnum("56")] pis56 = 56,
+        [XmlEnum("60")] pis60 = 60,
+        [XmlEnum("61")] pis61 = 61,
+        [XmlEnum("62")] pis62 = 62,
+        [XmlEnum("63")] pis63 = 63,
+        [XmlEnum("64")] pis64 = 64,
+        [XmlEnum("65")] pis65 = 65,
+        [XmlEnum("66")] pis66 = 66,
+        [XmlEnum("67")] pis67 = 67,
+        [XmlEnum("70")] pis70 = 70,
+        [XmlEnum("71")] pis71 = 71,
+        [XmlEnum("72")] pis72 = 72,
+        [XmlEnum("73")] pis73 = 73,
+        [XmlEnum("74")] pis74 = 74,
+        [XmlEnum("75")] pis75 = 75,
+        [XmlEnum("98")] pis98 = 98,
+        [XmlEnum("99")] pis99 = 99
     }
 }

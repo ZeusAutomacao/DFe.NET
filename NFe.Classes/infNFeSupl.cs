@@ -32,37 +32,40 @@
 /********************************************************************************/
 
 using System;
-using System.Xml.Linq;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace NFe.Classes
 {
     [Serializable]
-    public class infNFeSupl
+    public class infNFeSupl: IXmlSerializable
     {
         /// <summary>
         /// ZX02 - Texto com o QR-Code impresso no DANFE NFC-e
-        /// </summary>
-        [XmlIgnore]
-        public string qrCode { get; set; }
-
-        /// <summary>
-        /// Atributo usado para serialização/deserialização do qrCode
         /// O atributo qrCode deve ser serializado como CDATA, conforme NT2015.002, V141, regra ZX02-22
         /// </summary>
-        [XmlElement(ElementName = "qrCode")]
-        public System.Xml.XmlCDataSection qrCodeXCData
+        public string qrCode { get; set; }
+
+        public XmlSchema GetSchema()
         {
-            get
-            {
-                //Responsabilidade pela serialização do qrCode no formato CDATA movida pra cá, pois toda vez que for serializado(inclusive ao enviar para a SEFAZ), espera-se que esse atributo vá como CDATA.
-                //Já o atributo qrCode ficará no formato original, pois dessa forma poderá ser usado para impressão sem necessidade de tratamento adicional.
-                return new System.Xml.XmlDocument().CreateCDataSection(qrCode);
-            }
-            set
-            {
-                qrCode = value.Value;
-            }
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement(typeof(infNFeSupl).Name);
+            reader.ReadStartElement("qrCode");
+            qrCode = reader.ReadString();
+            reader.ReadEndElement();
+            reader.ReadEndElement();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteStartElement("qrCode");
+            writer.WriteCData(qrCode);
+            writer.WriteEndElement();
         }
     }
 }
