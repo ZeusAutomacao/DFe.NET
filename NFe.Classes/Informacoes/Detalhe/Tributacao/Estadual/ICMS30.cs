@@ -122,7 +122,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return pMVAST.HasValue;
         }
 
-        public bool ShouldSerializepRedBCSTT()
+        public bool ShouldSerializepRedBCST()
         {
             return pRedBCST.HasValue;
         }
