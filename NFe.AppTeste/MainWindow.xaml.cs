@@ -405,8 +405,8 @@ namespace NFe.AppTeste
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeInutilizacao(_configuracoes.Emitente.CNPJ, Convert.ToInt16(ano),
-                    modelo, Convert.ToInt16(serie), Convert.ToInt16(numeroInicial),
-                    Convert.ToInt16(numeroFinal), justificativa);
+                    modelo, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial),
+                    Convert.ToInt32(numeroFinal), justificativa);
 
                 TrataRetorno(retornoConsulta);
 
@@ -443,7 +443,7 @@ namespace NFe.AppTeste
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
-                var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt16(idlote),
+                var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
                 TrataRetorno(retornoCartaCorrecao);
 
@@ -483,7 +483,7 @@ namespace NFe.AppTeste
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
-                var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt16(idlote),
+                var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
                 TrataRetorno(retornoCancelamento);
 
@@ -522,7 +522,7 @@ namespace NFe.AppTeste
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEpec = servicoNFe.RecepcaoEventoEpec(Convert.ToInt16(idlote),
+                var retornoEpec = servicoNFe.RecepcaoEventoEpec(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), _nfe, "3.10");
                 TrataRetorno(retornoEpec);
 

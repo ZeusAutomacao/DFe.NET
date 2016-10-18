@@ -79,7 +79,7 @@ namespace NFe.Integracao
             return servicoNFe.NFeRetAutorizacao(recibo);
         }
 
-        public RetornoRecepcaoEvento CancelarNFe(string cnpjEmitente, Int32 numeroLote, Int16 sequenciaEvento, string chaveAcesso, string protocolo, string justificativa)
+        public RetornoRecepcaoEvento CancelarNFe(string cnpjEmitente, int numeroLote, short sequenciaEvento, string chaveAcesso, string protocolo, string justificativa)
         {
             var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
             return servicoNFe.RecepcaoEventoCancelamento(numeroLote, sequenciaEvento, protocolo, chaveAcesso, justificativa, cnpjEmitente);
