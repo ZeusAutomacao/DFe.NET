@@ -30,29 +30,48 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
+namespace NFe.Classes.Informacoes.Detalhe.Produto_Especifico
 {
-    public class arma : ProdutoEspecifico
+    public class encerrante
     {
-        /// <summary>
-        ///     L02 - Indicador do tipo de arma de fogo
-        /// </summary>
-        public TipoArma tpArma { get; set; }
+        private decimal _vEncIni;
+        private decimal _vEncFin;
 
         /// <summary>
-        ///     L03 - Número de série da arma
+        /// LA12 - Número de identificação do bico utilizado no abastecimento
         /// </summary>
-        public string nSerie { get; set; }
+        public int nBico { get; set; }
 
         /// <summary>
-        ///     L04 - Número de série do cano
+        /// LA13 - Número de identificação da bomba ao qual o bico está interligado
         /// </summary>
-        public string nCano { get; set; }
+        public int? nBomba { get; set; }
+        public bool ShouldSerializenBomba()
+        {
+            return nBomba.HasValue;
+        }
 
         /// <summary>
-        ///     L05 - Descrição completa da arma, compreendendo: calibre, marca, capacidade, tipo de funcionamento, comprimento e
-        ///     demais elementos que permitam a sua perfeita identificação.
+        /// LA14 - Número de identificação do tanque ao qual o bico está interligado
         /// </summary>
-        public string descr { get; set; }
+        public int nTanque { get; set; }
+
+        /// <summary>
+        /// LA15 - Valor do Encerrante no início do abastecimento
+        /// </summary>
+        public decimal vEncIni
+        {
+            get { return _vEncIni; }
+            set { _vEncIni = value.Arredondar(3); }
+        }
+
+        /// <summary>
+        /// LA16 - Valor do Encerrante no final do abastecimento
+        /// </summary>
+        public decimal vEncFin
+        {
+            get { return _vEncFin; }
+            set { _vEncFin = value.Arredondar(3); }
+        }
     }
 }

@@ -30,7 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
+namespace NFe.Classes.Informacoes.Detalhe.Produto_Especifico
 {
     public class veicProd : ProdutoEspecifico
     {

@@ -30,39 +30,29 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace NFe.Classes.Informacoes.Detalhe.Produto_Específico
+namespace NFe.Classes.Informacoes.Detalhe.Produto_Especifico
 {
-    public class CIDE
+    public class arma : ProdutoEspecifico
     {
-        private decimal _qBcProd;
-        private decimal _vAliqProd;
-        private decimal _vCide;
+        /// <summary>
+        ///     L02 - Indicador do tipo de arma de fogo
+        /// </summary>
+        public TipoArma tpArma { get; set; }
 
         /// <summary>
-        ///     LA08 - BC da CIDE
+        ///     L03 - Número de série da arma
         /// </summary>
-        public decimal qBCProd
-        {
-            get { return _qBcProd; }
-            set { _qBcProd = value.Arredondar(4); }
-        }
+        public string nSerie { get; set; }
 
         /// <summary>
-        ///     LA09 - Valor da alíquota da CIDE
+        ///     L04 - Número de série do cano
         /// </summary>
-        public decimal vAliqProd
-        {
-            get { return _vAliqProd; }
-            set { _vAliqProd = value.Arredondar(4); }
-        }
+        public string nCano { get; set; }
 
         /// <summary>
-        ///     LA10 - Valor da CIDE
+        ///     L05 - Descrição completa da arma, compreendendo: calibre, marca, capacidade, tipo de funcionamento, comprimento e
+        ///     demais elementos que permitam a sua perfeita identificação.
         /// </summary>
-        public decimal vCIDE
-        {
-            get { return _vCide; }
-            set { _vCide = value.Arredondar(2); }
-        }
+        public string descr { get; set; }
     }
 }
