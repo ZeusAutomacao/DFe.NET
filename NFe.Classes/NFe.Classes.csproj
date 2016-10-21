@@ -52,7 +52,7 @@
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="infNFeSupl.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
     <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
     <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
@@ -87,12 +87,12 @@
     <Compile Include="Informacoes\Detalhe\DeclaracaoImportacao\DI.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\detExport.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\exportInd.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\arma.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\CIDE.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\comb.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\med.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\ProdutoEspecifico.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Especifico\veicProd.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\arma.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\CIDE.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\comb.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\med.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\ProdutoEspecifico.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\veicProd.cs" />
     <Compile Include="Informacoes\exporta.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsCad.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs" />

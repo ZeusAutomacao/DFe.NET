@@ -35,7 +35,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao;
 using NFe.Classes.Informacoes.Detalhe.Exportacao;
-using NFe.Classes.Informacoes.Detalhe.Produto_Especifico;
+using NFe.Classes.Informacoes.Detalhe.ProdEspecifico;
 
 namespace NFe.Classes.Informacoes.Detalhe
 {

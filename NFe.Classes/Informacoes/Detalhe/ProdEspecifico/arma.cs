@@ -30,48 +30,29 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace NFe.Classes.Informacoes.Detalhe.Produto_Especifico
+namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
-    public class encerrante
+    public class arma : ProdutoEspecifico
     {
-        private decimal _vEncIni;
-        private decimal _vEncFin;
+        /// <summary>
+        ///     L02 - Indicador do tipo de arma de fogo
+        /// </summary>
+        public TipoArma tpArma { get; set; }
 
         /// <summary>
-        /// LA12 - Número de identificação do bico utilizado no abastecimento
+        ///     L03 - Número de série da arma
         /// </summary>
-        public int nBico { get; set; }
+        public string nSerie { get; set; }
 
         /// <summary>
-        /// LA13 - Número de identificação da bomba ao qual o bico está interligado
+        ///     L04 - Número de série do cano
         /// </summary>
-        public int? nBomba { get; set; }
-        public bool ShouldSerializenBomba()
-        {
-            return nBomba.HasValue;
-        }
+        public string nCano { get; set; }
 
         /// <summary>
-        /// LA14 - Número de identificação do tanque ao qual o bico está interligado
+        ///     L05 - Descrição completa da arma, compreendendo: calibre, marca, capacidade, tipo de funcionamento, comprimento e
+        ///     demais elementos que permitam a sua perfeita identificação.
         /// </summary>
-        public int nTanque { get; set; }
-
-        /// <summary>
-        /// LA15 - Valor do Encerrante no início do abastecimento
-        /// </summary>
-        public decimal vEncIni
-        {
-            get { return _vEncIni; }
-            set { _vEncIni = value.Arredondar(3); }
-        }
-
-        /// <summary>
-        /// LA16 - Valor do Encerrante no final do abastecimento
-        /// </summary>
-        public decimal vEncFin
-        {
-            get { return _vEncFin; }
-            set { _vEncFin = value.Arredondar(3); }
-        }
+        public string descr { get; set; }
     }
 }

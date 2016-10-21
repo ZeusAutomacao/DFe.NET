@@ -30,44 +30,48 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace NFe.Classes.Informacoes.Detalhe.Produto_Especifico
+namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
-    public class med : ProdutoEspecifico
+    public class encerrante
     {
-        private decimal _qLote;
-        private decimal _vPmc;
+        private decimal _vEncIni;
+        private decimal _vEncFin;
 
         /// <summary>
-        ///     K02 - Número do Lote de medicamentos ou de matérias-primas farmacêuticas
+        /// LA12 - Número de identificação do bico utilizado no abastecimento
         /// </summary>
-        public string nLote { get; set; }
+        public int nBico { get; set; }
 
         /// <summary>
-        ///     K03 - Quantidade de produto no Lote de medicamentos ou de matérias-primas farmacêuticas
+        /// LA13 - Número de identificação da bomba ao qual o bico está interligado
         /// </summary>
-        public decimal qLote
+        public int? nBomba { get; set; }
+        public bool ShouldSerializenBomba()
         {
-            get { return _qLote; }
-            set { _qLote = value.Arredondar(3); }
+            return nBomba.HasValue;
         }
 
         /// <summary>
-        ///     K04 - Data de fabricação. Formato: “AAAA-MM-DD”
+        /// LA14 - Número de identificação do tanque ao qual o bico está interligado
         /// </summary>
-        public string dFab { get; set; }
+        public int nTanque { get; set; }
 
         /// <summary>
-        ///     K05 - Data de validade. Formato: “AAAA-MM-DD”
+        /// LA15 - Valor do Encerrante no início do abastecimento
         /// </summary>
-        public string dVal { get; set; }
-
-        /// <summary>
-        ///     K06 - Preço máximo consumidor
-        /// </summary>
-        public decimal vPMC
+        public decimal vEncIni
         {
-            get { return _vPmc; }
-            set { _vPmc = value.Arredondar(2); }
+            get { return _vEncIni; }
+            set { _vEncIni = value.Arredondar(3); }
+        }
+
+        /// <summary>
+        /// LA16 - Valor do Encerrante no final do abastecimento
+        /// </summary>
+        public decimal vEncFin
+        {
+            get { return _vEncFin; }
+            set { _vEncFin = value.Arredondar(3); }
         }
     }
 }
