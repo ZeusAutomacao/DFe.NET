@@ -76,4 +76,17 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
         [XmlEnum("3")] CredenciadoParcial = 3,
         [XmlEnum("4")] SemInformacaoSefaz = 4
     }
+
+    /// <summary>
+    ///     Tipo de documento a ser utilizado na consulta de cadastro.
+    /// <para>Ie - Inscrição Estadual</para>
+    /// <para>Cnpj - CNPJ</para>
+    /// <para>Cpf - CPF</para>
+    /// </summary>
+    public enum ConsultaCadastroTipoDocumento
+    {
+        Ie = 0,
+        Cnpj = 1,
+        Cpf = 2
+    }
 }

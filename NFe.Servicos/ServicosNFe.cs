@@ -625,12 +625,13 @@ namespace NFe.Servicos
 
         /// <summary>
         ///     Consulta a situação cadastral, com base na UF/Documento
-        ///     <para>O documento pode ser: CPF ou CNPJ. O serviço avaliará o tamanho da string passada e determinará se a coonsulta será por CPF ou por CNPJ</para>
+        ///     <para>O documento pode ser: IE, CNPJ ou CPF</para>
         /// </summary>
-        /// <param name="uf"></param>
-        /// <param name="documento"></param>
+        /// <param name="uf">Sigla da UF consultada, informar 'SU' para SUFRAMA</param>
+        /// <param name="tipoDocumento">Tipo de documento a ser consultado</param>
+        /// <param name="documento">Documento a ser consultado</param>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaCadastro com o retorno do serviço NfeConsultaCadastro</returns>
-        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, string documento)
+        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento, string documento)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro);
 
@@ -654,10 +655,20 @@ namespace NFe.Servicos
                 infCons = new infConsEnv {UF = uf}
             };
 
-            if (documento.Length == 11)
-                pedConsulta.infCons.CPF = documento;
-            if (documento.Length > 11)
-                pedConsulta.infCons.CNPJ = documento;
+            switch (tipoDocumento)
+            {
+                case ConsultaCadastroTipoDocumento.Ie:
+                    pedConsulta.infCons.IE = documento;
+                    break;
+                case ConsultaCadastroTipoDocumento.Cnpj:
+                    pedConsulta.infCons.CNPJ = documento;
+                    break;
+                case ConsultaCadastroTipoDocumento.Cpf:
+                    pedConsulta.infCons.CPF = documento;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoDocumento), tipoDocumento, null);
+            }
 
             #endregion
 

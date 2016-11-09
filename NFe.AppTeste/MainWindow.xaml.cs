@@ -55,6 +55,7 @@ using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
+using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
@@ -746,13 +747,18 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(uf)) throw new Exception("A UF deve ser informada!");
                 if (uf.Length != 2) throw new Exception("UF deve conter 2 caracteres!");
 
-                var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(CPF/CNPJ):");
-                if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(CPF/CNPJ) deve ser informado!");
-                if (documento.Length != 11 & documento.Length != 14)
-                    throw new Exception("O Documento(CPF/CNPJ) deve conter 11 ou 14 caracteres!");
+                var tipoDocumento = Funcoes.InpuBox(this, "Consultar Cadastro", "Tipo de documento a ser consultado: (0 - IE; 1 - CNPJ; 2 - CPF):");
+                if (string.IsNullOrEmpty(tipoDocumento)) throw new Exception("O Tipo de documento deve ser informado!");
+                if (tipoDocumento.Length != 1) throw new Exception("O Tipo de documento deve conter um apenas um número!");
+                if (!tipoDocumento.All(char.IsDigit)) throw new Exception("O Tipo de documento deve ser um número inteiro");
+                var intTipoDocumento = int.Parse(tipoDocumento);
+                if (!(intTipoDocumento >= 0 && intTipoDocumento <= 2)) throw new Exception("Tipos válidos: (0 - IE; 1 - CNPJ; 2 - CPF)");
+                
+                var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(IE/CNPJ/CPF):");
+                if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(IE/CNPJ/CPF) deve ser informado!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro(uf, documento);
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro(uf, (ConsultaCadastroTipoDocumento) intTipoDocumento, documento);
                 TrataRetorno(retornoConsulta);
 
                 #endregion
