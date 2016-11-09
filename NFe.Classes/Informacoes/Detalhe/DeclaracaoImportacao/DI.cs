@@ -73,8 +73,8 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         /// </summary>
         public decimal? vAFRMM
         {
-            get { return _vAfrmm; }
-            set { _vAfrmm = Valor.Arredondar(value, 2); }
+            get { return _vAfrmm.Arredondar(2); }
+            set { _vAfrmm = value.Arredondar(2); }
         }
 
         /// <summary>

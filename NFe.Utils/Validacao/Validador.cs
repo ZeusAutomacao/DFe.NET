@@ -40,23 +40,20 @@ namespace NFe.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, bool loteNfe = true)
+        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, bool loteNfe = true)
         {
             switch (servicoNFe)
             {
                 case ServicoNFe.NfeRecepcao:
                     return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
-                case ServicoNFe.RecepcaoEvento:
-                    switch (tipoRecepcaoEvento)
-                    {
-                        case TipoRecepcaoEvento.Cancelmento:
-                            return "envEventoCancNFe_v1.00.xsd";
-                        case TipoRecepcaoEvento.CartaCorrecao:
-                            return "envCCe_v1.00.xsd";
-                        case TipoRecepcaoEvento.Epec:
-                            return "envEPEC_v1.00.xsd";
-                    }
-                    break;
+                case ServicoNFe.RecepcaoEventoCancelmento:
+                    return "envEventoCancNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCartaCorrecao:
+                    return "envCCe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoEpec:
+                    return "envEPEC_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    return "envConfRecebto_v1.00.xsd";
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {
@@ -90,18 +87,20 @@ namespace NFe.Utils.Validacao
                     return "consCad_v2.00.xsd";
                 case ServicoNFe.NfeDownloadNF:
                     return "downloadNFe_v1.00.xsd";
+                case ServicoNFe.NFeDistribuicaoDFe:
+                    return "distDFeInt_v1.00.xsd";
             }
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, TipoRecepcaoEvento tipoRecepcaoEvento, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
         {
             var pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, tipoRecepcaoEvento, versaoServico, loteNfe);
+            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings {ValidationType = ValidationType.Schema};

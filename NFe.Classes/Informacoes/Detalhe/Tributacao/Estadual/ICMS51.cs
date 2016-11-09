@@ -64,8 +64,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBC
         {
-            get { return _pRedBc; }
-            set { _pRedBc = Valor.Arredondar(value, 4); }
+            get { return _pRedBc.Arredondar(4); }
+            set { _pRedBc = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vBC
         {
-            get { return _vBc; }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pICMS
         {
-            get { return _pIcms; }
-            set { _pIcms = Valor.Arredondar(value, 4); }
+            get { return _pIcms.Arredondar(4); }
+            set { _pIcms = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -91,8 +91,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSOp
         {
-            get { return _vIcmsOp; }
-            set { _vIcmsOp = Valor.Arredondar(value, 2); }
+            get { return _vIcmsOp.Arredondar(2); }
+            set { _vIcmsOp = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -100,8 +100,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pDif
         {
-            get { return _pDif; }
-            set { _pDif = Valor.Arredondar(value, 2); }
+            get { return _pDif.Arredondar(2); }
+            set { _pDif = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -109,8 +109,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSDif
         {
-            get { return _vIcmsDif; }
-            set { _vIcmsDif = Valor.Arredondar(value, 2); }
+            get { return _vIcmsDif.Arredondar(2); }
+            set { _vIcmsDif = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -118,8 +118,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMS
         {
-            get { return _vIcms; }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            get { return _vIcms.Arredondar(2); }
+            set { _vIcms = value.Arredondar(2); }
         }
 
         public bool ShouldSerializemodBC()

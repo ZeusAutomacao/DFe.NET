@@ -65,8 +65,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vBC
         {
-            get { return Valor.Arredondar(_vBc, 2); }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -74,8 +74,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal pICMS
         {
-            get { return Valor.Arredondar(_pIcms, 4); }
-            set { _pIcms = Valor.Arredondar(value, 4); }
+            get { return _pIcms.Arredondar(4); }
+            set { _pIcms = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -83,8 +83,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vICMS
         {
-            get { return Valor.Arredondar(_vIcms, 2); }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            get { return _vIcms.Arredondar(2); }
+            set { _vIcms = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -97,8 +97,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pMVAST
         {
-            get { return Valor.Arredondar(_pMvast, 4); }
-            set { _pMvast = Valor.Arredondar(value, 4); }
+            get { return _pMvast.Arredondar(4); }
+            set { _pMvast = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -106,8 +106,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBCST
         {
-            get { return Valor.Arredondar(_pRedBcst, 4); }
-            set { _pRedBcst = Valor.Arredondar(value, 4); }
+            get { return _pRedBcst.Arredondar(4); }
+            set { _pRedBcst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -115,8 +115,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vBCST
         {
-            get { return Valor.Arredondar(_vBcst, 2); }
-            set { _vBcst = Valor.Arredondar(value, 2); }
+            get { return _vBcst.Arredondar(2); }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -124,8 +124,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal pICMSST
         {
-            get { return Valor.Arredondar(_pIcmsst, 4); }
-            set { _pIcmsst = Valor.Arredondar(value, 4); }
+            get { return _pIcmsst.Arredondar(4); }
+            set { _pIcmsst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -133,8 +133,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vICMSST
         {
-            get { return Valor.Arredondar(_vIcmsst, 2); }
-            set { _vIcmsst = Valor.Arredondar(value, 2); }
+            get { return _vIcmsst.Arredondar(2); }
+            set { _vIcmsst = value.Arredondar(2); }
         }
 
         public bool ShouldSerializepMVAST()
@@ -142,7 +142,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return pMVAST.HasValue;
         }
 
-        public bool ShouldSerializepRedBCSTT()
+        public bool ShouldSerializepRedBCST()
         {
             return pRedBCST.HasValue;
         }

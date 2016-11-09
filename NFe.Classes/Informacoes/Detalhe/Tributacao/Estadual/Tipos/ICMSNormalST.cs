@@ -57,7 +57,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal pMVAST
         {
             get { return _pMvast; }
-            set { _pMvast = Valor.Arredondar(value, 4); }
+            set { _pMvast = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal pRedBCST
         {
             get { return _pRedBcst; }
-            set { _pRedBcst = Valor.Arredondar(value, 4); }
+            set { _pRedBcst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal vBCST
         {
             get { return _vBcst; }
-            set { _vBcst = Valor.Arredondar(value, 2); }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal pICMSST
         {
             get { return _pIcmsst; }
-            set { _pIcmsst = Valor.Arredondar(value, 4); }
+            set { _pIcmsst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal vICMSST
         {
             get { return _vIcmsst; }
-            set { _vIcmsst = Valor.Arredondar(value, 2); }
+            set { _vIcmsst = value.Arredondar(2); }
         }
     }
 }

@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Servicos.Tipos
@@ -37,9 +39,24 @@ namespace NFe.Classes.Servicos.Tipos
     public enum ServicoNFe
     {
         /// <summary>
-        ///     serviço destinado à recepção de mensagem de Evento da NF-e
+        ///     serviço destinado à recepção de mensagem do Evento de Cancelamento da NF-e
         /// </summary>
-        RecepcaoEvento,
+        RecepcaoEventoCancelmento,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento de Carta de Correção da NF-e
+        /// </summary>
+        RecepcaoEventoCartaCorrecao,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento EPEC da NF-e
+        /// </summary>
+        RecepcaoEventoEpec,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
+        /// </summary>
+        RecepcaoEventoManifestacaoDestinatario,
 
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 2.0
@@ -96,27 +113,18 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço destinado ao atendimento de solicitações de download de Notas Fiscais Eletrônicas por seus destinatários
         /// </summary>
-        NfeDownloadNF
-    }
+        NfeDownloadNF,
 
-    /// <summary>
-    ///     Usado para discriminar o tipo de evento, pois o serviço de cancelamento e carta de correção devem usar a url
-    ///     designada para UF da empresa, já o serviço EPEC usa a url do ambiente nacional
-    /// </summary>
-    public enum TipoRecepcaoEvento
-    {
-        Nenhum,
-        Cancelmento,
-        CartaCorrecao,
-        Epec
+        /// <summary>
+        ///     Serviço destinado a administração do CSC.
+        /// </summary>
+        NfceAdministracaoCSC
     }
 
     public enum VersaoServico
     {
         [XmlEnum("1.00")] ve100,
-
         [XmlEnum("2.00")] ve200,
-
         [XmlEnum("3.10")] ve310
     }
 
@@ -131,7 +139,24 @@ namespace NFe.Classes.Servicos.Tipos
     public enum IndicadorSincronizacao
     {
         [XmlEnum("0")] Assincrono = 0,
-
         [XmlEnum("1")] Sincrono = 1
+    }
+
+    /// <summary>
+    /// Tipo do evento de manifestação do destinatário.
+    /// </summary>
+    public enum TipoEventoManifestacaoDestinatario
+    {
+        [Description("Confirmacao da Operacao")]
+        TeMdConfirmacaoDaOperacao = 210200,
+
+        [Description("Ciencia da Emissao")]
+        TeMdCienciaDaEmissao = 210210,
+
+        [Description("Desconhecimento da Operacao")]
+        TeMdDesconhecimentoDaOperacao = 210220,
+
+        [Description("Operacao nao Realizada")]
+        TeMdOperacaoNaoRealizada = 210240
     }
 }

@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assinatura\CanonicalizationMethod.cs" />
@@ -51,7 +52,27 @@
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="infNFeSupl.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
+    <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
+    <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
+    <Compile Include="Servicos\AdmCsc\retAdmCscNFCe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\consNSU.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\distDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\distNSU.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\loteDistDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\retDistDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\detEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\evento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\eventoInfEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\infProt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\nfeProc.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\procEventoNFe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\protNFe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\resEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\resNFe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\retEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\retInfEvento.cs" />
     <Compile Include="Servicos\Download\downloadNFe.cs" />
     <Compile Include="Servicos\Download\procNFe.cs" />
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />
@@ -66,12 +87,12 @@
     <Compile Include="Informacoes\Detalhe\DeclaracaoImportacao\DI.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\detExport.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\exportInd.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\arma.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\CIDE.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\comb.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\med.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\ProdutoEspecifico.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\veicProd.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\arma.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\CIDE.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\comb.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\med.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\ProdutoEspecifico.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\veicProd.cs" />
     <Compile Include="Informacoes\exporta.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsCad.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs" />
@@ -208,7 +229,6 @@
     <Compile Include="Servicos\Tipos\ServicosTipos.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFe.Classes.cd" />
     <None Include="NFe.Classes.licenseheader" />
   </ItemGroup>
   <ItemGroup />

@@ -45,6 +45,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _pIcmsst;
         private decimal _vIcmsst;
         private decimal? _vIcmsDeson;
+        private decimal _vIcms;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -67,7 +68,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pRedBC
         {
             get { return _pRedBc; }
-            set { _pRedBc = Valor.Arredondar(value, 4); }
+            set { _pRedBc = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBC
         {
             get { return _vBc; }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -85,13 +86,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMS
         {
             get { return _pIcms; }
-            set { _pIcms = Valor.Arredondar(value, 4); }
+            set { _pIcms = value.Arredondar(4); }
         }
 
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
-        public decimal vICMS { get; set; }
+        public decimal vICMS
+        {
+            get { return _vIcms; }
+            set { _vIcms = value.Arredondar(2); }
+        }
 
         /// <summary>
         ///     N18 - Modalidade de determinação da BC do ICMS ST
@@ -103,8 +108,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pMVAST
         {
-            get { return _pMvast; }
-            set { _pMvast = Valor.Arredondar(value, 4); }
+            get { return _pMvast.Arredondar(4); }
+            set { _pMvast = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -112,8 +117,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBCST
         {
-            get { return _pRedBcst; }
-            set { _pRedBcst = Valor.Arredondar(value, 4); }
+            get { return _pRedBcst.Arredondar(4); }
+            set { _pRedBcst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -122,7 +127,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCST
         {
             get { return _vBcst; }
-            set { _vBcst = Valor.Arredondar(value, 2); }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -131,7 +136,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSST
         {
             get { return _pIcmsst; }
-            set { _pIcmsst = Valor.Arredondar(value, 4); }
+            set { _pIcmsst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -140,7 +145,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSST
         {
             get { return _vIcmsst; }
-            set { _vIcmsst = Valor.Arredondar(value, 2); }
+            set { _vIcmsst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -148,8 +153,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSDeson
         {
-            get { return _vIcmsDeson; }
-            set { _vIcmsDeson = Valor.Arredondar(value, 2); }
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
         }
 
         /// <summary>

@@ -32,11 +32,11 @@
 /********************************************************************************/
 using System;
 using System.IO;
+using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Impressao;
-using NFe.Impressao.NFCe;
 using NFe.Utils;
+using NFe.Utils.Email;
 
 namespace NFe.AppTeste
 {
@@ -51,7 +51,8 @@ namespace NFe.AppTeste
             CfgServico.tpEmis = TipoEmissao.teNormal;
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
-            ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, "", "");
+            ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
+            ConfiguracaoCsc = new ConfiguracaoCsc("000001", "");
         }
 
         public ConfiguracaoServico CfgServico
@@ -70,13 +71,14 @@ namespace NFe.AppTeste
 
         public emit Emitente { get; set; }
         public enderEmit EnderecoEmitente { get; set; }
-        public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
+        public ConfiguracaoEmail ConfiguracaoEmail { get; set; }
+        public ConfiguracaoCsc ConfiguracaoCsc { get; set; }
 
         /// <summary>
         ///     Salva os dados de CfgServico em um arquivo XML
         /// </summary>
         /// <param name="arquivo">Arquivo XML onde será salvo os dados</param>
-        public void Salvar(string arquivo)
+        public void SalvarParaAqruivo(string arquivo)
         {
             var camposEmBranco = Funcoes.ObterPropriedadesEmBranco(CfgServico);
 
@@ -91,7 +93,6 @@ namespace NFe.AppTeste
             {
                 throw new DirectoryNotFoundException("Diretório " + dir + " não encontrado!");
             }
-
             FuncoesXml.ClasseParaArquivoXml(this, arquivo);
         }
     }

@@ -44,9 +44,9 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum IndicadorPagamento
     {
-        [XmlEnum("0")] ipVista,
-        [XmlEnum("1")] ipPrazo,
-        [XmlEnum("2")] ipOutras
+        [XmlEnum("0")] ipVista = 0,
+        [XmlEnum("1")] ipPrazo = 1,
+        [XmlEnum("2")] ipOutras = 2
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoNFe
     {
-        [XmlEnum("0")] tnEntrada,
-        [XmlEnum("1")] tnSaida
+        [XmlEnum("0")] tnEntrada = 0,
+        [XmlEnum("1")] tnSaida = 1
     }
 
     /// <summary>
@@ -72,9 +72,9 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum DestinoOperacao
     {
-        [XmlEnum("1")] doInterna,
-        [XmlEnum("2")] doInterestadual,
-        [XmlEnum("3")] doExterior
+        [XmlEnum("1")] doInterna = 1,
+        [XmlEnum("2")] doInterestadual = 2,
+        [XmlEnum("3")] doExterior = 3
     }
 
     /// <summary>
@@ -105,14 +105,37 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoEmissao
     {
-        [XmlEnum("1")] teNormal = 1,
-        [XmlEnum("2")] teFSIA = 2,
-        [XmlEnum("3")] teSCAN = 3,
-        [XmlEnum("4")] teEPEC = 4,
-        [XmlEnum("5")] teFSDA = 5,
-        [XmlEnum("6")] teSVCAN = 6,
-        [XmlEnum("7")] teSVCRS = 7,
-        [XmlEnum("9")] teOffLine = 9
+        [XmlEnum("1")]
+        [Description("Normal")]
+        teNormal = 1,
+
+        [XmlEnum("2")]
+        [Description("Contingência FS-IA")]
+        teFSIA = 2,
+
+        [XmlEnum("3")]
+        [Description("Contingência SCAN")]
+        teSCAN = 3,
+
+        [XmlEnum("4")]
+        [Description("Contingência DPEC")]
+        teEPEC = 4,
+
+        [XmlEnum("5")]
+        [Description("Contingência FS-DA")]
+        teFSDA = 5,
+
+        [XmlEnum("6")]
+        [Description("Contingência SVC-AN")]
+        teSVCAN = 6,
+
+        [XmlEnum("7")]
+        [Description("Contingência SVC-RS")]
+        teSVCRS = 7,
+
+        [XmlEnum("9")]
+        [Description("Contingência off-line")]
+        teOffLine = 9
     }
 
     /// <summary>
@@ -140,10 +163,10 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum FinalidadeNFe
     {
-        [XmlEnum("1")] fnNormal,
-        [XmlEnum("2")] fnComplementar,
-        [XmlEnum("3")] fnAjuste,
-        [XmlEnum("4")] fnDevolucao
+        [XmlEnum("1")] fnNormal = 1,
+        [XmlEnum("2")] fnComplementar = 2,
+        [XmlEnum("3")] fnAjuste = 3,
+        [XmlEnum("4")] fnDevolucao = 4
     }
 
     /// <summary>
@@ -155,30 +178,60 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum ProcessoEmissao
     {
-        [XmlEnum("0")] peAplicativoContribuinte,
-        [XmlEnum("1")] peAvulsaFisco,
-        [XmlEnum("2")] peAvulsaContribuinte,
-        [XmlEnum("3")] peContribuinteAplicativoFisco
+        [XmlEnum("0")] peAplicativoContribuinte = 0,
+        [XmlEnum("1")] peAvulsaFisco = 1,
+        [XmlEnum("2")] peAvulsaContribuinte = 2,
+        [XmlEnum("3")] peContribuinteAplicativoFisco = 3
     }
 
     /// <summary>
     ///     Indica operação com Consumidor final
-    ///     <para>0=Normal;</para>
-    ///     <para>1=Consumidor final;</para>
+    ///     <para>0 - Normal;</para>
+    ///     <para>1 - Consumidor final;</para>
     /// </summary>
     public enum ConsumidorFinal
     {
-        [XmlEnum("0")] cfNao,
-        [XmlEnum("1")] cfConsumidorFinal
+        [Description("Normal")]
+        [XmlEnum("0")]
+        cfNao = 0,
+
+        [Description("Consumidor final")]
+        [XmlEnum("1")]
+        cfConsumidorFinal = 1
     }
 
+    /// <summary>
+    /// Indicador de presença do comprador no estabelecimento comercial no momento da operação
+    /// <para>0 - Não se aplica</para>
+    /// <para>1 - Operação presencial;</para>
+    /// <para>2 - Operação não presencial, pela Internet;</para>
+    /// <para>3 - Operação não presencial, Teleatendimento;</para>
+    /// <para>4 - NFC-e em operação com entrega a domicílio;</para>
+    /// <para>9 - Operação não presencial, outros.</para>
+    /// </summary>
     public enum PresencaComprador
     {
-        [XmlEnum("0")] pcNao,
-        [XmlEnum("1")] pcPresencial,
-        [XmlEnum("2")] pcInternet,
-        [XmlEnum("3")] pcTeleatendimento,
-        [XmlEnum("4")] pcEntregaDomicilio,
-        [XmlEnum("9")] pcOutros
+        [XmlEnum("0")] pcNao = 0,
+        [XmlEnum("1")] pcPresencial = 1,
+        [XmlEnum("2")] pcInternet = 2,
+        [XmlEnum("3")] pcTeleatendimento = 3,
+        [XmlEnum("4")] pcEntregaDomicilio = 4,
+        [XmlEnum("9")] pcOutros = 9
+    }
+
+    /// <summary>
+    /// Indicador do tipo de Operação do CSC
+    /// <para>1 - Consulta CSC Ativos;</para>
+    /// <para>2 - Solicita novo CSC;</para>
+    /// <para>3 - Revoga CSC Ativo</para>
+    /// </summary>
+    public enum IdentificadorOperacaoCsc
+    {
+        [XmlEnum("1")]
+        ioConsultaCscAtivos = 1,
+        [XmlEnum("2")]
+        ioSolicitaNovoCsc = 2,
+        [XmlEnum("3")]
+        ioRevogaCscAtivo = 3
     }
 }

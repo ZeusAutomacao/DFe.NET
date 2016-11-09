@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdmCsc\NfceCsc.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -67,6 +70,9 @@
     <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Download\NfeDownloadNF.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -77,6 +83,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="INfeServico.cs" />
+    <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
       <SubType>Component</SubType>
     </Compile>

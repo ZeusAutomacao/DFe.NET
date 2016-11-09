@@ -30,19 +30,29 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Destinatario
 {
     /// <summary>
-    ///     <para>1 – Contribuinte ICMSpagamento à vista;</para>
+    ///     <para>1 – Contribuinte ICMS;</para>
     ///     <para>2 – Contribuinte isento de inscrição;</para>
     ///     <para>9 – Não Contribuinte</para>
     /// </summary>
     public enum indIEDest
     {
-        [XmlEnum("1")] ICMSpagamentoAVista,
-        [XmlEnum("2")] Isento,
-        [XmlEnum("9")] NaoContribuinte
+        [Description("Contribuinte ICMS")]
+        [XmlEnum("1")]
+        ContribuinteICMS = 1,
+
+        [Description("Contribuinte isento de inscrição")]
+        [XmlEnum("2")]
+        Isento = 2,
+
+        [Description("Não Contribuinte")]
+        [XmlEnum("9")]
+        NaoContribuinte = 9
     }
 }

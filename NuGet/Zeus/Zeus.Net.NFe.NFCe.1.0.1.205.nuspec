@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Zeus.Net.NFe.NFCe</id>
+        <version>1.0.1.205</version>
+        <title>Zeus NF-e e NFC-e (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe</projectUrl>
+        <iconUrl>https://avatars1.githubusercontent.com/u/6733483?v=3&amp;s=400</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Biblioteca para geração de nf-e e nfc-e.</description>
+        <releaseNotes>Ajustes no envio de NVE
+Adicionado configuração ModoImpressao
+Update no arquivo refNFP.cs</releaseNotes>
+        <copyright>zeus</copyright>
+        <language>pt-BR</language>
+        <tags>nfc-e nf-e nfce nfe</tags>
+    </metadata>
+    <files>
+        <file src="..\..\NFe.Classes\bin\Release\NFe.Classes.dll" target="lib\net40\NFe.Classes.dll" />
+        <file src="..\..\NFe.Servicos\bin\Release\NFe.Servicos.dll" target="lib\net40\NFe.Servicos.dll" />
+        <file src="..\..\NFe.Utils\bin\Release\NFe.Utils.dll" target="lib\net40\NFe.Utils.dll" />
+        <file src="..\..\NFe.Wsdl\bin\Release\NFe.Wsdl.dll" target="lib\net40\NFe.Wsdl.dll" />
+    </files>
+</package>

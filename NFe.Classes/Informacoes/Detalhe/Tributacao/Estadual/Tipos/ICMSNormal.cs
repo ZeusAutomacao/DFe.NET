@@ -53,7 +53,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal vBC
         {
             get { return _vBc; }
-            set { _vBc = Valor.Arredondar(value, 2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal pICMS
         {
             get { return _pIcms; }
-            set { _pIcms = Valor.Arredondar(value, 4); }
+            set { _pIcms = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         public decimal vICMS
         {
             get { return _vIcms; }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            set { _vIcms = value.Arredondar(2); }
         }
     }
 }

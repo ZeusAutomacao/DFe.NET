@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes
@@ -64,5 +66,14 @@ namespace NFe.Classes
         [XmlEnum("35")] SP = 35,
         [XmlEnum("17")] TO = 17,
         [XmlEnum("91")] AN = 91
+    }
+
+    public enum TipoUrlConsultaPublica
+    {
+        [Description("Endereço para consulta da NFCe através do site")]
+        UrlConsulta,
+
+        [Description("Endereço para consulta da NFCe através do QR-Code")]
+        UrlQrCode
     }
 }

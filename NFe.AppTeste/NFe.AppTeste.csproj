@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfiguracaoCsc.cs" />
     <Compile Include="EnumParaInteger.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>
@@ -186,6 +187,18 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\e111500_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e111501_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e111502_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e111503_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\e210200_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -201,6 +214,24 @@
     <None Include="Schemas\e210240_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\e411500_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e411501_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e411502_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e411503_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e990900_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e990910_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\envCancelPProrrogNFe_v1.0.xsd">
       <SubType>Designer</SubType>
@@ -246,6 +277,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\envRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\envSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\envSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\EPEC_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -257,6 +297,12 @@
     <None Include="Schemas\eventoEPEC_v0.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\eventoEPEC_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\eventoRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\inutNFe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -346,9 +392,18 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteSRE_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\leiauteSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\nfe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -401,6 +456,9 @@
     <None Include="Schemas\procNFe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\procRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\resEvento_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -502,6 +560,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retEnvRemIndus_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEnvSuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\retEnvSuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retEventoEPEC_v0.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -518,17 +585,25 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\SuframaInternaliza_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\SuframaVistoria_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\tiposBasico_v1.03.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Schemas\tiposBasico_v1.03_OPENSSL.xsd">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Schemas\tiposBasico_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\tiposBasico_v3.10_OPENSSL.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\tiposDistDFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -543,10 +618,6 @@
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nfe.Impressao\NFe.Impressao.csproj">
-      <Project>{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}</Project>
-      <Name>NFe.Impressao</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>

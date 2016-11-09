@@ -40,7 +40,7 @@ namespace NFe.Utils.Assinatura
     public static class Assinador
     {
         /// <summary>
-        ///     Obtém a asinatura de um objeto serializável
+        ///     Obtém a assinatura de um objeto serializável
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="objeto"></param>
@@ -77,7 +77,7 @@ namespace NFe.Utils.Assinatura
             docXml.KeyInfo = keyInfo;
             docXml.ComputeSignature();
 
-            //// recuperando a representacao do XML assinado
+            //// recuperando a representação do XML assinado
             var xmlDigitalSignature = docXml.GetXml();
             var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
             return assinatura;

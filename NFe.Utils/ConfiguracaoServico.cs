@@ -81,9 +81,19 @@ namespace NFe.Utils
         public ModeloDocumento ModeloDocumento { get; set; }
 
         /// <summary>
-        ///     Versão do serviço RecepcaoEvento
+        ///     Versão do serviço RecepcaoEvento para Carta de Correção e Cancelamento
         /// </summary>
-        public VersaoServico VersaoRecepcaoEvento { get; set; }
+        public VersaoServico VersaoRecepcaoEventoCceCancelamento { get; set; }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para EPEC
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoEpec { get; set; }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Manifestação do destinatário
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoManifestacaoDestinatario { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeRecepcao
@@ -139,6 +149,11 @@ namespace NFe.Utils
         ///     Versão do serviço NfeDownloadNF
         /// </summary>
         public VersaoServico VersaoNfeDownloadNF { get; set; }
+
+        /// <summary>
+        ///     Versão do serviço admCscNFCe
+        /// </summary>
+        public VersaoServico VersaoNfceAministracaoCSC { get; set; }
 
         /// <summary>
         ///     Diretório onde estão aramazenados os schemas para validação

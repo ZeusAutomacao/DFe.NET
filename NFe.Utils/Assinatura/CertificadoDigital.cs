@@ -48,7 +48,7 @@ namespace NFe.Utils.Assinatura
         public static X509Certificate2 ObterDoRepositorio()
         {
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.OpenExistingOnly | OpenFlags.MaxAllowed);
+            store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
 
             var collection = store.Certificates;
             var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
@@ -68,7 +68,7 @@ namespace NFe.Utils.Assinatura
         /// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
         /// </summary>
         /// <param name="numeroSerial">Serial do certificado</param>
-        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação</param>
+        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
         /// <returns></returns>
         public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
         {
@@ -78,19 +78,24 @@ namespace NFe.Utils.Assinatura
             X509Certificate2 certificado = null;
 
             var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.MaxAllowed);
-
-
-            foreach (var item in store.Certificates)
+            try
             {
-                if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
-                    certificado = item;
+                store.Open(OpenFlags.MaxAllowed);
+
+                foreach (var item in store.Certificates)
+                {
+                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
+                        certificado = item;
+                }
+
+                if (certificado == null)
+                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
             }
-
-            if (certificado == null)
-                throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
-
-            store.Close();
+            finally
+            {
+                store.Close();
+            }
+            
             if (string.IsNullOrEmpty(senha)) return certificado;
 
             //Se a senha for passada no parâmetro
