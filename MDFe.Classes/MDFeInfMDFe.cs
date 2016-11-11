@@ -8,6 +8,7 @@ namespace MDFe.Classes
         ElementName = "infMDFe")]
     public class MDFeInfMDFe
     {
-        
+        [XmlAttribute(AttributeName = "versao")]
+        public MDFeVersaoServico Versao { get; set; }
     }
 }
