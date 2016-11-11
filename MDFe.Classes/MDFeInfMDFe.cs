@@ -8,8 +8,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
     {
         public MDFeInfMDFe()
         {
-            MDFeIde = new MDFeIde();
-            MDFeEmit = new MDFeEmit();
+            Ide = new MDFeIde();
+            Emit = new MDFeEmit();
+            InfDoc = new MDFeInfDoc();
         }
 
         [XmlAttribute(AttributeName = "versao")]
@@ -19,10 +20,13 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         public string Id { get; set; }
 
         [XmlElement(ElementName = "ide")]
-        public MDFeIde MDFeIde { get; set; }
+        public MDFeIde Ide { get; set; }
 
         [XmlElement(ElementName = "emit")]
-        public MDFeEmit MDFeEmit { get; set; }
+        public MDFeEmit Emit { get; set; }
+
+        [XmlElement(ElementName = "infDoc")]
+        public MDFeInfDoc InfDoc { get; set; }
 
     }
 }
