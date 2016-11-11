@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -56,6 +56,7 @@ namespace NFe.Danfe.Fast.NFe
             Relatorio.GetDataSource("NFe").Enabled = true;
             Relatorio.Load(new MemoryStream(Properties.Resources.NFe));
             Relatorio.SetParameterValue("DuasLinhas", configuracaoDanfeNfe.DuasLinhas);
+            Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.Cancelada);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfe.ObterLogo();
 
             #endregion
