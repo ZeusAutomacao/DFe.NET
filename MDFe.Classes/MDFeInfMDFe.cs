@@ -6,6 +6,12 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
     [Serializable]
     public class MDFeInfMDFe
     {
+        public MDFeInfMDFe()
+        {
+            MDFeIde = new MDFeIde();
+            MDFeEmit = new MDFeEmit();
+        }
+
         [XmlAttribute(AttributeName = "versao")]
         public MDFeVersaoServico Versao { get; set; }
 
@@ -13,7 +19,10 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         public string Id { get; set; }
 
         [XmlElement(ElementName = "ide")]
-        public MDFeIde MdFeIde { get; set; }
+        public MDFeIde MDFeIde { get; set; }
+
+        [XmlElement(ElementName = "emit")]
+        public MDFeEmit MDFeEmit { get; set; }
 
     }
 }
