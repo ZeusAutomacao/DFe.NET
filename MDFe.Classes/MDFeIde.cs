@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
@@ -10,6 +11,12 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
     [Serializable]
     public class MDFeIde
     {
+        public MDFeIde()
+        {
+            InfMunCarrega = new List<MDFeInfMunCarrega>();
+            InfPercursos = new List<MDFeInfPercurso>();
+        }
+
         [XmlElement(ElementName = "cUF")]
         public EstadoUF CUF { get; set; }
 
@@ -40,6 +47,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         [XmlIgnore]
         public DateTime DhEmi { get; set; }
 
+        [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
             get { return DhEmi.ToString("yyyy-MM-ddTHH:mm:dd"); }
@@ -61,7 +69,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         [XmlElement(ElementName = "UFIni")]
         public string ProxyUFIni
         {
-            get { return UFIni.ToString(); }
+            get { return UFIni.GetSiglaUfString(); }
             set { UFIni = UFIni.SiglaParaEstado(value); }
         }
 
@@ -71,8 +79,23 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         [XmlElement(ElementName = "UFFim")]
         public string ProxyUFFim
         {
-            get { return UFFim.ToString(); }
+            get { return UFFim.GetSiglaUfString(); }
             set { UFFim = UFFim.SiglaParaEstado(value); }
+        }
+
+        [XmlElement(ElementName = "infMunCarrega")]
+        public List<MDFeInfMunCarrega> InfMunCarrega { get; set; }
+
+        [XmlElement(ElementName = "infPercurso")]
+        public List<MDFeInfPercurso> InfPercursos { get; set; }
+
+        [XmlElement(ElementName = "dhIniViagem")]
+        public DateTime DhIniViagem { get; set; }
+
+        [XmlElement(ElementName = "dhIniViagem")]
+        public string ProxyDhIniViagem {
+            get { return DhIniViagem.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            set { DhIniViagem = DateTime.Parse(value); }
         }
     }
 }

@@ -9,8 +9,13 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         ElementName = "MDFe")]
     public class MDFe
     {
+        public MDFe()
+        {
+            InfMDFe = new MDFeInfMDFe();
+        }
+
         [XmlElement(ElementName = "infMDFe")]
-        public MDFeInfMDFe InfMdFe { get; set; }
+        public MDFeInfMDFe InfMDFe { get; set; }
 
         public Signature Signature { get; set; }
     }
