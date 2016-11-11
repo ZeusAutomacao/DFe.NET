@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MDFe.Classes
+﻿namespace MDFe.Classes
 {
-    class MDFe
+    public class MDFe
     {
     }
 }
