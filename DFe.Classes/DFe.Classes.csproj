@@ -40,6 +40,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assinatura\CanonicalizationMethod.cs" />
+    <Compile Include="Assinatura\DigestMethod.cs" />
+    <Compile Include="Assinatura\KeyInfo.cs" />
+    <Compile Include="Assinatura\Reference.cs" />
+    <Compile Include="Assinatura\Signature.cs" />
+    <Compile Include="Assinatura\SignatureMethod.cs" />
+    <Compile Include="Assinatura\SignedInfo.cs" />
+    <Compile Include="Assinatura\Transform.cs" />
+    <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

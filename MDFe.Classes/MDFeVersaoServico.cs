@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace MDFe.Classes
+namespace ManifestoDocumentoFiscalEletronico.Classes
 {
     public enum MDFeVersaoServico
     {
