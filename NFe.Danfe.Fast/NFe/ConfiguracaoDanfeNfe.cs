@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -37,9 +37,14 @@ namespace NFe.Danfe.Fast.NFe
 {
     public class ConfiguracaoDanfeNfe : ConfiguracaoDanfe
     {
-        public ConfiguracaoDanfeNfe(byte[] logomarca = null)
+        public bool DuasLinhas { get; set; }
+        public bool Cancelada { get; set; }
+
+        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool cancelada = false)
         {
             Logomarca = logomarca;
+            this.DuasLinhas = duasLinhas;
+            this.Cancelada = cancelada;
         }
 
         /// <summary>
@@ -47,6 +52,7 @@ namespace NFe.Danfe.Fast.NFe
         /// </summary>
         private ConfiguracaoDanfeNfe()
         {
+            this.DuasLinhas = true;
         }
     }
 }
