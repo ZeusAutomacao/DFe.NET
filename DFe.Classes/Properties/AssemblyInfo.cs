@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MDFe.Classes")]
+[assembly: AssemblyTitle("DFe.Classes")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MDFe.Classes")]
+[assembly: AssemblyProduct("DFe.Classes")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("9794cb98-4691-4218-a127-c573c2e7ff83")]
+[assembly: Guid("9984ec15-18e1-4a87-b4db-18ac913dc4e8")]
 
 // Version information for an assembly consists of the following four values:
 //
