@@ -1,0 +1,924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="11/11/2016 10:28:56" ReportInfo.CreatorVersion="2016.4.0.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Informacoes.Transporte;
+using NFe.Classes.Protocolo;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+
+    private void txtTipoNfe_BeforePrint(object sender, EventArgs e)
+    {     
+      txtTipoNfe.Text = ((int) ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpNF&quot;)) ).ToString();
+
+      //Adiciono a marca d'agua de homologação caso o ambiente for 2
+      if (((int)((TipoAmbiente)Report.GetColumnValue(&quot;NFe.protNFe.infProt.tpAmb&quot;))).ToString() == &quot;2&quot;)
+      {
+        lblHomologacao.Visible = true;
+      }      
+                        
+      //Trato o campo de Frete 
+      switch( (int) ((ModalidadeFrete)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.modFrete&quot;)) )
+      {
+        case 0: Text33.Text = &quot;0 - CIF&quot;; break;
+        case 1: Text33.Text = &quot;1 - FOB&quot;; break;
+        case 2: Text33.Text = &quot;2 - Terceiros&quot;; break;
+        case 3: Text33.Text = &quot;9 - Sem Frete&quot;; break;
+      }
+           
+      //Formato a data de emissão
+      string dtEntradaSaida = &quot;&quot;;
+      string hrEntradaSaida = &quot;&quot;;
+      string dtEmissao = DateTime.Parse(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).ToShortDateString();
+      try { dtEntradaSaida = DateTime.Parse(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhSaiEnt&quot;).ToString()).ToShortDateString();} catch{}
+      try { hrEntradaSaida = DateTime.Parse(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhSaiEnt&quot;).ToString()).ToShortTimeString();} catch{}
+      Text43.Text = dtEmissao; dtSaida.Text = dtEntradaSaida; Text53.Text = hrEntradaSaida; 
+      
+      try {Text78.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vICMSUFRemet&quot;)), 2); }
+      catch{ Text78.Text = FormatCurrency(0,2); }
+      
+      try {Text79.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vFCPUFDest&quot;)), 2); }
+      catch{ Text79.Text = FormatCurrency(0,2); }
+      
+      try {Text87.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vICMSUFDest&quot;)), 2); }
+      catch{ Text87.Text = FormatCurrency(0,2); }     
+                     
+      if (!((Boolean)Report.GetParameterValue(&quot;DuasLinhas&quot;)))
+      {             
+        Text143.Text = &quot;[NFe.NFe.infNFe.det.prod.xProd]&quot;;
+        Text142.Height = 10.5f;
+        Text143.Height = Text142.Height;
+        Text144.Height = Text142.Height;
+        lblCst.Height = Text142.Height;       
+        Text147.Height = Text142.Height;
+        Text148.Height = Text142.Height;
+        Text149.Height = Text142.Height;
+        Text150.Height = Text142.Height;
+        Text151.Height = Text142.Height;
+        Text152.Height = Text142.Height;
+        Text153.Height = Text142.Height;
+        Text154.Height = Text142.Height;
+        Text166.Height = Text142.Height;
+        Text165.Height = Text142.Height;
+        
+        Line17.Height = Text142.Height;
+        Line3.Height = Text142.Height;
+        Line4.Height = Text142.Height;
+        Line5.Height = Text142.Height;
+        Line6.Height = Text142.Height;
+        Line7.Height = Text142.Height;
+        Line8.Height = Text142.Height;
+        Line9.Height = Text142.Height;
+        Line10.Height = Text142.Height;
+        Line11.Height = Text142.Height;
+        Line12.Height = Text142.Height;
+        Line13.Height = Text142.Height;
+        Line14.Height = Text142.Height;
+        Line15.Height = Text142.Height;
+        Line16.Height = Text142.Height;
+        
+        Line2.Top = Text142.Height;
+        
+        Data1.Height = Text142.Height;        
+        
+        Text142.VertAlign = FastReport.VertAlign.Top;
+        Text143.VertAlign = FastReport.VertAlign.Top;
+        Text144.VertAlign = FastReport.VertAlign.Top;
+        lblCst.VertAlign = FastReport.VertAlign.Top;
+        Text147.VertAlign = FastReport.VertAlign.Top;
+        Text148.VertAlign = FastReport.VertAlign.Top;
+        Text149.VertAlign = FastReport.VertAlign.Top;
+        Text150.VertAlign = FastReport.VertAlign.Top;
+        Text151.VertAlign = FastReport.VertAlign.Top;
+        Text152.VertAlign = FastReport.VertAlign.Top;
+        Text153.VertAlign = FastReport.VertAlign.Top;
+        Text154.VertAlign = FastReport.VertAlign.Top;
+        Text166.VertAlign = FastReport.VertAlign.Top;
+        Text165.VertAlign = FastReport.VertAlign.Top;
+      }
+    }
+
+    private void txtChaveNfe_BeforePrint(object sender, EventArgs e)
+    {
+      var chave = Substring( ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;)), 3);
+      if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
+      {
+        var chaveFormatada = &quot;&quot;;
+        for (int i = 0; i &lt; chave.Length; i += 4)  
+          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
+        txtChaveNfe.Text = chaveFormatada;      
+      }          
+    }
+
+    private void Data1_BeforePrint(object sender, EventArgs e)
+    {   
+      //Converto para INT o campo do CST
+      if ((int)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == 3)
+      {
+        string cst = &quot;&quot;;
+        switch((int) ((TipoNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.CST&quot;))) )
+        {
+          case 0: cst =  &quot;00&quot;; break;
+          case 1: cst =  &quot;10&quot;; break;
+          case 2: cst =  &quot;10&quot;; break;
+          case 3: cst =  &quot;20&quot;; break;
+          case 4: cst =  &quot;30&quot;; break;
+          case 5: cst =  &quot;40&quot;; break;
+          case 6: cst =  &quot;41&quot;; break;
+          case 7: cst =  &quot;41&quot;; break;
+          case 8: cst =  &quot;50&quot;; break;
+          case 9: cst =  &quot;51&quot;; break;
+          case 10: cst =  &quot;60&quot;; break;          
+          case 11: cst =  &quot;70&quot;; break;
+          case 12: cst =  &quot;90&quot;; break;
+          case 13: cst =  &quot;90&quot;; break;
+        }
+        lblCst.Text = ((int)((TipoNFe) Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.orig&quot;))).ToString() + cst;             
+      }
+      else
+        lblCst.Text = ((int) ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.CSOSN&quot;))).ToString();
+      
+      try { 
+        Text152.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.vBC&quot;)), 2); 
+      } 
+      catch {Text152.Text = FormatCurrency(0,2); };
+      
+      try { 
+        Text153.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.vICMS&quot;)), 2); 
+      } 
+      catch {Text153.Text = FormatCurrency(0,2); };
+      
+      try { 
+        Text154.Text = FormatCurrency(((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.IPI.TipoIPI.vIPI&quot;)), 2); 
+      } 
+      catch {Text154.Text = FormatCurrency(0,2); };
+      
+      try { 
+        Text166.Text = FormatNumber((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS.pICMS&quot;), 2); 
+      } 
+      catch {Text166.Text = FormatNumber(0,2); };
+      
+      try { 
+        Text165.Text = FormatNumber((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.IPI.TipoIPI.pIPI&quot;), 2); 
+      } 
+      catch {Text165.Text = FormatNumber(0,2); };
+    }
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="NFe" ReferenceName="NFe" DataType="null" Enabled="true">
+      <Column Name="versao" DataType="System.String"/>
+      <Column Name="NFe" DataType="null">
+        <Column Name="infNFe" DataType="null">
+          <Column Name="versao" DataType="System.String"/>
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="ide" DataType="null">
+            <Column Name="cUF" DataType="null"/>
+            <Column Name="cNF" DataType="System.String"/>
+            <Column Name="natOp" DataType="System.String"/>
+            <Column Name="indPag" DataType="null"/>
+            <Column Name="mod" DataType="null"/>
+            <Column Name="serie" DataType="System.Int32"/>
+            <Column Name="nNF" DataType="System.Int64"/>
+            <Column Name="dEmi" DataType="System.String"/>
+            <Column Name="dSaiEnt" DataType="System.String"/>
+            <Column Name="dhEmi" DataType="System.String"/>
+            <Column Name="dhSaiEnt" DataType="System.String"/>
+            <Column Name="tpNF" DataType="null"/>
+            <Column Name="idDest" DataType="null"/>
+            <Column Name="cMunFG" DataType="System.Int64"/>
+            <Column Name="tpImp" DataType="null"/>
+            <Column Name="tpEmis" DataType="null"/>
+            <Column Name="cDV" DataType="System.Int32"/>
+            <Column Name="tpAmb" DataType="null"/>
+            <Column Name="finNFe" DataType="null"/>
+            <Column Name="indFinal" DataType="null"/>
+            <Column Name="indPres" DataType="null"/>
+            <Column Name="procEmi" DataType="null"/>
+            <Column Name="verProc" DataType="System.String"/>
+            <Column Name="dhCont" DataType="System.String"/>
+            <Column Name="xJust" DataType="System.String"/>
+            <BusinessObjectDataSource Name="NFref" DataType="null" Enabled="true">
+              <Column Name="refNFe" DataType="System.String"/>
+              <Column Name="refNF" DataType="null">
+                <Column Name="cUF" DataType="null"/>
+                <Column Name="AAMM" DataType="System.String"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="mod" DataType="System.Int32"/>
+                <Column Name="serie" DataType="System.Int32"/>
+                <Column Name="nNF" DataType="System.Int32"/>
+              </Column>
+              <Column Name="refNFP" DataType="null">
+                <Column Name="cUF" DataType="null"/>
+                <Column Name="AAMM" DataType="System.String"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="CPF" DataType="System.String"/>
+                <Column Name="IE" DataType="System.String"/>
+                <Column Name="mod" DataType="System.String"/>
+                <Column Name="serie" DataType="System.Int32"/>
+                <Column Name="nNF" DataType="System.Int32"/>
+              </Column>
+              <Column Name="refECF" DataType="null">
+                <Column Name="mod" DataType="System.String"/>
+                <Column Name="nECF" DataType="System.Int32"/>
+                <Column Name="nCOO" DataType="System.Int32"/>
+              </Column>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="emit" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="xFant" DataType="System.String"/>
+            <Column Name="enderEmit" DataType="null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="xPais" DataType="System.String"/>
+              <Column Name="fone" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="IEST" DataType="System.String"/>
+            <Column Name="IM" DataType="System.String"/>
+            <Column Name="CNAE" DataType="System.String"/>
+            <Column Name="CRT" DataType="null"/>
+          </Column>
+          <Column Name="avulsa" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="xOrgao" DataType="System.String"/>
+            <Column Name="matr" DataType="System.String"/>
+            <Column Name="xAgente" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+            <Column Name="nDAR" DataType="System.String"/>
+            <Column Name="dEmi" DataType="System.String"/>
+            <Column Name="vDAR" DataType="System.Decimal"/>
+            <Column Name="repEmi" DataType="System.String"/>
+            <Column Name="dPag" DataType="System.String"/>
+          </Column>
+          <Column Name="dest" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="idEstrangeiro" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="enderDest" DataType="null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="xPais" DataType="System.String"/>
+              <Column Name="fone" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <Column Name="indIEDest" DataType="null"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="ISUF" DataType="System.String"/>
+            <Column Name="IM" DataType="System.String"/>
+            <Column Name="email" DataType="System.String"/>
+          </Column>
+          <Column Name="retirada" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xLgr" DataType="System.String"/>
+            <Column Name="nro" DataType="System.String"/>
+            <Column Name="xCpl" DataType="System.String"/>
+            <Column Name="xBairro" DataType="System.String"/>
+            <Column Name="cMun" DataType="System.Int64"/>
+            <Column Name="xMun" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+          </Column>
+          <Column Name="entrega" DataType="null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="xLgr" DataType="System.String"/>
+            <Column Name="nro" DataType="System.String"/>
+            <Column Name="xCpl" DataType="System.String"/>
+            <Column Name="xBairro" DataType="System.String"/>
+            <Column Name="cMun" DataType="System.Int64"/>
+            <Column Name="xMun" DataType="System.String"/>
+            <Column Name="UF" DataType="System.String"/>
+          </Column>
+          <BusinessObjectDataSource Name="autXML" DataType="null" Enabled="true">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <BusinessObjectDataSource Name="det" DataType="null" Enabled="true">
+            <Column Name="nItem" DataType="System.Int32"/>
+            <Column Name="prod" DataType="null">
+              <Column Name="cProd" DataType="System.String"/>
+              <Column Name="cEAN" DataType="System.String"/>
+              <Column Name="xProd" DataType="System.String"/>
+              <Column Name="NCM" DataType="System.String"/>
+              <Column Name="NVE" DataType="System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]">
+                <Column Name="Length" DataType="System.Int32"/>
+              </Column>
+              <Column Name="EXTIPI" DataType="System.String"/>
+              <Column Name="CFOP" DataType="System.Int32"/>
+              <Column Name="uCom" DataType="System.String"/>
+              <Column Name="qCom" DataType="System.Decimal"/>
+              <Column Name="vUnCom" DataType="System.Decimal"/>
+              <Column Name="vProd" DataType="System.Decimal"/>
+              <Column Name="cEANTrib" DataType="System.String"/>
+              <Column Name="uTrib" DataType="System.String"/>
+              <Column Name="qTrib" DataType="System.Decimal"/>
+              <Column Name="vUnTrib" DataType="System.Decimal"/>
+              <Column Name="vFrete" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vSeg" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="indTot" DataType="null"/>
+              <BusinessObjectDataSource Name="DI" DataType="null" Enabled="true">
+                <Column Name="nDI" DataType="System.String"/>
+                <Column Name="dDI" DataType="System.String"/>
+                <Column Name="xLocDesemb" DataType="System.String"/>
+                <Column Name="UFDesemb" DataType="System.String"/>
+                <Column Name="dDesemb" DataType="System.String"/>
+                <Column Name="tpViaTransp" DataType="null"/>
+                <Column Name="vAFRMM" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="tpIntermedio" DataType="null"/>
+                <Column Name="CNPJ" DataType="System.String"/>
+                <Column Name="UFTerceiro" DataType="System.String"/>
+                <Column Name="cExportador" DataType="System.String"/>
+                <BusinessObjectDataSource Name="adi" DataType="null" Enabled="true">
+                  <Column Name="nAdicao" DataType="System.Int32"/>
+                  <Column Name="nSeqAdic" DataType="System.Int32"/>
+                  <Column Name="cFabricante" DataType="System.String"/>
+                  <Column Name="vDescDI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="nDraw" DataType="System.String"/>
+                </BusinessObjectDataSource>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="detExport" DataType="null" Enabled="true">
+                <Column Name="nDraw" DataType="System.String"/>
+                <Column Name="exportInd" DataType="null">
+                  <Column Name="nRE" DataType="System.String"/>
+                  <Column Name="chNFe" DataType="System.String"/>
+                  <Column Name="qExport" DataType="System.Decimal"/>
+                </Column>
+              </BusinessObjectDataSource>
+              <Column Name="xPed" DataType="System.String"/>
+              <Column Name="nItemPed" DataType="System.Int32"/>
+              <Column Name="nFCI" DataType="System.String"/>
+              <Column Name="ProdutoEspecifico" DataType="null">
+                <Column Name="nLote" DataType="System.String"/>
+                <Column Name="qLote" DataType="System.Decimal"/>
+                <Column Name="dFab" DataType="System.String"/>
+                <Column Name="dVal" DataType="System.String"/>
+                <Column Name="vPMC" DataType="System.Decimal"/>
+              </Column>
+              <Column Name="nRECOPI" DataType="System.String"/>
+              <Column Name="CEST" DataType="System.String"/>
+            </Column>
+            <Column Name="imposto" DataType="null">
+              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="ICMS" DataType="null">
+                <Column Name="TipoICMS" DataType="null">
+                  <Column Name="orig" DataType="null"/>
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="modBC" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pICMS" DataType="System.Decimal"/>
+                  <Column Name="vICMS" DataType="System.Decimal"/>
+                </Column>
+              </Column>
+              <Column Name="IPI" DataType="null">
+                <Column Name="clEnq" DataType="System.String"/>
+                <Column Name="CNPJProd" DataType="System.String"/>
+                <Column Name="cSelo" DataType="System.String"/>
+                <Column Name="qSelo" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cEnq" DataType="System.Int32"/>
+                <Column Name="TipoIPI" DataType="null">
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pIPI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="qUnid" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vUnid" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vIPI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </Column>
+              </Column>
+              <Column Name="II" DataType="null">
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="vDespAdu" DataType="System.Decimal"/>
+                <Column Name="vII" DataType="System.Decimal"/>
+                <Column Name="vIOF" DataType="System.Decimal"/>
+              </Column>
+              <Column Name="PIS" DataType="null">
+                <Column Name="TipoPIS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pPIS" DataType="System.Decimal"/>
+                  <Column Name="vPIS" DataType="System.Decimal"/>
+                </Column>
+              </Column>
+              <Column Name="PISST" DataType="null">
+                <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="pPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              </Column>
+              <Column Name="COFINS" DataType="null">
+                <Column Name="TipoCOFINS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pCOFINS" DataType="System.Decimal"/>
+                  <Column Name="vCOFINS" DataType="System.Decimal"/>
+                </Column>
+              </Column>
+              <Column Name="COFINSST" DataType="null">
+                <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="pCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              </Column>
+              <Column Name="ISSQN" DataType="null">
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="vAliq" DataType="System.Decimal"/>
+                <Column Name="vISSQN" DataType="System.Decimal"/>
+                <Column Name="cMunFG" DataType="System.Int64"/>
+                <Column Name="cListServ" DataType="System.String"/>
+                <Column Name="vDeducao" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="IndicadorIss" DataType="null"/>
+                <Column Name="cServico" DataType="System.String"/>
+                <Column Name="cMun" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="nProcesso" DataType="System.String"/>
+                <Column Name="indIncentivo" DataType="null"/>
+              </Column>
+              <Column Name="ICMSUFDest" Enabled="false" DataType="null"/>
+            </Column>
+            <Column Name="impostoDevol" DataType="null">
+              <Column Name="pDevol" DataType="System.Decimal"/>
+              <Column Name="IPI" DataType="null">
+                <Column Name="vIPIDevol" DataType="System.Decimal"/>
+              </Column>
+            </Column>
+            <Column Name="infAdProd" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <Column Name="total" DataType="null">
+            <Column Name="ICMSTot" DataType="null">
+              <Column Name="vBC" DataType="System.Decimal"/>
+              <Column Name="vICMS" DataType="System.Decimal"/>
+              <Column Name="vICMSDeson" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCST" DataType="System.Decimal"/>
+              <Column Name="vST" DataType="System.Decimal"/>
+              <Column Name="vProd" DataType="System.Decimal"/>
+              <Column Name="vFrete" DataType="System.Decimal"/>
+              <Column Name="vSeg" DataType="System.Decimal"/>
+              <Column Name="vDesc" DataType="System.Decimal"/>
+              <Column Name="vII" DataType="System.Decimal"/>
+              <Column Name="vIPI" DataType="System.Decimal"/>
+              <Column Name="vPIS" DataType="System.Decimal"/>
+              <Column Name="vCOFINS" DataType="System.Decimal"/>
+              <Column Name="vOutro" DataType="System.Decimal"/>
+              <Column Name="vNF" DataType="System.Decimal"/>
+              <Column Name="vTotTrib" DataType="System.Decimal"/>
+              <Column Name="vFCPUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vICMSUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vICMSUFRemet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <Column Name="ISSQNtot" DataType="null">
+              <Column Name="vServ" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vISS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="dCompet" DataType="System.String"/>
+              <Column Name="vDeducao" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cRegTrib" DataType="null"/>
+            </Column>
+            <Column Name="retTrib" DataType="null">
+              <Column Name="vRetPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetCSLL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCIRRF" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vIRRF" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vBCRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+          </Column>
+          <Column Name="transp" DataType="null">
+            <Column Name="modFrete" DataType="null"/>
+            <Column Name="transporta" DataType="null">
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="CPF" DataType="System.String"/>
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="IE" DataType="System.String"/>
+              <Column Name="xEnder" DataType="System.String"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+            </Column>
+            <Column Name="retTransp" DataType="null">
+              <Column Name="vServ" DataType="System.Decimal"/>
+              <Column Name="vBCRet" DataType="System.Decimal"/>
+              <Column Name="pICMSRet" DataType="System.Decimal"/>
+              <Column Name="vICMSRet" DataType="System.Decimal"/>
+              <Column Name="CFOP" DataType="System.Int32"/>
+              <Column Name="cMunFG" DataType="System.Int64"/>
+            </Column>
+            <Column Name="veicTransp" DataType="null">
+              <Column Name="placa" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="RNTC" DataType="System.String"/>
+            </Column>
+            <BusinessObjectDataSource Name="reboque" DataType="null" Enabled="true">
+              <Column Name="placa" DataType="System.String"/>
+              <Column Name="UF" DataType="System.String"/>
+              <Column Name="RNTC" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="vol" DataType="null" Enabled="true">
+              <Column Name="qVol" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="esp" DataType="System.String"/>
+              <Column Name="marca" DataType="System.String"/>
+              <Column Name="nVol" DataType="System.String"/>
+              <Column Name="pesoL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="pesoB" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <BusinessObjectDataSource Name="lacres" DataType="null" Enabled="true">
+                <Column Name="nLacre" DataType="System.String"/>
+              </BusinessObjectDataSource>
+            </BusinessObjectDataSource>
+            <Column Name="vagao" DataType="System.String"/>
+            <Column Name="balsa" DataType="System.String"/>
+          </Column>
+          <Column Name="cobr" DataType="null">
+            <Column Name="fat" DataType="null">
+              <Column Name="nFat" DataType="System.String"/>
+              <Column Name="vOrig" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vLiq" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            </Column>
+            <BusinessObjectDataSource Name="dup" DataType="null" Enabled="true">
+              <Column Name="nDup" DataType="System.String"/>
+              <Column Name="dVenc" DataType="System.String"/>
+              <Column Name="vDup" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <BusinessObjectDataSource Name="pag" DataType="null" Enabled="true">
+            <Column Name="tPag" DataType="null"/>
+            <Column Name="vPag" DataType="System.Decimal"/>
+            <Column Name="card" DataType="null">
+              <Column Name="tpIntegra" DataType="null"/>
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="tBand" DataType="null"/>
+              <Column Name="cAut" DataType="System.String"/>
+            </Column>
+          </BusinessObjectDataSource>
+          <Column Name="infAdic" DataType="null">
+            <Column Name="infAdFisco" DataType="System.String"/>
+            <Column Name="infCpl" DataType="System.String"/>
+            <BusinessObjectDataSource Name="obsCont" DataType="null" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="obsFisco" DataType="null" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="procRef" DataType="null" Enabled="true">
+              <Column Name="nProc" DataType="System.String"/>
+              <Column Name="indProc" DataType="null"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="exporta" DataType="null">
+            <Column Name="UFSaidaPais" DataType="System.String"/>
+            <Column Name="xLocExporta" DataType="System.String"/>
+            <Column Name="xLocDespacho" DataType="System.String"/>
+          </Column>
+          <Column Name="compra" DataType="null">
+            <Column Name="xNEmp" DataType="System.String"/>
+            <Column Name="xPed" DataType="System.String"/>
+            <Column Name="xCont" DataType="System.String"/>
+          </Column>
+          <Column Name="cana" DataType="null">
+            <Column Name="safra" DataType="System.String"/>
+            <Column Name="ref" DataType="System.String"/>
+            <BusinessObjectDataSource Name="forDia" DataType="null" Enabled="true">
+              <Column Name="dia" DataType="System.Int32"/>
+              <Column Name="qtde" DataType="System.Decimal"/>
+              <Column Name="qTotMes" DataType="System.Decimal"/>
+              <Column Name="qTotAnt" DataType="System.Decimal"/>
+              <Column Name="qTotGer" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="deduc" DataType="null" Enabled="true">
+              <Column Name="xDed" DataType="System.String"/>
+              <Column Name="vDed" DataType="System.Decimal"/>
+              <Column Name="vFor" DataType="System.Decimal"/>
+              <Column Name="vTotDed" DataType="System.Decimal"/>
+              <Column Name="vLiqFor" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+          </Column>
+        </Column>
+        <Column Name="infNFeSupl" DataType="null">
+          <Column Name="qrCode" DataType="System.String"/>
+        </Column>
+        <Column Name="Signature" DataType="null">
+          <Column Name="SignedInfo" DataType="null">
+            <Column Name="CanonicalizationMethod" DataType="null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="SignatureMethod" DataType="null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="Reference" DataType="null">
+              <Column Name="URI" DataType="System.String"/>
+              <BusinessObjectDataSource Name="Transforms" DataType="null" Enabled="true">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="DigestMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="DigestValue" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="SignatureValue" DataType="System.String"/>
+          <Column Name="KeyInfo" DataType="null">
+            <Column Name="X509Data" DataType="null">
+              <Column Name="X509Certificate" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+      <Column Name="protNFe" DataType="null">
+        <Column Name="versao" DataType="System.String"/>
+        <Column Name="infProt" DataType="null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="tpAmb" DataType="null"/>
+          <Column Name="verAplic" DataType="System.String"/>
+          <Column Name="chNFe" DataType="System.String"/>
+          <Column Name="dhRecbto" DataType="System.DateTime"/>
+          <Column Name="nProt" DataType="System.String"/>
+          <Column Name="digVal" DataType="System.String"/>
+          <Column Name="cStat" DataType="System.Int32"/>
+          <Column Name="xMotivo" DataType="System.String"/>
+          <Column Name="Signature" DataType="null">
+            <Column Name="SignedInfo" DataType="null">
+              <Column Name="CanonicalizationMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="SignatureMethod" DataType="null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="Reference" DataType="null">
+                <Column Name="URI" DataType="System.String"/>
+                <BusinessObjectDataSource Name="Transforms1" Alias="Transforms" DataType="null" PropName="Transforms" Enabled="true">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="DigestMethod" DataType="null">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </Column>
+                <Column Name="DigestValue" DataType="System.String"/>
+              </Column>
+            </Column>
+            <Column Name="SignatureValue" DataType="System.String"/>
+            <Column Name="KeyInfo" DataType="null">
+              <Column Name="X509Data" DataType="null">
+                <Column Name="X509Certificate" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="ResumoCanhoto" DataType="System.String"/>
+    <Parameter Name="DuasLinhas" DataType="System.Boolean"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7" FirstPageSource="261" OtherPagesSource="261">
+    <ReportTitleBand Name="Canhoto" Width="744.66" Height="83.27" PrintOn="FirstPage" Guides="66.15">
+      <TextObject Name="Text1" Width="642.6" Height="37.8" Border.Lines="All" Border.Width="0.5" Text="Recebemos de [NFe.NFe.infNFe.emit.xNome] os produtos e/ou serviços constantes da Nota Fiscal Eletrônica indicada ao lado. &#13;&#10;[ResumoCanhoto]" Padding="2, 2, 2, 0" Font="Times New Roman, 7pt"/>
+      <TextObject Name="Text2" Left="642.6" Width="102.06" Height="68.04" Border.Lines="All" Border.Width="0.5" Text="NF-e&#13;&#10;Nº [Format(&quot;{0:000'.'000'.'000}&quot;, [NFe.NFe.infNFe.ide.nNF] )]&#13;&#10;Série [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie] )]" Padding="2, 2, 2, 0" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Top="37.8" Width="113.4" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="DATA DO RECEBIMENTO" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text4" Left="113.4" Top="37.8" Width="529.2" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
+      <LineObject Name="Line1" Top="73.82" Width="744.66" Border.Style="Dash" Border.Width="0.5"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="86.72" Width="744.66" Height="175.45">
+      <TextObject Name="Text5" Width="302.4" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="[NFe.NFe.infNFe.emit.xNome]" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.28" Height="81.27"/>
+      <TextObject Name="Text6" Left="100.93" Top="37.8" Width="200.34" Height="81.27" Text="[NFe.NFe.infNFe.emit.enderEmit.xLgr], [NFe.NFe.infNFe.emit.enderEmit.nro], [NFe.NFe.infNFe.emit.enderEmit.xCpl] - [NFe.NFe.infNFe.emit.enderEmit.xBairro] - [NFe.NFe.infNFe.emit.enderEmit.xMun] - [NFe.NFe.infNFe.emit.enderEmit.UF]&#13;&#10;Fone: [Format(&quot;{0:(00)0000-0000}&quot;, [NFe.NFe.infNFe.emit.enderEmit.fone] )] - CEP: [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFe.NFe.infNFe.emit.enderEmit.CEP] ) )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text7" Left="302.4" Width="120.96" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="DANFE" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text8" Left="304.29" Top="17.01" Width="117.18" Height="23.68" Text="Documento Auxiliar da &#13;&#10;Nota Fiscal Eletrônica" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text9" Left="304.29" Top="45.36" Width="75.6" Height="28.68" Text="0 - ENTRADA&#13;&#10;1 - SAÍDA" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="txtTipoNfe" Left="385.56" Top="45.36" Width="30.24" Height="22.68" Border.Lines="All" BeforePrintEvent="txtTipoNfe_BeforePrint" Text="[NFe.NFe.infNFe.ide.tpNF]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text10" Left="304.29" Top="70.69" Width="117.18" Height="49.14" Text="Nº [Format(&quot;{0:000'.'000'.'000}&quot;, [NFe.NFe.infNFe.ide.nNF] )]&#13;&#10;   SÉRIE [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie] )]&#13;&#10;   FOLHA [Page]/[TotalPages#]" Padding="0, 0, 0, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text11" Left="423.36" Width="321.3" Height="49.14" Border.Lines="All" Border.Width="0.5" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <BarcodeObject Name="BarcodeChave" Left="445.66" Top="5.67" Width="277.07" Height="37.8" AutoSize="false" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text12" Left="423.36" Top="49.14" Width="321.3" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="CHAVE DE ACESSO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="txtChaveNfe" Left="423.36" Top="56.7" Width="321.3" Height="18.9" BeforePrintEvent="txtChaveNfe_BeforePrint" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text13" Top="120.96" Width="423.36" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="NATUREZA DA OPERAÇÃO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text14" Left="1.78" Top="129.8" Width="415.8" Height="17.01" BeforePrintEvent="txtChaveNfe_BeforePrint" Text="[NFe.NFe.infNFe.ide.natOp]" Padding="0, 0, 0, 0" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text15" Left="423.25" Top="80.05" Width="321.3" Height="34.02" Border.Lines="All" Border.Width="0.5" Text="Consulta de autenticidade no portal nacional da NF-e&#13;&#10;www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora" Padding="2, 2, 2, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text16" Left="423.25" Top="113.4" Width="321.3" Height="34.02" Border.Lines="All" Border.Width="0.5" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text17" Left="426.15" Top="128.85" Width="159.65" Height="18.9" Text="[NFe.protNFe.infProt.nProt]" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text18" Left="583.9" Top="128.85" Width="9.45" Height="18.9" Text="-" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text19" Left="594.35" Top="128.85" Width="147.2" Height="18.9" Text="[NFe.protNFe.infProt.dhRecbto]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text20" Top="147.8" Width="247.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO ESTADUAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text21" Left="247.7" Top="147.8" Width="247.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO MUNICIPAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text22" Left="495.95" Top="147.8" Width="248.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text23" Left="-0.55" Top="156.55" Width="245.7" Height="18.9" Text="[NFe.NFe.infNFe.emit.IE]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text24" Left="248.6" Top="156.55" Width="245.7" Height="18.9" Text="[NFe.NFe.infNFe.emit.IEST]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text25" Left="496.3" Top="156.55" Width="245.7" Height="18.9" Text="[NFe.NFe.infNFe.emit.CNPJ]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <ChildBand Name="Child1" Top="265.62" Width="744.66" Height="256.06" PrintOn="FirstPage">
+        <TextObject Name="Text26" Left="2.55" Top="2.45" Width="170.55" Height="11.35" Text="DESTINATÁRIO / REMETENTE" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text27" Left="0.55" Top="14.45" Width="436.81" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text28" Left="436.7" Top="14.45" Width="162.76" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text29" Left="598.9" Top="14.36" Width="145.31" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="DATA EMISSÃO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text30" Left="-1" Top="25.9" Width="434.7" Height="11.9" Text="[NFe.NFe.infNFe.dest.xNome]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text31" Left="435.25" Top="25.9" Width="163.1" Height="18.9" Text="[NFe.NFe.infNFe.dest.CPF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text32" Left="434.42" Top="25.9" Width="164.75" Height="18.9" Text="[NFe.NFe.infNFe.dest.CNPJ]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text34" Left="-1.45" Top="39.8" Width="378.66" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="ENDEREÇO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text35" Left="-1" Top="53.25" Width="375.55" Height="12.9" Text="[NFe.NFe.infNFe.dest.enderDest.xLgr], [NFe.NFe.infNFe.dest.enderDest.nro]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text38" Left="377.55" Top="39.8" Width="146.96" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BAIRRO / DISTRITO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text39" Left="524.85" Top="39.8" Width="95.96" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CEP" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text40" Left="620.8" Top="39.8" Width="122.96" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="DATA DA SAÍDA / ENTRADA" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text41" Left="376.55" Top="51.75" Width="151.2" Height="15.9" Text="[NFe.NFe.infNFe.dest.enderDest.xMun]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text42" Left="523.3" Top="51.25" Width="97.05" Height="16.9" Text="[NFe.NFe.infNFe.dest.enderDest.CEP]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text44" Left="0.55" Top="66.15" Width="342.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="MUNÍCIPIO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text45" Left="342.75" Top="66.15" Width="25.66" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="UF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text46" Left="341.2" Top="77.6" Width="20.5" Height="12.9" Text="[NFe.NFe.infNFe.dest.enderDest.UF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text47" Left="-1" Top="77.6" Width="340.2" Height="12.9" Text="[NFe.NFe.infNFe.dest.enderDest.xMun]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text48" Left="369.1" Top="66.15" Width="120.56" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="FONE / FAX" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text49" Left="367.1" Top="77.6" Width="123.5" Height="12.9" Text="[NFe.NFe.infNFe.dest.enderDest.fone]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text50" Left="489.95" Top="66.15" Width="130.91" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO ESTADUAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text51" Left="487.95" Top="77.6" Width="134.85" Height="12.9" Text="[NFe.NFe.infNFe.dest.IE]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text52" Left="621.25" Top="66.15" Width="122.56" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="HORA DA SAÍDA / ENTRADA" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text53" Left="621.25" Top="77.6" Width="122.85" Height="12.9" Text="[NFe.NFe.infNFe.ide.dhSaiEnt]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="dtSaida" Left="622.25" Top="51.25" Width="118.05" Height="16.9" Text="[NFe.NFe.infNFe.ide.dhSaiEnt]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text43" Left="601.35" Top="25.9" Width="142.3" Height="13.9" Text="[NFe.NFe.infNFe.ide.dhEmi]" Format="Date" Format.Format="dd/MM/yyyy" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text55" Top="107.4" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BASE DE CÁLC ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text56" Left="84.06" Top="107.4" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text57" Left="168.12" Top="107.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BASE CÁLC ICMS ST" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text58" Left="250.18" Top="107.4" Width="83.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR ICMS SUBST" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text59" Left="333.24" Top="107.4" Width="83.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="V. IMP. IMPORTAÇÃO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text60" Left="416.3" Top="107.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="V. ICMS UF REMET." Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text61" Left="498.36" Top="107.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR FCP" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text62" Left="580.42" Top="107.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR PIS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text63" Left="662.48" Top="107.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="V. TOTAL PRODUTO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text64" Top="134.75" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR DO FRETE" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text65" Left="84.06" Top="134.75" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR DO SEGURO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text66" Left="168.12" Top="134.75" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="DESCONTO" Padding="2, 2, 2, 0" Format="Number" Format.UseLocale="true" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text67" Left="250.18" Top="134.75" Width="83.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="OUTRAS DESPESAS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text68" Left="333.24" Top="134.75" Width="83.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR TOTAL IPI" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text69" Left="416.3" Top="134.75" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="V. ICMS UF DEST." Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text70" Left="498.36" Top="134.75" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="V. TOTAL. TRIB." Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text71" Left="580.42" Top="134.75" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR COFINS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text72" Left="662.48" Top="134.75" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="V. TOTAL DA NOTA" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text73" Left="2.33" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vBC]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text74" Left="84.38" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vICMS]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text75" Left="169.43" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vBCST]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text76" Left="251.48" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vST]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text77" Left="333.08" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vII]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text78" Left="416.68" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vICMSUFRemet]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text79" Left="496.18" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vFCPUFDest]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text80" Left="579.78" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vPIS]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text81" Left="662.83" Top="119.85" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vProd]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text82" Left="2.33" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vFrete]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text83" Left="84.38" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vSeg]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text84" Left="169.43" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vDesc]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text85" Left="251.48" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vOutro]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text86" Left="333.08" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vIPI]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text87" Left="416.68" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vICMSUFDest]" Format="Number" Format.UseLocale="true" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text88" Left="498.18" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vTotTrib]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text89" Left="579.78" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vCOFINS]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text90" Left="662.83" Top="147.2" Width="79.5" Height="13.9" Text="[NFe.NFe.infNFe.total.ICMSTot.vNF]" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Times New Roman, 8pt, style=Bold" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text54" Left="2.45" Top="94.95" Width="137.65" Height="9.35" Text="CÁLCULO DO IMPOSTO" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text92" Top="176" Width="332.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text93" Left="-3" Top="186.45" Width="333.75" Height="14.9" Text="[NFe.NFe.infNFe.transp.transporta.xNome]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text94" Left="331.75" Top="176.45" Width="83.06" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="FRETE POR CONTA" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text95" Left="414.8" Top="176" Width="92.51" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CÓDIGO ANTT" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text96" Left="507.3" Top="176" Width="92.51" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PLACA DO VEÍCULO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text97" Left="599.8" Top="176" Width="25.66" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="UF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text98" Left="624.7" Top="176" Width="119.86" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text100" Left="414.8" Top="185.9" Width="92.5" Height="15.9" Text="[NFe.NFe.infNFe.transp.veicTransp.RNTC]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text101" Left="414.8" Top="185.9" Width="92.5" Height="15.9" Text="[NFe.NFe.infNFe.transp.reboque.RNTC]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text102" Left="506.3" Top="185.9" Width="94.5" Height="15.9" Text="[NFe.NFe.infNFe.transp.reboque.placa]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text103" Left="506.3" Top="185.9" Width="94.5" Height="15.9" Text="[NFe.NFe.infNFe.transp.veicTransp.placa]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text104" Left="601.8" Top="185.45" Width="20.9" Height="14.9" Text="[NFe.NFe.infNFe.transp.reboque.UF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text105" Left="601.8" Top="185.45" Width="20.9" Height="14.9" Text="[NFe.NFe.infNFe.transp.veicTransp.UF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text106" Left="622.7" Top="185.45" Width="122.85" Height="14.9" Text="[NFe.NFe.infNFe.transp.transporta.CNPJ]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text107" Left="622.7" Top="185.45" Width="122.85" Height="14.9" Text="[NFe.NFe.infNFe.transp.transporta.CPF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text108" Top="202.35" Width="415.36" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="ENDEREÇO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text109" Left="-2" Top="212.8" Width="415.8" Height="15.9" Text="[NFe.NFe.infNFe.transp.transporta.xEnder]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text110" Left="414.8" Top="202.35" Width="185.56" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="MUNICÍPIO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text111" Left="599.8" Top="202.35" Width="25.66" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="UF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text112" Left="624.7" Top="202.35" Width="119.86" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO ESTADUAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text113" Left="415.8" Top="212.8" Width="182.55" Height="16.9" Text="[NFe.NFe.infNFe.transp.transporta.xMun]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text114" Left="601.35" Top="212.8" Width="20.9" Height="14.9" Text="[NFe.NFe.infNFe.transp.transporta.UF]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text115" Left="623.7" Top="212.8" Width="122.85" Height="16.9" Text="[NFe.NFe.infNFe.transp.transporta.IE]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text116" Top="229.6" Width="82.61" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="QUANTIDADE" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text117" Left="196.45" Top="229.6" Width="137.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="MARCA" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text118" Left="333.76" Top="229.6" Width="137.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="NUMERAÇÃO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text119" Left="471.07" Top="229.6" Width="137.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PESO BRUTO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text120" Left="608.38" Top="229.6" Width="136.31" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PESO LÍQUIDO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text121" Left="83.05" Top="229.6" Width="112.96" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="ESPÉCIE" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Text122" Left="-3" Top="241.05" Width="83.05" Height="13.9" Text="[NFe.NFe.infNFe.transp.vol.qVol]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text123" Left="81.05" Top="241.05" Width="113.4" Height="14.9" Text="[NFe.NFe.infNFe.transp.vol.esp]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text124" Left="194.45" Top="241.05" Width="139.75" Height="14.9" Text="[NFe.NFe.infNFe.transp.vol.marca]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text125" Left="331.2" Top="240.05" Width="139.75" Height="15.9" Text="[NFe.NFe.infNFe.transp.vol.nVol]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text126" Left="470.5" Top="239.05" Width="135.3" Height="14.9" Text="[NFe.NFe.infNFe.transp.vol.pesoB]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text127" Left="604.8" Top="238.05" Width="140.75" Height="15.9" Text="[NFe.NFe.infNFe.transp.vol.pesoL]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text33" Left="330.75" Top="186.45" Width="81.15" Height="14.9" Text="[NFe.NFe.infNFe.transp.modFrete]" Font="Times New Roman, 8pt, style=Bold"/>
+        <TextObject Name="Text91" Left="2" Top="164.1" Width="273.4" Height="9.35" Text="TRANSPORTADOR / VOLUMES TRANSPORTADOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+        <ChildBand Name="Child2" Top="525.12" Width="744.66" Height="24.35">
+          <TextObject Name="Text167" Left="692.52" Top="1.89" Width="53.68" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="ALÍQUOTAS" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text128" Left="2" Top="2.45" Width="200.25" Height="8.35" Text="DADOS DOS PRODUTOS / SERVIÇOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+          <TextObject Name="Text129" Top="12.85" Width="58.16" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="CÓD PRODUTO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text130" Left="58.16" Top="12.85" Width="205.81" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="DESCRIÇÃO DO PRODUTO / SERVIÇO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text131" Left="263.52" Top="12.85" Width="59.61" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="NCM / SH" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text132" Left="323.13" Top="12.85" Width="31.81" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="O / CST" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text133" Left="387.75" Top="12.85" Width="25.36" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="UN" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text134" Left="413.11" Top="12.85" Width="32.36" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="QUANT" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text135" Left="445.47" Top="12.85" Width="53.26" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="VALOR UN" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text136" Left="498.73" Top="12.85" Width="54.26" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="VALOR TOTAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text137" Left="552.99" Top="12.85" Width="52.71" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="B. CÁLC ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text138" Left="605.7" Top="12.85" Width="43.26" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="VAL ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text139" Left="648.96" Top="12.85" Width="43.26" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="VALOR IPI" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text140" Left="692.67" Top="12.85" Width="26.46" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="ICMS" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text141" Left="719.71" Top="12.85" Width="26.46" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="IPI" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 5pt"/>
+          <TextObject Name="Text145" Left="354.94" Top="12.85" Width="32.81" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="CFOP" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+        </ChildBand>
+      </ChildBand>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="552.92" Width="744.66" Height="34.8" BeforePrintEvent="Data1_BeforePrint" DataSource="det">
+      <TextObject Name="Text142" Top="1" Width="56.7" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.cProd]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text144" Left="263.05" Top="1" Width="58.7" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.NCM]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text147" Left="354.1" Top="0.5" Width="33.35" Height="33.8" Text="[NFe.NFe.infNFe.det.prod.CFOP]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text148" Left="388.9" Top="1" Width="23.9" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.uCom]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text149" Left="411.8" Top="1" Width="31.35" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.qCom]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text150" Left="444.15" Top="1" Width="52.25" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.vUnCom]" Format="Currency" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text151" Left="496.85" Top="1" Width="56.7" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.vProd]" Format="Currency" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text152" Left="553.55" Top="1" Width="49.25" Height="32.8" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text153" Left="600.8" Top="1" Width="47.25" Height="32.8" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text154" Left="648.05" Top="1" Width="42.8" Height="32.8" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text143" Left="57.7" Top="1" Width="203" Height="32.8" Text="[NFe.NFe.infNFe.det.prod.xProd]&#13;&#10;Lote: [NFe.NFe.infNFe.det.prod.ProdutoEspecifico.nLote] - Qtd: [NFe.NFe.infNFe.det.prod.ProdutoEspecifico.qLote] - Fab: [NFe.NFe.infNFe.det.prod.ProdutoEspecifico.dFab] / Val: [NFe.NFe.infNFe.det.prod.ProdutoEspecifico.dVal] - PMC: [NFe.NFe.infNFe.det.prod.ProdutoEspecifico.vPMC]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <LineObject Name="Line2" Top="34.25" Width="744.55" Border.Style="Dot"/>
+      <LineObject Name="Line3" Left="57.7" Height="34.8"/>
+      <LineObject Name="Line4" Left="262.6" Height="34.8"/>
+      <LineObject Name="Line5" Left="322.75" Height="34.8"/>
+      <LineObject Name="Line6" Left="355.1" Height="34.8"/>
+      <LineObject Name="Line7" Left="386.45" Height="34.8"/>
+      <LineObject Name="Line8" Left="412.8" Height="34.8"/>
+      <LineObject Name="Line9" Left="445.15" Height="34.8"/>
+      <LineObject Name="Line10" Left="497.85" Height="34.8"/>
+      <LineObject Name="Line11" Left="552.55" Height="34.8"/>
+      <LineObject Name="Line12" Left="605.25" Height="34.8"/>
+      <LineObject Name="Line13" Left="649.05" Height="34.8"/>
+      <LineObject Name="Line14" Left="692.3" Height="34.8"/>
+      <LineObject Name="Line15" Left="719.33" Height="34.8"/>
+      <LineObject Name="Line16" Left="746.17" Top="-1" Height="34.8"/>
+      <LineObject Name="Line17" Height="33.8"/>
+      <TextObject Name="lblCst" Left="323.75" Top="1.13" Width="30" Height="32.89" Text="CST" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text165" Left="720.09" Top="1" Width="26.46" Height="32.8" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text166" Left="692.87" Top="1.13" Width="26.46" Height="32.8" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="591.17" Width="744.66" Height="178.65" PrintOn="FirstPage">
+      <TextObject Name="Text155" Top="53.7" Width="470.06" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text36" Top="67.15" Width="468.5" Height="105.4" Text="[NFe.NFe.infNFe.infAdic.infCpl]" Font="Arial, 8pt"/>
+      <TextObject Name="Text156" Left="470.5" Top="53.7" Width="274.06" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text37" Left="472.5" Top="67.15" Width="274.05" Height="105.4" Text="[NFe.NFe.infNFe.infAdic.infAdFisco]" Font="Arial, 8pt"/>
+      <TextObject Name="Text157" Left="2" Top="42.25" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text158" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO MUNICIPAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text159" Left="186.11" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR TOTAL DOS SERVIÇOS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text160" Left="372.22" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BASE DE CÁLCULO DO ISSQN" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text161" Left="558.33" Top="12.45" Width="187.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR DO ISSQN" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text162" Left="2" Top="2" Width="124.65" Height="9.35" Text="CÁLCULO DO ISSQN" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text99" Left="3.45" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.emit.IM]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
+      <TextObject Name="Text146" Left="189" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vServ]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
+      <TextObject Name="Text163" Left="375" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vBC]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
+      <TextObject Name="Text164" Left="561.55" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vISS]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
+      <TextObject Name="lblHomologacao" Left="467.95" Top="96.15" Width="279.5" Height="82.5" Visible="false" Text="NF-e EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
