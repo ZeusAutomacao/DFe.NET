@@ -40,9 +40,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contratos\IMDFeModal.cs" />
+    <Compile Include="Exceptions\MDFeException.cs" />
+    <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
+    <Compile Include="Flags\MDFeModal.cs" />
+    <Compile Include="Flags\MDFeModelo.cs" />
+    <Compile Include="Flags\MDFeTipoEmissao.cs" />
+    <Compile Include="Flags\MDFeTipoEmitente.cs" />
+    <Compile Include="Flags\MDFeTpRod.cs" />
+    <Compile Include="Flags\MDFeTpProp.cs" />
+    <Compile Include="Flags\MDFeVersaoModal.cs" />
     <Compile Include="MDFe.cs" />
+    <Compile Include="MDFeCondutor.cs" />
+    <Compile Include="MDFeEmit.cs" />
     <Compile Include="MDFeIde.cs" />
     <Compile Include="MDFeInfMDFe.cs" />
+    <Compile Include="MDFeInfModal.cs" />
+    <Compile Include="MDFeInfMunCarrega.cs" />
+    <Compile Include="MDFeInfPercurso.cs" />
+    <Compile Include="MDFeProp.cs" />
+    <Compile Include="MDFeRodo.cs" />
+    <Compile Include="MDFeVeicTracao.cs" />
     <Compile Include="MDFeVersaoServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
