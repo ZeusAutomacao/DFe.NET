@@ -12,7 +12,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes
         public MDFe()
         {
             InfMDFe = new MDFeInfMDFe();
-
         }
 
         [XmlElement(ElementName = "infMDFe")]
