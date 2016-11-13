@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ManifestoDocumentoFiscalEletronico.Classes</RootNamespace>
     <AssemblyName>MDFe.Classes</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Contratos\IMDFeModal.cs" />
     <Compile Include="Exceptions\MDFeException.cs" />
+    <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
     <Compile Include="Flags\MDFeModelo.cs" />
@@ -57,11 +59,13 @@
     <Compile Include="MDFe.cs" />
     <Compile Include="MDFeAereo.cs" />
     <Compile Include="MDFeAquav.cs" />
+    <Compile Include="MDFeAutXML.cs" />
     <Compile Include="MDFeCondutor.cs" />
     <Compile Include="MDFeDisp.cs" />
     <Compile Include="MDFeEmit.cs" />
     <Compile Include="MDFeFerrov.cs" />
     <Compile Include="MDFeIde.cs" />
+    <Compile Include="MDFeInfAdic.cs" />
     <Compile Include="MDFeInfCTe.cs" />
     <Compile Include="MDFeInfDoc.cs" />
     <Compile Include="MDFeInfEmbComb.cs" />
@@ -77,10 +81,12 @@
     <Compile Include="MDFeInfUnidCarga.cs" />
     <Compile Include="MDFeInfUnidCargaVazia.cs" />
     <Compile Include="MDFeInfUnidTransp.cs" />
+    <Compile Include="MDFeLacre.cs" />
     <Compile Include="MDFeLacUnidCarga.cs" />
     <Compile Include="MDFeLacUnidTransp.cs" />
     <Compile Include="MDFeProp.cs" />
     <Compile Include="MDFeRodo.cs" />
+    <Compile Include="MDFeTot.cs" />
     <Compile Include="MDFeTrem.cs" />
     <Compile Include="MDFeVag.cs" />
     <Compile Include="MDFeValePed.cs" />
