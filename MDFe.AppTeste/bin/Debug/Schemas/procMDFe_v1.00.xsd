@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="mdfeTiposBasico_v1.00.xsd"/>
+	<xs:include schemaLocation="consReciMDFeTiposBasico_v1.00.xsd"/>
+	<xs:element name="mdfeProc">
+		<xs:annotation>
+			<xs:documentation> MDF-e processado</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MDFe" type="TMDFe"/>
+				<xs:element name="protMDFe" type="TProtMDFe"/>
+			</xs:sequence>
+			<xs:attribute name="versao" type="TVerMDe" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,14 @@
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\bin\Debug\MDFe.AppTeste.exe.config
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\bin\Debug\MDFe.AppTeste.exe
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\bin\Debug\MDFe.AppTeste.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.csprojResolveAssemblyReference.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MainWindow.g.cs
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\App.g.cs
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste_MarkupCompile.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste_MarkupCompile.lref
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MainWindow.baml
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.g.resources
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.Properties.Resources.resources
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.csproj.GenerateResource.Cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.exe
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.AppTeste\obj\Debug\MDFe.AppTeste.pdb

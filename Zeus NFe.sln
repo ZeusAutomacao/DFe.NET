@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Classes", "MDFe.Classe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Classes", "DFe.Classes\DFe.Classes.csproj", "{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Utils", "DFe.Utils\DFe.Utils.csproj", "{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.AppTeste", "MDFe.AppTeste\MDFe.AppTeste.csproj", "{8994DDA1-E36B-40E5-9F98-C0C75CC61971}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,11 +81,20 @@ Global
 		{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9794CB98-4691-4218-A127-C573C2E7FF83} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
+		{8994DDA1-E36B-40E5-9F98-C0C75CC61971} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 	EndGlobalSection
 EndGlobal
