@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <Button Click="Button_Click">Criar e enviar 1.00</Button>
+        <Button Click="Enviar1_0_Click">Criar e enviar 1.00</Button>
         
     </Grid>
 </Window>

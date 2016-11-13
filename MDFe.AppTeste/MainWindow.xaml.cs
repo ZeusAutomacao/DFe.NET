@@ -9,9 +9,9 @@ namespace MDFe.AppTeste
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Enviar1_0_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }
