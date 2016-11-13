@@ -56,7 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="MDFeTeste.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -64,8 +64,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Entidades\CertificadoDigital.cs" />
+    <Compile Include="Entidades\Configuracao.cs" />
+    <Compile Include="Entidades\ConfigWebService.cs" />
+    <Compile Include="Entidades\Empresa.cs" />
+    <Compile Include="EnumBindable\EnumBindingSourceExtension.cs" />
+    <Compile Include="MDFeTeste.xaml.cs">
+      <DependentUpon>MDFeTeste.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -335,6 +340,7 @@
       <Name>MDFe.Classes</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

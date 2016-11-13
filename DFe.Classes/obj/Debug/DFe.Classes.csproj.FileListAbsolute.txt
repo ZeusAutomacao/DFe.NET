@@ -1,7 +1,0 @@
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\bin\Debug\DFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\bin\Debug\DFe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\bin\Debug\System.Net.Http.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\bin\Debug\System.Net.Http.xml
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\obj\Debug\DFe.Classes.csprojResolveAssemblyReference.cache
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\obj\Debug\DFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Classes\obj\Debug\DFe.Classes.pdb

@@ -1,9 +1,0 @@
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\MDFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\MDFe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\DFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\System.Net.Http.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\DFe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\bin\Debug\System.Net.Http.xml
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\obj\Debug\MDFe.Classes.csprojResolveAssemblyReference.cache
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\obj\Debug\MDFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\MDFe.Classes\obj\Debug\MDFe.Classes.pdb

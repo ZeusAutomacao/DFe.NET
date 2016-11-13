@@ -6,9 +6,9 @@ using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MD
 
 namespace MDFe.AppTeste
 {
-    public partial class MainWindow
+    public partial class MDFeTeste
     {
-        public MainWindow()
+        public MDFeTeste()
         {
             InitializeComponent();
         }
@@ -22,6 +22,16 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
 
+        }
+
+        private void ArquivoCertificado_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Certificado_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }
