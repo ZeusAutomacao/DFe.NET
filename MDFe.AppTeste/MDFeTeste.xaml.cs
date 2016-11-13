@@ -8,9 +8,13 @@ namespace MDFe.AppTeste
 {
     public partial class MDFeTeste
     {
+        private MDFeTesteModel _model;
+
         public MDFeTeste()
         {
+            _model = new MDFeTesteModel();
             InitializeComponent();
+            DataContext = _model;
         }
 
         private void Enviar1_0_Click(object sender, RoutedEventArgs e)
@@ -26,12 +30,22 @@ namespace MDFe.AppTeste
 
         private void ArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.ObterCertificadoArquivo();
         }
 
         private void Certificado_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.ObterSerialCertificado();
+        }
+
+        private void SalvarConfiguracoesXml_Click(object sender, RoutedEventArgs e)
+        {
+            _model.SalvarConfiguracoesXml();
+        }
+
+        private void MDFeTeste_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _model.CarregarConfiguracoes();
         }
     }
 }

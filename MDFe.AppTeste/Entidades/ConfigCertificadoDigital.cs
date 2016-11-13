@@ -3,7 +3,7 @@
 namespace MDFe.AppTeste.Entidades
 {
     [Serializable]
-    public class CertificadoDigital
+    public class ConfigCertificadoDigital
     {
         public string NumeroDeSerie { get; set; }
         public string CaminhoArquivo { get; set; }

@@ -64,7 +64,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entidades\CertificadoDigital.cs" />
+    <Compile Include="Dao\ConfiguracaoDao.cs" />
+    <Compile Include="Entidades\ConfigCertificadoDigital.cs" />
     <Compile Include="Entidades\Configuracao.cs" />
     <Compile Include="Entidades\ConfigWebService.cs" />
     <Compile Include="Entidades\Empresa.cs" />

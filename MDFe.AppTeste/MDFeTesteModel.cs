@@ -1,7 +1,11 @@
 ﻿using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.AppTeste.Dao;
+using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
+using Microsoft.Win32;
 
 namespace MDFe.AppTeste
 {
@@ -34,6 +38,8 @@ namespace MDFe.AppTeste
         private VersaoServico _versaoMdFeConsulta;
         private VersaoServico _versaoMdFeStatusServico;
         private VersaoServico _versaoMdFeConsNaoEnc;
+        private bool _ambienteProducao;
+        private bool _ambienteHomologacao;
 
         #region empresa
 
@@ -315,8 +321,141 @@ namespace MDFe.AppTeste
             }
         }
 
+        public bool AmbienteProducao
+        {
+            get { return _ambienteProducao; }
+            set
+            {
+                _ambienteProducao = value;
+                OnPropertyChanged("AmbienteProducao");
+            }
+        }
+
+        public bool AmbienteHomologacao
+        {
+            get { return _ambienteHomologacao; }
+            set
+            {
+                _ambienteHomologacao = value;
+                OnPropertyChanged("AmbienteHomologacao");
+            }
+        }
+
         #endregion
 
+        public void SalvarConfiguracoesXml()
+        {
+            var configuracaoDao = new ConfiguracaoDao();
+            var configuracaoAppTeste = new Configuracao {
+                Empresa =
+                    {
+                        Cnpj = Cnpj,
+                        Bairro = Bairro,
+                        Cep = Cep,
+                        CodigoIbgeMunicipio = CodigoIbgeMunicipio,
+                        Complemento = Complemento,
+                        Email = Email,
+                        InscricaoEstadual = InscricaoEstadual,
+                        Logradouro = Logradouro,
+                        Nome = Nome,
+                        NomeFantasia = NomeFantasia,
+                        NomeMunicipio = NomeMunicipio,
+                        Numero = Numero,
+                        SiglaUf = SiglaUf,
+                        Telefone = Telefone
+                    },
+                CertificadoDigital =
+                {
+                    CaminhoArquivo = CaminhoArquivo,
+                    NumeroDeSerie = NumeroDeSerie,
+                    Senha = Senha
+                },
+                ConfigWebService =
+                {
+                    UfDestino = UfDestino,
+                    Numeracao = Numeracao,
+                    Serie = Serie,
+                    VersaoMDFeConsNaoEnc = VersaoServico.Versao100,
+                    VersaoMDFeConsulta = VersaoServico.Versao100,
+                    VersaoMDFeRecepcao = VersaoServico.Versao100,
+                    VersaoMDFeRecepcaoEvento = VersaoServico.Versao100,
+                    VersaoMDFeRetRecepcao = VersaoServico.Versao100,
+                    VersaoMDFeStatusServico = VersaoServico.Versao100
+                }
+            };
 
+            if (AmbienteHomologacao)
+                configuracaoAppTeste.ConfigWebService.Ambiente = TipoAmbiente.Homologacao;
+
+            if (AmbienteProducao)
+                configuracaoAppTeste.ConfigWebService.Ambiente = TipoAmbiente.Producao;
+
+
+            configuracaoDao.SalvarConfiguracao(configuracaoAppTeste);
+        }
+
+        public void ObterSerialCertificado()
+        {
+            var numeroSerie = CertificadoDigital.ObterDoRepositorio();
+            NumeroDeSerie = numeroSerie.SerialNumber;
+        }
+
+        public void ObterCertificadoArquivo()
+        {
+            var janelaArquivo = new OpenFileDialog
+            {
+                Filter = "Certificado digital(*.pfx)|*.pfx"
+            };
+            if (janelaArquivo.ShowDialog() == true)
+            {
+                CaminhoArquivo = janelaArquivo.FileName;
+            }
+        }
+
+        public void CarregarConfiguracoes()
+        {
+            var dao = new ConfiguracaoDao();
+            var config = dao.BuscarConfiguracao();
+
+            if (config == null) return;
+
+            Cnpj = config.Empresa.Cnpj;
+            Bairro = config.Empresa.Bairro;
+            Cep = config.Empresa.Cep;
+            CodigoIbgeMunicipio = config.Empresa.CodigoIbgeMunicipio;
+            Complemento = config.Empresa.Complemento;
+            Email = config.Empresa.Email;
+            InscricaoEstadual = config.Empresa.InscricaoEstadual;
+            Logradouro = config.Empresa.Logradouro;
+            Nome = config.Empresa.Nome;
+            NomeFantasia = config.Empresa.NomeFantasia;
+            NomeMunicipio = config.Empresa.NomeMunicipio;
+            Numero = config.Empresa.Numero;
+            SiglaUf = config.Empresa.SiglaUf;
+            Telefone = config.Empresa.Telefone;
+
+            Senha = config.CertificadoDigital.Senha;
+            CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
+            NumeroDeSerie = config.CertificadoDigital.NumeroDeSerie;
+
+
+            AmbienteProducao = true;
+
+            if (config.ConfigWebService.Ambiente == TipoAmbiente.Homologacao)
+                AmbienteHomologacao = true;
+
+            Numeracao = config.ConfigWebService.Numeracao;
+            Serie = config.ConfigWebService.Serie;
+
+            UfDestino = config.ConfigWebService.UfDestino;
+
+            VersaoMDFeConsNaoEnc = config.ConfigWebService.VersaoMDFeConsNaoEnc;
+            VersaoMDFeConsulta = config.ConfigWebService.VersaoMDFeConsulta;
+            VersaoMDFeRecepcao = config.ConfigWebService.VersaoMDFeRecepcao;
+            VersaoMDFeRecepcaoEvento = config.ConfigWebService.VersaoMDFeRecepcaoEvento;
+            VersaoMDFeRetRecepcao = config.ConfigWebService.VersaoMDFeRetRecepcao;
+            VersaoMDFeStatusServico = config.ConfigWebService.VersaoMDFeStatusServico;
+
+        }
     }
 }

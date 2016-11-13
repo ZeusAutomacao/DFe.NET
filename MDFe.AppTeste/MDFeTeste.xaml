@@ -6,162 +6,171 @@
         xmlns:enumBindable="clr-namespace:MDFe.AppTeste.EnumBindable"
         xmlns:flags="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
         mc:Ignorable="d"
+        Loaded="MDFeTeste_OnLoaded"
         Title="MainWindow" Height="720.696" Width="771.522">
-    <Grid>
-        <TabControl>
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top">
             <TabItem Header="Dados">
-                <TabControl>
-                    <TabItem Header="Empresa">
-                        <StackPanel>
-                            <GroupBox Header="Emitente">
-                                <StackPanel>
-                                    <TextBlock>Cnpj</TextBlock>
-                                    <TextBox MaxLength="14"></TextBox>
-                                    <TextBlock>IE (Inscrição Estadual)</TextBlock>
-                                    <TextBox MaxLength="14"></TextBox>
-                                    <TextBlock>Nome</TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-                                    <TextBlock>Nome Fantasia</TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-                                </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Endereço do Emitente">
-                                <StackPanel>
-                                    <TextBlock Text="Logradouro"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-
-                                    <TextBlock Text="Número"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-
-                                    <TextBlock Text="Complemento"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-
-                                    <TextBlock Text="Bairro"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-
-                                    <TextBlock Text="Código IBGE Município"></TextBlock>
-                                    <TextBox MaxLength="7"></TextBox>
-
-                                    <TextBlock Text="Nome Município"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-
-                                    <TextBlock Text="CEP"></TextBlock>
-                                    <TextBox MaxLength="8"></TextBox>
-
-                                    <TextBlock Text="Sigla UF"></TextBlock>
-                                    <ComboBox IsEditable="False"
-                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}">
-                                    </ComboBox>
-
-                                    <TextBlock Text="Telefone"></TextBlock>
-                                    <TextBox MaxLength="12"></TextBox>
-
-                                    <TextBlock Text="Endereço de E-mail"></TextBlock>
-                                    <TextBox MaxLength="60"></TextBox>
-                                </StackPanel>
-                            </GroupBox>
-                        </StackPanel>
-                    </TabItem>
-                    <TabItem Header="Certificado Digital">
-                        <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0">
+                <StackPanel>
+                    <TabControl>
+                        <TabItem Header="Empresa">
                             <StackPanel>
+                                <GroupBox Header="Emitente">
+                                    <StackPanel>
+                                        <TextBlock>Cnpj</TextBlock>
+                                        <TextBox MaxLength="14" Text="{Binding Cnpj}"></TextBox>
+                                        <TextBlock>IE (Inscrição Estadual)</TextBlock>
+                                        <TextBox MaxLength="14" Text="{Binding InscricaoEstadual}"></TextBox>
+                                        <TextBlock>Nome</TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Nome}"></TextBox>
+                                        <TextBlock>Nome Fantasia</TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding NomeFantasia}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Endereço do Emitente">
+                                    <StackPanel>
+                                        <TextBlock Text="Logradouro"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Logradouro}"></TextBox>
 
-                                <StackPanel Name="SpSerie" Margin="0,10,0,0">
-                                    <TextBlock Text="Número de Série" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                                    <DockPanel>
-                                        <TextBox HorizontalAlignment="Left" Height="23"
+                                        <TextBlock Text="Número"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Numero}"></TextBox>
+
+                                        <TextBlock Text="Complemento"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Complemento}"></TextBox>
+
+                                        <TextBlock Text="Bairro"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Bairro}"></TextBox>
+
+                                        <TextBlock Text="Código IBGE Município"></TextBlock>
+                                        <TextBox MaxLength="7" Text="{Binding CodigoIbgeMunicipio}"></TextBox>
+
+                                        <TextBlock Text="Nome Município"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding NomeMunicipio}"></TextBox>
+
+                                        <TextBlock Text="CEP"></TextBlock>
+                                        <TextBox MaxLength="8" Text="{Binding Cep}"></TextBox>
+
+                                        <TextBlock Text="Sigla UF"></TextBlock>
+                                        <ComboBox IsEditable="False"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}"
+                                                  SelectedItem="{Binding SiglaUf}">
+                                        </ComboBox>
+
+                                        <TextBlock Text="Telefone"></TextBlock>
+                                        <TextBox MaxLength="12" Text="{Binding Telefone}"></TextBox>
+
+                                        <TextBlock Text="Endereço de E-mail"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Email}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Certificado Digital">
+                            <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0">
+                                <StackPanel>
+
+                                    <StackPanel Name="SpSerie" Margin="0,10,0,0">
+                                        <TextBlock Text="Número de Série" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <DockPanel>
+                                            <TextBox HorizontalAlignment="Left" Height="23"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="275"
-                                                     Text="{Binding CfgServico.Certificado.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Text="{Binding NumeroDeSerie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                      IsReadOnly="True" />
-                                        <Button Content="..." Width="21"
+                                            <Button Content="..." Width="21"
                                                     DockPanel.Dock="Right" Click="Certificado_Click"
                                                     Margin="10,0,0,0" />
-                                    </DockPanel>
-                                </StackPanel>
+                                        </DockPanel>
+                                    </StackPanel>
 
-                                <StackPanel Name="SpArquivo" Margin="0,10,0,0">
-                                    <TextBlock Text="Arquivo" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                                    <DockPanel>
-                                        <TextBox x:Name="TxtArquivoCertificado" HorizontalAlignment="Left"
+                                    <StackPanel Name="SpArquivo" Margin="0,10,0,0">
+                                        <TextBlock Text="Arquivo" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <DockPanel>
+                                            <TextBox x:Name="TxtArquivoCertificado" HorizontalAlignment="Left"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="275"
-                                                     Text="{Binding CfgServico.Certificado.Arquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Text="{Binding CaminhoArquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                      IsReadOnly="True" />
-                                        <Button Content="..." Width="21"
+                                            <Button Content="..." Width="21"
                                                     DockPanel.Dock="Right" Margin="10,0,0,0" Click="ArquivoCertificado_Click" />
-                                    </DockPanel>
-                                </StackPanel>
+                                        </DockPanel>
+                                    </StackPanel>
 
-                                <StackPanel Margin="0,10,0,0">
-                                    <TextBlock Text="Senha" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBox x:Name="TxtSenhaCertificado" HorizontalAlignment="Left" Height="23"
+                                    <StackPanel Margin="0,10,0,0">
+                                        <TextBlock Text="Senha" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="TxtSenhaCertificado" HorizontalAlignment="Left" Height="23"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="280"
-                                                     Text="{Binding CfgServico.Certificado.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                    </StackPanel>
-                                </StackPanel>
-
-                            </StackPanel>
-                        </GroupBox>
-                    </TabItem>
-                    <TabItem Header="Web Service">
-                        <StackPanel>
-                            <GroupBox Header="UF Destino">
-                                <ComboBox IsEditable="False"
-                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}">
-
-                                </ComboBox>
-                            </GroupBox>
-                            <GroupBox Header="Ambiente">
-                                <StackPanel Orientation="Horizontal">
-                                    <RadioButton GroupName="ambiente" Margin="0,0,5,0">Produção</RadioButton>
-                                    <RadioButton GroupName="ambiente">Homologação</RadioButton>
-                                </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Informações">
-                                <StackPanel>
-                                    <TextBlock>Serie</TextBlock>
-                                    <TextBox MaxLength="3"></TextBox>
-                                    
-                                    <TextBlock>Númeração</TextBlock>
-                                    <TextBox MaxLength="9"></TextBox>
-                                </StackPanel>
-                            </GroupBox>
-                            <GroupBox Header="Versão de cada serviço">
-                                <StackPanel>
-                                    <GroupBox Header="MDFeRecepcao">
-                                        <StackPanel>
-                                            <RadioButton GroupName="MDFeRecepcao">1.00</RadioButton>
+                                                     Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         </StackPanel>
-                                    </GroupBox>
-                                    
-                                    <GroupBox Header="MDFeRetRecepcao">
-                                        <RadioButton GroupName="MDFeRetRecepcao">1.00</RadioButton>
-                                    </GroupBox>
-
-                                    <GroupBox Header="MDFeRecepcaoEvento">
-                                        <RadioButton GroupName="MDFeRecepcaoEvento">1.00</RadioButton>
-                                    </GroupBox>
-
-                                    <GroupBox Header="MDFeConsulta">
-                                        <RadioButton GroupName="MDFeConsulta">1.00</RadioButton>
-                                    </GroupBox>
-
-                                    <GroupBox Header="MDFeStatusServico">
-                                        <RadioButton GroupName="MDFeStatusServico">1.00</RadioButton>
-                                    </GroupBox>
-
-                                    <GroupBox Header="MDFeConsNaoEnc">
-                                        <RadioButton GroupName="MDFeConsNaoEnc">1.00</RadioButton>
-                                    </GroupBox>
+                                    </StackPanel>
 
                                 </StackPanel>
                             </GroupBox>
-                        </StackPanel>
-                    </TabItem>
-                </TabControl>
+                        </TabItem>
+                        <TabItem Header="Web Service">
+                            <StackPanel>
+                                <GroupBox Header="UF Destino">
+                                    <ComboBox IsEditable="False"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}"
+                                              SelectedItem="{Binding UfDestino}">
+
+                                    </ComboBox>
+                                </GroupBox>
+                                <GroupBox Header="Ambiente">
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton GroupName="ambiente" Margin="0,0,5,0" 
+                                                     IsChecked="{Binding AmbienteProducao}">Produção</RadioButton>
+                                        <RadioButton GroupName="ambiente" 
+                                                     IsChecked="{Binding AmbienteHomologacao}">Homologação</RadioButton>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Informações">
+                                    <StackPanel>
+                                        <TextBlock>Serie</TextBlock>
+                                        <TextBox MaxLength="3" Text="{Binding Serie}"></TextBox>
+
+                                        <TextBlock>Númeração</TextBlock>
+                                        <TextBox MaxLength="9" Text="{Binding Numeracao}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Versão de cada serviço">
+                                    <StackPanel>
+                                        <GroupBox Header="MDFeRecepcao">
+                                            <StackPanel>
+                                                <RadioButton GroupName="MDFeRecepcao" IsChecked="True">1.00</RadioButton>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                        <GroupBox Header="MDFeRetRecepcao">
+                                            <RadioButton GroupName="MDFeRetRecepcao" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                        <GroupBox Header="MDFeRecepcaoEvento">
+                                            <RadioButton GroupName="MDFeRecepcaoEvento" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                        <GroupBox Header="MDFeConsulta">
+                                            <RadioButton GroupName="MDFeConsulta" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                        <GroupBox Header="MDFeStatusServico">
+                                            <RadioButton GroupName="MDFeStatusServico" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                        <GroupBox Header="MDFeConsNaoEnc">
+                                            <RadioButton GroupName="MDFeConsNaoEnc" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                    <Button Click="SalvarConfiguracoesXml_Click">Salvar Configurações</Button>
+                </StackPanel>
+                
             </TabItem>
             <TabItem Header="Exemplos">
                 <Grid>
@@ -179,6 +188,5 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        
-    </Grid>
+    </DockPanel>
 </Window>
