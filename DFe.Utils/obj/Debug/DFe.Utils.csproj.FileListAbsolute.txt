@@ -1,0 +1,7 @@
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\bin\Debug\DFe.Utils.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\bin\Debug\DFe.Utils.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\bin\Debug\System.Net.Http.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\bin\Debug\System.Net.Http.xml
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\obj\Debug\DFe.Utils.csprojResolveAssemblyReference.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\obj\Debug\DFe.Utils.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe.Utils\obj\Debug\DFe.Utils.pdb

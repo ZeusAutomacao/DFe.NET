@@ -322,6 +322,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>

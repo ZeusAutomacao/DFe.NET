@@ -5,6 +5,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Flags
     public enum MDFeModelo
     {
         [XmlEnum("58")]
-        Modelo = 58
+        MDFe = 58
     }
 }
