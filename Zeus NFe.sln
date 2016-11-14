@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Utils", "DFe.Utils\DFe.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.AppTeste", "MDFe.AppTeste\MDFe.AppTeste.csproj", "{8994DDA1-E36B-40E5-9F98-C0C75CC61971}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Utils", "MDFe.Utils\MDFe.Utils.csproj", "{9C0678EB-78F2-49C6-91BF-38148FC37FBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8994DDA1-E36B-40E5-9F98-C0C75CC61971}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C0678EB-78F2-49C6-91BF-38148FC37FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C0678EB-78F2-49C6-91BF-38148FC37FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C0678EB-78F2-49C6-91BF-38148FC37FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C0678EB-78F2-49C6-91BF-38148FC37FBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,5 +102,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{9794CB98-4691-4218-A127-C573C2E7FF83} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 		{8994DDA1-E36B-40E5-9F98-C0C75CC61971} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
+		{9C0678EB-78F2-49C6-91BF-38148FC37FBB} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 	EndGlobalSection
 EndGlobal

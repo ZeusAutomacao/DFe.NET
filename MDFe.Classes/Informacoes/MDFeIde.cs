@@ -14,7 +14,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public MDFeIde()
         {
             InfMunCarrega = new List<MDFeInfMunCarrega>();
-            InfPercursos = new List<MDFeInfPercurso>();
+            //InfPercursos = new List<MDFeInfPercurso>();
         }
 
         [XmlElement(ElementName = "cUF")]
@@ -86,15 +86,15 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "infMunCarrega")]
         public List<MDFeInfMunCarrega> InfMunCarrega { get; set; }
 
-        [XmlElement(ElementName = "infPercurso")]
-        public List<MDFeInfPercurso> InfPercursos { get; set; }
+        /*[XmlElement(ElementName = "infPercurso")]
+        public List<MDFeInfPercurso> InfPercursos { get; set; }*/
 
-        [XmlElement(ElementName = "dhIniViagem")]
-        public DateTime DhIniViagem { get; set; }
+        [XmlIgnore]
+        public DateTime? DhIniViagem { get; set; }
 
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
-            get { return DhIniViagem.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get { return DhIniViagem?.ToString("yyyy-MM-ddTHH:mm:dd"); }
             set { DhIniViagem = DateTime.Parse(value); }
         }
     }

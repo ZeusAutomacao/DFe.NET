@@ -10,9 +10,5 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "infMunDescarga")]
         public List<MDFeInfMunDescarga> InfMunDescarga { get; set; }
 
-        [XmlElement(ElementName = "infCTe")]
-        public List<MDFeInfCTe> InfCTe { get; set; }
-
-
     }
 }

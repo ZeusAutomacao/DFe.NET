@@ -19,13 +19,7 @@ namespace MDFe.AppTeste
 
         private void Enviar1_0_Click(object sender, RoutedEventArgs e)
         {
-            var mdfe = new MDFeEletronico();
-            mdfe.InfMDFe.Ide.CUF = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.TpAmb = TipoAmbiente.Homologacao;
-            mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
-            mdfe.InfMDFe.Ide.Serie = 750;
-
+            _model.CriarEnviar100();
         }
 
         private void ArquivoCertificado_Click(object sender, RoutedEventArgs e)

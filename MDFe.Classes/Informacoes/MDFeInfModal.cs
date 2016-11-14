@@ -9,7 +9,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     public class MDFeInfModal
     {
         [XmlAttribute(AttributeName = "versaoModal")]
-        public MDFeVersaoModal VersaoModal { get; set; }
+        public MDFeVersaoModal VersaoModal { get; set; } = MDFeVersaoModal.Versao100;
 
         [XmlElement("rodo", typeof(MDFeRodo))]
         [XmlElement("aereo", typeof(MDFeAereo))]

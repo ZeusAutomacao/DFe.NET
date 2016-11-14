@@ -20,6 +20,7 @@ namespace MDFe.AppTeste.Entidades
         public EstadoUF SiglaUf { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-         
+        public string RNTRC { get; set; }
+
     }
 }

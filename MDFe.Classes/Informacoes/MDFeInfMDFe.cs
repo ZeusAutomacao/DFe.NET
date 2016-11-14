@@ -11,8 +11,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         {
             Ide = new MDFeIde();
             Emit = new MDFeEmit();
-            InfDoc = new MDFeInfDoc();
-            Tot = new MDFeTot();
+            InfModal = new MDFeInfModal();
+            //InfDoc = new MDFeInfDoc();
+            //Tot = new MDFeTot();
         }
 
         [XmlAttribute(AttributeName = "versao")]
@@ -27,7 +28,10 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "emit")]
         public MDFeEmit Emit { get; set; }
 
-        [XmlElement(ElementName = "infDoc")]
+        [XmlElement(ElementName = "infModal")]
+        public MDFeInfModal InfModal { get; set; }
+
+        /*[XmlElement(ElementName = "infDoc")]
         public MDFeInfDoc InfDoc { get; set; }
 
         [XmlElement(ElementName = "tot")]
@@ -40,7 +44,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public List<MDFeAutXML> AutXml { get; set; }
 
         [XmlElement(ElementName = "infAdic")]
-        public MDFeInfAdic InfAdic { get; set; }
-
+        public MDFeInfAdic InfAdic { get; set; }*/
     }
 }

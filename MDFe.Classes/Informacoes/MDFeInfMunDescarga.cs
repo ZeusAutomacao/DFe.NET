@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
@@ -11,5 +12,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 
         [XmlElement(ElementName = "xMunDescarga")]
         public string XMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "infCTe")]
+        public List<MDFeInfCTe> InfCTe { get; set; }
     }
 }

@@ -342,6 +342,10 @@
       <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
+      <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
+      <Name>MDFe.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
