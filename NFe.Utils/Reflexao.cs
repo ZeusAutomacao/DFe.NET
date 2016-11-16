@@ -43,10 +43,11 @@ namespace NFe.Utils
         /// <summary>
         ///     Copia o valor das propriedades comuns entre dois objetos
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TOrigem"></typeparam>
+        /// <typeparam name="TDestino"></typeparam>
         /// <param name="objetoOrigem"></param>
         /// <param name="objetoDestino"></param>
-        public static void CopiarPropriedades<D, O>(this D objetoDestino, O objetoOrigem) where D: class where O : class
+        public static void CopiarPropriedades<TDestino, TOrigem>(this TDestino objetoDestino, TOrigem objetoOrigem) where TDestino: class where TOrigem : class
         {
             foreach (var attributo in objetoOrigem.GetType().GetProperties().Where(p => p.CanRead))
             {

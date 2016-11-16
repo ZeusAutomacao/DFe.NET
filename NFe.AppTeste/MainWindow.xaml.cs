@@ -64,6 +64,7 @@ using NFe.Utils.Assinatura;
 using NFe.Utils.Email;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
+using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -782,7 +783,7 @@ namespace NFe.AppTeste
         {
             var infNFe = new infNFe
             {
-                versao = Conversao.VersaoServicoParaString(versao),
+                versao = versao.VersaoServicoParaString(),
                 ide = GetIdentificacao(numero, modelo, versao),
                 emit = GetEmitente(),
                 dest = GetDestinatario(versao, modelo),
@@ -952,6 +953,8 @@ namespace NFe.AppTeste
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
+                    //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
+
                     //ICMSUFDest = new ICMSUFDest()
                     //{
                     //    pFCPUFDest = 0,
@@ -1049,6 +1052,22 @@ namespace NFe.AppTeste
             }
 
             return new ICMS10();
+        }
+
+        protected virtual ICMSBasico ObterIcmsBasico(CRT crt)
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto ICMSGeral, como no exemplo abaixo.
+            var icmsGeral = new ICMSGeral
+            {
+                orig = OrigemMercadoria.OmNacional,
+                CST = Csticms.Cst20,
+                modBC = DeterminacaoBaseIcms.DbiValorOperacao,
+                vBC = 1,
+                pICMS = 17,
+                vICMS = 0.17m,
+                motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
+            };
+            return icmsGeral.ObterICMSBasico(crt);
         }
 
         protected virtual ICMSBasico InformarCSOSN(Csosnicms CST)

@@ -1225,7 +1225,7 @@ namespace NFe.Servicos
         /// <param name="servico"></param>
         /// <param name="cfgServico"></param>
         /// <returns>Retorna um item do enum VersaoServico, com a versão do serviço</returns>
-        private static VersaoServico? ObterVersaoServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        private static VersaoServico? ObterVersaoServico(this ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
             switch (servico)
             {
@@ -1273,8 +1273,8 @@ namespace NFe.Servicos
         /// <returns></returns>
         private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
-            return "Serviço " + servico + ", versão " + Conversao.VersaoServicoParaString(servico, ObterVersaoServico(servico, cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + Conversao.TpAmbParaString(cfgServico.tpAmb) +
-                   " para emissão tipo " + Conversao.TipoEmissaoParaString(cfgServico.tpEmis) + ", documento: " + Conversao.ModeloDocumentoParaString(cfgServico.ModeloDocumento) + "!";
+            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(servico.ObterVersaoServico(cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + cfgServico.tpAmb.TpAmbParaString() +
+                   " para emissão tipo " + cfgServico.tpEmis.TipoEmissaoParaString() + ", documento: " + cfgServico.ModeloDocumento.ModeloDocumentoParaString() + "!";
         }
 
         /// <summary>

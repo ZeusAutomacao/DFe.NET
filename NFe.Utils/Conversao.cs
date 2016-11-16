@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
@@ -39,7 +40,7 @@ namespace NFe.Utils
 {
     public static class Conversao
     {
-        public static string VersaoServicoParaString(ServicoNFe servicoNFe, VersaoServico? versaoServico)
+        public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
             switch (versaoServico)
             {
@@ -58,7 +59,7 @@ namespace NFe.Utils
             return "";
         }
 
-        public static string TpAmbParaString(TipoAmbiente? tpAmb)
+        public static string TpAmbParaString(this TipoAmbiente tpAmb)
         {
             switch (tpAmb)
             {
@@ -66,11 +67,12 @@ namespace NFe.Utils
                     return "Homologação";
                 case TipoAmbiente.taProducao:
                     return "Produção";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tpAmb), tpAmb, null);
             }
-            return "";
         }
 
-        public static string VersaoServicoParaString(VersaoServico versao)
+        public static string VersaoServicoParaString(this VersaoServico versao)
         {
             switch (versao)
             {
@@ -84,20 +86,20 @@ namespace NFe.Utils
             return null;
         }
 
-        public static string TipoEmissaoParaString(TipoEmissao tipoEmissao)
+        public static string TipoEmissaoParaString(this TipoEmissao tipoEmissao)
         {
             var s = Enum.GetName(typeof (TipoEmissao), tipoEmissao);
             return s != null ? s.Substring(2) : "";
         }
 
-        public static string CrtParaString(CRT crt)
+        public static string CrtParaString(this CRT crt)
         {
             switch (crt)
             {
                 case CRT.SimplesNacional:
                     return "Simples Nacional";
                 case CRT.SimplesNacionalExcessoSublimite:
-                    return "Simples Nacional - subimite excedido";
+                    return "Simples Nacional - sublimite excedido";
                 case CRT.RegimeNormal:
                     return "Normal";
                 default:
@@ -105,7 +107,7 @@ namespace NFe.Utils
             }
         }
 
-        public static string ModeloDocumentoParaString(ModeloDocumento modelo)
+        public static string ModeloDocumentoParaString(this ModeloDocumento modelo)
         {
             switch (modelo)
             {
@@ -115,6 +117,50 @@ namespace NFe.Utils
                     return "NFC-e";
             }
             return null;
+        }
+
+        public static string CsticmsParaString(this Csticms csticms)
+        {
+            switch (csticms)
+            {
+                case Csticms.Cst00:
+                    return "00";
+                case Csticms.Cst10:
+                case Csticms.CstPart10:
+                    return "10";
+                case Csticms.Cst20:
+                    return "20";
+                case Csticms.Cst30:
+                    return "30";
+                case Csticms.Cst40:
+                    return "40";
+                case Csticms.Cst41:
+                case Csticms.CstRep41:
+                    return "41";
+                case Csticms.Cst50:
+                    return "50";
+                case Csticms.Cst51:
+                    return "51";
+                case Csticms.Cst60:
+                    return "60";
+                case Csticms.Cst70:
+                    return "70";
+                case Csticms.Cst90:
+                case Csticms.CstPart90:
+                    return "90";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(csticms), csticms, null);
+            }
+        }
+
+        public static string CsosnicmsParaString(this Csosnicms csosnicms)
+        {
+            return ((int) csosnicms).ToString();
+        }
+
+        public static string OrigemMercadoriaParaString(this OrigemMercadoria origemMercadoria)
+        {
+            return ((int)origemMercadoria).ToString();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="11/16/2016 12:34:00" ReportInfo.CreatorVersion="2016.3.22.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="11/16/2016 15:40:30" ReportInfo.CreatorVersion="2016.3.22.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +18,8 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Utils.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Protocolo;
+using NFe.Classes.Informacoes.Emitente;
+using NFe.Utils;
 
 namespace FastReport
 {
@@ -166,31 +168,14 @@ namespace FastReport
       ICMSBasico icmsBasico = (ICMSBasico) (Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS&quot;));
       ICMSGeral icmsGeral = new ICMSGeral(icmsBasico);  
       
-      if ((int)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == 3)
+      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional)
       {
-        string cst = &quot;&quot;;                   
-     
-        switch((int) ((icmsGeral.CST)) )
-        {
-          case 0: cst =  &quot;00&quot;; break;
-          case 1: cst =  &quot;10&quot;; break;
-          case 2: cst =  &quot;10&quot;; break;
-          case 3: cst =  &quot;20&quot;; break;
-          case 4: cst =  &quot;30&quot;; break;
-          case 5: cst =  &quot;40&quot;; break;
-          case 6: cst =  &quot;41&quot;; break;
-          case 7: cst =  &quot;41&quot;; break;
-          case 8: cst =  &quot;50&quot;; break;
-          case 9: cst =  &quot;51&quot;; break;
-          case 10: cst =  &quot;60&quot;; break;          
-          case 11: cst =  &quot;70&quot;; break;
-          case 12: cst =  &quot;90&quot;; break;
-          case 13: cst =  &quot;90&quot;; break;
-        }
-        lblCst.Text = ((int)(icmsGeral.orig)).ToString() + cst;             
+        lblCst.Text = icmsGeral.CSOSN.CsosnicmsParaString();
       }
       else
-        lblCst.Text = ((int) (icmsGeral.CSOSN)).ToString();
+      {
+        lblCst.Text = icmsGeral.orig.OrigemMercadoriaParaString() + icmsGeral.CST.CsticmsParaString();
+      }           
       
       try { 
         Text152.Text = FormatCurrency(((Decimal)icmsGeral.vBC), 2); 
