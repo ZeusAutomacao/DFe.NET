@@ -1167,7 +1167,7 @@ namespace NFe.AppTeste
         {
             richTextBox.Document.Blocks.Clear();
 
-            foreach (var atributos in Funcoes.LerPropriedades(objeto))
+            foreach (var atributos in objeto.LerPropriedades())
             {
                 richTextBox.AppendText(atributos.Key + " = " + atributos.Value + "\r");
             }
