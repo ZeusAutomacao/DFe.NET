@@ -15,6 +15,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement("aereo", typeof(MDFeAereo))]
         [XmlElement("aquav", typeof(MDFeAquav))]
         [XmlElement("ferrov", typeof(MDFeFerrov))]
-        public IMDFeModal Modal { get; set; }
+        public MDFeModalContainer Modal { get; set; }
     }
 }

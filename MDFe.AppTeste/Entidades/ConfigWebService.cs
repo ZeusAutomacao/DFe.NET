@@ -18,5 +18,6 @@ namespace MDFe.AppTeste.Entidades
         public VersaoServico VersaoMDFeConsulta { get; set; }
         public VersaoServico VersaoMDFeStatusServico { get; set; }
         public VersaoServico VersaoMDFeConsNaoEnc { get; set; }
+        public string CaminhoSchemas { get; set; }
     }
 }

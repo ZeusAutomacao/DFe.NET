@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -11,7 +12,7 @@ using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
 using MDFe.Utils.Extencoes;
-using Microsoft.Win32;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
 {
@@ -46,8 +47,20 @@ namespace MDFe.AppTeste
         private VersaoServico _versaoMdFeConsNaoEnc;
         private bool _ambienteProducao;
         private bool _ambienteHomologacao;
+        private string _rntrc;
+        private string _diretorioSchemas;
 
         #region empresa
+
+        public string Rntrc
+        {
+            get { return _rntrc; }
+            set
+            {
+                _rntrc = value;
+                OnPropertyChanged("Rntrc");
+            }
+        }
 
         public string Cnpj
         {
@@ -347,6 +360,16 @@ namespace MDFe.AppTeste
             }
         }
 
+        public string DiretorioSchemas
+        {
+            get { return _diretorioSchemas; }
+            set
+            {
+                _diretorioSchemas = value;
+                OnPropertyChanged("DiretorioSchemas");
+            }
+        }
+
         #endregion
 
         public void SalvarConfiguracoesXml()
@@ -368,7 +391,8 @@ namespace MDFe.AppTeste
                         NomeMunicipio = NomeMunicipio,
                         Numero = Numero,
                         SiglaUf = SiglaUf,
-                        Telefone = Telefone
+                        Telefone = Telefone,
+                        RNTRC = Rntrc
                     },
                 CertificadoDigital =
                 {
@@ -386,7 +410,8 @@ namespace MDFe.AppTeste
                     VersaoMDFeRecepcao = VersaoServico.Versao100,
                     VersaoMDFeRecepcaoEvento = VersaoServico.Versao100,
                     VersaoMDFeRetRecepcao = VersaoServico.Versao100,
-                    VersaoMDFeStatusServico = VersaoServico.Versao100
+                    VersaoMDFeStatusServico = VersaoServico.Versao100,
+                    CaminhoSchemas = DiretorioSchemas
                 }
             };
 
@@ -439,6 +464,7 @@ namespace MDFe.AppTeste
             Numero = config.Empresa.Numero;
             SiglaUf = config.Empresa.SiglaUf;
             Telefone = config.Empresa.Telefone;
+            Rntrc = config.Empresa.RNTRC;
 
             Senha = config.CertificadoDigital.Senha;
             CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
@@ -462,15 +488,14 @@ namespace MDFe.AppTeste
             VersaoMDFeRetRecepcao = config.ConfigWebService.VersaoMDFeRetRecepcao;
             VersaoMDFeStatusServico = config.ConfigWebService.VersaoMDFeStatusServico;
 
+            DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
         }
 
         public void CriarEnviar100()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
 
-            Utils.Configuracoes.Configuracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.Configuracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.Configuracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            CarregarConfiguracoes(config);
 
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
@@ -552,18 +577,7 @@ namespace MDFe.AppTeste
             };
             #endregion modal
 
-
-
-
-            mdfe = mdfe.Assina();
-
-            var xmlEnvio = FuncoesXml.ClasseParaXmlString(mdfe);
-
-            var xm = xmlEnvio;
-
-            /*
-
-
+            #region infMunDescarga
             mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<MDFeInfMunDescarga>
             {
                 new MDFeInfMunDescarga
@@ -579,16 +593,43 @@ namespace MDFe.AppTeste
                     }
                 }
             };
+            #endregion infMunDescarga
 
+            #region Totais (tot)
             mdfe.InfMDFe.Tot.QCTe = 1;
             mdfe.InfMDFe.Tot.vCarga = 500.00m;
             mdfe.InfMDFe.Tot.CUnid = MDFeCUnid.KG;
             mdfe.InfMDFe.Tot.QCarga = 100.0000m;
+            #endregion Totais (tot)
 
+            #region informações adicionais (infAdic)
             mdfe.InfMDFe.InfAdic = new MDFeInfAdic
             {
                 InfCpl = "aaaaaaaaaaaaaaaa"
-            };*/
+            };
+            #endregion
+
+            mdfe = mdfe.Assina();
+            mdfe = mdfe.Valida();
+
+            var xmlEnvio = FuncoesXml.ClasseParaXmlString(mdfe);
+
+            var xm = xmlEnvio;
+        }
+
+        private static void CarregarConfiguracoes(Configuracao config)
+        {
+            Utils.Configuracoes.Configuracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
+            Utils.Configuracoes.Configuracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
+            Utils.Configuracoes.Configuracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            Utils.Configuracoes.Configuracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+        }
+
+        public void BuscarDiretorioSchema()
+        {
+            var dlg = new FolderBrowserDialog();
+            dlg.ShowDialog();
+            DiretorioSchemas = dlg.SelectedPath;
         }
     }
 }

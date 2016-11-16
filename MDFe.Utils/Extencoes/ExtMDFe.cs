@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
@@ -10,6 +9,17 @@ namespace MDFe.Utils.Extencoes
 {
     public static class ExtMDFe
     {
+        public static MDFEletronico Valida(this MDFEletronico mdfe)
+        {
+            if (mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
+
+
+
+
+            return null;
+
+        }
+
         public static MDFEletronico Assina(this MDFEletronico mdfe)
         {
             if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");

@@ -24,5 +24,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 
         [XmlElement(ElementName = "qCarga")]
         public decimal QCarga { get; set; }
+
+        public bool QCTeSpecified => QCTe.HasValue;
+        public bool QNFeSpecified => QNFe.HasValue;
+        public bool QMDFeSpecified => QMDFe.HasValue;
     }
 }

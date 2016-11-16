@@ -6,7 +6,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeRodo : IMDFeModal
+    public class MDFeRodo : MDFeModalContainer
     {
         [XmlElement(ElementName = "RNTRC")]
         public string RNTRC { get; set; }

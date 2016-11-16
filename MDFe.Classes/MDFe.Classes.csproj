@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contratos\IMDFeModal.cs" />
+    <Compile Include="Contratos\MDFeModalContainer.cs" />
     <Compile Include="Exceptions\MDFeException.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />

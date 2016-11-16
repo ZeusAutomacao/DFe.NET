@@ -5,7 +5,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeAereo : IMDFeModal
+    public class MDFeAereo : MDFeModalContainer
     {
         [XmlElement(ElementName = "nac")]
         public string Nac { get; set; }

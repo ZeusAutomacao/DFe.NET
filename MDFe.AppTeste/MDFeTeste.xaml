@@ -17,6 +17,10 @@
                             <StackPanel>
                                 <GroupBox Header="Emitente">
                                     <StackPanel>
+
+                                        <TextBlock>RNTRC</TextBlock>
+                                        <TextBox MaxLength="8" Text="{Binding Rntrc}"></TextBox>
+
                                         <TextBlock>Cnpj</TextBlock>
                                         <TextBox MaxLength="14" Text="{Binding Cnpj}"></TextBox>
                                         <TextBlock>IE (Inscrição Estadual)</TextBlock>
@@ -161,6 +165,22 @@
 
                                         <GroupBox Header="MDFeConsNaoEnc">
                                             <RadioButton GroupName="MDFeConsNaoEnc" IsChecked="True">1.00</RadioButton>
+                                        </GroupBox>
+
+                                        <GroupBox Header="Diretório Schemas">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="35"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+
+
+                                                    <TextBox Text="{Binding DiretorioSchemas}" IsReadOnly="True"></TextBox>
+                                                    <Button Grid.Column="1" Click="BuscarDiretorioSchema_Click">...</Button>
+                                                    
+                                                </Grid>
+                                            </StackPanel>
                                         </GroupBox>
 
                                     </StackPanel>

@@ -6,7 +6,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeAquav : IMDFeModal
+    public class MDFeAquav : MDFeModalContainer
     {
         [XmlElement(ElementName = "CNPJAgeNav")]
         public string CNPJAgeNav { get; set; }

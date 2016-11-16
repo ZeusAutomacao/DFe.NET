@@ -3,7 +3,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
-    public class MDFeFerrov : IMDFeModal
+    public class MDFeFerrov : MDFeModalContainer
     {
         [XmlElement(ElementName = "trem")]
         public MDFeTrem Trem { get; set; }

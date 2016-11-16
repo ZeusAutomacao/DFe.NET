@@ -41,5 +41,10 @@ namespace MDFe.AppTeste
         {
             _model.CarregarConfiguracoes();
         }
+
+        private void BuscarDiretorioSchema_Click(object sender, RoutedEventArgs e)
+        {
+            _model.BuscarDiretorioSchema();
+        }
     }
 }

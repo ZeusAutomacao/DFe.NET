@@ -6,7 +6,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeTrem : IMDFeModal
+    public class MDFeTrem : MDFeModalContainer
     {
         [XmlElement(ElementName = "xPref")]
         public string XPref { get; set; }

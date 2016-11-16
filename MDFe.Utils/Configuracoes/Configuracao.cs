@@ -8,6 +8,7 @@ namespace MDFe.Utils.Configuracoes
         public static string CaminhoCertificadoDigital { get; set; }
         public static string SenhaCertificadoDigital { get; set; }
         public static string NumeroSerieCertificadoDigital { get; set; }
+        public static string CaminhoSchemas { get; set; }
 
 
         public static X509Certificate2 X509Certificate2 => ObterCertificado();
