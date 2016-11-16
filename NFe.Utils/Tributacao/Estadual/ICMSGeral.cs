@@ -260,6 +260,17 @@ namespace NFe.Utils.Tributacao.Estadual
         /// </summary>
         public string UFST { get; set; }
 
+        /// <summary>
+        ///     Valor da BC do ICMS ST da UF destino
+        /// </summary>
+        public decimal vBCSTDest { get; set; }
+
+
+        /// <summary>
+        ///     Valor do ICMS ST da UF destino
+        /// </summary>
+        public decimal vICMSSTDest { get; set; }
+
         #region Campos exclusivos simples nacional
 
         /// <summary>
