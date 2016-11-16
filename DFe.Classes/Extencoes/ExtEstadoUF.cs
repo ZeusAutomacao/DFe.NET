@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.NetworkInformation;
 using DFe.Classes.Entidades;
 
 namespace DFe.Classes.Extencoes
@@ -16,6 +17,12 @@ namespace DFe.Classes.Extencoes
         public static string GetSiglaUfString(this EstadoUF estadoUf)
         {
             return estadoUf.ToString();
+        }
+
+        public static string GetCodigoIbgeEmString(this EstadoUF estadoUf)
+        {
+            var codigo = (byte) estadoUf;
+            return codigo.ToString();
         }
     }
 }

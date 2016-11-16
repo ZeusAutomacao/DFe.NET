@@ -11,6 +11,8 @@ using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
+using MDFe.Servicos.RecepcaoMDFe;
+using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -639,7 +641,8 @@ namespace MDFe.AppTeste
             mdfe = mdfe.Assina();
             mdfe = mdfe.Valida();
 
-            var xmlEnvio = FuncoesXml.ClasseParaXmlString(mdfe);
+            var servico = new ServicoMDFeRecepcao();
+            servico.MDFeRecepcao(1, mdfe);
         }
 
         private static int GetRandom()

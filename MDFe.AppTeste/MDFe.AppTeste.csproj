@@ -343,6 +343,10 @@
       <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
+      <Project>{9587937A-A826-4785-9D1E-3A9F4A622B7C}</Project>
+      <Name>MDFe.Servicos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
       <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
       <Name>MDFe.Utils</Name>
