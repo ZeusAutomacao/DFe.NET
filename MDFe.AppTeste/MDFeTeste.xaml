@@ -178,7 +178,29 @@
 
                                                     <TextBox Text="{Binding DiretorioSchemas}" IsReadOnly="True"></TextBox>
                                                     <Button Grid.Column="1" Click="BuscarDiretorioSchema_Click">...</Button>
+
+                                                </Grid>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                        <GroupBox Header="Diretório Salvar XMLs">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="35"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
                                                     
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+
+                                                    <CheckBox IsChecked="{Binding IsSalvarXml}">Salvar Xml</CheckBox>
+
+                                                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding DiretorioSalvarXml}" IsReadOnly="True"></TextBox>
+                                                    <Button Grid.Row="1" Grid.Column="1" Click="BuscarDiretorioSalvarXml_Click">...</Button>
+
                                                 </Grid>
                                             </StackPanel>
                                         </GroupBox>
@@ -190,13 +212,14 @@
                     </TabControl>
                     <Button Click="SalvarConfiguracoesXml_Click">Salvar Configurações</Button>
                 </StackPanel>
-                
+
             </TabItem>
             <TabItem Header="Exemplos">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="24*"></ColumnDefinition>
+                        <ColumnDefinition Width="355*"/>
+                        <ColumnDefinition Width="379*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -204,7 +227,8 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Button Click="Enviar1_0_Click">Criar e enviar 1.00</Button>
+                    <Button Click="Enviar1_0_Click" Grid.ColumnSpan="2">Criar e enviar 1.00</Button>
+                    <Button Grid.Row="0" Grid.Column="2" Click="GerarESalvar1_0_Click">Gerar e Salvar 1.00</Button>
                 </Grid>
             </TabItem>
         </TabControl>

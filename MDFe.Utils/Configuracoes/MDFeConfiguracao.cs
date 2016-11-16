@@ -6,11 +6,12 @@ namespace MDFe.Utils.Configuracoes
 {
     public class MDFeConfiguracao
     {
+        public static bool IsSalvarXml { get; set; }
         public static string CaminhoCertificadoDigital { get; set; }
         public static string SenhaCertificadoDigital { get; set; }
         public static string NumeroSerieCertificadoDigital { get; set; }
         public static string CaminhoSchemas { get; set; }
-
+        public static string CaminhoSalvarXml { get; set; }
         public static MDFeVersaoWebService VersaoWebService { get; set; } = new MDFeVersaoWebService();
 
         public static X509Certificate2 X509Certificate2 => ObterCertificado();
@@ -24,6 +25,11 @@ namespace MDFe.Utils.Configuracoes
             }
 
             return CertificadoDigital.ObterDoRepositorio(NumeroSerieCertificadoDigital, SenhaCertificadoDigital);
+        }
+
+        public static bool NaoSalvarXml()
+        {
+            return !IsSalvarXml;
         }
     }
 

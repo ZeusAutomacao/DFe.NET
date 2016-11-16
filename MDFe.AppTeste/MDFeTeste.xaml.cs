@@ -46,5 +46,15 @@ namespace MDFe.AppTeste
         {
             _model.BuscarDiretorioSchema();
         }
+
+        private void GerarESalvar1_0_Click(object sender, RoutedEventArgs e)
+        {
+            _model.GerarESalvar1_0();
+        }
+
+        private void BuscarDiretorioSalvarXml_Click(object sender, RoutedEventArgs e)
+        {
+            _model.BuscarDiretorioSalvarXml();
+        }
     }
 }

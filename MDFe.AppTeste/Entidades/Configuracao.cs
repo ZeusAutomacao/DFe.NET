@@ -14,5 +14,8 @@ namespace MDFe.AppTeste.Entidades
         public Empresa Empresa { get; set; }
         public ConfigCertificadoDigital CertificadoDigital { get; set; }
         public ConfigWebService ConfigWebService { get; set; }
+
+        public string DiretorioSalvarXml { get; set; }
+        public bool IsSalvarXml { get; set; }
     }
 }

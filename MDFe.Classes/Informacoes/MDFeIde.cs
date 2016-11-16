@@ -14,7 +14,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public MDFeIde()
         {
             InfMunCarrega = new List<MDFeInfMunCarrega>();
-            //InfPercursos = new List<MDFeInfPercurso>();
+            InfPercurso = new List<MDFeInfPercurso>();
         }
 
         [XmlElement(ElementName = "cUF")]
@@ -86,8 +86,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "infMunCarrega")]
         public List<MDFeInfMunCarrega> InfMunCarrega { get; set; }
 
-        /*[XmlElement(ElementName = "infPercurso")]
-        public List<MDFeInfPercurso> InfPercursos { get; set; }*/
+        [XmlElement(ElementName = "infPercurso")]
+        public List<MDFeInfPercurso> InfPercurso { get; set; }
 
         [XmlIgnore]
         public DateTime? DhIniViagem { get; set; }

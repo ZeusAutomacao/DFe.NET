@@ -49,6 +49,8 @@ namespace MDFe.AppTeste
         private bool _ambienteHomologacao;
         private string _rntrc;
         private string _diretorioSchemas;
+        private string _diretorioSalvarXml;
+        private bool _isSalvarXml;
 
         #region empresa
 
@@ -372,6 +374,29 @@ namespace MDFe.AppTeste
 
         #endregion
 
+        #region configuração arquivo
+        public string DiretorioSalvarXml
+        {
+            get { return _diretorioSalvarXml; }
+            set
+            {
+                _diretorioSalvarXml = value;
+                OnPropertyChanged("DiretorioSalvarXml");
+            }
+        }
+
+        public bool IsSalvarXml
+        {
+            get { return _isSalvarXml; }
+            set
+            {
+                _isSalvarXml = value;
+                OnPropertyChanged("IsSalvarXml");
+            }
+        }
+
+        #endregion configuração arquivo
+
         public void SalvarConfiguracoesXml()
         {
             var configuracaoDao = new ConfiguracaoDao();
@@ -412,7 +437,9 @@ namespace MDFe.AppTeste
                     VersaoMDFeRetRecepcao = VersaoServico.Versao100,
                     VersaoMDFeStatusServico = VersaoServico.Versao100,
                     CaminhoSchemas = DiretorioSchemas
-                }
+                },
+                DiretorioSalvarXml = DiretorioSalvarXml,
+                IsSalvarXml = IsSalvarXml
             };
 
             if (AmbienteHomologacao)
@@ -489,14 +516,14 @@ namespace MDFe.AppTeste
             VersaoMDFeStatusServico = config.ConfigWebService.VersaoMDFeStatusServico;
 
             DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
+            DiretorioSalvarXml = config.DiretorioSalvarXml;
+            IsSalvarXml = config.IsSalvarXml;
         }
 
         public void CriarEnviar100()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-
             CarregarConfiguracoes(config);
-
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
             #region (ide)
@@ -506,7 +533,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
-            mdfe.InfMDFe.Ide.CMDF = config.ConfigWebService.Numeracao;
+            mdfe.InfMDFe.Ide.CMDF = GetRandom();
             mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
             mdfe.InfMDFe.Ide.DhEmi = DateTime.Now;
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
@@ -582,8 +609,8 @@ namespace MDFe.AppTeste
             {
                 new MDFeInfMunDescarga
                 {
-                    CMunDescarga = "CUIABA",
-                    XMunDescarga = "5103403",
+                    XMunDescarga = "CUIABA",
+                    CMunDescarga = "5103403",
                     InfCTe = new List<MDFeInfCTe>
                     {
                         new MDFeInfCTe
@@ -613,8 +640,12 @@ namespace MDFe.AppTeste
             mdfe = mdfe.Valida();
 
             var xmlEnvio = FuncoesXml.ClasseParaXmlString(mdfe);
+        }
 
-            var xm = xmlEnvio;
+        private static int GetRandom()
+        {
+            var rand = new Random();
+            return rand.Next(11111111, 99999999);
         }
 
         private static void CarregarConfiguracoes(Configuracao config)
@@ -623,6 +654,8 @@ namespace MDFe.AppTeste
             Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
             Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
                 config.ConfigWebService.VersaoMDFeConsNaoEnc;
@@ -643,6 +676,135 @@ namespace MDFe.AppTeste
             var dlg = new FolderBrowserDialog();
             dlg.ShowDialog();
             DiretorioSchemas = dlg.SelectedPath;
+        }
+
+        public void GerarESalvar1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+            var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
+
+            #region (ide)
+            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfDestino;
+            mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
+            mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
+            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Serie = 750;
+            mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
+            mdfe.InfMDFe.Ide.CMDF = GetRandom();
+            mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
+            mdfe.InfMDFe.Ide.DhEmi = DateTime.Now;
+            mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
+            mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
+            mdfe.InfMDFe.Ide.VerProc = "versao28383";
+            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
+            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+
+
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            {
+                CMunCarrega = "5211701",
+                XMunCarrega = "JANDAIA"
+            });
+
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            {
+                CMunCarrega = "5209952",
+                XMunCarrega = "INDIARA"
+            });
+
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            {
+                CMunCarrega = "5200134",
+                XMunCarrega = "ACREUNA"
+            });
+
+            #endregion (ide)
+
+            #region dados emitente (emit)
+            mdfe.InfMDFe.Emit.CNPJ = config.Empresa.Cnpj;
+            mdfe.InfMDFe.Emit.IE = config.Empresa.InscricaoEstadual;
+            mdfe.InfMDFe.Emit.XNome = config.Empresa.Nome;
+            mdfe.InfMDFe.Emit.XFant = config.Empresa.NomeFantasia;
+
+            mdfe.InfMDFe.Emit.EnderEmit.XLgr = config.Empresa.Logradouro;
+            mdfe.InfMDFe.Emit.EnderEmit.Nro = config.Empresa.Numero;
+            mdfe.InfMDFe.Emit.EnderEmit.XCpl = config.Empresa.Complemento;
+            mdfe.InfMDFe.Emit.EnderEmit.XBairro = config.Empresa.Bairro;
+            mdfe.InfMDFe.Emit.EnderEmit.CMun = config.Empresa.CodigoIbgeMunicipio;
+            mdfe.InfMDFe.Emit.EnderEmit.XMun = config.Empresa.NomeMunicipio;
+            mdfe.InfMDFe.Emit.EnderEmit.CEP = long.Parse(config.Empresa.Cep);
+            mdfe.InfMDFe.Emit.EnderEmit.UF = config.Empresa.SiglaUf;
+            mdfe.InfMDFe.Emit.EnderEmit.Fone = config.Empresa.Telefone;
+            mdfe.InfMDFe.Emit.EnderEmit.Email = config.Empresa.Email;
+            #endregion dados emitente (emit)
+
+            #region modal
+            mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+            {
+                RNTRC = config.Empresa.RNTRC,
+                VeicTracao = new MDFeVeicTracao
+                {
+                    Placa = "kkk888",
+                    RENAVAM = "888888888",
+                    UF = EstadoUF.GO,
+                    Tara = 222,
+                    CapM3 = 222,
+                    CapKG = 22,
+                    Condutor = new MDFeCondutor
+                    {
+                        CPF = "11392381754",
+                        XNome = "Ricardão"
+                    },
+                    TpRod = MDFeTpRod.Outros,
+                    TpCar = MDFeTpCar.NaoAplicavel
+                }
+            };
+            #endregion modal
+
+            #region infMunDescarga
+            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<MDFeInfMunDescarga>
+            {
+                new MDFeInfMunDescarga
+                {
+                    XMunDescarga = "CUIABA",
+                    CMunDescarga = "5103403",
+                    InfCTe = new List<MDFeInfCTe>
+                    {
+                        new MDFeInfCTe
+                        {
+                            ChCTe = "52161021351378000100577500000000191194518006"
+                        }
+                    }
+                }
+            };
+            #endregion infMunDescarga
+
+            #region Totais (tot)
+            mdfe.InfMDFe.Tot.QCTe = 1;
+            mdfe.InfMDFe.Tot.vCarga = 500.00m;
+            mdfe.InfMDFe.Tot.CUnid = MDFeCUnid.KG;
+            mdfe.InfMDFe.Tot.QCarga = 100.0000m;
+            #endregion Totais (tot)
+
+            #region informações adicionais (infAdic)
+            mdfe.InfMDFe.InfAdic = new MDFeInfAdic
+            {
+                InfCpl = "aaaaaaaaaaaaaaaa"
+            };
+            #endregion
+
+            mdfe = mdfe.Assina();
+            mdfe = mdfe.Valida();
+
+            mdfe.SalvarXmlEmDisco();
+        }
+
+        public void BuscarDiretorioSalvarXml()
+        {
+            var dlg = new FolderBrowserDialog();
+            dlg.ShowDialog();
+            DiretorioSalvarXml = dlg.SelectedPath;
         }
     }
 }
