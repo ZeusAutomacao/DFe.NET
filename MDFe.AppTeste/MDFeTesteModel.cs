@@ -619,10 +619,23 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoes(Configuracao config)
         {
-            Utils.Configuracoes.Configuracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.Configuracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.Configuracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
-            Utils.Configuracoes.Configuracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
+            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
+                config.ConfigWebService.VersaoMDFeConsNaoEnc;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
+                config.ConfigWebService.VersaoMDFeConsulta;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
+                config.ConfigWebService.VersaoMDFeRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
+                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
+                config.ConfigWebService.VersaoMDFeRetRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
+                config.ConfigWebService.VersaoMDFeStatusServico;
         }
 
         public void BuscarDiretorioSchema()

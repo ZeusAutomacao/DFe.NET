@@ -13,7 +13,7 @@ namespace MDFe.Utils.Extencoes
         {
             if (mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
-
+            
 
 
             return null;
@@ -40,7 +40,7 @@ namespace MDFe.Utils.Extencoes
             mdfe.InfMDFe.Versao = MDFeVersaoServico.Versao100;
             mdfe.InfMDFe.Ide.CDV = gerarChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, Configuracao.X509Certificate2);
+            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
 
             mdfe.Signature = assinatura;
 
