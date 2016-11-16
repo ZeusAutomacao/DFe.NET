@@ -59,13 +59,13 @@ namespace NFe.AppTeste
         {
             get
             {
-                Funcoes.CopiarPropriedades(_cfgServico, ConfiguracaoServico.Instancia);
+                ConfiguracaoServico.Instancia.CopiarPropriedades(_cfgServico);
                 return _cfgServico;
             }
             set
             {
                 _cfgServico = value;
-                Funcoes.CopiarPropriedades(value, ConfiguracaoServico.Instancia);
+                ConfiguracaoServico.Instancia.CopiarPropriedades(value);
             }
         }
 
@@ -80,9 +80,9 @@ namespace NFe.AppTeste
         /// <param name="arquivo">Arquivo XML onde será salvo os dados</param>
         public void SalvarParaAqruivo(string arquivo)
         {
-            var camposEmBranco = Funcoes.ObterPropriedadesEmBranco(CfgServico);
+            var camposEmBranco = CfgServico.ObterPropriedadesEmBranco();
 
-            var propinfo = Funcoes.ObterPropriedadeInfo(_cfgServico, c => c.DiretorioSalvarXml);
+            var propinfo = _cfgServico.ObterPropriedadeInfo(c => c.DiretorioSalvarXml);
             camposEmBranco.Remove(propinfo.Name);
 
             if (camposEmBranco.Count > 0)

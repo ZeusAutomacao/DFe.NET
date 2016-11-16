@@ -152,9 +152,6 @@
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSSN900.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSST.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSBasico.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormal.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormalST.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSSTSomente.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Federal\COFINS.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Federal\COFINSAliq.cs" />
