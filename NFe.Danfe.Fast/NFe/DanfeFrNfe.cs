@@ -38,7 +38,7 @@ using NFe.Classes;
 namespace NFe.Danfe.Fast.NFe
 {
     /// <summary>
-    /// Classe reponsável pela impressão do DANFE da NFe em Fast Reports
+    /// Classe responsável pela impressão do DANFE da NFe em Fast Reports
     /// </summary>
     public class DanfeFrNfe : DanfeBase
     {
@@ -54,7 +54,7 @@ namespace NFe.Danfe.Fast.NFe
             Relatorio = new Report();
             Relatorio.RegisterData(new[] { proc }, "NFe", 20);
             Relatorio.GetDataSource("NFe").Enabled = true;
-            Relatorio.Load(new MemoryStream(Properties.Resources.NFe));
+            Relatorio.Load(new MemoryStream(Properties.Resources.NFeRetrato));
             Relatorio.SetParameterValue("DuasLinhas", configuracaoDanfeNfe.DuasLinhas);
             Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.Cancelada);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfe.ObterLogo();
