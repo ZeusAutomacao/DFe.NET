@@ -1,7 +1,6 @@
 ﻿using System.Xml;
 using DFe.Classes.Extencoes;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao;
 using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao;
 using MDFe.Servicos.Enderecos.Helper;

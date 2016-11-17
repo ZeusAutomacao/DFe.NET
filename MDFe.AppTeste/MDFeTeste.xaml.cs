@@ -57,5 +57,10 @@ namespace MDFe.AppTeste
         {
             _model.ConsultaPorRecibo1_0();
         }
+
+        private void ConsultaPorProtocolo_Click(object sender, RoutedEventArgs e)
+        {
+            _model.ConsultaPorProtocolo1_0();
+        }
     }
 }

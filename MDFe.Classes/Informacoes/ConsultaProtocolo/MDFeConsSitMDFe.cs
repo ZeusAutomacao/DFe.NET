@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo
 {
@@ -10,7 +11,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtoco
     public class MDFeConsSitMDFe
     {
         [XmlAttribute(AttributeName = "versao")]
-        public string Versao { get; set; }
+        public VersaoServico Versao { get; set; }
 
         [XmlElement(ElementName = "tpAmb")]
         public TipoAmbiente TpAmb { get; set; }

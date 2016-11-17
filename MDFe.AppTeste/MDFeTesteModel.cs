@@ -10,6 +10,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
+using MDFe.Servicos.ConsultaProtocoloMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Utils.Extencoes;
@@ -796,6 +797,15 @@ namespace MDFe.AppTeste
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
             var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
+        }
+
+        public void ConsultaPorProtocolo1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
+            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo("52161121351378000100587500000000011399225275");
         }
 
         private static void CarregarConfiguracoes(Configuracao config)
