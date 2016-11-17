@@ -1372,22 +1372,30 @@ namespace NFe.AppTeste
 
         private void btn_NFeDistribuicaoDFe_Click(object sender, RoutedEventArgs e)
         {
-            #region NFeDistribuicaoDFe
+            try
+            {
+                #region NFeDistribuicaoDFe
 
-            var cnpj = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "CNPJ do destinatário da NFe:");
-            if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
-            if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+                var cnpj = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "CNPJ do destinatário da NFe:");
+                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
+                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
 
-            var nsu = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Ultimo NSU Retornado");
-            if (string.IsNullOrEmpty(nsu)) throw new Exception("NSU deve ser informado!");
-            if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
+                var nsu = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Ultimo NSU Retornado");
+                if (string.IsNullOrEmpty(nsu)) throw new Exception("NSU deve ser informado!");
+                if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
 
-            var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-            var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse("SP", cnpj, nsu);
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, nsu);
 
-            TrataRetorno(retornoNFeDistDFe);
+                TrataRetorno(retornoNFeDistDFe);
 
-            #endregion
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
         }
 
         private void BtnManifestacaoDestinatario_Click(object sender, RoutedEventArgs e)
