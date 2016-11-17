@@ -653,31 +653,6 @@ namespace MDFe.AppTeste
             return rand.Next(11111111, 99999999);
         }
 
-        private static void CarregarConfiguracoes(Configuracao config)
-        {
-            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
-
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
-                config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
-                config.ConfigWebService.VersaoMDFeConsulta;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
-                config.ConfigWebService.VersaoMDFeRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
-                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
-                config.ConfigWebService.VersaoMDFeRetRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
-                config.ConfigWebService.VersaoMDFeStatusServico;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
-        }
-
         public void BuscarDiretorioSchema()
         {
             var dlg = new FolderBrowserDialog();
@@ -752,7 +727,7 @@ namespace MDFe.AppTeste
                 RNTRC = config.Empresa.RNTRC,
                 VeicTracao = new MDFeVeicTracao
                 {
-                    Placa = "kkk888",
+                    Placa = "KKK9888",
                     RENAVAM = "888888888",
                     UF = EstadoUF.GO,
                     Tara = 222,
@@ -821,6 +796,31 @@ namespace MDFe.AppTeste
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
             var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
+        }
+
+        private static void CarregarConfiguracoes(Configuracao config)
+        {
+            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
+            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
+                config.ConfigWebService.VersaoMDFeConsNaoEnc;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
+                config.ConfigWebService.VersaoMDFeConsulta;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
+                config.ConfigWebService.VersaoMDFeRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
+                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
+                config.ConfigWebService.VersaoMDFeRetRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
+                config.ConfigWebService.VersaoMDFeStatusServico;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
         }
     }
 }
