@@ -1,14 +1,10 @@
 ﻿using System.Windows;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 
 namespace MDFe.AppTeste
 {
     public partial class MDFeTeste
     {
-        private MDFeTesteModel _model;
+        private readonly MDFeTesteModel _model;
 
         public MDFeTeste()
         {
@@ -55,6 +51,11 @@ namespace MDFe.AppTeste
         private void BuscarDiretorioSalvarXml_Click(object sender, RoutedEventArgs e)
         {
             _model.BuscarDiretorioSalvarXml();
+        }
+
+        private void ConsultaPorRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            _model.ConsultaPorRecibo1_0();
         }
     }
 }

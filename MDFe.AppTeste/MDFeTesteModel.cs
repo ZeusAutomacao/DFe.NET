@@ -809,5 +809,10 @@ namespace MDFe.AppTeste
             dlg.ShowDialog();
             DiretorioSalvarXml = dlg.SelectedPath;
         }
+
+        public void ConsultaPorRecibo1_0()
+        {
+            
+        }
     }
 }

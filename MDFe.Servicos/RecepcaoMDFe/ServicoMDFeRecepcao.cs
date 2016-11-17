@@ -62,7 +62,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + retorno.InfRec.NRec + "-mdfe.xml";
+            var arquivoSalvar = caminhoXml + @"\" + retorno.InfRec.NRec + "-rec.xml";
 
             FuncoesXml.ClasseParaArquivoXml(retorno, arquivoSalvar);
         }
