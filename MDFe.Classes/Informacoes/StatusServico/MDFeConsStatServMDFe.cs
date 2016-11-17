@@ -17,6 +17,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlElement(ElementName = "xServ")]
-        public string XServ { get; set; }
+        public string XServ { get; set; } = "STATUS";
     }
 }
