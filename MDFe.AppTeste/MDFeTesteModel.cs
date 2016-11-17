@@ -588,7 +588,7 @@ namespace MDFe.AppTeste
                 RNTRC = config.Empresa.RNTRC,
                 VeicTracao = new MDFeVeicTracao
                 {
-                    Placa = "kkk888",
+                    Placa = "KKK9888",
                     RENAVAM = "888888888",
                     UF = EstadoUF.GO,
                     Tara = 222,
@@ -637,9 +637,11 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            var servico = new ServicoMDFeRecepcao();
-            var retorno = servico.MDFeRecepcao(1, mdfe);
+            var servicoRecepcao = new ServicoMDFeRecepcao();
+            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
+            var servicoRetRecepcao = new ServicoMDFeRetRecepcao();
+            var retornoRecibo = servicoRetRecepcao.MDFeRetRecepcao(retornoEnvio.InfRec.NRec);
 
             // todo config.ConfigWebService.Numeracao++;
             // todo new ConfiguracaoDao().SalvarConfiguracao(config);

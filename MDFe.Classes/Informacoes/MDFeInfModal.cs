@@ -11,10 +11,10 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlAttribute(AttributeName = "versaoModal")]
         public MDFeVersaoModal VersaoModal { get; set; } = MDFeVersaoModal.Versao100;
 
-        [XmlElement("rodo", typeof(MDFeRodo))]
-        [XmlElement("aereo", typeof(MDFeAereo))]
-        [XmlElement("aquav", typeof(MDFeAquav))]
-        [XmlElement("ferrov", typeof(MDFeFerrov))]
+        [XmlElement("rodo", typeof(MDFeRodo), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("aereo", typeof(MDFeAereo), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("aquav", typeof(MDFeAquav), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("ferrov", typeof(MDFeFerrov), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
         public MDFeModalContainer Modal { get; set; }
     }
 }
