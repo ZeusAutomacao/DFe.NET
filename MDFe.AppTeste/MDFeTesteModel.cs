@@ -13,6 +13,7 @@ using MDFe.AppTeste.ModelBase;
 using MDFe.Servicos.ConsultaProtocoloMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
+using MDFe.Servicos.StatusServicoMDFe;
 using MDFe.Utils.Extencoes;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -806,6 +807,16 @@ namespace MDFe.AppTeste
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
             var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo("52161121351378000100587500000000011399225275");
+        }
+
+        public void ConsultaStatusServico1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var servicoStatusServico = new ServicoMDFeStatusServico();
+            var retorno = servicoStatusServico.MDFeStatusServico();
+
         }
 
         private static void CarregarConfiguracoes(Configuracao config)

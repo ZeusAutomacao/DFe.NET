@@ -13,7 +13,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }
 
-        [XmlElement(ElementName = "TpAmb")]
+        [XmlElement(ElementName = "tpAmb")]
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlElement(ElementName = "xServ")]

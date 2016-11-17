@@ -43,6 +43,7 @@
     <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
     <Compile Include="Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
+    <Compile Include="Gerado\MDFeStatusServico\MDFeStatusServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

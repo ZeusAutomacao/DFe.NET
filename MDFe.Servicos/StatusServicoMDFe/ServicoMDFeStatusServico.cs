@@ -16,9 +16,9 @@ namespace MDFe.Servicos.StatusServicoMDFe
     {
         public MDFeRetConsStatServ MDFeStatusServico()
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
+            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
             var codigoEstado = MDFeConfiguracao.VersaoWebService.UfDestino.GetCodigoIbgeEmString();
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao.GetVersaoString();
+            var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
             var ws = new MDFeStatusServico(url, codigoEstado, versao, certificadoDigital);
@@ -33,7 +33,7 @@ namespace MDFe.Servicos.StatusServicoMDFe
             // converte o objeto para uma string de xml
             var xmlEnvio = FuncoesXml.ClasseParaXmlString(consStatServMDFe);
 
-            Validador.Valida(xmlEnvio, "consStatServ_v1.00.xsd");
+            Validador.Valida(xmlEnvio, "consStatServMDFe_v1.00.xsd");
 
             var dadosRecibo = new XmlDocument();
             dadosRecibo.LoadXml(xmlEnvio);

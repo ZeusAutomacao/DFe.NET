@@ -62,5 +62,10 @@ namespace MDFe.AppTeste
         {
             _model.ConsultaPorProtocolo1_0();
         }
+
+        private void ConsultaStatus_Click(object sender, RoutedEventArgs e)
+        {
+            _model.ConsultaStatusServico1_0();
+        }
     }
 }
