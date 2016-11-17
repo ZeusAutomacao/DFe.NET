@@ -11,7 +11,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
     public class MDFeEnviMDFe
     {
         [XmlAttribute(AttributeName = "versao")]
-        public MDFeVersaoServico Versao { get; set; }
+        public MDFeVersaoServico Versao { get; set; } = MDFeVersaoServico.Versao100;
 
         [XmlElement(ElementName = "idLote")]
         public string IdLote { get; set; }

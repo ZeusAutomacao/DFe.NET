@@ -42,7 +42,9 @@ namespace MDFe.Utils.Extencoes
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
-            var arquivoSalvar = MDFeConfiguracao.CaminhoSalvarXml += @"\" + enviMDFe.MDFe.Chave() + "-mdfe.xml";
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-mdfe.xml";
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
         }

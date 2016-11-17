@@ -94,6 +94,8 @@
     <Compile Include="Informacoes\MDFeVeicTracao.cs" />
     <Compile Include="Informacoes\MDFeVersaoServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
+    <Compile Include="Retorno\RetornoBase.cs" />
     <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
     <Compile Include="Servicos\Flags\VersaoServico.cs" />
   </ItemGroup>
@@ -101,6 +103,10 @@
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
+      <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

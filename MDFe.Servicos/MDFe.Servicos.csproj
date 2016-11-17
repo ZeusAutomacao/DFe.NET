@@ -52,6 +52,10 @@
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
       <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
       <Name>MDFe.Classes</Name>

@@ -12,7 +12,6 @@ using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
 using MDFe.Servicos.RecepcaoMDFe;
-using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -638,11 +637,12 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            mdfe = mdfe.Assina();
-            mdfe = mdfe.Valida();
-
             var servico = new ServicoMDFeRecepcao();
-            servico.MDFeRecepcao(1, mdfe);
+            var retorno = servico.MDFeRecepcao(1, mdfe);
+
+
+            // todo config.ConfigWebService.Numeracao++;
+            // todo new ConfiguracaoDao().SalvarConfiguracao(config);
         }
 
         private static int GetRandom()

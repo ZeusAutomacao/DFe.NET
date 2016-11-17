@@ -17,7 +17,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         }
 
         [XmlAttribute(AttributeName = "versao")]
-        public MDFeVersaoServico Versao { get; set; }
+        public MDFeVersaoServico Versao { get; set; } = MDFeVersaoServico.Versao100;
 
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }

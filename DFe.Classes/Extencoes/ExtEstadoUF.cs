@@ -14,6 +14,13 @@ namespace DFe.Classes.Extencoes
             return enumValues;
         }
 
+        public static EstadoUF CodigoIbgeParaEstado(this EstadoUF estadoUf, string codigoIbge)
+        {
+            var enumValues = Enum.GetValues(typeof(EstadoUF)).Cast<EstadoUF>().FirstOrDefault(estado => estado.GetCodigoIbgeEmString() == codigoIbge);
+
+            return enumValues;
+        }
+
         public static string GetSiglaUfString(this EstadoUF estadoUf)
         {
             return estadoUf.ToString();
@@ -23,6 +30,13 @@ namespace DFe.Classes.Extencoes
         {
             var codigo = (byte) estadoUf;
             return codigo.ToString();
+        }
+
+        public static byte GetCodigoIbgeEmByte(this EstadoUF estadoUf)
+        {
+            var codigo = (byte) estadoUf;
+
+            return codigo;
         }
     }
 }
