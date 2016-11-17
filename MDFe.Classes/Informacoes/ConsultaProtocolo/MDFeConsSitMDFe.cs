@@ -9,7 +9,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtoco
         ElementName = "consSitMDFe")]
     public class MDFeConsSitMDFe
     {
-        [XmlElement(ElementName = "versao")]
+        [XmlAttribute(AttributeName = "versao")]
         public string Versao { get; set; }
 
         [XmlElement(ElementName = "tpAmb")]

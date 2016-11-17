@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
 {

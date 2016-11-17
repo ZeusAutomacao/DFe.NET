@@ -43,6 +43,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
         [XmlElement(ElementName = "protMDFe")]
         public MDFeProtMDFe ProtMDFe { get; set; }
 
-
+        [XmlElement(ElementName = "procEventoMDFe")]
+        public MDFeProcEventoMDFe ProcEventoMDFe { get; set; }
     }
 }

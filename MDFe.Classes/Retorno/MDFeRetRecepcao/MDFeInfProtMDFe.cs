@@ -8,7 +8,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
     [Serializable]
     public class MDFeInfProtMDFe
     {
-        [XmlElement(ElementName = "Id")]
+        [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }
 
         [XmlElement(ElementName = "tpAmb")]
