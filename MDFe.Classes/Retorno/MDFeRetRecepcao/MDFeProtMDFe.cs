@@ -8,8 +8,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
     [XmlRoot(ElementName = "protMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
     public class MDFeProtMDFe
     {
-        [XmlElement(ElementName = "versao")]
-        public MDFeVersaoServico Versao { get; set; }
+        [XmlAttribute(AttributeName = "versao")]
+        public string Versao { get; set; }
 
         [XmlElement(ElementName = "infProt")]
         public MDFeInfProtMDFe InfProt { get; set; }

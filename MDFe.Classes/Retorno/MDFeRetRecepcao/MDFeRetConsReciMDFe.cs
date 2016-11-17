@@ -12,8 +12,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
         ElementName = "retConsReciMDFe")]
     public class MDFeRetConsReciMDFe
     {
-        [XmlElement(ElementName = "versao")]
-        public MDFeVersaoServico Versao { get; set; }
+        [XmlAttribute(AttributeName = "versao")]
+        public string Versao { get; set; }
 
         [XmlElement(ElementName = "tpAmb")]
         public TipoAmbiente TpAmb { get; set; }

@@ -1,4 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
@@ -35,6 +37,8 @@ namespace MDFe.Utils.Configuracoes
 
     public class MDFeVersaoWebService
     {
+        public EstadoUF UfDestino { get; set; }
+        public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoMDFeRecepcao { get; set; }
         public VersaoServico VersaoMDFeRetRecepcao { get; set; }
         public VersaoServico VersaoMDFeRecepcaoEvento { get; set; }

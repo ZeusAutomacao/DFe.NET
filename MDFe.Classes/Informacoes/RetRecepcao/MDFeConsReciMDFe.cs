@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao
 {
@@ -9,9 +10,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao
         ElementName = "consReciMDFe")]
     public class MDFeConsReciMDFe
     {
-        [XmlElement(ElementName = "versao")]
-        public MDFeVersaoServico Versao { get; set; } = MDFeVersaoServico.Versao100;
-
+        [XmlAttribute(AttributeName = "versao")]
+        public VersaoServico Versao { get; set; }
         [XmlElement(ElementName = "tpAmb")]
         public TipoAmbiente TpAmb { get; set; }
 

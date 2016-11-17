@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Flags;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
@@ -12,6 +11,7 @@ using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
 using MDFe.Servicos.RecepcaoMDFe;
+using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Utils.Extencoes;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
@@ -672,6 +672,8 @@ namespace MDFe.AppTeste
                 config.ConfigWebService.VersaoMDFeRetRecepcao;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
                 config.ConfigWebService.VersaoMDFeStatusServico;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
         }
 
         public void BuscarDiretorioSchema()
@@ -812,7 +814,11 @@ namespace MDFe.AppTeste
 
         public void ConsultaPorRecibo1_0()
         {
-            
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var servicoRecibo = new ServicoMDFeRetRecepcao();
+            var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
         }
     }
 }
