@@ -57,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InputBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MDFeTeste.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +75,9 @@
     <Compile Include="Entidades\ConfigWebService.cs" />
     <Compile Include="Entidades\Empresa.cs" />
     <Compile Include="EnumBindable\EnumBindingSourceExtension.cs" />
+    <Compile Include="InputBoxWindow.xaml.cs">
+      <DependentUpon>InputBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MDFeTeste.xaml.cs">
       <DependentUpon>MDFeTeste.xaml</DependentUpon>
       <SubType>Code</SubType>

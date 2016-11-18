@@ -52,6 +52,7 @@ using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
 using MDFe.Utils.Extencoes;
+using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -712,13 +713,10 @@ namespace MDFe.AppTeste
             var servicoRecepcao = new ServicoMDFeRecepcao();
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
-            var servicoRetRecepcao = new ServicoMDFeRetRecepcao();
-            var retornoRecibo = servicoRetRecepcao.MDFeRetRecepcao(retornoEnvio.InfRec.NRec);
+            OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
-            OnSucessoSync(new RetornoEEnvio(retornoRecibo));
-
-            // todo config.ConfigWebService.Numeracao++;
-            // todo new ConfiguracaoDao().SalvarConfiguracao(config);
+            config.ConfigWebService.Numeracao++;
+            new ConfiguracaoDao().SalvarConfiguracao(config);
         }
 
         private static int GetRandom()
@@ -876,13 +874,98 @@ namespace MDFe.AppTeste
 
         public void ConsultaPorProtocolo1_0()
         {
+            var porChave = MessageBoxConfirmTuche("Sim = Por chave\nNão = Por arquivo xml");
+            var chave = string.Empty;
+
+
+            if (porChave == DialogResult.Yes)
+            {
+                chave = InputBoxTuche("Digite a chave de acesso da MDF-e");
+            }
+
+            if (porChave == DialogResult.No)
+            {
+                var caminhoArquivoXml = BuscarArquivoXml();
+
+                if (caminhoArquivoXml != null)
+                {
+                    chave = BuscarChaveXmlMDFe(caminhoArquivoXml);
+                }
+            }
+
+            if (string.IsNullOrEmpty(chave))
+            {
+                MessageBoxTuche("Ops.. Não a oque fazer sem uma chave de acesso");
+                return;
+            }
+
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
-            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo("52161121351378000100587500000000011399225275");
+            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
+
 
             OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        private static string BuscarChaveXmlMDFe(string caminhoArquivoXml)
+        {
+            var chave = string.Empty;
+
+            if (caminhoArquivoXml.Contains("completo"))
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoArquivoXml);
+
+                chave = enviMDFe.MDFe.Chave();
+            }
+            else
+            {
+                var mdfe = MDFeEletronico.LoadXmlArquivo(caminhoArquivoXml);
+
+                chave = mdfe.Chave();
+            }
+            return chave;
+        }
+
+        public string BuscarArquivoXml()
+        {
+            var janelaArquivo = new OpenFileDialog
+                {
+                    Filter = "XML(*.xml)|*.xml"
+                };
+
+                if (janelaArquivo.ShowDialog() == true)
+                {
+                    var caminhoXml = janelaArquivo.FileName;
+
+                    return caminhoXml;
+                }
+            return null;
+        }
+
+        private static string InputBoxTuche(string titulo)
+        {
+            var inputBox = new InputBoxWindow
+            {
+                TxtValor = {Text = string.Empty},
+                TxtDescricao = {Text = titulo}
+            };
+            inputBox.ShowDialog();
+
+            var valor = inputBox.TxtValor.Text;
+
+            return valor;
+        }
+
+        private static DialogResult MessageBoxConfirmTuche(string mensagem)
+        {
+            return MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+        private static void MessageBoxTuche(string mensagem, MessageBoxIcon icon = MessageBoxIcon.Information)
+        {
+            MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.OK, icon);
         }
 
         public void ConsultaStatusServico1_0()

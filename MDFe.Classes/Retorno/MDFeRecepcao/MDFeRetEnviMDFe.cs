@@ -72,6 +72,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
 
         [XmlElement(ElementName = "infRec")]
         public MDFeInfRec InfRec { get; set; }
+
+        [XmlIgnore]
+        public string RetornoCompleto { get; set; }
     }
 
     [Serializable]

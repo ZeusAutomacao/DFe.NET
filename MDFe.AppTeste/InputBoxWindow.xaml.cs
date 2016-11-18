@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusMDFe                                                 */
-/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
-/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,35 +30,41 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Xml.Serialization;
-using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
+using System.Windows;
+using System.Windows.Input;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
+namespace MDFe.AppTeste
 {
-    [Serializable]
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
-        ElementName = "enviMDFe")]
-    public class MDFeEnviMDFe
+    /// <summary>
+    ///     Lógica interna para InputBoxWindow.xaml
+    /// </summary>
+    public partial class InputBoxWindow
     {
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoLayout Versao { get; set; } = VersaoLayout.Versao100;
-
-        [XmlElement(ElementName = "idLote")]
-        public string IdLote { get; set; }
-
-        [XmlElement(ElementName = "MDFe")]
-        public MDFe MDFe { get; set; }
-
-        public static MDFeEnviMDFe LoadXmlString(string xml)
+        public InputBoxWindow()
         {
-            return FuncoesXml.XmlStringParaClasse<MDFeEnviMDFe>(xml);
+            InitializeComponent();
         }
 
-        public static MDFeEnviMDFe LoadXmlArquivo(string caminhoArquivoXml)
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            return FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(caminhoArquivoXml);
+            Close();
+        }
+
+        private void BtnOk_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void TxtValor_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            e.Handled = true;
+            BtnOk.Focus();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            TxtValor.Focus();
         }
     }
 }

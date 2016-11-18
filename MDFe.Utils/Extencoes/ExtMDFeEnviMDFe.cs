@@ -75,9 +75,11 @@ namespace MDFe.Utils.Extencoes
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-mdfe.xml";
+            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-completo-mdfe.xml";
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
+
+            enviMDFe.MDFe.SalvarXmlEmDisco();
         }
     }
 }
