@@ -43,6 +43,7 @@
     <Compile Include="Configuracoes\MDFeConfiguracao.cs" />
     <Compile Include="Extencoes\ExtMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeEventoMDFe.cs" />
     <Compile Include="Extencoes\ExtVersaoServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validacao\Validador.cs" />
