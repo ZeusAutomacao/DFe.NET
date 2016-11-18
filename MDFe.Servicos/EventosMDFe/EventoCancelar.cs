@@ -14,9 +14,9 @@ using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MD
 
 namespace MDFe.Servicos.EventosMDFe
 {
-    public class EventoEncerramento
+    public class EventoCancelar
     {
-        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
         {
             var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
             var codigoEstado = MDFeConfiguracao.VersaoWebService.UfDestino.GetCodigoIbgeEmString();
@@ -25,30 +25,28 @@ namespace MDFe.Servicos.EventosMDFe
 
             var ws = new MDFeRecepcaoEvento(url, codigoEstado, versao, certificadoDigital);
 
-            var encerramento = new MDFeEvEncMDFe
+            var cancelamento = new MDFeEvCancMDFe
             {
-                CUF = mdfe.UFEmitente(),
-                DtEnc = DateTime.Now,
-                DescEvento = "Encerramento",
-                CMun = mdfe.CodigoIbgeMunicipioEmitente(),
-                NProt = protocolo
+                DescEvento = "Cancelamento",
+                NProt = protocolo,
+                XJust = justificativa
             };
 
             var evento = FactoryEvento.CriaEvento(mdfe,
-                MDFeTipoEvento.Encerramento,
+                MDFeTipoEvento.Cancelamento,
                 sequenciaEvento,
-                encerramento);
+                cancelamento);
 
             // converte o objeto para uma string de xml
             var xmlEnvio = FuncoesXml.ClasseParaXmlString(evento);
 
             Validador.Valida(xmlEnvio, "eventoMDFe_v1.00.xsd");
 
-            var condutorXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
+            var condutorXml = (MDFeEvCancMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
             var xmlCondutor = FuncoesXml.ClasseParaXmlString(condutorXml);
 
-            Validador.Valida(xmlCondutor, "evEncMDFe_v1.00.xsd");
+            Validador.Valida(xmlCondutor, "evCancMDFe_v1.00.xsd");
 
             var dadosRecibo = new XmlDocument();
             dadosRecibo.LoadXml(xmlEnvio);

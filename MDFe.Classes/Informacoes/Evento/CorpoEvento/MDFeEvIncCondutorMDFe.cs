@@ -4,6 +4,7 @@ using System.Xml.Serialization;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
+    [XmlRoot(ElementName = "evIncCondutorMDFe")]
     public class MDFeEvIncCondutorMDFe : MDFeEventoContainer
     {
         [XmlElement(ElementName = "descEvento")]

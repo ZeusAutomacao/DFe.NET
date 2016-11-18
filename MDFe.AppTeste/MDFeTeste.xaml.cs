@@ -82,5 +82,10 @@ namespace MDFe.AppTeste
         {
             _model.EventoEncerramento1_0();
         }
+
+        private void EventoCancelarMDFe1_0_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoCancelar1_0();
+        }
     }
 }

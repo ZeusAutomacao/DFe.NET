@@ -20,5 +20,13 @@ namespace MDFe.Servicos.EventosMDFe
 
             return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
         }
+
+        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
+            string justificativa)
+        {
+            var eventoCancelamento = new EventoCancelar();
+
+            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+        }
     }
 }

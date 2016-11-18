@@ -6,6 +6,7 @@ using DFe.Classes.Extencoes;
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
+    [XmlRoot(ElementName = "evEncMDFe")]
     public class MDFeEvEncMDFe : MDFeEventoContainer
     {
         [XmlElement(ElementName = "descEvento")]
