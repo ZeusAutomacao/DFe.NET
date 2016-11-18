@@ -9,7 +9,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
     public class MDFeDetEvento
     {
         [XmlAttribute(AttributeName = "versaoEvento")]
-        public VersaoServico VersaoServico { get; set; }
+        public VersaoServico VersaoServico { get; set; } = VersaoServico.Versao100;
 
         [XmlElement("evCancMDFe", typeof(MDFeEvCancMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
         [XmlElement("evEncMDFe", typeof(MDFeEvEncMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
