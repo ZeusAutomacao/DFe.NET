@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
@@ -17,7 +18,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         }
 
         [XmlAttribute(AttributeName = "versao")]
-        public MDFeVersaoServico Versao { get; set; } = MDFeVersaoServico.Versao100;
+        public VersaoLayout Versao { get; set; } = VersaoLayout.Versao100;
 
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }

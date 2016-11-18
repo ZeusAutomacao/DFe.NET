@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
 {
@@ -11,7 +10,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
     public class MDFeEnviMDFe
     {
         [XmlAttribute(AttributeName = "versao")]
-        public MDFeVersaoServico Versao { get; set; } = MDFeVersaoServico.Versao100;
+        public VersaoLayout Versao { get; set; } = VersaoLayout.Versao100;
 
         [XmlElement(ElementName = "idLote")]
         public string IdLote { get; set; }

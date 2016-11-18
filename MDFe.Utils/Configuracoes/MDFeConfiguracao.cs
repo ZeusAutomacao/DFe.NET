@@ -15,6 +15,7 @@ namespace MDFe.Utils.Configuracoes
         public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
         public static string CaminhoSalvarXml { get; set; }
+
         public static MDFeVersaoWebService VersaoWebService { get; set; } = new MDFeVersaoWebService();
 
         public static X509Certificate2 X509Certificate2 => ObterCertificado();

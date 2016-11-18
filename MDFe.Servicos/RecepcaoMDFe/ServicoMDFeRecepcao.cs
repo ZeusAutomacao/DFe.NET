@@ -30,7 +30,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             var enviMDFe = new MDFeEnviMDFe
             {
-                Versao = MDFeVersaoServico.Versao100,
+                Versao = VersaoLayout.Versao100,
                 IdLote = lote.ToString(),
                 MDFe = mdfe
             };
