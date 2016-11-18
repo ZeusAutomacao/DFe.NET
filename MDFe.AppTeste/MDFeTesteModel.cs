@@ -866,8 +866,16 @@ namespace MDFe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
+            var recibo = InputBoxTuche("Digite o recibo");
+
+            if (string.IsNullOrEmpty(recibo))
+            {
+                MessageBoxTuche("Recibo inválido");
+                return;
+            }
+
             var servicoRecibo = new ServicoMDFeRetRecepcao();
-            var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
+            var retorno = servicoRecibo.MDFeRetRecepcao(recibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -885,12 +893,7 @@ namespace MDFe.AppTeste
 
             if (porChave == DialogResult.No)
             {
-                var caminhoArquivoXml = BuscarArquivoXml();
-
-                if (caminhoArquivoXml != null)
-                {
-                    chave = BuscarChaveXmlMDFe(caminhoArquivoXml);
-                }
+                chave = BuscarChaveMDFe();
             }
 
             if (string.IsNullOrEmpty(chave))
@@ -909,26 +912,30 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        private static string BuscarChaveXmlMDFe(string caminhoArquivoXml)
+        private string BuscarChaveMDFe()
         {
             var chave = string.Empty;
+            var caminhoArquivoXml = BuscarArquivoXmlMDFe();
 
-            if (caminhoArquivoXml.Contains("completo"))
+            if (caminhoArquivoXml != null)
             {
-                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoArquivoXml);
+                if (caminhoArquivoXml.Contains("completo"))
+                {
+                    var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoArquivoXml);
 
-                chave = enviMDFe.MDFe.Chave();
-            }
-            else
-            {
-                var mdfe = MDFeEletronico.LoadXmlArquivo(caminhoArquivoXml);
+                    chave = enviMDFe.MDFe.Chave();
+                }
+                else
+                {
+                    var mdfe = MDFeEletronico.LoadXmlArquivo(caminhoArquivoXml);
 
-                chave = mdfe.Chave();
+                    chave = mdfe.Chave();
+                }
             }
             return chave;
         }
 
-        public string BuscarArquivoXml()
+        public string BuscarArquivoXmlMDFe()
         {
             var janelaArquivo = new OpenFileDialog
                 {
@@ -939,9 +946,11 @@ namespace MDFe.AppTeste
                 {
                     var caminhoXml = janelaArquivo.FileName;
 
+                    if (caminhoXml == null) return string.Empty;
+
                     return caminhoXml;
                 }
-            return null;
+            return string.Empty;
         }
 
         private static string InputBoxTuche(string titulo)
@@ -995,12 +1004,40 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
+            
 
             var evento = new ServicoMDFeEvento();
 
-            var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
+            MDFeEletronico mdfe;
+            var caminhoXml = BuscarArquivoXmlMDFe();
 
-            var retorno = evento.MDFeEventoIncluirCondutor(enviMDFe.MDFe, 1, "roberto", "04365770110");
+            if (caminhoXml.Contains("completo"))
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            else
+            {
+                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+            }
+
+            var nomeCondutor = InputBoxTuche("Nome condutor");
+            var cpfCondutor = InputBoxTuche("Cpf condutor");
+
+            if (string.IsNullOrEmpty(nomeCondutor))
+            {
+                MessageBoxTuche("Nome do condutor não pode ser vazio ou nulo");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(cpfCondutor))
+            {
+                MessageBoxTuche("CPF do condutor não pode ser vazio ou nulo");
+                return;
+            }
+
+            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, Nome, cpfCondutor);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1010,11 +1047,33 @@ namespace MDFe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
+            MDFeEletronico mdfe;
+            var caminhoXml = BuscarArquivoXmlMDFe();
+
+            if (caminhoXml.Contains("completo"))
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            else
+            {
+                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+            }
+
             var evento = new ServicoMDFeEvento();
 
-            var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
+            var protocolo = InputBoxTuche("Digite um protocolo");
 
-            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(enviMDFe.MDFe, 1, "952160000002954");
+            if (string.IsNullOrEmpty(protocolo))
+            {
+                MessageBoxTuche("O protocolo não pode ser vazio ou nulo");
+                return;
+            }
+
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo);
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         public void EventoCancelar1_0()
@@ -1024,9 +1083,39 @@ namespace MDFe.AppTeste
 
             var evento = new ServicoMDFeEvento();
 
-            var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
+            MDFeEletronico mdfe;
+            var caminhoXml = BuscarArquivoXmlMDFe();
 
-            var retorno = evento.MDFeEventoCancelar(enviMDFe.MDFe, 1, "952160000002954", "estou cancelando a mdf-e em homologação");
+            if (caminhoXml.Contains("completo"))
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            else
+            {
+                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+            }
+
+            var protocolo = InputBoxTuche("Digite um protocolo");
+
+            if (string.IsNullOrEmpty(protocolo))
+            {
+                MessageBoxTuche("O protocolo não pode ser vazio ou nulo");
+                return;
+            }
+
+            var justificativa = InputBoxTuche("Digite uma justificativa (minimo 15 digitos)");
+
+            if (string.IsNullOrEmpty(justificativa))
+            {
+                MessageBoxTuche("A justificativa não pode ser vazio ou nulo");
+                return;
+            }
+
+            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
