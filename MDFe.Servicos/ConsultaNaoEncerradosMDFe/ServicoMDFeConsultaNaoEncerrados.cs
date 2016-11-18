@@ -76,6 +76,9 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsMDFeNao>(retornoXml.OuterXml);
 
+            retorno.EnvioXmlString = xmlEnvio;
+            retorno.RetornoXmlString = retornoXml.OuterXml;
+
             SalvarArquivoXmlRetorno(retorno, cnpj);
 
             return retorno;

@@ -41,7 +41,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
         ElementName = "retConsReciMDFe")]
-    public class MDFeRetConsReciMDFe
+    public class MDFeRetConsReciMDFe : RetornoBase
     {
         [XmlAttribute(AttributeName = "versao")]
         public string Versao { get; set; }

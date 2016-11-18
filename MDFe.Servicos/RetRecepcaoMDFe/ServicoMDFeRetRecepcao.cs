@@ -76,6 +76,9 @@ namespace MDFe.Servicos.RetRecepcaoMDFe
 
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsReciMDFe>(retornoXml.OuterXml);
 
+            retorno.EnvioXmlString = xmlEnvio;
+            retorno.RetornoXmlString = retornoXml.OuterXml;
+
             SalvarArquivoXmlRetorno(retorno);
 
             return retorno;

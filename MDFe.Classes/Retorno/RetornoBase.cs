@@ -34,8 +34,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
 {
     public class RetornoBase
     {
-        public string EnvioStr { get; set; }
-        public string RetornoStr { get; set; }
-        public string RetornoCompletoStr { get; set; }
+        public string EnvioXmlString { get; set; }
+        public string RetornoXmlString { get; set; }
     }
 }

@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
-    <Compile Include="Exceptions\MDFeException.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
@@ -102,7 +101,7 @@
     <Compile Include="Informacoes\MDFeValePed.cs" />
     <Compile Include="Informacoes\MDFeVeicReboque.cs" />
     <Compile Include="Informacoes\MDFeVeicTracao.cs" />
-    <Compile Include="Informacoes\MDFeVersaoServico.cs" />
+    <Compile Include="Informacoes\VersaoLayout.cs" />
     <Compile Include="Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
     <Compile Include="Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

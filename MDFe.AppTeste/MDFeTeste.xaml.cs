@@ -30,6 +30,10 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace MDFe.AppTeste
@@ -41,8 +45,29 @@ namespace MDFe.AppTeste
         public MDFeTeste()
         {
             _model = new MDFeTesteModel();
+            _model.SucessoSync += Sucesso;
             InitializeComponent();
             DataContext = _model;
+        }
+
+        private readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+        private void Sucesso(object sender, RetornoEEnvio e)
+        {
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                XmlTemp(e.Envio, "envio-tmp.xml");
+                XmlTemp(e.Retorno, "retorno-tmp.xml");
+                WebXmlEnvio.Navigate(_path + @"\envio-tmp.xml");
+                WebXmlRetorno.Navigate(_path + @"\retorno-tmp.xml");
+            }));
+        }
+
+        private void XmlTemp(string xml, string nomeXml)
+        {
+            var stw = new StreamWriter(_path + @"\" + nomeXml);
+            stw.WriteLine(xml);
+            stw.Close();
         }
 
         private void Enviar1_0_Click(object sender, RoutedEventArgs e)

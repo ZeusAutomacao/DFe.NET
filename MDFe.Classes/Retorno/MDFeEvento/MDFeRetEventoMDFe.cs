@@ -39,7 +39,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
         ElementName = "retEventoMDFe")]
-    public class MDFeRetEventoMDFe
+    public class MDFeRetEventoMDFe : RetornoBase
     {
         [XmlAttribute(AttributeName = "versao")]
         public string Versao { get; set; }

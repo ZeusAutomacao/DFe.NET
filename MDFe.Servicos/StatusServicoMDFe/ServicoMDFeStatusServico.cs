@@ -75,6 +75,9 @@ namespace MDFe.Servicos.StatusServicoMDFe
 
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsStatServ>(retornoXml.OuterXml);
 
+            retorno.EnvioXmlString = xmlEnvio;
+            retorno.RetornoXmlString = retornoXml.OuterXml;
+
             SalvarArquivoXmlRetorno(retorno);
 
             return retorno;

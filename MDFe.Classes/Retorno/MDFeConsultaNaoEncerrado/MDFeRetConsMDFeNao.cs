@@ -43,7 +43,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaNaoEnce
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
         ElementName = "retConsMDFeNaoEnc")]
-    public class MDFeRetConsMDFeNao
+    public class MDFeRetConsMDFeNao : RetornoBase
     {
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }

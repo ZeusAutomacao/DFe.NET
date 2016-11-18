@@ -39,6 +39,7 @@ using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Flags;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
+using ManifestoDocumentoFiscalEletronico.Classes.Retorno;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
@@ -55,8 +56,23 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
 {
+    public class RetornoEEnvio : EventArgs
+    {
+        public RetornoEEnvio(RetornoBase retorno)
+        {
+            Envio = retorno.EnvioXmlString;
+            Retorno = retorno.RetornoXmlString;
+        }
+
+        public string Envio { get; set; }
+        public string Retorno { get; set; }    
+    }
+
+
     public class MDFeTesteModel : ViewModel
     {
+        public event EventHandler<RetornoEEnvio> SucessoSync; 
+
         private string _cnpj;
         private string _inscricaoEstadual;
         private string _nome;
@@ -699,6 +715,8 @@ namespace MDFe.AppTeste
             var servicoRetRecepcao = new ServicoMDFeRetRecepcao();
             var retornoRecibo = servicoRetRecepcao.MDFeRetRecepcao(retornoEnvio.InfRec.NRec);
 
+            OnSucessoSync(new RetornoEEnvio(retornoRecibo));
+
             // todo config.ConfigWebService.Numeracao++;
             // todo new ConfiguracaoDao().SalvarConfiguracao(config);
         }
@@ -852,6 +870,8 @@ namespace MDFe.AppTeste
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
             var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         public void ConsultaPorProtocolo1_0()
@@ -861,6 +881,8 @@ namespace MDFe.AppTeste
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
             var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo("52161121351378000100587500000000011399225275");
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         public void ConsultaStatusServico1_0()
@@ -871,6 +893,8 @@ namespace MDFe.AppTeste
             var servicoStatusServico = new ServicoMDFeStatusServico();
             var retorno = servicoStatusServico.MDFeStatusServico();
 
+            OnSucessoSync(new RetornoEEnvio(retorno));
+
         }
 
         public void ConsultaNaoEncerrados1_0()
@@ -880,6 +904,8 @@ namespace MDFe.AppTeste
 
             var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
             var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         public void EventoIncluirCondutor1_0()
@@ -892,6 +918,8 @@ namespace MDFe.AppTeste
             var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
 
             var retorno = evento.MDFeEventoIncluirCondutor(enviMDFe.MDFe, 1, "roberto", "04365770110");
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
         public void EventoEncerramento1_0()
@@ -942,6 +970,13 @@ namespace MDFe.AppTeste
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+        }
+
+        protected virtual void OnSucessoSync(RetornoEEnvio e)
+        {
+            if (SucessoSync == null) return;
+
+            SucessoSync.Invoke(this, e);
         }
     }
 }

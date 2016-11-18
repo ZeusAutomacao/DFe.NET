@@ -42,7 +42,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
         ElementName = "retConsSitMDFe")]
-    public class MDFeRetConsSitMDFe
+    public class MDFeRetConsSitMDFe : RetornoBase
     {
         [XmlAttribute(AttributeName = "versao")]
         public string Versao { get; set; }
