@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Diagnostics.Eventing.Reader;
 using System.Xml;
 using DFe.Classes.Extencoes;
 using DFe.Utils;
@@ -73,27 +75,15 @@ namespace MDFe.Servicos.EventosMDFe
                 sequenciaEvento,
                 incluirCodutor);
 
-            // converte o objeto para uma string de xml
-            var xmlEnvio = FuncoesXml.ClasseParaXmlString(evento);
-
-            Validador.Valida(xmlEnvio, "eventoMDFe_v1.00.xsd");
-
-            var condutorXml = (MDFeEvIncCondutorMDFe) evento.InfEvento.DetEvento.EventoContainer;
-
-            var xmlCondutor = FuncoesXml.ClasseParaXmlString(condutorXml);
-
-            Validador.Valida(xmlCondutor, "evIncCondutorMDFe_v1.00.xsd");
-
-            var dadosRecibo = new XmlDocument();
-            dadosRecibo.LoadXml(xmlEnvio);
+            evento.Validar();
 
             SalvarArquivoXml(evento, mdfe);
 
-            var retornoXml = ws.mdfeRecepcaoEvento(dadosRecibo);
+            var retornoXml = ws.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEventoMDFe>(retornoXml.OuterXml);
 
-            retorno.EnvioXmlString = xmlEnvio;
+            retorno.EnvioXmlString = evento.XmlString();
             retorno.RetornoXmlString = retornoXml.OuterXml;
 
             SalvarArquivoXmlRetorno(retorno, mdfe);

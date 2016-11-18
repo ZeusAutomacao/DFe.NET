@@ -71,27 +71,15 @@ namespace MDFe.Servicos.EventosMDFe
                 sequenciaEvento,
                 encerramento);
 
-            // converte o objeto para uma string de xml
-            var xmlEnvio = FuncoesXml.ClasseParaXmlString(evento);
-
-            Validador.Valida(xmlEnvio, "eventoMDFe_v1.00.xsd");
-
-            var condutorXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-            var xmlCondutor = FuncoesXml.ClasseParaXmlString(condutorXml);
-
-            Validador.Valida(xmlCondutor, "evEncMDFe_v1.00.xsd");
-
-            var dadosRecibo = new XmlDocument();
-            dadosRecibo.LoadXml(xmlEnvio);
+            evento.Validar();
 
             SalvarArquivoXml(evento, mdfe);
 
-            var retornoXml = ws.mdfeRecepcaoEvento(dadosRecibo);
+            var retornoXml = ws.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEventoMDFe>(retornoXml.OuterXml);
 
-            retorno.EnvioXmlString = xmlEnvio;
+            retorno.EnvioXmlString = evento.XmlString();
             retorno.RetornoXmlString = retornoXml.OuterXml;
 
             SalvarArquivoXmlRetorno(retorno, mdfe);
