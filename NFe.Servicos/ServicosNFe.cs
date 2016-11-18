@@ -760,7 +760,6 @@ namespace NFe.Servicos
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
 
-                    // Ignora xmls de evento
                     if (conteudo.StartsWith("<retNFe"))
                     {
                         var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
