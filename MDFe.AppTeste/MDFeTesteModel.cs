@@ -844,6 +844,18 @@ namespace MDFe.AppTeste
 
             var retorno = evento.MDFeEventoIncluirCondutor(enviMDFe.MDFe, 1, "roberto", "04365770110");
         }
+
+        public void EventoEncerramento1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var evento = new ServicoMDFeEvento();
+
+            var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
+
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(enviMDFe.MDFe, 1, "952160000002954");
+        }
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
             Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;

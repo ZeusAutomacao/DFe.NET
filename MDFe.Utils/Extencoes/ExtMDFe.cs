@@ -101,5 +101,12 @@ namespace MDFe.Utils.Extencoes
 
             return estadoUf;
         }
+
+        public static long CodigoIbgeMunicipioEmitente(this MDFEletronico mdfe)
+        {
+            var codigo = mdfe.InfMDFe.Emit.EnderEmit.CMun;
+
+            return codigo;
+        }
     }
 }

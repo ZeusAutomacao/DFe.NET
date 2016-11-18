@@ -13,5 +13,12 @@ namespace MDFe.Servicos.EventosMDFe
 
             return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
         }
+
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
+        {
+            var eventoEncerramento = new EventoEncerramento();
+
+            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+        }
     }
 }

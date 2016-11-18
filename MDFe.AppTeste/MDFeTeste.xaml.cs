@@ -77,5 +77,10 @@ namespace MDFe.AppTeste
         {
             _model.EventoIncluirCondutor1_0();
         }
+
+        private void EventoEncerrarMDFe1_0_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoEncerramento1_0();
+        }
     }
 }
