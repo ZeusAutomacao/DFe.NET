@@ -21,6 +21,11 @@ namespace MDFe.Utils.Configuracoes
         public static X509Certificate2 X509Certificate2 => ObterCertificado();
 
 
+        public static bool NaoSalvarXml()
+        {
+            return !IsSalvarXml;
+        }
+
         private static X509Certificate2 ObterCertificado()
         {
             if (!string.IsNullOrEmpty(CaminhoCertificadoDigital) && !string.IsNullOrEmpty(SenhaCertificadoDigital))
@@ -29,11 +34,6 @@ namespace MDFe.Utils.Configuracoes
             }
 
             return CertificadoDigital.ObterDoRepositorio(NumeroSerieCertificadoDigital, SenhaCertificadoDigital);
-        }
-
-        public static bool NaoSalvarXml()
-        {
-            return !IsSalvarXml;
         }
     }
 
