@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusDFe                                                  */
+/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
+/*                                                                              */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
