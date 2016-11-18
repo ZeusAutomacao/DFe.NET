@@ -20,7 +20,7 @@ namespace MDFe.Servicos.RetRecepcaoMDFe
             var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
-            var ws = new MDFeRetRecepcao(url, codigoEstado, versao, certificadoDigital);
+            var ws = new MDFeRetRecepcao(url, codigoEstado, versao, certificadoDigital, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             var consReciMdfe = new MDFeConsReciMDFe
             {

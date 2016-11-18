@@ -205,6 +205,17 @@
                                             </StackPanel>
                                         </GroupBox>
 
+                                        <GroupBox Header="TimeOut - milissegundos">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox Text="{Binding TimeOut}"></TextBox>
+                                                </Grid>
+                                            </StackPanel>
+                                        </GroupBox>
+
                                     </StackPanel>
                                 </GroupBox>
                             </StackPanel>

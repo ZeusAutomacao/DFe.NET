@@ -21,7 +21,7 @@ namespace MDFe.Servicos.StatusServicoMDFe
             var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
-            var ws = new MDFeStatusServico(url, codigoEstado, versao, certificadoDigital);
+            var ws = new MDFeStatusServico(url, codigoEstado, versao, certificadoDigital, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             var consStatServMDFe = new MDFeConsStatServMDFe
             {

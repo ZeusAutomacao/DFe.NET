@@ -20,7 +20,7 @@ namespace MDFe.Servicos.ConsultaProtocoloMDFe
             var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
-            var ws = new MDFeConsulta(url, codigoEstado, versao, certificadoDigital);
+            var ws = new MDFeConsulta(url, codigoEstado, versao, certificadoDigital, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             var consSitMdfe = new MDFeConsSitMDFe
             {

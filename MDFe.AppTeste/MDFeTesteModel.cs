@@ -59,6 +59,7 @@ namespace MDFe.AppTeste
         private string _diretorioSchemas;
         private string _diretorioSalvarXml;
         private bool _isSalvarXml;
+        private int _timeOut;
 
         #region empresa
 
@@ -380,6 +381,16 @@ namespace MDFe.AppTeste
             }
         }
 
+        public int TimeOut
+        {
+            get { return _timeOut; }
+            set
+            {
+                _timeOut = value;
+                OnPropertyChanged("TimeOut");
+            }
+        }
+
         #endregion
 
         #region configuração arquivo
@@ -444,7 +455,8 @@ namespace MDFe.AppTeste
                     VersaoMDFeRecepcaoEvento = VersaoServico.Versao100,
                     VersaoMDFeRetRecepcao = VersaoServico.Versao100,
                     VersaoMDFeStatusServico = VersaoServico.Versao100,
-                    CaminhoSchemas = DiretorioSchemas
+                    CaminhoSchemas = DiretorioSchemas,
+                    TimeOut = TimeOut
                 },
                 DiretorioSalvarXml = DiretorioSalvarXml,
                 IsSalvarXml = IsSalvarXml
@@ -526,6 +538,12 @@ namespace MDFe.AppTeste
             DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
             DiretorioSalvarXml = config.DiretorioSalvarXml;
             IsSalvarXml = config.IsSalvarXml;
+            TimeOut = 3000;
+
+            if (config.ConfigWebService.TimeOut > 0)
+            {
+                TimeOut = config.ConfigWebService.TimeOut;
+            }
         }
 
         public void CriarEnviar100()
@@ -892,6 +910,7 @@ namespace MDFe.AppTeste
                 config.ConfigWebService.VersaoMDFeStatusServico;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
         }
     }
 }

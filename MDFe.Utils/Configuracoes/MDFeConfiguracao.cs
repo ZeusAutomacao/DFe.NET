@@ -8,10 +8,11 @@ namespace MDFe.Utils.Configuracoes
 {
     public class MDFeConfiguracao
     {
-        public static bool IsSalvarXml { get; set; }
         public static string CaminhoCertificadoDigital { get; set; }
         public static string SenhaCertificadoDigital { get; set; }
         public static string NumeroSerieCertificadoDigital { get; set; }
+
+        public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
         public static string CaminhoSalvarXml { get; set; }
         public static MDFeVersaoWebService VersaoWebService { get; set; } = new MDFeVersaoWebService();
@@ -37,6 +38,7 @@ namespace MDFe.Utils.Configuracoes
 
     public class MDFeVersaoWebService
     {
+        public int TimeOut { get; set; }
         public EstadoUF UfDestino { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoMDFeRecepcao { get; set; }

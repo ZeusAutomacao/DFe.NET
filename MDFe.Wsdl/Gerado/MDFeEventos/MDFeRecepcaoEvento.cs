@@ -33,7 +33,7 @@ public partial class MDFeRecepcaoEvento : System.Web.Services.Protocols.SoapHttp
     private System.Threading.SendOrPostCallback mdfeRecepcaoEventoOperationCompleted;
     
     /// <remarks/>
-    public MDFeRecepcaoEvento(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2) {
+    public MDFeRecepcaoEvento(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2, int timeOut) {
         this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
         this.Url = url;
         this.mdfeCabecMsgValue = new mdfeCabecMsg
@@ -42,6 +42,7 @@ public partial class MDFeRecepcaoEvento : System.Web.Services.Protocols.SoapHttp
             versaoDados = versao
         };
         this.ClientCertificates.Add(x509Certificate2);
+        this.Timeout = timeOut;
     }
     
     public mdfeCabecMsg mdfeCabecMsgValue {

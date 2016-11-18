@@ -23,7 +23,7 @@ namespace MDFe.Servicos.EventosMDFe
             var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
-            var ws = new MDFeRecepcaoEvento(url, codigoEstado, versao, certificadoDigital);
+            var ws = new MDFeRecepcaoEvento(url, codigoEstado, versao, certificadoDigital, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             var encerramento = new MDFeEvEncMDFe
             {

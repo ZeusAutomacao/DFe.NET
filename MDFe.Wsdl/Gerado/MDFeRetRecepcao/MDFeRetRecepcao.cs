@@ -28,7 +28,7 @@ namespace MDFe.Wsdl.Gerado.MDFeRetRecepcao
         private System.Threading.SendOrPostCallback mdfeRetRecepcaoOperationCompleted;
     
         /// <remarks/>
-        public MDFeRetRecepcao(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2) {
+        public MDFeRetRecepcao(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2, int timeOut) {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = url;
             mdfeCabecMsgValue = new mdfeCabecMsg
@@ -37,6 +37,7 @@ namespace MDFe.Wsdl.Gerado.MDFeRetRecepcao
                 cUF = codigoEstado
             };
             this.ClientCertificates.Add(x509Certificate2);
+            this.Timeout = timeOut;
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {

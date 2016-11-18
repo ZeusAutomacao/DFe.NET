@@ -19,5 +19,6 @@ namespace MDFe.AppTeste.Entidades
         public VersaoServico VersaoMDFeStatusServico { get; set; }
         public VersaoServico VersaoMDFeConsNaoEnc { get; set; }
         public string CaminhoSchemas { get; set; }
+        public int TimeOut { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         private System.Threading.SendOrPostCallback mdfeConsNaoEncOperationCompleted;
     
         /// <remarks/>
-        public MDFeConsNaoEnc(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2) {
+        public MDFeConsNaoEnc(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2, int timeOut) {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = url;
             this.mdfeCabecMsgValue = new mdfeCabecMsg
@@ -37,6 +37,7 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                 versaoDados = versao
             };
             this.ClientCertificates.Add(x509Certificate2);
+            Timeout = timeOut;
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {

@@ -20,7 +20,7 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
             var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc.GetVersaoString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
-            var ws = new MDFeConsNaoEnc(url, codigoEstado, versao, certificadoDigital);
+            var ws = new MDFeConsNaoEnc(url, codigoEstado, versao, certificadoDigital, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {

@@ -22,7 +22,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
             var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao.GetVersaoString();
             var urlRecepcao = UrlHelper.ObterUrlServico(mdfe.InfMDFe.Ide.TpAmb).MDFeRecepcao;
 
-            var ws = new MDFeRecepcao(urlRecepcao, codigoIbgeEstado, versaoServico, MDFeConfiguracao.X509Certificate2);
+            var ws = new MDFeRecepcao(urlRecepcao, codigoIbgeEstado, versaoServico, MDFeConfiguracao.X509Certificate2, MDFeConfiguracao.VersaoWebService.TimeOut);
 
             #endregion
 
