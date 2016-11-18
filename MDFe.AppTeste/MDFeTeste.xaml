@@ -226,6 +226,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Button Click="Enviar1_0_Click" Grid.ColumnSpan="2">Criar e enviar 1.00</Button>
@@ -234,6 +235,7 @@
                     <Button Grid.Column="2" Grid.Row="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo 1.00</Button>
                     <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="ConsultaStatus_Click">Consulta Status Serviço 1.00</Button>
                     <Button Grid.Row="2" Grid.Column="2" Click="ConsultaNaoEncerrados1_0_Click">Consulta Não Encerrados 1.00</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Click="EventoIncluirCondutor_Click">Evento Incluir Condutor 1.00</Button>
                 </Grid>
             </TabItem>
         </TabControl>

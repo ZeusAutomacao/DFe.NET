@@ -46,6 +46,9 @@
     <Compile Include="ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
     <Compile Include="Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlMDFe.cs" />
+    <Compile Include="EventosMDFe\EventoInclusaoCondutor.cs" />
+    <Compile Include="EventosMDFe\FactoryEvento.cs" />
+    <Compile Include="EventosMDFe\ServicoMDFeEvento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
     <Compile Include="RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
@@ -73,6 +76,7 @@
       <Name>MDFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

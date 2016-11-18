@@ -72,5 +72,10 @@ namespace MDFe.AppTeste
         {
             _model.ConsultaNaoEncerrados1_0();
         }
+
+        private void EventoIncluirCondutor_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoIncluirCondutor1_0();
+        }
     }
 }

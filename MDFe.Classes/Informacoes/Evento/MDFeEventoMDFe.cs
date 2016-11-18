@@ -15,7 +15,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
         [XmlElement(ElementName = "infEvento")]
         public MDFeInfEvento InfEvento { get; set; }
 
-        [XmlElement(ElementName = "Signature")]
+        [XmlElement(ElementName = "Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
     }
 }

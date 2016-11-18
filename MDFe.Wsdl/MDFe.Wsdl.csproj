@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
+    <Compile Include="Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="Gerado\MDFeStatusServico\MDFeStatusServico.cs" />

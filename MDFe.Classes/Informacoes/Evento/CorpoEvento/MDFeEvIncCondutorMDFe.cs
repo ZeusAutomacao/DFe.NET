@@ -6,10 +6,10 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEve
     [Serializable]
     public class MDFeEvIncCondutorMDFe : MDFeEventoContainer
     {
-        [XmlElement(ElementName = "DescEvento")]
-        public string DescEvento { get; set; }
+        [XmlElement(ElementName = "descEvento")]
+        public string DescEvento { get; set; } = "Inclusao Condutor";
 
-        [XmlElement(ElementName = "Condutor")]
+        [XmlElement(ElementName = "condutor")]
         public MDFeCondutorIncluir Condutor { get; set; }
     }
 

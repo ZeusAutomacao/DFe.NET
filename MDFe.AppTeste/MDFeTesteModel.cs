@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Flags;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
 using MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using MDFe.Servicos.ConsultaProtocoloMDFe;
+using MDFe.Servicos.EventosMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
 using MDFe.Utils.Extencoes;
+using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -827,6 +831,18 @@ namespace MDFe.AppTeste
 
             var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
             var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
+        }
+
+        public void EventoIncluirCondutor1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var evento = new ServicoMDFeEvento();
+
+            var enviMDFe = FuncoesXml.ArquivoXmlParaClasse<MDFeEnviMDFe>(@"C:\Users\Roberto\Desktop\xml\Autorizado\52161121351378000100587500000000011399225275-mdfe.xml");
+
+            var retorno = evento.MDFeEventoIncluirCondutor(enviMDFe.MDFe, 1, "roberto", "04365770110");
         }
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {

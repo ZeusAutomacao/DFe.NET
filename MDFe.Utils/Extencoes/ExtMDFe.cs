@@ -1,4 +1,5 @@
 ﻿using System;
+using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
@@ -85,6 +86,20 @@ namespace MDFe.Utils.Extencoes
         {
             var chave = mdfe.InfMDFe.Id.Substring(4, 44);
             return chave;
+        }
+
+        public static string CNPJEmitente(this MDFEletronico mdfe)
+        {
+            var cnpj = mdfe.InfMDFe.Emit.CNPJ;
+
+            return cnpj;
+        }
+
+        public static EstadoUF UFEmitente(this MDFEletronico mdfe)
+        {
+            var estadoUf = mdfe.InfMDFe.Emit.EnderEmit.UF;
+
+            return estadoUf;
         }
     }
 }
