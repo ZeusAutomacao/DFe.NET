@@ -10,6 +10,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
+using MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using MDFe.Servicos.ConsultaProtocoloMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
@@ -473,7 +474,7 @@ namespace MDFe.AppTeste
             }
         }
 
-        public void CarregarConfiguracoes()
+        public void CarregarConfiguracoesMDFe()
         {
             var dao = new ConfiguracaoDao();
             var config = dao.BuscarConfiguracao();
@@ -526,7 +527,7 @@ namespace MDFe.AppTeste
         public void CriarEnviar100()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            CarregarConfiguracoesMDFe(config);
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
             #region (ide)
@@ -665,7 +666,7 @@ namespace MDFe.AppTeste
         public void GerarESalvar1_0()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            CarregarConfiguracoesMDFe(config);
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
             #region (ide)
@@ -794,7 +795,7 @@ namespace MDFe.AppTeste
         public void ConsultaPorRecibo1_0()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            CarregarConfiguracoesMDFe(config);
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
             var retorno = servicoRecibo.MDFeRetRecepcao("529000002774458");
@@ -803,7 +804,7 @@ namespace MDFe.AppTeste
         public void ConsultaPorProtocolo1_0()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
             var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo("52161121351378000100587500000000011399225275");
@@ -812,14 +813,22 @@ namespace MDFe.AppTeste
         public void ConsultaStatusServico1_0()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            CarregarConfiguracoesMDFe(config);
 
             var servicoStatusServico = new ServicoMDFeStatusServico();
             var retorno = servicoStatusServico.MDFeStatusServico();
 
         }
 
-        private static void CarregarConfiguracoes(Configuracao config)
+        public void ConsultaNaoEncerrados1_0()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
+            var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
+        }
+        private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
             Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;

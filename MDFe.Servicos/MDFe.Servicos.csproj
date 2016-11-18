@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
     <Compile Include="ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
     <Compile Include="Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlMDFe.cs" />

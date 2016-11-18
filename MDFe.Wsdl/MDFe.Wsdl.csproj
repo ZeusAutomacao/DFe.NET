@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
     <Compile Include="Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />

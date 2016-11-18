@@ -35,7 +35,7 @@ namespace MDFe.AppTeste
 
         private void MDFeTeste_OnLoaded(object sender, RoutedEventArgs e)
         {
-            _model.CarregarConfiguracoes();
+            _model.CarregarConfiguracoesMDFe();
         }
 
         private void BuscarDiretorioSchema_Click(object sender, RoutedEventArgs e)
@@ -66,6 +66,11 @@ namespace MDFe.AppTeste
         private void ConsultaStatus_Click(object sender, RoutedEventArgs e)
         {
             _model.ConsultaStatusServico1_0();
+        }
+
+        private void ConsultaNaoEncerrados1_0_Click(object sender, RoutedEventArgs e)
+        {
+            _model.ConsultaNaoEncerrados1_0();
         }
     }
 }
