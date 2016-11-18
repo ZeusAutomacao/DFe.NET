@@ -47,16 +47,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
     {
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
-            #region Cria o objeto wdsl para consulta
-
-
-            var codigoIbgeEstado = mdfe.InfMDFe.Ide.CUF.GetCodigoIbgeEmString();
-            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao.GetVersaoString();
-            var urlRecepcao = UrlHelper.ObterUrlServico(mdfe.InfMDFe.Ide.TpAmb).MDFeRecepcao;
-
-            var ws = new MDFeRecepcao(urlRecepcao, codigoIbgeEstado, versaoServico, MDFeConfiguracao.X509Certificate2, MDFeConfiguracao.VersaoWebService.TimeOut);
-
-            #endregion
+            var ws = CriaWebService(mdfe);
 
             #region Cria o objeto enviMDFe
 
@@ -74,7 +65,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             enviMDFe.SalvarXmlEmDisco();
 
-            var xmlEnvio = enviMDFe.XmlEnvio();
+            var xmlEnvio = enviMDFe.CriaXmlRequestWs();
 
             // Envia para a sefaz
             var retornoXmlDocument = ws.mdfeRecepcaoLote(xmlEnvio);
@@ -82,13 +73,24 @@ namespace MDFe.Servicos.RecepcaoMDFe
             // trata retorno
             var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEnviMDFe>(retornoXmlDocument.OuterXml);
 
-            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviMDFe.MDFe);
+            retorno.EnvioXmlString = enviMDFe.MDFe.XmlString();
             retorno.RetornoXmlString = retornoXmlDocument.OuterXml;
-            retorno.RetornoCompleto = FuncoesXml.ClasseParaXmlString(enviMDFe.MDFe);
+            retorno.RetornoCompleto = enviMDFe.XmlString();
             // salva arquivo de retorno
             SalvarRetorno(retorno);
 
             return retorno;
+        }
+
+        private static MDFeRecepcao CriaWebService(MDFeEletronico mdfe)
+        {
+            var codigoIbgeEstado = mdfe.InfMDFe.Ide.CUF.GetCodigoIbgeEmString();
+            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao.GetVersaoString();
+            var urlRecepcao = UrlHelper.ObterUrlServico(mdfe.InfMDFe.Ide.TpAmb).MDFeRecepcao;
+
+            var ws = new MDFeRecepcao(urlRecepcao, codigoIbgeEstado, versaoServico, MDFeConfiguracao.X509Certificate2,
+                MDFeConfiguracao.VersaoWebService.TimeOut);
+            return ws;
         }
 
         private void SalvarRetorno(MDFeRetEnviMDFe retorno)

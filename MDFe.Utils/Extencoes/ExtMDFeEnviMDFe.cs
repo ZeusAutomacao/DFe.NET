@@ -41,7 +41,7 @@ namespace MDFe.Utils.Extencoes
 {
     public static class ExtMDFeEnviMDFe
     {
-        public static MDFeEnviMDFe Valida(this MDFeEnviMDFe enviMDFe)
+        public static void Valida(this MDFeEnviMDFe enviMDFe)
         {
             if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
 
@@ -50,19 +50,17 @@ namespace MDFe.Utils.Extencoes
             Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
 
             enviMDFe.MDFe.Valida();
-
-            return enviMDFe;
         }
 
-        public static XmlDocument XmlEnvio(this MDFeEnviMDFe enviMDFe)
+        public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
         {
             var dadosEnvio = new XmlDocument();
-            dadosEnvio.LoadXml(enviMDFe.ObterXmlString());
+            dadosEnvio.LoadXml(enviMDFe.XmlString());
 
             return dadosEnvio;
         }
 
-        public static string ObterXmlString(this MDFeEnviMDFe enviMDFe)
+        public static string XmlString(this MDFeEnviMDFe enviMDFe)
         {
             var xmlString = FuncoesXml.ClasseParaXmlString(enviMDFe);
 

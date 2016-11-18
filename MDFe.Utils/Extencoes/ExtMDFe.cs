@@ -105,6 +105,11 @@ namespace MDFe.Utils.Extencoes
             return mdfe;
         }
 
+        public static string XmlString(this MDFEletronico mdfe)
+        {
+            return FuncoesXml.ClasseParaXmlString(mdfe);
+        }
+
         public static void SalvarXmlEmDisco(this MDFEletronico mdfe)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
