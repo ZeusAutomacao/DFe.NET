@@ -44,8 +44,7 @@ namespace MDFe.Utils.Extencoes
     {
         public static void ValidarSchema(this MDFeEventoMDFe evento)
         {
-            // converte o objeto para uma string de xml
-            var xmlValido = FuncoesXml.ClasseParaXmlString(evento);
+            var xmlValido = evento.XmlString();
 
             Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
 
@@ -53,29 +52,22 @@ namespace MDFe.Utils.Extencoes
 
             if (tipoEvento == typeof (MDFeEvCancMDFe))
             {
-                var objetoXml = (MDFeEvCancMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                var xmlCancelamento = FuncoesXml.ClasseParaXmlString(objetoXml);
-
-                Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
+                var objetoXml = (MDFeEvCancMDFe) evento.InfEvento.DetEvento.EventoContainer;
+                objetoXml.ValidaSchema();
             }
 
             if (tipoEvento == typeof (MDFeEvEncMDFe))
             {
                 var objetoXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
-                var xmlEncerramento = FuncoesXml.ClasseParaXmlString(objetoXml);
-
-                Validador.Valida(xmlEncerramento, "evEncMDFe_v1.00.xsd");
+                objetoXml.ValidaSchema();
             }
 
             if (tipoEvento == typeof (MDFeEvIncCondutorMDFe))
             {
                 var objetoXml = (MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
-                var xmlIncluirCondutor = FuncoesXml.ClasseParaXmlString(objetoXml);
-
-                Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
+                objetoXml.ValidaSchema();
             }
 
 
