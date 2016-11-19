@@ -44,6 +44,7 @@
     <Compile Include="Extencoes\ExtMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeConsReciMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeConsStatServMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Extencoes\ExtMDFeEnviMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeEvCancMDFe.cs" />
@@ -51,7 +52,9 @@
     <Compile Include="Extencoes\ExtMDFeEventoMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsReciMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsStatServ.cs" />
     <Compile Include="Extencoes\ExtMDFeRetEnviMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeRetEventoMDFe.cs" />
     <Compile Include="Extencoes\ExtVersaoServico.cs" />
