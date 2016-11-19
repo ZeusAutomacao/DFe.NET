@@ -35,6 +35,8 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
 {
@@ -75,6 +77,23 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
 
         [XmlIgnore]
         public string RetornoCompleto { get; set; }
+
+        public static MDFeRetEnviMDFe LoadXml(string xml)
+        {
+            var retorno = new MDFeRetEnviMDFe();
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
+
+        public static MDFeRetEnviMDFe LoadXml(string xml, MDFeEnviMDFe enviMDFe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviMDFe.MDFe);
+            retorno.RetornoCompleto = FuncoesXml.ClasseParaXmlString(enviMDFe);
+
+            return retorno;
+        }
     }
 
     [Serializable]

@@ -1,7 +1,9 @@
 ﻿using System;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
@@ -77,6 +79,18 @@ namespace MDFe.Servicos.Factory
             };
 
             return incluirCodutor;
+        }
+
+        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        {
+            var enviMdfe = new MDFeEnviMDFe
+            {
+                MDFe = mdfe,
+                IdLote = lote.ToString(),
+                Versao = VersaoLayout.Versao100
+            };
+
+            return enviMdfe;
         }
     }
 }

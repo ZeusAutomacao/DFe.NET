@@ -36,6 +36,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
 using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.Enderecos.Helper;
+using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
@@ -47,61 +48,19 @@ namespace MDFe.Servicos.RecepcaoMDFe
     {
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
-            var ws = CriaWebService(mdfe);
-
-            #region Cria o objeto enviMDFe
-
-            var enviMDFe = new MDFeEnviMDFe
-            {
-                Versao = VersaoLayout.Versao100,
-                IdLote = lote.ToString(),
-                MDFe = mdfe
-            };
-
-            #endregion
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 
             enviMDFe.MDFe.Assina();
             enviMDFe.Valida();
-
             enviMDFe.SalvarXmlEmDisco();
 
-            var xmlEnvio = enviMDFe.CriaXmlRequestWs();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
-            // Envia para a sefaz
-            var retornoXmlDocument = ws.mdfeRecepcaoLote(xmlEnvio);
-
-            // trata retorno
-            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEnviMDFe>(retornoXmlDocument.OuterXml);
-
-            retorno.EnvioXmlString = enviMDFe.MDFe.XmlString();
-            retorno.RetornoXmlString = retornoXmlDocument.OuterXml;
-            retorno.RetornoCompleto = enviMDFe.XmlString();
-            // salva arquivo de retorno
-            SalvarRetorno(retorno);
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
-        }
-
-        private static MDFeRecepcao CriaWebService(MDFeEletronico mdfe)
-        {
-            var codigoIbgeEstado = mdfe.InfMDFe.Ide.CUF.GetCodigoIbgeEmString();
-            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao.GetVersaoString();
-            var urlRecepcao = UrlHelper.ObterUrlServico(mdfe.InfMDFe.Ide.TpAmb).MDFeRecepcao;
-
-            var ws = new MDFeRecepcao(urlRecepcao, codigoIbgeEstado, versaoServico, MDFeConfiguracao.X509Certificate2,
-                MDFeConfiguracao.VersaoWebService.TimeOut);
-            return ws;
-        }
-
-        private void SalvarRetorno(MDFeRetEnviMDFe retorno)
-        {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
-
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + retorno.InfRec.NRec + "-rec.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(retorno, arquivoSalvar);
         }
     }
 }
