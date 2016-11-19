@@ -30,6 +30,16 @@ namespace MDFe.Servicos.Factory
             return new MDFeConsulta(configuracaoWsdl);
         }
 
+        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento()
+        {
+            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
+            var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao);
+
+            return new MDFeRecepcaoEvento(configuracaoWsdl);
+        }
+
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
         {
             var codigoEstado = MDFeConfiguracao.VersaoWebService.UfDestino.GetCodigoIbgeEmString();

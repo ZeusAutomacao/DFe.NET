@@ -33,6 +33,9 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
+using DFe.Utils;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento
 {
@@ -49,5 +52,21 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento
 
         [XmlElement(ElementName = "Signature")]
         public Signature Signature { get; set; }
+
+        public static MDFeRetEventoMDFe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEventoMDFe>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
+
+        public static MDFeRetEventoMDFe LoadXml(string xml, MDFeEventoMDFe evento)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(evento);
+
+            return retorno;
+        }
     }
 }

@@ -30,14 +30,10 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using DFe.Classes.Extencoes;
-using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.Flags;
 using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento;
-using MDFe.Servicos.Enderecos.Helper;
-using MDFe.Utils.Configuracoes;
+using MDFe.Servicos.Factory;
 using MDFe.Utils.Extencoes;
 using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 
@@ -47,68 +43,23 @@ namespace MDFe.Servicos.EventosMDFe
     {
         public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
         {
-            var ws = CriaServicoWs();
-
-            var cancelamento = new MDFeEvCancMDFe
-            {
-                DescEvento = "Cancelamento",
-                NProt = protocolo,
-                XJust = justificativa
-            };
+            var cancelamento = ClassesFactory.CriaEvCancMDFe(protocolo, justificativa);
 
             var evento = FactoryEvento.CriaEvento(mdfe,
                 MDFeTipoEvento.Cancelamento,
                 sequenciaEvento,
                 cancelamento);
 
-            evento.Validar();
+            evento.ValidarSchema();
+            evento.SalvarXmlEmDisco(mdfe.Chave());
 
-            SalvarArquivoXml(evento, mdfe);
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
+            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
-            var retornoXml = ws.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
-
-            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEventoMDFe>(retornoXml.OuterXml);
-
-            retorno.EnvioXmlString = evento.XmlString();
-            retorno.RetornoXmlString = retornoXml.OuterXml;
-
-            SalvarArquivoXmlRetorno(retorno, mdfe);
+            var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
+            retorno.SalvarXmlEmDisco(mdfe.Chave());
 
             return retorno;
-        }
-
-        private static MDFeRecepcaoEvento CriaServicoWs()
-        {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
-            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfDestino.GetCodigoIbgeEmString();
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento.GetVersaoString();
-            var certificadoDigital = MDFeConfiguracao.X509Certificate2;
-
-            var ws = new MDFeRecepcaoEvento(url, codigoEstado, versao, certificadoDigital,
-                MDFeConfiguracao.VersaoWebService.TimeOut);
-            return ws;
-        }
-
-        private void SalvarArquivoXmlRetorno(MDFeRetEventoMDFe retorno, MDFeEletronico mdfe)
-        {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
-
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + mdfe.Chave() + "-env.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(retorno, arquivoSalvar);
-        }
-
-        private void SalvarArquivoXml(MDFeEventoMDFe evento, MDFeEletronico mdfe)
-        {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
-
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + mdfe.Chave() + "-ped-eve.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
         }
     }
 }

@@ -32,15 +32,17 @@
 /********************************************************************************/
 using System.Xml;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 
 namespace MDFe.Utils.Extencoes
 {
     public static class ExtMDFeEventoMDFe
     {
-        public static void Validar(this MDFeEventoMDFe evento)
+        public static void ValidarSchema(this MDFeEventoMDFe evento)
         {
             // converte o objeto para uma string de xml
             var xmlValido = FuncoesXml.ClasseParaXmlString(evento);
@@ -90,6 +92,23 @@ namespace MDFe.Utils.Extencoes
         public static string XmlString(this MDFeEventoMDFe evento)
         {
             return FuncoesXml.ClasseParaXmlString(evento);
+        }
+
+        public static void Assinar(this MDFeEventoMDFe evento)
+        {
+            evento.Signature = AssinaturaDigital.Assina(evento, evento.InfEvento.Id,
+                MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static void SalvarXmlEmDisco(this MDFeEventoMDFe evento, string chave)
+        {
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
+
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
         }
 
     }

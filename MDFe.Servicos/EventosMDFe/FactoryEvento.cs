@@ -66,9 +66,7 @@ namespace MDFe.Servicos.EventosMDFe
                 }
             };
 
-            eventoMDFe.Signature = AssinaturaDigital.Assina(eventoMDFe, eventoMDFe.InfEvento.Id,
-                MDFeConfiguracao.X509Certificate2);
-
+            eventoMDFe.Assinar();
 
             return eventoMDFe;
         }
