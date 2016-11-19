@@ -6,6 +6,7 @@ using MDFe.Wsdl.Configuracao;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
+using MDFe.Wsdl.Gerado.MDFeRetRecepcao;
 
 namespace MDFe.Servicos.Factory
 {
@@ -49,6 +50,16 @@ namespace MDFe.Servicos.Factory
             var configuracaoWsdl = CriaConfiguracao(url, versaoServico);
 
             return new MDFeRecepcao(configuracaoWsdl); ;
+        }
+
+        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
+        {
+            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
+            var versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao);
+
+            return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)

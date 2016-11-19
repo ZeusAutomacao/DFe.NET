@@ -34,6 +34,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.Utils;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
 {
@@ -43,7 +44,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
     public class MDFeEnviMDFe
     {
         [XmlAttribute(AttributeName = "versao")]
-        public VersaoLayout Versao { get; set; } = VersaoLayout.Versao100;
+        public VersaoServico Versao { get; set; } = VersaoServico.Versao100;
 
         [XmlElement(ElementName = "idLote")]
         public string IdLote { get; set; }

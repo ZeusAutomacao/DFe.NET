@@ -40,6 +40,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
+using MDFe.Wsdl.Configuracao;
 
 namespace MDFe.Wsdl.Gerado.MDFeRetRecepcao
 { // 
@@ -59,16 +60,16 @@ namespace MDFe.Wsdl.Gerado.MDFeRetRecepcao
         private System.Threading.SendOrPostCallback mdfeRetRecepcaoOperationCompleted;
     
         /// <remarks/>
-        public MDFeRetRecepcao(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2, int timeOut) {
+        public MDFeRetRecepcao(WsdlConfiguracao configuracao) {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
-            this.Url = url;
+            this.Url = configuracao.Url;
             mdfeCabecMsgValue = new mdfeCabecMsg
             {
-                versaoDados = versao,
-                cUF = codigoEstado
+                versaoDados = configuracao.Versao,
+                cUF = configuracao.CodigoIbgeEstado
             };
-            this.ClientCertificates.Add(x509Certificate2);
-            this.Timeout = timeOut;
+            this.ClientCertificates.Add(configuracao.CertificadoDigital);
+            this.Timeout = configuracao.TimeOut;
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {

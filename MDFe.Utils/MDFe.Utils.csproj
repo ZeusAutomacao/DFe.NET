@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Configuracoes\MDFeConfiguracao.cs" />
     <Compile Include="Extencoes\ExtMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeConsReciMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeConsSitMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Extencoes\ExtMDFeEnviMDFe.cs" />

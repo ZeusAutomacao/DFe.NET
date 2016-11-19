@@ -35,6 +35,7 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 using MDFEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
@@ -95,7 +96,7 @@ namespace MDFe.Utils.Extencoes
                 codigoIbgeUf, dataEHoraEmissao, documentoUnico, numeroDocumento, serie);
 
             mdfe.InfMDFe.Id = "MDFe" + gerarChave.Chave;
-            mdfe.InfMDFe.Versao = VersaoLayout.Versao100;
+            mdfe.InfMDFe.Versao = VersaoServico.Versao100;
             mdfe.InfMDFe.Ide.CDV = gerarChave.DigitoVerificador;
 
             var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);

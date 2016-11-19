@@ -3,7 +3,9 @@ using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
+using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
@@ -87,10 +89,22 @@ namespace MDFe.Servicos.Factory
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = VersaoLayout.Versao100
-            };
+                Versao = VersaoServico.Versao100
+        };
 
             return enviMdfe;
+        }
+
+        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        {
+            var consReciMDFe = new MDFeConsReciMDFe
+            {
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao,
+                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                NRec = numeroRecibo
+            };
+
+            return consReciMDFe;
         }
     }
 }
