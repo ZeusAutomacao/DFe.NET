@@ -1037,7 +1037,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, Nome, cpfCondutor);
+            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

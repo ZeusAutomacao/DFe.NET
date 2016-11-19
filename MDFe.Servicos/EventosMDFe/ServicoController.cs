@@ -10,10 +10,10 @@ namespace MDFe.Servicos.EventosMDFe
 {
     public class ServicoController : IServicoController
     {
-        public MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer)
+        public MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento)
         {
             var evento = FactoryEvento.CriaEvento(mdfe,
-                MDFeTipoEvento.Cancelamento,
+                tipoEvento,
                 sequenciaEvento,
                 eventoContainer);
 

@@ -46,10 +46,12 @@
     <Compile Include="ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
     <Compile Include="Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlMDFe.cs" />
+    <Compile Include="EventosMDFe\Contratos\IServicoController.cs" />
     <Compile Include="EventosMDFe\EventoCancelar.cs" />
     <Compile Include="EventosMDFe\EventoEncerramento.cs" />
     <Compile Include="EventosMDFe\EventoInclusaoCondutor.cs" />
     <Compile Include="EventosMDFe\FactoryEvento.cs" />
+    <Compile Include="EventosMDFe\ServicoController.cs" />
     <Compile Include="EventosMDFe\ServicoMDFeEvento.cs" />
     <Compile Include="Factory\ClassesFactory.cs" />
     <Compile Include="Factory\WsdlFactory.cs" />
