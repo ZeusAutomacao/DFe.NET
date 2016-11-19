@@ -41,18 +41,14 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
     {
         public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
         {
-            var ws = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-
             var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-
             consMDFeNaoEnc.ValidarSchema();
-
             consMDFeNaoEnc.SalvarXmlEmDisco();
 
-            var retornoXml = ws.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
+            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
 
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-
             retorno.SalvarXmlEmDisco(cnpj);
 
             return retorno;

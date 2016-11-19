@@ -35,6 +35,8 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
 using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtocolo
@@ -77,5 +79,19 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
 
         [XmlElement(ElementName = "procEventoMDFe")]
         public MDFeProcEventoMDFe ProcEventoMDFe { get; set; }
+
+        public static MDFeRetConsSitMDFe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsSitMDFe>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static MDFeRetConsSitMDFe LoadXml(string xml, MDFeConsSitMDFe consSitMdfe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitMdfe);
+            return retorno;
+        }
     }
 }

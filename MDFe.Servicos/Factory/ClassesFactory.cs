@@ -1,4 +1,5 @@
 ﻿using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
 using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.Factory
@@ -16,6 +17,19 @@ namespace MDFe.Servicos.Factory
             };
 
             return consMDFeNaoEnc;
+        }
+
+        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
+        {
+            var consSitMdfe = new MDFeConsSitMDFe
+            {
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta,
+                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                XServ = "CONSULTAR",
+                ChMDFe = chave
+            };
+
+            return consSitMdfe;
         }
     }
 }
