@@ -80,7 +80,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
 
         public static MDFeRetEnviMDFe LoadXml(string xml)
         {
-            var retorno = new MDFeRetEnviMDFe();
+            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetEnviMDFe>(xml);
             retorno.RetornoXmlString = xml;
 
             return retorno;

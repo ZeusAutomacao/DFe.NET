@@ -51,6 +51,7 @@
     <Compile Include="Extencoes\ExtMDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeRetConsMDFeNao.cs" />
     <Compile Include="Extencoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetEnviMDFe.cs" />
     <Compile Include="Extencoes\ExtMDFeRetEventoMDFe.cs" />
     <Compile Include="Extencoes\ExtVersaoServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
