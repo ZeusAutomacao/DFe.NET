@@ -4,6 +4,7 @@ using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrad
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
 using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
@@ -105,6 +106,16 @@ namespace MDFe.Servicos.Factory
             };
 
             return consReciMDFe;
+        }
+
+        public static MDFeConsStatServMDFe CriaConsStatServMDFe()
+        {
+            return new MDFeConsStatServMDFe
+            {
+                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico,
+                XServ = "STATUS"
+            }; 
         }
     }
 }

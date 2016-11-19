@@ -35,6 +35,8 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeStatusServico
 {
@@ -85,5 +87,21 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeStatusServico
 
         public bool TMedSpecified => TMed.HasValue;
         public bool DhRetornoSpecified => DhRetorno.HasValue;
+
+        public static MDFeRetConsStatServ LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsStatServ>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
+
+        public static MDFeRetConsStatServ LoadXml(string xml, MDFeConsStatServMDFe consStatServMdFe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServMdFe);
+
+            return retorno;
+        }
     }
 }
