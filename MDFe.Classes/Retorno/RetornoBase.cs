@@ -30,11 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Xml.Serialization;
+
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
 {
     public class RetornoBase
     {
+        [XmlIgnore]
         public string EnvioXmlString { get; set; }
+        [XmlIgnore]
         public string RetornoXmlString { get; set; }
     }
 }

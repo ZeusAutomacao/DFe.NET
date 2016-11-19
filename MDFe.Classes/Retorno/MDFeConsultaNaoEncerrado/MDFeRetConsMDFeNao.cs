@@ -36,6 +36,8 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
 using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
 
 namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaNaoEncerrado
@@ -75,6 +77,21 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaNaoEnce
 
         [XmlElement(ElementName = "infMDFe")]
         public List<MDFeNaoEncerradaInfMDFe> InfMDFe { get; set; }
+
+        public static MDFeRetConsMDFeNao LoadXmlString(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<MDFeRetConsMDFeNao>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static MDFeRetConsMDFeNao LoadXmlString(string xml, MDFeCosMDFeNaoEnc consMdFeNaoEnc)
+        {
+            var retorno = LoadXmlString(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consMdFeNaoEnc);
+
+            return retorno;
+        }
     }
 
     [Serializable]

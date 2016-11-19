@@ -51,6 +51,8 @@
     <Compile Include="EventosMDFe\EventoInclusaoCondutor.cs" />
     <Compile Include="EventosMDFe\FactoryEvento.cs" />
     <Compile Include="EventosMDFe\ServicoMDFeEvento.cs" />
+    <Compile Include="Factory\ClassesFactory.cs" />
+    <Compile Include="Factory\WsdlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
     <Compile Include="RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />

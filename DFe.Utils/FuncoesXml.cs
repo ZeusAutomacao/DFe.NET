@@ -134,6 +134,26 @@ namespace DFe.Utils
             }
         }
 
+        public static void SalvarStringXmlParaArquivoXml(string xml, string arquivo)
+        {
+            var dir = Path.GetDirectoryName(arquivo);
+            if (dir != null && !Directory.Exists(dir))
+            {
+                throw new DirectoryNotFoundException("Diretório " + dir + " não encontrado!");
+            }
+
+            try
+            {
+                var stw = new StreamWriter(arquivo);
+                stw.WriteLine(xml);
+                stw.Close();
+            }
+            catch (Exception)
+            {
+                throw new Exception("Não foi possível criar o arquivo " + arquivo + "!");
+            }
+        }
+
         /// <summary>
         ///     Obtém um node XML no formato string de um arquivo XML. Util por exemplo, para extrair uma NFe de um XML contendo um
         ///     nfeproc, enviNFe, etc.

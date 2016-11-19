@@ -39,7 +39,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Security.Cryptography.X509Certificates;
+using MDFe.Wsdl.Configuracao;
 
 namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 { // 
@@ -59,16 +59,16 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         private System.Threading.SendOrPostCallback mdfeConsNaoEncOperationCompleted;
     
         /// <remarks/>
-        public MDFeConsNaoEnc(string url, string codigoEstado, string versao, X509Certificate2 x509Certificate2, int timeOut) {
+        public MDFeConsNaoEnc(WsdlConfiguracao configuracao) {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
-            this.Url = url;
+            this.Url = configuracao.Url;
             this.mdfeCabecMsgValue = new mdfeCabecMsg
             {
-                cUF = codigoEstado,
-                versaoDados = versao
+                cUF = configuracao.CodigoIbgeEstado,
+                versaoDados = configuracao.Versao
             };
-            this.ClientCertificates.Add(x509Certificate2);
-            Timeout = timeOut;
+            this.ClientCertificates.Add(configuracao.CertificadoDigital);
+            Timeout = configuracao.TimeOut;
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {
