@@ -31,10 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.Flags;
 using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento;
 using MDFe.Servicos.Factory;
-using MDFe.Utils.Extencoes;
 using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
@@ -45,19 +43,7 @@ namespace MDFe.Servicos.EventosMDFe
         {
             var cancelamento = ClassesFactory.CriaEvCancMDFe(protocolo, justificativa);
 
-            var evento = FactoryEvento.CriaEvento(mdfe,
-                MDFeTipoEvento.Cancelamento,
-                sequenciaEvento,
-                cancelamento);
-
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco(mdfe.Chave());
-
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
-            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
-
-            var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco(mdfe.Chave());
+            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, cancelamento);
 
             return retorno;
         }
