@@ -38,9 +38,15 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     public class MDFeInfPercurso
     {
+        /// <summary>
+        /// 3 - Sigla das Unidades da Federação do percurso do veículo.
+        /// </summary>
         [XmlIgnore]
         public EstadoUF UFPer { get; set; }
 
+        /// <summary>
+        /// Proxy para UFPer
+        /// </summary>
         [XmlElement(ElementName = "UFPer")]
         public string ProxyUFPer {
             get { return UFPer.GetSiglaUfString(); }

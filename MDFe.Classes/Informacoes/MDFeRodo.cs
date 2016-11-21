@@ -40,21 +40,39 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeRodo : MDFeModalContainer
     {
+        /// <summary>
+        /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
+        /// </summary>
         [XmlElement(ElementName = "RNTRC")]
         public string RNTRC { get; set; }
 
+        /// <summary>
+        /// 1 - Código Identificador da Operação de Transporte
+        /// </summary>
         [XmlElement(ElementName = "CIOT")]
         public string CIOT { get; set; }
 
+        /// <summary>
+        /// 1 - Dados do Veículo com a Tração
+        /// </summary>
         [XmlElement(ElementName = "veicTracao")]
         public MDFeVeicTracao VeicTracao { get; set; }
 
+        /// <summary>
+        /// 1 - Dados dos reboques
+        /// </summary>
         [XmlElement(ElementName = "veicReboque")]
         public List<MDFeVeicReboque> VeicReboque { get; set; }
 
+        /// <summary>
+        /// 1 - Informações de Vale Pedágio
+        /// </summary>
         [XmlElement(ElementName = "valePed")]
         public MDFeValePed ValePed { get; set; }
 
+        /// <summary>
+        /// 1 - Código de Agendamento no porto 
+        /// </summary>
         [XmlElement(ElementName = "codAgPorto")]
         public string CodAgPorto { get; set; }
     }

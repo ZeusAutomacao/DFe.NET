@@ -39,12 +39,21 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeInfNFe
     {
+        /// <summary>
+        /// 4 - Nota Fiscal Eletrônica 
+        /// </summary>
         [XmlElement(ElementName = "chNFe")]
         public string ChNFe { get; set; }
 
+        /// <summary>
+        /// 4 - Segundo código de barras 
+        /// </summary>
         [XmlElement(ElementName = "SegCodBarra")]
         public string SegCodBarra { get; set; }
 
+        /// <summary>
+        /// 4 - Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
+        /// </summary>
         [XmlElement(ElementName = "infUnidTransp")]
         public List<MDFeInfUnidTransp> InfUnidTransps { get; set; }
     }

@@ -38,6 +38,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeInfEmbComb
     {
+        /// <summary>
+        /// 2 - Código da embarcação do comboio 
+        /// </summary>
         [XmlElement(ElementName = "cEmbComb")]
         public string CEmbComb { get; set; }
     }

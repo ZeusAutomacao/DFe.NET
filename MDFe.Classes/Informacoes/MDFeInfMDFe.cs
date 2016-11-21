@@ -48,34 +48,65 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             InfDoc = new MDFeInfDoc();
             Tot = new MDFeTot();
         }
-
+        /// <summary>
+        /// 1 - Versão do leiaute 
+        /// </summary>
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; } = VersaoServico.Versao100;
 
+        /// <summary>
+        /// 1 - Identificador da tag a ser assinada. 
+        /// Informar a chave de acesso do MDF-e e
+        /// precedida do literal "MDFe" 
+        /// </summary>
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }
 
+        /// <summary>
+        /// 1 - Identificação do MDF-e
+        /// </summary>
         [XmlElement(ElementName = "ide")]
         public MDFeIde Ide { get; set; }
 
+        /// <summary>
+        /// 1 - Identificação do Emitente do Manifesto
+        /// </summary>
         [XmlElement(ElementName = "emit")]
         public MDFeEmit Emit { get; set; }
 
+        /// <summary>
+        /// 1 - Informações do modal
+        /// </summary>
         [XmlElement(ElementName = "infModal")]
         public MDFeInfModal InfModal { get; set; }
 
+        /// <summary>
+        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
+        /// </summary>
         [XmlElement(ElementName = "infDoc")]
         public MDFeInfDoc InfDoc { get; set; }
 
+        /// <summary>
+        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
+        /// </summary>
         [XmlElement(ElementName = "tot")]
         public MDFeTot Tot { get; set; }
 
+        /// <summary>
+        /// 1 - Lacres do MDF-e
+        /// </summary>
         [XmlElement(ElementName = "lacres")]
         public List<MDFeLacre> Lacres { get; set; }
 
+        /// <summary>
+        /// 1 - Autorizados para download do XML do DF-e
+        /// </summary>
         [XmlElement(ElementName = "autXML")]
         public List<MDFeAutXML> AutXml { get; set; }
 
+        /// <summary>
+        /// 1 - Informações Adicionais
+        /// </summary>
         [XmlElement(ElementName = "infAdic")]
         public MDFeInfAdic InfAdic { get; set; }
     }

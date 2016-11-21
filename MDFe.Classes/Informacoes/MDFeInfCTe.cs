@@ -37,19 +37,22 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
 {
     public class MDFeInfCTe
     {
+        /// <summary>
+        /// 4 - Conhecimento Eletrônico - Chave de Acesso
+        /// </summary>
         [XmlElement(ElementName = "chCTe")]
         public string ChCTe { get; set; }
 
+        /// <summary>
+        /// 4 - Segundo código de barras 
+        /// </summary>
         [XmlElement(ElementName = "SegCodBarra")]
         public string SegCodBarra { get; set; }
 
+        /// <summary>
+        /// 4 - Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
+        /// </summary>
         [XmlElement(ElementName = "infUnidTransp")]
         public List<MDFeInfUnidTransp> InfUnidTransps { get; set; }
-
-        [XmlElement(ElementName = "infNFe")]
-        public List<MDFeInfNFe> InfNFe { get; set; }
-
-        [XmlElement(ElementName = "infMDFeTransp")]
-        public List<MDFeInfMDFeTransp> InfMdFeTransps { get; set; }
     }
 }

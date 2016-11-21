@@ -38,6 +38,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeLacre
     {
+        /// <summary>
+        /// 2 - número do lacre
+        /// </summary>
         [XmlElement(ElementName = "nLacre")]
         public string NLacre { get; set; }
     }

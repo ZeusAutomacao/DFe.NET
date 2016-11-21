@@ -39,9 +39,15 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeInfMDFeTransp
     {
+        /// <summary>
+        ///  4 - Manifesto Eletrônico de Documentos Fiscais
+        /// </summary>
         [XmlElement(ElementName = "chMDFe")]
         public string ChMDFe { get; set; }
 
+        /// <summary>
+        /// 4 - Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
+        /// </summary>
         [XmlElement(ElementName = "infUnidTransp")]
         public List<MDFeInfUnidTransp> InfUnidTransp { get; set; }
     }

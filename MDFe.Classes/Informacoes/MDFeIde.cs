@@ -49,36 +49,69 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             InfPercurso = new List<MDFeInfPercurso>();
         }
 
+        /// <summary>
+        /// 2 - Código da UF do emitente do MDF-e. 
+        /// </summary>
         [XmlElement(ElementName = "cUF")]
         public EstadoUF CUF { get; set; }
 
+        /// <summary>
+        /// 2 - Tipo do Ambiente 
+        /// </summary>
         [XmlElement(ElementName = "tpAmb")]
         public TipoAmbiente TpAmb { get; set; }
 
+        /// <summary>
+        /// 2 - Tipo do Emitente 
+        /// </summary>
         [XmlElement(ElementName = "tpEmit")]
         public MDFeTipoEmitente TpEmit { get; set; }
 
+        /// <summary>
+        /// 2 - Modelo do Manifesto Eletrônico
+        /// </summary>
         [XmlElement(ElementName = "mod")]
         public MDFeModelo Mod { get; set; }
 
+        /// <summary>
+        /// 2- Série do Manifesto
+        /// </summary>
         [XmlElement(ElementName = "serie")]
         public short Serie { get; set; }
 
+        /// <summary>
+        /// 2- Número do Manifesto 
+        /// </summary>
         [XmlElement(ElementName = "nMDF")]
         public long NMDF { get; set; }
 
+        /// <summary>
+        /// 2 - Código numérico que compõe a Chave de Acesso.
+        /// </summary>
         [XmlElement(ElementName = "cMDF")]
         public long CMDF { get; set; }
 
+        /// <summary>
+        /// 2 - Digito verificador da chave de acesso do Manifesto
+        /// </summary>
         [XmlElement(ElementName = "cDV")]
         public byte CDV { get; set; }
 
+        /// <summary>
+        /// 2 - Modalidade de transporte 
+        /// </summary>
         [XmlElement(ElementName = "modal")]
         public MDFeModal Modal { get; set; }
 
+        /// <summary>
+        /// 2 - Data e hora de emissão do Manifesto 
+        /// </summary>
         [XmlIgnore]
         public DateTime DhEmi { get; set; }
 
+        /// <summary>
+        /// Proxy para dhEmi
+        /// </summary>
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
@@ -86,18 +119,33 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             set { DhEmi = DateTime.Parse(value); }
         }
 
+        /// <summary>
+        /// 2 - Forma de emissão do Manifesto (Normal ou Contingência)
+        /// </summary>
         [XmlElement(ElementName = "tpEmis")]
         public MDFeTipoEmissao TpEmis { get; set; }
 
+        /// <summary>
+        /// 2 - Identificação do processo de emissão do Manifesto
+        /// </summary>
         [XmlElement(ElementName = "procEmi")]
         public MDFeIdentificacaoProcessoEmissao ProcEmi { get; set; }
 
+        /// <summary>
+        /// 2 - Versão do processo de emissão 
+        /// </summary>
         [XmlElement(ElementName = "verProc")]
         public string VerProc { get; set; }
 
+        /// <summary>
+        /// 2 - Sigla da UF do Carregamento 
+        /// </summary>
         [XmlIgnore]
         public EstadoUF UFIni { get; set; }
 
+        /// <summary>
+        /// Proxy para UFIni
+        /// </summary>
         [XmlElement(ElementName = "UFIni")]
         public string ProxyUFIni
         {
@@ -105,9 +153,15 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             set { UFIni = UFIni.SiglaParaEstado(value); }
         }
 
+        /// <summary>
+        /// 2 - Sigla da UF do Descarregamento
+        /// </summary>
         [XmlIgnore]
         public EstadoUF UFFim { get; set; }
 
+        /// <summary>
+        /// Proxy para UFFim
+        /// </summary>
         [XmlElement(ElementName = "UFFim")]
         public string ProxyUFFim
         {
@@ -115,15 +169,27 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             set { UFFim = UFFim.SiglaParaEstado(value); }
         }
 
+        /// <summary>
+        /// 2 - Informações dos Municípios de Carregamento
+        /// </summary>
         [XmlElement(ElementName = "infMunCarrega")]
         public List<MDFeInfMunCarrega> InfMunCarrega { get; set; }
 
+        /// <summary>
+        /// 2 - Informações do Percurso do MDF-e 
+        /// </summary>
         [XmlElement(ElementName = "infPercurso")]
         public List<MDFeInfPercurso> InfPercurso { get; set; }
 
+        /// <summary>
+        /// 2 - Data e hora previstos de inicio da viagem
+        /// </summary>
         [XmlIgnore]
         public DateTime? DhIniViagem { get; set; }
 
+        /// <summary>
+        /// Proxy para dhIniViagem
+        /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
             get { return DhIniViagem?.ToString("yyyy-MM-ddTHH:mm:dd"); }

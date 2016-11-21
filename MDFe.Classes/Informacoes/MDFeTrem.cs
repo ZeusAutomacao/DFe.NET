@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
 
@@ -40,27 +39,43 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeTrem : MDFeModalContainer
     {
+        /// <summary>
+        /// 2 - Prefixo do Trem 
+        /// </summary>
         [XmlElement(ElementName = "xPref")]
         public string XPref { get; set; }
 
+        /// <summary>
+        /// 2 - Data e hora de liberação do trem na origem
+        /// </summary>
         [XmlIgnore]
         public DateTime? DhTrem { get; set; }
 
+        /// <summary>
+        /// Proxy para covnerter dhTrem em string yyyy-MM-ddTHH:mm:dd
+        /// </summary>
         [XmlElement(ElementName = "dhTrem")]
         public string ProxyDhTrem {
             get { return DhTrem?.ToString("yyyy-MM-ddTHH:mm:dd"); }
             set { DhTrem = DateTime.Parse(value); }
         }
 
+        /// <summary>
+        /// 2 - Origem do Trem 
+        /// </summary>
         [XmlElement(ElementName = "xOri")]
         public string XOri { get; set; }
 
+        /// <summary>
+        /// 2 - Destino do Trem 
+        /// </summary>
         [XmlElement(ElementName = "xDest")]
         public string XDest { get; set; }
 
+        /// <summary>
+        /// 2 - Quantidade de vagões carregados 
+        /// </summary>
         [XmlElement(ElementName = "qVag")]
-        public int QVag { get; set; }
-
-        public List<MDFeVag> Vag { get; set; }
+        public short QVag { get; set; }
     }
 }

@@ -39,6 +39,9 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeValePed
     {
+        /// <summary>
+        /// 2 - Informações dos dispositivos do Vale Pedágio
+        /// </summary>
         [XmlElement(ElementName = "disp")]
         public List<MDFeDisp> Disp { get; set; }
     }

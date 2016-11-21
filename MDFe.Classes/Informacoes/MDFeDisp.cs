@@ -38,12 +38,21 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeDisp
     {
+        /// <summary>
+        /// 3 - CNPJ da empresa fornecedora do ValePedágio
+        /// </summary>
         [XmlElement(ElementName = "CNPJForn")]
         public string CNPJForn { get; set; }
 
+        /// <summary>
+        /// 3 - CNPJ do responsável pelo pagamento do Vale-Pedágio
+        /// </summary>
         [XmlElement(ElementName = "CNPJPg")]
         public string CNPJPg { get; set; }
 
+        /// <summary>
+        /// 3 - Número do comprovante de compra 
+        /// </summary>
         [XmlElement(ElementName = "nCompra")]
         public string NCompra { get; set; }
 

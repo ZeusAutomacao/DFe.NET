@@ -38,15 +38,27 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeVag
     {
+        /// <summary>
+        /// 2 - Serie de Identificação do vagão
+        /// </summary>
         [XmlElement(ElementName = "serie")]
         public short Serie { get; set; }
 
+        /// <summary>
+        /// 2 - Número de Identificação do vagão 
+        /// </summary>
         [XmlElement(ElementName = "nVag")]
         public long NVag { get; set; }
 
+        /// <summary>
+        /// 2 - Sequencia do vagão na composição
+        /// </summary>
         [XmlElement(ElementName = "nSeq")]
         public short? NSeq { get; set; }
 
+        /// <summary>
+        /// 2 - Tonelada Útil 
+        /// </summary>
         [XmlElement(ElementName = "TU")]
         public decimal TU { get; set; }
     }

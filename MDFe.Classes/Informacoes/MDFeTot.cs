@@ -39,26 +39,56 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeTot
     {
+        /// <summary>
+        /// 2 - Quantidade total de CT-e relacionados no Manifesto
+        /// </summary>
         [XmlElement(ElementName = "qCTe")]
         public int? QCTe { get; set; }
 
+        /// <summary>
+        /// 2 - Quantidade total de NF-e relacionadas no Manifesto
+        /// </summary>
         [XmlElement(ElementName = "qNFe")]
         public int? QNFe { get; set; }
 
+        /// <summary>
+        /// 2 - Quantidade total de MDF-e relacionados no Manifesto Aquaviário
+        /// </summary>
         [XmlElement(ElementName = "qMDFe")]
         public int? QMDFe { get; set; }
 
+        /// <summary>
+        /// 2 - Valor total da carga / mercadorias transportadas
+        /// </summary>
         [XmlElement(ElementName = "vCarga")]
         public decimal vCarga { get; set; }
 
+        /// <summary>
+        /// 2 - Codigo da unidade de medida do Peso Bruto da Carga / Mercadorias transportadas
+        /// </summary>
         [XmlElement(ElementName = "cUnid")]
         public MDFeCUnid CUnid { get; set; }
 
+        /// <summary>
+        /// 2 - Peso Bruto Total da Carga / Mercadorias transportadas
+        /// </summary>
         [XmlElement(ElementName = "qCarga")]
         public decimal QCarga { get; set; }
 
+
+        /// <summary>
+        /// Se null não aparece no xml
+        /// </summary>
         public bool QCTeSpecified => QCTe.HasValue;
+
+        /// <summary>
+        /// Se null não aparece no xml
+        /// </summary>
         public bool QNFeSpecified => QNFe.HasValue;
+
+        /// <summary>
+        /// Se null não aparece no xml
+        /// </summary>
         public bool QMDFeSpecified => QMDFe.HasValue;
     }
 }
