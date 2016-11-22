@@ -251,7 +251,6 @@ namespace NFe.Servicos
 
             #endregion
         }
-
         /// <summary>
         ///     Consulta a Situação da NFe
         /// </summary>
@@ -302,7 +301,6 @@ namespace NFe.Servicos
 
             #endregion
         }
-
         /// <summary>
         ///     Inutiliza uma faixa de números
         /// </summary>
@@ -314,7 +312,8 @@ namespace NFe.Servicos
         /// <param name="numeroFinal"></param>
         /// <param name="justificativa"></param>
         /// <returns>Retorna um objeto da classe RetornoNfeInutilizacao com o retorno do serviço NfeInutilizacao</returns>
-        public RetornoNfeInutilizacao NfeInutilizacao(string cnpj, int ano, ModeloDocumento modelo, int serie, int numeroInicial, int numeroFinal, string justificativa)
+        public RetornoNfeInutilizacao NfeInutilizacao(string cnpj, int ano, ModeloDocumento modelo,
+            int serie, int numeroInicial, int numeroFinal, string justificativa)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao);
 
@@ -377,7 +376,6 @@ namespace NFe.Servicos
 
             #endregion
         }
-
         /// <summary>
         ///     Envia um evento genérico
         /// </summary>
@@ -469,7 +467,6 @@ namespace NFe.Servicos
 
             #endregion
         }
-
         /// <summary>
         ///     Envia um evento do tipo "Cancelamento"
         /// </summary>
@@ -480,7 +477,8 @@ namespace NFe.Servicos
         /// <param name="justificativa"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
@@ -505,7 +503,6 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCancelmento);
             return retorno;
         }
-
         /// <summary>
         ///     Envia um evento do tipo "Carta de Correção"
         /// </summary>
@@ -515,7 +512,8 @@ namespace NFe.Servicos
         /// <param name="correcao"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
+        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento,
+            string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null};
@@ -540,8 +538,10 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCartaCorrecao);
             return retorno;
         }
-
-        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj, string justificativa = null)
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, 
+            int sequenciaEvento, string chaveNFe, 
+            TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+            string justificativa = null)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { versao = versaoServico, descEvento = tipoEventoManifestacaoDestinatario.Descricao(), xJust = justificativa };
@@ -566,7 +566,6 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
-
         /// <summary>
         ///     Envia um evento do tipo "EPEC"
         /// </summary>
@@ -622,7 +621,6 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
-
         /// <summary>
         ///     Consulta a situação cadastral, com base na UF/Documento
         ///     <para>O documento pode ser: IE, CNPJ ou CPF</para>
@@ -631,7 +629,8 @@ namespace NFe.Servicos
         /// <param name="tipoDocumento">Tipo de documento a ser consultado</param>
         /// <param name="documento">Documento a ser consultado</param>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaCadastro com o retorno do serviço NfeConsultaCadastro</returns>
-        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento, string documento)
+        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf,
+            ConsultaCadastroTipoDocumento tipoDocumento, string documento)
         {
             var versaoServico = Conversao.VersaoServicoParaString(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro);
 
@@ -667,7 +666,7 @@ namespace NFe.Servicos
                     pedConsulta.infCons.CPF = documento;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(tipoDocumento), tipoDocumento, null);
+                   throw new ArgumentOutOfRangeException();
             }
 
             #endregion
@@ -691,7 +690,6 @@ namespace NFe.Servicos
 
             #endregion
         }
-
         /// <summary>
         /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
         /// </summary>
@@ -1108,7 +1106,6 @@ namespace NFe.Servicos
         }
 
         #endregion
-
 
         #region Implementação do padrão Dispose
 
