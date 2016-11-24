@@ -66,9 +66,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFCe\NFCe.frx">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="NFCe\NFCe.frx" />
     <None Include="NFe\NFe.frx" />
   </ItemGroup>
   <ItemGroup>
