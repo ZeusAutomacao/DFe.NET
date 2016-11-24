@@ -758,10 +758,21 @@ namespace NFe.Servicos
                 {
 
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
-                    var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
-                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    string chNFe = string.Empty;
 
-                    SalvarArquivoXml(retConteudo.chNFe + "_" + schema[0] + ".xml", conteudo);
+                    if (conteudo.StartsWith("<retNFe"))
+                    {
+                        var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                        chNFe = retConteudo.chNFe;
+                    }
+                    else if (conteudo.StartsWith("<procEventoNFe"))
+                    {
+                        var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
+                        chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
+                    }
+
+                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
 
                 }
             }
