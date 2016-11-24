@@ -752,15 +752,18 @@ namespace NFe.Servicos
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
-            for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+            if (retConsulta.loteDistDFeInt != null)
             {
+                for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+                {
 
-                string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
-                var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
-                string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
+                    var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
 
-                SalvarArquivoXml(retConteudo.chNFe + "_" + schema[0] + ".xml", conteudo);
+                    SalvarArquivoXml(retConteudo.chNFe + "_" + schema[0] + ".xml", conteudo);
 
+                }
             }
             #endregion
 
