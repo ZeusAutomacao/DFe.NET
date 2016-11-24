@@ -1,0 +1,18 @@
+﻿<Window x:Class="MDFe.AppTeste.InputBoxWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:input="clr-namespace:System.Windows.Input;assembly=PresentationCore"
+        Title="" Width="415"
+        SizeToContent="Height" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <StackPanel Name="Panel" Orientation="Vertical" VerticalAlignment="Top" Margin="10,10,10,0"
+                input:FocusManager.FocusedElement="{Binding ElementName=TxtValor}">
+        <TextBlock x:Name="TxtDescricao" TextWrapping="Wrap" Text="TESTE DE INPUT" Margin="0,0,0,10" />
+        <TextBox Name="TxtValor" Height="23" TextWrapping="Wrap" Text="TextBox" KeyUp="TxtValor_KeyUp" />
+        <Grid Name="Grid" Height="46" Margin="0,0,0,0">
+            <Button x:Name="BtnOk" Content="Ok" HorizontalAlignment="Right" Margin="0,10,95,0" VerticalAlignment="Top"
+                    Width="90" Click="BtnOk_Click" />
+            <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Right" Margin="284,10,0,0"
+                    VerticalAlignment="Top" Width="90" Click="BtnCancelar_Click" />
+        </Grid>
+    </StackPanel>
+</Window>
