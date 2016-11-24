@@ -150,7 +150,7 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Confirmacao da Operacao")]
         TeMdConfirmacaoDaOperacao = 210200,
 
-        [Description("Ciencia da Emissao")]
+        [Description("Ciencia da Operacao")]
         TeMdCienciaDaEmissao = 210210,
 
         [Description("Desconhecimento da Operacao")]
