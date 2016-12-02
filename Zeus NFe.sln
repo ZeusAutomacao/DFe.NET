@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Fast", "NFe.Danfe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.AppTeste", "NFe.Danfe.AppTeste\NFe.Danfe.AppTeste.csproj", "{DEFCCB64-84E6-45B1-984C-9CAF0BA8CC23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nfe.Danfe.Nativo", "Nfe.Danfe.Nativo\Nfe.Danfe.Nativo.csproj", "{9CBBB85F-E972-4096-92C3-C38C3C3B3EAC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{DEFCCB64-84E6-45B1-984C-9CAF0BA8CC23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEFCCB64-84E6-45B1-984C-9CAF0BA8CC23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEFCCB64-84E6-45B1-984C-9CAF0BA8CC23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CBBB85F-E972-4096-92C3-C38C3C3B3EAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CBBB85F-E972-4096-92C3-C38C3C3B3EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CBBB85F-E972-4096-92C3-C38C3C3B3EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CBBB85F-E972-4096-92C3-C38C3C3B3EAC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

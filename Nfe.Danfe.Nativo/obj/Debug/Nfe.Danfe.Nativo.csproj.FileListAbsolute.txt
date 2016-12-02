@@ -1,0 +1,5 @@
+C:\Users\fcamara_fabio\Documents\GitHub\Zeus.Net.NFe.NFCe\Nfe.Danfe.Nativo\bin\Debug\Nfe.Danfe.Nativo.dll
+C:\Users\fcamara_fabio\Documents\GitHub\Zeus.Net.NFe.NFCe\Nfe.Danfe.Nativo\bin\Debug\Nfe.Danfe.Nativo.pdb
+C:\Users\fcamara_fabio\Documents\GitHub\Zeus.Net.NFe.NFCe\Nfe.Danfe.Nativo\obj\Debug\Nfe.Danfe.Nativo.csprojResolveAssemblyReference.cache
+C:\Users\fcamara_fabio\Documents\GitHub\Zeus.Net.NFe.NFCe\Nfe.Danfe.Nativo\obj\Debug\Nfe.Danfe.Nativo.dll
+C:\Users\fcamara_fabio\Documents\GitHub\Zeus.Net.NFe.NFCe\Nfe.Danfe.Nativo\obj\Debug\Nfe.Danfe.Nativo.pdb

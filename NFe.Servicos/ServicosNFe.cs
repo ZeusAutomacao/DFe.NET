@@ -76,6 +76,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Classes.Assinatura;
 
 namespace NFe.Servicos
 {
@@ -89,12 +90,16 @@ namespace NFe.Servicos
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
         /// </summary>
         /// <param name="cFgServico"></param>
-        public ServicosNFe(ConfiguracaoServico cFgServico)
+        public ServicosNFe(ConfiguracaoServico cFgServico, string pin = null)
         {
             _cFgServico = cFgServico;
             _certificado = string.IsNullOrEmpty(_cFgServico.Certificado.Arquivo)
                 ? CertificadoDigital.ObterDoRepositorio(_cFgServico.Certificado.Serial, _cFgServico.Certificado.Senha)
                 : CertificadoDigital.ObterDeArquivo(_cFgServico.Certificado.Arquivo, _cFgServico.Certificado.Senha);
+
+            if (!string.IsNullOrWhiteSpace(pin))
+                ((X509Certificate2)_certificado).SetPinForPrivateKey(pin);
+
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 

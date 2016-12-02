@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assinatura\CanonicalizationMethod.cs" />
+    <Compile Include="Assinatura\X509Certificate2Extension.cs" />
     <Compile Include="Assinatura\DigestMethod.cs" />
     <Compile Include="Assinatura\KeyInfo.cs" />
     <Compile Include="Assinatura\Reference.cs" />
