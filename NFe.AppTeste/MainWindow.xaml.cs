@@ -55,6 +55,7 @@ using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
+using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
@@ -63,6 +64,7 @@ using NFe.Utils.Assinatura;
 using NFe.Utils.Email;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
+using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -746,13 +748,18 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(uf)) throw new Exception("A UF deve ser informada!");
                 if (uf.Length != 2) throw new Exception("UF deve conter 2 caracteres!");
 
-                var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(CPF/CNPJ):");
-                if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(CPF/CNPJ) deve ser informado!");
-                if (documento.Length != 11 & documento.Length != 14)
-                    throw new Exception("O Documento(CPF/CNPJ) deve conter 11 ou 14 caracteres!");
+                var tipoDocumento = Funcoes.InpuBox(this, "Consultar Cadastro", "Tipo de documento a ser consultado: (0 - IE; 1 - CNPJ; 2 - CPF):");
+                if (string.IsNullOrEmpty(tipoDocumento)) throw new Exception("O Tipo de documento deve ser informado!");
+                if (tipoDocumento.Length != 1) throw new Exception("O Tipo de documento deve conter um apenas um número!");
+                if (!tipoDocumento.All(char.IsDigit)) throw new Exception("O Tipo de documento deve ser um número inteiro");
+                var intTipoDocumento = int.Parse(tipoDocumento);
+                if (!(intTipoDocumento >= 0 && intTipoDocumento <= 2)) throw new Exception("Tipos válidos: (0 - IE; 1 - CNPJ; 2 - CPF)");
+                
+                var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(IE/CNPJ/CPF):");
+                if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(IE/CNPJ/CPF) deve ser informado!");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoConsulta = servicoNFe.NfeConsultaCadastro(uf, documento);
+                var retornoConsulta = servicoNFe.NfeConsultaCadastro(uf, (ConsultaCadastroTipoDocumento) intTipoDocumento, documento);
                 TrataRetorno(retornoConsulta);
 
                 #endregion
@@ -776,7 +783,7 @@ namespace NFe.AppTeste
         {
             var infNFe = new infNFe
             {
-                versao = Conversao.VersaoServicoParaString(versao),
+                versao = versao.VersaoServicoParaString(),
                 ide = GetIdentificacao(numero, modelo, versao),
                 emit = GetEmitente(),
                 dest = GetDestinatario(versao, modelo),
@@ -946,6 +953,8 @@ namespace NFe.AppTeste
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
+                    //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
+
                     //ICMSUFDest = new ICMSUFDest()
                     //{
                     //    pFCPUFDest = 0,
@@ -1043,6 +1052,22 @@ namespace NFe.AppTeste
             }
 
             return new ICMS10();
+        }
+
+        protected virtual ICMSBasico ObterIcmsBasico(CRT crt)
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto ICMSGeral, como no exemplo abaixo.
+            var icmsGeral = new ICMSGeral
+            {
+                orig = OrigemMercadoria.OmNacional,
+                CST = Csticms.Cst20,
+                modBC = DeterminacaoBaseIcms.DbiValorOperacao,
+                vBC = 1,
+                pICMS = 17,
+                vICMS = 0.17m,
+                motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
+            };
+            return icmsGeral.ObterICMSBasico(crt);
         }
 
         protected virtual ICMSBasico InformarCSOSN(Csosnicms CST)
@@ -1161,7 +1186,7 @@ namespace NFe.AppTeste
         {
             richTextBox.Document.Blocks.Clear();
 
-            foreach (var atributos in Funcoes.LerPropriedades(objeto))
+            foreach (var atributos in objeto.LerPropriedades())
             {
                 richTextBox.AppendText(atributos.Key + " = " + atributos.Value + "\r");
             }

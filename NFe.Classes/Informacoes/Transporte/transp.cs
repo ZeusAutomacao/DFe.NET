@@ -70,5 +70,15 @@ namespace NFe.Classes.Informacoes.Transporte
         /// </summary>
         [XmlElement("vol")]
         public List<vol> vol { get; set; }
+
+        /// <summary>
+        ///     X25a - Identificação do vagão
+        /// </summary>
+        public string vagao { get; set; }
+
+        /// <summary>
+        ///     X25b - Identificação da balsa
+        /// </summary>
+        public string balsa { get; set; }
     }
 }

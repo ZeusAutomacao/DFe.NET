@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     BA07 - Modelo do Documento Fiscal
         /// </summary>
-        public int mod { get; set; }
+        public string mod { get; set; }
 
         /// <summary>
         ///     BA08 - Série do Documento Fiscal

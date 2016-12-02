@@ -67,7 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NFCe\NFCe.frx" />
-    <None Include="NFe\NFe.frx" />
+    <None Include="NFe\NFeRetrato.frx" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="NFCe\Fontes\LeiaMe.txt" />

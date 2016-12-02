@@ -38,5 +38,14 @@
             return cStat >= 201 & !Autorizada(cStat) & !Cancelada(cStat) & !Denegada(cStat) & !Inutilizada(cStat);
         }
 
+        public static bool LoteRecebido(int cStat)
+        {
+            return cStat == 103;
+        }
+
+        public static bool LoteProcessado(int cStat)
+        {
+            return cStat == 104;
+        }
     }
 }

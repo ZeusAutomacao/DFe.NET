@@ -48,15 +48,5 @@ namespace NFe.Classes.Informacoes.Transporte
         ///     X25 - Registro Nacional de Transportador de Carga (ANTT)
         /// </summary>
         public string RNTC { get; set; }
-
-        /// <summary>
-        ///     X25a - Identificação do vagão
-        /// </summary>
-        public string vagao { get; set; }
-
-        /// <summary>
-        ///     X25b - Identificação da balsa
-        /// </summary>
-        public string balsa { get; set; }
     }
 }

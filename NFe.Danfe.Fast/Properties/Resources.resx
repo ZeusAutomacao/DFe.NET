@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -121,8 +121,8 @@
   <data name="NFCe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\NFCe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NFe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFe\NFe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="NFeRetrato" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\NFe\NFeRetrato.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="OpenSans_CondBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

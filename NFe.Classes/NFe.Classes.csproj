@@ -53,7 +53,7 @@
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="infNFeSupl.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
     <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
     <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
@@ -88,12 +88,12 @@
     <Compile Include="Informacoes\Detalhe\DeclaracaoImportacao\DI.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\detExport.cs" />
     <Compile Include="Informacoes\Detalhe\Exportacao\exportInd.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\arma.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\CIDE.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\comb.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\med.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\ProdutoEspecifico.cs" />
-    <Compile Include="Informacoes\Detalhe\Produto Específico\veicProd.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\arma.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\CIDE.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\comb.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\med.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\ProdutoEspecifico.cs" />
+    <Compile Include="Informacoes\Detalhe\ProdEspecifico\veicProd.cs" />
     <Compile Include="Informacoes\exporta.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsCad.cs" />
     <Compile Include="Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs" />
@@ -153,9 +153,6 @@
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSSN900.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSST.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSBasico.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormal.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSNormalST.cs" />
-    <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSSTSomente.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Federal\COFINS.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Federal\COFINSAliq.cs" />

@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -44,6 +44,7 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Danfe.Fast.NFe;
 using NFe.Utils;
 using NFe.Utils.NFe;
+using NFe.Utils.Tributacao.Estadual;
 
 namespace NFe.Danfe.AppTeste
 {
@@ -213,11 +214,10 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca));
-                //danfe.Visualizar();
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, false));
+                danfe.Visualizar();
                 //danfe.Imprimir();
-                danfe.ExibirDesign();
+                //danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion
