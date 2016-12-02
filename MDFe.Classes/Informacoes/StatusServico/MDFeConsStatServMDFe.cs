@@ -42,6 +42,11 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico
         ElementName = "consStatServMDFe")]
     public class MDFeConsStatServMDFe
     {
+        public MDFeConsStatServMDFe()
+        {
+            XServ = "STATUS";
+        }
+
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }
 
@@ -49,6 +54,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlElement(ElementName = "xServ")]
-        public string XServ { get; set; } = "STATUS";
+        public string XServ { get; set; }
     }
 }

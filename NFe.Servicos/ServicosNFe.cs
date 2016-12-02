@@ -667,7 +667,7 @@ namespace NFe.Servicos
                     pedConsulta.infCons.CPF = documento;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(tipoDocumento), tipoDocumento, null);
+                    throw new ArgumentOutOfRangeException("tipoDocumento", tipoDocumento, null);
             }
 
             #endregion

@@ -143,7 +143,7 @@ namespace NFe.Utils.Tributacao.Estadual
                     }
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(crt), crt, null);
+                    throw new ArgumentOutOfRangeException("crt", crt, null);
             }
 
             icmsBasico.CopiarPropriedades(this);

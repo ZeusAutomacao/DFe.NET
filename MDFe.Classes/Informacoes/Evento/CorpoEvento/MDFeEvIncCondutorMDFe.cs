@@ -39,8 +39,13 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEve
     [XmlRoot(ElementName = "evIncCondutorMDFe")]
     public class MDFeEvIncCondutorMDFe : MDFeEventoContainer
     {
+        public MDFeEvIncCondutorMDFe()
+        {
+            DescEvento = "Inclusao Condutor";
+        }
+
         [XmlElement(ElementName = "descEvento")]
-        public string DescEvento { get; set; } = "Inclusao Condutor";
+        public string DescEvento { get; set; }
 
         [XmlElement(ElementName = "condutor")]
         public MDFeCondutorIncluir Condutor { get; set; }
