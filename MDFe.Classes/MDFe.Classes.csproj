@@ -109,6 +109,7 @@
     <Compile Include="Retorno\MDFeEvento\MDFeRetInfEvento.cs" />
     <Compile Include="Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />
     <Compile Include="Retorno\MDFeProcEventoMDFe.cs" />
+    <Compile Include="Retorno\MDFeProcMDFe.cs" />
     <Compile Include="Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
     <Compile Include="Retorno\MDFeRetRecepcao\MDFeInfProtMDFe.cs" />
     <Compile Include="Retorno\MDFeRetRecepcao\MDFeProtMDFe.cs" />
