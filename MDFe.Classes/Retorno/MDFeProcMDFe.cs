@@ -10,6 +10,11 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
     [XmlRoot(ElementName = "mdfeProc", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
     public class MDFeProcMDFe
     {
+        public MDFeProcMDFe()
+        {
+            Versao = VersaoServico.Versao100;
+        }
+
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }
 
