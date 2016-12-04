@@ -85,8 +85,8 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeStatusServico
         [XmlElement(ElementName = "xObs")]
         public string XObs { get; set; }
 
-        public bool TMedSpecified => TMed.HasValue;
-        public bool DhRetornoSpecified => DhRetorno.HasValue;
+        public bool TMedSpecified { get { return TMed.HasValue; } }
+        public bool DhRetornoSpecified { get { return DhRetorno.HasValue; } }
 
         public static MDFeRetConsStatServ LoadXml(string xml)
         {

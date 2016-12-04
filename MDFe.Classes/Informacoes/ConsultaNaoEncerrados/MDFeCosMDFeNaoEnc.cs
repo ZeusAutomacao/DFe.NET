@@ -42,6 +42,11 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEnce
         ElementName = "consMDFeNaoEnc")]
     public class MDFeCosMDFeNaoEnc
     {
+        public MDFeCosMDFeNaoEnc()
+        {
+            XServ = "CONSULTAR NÃO ENCERRADOS";
+        }
+
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }
 
@@ -49,7 +54,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEnce
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlElement(ElementName = "xServ")]
-        public string XServ { get; set; } = "CONSULTAR NÃO ENCERRADOS";
+        public string XServ { get; set; }
 
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
