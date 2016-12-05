@@ -79,16 +79,16 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// <summary>
         /// Se null não aparece no xml
         /// </summary>
-        public bool QCTeSpecified => QCTe.HasValue;
+        public bool QCTeSpecified { get { return QCTe.HasValue; } }
 
         /// <summary>
         /// Se null não aparece no xml
         /// </summary>
-        public bool QNFeSpecified => QNFe.HasValue;
+        public bool QNFeSpecified { get { return QNFe.HasValue; } }
 
         /// <summary>
         /// Se null não aparece no xml
         /// </summary>
-        public bool QMDFeSpecified => QMDFe.HasValue;
+        public bool QMDFeSpecified { get { return QMDFe.HasValue; } }
     }
 }

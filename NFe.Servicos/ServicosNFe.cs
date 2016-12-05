@@ -59,6 +59,7 @@ using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Utils.DistribuicaoDFe;
+using NFe.Utils.Exceptions;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
@@ -667,7 +668,7 @@ namespace NFe.Servicos
                     pedConsulta.infCons.CPF = documento;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(tipoDocumento), tipoDocumento, null);
+                    throw new ArgumentOutOfRangeException("tipoDocumento", tipoDocumento, null);
             }
 
             #endregion
@@ -936,13 +937,20 @@ namespace NFe.Servicos
 
             XmlNode retorno;
 
-            if (compactarMensagem)
+            try
             {
-                var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
-                retorno = ws.ExecuteZip(xmlCompactado);
+                if (compactarMensagem)
+                {
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                    retorno = ws.ExecuteZip(xmlCompactado);
+                }
+                else
+                    retorno = ws.Execute(dadosEnvio);
             }
-            else
-                retorno = ws.Execute(dadosEnvio);
+            catch (Exception ex)
+            {
+                throw new ExecutionException(ex.Message);
+            }
 
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);

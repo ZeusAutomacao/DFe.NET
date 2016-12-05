@@ -40,11 +40,16 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
     [Serializable]
     public class MDFeInfModal
     {
+        public MDFeInfModal()
+        {
+            VersaoModal = MDFeVersaoModal.Versao100;
+        }
+
         /// <summary>
         ///  2- Versão do leiaute específico para o Modal
         /// </summary>
         [XmlAttribute(AttributeName = "versaoModal")]
-        public MDFeVersaoModal VersaoModal { get; set; } = MDFeVersaoModal.Versao100;
+        public MDFeVersaoModal VersaoModal { get; set; }
 
         /// <summary>
         /// 2 - XML do modal Insira neste local o XML específico do modal(rodoviário, aéreo, ferroviário ou aquaviário)

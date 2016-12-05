@@ -83,9 +83,6 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "prop")]
         public MDFeProp Prop { get; set; }
 
-        [XmlElement(ElementName = "tpRod")]
-        public MDFeTpRod TpRod { get; set; }
-
         [XmlElement(ElementName = "tpCar")]
         public MDFeTpCar TpCar { get; set; }
 

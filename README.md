@@ -1,4 +1,6 @@
-[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
+Zeus.NFe.NFCe  [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
+Zeus.MDFe  [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
+
 Zeus.Net.NFe.NFCe
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
