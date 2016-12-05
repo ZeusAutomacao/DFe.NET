@@ -452,11 +452,11 @@ namespace NFe.Servicos
             foreach (var evento in eventos)
             {
                 var eve = evento;
-                var query = (from retevento in retEnvEvento.retEvento
+                var retEvento = (from retevento in retEnvEvento.retEvento
                     where retevento.infEvento.chNFe == eve.infEvento.chNFe && retevento.infEvento.tpEvento == eve.infEvento.tpEvento
                     select retevento).SingleOrDefault();
 
-                var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = new List<retEvento> {query}};
+                var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = retEvento};
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
