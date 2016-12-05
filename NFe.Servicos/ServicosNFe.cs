@@ -77,10 +77,11 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Classes.Assinatura;
 
 namespace NFe.Servicos
 {
-    public sealed class ServicosNFe: IDisposable
+    public sealed class ServicosNFe : IDisposable
     {
         private readonly X509Certificate _certificado;
         private readonly ConfiguracaoServico _cFgServico;
@@ -90,12 +91,16 @@ namespace NFe.Servicos
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
         /// </summary>
         /// <param name="cFgServico"></param>
-        public ServicosNFe(ConfiguracaoServico cFgServico)
+        public ServicosNFe(ConfiguracaoServico cFgServico, string pin = null)
         {
             _cFgServico = cFgServico;
             _certificado = string.IsNullOrEmpty(_cFgServico.Certificado.Arquivo)
                 ? CertificadoDigital.ObterDoRepositorio(_cFgServico.Certificado.Serial, _cFgServico.Certificado.Senha)
                 : CertificadoDigital.ObterDeArquivo(_cFgServico.Certificado.Arquivo, _cFgServico.Certificado.Senha);
+
+            if (!string.IsNullOrWhiteSpace(pin))
+                ((X509Certificate2)_certificado).SetPinForPrivateKey(pin);
+
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
@@ -146,13 +151,13 @@ namespace NFe.Servicos
                         return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
                     }
                     return new NfeConsulta2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NfeRecepcao:
                     return new NfeRecepcao2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NfeRetRecepcao:
                     return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NFeAutorizacao:
                     throw new Exception(string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
@@ -350,8 +355,8 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
-                pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod, pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+                pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod, pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'), pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
@@ -399,7 +404,7 @@ namespace NFe.Servicos
                 !listaEventos.Contains(servicoEvento))
                 throw new Exception(string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                     MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
-            
+
             var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             #region Cria o objeto wdsl para consulta
@@ -454,10 +459,10 @@ namespace NFe.Servicos
             {
                 var eve = evento;
                 var query = (from retevento in retEnvEvento.retEvento
-                    where retevento.infEvento.chNFe == eve.infEvento.chNFe && retevento.infEvento.tpEvento == eve.infEvento.tpEvento
-                    select retevento).SingleOrDefault();
+                             where retevento.infEvento.chNFe == eve.infEvento.chNFe && retevento.infEvento.tpEvento == eve.infEvento.tpEvento
+                             select retevento).SingleOrDefault();
 
-                var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = new List<retEvento> {query}};
+                var procevento = new procEventoNFe { evento = eve, versao = eve.versao, retEvento = new List<retEvento> { query } };
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
@@ -501,9 +506,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
             return retorno;
         }
 
@@ -519,7 +524,7 @@ namespace NFe.Servicos
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico = ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null};
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -536,9 +541,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
             return retorno;
         }
 
@@ -552,7 +557,7 @@ namespace NFe.Servicos
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                tpEvento = (int) tipoEventoManifestacaoDestinatario,
+                tpEvento = (int)tipoEventoManifestacaoDestinatario,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -618,9 +623,9 @@ namespace NFe.Servicos
                 detEvento = detevento
             };
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
 
@@ -653,7 +658,7 @@ namespace NFe.Servicos
             var pedConsulta = new ConsCad
             {
                 versao = versaoServico,
-                infCons = new infConsEnv {UF = uf}
+                infCons = new infConsEnv { UF = uf }
             };
 
             switch (tipoDocumento)
@@ -1031,7 +1036,7 @@ namespace NFe.Servicos
             {
                 cUF = _cFgServico.cUF,
                 //Embora em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#GO esse serviço está nas versões 2.00 e 3.10, ele rejeita se mandar a versão diferente de 1.00. Testado no Ambiente Nacional - (AN)
-                versaoDados = /*versaoServico*/ "1.00" 
+                versaoDados = /*versaoServico*/ "1.00"
             };
 
             #endregion
@@ -1134,7 +1139,7 @@ namespace NFe.Servicos
 
         // Flag: Dispose já foi chamado?
         private bool _disposed;
-        
+
         // Implementação protegida do padrão Dispose.
         private void Dispose(bool disposing)
         {

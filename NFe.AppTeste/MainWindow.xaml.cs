@@ -116,7 +116,7 @@ namespace NFe.AppTeste
 
                 //Exemplo com using para chamar o método Dispose da classe.
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
-                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
+                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico, TxtSenhaCertificado.Text))
                 {
                     var retornoStatus = servicoNFe.NfeStatusServico();
                     TrataRetorno(retornoStatus);
