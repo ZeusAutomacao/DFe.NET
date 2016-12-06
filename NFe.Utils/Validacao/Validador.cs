@@ -127,7 +127,7 @@ namespace NFe.Utils.Validacao
             {
                 // Um erro ocorre se o documento XML inclui caracteres ilegais
                 // ou tags que não estão aninhadas corretamente
-                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message);
+                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message, err);
             }
             finally
             {
@@ -137,7 +137,7 @@ namespace NFe.Utils.Validacao
 
         internal static void ValidationEventHandler(object sender, ValidationEventArgs args)
         {
-            throw new ValidationException(args.Message);
+            throw new  ValidationException(args.Message,args.Exception);
         }
     }
 }

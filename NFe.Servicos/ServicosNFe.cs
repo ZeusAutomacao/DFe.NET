@@ -93,9 +93,7 @@ namespace NFe.Servicos
         public ServicosNFe(ConfiguracaoServico cFgServico)
         {
             _cFgServico = cFgServico;
-            _certificado = string.IsNullOrEmpty(_cFgServico.Certificado.Arquivo)
-                ? CertificadoDigital.ObterDoRepositorio(_cFgServico.Certificado.Serial, _cFgServico.Certificado.Senha)
-                : CertificadoDigital.ObterDeArquivo(_cFgServico.Certificado.Arquivo, _cFgServico.Certificado.Senha);
+            _certificado = CertificadoDigital.ObterCertificado();
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
@@ -949,7 +947,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecutionException(ex.Message);
+                throw new ExecutionException(ex.Message, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;

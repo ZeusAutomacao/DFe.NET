@@ -39,6 +39,21 @@ namespace NFe.Utils
     {
         private string _serial;
         private string _arquivo;
+        private byte[] _arrayBytesArquivo;
+
+
+        /// <summary>
+        /// Array de bytes do certificado
+        /// </summary>
+        public byte[] ArrayBytesArquivo
+        {
+            get { return _arrayBytesArquivo; }
+            set
+            {
+                if (value == _arrayBytesArquivo) return;
+                _arrayBytesArquivo = value;
+            }
+        }
 
         /// <summary>
         ///     Nº de série do certificado digital

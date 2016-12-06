@@ -14,10 +14,14 @@ namespace NFe.Utils.Exceptions
             return "Erros da validação: " + this.message;
         }
 
-        public ValidationException(string msg)
+        public ValidationException(string msg):base(msg)
         {
             this.message = msg;
-            new Exception();
+        }
+
+        public ValidationException(string msg , Exception innerException):base(msg, innerException)
+        {
+            this.message = msg;
         }
     }
 }

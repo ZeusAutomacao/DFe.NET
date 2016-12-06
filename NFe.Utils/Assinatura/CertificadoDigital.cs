@@ -40,6 +40,49 @@ namespace NFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
+        /// <summary> 
+        /// Prioriza o certificado a partir do array de bytes / depois avalia se  ConfiguracaoServico.Instancia.Certificado.Arquivo esta preenchido para buscar do ObterDoRepositorio ou ObterDeArquivo
+        /// </summary>
+        /// <returns></returns>
+        public static X509Certificate2 ObterCertificado()
+        {
+            //TODO: Talvez mudar para um enum para escolher o retorno
+            if (ConfiguracaoServico.Instancia.Certificado.ArrayBytesArquivo != null)
+            {
+                return ObterDoArrayBytes(ConfiguracaoServico.Instancia.Certificado.ArrayBytesArquivo,
+                                            ConfiguracaoServico.Instancia.Certificado.Senha);
+            }
+            else if (string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo))
+            {
+                return ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial,
+                                                                    ConfiguracaoServico.Instancia.Certificado.Senha);
+            }
+            else
+            {
+                return ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo,
+                                                                ConfiguracaoServico.Instancia.Certificado.Senha);
+            }
+        }
+
+        /// <summary>
+        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
+        /// </summary>
+        /// <param name="arquivo">Arquivo do certificado digital</param>
+        /// <param name="senha">Senha do certificado digital</param>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDoArrayBytes(byte[] arrayBytes, string senha)
+        {
+            try
+            {
+                var certificado = new X509Certificate2(arrayBytes, senha, X509KeyStorageFlags.MachineKeySet);
+                return certificado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possivel converter o stream para o certificado.", ex);
+            }
+        }
+        
 
         /// <summary>
         /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
@@ -70,7 +113,7 @@ namespace NFe.Utils.Assinatura
         /// <param name="numeroSerial">Serial do certificado</param>
         /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
+        private static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
         {
             if (string.IsNullOrEmpty(numeroSerial))
                 throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
@@ -125,7 +168,7 @@ namespace NFe.Utils.Assinatura
         /// <param name="arquivo">Arquivo do certificado digital</param>
         /// <param name="senha">Senha do certificado digital</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
+        private static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
         {
             if (!File.Exists(arquivo))
             {

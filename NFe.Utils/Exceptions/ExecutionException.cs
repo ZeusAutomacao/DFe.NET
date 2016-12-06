@@ -14,10 +14,13 @@ namespace NFe.Utils.Exceptions
             return "Falha na rede internet: " + this.message;
         }
 
-        public ExecutionException(string msg)
+        public ExecutionException(string msg):base(msg)
         {
             this.message = msg;
-            new Exception();
+        }
+        public ExecutionException(string msg, Exception innerException):base(msg, innerException)
+        {
+            this.message = msg;
         }
     }
 }
