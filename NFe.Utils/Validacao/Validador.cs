@@ -137,7 +137,7 @@ namespace NFe.Utils.Validacao
 
         internal static void ValidationEventHandler(object sender, ValidationEventArgs args)
         {
-            throw new ValidationException(args.Message);
+            throw new ValidacaoException(args.Message);
         }
     }
 }
