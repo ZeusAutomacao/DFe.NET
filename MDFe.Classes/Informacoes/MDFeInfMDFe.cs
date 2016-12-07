@@ -47,12 +47,13 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
             InfModal = new MDFeInfModal();
             InfDoc = new MDFeInfDoc();
             Tot = new MDFeTot();
+            Versao = VersaoServico.Versao100;
         }
         /// <summary>
         /// 1 - Versão do leiaute 
         /// </summary>
         [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico Versao { get; set; } = VersaoServico.Versao100;
+        public VersaoServico Versao { get; set; }
 
         /// <summary>
         /// 1 - Identificador da tag a ser assinada. 

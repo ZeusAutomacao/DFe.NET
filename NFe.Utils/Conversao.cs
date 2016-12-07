@@ -68,7 +68,7 @@ namespace NFe.Utils
                 case TipoAmbiente.taProducao:
                     return "Produção";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(tpAmb), tpAmb, null);
+                    throw new ArgumentOutOfRangeException("tpAmb", tpAmb, null);
             }
         }
 
@@ -149,7 +149,7 @@ namespace NFe.Utils
                 case Csticms.CstPart90:
                     return "90";
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(csticms), csticms, null);
+                    throw new ArgumentOutOfRangeException("csticms", csticms, null);
             }
         }
 

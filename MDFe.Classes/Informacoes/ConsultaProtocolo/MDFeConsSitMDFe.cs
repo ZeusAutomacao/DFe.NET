@@ -42,6 +42,11 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtoco
         ElementName = "consSitMDFe")]
     public class MDFeConsSitMDFe
     {
+        public MDFeConsSitMDFe()
+        {
+            XServ = "CONSULTAR";
+        }
+
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico Versao { get; set; }
 
@@ -49,7 +54,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtoco
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlElement(ElementName = "xServ")]
-        public string XServ { get; set; } = "CONSULTAR";
+        public string XServ { get; set; }
 
         [XmlElement(ElementName = "chMDFe")]
         public string ChMDFe { get; set; }

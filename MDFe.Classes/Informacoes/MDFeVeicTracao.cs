@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
@@ -87,7 +88,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Informações do(s) Condutor(s) do veículo
         /// </summary>
         [XmlElement(ElementName = "condutor")]
-        public MDFeCondutor Condutor { get; set; }
+        public List<MDFeCondutor> Condutor { get; set; }
 
         /// <summary>
         /// 2 - Tipo de Rodado 

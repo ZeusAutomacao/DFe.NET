@@ -34,6 +34,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Classes.Servicos.Evento
 {
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class retEvento
     {
         /// <summary>

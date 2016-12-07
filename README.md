@@ -1,4 +1,6 @@
-[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
+Zeus.NFe.NFCe  [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
+Zeus.MDFe  [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
+
 Zeus.Net.NFe.NFCe
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
@@ -63,7 +65,7 @@ danfe.Visualizar();
 - ***TODO DANFE:***
 - [x] Implementar impressão do DANFE de NFCe Mini. Concluído em 09/09/2015;
 - [ ] Implementar impressão do DANFE de NFCe A4;
-- [ ] Implementar impressão do DANFE de NFe (modelo 55) (implementado, falta testar somente);
+- [x] Implementar impressão do DANFE de NFe (modelo 55);
 - [x] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 3.3 que será obrigatório a
  partir de  01/09/2016;
 - [ ] Implementar possíveis mudanças no Manual de Padrões Técnicos do DANFE-NFC-e e QR Code, versão 4.0 (esperando liberação de Nota técnica com inclusão do campo troco no leiaute);

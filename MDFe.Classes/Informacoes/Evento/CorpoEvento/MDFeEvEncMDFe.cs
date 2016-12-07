@@ -41,8 +41,13 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEve
     [XmlRoot(ElementName = "evEncMDFe")]
     public class MDFeEvEncMDFe : MDFeEventoContainer
     {
+        public MDFeEvEncMDFe()
+        {
+            DescEvento = "Encerramento";
+        }
+
         [XmlElement(ElementName = "descEvento")]
-        public string DescEvento { get; set; } = "Encerramento";
+        public string DescEvento { get; set; }
 
         [XmlElement(ElementName = "nProt")]
         public string NProt { get; set; }

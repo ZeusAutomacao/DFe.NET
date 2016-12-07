@@ -667,10 +667,13 @@ namespace MDFe.AppTeste
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,
-                    Condutor = new MDFeCondutor
+                    Condutor = new List<MDFeCondutor>
                     {
-                        CPF = "11392381754",
-                        XNome = "Ricardão"
+                        new MDFeCondutor
+                        {
+                            CPF = "11392381754",
+                            XNome = "Ricardão"
+                        }
                     },
                     TpRod = MDFeTpRod.Outros,
                     TpCar = MDFeTpCar.NaoAplicavel
@@ -805,10 +808,13 @@ namespace MDFe.AppTeste
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,
-                    Condutor = new MDFeCondutor
+                    Condutor = new List<MDFeCondutor>
                     {
-                        CPF = "11392381754",
-                        XNome = "Ricardão"
+                        new MDFeCondutor
+                        {
+                            CPF = "11392381754",
+                            XNome = "Ricardão"
+                        }
                     },
                     TpRod = MDFeTpRod.Outros,
                     TpCar = MDFeTpCar.NaoAplicavel
