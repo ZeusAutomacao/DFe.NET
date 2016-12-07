@@ -242,16 +242,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-sta.xml", xmlStatus);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosStatus);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosStatus);
             var retornoXmlString = retorno.OuterXml;
             var retConsStatServ = new retConsStatServ().CarregarDeXmlString(retornoXmlString);
 
@@ -302,16 +293,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(chave + "-ped-sit.xml", xmlConsulta);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosConsulta);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosConsulta);
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retConsSitNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -386,16 +368,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(numId + "-ped-inu.xml", xmlInutilizacao);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosInutilizacao);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosInutilizacao);
             var retornoXmlString = retorno.OuterXml;
             var retInutNFe = new retInutNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -467,16 +440,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosEvento);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosEvento);
             var retornoXmlString = retorno.OuterXml;
             var retEnvEvento = new retEnvEvento().CarregarDeXmlString(retornoXmlString);
 
@@ -718,16 +682,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-cad.xml", xmlConsulta);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosConsulta);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosConsulta);
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retConsCad().CarregarDeXmlString(retornoXmlString);
 
@@ -791,16 +746,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-DistDFeInt.xml", xmlConsulta);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosConsulta);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosConsulta);
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
@@ -881,16 +827,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosEnvio);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosEnvio);
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -941,16 +878,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(recibo + "-ped-rec.xml", xmlRecibo);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosRecibo);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosRecibo);
             var retornoXmlString = retorno.OuterXml;
             var retRecibo = new retConsReciNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -1007,23 +935,21 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
-            var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
-
             XmlNode retorno;
+
             try
             {
                 if (compactarMensagem)
                 {
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
                     retorno = ws.ExecuteZip(xmlCompactado);
                 }
                 else
-                {
                     retorno = ws.Execute(dadosEnvio);
-                }
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ExecutionException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1076,16 +1002,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(recibo + "-ped-rec.xml", xmlRecibo);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosRecibo);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosRecibo);
             var retornoXmlString = retorno.OuterXml;
             var retRecibo = new retConsReciNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -1141,16 +1058,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(cnpj + "-ped-down.xml", xmlDownload);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosDownload);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosDownload);
             var retornoXmlString = retorno.OuterXml;
             var retDownload = new retDownloadNFe().CarregarDeXmlString(retornoXmlString);
 
@@ -1208,16 +1116,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(raizCnpj + "-adm-csc.xml", xmlAdmCscNfe);
 
-            XmlNode retorno;
-            try
-            {
-                retorno = ws.Execute(dadosAdmnistracaoCsc);
-            }
-            catch (Exception ex)
-            {
-                throw new ExecucaoException(ex.ToString());
-            }
-
+            var retorno = ws.Execute(dadosAdmnistracaoCsc);
             var retornoXmlString = retorno.OuterXml;
             var retCsc = new retAdmCscNFCe().CarregarDeXmlString(retornoXmlString);
 

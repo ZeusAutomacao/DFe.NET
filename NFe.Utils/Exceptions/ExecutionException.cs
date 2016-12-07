@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NFe.Utils.Exceptions
 {
-    public class ExecucaoException : Exception
+    public class ExecutionException : Exception
     {
         private string message;
 
@@ -14,7 +14,7 @@ namespace NFe.Utils.Exceptions
             return "Falha na rede internet: " + this.message;
         }
 
-        public ExecucaoException(string msg)
+        public ExecutionException(string msg)
         {
             this.message = msg;
             new Exception();

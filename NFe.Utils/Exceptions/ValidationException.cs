@@ -5,16 +5,16 @@ using System.Text;
 
 namespace NFe.Utils.Exceptions
 {
-    public class ValidacaoException : Exception
+    public class ValidationException : Exception
     {
         private string message;
 
         public override string ToString()
         {
-            return "Erros na validação: " + this.message;
+            return "Erros da validação: " + this.message;
         }
 
-        public ValidacaoException(string msg)
+        public ValidationException(string msg)
         {
             this.message = msg;
             new Exception();

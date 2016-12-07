@@ -66,8 +66,8 @@
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtretEnvEvento.cs" />
     <Compile Include="EnumExt.cs" />
-    <Compile Include="Excecoes\ValidacaoException.cs" />
-    <Compile Include="Excecoes\ExecucaoException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Exceptions\ExecutionException.cs" />
     <Compile Include="InformacoesSuplementares\ExtinfNFeSupl.cs" />
     <Compile Include="Inutilizacao\ExtinutNFe.cs" />
     <Compile Include="Inutilizacao\ExtretInutNFe.cs" />
