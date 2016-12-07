@@ -35,7 +35,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
+using System.Web.Services.Protocols;
 using System.Windows;
 using System.Windows.Forms;
 using NFe.Classes;
@@ -241,6 +243,12 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
+                if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
+                {
+                    //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
+                    //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
+                    throw;
+                }
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
@@ -337,6 +345,12 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
+                if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
+                {
+                    //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
+                    //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
+                    throw;
+                }
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }

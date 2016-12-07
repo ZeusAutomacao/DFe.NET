@@ -59,7 +59,6 @@ using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Utils.DistribuicaoDFe;
-using NFe.Utils.Exceptions;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
@@ -937,20 +936,14 @@ namespace NFe.Servicos
 
             XmlNode retorno;
 
-            try
+            if (compactarMensagem)
             {
-                if (compactarMensagem)
-                {
-                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
-                    retorno = ws.ExecuteZip(xmlCompactado);
-                }
-                else
-                    retorno = ws.Execute(dadosEnvio);
+                var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                retorno = ws.ExecuteZip(xmlCompactado);
             }
-            catch (Exception ex)
-            {
-                throw new ExecutionException(ex.Message);
-            }
+            else
+                retorno = ws.Execute(dadosEnvio);
+
 
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);

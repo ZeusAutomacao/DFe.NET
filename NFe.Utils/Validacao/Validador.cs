@@ -35,7 +35,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Utils.Exceptions;
+using NFe.Utils.Excecoes;
 
 namespace NFe.Utils.Validacao
 {
@@ -137,7 +137,7 @@ namespace NFe.Utils.Validacao
 
         internal static void ValidationEventHandler(object sender, ValidationEventArgs args)
         {
-            throw new ValidationException(args.Message);
+            throw new ValidacaoXmlException(args.Message);
         }
     }
 }
