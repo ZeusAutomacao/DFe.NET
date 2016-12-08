@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System.ComponentModel;
 using NFe.Utils.Annotations;
+using System.Xml.Serialization;
 
 namespace NFe.Utils
 {
