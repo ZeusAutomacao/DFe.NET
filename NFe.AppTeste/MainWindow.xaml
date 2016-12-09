@@ -10,9 +10,10 @@
     xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:net="clr-namespace:System.Net;assembly=System"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
-    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="658" Width="960"
+    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
     WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
@@ -64,8 +65,8 @@
     </Window.Resources>
     <Grid>
         <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="369">
-            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="359" Height="607" VerticalAlignment="Top">
-                <TabControl Height="553" VerticalAlignment="Top">
+            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="359" VerticalAlignment="Top">
+                <TabControl VerticalAlignment="Top" Height="600">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
                             <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0">
@@ -224,7 +225,7 @@
                     <TabItem Header="WebService">
                         <Grid Background="White">
                             <GroupBox Header="WebService" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Height="515" Width="333" Margin="10,10,0,0">
+                                      Width="333" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
                                     <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
@@ -242,8 +243,8 @@
                                                          IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static nfeclsidetipos:TipoAmbiente.taHomologacao}, Converter={StaticResource EnumParaBool}}" />
                                         </Grid>
                                     </GroupBox>
-                                    <GroupBox Header="Selecione a versão de cada serviço" Height="360">
-                                        <StackPanel Margin="0,10,-2,0">
+                                    <GroupBox Header="Selecione a versão de cada serviço">
+                                        <StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
                                                 <Grid Height="25">
                                                     <Label Content="RecepcaoEventoCceCancelamento"
@@ -518,9 +519,21 @@
 
                                         </StackPanel>
                                     </GroupBox>
+                                    <GroupBox x:Name="GpbProtocolo" Header="Selecione o Protocolo de segurança" Height="50">
+                                        <Grid x:Name="GrdGpbProtocolo">
+                                            <RadioButton x:Name="RbtSsl3" Content="Ssl3"
+                                                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                         Margin="10,13,0,0"
+                                                         IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Ssl3}, Converter={StaticResource EnumParaBool}}" />
+                                            <RadioButton x:Name="RbtTls" Content="Tls"
+                                                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                         Margin="117,13,0,0"
+                                                         IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Tls}, Converter={StaticResource EnumParaBool}}" />
+                                        </Grid>
+                                    </GroupBox>
                                     <StackPanel Height="30" Orientation="Horizontal">
                                         <Label Content="TimeOut (milisegundos)" HorizontalAlignment="Left"
-                                               Margin="10,0,0,0" VerticalAlignment="Center" />
+                                               Margin="0,0,0,0" VerticalAlignment="Center" />
                                         <TextBox x:Name="TxtTimeOut" HorizontalAlignment="Left"
                                                  Margin="0,0,0,0" VerticalAlignment="Center" Width="134"
                                                  Text="{Binding CfgServico.TimeOut}" />
@@ -596,11 +609,11 @@
                                          Text="{Binding EnderecoEmitente.xMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 <Label Content="UF" HorizontalAlignment="Left" Margin="247,305,0,0"
                                        VerticalAlignment="Top" />
-                                <ComboBox x:Name="CmbEmitUf" Margin="247,331,10,171"
+                                <ComboBox x:Name="CmbEmitUf" Height="23" Margin="247,331,10,218"
                                           ItemsSource="{Binding Source={StaticResource EstadosEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
-                            <ComboBox x:Name="CmbCrt" Margin="10,383,10,115"
+                            <ComboBox x:Name="CmbCrt" Height="23" Margin="10,383,10,163"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
                                       SelectedItem="{Binding Emitente.CRT}" />
                             <Label Content="CRT" HorizontalAlignment="Left" Margin="10,357,0,0"
@@ -659,8 +672,6 @@
                     <Button x:Name="BtnSalvar" Content="Salvar Configurações para arquivo" Width="203" HorizontalAlignment="Center" VerticalAlignment="Center"
                         Height="27" Click="btnSalvar_Click"/>
                 </DockPanel>
-
-
             </StackPanel>
         </GroupBox>
         <TabControl Name="TabSuperior" Height="266" Margin="384,10,0,0" VerticalAlignment="Top">

@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.IO;
+using System.Net;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
@@ -156,7 +157,12 @@ namespace NFe.Utils
         public VersaoServico VersaoNfceAministracaoCSC { get; set; }
 
         /// <summary>
-        ///     Diretório onde estão aramazenados os schemas para validação
+        ///     Protocolo de segurança que deve ser utilizado no consumo dos webservices
+        /// </summary>
+        public SecurityProtocolType ProtocoloDeSeguranca { get; set; }
+
+        /// <summary>
+        ///     Diretório onde estão armazenados os schemas para validação
         /// </summary>
         public string DiretorioSchemas
         {
