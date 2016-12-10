@@ -8,10 +8,11 @@ namespace NFe.Utils.Exceptions
     public class ValidacaoException : Exception
     {
         private string message;
+        public string Titulo = "Erros na validação: ";
 
         public override string ToString()
         {
-            return "Erros na validação: " + this.message;
+            return this.message;
         }
 
         public ValidacaoException(string msg)

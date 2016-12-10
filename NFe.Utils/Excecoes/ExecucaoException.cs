@@ -8,10 +8,11 @@ namespace NFe.Utils.Exceptions
     public class ExecucaoException : Exception
     {
         private string message;
+        public string Titulo = "Falha na rede internet: ";
 
         public override string ToString()
         {
-            return "Falha na rede internet: " + this.message;
+            return this.message;
         }
 
         public ExecucaoException(string msg)
