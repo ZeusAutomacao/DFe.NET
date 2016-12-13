@@ -152,7 +152,7 @@
             </GroupBox>
 
             <GroupBox Header="Testes FastReport" HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="601">
                     <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
                             VerticalAlignment="Top" Width="177" Margin="5,10" Click="BtnNfeDanfeA4_Click" />
                     <Button Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"

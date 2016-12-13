@@ -1,0 +1,652 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DAL</name>
+    </assembly>
+    <members>
+        <member name="M:DAL.ApagarDAL.EsconderBudget(System.String,System.Boolean)">
+            Métodos para construção do Budget
+        </member>
+        <member name="M:DAL.ApagarDAL.GetBudgetDptoAllWhitLimit(System.DateTime,System.DateTime,System.String,System.Int32,System.Int32)">
+            <summary>
+            Retorna valores de todos os departamentos, exceto quando a variável 'dptos' é informada
+            </summary>
+            <param name="inicial">Período inicial</param>
+            <param name="final">Período Final</param>
+            <param name="dptos">Lista de departamentos</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.ApagarDAL.GetBudgetDptoAll(System.DateTime,System.DateTime,System.String,System.Boolean)">
+            <summary>
+            Retorna valores de todos os departamentos, exceto quando a variável 'dptos' é informada
+            </summary>
+            <param name="inicial">Período inicial</param>
+            <param name="final">Período Final</param>
+            <param name="dptos">Lista de departamentos</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.ApagarDAL.GeraPrevisao">
+            <summary>
+            Rotina que gera previsões do budget baseado nos pedidos de compra de Outros, MP, Peças e Serviços.
+            Os registros são criado da tabela 'tmpbudget', com estrutura similar a tabela 'apagar',
+            em seguida a montagem do budget funciona como igual a montagem do 'realizado'
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.ComoDAL">
+            <summary>
+            Classe de persistência 'COMO' - Outros Produtos
+            </summary>
+        </member>
+        <member name="M:DAL.ComoDAL.GetComprasList(Model.CompraModel.TipoConsulta,System.String)">
+            <summary>
+            Metodo para população do datagrid e consultas com baixo consumo de memória
+            </summary>
+            <param name="tipo">Enumeração da chave de consulta</param>
+            <returns>Lista de CompraView</returns>
+        </member>
+        <member name="M:DAL.ComoDAL.GetOrder">
+            <summary>
+            Retorna o numero squencial de controle de códigos do sistema antigo.
+            </summary>
+            <returns>String com o numero sequêncial</returns>
+        </member>
+        <member name="M:DAL.ComoDAL.insert(Model.ComoModel)">
+            <summary>
+            Persiste o objeto no banco de dados
+            </summary>
+            <param name="compra">Modelo de compra com os dados á serem persistidos</param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.ComoItensDAL">
+            <summary>
+            Modelo de Dados tabela 'COMO' (Outros)
+            </summary>
+        </member>
+        <member name="M:DAL.ComorecDAL.insert(Model.ComorecModel)">
+            <summary>
+            Persiste objeto no banco de dados.
+            </summary>
+            <param name="comrec"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CompDAL.GetComprasList(Model.CompraModel.TipoConsulta,System.String)">
+            <summary>
+            Metodo para população do datagrid e consultas com baixo consumo de memória
+            </summary>
+            <param name="tipo">Enumeração da chave de consulta</param>
+            <returns>Lista de CompraView</returns>
+        </member>
+        <member name="M:DAL.CompDAL.GetOrder">
+            <summary>
+            Retorna o numero squencial de controle de códigos do sistema antigo.
+            </summary>
+            <returns>String com o numero sequêncial</returns>
+        </member>
+        <member name="M:DAL.CompDAL.insert(Model.CompModel)">
+            <summary>
+            Persiste o objeto no banco de dados
+            </summary>
+            <param name="compra">Modelo de compra com os dados á serem persistidos</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CompraDAL.GetTotalCompras(System.String)">
+            <summary>
+            Lista Total de Compra de Peças do Fornecedor
+            </summary>
+            <param name="forne"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CompraDAL.GetComprasList(Model.CompraModel.TipoConsulta,System.String)">
+            <summary>
+            Metodo para população do datagrid e consultas com baixo consumo de memória
+            </summary>
+            <param name="tipo">Enumeração da chave de consulta</param>
+            <returns>Lista de CompraView</returns>
+        </member>
+        <member name="M:DAL.CompraDAL.GetOrder">
+            <summary>
+            Retorna o numero squencial de controle de códigos do sistema antigo.
+            </summary>
+            <returns>String com o numero sequêncial</returns>
+        </member>
+        <member name="M:DAL.CompraDAL.insert(Model.CompraModel)">
+            <summary>
+            Persiste o objeto no banco de dados
+            </summary>
+            <param name="compra">Modelo de compra com os dados á serem persistidos</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.ComprecDAL.insert(Model.ComprecModel)">
+            <summary>
+            Persiste objeto no banco de dados.
+            </summary>
+            <param name="comprec">Modelo da entidade 'COMPREC'</param>
+            <returns>Resultado</returns>
+        </member>
+        <member name="M:DAL.ComprecDAL.GetReferenceValue(System.DateTime,System.String)">
+            <summary>
+            Localiza o ultimo preco pago no produto
+            </summary>
+            <param name="inicial">Data base inicial para pesquisa</param>
+            <param name="codMateria">Codigo da Peça</param>
+            <returns>Double com o valor do produto</returns>
+        </member>
+        <member name="T:DAL.ComrecDAL">
+            <summary>
+            Classe de persistencia da tabela 'Comrec' 
+            </summary>
+        </member>
+        <member name="M:DAL.ComrecDAL.insert(Model.ComrecModel)">
+            <summary>
+            Persiste objeto no banco de dados.
+            </summary>
+            <param name="comrec"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.Postgres.ConnectionManager">
+            <summary>
+            Gerenciador de Conexões com o Banco de Dados
+            </summary>
+        </member>
+        <member name="P:DAL.Postgres.ConnectionManager.ConnectionString">
+            <summary>
+            ConectionString Atual
+            </summary>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.conectar">
+            <summary>
+            Conexao com o banco
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.insert(System.String,System.Collections.Generic.List{Npgsql.NpgsqlParameter})">
+            <summary>
+            Metodo Insert Generico
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParams">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.delete(System.String,System.Collections.Generic.List{Npgsql.NpgsqlParameter})">
+            <summary>
+            Metodo delete Generico
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParam">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.consultaDt(System.String)">
+            <summary>
+            Metodo que retorna uma consulta especifica
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <returns>DataTable com resultado</returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.consultaDt(System.String,System.Collections.Generic.List{Npgsql.NpgsqlParameter})">
+            <summary>
+            Metodo que retorna uma consulta especifica
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="p_params">Parametros</param>
+            <returns>DataTable com resultado</returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.logar(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo Obrigatorio para Login do Usuario no sistema
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="list">Parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.getConnectionString">
+            <summary>
+            Obter ConnectionString a partir de um XML
+            </summary>
+            <returns>Connection String</returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.testConnection(System.String)">
+            <summary>
+            Metodo que testa a conexao com o banco, e retorna todos os BDs
+            </summary>
+            <param name="connectionString">String de Conexao</param>
+            <returns>Listaa com nome dos Bds</returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.executeScalar(System.String)">
+            <summary>
+            Executa um comando e retorna apenas um Object
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Postgres.ConnectionManager.executeScalar(System.String,System.Collections.Generic.List{Npgsql.NpgsqlParameter})">
+            <summary>
+            Executa um comando e retorna apenas um Object
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="p_params">Parametro</param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.MySql.ConnectionManager">
+            <summary>
+            Classe de Gerenciamento de Conexões com o Banco de Dados.
+            </summary>
+        </member>
+        <member name="P:DAL.MySql.ConnectionManager.ConnectionString">
+            <summary>
+            ConectionString Atual
+            </summary>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.conectar">
+            <summary>
+            Conexao com o banco
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.InsertWitchKey(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo Insert Generico com Retorno de Chave Primária
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParams">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.insert(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo Insert Generico
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParams">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.delete(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo delete Generico
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParam">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.Transaction(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Executa comandos dentro de Transações no BD
+            </summary>
+            <param name="p_sql"></param>
+            <param name="p_listParam"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.consultaDt(System.String)">
+            <summary>
+            Metodo que retorna uma consulta especifica
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <returns>DataTable com resultado</returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.consultaDt(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo que retorna uma consulta especifica
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="p_params">Parametros</param>
+            <returns>DataTable com resultado</returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.logar(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Metodo Obrigatorio para Login do Usuario no sistema
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="list">Parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.getConnectionString">
+            <summary>
+            Obter ConnectionString a partir de um XML
+            </summary>
+            <returns>Connection String</returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.testConnection(System.String)">
+            <summary>
+            Metodo que testa a conexao com o banco, e retorna todos os BDs
+            </summary>
+            <param name="connectionString">String de Conexao</param>
+            <returns>Lista com nome dos Bds</returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.executeScalar(System.String)">
+            <summary>
+            Executa um comando e retorna apenas um Object
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.MySql.ConnectionManager.executeScalar(System.String,System.Collections.Generic.List{MySql.Data.MySqlClient.MySqlParameter})">
+            <summary>
+            Executa um comando e retorna apenas um Object
+            </summary>
+            <param name="p_sql">Comando SQL</param>
+            <param name="p_params">Parametro</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Access.ConnectionManager.insert(System.String,System.Collections.Generic.List{System.Data.OleDb.OleDbParameter})">
+            <summary>
+            Metodo Insert Generico
+            </summary>
+            <param name="p_sql">String com o comando SQL</param>
+            <param name="p_listParams">Lista com os parametros</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CotacaoDAL.DeleteCota(System.String)">
+            <summary>
+            Delete Lógico de Cotação
+            </summary>
+            <param name="codCota"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CotacaoDAL.GetPreCotas(Model.CotacaoModel,Model.CotacaoModel.TipoConsulta)">
+            <summary>
+            Metodo de consulta de cotacoes com poucas informacoes, ideal para
+            exibicao de listas.
+            </summary>
+            <param name="c">CotacaModel com o codigo da cotacao preenchido</param>
+            <param name="tipo">Tipo de criterio usado na pesquisa</param>
+            <returns>Lista com as cotacoes que atendem as condicoes</returns>
+        </member>
+        <member name="M:DAL.CotacaoDAL.GetCotas(Model.CotacaoModel,Model.CotacaoModel.TipoConsulta)">
+            <summary>
+            Consulta de cotacoes completa.
+            Tempo maior de carregamento, pois retorna todas as informacoes da cotacao, inclusive
+            os itens
+            </summary>
+            <param name="c">CotacaModel Origem</param>
+            <param name="Tipo">Tipo de criterio</param>
+            <returns>Lista de Cotacoes que atendem as condicoes</returns>
+        </member>
+        <member name="M:DAL.CotacaoDAL.CalculaST(System.Collections.Generic.List{Model.CotacaoModel},System.Data.DataTable)">
+            <summary>
+            Função de cálculo da Substituição Tributaria.
+            
+            </summary>
+            <param name="itens">Itens da Cotação</param>
+            <param name="infTrib">Informações de Tributos</param>
+        </member>
+        <member name="M:DAL.CotacaoDAL.GetIcmsFromItemUf(System.String,Model.ClientesModel)">
+            <summary>
+            Reune toda as informações referente a calculo de impostos de um item
+            </summary>
+            <param name="peca"></param>
+            <param name="uf"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.CotacaoItensDAL.Update(Model.CotacaoItensModel)">
+            <summary>
+            Atualização de itens da cotação
+            Obs.: Essa rotina não atualiza o campo quant_b, que é ultilizado na espedição
+            para informar a quantidade conferida do item.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.DALRelatoriosMIC.RelatorioConfereProducao(System.DateTime,System.DateTime)">
+            <summary>
+            Relatorio pedido pelo Ricardo em 21/12/2010, o intuito foi poder comparar as melhores metas registradas no sistema com 
+            as atuais. Devido algumas inconsistencias de introducao de dados dos proprios usuarios, resolvemos da seguinte forma:
+            
+            1 - 4 melhores metas sao escolhidas no banco de dados
+            2 - A primeira melhor meta e desconsiderada para evitar comparacao com erros de digitacao...
+            3 - O resultaldo para comparacao e a media entre meta2, meta3 e meta4
+            </summary>
+            <param name="inicial">Data inicial</param>
+            <param name="final">Data final</param>
+            <returns>DataSet populado</returns>
+        </member>
+        <member name="T:DAL.DesenvolvimentoDAL">
+            <summary>
+            Modelo de dados para entidade 'desenvolvimento'
+            </summary>
+        </member>
+        <member name="M:DAL.DesenvolvimentoDAL.ChecaExecucao(System.Int32,System.Int32)">
+            <summary>
+            Verifica se o usuário tem permissão para dar manutenção em uma tarefa.
+            </summary>
+            <param name="codUser"></param>
+            <param name="codDev"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.DesenvolvimentoDAL.GetOps">
+            <summary>
+            Retorna todas as tarefas registradas no banco
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.FormulaDAL.GetFormula(System.String)">
+            <summary>
+            Retorna formula por código de material
+            </summary>
+            <param name="mate">Código da Matéria Prima</param>
+            <returns></returns>
+        </member>
+        <member name="P:DAL.Framework.DAL`1.OnlyFirstResult">
+            <summary>
+            Caso setada como Verdadeira, retorna apenas o primeiro 
+            resultado da consulta.
+            </summary>
+        </member>
+        <member name="P:DAL.Framework.DAL`1.CustomWhere">
+            <summary>
+            Envia uma instrução sql como parametro
+            </summary>
+        </member>
+        <member name="P:DAL.Framework.DAL`1.CustomOrder">
+            <summary>
+            Ordena os registros de forma customizada
+            </summary>
+        </member>
+        <member name="M:DAL.Framework.DAL`1.FrameworkExecuteProcedure(System.String)">
+            <summary>
+            Executa StoreProcedure existente no BD
+            </summary>
+            <param name="proc_name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Framework.DAL`1.FrameworkInsert(Model.Framework.Model)">
+            <summary>
+            Método de persistência genérico, ultiliza reflection para leitura das propriedades
+            </summary>
+            <param name="classModule">Pode ser qualquer classe de modelo herdada de 
+            Model.Framework.Model 
+            </param>
+            <returns>Resultado da Operação</returns>
+        </member>
+        <member name="M:DAL.Framework.DAL`1.FrameworkUpdate(Model.Framework.Model)">
+            <summary>
+             Método de update genérico, ultiliza reflection para leitura das propriedades
+            </summary>
+            <param name="classModule">Pode ser qualquer classe de modelo herdada de 
+            Model.Framework.Model </param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Framework.DAL`1.FrameworkDelete(Model.Framework.Model)">
+            <summary>
+             Método de delete genérico, ultiliza reflection para leitura das propriedades
+            </summary>
+            <param name="classModule">Pode ser qualquer classe de modelo herdada de 
+            Model.Framework.Model </param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.Framework.DAL`1.FrameworkGet(Model.Framework.Model)">
+            <summary>
+             Método de leitura, ultiliza reflection para preenchimento das propriedades
+            </summary>
+            <param name="classModule">Pode ser qualquer classe de modelo herdada de 
+            Model.Framework.Model </param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.LimiteComprasDAL">
+            <summary>
+            Classe de Persistência da tabela 'limite_compras'
+            </summary>
+        </member>
+        <member name="T:DAL.NFeDAL">
+            <summary>
+            Modelo principal da NF-e (NFaModel)
+            </summary>
+        </member>
+        <member name="T:DAL.OutrasDAL">
+            <summary>
+            Classe de Persistência de Outros Produtos.
+            </summary>
+        </member>
+        <member name="M:DAL.OutrasDAL.Exist(System.String)">
+            <summary>
+            Método que verifica se o produto esta cadastrado no Banco de Dados
+            </summary>
+            <param name="codProduct"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.PecasDAL">
+            <summary>
+            Modelo de persistência no banco entidade 'PECAS'
+            </summary>
+        </member>
+        <member name="M:DAL.PecasDAL.GetLastPrice(System.String,System.String)">
+            <summary>
+            Retorna o Útimo preço pago no produto pelo cliente.
+            </summary>
+            <param name="codCliente"></param>
+            <param name="peca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.InsertAnalise(System.String,System.String,System.DateTime)">
+            <summary>
+            Inclui os codigos digitados não cadastraos no sistema.
+            </summary>
+            <param name="usuario"></param>
+            <param name="peca"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetDescByCod(System.String)">
+            <summary>
+            Retorna o código completo do MIC
+            </summary>
+            <param name="codPeca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetPrecoLista(System.String)">
+            <summary>
+            Retorna o preco de lista para a peça.
+            </summary>
+            <param name="codPeca">Código interno da Peça</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.ValorMedioVenda(System.DateTime,System.DateTime,System.String)">
+            <summary>
+            Calcula o valor médio de venda da peça
+            </summary>
+            <param name="inicial">Data Inicial Para o Cálculo</param>
+            <param name="final">Data Final Para o Cálculo</param>
+            <param name="codPeca">Código da Peça</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetPAPP">
+            <summary>
+            Retorna Informações de Pedidos PAPP.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetSeparacao(System.String)">
+            <summary>
+            Verifica se o item esta em separação
+            </summary>
+            <param name="codPeca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.Clear(System.Int64)">
+            <summary>
+            Retira a peca de qualquer conjunto
+            </summary>
+            <param name="CodConj"></param>
+        </member>
+        <member name="M:DAL.PecasDAL.VerificaReparo(System.String)">
+            <summary>
+            Verifica se a peca faz parte de um reparo
+            </summary>
+            <param name="peca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetRelacaoPecas(System.String)">
+            <summary>
+            Método validado para buscar código da peca pai.
+            A consulta procura o codigo da peça filha entre as montagens
+            e retorna o código da peça PAI e quantidade usada na montagem da 
+            peça FILHA, usar apenas este
+            </summary>
+            <param name="peca">Peça Filha</param>
+            <returns>Peça PAI e Quantidade FILHA</returns>
+        </member>
+        <member name="M:DAL.PecasDAL.GetPecaRelacaoPeca(System.String)">
+            <summary>
+            Método que retorna a relção de peças onde a peça informada 
+            pode ser alocada.
+            </summary>
+            <param name="peca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.ProgramacaoVendasGeralCompleto(System.String)">
+            <summary>
+            Retorna todos os pedidos encontrados no sistema marcados para Revisao
+            </summary>
+            <param name="peca"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.PecasDAL.Durabilidade(System.String)">
+            <summary>
+            Informações de durabilidade de uma peça específica
+            </summary>
+            <param name="peca"></param>
+            <returns></returns>
+        </member>
+        <member name="T:DAL.ProjetosDAL">
+            <summary>
+            Classe de dados para a entidade 'projetos_ti'
+            </summary>
+        </member>
+        <member name="M:DAL.ProjetosDAL.insert(Model.ProjetosModel)">
+            <summary>
+            Persistir objeto no banco de dados.
+            </summary>
+            <param name="projeto">Modelo de dados</param>
+            <returns>True/False</returns>
+        </member>
+        <member name="M:DAL.TurnoDAL.ChecaMaquina(System.String,System.Int32@)">
+            <summary>
+            Verifica se exisite algum turno aberno na maquina selecionada
+            </summary>
+            <param name="codMaquina"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.TurnoDAL.GetOpenTurnos">
+            <summary>
+            Retorna Todos os regstros de turnos aberto nos Micro-Terminais
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.TurnoDAL.GetValoresAtingidos(System.String,System.DateTime,System.DateTime,System.String,System.String,System.String)">
+            <summary>
+            Retorna a quantidade total de metas atingidas e metas não 
+            atingidas junto com o percentual
+            </summary>
+            <param name="maquina">Máquina que será consultada</param>
+            <param name="inicial">Data e Hora inicial</param>
+            <param name="final">Data e Hora final</param>
+            <param name="title">Rótulo para exibição</param>
+            <returns></returns>
+        </member>
+        <member name="M:DAL.UsuariosDAL.LoockUpVend(System.String)">
+            <summary>
+            Retorna o código do Vendedor
+            </summary>
+            <param name="parteNome"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
