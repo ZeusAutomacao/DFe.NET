@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="09/27/2016 15:01:37" ReportInfo.CreatorVersion="2016.3.22.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="12/13/2016 12:11:47" ReportInfo.CreatorVersion="2016.3.22.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -282,49 +282,60 @@ namespace FastReport
     {
       dbQrCodeHeight = (dbQrCode.Visible ? dbQrCode.Height : 0);
     }
+
+    private void cbDesconto_BeforePrint(object sender, EventArgs e)
+    {
+      cbDesconto.Visible = ((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vDesc&quot;)) &gt; 0;
+    }    
+
+    private void txtValorTotal_BeforePrint(object sender, EventArgs e)
+    {
+      var vServ = ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;)) == null ? 0 : ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;));
+      txtValorTotal.Text = (((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vProd&quot;)) + vServ).ToString();      
+    }
   }
 }</ScriptText>
   <Dictionary>
-    <BusinessObjectDataSource Name="NFCe" ReferenceName="NFCe" DataType="NFe.Classes.nfeProc[], NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Enabled="true">
+    <BusinessObjectDataSource Name="NFCe" ReferenceName="NFCe" DataType="null" Enabled="true">
       <Column Name="versao" DataType="System.String"/>
-      <Column Name="NFe" DataType="NFe.Classes.NFe, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-        <Column Name="infNFe" DataType="NFe.Classes.Informacoes.infNFe, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Column Name="NFe" DataType="null">
+        <Column Name="infNFe" DataType="null">
           <Column Name="versao" DataType="System.String"/>
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="ide" DataType="NFe.Classes.Informacoes.Identificacao.ide, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="cUF" DataType="NFe.Classes.Estado, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="ide" DataType="null">
+            <Column Name="cUF" DataType="null"/>
             <Column Name="cNF" DataType="System.String"/>
             <Column Name="natOp" DataType="System.String"/>
-            <Column Name="indPag" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.IndicadorPagamento, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="mod" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.ModeloDocumento, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="indPag" DataType="null"/>
+            <Column Name="mod" DataType="null"/>
             <Column Name="serie" DataType="System.Int32"/>
             <Column Name="nNF" DataType="System.Int64"/>
             <Column Name="dEmi" DataType="System.String"/>
             <Column Name="dSaiEnt" DataType="System.String"/>
             <Column Name="dhEmi" DataType="System.String"/>
             <Column Name="dhSaiEnt" DataType="System.String"/>
-            <Column Name="tpNF" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.TipoNFe, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="idDest" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Identificacao.Tipos.DestinoOperacao, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="tpNF" DataType="null"/>
+            <Column Name="idDest" DataType="null"/>
             <Column Name="cMunFG" DataType="System.Int64"/>
-            <Column Name="tpImp" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.TipoImpressao, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="tpEmis" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.TipoEmissao, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpImp" DataType="null"/>
+            <Column Name="tpEmis" DataType="null"/>
             <Column Name="cDV" DataType="System.Int32"/>
-            <Column Name="tpAmb" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="finNFe" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.FinalidadeNFe, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="indFinal" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Identificacao.Tipos.ConsumidorFinal, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
-            <Column Name="indPres" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Identificacao.Tipos.PresencaComprador, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
-            <Column Name="procEmi" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.ProcessoEmissao, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpAmb" DataType="null"/>
+            <Column Name="finNFe" DataType="null"/>
+            <Column Name="indFinal" DataType="null"/>
+            <Column Name="indPres" DataType="null"/>
+            <Column Name="procEmi" DataType="null"/>
             <Column Name="verProc" DataType="System.String"/>
             <Column Name="dhCont" DataType="System.String"/>
             <Column Name="xJust" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="NFref" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Identificacao.NFref, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="NFref"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="NFref" Enabled="false" DataType="null" PropName="NFref"/>
           </Column>
-          <Column Name="emit" DataType="NFe.Classes.Informacoes.Emitente.emit, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="emit" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="xFant" DataType="System.String"/>
-            <Column Name="enderEmit" DataType="NFe.Classes.Informacoes.Emitente.enderEmit, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderEmit" DataType="null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -341,9 +352,9 @@ namespace FastReport
             <Column Name="IEST" DataType="System.String"/>
             <Column Name="IM" DataType="System.String"/>
             <Column Name="CNAE" DataType="System.String"/>
-            <Column Name="CRT" DataType="NFe.Classes.Informacoes.Emitente.CRT, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="CRT" DataType="null"/>
           </Column>
-          <Column Name="avulsa" DataType="NFe.Classes.Informacoes.avulsa, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="avulsa" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="xOrgao" DataType="System.String"/>
             <Column Name="matr" DataType="System.String"/>
@@ -356,12 +367,12 @@ namespace FastReport
             <Column Name="repEmi" DataType="System.String"/>
             <Column Name="dPag" DataType="System.String"/>
           </Column>
-          <Column Name="dest" DataType="NFe.Classes.Informacoes.Destinatario.dest, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="dest" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="idEstrangeiro" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
-            <Column Name="enderDest" DataType="NFe.Classes.Informacoes.Destinatario.enderDest, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderDest" DataType="null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -374,13 +385,13 @@ namespace FastReport
               <Column Name="xPais" DataType="System.String"/>
               <Column Name="fone" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
-            <Column Name="indIEDest" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Destinatario.indIEDest, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="indIEDest" DataType="null"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="ISUF" DataType="System.String"/>
             <Column Name="IM" DataType="System.String"/>
             <Column Name="email" DataType="System.String"/>
           </Column>
-          <Column Name="retirada" DataType="NFe.Classes.Informacoes.retirada, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="retirada" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="xLgr" DataType="System.String"/>
@@ -391,7 +402,7 @@ namespace FastReport
             <Column Name="xMun" DataType="System.String"/>
             <Column Name="UF" DataType="System.String"/>
           </Column>
-          <Column Name="entrega" DataType="NFe.Classes.Informacoes.entrega, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="entrega" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="xLgr" DataType="System.String"/>
@@ -402,13 +413,13 @@ namespace FastReport
             <Column Name="xMun" DataType="System.String"/>
             <Column Name="UF" DataType="System.String"/>
           </Column>
-          <BusinessObjectDataSource Name="autXML" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.autXML, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <BusinessObjectDataSource Name="autXML" DataType="null" Enabled="true">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <BusinessObjectDataSource Name="det" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Detalhe.det, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <BusinessObjectDataSource Name="det" DataType="null" Enabled="true">
             <Column Name="nItem" DataType="System.Int32"/>
-            <Column Name="prod" DataType="NFe.Classes.Informacoes.Detalhe.prod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="prod" DataType="null">
               <Column Name="cProd" DataType="System.String"/>
               <Column Name="cEAN" DataType="System.String"/>
               <Column Name="xProd" DataType="System.String"/>
@@ -428,35 +439,35 @@ namespace FastReport
               <Column Name="vSeg" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vOutro" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-              <Column Name="indTot" DataType="NFe.Classes.Informacoes.Detalhe.IndicadorTotal, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="indTot" DataType="null"/>
               <Column Name="xPed" DataType="System.String"/>
               <Column Name="nItemPed" DataType="System.Int32"/>
               <Column Name="nFCI" DataType="System.String"/>
-              <Column Name="ProdutoEspecifico" DataType="NFe.Classes.Informacoes.Detalhe.ProdEspecifico.ProdutoEspecifico, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProdutoEspecifico" DataType="null"/>
               <Column Name="nRECOPI" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="DI" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao.DI, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="DI"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="detExport" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Detalhe.Exportacao.detExport, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="detExport"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="DI" Enabled="false" DataType="null" PropName="DI"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="detExport" Enabled="false" DataType="null" PropName="detExport"/>
               <Column Name="CEST" DataType="System.String"/>
             </Column>
-            <Column Name="imposto" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.imposto, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="imposto" DataType="null">
               <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-              <Column Name="ICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                  <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ICMS" DataType="null">
+                <Column Name="TipoICMS" DataType="null">
+                  <Column Name="orig" DataType="null"/>
+                  <Column Name="CST" DataType="null"/>
+                  <Column Name="modBC" DataType="null"/>
                   <Column Name="vBC" DataType="System.Decimal"/>
                   <Column Name="pICMS" DataType="System.Decimal"/>
                   <Column Name="vICMS" DataType="System.Decimal"/>
                 </Column>
               </Column>
-              <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="IPI" DataType="null">
                 <Column Name="clEnq" DataType="System.String"/>
                 <Column Name="CNPJProd" DataType="System.String"/>
                 <Column Name="cSelo" DataType="System.String"/>
                 <Column Name="qSelo" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="cEnq" DataType="System.Int32"/>
-                <Column Name="TipoIPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.IPIBasico, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="TipoIPI" DataType="null">
                   <Column Name="CST" DataType="null"/>
                   <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="pIPI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -465,37 +476,37 @@ namespace FastReport
                   <Column Name="vIPI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 </Column>
               </Column>
-              <Column Name="II" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.II, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="II" DataType="null">
                 <Column Name="vBC" DataType="System.Decimal"/>
                 <Column Name="vDespAdu" DataType="System.Decimal"/>
                 <Column Name="vII" DataType="System.Decimal"/>
                 <Column Name="vIOF" DataType="System.Decimal"/>
               </Column>
-              <Column Name="PIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PIS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                <Column Name="TipoPIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.PISBasico, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                  <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTPIS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="PIS" DataType="null">
+                <Column Name="TipoPIS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
                 </Column>
               </Column>
-              <Column Name="PISST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISST, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="PISST" DataType="null">
                 <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="pPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               </Column>
-              <Column Name="COFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                <Column Name="TipoCOFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.COFINSBasico, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                  <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTCOFINS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="COFINS" DataType="null">
+                <Column Name="TipoCOFINS" DataType="null">
+                  <Column Name="CST" DataType="null"/>
                 </Column>
               </Column>
-              <Column Name="COFINSST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSST, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="COFINSST" DataType="null">
                 <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="pCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               </Column>
-              <Column Name="ISSQN" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.ISSQN, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="ISSQN" DataType="null">
                 <Column Name="vBC" DataType="System.Decimal"/>
                 <Column Name="vAliq" DataType="System.Decimal"/>
                 <Column Name="vISSQN" DataType="System.Decimal"/>
@@ -506,25 +517,25 @@ namespace FastReport
                 <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="IndicadorIss" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.IndicadorISS, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="IndicadorIss" DataType="null"/>
                 <Column Name="cServico" DataType="System.String"/>
                 <Column Name="cMun" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="nProcesso" DataType="System.String"/>
-                <Column Name="indIncentivo" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal.indIncentivo, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="indIncentivo" DataType="null"/>
               </Column>
-              <Column Name="ICMSUFDest" Enabled="false" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMSUFDest, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ICMSUFDest" Enabled="false" DataType="null"/>
             </Column>
-            <Column Name="impostoDevol" DataType="NFe.Classes.Informacoes.Detalhe.impostoDevol, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="impostoDevol" DataType="null">
               <Column Name="pDevol" DataType="System.Decimal"/>
-              <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.IPIDevolvido, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="IPI" DataType="null">
                 <Column Name="vIPIDevol" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="infAdProd" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <Column Name="total" DataType="NFe.Classes.Informacoes.Total.total, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="ICMSTot" DataType="NFe.Classes.Informacoes.Total.ICMSTot, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="total" DataType="null">
+            <Column Name="ICMSTot" DataType="null">
               <Column Name="vBC" DataType="System.Decimal"/>
               <Column Name="vICMS" DataType="System.Decimal"/>
               <Column Name="vICMSDeson" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -545,7 +556,7 @@ namespace FastReport
               <Column Name="vICMSUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFRemet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
-            <Column Name="ISSQNtot" DataType="NFe.Classes.Informacoes.Total.ISSQNtot, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="ISSQNtot" DataType="null">
               <Column Name="vServ" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vISS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -557,9 +568,9 @@ namespace FastReport
               <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-              <Column Name="cRegTrib" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Total.RegTribISSQN, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+              <Column Name="cRegTrib" DataType="null"/>
             </Column>
-            <Column Name="retTrib" DataType="NFe.Classes.Informacoes.Total.retTrib, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="retTrib" DataType="null">
               <Column Name="vRetPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vRetCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vRetCSLL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -569,9 +580,9 @@ namespace FastReport
               <Column Name="vRetPrev" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
           </Column>
-          <Column Name="transp" DataType="NFe.Classes.Informacoes.Transporte.transp, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="modFrete" DataType="NFe.Classes.Informacoes.Transporte.ModalidadeFrete, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="transporta" DataType="NFe.Classes.Informacoes.Transporte.transporta, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="transp" DataType="null">
+            <Column Name="modFrete" DataType="null"/>
+            <Column Name="transporta" DataType="null">
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
               <Column Name="xNome" DataType="System.String"/>
@@ -580,7 +591,7 @@ namespace FastReport
               <Column Name="xMun" DataType="System.String"/>
               <Column Name="UF" DataType="System.String"/>
             </Column>
-            <Column Name="retTransp" DataType="NFe.Classes.Informacoes.Transporte.retTransp, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="retTransp" DataType="null">
               <Column Name="vServ" DataType="System.Decimal"/>
               <Column Name="vBCRet" DataType="System.Decimal"/>
               <Column Name="pICMSRet" DataType="System.Decimal"/>
@@ -588,88 +599,88 @@ namespace FastReport
               <Column Name="CFOP" DataType="System.Int32"/>
               <Column Name="cMunFG" DataType="System.Int64"/>
             </Column>
-            <Column Name="veicTransp" DataType="NFe.Classes.Informacoes.Transporte.veicTransp, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="veicTransp" DataType="null">
               <Column Name="placa" DataType="System.String"/>
               <Column Name="UF" DataType="System.String"/>
               <Column Name="RNTC" DataType="System.String"/>
             </Column>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="reboque" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Transporte.reboque, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="reboque"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="vol" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Transporte.vol, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="vol"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="reboque" Enabled="false" DataType="null" PropName="reboque"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="vol" Enabled="false" DataType="null" PropName="vol"/>
           </Column>
-          <Column Name="cobr" DataType="NFe.Classes.Informacoes.Cobranca.cobr, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="fat" DataType="NFe.Classes.Informacoes.Cobranca.fat, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="cobr" DataType="null">
+            <Column Name="fat" DataType="null">
               <Column Name="nFat" DataType="System.String"/>
               <Column Name="vOrig" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vLiq" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             </Column>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource6" Alias="dup" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Cobranca.dup, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="dup"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource6" Alias="dup" Enabled="false" DataType="null" PropName="dup"/>
           </Column>
-          <BusinessObjectDataSource Name="pag" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Pagamento.pag, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-            <Column Name="tPag" DataType="NFe.Classes.Informacoes.Pagamento.FormaPagamento, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <BusinessObjectDataSource Name="pag" DataType="null" Enabled="true">
+            <Column Name="tPag" DataType="null"/>
             <Column Name="vPag" DataType="System.Decimal"/>
-            <Column Name="card" DataType="NFe.Classes.Informacoes.Pagamento.card, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="card" DataType="null">
               <Column Name="CNPJ" DataType="System.String"/>
-              <Column Name="tBand" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.BandeiraCartao, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+              <Column Name="tBand" DataType="null"/>
               <Column Name="cAut" DataType="System.String"/>
-              <Column Name="tpIntegra" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.TipoIntegracaoPagamento, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+              <Column Name="tpIntegra" DataType="null"/>
             </Column>
           </BusinessObjectDataSource>
-          <Column Name="infAdic" DataType="NFe.Classes.Informacoes.Observacoes.infAdic, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="infAdic" DataType="null">
             <Column Name="infAdFisco" DataType="System.String"/>
             <Column Name="infCpl" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="obsCont" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Observacoes.obsCont, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="obsCont"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="obsFisco" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Observacoes.obsFisco, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="obsFisco"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="procRef" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Observacoes.procRef, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="procRef"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="obsCont" Enabled="false" DataType="null" PropName="obsCont"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="obsFisco" Enabled="false" DataType="null" PropName="obsFisco"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="procRef" Enabled="false" DataType="null" PropName="procRef"/>
           </Column>
-          <Column Name="exporta" DataType="NFe.Classes.Informacoes.exporta, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="exporta" DataType="null">
             <Column Name="UFSaidaPais" DataType="System.String"/>
             <Column Name="xLocExporta" DataType="System.String"/>
             <Column Name="xLocDespacho" DataType="System.String"/>
           </Column>
-          <Column Name="compra" DataType="NFe.Classes.Informacoes.compra, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="compra" DataType="null">
             <Column Name="xNEmp" DataType="System.String"/>
             <Column Name="xPed" DataType="System.String"/>
             <Column Name="xCont" DataType="System.String"/>
           </Column>
-          <Column Name="cana" DataType="NFe.Classes.Informacoes.Cana.cana, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="cana" DataType="null">
             <Column Name="safra" DataType="System.String"/>
             <Column Name="ref" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource10" Alias="forDia" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Cana.forDia, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="forDia"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource11" Alias="deduc" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Cana.deduc, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="deduc"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource10" Alias="forDia" Enabled="false" DataType="null" PropName="forDia"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource11" Alias="deduc" Enabled="false" DataType="null" PropName="deduc"/>
           </Column>
         </Column>
-        <Column Name="Signature" DataType="NFe.Classes.Assinatura.Signature, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <Column Name="SignedInfo" DataType="NFe.Classes.Assinatura.SignedInfo, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="CanonicalizationMethod" DataType="NFe.Classes.Assinatura.CanonicalizationMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Signature" DataType="null">
+          <Column Name="SignedInfo" DataType="null">
+            <Column Name="CanonicalizationMethod" DataType="null">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="SignatureMethod" DataType="NFe.Classes.Assinatura.SignatureMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignatureMethod" DataType="null">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="Reference" DataType="NFe.Classes.Assinatura.Reference, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="Reference" DataType="null">
               <Column Name="URI" DataType="System.String"/>
-              <Column Name="DigestMethod" DataType="NFe.Classes.Assinatura.DigestMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="DigestMethod" DataType="null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
               <Column Name="DigestValue" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource12" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Assinatura.Transform, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource12" Alias="Transforms" Enabled="false" DataType="null" PropName="Transforms"/>
             </Column>
           </Column>
           <Column Name="SignatureValue" DataType="System.String"/>
-          <Column Name="KeyInfo" DataType="NFe.Classes.Assinatura.KeyInfo, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="X509Data" DataType="NFe.Classes.Assinatura.X509Data, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="KeyInfo" DataType="null">
+            <Column Name="X509Data" DataType="null">
               <Column Name="X509Certificate" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
-        <Column Name="infNFeSupl" Enabled="false" DataType="NFe.Classes.infNFeSupl, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infNFeSupl" Enabled="false" DataType="null"/>
       </Column>
-      <Column Name="protNFe" DataType="NFe.Classes.Protocolo.protNFe, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <Column Name="protNFe" DataType="null">
         <Column Name="versao" DataType="System.String"/>
-        <Column Name="infProt" DataType="NFe.Classes.Protocolo.infProt, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="infProt" DataType="null">
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="tpAmb" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="tpAmb" DataType="null"/>
           <Column Name="verAplic" DataType="System.String"/>
           <Column Name="chNFe" DataType="System.String"/>
           <Column Name="dhRecbto" DataType="System.DateTime"/>
@@ -677,26 +688,26 @@ namespace FastReport
           <Column Name="digVal" DataType="System.String"/>
           <Column Name="cStat" DataType="System.Int32"/>
           <Column Name="xMotivo" DataType="System.String"/>
-          <Column Name="Signature" DataType="NFe.Classes.Assinatura.Signature, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-            <Column Name="SignedInfo" DataType="NFe.Classes.Assinatura.SignedInfo, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-              <Column Name="CanonicalizationMethod" DataType="NFe.Classes.Assinatura.CanonicalizationMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Signature" DataType="null">
+            <Column Name="SignedInfo" DataType="null">
+              <Column Name="CanonicalizationMethod" DataType="null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="SignatureMethod" DataType="NFe.Classes.Assinatura.SignatureMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="SignatureMethod" DataType="null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="Reference" DataType="NFe.Classes.Assinatura.Reference, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Reference" DataType="null">
                 <Column Name="URI" DataType="System.String"/>
-                <Column Name="DigestMethod" DataType="NFe.Classes.Assinatura.DigestMethod, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="DigestMethod" DataType="null">
                   <Column Name="Algorithm" DataType="System.String"/>
                 </Column>
                 <Column Name="DigestValue" DataType="System.String"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource13" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Assinatura.Transform, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource13" Alias="Transforms" Enabled="false" DataType="null" PropName="Transforms"/>
               </Column>
             </Column>
             <Column Name="SignatureValue" DataType="System.String"/>
-            <Column Name="KeyInfo" DataType="NFe.Classes.Assinatura.KeyInfo, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-              <Column Name="X509Data" DataType="NFe.Classes.Assinatura.X509Data, NFe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="KeyInfo" DataType="null">
+              <Column Name="X509Data" DataType="null">
                 <Column Name="X509Certificate" DataType="System.String"/>
               </Column>
             </Column>
@@ -704,17 +715,17 @@ namespace FastReport
         </Column>
       </Column>
     </BusinessObjectDataSource>
-    <Parameter Name="NfceDetalheVendaContigencia" DataType="NFe.Danfe.Base.NfceDetalheVendaContigencia, NFe.Danfe.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
-    <Parameter Name="NfceDetalheVendaNormal" DataType="NFe.Danfe.Base.NfceDetalheVendaNormal, NFe.Danfe.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+    <Parameter Name="NfceDetalheVendaContigencia" DataType="null"/>
+    <Parameter Name="NfceDetalheVendaNormal" DataType="null"/>
     <Parameter Name="NfceImprimeDescontoItem" DataType="System.Boolean"/>
-    <Parameter Name="NfceModoImpressao" DataType="NFe.Danfe.Base.NfceModoImpressao, NFe.Danfe.Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+    <Parameter Name="NfceModoImpressao" DataType="null"/>
     <Total Name="QtdeItens" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
   </Dictionary>
   <ReportPage Name="PgNfce" PaperWidth="79" LeftMargin="4.5" TopMargin="0" RightMargin="4.5" BottomMargin="1" FirstPageSource="15" OtherPagesSource="15" StartPageEvent="PgNfce_StartPage">
     <ReportTitleBand Name="rtbTitulo" Width="264.6" Height="85.8" BeforePrintEvent="rtbTitulo_BeforePrint" AfterPrintEvent="rtbTitulo_AfterPrint">
       <PictureObject Name="poEmitLogo" Top="3.78" Width="264.6" Height="79.38"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="phbEmitente" Top="88.43" Width="264.6" Height="122.83" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
+    <PageHeaderBand Name="phbEmitente" Top="87.93" Width="264.6" Height="122.83" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
       <TextObject Name="Memo9" Top="77.21" Width="264.6" Height="28.35" ShiftMode="WhenOverlapped" Text="DANFE NFC-e - Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9pt, style=Bold"/>
       <TextObject Name="Memo37" Top="105.43" Width="264.6" Height="15.12" ShiftMode="WhenOverlapped" Text="Não permite aproveitamento de crédito do ICMS" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Memo2" Top="20.38" Width="264.6" Height="13.23" ShiftMode="WhenOverlapped" Text="[NFCe.NFe.infNFe.emit.xNome]" Padding="2, 1, 2, 1" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
@@ -724,7 +735,7 @@ namespace FastReport
       <TextObject Name="Text15" Top="49.62" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" ShiftMode="WhenOverlapped" Text="End.: [NFCe.NFe.infNFe.emit.enderEmit.xLgr], [NFCe.NFe.infNFe.emit.enderEmit.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.emit.enderEmit.xBairro] - [NFCe.NFe.infNFe.emit.enderEmit.xMun]/[NFCe.NFe.infNFe.emit.enderEmit.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFCe.NFe.infNFe.emit.enderEmit.CEP] ) )]" Padding="2, 1, 2, 1" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="txtEmitIm" Left="111.4" Top="34.39" Width="73.71" Height="13.23" ShiftMode="WhenOverlapped" Text="[IIf([NFCe.NFe.infNFe.emit.IM] != &quot;&quot;, &quot;IM: &quot; + [NFCe.NFe.infNFe.emit.IM], &quot;&quot;)]" Padding="2, 1, 2, 1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
     </PageHeaderBand>
-    <GroupHeaderBand Name="ghbProdutosUmaLinha" Top="213.89" Width="264.6" Height="13.99" Visible="false" BeforePrintEvent="ghbProdutosUmaLinha_BeforePrint" AfterPrintEvent="ghbProdutosUmaLinha_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
+    <GroupHeaderBand Name="ghbProdutosUmaLinha" Top="212.89" Width="264.6" Height="13.99" Visible="false" BeforePrintEvent="ghbProdutosUmaLinha_BeforePrint" AfterPrintEvent="ghbProdutosUmaLinha_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
       <ShapeObject Name="Shape2" Width="264.6" Height="13.99" Border.Width="0" Fill.Color="WhiteSmoke"/>
       <TextObject Name="Text31" Top="1.13" Width="37.8" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text32" Left="39.58" Top="1.13" Width="60.48" Height="11.34" Text="Descrição" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
@@ -733,7 +744,7 @@ namespace FastReport
       <TextObject Name="Text35" Left="209.66" Top="1.13" Width="52.92" Height="11.34" Text="Valor Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text36" Left="151.09" Top="1.13" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
       <TextObject Name="Text37" Left="200.34" Top="1.13" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt"/>
-      <DataBand Name="dbProdutosUmaLinha" Top="230.51" Width="264.6" Height="15.12" Visible="false" Border.Lines="Bottom" BeforePrintEvent="dbProdutosUmaLinha_BeforePrint" AfterPrintEvent="dbProdutosUmaLinha_AfterPrint" DataSource="det">
+      <DataBand Name="dbProdutosUmaLinha" Top="229" Width="264.6" Height="15.12" Visible="false" Border.Lines="Bottom" BeforePrintEvent="dbProdutosUmaLinha_BeforePrint" AfterPrintEvent="dbProdutosUmaLinha_AfterPrint" DataSource="det">
         <TextObject Name="Text26" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="Text27" Left="39.69" Top="1" Width="60.48" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 13), 0, 12)]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="Text28" Left="102.06" Top="1" Width="47.25" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold">
@@ -744,7 +755,7 @@ namespace FastReport
         </TextObject>
         <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoUmaLinhaValorTotal" Left="209.79" Top="1" Width="53.3" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
-        <ChildBand Name="cbDescontoItemUmaLinha" Top="248.27" Width="264.6" Height="15.12" Border.Lines="Bottom">
+        <ChildBand Name="cbDescontoItemUmaLinha" Top="246.25" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text41" Left="-0.06" Top="1.13" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
           <TextObject Name="Text42" Left="53.26" Top="1.13" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
           <TextObject Name="txtProdutoUmaLinhaSubTotal" Left="191.25" Top="1.51" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
@@ -754,7 +765,7 @@ namespace FastReport
         </Sort>
       </DataBand>
     </GroupHeaderBand>
-    <GroupHeaderBand Name="ghbProdutosDuasLinhas" Top="266.02" Width="264.6" Height="28.35" BeforePrintEvent="ghbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="ghbProdutosDuasLinhas_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
+    <GroupHeaderBand Name="ghbProdutosDuasLinhas" Top="263.5" Width="264.6" Height="28.35" BeforePrintEvent="ghbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="ghbProdutosDuasLinhas_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
       <ShapeObject Name="Shape1" Width="264.6" Height="28.35" Border.Width="0" Fill.Color="WhiteSmoke"/>
       <TextObject Name="Text7" Top="2.46" Width="49.14" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text8" Left="51.92" Top="1.89" Width="211.68" Height="11.34" Text="Descrição" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
@@ -763,7 +774,7 @@ namespace FastReport
       <TextObject Name="Text11" Left="190.76" Top="13.34" Width="71.82" Height="11.34" Text="Valor Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text23" Left="96.39" Top="13.99" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
       <TextObject Name="Text24" Left="181.44" Top="13.99" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
-      <DataBand Name="dbProdutosDuasLinhas" Top="297" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.25" BeforePrintEvent="dbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="dbProdutosDuasLinhas_AfterPrint" DataSource="det">
+      <DataBand Name="dbProdutosDuasLinhas" Top="293.98" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.25" BeforePrintEvent="dbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="dbProdutosDuasLinhas_AfterPrint" DataSource="det">
         <TextObject Name="Text1" Top="1" Width="49.14" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="Text2" Left="51.79" Top="1" Width="210.55" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 49), 0, 48)]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="Text3" Top="12.72" Width="92.61" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold">
@@ -774,7 +785,7 @@ namespace FastReport
         </TextObject>
         <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoDuasLinhasValorTotal" Left="190.89" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
-        <ChildBand Name="cbDescontoItemDuasLinhas" Top="326.09" Width="264.6" Height="15.12" Border.Lines="Bottom">
+        <ChildBand Name="cbDescontoItemDuasLinhas" Top="322.56" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text38" Left="-0.04" Top="1.27" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
           <TextObject Name="Text39" Left="53.28" Top="1.27" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
           <TextObject Name="txtProdutoDuasLinhaSubTotal" Left="191.27" Top="1.27" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
@@ -783,27 +794,43 @@ namespace FastReport
           <Sort Expression="[NFCe.NFe.infNFe.det.nItem]"/>
         </Sort>
       </DataBand>
-      <GroupFooterBand Name="gfbProdutos" Top="343.84" Width="264.6" Height="39.69" Border.Lines="Top" Border.Width="0.5" AfterPrintEvent="gfbProdutos_AfterPrint">
-        <TextObject Name="Text16" Top="3.78" Width="124.74" Height="11.34" Text="QTD. TOTAL DE ITENS:" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-        <TextObject Name="Text17" Top="15.12" Width="124.74" Height="11.34" Text="VALOR TOTAL R$:" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-        <TextObject Name="Text18" Top="27.46" Width="124.74" Height="12.1" Text="FORMA DE PAGAMENTO" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-        <TextObject Name="Text4" Left="143.64" Top="1.89" Width="120.96" Height="11.34" Text="[QtdeItens]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-        <TextObject Name="Text19" Left="143.42" Top="15.12" Width="120.96" Height="11.33" Text="[NFCe.NFe.infNFe.total.ICMSTot.vNF]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-        <TextObject Name="Text20" Left="155.58" Top="27.46" Width="109.62" Height="12.1" Text="Valor Pago" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
+      <GroupFooterBand Name="gfbProdutos" Top="339.81" Width="264.6" Height="29.48" Border.Lines="Top" Border.Width="0.5" AfterPrintEvent="gfbProdutos_AfterPrint">
+        <TextObject Name="Text16" Top="3.78" Width="124.74" Height="11.34" Text="Qtde. total de itens" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+        <TextObject Name="Text17" Top="15.12" Width="124.74" Height="14.36" Text="Valor total R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt">
+          <Highlight>
+            <Condition Expression="(decimal)[NFCe.NFe.infNFe.total.ICMSTot.vDesc] == 0" Font="Ubuntu Condensed, 9.749999pt, style=Bold" ApplyTextFill="false" ApplyFont="true"/>
+          </Highlight>
+        </TextObject>
+        <TextObject Name="Text4" Left="143.64" Top="1.89" Width="120.96" Height="11.34" Text="[QtdeItens]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+        <TextObject Name="txtValorTotal" Left="143.42" Top="15.12" Width="120.96" Height="14.36" BeforePrintEvent="txtValorTotal_BeforePrint" Text="[NFCe.NFe.infNFe.total.ICMSTot.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt">
+          <Highlight>
+            <Condition Expression="(decimal)[NFCe.NFe.infNFe.total.ICMSTot.vDesc] == 0" Font="Ubuntu Condensed, 9.749999pt, style=Bold" ApplyTextFill="false" ApplyFont="true"/>
+          </Highlight>
+        </TextObject>
+        <ChildBand Name="cbDesconto" Top="371.42" Width="264.6" Height="28.73" BeforePrintEvent="cbDesconto_BeforePrint">
+          <TextObject Name="Text43" Width="124.74" Height="12.1" Text="Desconto R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+          <TextObject Name="Text44" Left="143.64" Width="120.96" Height="12.1" Text="[NFCe.NFe.infNFe.total.ICMSTot.vDesc]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+          <TextObject Name="Text45" Top="12.45" Width="124.74" Height="15.12" Text="Valor a Pagar R$" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 10pt, style=Bold"/>
+          <TextObject Name="Text46" Left="143.64" Top="12.45" Width="120.96" Height="15.12" Text="[NFCe.NFe.infNFe.total.ICMSTot.vNF]" HorzAlign="Right" VertAlign="Center" Font="Ubuntu Condensed, 10pt, style=Bold"/>
+          <ChildBand Name="Child2" Top="402.28" Width="264.6" Height="12.1">
+            <TextObject Name="Text18" Width="124.74" Height="12.1" Text="FORMA PAGAMENTO" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+            <TextObject Name="Text20" Left="155.58" Width="109.62" Height="12.1" Text="VALOR PAGO R$" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+          </ChildBand>
+        </ChildBand>
       </GroupFooterBand>
     </GroupHeaderBand>
-    <DataBand Name="dbPagamento" Top="386.16" Width="264.6" Height="13.23" AfterPrintEvent="dbPagamento_AfterPrint" DataSource="pag">
+    <DataBand Name="dbPagamento" Top="416.5" Width="264.6" Height="13.23" AfterPrintEvent="dbPagamento_AfterPrint" DataSource="pag">
       <TextObject Name="txtDescPagto" Width="139.86" Height="13.23" BeforePrintEvent="txtDescPagto_BeforePrint" Text="[NFCe.NFe.infNFe.pag.tPag]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text22" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbTributos" Top="402.03" Width="264.6" Height="28.35" AfterPrintEvent="dbTributos_AfterPrint">
+    <DataBand Name="dbTributos" Top="431.86" Width="264.6" Height="28.35" AfterPrintEvent="dbTributos_AfterPrint">
       <TextObject Name="Memo23" Left="192.87" Width="71.81" Height="28.35" Text="[NFCe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="2, 2, 2, 2" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Memo17" Width="190.87" Height="28.35" Text="Informação dos Tributos Totais Incidentes (Lei Federal 12.741 /2012)" Padding="2, 2, 2, 2" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbObservacao" Top="433.01" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbObservacao_AfterPrint">
+    <DataBand Name="dbObservacao" Top="462.34" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbObservacao_AfterPrint">
       <TextObject Name="txtObs" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true" BeforePrintEvent="txtObs_BeforePrint" Text="[NFCe.NFe.infNFe.infAdic.infCpl]" Padding="2, 2, 2, 2" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbInfoFiscal" Top="454.54" Width="264.6" Height="104.28" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbInfoFiscal_AfterPrint">
+    <DataBand Name="dbInfoFiscal" Top="483.37" Width="264.6" Height="104.28" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbInfoFiscal_AfterPrint">
       <TextObject Name="Memo3" Top="46.9" Width="264.6" Height="13.23" Border.Lines="Top" Border.Width="0.5" Text="Consulte pela chave de acesso em:" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Memo1" Top="75.47" Width="264.6" Height="11.34" Text="CHAVE DE ACESSO" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="memChaveNfe" Top="88.27" Width="264.6" Height="15.12" BeforePrintEvent="memChaveNfe_BeforePrint" Text="[Substring([NFCe.NFe.infNFe.Id],3)]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
@@ -812,12 +839,12 @@ namespace FastReport
       <TextObject Name="txtDescVia" Left="0.38" Top="31.13" Width="264.6" Height="15.12" BeforePrintEvent="txtDhEmissao_BeforePrint" Text="[CopyName#]" Padding="2, 1, 2, 1" HorzAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtUrl" Top="60.48" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" Text="http://www.hom.nfe.se.gov.br/portal" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbDestinatario" Top="561.45" Width="264.6" Height="68.03" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
+    <DataBand Name="dbDestinatario" Top="589.77" Width="264.6" Height="68.03" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
       <TextObject Name="memConsumidor" Top="1.78" Width="264.6" Height="16.25" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtDestNome" Top="20.41" Width="264.6" Height="17.01" CanGrow="true" CanShrink="true" Text="[NFCe.NFe.infNFe.dest.xNome]" Padding="5, 1, 5, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="txtDestEndereco" Top="39.69" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="5, 1, 5, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbQrCode" Top="632.11" Width="264.6" Height="208.16" BeforePrintEvent="dbQrCode_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
+    <DataBand Name="dbQrCode" Top="659.93" Width="264.6" Height="208.16" BeforePrintEvent="dbQrCode_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
       <TextObject Name="Memo4" Top="2.26" Width="264.6" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="txtProtocoloAutorizacao" Top="176.37" Width="264.6" Height="29.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?chNFe=28160907703290000189650010000008931000000972&amp;nVersao=100&amp;tpAmb=2&amp;dhEmi=323031362d30392d32315431363a35303a34352d30333a3030&amp;vNF=235.00&amp;vICMS=42.00&amp;digVal=6d52797246787471356b4b4c56435a3568695764496e595254566b3d&amp;cIdToken=000003&amp;cHashQRCode=605fc36783c8275683e501793504be609aeb7182" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
