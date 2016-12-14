@@ -121,6 +121,7 @@ namespace NFe.Utils.Validacao
                 // Faz a leitura de todos os dados XML
                 while (validator.Read())
                 {
+
                 }
             }
             catch (XmlException err)

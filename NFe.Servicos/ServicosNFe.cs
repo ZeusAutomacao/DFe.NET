@@ -429,6 +429,7 @@ namespace NFe.Servicos
             foreach (var evento in eventos)
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe + evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
+                //evento.infEvento.Id = "ID" + evento.infEvento.chNFe;// + evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
                 evento.Assina();
             }
 

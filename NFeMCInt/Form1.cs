@@ -112,13 +112,29 @@ namespace NFeMCInt
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
+                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFe.Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
+
+
+                richTextBox1.Clear();             
+
+                //Assincrono
+                //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFe.Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
-                //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<NFe.Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
+
+                System.Threading.Thread.Sleep(3000);
+
+                var retornoRecibo = servicoNFe.NFeRetAutorizacao(retornoEnvio.Retorno.infRec.nRec);
+                
+                TrataRetorno(retornoRecibo);
+
+                richTextBox1.Text = retornoRecibo.RetornoCompletoStr;
+
+                //RetornoNfeConsultaProtocolo retorno = servicoNFe.NfeConsultaProtocolo(_nfe.infNFe.Id.Replace("NFe",""));
+                //richTextBox1.Text += retorno.RetornoCompletoStr;
 
                 #endregion
             }
@@ -177,17 +193,17 @@ namespace NFeMCInt
         {
             var ide = new ide
             {
-                cUF = Estado.SE,
-                natOp = "VENDA",
+                cUF = Estado.SP,
+                natOp = _nfa.Tables["nfe_cab"].Rows[0]["ide_natop"].ToString(),
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
-                tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                tpNF = Convert.ToInt32(_nfa.Tables["nfe_cab"].Rows[0]["ide_tpnf"].ToString()) == 1 ? TipoNFe.tnSaida : TipoNFe.tnEntrada,
+                cMunFG = Convert.ToInt64(_nfa.Tables["nfe_emitente"].Rows[0]["cmun"].ToString()),
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
-                cNF = "1234",
+                cNF = _nfa.Tables["nfe_cab"].Rows[0]["ide_cnf"].ToString(),
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
                 verProc = "3.000"
@@ -233,34 +249,37 @@ namespace NFeMCInt
 
         protected virtual emit GetEmitente()
         {
-            var emit = _configuracoes.Emitente; // new emit
-            //{
-            //    //CPF = "80365027553",
-            //    CNPJ = "32876302000114",
-            //    xNome = "FIOLUX COMERCIAL LTDA",
-            //    xFant = "FIOLUX COMERCIAL LTDA",
-            //    IE = "270844821",
-            //};
+            var emit = new emit//_configuracoes.Emitente; // new emit
+            {
+                //CPF = "80365027553",
+                CNPJ = _nfa.Tables["nfe_emitente"].Rows[0]["cnpj"].ToString(),
+                xNome = _nfa.Tables["nfe_emitente"].Rows[0]["nome"].ToString(),
+                xFant = _nfa.Tables["nfe_emitente"].Rows[0]["fant"].ToString(),
+                IE = _nfa.Tables["nfe_emitente"].Rows[0]["ie"].ToString(),
+                IM = _nfa.Tables["nfe_emitente"].Rows[0]["im"].ToString(),
+                CRT = CRT.RegimeNormal,
+                CNAE = _nfa.Tables["nfe_emitente"].Rows[0]["cnae"].ToString()
+            };
             emit.enderEmit = GetEnderecoEmitente();
             return emit;
         }
 
         protected virtual enderEmit GetEnderecoEmitente()
         {
-            var enderEmit = _configuracoes.EnderecoEmitente; // new enderEmit
-            //{
-            //    xLgr = "RUA COMENDADOR FRANCISCO JOSE DA CUNHA",
-            //    nro = "171",
-            //    xCpl = "1 ANDAR",
-            //    xBairro = "CENTRO",
-            //    cMun = 2802908,
-            //    xMun = "ITABAIANA",
-            //    UF = "SE",
-            //    CEP = 49500000,
-            //    fone = 7934313234
-            //};
-            enderEmit.cPais = 1058;
-            enderEmit.xPais = "BRASIL";
+            var enderEmit = new enderEmit //_configuracoes.EnderecoEmitente; // new enderEmit
+            {
+                xLgr = _nfa.Tables["nfe_emitente"].Rows[0]["ender"].ToString(),
+                nro = _nfa.Tables["nfe_emitente"].Rows[0]["nro"].ToString(),
+                xCpl = _nfa.Tables["nfe_emitente"].Rows[0]["cpl"].ToString(),
+                xBairro = _nfa.Tables["nfe_emitente"].Rows[0]["bairro"].ToString(),
+                cMun = Convert.ToInt64(_nfa.Tables["nfe_emitente"].Rows[0]["cmun"].ToString()),
+                xMun = _nfa.Tables["nfe_emitente"].Rows[0]["cmun"].ToString(),
+                UF = _nfa.Tables["nfe_emitente"].Rows[0]["uf"].ToString(),
+                CEP = _nfa.Tables["nfe_emitente"].Rows[0]["cep"].ToString(),
+                fone = Convert.ToInt64(_nfa.Tables["nfe_emitente"].Rows[0]["fone"].ToString())
+            };
+            enderEmit.cPais = Convert.ToInt32(_nfa.Tables["nfe_emitente"].Rows[0]["cpais"].ToString());
+            enderEmit.xPais = _nfa.Tables["nfe_emitente"].Rows[0]["pais"].ToString();
             return enderEmit;
         }
 
@@ -268,20 +287,29 @@ namespace NFeMCInt
         {
             var dest = new dest(versao)
             {
-                CNPJ = _nfa.Tables["nfe_cab"].Columns["dest_cnpj"].ToString(),
-                CPF = _nfa.Tables["nfe_cab"].Columns["dest_cpf"].ToString(),
+                CNPJ = _nfa.Tables["nfe_cab"].Rows[0]["dest_cnpj"].ToString(),
+                CPF = _nfa.Tables["nfe_cab"].Rows[0]["dest_cpf"].ToString(),
             };
             if (modelo == ModeloDocumento.NFe)
             {
-                dest.xNome = _nfa.Tables["nfe_cab"].Columns["dest_xnome"].ToString(); //Obrigatório para NFe e opcional para NFCe
+                dest.xNome = _nfa.Tables["nfe_cab"].Rows[0]["dest_xnome"].ToString(); //Obrigatório para NFe e opcional para NFCe
                 dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
+
+                //Verificando se está no ambiente de Homologação
+                if (_configuracoes.CfgServico.tpAmb == TipoAmbiente.taHomologacao)
+                {
+                    dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+                    dest.IE = "";
+                   dest.CNPJ = "99999999000191";
+                }
+
             }
 
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";
             if (versao != VersaoServico.ve310) return dest;
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
-            dest.email = _nfa.Tables["nfe_cab"].Columns["dest_email"].ToString(); //V3.00 Somente
+            dest.email = _nfa.Tables["nfe_cab"].Rows[0]["dest_email"].ToString(); //V3.00 Somente
             return dest;
         }
 
@@ -290,17 +318,21 @@ namespace NFeMCInt
 
             var enderDest = new enderDest
             {
-                xLgr = _nfa.Tables["nfe_cab"].Columns["enderdest_xlgr"].ToString(),
-                nro = _nfa.Tables["nfe_cab"].Columns["enderdest_nro"].ToString(),
-                xCpl = _nfa.Tables["nfe_cab"].Columns["enderdest_xcpl"].ToString(),
-                xBairro = _nfa.Tables["nfe_cab"].Columns["enderdest_xbairro"].ToString(),
-                cMun = Convert.ToInt64(_nfa.Tables["nfe_cab"].Columns["enderdest_cmun"].ToString()),
-                xMun = _nfa.Tables["nfe_cab"].Columns["enderdest_xmun"].ToString(),
-                UF = _nfa.Tables["nfe_cab"].Columns["enderdest_uf"].ToString(),
-                CEP = _nfa.Tables["nfe_cab"].Columns["enderdest_cep"].ToString(),
-                cPais = Convert.ToInt32(_nfa.Tables["nfe_cab"].Columns["enderdest_cpais"].ToString()),
-                xPais = _nfa.Tables["nfe_cab"].Columns["enderdest_xpais"].ToString()
+                xLgr = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_xlgr"].ToString(),
+                nro = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_nro"].ToString(),
+                xCpl = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_xcpl"].ToString(),
+                xBairro = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_xbairro"].ToString(),
+                cMun = Convert.ToInt64(_nfa.Tables["nfe_cab"].Rows[0]["enderdest_cmun"].ToString()),
+                xMun = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_xmun"].ToString(),
+                UF = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_uf"].ToString(),
+                CEP = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_cep"].ToString(),
+                cPais = Convert.ToInt32(_nfa.Tables["nfe_cab"].Rows[0]["enderdest_cpais"].ToString()),
+                xPais = _nfa.Tables["nfe_cab"].Rows[0]["enderdest_xpais"].ToString()
             };
+
+            if (enderDest.xPais == "" && enderDest.cPais == 1058)
+                enderDest.xPais = "Brasil";
+
             return enderDest;
         }
 
@@ -549,6 +581,9 @@ namespace NFeMCInt
 
         private void TrataRetorno(RetornoBasico retornoBasico)
         {
+            richTextBox1.Clear();
+            //webBrowser1.
+
             EnvioStr(richTextBox1, retornoBasico.EnvioStr);
             RetornoStr(richTextBox1, retornoBasico.RetornoStr);
             RetornoXml(webBrowser1, retornoBasico.RetornoStr);
@@ -594,5 +629,38 @@ namespace NFeMCInt
         }
 
         #endregion
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                #region Cancelar NFe
+
+                var idlote = "64877";
+                _nfa = new NFeBLL().GetNfaDataTable(textBox2.Text);
+
+                var sequenciaEvento = 1;// _nfa.Tables["nfe_cab"].Rows[0]["cab_serial"].ToString();
+
+                var protocolo = _nfa.Tables["nfe_cab"].Rows[0]["nprot"].ToString();
+
+                var chave = _nfa.Tables["nfe_cab"].Rows[0]["chnfe"].ToString();
+
+                var justificativa = "ERRO INTERNO DE SISTEMA....";
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
+                    ? _configuracoes.Emitente.CPF
+                    : _configuracoes.Emitente.CNPJ;
+                var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
+                    Convert.ToInt32(sequenciaEvento) - 52000, protocolo, chave, justificativa, cpfcnpj);
+                TrataRetorno(retornoCancelamento);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
     }
 }
