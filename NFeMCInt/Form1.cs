@@ -37,6 +37,7 @@ using NFe.Utils.Email;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
+using System.Data;
 //using RichTextBox = System.Windows.Controls.RichTextBox;
 //using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 //using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -56,11 +57,12 @@ namespace NFeMCInt
         private ConfiguracaoApp _configuracoes;
         private NFe.Classes.NFe _nfe;
         private readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private DataSet _nfa;
 
         private void Form1_Load(object sender, EventArgs e)
         {
             new SessionBLL().Connect(new SessionModel() { Server = "10.0.0.199", Database = "nova", User="root", Password = "beleza" });
-
+            
             ClienteBLL cBll = new ClienteBLL();
             ClientesModel c = cBll.FrameworkGetOneModel(1000);
         }
@@ -102,8 +104,9 @@ namespace NFeMCInt
                 #region Cria e Envia NFe
 
                 var numero = textBox1.Text;
-
                 var lote = "6487";
+
+                _nfa = new NFeBLL().GetNfaDataTable(numero);
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
@@ -265,12 +268,12 @@ namespace NFeMCInt
         {
             var dest = new dest(versao)
             {
-                CNPJ = "99999999000191",
-                //CPF = "99999999999",
+                CNPJ = _nfa.Tables["nfe_cab"].Columns["dest_cnpj"].ToString(),
+                CPF = _nfa.Tables["nfe_cab"].Columns["dest_cpf"].ToString(),
             };
             if (modelo == ModeloDocumento.NFe)
             {
-                dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"; //Obrigatório para NFe e opcional para NFCe
+                dest.xNome = _nfa.Tables["nfe_cab"].Columns["dest_xnome"].ToString(); //Obrigatório para NFe e opcional para NFCe
                 dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
             }
 
@@ -278,23 +281,25 @@ namespace NFeMCInt
             //    dest.IE = "ISENTO";
             if (versao != VersaoServico.ve310) return dest;
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
-            dest.email = "teste@gmail.com"; //V3.00 Somente
+            dest.email = _nfa.Tables["nfe_cab"].Columns["dest_email"].ToString(); //V3.00 Somente
             return dest;
         }
 
         protected virtual enderDest GetEnderecoDestinatario()
         {
+
             var enderDest = new enderDest
             {
-                xLgr = "RUA ...",
-                nro = "S/N",
-                xBairro = "CENTRO",
-                cMun = 2802908,
-                xMun = "ITABAIANA",
-                UF = "SE",
-                CEP = "49500000",
-                cPais = 1058,
-                xPais = "BRASIL"
+                xLgr = _nfa.Tables["nfe_cab"].Columns["enderdest_xlgr"].ToString(),
+                nro = _nfa.Tables["nfe_cab"].Columns["enderdest_nro"].ToString(),
+                xCpl = _nfa.Tables["nfe_cab"].Columns["enderdest_xcpl"].ToString(),
+                xBairro = _nfa.Tables["nfe_cab"].Columns["enderdest_xbairro"].ToString(),
+                cMun = Convert.ToInt64(_nfa.Tables["nfe_cab"].Columns["enderdest_cmun"].ToString()),
+                xMun = _nfa.Tables["nfe_cab"].Columns["enderdest_xmun"].ToString(),
+                UF = _nfa.Tables["nfe_cab"].Columns["enderdest_uf"].ToString(),
+                CEP = _nfa.Tables["nfe_cab"].Columns["enderdest_cep"].ToString(),
+                cPais = Convert.ToInt32(_nfa.Tables["nfe_cab"].Columns["enderdest_cpais"].ToString()),
+                xPais = _nfa.Tables["nfe_cab"].Columns["enderdest_xpais"].ToString()
             };
             return enderDest;
         }
