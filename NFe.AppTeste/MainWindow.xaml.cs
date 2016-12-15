@@ -1256,7 +1256,7 @@ namespace NFe.AppTeste
                 //var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { "28150707703290000189550010000009441000029953", "28150707703290000189550010000009431000029948" });
 
                 TrataRetorno(retornoDownload);
-
+                
                 #endregion
             }
             catch (Exception ex)

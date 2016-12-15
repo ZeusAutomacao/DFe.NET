@@ -734,8 +734,12 @@
         <TabControl Name="TabInferior" Margin="384,281,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="228*"/>
+                        <ColumnDefinition Width="53*"/>
+                    </Grid.ColumnDefinitions>
                     <RichTextBox x:Name="RtbEnvioStr" Margin="0" VerticalScrollBarVisibility="Visible"
-                                 IsReadOnly="True">
+                                 IsReadOnly="True" Grid.ColumnSpan="2">
                         <FlowDocument />
                     </RichTextBox>
                 </Grid>
