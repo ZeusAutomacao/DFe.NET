@@ -40,7 +40,23 @@ namespace NFe.Utils
         private string _serial;
         private string _arquivo;
         private byte[] _arrayBytesArquivo;
+        private string _base64Arquivo;
 
+
+        /// <summary>
+        /// Base64 de bytes do certificado
+        /// </summary>
+        public string Base64Arquivo
+        {
+            get { return _base64Arquivo; }
+            set
+            {
+                if (value == _base64Arquivo) return;
+                _base64Arquivo = value;
+                _arrayBytesArquivo = System.Convert.FromBase64String(value);
+                OnPropertyChanged("ArrayBytesArquivo");
+            }
+        }
 
         /// <summary>
         /// Array de bytes do certificado
