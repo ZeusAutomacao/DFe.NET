@@ -859,17 +859,18 @@ namespace NFe.Servicos
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
+                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
 
-                    if (conteudo.StartsWith("<retNFe"))
+                    //conteudo.StartsWith("<retNFe")
+                    if (schema[0].Equals("resNFe"))
                     {
                         var retConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
                         chNFe = retConteudo.chNFe;
                     }
-                    else if (conteudo.StartsWith("<procEventoNFe"))
+                    else if (schema[0].Equals("procEventoNFe"))//conteudo.StartsWith("<procEventoNFe")
                     {
                         var procEventoNFeConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(
@@ -877,9 +878,7 @@ namespace NFe.Servicos
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
                     }
 
-                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
                     SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
-
                 }
             }
 
