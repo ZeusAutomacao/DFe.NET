@@ -53,7 +53,7 @@ namespace NFe.Utils
             {
                 if (value == _base64Arquivo) return;
                 _base64Arquivo = value;
-                _arrayBytesArquivo = System.Convert.FromBase64String(value);
+                ArrayBytesArquivo = System.Convert.FromBase64String(value);
                 OnPropertyChanged("ArrayBytesArquivo");
             }
         }
