@@ -249,7 +249,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -309,7 +309,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -393,7 +393,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -474,7 +474,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -725,7 +725,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -798,7 +798,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -888,7 +888,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -948,7 +948,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1083,7 +1083,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1148,7 +1148,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1215,7 +1215,7 @@ namespace NFe.Servicos
             }
             catch (Exception ex)
             {
-                throw new ExecucaoException(ex.ToString());
+                throw new ExecucaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
