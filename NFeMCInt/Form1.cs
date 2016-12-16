@@ -38,6 +38,7 @@ using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
 using System.Data;
+using NFe.Danfe.Fast.NFe;
 //using RichTextBox = System.Windows.Controls.RichTextBox;
 //using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 //using WebBrowser = System.Windows.Controls.WebBrowser;
@@ -61,8 +62,8 @@ namespace NFeMCInt
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            new SessionBLL().Connect(new SessionModel() { Server = "10.0.0.199", Database = "nova", User="root", Password = "beleza" });
-            
+            new SessionBLL().Connect(new SessionModel() { Server = "10.0.0.199", Database = "nova", User = "root", Password = "beleza" });
+
             ClienteBLL cBll = new ClienteBLL();
             ClientesModel c = cBll.FrameworkGetOneModel(1000);
         }
@@ -110,13 +111,14 @@ namespace NFeMCInt
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
+                //_nfe.SalvarArquivoXml(_configuracoes.CfgServico.DiretorioSalvarXml + "\\Teste.xml");
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
                 //_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
 
 
-                richTextBox1.Clear();             
+                richTextBox1.Clear();
 
                 //Assincrono
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFe.Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
@@ -128,23 +130,58 @@ namespace NFeMCInt
                 System.Threading.Thread.Sleep(3000);
 
                 var retornoRecibo = servicoNFe.NFeRetAutorizacao(retornoEnvio.Retorno.infRec.nRec);
-                
+
                 TrataRetorno(retornoRecibo);
 
                 richTextBox1.Text = retornoRecibo.RetornoCompletoStr;
 
-                //RetornoNfeConsultaProtocolo retorno = servicoNFe.NfeConsultaProtocolo(_nfe.infNFe.Id.Replace("NFe",""));
-                //richTextBox1.Text += retorno.RetornoCompletoStr;
+                textBox4.Text = retornoRecibo.Retorno.protNFe[0].infProt.cStat.ToString();
+                textBox5.Text = retornoRecibo.Retorno.protNFe[0].infProt.xMotivo;
+
+                if (retornoRecibo.Retorno.protNFe[0].infProt.cStat == 100)
+                {
+
+                    var nfeproc = new nfeProc
+                    {
+                        NFe = _nfe,
+                        protNFe = retornoRecibo.Retorno.protNFe[0],
+                        versao = retornoRecibo.Retorno.versao
+                    };
+                    if (nfeproc.protNFe != null)
+                    {
+                        var novoArquivo = Path.GetDirectoryName(_configuracoes.CfgServico.DiretorioSalvarXml) + @"\" + nfeproc.protNFe.infProt.chNFe +
+                                          "-procNfe.xml";
+                        FuncoesXml.ClasseParaArquivoXml(nfeproc, novoArquivo);
+                    }
+
+
+                    Imprimir(nfeproc.ObterXmlString());
+                    //var retornoDownload = servicoNFe.NfeDownloadNf("64877996000109", 
+                    //    new List<string>() { _nfa.Tables["nfe_cab"].Rows[0]["chnfe"].ToString() });
+
+                    ////Se desejar consultar mais de uma chave, use o serviço como indicado abaixo. É permitido consultar até 10 nfes de uma vez.
+                    ////Leia atentamente as informações do consumo deste serviço constantes no manual
+                    ////var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { "28150707703290000189550010000009441000029953", "28150707703290000189550010000009431000029948" });
+
+                    //TrataRetorno(retornoDownload);
+                }
+
+
 
                 #endregion
             }
             catch (Exception ex)
             {
+
+                richTextBox1.Text = ex.Message;
+                if (ex.InnerException != null)
+                    richTextBox1.Text += ex.InnerException.Message;
+
                 if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
                 {
                     //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
                     //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
-                    throw;
+                    //throw;
                 }
                 //if (!string.IsNullOrEmpty(ex.Message))
                 //    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
@@ -171,7 +208,7 @@ namespace NFeMCInt
                 transp = GetTransporte()
             };
 
-            for (var i = 0; i < 5; i++)
+            for (int i = 0; i < _nfa.Tables["nfe_item"].Rows.Count; i++)
             {
                 infNFe.det.Add(GetDetalhe(i, infNFe.emit.CRT, modelo));
             }
@@ -206,7 +243,8 @@ namespace NFeMCInt
                 cNF = _nfa.Tables["nfe_cab"].Rows[0]["ide_cnf"].ToString(),
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
-                verProc = "3.000"
+                verProc = "3.000",
+                idDest = (DestinoOperacao)Convert.ToInt32(_nfa.Tables["nfe_cab"].Rows[0]["ide_iddest"].ToString())
             };
 
             if (ide.tpEmis != TipoEmissao.teNormal)
@@ -231,7 +269,6 @@ namespace NFeMCInt
             #region V3.00
 
             if (versao != VersaoServico.ve310) return ide;
-            ide.idDest = DestinoOperacao.doInterna;
             ide.dhEmi = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
             if (ide.mod == ModeloDocumento.NFe)
@@ -239,8 +276,9 @@ namespace NFeMCInt
             else
                 ide.tpImp = TipoImpressao.tiNFCe;
             ide.procEmi = ProcessoEmissao.peAplicativoContribuinte;
-            ide.indFinal = ConsumidorFinal.cfConsumidorFinal; //NFCe: Tem que ser consumidor Final
-            ide.indPres = PresencaComprador.pcPresencial; //NFCe: deve ser 1 ou 4
+            ide.indFinal = ConsumidorFinal.cfNao; //NFCe: Tem que ser consumidor Final
+            ide.indPres = PresencaComprador.pcNao; //NFCe: deve ser 1 ou 4
+
 
             #endregion
 
@@ -294,13 +332,14 @@ namespace NFeMCInt
             {
                 dest.xNome = _nfa.Tables["nfe_cab"].Rows[0]["dest_xnome"].ToString(); //Obrigatório para NFe e opcional para NFCe
                 dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
+                dest.IE = _nfa.Tables["nfe_cab"].Rows[0]["dest_ie"].ToString();
 
                 //Verificando se está no ambiente de Homologação
                 if (_configuracoes.CfgServico.tpAmb == TipoAmbiente.taHomologacao)
                 {
                     dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-                    dest.IE = "";
-                   dest.CNPJ = "99999999000191";
+                    //dest.IE = "";
+                    //dest.CNPJ = "99999999000191";
                 }
 
             }
@@ -308,7 +347,7 @@ namespace NFeMCInt
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";
             if (versao != VersaoServico.ve310) return dest;
-            dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
+            dest.indIEDest = (indIEDest)Convert.ToInt32(_nfa.Tables["nfe_cab"].Rows[0]["indiedest"].ToString()); //NFCe: Tem que ser não contribuinte V3.00 Somente
             dest.email = _nfa.Tables["nfe_cab"].Rows[0]["dest_email"].ToString(); //V3.00 Somente
             return dest;
         }
@@ -338,51 +377,235 @@ namespace NFeMCInt
 
         protected virtual det GetDetalhe(int i, CRT crt, ModeloDocumento modelo)
         {
-            var det = new det
-            {
-                nItem = i + 1,
-                prod = GetProduto(i + 1),
-                imposto = new imposto
-                {
-                    vTotTrib = 0.17m,
-                    ICMS = new ICMS
-                    {
-                        TipoICMS =
-                            crt == CRT.SimplesNacional
-                                ? InformarCSOSN(Csosnicms.Csosn102)
-                                : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
-                    },
-                    //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
+            ICMSGeral ic = new NFe.Utils.Tributacao.Estadual.ICMSGeral();
+            var detalhe = new det();
 
-                    //ICMSUFDest = new ICMSUFDest()
-                    //{
-                    //    pFCPUFDest = 0,
-                    //    pICMSInter = 12,
-                    //    pICMSInterPart = 0,
-                    //    pICMSUFDest = 0,
-                    //    vBCUFDest = 0,
-                    //    vFCPUFDest = 0,
-                    //    vICMSUFDest = 0,
-                    //    vICMSUFRemet = 0
-                    //},
-                    COFINS =
-                        new COFINS
-                        {
-                            TipoCOFINS = new COFINSOutr { CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0 }
-                        },
-                    PIS = new PIS { TipoPIS = new PISOutr { CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0 } }
+            detalhe.nItem = i + 1;
+            detalhe.prod = new prod()
+            {
+                cProd = _nfa.Tables["nfe_item"].Rows[i]["prod_cprod"].ToString(),
+                cEAN = _nfa.Tables["nfe_item"].Rows[i]["prod_cean"].ToString(),
+                xProd = _nfa.Tables["nfe_item"].Rows[i]["prod_xprod"].ToString(),
+                NCM = _nfa.Tables["nfe_item"].Rows[i]["prod_ncm"].ToString(),
+                //EXTIPI = _nfa.Tables["nfe_item"].Rows[i]["prod_extipi"].ToString(),
+                CFOP = Convert.ToInt32(_nfa.Tables["nfe_item"].Rows[i]["prod_cfop"].ToString()),
+                uCom = _nfa.Tables["nfe_item"].Rows[i]["prod_ucom"].ToString(),
+                qCom = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_qcom"].ToString()),
+                vUnCom = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vuncom"].ToString()),
+                vProd = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vprod"].ToString()),
+                cEANTrib = _nfa.Tables["nfe_item"].Rows[i]["prod_ceantrib"].ToString(),
+                uTrib = _nfa.Tables["nfe_item"].Rows[i]["prod_utrib"].ToString(),
+                qTrib = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_qtrib"].ToString()),
+                vUnTrib = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vuntrib"].ToString()),
+                vFrete = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vfrete"].ToString()),
+                vSeg = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vseg"].ToString()),
+                vDesc = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_vdesc"].ToString()),
+                vOutro = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["prod_voutro"].ToString()),
+                indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
+                //CEST = _nfa.Tables["nfe_item"].Rows[i]["prod_cest"].ToString(),
+                //xPed = _nfa.Tables["nfe_item"].Rows[i]["xped"].ToString(),
+                //nItemPed = Convert.ToInt32(_nfa.Tables["nfe_item"].Rows[i]["nitemped"].ToString()),
+
+            };
+
+            string CSTstring = _nfa.Tables["nfe_item"].Rows[i]["icms_cst"].ToString();
+            string modBCString = _nfa.Tables["nfe_item"].Rows[i]["icms_modbc"].ToString();
+            string modBCSSTtring = _nfa.Tables["nfe_item"].Rows[i]["icms_modbcst"].ToString();
+            string origString = _nfa.Tables["nfe_item"].Rows[i]["icms_orig"].ToString();
+
+            DeterminacaoBaseIcms detBC = (DeterminacaoBaseIcms)int.Parse(modBCString);
+            DeterminacaoBaseIcmsSt detBCST = (DeterminacaoBaseIcmsSt)int.Parse(modBCSSTtring);
+            OrigemMercadoria origem = (OrigemMercadoria)int.Parse(origString);
+            Csticms cs = new Csticms();
+
+            switch (CSTstring)
+            {
+                case "00":
+                    cs = Csticms.Cst00;
+                    break;
+                case "10":
+                    cs = Csticms.Cst10;
+                    break;
+                case "40":
+                    cs = Csticms.Cst40;
+                    break;
+                case "41":
+                    cs = Csticms.Cst41;
+                    break;
+                case "50":
+                    cs = Csticms.Cst50;
+                    break;
+                case "90":
+                    cs = Csticms.Cst90;
+                    break;
+                default:
+                    break;
+            }
+
+            ICMSBasico icms = new ICMS10();
+
+            switch (cs)
+            {
+                case Csticms.Cst00:
+                    icms = new ICMS00()
+                    {
+                        CST = cs,
+                        vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vbc"].ToString()),
+                        pICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_picms"].ToString()),
+                        vICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vicms"].ToString()),
+                        modBC = detBC,
+                        orig = origem
+                    };
+
+                    break;
+                case Csticms.Cst10:
+                    icms = new ICMS10()
+                    {
+                        CST = cs,
+                        vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vbc"].ToString()),
+                        pICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_picms"].ToString()),
+                        vICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vicms"].ToString()),
+                        pMVAST = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_pmvast"].ToString()),
+                        pRedBCST = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_predbcst"].ToString()),
+                        vBCST = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vbcst"].ToString()),
+                        pICMSST = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_picmsst"].ToString()),
+                        vICMSST = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vicmsst"].ToString()),
+                        modBC = detBC,
+                        modBCST = detBCST,
+                        orig = origem
+
+                    };
+                    break;
+                case Csticms.CstPart10:
+                    break;
+                case Csticms.Cst20:
+                    icms = new ICMS20();
+                    break;
+                case Csticms.Cst30:
+                    break;
+                case Csticms.Cst40:
+                    icms = new ICMS40()
+                    {
+                        CST = cs,
+                        orig = origem,
+                        motDesICMS = MotivoDesoneracaoIcms.MdiOutros,
+                        vICMSDeson = 0
+                    };
+                    break;
+                case Csticms.Cst41:
+                    icms = new ICMS40()
+                    {
+                        CST = cs,
+                        orig = origem,
+
+                    };
+                    break;
+                case Csticms.CstRep41:
+                    break;
+                case Csticms.Cst50:
+                    icms = new ICMS51()
+                    {
+                        CST = cs,
+                        vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vbc"].ToString()),
+                        pICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_picms"].ToString()),
+                        vICMS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["icms_vicms"].ToString()),
+                        modBC = detBC,
+                        orig = origem,
+
+                    };
+                    break;
+                case Csticms.Cst51:
+                    break;
+                case Csticms.Cst60:
+                    break;
+                case Csticms.Cst70:
+                    break;
+                case Csticms.Cst90:
+                    break;
+                case Csticms.CstPart90:
+                    break;
+                default:
+                    break;
+            }
+            CSTPIS cstpis = new CSTPIS();
+            switch (_nfa.Tables["nfe_item"].Rows[i]["cofins_cst"].ToString())
+            {
+                case "01":
+                    cstpis = CSTPIS.pis01;
+                    break;
+                case "49":
+                    cstpis = CSTPIS.pis49;
+                    break;
+                case "50":
+                    cstpis = CSTPIS.pis50;
+                    break;
+                default:
+                    cstpis = (CSTPIS)Convert.ToInt32(_nfa.Tables["nfe_item"].Rows[i]["pis_cst"].ToString());
+                    break;
+            }
+            PIS pis = new PIS()
+            {
+                TipoPIS = new PISAliq()
+                {
+                    CST = cstpis,
+                    pPIS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["pis_ppis"].ToString()),
+                    vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["pis_vbc"].ToString()),
+                    vPIS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["pis_vpis"].ToString()),
+                }
+            };
+            CSTCOFINS cstcofins = new CSTCOFINS();
+            switch (_nfa.Tables["nfe_item"].Rows[i]["cofins_cst"].ToString())
+            {
+                case "01":
+                    cstcofins = CSTCOFINS.cofins01;
+                    break;
+                case "49":
+                    cstcofins = CSTCOFINS.cofins49;
+                    break;
+                case "50":
+                    cstcofins = CSTCOFINS.cofins50;
+                    break;
+                default:
+                    cstcofins = (CSTCOFINS)Convert.ToInt32(_nfa.Tables["nfe_item"].Rows[i]["cofins_cst"].ToString());
+                    break;
+            }
+            COFINS cofins = new COFINS()
+            {
+                TipoCOFINS = new COFINSAliq()
+                {
+                    CST = cstcofins,
+                    pCOFINS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["cofins_pcofins"].ToString()),
+                    vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["cofins_vbc"].ToString()),
+                    vCOFINS = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["cofins_vcofins"].ToString()),
                 }
             };
 
-            if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
-                det.imposto.IPI = new IPI()
+            IPI ipi = new IPI()
+            {
+                cEnq = 150,
+                //qSelo = 0,
+                //cSelo = "",
+                TipoIPI = new IPITrib()
                 {
-                    cEnq = 999,
-                    TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m }
-                };
-            //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
+                    CST = (CSTIPI.ipi99),// Convert.ToInt32(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_cst"].ToString()),
+                    pIPI = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_pipi"].ToString()),
+                    vBC = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_vbc"].ToString()),
+                    vIPI = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_vipi"].ToString()),
+                    //qUnid = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_qunid"].ToString()),
+                    //vUnid = Convert.ToDecimal(_nfa.Tables["nfe_item"].Rows[i]["ipitrib_vunid"].ToString())
+                }
+            };
+            imposto imp = new imposto();
 
-            return det;
+            //detalhe.impostoDevol = new NFe.Classes.Informacoes.Detalhe.impostoDevol() { };
+            //detalhe.infAdProd = "";
+            imp.ICMS = new ICMS() { TipoICMS = icms };
+            imp.IPI = ipi;
+            imp.PIS = pis;
+            imp.COFINS = cofins;
+            detalhe.imposto = imp;
+
+            return detalhe;
         }
 
         protected virtual prod GetProduto(int i)
@@ -493,38 +716,67 @@ namespace NFeMCInt
 
         protected virtual total GetTotal(VersaoServico versao, List<det> produtos)
         {
-            var icmsTot = new ICMSTot
+            ICMSTot total = new ICMSTot()
             {
-                vProd = produtos.Sum(p => p.prod.vProd),
-                vNF = produtos.Sum(p => p.prod.vProd) - produtos.Sum(p => p.prod.vDesc ?? 0),
-                vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
-                vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
+                vBC = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vbc"].ToString()),
+                vICMS = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vicms"].ToString()),
+                vBCST = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vbcst"].ToString()),
+                vST = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vbc"].ToString()),
+                vProd = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vprod"].ToString()),
+                vFrete = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vfrete"].ToString()),
+                vSeg = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vseg"].ToString()),
+                vDesc = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vdesc"].ToString()),
+                vII = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vii"].ToString()),
+                vIPI = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vipi"].ToString()),
+                vPIS = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vpis"].ToString()),
+                vCOFINS = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vcofins"].ToString()),
+                vOutro = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_voutro"].ToString()),
+                vNF = Convert.ToDecimal(_nfa.Tables["nfe_cab"].Rows[0]["icmstot_vnf"].ToString()),
+
+
             };
+
+
+
+
+            //var icmsTot = new ICMSTot
+            //{
+            //    vProd = produtos.Sum(p => p.prod.vProd),
+            //    vNF = produtos.Sum(p => p.prod.vProd) - produtos.Sum(p => p.prod.vDesc ?? 0),
+            //    vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
+            //    vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
+            //};
             if (versao == VersaoServico.ve310)
-                icmsTot.vICMSDeson = 0;
+                total.vICMSDeson = 0;
 
-            foreach (var produto in produtos)
-            {
-                if (produto.imposto.IPI != null && produto.imposto.IPI.TipoIPI.GetType() == typeof(IPITrib))
-                    icmsTot.vIPI = icmsTot.vIPI + ((IPITrib)produto.imposto.IPI.TipoIPI).vIPI ?? 0;
-                if (produto.imposto.ICMS.TipoICMS.GetType() == typeof(ICMS00))
-                {
-                    icmsTot.vBC = icmsTot.vBC + ((ICMS00)produto.imposto.ICMS.TipoICMS).vBC;
-                    icmsTot.vICMS = icmsTot.vICMS + ((ICMS00)produto.imposto.ICMS.TipoICMS).vICMS;
-                }
-                if (produto.imposto.ICMS.TipoICMS.GetType() == typeof(ICMS20))
-                {
-                    icmsTot.vBC = icmsTot.vBC + ((ICMS20)produto.imposto.ICMS.TipoICMS).vBC;
-                    icmsTot.vICMS = icmsTot.vICMS + ((ICMS20)produto.imposto.ICMS.TipoICMS).vICMS;
-                }
-                //Outros Ifs aqui, caso vá usar as classes ICMS00, ICMS10 para totalizar
-            }
+            //foreach (var produto in produtos)
+            //{
+            //    if (produto.imposto.IPI != null && produto.imposto.IPI.TipoIPI.GetType() == typeof(IPITrib))
+            //        icmsTot.vIPI = icmsTot.vIPI + ((IPITrib)produto.imposto.IPI.TipoIPI).vIPI ?? 0;
+            //    if (produto.imposto.ICMS.TipoICMS.GetType() == typeof(ICMS00))
+            //    {
+            //        icmsTot.vBC = icmsTot.vBC + ((ICMS00)produto.imposto.ICMS.TipoICMS).vBC;
+            //        icmsTot.vICMS = icmsTot.vICMS + ((ICMS00)produto.imposto.ICMS.TipoICMS).vICMS;
+            //    }
+            //    if (produto.imposto.ICMS.TipoICMS.GetType() == typeof(ICMS20))
+            //    {
+            //        icmsTot.vBC = icmsTot.vBC + ((ICMS20)produto.imposto.ICMS.TipoICMS).vBC;
+            //        icmsTot.vICMS = icmsTot.vICMS + ((ICMS20)produto.imposto.ICMS.TipoICMS).vICMS;
+            //    }
+            //    if (produto.imposto.COFINS.GetType() == typeof(COFINS))
+            //    {
+            //        icmsTot.vCOFINS = ((COFINSBasico)produto.imposto.COFINS.TipoCOFINS).;
+            //        icmsTot.vICMS = icmsTot.vICMS + ((ICMS20)produto.imposto.ICMS.TipoICMS).vICMS;
 
-            var t = new total { ICMSTot = icmsTot };
+            //        //Outros Ifs aqui, caso vá usar as classes ICMS00, ICMS10 para totalizar
+            //    }
+
+
+            //}
+            var t = new total { ICMSTot = total };
             return t;
+
         }
-
-
 
         protected virtual transp GetTransporte()
         {
@@ -583,6 +835,7 @@ namespace NFeMCInt
         {
             richTextBox1.Clear();
             //webBrowser1.
+
 
             EnvioStr(richTextBox1, retornoBasico.EnvioStr);
             RetornoStr(richTextBox1, retornoBasico.RetornoStr);
@@ -652,14 +905,109 @@ namespace NFeMCInt
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
-                    Convert.ToInt32(sequenciaEvento) - 52000, protocolo, chave, justificativa, cpfcnpj);
+                    Convert.ToInt32(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
                 TrataRetorno(retornoCancelamento);
+
+                richTextBox1.Text = retornoCancelamento.RetornoCompletoStr;
 
                 #endregion
             }
             catch (Exception ex)
             {
-                
+
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                #region Consulta Recibo de lote
+
+                _nfa = new NFeBLL().GetNfaDataTable(textBox3.Text);
+
+                var recibo = _nfa.Tables["nfe_cab"].Rows[0]["nrec"].ToString();
+                if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoRecibo = servicoNFe.NFeRetAutorizacao(recibo);
+
+                TrataRetorno(retornoRecibo);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                #region Consulta Situação NFe
+                _nfa = new NFeBLL().GetNfaDataTable(textBox3.Text);
+                var chave = _nfa.Tables["nfe_cab"].Rows[0]["chnfe"].ToString();
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoConsulta = servicoNFe.NfeConsultaProtocolo(chave);
+                TrataRetorno(retornoConsulta);
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            _nfa = new NFeBLL().GetNfaDataTable(textBox1.Text);
+            Imprimir(_nfa.Tables["nfe_cab"].Rows[0]["xml"].ToString());
+        }
+
+        private void Imprimir(string xml)
+        {
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+
+                var arquivoXml = xml;// Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+                var proc = new nfeProc().CarregarDeXmlString(arquivoXml);
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
+                    throw new Exception("O XML informado não é um NFe!");
+
+                #endregion
+
+                #region Abre a visualização do relatório para impressão
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe());
+                danfe.Visualizar();
+                //danfe.Imprimir();
+                //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
+
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            //Exemplo com using para chamar o método Dispose da classe.
+            //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
+            using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
+            {
+                var retornoStatus = servicoNFe.NfeStatusServico();
+                TrataRetorno(retornoStatus);
             }
         }
     }
