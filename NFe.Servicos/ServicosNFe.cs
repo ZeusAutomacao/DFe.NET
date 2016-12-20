@@ -77,6 +77,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Utils.Excecoes;
 
 namespace NFe.Servicos
 {
@@ -1027,9 +1028,6 @@ namespace NFe.Servicos
             {
                 throw new ExecucaoException(ex.Message);
             }
-            else
-                retorno = ws.Execute(dadosEnvio);
-
 
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
