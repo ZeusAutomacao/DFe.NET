@@ -85,10 +85,14 @@ namespace NFe.Classes.Informacoes.Destinatario
             get { return _cep; }
             set
             {
-                if (!value.All(char.IsDigit))
-                    throw new Exception(@"enderDest\CEP deve receber somente números!");
-                if (value.Length != 8)
-                    throw new Exception(string.Format(@"enderDest\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
+                if (!string.IsNullOrEmpty(value))
+                {
+                    value = value.Replace("-", "");
+                    if (!value.All(char.IsDigit))
+                        throw new Exception(@"enderDest\CEP deve receber somente números!");
+                    if (value.Length != 8)
+                        throw new Exception(string.Format(@"enderDest\CEP deve ter 8 números. Tamanho informado: {0}!", value.Length));
+                }
                 _cep = value;
             }
         }

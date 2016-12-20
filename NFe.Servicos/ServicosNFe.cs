@@ -59,7 +59,6 @@ using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Utils.DistribuicaoDFe;
-using NFe.Utils.Exceptions;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
@@ -74,6 +73,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
@@ -97,6 +97,9 @@ namespace NFe.Servicos
                 ? CertificadoDigital.ObterDoRepositorio(_cFgServico.Certificado.Serial, _cFgServico.Certificado.Senha)
                 : CertificadoDigital.ObterDeArquivo(_cFgServico.Certificado.Arquivo, _cFgServico.Certificado.Senha);
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            //Define a versão do protocolo de segurança
+            ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
         }
 
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
@@ -1007,13 +1010,12 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
-            var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
-
             XmlNode retorno;
             try
             {
                 if (compactarMensagem)
                 {
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
                     retorno = ws.ExecuteZip(xmlCompactado);
                 }
                 else
@@ -1025,6 +1027,9 @@ namespace NFe.Servicos
             {
                 throw new ExecucaoException(ex.Message);
             }
+            else
+                retorno = ws.Execute(dadosEnvio);
+
 
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);

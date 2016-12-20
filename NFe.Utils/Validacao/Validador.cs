@@ -35,7 +35,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Utils.Exceptions;
+using NFe.Utils.Excecoes;
 
 namespace NFe.Utils.Validacao
 {

@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.IO;
+using System.Net;
 using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -49,6 +50,7 @@ namespace NFe.AppTeste
             CfgServico = ConfiguracaoServico.Instancia;
             CfgServico.tpAmb = TipoAmbiente.taHomologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
+            CfgServico.ProtocoloDeSeguranca = ServicePointManager.SecurityProtocol;
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
             EnderecoEmitente = new enderEmit();
             ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
