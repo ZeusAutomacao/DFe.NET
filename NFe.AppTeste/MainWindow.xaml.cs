@@ -70,6 +70,7 @@ using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
+using NFe.Utils.Exceptions;
 
 namespace NFe.AppTeste
 {
@@ -125,6 +126,14 @@ namespace NFe.AppTeste
                 }
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -187,6 +196,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -212,6 +229,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoConsulta);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -240,6 +265,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoEnvio);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -310,6 +343,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -343,6 +384,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
@@ -370,6 +419,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoRecibo);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -405,7 +462,7 @@ namespace NFe.AppTeste
                 var modelostr = Funcoes.InpuBox(this, "Inutilizar Numeração", "Modelo");
                 if (string.IsNullOrEmpty(modelostr)) throw new Exception("O Modelo deve ser informado!");
 
-                var modelo = (ModeloDocumento) Convert.ToInt16(modelostr);
+                var modelo = (ModeloDocumento)Convert.ToInt16(modelostr);
 
                 var serie = Funcoes.InpuBox(this, "Inutilizar Numeração", "Série");
                 if (string.IsNullOrEmpty(serie)) throw new Exception("A série deve ser informada!");
@@ -427,6 +484,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoConsulta);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -464,6 +529,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoCartaCorrecao);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -505,6 +578,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -543,6 +624,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoEpec);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -724,6 +813,14 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem("Arquivo salvo em " + novoArquivo, "Atenção", MessageBoxButton.OK);
                 }
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -744,6 +841,14 @@ namespace NFe.AppTeste
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -777,6 +882,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoConsulta);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1259,6 +1372,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -1321,6 +1442,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoCsc);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1405,6 +1534,14 @@ namespace NFe.AppTeste
 
                 #endregion
             }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
             catch (Exception ex)
             {
                 if (!string.IsNullOrEmpty(ex.Message))
@@ -1453,6 +1590,14 @@ namespace NFe.AppTeste
                 TrataRetorno(retornoNFeDistDFe);
 
                 #endregion
+            }
+            catch (ExecucaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
