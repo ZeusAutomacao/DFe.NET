@@ -64,13 +64,13 @@ using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
 using NFe.Utils.Email;
+using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
-using NFe.Utils.Exceptions;
 
 namespace NFe.AppTeste
 {
@@ -127,13 +127,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -196,13 +196,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -230,13 +230,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -266,13 +266,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -343,13 +343,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -384,13 +384,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -420,13 +420,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -485,13 +485,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -530,13 +530,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -578,13 +578,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -625,13 +625,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -813,13 +813,13 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem("Arquivo salvo em " + novoArquivo, "Atenção", MessageBoxButton.OK);
                 }
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -842,13 +842,13 @@ namespace NFe.AppTeste
 
                 TrataRetorno(retornoEnvio);
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -883,13 +883,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1372,13 +1372,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1443,13 +1443,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1534,13 +1534,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1591,13 +1591,13 @@ namespace NFe.AppTeste
 
                 #endregion
             }
-            catch (ExecucaoException ex)
+            catch (ComunicacaoException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-            catch (ValidacaoException ex)
+            catch (ValidacaoSchemaException ex)
             {
-                Funcoes.Mensagem(ex.Titulo + ex.ToString(), "Erro", MessageBoxButton.OK);
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {

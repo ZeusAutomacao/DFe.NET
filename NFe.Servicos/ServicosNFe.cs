@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
@@ -77,10 +78,11 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Utils.Excecoes;
 
 namespace NFe.Servicos
 {
-    public sealed class ServicosNFe: IDisposable
+    public sealed class ServicosNFe : IDisposable
     {
         private readonly X509Certificate _certificado;
         private readonly ConfiguracaoServico _cFgServico;
@@ -133,7 +135,8 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
+                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -144,18 +147,19 @@ namespace NFe.Servicos
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310 &
+                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
                     }
                     return new NfeConsulta2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NfeRecepcao:
                     return new NfeRecepcao2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NfeRetRecepcao:
                     return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
-                
+
                 case ServicoNFe.NFeAutorizacao:
                     throw new Exception(string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
@@ -170,7 +174,8 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 & _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
+                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -187,9 +192,11 @@ namespace NFe.Servicos
                     switch (_cFgServico.cUF)
                     {
                         case Estado.CE:
-                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
+                                _cFgServico.TimeOut);
                     }
-                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado, _cFgServico.TimeOut);
+                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
+                        _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeDownloadNF:
                     return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);
@@ -250,9 +257,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosStatus);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -260,7 +267,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-sta.xml", retornoXmlString);
 
-            return new RetornoNfeStatusServico(pedStatus.ObterXmlString(), retConsStatServ.ObterXmlString(), retornoXmlString, retConsStatServ);
+            return new RetornoNfeStatusServico(pedStatus.ObterXmlString(), retConsStatServ.ObterXmlString(),
+                retornoXmlString, retConsStatServ);
 
             #endregion
         }
@@ -271,7 +279,8 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
         public RetornoNfeConsultaProtocolo NfeConsultaProtocolo(string chave)
         {
-            var versaoServico = ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
+            var versaoServico =
+                ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
 
             #region Cria o objeto wdsl para consulta
 
@@ -310,9 +319,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosConsulta);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -320,7 +329,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(chave + "-sit.xml", retornoXmlString);
 
-            return new RetornoNfeConsultaProtocolo(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+            return new RetornoNfeConsultaProtocolo(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
+                retornoXmlString, retConsulta);
 
             #endregion
         }
@@ -336,7 +346,8 @@ namespace NFe.Servicos
         /// <param name="numeroFinal"></param>
         /// <param name="justificativa"></param>
         /// <returns>Retorna um objeto da classe RetornoNfeInutilizacao com o retorno do serviço NfeInutilizacao</returns>
-        public RetornoNfeInutilizacao NfeInutilizacao(string cnpj, int ano, ModeloDocumento modelo, int serie, int numeroInicial, int numeroFinal, string justificativa)
+        public RetornoNfeInutilizacao NfeInutilizacao(string cnpj, int ano, ModeloDocumento modelo, int serie,
+            int numeroInicial, int numeroFinal, string justificativa)
         {
             var versaoServico = ServicoNFe.NfeInutilizacao.VersaoServicoParaString(_cFgServico.VersaoNfeInutilizacao);
 
@@ -372,8 +383,10 @@ namespace NFe.Servicos
             };
 
             var numId = string.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
-                pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod, pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
-                pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'), pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
+                pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod,
+                pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
+                pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
+                pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
             pedInutilizacao.Assina();
@@ -394,9 +407,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosInutilizacao);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -404,7 +417,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
-            return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(), retornoXmlString, retInutNFe);
+            return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
+                retornoXmlString, retInutNFe);
 
             #endregion
         }
@@ -427,9 +441,10 @@ namespace NFe.Servicos
             };
             if (
                 !listaEventos.Contains(servicoEvento))
-                throw new Exception(string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
-                    MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
-            
+                throw new Exception(
+                    string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
+                        MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
+
             var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             #region Cria o objeto wdsl para consulta
@@ -455,7 +470,8 @@ namespace NFe.Servicos
 
             foreach (var evento in eventos)
             {
-                evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe + evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
+                evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
+                                      evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
                 evento.Assina();
             }
 
@@ -475,9 +491,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosEvento);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -493,7 +509,9 @@ namespace NFe.Servicos
             {
                 var eve = evento;
                 var retEvento = (from retevento in retEnvEvento.retEvento
-                    where retevento.infEvento.chNFe == eve.infEvento.chNFe && retevento.infEvento.tpEvento == eve.infEvento.tpEvento
+                    where
+                    retevento.infEvento.chNFe == eve.infEvento.chNFe &&
+                    retevento.infEvento.tpEvento == eve.infEvento.tpEvento
                     select retevento).SingleOrDefault();
 
                 var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = retEvento};
@@ -505,7 +523,8 @@ namespace NFe.Servicos
 
             #endregion
 
-            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString, retEnvEvento, listprocEventoNFe);
+            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString,
+                retEnvEvento, listprocEventoNFe);
 
             #endregion
         }
@@ -520,10 +539,13 @@ namespace NFe.Servicos
         /// <param name="justificativa"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var detEvento = new detEvento {nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa};
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -555,10 +577,13 @@ namespace NFe.Servicos
         /// <param name="correcao"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe, string correcao, string cpfcnpj)
+        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
+            string correcao, string cpfcnpj)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null};
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var detEvento = new detEvento {versao = versaoServico, xCorrecao = correcao, xJust = null};
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -581,13 +606,23 @@ namespace NFe.Servicos
             return retorno;
         }
 
-        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento, string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj, string justificativa = null)
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
+            string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+            string justificativa = null)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { versao = versaoServico, descEvento = tipoEventoManifestacaoDestinatario.Descricao(), xJust = justificativa };
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = tipoEventoManifestacaoDestinatario.Descricao(),
+                xJust = justificativa
+            };
             var infEvento = new infEventoEnv
             {
-                cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN, //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
+                cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN,
+                //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
@@ -601,9 +636,10 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+            var evento = new evento {versao = versaoServico, infEvento = infEvento};
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+            var retorno = RecepcaoEvento(idlote, new List<evento> {evento},
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
 
@@ -615,9 +651,11 @@ namespace NFe.Servicos
         /// <param name="nfe"></param>
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe, string veraplic)
+        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe,
+            string veraplic)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
@@ -628,7 +666,10 @@ namespace NFe.Servicos
                 cOrgaoAutor = nfe.infNFe.ide.cUF,
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
-                dhEmi = !string.IsNullOrEmpty(nfe.infNFe.ide.dhEmi) ? nfe.infNFe.ide.dhEmi : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEmi =
+                    !string.IsNullOrEmpty(nfe.infNFe.ide.dhEmi)
+                        ? nfe.infNFe.ide.dhEmi
+                        : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
                 dest = new dest
@@ -671,9 +712,11 @@ namespace NFe.Servicos
         /// <param name="tipoDocumento">Tipo de documento a ser consultado</param>
         /// <param name="documento">Documento a ser consultado</param>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaCadastro com o retorno do serviço NfeConsultaCadastro</returns>
-        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento, string documento)
+        public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento,
+            string documento)
         {
-            var versaoServico = ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
+            var versaoServico =
+                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
 
             #region Cria o objeto wdsl para consulta
 
@@ -726,9 +769,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosConsulta);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -736,7 +779,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-cad.xml", retornoXmlString);
 
-            return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+            return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
+                retornoXmlString, retConsulta);
 
             #endregion
         }
@@ -749,9 +793,11 @@ namespace NFe.Servicos
         /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
         /// <param name="nSU">Número Sequencial Único</param>
         /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
-        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU, string nSU = "0")
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU,
+            string nSU = "0")
         {
-            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
+            var versaoServico =
+                ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
 
             #region Cria o objeto wdsl para consulta
 
@@ -772,7 +818,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
                 cUFAutor = _cFgServico.cUF,
-                distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') }
+                distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')}
 
             };
 
@@ -781,7 +827,7 @@ namespace NFe.Servicos
             if (documento.Length > 11)
                 pedDistDFeInt.CNPJ = documento;
             if (!nSU.Equals("0"))
-                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
 
             #endregion
 
@@ -799,9 +845,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosConsulta);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -810,6 +856,7 @@ namespace NFe.Servicos
             SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
+
             if (retConsulta.loteDistDFeInt != null)
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
@@ -820,12 +867,15 @@ namespace NFe.Servicos
 
                     if (conteudo.StartsWith("<retNFe"))
                     {
-                        var retConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                        var retConteudo =
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
                         chNFe = retConteudo.chNFe;
                     }
                     else if (conteudo.StartsWith("<procEventoNFe"))
                     {
-                        var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
+                        var procEventoNFeConteudo =
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(
+                                conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
                     }
 
@@ -834,9 +884,11 @@ namespace NFe.Servicos
 
                 }
             }
+
             #endregion
 
-            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(),
+                retornoXmlString, retConsulta);
 
             #endregion
         }
@@ -875,7 +927,8 @@ namespace NFe.Servicos
 
             var xmlEnvio = pedEnvio.ObterXmlString();
 
-            if (_cFgServico.cUF == Estado.PR) //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
+            if (_cFgServico.cUF == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
             Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio);
@@ -889,9 +942,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosEnvio);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -899,7 +952,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 
-            return new RetornoNfeRecepcao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
+            return new RetornoNfeRecepcao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString,
+                retEnvio);
 
             #endregion
         }
@@ -949,9 +1003,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosRecibo);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -959,7 +1013,8 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(recibo + "-pro-rec.xml", retornoXmlString);
 
-            return new RetornoNfeRetRecepcao(pedRecibo.ObterXmlString(), retRecibo.ObterXmlString(), retornoXmlString, retRecibo);
+            return new RetornoNfeRetRecepcao(pedRecibo.ObterXmlString(), retRecibo.ObterXmlString(), retornoXmlString,
+                retRecibo);
 
             #endregion
         }
@@ -976,7 +1031,8 @@ namespace NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem = false)
+        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
+            bool compactarMensagem = false)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
@@ -1001,7 +1057,8 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlEnvio = pedEnvio.ObterXmlString();
-            if (_cFgServico.cUF == Estado.PR) //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
+            if (_cFgServico.cUF == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
             Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
@@ -1023,13 +1080,10 @@ namespace NFe.Servicos
                     retorno = ws.Execute(dadosEnvio);
                 }
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
-            else
-                retorno = ws.Execute(dadosEnvio);
-
 
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
@@ -1086,9 +1140,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosRecibo);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1151,9 +1205,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosDownload);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1218,9 +1272,9 @@ namespace NFe.Servicos
             {
                 retorno = ws.Execute(dadosAdmnistracaoCsc);
             }
-            catch (Exception ex)
+            catch (WebException ex)
             {
-                throw new ExecucaoException(ex.Message);
+                throw new ComunicacaoException(ex.Message);
             }
 
             var retornoXmlString = retorno.OuterXml;

@@ -30,65 +30,23 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.IO;
-using System.IO.Compression;
-using System.Text;
+using System;
+using NFe.Utils.NFe;
 
-namespace NFe.Utils
+namespace NFe.Utils.Excecoes
 {
-    public static class Compressao
+    /// <summary>
+    /// Utilize essa classe para determinar se houve erros de validação de schema XSD
+    /// Na biblioteca, são realizadas validações de schema XSD
+    /// <para>1 - No consumo de qualquer serviço, o pacote a ser enviado para a SEFAZ é validado, para garantir que está de acordo com a estrutura esperada</para>
+    /// <para>2 - No método de extensão <see cref="ExtNFe.Valida"/>, responsável por validar, contra o schema, um objeto NFe</para>    
+    /// </summary>
+    public class ValidacaoSchemaException : Exception
     {
-        private static void CopiarPara(Stream src, Stream dest)
-        {
-            var bytes = new byte[4096];
-
-            int cnt;
-
-            while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
-            {
-                dest.Write(bytes, 0, cnt);
-            }
-        }
-
         /// <summary>
-        /// Compacta uma string para GZip
+        /// Houve erros de validação de schema XSD
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static byte[] Zip(string str)
-        {
-            var bytes = Encoding.UTF8.GetBytes(str);
-
-            using (var msi = new MemoryStream(bytes))
-            using (var mso = new MemoryStream())
-            {
-                using (var gs = new GZipStream(mso, CompressionMode.Compress))
-                {
-                    CopiarPara(msi, gs);
-                }
-
-                return mso.ToArray();
-            }
-        }
-
-        /// <summary>
-        /// Descompacta uma string GZip
-        /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
-        public static string Unzip(byte[] bytes)
-        {
-            using (var msi = new MemoryStream(bytes))
-            using (var mso = new MemoryStream())
-            {
-                using (var gs = new GZipStream(msi, CompressionMode.Decompress))
-                {
-                    CopiarPara(gs, mso);
-                }
-
-                return Encoding.UTF8.GetString(mso.ToArray());
-            }
-        }
-
+        /// <param name="message"></param>
+        public ValidacaoSchemaException(string message) : base(string.Format("Erros na validação:\n {0}", message)) {}
     }
 }
