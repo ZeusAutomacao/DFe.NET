@@ -76,6 +76,9 @@ namespace NFe.Utils
         ///     Senha do certificado digital
         /// </summary>
         public string Senha { get; set; }
+        
+        [XmlIgnore]
+        public System.Security.Cryptography.X509Certificates.X509Certificate2 CertificadoCarregado { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

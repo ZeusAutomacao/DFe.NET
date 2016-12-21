@@ -52,10 +52,21 @@ namespace NFe.Utils.Assinatura
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var certificado = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
-                ? CertificadoDigital.ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial, ConfiguracaoServico.Instancia.Certificado.Senha)
-                : CertificadoDigital.ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo, ConfiguracaoServico.Instancia.Certificado.Senha);
+            System.Security.Cryptography.X509Certificates.X509Certificate2 certificado = null;
 
+            if (ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado != null)
+            {
+                certificado = ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado;
+            }
+            else
+            {
+                certificado = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
+                    ? CertificadoDigital.ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial, ConfiguracaoServico.Instancia.Certificado.Senha)
+                    : CertificadoDigital.ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo, ConfiguracaoServico.Instancia.Certificado.Senha);
+
+                ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado = certificado;
+            }
+            
             var documento = new XmlDocument {PreserveWhitespace = true};
             documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
             var docXml = new SignedXml(documento) {SigningKey = certificado.PrivateKey};
