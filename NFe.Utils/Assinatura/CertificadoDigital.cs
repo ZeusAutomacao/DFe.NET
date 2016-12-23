@@ -135,5 +135,33 @@ namespace NFe.Utils.Assinatura
             var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
             return certificado;
         }
+
+        private static X509Certificate2 _certificado;
+
+        /// <summary>
+        /// Obtém um objeto contendo o certificado digital
+        /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
+        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
+        /// senão será obtido pelo método <see cref="ObterDoRepositorio()"/> </para>
+        /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
+        /// </summary>
+        public static X509Certificate2 ObterCertificado()
+        {
+            if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache)
+                return ObterDadosCertificado();
+            if (_certificado != null)
+                return _certificado;
+            _certificado = ObterDadosCertificado();
+            return _certificado;
+        }
+
+        private static X509Certificate2 ObterDadosCertificado()
+        {
+            return string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
+                ? ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial,
+                    ConfiguracaoServico.Instancia.Certificado.Senha)
+                : ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo,
+                    ConfiguracaoServico.Instancia.Certificado.Senha);
+        }
     }
 }

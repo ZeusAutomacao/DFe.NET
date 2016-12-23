@@ -52,46 +52,41 @@ namespace NFe.Utils.Assinatura
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            System.Security.Cryptography.X509Certificates.X509Certificate2 certificado = null;
-
-            if (ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado != null)
+            var certificado = CertificadoDigital.ObterCertificado();
+            try
             {
-                certificado = ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado;
+                var documento = new XmlDocument { PreserveWhitespace = true };
+                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+                var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
+                var reference = new Reference { Uri = "#" + id };
+
+                // adicionando EnvelopedSignatureTransform a referencia
+                var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
+                reference.AddTransform(envelopedSigntature);
+
+                var c14Transform = new XmlDsigC14NTransform();
+                reference.AddTransform(c14Transform);
+
+                docXml.AddReference(reference);
+
+                // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
+                var keyInfo = new KeyInfo();
+                keyInfo.AddClause(new KeyInfoX509Data(certificado));
+
+                docXml.KeyInfo = keyInfo;
+                docXml.ComputeSignature();
+
+                //// recuperando a representação do XML assinado
+                var xmlDigitalSignature = docXml.GetXml();
+                var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
+                return assinatura;
             }
-            else
+            finally
             {
-                certificado = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.Certificado.Arquivo)
-                    ? CertificadoDigital.ObterDoRepositorio(ConfiguracaoServico.Instancia.Certificado.Serial, ConfiguracaoServico.Instancia.Certificado.Senha)
-                    : CertificadoDigital.ObterDeArquivo(ConfiguracaoServico.Instancia.Certificado.Arquivo, ConfiguracaoServico.Instancia.Certificado.Senha);
-
-                ConfiguracaoServico.Instancia.Certificado.CertificadoCarregado = certificado;
+                if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache)
+                    certificado.Reset();
             }
-            
-            var documento = new XmlDocument {PreserveWhitespace = true};
-            documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-            var docXml = new SignedXml(documento) {SigningKey = certificado.PrivateKey};
-            var reference = new Reference {Uri = "#" + id};
-
-            // adicionando EnvelopedSignatureTransform a referencia
-            var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
-            reference.AddTransform(envelopedSigntature);
-
-            var c14Transform = new XmlDsigC14NTransform();
-            reference.AddTransform(c14Transform);
-
-            docXml.AddReference(reference);
-
-            // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-            var keyInfo = new KeyInfo();
-            keyInfo.AddClause(new KeyInfoX509Data(certificado));
-
-            docXml.KeyInfo = keyInfo;
-            docXml.ComputeSignature();
-
-            //// recuperando a representação do XML assinado
-            var xmlDigitalSignature = docXml.GetXml();
-            var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
-            return assinatura;
+           
         }
     }
 }

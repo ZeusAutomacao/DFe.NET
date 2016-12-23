@@ -455,7 +455,7 @@ namespace NFe.AppTeste
             {
                 #region Inutiliza Numeração
 
-                var ano = Funcoes.InpuBox(this, "Inutilizar Numeração", "Ano");
+                var ano = Funcoes.InpuBox(this, "Inutilizar Numeração", "Ano - dois dígitos somente. Ex: 17");
                 if (string.IsNullOrEmpty(ano)) throw new Exception("O Ano deve ser informado!");
                 if (ano.Length > 2) throw new Exception("O Ano deve ter dois números apenas!");
 

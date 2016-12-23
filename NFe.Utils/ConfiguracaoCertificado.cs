@@ -32,7 +32,6 @@
 /********************************************************************************/
 using System.ComponentModel;
 using NFe.Utils.Annotations;
-using System.Xml.Serialization;
 
 namespace NFe.Utils
 {
@@ -77,10 +76,13 @@ namespace NFe.Utils
         ///     Senha do certificado digital
         /// </summary>
         public string Senha { get; set; }
-        
-        [XmlIgnore]
-        public System.Security.Cryptography.X509Certificates.X509Certificate2 CertificadoCarregado { get; set; }
 
+        /// <summary>
+        ///     Manter/Não manter os dados do certificado em Cache, enquanto a aplicação que consome a biblioteca estiver aberta
+        /// <para>Manter os dados do certificado em cache, aumentará o desempenho no consumo dos serviços, especialmente para certificados A3</para>
+        /// </summary>
+        public bool ManterDadosEmCache { get; set; }
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

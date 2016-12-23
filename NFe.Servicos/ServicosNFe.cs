@@ -84,7 +84,7 @@ namespace NFe.Servicos
 {
     public sealed class ServicosNFe : IDisposable
     {
-        private readonly X509Certificate _certificado;
+        private readonly X509Certificate2 _certificado;
         private readonly ConfiguracaoServico _cFgServico;
         private readonly string _path;
 
@@ -95,9 +95,7 @@ namespace NFe.Servicos
         public ServicosNFe(ConfiguracaoServico cFgServico)
         {
             _cFgServico = cFgServico;
-            _certificado = string.IsNullOrEmpty(_cFgServico.Certificado.Arquivo)
-                ? CertificadoDigital.ObterDoRepositorio(_cFgServico.Certificado.Serial, _cFgServico.Certificado.Senha)
-                : CertificadoDigital.ObterDeArquivo(_cFgServico.Certificado.Arquivo, _cFgServico.Certificado.Senha);
+            _certificado = CertificadoDigital.ObterCertificado();
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -1302,8 +1300,8 @@ namespace NFe.Servicos
                 return;
 
             if (disposing)
-                _certificado.Reset();
-
+                if (!_cFgServico.Certificado.ManterDadosEmCache)
+                    _certificado.Reset();
             _disposed = true;
         }
 
