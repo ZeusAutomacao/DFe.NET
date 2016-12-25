@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -42,6 +42,7 @@ namespace NFe.Danfe.Base
         /// Logomarca do emitente a ser impressa no DANFE da NFCe
         /// </summary>
         public byte[] Logomarca { get; set; }
+        public bool DocumentoCancelado { get; set; }
 
         /// <summary>
         /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
