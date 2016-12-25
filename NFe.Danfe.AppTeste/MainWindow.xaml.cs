@@ -214,7 +214,7 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, false));
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false));
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
