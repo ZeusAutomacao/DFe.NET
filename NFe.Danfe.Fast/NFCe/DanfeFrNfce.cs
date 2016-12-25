@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -53,7 +53,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc)
+        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, bool cancelado = false)
         {
             #region Define as varíaveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
@@ -65,6 +65,7 @@ namespace NFe.Danfe.Fast.NFCe
             Relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             Relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
             Relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
+            Relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             ((ReportPage) Relatorio.FindObject("PgNfce")).LeftMargin = configuracaoDanfeNfce.MargemEsquerda;
             ((ReportPage)Relatorio.FindObject("PgNfce")).RightMargin = configuracaoDanfeNfce.MargemDireita;
             ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
