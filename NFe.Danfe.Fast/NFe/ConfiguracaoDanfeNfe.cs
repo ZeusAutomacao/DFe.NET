@@ -38,13 +38,12 @@ namespace NFe.Danfe.Fast.NFe
     public class ConfiguracaoDanfeNfe : ConfiguracaoDanfe
     {
         public bool DuasLinhas { get; set; }
-        public bool Cancelada { get; set; }
 
-        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool cancelada = false)
+        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool documentoCancelado = false)
         {
             Logomarca = logomarca;
-            this.DuasLinhas = duasLinhas;
-            this.Cancelada = cancelada;
+            DuasLinhas = duasLinhas;
+            DocumentoCancelado = documentoCancelado;
         }
 
         /// <summary>
@@ -52,7 +51,8 @@ namespace NFe.Danfe.Fast.NFe
         /// </summary>
         private ConfiguracaoDanfeNfe()
         {
-            this.DuasLinhas = true;
+            DocumentoCancelado = false;
+            DuasLinhas = true;
         }
     }
 }
