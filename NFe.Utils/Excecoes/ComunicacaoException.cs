@@ -31,62 +31,18 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Security.Cryptography.Xml;
-using System.Xml;
-using Signature = NFe.Classes.Assinatura.Signature;
 
-namespace NFe.Utils.Assinatura
+namespace NFe.Utils.Excecoes
 {
-    public static class Assinador
+    /// <summary>
+    /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+    /// </summary>
+    public class ComunicacaoException : Exception
     {
         /// <summary>
-        ///     Obtém a assinatura de um objeto serializável
+        /// Houve problemas com a internet, durante o envio dos dados para um webservice da NFe
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="objeto"></param>
-        /// <param name="id"></param>
-        /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id) where T : class
-        {
-            var objetoLocal = objeto;
-            if (id == null)
-                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
-
-            var certificado = CertificadoDigital.ObterCertificado();
-            try
-            {
-                var documento = new XmlDocument { PreserveWhitespace = true };
-                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-                var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
-                var reference = new Reference { Uri = "#" + id };
-
-                // adicionando EnvelopedSignatureTransform a referencia
-                var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
-                reference.AddTransform(envelopedSigntature);
-
-                var c14Transform = new XmlDsigC14NTransform();
-                reference.AddTransform(c14Transform);
-
-                docXml.AddReference(reference);
-
-                // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-                var keyInfo = new KeyInfo();
-                keyInfo.AddClause(new KeyInfoX509Data(certificado));
-
-                docXml.KeyInfo = keyInfo;
-                docXml.ComputeSignature();
-
-                //// recuperando a representação do XML assinado
-                var xmlDigitalSignature = docXml.GetXml();
-                var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
-                return assinatura;
-            }
-            finally
-            {
-                if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache)
-                    certificado.Reset();
-            }
-           
-        }
+        /// <param name="message"></param>
+        public ComunicacaoException(string message) : base(string.Format("Falha na rede internet:\n{0}", message)){}
     }
 }
