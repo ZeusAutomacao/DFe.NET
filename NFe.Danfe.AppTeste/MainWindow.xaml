@@ -10,7 +10,7 @@
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e"
     WindowStartupLocation="CenterScreen"
     SizeToContent="WidthAndHeight"
-    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" >
+    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" d:DesignHeight="528.628" >
     <Window.Resources>
         <appTeste:EnumParaBool x:Key="EnumParaBool" />
     </Window.Resources>
@@ -164,6 +164,8 @@
                     	VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
                 </StackPanel>
             </GroupBox>
+            <Button x:Name="btnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="176" Margin="12,0,0,0" Click="btnEventoNFe_Click" />
 
         </StackPanel>
     </Grid>
