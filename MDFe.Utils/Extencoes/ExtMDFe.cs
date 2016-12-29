@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -111,13 +111,14 @@ namespace MDFe.Utils.Extencoes
             return FuncoesXml.ClasseParaXmlString(mdfe);
         }
 
-        public static void SalvarXmlEmDisco(this MDFEletronico mdfe)
+        public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
-            var arquivoSalvar = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
+            if (string.IsNullOrEmpty(nomeArquivo))
+                nomeArquivo = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(mdfe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
         }
 
         public static string Chave(this MDFEletronico mdfe)
