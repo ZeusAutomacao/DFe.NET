@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -494,7 +494,7 @@ namespace MDFe.AppTeste
                 },
                 ConfigWebService =
                 {
-                    UfDestino = UfDestino,
+                    UfEmitente = UfDestino,
                     Numeracao = Numeracao,
                     Serie = Serie,
                     VersaoMDFeConsNaoEnc = VersaoServico.Versao100,
@@ -574,7 +574,7 @@ namespace MDFe.AppTeste
             Numeracao = config.ConfigWebService.Numeracao;
             Serie = config.ConfigWebService.Serie;
 
-            UfDestino = config.ConfigWebService.UfDestino;
+            UfDestino = config.ConfigWebService.UfEmitente;
 
             VersaoMDFeConsNaoEnc = config.ConfigWebService.VersaoMDFeConsNaoEnc;
             VersaoMDFeConsulta = config.ConfigWebService.VersaoMDFeConsulta;
@@ -601,7 +601,7 @@ namespace MDFe.AppTeste
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
             #region (ide)
-            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfDestino;
+            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
             mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
@@ -742,7 +742,7 @@ namespace MDFe.AppTeste
             var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
 
             #region (ide)
-            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfDestino;
+            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
             mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
@@ -1146,7 +1146,7 @@ namespace MDFe.AppTeste
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
                 config.ConfigWebService.VersaoMDFeStatusServico;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfDestino = config.ConfigWebService.UfDestino;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
         }
 
