@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
 using Signature = NFe.Classes.Assinatura.Signature;
@@ -45,14 +46,15 @@ namespace NFe.Utils.Assinatura
         /// <typeparam name="T"></typeparam>
         /// <param name="objeto"></param>
         /// <param name="id"></param>
+        /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id) where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital = null) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var certificado = CertificadoDigital.ObterCertificado();
+            var certificado = certificadoDigital ?? CertificadoDigital.ObterCertificado();
             try
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };

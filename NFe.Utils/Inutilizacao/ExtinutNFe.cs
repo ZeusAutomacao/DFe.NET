@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Security.Cryptography.X509Certificates;
 using NFe.Classes.Servicos.Inutilizacao;
 using NFe.Utils.Assinatura;
 
@@ -52,14 +53,15 @@ namespace NFe.Utils.Inutilizacao
         ///     Assina um objeto inutNFe
         /// </summary>
         /// <param name="inutNFe"></param>
+        /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo inutNFe assinado</returns>
-        public static inutNFe Assina(this inutNFe inutNFe)
+        public static inutNFe Assina(this inutNFe inutNFe, X509Certificate2 certificadoDigital)
         {
             var inutNFeLocal = inutNFe;
             if (inutNFeLocal.infInut.Id == null)
                 throw new Exception("Não é possível assinar um onjeto inutNFe sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id);
+            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id, certificadoDigital);
             inutNFeLocal.Signature = assinatura;
             return inutNFeLocal;
         }

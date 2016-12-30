@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Security.Cryptography.X509Certificates;
 using NFe.Classes.Servicos.Evento;
 using NFe.Utils.Assinatura;
 
@@ -52,14 +53,15 @@ namespace NFe.Utils.Evento
         ///     Assina um objeto evento
         /// </summary>
         /// <param name="evento"></param>
+        /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
-        public static evento Assina(this evento evento)
+        public static evento Assina(this evento evento, X509Certificate2 certificadoDigital)
         {
             var eventoLocal = evento;
             if (eventoLocal.infEvento.Id == null)
-                throw new Exception("Não é possível assinar um onjeto evento sem sua respectiva Id!");
+                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id);
+            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id, certificadoDigital);
             eventoLocal.Signature = assinatura;
             return eventoLocal;
         }
