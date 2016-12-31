@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -86,10 +86,20 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public long NMDF { get; set; }
 
         /// <summary>
-        /// 2 - Código numérico que compõe a Chave de Acesso.
+        /// 2 - Código numérico que compõe a Chave de Acesso. 
+        /// </summary>
+        [XmlIgnore]
+        public long CMDF { get; set; }
+
+        /// <summary>
+        /// Proxy para cMDF
         /// </summary>
         [XmlElement(ElementName = "cMDF")]
-        public long CMDF { get; set; }
+        public string ProxyCMDF
+        {
+            get { return CMDF.ToString("00000000"); }
+            set { CMDF = int.Parse(value); }
+        }
 
         /// <summary>
         /// 2 - Digito verificador da chave de acesso do Manifesto

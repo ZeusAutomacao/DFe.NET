@@ -1,4 +1,4 @@
-﻿<Window
+<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e"
     WindowStartupLocation="CenterScreen"
     SizeToContent="WidthAndHeight"
-    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" >
+    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" d:DesignHeight="528.628" >
     <Window.Resources>
         <appTeste:EnumParaBool x:Key="EnumParaBool" />
     </Window.Resources>
@@ -21,7 +21,7 @@
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="0,0,10,0">
+                        <StackPanel Margin="0,0,10,0" RenderTransformOrigin="0.493,0.552">
 
                             <GroupBox Header="Emissão Normal - Impressão dos produtos" Height="60"
                                           Margin="0,10,0,0">
@@ -34,7 +34,7 @@
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="108,13,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
-                                    <RadioButton Content="Duas Linhas"
+                                    <RadioButton x:Name="rdbDuasLinhas" Content="Duas Linhas"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="190,13,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
@@ -58,8 +58,7 @@
                                           HorizontalAlignment="Left" VerticalAlignment="Top"
                                           Margin="0,10,0,0"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeDescontoItem}" />
-
-                            <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0">
+                            <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0" Height="98">
                                 <StackPanel>
                                     <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
@@ -82,6 +81,10 @@
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
+                            <CheckBox x:Name="chbCancelado" Content="Documento cancelado"
+                                HorizontalAlignment="Left" VerticalAlignment="Top"
+                                Margin="0,10,0,0"
+                                IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
 
                         </StackPanel>
 
@@ -161,6 +164,8 @@
                     	VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
                 </StackPanel>
             </GroupBox>
+            <Button x:Name="btnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left"
+                VerticalAlignment="Top" Width="176" Margin="12,0,0,0" Click="btnEventoNFe_Click" />
 
         </StackPanel>
     </Grid>

@@ -45,6 +45,7 @@ using NFe.Danfe.Fast.NFe;
 using NFe.Utils;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
+using NFe.Classes.Servicos.Consulta;
 
 namespace NFe.Danfe.AppTeste
 {
@@ -214,7 +215,45 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, false));
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false));
+                danfe.Visualizar();
+                //danfe.Imprimir();
+                //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
+
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
+        private void btnEventoNFe_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
+                    throw new Exception("O XML informado não é um NFe!");
+
+
+                arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+                var procEvento = FuncoesXml.ArquivoXmlParaClasse<procEventoNFe>(arquivoXml);
+
+                #endregion
+
+                #region Abre a visualização do relatório para impressão
+                var danfe = new DanfeFrNfe(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
@@ -230,4 +269,5 @@ namespace NFe.Danfe.AppTeste
             }
         }
     }
+
 }
