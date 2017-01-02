@@ -128,7 +128,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// <summary>
         ///     U12 - Indicador da exigibilidade do ISS
         /// </summary>
-        public IndicadorISS IndicadorIss { get; set; }
+        public IndicadorISS indISS{ get; set; }
 
         /// <summary>
         ///     U13 - Código do serviço prestado dentro do município
