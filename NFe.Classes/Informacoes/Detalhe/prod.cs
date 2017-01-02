@@ -232,7 +232,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// <summary>
         ///     I61 - Item do Pedido de Compra
         /// </summary>
-        public int nItemPed { get; set; }
+        public int? nItemPed { get; set; }
 
         /// <summary>
         ///     I70 - Número de controle da FCI - Ficha de Conteúdo de Importação
@@ -245,10 +245,10 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     <para>L01 (arma) - Detalhamento de Armamento</para>
         ///     <para>LA01 (comb) - Informações específicas para combustíveis líquidos e lubrificantes</para>
         /// </summary>
-        [XmlElement("veicProd", typeof (veicProd))]
-        [XmlElement("med", typeof (med))]
-        [XmlElement("arma", typeof (arma))]
-        [XmlElement("comb", typeof (comb))]
+        [XmlElement("veicProd", typeof(veicProd))]
+        [XmlElement("med", typeof(med))]
+        [XmlElement("arma", typeof(arma))]
+        [XmlElement("comb", typeof(comb))]
         public ProdutoEspecifico ProdutoEspecifico
         {
             get { return _produtoEspecifico; }
@@ -271,6 +271,11 @@ namespace NFe.Classes.Informacoes.Detalhe
                 ProdutoEspecifico = null; //ProdutoEspecifico e nRECOPI são mutuamente exclusivos
                 _nRecopi = value;
             }
+        }
+
+        public bool ShouldSerializenItemPed()
+        {
+            return nItemPed.HasValue;
         }
 
         public bool ShouldSerializevFrete()
