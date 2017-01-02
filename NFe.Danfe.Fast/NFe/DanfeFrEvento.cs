@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,34 +31,37 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Drawing;
 using System.IO;
+using FastReport;
+using NFe.Classes;
 
-namespace NFe.Danfe.Base
+namespace NFe.Danfe.Fast.NFe
 {
-    public class ConfiguracaoDanfe
+    /// <summary>
+    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
+    /// </summary>
+    public class DanfeFrEvento : DanfeBase
     {
         /// <summary>
-        /// Logomarca do emitente a ser impressa no DANFE da NFCe
+        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
         /// </summary>
-        public byte[] Logomarca { get; set; }
-
-        /// <summary>
-        /// Determina se deve ser impresso uma tarja "DOCUMENTO CANCELADO", indicando que o DANFE impresso refere-se ao DANFE de uma NFe cancelada
-        /// </summary>
-        public bool DocumentoCancelado { get; set; }
-
-        /// <summary>
-        /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
-        /// </summary>
-        /// <returns></returns>
-        public Image ObterLogo()
+        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
+        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
+        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
+        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
+        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
         {
-            if (Logomarca == null)
-                return null;
-            var ms = new MemoryStream(Logomarca);
-            var image = Image.FromStream(ms);
-            return image;
+            #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
+
+            Relatorio = new Report();
+            Relatorio.Load(new MemoryStream(Properties.Resources.NFeEvento));
+            Relatorio.RegisterData(new[] { proc }, "NFe", 20);
+            Relatorio.RegisterData(new[] { procEventoNFe }, "procEventoNFe", 20);
+            Relatorio.GetDataSource("NFe").Enabled = true;
+            Relatorio.GetDataSource("procEventoNFe").Enabled = true;
+            Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);
+
+            #endregion
         }
     }
 }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="12/29/2016 08:10:51" ReportInfo.CreatorVersion="2016.4.0.0">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="01/02/2017 16:09:23" ReportInfo.CreatorVersion="2016.3.22.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -791,7 +791,7 @@ namespace FastReport
       <TextObject Name="Memo59" Left="415.75" Top="219.21" Width="128.5" Height="15.12" Text="[procEventoNFe.retEvento.infEvento.nProt]" Padding="2, 1, 2, 1" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Memo60" Left="544.25" Top="219.21" Width="173.86" Height="15.12" Text="[procEventoNFe.retEvento.infEvento.dhRegEvento]" Padding="2, 1, 2, 1" Format="Date" Format.Format="d" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <BarcodeObject Name="BarcodeChave" Left="378" Top="97.5" Width="277.07" Height="37.8" AutoSize="false" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <ChildBand Name="BandEmitenteDestinatario" Top="237.66" Width="718.2" Height="188.98">
+      <ChildBand Name="BandEmitenteDestinatario" Top="236.46" Width="718.2" Height="188.98">
         <TextObject Name="Memo21" Top="26.46" Width="544.25" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo22" Left="544.25" Top="26.46" Width="173.86" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo23" Top="49.13" Width="415.75" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="ENDEREÇO" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
@@ -840,9 +840,10 @@ namespace FastReport
     <DataBand Name="MasterData1" Top="569.38" Width="718.2" Height="223" CanGrow="true" CanShrink="true">
       <TextObject Name="memJustificativaCorrecao" Top="7.56" Width="718.11" Height="18.9" BeforePrintEvent="memJustificativaCorrecao_BeforePrint" Text="[procEventoNFe.evento.infEvento.detEvento.descEvento]" Padding="0, 1, 0, 1" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Memo45" Top="26.46" Width="718.11" Height="196.54" Border.Lines="All" Border.Width="0.5" GrowToBottom="true" Text="[procEventoNFe.evento.infEvento.detEvento.xJust]&#13;&#10;[procEventoNFe.evento.infEvento.detEvento.xCorrecao]" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt"/>
+      <ChildBand Name="Child1" Top="790.89" Width="718.2" Height="15.12">
+        <TextObject Name="Memo150" Top="2" Width="359.06" Height="9.45" Text="Data e hora da impressão: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+        <TextObject Name="Memo151" Left="379.1" Top="2.55" Width="334.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+      </ChildBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="795.71" Width="718.2" Height="18.9">
-      <TextObject Name="Memo3" Top="3.78" Width="718.11" Height="15.12" Visible="false" Text="DATA E HORA DA IMPRESSÃO: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 8pt"/>
-    </PageFooterBand>
   </ReportPage>
 </Report>

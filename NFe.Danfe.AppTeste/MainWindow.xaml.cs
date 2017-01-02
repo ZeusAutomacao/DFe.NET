@@ -215,7 +215,7 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false));
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
@@ -253,7 +253,7 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
+                var danfe = new DanfeFrEvento(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();

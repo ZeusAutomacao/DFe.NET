@@ -155,18 +155,21 @@
             </GroupBox>
 
             <GroupBox Header="Testes FastReport" HorizontalAlignment="Stretch">
-                <StackPanel Orientation="Horizontal">
-                    <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
-                            VerticalAlignment="Top" Width="177" Margin="5,10" Click="BtnNfeDanfeA4_Click" />
-                    <Button Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"
-                    	VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
-                    <Button Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
-                    	VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="177" Margin="5,10" Click="BtnNfeDanfeA4_Click" />
+                        <Button Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
+                        <Button Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="BtnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left" 
+                            VerticalAlignment="Top" Width="176" Margin="5,0" Click="btnEventoNFe_Click" />
+                    </StackPanel>
                 </StackPanel>
             </GroupBox>
-            <Button x:Name="btnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left"
-                VerticalAlignment="Top" Width="176" Margin="12,0,0,0" Click="btnEventoNFe_Click" />
-
         </StackPanel>
     </Grid>
 </Window>

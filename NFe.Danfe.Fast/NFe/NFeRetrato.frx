@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="12/19/2016 15:22:27" ReportInfo.CreatorVersion="2016.3.15.0">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="01/02/2017 15:33:43" ReportInfo.CreatorVersion="2016.3.22.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -993,8 +993,8 @@ namespace FastReport
       <TextObject Name="Text163" Left="375" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vBC]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
       <TextObject Name="Text164" Left="561.55" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vISS]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
       <TextObject Name="lblHomologacao" Left="467.95" Top="96.15" Width="279.5" Height="73.05" Visible="false" Text="NF-e EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
-      <TextObject Name="Memo150" Left="1.45" Top="167.1" Width="359.06" Height="9.45" Visible="false" Text="DATA E HORA DA IMPRESSÃO: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Arial, 5pt"/>
-      <TextObject Name="Memo151" Left="382.55" Top="167.65" Width="359.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Arial, 5pt"/>
+      <TextObject Name="Memo150" Left="1.45" Top="167.1" Width="359.06" Height="9.45" Text="Data e hora da impressão: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Memo151" Left="382.55" Top="167.65" Width="359.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
     </PageFooterBand>
   </ReportPage>
   <ReportPage Name="Page2">
