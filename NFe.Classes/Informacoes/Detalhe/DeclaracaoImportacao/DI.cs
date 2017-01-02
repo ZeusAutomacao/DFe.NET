@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
 {
@@ -100,6 +101,7 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         /// <summary>
         ///     I25 - Adições
         /// </summary>
+        [XmlElement("adi")]
         public List<adi> adi { get; set; }
 
         public bool ShouldSerializevAFRMM()
