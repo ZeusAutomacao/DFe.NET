@@ -85,7 +85,9 @@ namespace NFe.Utils.Assinatura
             }
             finally
             {
-                if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache)
+                //Se não mantém os dados do certificado em cache e o certificado não foi passado por parâmetro(isto é, ele foi criado dentro deste método), 
+                //então libera o certificado, chamando o método reset.
+                if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache & certificadoDigital == null)
                     certificado.Reset();
             }
            
