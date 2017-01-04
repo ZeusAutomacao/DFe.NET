@@ -942,14 +942,14 @@ namespace NFe.AppTeste
         {
             var ide = new ide
             {
-                cUF = Estado.SE,
+                cUF = _configuracoes.CfgServico.cUF,
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
                 tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                cMunFG = _configuracoes.EnderecoEmitente.cMun,
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
                 cNF = "1234",
@@ -1075,7 +1075,7 @@ namespace NFe.AppTeste
                 prod = GetProduto(i + 1),
                 imposto = new imposto
                 {
-                    vTotTrib = 0.17m,
+                    //vTotTrib = 0.17m,
                     ICMS = new ICMS
                     {
                         TipoICMS =
@@ -1105,12 +1105,12 @@ namespace NFe.AppTeste
                 }
             };
 
-            if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
-                det.imposto.IPI = new IPI()
-                {
-                    cEnq = 999,
-                    TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
-                };
+            //if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
+            //    det.imposto.IPI = new IPI()
+            //    {
+            //        cEnq = 999,
+            //        TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
+            //    };
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;
