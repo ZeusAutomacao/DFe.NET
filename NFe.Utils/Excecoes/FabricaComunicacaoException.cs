@@ -30,21 +30,61 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
+using System.Collections.Generic;
+using System.Net;
 using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Utils.Excecoes
 {
     /// <summary>
-    /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+    /// Classe responsável pelo tratamento da exceção ComunicacaoException
     /// </summary>
-    public class ComunicacaoException : Exception
+    public static class FabricaComunicacaoException
     {
         /// <summary>
-        /// Houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+        /// Obtém uma exceção.
+        /// Se o status da <see cref="WebException"/> estiver na lista <see cref="ListaComunicacaoException"/>, 
+        /// será retornada uma exceção do tipo <see cref="ComunicacaoException"/>, 
+        /// senão será retornada a própria <see cref="WebException"/> passada no parâmetro
         /// </summary>
-        /// <param name="servico">Serviço que gerou o erro</param>
-        /// <param name="message"></param>
-        public ComunicacaoException(ServicoNFe servico, string message) : base(string.Format("Sem comunicação com o serviço {0}:\n{1}", servico, message)){}
+        /// <param name="servico"></param>
+        /// <param name="webException"></param>
+        /// <returns></returns>
+        public static Exception ObterException(ServicoNFe servico, WebException webException)
+        {
+            if (ListaComunicacaoException.Contains(webException.Status))
+                return new ComunicacaoException(ServicoNFe.NfeStatusServico, webException.Message);
+            return webException;
+        }
+
+        /// <summary>
+        /// Lista com os status de WebException que serão traduzidos para ComunicacaoException
+        /// </summary>
+        private static readonly List<WebExceptionStatus> ListaComunicacaoException = new List<WebExceptionStatus>
+        {
+            WebExceptionStatus.CacheEntryNotFound,
+            WebExceptionStatus.ConnectFailure,
+            WebExceptionStatus.ConnectionClosed,
+            WebExceptionStatus.KeepAliveFailure,
+            WebExceptionStatus.MessageLengthLimitExceeded,
+            WebExceptionStatus.NameResolutionFailure,
+            WebExceptionStatus.Pending,
+            WebExceptionStatus.PipelineFailure,
+            //WebExceptionStatus.ProtocolError,
+            WebExceptionStatus.ProxyNameResolutionFailure,
+            WebExceptionStatus.ReceiveFailure,
+            WebExceptionStatus.RequestCanceled,
+            WebExceptionStatus.RequestProhibitedByCachePolicy,
+            WebExceptionStatus.RequestProhibitedByProxy,
+            //WebExceptionStatus.SecureChannelFailure,
+            WebExceptionStatus.SendFailure,
+            WebExceptionStatus.ServerProtocolViolation,
+            //WebExceptionStatus.Success,
+            WebExceptionStatus.Timeout,
+            //WebExceptionStatus.TrustFailure,
+            WebExceptionStatus.UnknownError
+        };
     }
 }
