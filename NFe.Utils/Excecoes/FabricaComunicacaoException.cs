@@ -55,7 +55,7 @@ namespace NFe.Utils.Excecoes
         public static Exception ObterException(ServicoNFe servico, WebException webException)
         {
             if (ListaComunicacaoException.Contains(webException.Status))
-                return new ComunicacaoException(ServicoNFe.NfeStatusServico, webException.Message);
+                return new ComunicacaoException(servico, webException.Message);
             return webException;
         }
 
