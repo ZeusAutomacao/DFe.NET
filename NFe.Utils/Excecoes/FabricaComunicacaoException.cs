@@ -30,42 +30,61 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Reflection;
-using System.Runtime.InteropServices;
 
-// Informações gerais sobre um assembly são controladas através do seguinte 
-// conjunto de atributos. Altere o valor destes atributos para modificar a informação
-// associada a um assembly.
+using System;
+using System.Collections.Generic;
+using System.Net;
+using NFe.Classes.Servicos.Tipos;
 
-[assembly: AssemblyTitle("NFe.Classes")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NFe.Classes")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+namespace NFe.Utils.Excecoes
+{
+    /// <summary>
+    /// Classe responsável pelo tratamento da exceção ComunicacaoException
+    /// </summary>
+    public static class FabricaComunicacaoException
+    {
+        /// <summary>
+        /// Obtém uma exceção.
+        /// Se o status da <see cref="WebException"/> estiver na lista <see cref="ListaComunicacaoException"/>, 
+        /// será retornada uma exceção do tipo <see cref="ComunicacaoException"/>, 
+        /// senão será retornada a própria <see cref="WebException"/> passada no parâmetro
+        /// </summary>
+        /// <param name="servico"></param>
+        /// <param name="webException"></param>
+        /// <returns></returns>
+        public static Exception ObterException(ServicoNFe servico, WebException webException)
+        {
+            if (ListaComunicacaoException.Contains(webException.Status))
+                return new ComunicacaoException(servico, webException.Message);
+            return webException;
+        }
 
-// Definir ComVisible como false torna os tipos neste assembly não visíveis 
-// para componentes COM.  Caso precise acessar um tipo neste assembly a partir de 
-// COM, defina o atributo ComVisible como true nesse tipo.
-
-[assembly: ComVisible(false)]
-
-// O GUID a seguir é para o ID da typelib se este projeto for exposto para COM
-
-[assembly: Guid("9eb04c4c-00c0-4298-a099-de0cc2cf9815")]
-
-// Informações de Versão para um assembly consistem nos quatro valores a seguir:
-//
-//      Versão Principal
-//      Versão Secundária 
-//      Número da Versão
-//      Revisão
-//
-// É possível especificar todos os valores ou usar o padrão de Números de Compilação e Revisão 
-// utilizando o '*' como mostrado abaixo:
-// [assembly: AssemblyVersion("1.0.*")]
-
-[assembly: AssemblyVersion("1.0.1.417")]
-[assembly: AssemblyFileVersion("1.0.1.417")]
+        /// <summary>
+        /// Lista com os status de WebException que serão traduzidos para ComunicacaoException
+        /// </summary>
+        private static readonly List<WebExceptionStatus> ListaComunicacaoException = new List<WebExceptionStatus>
+        {
+            WebExceptionStatus.CacheEntryNotFound,
+            WebExceptionStatus.ConnectFailure,
+            WebExceptionStatus.ConnectionClosed,
+            WebExceptionStatus.KeepAliveFailure,
+            WebExceptionStatus.MessageLengthLimitExceeded,
+            WebExceptionStatus.NameResolutionFailure,
+            WebExceptionStatus.Pending,
+            WebExceptionStatus.PipelineFailure,
+            //WebExceptionStatus.ProtocolError,
+            WebExceptionStatus.ProxyNameResolutionFailure,
+            WebExceptionStatus.ReceiveFailure,
+            WebExceptionStatus.RequestCanceled,
+            WebExceptionStatus.RequestProhibitedByCachePolicy,
+            WebExceptionStatus.RequestProhibitedByProxy,
+            //WebExceptionStatus.SecureChannelFailure,
+            WebExceptionStatus.SendFailure,
+            WebExceptionStatus.ServerProtocolViolation,
+            //WebExceptionStatus.Success,
+            WebExceptionStatus.Timeout,
+            //WebExceptionStatus.TrustFailure,
+            WebExceptionStatus.UnknownError
+        };
+    }
+}

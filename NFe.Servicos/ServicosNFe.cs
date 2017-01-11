@@ -257,7 +257,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeStatusServico, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -319,7 +319,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeConsultaProtocolo, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -407,7 +407,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeInutilizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -491,7 +491,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(servicoEvento, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -769,7 +769,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeConsultaCadastro, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -845,7 +845,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeDistribuicaoDFe, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -942,7 +942,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeRecepcao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1003,7 +1003,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeRetRecepcao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1080,7 +1080,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeAutorizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1140,7 +1140,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeRetAutorizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1205,7 +1205,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeDownloadNF, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1272,7 +1272,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfceAdministracaoCSC, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
