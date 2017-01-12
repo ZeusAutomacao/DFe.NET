@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.IO;
 using System.Security;
@@ -38,97 +39,106 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace NFe.Utils.Assinatura
 {
-    public static class CertificadoDigital
-    {
+	public static class CertificadoDigital
+	{
+		/// <summary>
+		/// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
+		/// </summary>
+		/// <returns></returns>
+		public static X509Certificate2 ObterDoRepositorio()
+		{
+			var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+			store.Open(OpenFlags.OpenExistingOnly | OpenFlags.MaxAllowed);
 
-        /// <summary>
-        /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
-        /// </summary>
-        /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio()
-        {
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.OpenExistingOnly | OpenFlags.MaxAllowed);
+			var collection = store.Certificates;
+			var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
+			var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
+				X509SelectionFlag.SingleSelection);
 
-            var collection = store.Certificates;
-            var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
-            var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
-                X509SelectionFlag.SingleSelection);
+			if (scollection.Count == 0)
+			{
+				throw new Exception("Nenhum certificado foi selecionado!");
+			}
 
-            if (scollection.Count == 0)
-            {
-                throw new Exception("Nenhum certificado foi selecionado!");
-            }
+			store.Close();
+			return scollection[0];
+		}
 
-            store.Close();
-            return scollection[0];
-        }
+		/// <summary>
+		/// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
+		/// </summary>
+		/// <param name="numeroSerial">Serial do certificado</param>
+		/// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
+		/// <returns></returns>
+		public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
+		{
+			if (string.IsNullOrEmpty(numeroSerial))
+				throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
 
-        /// <summary>
-        /// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
-        /// </summary>
-        /// <param name="numeroSerial">Serial do certificado</param>
-        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
-        /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
-        {
-            if (string.IsNullOrEmpty(numeroSerial))
-                throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
+			X509Certificate2 certificado = null;
 
-            X509Certificate2 certificado = null;
+			var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+			store.Open(OpenFlags.MaxAllowed);
 
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.MaxAllowed);
+			foreach (var item in store.Certificates)
+			{
+				if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
+					certificado = item;
+			}
 
+			if (certificado == null)
+				throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
 
-            foreach (var item in store.Certificates)
-            {
-                if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
-                    certificado = item;
-            }
+			store.Close();
+			if (string.IsNullOrEmpty(senha)) return certificado;
 
-            if (certificado == null)
-                throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
+			//Se a senha for passada no parâmetro
+			var senhaSegura = new SecureString();
+			var passPhrase = senha.ToCharArray();
+			foreach (var t in passPhrase)
+			{
+				senhaSegura.AppendChar(t);
+			}
 
-            store.Close();
-            if (string.IsNullOrEmpty(senha)) return certificado;
+			var chavePrivada = certificado.PrivateKey as RSACryptoServiceProvider;
+			if (chavePrivada == null) return certificado;
 
-            //Se a senha for passada no parâmetro
-            var senhaSegura = new SecureString();
-            var passPhrase = senha.ToCharArray();
-            foreach (var t in passPhrase)
-            {
-                senhaSegura.AppendChar(t);
-            }
+			var cspParameters = new CspParameters(chavePrivada.CspKeyContainerInfo.ProviderType,
+				chavePrivada.CspKeyContainerInfo.ProviderName,
+				chavePrivada.CspKeyContainerInfo.KeyContainerName,
+				null,
+				senhaSegura);
+			var rsaCsp = new RSACryptoServiceProvider(cspParameters);
+			certificado.PrivateKey = rsaCsp;
+			return certificado;
+		}
 
-            var chavePrivada = certificado.PrivateKey as RSACryptoServiceProvider;
-            if (chavePrivada == null) return certificado;
+		/// <summary>
+		/// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
+		/// </summary>
+		/// <param name="arquivo">Arquivo do certificado digital</param>
+		/// <param name="senha">Senha do certificado digital</param>
+		/// <returns></returns>
+		public static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
+		{
+			if (!File.Exists(arquivo))
+			{
+				throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
+			}
 
-            var cspParameters = new CspParameters(chavePrivada.CspKeyContainerInfo.ProviderType,
-                chavePrivada.CspKeyContainerInfo.ProviderName,
-                chavePrivada.CspKeyContainerInfo.KeyContainerName,
-                null,
-                senhaSegura);
-            var rsaCsp = new RSACryptoServiceProvider(cspParameters);
-            certificado.PrivateKey = rsaCsp;
-            return certificado;
-        }
+			var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
+			return certificado;
+		}
 
-        /// <summary>
-        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
-        /// </summary>
-        /// <param name="arquivo">Arquivo do certificado digital</param>
-        /// <param name="senha">Senha do certificado digital</param>
-        /// <returns></returns>
-        public static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
-        {
-            if (!File.Exists(arquivo))
-            {
-                throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
-            }
-
-            var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
-            return certificado;
-        }
-    }
+		/// <summary>
+		/// Obtém um certificado a partir dos bytes do arquivo e da senha passsados nos parâmetros
+		/// </summary>
+		/// <param name="bytes">Arquivo do certificado digital em bytes</param>
+		/// <param name="senha">Senha do certificado digital</param>
+		/// <returns></returns>
+		public static X509Certificate2 ObterDeBytes(byte[] bytes, string senha)
+		{
+			return new X509Certificate2(bytes, senha, X509KeyStorageFlags.MachineKeySet);
+		}
+	}
 }

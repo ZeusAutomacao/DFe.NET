@@ -30,59 +30,93 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.ComponentModel;
+
 using NFe.Utils.Annotations;
+using System.ComponentModel;
 
 namespace NFe.Utils
 {
-    public class ConfiguracaoCertificado : INotifyPropertyChanged
-    {
-        private string _serial;
-        private string _arquivo;
+	public class ConfiguracaoCertificado : INotifyPropertyChanged
+	{
+		private string _serial;
+		private string _arquivo;
+		private byte[] _bytes;
 
-        /// <summary>
-        ///     Nº de série do certificado digital
-        /// </summary>
-        public string Serial
-        {
-            get { return _serial; }
-            set
-            {
-                if (value == _serial) return;
-                _serial = value;
-                if (!string.IsNullOrEmpty(value))
-                    Arquivo = null;
-                OnPropertyChanged("Serial");
-            }
-        }
+		/// <summary>
+		///     Nº de série do certificado digital
+		/// </summary>
+		public string Serial
+		{
+			get { return _serial; }
+			set
+			{
+				if (value == _serial) return;
 
-        /// <summary>
-        ///     Arquivo do certificado digital
-        /// </summary>
-        public string Arquivo
-        {
-            get { return _arquivo; }
-            set
-            {
-                if (value == _arquivo) return;
-                _arquivo = value;
-                if (!string.IsNullOrEmpty(value))
-                    Serial = null;
-                OnPropertyChanged("Arquivo");
-            }
-        }
+				_serial = value;
 
-        /// <summary>
-        ///     Senha do certificado digital
-        /// </summary>
-        public string Senha { get; set; }
+				if (!string.IsNullOrEmpty(value))
+				{
+					Arquivo = null;
+					Bytes = null;
+				}
 
-        public event PropertyChangedEventHandler PropertyChanged;
+				OnPropertyChanged("Serial");
+			}
+		}
 
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+		/// <summary>
+		///     Arquivo do certificado digital
+		/// </summary>
+		public string Arquivo
+		{
+			get { return _arquivo; }
+			set
+			{
+				if (value == _arquivo) return;
+				_arquivo = value;
+				if (!string.IsNullOrEmpty(value))
+				{
+					Serial = null;
+					Bytes = null;
+				}
+
+				OnPropertyChanged("Arquivo");
+			}
+		}
+
+		/// <summary>
+		///     Certificado digital em bytes
+		/// </summary>
+		public byte[] Bytes
+		{
+			get { return _bytes; }
+			set
+			{
+				if (value == _bytes) return;
+
+				_bytes = value;
+
+				if (value != null)
+				{
+					Serial = null;
+					Arquivo = null;
+				}
+
+				OnPropertyChanged("Bytes");
+			}
+		}
+
+		/// <summary>
+		///     Senha do certificado digital
+		/// </summary>
+		public string Senha { get; set; }
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		[NotifyPropertyChangedInvocator]
+		protected virtual void OnPropertyChanged(string propertyName)
+		{
+			if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+		}
+	}
 }
