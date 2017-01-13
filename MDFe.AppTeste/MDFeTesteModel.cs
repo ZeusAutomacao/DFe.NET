@@ -37,11 +37,11 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Retorno;
+using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Servicos.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
@@ -52,7 +52,7 @@ using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
 using MDFe.Utils.Extencoes;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -598,7 +598,7 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
+            var mdfe = new MDFe.Classes.Informacoes.MDFe();
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
@@ -739,7 +739,7 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
+            var mdfe = new MDFe.Classes.Informacoes.MDFe();
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;

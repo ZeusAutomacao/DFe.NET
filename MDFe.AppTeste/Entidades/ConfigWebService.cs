@@ -1,7 +1,7 @@
 using System;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
 namespace MDFe.AppTeste.Entidades
 {

@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Flags
+namespace MDFe.Classes.Flags
 {
     public enum MDFeTpCar
     {

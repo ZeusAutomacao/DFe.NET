@@ -33,7 +33,7 @@
 using System;
 using System.Xml;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 

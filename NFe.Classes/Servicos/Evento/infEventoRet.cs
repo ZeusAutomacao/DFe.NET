@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using NFe.Classes.Assinatura;
+using DFe.Classes.Assinatura;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Servicos.Evento

@@ -32,10 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Retorno.MDFeEvento;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
+namespace MDFe.Classes.Retorno
 {
     [Serializable]
     [XmlRoot(ElementName = "procEventoMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]

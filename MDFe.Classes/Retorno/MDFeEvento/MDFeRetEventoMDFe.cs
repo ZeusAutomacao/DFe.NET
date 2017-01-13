@@ -34,10 +34,10 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento
+namespace MDFe.Classes.Retorno.MDFeEvento
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",

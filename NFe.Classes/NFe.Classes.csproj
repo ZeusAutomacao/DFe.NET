@@ -42,15 +42,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assinatura\CanonicalizationMethod.cs" />
-    <Compile Include="Assinatura\DigestMethod.cs" />
-    <Compile Include="Assinatura\KeyInfo.cs" />
-    <Compile Include="Assinatura\Reference.cs" />
-    <Compile Include="Assinatura\Signature.cs" />
-    <Compile Include="Assinatura\SignatureMethod.cs" />
-    <Compile Include="Assinatura\SignedInfo.cs" />
-    <Compile Include="Assinatura\Transform.cs" />
-    <Compile Include="Assinatura\X509Data.cs" />
     <Compile Include="infNFeSupl.cs" />
     <Compile Include="Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
@@ -78,6 +69,7 @@
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />
     <Compile Include="Servicos\Download\retDownloadNFe.cs" />
     <Compile Include="Servicos\Download\retNFe.cs" />
+    <Compile Include="Servicos\Inutilizacao\procInutNFe.cs" />
     <Compile Include="Valor.cs" />
     <Compile Include="Informacoes\Cana\cana.cs" />
     <Compile Include="Informacoes\Cana\deduc.cs" />
@@ -228,7 +220,12 @@
   <ItemGroup>
     <None Include="NFe.Classes.licenseheader" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

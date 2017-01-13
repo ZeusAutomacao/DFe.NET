@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico;
+using MDFe.Classes.Informacoes.StatusServico;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 

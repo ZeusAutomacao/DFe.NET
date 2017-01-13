@@ -91,6 +91,10 @@
     <Compile Include="Validacao\Validador.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29CA1DA2-440D-484B-951A-CF1B2EB27984}</Project>
       <Name>NFe.Classes</Name>

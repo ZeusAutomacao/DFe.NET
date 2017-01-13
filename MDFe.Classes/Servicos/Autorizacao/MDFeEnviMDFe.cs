@@ -33,10 +33,9 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
+namespace MDFe.Classes.Servicos.Autorizacao
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
@@ -55,7 +54,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao
         public string IdLote { get; set; }
 
         [XmlElement(ElementName = "MDFe")]
-        public MDFe MDFe { get; set; }
+        public Informacoes.MDFe MDFe { get; set; }
 
         public static MDFeEnviMDFe LoadXmlString(string xml)
         {

@@ -34,7 +34,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using Signature = NFe.Classes.Assinatura.Signature;
+using Signature = DFe.Classes.Assinatura.Signature;
 
 namespace NFe.Utils.Assinatura
 {
