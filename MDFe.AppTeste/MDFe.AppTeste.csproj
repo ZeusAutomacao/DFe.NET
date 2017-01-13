@@ -37,14 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -351,11 +346,11 @@
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937A-A826-4785-9D1E-3A9F4A622B7C}</Project>
+      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
       <Name>MDFe.Servicos</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
+      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
       <Name>MDFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
