@@ -34,7 +34,7 @@ using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
 namespace MDFe.Utils.Configuracoes
 {

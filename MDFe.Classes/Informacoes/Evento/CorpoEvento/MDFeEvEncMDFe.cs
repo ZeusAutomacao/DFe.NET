@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
     [XmlRoot(ElementName = "evEncMDFe")]

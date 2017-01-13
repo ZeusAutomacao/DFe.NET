@@ -33,9 +33,9 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
+namespace MDFe.Classes.Informacoes.Evento
 {
     [Serializable]
     [XmlRoot(ElementName = "eventoMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]

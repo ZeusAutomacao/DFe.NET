@@ -7,7 +7,7 @@
     <ProjectGuid>{9794CB98-4691-4218-A127-C573C2E7FF83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManifestoDocumentoFiscalEletronico.Classes</RootNamespace>
+    <RootNamespace>MDFe.Classes</RootNamespace>
     <AssemblyName>MDFe.Classes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

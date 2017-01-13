@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags
+namespace MDFe.Classes.Servicos.Flags
 {
     public enum VersaoServico
     {

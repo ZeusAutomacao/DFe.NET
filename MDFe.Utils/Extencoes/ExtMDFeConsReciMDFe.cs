@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao;
+using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 
