@@ -36,9 +36,9 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Servicos.Autorizacao;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
+namespace MDFe.Classes.Retorno.MDFeRecepcao
 {
     [Serializable]
     [XmlRoot(ElementName = "retEnviMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]

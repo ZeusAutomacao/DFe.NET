@@ -33,9 +33,9 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico
+namespace MDFe.Classes.Informacoes.StatusServico
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",

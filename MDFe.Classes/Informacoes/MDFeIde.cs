@@ -36,9 +36,9 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeIde

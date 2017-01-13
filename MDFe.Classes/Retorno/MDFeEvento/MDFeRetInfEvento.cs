@@ -36,7 +36,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento
+namespace MDFe.Classes.Retorno.MDFeEvento
 {
     [Serializable]
     public class MDFeRetInfEvento

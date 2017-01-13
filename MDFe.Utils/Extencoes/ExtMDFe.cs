@@ -34,11 +34,11 @@ using System;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
-using MDFEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Utils.Extencoes
 {
