@@ -78,6 +78,7 @@
     <Compile Include="Servicos\Download\procNFeGrupoZip.cs" />
     <Compile Include="Servicos\Download\retDownloadNFe.cs" />
     <Compile Include="Servicos\Download\retNFe.cs" />
+    <Compile Include="Servicos\Inutilizacao\procInutNFe.cs" />
     <Compile Include="Valor.cs" />
     <Compile Include="Informacoes\Cana\cana.cs" />
     <Compile Include="Informacoes\Cana\deduc.cs" />
