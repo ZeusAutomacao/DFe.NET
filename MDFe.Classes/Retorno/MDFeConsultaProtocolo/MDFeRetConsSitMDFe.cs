@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
@@ -78,7 +79,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
         public MDFeProtMDFe ProtMDFe { get; set; }
 
         [XmlElement(ElementName = "procEventoMDFe")]
-        public MDFeProcEventoMDFe ProcEventoMDFe { get; set; }
+        public List<MDFeProcEventoMDFe> ProcEventoMDFe { get; set; }
 
         public static MDFeRetConsSitMDFe LoadXml(string xml)
         {
