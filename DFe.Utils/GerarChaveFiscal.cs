@@ -100,7 +100,7 @@ namespace DFe.Utils
             DigitoVerificador = byte.Parse(digitoVerificador);
         }
 
-        private string CalculaDigitoVerificador(string chave)
+        public static string CalculaDigitoVerificador(string chave)
         {
             var soma = 0; // Vai guardar a Soma
             var mod = -1; // Vai guardar o Resto da divisão
