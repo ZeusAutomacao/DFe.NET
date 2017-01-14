@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.Flags
+namespace MDFe.Classes.Informacoes.Evento.Flags
 {
     public enum MDFeTipoEvento
     {

@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Flags
+namespace MDFe.Classes.Flags
 {
     [Serializable]
     public enum MDFeCUnid

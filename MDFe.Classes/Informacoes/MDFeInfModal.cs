@@ -32,10 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Contratos;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeInfModal

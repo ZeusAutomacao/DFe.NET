@@ -33,6 +33,7 @@
 using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using DFe.Utils;
 using NFe.Classes.Informacoes;
 
 namespace NFe.Utils
@@ -67,7 +68,7 @@ namespace NFe.Utils
                 tipoEmissao + //tpEmis – forma de emissão da NF-e
                 infNFe.ide.cNF.PadLeft(tamanhocNf, '0'); //cNF - Código Numérico que compõe a Chave de Acesso
 
-            var cDv = GerarDigitoVerificadorNFe(chave);
+            var cDv = GerarChaveFiscal.CalculaDigitoVerificador(chave);
             return chave + cDv;
         }
 
@@ -76,34 +77,5 @@ namespace NFe.Utils
             return "NFe" + chave;
         }
 
-        private static string GerarDigitoVerificadorNFe(string chave)
-        {
-            var soma = 0; // Vai guardar a Soma
-            var mod = -1; // Vai guardar o Resto da divisão
-            var dv = -1; // Vai guardar o DigitoVerificador
-            var pesso = 2; // vai guardar o pesso de multiplicacao
-
-            //percorrendo cada caracter da chave da direita para esquerda para fazer os calculos com o pesso
-            for (var i = chave.Length - 1; i != -1; i--)
-            {
-                var ch = Convert.ToInt32(chave[i].ToString());
-                soma += ch*pesso;
-                //sempre que for 9 voltamos o pesso a 2
-                if (pesso < 9)
-                    pesso += 1;
-                else
-                    pesso = 2;
-            }
-
-            //Agora que tenho a soma vamos pegar o resto da divisão por 11
-            mod = soma%11;
-            //Aqui temos uma regrinha, se o resto da divisão for 0 ou 1 então o dv vai ser 0
-            if (mod == 0 || mod == 1)
-                dv = 0;
-            else
-                dv = 11 - mod;
-
-            return dv.ToString();
-        }
     }
 }

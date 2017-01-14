@@ -34,7 +34,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeInfNFe

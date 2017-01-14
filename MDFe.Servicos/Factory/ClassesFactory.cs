@@ -31,16 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.RetRecepcao;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.RetRecepcao;
+using MDFe.Classes.Informacoes.StatusServico;
+using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Extencoes;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
 {

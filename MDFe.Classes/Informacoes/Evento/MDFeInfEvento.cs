@@ -35,9 +35,9 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.Flags;
+using MDFe.Classes.Informacoes.Evento.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
+namespace MDFe.Classes.Informacoes.Evento
 {
     [Serializable]
     public class MDFeInfEvento

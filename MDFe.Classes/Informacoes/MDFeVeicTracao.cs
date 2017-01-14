@@ -35,9 +35,9 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeVeicTracao
