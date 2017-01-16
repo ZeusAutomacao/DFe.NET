@@ -42,7 +42,7 @@ namespace MDFe.Classes.Informacoes
         /// 3 - Sigla das Unidades da Federação do percurso do veículo.
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFPer { get; set; }
+        public Estado UFPer { get; set; }
 
         /// <summary>
         /// Proxy para UFPer

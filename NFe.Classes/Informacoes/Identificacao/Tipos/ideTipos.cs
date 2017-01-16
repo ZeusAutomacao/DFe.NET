@@ -50,15 +50,6 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     }
 
     /// <summary>
-    ///     Código do modelo do Documento Fiscal. 55 = NF-e; 65 = NFC-e.
-    /// </summary>
-    public enum ModeloDocumento
-    {
-        [XmlEnum("55")] NFe = 55,
-        [XmlEnum("65")] NFCe = 65
-    }
-
-    /// <summary>
     ///     Tipo do Documento Fiscal (0 - entrada; 1 - saída)
     /// </summary>
     public enum TipoNFe

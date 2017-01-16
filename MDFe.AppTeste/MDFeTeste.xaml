@@ -90,7 +90,7 @@
 
                                         <TextBlock Text="Sigla UF"></TextBlock>
                                         <ComboBox IsEditable="False"
-                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:Estado}}}"
                                                   SelectedItem="{Binding SiglaUf}">
                                         </ComboBox>
 
@@ -151,7 +151,7 @@
                             <StackPanel>
                                 <GroupBox Header="UF Destino">
                                     <ComboBox IsEditable="False"
-                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:EstadoUF}}}"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:Estado}}}"
                                               SelectedItem="{Binding UfDestino}">
 
                                     </ComboBox>

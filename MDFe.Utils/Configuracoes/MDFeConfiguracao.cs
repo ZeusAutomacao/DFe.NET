@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -77,7 +77,7 @@ namespace MDFe.Utils.Configuracoes
     public class MDFeVersaoWebService
     {
         public int TimeOut { get; set; }
-        public EstadoUF UfEmitente { get; set; }
+        public Estado UfEmitente { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoMDFeRecepcao { get; set; }
         public VersaoServico VersaoMDFeRetRecepcao { get; set; }

@@ -30,6 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.Xml.Serialization;
+using DFe.Utils;
+
 namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
     public class med : ProdutoEspecifico
@@ -52,14 +57,36 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         }
 
         /// <summary>
-        ///     K04 - Data de fabricação. Formato: “AAAA-MM-DD”
+        ///     K04 - Data de fabricação.
         /// </summary>
-        public string dFab { get; set; }
+        [XmlIgnore]
+        public DateTime dFab { get; set; }
 
         /// <summary>
-        ///     K05 - Data de validade. Formato: “AAAA-MM-DD”
+        /// Proxy para dFab no formato AAAA-MM-DD
         /// </summary>
-        public string dVal { get; set; }
+        [XmlElement(ElementName = "dFab")]
+        public string ProxydFab
+        {
+            get { return dFab.ParaDataString(); }
+            set { dFab = DateTime.Parse(value); }
+        }
+
+        /// <summary>
+        ///     K05 - Data de validade.
+        /// </summary>
+        [XmlIgnore]
+        public DateTime dVal { get; set; }
+
+        /// <summary>
+        /// Proxy para dVal no formato AAAA-MM-DD
+        /// </summary>
+        [XmlElement(ElementName = "dVal")]
+        public string ProxydVal
+        {
+            get { return dVal.ParaDataString(); }
+            set { dVal = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     K06 - Preço máximo consumidor

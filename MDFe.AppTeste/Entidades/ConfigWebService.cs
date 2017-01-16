@@ -8,7 +8,7 @@ namespace MDFe.AppTeste.Entidades
     [Serializable]
     public class ConfigWebService
     {
-        public EstadoUF UfEmitente { get; set; }
+        public Estado UfEmitente { get; set; }
         public TipoAmbiente Ambiente { get; set; }
         public short Serie { get; set; }
         public long Numeracao { get; set; }
