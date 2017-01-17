@@ -38,34 +38,34 @@ namespace DFe.Classes.Extencoes
 {
     public static class ExtEstadoUF
     {
-        public static EstadoUF SiglaParaEstado(this EstadoUF estadoUf, string siglaUf)
+        public static Estado SiglaParaEstado(this Estado estado, string siglaUf)
         {
-            var enumValues = Enum.GetValues(typeof(EstadoUF)).Cast<EstadoUF>().FirstOrDefault(estado => estado.GetSiglaUfString() == siglaUf);
+            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(e => e.GetSiglaUfString() == siglaUf);
 
             return enumValues;
         }
 
-        public static EstadoUF CodigoIbgeParaEstado(this EstadoUF estadoUf, string codigoIbge)
+        public static Estado CodigoIbgeParaEstado(this Estado estado, string codigoIbge)
         {
-            var enumValues = Enum.GetValues(typeof(EstadoUF)).Cast<EstadoUF>().FirstOrDefault(estado => estado.GetCodigoIbgeEmString() == codigoIbge);
+            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(est => est.GetCodigoIbgeEmString() == codigoIbge);
 
             return enumValues;
         }
 
-        public static string GetSiglaUfString(this EstadoUF estadoUf)
+        public static string GetSiglaUfString(this Estado estado)
         {
-            return estadoUf.ToString();
+            return estado.ToString();
         }
 
-        public static string GetCodigoIbgeEmString(this EstadoUF estadoUf)
+        public static string GetCodigoIbgeEmString(this Estado estado)
         {
-            var codigo = (byte) estadoUf;
+            var codigo = (byte) estado;
             return codigo.ToString();
         }
 
-        public static byte GetCodigoIbgeEmByte(this EstadoUF estadoUf)
+        public static byte GetCodigoIbgeEmByte(this Estado estado)
         {
-            var codigo = (byte) estadoUf;
+            var codigo = (byte) estado;
 
             return codigo;
         }

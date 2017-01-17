@@ -84,7 +84,6 @@
     <Compile Include="NFe\ExtNFe.cs" />
     <Compile Include="Consulta\ExtprocEventoNFe.cs" />
     <Compile Include="Status\ExtretConsStatServ.cs" />
-    <Compile Include="Gerador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FuncoesXml.cs" />
     <Compile Include="Tributacao\Estadual\ICMSGeral.cs" />

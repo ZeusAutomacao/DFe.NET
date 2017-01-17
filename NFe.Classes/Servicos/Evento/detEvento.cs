@@ -32,6 +32,8 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Servicos.Evento
@@ -163,9 +165,20 @@ namespace NFe.Classes.Servicos.Evento
         public string verAplic { get; set; }
 
         /// <summary>
-        ///     P23 - Data e hora no formato UTC (Universal Coordinated Time): "AAAA-MM-DDThh:mm:ss TZD".
+        ///     P23 - Data e hora
         /// </summary>
-        public string dhEmi { get; set; }
+        [XmlIgnore]
+        public DateTime dhEmi { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEmi")]
+        public string ProxyDhEmi
+        {
+            get { return dhEmi.ParaDataHoraStringUtc(); }
+            set { dhEmi = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     P24 - 0=Entrada; 1=Saída;
@@ -214,7 +227,7 @@ namespace NFe.Classes.Servicos.Evento
             cOrgaoAutor = null;
             tpAutor = null;
             verAplic = null;
-            dhEmi = null;
+            dhEmi = DateTime.MinValue;
             tpNF = null;
             IE = null;
             dest = null;

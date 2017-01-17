@@ -30,13 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
 using System;
-using System.Text;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using NFe.Classes;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -45,6 +43,7 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.NFe;
+using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Integracao
 {

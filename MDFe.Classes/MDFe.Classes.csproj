@@ -40,7 +40,6 @@
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
-    <Compile Include="Flags\MDFeModelo.cs" />
     <Compile Include="Flags\MDFeTipoEmissao.cs" />
     <Compile Include="Flags\MDFeTipoEmitente.cs" />
     <Compile Include="Flags\MDFeTpCar.cs" />
@@ -124,7 +123,6 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

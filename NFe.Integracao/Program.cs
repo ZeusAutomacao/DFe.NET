@@ -125,7 +125,7 @@ namespace NFe.Integracao
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Não foi possível exibir dados de configuração.");
+                Console.WriteLine(string.Format("Não foi possível exibir dados de configuração.\nErro: {0}", ex.Message));
             }
 
         }

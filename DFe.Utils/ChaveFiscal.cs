@@ -32,91 +32,70 @@
 /********************************************************************************/
 using System;
 using System.Text;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 
 namespace DFe.Utils
 {
-    public class GerarChaveFiscal
+    /// <summary>
+    /// Classe com métodos para tratamento da chave dos documentos fiscais
+    /// </summary>
+    public class ChaveFiscal
     {
-        private readonly int _modeloDocumentoFiscal;
-        private readonly int _tipoEmissao;
-        private readonly long _codigoNumerico;
-        private readonly int _codigoIbgeUf;
-        private readonly long _documentoUnico;
-        private readonly long _numeroDocumento;
-        private readonly int _serie;
-        private readonly DateTime _dataEHoraEmissao;
-        public string Chave { get; private set; }
-        public byte DigitoVerificador { get; private set; }
-
-        public GerarChaveFiscal(int modeloDocumentoFiscal,
-            int tipoEmissao,
-            long codigoNumerico,
-            int codigoIbgeUf,
-            DateTime dataEHoraEmissao,
-            long documentoUnico,
-            long numeroDocumento,
-            int serie)
+        /// <summary>
+        /// Obtém a chave do documento fiscal
+        /// </summary>
+        /// <param name="ufEmitente">UF do emitente do DF-e</param>
+        /// <param name="dataEmissao">Data de emissão do DF-e</param>
+        /// <param name="cnpjEmitente">CNPJ do emitente do DF-e</param>
+        /// <param name="modelo">Modelo do DF-e</param>
+        /// <param name="serie">Série do DF-e</param>
+        /// <param name="numero">Numero do DF-e</param>
+        /// <param name="tipoEmissao">Tipo de emissão do DF-e. Informar inteiro conforme consta no manual de orientação do contribuinte para o DF-e</param>
+        /// <param name="cNf">Código numérico que compõe a Chave de Acesso. Número gerado pelo emitente para cada DF-e</param>
+        /// <returns>Retorna um objeto <see cref="DadosChaveFiscal"/> com os dados da chave de acesso</returns>
+        public static DadosChaveFiscal ObterChave(Estado ufEmitente, DateTime dataEmissao, string cnpjEmitente, ModeloDocumento modelo, int serie, long numero, int tipoEmissao, int cNf)
         {
-            _modeloDocumentoFiscal = modeloDocumentoFiscal;
-            _tipoEmissao = tipoEmissao;
-            _codigoNumerico = codigoNumerico;
-            _codigoIbgeUf = codigoIbgeUf;
-            _documentoUnico = documentoUnico;
-            _numeroDocumento = numeroDocumento;
-            _serie = serie;
-            _dataEHoraEmissao = dataEHoraEmissao;
-
-
-            GeraChave();
-        }
-
-        private void GeraChave()
-        {
-            var codigoUf = _codigoIbgeUf.ToString("D2");
-            var anoMes = _dataEHoraEmissao.ToString("yyMM");
-            var documentoUnico = _documentoUnico.ToString("D14");
-            var modeloDocumentoFiscal = _modeloDocumentoFiscal.ToString("D2");
-            var serie = _serie.ToString("D3");
-            var numeroDocumento = _numeroDocumento.ToString("D9");
-            var tipoEmissao = _tipoEmissao.ToString();
-            var codigoNumerico = _codigoNumerico.ToString("D8");
-
             var chave = new StringBuilder();
 
-            chave.Append(codigoUf)
-                .Append(anoMes)
-                .Append(documentoUnico)
-                .Append(modeloDocumentoFiscal)
-                .Append(serie)
-                .Append(numeroDocumento)
-                .Append(tipoEmissao)
-                .Append(codigoNumerico);
+            chave.Append(((int)ufEmitente).ToString("D2"))
+                .Append(Convert.ToDateTime(dataEmissao).ToString("yyMM"))
+                .Append(cnpjEmitente)
+                .Append(((int)modelo).ToString("D2"))
+                .Append(serie.ToString("D3"))
+                .Append(numero.ToString("D9"))
+                .Append(tipoEmissao.ToString())
+                .Append(cNf.ToString("D8"));
 
-            var digitoVerificador = CalculaDigitoVerificador(chave.ToString());
+            var digitoVerificador = ObterDigitoVerificador(chave.ToString());
 
             chave.Append(digitoVerificador);
 
-            Chave = chave.ToString();
-            DigitoVerificador = byte.Parse(digitoVerificador);
+            return new DadosChaveFiscal(chave.ToString(), byte.Parse(digitoVerificador));
         }
 
-        public static string CalculaDigitoVerificador(string chave)
+        /// <summary>
+        /// Calcula e devolve o dígito verificador da chave do DF-e
+        /// </summary>
+        /// <param name="chave"></param>
+        /// <returns></returns>
+        private static string ObterDigitoVerificador(string chave)
         {
             var soma = 0; // Vai guardar a Soma
             var mod = -1; // Vai guardar o Resto da divisão
             var dv = -1; // Vai guardar o DigitoVerificador
-            var pesso = 2; // vai guardar o pesso de multiplicacao
+            var peso = 2; // vai guardar o peso de multiplicação
 
-            //percorrendo cada caracter da chave da direita para esquerda para fazer os calculos com o pesso
+            //percorrendo cada caractere da chave da direita para esquerda para fazer os cálculos com o peso
             for (var i = chave.Length - 1; i != -1; i--)
             {
                 var ch = Convert.ToInt32(chave[i].ToString());
-                soma += ch*pesso;
-                //sempre que for 9 voltamos o pesso a 2
-                if (pesso < 9)
-                    pesso += 1;
+                soma += ch*peso;
+                //sempre que for 9 voltamos o peso a 2
+                if (peso < 9)
+                    peso += 1;
                 else
-                    pesso = 2;
+                    peso = 2;
             }
 
             //Agora que tenho a soma vamos pegar o resto da divisão por 11
@@ -130,36 +109,56 @@ namespace DFe.Utils
             return dv.ToString();
         }
 
-        public static void ValidarChave(string chaveNfe)
+        /// <summary>
+        /// Informa se a chave de um DF-e é válida
+        /// </summary>
+        /// <param name="chaveNfe"></param>
+        /// <returns></returns>
+        public static bool ChaveValida(string chaveNfe)
         {
-            var codifoUF = int.Parse(chaveNfe.Substring(0, 2));
+            Estado codigo;
+            Enum.TryParse(chaveNfe.Substring(0, 2), out codigo);
 
             var anoMes = chaveNfe.Substring(2, 4);
+
             var ano = int.Parse(anoMes.Substring(0, 2));
             var mes = int.Parse(anoMes.Substring(2, 2));
-
             var anoEMesData = new DateTime(ano, mes, 1);
 
-            var cnpj = long.Parse(chaveNfe.Substring(6, 14));
-            var modelo = int.Parse(chaveNfe.Substring(20, 2));
+            var cnpj = chaveNfe.Substring(6, 14);
+            ModeloDocumento modelo;
+            Enum.TryParse(chaveNfe.Substring(20, 2), out modelo);
             var serie = int.Parse(chaveNfe.Substring(22, 3));
             var numeroNfe = long.Parse(chaveNfe.Substring(25, 9));
             var formaEmissao = int.Parse(chaveNfe.Substring(34, 1));
-            var codigoNumerico = long.Parse(chaveNfe.Substring(35, 8));
+            var codigoNumerico = int.Parse(chaveNfe.Substring(35, 8));
             var digitoVerificador = chaveNfe.Substring(43, 1);
 
-            var gerarChave = new GerarChaveFiscal(modelo,
-                formaEmissao,
-                codigoNumerico,
-                codifoUF,
-                anoEMesData,
-                cnpj,
-                numeroNfe,
-                serie);
+            var gerarChave = ObterChave(codigo, anoEMesData, cnpj, modelo, serie, numeroNfe, formaEmissao, codigoNumerico);
 
-            if (digitoVerificador.Equals(gerarChave.DigitoVerificador.ToString())) return;
-
-            throw new InvalidOperationException("Chave da NF-e não é válida");
+            return digitoVerificador.Equals(gerarChave.DigitoVerificador.ToString());
         }
+    }
+
+    /// <summary>
+    /// Classe com dados da Chave do DF-e
+    /// </summary>
+    public class DadosChaveFiscal
+    {
+        public DadosChaveFiscal(string chave, byte digitoVerificador)
+        {
+            Chave = chave;
+            DigitoVerificador = digitoVerificador;
+        }
+
+        /// <summary>
+        /// Chave de acesso do DF-e
+        /// </summary>
+        public string Chave { get; private set; }
+
+        /// <summary>
+        /// Dígito verificador da chave de acesso do DF-e
+        /// </summary>
+        public byte DigitoVerificador { get; private set; }
     }
 }

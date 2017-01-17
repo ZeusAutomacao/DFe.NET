@@ -106,7 +106,7 @@ namespace MDFe.Classes.Informacoes
         /// 2 - UF em que veículo está licenciado 
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UF { get; set; }
+        public Estado UF { get; set; }
 
         /// <summary>
         /// Proxy para obter a sigla uf

@@ -31,50 +31,49 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using DFe.Utils;
-using NFe.Classes.Informacoes;
 
-namespace NFe.Utils
+namespace DFe.Utils
 {
-    public static class Gerador
+    public static class DataHora
     {
-        public static string GerarChave(infNFe infNFe)
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DD
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataString(this DateTime data)
         {
-            var cpfcnpj = String.IsNullOrEmpty(infNFe.emit.CNPJ) ? Regex.Match(infNFe.emit.CPF, @"\d+").Value : Regex.Match(infNFe.emit.CNPJ, @"\d+").Value;
-
-            var tipoEmissao = "";
-            var tamanhocNf = 9;
-            var anoMesEmissao = Convert.ToDateTime(infNFe.ide.dhEmi).ToString("yyMM");
-
-            if (Decimal.Parse(infNFe.versao, CultureInfo.InvariantCulture) == 2) //Se a versão for 2, usar o campo dEmi ao invés de dhEmi
-                anoMesEmissao = Convert.ToDateTime(infNFe.ide.dEmi).ToString("yyMM");
-
-
-            if (Decimal.Parse(infNFe.versao, CultureInfo.InvariantCulture) >= 2) //De acordo com o manual de oriantação v5.0 pág. 92
-            {
-                tipoEmissao = ((int) infNFe.ide.tpEmis).ToString();
-                tamanhocNf = 8;
-            }
-
-            var chave =
-                ((int) infNFe.ide.cUF).ToString().PadLeft(2, '0') + //cUF - Código da UF do emitente do Documento Fisca
-                anoMesEmissao + //AAMM - Ano e Mês de emissão da NF-e
-                cpfcnpj.PadLeft(14, '0') + //CNPJ - CNPJ do emitente
-                ((int) infNFe.ide.mod).ToString().PadLeft(2, '0') + //mod - Modelo do Documento Fiscal
-                infNFe.ide.serie.ToString().PadLeft(3, '0') + //serie - Série do Documento Fiscal
-                infNFe.ide.nNF.ToString().PadLeft(9, '0') + //nNF - Número do Documento Fiscal 
-                tipoEmissao + //tpEmis – forma de emissão da NF-e
-                infNFe.ide.cNF.PadLeft(tamanhocNf, '0'); //cNF - Código Numérico que compõe a Chave de Acesso
-
-            var cDv = GerarChaveFiscal.CalculaDigitoVerificador(chave);
-            return chave + cDv;
+            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-dd");
         }
 
-        public static string GerarId(string chave)
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataHoraStringUtc(this DateTime data)
         {
-            return "NFe" + chave;
+            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:sszzz");
+        }
+
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataHoraStringUtc(this DateTime? data)
+        {
+            return ParaDataHoraStringUtc(data.GetValueOrDefault());
+        }
+
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DD HH:mm:ss
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataHoraString(this DateTime data)
+        {
+            return data.ToString("yyyyMMddHHmmss");
         }
     }
 }

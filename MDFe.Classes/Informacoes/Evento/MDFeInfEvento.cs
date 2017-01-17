@@ -35,6 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.Flags;
 
 namespace MDFe.Classes.Informacoes.Evento
@@ -46,7 +47,7 @@ namespace MDFe.Classes.Informacoes.Evento
         public string Id { get; set; }
 
         [XmlIgnore]
-        public EstadoUF COrgao { get; set; }
+        public Estado COrgao { get; set; }
 
         [XmlElement(ElementName = "cOrgao")]
         public string COrgaoProxy
@@ -73,7 +74,7 @@ namespace MDFe.Classes.Informacoes.Evento
         [XmlElement(ElementName = "dhEvento")]
         public string ProxyDhEvento
         {
-            get { return DhEvento.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get { return DhEvento.ParaDataHoraStringUtc(); }
             set { DhEvento = DateTime.Parse(value); }
         }
 
