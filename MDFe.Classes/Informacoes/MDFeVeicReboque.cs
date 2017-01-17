@@ -87,7 +87,7 @@ namespace MDFe.Classes.Informacoes
         public MDFeTpCar TpCar { get; set; }
 
         [XmlIgnore]
-        public EstadoUF UF { get; set; }
+        public Estado UF { get; set; }
 
         [XmlElement(ElementName = "UF")]
         public string ProxyUF

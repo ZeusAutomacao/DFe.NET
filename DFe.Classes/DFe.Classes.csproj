@@ -45,8 +45,9 @@
     <Compile Include="Assinatura\SignedInfo.cs" />
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
-    <Compile Include="Entidades\EstadoUF.cs" />
+    <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Extencoes\ExtEstadoUF.cs" />
+    <Compile Include="Flags\ModeloDocumento.cs" />
     <Compile Include="Flags\TipoAmbiente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

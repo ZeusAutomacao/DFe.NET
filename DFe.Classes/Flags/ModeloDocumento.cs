@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusMDFe                                                 */
-/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
-/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
+/* Projeto: Biblioteca ZeusDFe                                                  */
+/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
+/*                                                                              */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -32,11 +32,18 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 
-namespace MDFe.Classes.Flags
+namespace DFe.Classes.Flags
 {
-    public enum MDFeModelo
+    /// <summary>
+    ///     Código do modelo do Documento Fiscal. 55 = NF-e; 58 = MDFe; 65 = NFC-e.
+    /// </summary>
+    public enum ModeloDocumento
     {
+        [XmlEnum("55")]
+        NFe = 55,
         [XmlEnum("58")]
-        MDFe = 58
+        MDFe = 58,
+        [XmlEnum("65")]
+        NFCe = 65
     }
 }

@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
+using DFe.Utils;
 using MDFe.Classes.Contratos;
 
 namespace MDFe.Classes.Informacoes
@@ -81,10 +82,7 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "dVoo")]
         public string ProxyDVoo
         {
-            get
-            {
-                return DVoo.ToString("yyyy-MM-dd");
-            }
+            get { return DVoo.ParaDataString(); }
             set { DVoo = DateTime.Parse(value); }
         }
     }

@@ -34,7 +34,7 @@ using System.Xml.Serialization;
 
 namespace DFe.Classes.Entidades
 {
-    public enum EstadoUF
+    public enum Estado
     {
         [XmlEnum("12")]
         AC = 12,
@@ -116,6 +116,9 @@ namespace DFe.Classes.Entidades
 
         [XmlEnum("17")]
         TO = 17,
+
+        [XmlEnum("91")]
+        AN = 91,
 
         [XmlEnum("99")]
         EX = 99

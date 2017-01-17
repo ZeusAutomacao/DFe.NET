@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -85,13 +85,13 @@ namespace MDFe.AppTeste
         private long _codigoIbgeMunicipio;
         private string _nomeMunicipio;
         private string _cep;
-        private EstadoUF _siglaUf;
+        private Estado _siglaUf;
         private string _telefone;
         private string _email;
         private string _numeroDeSerie;
         private string _caminhoArquivo;
         private string _senha;
-        private EstadoUF _ufDestino;
+        private Estado _ufDestino;
         private TipoAmbiente _ambiente;
         private short _serie;
         private long _numeracao;
@@ -231,7 +231,7 @@ namespace MDFe.AppTeste
             }
         }
 
-        public EstadoUF SiglaUf
+        public Estado SiglaUf
         {
             get { return _siglaUf; }
             set
@@ -299,7 +299,7 @@ namespace MDFe.AppTeste
 
         #region configWebService
 
-        public EstadoUF UfDestino
+        public Estado UfDestino
         {
             get { return _ufDestino; }
             set
@@ -604,7 +604,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
@@ -613,8 +613,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -663,7 +663,7 @@ namespace MDFe.AppTeste
                 {
                     Placa = "KKK9888",
                     RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
+                    UF = Estado.GO,
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,
@@ -745,7 +745,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
@@ -754,8 +754,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -804,7 +804,7 @@ namespace MDFe.AppTeste
                 {
                     Placa = "KKK9888",
                     RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
+                    UF = Estado.GO,
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,

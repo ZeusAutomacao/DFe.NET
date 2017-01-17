@@ -61,7 +61,7 @@ namespace MDFe.Classes.Retorno.MDFeStatusServico
         public string XMotivo { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

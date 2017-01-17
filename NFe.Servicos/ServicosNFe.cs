@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
@@ -78,7 +77,11 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
 using NFe.Utils.Excecoes;
+using FuncoesXml = NFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
 {
@@ -248,7 +251,7 @@ namespace NFe.Servicos
             var dadosStatus = new XmlDocument();
             dadosStatus.LoadXml(xmlStatus);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-sta.xml", xmlStatus);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-sta.xml", xmlStatus);
 
             XmlNode retorno;
             try
@@ -263,7 +266,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retConsStatServ = new retConsStatServ().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-sta.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-sta.xml", retornoXmlString);
 
             return new RetornoNfeStatusServico(pedStatus.ObterXmlString(), retConsStatServ.ObterXmlString(),
                 retornoXmlString, retConsStatServ);
@@ -549,7 +552,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110111,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -587,7 +590,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110110,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -623,7 +626,7 @@ namespace NFe.Servicos
                 //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = (int) tipoEventoManifestacaoDestinatario,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -664,10 +667,7 @@ namespace NFe.Servicos
                 cOrgaoAutor = nfe.infNFe.ide.cUF,
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
-                dhEmi =
-                    !string.IsNullOrEmpty(nfe.infNFe.ide.dhEmi)
-                        ? nfe.infNFe.ide.dhEmi
-                        : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEmi = nfe.infNFe.ide.dhEmi,
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
                 dest = new dest
@@ -689,7 +689,7 @@ namespace NFe.Servicos
                 CNPJ = nfe.infNFe.emit.CNPJ,
                 CPF = nfe.infNFe.emit.CPF,
                 chNFe = nfe.infNFe.Id.Substring(3),
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110140,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -760,7 +760,7 @@ namespace NFe.Servicos
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-cad.xml", xmlConsulta);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -775,7 +775,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retConsCad().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-cad.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-cad.xml", retornoXmlString);
 
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
@@ -836,7 +836,7 @@ namespace NFe.Servicos
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-DistDFeInt.xml", xmlConsulta);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -851,7 +851,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
