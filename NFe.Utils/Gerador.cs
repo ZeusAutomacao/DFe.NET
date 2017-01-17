@@ -76,6 +76,5 @@ namespace NFe.Utils
         {
             return "NFe" + chave;
         }
-
     }
 }
