@@ -126,7 +126,7 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
-            get { return DhEmi.ParaDataHoraStringUtc(); }
+            get { return DhEmi.ParaDataHoraStringSemUtc(); }
             set { DhEmi = DateTime.Parse(value); }
         }
 
