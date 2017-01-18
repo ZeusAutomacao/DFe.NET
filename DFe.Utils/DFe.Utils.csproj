@@ -40,9 +40,11 @@
   <ItemGroup>
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
+    <Compile Include="ConfiguracaoCertificado.cs" />
     <Compile Include="DataHora.cs" />
     <Compile Include="FuncoesXml.cs" />
     <Compile Include="ChaveFiscal.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

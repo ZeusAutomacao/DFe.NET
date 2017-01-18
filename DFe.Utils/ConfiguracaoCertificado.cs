@@ -30,10 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.ComponentModel;
 using NFe.Utils.Annotations;
 
-namespace NFe.Utils
+namespace DFe.Utils
 {
     public class ConfiguracaoCertificado : INotifyPropertyChanged
     {
@@ -82,13 +83,13 @@ namespace NFe.Utils
         /// <para>Manter os dados do certificado em cache, aumentará o desempenho no consumo dos serviços, especialmente para certificados A3</para>
         /// </summary>
         public bool ManterDadosEmCache { get; set; }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
