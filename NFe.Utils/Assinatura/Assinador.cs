@@ -34,6 +34,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using DFe.Utils.Assinatura;
 using Signature = DFe.Classes.Assinatura.Signature;
 
 namespace NFe.Utils.Assinatura
@@ -54,7 +55,7 @@ namespace NFe.Utils.Assinatura
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var certificado = certificadoDigital ?? CertificadoDigital.ObterCertificado();
+            var certificado = certificadoDigital ?? CertificadoDigital.ObterCertificado(ConfiguracaoServico.Instancia.Certificado);
             try
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
