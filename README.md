@@ -5,16 +5,13 @@ Zeus.Net.NFe.NFCe
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
-Biblioteca gratuita para Geração de NFe 2.0 e 3.10 e NFCe 3.10 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx
+Biblioteca gratuita para Geração de NFe 2.0 e 3.10, NFCe 3.10 e MDF-e e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx e https://mdfe-portal.sefaz.rs.gov.br
 
 A biblioteca foi desenvolvida com o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2015 Update 1.
 Está licenciada sobre a LGPL.
 
 **Instruções para compilar a solução**
 - No visual studio, abra o arquivo "Zeus NFe.sln", defina o "NFe.AppTeste" como projeto de inicialização, compile e execute;
-- Os projetos NFe.Danfe.AppTeste e NFe.Danfe.Base utilizam o FastReports.NET;
-- Uma versão demo do FastReport pode ser baixada em https://www.fast-report.com/pt/product/fast-report-net/;
-- As dlls de runtime do FastReports.NET estão em NFe.Danfe.Fast\Dlls.
 
 **Projetos na Solução**
 - NFe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
@@ -28,13 +25,14 @@ Está licenciada sobre a LGPL.
 - NFe.Danfe.Fast: Biblioteca responsável por montar a impressão do DANFE em FastReports.
 
 **DANFE**
-- Foi implementado em 09/09/2015 a impressão do NFCe em Fast Reports (https://www.fast-report.com/pt/product/fast-report-net/);
-- Os recursos implementados na biblioteca de impressão foram: Visualização e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio Fast Reports;
+- Foi implementado em 09/09/2015 a impressão do NFCe em FastReport.Net (https://www.fast-report.com/pt/product/fast-report-net/);
+- Os recursos implementados na biblioteca de impressão foram: Visualização e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio FastReport.Net;
 - A impressão segue rigorosamente o Manual de Especificacoes Tecnicas do DANFE NFC-e QRCode Versao 3.2);
 - Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
 - As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes;
 - Instale as fontes informadas no PC que for imprimir o DANFE da NFCe;
-- Impressão testada e funcionando 100% nas impressoras Bematech MP-4200, Daruma DR700 e Epson TM-81 e TM-20.
+- Impressão testada e funcionando 100% nas impressoras Bematech MP-4200, Daruma DR700 e Epson TM-81 e TM-20;
+- As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dlls e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
 
 **Exemplo de impressão do DANFE da NFCe utilizando a biblioteca NFe.Danfe.Fast:**
 

@@ -80,6 +80,7 @@ using System.Xml;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Utils.Excecoes;
 using FuncoesXml = NFe.Utils.FuncoesXml;
 
@@ -98,7 +99,7 @@ namespace NFe.Servicos
         public ServicosNFe(ConfiguracaoServico cFgServico)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado();
+            _certificado = CertificadoDigital.ObterCertificado(ConfiguracaoServico.Instancia.Certificado);
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança

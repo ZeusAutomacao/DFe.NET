@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusDFe                                                  */
-/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
-/*                                                                              */
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -135,6 +135,34 @@ namespace DFe.Utils.Assinatura
 
             var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
             return certificado;
+        }
+
+        private static X509Certificate2 _certificado;
+
+        /// <summary>
+        /// Obtém um objeto contendo o certificado digital
+        /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
+        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
+        /// senão será obtido pelo método <see cref="ObterDoRepositorio()"/> </para>
+        /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
+        /// </summary>
+        public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        {
+            if (!configuracaoCertificado.ManterDadosEmCache)
+                return ObterDadosCertificado(configuracaoCertificado);
+            if (_certificado != null)
+                return _certificado;
+            _certificado = ObterDadosCertificado(configuracaoCertificado);
+            return _certificado;
+        }
+
+        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        {
+            return string.IsNullOrEmpty(configuracaoCertificado.Arquivo)
+                ? ObterDoRepositorio(configuracaoCertificado.Serial,
+                    configuracaoCertificado.Senha)
+                : ObterDeArquivo(configuracaoCertificado.Arquivo,
+                    configuracaoCertificado.Senha);
         }
     }
 }

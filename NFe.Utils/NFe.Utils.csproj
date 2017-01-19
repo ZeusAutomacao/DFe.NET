@@ -48,9 +48,7 @@
     <Compile Include="Assinatura\Assinador.cs" />
     <Compile Include="Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="Conversao.cs" />
-    <Compile Include="Assinatura\CertificadoDigital.cs" />
     <Compile Include="Compressao.cs" />
-    <Compile Include="ConfiguracaoCertificado.cs" />
     <Compile Include="ConfiguracaoServico.cs" />
     <Compile Include="ConsultaCadastro\ExtConsCad.cs" />
     <Compile Include="ConsultaCadastro\ExtretConsCad.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="Inutilizacao\ExtretInutNFe.cs" />
     <Compile Include="NfeSituacao.cs" />
     <Compile Include="NFe\ExtNfeProc.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Recepcao\ExtconsReciNFe.cs" />
     <Compile Include="Recepcao\ExtenviNFe2.cs" />
     <Compile Include="Recepcao\ExtretConsReciNFe.cs" />
