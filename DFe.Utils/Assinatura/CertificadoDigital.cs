@@ -71,53 +71,12 @@ namespace DFe.Utils.Assinatura
         /// <param name="numeroSerial">Serial do certificado</param>
         /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
+        public static X509Certificate2 ObterDoRepositorio(ConfiguracaoCertificado configuracaoCertificado)
         {
-            if (string.IsNullOrEmpty(numeroSerial))
+            if (string.IsNullOrEmpty(configuracaoCertificado.Serial))
                 throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
 
-            X509Certificate2 certificado = null;
-
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            try
-            {
-                store.Open(OpenFlags.MaxAllowed);
-
-                foreach (var item in store.Certificates)
-                {
-                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
-                        certificado = item;
-                }
-
-                if (certificado == null)
-                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
-            }
-            finally
-            {
-                store.Close();
-            }
-            
-            if (string.IsNullOrEmpty(senha)) return certificado;
-
-            //Se a senha for passada no parâmetro
-            var senhaSegura = new SecureString();
-            var passPhrase = senha.ToCharArray();
-            foreach (var t in passPhrase)
-            {
-                senhaSegura.AppendChar(t);
-            }
-
-            var chavePrivada = certificado.PrivateKey as RSACryptoServiceProvider;
-            if (chavePrivada == null) return certificado;
-
-            var cspParameters = new CspParameters(chavePrivada.CspKeyContainerInfo.ProviderType,
-                chavePrivada.CspKeyContainerInfo.ProviderName,
-                chavePrivada.CspKeyContainerInfo.KeyContainerName,
-                null,
-                senhaSegura);
-            var rsaCsp = new RSACryptoServiceProvider(cspParameters);
-            certificado.PrivateKey = rsaCsp;
-            return certificado;
+            return configuracaoCertificado.CriaCertificado();
         }
 
         /// <summary>
@@ -159,8 +118,7 @@ namespace DFe.Utils.Assinatura
         private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
         {
             return string.IsNullOrEmpty(configuracaoCertificado.Arquivo)
-                ? ObterDoRepositorio(configuracaoCertificado.Serial,
-                    configuracaoCertificado.Senha)
+                ? ObterDoRepositorio(configuracaoCertificado)
                 : ObterDeArquivo(configuracaoCertificado.Arquivo,
                     configuracaoCertificado.Senha);
         }
