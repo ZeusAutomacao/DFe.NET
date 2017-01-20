@@ -40,6 +40,7 @@ using System.Windows;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
 using NFe.Classes;
 using NFe.Classes.Informacoes;
