@@ -1140,7 +1140,7 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            var configuracaoCertificado = new ConfiguracaoCertificado(new CertificadoAutoPinProvider())
+            var configuracaoCertificado = new ConfiguracaoCertificado(new CertificadoProvider())
             {
                 Senha = config.CertificadoDigital.Senha,
                 Arquivo = config.CertificadoDigital.CaminhoArquivo,
