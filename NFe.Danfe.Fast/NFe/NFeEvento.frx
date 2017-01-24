@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="01/02/2017 16:09:23" ReportInfo.CreatorVersion="2016.3.22.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="01/19/2017 20:12:01" ReportInfo.CreatorVersion="2017.1.18.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,9 +15,8 @@ using FastReport.Table;
 using FastReport.Utils;
 using NFe.Classes;
 using NFe.Utils;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
-
-
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 
 namespace FastReport
 {
@@ -82,7 +81,7 @@ namespace FastReport
       }
       Memo68.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;)).ToString(),'f');
       Memo77.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.dest.enderDest.fone&quot;)).ToString(),'f');
-      Memo52.Text = ((TipoAmbiente)Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpAmb&quot;)).TpAmbParaString();
+      Memo52.Text = ((NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente)Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpAmb&quot;)).TpAmbParaString();
     }
 
     private void memJustificativaCorrecao_BeforePrint(object sender, EventArgs e)
@@ -116,10 +115,10 @@ namespace FastReport
             <Column Name="mod" DataType="null"/>
             <Column Name="serie" DataType="System.Int32"/>
             <Column Name="nNF" DataType="System.Int64"/>
-            <Column Name="dEmi" DataType="System.String"/>
-            <Column Name="dSaiEnt" DataType="System.String"/>
-            <Column Name="dhEmi" DataType="System.String"/>
-            <Column Name="dhSaiEnt" DataType="System.String"/>
+            <Column Name="dEmi" DataType="System.DateTime"/>
+            <Column Name="dSaiEnt" DataType="System.DateTime"/>
+            <Column Name="dhEmi" DataType="System.DateTime"/>
+            <Column Name="dhSaiEnt" DataType="System.DateTime"/>
             <Column Name="tpNF" DataType="null"/>
             <Column Name="idDest" DataType="null"/>
             <Column Name="cMunFG" DataType="System.Int64"/>
@@ -132,7 +131,7 @@ namespace FastReport
             <Column Name="indPres" DataType="null"/>
             <Column Name="procEmi" DataType="null"/>
             <Column Name="verProc" DataType="System.String"/>
-            <Column Name="dhCont" DataType="System.String"/>
+            <Column Name="dhCont" DataType="System.DateTime"/>
             <Column Name="xJust" DataType="System.String"/>
             <BusinessObjectDataSource Name="NFref" DataType="null" Enabled="true">
               <Column Name="refNFe" DataType="System.String"/>
@@ -160,6 +159,11 @@ namespace FastReport
                 <Column Name="nCOO" DataType="System.Int32"/>
               </Column>
             </BusinessObjectDataSource>
+            <Column Name="ProxydEmi" DataType="System.String"/>
+            <Column Name="ProxydSaiEnt" DataType="System.String"/>
+            <Column Name="ProxyDhEmi" DataType="System.String"/>
+            <Column Name="ProxydhSaiEnt" DataType="System.String"/>
+            <Column Name="ProxydhCont" DataType="System.String"/>
           </Column>
           <Column Name="emit" DataType="null">
             <Column Name="CNPJ" DataType="System.String"/>
@@ -276,10 +280,10 @@ namespace FastReport
               <Column Name="indTot" DataType="null"/>
               <BusinessObjectDataSource Name="DI" DataType="null" Enabled="true">
                 <Column Name="nDI" DataType="System.String"/>
-                <Column Name="dDI" DataType="System.String"/>
+                <Column Name="dDI" DataType="System.DateTime"/>
                 <Column Name="xLocDesemb" DataType="System.String"/>
                 <Column Name="UFDesemb" DataType="System.String"/>
-                <Column Name="dDesemb" DataType="System.String"/>
+                <Column Name="dDesemb" DataType="System.DateTime"/>
                 <Column Name="tpViaTransp" DataType="null"/>
                 <Column Name="vAFRMM" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="tpIntermedio" DataType="null"/>
@@ -293,6 +297,8 @@ namespace FastReport
                   <Column Name="vDescDI" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="nDraw" DataType="System.String"/>
                 </BusinessObjectDataSource>
+                <Column Name="ProxydDI" DataType="System.String"/>
+                <Column Name="ProxydDesemb" DataType="System.String"/>
               </BusinessObjectDataSource>
               <BusinessObjectDataSource Name="detExport" DataType="null" Enabled="true">
                 <Column Name="nDraw" DataType="System.String"/>
@@ -303,7 +309,7 @@ namespace FastReport
                 </Column>
               </BusinessObjectDataSource>
               <Column Name="xPed" DataType="System.String"/>
-              <Column Name="nItemPed" DataType="System.Int32"/>
+              <Column Name="nItemPed" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="nFCI" DataType="System.String"/>
               <Column Name="ProdutoEspecifico" DataType="null"/>
               <Column Name="nRECOPI" DataType="System.String"/>
@@ -313,11 +319,7 @@ namespace FastReport
               <Column Name="ICMS" DataType="null">
                 <Column Name="TipoICMS" DataType="null">
                   <Column Name="orig" DataType="null"/>
-                  <Column Name="CST" DataType="null"/>
-                  <Column Name="modBC" DataType="null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pICMS" DataType="System.Decimal"/>
-                  <Column Name="vICMS" DataType="System.Decimal"/>
+                  <Column Name="CSOSN" DataType="null"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="null">
@@ -392,12 +394,12 @@ namespace FastReport
                 <Column Name="vDescIncond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vDescCond" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vISSRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="IndicadorIss" DataType="null"/>
                 <Column Name="cServico" DataType="System.String"/>
                 <Column Name="cMun" DataType="System.Nullable`1[[System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="nProcesso" DataType="System.String"/>
                 <Column Name="indIncentivo" DataType="null"/>
+                <Column Name="indISS" DataType="null"/>
               </Column>
             </Column>
             <Column Name="impostoDevol" DataType="null">
@@ -647,7 +649,7 @@ namespace FastReport
           <Column Name="CNPJ" DataType="System.String"/>
           <Column Name="CPF" DataType="System.String"/>
           <Column Name="chNFe" DataType="System.String"/>
-          <Column Name="dhEvento" DataType="System.String"/>
+          <Column Name="dhEvento" DataType="System.DateTime"/>
           <Column Name="tpEvento" DataType="System.Int32"/>
           <Column Name="nSeqEvento" DataType="System.Int32"/>
           <Column Name="verEvento" DataType="System.String"/>
@@ -661,7 +663,7 @@ namespace FastReport
             <Column Name="cOrgaoAutor" DataType="null"/>
             <Column Name="tpAutor" DataType="null"/>
             <Column Name="verAplic" DataType="System.String"/>
-            <Column Name="dhEmi" DataType="System.String"/>
+            <Column Name="dhEmi" DataType="System.DateTime"/>
             <Column Name="tpNF" DataType="null"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="dest" DataType="null">
@@ -674,7 +676,9 @@ namespace FastReport
               <Column Name="vICMS" DataType="System.Decimal"/>
               <Column Name="vST" DataType="System.Decimal"/>
             </Column>
+            <Column Name="ProxyDhEmi" DataType="System.String"/>
           </Column>
+          <Column Name="ProxydhEvento" DataType="System.String"/>
         </Column>
         <Column Name="Signature" DataType="null">
           <Column Name="SignedInfo" DataType="null">
@@ -720,7 +724,7 @@ namespace FastReport
           <Column Name="CNPJDest" DataType="System.String"/>
           <Column Name="CPFDest" DataType="System.String"/>
           <Column Name="emailDest" DataType="System.String"/>
-          <Column Name="dhRegEvento" DataType="System.String"/>
+          <Column Name="dhRegEvento" DataType="System.DateTime"/>
           <Column Name="nProt" DataType="System.String"/>
           <Column Name="chNFePend" DataType="System.String"/>
           <Column Name="Signature" DataType="null">
@@ -749,9 +753,11 @@ namespace FastReport
               </Column>
             </Column>
           </Column>
+          <Column Name="ProxydhRegEvento" DataType="System.String"/>
         </Column>
       </Column>
     </BusinessObjectDataSource>
+    <Parameter Name="desenvolvedor" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1">
     <PageHeaderBand Name="PageHeader1" Width="718.2" Height="234.33">
@@ -791,7 +797,7 @@ namespace FastReport
       <TextObject Name="Memo59" Left="415.75" Top="219.21" Width="128.5" Height="15.12" Text="[procEventoNFe.retEvento.infEvento.nProt]" Padding="2, 1, 2, 1" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Memo60" Left="544.25" Top="219.21" Width="173.86" Height="15.12" Text="[procEventoNFe.retEvento.infEvento.dhRegEvento]" Padding="2, 1, 2, 1" Format="Date" Format.Format="d" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <BarcodeObject Name="BarcodeChave" Left="378" Top="97.5" Width="277.07" Height="37.8" AutoSize="false" Text="[Substring( [NFe.NFe.infNFe.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <ChildBand Name="BandEmitenteDestinatario" Top="236.46" Width="718.2" Height="188.98">
+      <ChildBand Name="BandEmitenteDestinatario" Top="238.33" Width="718.2" Height="188.98">
         <TextObject Name="Memo21" Top="26.46" Width="544.25" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo22" Left="544.25" Top="26.46" Width="173.86" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo23" Top="49.13" Width="415.75" Height="22.68" Border.Lines="All" Border.Width="0.5" Text="ENDEREÇO" Padding="2, 1, 2, 1" Font="Times New Roman, 5pt"/>
@@ -831,16 +837,16 @@ namespace FastReport
         <TextObject Name="Memo77" Left="347.72" Top="173.86" Width="196.54" Height="15.12" Text="[NFe.NFe.infNFe.dest.enderDest.fone]" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt, style=Bold"/>
         <TextObject Name="Memo78" Left="544.25" Top="173.86" Width="173.86" Height="15.12" Text="[NFe.NFe.infNFe.dest.IE]" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt, style=Bold"/>
         <TextObject Name="Text1" Left="544.1" Top="128.85" Width="173.86" Height="15.12" Text="[FormatarCampo([NFe.NFe.infNFe.dest.CPF],'d')]&#13;&#10;" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt, style=Bold"/>
-        <ChildBand Name="BandCondicoesUso" Top="429.98" Width="718.2" Height="136.07">
+        <ChildBand Name="BandCondicoesUso" Top="431.31" Width="718.2" Height="136.07">
           <TextObject Name="Memo43" Top="7.56" Width="718.11" Height="18.9" Text="CONDIÇÕES DE USO" Padding="0, 1, 0, 1" Font="Times New Roman, 10pt, style=Bold"/>
           <TextObject Name="Memo44" Top="26.46" Width="718.11" Height="109.61" Border.Lines="All" Border.Width="0.5" Text="[procEventoNFe.evento.infEvento.detEvento.xCondUso]" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt"/>
         </ChildBand>
       </ChildBand>
     </PageHeaderBand>
-    <DataBand Name="MasterData1" Top="569.38" Width="718.2" Height="223" CanGrow="true" CanShrink="true">
+    <DataBand Name="MasterData1" Top="571.38" Width="718.2" Height="223" CanGrow="true" CanShrink="true">
       <TextObject Name="memJustificativaCorrecao" Top="7.56" Width="718.11" Height="18.9" BeforePrintEvent="memJustificativaCorrecao_BeforePrint" Text="[procEventoNFe.evento.infEvento.detEvento.descEvento]" Padding="0, 1, 0, 1" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Memo45" Top="26.46" Width="718.11" Height="196.54" Border.Lines="All" Border.Width="0.5" GrowToBottom="true" Text="[procEventoNFe.evento.infEvento.detEvento.xJust]&#13;&#10;[procEventoNFe.evento.infEvento.detEvento.xCorrecao]" Padding="2, 1, 2, 1" Font="Times New Roman, 9pt"/>
-      <ChildBand Name="Child1" Top="790.89" Width="718.2" Height="15.12">
+      <ChildBand Name="Child1" Top="798.38" Width="718.2" Height="15.12">
         <TextObject Name="Memo150" Top="2" Width="359.06" Height="9.45" Text="Data e hora da impressão: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
         <TextObject Name="Memo151" Left="379.1" Top="2.55" Width="334.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       </ChildBand>
