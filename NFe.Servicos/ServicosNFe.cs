@@ -47,7 +47,6 @@ using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
-using NFe.Utils.Assinatura;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
@@ -82,7 +81,7 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using NFe.Utils.Excecoes;
-using FuncoesXml = NFe.Utils.FuncoesXml;
+using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
 {

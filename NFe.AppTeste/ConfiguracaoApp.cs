@@ -33,6 +33,7 @@
 using System;
 using System.IO;
 using System.Net;
+using DFe.Utils;
 using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
