@@ -138,7 +138,7 @@ namespace FastReport
       Subreport3.Visible = qtdeMDFe &gt; 0;
       
       Child1.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
-      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
+      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
       Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
     }
 
