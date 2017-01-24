@@ -95,13 +95,6 @@ namespace FastReport
       cbDescontoItemUmaLinha.Visible = imprimeDesconto;  
       if (imprimeDesconto)
         dbProdutosUmaLinha.Border.Lines = BorderLines.None;
-      
-      //Se possuir desconto, e estiver configurado para não exibi-lo, exibe os valores líquidos nos campos abaixo:
-      if (((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.det.prod.vDesc&quot;)) &gt; 0 &amp; !imprimeDesconto)
-      {      
-        txtProdutoUmaLinhaValorUnit.Text = &quot;[([NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc]) / [NFCe.NFe.infNFe.det.prod.qCom]]&quot;;
-        txtProdutoUmaLinhaValorTotal.Text = &quot;[[NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc]]&quot;;        
-      }      
     }
 
     private void ghbProdutosDuasLinhas_BeforePrint(object sender, EventArgs e)
