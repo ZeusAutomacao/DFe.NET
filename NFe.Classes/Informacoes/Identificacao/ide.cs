@@ -30,10 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Classes.Informacoes.Identificacao
 {
@@ -78,24 +83,68 @@ namespace NFe.Classes.Informacoes.Identificacao
         public long nNF { get; set; }
 
         /// <summary>
-        ///     B09 - Data de emissão do Documento Fiscal - V2.00 (Formato “AAAA-MM-DD”)
+        ///     B09 - Data de emissão do Documento Fiscal - V2.00
         /// </summary>
-        public string dEmi { get; set; } //V2.00
+        [XmlIgnore]
+        public DateTime dEmi { get; set; } //V2.00
 
         /// <summary>
-        ///     B10 - Data de Saída ou da Entrada da Mercadoria/Produto - V2.00 (Formato “AAAA-MM-DD”)
+        /// Proxy para dEmi no formato AAAA-MM-DD
         /// </summary>
-        public string dSaiEnt { get; set; } //V2.00
+        [XmlElement(ElementName = "dEmi")]
+        public string ProxydEmi
+        {
+            get { return dEmi.ParaDataString(); }
+            set { dEmi = DateTime.Parse(value); }
+        }
 
         /// <summary>
-        ///     B09 - Data e Hora de emissão do Documento Fiscal (AAAA-MM-DDThh:mm:ssTZD) ex.: 2012-09-01T13:00:00-03:00
+        ///     B10 - Data de Saída ou da Entrada da Mercadoria/Produto - V2.00
         /// </summary>
-        public string dhEmi { get; set; }
+        [XmlIgnore]
+        public DateTime dSaiEnt { get; set; } //V2.00
 
         /// <summary>
-        ///     B10 - Data e Hora da saída ou de entrada da mercadoria / produto (AAAA-MM-DDTHH:mm:ssTZD)
+        /// Proxy para dSaiEnt no formato AAAA-MM-DD
         /// </summary>
-        public string dhSaiEnt { get; set; }
+        [XmlElement(ElementName = "dSaiEnt")]
+        public string ProxydSaiEnt
+        {
+            get { return dSaiEnt.ParaDataString(); }
+            set { dSaiEnt = DateTime.Parse(value); }
+        }
+
+        /// <summary>
+        ///     B09 - Data e Hora de emissão do Documento Fiscal
+        /// </summary>
+        [XmlIgnore]
+        public DateTime dhEmi { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEmi")]
+        public string ProxyDhEmi
+        {
+            get { return dhEmi.ParaDataHoraStringUtc(); }
+            set { dhEmi = DateTime.Parse(value); }
+        }
+
+        /// <summary>
+        ///     B10 - Data e Hora da saída ou de entrada da mercadoria / produto
+        /// </summary>
+        [XmlIgnore]
+        public DateTime dhSaiEnt { get; set; }
+
+        /// <summary>
+        /// Proxy para dhSaiEnt no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhSaiEnt")]
+        public string ProxydhSaiEnt
+        {
+            get { return dhSaiEnt.ParaDataHoraStringUtc(); }
+            set { dhSaiEnt = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     B11 - Tipo do Documento Fiscal
@@ -160,11 +209,21 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B28 - Informar apenas para tpEmis diferente de 1
         ///     <para>
-        ///         Informar a data e hora de entrada em contingência contingência no formato  (AAAA-MM-DDThh:mm:ssTZD) ex.:
-        ///         2012-09-01T13:00:00-03:00.
+        ///         Informar a data e hora de entrada em contingência
         ///     </para>
         /// </summary>
-        public string dhCont { get; set; }
+        [XmlIgnore]
+        public DateTime dhCont { get; set; }
+
+        /// <summary>
+        /// Proxy para dhCont no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhCont")]
+        public string ProxydhCont
+        {
+            get { return dhCont.ParaDataHoraStringUtc(); }
+            set { dhCont = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     B29 - Informar a Justificativa da entrada

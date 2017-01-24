@@ -34,6 +34,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DFe.Utils;
 
 namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
@@ -79,9 +80,20 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         public ulong IE { get; set; }
 
         /// <summary>
-        /// C08 - Data de Emissão da NF-e no formato UTC (Universal Coordinated Time): AAAA-MM-DDThh:mm:ssTZD.
+        /// C08 - Data de Emissão da NF-e
         /// </summary>
+        [XmlIgnore]
         public DateTime dhEmi { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEmi")]
+        public string ProxyDhEmi
+        {
+            get { return dhEmi.ParaDataHoraStringUtc(); }
+            set { dhEmi = DateTime.Parse(value); }
+        }
 
         /// <summary>
         /// C09 - Tipo de Operação da NF-e: 0=Entrada; 1=Saída

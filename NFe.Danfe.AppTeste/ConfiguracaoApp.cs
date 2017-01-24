@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using System.IO;
+using DFe.Utils;
 using NFe.Danfe.Base;
 using NFe.Danfe.Fast.NFCe;
-using NFe.Utils;
 
 namespace NFe.Danfe.AppTeste
 {

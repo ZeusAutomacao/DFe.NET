@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeEmit
@@ -135,7 +135,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 3 - Sigla da UF, , informar EX para operações com o exterior.
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UF { get; set; }
+        public Estado UF { get; set; }
 
         /// <summary>
         /// Proxy para pegar SiglaUF do estado

@@ -34,11 +34,11 @@ using System;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
-using MDFEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Utils.Extencoes
 {
@@ -83,21 +83,20 @@ namespace MDFe.Utils.Extencoes
         {
             if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
-            var modeloDocumentoFiscal = (int) mdfe.InfMDFe.Ide.Mod;
+            var modeloDocumentoFiscal = mdfe.InfMDFe.Ide.Mod;
             var tipoEmissao = (int) mdfe.InfMDFe.Ide.TpEmis;
             var codigoNumerico = mdfe.InfMDFe.Ide.CMDF;
-            var codigoIbgeUf = (int) mdfe.InfMDFe.Ide.CUF;
+            var estado = mdfe.InfMDFe.Ide.CUF;
             var dataEHoraEmissao = mdfe.InfMDFe.Ide.DhEmi;
-            var documentoUnico = long.Parse(mdfe.InfMDFe.Emit.CNPJ);
+            var cnpj = mdfe.InfMDFe.Emit.CNPJ;
             var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
             int serie = mdfe.InfMDFe.Ide.Serie;
 
-            var gerarChave = new GerarChaveFiscal(modeloDocumentoFiscal, tipoEmissao, codigoNumerico,
-                codigoIbgeUf, dataEHoraEmissao, documentoUnico, numeroDocumento, serie);
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
-            mdfe.InfMDFe.Id = "MDFe" + gerarChave.Chave;
+            mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
             mdfe.InfMDFe.Versao = VersaoServico.Versao100;
-            mdfe.InfMDFe.Ide.CDV = gerarChave.DigitoVerificador;
+            mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 
             var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
 
@@ -134,7 +133,7 @@ namespace MDFe.Utils.Extencoes
             return cnpj;
         }
 
-        public static EstadoUF UFEmitente(this MDFEletronico mdfe)
+        public static Estado UFEmitente(this MDFEletronico mdfe)
         {
             var estadoUf = mdfe.InfMDFe.Emit.EnderEmit.UF;
 

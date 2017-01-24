@@ -35,17 +35,16 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
+    <Compile Include="ConfiguracaoCertificado.cs" />
+    <Compile Include="DataHora.cs" />
     <Compile Include="FuncoesXml.cs" />
-    <Compile Include="GerarChaveFiscal.cs" />
+    <Compile Include="ChaveFiscal.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

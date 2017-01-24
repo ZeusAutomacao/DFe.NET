@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Security.Cryptography.X509Certificates;
+using DFe.Utils;
 using NFe.Classes.Servicos.Inutilizacao;
 using NFe.Utils.Assinatura;
 
@@ -39,6 +40,17 @@ namespace NFe.Utils.Inutilizacao
 {
     public static class ExtinutNFe
     {
+        /// <summary>
+        ///     Coverte uma string XML no formato NFe para um objeto inutNFe
+        /// </summary>
+        /// <param name="inutNFe"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo inutNFe</returns>
+        public static inutNFe CarregarDeXmlString(this inutNFe inutNFe, string xmlString)
+        {
+            return FuncoesXml.XmlStringParaClasse<inutNFe>(xmlString);
+        }
+        
         /// <summary>
         ///     Converte o objeto inutNFe para uma string no formato XML
         /// </summary>

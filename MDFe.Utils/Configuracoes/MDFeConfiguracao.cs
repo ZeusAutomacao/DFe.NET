@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -33,13 +33,16 @@
 using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
 namespace MDFe.Utils.Configuracoes
 {
     public class MDFeConfiguracao
     {
+        private static MDFeVersaoWebService _versaoWebService;
+
         public MDFeConfiguracao()
         {
             VersaoWebService = new MDFeVersaoWebService();
@@ -48,12 +51,27 @@ namespace MDFe.Utils.Configuracoes
         public static string CaminhoCertificadoDigital { get; set; }
         public static string SenhaCertificadoDigital { get; set; }
         public static string NumeroSerieCertificadoDigital { get; set; }
+        public static bool ManterCertificadoEmCache { get; set; }
+
+        public static ConfiguracaoCertificado ConfiguracaoCertificado => GetConfiguracaoCertificado();
 
         public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
         public static string CaminhoSalvarXml { get; set; }
 
-        public static MDFeVersaoWebService VersaoWebService { get; set; }
+        public static MDFeVersaoWebService VersaoWebService
+        {
+            get { return GetMdfeVersaoWebService(); }
+            set { _versaoWebService = value; }
+        }
+
+        private static MDFeVersaoWebService GetMdfeVersaoWebService()
+        {
+            if(_versaoWebService == null)
+                _versaoWebService = new MDFeVersaoWebService();
+
+            return _versaoWebService;
+        }
 
         public static X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
 
@@ -65,19 +83,25 @@ namespace MDFe.Utils.Configuracoes
 
         private static X509Certificate2 ObterCertificado()
         {
-            if (!string.IsNullOrEmpty(CaminhoCertificadoDigital) && !string.IsNullOrEmpty(SenhaCertificadoDigital))
-            {
-                return CertificadoDigital.ObterDeArquivo(CaminhoCertificadoDigital, SenhaCertificadoDigital);
-            }
+            return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
+        }
 
-            return CertificadoDigital.ObterDoRepositorio(NumeroSerieCertificadoDigital, SenhaCertificadoDigital);
+        private static ConfiguracaoCertificado GetConfiguracaoCertificado()
+        {
+            return new ConfiguracaoCertificado
+            {
+                Senha = SenhaCertificadoDigital,
+                Arquivo = CaminhoCertificadoDigital,
+                ManterDadosEmCache = ManterCertificadoEmCache,
+                Serial = NumeroSerieCertificadoDigital
+            };
         }
     }
 
     public class MDFeVersaoWebService
     {
         public int TimeOut { get; set; }
-        public EstadoUF UfEmitente { get; set; }
+        public Estado UfEmitente { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoMDFeRecepcao { get; set; }
         public VersaoServico VersaoMDFeRetRecepcao { get; set; }

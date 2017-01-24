@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
+namespace MDFe.Classes.Retorno.MDFeRetRecepcao
 {
     [Serializable]
     public class MDFeInfProtMDFe

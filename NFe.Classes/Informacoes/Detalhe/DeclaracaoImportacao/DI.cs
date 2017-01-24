@@ -30,8 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Utils;
 
 namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
 {
@@ -45,10 +48,21 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         public string nDI { get; set; }
 
         /// <summary>
-        ///     I20 - Data de Registro do documento. Formato: “AAAA-MM-DD”
+        ///     I20 - Data de Registro do documento.
         /// </summary>
-        public string dDI { get; set; }
+        [XmlIgnore]
+        public DateTime dDI { get; set; }
 
+        /// <summary>
+        /// Proxy para dDI no formato AAAA-MM-DD
+        /// </summary>
+        [XmlElement(ElementName = "dDI")]
+        public string ProxydDI
+        {
+            get { return dDI.ParaDataString(); }
+            set { dDI = DateTime.Parse(value); }
+        }
+        
         /// <summary>
         ///     I21 - Local de desembaraço
         /// </summary>
@@ -60,9 +74,20 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         public string UFDesemb { get; set; }
 
         /// <summary>
-        ///     I23 - Data do Desembaraço Aduaneiro. Formato: “AAAA-MM-DD”
+        ///     I23 - Data do Desembaraço Aduaneiro.
         /// </summary>
-        public string dDesemb { get; set; }
+        [XmlIgnore]
+        public DateTime dDesemb { get; set; }
+
+        /// <summary>
+        /// Proxy para dDesemb no formato AAAA-MM-DD
+        /// </summary>
+        [XmlElement(ElementName = "dDesemb")]
+        public string ProxydDesemb
+        {
+            get { return dDesemb.ParaDataString(); }
+            set { dDesemb = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     I23a - Via de transporte internacional informada na Declaração de Importação (DI)

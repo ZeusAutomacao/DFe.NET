@@ -32,9 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
+using DFe.Utils;
+using MDFe.Classes.Contratos;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeAereo : MDFeModalContainer
@@ -81,10 +82,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "dVoo")]
         public string ProxyDVoo
         {
-            get
-            {
-                return DVoo.ToString("yyyy-MM-dd");
-            }
+            get { return DVoo.ParaDataString(); }
             set { DVoo = DateTime.Parse(value); }
         }
     }

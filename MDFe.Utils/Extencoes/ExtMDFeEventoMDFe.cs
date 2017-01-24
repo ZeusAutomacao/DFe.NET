@@ -33,8 +33,8 @@
 using System.Xml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 
