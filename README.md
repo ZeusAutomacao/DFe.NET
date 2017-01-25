@@ -21,7 +21,7 @@ Está licenciada sobre a LGPL.
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl.;
 - NFe.Danfe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
-- NFe.Danfe.Base: Biblioteca base para todas as bibliotecas que implementam a impressão do DANFE, idepentende do fornecedor de relatórios utilizado;
+- NFe.Danfe.Base: Biblioteca base para todas as bibliotecas que implementam a impressão do DANFE, independente do fornecedor de relatórios utilizado;
 - NFe.Danfe.Fast: Biblioteca responsável por montar a impressão do DANFE em FastReports.
 
 **DANFE**
@@ -45,8 +45,41 @@ danfe.Visualizar();
 
 ```
 
-**Atenção:**
-Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
+**Suporte:**
+
+O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo skype.
+
+**Diretrizes para contribuir com código**
+
+A comunidade inteira agradece sua colaboração, mas afim de mantermos a qualidade da biblioteca, segue abaixo uma lista de diretrizes:
+
+1 - A contribuição deve ser feita via pull request. Se não conhece o github dê uma olhada nesse tutorial: http://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/ ou https://www.google.com.br/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=como+usar+o+github
+
+2 - Os nomes das classes e atributos constantes no manual de orientação do contribuinte devem ser escritos conforme constam no manual, respeitando o case sensitive da documentação. Ex: Se o atributo/classe começar com caractere minúsculo, colocá-lo assim no c#;
+
+3 - Os nomes de métodos/atributos e classes de apoio devem ser escritos em português;
+
+4 - Todas as classes/atributos/métodos devem ser documentados no formato xml. A documentação dos atributos e classes do projeto CTe.Classes deve conter o código e descrição conforme consta no manual de orientação do contribuinte e conforme pode se ver no projeto NFe.Classes;
+
+5 - Se a documentação XML dos atributos/classes/métodos fizer referência a um objeto, usar a tag <see cref=""/>. Ex:
+```cs
+/// <summary>
+/// Obtém um objeto contendo o certificado digital
+/// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
+/// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
+/// senão será obtido pelo método <see cref="ObterDoRepositorio()"/> </para>
+/// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
+/// </summary>
+```
+
+6 - Todas as classes deve conter um comentário no cabeçalho, informando sobre a licença e os direitos de uso;
+
+7 - O código deve ser compatível com o .NET 4.0 e VS2013 em diante (pode ser revisado no futuro);
+
+8 - Pulls requests não são anexados automaticamente ao projeto, eles estarão sujeitos à avaliação prévia antes de integrar a bilbiotca;
+
+9 - Antes de iniciar uma implementação, informe-se na comunidade aqui no git ou no skype, pois outro pode já estar desenvolvendo-a.
+
 
 **Telas do aplicativo NFe.AppTeste (demonstração de Uso da biblioteca):**
 
