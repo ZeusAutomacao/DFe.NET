@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Zeus.Net.NFe.NFCe</id>
-        <version>1.0.1.456</version>
+        <version>1.0.1</version>
         <title>Zeus NF-e e NFC-e (x86/x64)</title>
         <authors>Zeus</authors>
         <owners>Zeus</owners>

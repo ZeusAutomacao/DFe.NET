@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Zeus.Net.MDFe</id>
-        <version>0.0.0.8</version>
+        <version>0.0.0</version>
         <title>Zeus MDFe (x86/x64)</title>
         <authors>Zeus</authors>
         <owners>Zeus</owners>
