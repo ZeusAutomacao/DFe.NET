@@ -1039,9 +1039,9 @@ namespace FastReport
     </DataBand>
     <PageFooterBand Name="PageFooter1" Top="695.12" Width="744.66" Height="179.55" PrintOn="FirstPage">
       <TextObject Name="Text155" Top="53.7" Width="470.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text36" Top="67.15" Width="468.5" Height="95.95" Text="[NFe.NFe.infNFe.infAdic.infCpl]" Font="Arial, 8pt"/>
+      <TextObject Name="Text36" Top="67.15" Width="468.5" Height="95.95" Text="[NFe.NFe.infNFe.infAdic.infCpl]&#13;&#10;[NFe.NFe.infNFe.infAdic.infAdFisco]" Font="Arial, 8pt"/>
       <TextObject Name="Text156" Left="470.5" Top="53.7" Width="274.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text37" Left="472.5" Top="67.15" Width="274.05" Height="95.95" Text="[NFe.NFe.infNFe.infAdic.infAdFisco]" Font="Arial, 8pt"/>
+      <TextObject Name="Text37" Left="472.5" Top="67.15" Width="274.05" Height="95.95" Font="Arial, 8pt"/>
       <TextObject Name="Text157" Left="2" Top="42.25" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text158" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO MUNICIPAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text159" Left="186.11" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR TOTAL DOS SERVIÇOS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>

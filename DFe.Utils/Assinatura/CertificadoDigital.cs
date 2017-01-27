@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusDFe                                                  */
-/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
-/*                                                                              */
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -71,53 +71,12 @@ namespace DFe.Utils.Assinatura
         /// <param name="numeroSerial">Serial do certificado</param>
         /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio(string numeroSerial, string senha = null)
+        public static X509Certificate2 ObterDoRepositorio(ConfiguracaoCertificado configuracaoCertificado)
         {
-            if (string.IsNullOrEmpty(numeroSerial))
+            if (string.IsNullOrEmpty(configuracaoCertificado.Serial))
                 throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
 
-            X509Certificate2 certificado = null;
-
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            try
-            {
-                store.Open(OpenFlags.MaxAllowed);
-
-                foreach (var item in store.Certificates)
-                {
-                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(numeroSerial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
-                        certificado = item;
-                }
-
-                if (certificado == null)
-                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", numeroSerial.ToUpper()));
-            }
-            finally
-            {
-                store.Close();
-            }
-            
-            if (string.IsNullOrEmpty(senha)) return certificado;
-
-            //Se a senha for passada no parâmetro
-            var senhaSegura = new SecureString();
-            var passPhrase = senha.ToCharArray();
-            foreach (var t in passPhrase)
-            {
-                senhaSegura.AppendChar(t);
-            }
-
-            var chavePrivada = certificado.PrivateKey as RSACryptoServiceProvider;
-            if (chavePrivada == null) return certificado;
-
-            var cspParameters = new CspParameters(chavePrivada.CspKeyContainerInfo.ProviderType,
-                chavePrivada.CspKeyContainerInfo.ProviderName,
-                chavePrivada.CspKeyContainerInfo.KeyContainerName,
-                null,
-                senhaSegura);
-            var rsaCsp = new RSACryptoServiceProvider(cspParameters);
-            certificado.PrivateKey = rsaCsp;
-            return certificado;
+            return configuracaoCertificado.CriaCertificado();
         }
 
         /// <summary>
@@ -135,6 +94,33 @@ namespace DFe.Utils.Assinatura
 
             var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
             return certificado;
+        }
+
+        private static X509Certificate2 _certificado;
+
+        /// <summary>
+        /// Obtém um objeto contendo o certificado digital
+        /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
+        /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
+        /// senão será obtido pelo método <see cref="ObterDoRepositorio()"/> </para>
+        /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
+        /// </summary>
+        public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        {
+            if (!configuracaoCertificado.ManterDadosEmCache)
+                return ObterDadosCertificado(configuracaoCertificado);
+            if (_certificado != null)
+                return _certificado;
+            _certificado = ObterDadosCertificado(configuracaoCertificado);
+            return _certificado;
+        }
+
+        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        {
+            return string.IsNullOrEmpty(configuracaoCertificado.Arquivo)
+                ? ObterDoRepositorio(configuracaoCertificado)
+                : ObterDeArquivo(configuracaoCertificado.Arquivo,
+                    configuracaoCertificado.Senha);
         }
     }
 }

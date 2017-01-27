@@ -35,10 +35,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Classes;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Cobranca;
@@ -61,7 +64,6 @@ using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
-using NFe.Utils.Assinatura;
 using NFe.Utils.Email;
 using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
@@ -267,8 +269,7 @@ namespace NFe.AppTeste
             }
             catch (ComunicacaoException ex)
             {
-                //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
-                //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
+                //Faça o tratamento de contingência OffLine aqui.
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
@@ -376,8 +377,7 @@ namespace NFe.AppTeste
             }
             catch (ComunicacaoException ex)
             {
-                //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
-                //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
+                //Faça o tratamento de contingência OffLine aqui.
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
@@ -943,10 +943,7 @@ namespace NFe.AppTeste
 
             if (ide.tpEmis != TipoEmissao.teNormal)
             {
-                ide.dhCont =
-                    DateTime.Now.ToString(versao == VersaoServico.ve310
-                        ? "yyyy-MM-ddTHH:mm:sszzz"
-                        : "yyyy-MM-ddTHH:mm:ss");
+                ide.dhCont = DateTime.Now;
                 ide.xJust = "TESTE DE CONTIGÊNCIA PARA NFe/NFCe";
             }
 
@@ -954,8 +951,8 @@ namespace NFe.AppTeste
 
             if (versao == VersaoServico.ve200)
             {
-                ide.dEmi = DateTime.Today.ToString("yyyy-MM-dd"); //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
-                ide.dSaiEnt = DateTime.Today.ToString("yyyy-MM-dd");
+                ide.dEmi = DateTime.Today; //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
+                ide.dSaiEnt = DateTime.Today;
             }
 
             #endregion
@@ -964,10 +961,10 @@ namespace NFe.AppTeste
 
             if (versao != VersaoServico.ve310) return ide;
             ide.idDest = DestinoOperacao.doInterna;
-            ide.dhEmi = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
             if (ide.mod == ModeloDocumento.NFe)
-                ide.dhSaiEnt = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                ide.dhSaiEnt = DateTime.Now;
             else
                 ide.tpImp = TipoImpressao.tiNFCe;
             ide.procEmi = ProcessoEmissao.peAplicativoContribuinte;

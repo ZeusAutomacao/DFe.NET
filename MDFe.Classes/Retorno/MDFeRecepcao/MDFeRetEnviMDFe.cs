@@ -51,7 +51,7 @@ namespace MDFe.Classes.Retorno.MDFeRecepcao
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

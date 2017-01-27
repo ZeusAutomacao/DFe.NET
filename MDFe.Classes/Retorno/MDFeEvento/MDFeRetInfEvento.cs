@@ -51,7 +51,7 @@ namespace MDFe.Classes.Retorno.MDFeEvento
         public string VerAplic { get; set; }
 
         [XmlIgnore]
-        public EstadoUF COrgao { get; set; }
+        public Estado COrgao { get; set; }
 
         [XmlElement(ElementName = "cOrgao")]
         public string COrgaoProxy

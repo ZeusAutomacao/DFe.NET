@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -37,6 +37,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using DFe.Utils.Assinatura.CertificadoProvider;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Retorno;
@@ -85,13 +86,13 @@ namespace MDFe.AppTeste
         private long _codigoIbgeMunicipio;
         private string _nomeMunicipio;
         private string _cep;
-        private EstadoUF _siglaUf;
+        private Estado _siglaUf;
         private string _telefone;
         private string _email;
         private string _numeroDeSerie;
         private string _caminhoArquivo;
         private string _senha;
-        private EstadoUF _ufDestino;
+        private Estado _ufDestino;
         private TipoAmbiente _ambiente;
         private short _serie;
         private long _numeracao;
@@ -108,6 +109,7 @@ namespace MDFe.AppTeste
         private string _diretorioSalvarXml;
         private bool _isSalvarXml;
         private int _timeOut;
+        private bool _manterCertificadoEmCache;
 
         #region empresa
 
@@ -231,7 +233,7 @@ namespace MDFe.AppTeste
             }
         }
 
-        public EstadoUF SiglaUf
+        public Estado SiglaUf
         {
             get { return _siglaUf; }
             set
@@ -295,11 +297,21 @@ namespace MDFe.AppTeste
             }
         }
 
+        public bool ManterCertificadoEmCache
+        {
+            get { return _manterCertificadoEmCache; }
+            set
+            {
+                _manterCertificadoEmCache = value; 
+                OnPropertyChanged("ManterCertificadoEmCache");
+            }
+        }
+
         #endregion
 
         #region configWebService
 
-        public EstadoUF UfDestino
+        public Estado UfDestino
         {
             get { return _ufDestino; }
             set
@@ -490,7 +502,8 @@ namespace MDFe.AppTeste
                 {
                     CaminhoArquivo = CaminhoArquivo,
                     NumeroDeSerie = NumeroDeSerie,
-                    Senha = Senha
+                    Senha = Senha,
+                    ManterEmCache = ManterCertificadoEmCache
                 },
                 ConfigWebService =
                 {
@@ -562,6 +575,7 @@ namespace MDFe.AppTeste
             Rntrc = config.Empresa.RNTRC;
 
             Senha = config.CertificadoDigital.Senha;
+            ManterCertificadoEmCache = config.CertificadoDigital.ManterEmCache;
             CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
             NumeroDeSerie = config.CertificadoDigital.NumeroDeSerie;
 
@@ -604,7 +618,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
@@ -613,8 +627,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -663,7 +677,7 @@ namespace MDFe.AppTeste
                 {
                     Placa = "KKK9888",
                     RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
+                    UF = Estado.GO,
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,
@@ -745,7 +759,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
@@ -754,8 +768,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -804,7 +818,7 @@ namespace MDFe.AppTeste
                 {
                     Placa = "KKK9888",
                     RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
+                    UF = Estado.GO,
                     Tara = 222,
                     CapM3 = 222,
                     CapKG = 22,
@@ -1126,9 +1140,15 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            var configuracaoCertificado = new ConfiguracaoCertificado(new CertificadoProvider())
+            {
+                Senha = config.CertificadoDigital.Senha,
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
+            };
+
+            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
             Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
