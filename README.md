@@ -21,7 +21,7 @@ Está licenciada sobre a LGPL.
 - NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
 - NFe.Wsdl: Biblioteca com as classes de serviço wsdl.;
 - NFe.Danfe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
-- NFe.Danfe.Base: Biblioteca base para todas as bibliotecas que implementam a impressão do DANFE, idepentende do fornecedor de relatórios utilizado;
+- NFe.Danfe.Base: Biblioteca base para todas as bibliotecas que implementam a impressão do DANFE, independente do fornecedor de relatórios utilizado;
 - NFe.Danfe.Fast: Biblioteca responsável por montar a impressão do DANFE em FastReports.
 
 **DANFE**
@@ -45,8 +45,9 @@ danfe.Visualizar();
 
 ```
 
-**Atenção:**
-Quaisquer dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github!
+**Suporte:**
+
+O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo skype.
 
 **Telas do aplicativo NFe.AppTeste (demonstração de Uso da biblioteca):**
 
