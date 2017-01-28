@@ -40,6 +40,11 @@
   <ItemGroup>
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
+    <Compile Include="Assinatura\CertificadoProvider\Contratos\ICertificadoProvider.cs" />
+    <Compile Include="Assinatura\CertificadoProvider\Extencoes\X509Certificate2Extension.cs" />
+    <Compile Include="Assinatura\CertificadoProvider\CertificadoAutoPinProvider.cs" />
+    <Compile Include="Assinatura\CertificadoProvider\CertificadoProvider.cs" />
+    <Compile Include="Assinatura\CertificadoProvider\X509StoreHelper.cs" />
     <Compile Include="ConfiguracaoCertificado.cs" />
     <Compile Include="DataHora.cs" />
     <Compile Include="FuncoesXml.cs" />

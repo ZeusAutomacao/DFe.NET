@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using DFe.Utils.Assinatura.CertificadoProvider.Contratos;
 using NFe.Utils.Annotations;
 
 namespace DFe.Utils
@@ -40,6 +42,11 @@ namespace DFe.Utils
     {
         private string _serial;
         private string _arquivo;
+
+        public ConfiguracaoCertificado(ICertificadoProvider certificadoProvider)
+        {
+            CertificadoProvider = certificadoProvider;
+        }
 
         /// <summary>
         ///     Nº de série do certificado digital
@@ -83,6 +90,13 @@ namespace DFe.Utils
         /// <para>Manter os dados do certificado em cache, aumentará o desempenho no consumo dos serviços, especialmente para certificados A3</para>
         /// </summary>
         public bool ManterDadosEmCache { get; set; }
+
+        public ICertificadoProvider CertificadoProvider { get; set; }
+
+        public X509Certificate2 CriaCertificado()
+        {
+            return CertificadoProvider.Provider(Serial, Senha);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

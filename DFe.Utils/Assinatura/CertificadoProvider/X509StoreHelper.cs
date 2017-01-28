@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusDFe                                                  */
+/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
+/*                                                                              */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,42 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Reflection;
-using System.Runtime.InteropServices;
+using System;
+using System.Security.Cryptography.X509Certificates;
 
-// Informações gerais sobre um assembly são controladas através do seguinte 
-// conjunto de atributos. Altere o valor destes atributos para modificar a informação
-// associada a um assembly.
+namespace DFe.Utils.Assinatura.CertificadoProvider
+{
+    public static class X509StoreHelper
+    {
+        public static X509Certificate2 ObterPeloSerial(string serial, OpenFlags openFlags)
+        {
+            X509Certificate2 certificado = null;
 
-[assembly: AssemblyTitle("NFe.Utils")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NFe.Utils")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
+            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            try
+            {
+                store.Open(openFlags);
 
-// Definir ComVisible como false torna os tipos neste assembly não visíveis 
-// para componentes COM.  Caso precise acessar um tipo neste assembly a partir de 
-// COM, defina o atributo ComVisible como true nesse tipo.
+                foreach (var item in store.Certificates)
+                {
+                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(serial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
+                        certificado = item;
+                }
 
-[assembly: ComVisible(false)]
+                if (certificado == null)
+                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", serial.ToUpper()));
+            }
+            finally
+            {
+                store.Close();
+            }
 
-// O GUID a seguir é para o ID da typelib se este projeto for exposto para COM
-
-[assembly: Guid("79f13e44-91e2-44c8-89e0-79ba74659e7f")]
-
-// Informações de Versão para um assembly consistem nos quatro valores a seguir:
-//
-//      Versão Principal
-//      Versão Secundária 
-//      Número da Versão
-//      Revisão
-//
-// É possível especificar todos os valores ou usar o padrão de Números de Compilação e Revisão 
-// utilizando o '*' como mostrado abaixo:
-// [assembly: AssemblyVersion("1.0.*")]
-
-[assembly: AssemblyVersion("1.0.1.456")]
-[assembly: AssemblyFileVersion("1.0.1.456")]
+            return certificado;
+        }
+    }
+}
