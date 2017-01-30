@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="12/25/2016 19:47:51" ReportInfo.CreatorVersion="2016.4.0.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="01/30/2017 09:27:49" ReportInfo.CreatorVersion="2017.1.17.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +15,7 @@ using FastReport.Table;
 using FastReport.Utils;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Utils;
+using DFe.Utils;
 using NFe.Classes.Informacoes.Destinatario;  
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Danfe.Base;
