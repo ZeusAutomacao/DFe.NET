@@ -1,7 +1,7 @@
-﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusDFe                                                  */
-/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
-/*                                                                              */
+/********************************************************************************/
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,12 +30,27 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Security.Cryptography.X509Certificates;
 
-namespace DFe.Utils.Assinatura.CertificadoProvider.Contratos
+namespace NFe.Danfe.Base.NFe
 {
-    public interface ICertificadoProvider
+    public class ConfiguracaoDanfeNfe : ConfiguracaoDanfe
     {
-        X509Certificate2 Provider(string numeroSerial, string senha = null);
+        public bool DuasLinhas { get; set; }
+
+        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool documentoCancelado = false)
+        {
+            Logomarca = logomarca;
+            DuasLinhas = duasLinhas;
+            DocumentoCancelado = documentoCancelado;
+        }
+
+        /// <summary>
+        /// Construtor sem parâmetros para serialização
+        /// </summary>
+        private ConfiguracaoDanfeNfe()
+        {
+            DocumentoCancelado = false;
+            DuasLinhas = true;
+        }
     }
 }

@@ -37,6 +37,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using DFe.Classes.Entidades;
+using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 

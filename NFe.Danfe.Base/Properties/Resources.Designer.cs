@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NFe.Danfe.Fast.Properties {
+namespace NFe.Danfe.Base.Properties {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace NFe.Danfe.Fast.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,10 +36,10 @@ namespace NFe.Danfe.Fast.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NFe.Danfe.Fast.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NFe.Danfe.Base.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace NFe.Danfe.Fast.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,9 +63,9 @@ namespace NFe.Danfe.Fast.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] NFCe {
+        public static byte[] OpenSans_CondBold {
             get {
-                object obj = ResourceManager.GetObject("NFCe", resourceCulture);
+                object obj = ResourceManager.GetObject("OpenSans_CondBold", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace NFe.Danfe.Fast.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] NFeEvento {
+        public static byte[] OpenSans_CondLight {
             get {
-                object obj = ResourceManager.GetObject("NFeEvento", resourceCulture);
+                object obj = ResourceManager.GetObject("OpenSans_CondLight", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -83,9 +83,19 @@ namespace NFe.Danfe.Fast.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] NFeRetrato {
+        public static byte[] OpenSans_CondLightItalic {
             get {
-                object obj = ResourceManager.GetObject("NFeRetrato", resourceCulture);
+                object obj = ResourceManager.GetObject("OpenSans_CondLightItalic", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] UbuntuCondensed_Regular {
+            get {
+                object obj = ResourceManager.GetObject("UbuntuCondensed_Regular", resourceCulture);
                 return ((byte[])(obj));
             }
         }

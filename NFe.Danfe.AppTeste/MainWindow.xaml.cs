@@ -44,6 +44,7 @@ using NFe.Classes;
 using NFe.Danfe.Fast.NFe;
 using NFe.Utils.NFe;
 using NFe.Classes.Servicos.Consulta;
+using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.AppTeste
 {
