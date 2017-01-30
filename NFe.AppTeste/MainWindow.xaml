@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:NFe.AppTeste"
-    xmlns:nfecls="clr-namespace:NFe.Classes;assembly=NFe.Classes"
     xmlns:nfeclservicostipos="clr-namespace:NFe.Classes.Servicos.Tipos;assembly=NFe.Classes"
     xmlns:nfeclsidetipos="clr-namespace:NFe.Classes.Informacoes.Identificacao.Tipos;assembly=NFe.Classes"
     xmlns:nfceemit="clr-namespace:NFe.Classes.Informacoes.Emitente;assembly=NFe.Classes"
@@ -13,6 +12,7 @@
     xmlns:net="clr-namespace:System.Net;assembly=System"
     xmlns:entidades="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
     xmlns:flags="clr-namespace:DFe.Classes.Flags;assembly=DFe.Classes"
+    xmlns:utils="clr-namespace:DFe.Utils;assembly=DFe.Utils"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
@@ -73,6 +73,36 @@
                         <Grid Background="White">
                             <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0">
                                 <StackPanel>
+                                    <StackPanel.Resources>
+                                        <Style x:Key="TextBoxErro" TargetType="TextBox"> 
+                                            <Style.Triggers>
+                                                <Trigger Property="Validation.HasError" Value="true">
+                                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Resources>
+
+                                    <StackPanel Name="SpTipoCertificado" Margin="0,10,0,0">
+                                        <Grid Height="25">
+                                            <Label Content="Tipo do certificado:" HorizontalAlignment="Left" Margin="1,0,0,0" />
+                                            <RadioButton GroupName="TipoCertificado" Content="A1"
+                                                                 HorizontalAlignment="Left" Margin="130,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils:TipoCertificado.A1Repositorio}, Converter={StaticResource EnumParaBool}, 
+                                                                 NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                            <RadioButton GroupName="TipoCertificado" Content="A1 em arquivo"
+                                                                 HorizontalAlignment="Left" Margin="180,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils:TipoCertificado.A1Arquivo}, Converter={StaticResource EnumParaBool}, 
+                                                                 NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                            <RadioButton GroupName="TipoCertificado" Content="A3"
+                                                                 HorizontalAlignment="Left" Margin="290,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
+                                                                 NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
+                                        </Grid>
+                                    </StackPanel>
 
                                     <StackPanel Name="SpSerie" Margin="0,10,0,0">
                                         <TextBlock Text="Número de Série" HorizontalAlignment="Left" Margin="10,0,0,0"/>
@@ -80,8 +110,8 @@
                                             <TextBox x:Name="TxtCertificado" HorizontalAlignment="Left" Height="23"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="275"
-                                                     Text="{Binding CfgServico.Certificado.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     IsReadOnly="True" />
+                                                     Style="{StaticResource TextBoxErro}"
+                                                     Text="{Binding CfgServico.Certificado.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                                             <Button x:Name="BtnCertificado" Content="..." Width="21"
                                                     DockPanel.Dock="Right" Click="btnCertificado_Click"
                                                     Margin="10,0,0,0" />
@@ -91,11 +121,11 @@
                                     <StackPanel Name="SpArquivo" Margin="0,10,0,0">
                                         <TextBlock Text="Arquivo" HorizontalAlignment="Left" Margin="10,0,0,0"/>
                                         <DockPanel>
-                                            <TextBox x:Name="TxtArquivoCertificado" HorizontalAlignment="Left"
+                                            <TextBox x:Name="TxtArquivoCertificado" HorizontalAlignment="Left" Height="23"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="275"
-                                                     Text="{Binding CfgServico.Certificado.Arquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                     IsReadOnly="True" />
+                                                     Style="{StaticResource TextBoxErro}"
+                                                     Text="{Binding CfgServico.Certificado.Arquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                                             <Button x:Name="BtnArquivoCertificado" Content="..." Width="21"
                                                     DockPanel.Dock="Right" Margin="10,0,0,0" Click="BtnArquivoCertificado_Click" />
                                         </DockPanel>
@@ -107,7 +137,8 @@
                                             <TextBox x:Name="TxtSenhaCertificado" HorizontalAlignment="Left" Height="23"
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="280"
-                                                     Text="{Binding CfgServico.Certificado.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                     Style="{StaticResource TextBoxErro}"
+                                                     Text="{Binding CfgServico.Certificado.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -675,6 +706,33 @@
                             	Margin="10,250,0,0" VerticalAlignment="Top" />
                         </Grid>
                     </TabItem>
+                    <TabItem Header="Impressão">
+                        <Grid Background="White">
+
+                            <GroupBox Header="LogoMarca" VerticalAlignment="Top" Margin="0,10,0,0">
+                                <StackPanel Margin="0,0,0,12">
+                                    <StackPanel Margin="0,10,0,0">
+                                        <Label Content="Informe a logomarca a ser usada no DANFE"
+                                               HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                        <WrapPanel Orientation="Horizontal">
+                                            <Border BorderThickness="1" BorderBrush="Black" Height="100"
+                                                    Width="250"
+                                                    HorizontalAlignment="Left" VerticalAlignment="Top">
+                                                <Image x:Name="LogoEmitente" />
+                                            </Border>
+                                            <StackPanel Margin="5" Width="35">
+                                                <Button x:Name="BtnLogo" Content="..." VerticalAlignment="Top"
+                                                        Click="btnLogo_Click" Height="35" />
+                                                <Button x:Name="BtnRemoveLogo" Content="x" VerticalAlignment="Top"
+                                                        Height="35" Click="btnRemoveLogo_Click" />
+                                            </StackPanel>
+                                        </WrapPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </GroupBox>
+                            
+                        </Grid>
+                    </TabItem>
                 </TabControl>
                 <DockPanel Dock="Bottom" Height="45">
                     <Button x:Name="BtnSalvar" Content="Salvar Configurações para arquivo" Width="203" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -735,6 +793,7 @@
                     <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="177"/>
                     <Button x:Name="btn_NFeDistribuicaoDFe" Content="NFe Distribuição DFe" HorizontalAlignment="Left" Margin="374,185,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="btn_NFeDistribuicaoDFe_Click"/>
                     <Button x:Name="BtnManifestacaoDestinatario" Content="Manifestação Destinatário" HorizontalAlignment="Left" Margin="10,210,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="BtnManifestacaoDestinatario_Click"/>
+                    <Button x:Name="BtnCupom" Content="DANFE NFC-e nativo" HorizontalAlignment="Left" Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="BtnCupom_Click" RenderTransformOrigin="0.551,2.396"/>
                 </Grid>
             </TabItem>
 
@@ -742,8 +801,13 @@
         <TabControl Name="TabInferior" Margin="384,281,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="452*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="93*"/>
+                    </Grid.ColumnDefinitions>
                     <RichTextBox x:Name="RtbEnvioStr" Margin="0" VerticalScrollBarVisibility="Visible"
-                                 IsReadOnly="True">
+                                 IsReadOnly="True" Grid.ColumnSpan="3">
                         <FlowDocument />
                     </RichTextBox>
                 </Grid>
@@ -780,6 +844,13 @@
             <TabItem Name="TabItemNfe" Header="NFe">
                 <Grid Background="#FFE5E5E5">
                     <WebBrowser x:Name="WebXmlNfe" />
+                </Grid>
+            </TabItem>
+            <TabItem Name="TabItemCupom" Header="Cupom">
+                <Grid Background="#FFE5E5E5">
+                    <ScrollViewer x:Name="svCupom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="346" Margin="10,10,0,0" VerticalAlignment="Top" Width="340">
+                        <Canvas x:Name="cvCupom" Height="194" Width="194"/>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
         </TabControl>

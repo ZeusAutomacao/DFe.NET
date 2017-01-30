@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Security.Cryptography.X509Certificates;
+using DFe.Utils;
 using NFe.Classes.Servicos.Inutilizacao;
 using NFe.Utils.Assinatura;
 

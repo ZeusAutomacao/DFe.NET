@@ -74,7 +74,7 @@ namespace MDFe.Classes.Informacoes.Evento
         [XmlElement(ElementName = "dhEvento")]
         public string ProxyDhEvento
         {
-            get { return DhEvento.ParaDataHoraStringUtc(); }
+            get { return DhEvento.ParaDataHoraStringSemUtc(); }
             set { DhEvento = DateTime.Parse(value); }
         }
 

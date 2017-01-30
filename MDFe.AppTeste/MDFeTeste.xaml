@@ -142,6 +142,9 @@
                                                      Width="280"
                                                      Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                         </StackPanel>
+                                        <StackPanel Margin="0,10,0,0">
+                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding ManterCertificadoEmCache}">Manter certificado em cache</CheckBox>
+                                        </StackPanel>
                                     </StackPanel>
 
                                 </StackPanel>

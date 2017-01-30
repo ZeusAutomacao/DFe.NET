@@ -57,6 +57,16 @@ namespace DFe.Utils
         }
 
         /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataHoraStringSemUtc(this DateTime data)
+        {
+            return data.ToString("yyyy-MM-ddTHH:mm:dd");
+        }
+
+        /// <summary>
         /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
         /// </summary>
         /// <param name="data"></param>

@@ -108,6 +108,7 @@ namespace MDFe.AppTeste
         private string _diretorioSalvarXml;
         private bool _isSalvarXml;
         private int _timeOut;
+        private bool _manterCertificadoEmCache;
 
         #region empresa
 
@@ -292,6 +293,16 @@ namespace MDFe.AppTeste
             {
                 _senha = value;
                 OnPropertyChanged("Senha");
+            }
+        }
+
+        public bool ManterCertificadoEmCache
+        {
+            get { return _manterCertificadoEmCache; }
+            set
+            {
+                _manterCertificadoEmCache = value; 
+                OnPropertyChanged("ManterCertificadoEmCache");
             }
         }
 
@@ -490,7 +501,8 @@ namespace MDFe.AppTeste
                 {
                     CaminhoArquivo = CaminhoArquivo,
                     NumeroDeSerie = NumeroDeSerie,
-                    Senha = Senha
+                    Senha = Senha,
+                    ManterEmCache = ManterCertificadoEmCache
                 },
                 ConfigWebService =
                 {
@@ -522,8 +534,7 @@ namespace MDFe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            var numeroSerie = CertificadoDigital.ObterDoRepositorio();
-            NumeroDeSerie = numeroSerie.SerialNumber;
+            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()
@@ -562,6 +573,7 @@ namespace MDFe.AppTeste
             Rntrc = config.Empresa.RNTRC;
 
             Senha = config.CertificadoDigital.Senha;
+            ManterCertificadoEmCache = config.CertificadoDigital.ManterEmCache;
             CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
             NumeroDeSerie = config.CertificadoDigital.NumeroDeSerie;
 
@@ -1126,9 +1138,15 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            var configuracaoCertificado = new ConfiguracaoCertificado
+            {
+                Senha = config.CertificadoDigital.Senha,
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
+            };
+
+            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
             Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;

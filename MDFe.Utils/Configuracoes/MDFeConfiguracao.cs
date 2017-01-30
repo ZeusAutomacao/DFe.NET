@@ -30,9 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Classes.Servicos.Flags;
 
@@ -40,20 +42,32 @@ namespace MDFe.Utils.Configuracoes
 {
     public class MDFeConfiguracao
     {
+        private static MDFeVersaoWebService _versaoWebService;
+
         public MDFeConfiguracao()
         {
             VersaoWebService = new MDFeVersaoWebService();
         }
 
-        public static string CaminhoCertificadoDigital { get; set; }
-        public static string SenhaCertificadoDigital { get; set; }
-        public static string NumeroSerieCertificadoDigital { get; set; }
+        public static ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
         public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
         public static string CaminhoSalvarXml { get; set; }
 
-        public static MDFeVersaoWebService VersaoWebService { get; set; }
+        public static MDFeVersaoWebService VersaoWebService
+        {
+            get { return GetMdfeVersaoWebService(); }
+            set { _versaoWebService = value; }
+        }
+
+        private static MDFeVersaoWebService GetMdfeVersaoWebService()
+        {
+            if(_versaoWebService == null)
+                _versaoWebService = new MDFeVersaoWebService();
+
+            return _versaoWebService;
+        }
 
         public static X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
 
@@ -65,12 +79,7 @@ namespace MDFe.Utils.Configuracoes
 
         private static X509Certificate2 ObterCertificado()
         {
-            if (!string.IsNullOrEmpty(CaminhoCertificadoDigital) && !string.IsNullOrEmpty(SenhaCertificadoDigital))
-            {
-                return CertificadoDigital.ObterDeArquivo(CaminhoCertificadoDigital, SenhaCertificadoDigital);
-            }
-
-            return CertificadoDigital.ObterDoRepositorio(NumeroSerieCertificadoDigital, SenhaCertificadoDigital);
+            return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
         }
     }
 

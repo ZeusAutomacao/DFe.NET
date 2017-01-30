@@ -54,9 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DanfeBase.cs" />
-    <Compile Include="NFCe\ConfiguracaoDanfeNfce.cs" />
     <Compile Include="NFCe\DanfeFrNfce.cs" />
-    <Compile Include="NFe\ConfiguracaoDanfeNfe.cs" />
     <Compile Include="NFe\DanfeFrEvento.cs" />
     <Compile Include="NFe\DanfeFrNfe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,21 +68,6 @@
     <None Include="NFCe\NFCe.frx" />
     <None Include="NFe\NFeEvento.frx" />
     <None Include="NFe\NFeRetrato.frx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="NFCe\Fontes\LeiaMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="NFCe\Fontes\OpenSans-CondBold.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="NFCe\Fontes\OpenSans-CondLight.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="NFCe\Fontes\OpenSans-CondLightItalic.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="NFCe\Fontes\UbuntuCondensed-Regular.ttf" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
