@@ -127,7 +127,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vUnCom
         {
             get { return _vUnCom; }
-            set { _vUnCom = value.Arredondar(10); }
+            set { _vUnCom = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vUnTrib
         {
             get { return _vUnTrib; }
-            set { _vUnTrib = value.Arredondar(10); }
+            set { _vUnTrib = value.Arredondar(2); }
         }
 
         /// <summary>

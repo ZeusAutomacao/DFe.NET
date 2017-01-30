@@ -31,11 +31,15 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Classes.Servicos.Download;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Inutilizacao;
@@ -43,7 +47,6 @@ using NFe.Classes.Servicos.Recepcao;
 using NFe.Classes.Servicos.Recepcao.Retorno;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
@@ -51,24 +54,25 @@ using NFe.Utils.Assinatura;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
+using NFe.Utils.DistribuicaoDFe;
 using NFe.Utils.Download;
 using NFe.Utils.Evento;
+using NFe.Utils.Excecoes;
 using NFe.Utils.Inutilizacao;
 using NFe.Utils.NFe;
 using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
-using NFe.Utils.DistribuicaoDFe;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.DistribuicaoDFe;
 using NFe.Wsdl.Download;
 using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
-using NFe.Wsdl.DistribuicaoDFe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,10 +81,6 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using NFe.Utils.Excecoes;
 using FuncoesXml = NFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -186,6 +186,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
@@ -207,7 +208,6 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return new NfeDistDFeInteresse(url, _certificado, _cFgServico.TimeOut);
-
             }
 
             return null;
@@ -231,7 +231,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto consStatServ
 
@@ -242,7 +242,7 @@ namespace NFe.Servicos
                 versao = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto consStatServ
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -271,7 +271,7 @@ namespace NFe.Servicos
             return new RetornoNfeStatusServico(pedStatus.ObterXmlString(), retConsStatServ.ObterXmlString(),
                 retornoXmlString, retConsStatServ);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto consSitNFe
 
@@ -304,7 +304,7 @@ namespace NFe.Servicos
                 chNFe = chave
             };
 
-            #endregion
+            #endregion Cria o objeto consSitNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -333,7 +333,7 @@ namespace NFe.Servicos
             return new RetornoNfeConsultaProtocolo(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto inutNFe
 
@@ -383,8 +383,8 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
-                pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod,
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+                pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
                 pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
@@ -392,7 +392,7 @@ namespace NFe.Servicos
 
             pedInutilizacao.Assina(_certificado);
 
-            #endregion
+            #endregion Cria o objeto inutNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -421,7 +421,7 @@ namespace NFe.Servicos
             return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -430,8 +430,9 @@ namespace NFe.Servicos
         /// <param name="idlote"></param>
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
+        /// <param name="nomeDoArquivo"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
+        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, string nomeDoArquivo = null)
         {
             var listaEventos = new List<ServicoNFe>
             {
@@ -458,7 +459,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto envEvento
 
@@ -476,7 +477,7 @@ namespace NFe.Servicos
                 evento.Assina(_certificado);
             }
 
-            #endregion
+            #endregion Cria o objeto envEvento
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -485,7 +486,10 @@ namespace NFe.Servicos
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+            if (string.IsNullOrWhiteSpace(nomeDoArquivo))
+                SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+            else
+                SalvarArquivoXml(nomeDoArquivo + "-ped-eve.xml", xmlEvento);
 
             XmlNode retorno;
             try
@@ -500,7 +504,10 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retEnvEvento = new retEnvEvento().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(idlote + "-eve.xml", retornoXmlString);
+            if (string.IsNullOrWhiteSpace(nomeDoArquivo))
+                SalvarArquivoXml(idlote + "-eve.xml", retornoXmlString);
+            else
+                SalvarArquivoXml(nomeDoArquivo + "-eve.xml", retornoXmlString);
 
             #region Obtém um procEventoNFe de cada evento e salva em arquivo
 
@@ -510,24 +517,24 @@ namespace NFe.Servicos
             {
                 var eve = evento;
                 var retEvento = (from retevento in retEnvEvento.retEvento
-                    where
-                    retevento.infEvento.chNFe == eve.infEvento.chNFe &&
-                    retevento.infEvento.tpEvento == eve.infEvento.tpEvento
-                    select retevento).SingleOrDefault();
+                                 where
+                                 retevento.infEvento.chNFe == eve.infEvento.chNFe &&
+                                 retevento.infEvento.tpEvento == eve.infEvento.tpEvento
+                                 select retevento).SingleOrDefault();
 
-                var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = retEvento};
+                var procevento = new procEventoNFe { evento = eve, versao = eve.versao, retEvento = retEvento };
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
                 SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
             }
 
-            #endregion
+            #endregion Obtém um procEventoNFe de cada evento e salva em arquivo
 
             return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString,
                 retEnvEvento, listprocEventoNFe);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -539,14 +546,15 @@ namespace NFe.Servicos
         /// <param name="chaveNFe"></param>
         /// <param name="justificativa"></param>
         /// <param name="cpfcnpj"></param>
+        /// <param name="nomeDoArquivo"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
-            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, string nomeDoArquivo = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento {nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa};
+            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -563,9 +571,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, nomeDoArquivo);
             return retorno;
         }
 
@@ -577,14 +585,15 @@ namespace NFe.Servicos
         /// <param name="chaveNFe"></param>
         /// <param name="correcao"></param>
         /// <param name="cpfcnpj"></param>
+        /// <param name="nomeDoArquivo"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
-            string correcao, string cpfcnpj)
+            string correcao, string cpfcnpj, string nomeDoArquivo = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento {versao = versaoServico, xCorrecao = correcao, xJust = null};
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -601,9 +610,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao, nomeDoArquivo);
             return retorno;
         }
 
@@ -627,7 +636,7 @@ namespace NFe.Servicos
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now,
-                tpEvento = (int) tipoEventoManifestacaoDestinatario,
+                tpEvento = (int)tipoEventoManifestacaoDestinatario,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -637,9 +646,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento},
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento },
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
@@ -696,9 +705,9 @@ namespace NFe.Servicos
                 detEvento = detevento
             };
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
 
@@ -726,14 +735,14 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto ConsCad
 
             var pedConsulta = new ConsCad
             {
                 versao = versaoServico,
-                infCons = new infConsEnv {UF = uf}
+                infCons = new infConsEnv { UF = uf }
             };
 
             switch (tipoDocumento)
@@ -741,17 +750,20 @@ namespace NFe.Servicos
                 case ConsultaCadastroTipoDocumento.Ie:
                     pedConsulta.infCons.IE = documento;
                     break;
+
                 case ConsultaCadastroTipoDocumento.Cnpj:
                     pedConsulta.infCons.CNPJ = documento;
                     break;
+
                 case ConsultaCadastroTipoDocumento.Cpf:
                     pedConsulta.infCons.CPF = documento;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException("tipoDocumento", tipoDocumento, null);
             }
 
-            #endregion
+            #endregion Cria o objeto ConsCad
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -780,7 +792,7 @@ namespace NFe.Servicos
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -807,7 +819,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto distDFeInt
 
@@ -816,8 +828,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
                 cUFAutor = _cFgServico.cUF,
-                distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')}
-
+                distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') }
             };
 
             if (documento.Length == 11)
@@ -825,9 +836,9 @@ namespace NFe.Servicos
             if (documento.Length > 11)
                 pedDistDFeInt.CNPJ = documento;
             if (!nSU.Equals("0"))
-                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
 
-            #endregion
+            #endregion Cria o objeto distDFeInt
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -859,7 +870,6 @@ namespace NFe.Servicos
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
 
@@ -879,16 +889,15 @@ namespace NFe.Servicos
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
                     SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
-
                 }
             }
 
-            #endregion
+            #endregion Obtém um retDistDFeInt de cada evento e salva em arquivo
 
             return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         #region Recepção
@@ -913,13 +922,13 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto enviNFe
 
             var pedEnvio = new enviNFe2(versaoServico, idLote, nFes);
 
-            #endregion
+            #endregion Cria o objeto enviNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -953,7 +962,7 @@ namespace NFe.Servicos
             return new RetornoNfeRecepcao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString,
                 retEnvio);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -975,7 +984,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto consReciNFe
 
@@ -986,7 +995,7 @@ namespace NFe.Servicos
                 nRec = recibo
             };
 
-            #endregion
+            #endregion Cria o objeto consReciNFe
 
             #region Envia os dados e obtém a resposta
 
@@ -1014,10 +1023,10 @@ namespace NFe.Servicos
             return new RetornoNfeRetRecepcao(pedRecibo.ObterXmlString(), retRecibo.ObterXmlString(), retornoXmlString,
                 retRecibo);
 
-            #endregion
+            #endregion Envia os dados e obtém a resposta
         }
 
-        #endregion
+        #endregion Recepção
 
         #region Autorização
 
@@ -1030,7 +1039,7 @@ namespace NFe.Servicos
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
         public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
-            bool compactarMensagem = false)
+            bool compactarMensagem = false, string nomeDoArquivo = null)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
@@ -1044,13 +1053,13 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto enviNFe
 
             var pedEnvio = new enviNFe3(versaoServico, idLote, indSinc, nFes);
 
-            #endregion
+            #endregion Cria o objeto enviNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -1063,7 +1072,10 @@ namespace NFe.Servicos
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+            if (string.IsNullOrWhiteSpace(nomeDoArquivo))
+                SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+            else
+                SalvarArquivoXml(nomeDoArquivo + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1086,11 +1098,14 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
+            if (string.IsNullOrWhiteSpace(nomeDoArquivo))
+                SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
+            else
+                SalvarArquivoXml(nomeDoArquivo + "-rec.xml", retornoXmlString);
 
             return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         /// <summary>
@@ -1112,7 +1127,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para consulta
 
             #region Cria o objeto consReciNFe
 
@@ -1123,7 +1138,7 @@ namespace NFe.Servicos
                 nRec = recibo
             };
 
-            #endregion
+            #endregion Cria o objeto consReciNFe
 
             #region Envia os dados e obtém a resposta
 
@@ -1150,10 +1165,10 @@ namespace NFe.Servicos
 
             return new RetornoNFeRetAutorizacao(pedRecibo.ObterXmlString(), retRecibo.ObterXmlString(), retornoXmlString, retRecibo);
 
-            #endregion
+            #endregion Envia os dados e obtém a resposta
         }
 
-        #endregion
+        #endregion Autorização
 
         /// <summary>
         ///     Consulta a Situação da NFe
@@ -1171,10 +1186,10 @@ namespace NFe.Servicos
             {
                 cUF = _cFgServico.cUF,
                 //Embora em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#GO esse serviço está nas versões 2.00 e 3.10, ele rejeita se mandar a versão diferente de 1.00. Testado no Ambiente Nacional - (AN)
-                versaoDados = /*versaoServico*/ "1.00" 
+                versaoDados = /*versaoServico*/ "1.00"
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para envio do pedido de Download
 
             #region Cria o objeto downloadNFe
 
@@ -1187,7 +1202,7 @@ namespace NFe.Servicos
                 chNFe = chaves
             };
 
-            #endregion
+            #endregion Cria o objeto downloadNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -1215,7 +1230,7 @@ namespace NFe.Servicos
 
             return new RetornoNfeDownload(pedDownload.ObterXmlString(), retDownload.ObterXmlString(), retornoXmlString, retDownload);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
         #region Adm CSC
@@ -1234,7 +1249,7 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
-            #endregion
+            #endregion Cria o objeto wdsl para envio do pedido de Download
 
             #region Cria o objeto downloadNFe
 
@@ -1255,7 +1270,7 @@ namespace NFe.Servicos
                 };
             }
 
-            #endregion
+            #endregion Cria o objeto downloadNFe
 
             #region Valida, Envia os dados e obtém a resposta
 
@@ -1282,17 +1297,16 @@ namespace NFe.Servicos
 
             return new RetornoAdmCscNFCe(admCscNFCe.ObterXmlString(), retCsc.ObterXmlString(), retornoXmlString, retCsc);
 
-            #endregion
+            #endregion Valida, Envia os dados e obtém a resposta
         }
 
-        #endregion
-
+        #endregion Adm CSC
 
         #region Implementação do padrão Dispose
 
         // Flag: Dispose já foi chamado?
         private bool _disposed;
-        
+
         // Implementação protegida do padrão Dispose.
         private void Dispose(bool disposing)
         {
@@ -1316,6 +1330,6 @@ namespace NFe.Servicos
             Dispose(false);
         }
 
-        #endregion
+        #endregion Implementação do padrão Dispose
     }
 }

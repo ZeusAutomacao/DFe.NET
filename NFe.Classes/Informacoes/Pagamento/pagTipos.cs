@@ -50,25 +50,45 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum FormaPagamento
     {
-        [Description("Dinheiro")] [XmlEnum("01")] fpDinheiro,
+        [Description("Dinheiro")]
+        [XmlEnum("01")]
+        fpDinheiro = 1,
 
-        [Description("Cheque")] [XmlEnum("02")] fpCheque,
+        [Description("Cheque")]
+        [XmlEnum("02")]
+        fpCheque = 2,
 
-        [Description("Cartão de Crédito")] [XmlEnum("03")] fpCartaoCredito,
+        [Description("Cartão de Crédito")]
+        [XmlEnum("03")]
+        fpCartaoCredito = 3,
 
-        [Description("Cartão de Débito")] [XmlEnum("04")] fpCartaoDebito,
+        [Description("Cartão de Débito")]
+        [XmlEnum("04")]
+        fpCartaoDebito = 4,
 
-        [Description("Crédito Loja")] [XmlEnum("05")] fpCreditoLoja,
+        [Description("Crédito Loja")]
+        [XmlEnum("05")]
+        fpCreditoLoja = 5,
 
-        [Description("Vale Alimentação")] [XmlEnum("10")] fpValeAlimentacao,
+        [Description("Vale Alimentação")]
+        [XmlEnum("10")]
+        fpValeAlimentacao = 10,
 
-        [Description("Vale Refeição")] [XmlEnum("11")] fpValeRefeicao,
+        [Description("Vale Refeição")]
+        [XmlEnum("11")]
+        fpValeRefeicao = 11,
 
-        [Description("Vale Presente")] [XmlEnum("12")] fpValePresente,
+        [Description("Vale Presente")]
+        [XmlEnum("12")]
+        fpValePresente = 12,
 
-        [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel,
+        [Description("Vale Combustível")]
+        [XmlEnum("13")]
+        fpValeCombustivel = 13,
 
-        [Description("Outros")] [XmlEnum("99")] fpOutro
+        [Description("Outros")]
+        [XmlEnum("99")]
+        fpOutro = 99
     }
 
     /// <summary>
@@ -80,15 +100,25 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum BandeiraCartao
     {
-        [Description("Visa")] [XmlEnum("01")] bcVisa,
+        [Description("Visa")]
+        [XmlEnum("01")]
+        bcVisa = 1,
 
-        [Description("Mastercard")] [XmlEnum("02")] bcMasterCard,
+        [Description("Mastercard")]
+        [XmlEnum("02")]
+        bcMasterCard = 2,
 
-        [Description("American Express")] [XmlEnum("03")] bcAmericanExpress,
+        [Description("American Express")]
+        [XmlEnum("03")]
+        bcAmericanExpress = 3,
 
-        [Description("Sorocred")] [XmlEnum("04")] bcSorocred,
+        [Description("Sorocred")]
+        [XmlEnum("04")]
+        bcSorocred = 4,
 
-        [Description("Outros")] [XmlEnum("99")] bcOutros
+        [Description("Outros")]
+        [XmlEnum("99")]
+        bcOutros = 99
     }
 
     /// <summary>

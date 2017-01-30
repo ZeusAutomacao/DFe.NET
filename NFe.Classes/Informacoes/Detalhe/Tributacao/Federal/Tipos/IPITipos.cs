@@ -52,19 +52,19 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
     /// </summary>
     public enum CSTIPI
     {
-        [XmlEnum("00")] ipi00,
-        [XmlEnum("49")] ipi49,
-        [XmlEnum("50")] ipi50,
-        [XmlEnum("99")] ipi99,
-        [XmlEnum("01")] ipi01,
-        [XmlEnum("02")] ipi02,
-        [XmlEnum("03")] ipi03,
-        [XmlEnum("04")] ipi04,
-        [XmlEnum("05")] ipi05,
-        [XmlEnum("51")] ipi51,
-        [XmlEnum("52")] ipi52,
-        [XmlEnum("53")] ipi53,
-        [XmlEnum("54")] ipi54,
-        [XmlEnum("55")] ipi55
+        [XmlEnum("00")] ipi00 = 0,
+        [XmlEnum("49")] ipi49 = 49,
+        [XmlEnum("50")] ipi50 = 50,
+        [XmlEnum("99")] ipi99 = 99,
+        [XmlEnum("01")] ipi01 = 1,
+        [XmlEnum("02")] ipi02 = 2,
+        [XmlEnum("03")] ipi03 = 3,
+        [XmlEnum("04")] ipi04 = 4,
+        [XmlEnum("05")] ipi05 = 5,
+        [XmlEnum("51")] ipi51 = 51,
+        [XmlEnum("52")] ipi52 = 52,
+        [XmlEnum("53")] ipi53 = 53,
+        [XmlEnum("54")] ipi54 = 54,
+        [XmlEnum("55")] ipi55 = 55
     }
 }

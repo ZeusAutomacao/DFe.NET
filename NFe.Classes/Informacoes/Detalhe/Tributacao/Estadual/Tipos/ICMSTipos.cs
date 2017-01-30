@@ -80,19 +80,19 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum Csticms
     {
-        [XmlEnum("00")] Cst00,
-        [XmlEnum("10")] Cst10,
+        [XmlEnum("00")] Cst00 = 0,
+        [XmlEnum("10")] Cst10 = 10,
         [XmlEnum("10")] CstPart10,
-        [XmlEnum("20")] Cst20,
-        [XmlEnum("30")] Cst30,
-        [XmlEnum("40")] Cst40,
-        [XmlEnum("41")] Cst41,
+        [XmlEnum("20")] Cst20 = 20,
+        [XmlEnum("30")] Cst30 = 30,
+        [XmlEnum("40")] Cst40 = 40,
+        [XmlEnum("41")] Cst41 = 41,
         [XmlEnum("41")] CstRep41,
-        [XmlEnum("50")] Cst50,
-        [XmlEnum("51")] Cst51,
-        [XmlEnum("60")] Cst60,
-        [XmlEnum("70")] Cst70,
-        [XmlEnum("90")] Cst90,
+        [XmlEnum("50")] Cst50 = 50,
+        [XmlEnum("51")] Cst51 = 51,
+        [XmlEnum("60")] Cst60 = 60,
+        [XmlEnum("70")] Cst70 = 70,
+        [XmlEnum("90")] Cst90 = 90,
         [XmlEnum("90")] CstPart90
     }
 

@@ -42,9 +42,13 @@ namespace NFe.Classes.Informacoes.Transporte
     /// </summary>
     public enum ModalidadeFrete
     {
-        [XmlEnum("0")] mfContaEmitente,
-        [XmlEnum("1")] mfContaDestinatario,
-        [XmlEnum("2")] mfContaTerceiros,
-        [XmlEnum("9")] mfSemFrete
+        [XmlEnum("0")]
+        mfContaEmitente = 0,
+        [XmlEnum("1")]
+        mfContaDestinatario = 1,
+        [XmlEnum("2")]
+        mfContaTerceiros = 2,
+        [XmlEnum("9")]
+        mfSemFrete = 9
     }
 }
