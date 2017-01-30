@@ -1,0 +1,8 @@
+SHA-1: 6482e93127b4f9fb23b18de51afbdafc3ae40149
+
+* Refatorado P/R https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/pull/364:
+ - Adicionada propriedade TipoCertificado na classe ConfiguracaoCertificado;
+ - Centralizado todo o código referente a certificado digital na classe CertificadoDigital (essa classe é quem decidirá que tipo de abordagem vai utilizar, com base no TipoDeCertificado informado;
+ - Movidas as classes numExt e Reflexao do projeto NFe.Utils para DFe.Utils;
+ - Primeira versão do DANFE da NFCe nativo com base no código compartilhado por Fabio no P/R https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/pull/367;
+ - Método CertificadoDigital.ObterDoRepositorio renomeado para CertificadoDigital.ListareObterDoRepositorio.
