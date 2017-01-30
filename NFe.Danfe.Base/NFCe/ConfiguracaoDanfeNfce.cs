@@ -31,9 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Danfe.Base;
-
-namespace NFe.Danfe.Fast.NFCe
+namespace NFe.Danfe.Base.NFCe
 {
     public class ConfiguracaoDanfeNfce: ConfiguracaoDanfe
     {
@@ -57,7 +55,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// </summary>
         private ConfiguracaoDanfeNfce()
         {
-            this.DocumentoCancelado = false;
+            DocumentoCancelado = false;
         }
 
         /// <summary>
