@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>c86e3921-f0b8-4bfe-9ef1-0e9084326b13</ProjectGuid>
+    <ProjectGuid>{C86E3921-F0B8-4BFE-9EF1-0E9084326B13}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CTe.Classes</RootNamespace>
@@ -30,23 +30,147 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="CTe.cs" />
+    <Compile Include="Informacoes\autXML.cs" />
+    <Compile Include="Informacoes\Complemento\Comp.cs" />
+    <Compile Include="Informacoes\Complemento\compl.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\comData.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\comHora.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\noInter.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\noPeriodo.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\semData.cs" />
+    <Compile Include="Informacoes\Complemento\Entrega\semHora.cs" />
+    <Compile Include="Informacoes\Complemento\fluxo.cs" />
+    <Compile Include="Informacoes\Complemento\ObsCont.cs" />
+    <Compile Include="Informacoes\Complemento\ObsFisco.cs" />
+    <Compile Include="Informacoes\Complemento\pass.cs" />
+    <Compile Include="Informacoes\Complemento\Tipos\EntregaTipos.cs" />
+    <Compile Include="Informacoes\Destinatario\dest.cs" />
+    <Compile Include="Informacoes\Destinatario\enderDest.cs" />
+    <Compile Include="Informacoes\Destinatario\locEnt.cs" />
+    <Compile Include="Informacoes\Emitente\emit.cs" />
+    <Compile Include="Informacoes\Emitente\emitTipos.cs" />
+    <Compile Include="Informacoes\Emitente\enderEmit.cs" />
+    <Compile Include="Informacoes\Expedidor\enderExped.cs" />
+    <Compile Include="Informacoes\Expedidor\exped.cs" />
+    <Compile Include="Informacoes\Identificacao\enderToma.cs" />
+    <Compile Include="Informacoes\Identificacao\ide.cs" />
+    <Compile Include="Informacoes\Identificacao\Tipos\ideTipos.cs" />
+    <Compile Include="Informacoes\Identificacao\toma03.cs" />
+    <Compile Include="Informacoes\Identificacao\toma4.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMS00.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMS20.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMS45.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMS60.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMS90.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMSOutraUF.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\ICMSSN.cs" />
+    <Compile Include="Informacoes\Impostos\ICMS\Tipos\ICMSBasico.cs" />
+    <Compile Include="Informacoes\Impostos\imp.cs" />
+    <Compile Include="Informacoes\infCte.cs" />
+    <Compile Include="Informacoes\infCteAnu\infCteAnu.cs" />
+    <Compile Include="Informacoes\infCteComp\impComp.cs" />
+    <Compile Include="Informacoes\infCteComp\impComp\ICMSComp.cs" />
+    <Compile Include="Informacoes\infCteComp\infCteComp.cs" />
+    <Compile Include="Informacoes\infCteComp\vPresComp.cs" />
+    <Compile Include="Informacoes\infCteComp\vPresComp\compComp.cs" />
+    <Compile Include="Informacoes\infCTeNorm\cobr.cs" />
+    <Compile Include="Informacoes\infCTeNorm\cobr\dup.cs" />
+    <Compile Include="Informacoes\infCTeNorm\cobr\fat.cs" />
+    <Compile Include="Informacoes\infCTeNorm\contQt.cs" />
+    <Compile Include="Informacoes\infCTeNorm\contQt\lacContQt.cs" />
+    <Compile Include="Informacoes\infCTeNorm\docAnt.cs" />
+    <Compile Include="Informacoes\infCTeNorm\docAnt\emiDocAnt.cs" />
+    <Compile Include="Informacoes\infCTeNorm\docAnt\idDocAnt.cs" />
+    <Compile Include="Informacoes\infCTeNorm\docAnt\idDocAntEle.cs" />
+    <Compile Include="Informacoes\infCTeNorm\docAnt\idDocAntPap.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCarga.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCarga\infQ.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCTeNorm.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCteSub.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCteSub\refNF.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCteSub\tomaICMS.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCteSub\tomaNaoICMS.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\infNF.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\infNFe.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\infOutros.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\infUnidCarga.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\infUnidTransp.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\lacUnidCarga.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDoc\lacUnidTransp.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\aereo.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\aereo\natCarga.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\aereo\peri.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\aereo\tarifa.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodo.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS\prop.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS\veic.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodo\emiOcc.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\rodo\occ.cs" />
+    <Compile Include="Informacoes\infCTeNorm\peri.cs" />
+    <Compile Include="Informacoes\infCTeNorm\seg.cs" />
+    <Compile Include="Informacoes\infCTeNorm\veicNovos.cs" />
+    <Compile Include="Informacoes\Recebedor\enderReceb.cs" />
+    <Compile Include="Informacoes\Recebedor\receb.cs" />
+    <Compile Include="Informacoes\Remetente\enderReme.cs" />
+    <Compile Include="Informacoes\Remetente\infNF.cs" />
+    <Compile Include="Informacoes\Remetente\infNFe.cs" />
+    <Compile Include="Informacoes\Remetente\infOutros.cs" />
+    <Compile Include="Informacoes\Remetente\locColeta.cs" />
+    <Compile Include="Informacoes\Remetente\locRet.cs" />
+    <Compile Include="Informacoes\Remetente\rem.cs" />
+    <Compile Include="Informacoes\Valores\Comp.cs" />
+    <Compile Include="Informacoes\Valores\vPrest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocolo\infProt.cs" />
+    <Compile Include="Protocolo\protCTe.cs" />
+    <Compile Include="Servicos\Consulta\consSitCTe.cs" />
+    <Compile Include="Servicos\Consulta\procEventoCTe.cs" />
+    <Compile Include="Servicos\Consulta\retConsSitCTe.cs" />
+    <Compile Include="Servicos\Evento\dest.cs" />
+    <Compile Include="Servicos\Evento\detEvento.cs" />
+    <Compile Include="Servicos\Evento\detEventoTipos.cs" />
+    <Compile Include="Servicos\Evento\envEvento.cs" />
+    <Compile Include="Servicos\Evento\evento.cs" />
+    <Compile Include="Servicos\Evento\infEventoEnv.cs" />
+    <Compile Include="Servicos\Evento\infEventoRet.cs" />
+    <Compile Include="Servicos\Evento\retEnvEvento.cs" />
+    <Compile Include="Servicos\Evento\retEvento.cs" />
+    <Compile Include="Servicos\Inutilizacao\infInutEnv.cs" />
+    <Compile Include="Servicos\Inutilizacao\infInutRet.cs" />
+    <Compile Include="Servicos\Inutilizacao\inutCTe.cs" />
+    <Compile Include="Servicos\Inutilizacao\retInutCTe.cs" />
+    <Compile Include="Servicos\IRetornoServico.cs" />
+    <Compile Include="Servicos\Recepcao\enviCTe.cs" />
+    <Compile Include="Servicos\Recepcao\infRec.cs" />
+    <Compile Include="Servicos\Recepcao\retEnviCTe.cs" />
+    <Compile Include="Servicos\Recepcao\Retorno\consReciCTe.cs" />
+    <Compile Include="Servicos\Recepcao\Retorno\retconsReciCTe.cs" />
+    <Compile Include="Servicos\Status\consStatServ.cs" />
+    <Compile Include="Servicos\Status\retConsStatServ.cs" />
+    <Compile Include="Servicos\Tipos\ServicosTipos.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -55,5 +179,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
