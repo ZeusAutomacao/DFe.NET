@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NFCe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFCe\NFCe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="OpenSans_CondBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NFeEvento" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFe\NFeEvento.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="OpenSans_CondLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fontes\OpenSans-CondLight.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NFeRetrato" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFe\NFeRetrato.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="OpenSans_CondLightItalic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fontes\OpenSans-CondLightItalic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="UbuntuCondensed_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fontes\UbuntuCondensed-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

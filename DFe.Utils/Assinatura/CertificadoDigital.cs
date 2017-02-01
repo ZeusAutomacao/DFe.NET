@@ -33,24 +33,146 @@
 
 using System;
 using System.IO;
-using System.Security;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 namespace DFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
+        private static X509Certificate2 _certificado;
+
+        #region Métodos privados
+
+        /// <summary>
+        /// Cria e devolve um objeto <see cref="X509Store"/>
+        /// </summary>
+        /// <param name="openFlags"></param>
+        /// <returns></returns>
+        private static X509Store ObterX509Store(OpenFlags openFlags)
+        {
+            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            store.Open(openFlags);
+            return store;
+        }
+
+        #region Métodos para obter um certificado X509Certificate2
+
+        /// <summary>
+        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
+        /// </summary>
+        /// <param name="arquivo">Arquivo do certificado digital</param>
+        /// <param name="senha">Senha do certificado digital</param>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
+        {
+            if (!File.Exists(arquivo))
+            {
+                throw new Exception(String.Format("Certificado digital {0} não encontrado!", arquivo));
+            }
+
+            var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
+            return certificado;
+        }
+
+        /// <summary>
+        /// Obtém um objeto <see cref="X509Certificate2"/> pelo serial passado no parÂmetro
+        /// </summary>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDoRepositorio(string serial, OpenFlags opcoesDeAbertura)
+        {
+            X509Certificate2 certificado = null;
+            var store = ObterX509Store(opcoesDeAbertura);
+            try
+            {
+                foreach (var item in store.Certificates)
+                {
+                    if (item.SerialNumber != null && item.SerialNumber.ToUpper().Equals(serial.ToUpper(), StringComparison.InvariantCultureIgnoreCase))
+                        certificado = item;
+                }
+
+                if (certificado == null)
+                    throw new Exception(string.Format("Certificado digital nº {0} não encontrado!", serial.ToUpper()));
+            }
+            finally
+            {
+                store.Close();
+            }
+
+            return certificado;
+        }
+
+        /// <summary>
+        /// Obtém um objeto <see cref="X509Certificate2"/> pelo serial passado no parâmetro e com opção de definir o PIN
+        /// </summary>
+        /// <param name="serial"></param>
+        /// <param name="senha"></param>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDoRepositorioPassandoPin(string serial, string senha = null)
+        {
+            var certificado = ObterDoRepositorio(serial, OpenFlags.ReadOnly);
+            if (string.IsNullOrEmpty(senha)) return certificado;
+            certificado.DefinirPinParaChavePrivada(senha);
+            return certificado;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Define o PIN para chave privada de um objeto <see cref="X509Certificate2"/> passado no parâmetro
+        /// </summary>
+        private static void DefinirPinParaChavePrivada(this X509Certificate2 certificado, string pin)
+        {
+            if (certificado == null) throw new ArgumentNullException("certificado");
+            var key = (RSACryptoServiceProvider)certificado.PrivateKey;
+
+            var providerHandle = IntPtr.Zero;
+            var pinBuffer = Encoding.ASCII.GetBytes(pin);
+
+            MetodosNativos.Executar(() => MetodosNativos.CryptAcquireContext(ref providerHandle,
+                key.CspKeyContainerInfo.KeyContainerName,
+                key.CspKeyContainerInfo.ProviderName,
+                key.CspKeyContainerInfo.ProviderType,
+                MetodosNativos.CryptContextFlags.Silent));
+            MetodosNativos.Executar(() => MetodosNativos.CryptSetProvParam(providerHandle,
+                MetodosNativos.CryptParameter.KeyExchangePin,
+                pinBuffer, 0));
+            MetodosNativos.Executar(() => MetodosNativos.CertSetCertificateContextProperty(
+                certificado.Handle,
+                MetodosNativos.CertificateProperty.CryptoProviderHandle,
+                0, providerHandle));
+        }
+
+        /// <summary>
+        /// Se a propriedade <see cref="ConfiguracaoCertificado.Arquivo"/> for informada, Obtém o certificado do arquivo, senão obtém o certificado do repositório
+        /// </summary>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        {
+            switch (configuracaoCertificado.TipoCertificado)
+            {
+                case TipoCertificado.A1Repositorio:
+                    return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed);
+                case TipoCertificado.A1Arquivo:
+                    return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha);
+                case TipoCertificado.A3:
+                    return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
         /// </summary>
         /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio()
+        public static X509Certificate2 ListareObterDoRepositorio()
         {
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            store.Open(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
-
+            var store = ObterX509Store(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
             var collection = store.Certificates;
             var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
             var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
@@ -64,45 +186,12 @@ namespace DFe.Utils.Assinatura
             store.Close();
             return scollection[0];
         }
-
-        /// <summary>
-        /// Obtém um certificado instalado no PC a partir do número de série passado no parâmetro
-        /// </summary>
-        /// <param name="numeroSerial">Serial do certificado</param>
-        /// <param name="senha">Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação. Não informe a senha para certificado A1!</param>
-        /// <returns></returns>
-        public static X509Certificate2 ObterDoRepositorio(ConfiguracaoCertificado configuracaoCertificado)
-        {
-            if (string.IsNullOrEmpty(configuracaoCertificado.Serial))
-                throw new Exception("O nº de série do certificado não foi informado para a função ObterDoRepositorio!");
-
-            return configuracaoCertificado.CriaCertificado();
-        }
-
-        /// <summary>
-        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
-        /// </summary>
-        /// <param name="arquivo">Arquivo do certificado digital</param>
-        /// <param name="senha">Senha do certificado digital</param>
-        /// <returns></returns>
-        public static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
-        {
-            if (!File.Exists(arquivo))
-            {
-                throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
-            }
-
-            var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
-            return certificado;
-        }
-
-        private static X509Certificate2 _certificado;
-
+        
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
         /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
         /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
-        /// senão será obtido pelo método <see cref="ObterDoRepositorio()"/> </para>
+        /// senão será obtido pelo método <see cref="ListareObterDoRepositorio"/> </para>
         /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
         /// </summary>
         public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
@@ -114,13 +203,58 @@ namespace DFe.Utils.Assinatura
             _certificado = ObterDadosCertificado(configuracaoCertificado);
             return _certificado;
         }
+    }
 
-        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
+    internal static class MetodosNativos
+    {
+        internal enum CryptContextFlags
         {
-            return string.IsNullOrEmpty(configuracaoCertificado.Arquivo)
-                ? ObterDoRepositorio(configuracaoCertificado)
-                : ObterDeArquivo(configuracaoCertificado.Arquivo,
-                    configuracaoCertificado.Senha);
+            None = 0,
+            Silent = 0x40
+        }
+
+        internal enum CertificateProperty
+        {
+            None = 0,
+            CryptoProviderHandle = 0x1
+        }
+
+        internal enum CryptParameter
+        {
+            None = 0,
+            KeyExchangePin = 0x20
+        }
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        public static extern bool CryptAcquireContext(
+            ref IntPtr hProv,
+            string containerName,
+            string providerName,
+            int providerType,
+            CryptContextFlags flags
+            );
+
+        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+        public static extern bool CryptSetProvParam(
+            IntPtr hProv,
+            CryptParameter dwParam,
+            [In] byte[] pbData,
+            uint dwFlags);
+
+        [DllImport("CRYPT32.DLL", SetLastError = true)]
+        internal static extern bool CertSetCertificateContextProperty(
+            IntPtr pCertContext,
+            CertificateProperty propertyId,
+            uint dwFlags,
+            IntPtr pvData
+            );
+
+        public static void Executar(Func<bool> action)
+        {
+            if (!action())
+            {
+                throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+            }
         }
     }
 }

@@ -34,7 +34,7 @@
 using System.IO;
 using DFe.Utils;
 using NFe.Danfe.Base;
-using NFe.Danfe.Fast.NFCe;
+using NFe.Danfe.Base.NFCe;
 
 namespace NFe.Danfe.AppTeste
 {

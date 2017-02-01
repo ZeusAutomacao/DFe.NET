@@ -36,7 +36,6 @@ using System.Net;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using DFe.Utils.Assinatura.CertificadoProvider;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
@@ -52,7 +51,7 @@ namespace NFe.Utils
 
         private ConfiguracaoServico()
         {
-            Certificado = new ConfiguracaoCertificado(new CertificadoProvider());
+            Certificado = new ConfiguracaoCertificado();
         }
 
         /// <summary>

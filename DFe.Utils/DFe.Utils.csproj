@@ -40,17 +40,14 @@
   <ItemGroup>
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
-    <Compile Include="Assinatura\CertificadoProvider\Contratos\ICertificadoProvider.cs" />
-    <Compile Include="Assinatura\CertificadoProvider\Extencoes\X509Certificate2Extension.cs" />
-    <Compile Include="Assinatura\CertificadoProvider\CertificadoAutoPinProvider.cs" />
-    <Compile Include="Assinatura\CertificadoProvider\CertificadoProvider.cs" />
-    <Compile Include="Assinatura\CertificadoProvider\X509StoreHelper.cs" />
     <Compile Include="ConfiguracaoCertificado.cs" />
     <Compile Include="DataHora.cs" />
+    <Compile Include="EnumExt.cs" />
     <Compile Include="FuncoesXml.cs" />
     <Compile Include="ChaveFiscal.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflexao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">

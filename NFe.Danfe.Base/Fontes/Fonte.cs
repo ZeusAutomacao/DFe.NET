@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,29 +30,32 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Drawing;
+using System.Drawing.Text;
+using System.Runtime.InteropServices;
 
-using NFe.Danfe.Base;
-
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Base.Fontes
 {
-    public class ConfiguracaoDanfeNfe : ConfiguracaoDanfe
+    public static class Fonte
     {
-        public bool DuasLinhas { get; set; }
-
-        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool documentoCancelado = false)
-        {
-            Logomarca = logomarca;
-            DuasLinhas = duasLinhas;
-            DocumentoCancelado = documentoCancelado;
-        }
-
         /// <summary>
-        /// Construtor sem parâmetros para serialização
+        /// Obtém um objeto <see cref="FontFamily"/> a partir de um array de bytes. Útil para carregar uma fonte a partir de um arquivo de recurso
         /// </summary>
-        private ConfiguracaoDanfeNfe()
+        /// <returns></returns>
+        public static FontFamily CarregarDeByteArray(byte[] fonte, out PrivateFontCollection colecaoDeFonte)
         {
-            DocumentoCancelado = false;
-            DuasLinhas = true;
+            var handle = GCHandle.Alloc(fonte, GCHandleType.Pinned);
+            try
+            {
+                var ptr = Marshal.UnsafeAddrOfPinnedArrayElement(fonte, 0);
+                colecaoDeFonte = new PrivateFontCollection();
+                colecaoDeFonte.AddMemoryFont(ptr, fonte.Length);
+                return colecaoDeFonte.Families[0];
+            }
+            finally
+            {
+                handle.Free();
+            }
         }
     }
 }

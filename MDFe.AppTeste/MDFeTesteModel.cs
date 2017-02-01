@@ -37,7 +37,6 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using DFe.Utils.Assinatura.CertificadoProvider;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Retorno;
@@ -535,8 +534,7 @@ namespace MDFe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            var numeroSerie = CertificadoDigital.ObterDoRepositorio();
-            NumeroDeSerie = numeroSerie.SerialNumber;
+            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()
@@ -1140,7 +1138,7 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            var configuracaoCertificado = new ConfiguracaoCertificado(new CertificadoProvider())
+            var configuracaoCertificado = new ConfiguracaoCertificado
             {
                 Senha = config.CertificadoDigital.Senha,
                 Arquivo = config.CertificadoDigital.CaminhoArquivo,

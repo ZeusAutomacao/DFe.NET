@@ -34,6 +34,7 @@
 using System.IO;
 using FastReport;
 using NFe.Classes;
+using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.Fast.NFe
 {
