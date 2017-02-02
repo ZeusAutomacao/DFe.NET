@@ -38,12 +38,13 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using NFe.Danfe.Fast.NFCe;
 using NFe.Classes;
 using NFe.Danfe.Fast.NFe;
-using NFe.Utils;
 using NFe.Utils.NFe;
 using NFe.Classes.Servicos.Consulta;
+using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.AppTeste
 {

@@ -627,6 +627,14 @@
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
+      <Project>{80C6093C-47D5-41A1-9FA0-E218E82FA666}</Project>
+      <Name>NFe.Danfe.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj">
+      <Project>{ba27d218-484b-4f08-bab9-38c02181bded}</Project>
+      <Name>NFe.Danfe.Nativo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
       <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
       <Name>NFe.Servicos</Name>

@@ -31,15 +31,46 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.ComponentModel;
 using NFe.Utils.Annotations;
 
 namespace DFe.Utils
 {
+    public enum TipoCertificado
+    {
+        [Description("Certificado A1")]
+        A1Repositorio,
+
+        [Description("Certificado A1 em arquivo")]
+        A1Arquivo,
+
+        [Description("Certificado A3")]
+        A3
+    }
+
     public class ConfiguracaoCertificado : INotifyPropertyChanged
     {
         private string _serial;
         private string _arquivo;
+        private string _senha;
+        private TipoCertificado _tipoCertificado;
+
+        /// <summary>
+        /// Tipo de certificado a ser usado
+        /// </summary>
+        public TipoCertificado TipoCertificado
+        {
+            get { return _tipoCertificado; }
+            set
+            {
+                Serial = null;
+                Arquivo = null;
+                Senha = null;
+                _tipoCertificado = value;
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.TipoCertificado).Name);
+            }
+        }
 
         /// <summary>
         ///     Nº de série do certificado digital
@@ -49,11 +80,14 @@ namespace DFe.Utils
             get { return _serial; }
             set
             {
+                if (!string.IsNullOrEmpty(value) && TipoCertificado == TipoCertificado.A1Arquivo)
+                    throw new Exception(string.Format("Para {0} o {1} não deve ser informado!", TipoCertificado.Descricao(), this.ObterPropriedadeInfo(c => c.Serial).Name));
+
                 if (value == _serial) return;
                 _serial = value;
                 if (!string.IsNullOrEmpty(value))
                     Arquivo = null;
-                OnPropertyChanged("Serial");
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Serial).Name);
             }
         }
 
@@ -65,18 +99,33 @@ namespace DFe.Utils
             get { return _arquivo; }
             set
             {
+                if (!string.IsNullOrEmpty(value) && TipoCertificado != TipoCertificado.A1Arquivo)
+                    throw new Exception(string.Format("Para {0} o {1} não deve ser informado!", TipoCertificado.Descricao(), this.ObterPropriedadeInfo(c => c.Arquivo).Name));
                 if (value == _arquivo) return;
                 _arquivo = value;
                 if (!string.IsNullOrEmpty(value))
                     Serial = null;
-                OnPropertyChanged("Arquivo");
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Arquivo).Name);
             }
         }
 
         /// <summary>
         ///     Senha do certificado digital
+        /// <para>Informe a senha se desejar que o usuário não precise digitá-la toda vez que for iniciada uma nova instância da aplicação.
+        /// Não informe a senha para certificado A1, exceto se configurar para usar o arquivo .pfx usando o atributo <see cref="Arquivo"/></para>
         /// </summary>
-        public string Senha { get; set; }
+        public string Senha
+        {
+            get { return _senha; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value) && TipoCertificado == TipoCertificado.A1Repositorio)
+                    throw new Exception(string.Format("Para {0} o {1} não deve ser informada!", TipoCertificado.Descricao(), this.ObterPropriedadeInfo(c => c.Senha).Name));
+                if (value == _senha) return;
+                _senha = value;
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Senha).Name);
+            }
+        }
 
         /// <summary>
         ///     Manter/Não manter os dados do certificado em Cache, enquanto a aplicação que consome a biblioteca estiver aberta
@@ -89,7 +138,7 @@ namespace DFe.Utils
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

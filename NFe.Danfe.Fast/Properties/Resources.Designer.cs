@@ -89,45 +89,5 @@ namespace NFe.Danfe.Fast.Properties {
                 return ((byte[])(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] OpenSans_CondBold {
-            get {
-                object obj = ResourceManager.GetObject("OpenSans_CondBold", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] OpenSans_CondLight {
-            get {
-                object obj = ResourceManager.GetObject("OpenSans_CondLight", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] OpenSans_CondLightItalic {
-            get {
-                object obj = ResourceManager.GetObject("OpenSans_CondLightItalic", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] UbuntuCondensed_Regular {
-            get {
-                object obj = ResourceManager.GetObject("UbuntuCondensed_Regular", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

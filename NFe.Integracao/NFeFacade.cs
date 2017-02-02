@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Informacoes.Identificacao.Tipos;

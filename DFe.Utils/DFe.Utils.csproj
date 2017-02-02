@@ -42,10 +42,12 @@
     <Compile Include="Assinatura\CertificadoDigital.cs" />
     <Compile Include="ConfiguracaoCertificado.cs" />
     <Compile Include="DataHora.cs" />
+    <Compile Include="EnumExt.cs" />
     <Compile Include="FuncoesXml.cs" />
     <Compile Include="ChaveFiscal.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflexao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">

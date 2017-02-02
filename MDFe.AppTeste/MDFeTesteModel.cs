@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
@@ -533,8 +534,7 @@ namespace MDFe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            var numeroSerie = CertificadoDigital.ObterDoRepositorio();
-            NumeroDeSerie = numeroSerie.SerialNumber;
+            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()
@@ -1138,10 +1138,15 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
-            Utils.Configuracoes.MDFeConfiguracao.ManterCertificadoEmCache = config.CertificadoDigital.ManterEmCache;
+            var configuracaoCertificado = new ConfiguracaoCertificado
+            {
+                Senha = config.CertificadoDigital.Senha,
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
+            };
+
+            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
             Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;

@@ -34,6 +34,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using DFe.Utils;
 using DFe.Utils.Assinatura;
 using Signature = DFe.Classes.Assinatura.Signature;
 

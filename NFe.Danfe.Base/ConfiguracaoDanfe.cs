@@ -49,7 +49,7 @@ namespace NFe.Danfe.Base
         public bool DocumentoCancelado { get; set; }
 
         /// <summary>
-        /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
+        /// Retorna um objeto do tipo <see cref="Image"/> a partir da logo armazenada na propriedade <see cref="Logomarca"/>
         /// </summary>
         /// <returns></returns>
         public Image ObterLogo()

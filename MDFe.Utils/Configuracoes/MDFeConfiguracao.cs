@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -48,12 +49,7 @@ namespace MDFe.Utils.Configuracoes
             VersaoWebService = new MDFeVersaoWebService();
         }
 
-        public static string CaminhoCertificadoDigital { get; set; }
-        public static string SenhaCertificadoDigital { get; set; }
-        public static string NumeroSerieCertificadoDigital { get; set; }
-        public static bool ManterCertificadoEmCache { get; set; }
-
-        public static ConfiguracaoCertificado ConfiguracaoCertificado => GetConfiguracaoCertificado();
+        public static ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
         public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
@@ -84,17 +80,6 @@ namespace MDFe.Utils.Configuracoes
         private static X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
-        }
-
-        private static ConfiguracaoCertificado GetConfiguracaoCertificado()
-        {
-            return new ConfiguracaoCertificado
-            {
-                Senha = SenhaCertificadoDigital,
-                Arquivo = CaminhoCertificadoDigital,
-                ManterDadosEmCache = ManterCertificadoEmCache,
-                Serial = NumeroSerieCertificadoDigital
-            };
         }
     }
 
