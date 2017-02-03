@@ -1617,7 +1617,7 @@ namespace NFe.AppTeste
             {
                 nfeProc proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
-                var impr = new DanfeNativoNfce(proc.ObterXmlString(),
+                DanfeNativoNfce impr = new DanfeNativoNfce(proc.ObterXmlString(),
                     _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 
                     _configuracoes.ConfiguracaoCsc.Csc,
