@@ -1620,7 +1620,7 @@ namespace NFe.AppTeste
                     _configuracoes.ConfiguracaoCsc.CIdToken, 
                     _configuracoes.ConfiguracaoCsc.Csc, 
                     0 /*troco*/);
-                impr.Imprimir();
+                impr.Imprimir(salvarArquivoPdfEm: @"C:\Users\Roberto\Desktop\aaa\aaaa.pdf");
 
             }
             catch (Exception ex)

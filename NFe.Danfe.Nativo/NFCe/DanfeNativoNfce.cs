@@ -43,9 +43,20 @@ namespace NFe.Danfe.Nativo.NFCe
         }
 
         //Função para mandar imprimir na impressora padrão
-        public void Imprimir()
+        public void Imprimir(string nomeImpressora = null, string salvarArquivoPdfEm = null)
         {
             var printCupom = new PrintDocument();
+
+            printCupom.PrinterSettings.PrinterName = !string.IsNullOrEmpty(nomeImpressora) ?
+                    nomeImpressora : printCupom.PrinterSettings.PrinterName;
+
+            if (!string.IsNullOrEmpty(salvarArquivoPdfEm))
+            {
+                printCupom.DefaultPageSettings.PrinterSettings.PrintToFile = true;
+                printCupom.DefaultPageSettings.PrinterSettings.PrintFileName = salvarArquivoPdfEm;
+                printCupom.PrintController = new StandardPrintController();
+            }
+
             printCupom.PrintPage += printCupom_PrintPage;
             printCupom.Print();
         }
@@ -71,6 +82,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 new AdicionarImagem(g, _logo, x, y).Desenhar();
             }
 
+#region cabeçalho
             var tamanhoFonteTitulo = 6;
             var cnpjERazaoSocial = $"CNPJ: {_nfe.infNFe.emit.CNPJ} {_nfe.infNFe.emit.xNome ?? _nfe.infNFe.emit.xFant}";
 
@@ -90,7 +102,9 @@ namespace NFe.Danfe.Nativo.NFCe
             y = EscreverLinhaTitulo(g, mensagemGoverno, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
             y += 5;
+            #endregion
 
+#region contingência
             if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
             {
                 LinhaHorizontal(g, x, y, larguraLinha);
@@ -98,10 +112,11 @@ namespace NFe.Danfe.Nativo.NFCe
 
                 y = MensagemContingencia(g, larguraLinha, y);
             }
+#endregion
 
             LinhaHorizontal(g, x, y, larguraLinha);
 
-
+#region tabela de itens
             var iniX = x;
 
             CriaHeaderColuna("CÓDIGO", g, iniX, y);
@@ -130,7 +145,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             var det = _nfe.infNFe.det;
 
-
+#region preencher itens
             foreach (var detalhe in det)
             {
                 var codigo = new AdicionarTexto(g, detalhe.prod.cProd, 7);
@@ -226,11 +241,15 @@ namespace NFe.Danfe.Nativo.NFCe
                     y += valorLiquidoTexto.Medida.Altura;
                 }
             }
+#endregion
+
+            #endregion
 
             y += 3;
 
             LinhaHorizontal(g, x, y, larguraLinha);
 
+#region totais
             var textoQuantidadeTotalItens = new AdicionarTexto(g, "Qtde. total de itens", 7);
             textoQuantidadeTotalItens.Desenhar(x, y);
 
@@ -305,11 +324,13 @@ namespace NFe.Danfe.Nativo.NFCe
                 textoTrocoValor.Desenhar(textoTrocoValorX, y);
                 y += textoTroco.Medida.Altura;
             }
+#endregion
 
             y += 5;
 
             LinhaHorizontal(g, x, y, larguraLinha);
 
+#region consulta QrCode
             var textoConsulteChave = new AdicionarTexto(g, "Consulte pela Chave de Acesso em", 7);
             var textoConsulteChaveX = ((larguraLinha - textoConsulteChave.Medida.Largura)/2);
             textoConsulteChave.Desenhar(textoConsulteChaveX, y);
@@ -332,6 +353,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             y += chave.Medida.Altura;
             y += 10;
+#endregion
 
 
             var mensagemConsumidor = MontaMensagemConsumidor(_nfe.infNFe.dest);
