@@ -73,7 +73,6 @@ namespace NFe.Danfe.Nativo.NFCe
             if (_logo != null)
             {
                 new AdicionarImagem(g, _logo, x, y).Desenhar();
-                y += _logo.Height;
             }
 
             var tamanhoFonteTitulo = 6;
