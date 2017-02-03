@@ -35,7 +35,7 @@ using System.Drawing;
 
 namespace GraphicsPrinter
 {
-    internal class MedidasLinha
+    internal static class MedidasLinha
     {
         public static Medida GetMedidas(AdicionarTexto adicionarTexto)
         {

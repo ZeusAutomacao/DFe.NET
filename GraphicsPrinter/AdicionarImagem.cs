@@ -65,7 +65,7 @@ namespace GraphicsPrinter
             {
                 Image imagemUtilizada = null;
 
-                if (_imagem == null)
+                if (_imagem != null)
                 {
                     imagemUtilizada = _imagem;
                 }

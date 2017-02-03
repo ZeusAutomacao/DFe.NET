@@ -49,7 +49,17 @@ namespace GraphicsPrinter
             Texto = texto;
             _tamanhoFonte = tamanhoFonte;
             _br = br;
-            Fonte = font ?? new Font(FontPadrao, _tamanhoFonte);
+
+            if (font != null)
+            {
+                Fonte = font;
+            }
+
+            if (font == null)
+            {
+                Fonte = new Font(FontPadrao, _tamanhoFonte);
+            }
+            
             Medida = MedidasLinha.GetMedidas(this);
         }
 

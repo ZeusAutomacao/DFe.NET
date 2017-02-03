@@ -36,7 +36,7 @@ using ZXing.Common;
 
 namespace GraphicsPrinter
 {
-    public class QrCode
+    public static class QrCode
     {
         public static Image Gerar(string qrCode)
         {
