@@ -9,6 +9,7 @@ using NFe.Classes.Informacoes.Destinatario;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Servicos.Download;
+using NFe.Danfe.Base.NFCe;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFeZeus = NFe.Classes.NFe;
@@ -17,33 +18,28 @@ namespace NFe.Danfe.Nativo.NFCe
 {
     public class DanfeNativoNfce
     {
-        private readonly string _cIdToken;
-        private readonly string _csc;
-        private readonly NFeZeus _nfe;
-        private readonly nfeProc _proc;
-        private readonly decimal _troco;
-        private readonly Image _logo;
+        private string _cIdToken;
+        private string _csc;
+        private NFeZeus _nfe;
+        private nfeProc _proc;
+        private decimal _troco;
+        private Image _logo;
 
-        public DanfeNativoNfce(string xml, Image logo, string cIdToken, string csc,
-            decimal troco, FontFamily fontFamily)
+        public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
+            decimal troco = decimal.Zero)
+        {
+            Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco);
+        }
+
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco)
         {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
-            AdicionarTexto.FontPadrao = fontFamily;
-            _logo = logo;
+            AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa();
+            _logo = configuracaoDanfe.ObterLogo();
 
-            try
-            {
-                var procNfe = new procNFe().nfeProc.CarregarDeXmlString(xml);
-                _proc = procNfe;
-                _nfe = _proc.NFe;
-            }
-            catch (Exception)
-            {
-                var nfe = new NFeZeus().CarregarDeXmlString(xml);
-                _nfe = nfe;
-            }
+            CarregarXml(xml);
         }
 
         //Função para mandar imprimir na impressora padrão
@@ -569,6 +565,29 @@ namespace NFe.Danfe.Nativo.NFCe
             pendenteAutorizacaoTitulo.Desenhar(restoPendenteAutorizacaoTituloX, y);
             y += pendenteAutorizacaoTitulo.Medida.Altura + 2;
             return y;
+        }
+
+        private void CarregarXml(string xml)
+        {
+            try
+            {
+                var procNfe = new procNFe().nfeProc.CarregarDeXmlString(xml);
+                _proc = procNfe;
+                _nfe = _proc.NFe;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    var nfe = new NFeZeus().CarregarDeXmlString(xml);
+                    _nfe = nfe;
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException(
+                        "Ei! Verifique se seu xml está correto, pois identificamos uma falha ao tentar carregar ele.");
+                }
+            }
         }
     }
 }

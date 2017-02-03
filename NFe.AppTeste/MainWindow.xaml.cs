@@ -1616,11 +1616,10 @@ namespace NFe.AppTeste
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
                 var impr = new DanfeNativoNfce(proc.ObterXmlString(),
-                    _configuracoes.ConfiguracaoDanfeNfce.ObterLogo(), 
+                    _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 
                     _configuracoes.ConfiguracaoCsc.Csc, 
-                    0 /*troco*/, 
-                    _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa());
+                    0 /*troco*/);
                 impr.Imprimir();
 
             }
