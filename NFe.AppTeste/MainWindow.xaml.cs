@@ -36,6 +36,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -78,6 +79,7 @@ using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using NFe.Danfe.Base;
+using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
 using Color = System.Drawing.Color;
@@ -1615,6 +1617,10 @@ namespace NFe.AppTeste
             {
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
+
+                PrivateFontCollection colecaoDeFontes; 
+                var ubuntu = Fonte.CarregarDeByteArray(Danfe.Base.Properties.Resources.UbuntuCondensed_Regular, out colecaoDeFontes);
+                _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa(ubuntu.Name);
                 var impr = new DanfeNativoNfce(proc.ObterXmlString(),
                     _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 

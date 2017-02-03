@@ -38,6 +38,7 @@ using System.Text;
 using GraphicsPrinter;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Destinatario;
+using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Servicos.Download;
@@ -63,12 +64,12 @@ namespace NFe.Danfe.Nativo.NFCe
             Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco);
         }
 
-        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco)
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, string font = null)
         {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
-            AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa();
+            AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa(font);
             _logo = configuracaoDanfe.ObterLogo();
 
             CarregarXml(xml);
@@ -100,14 +101,14 @@ namespace NFe.Danfe.Nativo.NFCe
 
         private void GerarNfCe(Graphics graphics)
         {
-            var g = graphics;
+            Graphics g = graphics;
 
             const int larguraLogo = 64;
             const int larguraLinha = 284;
             const int larguraLinhaMargemDireita = 277;
 
-            var x = 3;
-            var y = 3;
+            int x = 3;
+            int y = 3;
 
             if (_logo != null)
             {
@@ -115,17 +116,13 @@ namespace NFe.Danfe.Nativo.NFCe
             }
 
 #region cabeçalho
-            var tamanhoFonteTitulo = 6;
-            var cnpjERazaoSocial = $"CNPJ: {_nfe.infNFe.emit.CNPJ} {_nfe.infNFe.emit.xNome ?? _nfe.infNFe.emit.xFant}";
+            int tamanhoFonteTitulo = 6;
+
+            var cnpjERazaoSocial = CnpjERazaoSocial();
 
             y = EscreverLinhaTitulo(g, cnpjERazaoSocial, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
-            var enderEmit = _nfe.infNFe.emit.enderEmit;
-            var foneEmit = enderEmit.fone != null ? " - FONE: " + enderEmit.fone : string.Empty;
-            var enderecoEmitente = $"{enderEmit.xLgr} {enderEmit.nro ?? "S/N"}, " +
-                                   $"BAIRRO: {enderEmit.xBairro}, {enderEmit.xMun}, " +
-                                   $"{enderEmit.UF}" +
-                                   $"{foneEmit}";
+            var enderecoEmitente = EnderecoEmitente();
 
             y = EscreverLinhaTitulo(g, enderecoEmitente, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
@@ -477,6 +474,48 @@ namespace NFe.Danfe.Nativo.NFCe
                 observacao = quebraObservacao.DesenharComQuebras(g);
                 observacao.Desenhar(x, y);
             }
+        }
+
+        private string EnderecoEmitente()
+        {
+            enderEmit enderEmit = _nfe.infNFe.emit.enderEmit;
+
+            string foneEmit = string.Empty;
+
+            if (enderEmit.fone != null)
+            {
+                StringBuilder fone = new StringBuilder(" - FONE: ");
+                fone.Append(enderEmit.fone);
+                foneEmit = fone.ToString();
+            }
+
+
+
+
+            var enderecoEmitente = $"{enderEmit.xLgr} {enderEmit.nro ?? "S/N"}, " +
+                                   $"BAIRRO: {enderEmit.xBairro}, {enderEmit.xMun}, " +
+                                   $"{enderEmit.UF}" +
+                                   $"{foneEmit}";
+            return enderecoEmitente;
+        }
+
+        private string CnpjERazaoSocial()
+        {
+            string nomeEmpresa = string.Empty;
+
+            emit emitente = _nfe.infNFe.emit;
+
+            if (!string.IsNullOrEmpty(emitente.xNome))
+            {
+                nomeEmpresa = emitente.xNome;
+            }
+
+            if (!string.IsNullOrEmpty(emitente.xFant))
+            {
+                nomeEmpresa = emitente.xFant;
+            }
+            string cnpjERazaoSocial = string.Format("CNPJ: {0} {1}", emitente.CNPJ, nomeEmpresa);
+            return cnpjERazaoSocial;
         }
 
         private static string ObtemUrlQrCode(NFeZeus nfce, string idToken, string csc)
