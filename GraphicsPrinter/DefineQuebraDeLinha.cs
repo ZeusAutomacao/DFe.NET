@@ -52,20 +52,20 @@ namespace GraphicsPrinter
         {
             if (_larguraDoTexto <= _comprimentoMaximo.GetComprimentoMaximo()) return _adicionarTexto;
 
-            var linha = _adicionarTexto.Texto.Replace("\n", " ").Replace("\r", "");
-            var palavras = linha.Split(' ');
-            var linhaFormat = string.Empty;
+            string linha = _adicionarTexto.Texto.Replace("\n", " ").Replace("\r", "");
+            string[] palavras = linha.Split(' ');
+            string linhaFormat = string.Empty;
 
-            var partesDaLinha = new Dictionary<int, string>();
-            var parte = string.Empty;
+            Dictionary<int, string> partesDaLinha = new Dictionary<int, string>();
+            string parte = string.Empty;
 
-            var parteContador = 0;
+            int parteContador = 0;
 
-            foreach (var palavra in palavras)
+            foreach (string palavra in palavras)
             {
-                var medidaParte = MedidasLinha.GetMedidas(parte, _adicionarTexto.Fonte);
-                var medidaPalavra = MedidasLinha.GetMedidas(palavra, _adicionarTexto.Fonte);
-                var larguraLinha = medidaParte.Largura + medidaPalavra.Largura;
+                Medida medidaParte = MedidasLinha.GetMedidas(parte, _adicionarTexto.Fonte);
+                Medida medidaPalavra = MedidasLinha.GetMedidas(palavra, _adicionarTexto.Fonte);
+                int larguraLinha = medidaParte.Largura + medidaPalavra.Largura;
 
                 if (larguraLinha < _comprimentoMaximo.GetComprimentoMaximo())
                 {
@@ -80,8 +80,8 @@ namespace GraphicsPrinter
             }
             partesDaLinha.Add(parteContador, parte);
 
-            var qtdQuebras = 0;
-            foreach (var item in partesDaLinha)
+            int qtdQuebras = 0;
+            foreach (KeyValuePair<int, string> item in partesDaLinha)
             {
                 linhaFormat += item.Value;
                 if (qtdQuebras >= partesDaLinha.Count - 1) continue;
@@ -90,13 +90,13 @@ namespace GraphicsPrinter
                 qtdQuebras++;
             }
 
-            var br = CriaSolidBrushParaQuebrarLinhas();
+            SolidBrush br = CriaSolidBrushParaQuebrarLinhas();
             return new AdicionarTexto(graphics, linhaFormat, _adicionarTexto.TamanhoFonte, br);
         }
 
         private static SolidBrush CriaSolidBrushParaQuebrarLinhas()
         {
-            var br = new SolidBrush(SystemColors.ControlText) {Color = Color.Black};
+            SolidBrush br = new SolidBrush(SystemColors.ControlText) {Color = Color.Black};
             return br;
         }
     }

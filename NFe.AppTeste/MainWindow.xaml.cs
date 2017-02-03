@@ -1618,9 +1618,8 @@ namespace NFe.AppTeste
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
 
-                PrivateFontCollection colecaoDeFontes; 
-                var ubuntu = Fonte.CarregarDeByteArray(Danfe.Base.Properties.Resources.UbuntuCondensed_Regular, out colecaoDeFontes);
-                _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa(ubuntu.Name);
+                
+                _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa("Arial Black");
                 var impr = new DanfeNativoNfce(proc.ObterXmlString(),
                     _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 

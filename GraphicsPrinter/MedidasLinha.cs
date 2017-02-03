@@ -39,17 +39,17 @@ namespace GraphicsPrinter
     {
         public static Medida GetMedidas(AdicionarTexto adicionarTexto)
         {
-            var medida = GetMedidas(adicionarTexto.Texto, adicionarTexto.Fonte);
+            Medida medida = GetMedidas(adicionarTexto.Texto, adicionarTexto.Fonte);
 
             return medida;
         }
 
         public static Medida GetMedidas(string texto, Font fonte)
         {
-            var g = Graphics.FromHwnd(IntPtr.Zero);
-            var tamanhoDaString = g.MeasureString(texto, fonte);
-            var alturaLinha = Convert.ToInt32(tamanhoDaString.Height);
-            var larguraLinha = Convert.ToInt32(tamanhoDaString.Width);
+            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
+            SizeF tamanhoDaString = g.MeasureString(texto, fonte);
+            int alturaLinha = Convert.ToInt32(tamanhoDaString.Height);
+            int larguraLinha = Convert.ToInt32(tamanhoDaString.Width);
 
             return new Medida(alturaLinha, larguraLinha);
         }
