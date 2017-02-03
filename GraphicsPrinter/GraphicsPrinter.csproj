@@ -50,7 +50,6 @@
     <Compile Include="AdicionarTexto.cs" />
     <Compile Include="ComprimentoMaximo.cs" />
     <Compile Include="DefineQuebraDeLinha.cs" />
-    <Compile Include="LarguraTexto.cs" />
     <Compile Include="LinhaHorizontal.cs" />
     <Compile Include="MedidasLinha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
