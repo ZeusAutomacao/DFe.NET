@@ -1613,7 +1613,7 @@ namespace NFe.AppTeste
             {
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
-                var nInfCpl = 0;
+                /*var nInfCpl = 0;
                 if (proc.NFe.infNFe.infAdic != null)
                 {
                     var infCpl = proc.NFe.infNFe.infAdic.infCpl.Split('|');//Pega quantidade de itens na informação complementar separando pelo "|"
@@ -1627,13 +1627,14 @@ namespace NFe.AppTeste
                 //Gera grafico na classe
                 var g = Graphics.FromImage(imgNfCe);
                 g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.FillRectangle(new SolidBrush(Color.LightGoldenrodYellow), 0, 0, imgNfCe.Size.Width, imgNfCe.Size.Height);
+                g.FillRectangle(new SolidBrush(Color.LightGoldenrodYellow), 0, 0, imgNfCe.Size.Width, imgNfCe.Size.Height);*/
 
-                var impr = new DanfeNativoNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                impr.GerarNfCe(g);
+
+                var impr = new DanfeNativoNfce(proc.ObterXmlString(), _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc, 0/* troco*/);
+                impr.Imprimir();
 
                 //Converte para BitmapImage, para ser inserida no Canvas para visualização
-                using (var ms = new MemoryStream())
+                /*using (var ms = new MemoryStream())
                 {
                     imgNfCe.Save(ms, ImageFormat.Png);
                     ms.Position = 0;
@@ -1650,7 +1651,7 @@ namespace NFe.AppTeste
                     var imgCupom = new ImageBrush {ImageSource = bitmapImg};
                     cvCupom.Background = imgCupom;
                     TabInferior.SelectedIndex = 6;
-                }
+                }*/
             }
             catch (Exception ex)
             {

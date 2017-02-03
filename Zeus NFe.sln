@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Damdfe.AppTeste", "MDF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Nativo", "NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj", "{BA27D218-484B-4F08-BAB9-38C02181BDED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsPrinter", "GraphicsPrinter\GraphicsPrinter.csproj", "{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -136,6 +138,10 @@ Global
 		{BA27D218-484B-4F08-BAB9-38C02181BDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA27D218-484B-4F08-BAB9-38C02181BDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA27D218-484B-4F08-BAB9-38C02181BDED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

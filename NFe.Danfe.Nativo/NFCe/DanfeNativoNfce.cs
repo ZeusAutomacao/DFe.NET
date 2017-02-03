@@ -1,30 +1,48 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
-using System.Drawing.Text;
 using System.Linq;
+using System.Text;
+using GraphicsPrinter;
 using NFe.Classes;
-using NFe.Danfe.Base.Fontes;
+using NFe.Classes.Informacoes.Destinatario;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Informacoes.Pagamento;
+using NFe.Classes.Servicos.Download;
 using NFe.Danfe.Base.NFCe;
-using NFe.Danfe.Base.Properties;
+using NFe.Utils.InformacoesSuplementares;
+using NFe.Utils.NFe;
+using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.Danfe.Nativo.NFCe
 {
     public class DanfeNativoNfce
     {
         private readonly nfeProc _proc;
+        private readonly NFeZeus _nfe;
         private readonly ConfiguracaoDanfeNfce _configuracaoDanfeNfce;
         private readonly string _cIdToken;
         private readonly string _csc;
+        private readonly decimal _troco;
 
-        public DanfeNativoNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc)
+        public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, decimal troco)
         {
-            _proc = proc;
             _configuracaoDanfeNfce = configuracaoDanfeNfce;
             _cIdToken = cIdToken;
             _csc = csc;
+            _troco = troco;
+
+            try
+            {
+                var procNfe = new procNFe().nfeProc.CarregarDeXmlString(xml);
+                _proc = procNfe;
+                _nfe = _proc.NFe;
+            }
+            catch (Exception)
+            {
+                var nfe = new NFeZeus().CarregarDeXmlString(xml);
+                _nfe = nfe;
+            }
         }
         
         //Função para mandar imprimir na impressora padrão
@@ -42,597 +60,507 @@ namespace NFe.Danfe.Nativo.NFCe
 
         public Graphics GerarNfCe(Graphics graphics)
         {
-            #region Define fonte e parâmetros iniciais
+                var g = graphics;
 
-            PrivateFontCollection colecaoDeFontes; //todo dispose na coleção
-            var openSans = Fonte.CarregarDeByteArray(Resources.OpenSans_CondBold, out colecaoDeFontes);
+                const int larguraLogo = 64;
+                const int larguraLinha = 284;
+                const int larguraLinhaMargemDireita = 277;
 
-            var fonte = new Font(openSans, 12);
-            const int largImagem = 100;
-            const int larguraLinha = 284;
-            const int espacamentoVertical = 10;
-            const int x = 3;
-            var y = 3;
+                var x = 3;
+                var y = 3;
 
-            #endregion
+                var tamanhoFonteTitulo = 6;
+                var cnpjERazaoSocial = $"CNPJ: {_nfe.infNFe.emit.CNPJ} {_nfe.infNFe.emit.xNome ?? _nfe.infNFe.emit.xFant}";
 
-            #region Adiciona Logotipo. Se disponível nas configurações
+                y = EscreverLinhaTitulo(g, cnpjERazaoSocial, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
-            var logo = _configuracaoDanfeNfce.ObterLogo();
-            if (logo != null)
-            {
-                var centroX = (larguraLinha - (logo.Width / 2))/2;
-                graphics.DrawImage(logo, centroX, y + espacamentoVertical, logo.Width, logo.Height);
-                y += logo.Height + espacamentoVertical;
-            }
+                var enderEmit = _nfe.infNFe.emit.enderEmit;
+                var foneEmit = enderEmit.fone != null ? " - FONE: " + enderEmit.fone : string.Empty;
+                var enderecoEmitente = $"{enderEmit.xLgr} {enderEmit.nro ?? "S/N"}, " +
+                                       $"BAIRRO: {enderEmit.xBairro}, {enderEmit.xMun}, " +
+                                       $"{enderEmit.UF}" +
+                                       $"{foneEmit}";
 
-            #endregion
-            
-            #region Adiciona Dados Do Cabeçalho
+                y = EscreverLinhaTitulo(g, enderecoEmitente, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
-            var razaoSocial = _proc.NFe.infNFe.emit.xNome;
-            var tpMedidaLinha = MedidasLinha(razaoSocial, fonte);
-            var larguraEscrita = tpMedidaLinha.Item1;
-            var alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(razaoSocial, fonte, Brushes.Black, new PointF(x + largImagem + (larguraLinha - largImagem - larguraEscrita) / 2, y));
-            y += alturaEscrita;
-            y += 8;
+                const string mensagemGoverno = "Documento Auxiliar Da Nota Fiscal de Consumidor Eletrônica";
 
-            fonte = new Font(openSans, 7);
-            var cnpj = "CNPJ: " + _proc.NFe.infNFe.emit.CNPJ;
-            tpMedidaLinha = MedidasLinha(cnpj, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(cnpj, fonte, Brushes.Black, new PointF(x + largImagem + (((larguraLinha - largImagem) - larguraEscrita) / 2), y));
-            y += alturaEscrita;
+                y = EscreverLinhaTitulo(g, mensagemGoverno, tamanhoFonteTitulo, larguraLogo, x, y, larguraLinha);
 
-            fonte = new Font(openSans, 7);
-            var logradouro = _proc.NFe.infNFe.emit.enderEmit.xLgr + " " + _proc.NFe.infNFe.emit.enderEmit.nro + ", " + _proc.NFe.infNFe.emit.enderEmit.xCpl + ", Bairro: " + _proc.NFe.infNFe.emit.enderEmit.xBairro + ", " +
-                             _proc.NFe.infNFe.emit.enderEmit.xMun + ", " + _proc.NFe.infNFe.emit.enderEmit.UF + " - Fone: " + _proc.NFe.infNFe.emit.enderEmit.fone;
-            logradouro = logradouro.Replace(", ,", ", ");
-            tpMedidaLinha = MedidasLinha(logradouro, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            if (larguraEscrita > (larguraLinha - largImagem))
-            {
-                var tpQuebraLinha = QuebraDeLinha(logradouro, (larguraLinha - largImagem), fonte);
-                logradouro = tpQuebraLinha.Item1;
-            }
-
-            var linhas = logradouro.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF(x + largImagem + (((larguraLinha - largImagem) - larguraEscrita) / 2), y));
-                y += alturaEscrita;
-            }
-
-            y += 5;
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-            y += 2;
-
-            #endregion
-
-            var msgDocAuxiliar = "DOCUMENTO AUXILIAR DA NOTA FISCAL DE CONSUMIDOR ELETRÔNICA.";
-            tpMedidaLinha = MedidasLinha(msgDocAuxiliar, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(msgDocAuxiliar, larguraLinha, fonte);
-                msgDocAuxiliar = tpQuebraLinha.Item1;
-            }
-
-            linhas = msgDocAuxiliar.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-
-            fonte = new Font(openSans, 7);
-
-            #region Cria Colunas Para Descrever Produtos
-
-            var largColuna = new Dictionary<string, int>
-            {
-                {"COD", 23},
-                {"DESCRIÇÃO", 143},
-                {"QTD", 20},
-                {"UN", 17},
-                {"VL.UNIT.", 37},
-                {"TOTAL", 37}
-            };
-
-            var iniX = x;
-            var cod = "COD";
-            MedidasLinha(cod, fonte);
-            graphics.DrawString(cod, fonte, Brushes.Black, new PointF(iniX, y));
-            iniX += largColuna["COD"];
-
-            var descricao = "DESCRIÇÃO";
-            MedidasLinha(descricao, fonte);
-            graphics.DrawString(descricao, fonte, Brushes.Black, new PointF(iniX, y));
-            iniX += largColuna["DESCRIÇÃO"];
-
-            var qut = "QUT";
-            tpMedidaLinha = MedidasLinha(qut, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            graphics.DrawString(qut, fonte, Brushes.Black, new PointF((iniX + largColuna["QTD"]) - larguraEscrita, y));
-            iniX += largColuna["QTD"];
-
-            var un = "UN";
-            tpMedidaLinha = MedidasLinha(un, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            graphics.DrawString(un, fonte, Brushes.Black, new PointF((iniX + largColuna["UN"]) - larguraEscrita, y));
-            iniX += largColuna["UN"];
-
-            var vlUnit = "VL.UNIT.";
-            tpMedidaLinha = MedidasLinha(vlUnit, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(vlUnit, fonte, Brushes.Black, new PointF((iniX + largColuna["VL.UNIT."]) - larguraEscrita, y));
-            iniX += largColuna["VL.UNIT."];
-
-            var total = "TOTAL";
-            tpMedidaLinha = MedidasLinha("TOTAL", fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            graphics.DrawString(total, fonte, Brushes.Black, new PointF((iniX + largColuna["TOTAL"]) - larguraEscrita, y));
-            y += alturaEscrita;
-
-            decimal qutTotalItens = 0;
-            decimal valorTotal = 0;
-            decimal desconto = 0;
-
-            #endregion
-
-            #region Adiciona Produtos
-
-            foreach (var det in _proc.NFe.infNFe.det)
-            {
-                iniX = x;
-                cod = det.prod.cProd;
-                MedidasLinha(cod, fonte);
-                graphics.DrawString(cod, fonte, Brushes.Black, new PointF(iniX, y));
-                iniX += largColuna["COD"];
-
-                descricao = det.prod.xProd;
-                tpMedidaLinha = MedidasLinha(descricao, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                if (larguraEscrita > largColuna["DESCRIÇÃO"])
-                {
-                    var tpQuebraLinha = QuebraDeLinha(descricao, largColuna["DESCRIÇÃO"], fonte);
-                    descricao = tpQuebraLinha.Item1;
-                }
-
-                linhas = descricao.Split('\n');
-                var n = 0;
-                foreach (var lin in linhas)
-                {
-                    n++;
-                    tpMedidaLinha = MedidasLinha(lin, fonte);
-                    alturaEscrita = tpMedidaLinha.Item2;
-                    graphics.DrawString(lin, fonte, Brushes.Black, new PointF(iniX, y));
-                    if (n < linhas.Length)
-                    {
-                        y += alturaEscrita;
-                    }
-                }
-                iniX += largColuna["DESCRIÇÃO"];
-                n--;
-
-                qut = det.prod.qCom.ToString("0");
-                tpMedidaLinha = MedidasLinha(qut, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(qut, fonte, Brushes.Black, new PointF((iniX + largColuna["QTD"]) - larguraEscrita, y - (alturaEscrita * n)));
-                iniX += largColuna["QTD"];
-
-                un = det.prod.uCom;
-                tpMedidaLinha = MedidasLinha(un, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(un, fonte, Brushes.Black, new PointF((iniX + largColuna["UN"]) - larguraEscrita, y - (alturaEscrita * n)));
-                iniX += largColuna["UN"];
-
-                vlUnit = det.prod.vUnCom.ToString("0.00");
-                tpMedidaLinha = MedidasLinha(vlUnit, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(vlUnit, fonte, Brushes.Black, new PointF((iniX + largColuna["VL.UNIT."]) - larguraEscrita, y - (alturaEscrita * n)));
-                iniX += largColuna["VL.UNIT."];
-
-                total = det.prod.vProd.ToString("0.00");
-                tpMedidaLinha = MedidasLinha(total, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(total, fonte, Brushes.Black, new PointF((iniX + largColuna["TOTAL"]) - larguraEscrita, y - (alturaEscrita * n)));
-
-                y += alturaEscrita;
-
-                qutTotalItens = qutTotalItens + det.prod.qCom;
-                valorTotal = valorTotal + det.prod.vProd;
-                desconto = desconto + Convert.ToDecimal(det.prod.vDesc);
-            }
-            var valorPagar = valorTotal - desconto;
-
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-            y += 3;
-
-                #endregion
-
-            //Adiciona Detalhes Da Venda
-            fonte = new Font(openSans, 8);
-            graphics.DrawString("QTD TOTAL DE ITENS", fonte, Brushes.Black, new PointF(x, y));
-
-            tpMedidaLinha = MedidasLinha(qutTotalItens.ToString("0"), fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(qutTotalItens.ToString("0"), fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-            y += alturaEscrita;
-
-            graphics.DrawString("VALOR TOTAL R$", fonte, Brushes.Black, new PointF(x, y));
-
-            tpMedidaLinha = MedidasLinha(valorTotal.ToString("0.00"), fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(valorTotal.ToString("0.00"), fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-            y += alturaEscrita;
-
-            if (desconto > 0) //Imprime somente quando houver desconto
-            {
-                graphics.DrawString("DESCONTO R$", fonte, Brushes.Black, new PointF(x, y));
-
-                tpMedidaLinha = MedidasLinha(desconto.ToString("0.00"), fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(desconto.ToString("0.00"), fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-                y += alturaEscrita;
-
-                graphics.DrawString("VALOR A PAGAR R$", fonte, Brushes.Black, new PointF(x, y));
-
-                tpMedidaLinha = MedidasLinha(valorPagar.ToString("0.00"), fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(valorPagar.ToString("0.00"), fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-                y += alturaEscrita + 10;
-            }
-
-            graphics.DrawString("FORMA DE PAGAMENTO", fonte, Brushes.Black, new PointF(x, y));
-
-            tpMedidaLinha = MedidasLinha("VALOR PAGO", fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString("VALOR PAGO", fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-            y += alturaEscrita;
-
-            var troco = "0,00";
-            var infTributos = "";
-            //Prepara Informação Adicional, Para Adicionar No Final Do Cupom
-            if (_proc.NFe.infNFe.infAdic != null)
-            {
-                linhas = _proc.NFe.infNFe.infAdic.infCpl.Split('|');
-                foreach (var lin in linhas)
-                {
-                    if (lin.Contains("TROCO"))
-                    {
-                        troco = lin.Substring(lin.IndexOf(":", StringComparison.Ordinal) + 2);
-                    }
-                    else if (lin.Contains("Tributos Totais Incidentes"))
-                    {
-                        infTributos = lin;
-                    }
-                }
-            }
-
-            //Adiciona Descrição Do Pagamento
-            foreach (var pag in _proc.NFe.infNFe.pag)
-            {
-                var formaPagamento = EnumHelper<Classes.Informacoes.Pagamento.FormaPagamento>.GetEnumDescription(pag.tPag.ToString());
-                graphics.DrawString(formaPagamento, fonte, Brushes.Black, new PointF(x, y));
-
-                var valorPagamento = pag.vPag.ToString("0.00");
-                if (formaPagamento == "Dinheiro" && troco != "0,00")
-                {
-                    valorPagamento = (Convert.ToDecimal(valorPagamento) + Convert.ToDecimal(troco)).ToString("0.00");
-                }
-
-                tpMedidaLinha = MedidasLinha(valorPagamento, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(valorPagamento, fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-                y += alturaEscrita;
-            }
-
-            if (troco != "0,00") //Imprime somente quando houver Troco
-            {
-                graphics.DrawString("Troco R$", fonte, Brushes.Black, new PointF(x, y));
-
-                tpMedidaLinha = MedidasLinha(troco, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(troco, fonte, Brushes.Black, new PointF(larguraLinha - larguraEscrita, y));
-
-                y += alturaEscrita + 5;
-            }
-
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-            y += 2;
-
-            //Adiciona Detalhes Do Cupom
-            var msgConsulta = "Consulte Pela Chave De Acesso Em www.sefaz.rs.gov.br/NFCE";
-            tpMedidaLinha = MedidasLinha(msgConsulta, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(msgConsulta, larguraLinha, fonte);
-                msgConsulta = tpQuebraLinha.Item1;
-            }
-
-            linhas = msgConsulta.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-
-            var nProc = _proc.NFe.infNFe.Id.Substring(3);
-            tpMedidaLinha = MedidasLinha(nProc, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(nProc, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-            y += alturaEscrita;
-            y += 5;
-
-            //Adiciona Identificação Do Consumidor
-            var infconsumidor = "";
-            try
-            {
-                infconsumidor = _proc.NFe.infNFe.dest.CPF;
-                if (_proc.NFe.infNFe.dest.CPF == "")
-                {
-                    infconsumidor = "CONSUMIDOR NÃO IDENTIFICADO";
-                }
-                else
-                {
-                    infconsumidor = "CONSUMIDOR CPF: " + infconsumidor;
-                }
-            }
-            catch
-            {
-                infconsumidor = "CONSUMIDOR NÃO IDENTIFICADO";
-            }
-
-            fonte = new Font(openSans, 10);
-            tpMedidaLinha = MedidasLinha(infconsumidor, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            graphics.DrawString(infconsumidor, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-            y += alturaEscrita;
-            y += 8;
-
-            //Adiciona Dados Do Protocolo
-            fonte = new Font(openSans, 8);
-            var nCupom = "NFC-e Nº C" + _proc.NFe.infNFe.ide.nNF + " Série " + _proc.NFe.infNFe.ide.serie + " Emissão " +
-                Convert.ToDateTime(_proc.NFe.infNFe.ide.dhEmi).ToShortDateString() + " " + Convert.ToDateTime(_proc.NFe.infNFe.ide.dhEmi).ToShortTimeString();
-            tpMedidaLinha = MedidasLinha(nCupom, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(nCupom, larguraLinha, fonte);
-                nCupom = tpQuebraLinha.Item1;
-            }
-
-            linhas = nCupom.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-
-            var nProtocolo = "Protocolo De Autorização: " + _proc.protNFe.infProt.nProt;
-            tpMedidaLinha = MedidasLinha(nProtocolo, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(nProtocolo, larguraLinha, fonte);
-                nProtocolo = tpQuebraLinha.Item1;
-            }
-
-            linhas = nProtocolo.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-
-            var dataAutorizacao = "Data De Autorização: " + Convert.ToDateTime(_proc.protNFe.infProt.dhRecbto).ToShortDateString() + " " +
-                                     Convert.ToDateTime(_proc.protNFe.infProt.dhRecbto).ToShortTimeString();
-            tpMedidaLinha = MedidasLinha(dataAutorizacao, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(dataAutorizacao, larguraLinha, fonte);
-                dataAutorizacao = tpQuebraLinha.Item1;
-            }
-
-            linhas = dataAutorizacao.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-            y += 10;
-
-            //Adiciona QrCode
-            var qrCode = GerarQrCode(130, 130, _proc.NFe.infNFeSupl == null ? Utils.InformacoesSuplementares.ExtinfNFeSupl.ObterUrlQrCode(_proc.NFe.infNFeSupl, _proc.NFe, _cIdToken, _csc) : _proc.NFe.infNFeSupl.qrCode);
-            graphics.DrawImage(qrCode, new Point(x + (larguraLinha - qrCode.Size.Width) / 2, y));
-            y += qrCode.Size.Height;
-            y += 10;
-
-            graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
-            y += 5;
-
-            var impIncidentes = infTributos;
-            tpMedidaLinha = MedidasLinha(impIncidentes, fonte);
-            larguraEscrita = tpMedidaLinha.Item1;
-            alturaEscrita = tpMedidaLinha.Item2;
-            if (larguraEscrita > larguraLinha)
-            {
-                var tpQuebraLinha = QuebraDeLinha(impIncidentes, larguraLinha, fonte);
-                impIncidentes = tpQuebraLinha.Item1;
-            }
-
-            linhas = impIncidentes.Split('\n');
-            foreach (var lin in linhas)
-            {
-                tpMedidaLinha = MedidasLinha(lin, fonte);
-                larguraEscrita = tpMedidaLinha.Item1;
-                alturaEscrita = tpMedidaLinha.Item2;
-                graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));
-                y += alturaEscrita;
-            }
-            y += 5;
-
-            if (_proc.NFe.infNFe.infAdic != null)
-            {
-                graphics.DrawLine(Pens.Black, x, y, larguraLinha, y);
                 y += 5;
 
-                fonte = new Font(openSans, 7);
-                var infCpl = _proc.NFe.infNFe.infAdic.infCpl.Split('|');
-                foreach (var inf in infCpl)
+                if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
                 {
-                    if (inf.Contains("TROCO") == false && inf.Contains("Tributos Totais") == false)
+                    LinhaHorizontal(g, x, y, larguraLinha);
+                    y += 2;
+
+                    y = MensagemContingencia(g, larguraLinha, y);
+                }
+
+                LinhaHorizontal(g, x, y, larguraLinha);
+
+                /** colunas tabela produos **/
+                var iniX = x;
+
+                CriaHeaderColuna("CÓDIGO", g, iniX, y);
+                iniX += 50;
+
+                var colunaDescricaoHeader = CriaHeaderColuna("DESCRIÇÃO", g, iniX, y);
+                y += colunaDescricaoHeader.Medida.Altura;
+
+                CriaHeaderColuna("QTDE", g, iniX, y);
+                iniX += 25;
+
+                CriaHeaderColuna("UN", g, iniX, y);
+                iniX += 25;
+
+                CriaHeaderColuna("x", g, iniX, y);
+                iniX += 20;
+
+                var colunaValorUnitarioHeader = CriaHeaderColuna("VALOR UNITÁRIO", g, iniX, y);
+                iniX += 85;
+
+                CriaHeaderColuna("=", g, iniX, y);
+                iniX += 41;
+
+                var colunaTotalHeader = CriaHeaderColuna("TOTAL", g, iniX, y);
+                y += colunaTotalHeader.Medida.Altura + 10;
+
+                var det = _nfe.infNFe.det;
+
+                //** adiciona itens **//
+                foreach (var detalhe in det)
+                {
+                    var codigo = new AdicionarTexto(g, detalhe.prod.cProd, 7);
+                    codigo.Desenhar(x, y);
+
+                    var nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
+                    var quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(227), nome.Medida.Largura);
+                    nome = quebraNome.DesenharComQuebras(g);
+                    nome.Desenhar(x + 50, y);
+                    y += nome.Medida.Altura;
+
+                    var quantidade = new AdicionarTexto(g, detalhe.prod.qCom.ToString("N3"), 7);
+                    var valorUnitario = new AdicionarTexto(g, detalhe.prod.vUnCom.ToString("N4"), 7);
+                    var vezesX = new AdicionarTexto(g, "x", 7);
+                    var unidadeSigla = new AdicionarTexto(g, detalhe.prod.uCom.Substring(0, 2), 7);
+
+                    var detalheTotal = detalhe.prod.vProd;
+                    var valorTotalProduto = new AdicionarTexto(g, detalheTotal.ToString("N2"), 7);
+
+                    iniX = x + 50;
+
+                    quantidade.Desenhar(iniX, y);
+
+                    iniX += 25;
+
+                    unidadeSigla.Desenhar(iniX, y);
+
+                    iniX += 25;
+
+                    vezesX.Desenhar(iniX, y);
+
+                    iniX += 20;
+
+                    var tituloColunaUnidadeLargura = colunaValorUnitarioHeader.Medida.Largura;
+                    valorUnitario.Desenhar((iniX + tituloColunaUnidadeLargura) - valorUnitario.Medida.Largura, y);
+
+
+                    iniX += 85;
+
+                    var igualColuna = new AdicionarTexto(g, "=", 7);
+                    igualColuna.Desenhar(iniX, y);
+
+                    iniX += 41;
+
+                    var tituloColunaTotal = colunaTotalHeader.Medida.Largura;
+                    valorTotalProduto.Desenhar((iniX + tituloColunaTotal) - valorTotalProduto.Medida.Largura, y);
+
+                    y += quantidade.Medida.Altura;
+
+                    var valorDescontoItem = detalhe.prod.vDesc ?? 0.0m;
+                    if (valorDescontoItem > 0.0m)
                     {
-                        var observacao = inf;
-                        tpMedidaLinha = MedidasLinha(observacao, fonte);
-                        larguraEscrita = tpMedidaLinha.Item1;
-                        if (larguraEscrita > larguraLinha)
-                        {
-                            var tpQuebraLinha = QuebraDeLinha(observacao, larguraLinha, fonte);
-                            observacao = tpQuebraLinha.Item1;
-                        }
+                        var descontoColuna = new AdicionarTexto(g, "Desconto", 7);
+                        descontoColuna.Desenhar(x + 50, y);
 
-                        linhas = observacao.Split('\n');
-                        foreach (var lin in linhas)
-                        {
-                            tpMedidaLinha = MedidasLinha(lin, fonte);
-                            larguraEscrita = tpMedidaLinha.Item1;
-                            alturaEscrita = tpMedidaLinha.Item2;
-                            graphics.DrawString(lin, fonte, Brushes.Black, new PointF((larguraLinha - larguraEscrita) / 2, y));//Deixa Centralizado
-                            y += alturaEscrita;
-                        }
+                        var descontoItemTexto = new StringBuilder("-");
+                        descontoItemTexto.Append(valorDescontoItem.ToString("N2"));
+                        var valorDescontoItemColuna = new AdicionarTexto(g, descontoItemTexto.ToString(), 7);
+                        var valorDescontoItemColunaX = ((x + 246) + tituloColunaTotal) - valorDescontoItemColuna.Medida.Largura;
+                        valorDescontoItemColuna.Desenhar(valorDescontoItemColunaX, y);
+
+                        y += descontoColuna.Medida.Altura;
                     }
+
+                    var valorAcrescimoItem = detalhe.prod.vOutro ?? 0.0m;
+                    if (valorAcrescimoItem > 0.0m)
+                    {
+                        var acrescimoColuna = new AdicionarTexto(g, "Acréscimo", 7);
+                        acrescimoColuna.Desenhar(x + 50, y);
+
+                        var acrescimoItemTexto = new StringBuilder("+");
+                        acrescimoItemTexto.Append(valorAcrescimoItem.ToString("N2"));
+                        var valorAcrescimoItemColuna = new AdicionarTexto(g, acrescimoItemTexto.ToString(), 7);
+                        var valorAcrescimoItemColunaX = ((x + 246) + tituloColunaTotal) - valorAcrescimoItemColuna.Medida.Largura;
+                        valorAcrescimoItemColuna.Desenhar(valorAcrescimoItemColunaX, y);
+
+                        y += acrescimoColuna.Medida.Altura;
+                    }
+
+                    if (valorDescontoItem > 0.0m || valorAcrescimoItem > 0.0m)
+                    {
+                        var valorLiquidoTexto = new AdicionarTexto(g, "Valor Líquido", 7);
+                        valorLiquidoTexto.Desenhar(x + 50, y);
+
+                        var valorLiquidoTotalTexto = new AdicionarTexto(g, ((detalheTotal + valorAcrescimoItem) - valorDescontoItem).ToString("N2"), 7);
+                        var valorLiquidoTotalTextoX = ((x + 246) + tituloColunaTotal) - valorLiquidoTotalTexto.Medida.Largura;
+                        valorLiquidoTotalTexto.Desenhar(valorLiquidoTotalTextoX, y);
+
+                        y += valorLiquidoTexto.Medida.Altura;
+                    }
+
                 }
-            }
-            return graphics;
+
+                y += 3;
+
+                LinhaHorizontal(g, x, y, larguraLinha);
+
+                var textoQuantidadeTotalItens = new AdicionarTexto(g, "Qtde. total de itens", 7);
+                textoQuantidadeTotalItens.Desenhar(x, y);
+
+                var qtdTotalItens = new AdicionarTexto(g, det.Count.ToString(), 7);
+                var qtdTotalItensX = (larguraLinhaMargemDireita - qtdTotalItens.Medida.Largura);
+                qtdTotalItens.Desenhar(qtdTotalItensX, y);
+                y += textoQuantidadeTotalItens.Medida.Altura;
+
+                var textoValorTotal = new AdicionarTexto(g, "Valor total R$", 7);
+                textoValorTotal.Desenhar(x, y);
+
+                var valorTotal = det.Sum(prod => prod.prod.vProd);
+                var valorTotalTexto = new AdicionarTexto(g, valorTotal.ToString("N2"), 7);
+                var qtdValorTotalX = (larguraLinhaMargemDireita - valorTotalTexto.Medida.Largura);
+                valorTotalTexto.Desenhar(qtdValorTotalX, y);
+                y += textoValorTotal.Medida.Altura;
+
+                var totalDesconto = det.Sum(prod => prod.prod.vDesc) ?? 0.0m;
+                var totalOutras = det.Sum(prod => prod.prod.vOutro);
+                var valorTotalAPagar = valorTotal + totalOutras -
+                                           totalDesconto ?? 0.0m;
+
+                if (totalDesconto > 0)
+                {
+                    var textoDesconto = new AdicionarTexto(g, "Desconto R$", 7);
+                    textoDesconto.Desenhar(x, y);
+
+                    var valorDesconto = new AdicionarTexto(g, totalDesconto.ToString("N2"), 7);
+                    var valorDescontoX = (larguraLinhaMargemDireita - valorDesconto.Medida.Largura);
+                    valorDesconto.Desenhar(valorDescontoX, y);
+                    y += textoDesconto.Medida.Altura;
+
+                    var textoValorAPagar = new AdicionarTexto(g, "Valor a Pagar R$", 7);
+                    textoValorAPagar.Desenhar(x, y);
+
+                    var valorAPagar = new AdicionarTexto(g, valorTotalAPagar.ToString("N2"), 7);
+                    var valorAPagarX = (larguraLinhaMargemDireita - valorAPagar.Medida.Largura);
+                    valorAPagar.Desenhar(valorAPagarX, y);
+                    y += textoValorAPagar.Medida.Altura + 2;
+                }
+
+                var tituloFormaPagamento = new AdicionarTexto(g, "FORMA PAGAMENTO", 7);
+                tituloFormaPagamento.Desenhar(x, y);
+
+                var tituloValorPago = new AdicionarTexto(g, "VALOR PAGO R$", 7);
+                var tituloValorPagoX = (larguraLinhaMargemDireita - tituloValorPago.Medida.Largura);
+                tituloValorPago.Desenhar(tituloValorPagoX, y);
+                y += tituloFormaPagamento.Medida.Altura;
+
+
+                foreach (var pag in _nfe.infNFe.pag)
+                {
+                    var textoFormaPagamento = new AdicionarTexto(g, pag.ObtemDescricao(), 7);
+                    textoFormaPagamento.Desenhar(x, y);
+
+                    var textoValorFormaPagamento = new AdicionarTexto(g, pag.vPag.ToString("N2"), 7);
+                    var textoValorFormaPagamentoX = (larguraLinhaMargemDireita - textoValorFormaPagamento.Medida.Largura);
+                    textoValorFormaPagamento.Desenhar(textoValorFormaPagamentoX, y);
+
+                    y += textoFormaPagamento.Medida.Altura;
+                }
+
+                y += 2;
+
+                if (_troco > 0)
+                {
+                    var textoTroco = new AdicionarTexto(g, "Troco R$", 7);
+                    textoTroco.Desenhar(x, y);
+
+                    var textoTrocoValor = new AdicionarTexto(g, _troco.ToString("N2"), 7);
+                    var textoTrocoValorX = (larguraLinhaMargemDireita - textoTrocoValor.Medida.Largura);
+                    textoTrocoValor.Desenhar(textoTrocoValorX, y);
+                    y += textoTroco.Medida.Altura;
+                }
+
+                y += 5;
+
+                LinhaHorizontal(g, x, y, larguraLinha);
+
+                var textoConsulteChave = new AdicionarTexto(g, "Consulte pela Chave de Acesso em", 7);
+                var textoConsulteChaveX = ((larguraLinha - textoConsulteChave.Medida.Largura) / 2);
+                textoConsulteChave.Desenhar(textoConsulteChaveX, y);
+
+                y += textoConsulteChave.Medida.Altura;
+
+                var urlConsulta = new AdicionarTexto(g, _nfe.infNFeSupl.ObterUrl(_nfe.infNFe.ide.tpAmb, _nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode), 7);
+                var urlConsultaX = ((larguraLinha - urlConsulta.Medida.Largura) / 2);
+                urlConsulta.Desenhar(urlConsultaX, y);
+
+                y += urlConsulta.Medida.Altura;
+
+                var novaChave = GeraChaveAcesso(_nfe);
+
+                var chave = new AdicionarTexto(g, novaChave, 7);
+                var urlChaveX = ((larguraLinha - chave.Medida.Largura) / 2);
+                chave.Desenhar(urlChaveX, y);
+
+                y += chave.Medida.Altura;
+                y += 10;
+
+
+                var mensagemConsumidor = MontaMensagemConsumidor(_nfe.infNFe.dest);
+
+                var consumidor = new AdicionarTexto(g, mensagemConsumidor, 9);
+                var quebraLinhaConsumidor = new DefineQuebraDeLinha(consumidor,
+                    new ComprimentoMaximo(larguraLinhaMargemDireita), consumidor.Medida.Largura);
+                consumidor = quebraLinhaConsumidor.DesenharComQuebras(g);
+                var consumidorX = (larguraLinha - consumidor.Medida.Largura) / 2;
+                consumidor.Desenhar(consumidorX, y);
+
+                y += consumidor.Medida.Altura + 10;
+
+                var mensagemDadosNfCe = MontaMensagemDadosNfce(_nfe);
+
+                var dadosNfce = new AdicionarTexto(g, mensagemDadosNfCe, 7);
+                var dadosNfceX = (larguraLinha - dadosNfce.Medida.Largura) / 2;
+                dadosNfce.Desenhar(dadosNfceX, y);
+
+                y += dadosNfce.Medida.Altura;
+
+                if (_nfe.infNFe.ide.tpEmis == TipoEmissao.teNormal)
+                {
+                    var textoProtocoloAutorizacao = new StringBuilder("Protocolo de autorização: ");
+                    textoProtocoloAutorizacao.Append(_proc.protNFe.infProt.nProt);
+                    var protocoloAutorizacao = new AdicionarTexto(g, textoProtocoloAutorizacao.ToString(), 7);
+                    var protocoloAutorizacaoX = (larguraLinha - protocoloAutorizacao.Medida.Largura) / 2;
+                    protocoloAutorizacao.Desenhar(protocoloAutorizacaoX, y);
+                    y += protocoloAutorizacao.Medida.Altura;
+
+
+                    var textoDataAutorizacao = new StringBuilder("Data de autorização ");
+                    textoDataAutorizacao.Append(_proc.protNFe.infProt.dhRecbto.ToString("G"));
+                    var dataAutorizacao = new AdicionarTexto(g, textoDataAutorizacao.ToString(), 7);
+                    var dataAutorizacaoX = (larguraLinha - dataAutorizacao.Medida.Largura) / 2;
+                    dataAutorizacao.Desenhar(dataAutorizacaoX, y);
+                    y += dataAutorizacao.Medida.Altura;
+                }
+
+                if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
+                {
+                    y += 10;
+                    y = MensagemContingencia(g, larguraLinha, y);
+                }
+
+                y += 8;
+
+                var urlQrCode = ObtemUrlQrCode(_nfe, _cIdToken, _csc);
+
+                var qrCodeImagem = QrCode.Gerar(urlQrCode);
+                var qrCodeImagemX = (larguraLinha - qrCodeImagem.Size.Width) / 2;
+                var desenharQrCode = new AdicionarImagem(g, qrCodeImagem, qrCodeImagemX, y);
+                desenharQrCode.Desenhar();
+
+                y += qrCodeImagem.Size.Height + 10;
+
+                LinhaHorizontal(g, x, y, larguraLinha);
+
+                y += 5;
+
+                var tributosIncidentes = _nfe.infNFe.total.ICMSTot.vTotTrib;
+
+
+                if (tributosIncidentes != 0)
+                {
+                    var mensagemTributosTotais = new StringBuilder("Tributos Totais Incidentes (Lei Federal 12.741/2012): R$");
+                    mensagemTributosTotais.Append(tributosIncidentes.ToString("N2"));
+
+                    var tributosTotais = new AdicionarTexto(g, mensagemTributosTotais.ToString(), 7);
+                    var tributosTotaisX = (larguraLinha - tributosTotais.Medida.Largura) / 2;
+                    tributosTotais.Desenhar(tributosTotaisX, y);
+
+                    y += tributosTotais.Medida.Altura;
+
+                    y += 5;
+
+                    LinhaHorizontal(g, x, y, larguraLinha);
+                }
+
+                var observacoes = _nfe.infNFe?.infAdic.infCpl;
+
+                if (!string.IsNullOrEmpty(observacoes))
+                {
+                    y += 5;
+                    var observacao = new AdicionarTexto(g, observacoes, 7);
+                    var quebraObservacao = new DefineQuebraDeLinha(observacao, new ComprimentoMaximo(larguraLinhaMargemDireita), observacao.Medida.Largura);
+                    observacao = quebraObservacao.DesenharComQuebras(g);
+                    observacao.Desenhar(x, y);
+                }
+
+            return g;
         }
 
-        //Gera QrCode. Necessário uso de dll para geração. Estão dentro da pasta NuGet. Se quiserem fazer o download diretamente http://zxingnet.codeplex.com/
-        public static Image GerarQrCode(int larg, int alt, string qrCode)
+
+        private static string ObtemUrlQrCode(NFeZeus nfce, string idToken, string csc)
         {
-            var bw = new ZXing.BarcodeWriter();
-            var encOptions = new ZXing.Common.EncodingOptions() { Width = larg, Height = alt, Margin = 0 };
-            bw.Options = encOptions;
-            bw.Format = ZXing.BarcodeFormat.QR_CODE;
-            var imageQrCode = new Bitmap(bw.Write(qrCode));
-            return imageQrCode;
+            var urlQrCode = nfce.infNFeSupl == null
+                ? nfce.infNFeSupl.ObterUrlQrCode(nfce,
+                    idToken,
+                    csc)
+                : nfce.infNFeSupl.qrCode;
+            return urlQrCode;
         }
 
-        //Retorna altura e largura da linha, para posicionar no cupom
-        private static Tuple<int, int> MedidasLinha(string linha, Font fonte)
+        private static string MontaMensagemDadosNfce(NFeZeus nfce)
         {
-            var g = Graphics.FromHwnd(IntPtr.Zero);
-            var comprLinha = 0;
-            var altLinha = 0;
-            var stringSize = g.MeasureString(linha, fonte);
-            comprLinha = Convert.ToInt32(stringSize.Width);
-            altLinha = Convert.ToInt32(stringSize.Height);
+            var mensagem = new StringBuilder("NFC-e nº ");
+            mensagem.Append(nfce.infNFe.ide.nNF.ToString("D9"));
+            mensagem.Append(" Série ");
+            mensagem.Append(nfce.infNFe.ide.serie.ToString("D3"));
+            mensagem.Append(" ");
+            mensagem.Append(nfce.infNFe.ide.dhEmi.ToString("G"));
+            mensagem.Append(" - ");
+            mensagem.Append("Via consumidor");
 
-            return new Tuple<int, int>(comprLinha, altLinha);
+            return mensagem.ToString();
         }
 
-        //Retorna linha dividida, se for maior que a largura do cupom
-        private static Tuple<string, int> QuebraDeLinha(string linha, int comprMaximo, Font fonte)
+        private static string MontaMensagemConsumidor(dest dest)
         {
-            linha = linha.Replace("\n", " ").Replace("\r", "");
-            var palavras = linha.Split(' ');
-            var linhaFormat = "";
+            var mensagem = new StringBuilder("CONSUMIDOR ");
 
-            var partes = new Dictionary<int, string>();
-            var parte = string.Empty;
-            var parteCounter = 0;
-            foreach (var palavra in palavras)
+            if (dest == null || (string.IsNullOrEmpty(dest.CPF) && string.IsNullOrEmpty(dest.CNPJ)))
             {
-                var tupleParte = MedidasLinha(parte, fonte);
-                var tuplePalavra = MedidasLinha(palavra, fonte);
-                var largLinha = tupleParte.Item1 + tuplePalavra.Item1;
-
-                if (largLinha < comprMaximo)
-                {
-                    parte += string.IsNullOrEmpty(parte) ? palavra : " " + palavra;
-                }
-                else
-                {
-                    partes.Add(parteCounter, parte);
-                    parte = palavra;
-                    parteCounter++;
-                }
+                mensagem.Append("NÃO IDENTIFICADO");
+                return mensagem.ToString();
             }
-            partes.Add(parteCounter, parte);
 
-            var nQuebras = 0;
-            foreach (var item in partes)
+            if (!string.IsNullOrEmpty(dest.idEstrangeiro))
             {
-                linhaFormat += item.Value;
-                if (nQuebras < partes.Count - 1)
-                {
-                    linhaFormat += "\n";
-                    nQuebras++;
-                }
+                mensagem.Append("Id ");
+                mensagem.Append(dest.idEstrangeiro);
             }
-            return new Tuple<string, int>(linhaFormat, nQuebras);
+
+
+            if (!string.IsNullOrEmpty(dest.CPF))
+            {
+                mensagem.Append("CPF ");
+                mensagem.Append(dest.CPF);
+            }
+
+            if (!string.IsNullOrEmpty(dest.CNPJ))
+            {
+                mensagem.Append("CNPJ ");
+                mensagem.Append(dest.CNPJ);
+            }
+
+            mensagem.Append(" ");
+            mensagem.Append(dest.xNome);
+
+            var enderecoDest = dest.enderDest;
+
+            if (enderecoDest == null) return mensagem.ToString().Replace(", ,", ", ");
+
+            var rua = enderecoDest.xLgr ?? string.Empty;
+            var numero = enderecoDest.nro ?? "S/N";
+            var bairro = enderecoDest.xBairro;
+            var cidade = enderecoDest.xMun;
+            var siglaUf = enderecoDest.UF;
+
+            if (string.IsNullOrEmpty(rua)) return mensagem.ToString();
+            mensagem.Append(" - ");
+            mensagem.Append(rua);
+            mensagem.Append(", ");
+            mensagem.Append(numero);
+            mensagem.Append(", ");
+            mensagem.Append(bairro);
+            mensagem.Append(", ");
+            mensagem.Append(cidade);
+            mensagem.Append(" - ");
+            mensagem.Append(siglaUf);
+
+            return mensagem.ToString().Replace(", ,", ", ");
         }
 
-        //Retorna descrição da forma de pagamento
-        private static class EnumHelper<T>
+        private static string GeraChaveAcesso(NFeZeus nfce)
         {
-            public static string GetEnumDescription(string value)
-            {
-                var type = typeof(T);
-                var name = Enum.GetNames(type).Where(f => f.Equals(value, StringComparison.CurrentCultureIgnoreCase)).Select(d => d).FirstOrDefault();
+            var chaveAcesso = nfce.infNFe.Id.Substring(3);
+            var novaChave = string.Empty;
+            var contaChaveAcesso = 0;
 
-                if (name == null)
+            foreach (var c in chaveAcesso)
+            {
+                contaChaveAcesso++;
+                novaChave += c;
+
+                if (contaChaveAcesso == 4)
                 {
-                    return string.Empty;
+                    novaChave += " ";
+                    contaChaveAcesso = 0;
                 }
-                var field = type.GetField(name);
-                var customAttribute = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
-                return customAttribute.Length > 0 ? ((DescriptionAttribute)customAttribute[0]).Description : name;
             }
+            return novaChave;
         }
+
+        private static AdicionarTexto CriaHeaderColuna(string texto, Graphics graphics, int x, int y)
+        {
+            var coluna = new AdicionarTexto(graphics, texto, 7);
+            coluna.Desenhar(x, y);
+
+            return coluna;
+        }
+
+        private static void LinhaHorizontal(Graphics g, int x, int y, int larguraLinha)
+        {
+            new LinhaHorizontal(g, Pens.Black, x, y, larguraLinha, y).Desenhar();
+        }
+
+        private static int EscreverLinhaTitulo(Graphics g, string texto, int tamanhoFonteTitulo, int larguraLogo, int x, int y, int larguraLinha)
+        {
+            var adicionarTexto = new AdicionarTexto(g, texto, tamanhoFonteTitulo);
+            var larguraMaximaTexto = new ComprimentoMaximo((larguraLinha - larguraLogo));
+            var laguraDoTexto = adicionarTexto.Medida.Largura;
+            var quebrarLinha = new DefineQuebraDeLinha(adicionarTexto, larguraMaximaTexto, laguraDoTexto);
+            adicionarTexto = quebrarLinha.DesenharComQuebras(g);
+            var posisaoXTexto = x + larguraLogo + (((larguraLinha - larguraLogo) - adicionarTexto.Medida.Largura) / 2);
+            adicionarTexto.Desenhar(posisaoXTexto, y);
+            y += adicionarTexto.Medida.Altura;
+            return y;
+        }
+
+        private static int MensagemContingencia(Graphics g, int larguraLinha, int y)
+        {
+            var contingenciaTitulo = new AdicionarTexto(g, "EMITIDA EM CONTINGÊNCIA", 10);
+            var restoContingenciaTituloX = (larguraLinha - contingenciaTitulo.Medida.Largura) / 2;
+            contingenciaTitulo.Desenhar(restoContingenciaTituloX, y);
+            y += contingenciaTitulo.Medida.Altura;
+
+            var pendenteAutorizacaoTitulo = new AdicionarTexto(g, "Pendente de Autorização", 8);
+            var restoPendenteAutorizacaoTituloX = (larguraLinha - pendenteAutorizacaoTitulo.Medida.Largura) / 2;
+            pendenteAutorizacaoTitulo.Desenhar(restoPendenteAutorizacaoTituloX, y);
+            y += pendenteAutorizacaoTitulo.Medida.Altura + 2;
+            return y;
+        }
+
+
+
     }
 }

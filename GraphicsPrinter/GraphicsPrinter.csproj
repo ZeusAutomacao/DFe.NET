@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA27D218-484B-4F08-BAB9-38C02181BDED}</ProjectGuid>
+    <ProjectGuid>{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NFe.Danfe.Nativo</RootNamespace>
-    <AssemblyName>NFe.Danfe.Nativo</AssemblyName>
+    <RootNamespace>GraphicsPrinter</RootNamespace>
+    <AssemblyName>GraphicsPrinter</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -38,44 +38,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="zxing, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\zxing.dll</HintPath>
+    <Reference Include="zxing">
+      <HintPath>..\NFe.Danfe.Nativo\Dlls\zxing.dll</HintPath>
     </Reference>
-    <Reference Include="zxing.presentation, Version=0.14.0.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\zxing.presentation.dll</HintPath>
+    <Reference Include="zxing.presentation">
+      <HintPath>..\NFe.Danfe.Nativo\Dlls\zxing.presentation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NFCe\DanfeNativoNfce.cs" />
+    <Compile Include="AdicionarImagem.cs" />
+    <Compile Include="AdicionarTexto.cs" />
+    <Compile Include="ComprimentoMaximo.cs" />
+    <Compile Include="DefineQuebraDeLinha.cs" />
+    <Compile Include="LarguraTexto.cs" />
+    <Compile Include="LinhaHorizontal.cs" />
+    <Compile Include="MedidasLinha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\GraphicsPrinter\GraphicsPrinter.csproj">
-      <Project>{3067efcc-91de-48ea-8f7e-e0d95216c6dc}</Project>
-      <Name>GraphicsPrinter</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
-      <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
-      <Name>NFe.Danfe.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
-      <Name>NFe.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dlls\zxing.dll" />
-    <Content Include="Dlls\zxing.presentation.dll" />
+    <Compile Include="QrCode.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
