@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Drawing;
+using System.IO;
 
 namespace GraphicsPrinter
 {
@@ -62,8 +63,18 @@ namespace GraphicsPrinter
         {
             try
             {
-                var logo = _imagem ?? Image.FromFile(_caminhoImagem);
-                _graphics.DrawImage(logo, new Point(_posicaoX, _posicaoY));
+                Image imagemUtilizada = null;
+
+                if (_imagem == null)
+                {
+                    imagemUtilizada = _imagem;
+                }
+
+                if (File.Exists(_caminhoImagem))
+                    imagemUtilizada = Image.FromFile(_caminhoImagem);
+
+                // ReSharper disable once AssignNullToNotNullAttribute
+                _graphics.DrawImage(imagemUtilizada, new Point(_posicaoX, _posicaoY));
             }
             catch
             {
