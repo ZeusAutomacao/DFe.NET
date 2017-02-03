@@ -1612,20 +1612,27 @@ namespace NFe.AppTeste
 
         private void BtnCupom_Click(object sender, RoutedEventArgs e)
         {
-            var arquivoXml = Funcoes.BuscarArquivoXml();
+            string arquivoXml = Funcoes.BuscarArquivoXml();
             try
             {
-                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                nfeProc proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
-
-                
-                _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa("Arial Black");
                 var impr = new DanfeNativoNfce(proc.ObterXmlString(),
                     _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 
-                    _configuracoes.ConfiguracaoCsc.Csc, 
-                    0 /*troco*/);
-                impr.Imprimir(salvarArquivoPdfEm: @"C:\Users\Roberto\Desktop\aaa\aaaa.pdf");
+                    _configuracoes.ConfiguracaoCsc.Csc,
+                    0 /*troco*//*, "Arial Black"*/);
+
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                fileDialog.ShowDialog();
+
+                if(string.IsNullOrEmpty(fileDialog.FileName))
+                    throw new ArgumentException("Não foi selecionado nem uma pasta");
+
+
+
+                impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
 
             }
             catch (Exception ex)

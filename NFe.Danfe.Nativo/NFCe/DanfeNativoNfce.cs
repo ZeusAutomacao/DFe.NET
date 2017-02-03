@@ -61,9 +61,9 @@ namespace NFe.Danfe.Nativo.NFCe
         private Image _logo;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
-            decimal troco = decimal.Zero)
+            decimal troco = decimal.Zero, string font = null)
         {
-            Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco);
+            Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, font);
         }
 
         private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, string font = null)
