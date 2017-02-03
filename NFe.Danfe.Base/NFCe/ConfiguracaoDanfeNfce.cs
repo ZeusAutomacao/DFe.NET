@@ -31,6 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Drawing;
+using System.Drawing.Text;
+using NFe.Danfe.Base.Fontes;
+using NFe.Danfe.Base.Properties;
+
 namespace NFe.Danfe.Base.NFCe
 {
     public class ConfiguracaoDanfeNfce: ConfiguracaoDanfe
@@ -89,5 +94,13 @@ namespace NFe.Danfe.Base.NFCe
         /// 
         /// </summary>
         public NfceModoImpressao ModoImpressao { get; set; }
+
+        public FontFamily CarregarFontePadraoNfceNativa()
+        {
+            PrivateFontCollection colecaoDeFontes; //todo dispose na coleção
+            var openSans = Fonte.CarregarDeByteArray(Resources.OpenSans_CondBold, out colecaoDeFontes);
+
+            return openSans;
+        }
     }
 }

@@ -77,6 +77,8 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using NFe.Danfe.Base;
+using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
 using Color = System.Drawing.Color;
 
@@ -1613,45 +1615,14 @@ namespace NFe.AppTeste
             {
                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
 
-                /*var nInfCpl = 0;
-                if (proc.NFe.infNFe.infAdic != null)
-                {
-                    var infCpl = proc.NFe.infNFe.infAdic.infCpl.Split('|');//Pega quantidade de itens na informação complementar separando pelo "|"
-                    nInfCpl = infCpl.Length;
-                }
-                var nProdutos = proc.NFe.infNFe.det.Count + nInfCpl;
-
-                //Ajusta tamanho (Larg x Alt) do cupom, de acordo com a quantidade de produtos e informações complementares
-                var imgNfCe = new Bitmap(Convert.ToInt32(svCupom.Width), 600 + (nProdutos * 15));
-
-                //Gera grafico na classe
-                var g = Graphics.FromImage(imgNfCe);
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.FillRectangle(new SolidBrush(Color.LightGoldenrodYellow), 0, 0, imgNfCe.Size.Width, imgNfCe.Size.Height);*/
-
-
-                var impr = new DanfeNativoNfce(proc.ObterXmlString(), _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc, 0/* troco*/);
+                var impr = new DanfeNativoNfce(proc.ObterXmlString(),
+                    _configuracoes.ConfiguracaoDanfeNfce.ObterLogo(), 
+                    _configuracoes.ConfiguracaoCsc.CIdToken, 
+                    _configuracoes.ConfiguracaoCsc.Csc, 
+                    0 /*troco*/, 
+                    _configuracoes.ConfiguracaoDanfeNfce.CarregarFontePadraoNfceNativa());
                 impr.Imprimir();
 
-                //Converte para BitmapImage, para ser inserida no Canvas para visualização
-                /*using (var ms = new MemoryStream())
-                {
-                    imgNfCe.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-
-                    var bitmapImg = new BitmapImage();
-                    bitmapImg.BeginInit();
-                    bitmapImg.StreamSource = ms;
-                    bitmapImg.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImg.EndInit();
-
-                    cvCupom.Height = imgNfCe.Height;
-                    cvCupom.Width = imgNfCe.Width;
-
-                    var imgCupom = new ImageBrush {ImageSource = bitmapImg};
-                    cvCupom.Background = imgCupom;
-                    TabInferior.SelectedIndex = 6;
-                }*/
             }
             catch (Exception ex)
             {

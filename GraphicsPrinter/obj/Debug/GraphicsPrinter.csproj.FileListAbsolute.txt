@@ -5,3 +5,5 @@ C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\D
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Debug\GraphicsPrinter.csprojResolveAssemblyReference.cache
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Debug\GraphicsPrinter.dll
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Debug\GraphicsPrinter.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Debug\NFe.Danfe.Base.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Debug\NFe.Danfe.Base.pdb

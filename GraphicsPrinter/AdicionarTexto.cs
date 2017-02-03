@@ -4,6 +4,7 @@ namespace GraphicsPrinter
 {
     public class AdicionarTexto
     {
+        public static FontFamily FontPadrao { get; set; }
         private readonly Graphics _graphics;
         private float _pontoX;
         private float _pontoY;
@@ -16,7 +17,7 @@ namespace GraphicsPrinter
             Texto = texto;
             _tamanhoFonte = tamanhoFonte;
             _br = br;
-            Fonte = font ?? new Font("Open Sans Condensed", _tamanhoFonte);
+            Fonte = font ?? new Font(FontPadrao, _tamanhoFonte);
             Medida = MedidasLinha.GetMedidas(this);
         }
 
