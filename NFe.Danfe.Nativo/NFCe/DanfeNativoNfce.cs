@@ -59,18 +59,20 @@ namespace NFe.Danfe.Nativo.NFCe
         private nfeProc _proc;
         private decimal _troco;
         private Image _logo;
+        private decimal _totalPago;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
-            decimal troco = decimal.Zero, string font = null)
+            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null)
         {
-            Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, font);
+            Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, totalPago, font);
         }
 
-        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, string font = null)
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null)
         {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
+            _totalPago = totalPago;
             AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa(font);
             _logo = configuracaoDanfe.ObterLogo();
 
@@ -346,7 +348,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             if (_troco > 0)
             {
-                AdicionarTexto textoTroco = new AdicionarTexto(g, "Troco R$", 7);
+                AdicionarTexto textoTroco = new AdicionarTexto(g, "Troco R$ (TOTAL PAGO R$" + _totalPago.ToString("N2") + ")", 7);
                 textoTroco.Desenhar(x, y);
 
                 AdicionarTexto textoTrocoValor = new AdicionarTexto(g, _troco.ToString("N2"), 7);
