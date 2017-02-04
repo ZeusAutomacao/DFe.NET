@@ -83,6 +83,7 @@ using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
 using Color = System.Drawing.Color;
+using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste
 {
@@ -1615,9 +1616,24 @@ namespace NFe.AppTeste
             string arquivoXml = Funcoes.BuscarArquivoXml();
             try
             {
-                nfeProc proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                nfeProc proc = null;
+                NFeZeus nfe = null;
+                string arquivo = string.Empty;
 
-                DanfeNativoNfce impr = new DanfeNativoNfce(proc.ObterXmlString(),
+                try
+                {
+                    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = proc.ObterXmlString();
+                }
+                catch (Exception)
+                {
+                    nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = nfe.ObterXmlString();
+                }
+
+                
+
+                DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
                     _configuracoes.ConfiguracaoDanfeNfce, 
                     _configuracoes.ConfiguracaoCsc.CIdToken, 
                     _configuracoes.ConfiguracaoCsc.Csc,
