@@ -1,0 +1,9 @@
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\GraphicsPrinter.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\GraphicsPrinter.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\NFe.Danfe.Base.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\zxing.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\zxing.presentation.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\bin\Release\NFe.Danfe.Base.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Release\GraphicsPrinter.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Release\GraphicsPrinter.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\GraphicsPrinter\obj\Release\GraphicsPrinter.csprojResolveAssemblyReference.cache

@@ -332,7 +332,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             foreach (pag pag in _nfe.infNFe.pag)
             {
-                AdicionarTexto textoFormaPagamento = new AdicionarTexto(g, pag.ObtemDescricao(), 7);
+                AdicionarTexto textoFormaPagamento = new AdicionarTexto(g, ObtemDescricao(pag), 7);
                 textoFormaPagamento.Desenhar(x, y);
 
                 AdicionarTexto textoValorFormaPagamento = new AdicionarTexto(g, pag.vPag.ToString("N2"), 7);
@@ -711,6 +711,35 @@ namespace NFe.Danfe.Nativo.NFCe
                     throw new ArgumentException(
                         "Ei! Verifique se seu xml está correto, pois identificamos uma falha ao tentar carregar ele.");
                 }
+            }
+        }
+
+        private static string ObtemDescricao(pag pag)
+        {
+            switch (pag.tPag)
+            {
+                case FormaPagamento.fpDinheiro:
+                    return "Dinheiro";
+                case FormaPagamento.fpCheque:
+                    return "Cheque";
+                case FormaPagamento.fpCartaoCredito:
+                    return "Cartão de Crédito";
+                case FormaPagamento.fpCartaoDebito:
+                    return "Cartão de Débito";
+                case FormaPagamento.fpCreditoLoja:
+                    return "Crédito Loja";
+                case FormaPagamento.fpValeAlimentacao:
+                    return "Vale Alimentação";
+                case FormaPagamento.fpValeRefeicao:
+                    return "Vale Refeição";
+                case FormaPagamento.fpValePresente:
+                    return "Vale Presente";
+                case FormaPagamento.fpValeCombustivel:
+                    return "Vale Combustível";
+                case FormaPagamento.fpOutro:
+                    return "Outros";
+                default: throw new ArgumentException("Forma pagamento inválida");
+
             }
         }
     }
