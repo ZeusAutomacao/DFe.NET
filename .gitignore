@@ -96,5 +96,7 @@ Temporary Items
 /MDFe.Damdfe.Base/bin
 /MDFe.Damdfe.Fast/obj
 /MDFe.Damdfe.Fast/bin
-/NFe.Danfe.Nativo/bin/Debug
-/NFe.Danfe.Nativo/obj/Debug
+/NFe.Danfe.Nativo/bin
+/NFe.Danfe.Nativo/obj
+/GraphicsPrinter/bin
+/GraphicsPrinter/obj
