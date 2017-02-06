@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Damdfe.AppTeste", "MDF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Nativo", "NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj", "{BA27D218-484B-4F08-BAB9-38C02181BDED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicsPrinter", "GraphicsPrinter\GraphicsPrinter.csproj", "{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CTe", "CTe", "{FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Classes", "CTe.Classes\CTe.Classes.csproj", "{C86E3921-F0B8-4BFE-9EF1-0E9084326B13}"
@@ -162,6 +164,10 @@ Global
 		{21A894EC-B79E-4936-BFF3-ABEAD2E5C44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21A894EC-B79E-4936-BFF3-ABEAD2E5C44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21A894EC-B79E-4936-BFF3-ABEAD2E5C44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3067EFCC-91DE-48EA-8F7E-E0D95216C6DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -80,7 +80,6 @@ namespace MDFe.Damdfe.AppTeste
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MDFeProcMDFe mdfe;
         }
 
         private void button1_Click(object sender, EventArgs e)
