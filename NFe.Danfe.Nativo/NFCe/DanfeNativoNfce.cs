@@ -116,7 +116,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             if (_logo != null)
             {
-                new AdicionarImagem(g, _logo, x, y).Desenhar();
+                new RedimensionaImagemPara(new AdicionarImagem(g, _logo, x, y), 50, 24).Desenhar();
             }
 
 #region cabeçalho
