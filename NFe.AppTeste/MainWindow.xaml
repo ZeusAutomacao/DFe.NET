@@ -846,13 +846,6 @@
                     <WebBrowser x:Name="WebXmlNfe" />
                 </Grid>
             </TabItem>
-            <TabItem Name="TabItemCupom" Header="Cupom">
-                <Grid Background="#FFE5E5E5">
-                    <ScrollViewer x:Name="svCupom" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="346" Margin="10,10,0,0" VerticalAlignment="Top" Width="340">
-                        <Canvas x:Name="cvCupom" Height="194" Width="194"/>
-                    </ScrollViewer>
-                </Grid>
-            </TabItem>
         </TabControl>
 
     </Grid>
