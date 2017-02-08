@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfiguracaoApp.cs" />
+    <Compile Include="ConfiguracaoServico.cs" />
     <Compile Include="CTe.cs" />
+    <Compile Include="Impressao\ConfiguracaoDacte.cs" />
     <Compile Include="Informacoes\autXML.cs" />
     <Compile Include="Informacoes\Complemento\Comp.cs" />
     <Compile Include="Informacoes\Complemento\compl.cs" />
@@ -168,6 +172,10 @@
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
       <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

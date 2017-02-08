@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>63227402-2b1e-4bc7-a6df-362129923cf6</ProjectGuid>
+    <ProjectGuid>{63227402-2B1E-4BC7-A6DF-362129923CF6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CTe.Servicos</RootNamespace>
@@ -30,22 +30,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Enderecador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Retorno\RetornoBasico.cs" />
+    <Compile Include="Retorno\RetornoConsulta.cs" />
+    <Compile Include="Retorno\RetornoCteInutilizacao.cs" />
+    <Compile Include="Retorno\RetornoCteRecepcao.cs" />
+    <Compile Include="Retorno\RetornoCteRetRecepcao.cs" />
+    <Compile Include="Retorno\RetornoCteStatusServico.cs" />
+    <Compile Include="Retorno\RetornoRecepcaoEvento.cs" />
+    <Compile Include="ServicosCTe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
+      <Project>{C86E3921-F0B8-4BFE-9EF1-0E9084326B13}</Project>
+      <Name>CTe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CTe.Wsdl\CTe.Wsdl.csproj">
+      <Project>{9CC914F9-4C3E-43BB-A34B-A12AE4923548}</Project>
+      <Name>CTe.Wsdl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -55,5 +77,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
