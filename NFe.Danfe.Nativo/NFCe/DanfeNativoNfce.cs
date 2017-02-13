@@ -107,7 +107,7 @@ namespace NFe.Danfe.Nativo.NFCe
         {
             Graphics g = graphics;
 
-            const int larguraLogo = 64;
+            int larguraLogo = 64;
             const int larguraLinha = 284;
             const int larguraLinhaMargemDireita = 277;
 
@@ -117,6 +117,11 @@ namespace NFe.Danfe.Nativo.NFCe
             if (_logo != null)
             {
                 new RedimensionaImagemPara(new AdicionarImagem(g, _logo, x, y), 50, 24).Desenhar();
+            }
+
+            if (_logo == null)
+            {
+                larguraLogo = 0;
             }
 
 #region cabeçalho
