@@ -71,7 +71,9 @@
     <Compile Include="Informacoes\Identificacao\ide.cs" />
     <Compile Include="Informacoes\Identificacao\Tipos\ideTipos.cs" />
     <Compile Include="Informacoes\Identificacao\toma03.cs" />
+    <Compile Include="Informacoes\Identificacao\toma3.cs" />
     <Compile Include="Informacoes\Identificacao\toma4.cs" />
+    <Compile Include="Informacoes\Identificacao\tomaBase3.cs" />
     <Compile Include="Informacoes\Impostos\ICMS.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS00.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS20.cs" />

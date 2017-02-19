@@ -39,7 +39,7 @@ namespace CTeDLL
         /// <summary>
         ///     Versão do Layout do Serviço
         /// </summary>
-        public string VersaoServico { get; set; }
+        public versao VersaoServico { get; set; }
 
         /// <summary>
         ///     Tipo de ambiente do webservice (Produção, Homologação)
@@ -49,7 +49,7 @@ namespace CTeDLL
         /// <summary>
         ///     Tipo de Emissão da NF-e
         /// </summary>
-        public TipoEmissao tpEmis { get; set; }
+        public tpEmis tpEmis { get; set; }
 
         /// <summary>
         ///     Tipo de documento que está sendo referenciado nos webservices
@@ -59,77 +59,77 @@ namespace CTeDLL
         /// <summary>
         ///     Versão do serviço RecepcaoEvento
         /// </summary>
-        public VersaoServico VersaoRecepcaoEvento { get; set; }
+        public versao VersaoRecepcaoEvento { get; set; }
 
         /// <summary>
         ///     Versão do serviço RecepcaoEvento para Carta de Correção e Cancelamento
         /// </summary>
-        public VersaoServico VersaoRecepcaoEventoCceCancelamento { get; set; }
+        public versao VersaoRecepcaoEventoCceCancelamento { get; set; }
 
         /// <summary>
         ///     Versão do serviço RecepcaoEvento para EPEC
         /// </summary>
-        public VersaoServico VersaoRecepcaoEventoEpec { get; set; }
+        public versao VersaoRecepcaoEventoEpec { get; set; }
 
         /// <summary>
         ///     Versão do serviço RecepcaoEvento para Manifestação do destinatário
         /// </summary>
-        public VersaoServico VersaoRecepcaoEventoManifestacaoDestinatario { get; set; }
+        public versao VersaoRecepcaoEventoManifestacaoDestinatario { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeRecepcao
         /// </summary>
-        public VersaoServico VersaoCteRecepcao { get; set; }
+        public versao VersaoCteRecepcao { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeRetRecepcao
         /// </summary>
-        public VersaoServico VersaoCteRetRecepcao { get; set; }
+        public versao VersaoCteRetRecepcao { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeConsultaCadastro
         /// </summary>
-        public VersaoServico VersaoCteConsultaCadastro { get; set; }
+        public versao VersaoCteConsultaCadastro { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeInutilizacao
         /// </summary>
-        public VersaoServico VersaoCteInutilizacao { get; set; }
+        public versao VersaoCteInutilizacao { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeConsultaProtocolo
         /// </summary>
-        public VersaoServico VersaoCteConsultaProtocolo { get; set; }
+        public versao VersaoCteConsultaProtocolo { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeStatusServico
         /// </summary>
-        public VersaoServico VersaoCteStatusServico { get; set; }
+        public versao VersaoCteStatus { get; set; }
 
         /// <summary>
         ///     Versão do serviço NFeAutorizacao
         /// </summary>
-        public VersaoServico VersaoCteAutorizacao { get; set; }
+        public versao VersaoCteAutorizacao { get; set; }
 
         /// <summary>
         ///     Versão do serviço NFeRetAutorizacao
         /// </summary>
-        public VersaoServico VersaoCteRetAutorizacao { get; set; }
+        public versao VersaoCteRetAutorizacao { get; set; }
 
         /// <summary>
         ///     Versão do serviço NFeDistribuicaoDFe
         /// </summary>
-        public VersaoServico VersaoCteDistribuicaoDFe { get; set; }
+        public versao VersaoCteDistribuicaoDFe { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeConsultaDest
         /// </summary>
-        public VersaoServico VersaoCteConsultaDest { get; set; }
+        public versao VersaoCteConsultaDest { get; set; }
 
         /// <summary>
         ///     Versão do serviço NfeDownloadNF
         /// </summary>
-        public VersaoServico VersaoCteDownloadNF { get; set; }
+        public versao VersaoCteDownloadNF { get; set; }
 
         /// <summary>
         ///     Diretório onde estão aramazenados os schemas para validação

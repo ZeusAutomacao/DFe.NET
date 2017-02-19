@@ -5,6 +5,7 @@ using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using versao = CTeDLL.Classes.Servicos.Tipos.versao;
 
 namespace CTeDLL.Servicos
 {
@@ -13,21 +14,21 @@ namespace CTeDLL.Servicos
     /// </summary>
     internal class EnderecoServico
     {
-        public EnderecoServico(ServicoCTe servicoNFe, VersaoServico versaoServico, TipoAmbiente tipoAmbiente, TipoEmissao tipoEmissao, Estado estado, ModeloDocumento modeloDocumento, string url)
+        public EnderecoServico(ServicoCTe servicoNFe, versao versao, TipoAmbiente tipoAmbiente, tpEmis tpEmis, Estado estado, ModeloDocumento modeloDocumento, string url)
         {
             ServicoNFe = servicoNFe;
-            VersaoServico = versaoServico;
+            Versao = versao;
             TipoAmbiente = tipoAmbiente;
-            TipoEmissao = tipoEmissao;
+            TpEmis = tpEmis;
             Estado = estado;
             Url = url;
             ModeloDocumento = modeloDocumento;
         }
 
         public ServicoCTe ServicoNFe { get; private set; }
-        public VersaoServico VersaoServico { get; private set; }
+        public versao Versao { get; private set; }
         public TipoAmbiente TipoAmbiente { get; private set; }
-        public TipoEmissao TipoEmissao { get; private set; }
+        public tpEmis TpEmis { get; private set; }
         public Estado Estado { get; private set; }
         public ModeloDocumento ModeloDocumento { get; private set; }
         public string Url { get; private set; }

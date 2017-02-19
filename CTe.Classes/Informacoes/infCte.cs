@@ -12,13 +12,14 @@ using CTeDLL.Classes.Informacoes.Impostos;
 using CTeDLL.Classes.Informacoes.InfCTeNormal;
 using CTeDLL.Classes.Informacoes.InfCTeComplementar;
 using CTeDLL.Classes.Informacoes.InfCTeAnulacao;
+using CTeDLL.Classes.Servicos.Tipos;
 
 namespace CTeDLL.Classes.Informacoes
 {
     public class infCte
     {
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         [XmlAttribute]
         public string Id { get; set; }

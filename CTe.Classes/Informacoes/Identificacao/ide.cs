@@ -1,66 +1,72 @@
-﻿using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+﻿using System;
+using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.Identificacao
 {
     public class ide
     {
-        public toma03 toma03;
-        public toma4 toma4;
-
-        private int _cUF;
-        private string _cCT;
-        private int _CFOP;
-        private string _natOp;
-        private int _forPag;
-        private int _mod;
-        private int _serie;
-        private int _nCT;
-        private string _dhEmi;
-        private int _tpImp;
-        private int _tpEmis;
-        private int _cDV;
-        private int _tpAmb;
-        private int _tpCTe;
-        private int _procEmi;
-        private string _verProc;
-        private string _refCTE;
-        private string _cMunEnv;
-        private string _xMunEnv;
-        private string _UFEnv;
-        private int _modal;
-        private int _tpServ;
-        private string _cMunIni;
-        private string _xMunIni;
-        private string _UFIni;
-        private string _cMunFim;
-        private string _xMunFim;
-        private string _UFFim;
-        private int _retira;
-        private string _xDetRetira;
+        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
 
         /// <summary>
         ///     B02 - Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.
         /// </summary>
         public Estado cUF { get; set; }
 
-        public string cCT { get { return _cCT; } set { _cCT = value; } }
-        public int CFOP { get { return _CFOP; } set { _CFOP = value; } }
-        public string natOp { get { return _natOp; } set { _natOp = value; } }
-        public int forPag { get { return _forPag; } set { _forPag = value; } }
-        
+        public string cCT { get; set; }
+
+        public int CFOP { get; set; }
+
+        public string natOp { get; set; }
+
+        /// <summary>
+        /// Versão 2.00
+        /// </summary>
+        public forPag forPag { get; set; }
+
         /// <summary>
         ///     B06 - Modelo do Documento Fiscal
         /// </summary>
         public ModeloDocumento mod { get; set; }
 
-        public int serie { get { return _serie; } set { _serie = value; } }
-        public int nCT { get { return _nCT; } set { _nCT = value; } }
-        public string dhEmi { get { return _dhEmi; } set { _dhEmi = value; } }
-        public int tpImp { get { return _tpImp; } set { _tpImp = value; } }
-        public int tpEmis { get { return _tpEmis; } set { _tpEmis = value; } }
-        public int cDV { get { return _cDV; } set { _cDV = value; } }
+        public short serie { get; set; }
+
+        public int nCT { get; set; }
+
+        /// <summary>
+        /// Versão 3.0  AAAA-MM-DDTHH:MM:DD TZD
+        /// Versão 2.0  AAAA-MM-DDTHH:MM:DD
+        /// </summary>
+        [XmlIgnore]
+        public DateTime dhEmi { get; set; }
+
+        [XmlElement(ElementName = "dhEmi")]
+        public string ProxydhEmi
+        {
+            get
+            {
+                switch (_configuracaoServico.VersaoServico)
+                {
+                    case versao.ve200:
+                        return dhEmi.ParaDataHoraStringSemUtc();
+                    case versao.ve300:
+                        return dhEmi.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para CT-e");
+                }
+            }
+            set { dhEmi = DateTime.Parse(value); }
+        }
+
+        public tpImp tpImp { get; set; }
+
+        public tpEmis tpEmis { get; set; }
+
+        public int cDV { get; set; }
 
         /// <summary>
         ///     B24 - Identificação do Ambiente
@@ -70,23 +76,78 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B11 - Tipo do Documento Fiscal
         /// </summary>
-        public TipoCTe tpCTe { get; set; }
+        public tpCTe tpCTe { get; set; }
 
-        public int procEmi { get { return _procEmi; } set { _procEmi = value; } }
-        public string verProc { get { return _verProc; } set { _verProc = value; } }
-        public string refCTE { get { return _refCTE; } set { _refCTE = value; } }
-        public string cMunEnv { get { return _cMunEnv; } set { _cMunEnv = value; } }
-        public string xMunEnv { get { return _xMunEnv; } set { _xMunEnv = value; } }
-        public string UFEnv { get { return _UFEnv; } set { _UFEnv = value; } }
-        public int modal { get { return _modal; } set { _modal = value; } }
-        public int tpServ { get { return _tpServ; } set { _tpServ = value; } }
-        public string cMunIni { get { return _cMunIni; } set { _cMunIni = value; } }
-        public string xMunIni { get { return _xMunIni; } set { _xMunIni = value; } }
-        public string UFIni { get { return _UFIni; } set { _UFIni = value; } }
-        public string cMunFim { get { return _cMunFim; } set { _cMunFim = value; } }
-        public string xMunFim { get { return _xMunFim; } set { _xMunFim = value; } }
-        public string UFFim { get { return _UFFim; } set { _UFFim = value; } }
-        public int retira { get { return _retira; } set { _retira = value; } }
-        public string xDetRetira { get { return _xDetRetira; } set { _xDetRetira = value; } }
+        /// <summary>
+        /// Versão 3.00 = Informe AplicativoContribuinte ou ContribuinteAplicativoFisco
+        /// Versão 2.00 = Qualquer uma das opções
+        /// </summary>
+        public procEmi procEmi { get; set; }
+
+        public string verProc { get; set; }
+
+        /// <summary>
+        /// Versão 3.00
+        /// </summary>
+        public byte? indGlobalizado { get; set; }
+
+        /// <summary>
+        /// Se null, não aparece no xml
+        /// </summary>
+        public bool indGlobalizadoSpecified { get { return indGlobalizado.HasValue; } }
+
+        /// <summary>
+        /// Versão 2.00
+        /// </summary>
+        public string refCTE { get; set; }
+
+        public string cMunEnv { get; set; }
+
+        public string xMunEnv { get; set; }
+
+        public Estado UFEnv { get; set; }
+
+        public modal modal { get; set; }
+
+        public tpServ tpServ { get; set; }
+
+        public string cMunIni { get; set; }
+
+        public string xMunIni { get; set; }
+
+        public Estado UFIni { get; set; }
+
+        public string cMunFim { get; set; }
+
+        public string xMunFim { get; set; }
+
+        public Estado UFFim { get; set; }
+
+        public retira retira { get; set; }
+
+        public string xDetRetira { get; set; }
+
+        /// <summary>
+        /// Versao 3.00 é obrigatório
+        /// </summary>
+        public indIEToma? IndIeToma { get; set; }
+
+        /// <summary>
+        /// Se null, não aparece no xml
+        /// </summary>
+        public bool IndIeTomaSpecified { get { return IndIeToma.HasValue; } }
+
+        /// <summary>
+        /// Versão 2.00 = toma03
+        /// Versão 3.00 = toma3
+        /// </summary>
+        [XmlElement("toma03", typeof(toma03))]
+        [XmlElement("toma3", typeof(toma3))]
+        public tomaBase3 tomaBase3 { get; set; }
+        public toma4 toma4 { get; set; }
+
+        public string dhCont { get; set; }
+
+        public string xJust { get; set; }
     }
 }

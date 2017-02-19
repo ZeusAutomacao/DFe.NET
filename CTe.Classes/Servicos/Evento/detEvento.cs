@@ -163,7 +163,7 @@ namespace CTeDLL.Classes.Servicos.Evento
         /// <summary>
         ///     P24 - 0 - CT-e Normal; 1 - CT-e de Complemento de Valores; 2 - CT-e de Anulação; 3 - CT-e Substituto;
         /// </summary>
-        public TipoCTe? tpCTe { get; set; }
+        public tpCTe? tpCTe { get; set; }
 
         /// <summary>
         ///     P25 - IE do Emitente

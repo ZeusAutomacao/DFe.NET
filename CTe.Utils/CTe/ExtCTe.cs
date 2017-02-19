@@ -66,7 +66,7 @@ namespace CTeDLL.Utils.CTe
         {
             if (cte == null) throw new ArgumentNullException("cte");
 
-            var versao = (Decimal.Parse(cte.infCte.versao, CultureInfo.InvariantCulture));
+            // todo var versao = (Decimal.Parse(cte.infCte.versao, CultureInfo.InvariantCulture));
 
             var xmlNfe = cte.ObterXmlString();
             // todo var cfgServico = ConfiguracaoServico.Instancia;
@@ -88,9 +88,12 @@ namespace CTeDLL.Utils.CTe
             #region Define cNF
 
             var tamanhocNf = 9;
-            var versao = (Decimal.Parse(cteLocal.infCte.versao, CultureInfo.InvariantCulture));
-            if (versao >= 2) tamanhocNf = 8;
-            cteLocal.infCte.ide.cCT = Convert.ToInt32(cteLocal.infCte.ide.cCT).ToString().PadLeft(tamanhocNf, '0');
+
+            // todo
+
+            //var versao = (Decimal.Parse(cteLocal.infCte.versao, CultureInfo.InvariantCulture));
+            //if (versao >= 2) tamanhocNf = 8;
+            //cteLocal.infCte.ide.cCT = Convert.ToInt32(cteLocal.infCte.ide.cCT).ToString().PadLeft(tamanhocNf, '0');
 
             #endregion
 

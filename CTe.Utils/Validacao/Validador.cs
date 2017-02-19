@@ -8,7 +8,7 @@ namespace CTeDLL.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoCTe servicoCTe, VersaoServico versaoServico, bool loteNfe = true)
+        internal static string ObterArquivoSchema(ServicoCTe servicoCTe, versao versao, bool loteNfe = true)
         {
             switch (servicoCTe)
             {
@@ -23,29 +23,29 @@ namespace CTeDLL.Utils.Validacao
                 case ServicoCTe.RecepcaoEventoManifestacaoDestinatario:
                     return "envConfRecebto_v1.00.xsd";
                 case ServicoCTe.CteInutilizacao:
-                    switch (versaoServico)
+                    switch (versao)
                     {
-                        case VersaoServico.ve200:
+                        case versao.ve200:
                             return "inutCTe_v2.00.xsd";
-                        case VersaoServico.ve300:
+                        case versao.ve300:
                             return "inutCTe_v3.00.xsd";
                     }
                     break;
                 case ServicoCTe.CteConsultaProtocolo:
-                    switch (versaoServico)
+                    switch (versao)
                     {
-                        case VersaoServico.ve200:
+                        case versao.ve200:
                             return "consSitCte_v2.00.xsd";
-                        case VersaoServico.ve300:
+                        case versao.ve300:
                             return "consSitCTe_v3.00.xsd";
                     }
                     break;
                 case ServicoCTe.CteStatusServico:
-                    switch (versaoServico)
+                    switch (versao)
                     {
-                        case VersaoServico.ve200:
+                        case versao.ve200:
                             return "consStatServCte_v2.00.xsd";
-                        case VersaoServico.ve300:
+                        case versao.ve300:
                             return "consStatServCTe_v3.00.xsd";
                     }
                     break;
@@ -53,7 +53,7 @@ namespace CTeDLL.Utils.Validacao
             return null;
         }
 
-        public static void Valida(ServicoCTe servicoCTe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, string pathSchema = "")
+        public static void Valida(ServicoCTe servicoCTe, versao versao, string stringXml, bool loteNfe = true, string pathSchema = "")
         {
             // todo if (string.IsNullOrEmpty(pathSchema))
                // todo  pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
@@ -61,7 +61,7 @@ namespace CTeDLL.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoCTe, versaoServico, loteNfe);
+            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoCTe, versao, loteNfe);
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
