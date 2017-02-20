@@ -7,8 +7,12 @@ namespace CTeDLL.Classes.Informacoes.Impostos
     {
         public ICMS ICMS;
 
-        private string _infAdFisco;
+        public decimal? vTotTrib { get; set; }
 
-        public string infAdFisco { get { return _infAdFisco; } set { _infAdFisco = value; } }
+        public bool vTotTribSpecified { get { return vTotTrib.HasValue; } }
+
+        public string InfAdFisco { get; set; }
+
+        public ICMSUFFim IcmsufFim { get; set; }
     }
 }

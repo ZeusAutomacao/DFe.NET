@@ -75,6 +75,7 @@
     <Compile Include="Informacoes\Identificacao\toma4.cs" />
     <Compile Include="Informacoes\Identificacao\tomaBase3.cs" />
     <Compile Include="Informacoes\Impostos\ICMS.cs" />
+    <Compile Include="Informacoes\Impostos\ICMSUFFim.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS00.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS20.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS45.cs" />

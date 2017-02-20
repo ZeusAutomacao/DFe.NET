@@ -261,4 +261,10 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("4")]
         NoIntervaloDeTempo
     }
+
+    public enum indSN
+    {
+        [XmlEnum("1")]
+        Sim
+    }
 }
