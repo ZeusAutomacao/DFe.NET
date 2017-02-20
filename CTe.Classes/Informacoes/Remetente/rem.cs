@@ -1,31 +1,26 @@
-﻿using System;
-using System.Xml.Serialization;
-
-namespace CTeDLL.Classes.Informacoes.Remetente
+﻿namespace CTeDLL.Classes.Informacoes.Remetente
 {
     public class rem
     {
-        private string _CNPJ;
-        private string _CPF;
-        private string _IE;
-        private string _xNome;
-        private string _xFant;
-        private string _fone;
-        private string _email;
+        public string CNPJ { get; set; }
 
-        public string CNPJ { get { return _CNPJ; } set { _CNPJ = value; } }
-        public string CPF { get { return _CPF; } set { _CPF = value; } }
-        public string IE { get { return _IE; } set { _IE = value; } }
-        public string xNome { get { return _xNome; } set { _xNome = value; } }
-        public string xFant { get { return _xFant; } set { _xFant = value; } }
-        public string fone { get { return _fone; } set { _fone = value; } }
-        public enderReme enderReme;
-        public string email { get { return _email; } set { _email = value; } }
+        public string CPF { get; set; }
 
-        public locColeta locColeta;
+        public string IE { get; set; }
 
-        public infNF infNF;
-        public infNFe infNFe;
-        public infOutros infOutros;
+        public string xNome { get; set; }
+
+        public string xFant { get; set; }
+
+        public string fone { get; set; }
+
+        public enderReme enderReme { get; set; }
+
+        public string email { get; set; }
+
+        /// <summary>
+        /// Versao 2.00
+        /// </summary>
+        public locColeta locColeta { get; set; }
     }
 }
