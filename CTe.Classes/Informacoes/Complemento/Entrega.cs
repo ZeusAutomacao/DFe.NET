@@ -9,9 +9,11 @@ namespace CTeDLL.Classes.Informacoes.Complemento
         [XmlElement("semData", typeof(semData))]
         [XmlElement("comData", typeof(comData))]
         [XmlElement("noPeriodo", typeof(noPeriodo))]
+        public comDataBase comData { get; set; }
+
         [XmlElement("semHora", typeof(semHora))]
         [XmlElement("comHora", typeof(comHora))]
         [XmlElement("noInter", typeof(noInter))]
-        public EntregaTipos TipoEntrega { get; set; }
+        public comHoraBase comHora { get; set; }
     }
 }

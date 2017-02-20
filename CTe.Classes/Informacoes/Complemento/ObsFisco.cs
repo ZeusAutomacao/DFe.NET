@@ -5,10 +5,9 @@ namespace CTeDLL.Classes.Informacoes.Complemento
 {
     public class ObsFisco
     {
-        private string _xCampo;
-        private string _xTexto;
         [XmlAttribute]
-        public string xCampo { get { return _xCampo; } set { _xCampo = value; } }
-        public string xTexto { get { return _xTexto; } set { _xTexto = value; } }
+        public string xCampo { get; set; }
+
+        public string xTexto { get; set; }
     }
 }

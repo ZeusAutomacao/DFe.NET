@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Complemento.Tipos;
+﻿using CTeDLL.Classes.Informacoes.Complemento.Tipos;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.Complemento
 {
-    public class semHora : EntregaTipos
+    public class semHora : comHoraBase
     {
-         public int tpHor { get; set; }
+         public tpHor tpHor { get; set; } = tpHor.SemHoraDefinida;
     }
 }

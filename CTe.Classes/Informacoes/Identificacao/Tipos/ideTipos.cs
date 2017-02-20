@@ -233,4 +233,32 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("9")]
         NaoContribuinte
     }
+
+    public enum tpPer
+    {
+        [XmlEnum("0")]
+        SemDataDefinida,
+        [XmlEnum("1")]
+        NaData,
+        [XmlEnum("2")]
+        AteAData,
+        [XmlEnum("3")]
+        ApartirDaData,
+        [XmlEnum("4")]
+        NoPeriodo
+    }
+
+    public enum tpHor
+    {
+        [XmlEnum("0")]
+        SemHoraDefinida,
+        [XmlEnum("1")]
+        NoHorario,
+        [XmlEnum("2")]
+        AteOHorario,
+        [XmlEnum("3")]
+        ApartirDoHorario,
+        [XmlEnum("4")]
+        NoIntervaloDeTempo
+    }
 }

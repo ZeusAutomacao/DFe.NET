@@ -5,14 +5,13 @@ namespace CTeDLL.Classes.Informacoes.Complemento
 {
     public class fluxo
     {
-        public pass pass;
+        public string xOrig { get; set; }
 
-        private string _xOrig;
-        private string _xDest;
-        private string _xRota;
+        [XmlElement(ElementName = "pass")]
+        public List<pass> pass { get; set; }
 
-        public string xOrig { get { return _xOrig; } set { _xOrig = value; } }
-        public string xDest { get { return _xDest; } set { _xDest = value; } }
-        public string xRota { get { return _xRota; } set { _xRota = value; } }
+        public string xDest { get; set; }
+
+        public string xRota { get; set; }
     }
 }

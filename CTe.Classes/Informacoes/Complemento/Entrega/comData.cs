@@ -1,12 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Complemento.Tipos;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.Complemento
 {
-    public class comData : EntregaTipos
+    public class comData : comDataBase
     {
-        public int tpPer { get; set; }
-        public string dProg { get; set; }
+        public tpPer tpPer { get; set; }
+
+        [XmlIgnore]
+        public DateTime dProg { get; set; }
+
+        [XmlElement(ElementName = "dProg")]
+        public string ProxydProg
+        {
+            get
+            {
+                return dProg.ParaDataString();
+             
+            }
+            set { dProg = DateTime.Parse(value); }
+        }
     }
 }

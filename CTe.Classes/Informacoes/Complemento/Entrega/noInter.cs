@@ -1,13 +1,43 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Complemento.Tipos;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.Complemento
 {
-    public class noInter : EntregaTipos
+    public class noInter : comHoraBase
     {
-        public int tpHor { get; set; }
-        public string hIni { get; set; }
-        public string hFim { get; set; }
+        public tpHor tpHor { get; set; } = tpHor.NoIntervaloDeTempo;
+
+        [XmlIgnore]
+        public TimeSpan hIni { get; set; }
+
+        [XmlElement(ElementName = "hIni")]
+        public string ProxyhIni
+        {
+            get
+            {
+                return hIni.ParaHoraString();
+
+            }
+            set { hIni = TimeSpan.Parse(value); }
+        }
+
+
+        [XmlIgnore]
+        public TimeSpan hFim { get; set; }
+
+
+        [XmlElement(ElementName = "hFim")]
+        public string ProxyhFim
+        {
+            get
+            {
+                return hFim.ParaHoraString();
+
+            }
+            set { hFim = TimeSpan.Parse(value); }
+        }
     }
 }
