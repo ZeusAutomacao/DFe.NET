@@ -15,7 +15,7 @@ namespace CTeDLL.Classes.Informacoes.Expedidor
 
         public string xBairro { get; set; }
 
-        public int cMun { get; set; }
+        public long cMun { get; set; }
 
         public string xMun { get; set; }
 
