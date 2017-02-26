@@ -489,4 +489,12 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("5")]
         Unidades = 5
     }
+
+    public enum tpNav
+    {
+        [XmlEnum("0")]
+        Interior = 0,
+        [XmlEnum("1")]
+        Cabotagem = 1
+    }
 }
