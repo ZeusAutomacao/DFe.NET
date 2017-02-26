@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class tarifa
     {
-        private string _CL;
-        private string _cTar;
-        private string _vTar;
+        public CL CL { get; set; }
 
-        public string CL { get { return _CL; } set { _CL = value; } }
-        public string cTar { get { return _cTar; } set { _cTar = value; } }
-        public string vTar { get { return _vTar; } set { _vTar = value; } }
+        public string cTar { get; set; }
 
+        public decimal vTar { get; set; }
     }
 }

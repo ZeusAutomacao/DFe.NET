@@ -128,6 +128,7 @@
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo\natCarga.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo\peri.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo\tarifa.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\infTotAP.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\lacRodo.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\moto.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo.cs" />
