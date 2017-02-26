@@ -6,11 +6,6 @@ namespace CTeDLL.Classes.Informacoes.InfCTeComplementar
 {
     public class infCteComp
     {
-        public vPresComp vPresComp;
-        public impComp impComp;
-
-        private string _chave;
-
-        public string chave { get { return _chave; } set { _chave = value; } }
+        public string chave { get; set; }
     }
 }

@@ -5,8 +5,6 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class tomaNaoICMS
     {
-        private string _refCteAnu;
-
-        public string refCteAnu { get { return _refCteAnu; } set { _refCteAnu = value; } }
+        public string refCteAnu { get; set; }
     }
 }

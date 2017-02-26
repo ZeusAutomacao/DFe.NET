@@ -6,14 +6,17 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class fat
     {
-        private string _nFat;
-        private double _vOrig;
-        private double _vDesc;
-        private double _vLiq;
+        public string nFat { get; set; }
 
-        public string nFat { get { return _nFat; } set { _nFat = value; } }
-        public double vOrig { get { return _vOrig; } set { _vOrig = value; } }
-        public double vDesc { get { return _vDesc; } set { _vDesc = value; } }
-        public double vLiq { get { return _vLiq; } set { _vLiq = value; } }
+        public decimal? vOrig { get; set; }
+
+        public decimal? vDesc { get; set; }
+
+        public decimal? vLiq { get; set; }
+
+
+        public bool vOrigSpecified => vOrig.HasValue;
+        public bool vDescSpecified => vDesc.HasValue;
+        public bool vLiqSpecified => vLiq.HasValue;
     }
 }

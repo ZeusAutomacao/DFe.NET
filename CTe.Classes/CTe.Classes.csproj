@@ -104,6 +104,7 @@
     <Compile Include="Informacoes\infCTeNorm\docAnt\idDocAntPap.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCarga.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCarga\infQ.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infCTeMultimodal.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCTeNorm.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCteSub.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCteSub\refNF.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Informacoes\infCTeNorm\infDoc\infUnidTransp.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc\lacUnidCarga.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc\lacUnidTransp.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infGlobalizado.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo\natCarga.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS\veic.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo\emiOcc.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo\occ.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infServVinc.cs" />
     <Compile Include="Informacoes\infCTeNorm\peri.cs" />
     <Compile Include="Informacoes\infCTeNorm\seg.cs" />
     <Compile Include="Informacoes\infCTeNorm\veicNovos.cs" />

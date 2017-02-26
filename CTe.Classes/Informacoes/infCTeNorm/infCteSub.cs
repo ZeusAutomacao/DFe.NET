@@ -5,11 +5,26 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infCteSub
     {
-        public tomaICMS tomaICMS;
-        public tomaNaoICMS tomaNaoICMS;
+        public string chCte { get; set; }
 
-        private string _chCte;
+        /// <summary>
+        /// Versao 3.0
+        /// </summary>
+        public string refCteAnu { get; set; }
 
-        public string chCte { get { return _chCte; } set { _chCte = value; } }
+        public tomaICMS tomaICMS { get; set; }
+
+        /// <summary>
+        /// Versao 3.0
+        /// Tag com efeito e utilização aguardando
+        /// legislação, não utilizar antes de NT
+        /// específica tratar desse procedimento
+        /// </summary>
+        public byte indAlteraToma { get; set; }
+
+        /// <summary>
+        /// Versao 2.0
+        /// </summary>
+        public tomaNaoICMS tomaNaoICMS { get; set; }
     }
 }

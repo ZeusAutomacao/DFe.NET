@@ -1,20 +1,42 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.InfCTeComplementar;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infCTeNorm
     {
-        public infCarga infCarga;
-        public infCteSub infCteSub;
-        public infDoc infDoc;
-        public docAnt docAnt;
-        public seg seg;
-        public infModal infModal;
-        public peri peri;
-        public veicNovos veicNovos;
-        public cobr cobr;
+        public infCarga infCarga { get; set; }
+        public infDoc infDoc { get; set; }
+        public docAnt docAnt { get; set; }
 
-        public contQt contQt;
+        /// <summary>
+        /// Versao 2.0
+        /// </summary>
+        public seg seg { get; set; }
+
+        public infModal infModal { get; set; }
+
+        /// <summary>
+        /// Versao 2.0
+        /// </summary>
+        [XmlElement(ElementName = "peri")]
+        public List<peri> peri { get; set; }
+
+        [XmlElement(ElementName = "veicNovos")]
+        public List<veicNovos> veicNovos { get; set; }
+        public cobr cobr { get; set; }
+        public infCteSub infCteSub { get; set; }
+
+        /// <summary>
+        /// Versao 3.0
+        /// </summary>
+        public infGlobalizado infGlobalizado { get; set; }
+
+        /// <summary>
+        /// Versao 3.0
+        /// </summary>
+        public infServVinc infServVinc { get; set; }
     }
 }

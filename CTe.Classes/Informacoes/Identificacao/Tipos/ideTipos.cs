@@ -267,4 +267,128 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("1")]
         Sim
     }
+
+    public enum cUnid
+    {
+        [XmlEnum("00")]
+        M3 = 00,
+        [XmlEnum("01")]
+        KG = 01,
+        [XmlEnum("02")]
+        TON = 02,
+        [XmlEnum("03")]
+        UNIDADE = 03,
+        [XmlEnum("04")]
+        LITROS = 04,
+        [XmlEnum("05")]
+        MMBTU = 05
+    }
+
+    public enum mod
+    {
+        [XmlEnum("01")]
+        NFModelo01A1eAvulsa,
+        [XmlEnum("04")]
+        NFdeProdutor
+    }
+
+    public enum tpUnidCarga
+    {
+        [XmlEnum("1")]
+        Container = 1,
+        [XmlEnum("2")]
+        ULD = 2,
+        [XmlEnum("3")]
+        Pallet = 3,
+        [XmlEnum("4")]
+        Outros = 4
+    }
+
+    public enum tpUnidTransp
+    {
+        [XmlEnum("1")]
+        RodoviarioTracao = 1,
+        [XmlEnum("2")]
+        RodoviarioReboque = 2,
+        [XmlEnum("3")]
+        Navio = 3,
+        [XmlEnum("4")]
+        Balsa = 4,
+        [XmlEnum("5")]
+        Aeronave = 5,
+        [XmlEnum("6")]
+        Vagao = 6,
+        [XmlEnum("7")]
+        Outros = 7
+    }
+
+    public enum tpDoc
+    {
+        [XmlEnum("00")]
+        Declaracao = 00,
+        [XmlEnum("10")]
+        Dutoviario = 10,
+        [XmlEnum("59")]
+        CFeSAT = 59,
+        [XmlEnum("65")]
+        NFCe = 65,
+        [XmlEnum("99")]
+        Outros = 99
+    }
+
+    public enum tpDocAnterior
+    {
+        [XmlEnum("00")]
+        CTRC = 00,
+        [XmlEnum("01")]
+        CTAC = 01,
+        [XmlEnum("02")]
+        ACT = 02,
+        [XmlEnum("03")]
+        NFModelo7 = 03,
+        [XmlEnum("04")]
+        NFModelo27 = 04,
+        [XmlEnum("05")]
+        ConhecimentoAereoNacional = 05,
+        [XmlEnum("06")]
+        CTMC = 06,
+        [XmlEnum("07")]
+        ARTE = 07,
+        [XmlEnum("08")]
+        DTA = 08,
+        [XmlEnum("09")]
+        ConhecimentoAereoInternacional = 09,
+        [XmlEnum("10")]
+        ConhecimentoCartaDePorteInternacional = 10,
+        [XmlEnum("11")]
+        ConhecimentoAvulso = 11,
+        [XmlEnum("12")]
+        TIF = 12,
+        [XmlEnum("99")]
+        Outros = 99
+    }
+
+    public enum respSeg
+    {
+        [XmlEnum("0")]
+        Remetente = 0,
+        [XmlEnum("1")]
+        Expedidor = 1,
+        [XmlEnum("2")]
+        Recebedor = 2,
+        [XmlEnum("3")]
+        Destinatario = 3,
+        [XmlEnum("4")]
+        EmitenteDoCTe = 4,
+        [XmlEnum("5")]
+        TomadorDoServico = 5
+    }
+
+    public enum versaoModal
+    {
+        [XmlEnum("2.00")]
+        veM200,
+        [XmlEnum("3.00")]
+        veM300
+    }
 }

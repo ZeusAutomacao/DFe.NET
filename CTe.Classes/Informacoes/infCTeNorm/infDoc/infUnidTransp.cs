@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infUnidTransp
     {
-        public int tpUnidTransp { get; set; }
+        public tpUnidTransp tpUnidTransp { get; set; }
 
         public string idUnidTransp { get; set; }
 
         [XmlElement("lacUnidTransp")]
-        public lacUnidTransp lacUnidTransp { get; set; }
+        public List<lacUnidTransp> lacUnidTransp { get; set; }
 
         [XmlElement("infUnidCarga")]
-        public infUnidCarga infUnidCarga { get; set; }
+        public List<infUnidCarga> infUnidCarga { get; set; }
 
         public decimal? qtdRat { get; set; }
+
+        public bool qtdRatSpecified => qtdRat.HasValue;
     }
 }

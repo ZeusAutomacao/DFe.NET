@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infModal
     {
-        private string _versaoModal;
-
         [XmlAttribute]
-        public string versaoModal { get { return _versaoModal; } set { _versaoModal = value; } }
+        public versaoModal versaoModal { get; set; }
 
         public rodo rodo { get; set; }
 

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
+﻿using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infQ
     {
-        private string _cUnid;
-        private string _tpMed;
-        private double _qCarga;
+        public cUnid cUnid { get; set; }
 
-        public string cUnid { get { return _cUnid; } set { _cUnid = value; } }
-        public string tpMed { get { return _tpMed; } set { _tpMed = value; } }
-        public double qCarga { get { return _qCarga; } set { _qCarga = value; } }
+        public string tpMed { get; set; }
+
+        public decimal qCarga { get; set; }
     }
 }

@@ -5,12 +5,10 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class tomaICMS
     {
-        public refNF refNf;
+        public string refNFe { get; set; }
 
-        private string _refNFe;
-        private string _refCte;
+        public refNF refNf { get; set; }
 
-        public string refNFe { get { return _refNFe; } set { _refNFe = value; } }
-        public string refCte { get { return _refCte; } set { _refCte = value; } }
+        public string refCte { get; set; }
     }
 }
