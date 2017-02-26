@@ -1,29 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Entidades;
+using DFe.Classes.Extencoes;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class prop
     {
-        private string _CPF;
-        private string _CNPJ;
-        private string _TAF;
-        private string _NroRegEstadual;
-        private string _xNome;
-        private string _IE;
-        private string _UF;
-        private string _tpProp;
+        public string CPF { get; set; }
+
+        public string CNPJ { get; set; }
+        public string RNTRC { get; set; }
+
+        public string TAF { get; set; }
+
+        public string NroRegEstadual { get; set; }
+
+        public string xNome { get; set; }
+
+        public string IE { get; set; }
+
+        [XmlIgnore]
+        public Estado UF { get; set; }
 
 
-        public string CPF { get { return _CPF; } set { _CPF = value; } }
-        public string CNPJ { get { return _CNPJ; } set { _CNPJ = value; } }
-        public string TAF { get { return _TAF; } set { _TAF = value; } }
-        public string NroRegEstadual { get { return _NroRegEstadual; } set { _NroRegEstadual = value; } }
-        public string xNome { get { return _xNome; } set { _xNome = value; } }
-        public string IE { get { return _IE; } set { _IE = value; } }
-        public string UF { get { return _UF; } set { _UF = value; } }
-        public string tpProp { get { return _tpProp; } set { _tpProp = value; } }
+        [XmlElement(ElementName = "UF")]
+        public string ProxyUF
+        {
+            get { return UF.GetSiglaUfString(); }
+            set { UF = UF.SiglaParaEstado(value); }
+        }
 
+        public tpPropProp tpProp { get; set; }
     }
 }

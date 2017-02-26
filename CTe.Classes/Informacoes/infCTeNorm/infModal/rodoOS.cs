@@ -6,11 +6,9 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class rodoOS
     {
-        private string _TAF;
-        private string _NroRegEstadual;
+        public string TAF { get; set; }
 
-        public string TAF { get { return _TAF; } set { _TAF = value; } }
-        public string NroRegEstadual { get { return _NroRegEstadual; } set { _NroRegEstadual = value; } }
+        public string NroRegEstadual { get; set; }
 
         public veic veic { get; set; }
     }

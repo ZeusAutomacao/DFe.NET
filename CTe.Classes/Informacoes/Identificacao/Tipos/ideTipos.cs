@@ -397,4 +397,72 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("3.00")]
         veM300
     }
+
+    public enum lota
+    {
+        [XmlEnum("0")]
+        Nao = 0,
+        [XmlEnum("1")]
+        Sim = 1
+    }
+
+    public enum tpProp
+    {
+        [XmlEnum("P")]
+        Proprio,
+        [XmlEnum("T")]
+        Terceiro
+    }
+
+    public enum tpVeic
+    {
+        [XmlEnum("0")]
+        Tracao = 0,
+        [XmlEnum("1")]
+        Reboque = 1
+    }
+
+    public enum tpRod
+    {
+        [XmlEnum("00")]
+        NaoAplicavel = 00,
+        [XmlEnum("01")]
+        Truck = 01,
+        [XmlEnum("02")]
+        Toco = 02,
+        [XmlEnum("03")]
+        CavaloMecanico = 03,
+        [XmlEnum("04")]
+        Van = 04,
+        [XmlEnum("05")]
+        Utilitario = 05,
+        [XmlEnum("06")]
+        Outros = 06
+    }
+
+    public enum tpCar
+    {
+        [XmlEnum("00")]
+        NaoAplicavel = 00,
+        [XmlEnum("01")]
+        Aberta = 01,
+        [XmlEnum("02")]
+        Fechada = 02,
+        [XmlEnum("03")]
+        Graneleira = 03,
+        [XmlEnum("04")]
+        PortaContainer = 04,
+        [XmlEnum("05")]
+        Sider = 05
+    }
+
+    public enum tpPropProp
+    {
+        [XmlEnum("0")]
+        TACAgregado = 0,
+        [XmlEnum("1")]
+        TACIndependente = 1,
+        [XmlEnum("2")]
+        Outros = 2
+    }
 }

@@ -1,20 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Entidades;
+using DFe.Classes.Extencoes;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class veic
     {
-        private string _placa;
-        private string _RENAVAM;
-        private string _UF;
+        public string cInt { get; set; }
+        public string RENAVAM { get; set; }
+        public string placa { get; set; }
+        public int? tara { get; set; }
+        public bool taraSpecified => tara.HasValue;
+        public int? capKG { get; set; }
+        public bool capKGSpecified => capKG.HasValue;
+        public int? capM3 { get; set; }
+        public bool capM3Specified => capM3.HasValue;
+        public tpProp? tpProp { get; set; }
+        public bool tpPropSpecified => tpProp.HasValue;
+        public tpVeic? tpVeic { get; set; }
+        public bool tpVeicSpecified => tpVeic.HasValue;
+        public tpCar? tpCar { get; set; }
+        public bool tpCarSpecified => tpCar.HasValue;
+        public tpRod? tpRod { get; set; }
+        public bool tpRodSpecified => tpRod.HasValue;
 
-        public string placa { get { return _placa; } set { _placa = value; } }
-        public string RENAVAM { get { return _RENAVAM; } set { _RENAVAM = value; } }
+        [XmlIgnore]
+        public Estado UF { get; set; }
+
+
+        [XmlElement(ElementName = "UF")]
+        public string ProxyUF
+        {
+            get { return UF.GetSiglaUfString(); }
+            set { UF = UF.SiglaParaEstado(value); }
+        }
 
         public prop prop { get; set; }
-
-        public string UF { get { return _UF; } set { _UF = value; } }
     }
 }
