@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
+using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 
@@ -105,7 +107,15 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
         public string xMunEnv { get; set; }
 
+        [XmlIgnore]
         public Estado UFEnv { get; set; }
+
+        [XmlElement(ElementName = "UFEnv")]
+        public string ProxyUFEnv
+        {
+            get { return UFEnv.GetSiglaUfString(); }
+            set { UFEnv = UFEnv.SiglaParaEstado(value); }
+        }
 
         public modal modal { get; set; }
 
@@ -115,13 +125,28 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
         public string xMunIni { get; set; }
 
+        [XmlIgnore]
         public Estado UFIni { get; set; }
+
+        [XmlElement(ElementName = "UFIni")]
+        public string ProxyUFIni { get { return UFIni.GetSiglaUfString(); }
+            set { UFIni = UFIni.SiglaParaEstado(value); } }
 
         public string cMunFim { get; set; }
 
         public string xMunFim { get; set; }
 
+        [XmlIgnore]
         public Estado UFFim { get; set; }
+
+        [XmlElement(ElementName = "UFFim")]
+        public string ProxyUFFim { get { return UFFim.GetSiglaUfString(); } set
+        {
+            UFFim = UFFim.SiglaParaEstado(value);
+        } }
+
+        [XmlElement(ElementName = "infPercurso")]
+        public List<infPercurso> infPercurso { get; set; }
 
         public retira retira { get; set; }
 
@@ -146,7 +171,19 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         public tomaBase3 tomaBase3 { get; set; }
         public toma4 toma4 { get; set; }
 
-        public string dhCont { get; set; }
+        public DateTime? dhCont { get; set; }
+
+        [XmlElement(ElementName = "dhCont")]
+        public string ProxydhCont
+        {
+            get
+            {
+                if (dhCont == null) return null;
+
+                return dhCont.Value.ParaDataHoraString();
+            }
+            set { dhCont = Convert.ToDateTime(value); }
+        }
 
         public string xJust { get; set; }
     }

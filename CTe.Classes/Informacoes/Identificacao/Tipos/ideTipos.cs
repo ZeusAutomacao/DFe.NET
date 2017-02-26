@@ -189,7 +189,13 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("3")]
         redespachoIntermediario,
         [XmlEnum("4")]
-        servicoVinculadoMultimodal
+        servicoVinculadoMultimodal,
+        [XmlEnum("6")]
+        transportePessoas = 6,
+        [XmlEnum("7")]
+        transporteValores = 7,
+        [XmlEnum("8")]
+        excessoBagagem = 8
     }
 
     public enum retira

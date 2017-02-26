@@ -69,11 +69,13 @@
     <Compile Include="Informacoes\Expedidor\exped.cs" />
     <Compile Include="Informacoes\Identificacao\enderToma.cs" />
     <Compile Include="Informacoes\Identificacao\ide.cs" />
+    <Compile Include="Informacoes\Identificacao\infPercurso.cs" />
     <Compile Include="Informacoes\Identificacao\Tipos\ideTipos.cs" />
     <Compile Include="Informacoes\Identificacao\toma03.cs" />
     <Compile Include="Informacoes\Identificacao\toma3.cs" />
     <Compile Include="Informacoes\Identificacao\toma4.cs" />
     <Compile Include="Informacoes\Identificacao\tomaBase3.cs" />
+    <Compile Include="Informacoes\Identificacao\tomaCteOs.cs" />
     <Compile Include="Informacoes\Impostos\ICMS.cs" />
     <Compile Include="Informacoes\Impostos\ICMSUFFim.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\ICMS00.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Informacoes\Impostos\ICMS\ICMSSN.cs" />
     <Compile Include="Informacoes\Impostos\ICMS\Tipos\ICMSBasico.cs" />
     <Compile Include="Informacoes\Impostos\imp.cs" />
+    <Compile Include="Informacoes\Impostos\infTribFed.cs" />
     <Compile Include="Informacoes\infCte.cs" />
     <Compile Include="Informacoes\infCteAnu\infCteAnu.cs" />
     <Compile Include="Informacoes\infCteComp\impComp.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Informacoes\infCTeNorm\infCteSub\tomaICMS.cs" />
     <Compile Include="Informacoes\infCTeNorm\infCteSub\tomaNaoICMS.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infDocRef.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc\infNF.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc\infNFe.cs" />
     <Compile Include="Informacoes\infCTeNorm\infDoc\infOutros.cs" />
@@ -130,6 +134,8 @@
     <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS\veic.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo\emiOcc.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo\occ.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infQcteOs.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infServico.cs" />
     <Compile Include="Informacoes\infCTeNorm\infServVinc.cs" />
     <Compile Include="Informacoes\infCTeNorm\peri.cs" />
     <Compile Include="Informacoes\infCTeNorm\seg.cs" />

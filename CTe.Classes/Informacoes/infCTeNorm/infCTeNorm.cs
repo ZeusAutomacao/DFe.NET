@@ -7,6 +7,11 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infCTeNorm
     {
+        public infServico infServico { get; set; }
+        public infQcteOs infQ { get; set; }
+
+        [XmlElement(ElementName = "infDocRef")]
+        public List<infDocRef> infDocRef { get; set; }
         public infCarga infCarga { get; set; }
         public infDoc infDoc { get; set; }
         public docAnt docAnt { get; set; }
@@ -14,7 +19,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         /// <summary>
         /// Versao 2.0
         /// </summary>
-        public seg seg { get; set; }
+        public List<seg> seg { get; set; }
 
         public infModal infModal { get; set; }
 

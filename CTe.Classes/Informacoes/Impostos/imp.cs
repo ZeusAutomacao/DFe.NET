@@ -14,5 +14,7 @@ namespace CTeDLL.Classes.Informacoes.Impostos
         public string InfAdFisco { get; set; }
 
         public ICMSUFFim IcmsufFim { get; set; }
+
+        public infTribFed infTribFed { get; set; }
     }
 }

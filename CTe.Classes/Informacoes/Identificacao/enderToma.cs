@@ -1,4 +1,6 @@
-﻿using DFe.Classes.Entidades;
+﻿using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Classes.Extencoes;
 
 namespace CTeDLL.Classes.Informacoes.Identificacao
 {
@@ -18,7 +20,11 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
         public string CEP { get; set; }
 
+        [XmlIgnore]
         public Estado UF { get; set; }
+
+        [XmlElement(ElementName = "UF")]
+        public string ProxyUF { get { return UF.GetSiglaUfString(); } set { UF = UF.SiglaParaEstado(value); } }
 
         public int? cPais { get; set; }
 
