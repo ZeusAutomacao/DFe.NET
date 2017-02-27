@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class rodoOS
+    public class rodoOS : ContainerModal
     {
         public string TAF { get; set; }
 

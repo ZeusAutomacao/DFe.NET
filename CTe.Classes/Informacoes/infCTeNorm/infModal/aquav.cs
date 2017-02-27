@@ -4,7 +4,7 @@ using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class aquav
+    public class aquav : ContainerModal
     {
         public decimal vPrest { get; set; }
         public decimal vAFRMM { get; set; }

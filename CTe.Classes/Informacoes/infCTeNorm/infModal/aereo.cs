@@ -6,7 +6,7 @@ using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class aereo
+    public class aereo : ContainerModal
     {
         public string nMinu { get; set; }
 

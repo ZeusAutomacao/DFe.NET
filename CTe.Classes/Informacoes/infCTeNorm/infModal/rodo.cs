@@ -6,7 +6,7 @@ using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class rodo
+    public class rodo : ContainerModal
     {
         public string RNTRC { get; set; }
 

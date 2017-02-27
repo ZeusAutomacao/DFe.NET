@@ -6,7 +6,7 @@ using DFe.Classes.Extencoes;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class ferrov
+    public class ferrov : ContainerModal
     {
         public tpTraf tpTraf { get; set; }
 

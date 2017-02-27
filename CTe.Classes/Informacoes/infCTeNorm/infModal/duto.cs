@@ -4,7 +4,7 @@ using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
-    public class duto
+    public class duto : ContainerModal
     {
         public decimal? vTar { get; set; }
         public bool vTarSpecified => vTar.HasValue;

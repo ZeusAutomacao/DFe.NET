@@ -130,6 +130,7 @@
     <Compile Include="Informacoes\infCTeNorm\infModal\aereo\tarifa.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\aquav.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\balsa.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\ContainerModal.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\detCont.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\duto.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\ferrov.cs" />
