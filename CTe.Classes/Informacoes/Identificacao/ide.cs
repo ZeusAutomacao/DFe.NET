@@ -51,7 +51,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         {
             get
             {
-                switch (_configuracaoServico.VersaoServico)
+                switch (_configuracaoServico.VersaoLayout)
                 {
                     case versao.ve200:
                         return dhEmi.ParaDataHoraStringSemUtc();

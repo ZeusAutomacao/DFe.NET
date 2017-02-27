@@ -2,6 +2,7 @@
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
+using CTeDLL;
 using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -504,26 +505,15 @@ namespace CTe.AppTeste
                 Serial = config.CertificadoDigital.NumeroDeSerie
             };
 
-            /* todo Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
-                config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
-                config.ConfigWebService.VersaoMDFeConsulta;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
-                config.ConfigWebService.VersaoMDFeRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
-                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
-                config.ConfigWebService.VersaoMDFeRetRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
-                config.ConfigWebService.VersaoMDFeStatusServico;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;*/
+            ConfiguracaoServico.Instancia.Certificado = configuracaoCertificado;
+            ConfiguracaoServico.Instancia.TimeOut = config.ConfigWebService.TimeOut;
+            ConfiguracaoServico.Instancia.cUF = config.ConfigWebService.UfEmitente;
+            ConfiguracaoServico.Instancia.tpAmb = config.ConfigWebService.Ambiente;
+            ConfiguracaoServico.Instancia.VersaoLayout = config.ConfigWebService.Versao;
+            ConfiguracaoServico.Instancia.DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
+            ConfiguracaoServico.Instancia.IsSalvarXml = config.IsSalvarXml;
+            ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
         }
     }
 }
