@@ -131,9 +131,12 @@
     <Compile Include="Informacoes\infCTeNorm\infModal\aquav.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\balsa.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\detCont.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\duto.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\ferrov.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\infTotAP.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\lacRodo.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\moto.cs" />
+    <Compile Include="Informacoes\infCTeNorm\infModal\multimodal.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodo.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS.cs" />
     <Compile Include="Informacoes\infCTeNorm\infModal\rodoOS\prop.cs" />

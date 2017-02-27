@@ -497,4 +497,40 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("1")]
         Cabotagem = 1
     }
+
+    public enum tpTraf
+    {
+        [XmlEnum("0")]
+        Proprio = 0,
+        [XmlEnum("1")]
+        Mutuo = 1,
+        [XmlEnum("2")]
+        Rodoferroviario = 2,
+        [XmlEnum("3")]
+        Rodoviario = 3
+    }
+
+    public enum respFat
+    {
+        [XmlEnum("1")]
+        FerroviaDeOrigem = 1,
+        [XmlEnum("2")]
+        FerroviaDeDestino =2
+    }
+
+    public enum ferrEmi
+    {
+        [XmlEnum("1")]
+        FerroviaDeOrigem = 1,
+        [XmlEnum("2")]
+        FerroviaDeDestino = 2
+    }
+
+    public enum indNegociavel
+    {
+        [XmlEnum("0")]
+        NaoNegociavel = 0,
+        [XmlEnum("1")]
+        Negociavel = 1
+    }
 }
