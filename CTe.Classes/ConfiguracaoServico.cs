@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 
 namespace CTeDLL
 {
@@ -16,13 +18,20 @@ namespace CTeDLL
 
         private ConfiguracaoServico()
         {
-            Certificado = new ConfiguracaoCertificado();
+            ConfiguracaoCertificado = new ConfiguracaoCertificado();
         }
 
         /// <summary>
         ///     Configurações relativas ao Certificado Digital
         /// </summary>
-        public ConfiguracaoCertificado Certificado { get; set; }
+        public ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
+
+        public X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
+
+        private X509Certificate2 ObterCertificado()
+        {
+            return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
+        }
 
         /// <summary>
         ///     Tempo máximo de espera pela resposta do webservice, em milisegundos

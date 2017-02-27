@@ -43,6 +43,7 @@
     <Compile Include="ConfiguracaoApp.cs" />
     <Compile Include="ConfiguracaoServico.cs" />
     <Compile Include="CTe.cs" />
+    <Compile Include="Ext\extversao.cs" />
     <Compile Include="Impressao\ConfiguracaoDacte.cs" />
     <Compile Include="Informacoes\autXML.cs" />
     <Compile Include="Informacoes\Complemento\Comp.cs" />

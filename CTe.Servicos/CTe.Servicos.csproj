@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ConsultaStatus\StatusServico.cs" />
     <Compile Include="Enderecador.cs" />
+    <Compile Include="Factory\WsdlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retorno\RetornoBasico.cs" />
     <Compile Include="Retorno\RetornoConsulta.cs" />

@@ -506,7 +506,7 @@ namespace CTe.AppTeste
             };
 
 
-            ConfiguracaoServico.Instancia.Certificado = configuracaoCertificado;
+            ConfiguracaoServico.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
             ConfiguracaoServico.Instancia.TimeOut = config.ConfigWebService.TimeOut;
             ConfiguracaoServico.Instancia.cUF = config.ConfigWebService.UfEmitente;
             ConfiguracaoServico.Instancia.tpAmb = config.ConfigWebService.Ambiente;
