@@ -1,0 +1,17 @@
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\CTe.AppTeste.exe.config
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\CTe.AppTeste.exe
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\CTe.AppTeste.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\DFe.Classes.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\DFe.Classes.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.csprojResolveAssemblyReference.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\MainWindow.g.cs
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\App.g.cs
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste_MarkupCompile.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste_MarkupCompile.lref
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\MainWindow.baml
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.g.resources
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.Properties.Resources.resources
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.csproj.GenerateResource.Cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.exe
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.pdb

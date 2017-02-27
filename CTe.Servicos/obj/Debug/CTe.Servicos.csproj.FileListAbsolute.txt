@@ -1,0 +1,13 @@
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\obj\Debug\CTe.Servicos.csprojResolveAssemblyReference.cache
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Servicos.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Servicos.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Classes.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Wsdl.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\DFe.Classes.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\DFe.Utils.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Classes.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\CTe.Wsdl.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\DFe.Classes.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\bin\Debug\DFe.Utils.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\obj\Debug\CTe.Servicos.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Servicos\obj\Debug\CTe.Servicos.pdb
