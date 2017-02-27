@@ -3,8 +3,11 @@ using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
+using CTe.Servicos.ConsultaProtocolo;
+using CTe.Utils.Extencoes;
 using CTeDLL;
 using CTeDLL.Classes.Servicos;
+using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
 using CTeDLL.Servicos.ConsultaStatus;
 using DFe.Classes.Entidades;
@@ -552,5 +555,106 @@ namespace CTe.AppTeste
 
             SucessoSync.Invoke(this, e);
         }
+
+        public void ConsultaPorProtocolo()
+        {
+            var porChave = MessageBoxConfirmTuche("Sim = Por chave\nNão = Por arquivo xml");
+            var chave = string.Empty;
+
+            if (porChave == DialogResult.Yes)
+            {
+                chave = InputBoxTuche("Digite a chave de acesso da MDF-e");
+            }
+
+            if (porChave == DialogResult.No)
+            {
+                chave = BuscarChave();
+            }
+
+            if (string.IsNullOrEmpty(chave))
+            {
+                MessageBoxTuche("Ops.. Não a oque fazer sem uma chave de acesso");
+                return;
+            }
+
+
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var servicoConsultaProtocolo = new ConsultaProtcoloServico();
+            var retorno = servicoConsultaProtocolo.ConsultaProtocolo(chave);
+
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+
+        }
+
+        private static void MessageBoxTuche(string mensagem, MessageBoxIcon icon = MessageBoxIcon.Information)
+        {
+            MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.OK, icon);
+        }
+
+        private string BuscarChave()
+        {
+            var chave = string.Empty;
+            var caminhoArquivoXml = BuscarArquivoXml();
+
+            if (caminhoArquivoXml != null)
+            {
+                if (caminhoArquivoXml.Contains("completo"))
+                {
+                    var enviCTe = CTeDLL.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
+
+                    chave = enviCTe.CTe[0].Chave();
+                }
+                else
+                {
+                    var cte = Classes.CTe.LoadXmlArquivo(caminhoArquivoXml);
+
+                    chave = cte.Chave();
+                }
+            }
+            return chave;
+        }
+
+        public string BuscarArquivoXml()
+        {
+            var janelaArquivo = new OpenFileDialog
+            {
+                Filter = "XML(*.xml)|*.xml"
+            };
+
+            if (janelaArquivo.ShowDialog() == true)
+            {
+                var caminhoXml = janelaArquivo.FileName;
+
+                if (caminhoXml == null) return string.Empty;
+
+                return caminhoXml;
+            }
+            return string.Empty;
+        }
+
+
+        private static string InputBoxTuche(string titulo)
+        {
+            var inputBox = new InputBoxWindow
+            {
+                TxtValor = { Text = string.Empty },
+                TxtDescricao = { Text = titulo }
+            };
+            inputBox.ShowDialog();
+
+            var valor = inputBox.TxtValor.Text;
+
+            return valor;
+        }
+
+        private static DialogResult MessageBoxConfirmTuche(string mensagem)
+        {
+            return MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        }
+
+
     }
 }

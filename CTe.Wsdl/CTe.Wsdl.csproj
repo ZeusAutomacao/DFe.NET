@@ -41,9 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="ConsultaProtocolo\CteConsulta.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="cteCabecMsg.cs" />
     <Compile Include="Evento\RecepcaoEvento.cs">
       <SubType>Component</SubType>

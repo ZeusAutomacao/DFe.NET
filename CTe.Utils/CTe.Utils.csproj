@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consulta\ExtconsSitCTe.cs" />
     <Compile Include="Consulta\ExtprocEventoCTe.cs" />
     <Compile Include="Consulta\ExtretConsSitCTe.cs" />
     <Compile Include="CTe\ExCteProc.cs" />
@@ -48,7 +47,10 @@
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtprocEventoCTe.cs" />
     <Compile Include="Evento\ExtretEnvEvento.cs" />
+    <Compile Include="Extencoes\ExtconsSitCTe.cs" />
     <Compile Include="Extencoes\ExtconsStatServCte.cs" />
+    <Compile Include="Extencoes\ExtCTe.cs" />
+    <Compile Include="Extencoes\ExtretConsSitCTe.cs" />
     <Compile Include="Inutilizacao\ExtinutCTe.cs" />
     <Compile Include="Inutilizacao\ExtretInutCTe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

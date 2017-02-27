@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 
 namespace CTeDLL.Classes.Protocolo
 {
@@ -13,7 +14,7 @@ namespace CTeDLL.Classes.Protocolo
         ///     PR02 - Versão do leiaute das informações de Protocolo.
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     PR03 - Informações do Protocolo de resposta. TAG a ser assinada

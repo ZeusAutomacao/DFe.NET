@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="InputBoxWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +75,9 @@
     <Compile Include="Entidades\ConfigWebService.cs" />
     <Compile Include="Entidades\Empresa.cs" />
     <Compile Include="EnumBindable\EnumBindingSourceExtension.cs" />
+    <Compile Include="InputBoxWindow.xaml.cs">
+      <DependentUpon>InputBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -448,6 +455,10 @@
     <ProjectReference Include="..\CTe.Servicos\CTe.Servicos.csproj">
       <Project>{63227402-2B1E-4BC7-A6DF-362129923CF6}</Project>
       <Name>CTe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CTe.Utils\CTe.Utils.csproj">
+      <Project>{21a894ec-b79e-4936-bff3-abead2e5c44f}</Project>
+      <Name>CTe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>

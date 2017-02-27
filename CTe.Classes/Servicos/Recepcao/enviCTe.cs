@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Utils;
 using CteEletronica = CTe.Classes.CTe;
 
 namespace CTeDLL.Classes.Servicos.Recepcao
@@ -33,6 +34,17 @@ namespace CTeDLL.Classes.Servicos.Recepcao
         ///     AP04 - Conjunto de CT-e transmitidas
         /// </summary>
         [XmlElement("CTe")]
-        public List<CTe.Classes.CTe> CTe { get; set; }
+        public List<CteEletronica> CTe { get; set; }
+
+
+        public static enviCTe LoadXmlString(string xml)
+        {
+            return FuncoesXml.XmlStringParaClasse<enviCTe>(xml);
+        }
+
+        public static enviCTe LoadXmlArquivo(string caminhoArquivoXml)
+        {
+            return FuncoesXml.ArquivoXmlParaClasse<enviCTe>(caminhoArquivoXml);
+        }
     }
 }

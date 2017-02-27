@@ -79,7 +79,7 @@ namespace CTe.AppTeste
 
         private void ConsultaPorProtocolo_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.ConsultaPorProtocolo();
         }
 
         private void ConsultaStatus_Click(object sender, RoutedEventArgs e)

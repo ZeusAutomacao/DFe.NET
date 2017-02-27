@@ -2,19 +2,21 @@
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Protocolo;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Consulta
 {
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class retConsSitCTe : RetornoBase
     {
         /// <summary>
         ///     ER02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     ER03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação
@@ -43,11 +45,6 @@ namespace CTeDLL.Classes.Servicos.Consulta
         public Estado cUF { get; set; }
 
         /// <summary>
-        ///     EP07a - Chave de Acesso da CT-e consultada
-        /// </summary>
-        public string chCTe { get; set; }
-
-        /// <summary>
         ///     ER08 - Protocolo de autorização ou denegação de uso da CT-e (vide item 4.2.2).
         ///     Informar se localizado uma CT-e com cStat = 100 (uso autorizado) ou 110 (uso denegado).
         /// </summary>
@@ -58,5 +55,20 @@ namespace CTeDLL.Classes.Servicos.Consulta
         /// </summary>
         [XmlElement("procEventoCTe")]
         public List<procEventoCTe> procEventoCTe { get; set; }
+
+
+        public static retConsSitCTe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retConsSitCTe>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static retConsSitCTe LoadXml(string xml, consSitCTe consSitCTe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitCTe);
+            return retorno;
+        }
     }
 }

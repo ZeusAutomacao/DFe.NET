@@ -1,5 +1,5 @@
 ﻿using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Flags;
 
 namespace CTeDLL.Classes.Servicos.Consulta
@@ -16,7 +16,7 @@ namespace CTeDLL.Classes.Servicos.Consulta
         ///     EP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     EP03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
