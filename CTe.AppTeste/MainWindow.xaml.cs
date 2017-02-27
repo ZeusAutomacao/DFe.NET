@@ -38,12 +38,12 @@ namespace CTe.AppTeste
             _model.SalvarConfiguracoesXml();
         }
 
-        private void Enviar1_0_Click(object sender, RoutedEventArgs e)
+        private void ConsultarStatusServico2Click(object sender, RoutedEventArgs e)
         {
             
         }
 
-        private void GerarESalvar1_0_Click(object sender, RoutedEventArgs e)
+        private void ConsultarStatusServico3Click(object sender, RoutedEventArgs e)
         {
             
         }

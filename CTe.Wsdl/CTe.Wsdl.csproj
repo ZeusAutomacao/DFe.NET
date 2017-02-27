@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="ConsultaProtocolo\CteConsulta.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -58,9 +59,7 @@
     <Compile Include="Recepcao\CteRetRecepcao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Status\CteStatusServico.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Status\CteStatusServico.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">

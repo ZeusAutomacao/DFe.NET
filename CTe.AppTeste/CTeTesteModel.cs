@@ -515,5 +515,15 @@ namespace CTe.AppTeste
             ConfiguracaoServico.Instancia.IsSalvarXml = config.IsSalvarXml;
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
         }
+
+        public void ConsultarStatusServico2()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+
+
+
+        }
     }
 }

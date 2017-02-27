@@ -229,8 +229,8 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Button Click="Enviar1_0_Click">Criar e enviar 1.00</Button>
-                    <Button Grid.Row="0" Grid.Column="1" Click="GerarESalvar1_0_Click">Gerar e Salvar 1.00</Button>
+                    <Button Click="ConsultarStatusServico2Click">Consultar Status Serviço 2.0</Button>
+                    <Button Grid.Row="0" Grid.Column="1" Click="ConsultarStatusServico3Click">Consultar Status Serviço 3.0</Button>
                     <Button Grid.Column="0" Grid.Row="1" Click="ConsultaPorRecibo_Click">Consulta Por Recibo 1.00</Button>
                     <Button Grid.Column="1" Grid.Row="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo 1.00</Button>
                     <Button Grid.Row="2" Grid.Column="0" Click="ConsultaStatus_Click">Consulta Status Serviço 1.00</Button>

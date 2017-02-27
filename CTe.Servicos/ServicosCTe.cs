@@ -18,7 +18,6 @@ using CTeDLL.Wsdl.ConsultaProtocolo;
 using CTeDLL.Wsdl.Evento;
 using CTeDLL.Wsdl.Inutilizacao;
 using CTeDLL.Wsdl.Recepcao;
-using CTeDLL.Wsdl.Status;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;

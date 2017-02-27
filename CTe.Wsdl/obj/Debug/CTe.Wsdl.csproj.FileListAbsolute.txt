@@ -1,6 +1,0 @@
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\bin\Debug\CTe.Wsdl.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\bin\Debug\CTe.Wsdl.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\bin\Debug\DFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\bin\Debug\DFe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\obj\Debug\CTe.Wsdl.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Wsdl\obj\Debug\CTe.Wsdl.pdb
