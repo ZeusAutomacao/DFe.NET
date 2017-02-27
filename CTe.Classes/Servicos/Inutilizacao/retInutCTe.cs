@@ -4,7 +4,7 @@ using DFe.Classes.Assinatura;
 namespace CTeDLL.Classes.Servicos.Inutilizacao
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class retInutCTe : IRetornoServico
+    public class retInutCTe : RetornoBase
     {
         /// <summary>
         ///     DR02 - Versão do leiaute

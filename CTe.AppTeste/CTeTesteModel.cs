@@ -1,9 +1,12 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
 using CTeDLL;
+using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Tipos;
+using CTeDLL.Servicos.ConsultaStatus;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -12,8 +15,23 @@ using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace CTe.AppTeste
 {
+    public class RetornoEEnvio : EventArgs
+    {
+        public RetornoEEnvio(RetornoBase retorno)
+        {
+            Envio = retorno.EnvioXmlString;
+            Retorno = retorno.RetornoXmlString;
+        }
+
+        public string Envio { get; set; }
+        public string Retorno { get; set; }
+    }
+
     public class CTeTesteModel : ViewModel
     {
+        public event EventHandler<RetornoEEnvio> SucessoSync;
+
+
         private string _rntrc;
         private string _cnpj;
         private string _inscricaoEstadual;
@@ -521,9 +539,18 @@ namespace CTe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoes(config);
 
+            var statusServico = new StatusServico();
+            var retorno = statusServico.ConsultaStatus();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
 
 
+        protected virtual void OnSucessoSync(RetornoEEnvio e)
+        {
+            if (SucessoSync == null) return;
 
+            SucessoSync.Invoke(this, e);
         }
     }
 }

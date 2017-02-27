@@ -48,6 +48,7 @@
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtprocEventoCTe.cs" />
     <Compile Include="Evento\ExtretEnvEvento.cs" />
+    <Compile Include="Extencoes\ExtconsStatServCte.cs" />
     <Compile Include="Inutilizacao\ExtinutCTe.cs" />
     <Compile Include="Inutilizacao\ExtretInutCTe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,8 +56,7 @@
     <Compile Include="Recepcao\ExtenviCTe.cs" />
     <Compile Include="Recepcao\ExtretConsReciCTe.cs" />
     <Compile Include="Recepcao\ExtretEnviCTe.cs" />
-    <Compile Include="Status\ExtconsStatServ.cs" />
-    <Compile Include="Status\ExtretConsStatServ.cs" />
+    <Compile Include="Extencoes\ExtretConsStatServ.cs" />
     <Compile Include="Validacao\Validador.cs" />
   </ItemGroup>
   <ItemGroup>

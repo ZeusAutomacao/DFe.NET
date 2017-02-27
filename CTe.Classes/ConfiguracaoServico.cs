@@ -94,5 +94,10 @@ namespace CTeDLL
                 return _instancia;
             }
         }
+
+        public bool NaoSalvarXml()
+        {
+            return !IsSalvarXml;
+        }
     }
 }

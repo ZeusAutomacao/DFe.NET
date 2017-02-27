@@ -11,7 +11,7 @@ namespace CTeDLL.Classes.Servicos.Recepcao.Retorno
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [ProgId("CTeDLL.retconsReciCTe")]
     [ComVisible(true)]
-    public class retconsReciCTe : IRetornoServico
+    public class retconsReciCTe : Servicos.RetornoBase
     {
         /// <summary>
         ///     BR02 - Versão do leiaute

@@ -1,4 +1,5 @@
 ﻿using CTe.Classes.Ext;
+using CTeDLL.Servicos.Enderecos.Helpers;
 using CTeDLL.Wsdl.Configuracao;
 using CTeDLL.Wsdl.Status;
 using DFe.Classes.Extencoes;
@@ -9,14 +10,12 @@ namespace CTeDLL.Servicos.Factory
     {
         public static CteStatusServico CriaWsdlCteStatusServico()
         {
-            var url = @"https://cte-homologacao.svrs.rs.gov.br/ws/ctestatusservico/CTeStatusServico.asmx";
-
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao();
 
             return new CteStatusServico(configuracaoWsdl);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url)
+        private static WsdlConfiguracao CriaConfiguracao()
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 
@@ -24,6 +23,7 @@ namespace CTeDLL.Servicos.Factory
             var certificadoDigital = configuracaoServico.X509Certificate2;
             var versaoEmString = configuracaoServico.VersaoLayout.GetString();
             var timeOut = configuracaoServico.TimeOut;
+            var url = UrlHelper.ObterUrlServico().CteStatusServico;
 
             return new WsdlConfiguracao
             {

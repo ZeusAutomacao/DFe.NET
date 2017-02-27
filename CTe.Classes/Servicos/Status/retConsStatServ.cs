@@ -1,21 +1,21 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Status
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("CTeDLL.retConsStatServ")]
-    [ComVisible(true)]
-    public class retConsStatServCte : IRetornoServico
+    public class retConsStatServCte : RetornoBase
     {
         /// <summary>
         ///     FR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     FR03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
@@ -42,5 +42,29 @@ namespace CTeDLL.Classes.Servicos.Status
         ///     FR07 - Código da UF que atendeu a solicitação
         /// </summary>
         public Estado cUF { get; set; }
+
+        public DateTime dhRecbto { get; set; }
+
+        public int tMed { get; set; }
+
+        public DateTime dhRetorno { get; set; }
+
+        public string xObs { get; set; }
+
+        public static retConsStatServCte LoadXml(string xml, consStatServCte consStatServCte)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServCte);
+
+            return retorno;
+        }
+
+        private static retConsStatServCte LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
     }
 }

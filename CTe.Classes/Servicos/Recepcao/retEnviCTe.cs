@@ -6,7 +6,7 @@ using DFe.Classes.Flags;
 namespace CTeDLL.Classes.Servicos.Recepcao
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class retEnviCTe : IRetornoServico
+    public class retEnviCTe : Servicos.RetornoBase
     {
         /// <summary>
         ///     AR02 - Versão do leiaute

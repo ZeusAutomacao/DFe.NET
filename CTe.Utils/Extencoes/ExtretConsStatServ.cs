@@ -1,7 +1,7 @@
 ﻿using CTeDLL.Classes.Servicos.Status;
 using DFe.Utils;
 
-namespace CTeDLL.Utils.Status
+namespace CTe.Utils.Extencoes
 {
     public static class ExtretConsStatServ
     {

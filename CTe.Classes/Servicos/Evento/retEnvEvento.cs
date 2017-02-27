@@ -7,7 +7,7 @@ using DFe.Classes.Flags;
 namespace CTeDLL.Classes.Servicos.Evento
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public class retEnvEvento : IRetornoServico
+    public class retEnvEvento : RetornoBase
     {
         /// <summary>
         ///     HR02 - Versão do leiaute

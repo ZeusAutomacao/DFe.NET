@@ -8,7 +8,7 @@ using DFe.Classes.Flags;
 namespace CTeDLL.Classes.Servicos.Consulta
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
-    public class retConsSitCTe : IRetornoServico
+    public class retConsSitCTe : RetornoBase
     {
         /// <summary>
         ///     ER02 - Versão do leiaute

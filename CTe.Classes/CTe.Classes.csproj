@@ -182,7 +182,7 @@
     <Compile Include="Servicos\Inutilizacao\infInutRet.cs" />
     <Compile Include="Servicos\Inutilizacao\inutCTe.cs" />
     <Compile Include="Servicos\Inutilizacao\retInutCTe.cs" />
-    <Compile Include="Servicos\IRetornoServico.cs" />
+    <Compile Include="Servicos\RetornoBase.cs" />
     <Compile Include="Servicos\Recepcao\enviCTe.cs" />
     <Compile Include="Servicos\Recepcao\infRec.cs" />
     <Compile Include="Servicos\Recepcao\retEnviCTe.cs" />
