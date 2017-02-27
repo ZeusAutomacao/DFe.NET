@@ -64,6 +64,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CTeTesteModel.cs" />
+    <Compile Include="Dao\ConfiguracaoDao.cs" />
+    <Compile Include="Entidades\ConfigCertificadoDigital.cs" />
+    <Compile Include="Entidades\Configuracao.cs" />
+    <Compile Include="Entidades\ConfigWebService.cs" />
+    <Compile Include="Entidades\Empresa.cs" />
     <Compile Include="EnumBindable\EnumBindingSourceExtension.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -99,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
+      <Project>{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}</Project>
+      <Name>CTe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>

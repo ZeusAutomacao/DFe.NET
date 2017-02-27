@@ -15,3 +15,7 @@ C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debu
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.csproj.GenerateResource.Cache
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.exe
 C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\obj\Debug\CTe.AppTeste.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\CTe.Classes.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\DFe.Utils.dll
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\CTe.Classes.pdb
+C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.AppTeste\bin\Debug\DFe.Utils.pdb
