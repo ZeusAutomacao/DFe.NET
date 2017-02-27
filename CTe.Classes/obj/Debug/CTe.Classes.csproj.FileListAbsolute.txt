@@ -1,9 +1,0 @@
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\CTe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\CTe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\DFe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\DFe.Utils.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\DFe.Classes.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\bin\Debug\DFe.Utils.pdb
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\obj\Debug\CTe.Classes.csprojResolveAssemblyReference.cache
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\obj\Debug\CTe.Classes.dll
-C:\Users\Roberto\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\CTe.Classes\obj\Debug\CTe.Classes.pdb
