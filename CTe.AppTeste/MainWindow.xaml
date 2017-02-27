@@ -7,7 +7,8 @@
         xmlns:flags="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
         xmlns:flagsCte="clr-namespace:CTeDLL.Classes.Servicos.Tipos;assembly=CTe.Classes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720.696" Width="771.522">
+        Title="MainWindow" Height="720.696" Width="771.522"
+        Loaded="MainWindow_OnLoaded">
     <DockPanel>
         <TabControl DockPanel.Dock="Top">
             <TabItem Header="Dados">
@@ -148,7 +149,7 @@
                                             <StackPanel>
                                                 <ComboBox IsEditable="False"
                                                 ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flagsCte:versao}}}"
-                                              SelectedItem="{Binding UfDestino}">
+                                              SelectedItem="{Binding VersaoLayout}">
 
                                                 </ComboBox>
                                             </StackPanel>

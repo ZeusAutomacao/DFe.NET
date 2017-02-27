@@ -1,6 +1,13 @@
-﻿using CTe.AppTeste.ModelBase;
+﻿using System.Windows.Forms;
+using CTe.AppTeste.Dao;
+using CTe.AppTeste.Entidades;
+using CTe.AppTeste.ModelBase;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace CTe.AppTeste
 {
@@ -35,6 +42,7 @@ namespace CTe.AppTeste
         private bool _ambienteHomologacao;
         private string _diretorioSchemas;
         private int _timeOut;
+        private versao _versaoLayout;
 
         #region empresa
 
@@ -276,6 +284,16 @@ namespace CTe.AppTeste
             }
         }
 
+        public versao VersaoLayout
+        {
+            get { return _versaoLayout; }
+            set
+            {
+                _versaoLayout = value;
+                OnPropertyChanged("VersaoLayout");
+            }
+        }
+
         public bool AmbienteProducao
         {
             get { return _ambienteProducao; }
@@ -340,5 +358,172 @@ namespace CTe.AppTeste
         }
 
         #endregion configuração arquivo
+
+        public void SalvarConfiguracoesXml()
+        {
+            var configuracaoDao = new ConfiguracaoDao();
+            var configuracaoAppTeste = new Configuracao
+            {
+                Empresa =
+                    {
+                        Cnpj = Cnpj,
+                        Bairro = Bairro,
+                        Cep = Cep,
+                        CodigoIbgeMunicipio = CodigoIbgeMunicipio,
+                        Complemento = Complemento,
+                        Email = Email,
+                        InscricaoEstadual = InscricaoEstadual,
+                        Logradouro = Logradouro,
+                        Nome = Nome,
+                        NomeFantasia = NomeFantasia,
+                        NomeMunicipio = NomeMunicipio,
+                        Numero = Numero,
+                        SiglaUf = SiglaUf,
+                        Telefone = Telefone,
+                        RNTRC = Rntrc
+                    },
+                CertificadoDigital =
+                {
+                    CaminhoArquivo = CaminhoArquivo,
+                    NumeroDeSerie = NumeroDeSerie,
+                    Senha = Senha,
+                    ManterEmCache = ManterCertificadoEmCache
+                },
+                ConfigWebService =
+                {
+                    UfEmitente = UfDestino,
+                    Numeracao = Numeracao,
+                    Serie = Serie,
+                    Versao = VersaoLayout,
+                    CaminhoSchemas = DiretorioSchemas,
+                    TimeOut = TimeOut
+                },
+                DiretorioSalvarXml = DiretorioSalvarXml,
+                IsSalvarXml = IsSalvarXml
+            };
+
+            if (AmbienteHomologacao)
+                configuracaoAppTeste.ConfigWebService.Ambiente = TipoAmbiente.Homologacao;
+
+            if (AmbienteProducao)
+                configuracaoAppTeste.ConfigWebService.Ambiente = TipoAmbiente.Producao;
+
+
+            configuracaoDao.SalvarConfiguracao(configuracaoAppTeste);
+        }
+
+        public void ObterSerialCertificado()
+        {
+            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
+        }
+
+        public void ObterCertificadoArquivo()
+        {
+            var janelaArquivo = new OpenFileDialog
+            {
+                Filter = "Certificado digital(*.pfx)|*.pfx"
+            };
+            if (janelaArquivo.ShowDialog() == true)
+            {
+                CaminhoArquivo = janelaArquivo.FileName;
+            }
+        }
+
+        public void CarregarConfiguracoes()
+        {
+            var dao = new ConfiguracaoDao();
+            var config = dao.BuscarConfiguracao();
+
+            if (config == null) return;
+
+            Cnpj = config.Empresa.Cnpj;
+            Bairro = config.Empresa.Bairro;
+            Cep = config.Empresa.Cep;
+            CodigoIbgeMunicipio = config.Empresa.CodigoIbgeMunicipio;
+            Complemento = config.Empresa.Complemento;
+            Email = config.Empresa.Email;
+            InscricaoEstadual = config.Empresa.InscricaoEstadual;
+            Logradouro = config.Empresa.Logradouro;
+            Nome = config.Empresa.Nome;
+            NomeFantasia = config.Empresa.NomeFantasia;
+            NomeMunicipio = config.Empresa.NomeMunicipio;
+            Numero = config.Empresa.Numero;
+            SiglaUf = config.Empresa.SiglaUf;
+            Telefone = config.Empresa.Telefone;
+            Rntrc = config.Empresa.RNTRC;
+
+            Senha = config.CertificadoDigital.Senha;
+            ManterCertificadoEmCache = config.CertificadoDigital.ManterEmCache;
+            CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
+            NumeroDeSerie = config.CertificadoDigital.NumeroDeSerie;
+
+
+            AmbienteProducao = true;
+
+            if (config.ConfigWebService.Ambiente == TipoAmbiente.Homologacao)
+                AmbienteHomologacao = true;
+
+            Numeracao = config.ConfigWebService.Numeracao;
+            Serie = config.ConfigWebService.Serie;
+
+            UfDestino = config.ConfigWebService.UfEmitente;
+
+            VersaoLayout = config.ConfigWebService.Versao;
+
+            DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
+            DiretorioSalvarXml = config.DiretorioSalvarXml;
+            IsSalvarXml = config.IsSalvarXml;
+            TimeOut = 3000;
+
+            if (config.ConfigWebService.TimeOut > 0)
+            {
+                TimeOut = config.ConfigWebService.TimeOut;
+            }
+        }
+
+        public void BuscarDiretorioSchema()
+        {
+            var dlg = new FolderBrowserDialog();
+            dlg.ShowDialog();
+            DiretorioSchemas = dlg.SelectedPath;
+        }
+
+        public void BuscarDiretorioSalvarXml()
+        {
+            var dlg = new FolderBrowserDialog();
+            dlg.ShowDialog();
+            DiretorioSalvarXml = dlg.SelectedPath;
+        }
+
+        private static void CarregarConfiguracoes(Configuracao config)
+        {
+            var configuracaoCertificado = new ConfiguracaoCertificado
+            {
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
+            };
+
+            /* todo Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
+                config.ConfigWebService.VersaoMDFeConsNaoEnc;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
+                config.ConfigWebService.VersaoMDFeConsulta;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
+                config.ConfigWebService.VersaoMDFeRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
+                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
+                config.ConfigWebService.VersaoMDFeRetRecepcao;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
+                config.ConfigWebService.VersaoMDFeStatusServico;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;*/
+        }
     }
 }
