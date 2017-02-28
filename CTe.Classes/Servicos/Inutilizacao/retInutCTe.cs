@@ -1,5 +1,7 @@
 ﻿using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Assinatura;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Inutilizacao
 {
@@ -10,7 +12,7 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
         ///     DR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     DR03 - Dados da resposta - TAG a ser assinada
@@ -23,5 +25,21 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
         /// </summary>
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
+
+        public static retInutCTe LoadXml(string xml, inutCTe inutCTe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(inutCTe);
+
+            return retorno;
+        }
+
+        private static retInutCTe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retInutCTe>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
     }
 }

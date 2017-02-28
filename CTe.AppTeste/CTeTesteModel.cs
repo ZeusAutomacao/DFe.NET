@@ -10,6 +10,7 @@ using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
 using CTeDLL.Servicos.ConsultaStatus;
+using CTeDLL.Servicos.Inutilizacao;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -656,5 +657,29 @@ namespace CTe.AppTeste
         }
 
 
+        public void InutilizacaoDeNumeracao()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var numeroInicial = int.Parse(InputBoxTuche("Númeração Inicial"));
+            var numeroFinal = int.Parse(InputBoxTuche("Númeração Final"));
+            var ano = int.Parse(InputBoxTuche("Digite o ano, apenas os ultimos dois digitos"));
+            var justificativa = InputBoxTuche("Justificativa (15 digitos no minimo)");
+
+            var configInutilizar = new ConfigInutiliza(
+                config.Empresa.Cnpj,
+                config.ConfigWebService.Serie,
+                numeroInicial,
+                numeroFinal,
+                ano,
+                justificativa
+            );
+
+            var statusServico = new InutilizacaoServico(configInutilizar);
+            var retorno = statusServico.Inutilizar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
     }
 }

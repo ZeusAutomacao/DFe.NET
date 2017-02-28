@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Assinatura;
 
 namespace CTeDLL.Classes.Servicos.Inutilizacao
@@ -6,11 +7,16 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class inutCTe
     {
+        public inutCTe()
+        {
+            infInut = new infInutEnv();
+        }
+
         /// <summary>
         ///     DP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     DP03 - Dados do Pedido

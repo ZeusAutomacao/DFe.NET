@@ -52,17 +52,17 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
         /// <summary>
         ///     DP11 - Série da NF-e
         /// </summary>
-        public int serie { get; set; }
+        public short serie { get; set; }
 
         /// <summary>
         ///     DP12 - Número da NF-e inicial a ser inutilizada
         /// </summary>
-        public long nNFIni { get; set; }
+        public long nCTIni { get; set; }
 
         /// <summary>
         ///     DP13 - Número da NF-e final a ser inutilizada
         /// </summary>
-        public long nNFFin { get; set; }
+        public long nCTFin { get; set; }
 
         /// <summary>
         ///     DP14 - Informar a justificativa do pedido de inutilização

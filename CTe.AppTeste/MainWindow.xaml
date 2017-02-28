@@ -231,7 +231,7 @@
 
                     <Button Click="ConsultarStatusServico">Consultar Status Serviço</Button>
                     <Button Grid.Row="0" Grid.Column="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo</Button>
-                    <Button Grid.Column="0" Grid.Row="1" Click="ConsultaPorRecibo_Click">Consulta Por Recibo 1.00</Button>
+                    <Button Grid.Column="0" Grid.Row="1" Click="InutilizacaoDeNumeracao_Click">Inutilizacao de Númeração</Button>
                     <Button Grid.Column="1" Grid.Row="1" >Consulta Por Protocolo 1.00</Button>
                     <Button Grid.Row="2" Grid.Column="0" Click="ConsultaStatus_Click">Consulta Status Serviço 1.00</Button>
                     <Button Grid.Row="2" Grid.Column="1" Click="ConsultaNaoEncerrados1_0_Click">Consulta Não Encerrados 1.00</Button>

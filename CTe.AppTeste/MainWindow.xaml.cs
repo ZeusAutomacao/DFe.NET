@@ -67,14 +67,9 @@ namespace CTe.AppTeste
             _model.ConsultarStatusServico2();
         }
 
-        private void ConsultarStatusServico3Click(object sender, RoutedEventArgs e)
+        private void InutilizacaoDeNumeracao_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-
-        private void ConsultaPorRecibo_Click(object sender, RoutedEventArgs e)
-        {
-            
+            _model.InutilizacaoDeNumeracao();
         }
 
         private void ConsultaPorProtocolo_Click(object sender, RoutedEventArgs e)

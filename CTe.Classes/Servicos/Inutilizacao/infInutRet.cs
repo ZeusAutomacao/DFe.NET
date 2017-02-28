@@ -60,17 +60,17 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
         /// <summary>
         ///     DR13 - Série da NF-e
         /// </summary>
-        public int? serie { get; set; }
+        public short? serie { get; set; }
 
         /// <summary>
         ///     DR14 - Número da NF-e inicial a ser inutilizada
         /// </summary>
-        public int? nNFIni { get; set; }
+        public long? nCTIni { get; set; }
 
         /// <summary>
         ///     DR15 - Número da NF-e final a ser inutilizada
         /// </summary>
-        public int? nNFFin { get; set; }
+        public long? nCTFin { get; set; }
 
         /// <summary>
         ///     DR16 - Data e hora de processamento
@@ -99,14 +99,14 @@ namespace CTeDLL.Classes.Servicos.Inutilizacao
             return serie.HasValue;
         }
 
-        public bool ShouldSerializenNFIni()
+        public bool ShouldSerializennCTIni()
         {
-            return nNFIni.HasValue;
+            return nCTIni.HasValue;
         }
 
-        public bool ShouldSerializenNFFin()
+        public bool ShouldSerializennCTFin()
         {
-            return nNFFin.HasValue;
+            return nCTFin.HasValue;
         }
 
         public bool ShouldSerializedhRecbto()
