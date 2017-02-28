@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using CTe.Classes.Ext;
 using CTeDLL.Classes.Servicos.Consulta;
+using CTeDLL.Classes.Servicos.Evento;
 using CTeDLL.Classes.Servicos.Inutilizacao;
 using CTeDLL.Classes.Servicos.Recepcao.Retorno;
 using CTeDLL.Classes.Servicos.Status;
@@ -80,6 +82,23 @@ namespace CTeDLL.Servicos.Factory
                 tpAmb = configuracaoServico.tpAmb,
                 versao = configuracaoServico.VersaoLayout,
                 nRec = recibo
+            };
+        }
+
+        public static evCancCTe CriaEvCancCTe(string justificativa, string numeroProtocolo)
+        {
+            return new evCancCTe
+            {
+                nProt = numeroProtocolo,
+                xJust = justificativa
+            };
+        }
+
+        public static evCCeCTe CriaEvCCeCTe(List<infCorrecao> infCorrecaos)
+        {
+            return new evCCeCTe
+            {
+                infCorrecao = infCorrecaos
             };
         }
     }

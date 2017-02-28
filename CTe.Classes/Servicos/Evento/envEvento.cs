@@ -23,6 +23,6 @@ namespace CTeDLL.Classes.Servicos.Evento
         ///     HP04 - Evento, um lote pode conter até 20 eventos
         /// </summary>
         [XmlElement("evento")]
-        public List<evento> evento { get; set; }
+        public List<eventoCTe> evento { get; set; }
     }
 }

@@ -46,6 +46,11 @@
     <Compile Include="Enderecador.cs" />
     <Compile Include="Enderecos\Helpers\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlCTe.cs" />
+    <Compile Include="Eventos\Contratos\IServicoController.cs" />
+    <Compile Include="Eventos\EventoCancelamento.cs" />
+    <Compile Include="Eventos\EventoCartaCorrecao.cs" />
+    <Compile Include="Eventos\FactoryEvento.cs" />
+    <Compile Include="Eventos\ServicoController.cs" />
     <Compile Include="Factory\ClassesFactory.cs" />
     <Compile Include="Factory\WsdlFactory.cs" />
     <Compile Include="Inutilizacao\InutilizacaoServico.cs" />

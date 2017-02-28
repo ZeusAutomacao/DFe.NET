@@ -2,9 +2,7 @@
 using System.Xml;
 using CTeDLL;
 using CTeDLL.Classes.Servicos.Consulta;
-using CTeDLL.Classes.Servicos.Status;
 using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Consulta;
 using CTeDLL.Utils.Validacao;
 using DFe.Utils;
 

@@ -12,6 +12,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 {
     public class ide
     {
+        [XmlIgnore]
         private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
 
         /// <summary>

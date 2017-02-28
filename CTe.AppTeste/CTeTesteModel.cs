@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
@@ -7,10 +8,12 @@ using CTe.Servicos.ConsultaProtocolo;
 using CTe.Utils.Extencoes;
 using CTeDLL;
 using CTeDLL.Classes.Servicos;
+using CTeDLL.Classes.Servicos.Evento;
 using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
 using CTeDLL.Servicos.ConsultaRecibo;
 using CTeDLL.Servicos.ConsultaStatus;
+using CTeDLL.Servicos.Eventos;
 using CTeDLL.Servicos.Inutilizacao;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -692,6 +695,61 @@ namespace CTe.AppTeste
 
             var consultaReciboServico = new ConsultaReciboServico(numeroRecibo);
             var retorno = consultaReciboServico.Consultar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void EventoCancelarCTe()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var caminho = BuscarArquivoXml();
+
+            var cte = Classes.CTe.LoadXmlArquivo(caminho);
+
+            var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
+            var protocolo = InputBoxTuche("Protocolo");
+            var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
+
+            var servico = new EventoCancelamento(cte, sequenciaEvento, protocolo, justificativa);
+            var retorno = servico.Cancelar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void CartaCorrecao()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var caminho = BuscarArquivoXml();
+
+            var cte = Classes.CTe.LoadXmlArquivo(caminho);
+
+            var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
+
+
+            // correções adicionadas.. não disponibilizei tela, mas serve como exemplo
+            // como vemos a correção é bem diferente da nf-e
+            var correcoes = new List<infCorrecao>
+            {
+                new infCorrecao
+                {
+                    campoAlterado = "nro",
+                    grupoAlterado = "enderRem",
+                    valorAlterado = "170"
+                },
+                new infCorrecao
+                {
+                    campoAlterado = "fone",
+                    grupoAlterado = "enderRem",
+                    valorAlterado = "14991001000"
+                }
+            }; 
+
+            var servico = new EventoCartaCorrecao(cte, sequenciaEvento, correcoes);
+            var retorno = servico.AdicionarCorrecoes();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

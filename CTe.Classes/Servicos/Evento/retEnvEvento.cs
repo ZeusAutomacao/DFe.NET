@@ -49,6 +49,6 @@ namespace CTeDLL.Classes.Servicos.Evento
         ///     HR09 - TAG de grupo do resultado do processamento do Evento
         /// </summary>
         [XmlElement("retEvento")]
-        public List<retEvento> retEvento { get; set; }
+        public List<retEventoCTe> retEvento { get; set; }
     }
 }

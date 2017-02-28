@@ -173,11 +173,15 @@
     <Compile Include="Servicos\Evento\detEvento.cs" />
     <Compile Include="Servicos\Evento\detEventoTipos.cs" />
     <Compile Include="Servicos\Evento\envEvento.cs" />
-    <Compile Include="Servicos\Evento\evento.cs" />
+    <Compile Include="Servicos\Evento\evCancCTe.cs" />
+    <Compile Include="Servicos\Evento\evCCeCTe.cs" />
+    <Compile Include="Servicos\Evento\IEventoContainer.cs" />
+    <Compile Include="Servicos\Evento\eventoCTe.cs" />
+    <Compile Include="Servicos\Evento\Flags\TipoEvento.cs" />
     <Compile Include="Servicos\Evento\infEventoEnv.cs" />
     <Compile Include="Servicos\Evento\infEventoRet.cs" />
     <Compile Include="Servicos\Evento\retEnvEvento.cs" />
-    <Compile Include="Servicos\Evento\retEvento.cs" />
+    <Compile Include="Servicos\Evento\retEventoCTe.cs" />
     <Compile Include="Servicos\Inutilizacao\infInutEnv.cs" />
     <Compile Include="Servicos\Inutilizacao\infInutRet.cs" />
     <Compile Include="Servicos\Inutilizacao\inutCTe.cs" />
@@ -202,7 +206,9 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Eventos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -16,13 +16,13 @@ namespace CTeDLL.Classes.Servicos.Consulta
         /// <summary>
         ///     ZR03
         /// </summary>
-        public evento evento { get; set; }
+        public eventoCTe eventoCTe { get; set; }
 
         /// <summary>
         ///     YR05
         /// </summary>
         /// 
         [XmlElement("retEvento")]
-        public List<retEvento> retEvento { get; set; }
+        public List<retEventoCTe> retEvento { get; set; }
     }
 }

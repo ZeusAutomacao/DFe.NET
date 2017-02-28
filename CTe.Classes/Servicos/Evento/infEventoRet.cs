@@ -8,10 +8,6 @@ namespace CTeDLL.Classes.Servicos.Evento
 {
     public class infEventoRet
     {
-        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo infEventoRet!";
-        private string cnpj;
-        private string cpf;
-
         /// <summary>
         ///     HR12 - Identificador da TAG a ser assinada
         /// </summary>
@@ -46,8 +42,7 @@ namespace CTeDLL.Classes.Servicos.Evento
         /// <summary>
         ///     HR18 - Chave de Acesso da NF-e vinculada ao evento.
         /// </summary>
-        public string chNFe { get; set; }
-
+        public string chCTe { get; set; }
         /// <summary>
         ///     HR19 - Código do Tipo do Evento.
         /// </summary>
@@ -64,66 +59,15 @@ namespace CTeDLL.Classes.Servicos.Evento
         public int? nSeqEvento { get; set; }
 
         /// <summary>
-        ///     R22 - (EPEC) Idem a mensagem de entrada.
-        /// </summary>
-        public string cOrgaoAutor { get; set; }
-
-        /// <summary>
-        ///     HR22 - CNPJ do destinatário da NFe
-        /// </summary>
-        public string CNPJDest
-        {
-            get { return cnpj; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cpf))
-                    cnpj = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     HR23 - CPF do destinatário da NFe
-        /// </summary>
-        public string CPFDest
-        {
-            get { return cpf; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cnpj))
-                    cpf = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     HR24 - email do destinatário informado na NF-e.
-        /// </summary>
-        public string emailDest { get; set; }
-
-        /// <summary>
         ///     HR25 - Data e hora de registro do evento no formato AAAA-MM-DDTHH:MM:SSTZD (formato UTC, onde TZD é +HH:MM ou
         ///     –HH:MM), se o evento for rejeitado informar a data e hora de recebimento do evento.
         /// </summary>
-        public string dhRegEvento { get; set; }
+        public DateTime? dhRegEvento { get; set; }
 
         /// <summary>
         ///     HR26 - Número do Protocolo da NF-e
         /// </summary>
         public string nProt { get; set; }
-
-        /// <summary>
-        ///     R25 - (EPEC) Relação de Chaves de Acesso de EPEC pendentes de conciliação, existentes no AN.
-        /// </summary>
-        public string chNFePend { get; set; }
 
         /// <summary>
         ///     HR27 - Assinatura Digital do documento XML, a assinatura deverá ser aplicada no elemento infEvento. A decisão de

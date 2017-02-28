@@ -233,11 +233,9 @@
                     <Button Grid.Row="0" Grid.Column="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo</Button>
                     <Button Grid.Column="0" Grid.Row="1" Click="InutilizacaoDeNumeracao_Click">Inutilizacao de Númeração</Button>
                     <Button Grid.Column="1" Grid.Row="1" Click="ConsultaPorNumeroRecibo_Click">Consulta Por Número Recibo</Button>
-                    <Button Grid.Row="2" Grid.Column="0" Click="ConsultaStatus_Click">Consulta Status Serviço 1.00</Button>
-                    <Button Grid.Row="2" Grid.Column="1" Click="ConsultaNaoEncerrados1_0_Click">Consulta Não Encerrados 1.00</Button>
-                    <Button Grid.Row="3" Grid.Column="0" Click="EventoIncluirCondutor_Click">Evento Incluir Condutor 1.00</Button>
-                    <Button Grid.Row="3" Grid.Column="1" Click="EventoEncerrarMDFe1_0_Click">Evento Encerramento 1.00</Button>
-                    <Button Grid.Row="4" Grid.Column="0" Click="EventoCancelarMDFe1_0_Click">Evento Cancelar 1.00</Button>
+                    <Button Grid.Row="2" Grid.Column="0" Click="EventoCancelarCTe_Click">Evento Cancelar CT-e</Button>
+                    <Button Grid.Row="2" Grid.Column="1" Click="CartaCorrecao_Click">Carta Correção</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEEnviar_Click">Criar e Enviar CT-e</Button>
 
                     <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
                         <TabItem Header="XmlEnvio">

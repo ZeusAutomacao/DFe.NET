@@ -77,27 +77,17 @@ namespace CTe.AppTeste
             _model.ConsultaPorProtocolo();
         }
 
-        private void ConsultaStatus_Click(object sender, RoutedEventArgs e)
+        private void EventoCancelarCTe_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.EventoCancelarCTe();
         }
 
-        private void ConsultaNaoEncerrados1_0_Click(object sender, RoutedEventArgs e)
+        private void CartaCorrecao_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.CartaCorrecao();
         }
 
-        private void EventoIncluirCondutor_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void EventoEncerrarMDFe1_0_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void EventoCancelarMDFe1_0_Click(object sender, RoutedEventArgs e)
+        private void CriarEEnviar_Click(object sender, RoutedEventArgs e)
         {
             
         }
