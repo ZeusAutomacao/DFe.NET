@@ -106,5 +106,10 @@ namespace CTe.AppTeste
         {
             _model.CarregarConfiguracoes();
         }
+
+        private void ConsultaPorNumeroRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            _model.ConsultaPorNumeroRecibo();
+        }
     }
 }

@@ -3,6 +3,7 @@ using CTeDLL.Servicos.Enderecos.Helpers;
 using CTeDLL.Wsdl.Configuracao;
 using CTeDLL.Wsdl.ConsultaProtocolo;
 using CTeDLL.Wsdl.Inutilizacao;
+using CTeDLL.Wsdl.RetRecepcao;
 using CTeDLL.Wsdl.Status;
 using DFe.Classes.Extencoes;
 
@@ -35,6 +36,15 @@ namespace CTeDLL.Servicos.Factory
             var configuracaoWsdl = CriaConfiguracao(url);
 
             return new CteInutilizacao(configuracaoWsdl);
+        }
+
+        public static CteRetRecepcao CriaWsdlCteRetRecepcao()
+        {
+            var url = UrlHelper.ObterUrlServico().CteRetRecepcao;
+
+            var configuracaoWsdl = CriaConfiguracao(url);
+
+            return new CteRetRecepcao(configuracaoWsdl);
         }
 
         private static WsdlConfiguracao CriaConfiguracao(string url)

@@ -3,6 +3,7 @@ using System.Text;
 using CTe.Classes.Ext;
 using CTeDLL.Classes.Servicos.Consulta;
 using CTeDLL.Classes.Servicos.Inutilizacao;
+using CTeDLL.Classes.Servicos.Recepcao.Retorno;
 using CTeDLL.Classes.Servicos.Status;
 using CTeDLL.Servicos.Inutilizacao;
 using DFe.Classes.Extencoes;
@@ -67,6 +68,18 @@ namespace CTeDLL.Servicos.Factory
                     serie = configInutiliza.Serie,
                     xJust = configInutiliza.Justificativa,
                 }
+            };
+        }
+
+        public static consReciCTe CriaConsReciCTe(string recibo)
+        {
+            var configuracaoServico = ConfiguracaoServico.Instancia;
+
+            return new consReciCTe
+            {
+                tpAmb = configuracaoServico.tpAmb,
+                versao = configuracaoServico.VersaoLayout,
+                nRec = recibo
             };
         }
     }

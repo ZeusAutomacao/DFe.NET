@@ -9,6 +9,7 @@ using CTeDLL;
 using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
+using CTeDLL.Servicos.ConsultaRecibo;
 using CTeDLL.Servicos.ConsultaStatus;
 using CTeDLL.Servicos.Inutilizacao;
 using DFe.Classes.Entidades;
@@ -678,6 +679,19 @@ namespace CTe.AppTeste
 
             var statusServico = new InutilizacaoServico(configInutilizar);
             var retorno = statusServico.Inutilizar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void ConsultaPorNumeroRecibo()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var numeroRecibo = InputBoxTuche("Número Recibo");
+
+            var consultaReciboServico = new ConsultaReciboServico(numeroRecibo);
+            var retorno = consultaReciboServico.Consultar();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

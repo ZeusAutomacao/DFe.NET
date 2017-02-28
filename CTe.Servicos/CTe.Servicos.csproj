@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsultaProtocolo\ConsultaProtcoloServico.cs" />
+    <Compile Include="ConsultaRecibo\ConsultaReciboServico.cs" />
     <Compile Include="ConsultaStatus\StatusServico.cs" />
     <Compile Include="Enderecador.cs" />
     <Compile Include="Enderecos\Helpers\UrlHelper.cs" />

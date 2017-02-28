@@ -187,7 +187,7 @@
     <Compile Include="Servicos\Recepcao\infRec.cs" />
     <Compile Include="Servicos\Recepcao\retEnviCTe.cs" />
     <Compile Include="Servicos\Recepcao\Retorno\consReciCTe.cs" />
-    <Compile Include="Servicos\Recepcao\Retorno\retconsReciCTe.cs" />
+    <Compile Include="Servicos\Recepcao\Retorno\retConsReciCTe.cs" />
     <Compile Include="Servicos\Status\consStatServ.cs" />
     <Compile Include="Servicos\Status\retConsStatServ.cs" />
     <Compile Include="Servicos\Tipos\ServicosTipos.cs" />

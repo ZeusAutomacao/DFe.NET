@@ -1,4 +1,5 @@
 ﻿using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Flags;
 
 namespace CTeDLL.Classes.Servicos.Recepcao.Retorno
@@ -10,7 +11,7 @@ namespace CTeDLL.Classes.Servicos.Recepcao.Retorno
         ///     BP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     BP03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação

@@ -51,12 +51,12 @@
     <Compile Include="Extencoes\ExtconsStatServCte.cs" />
     <Compile Include="Extencoes\ExtCTe.cs" />
     <Compile Include="Extencoes\ExtinutCTe.cs" />
+    <Compile Include="Extencoes\ExtretConsReciCTe.cs" />
     <Compile Include="Extencoes\ExtretConsSitCTe.cs" />
     <Compile Include="Inutilizacao\ExtretInutCTe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\ExtconsReciCTe.cs" />
     <Compile Include="Recepcao\ExtenviCTe.cs" />
-    <Compile Include="Recepcao\ExtretConsReciCTe.cs" />
     <Compile Include="Recepcao\ExtretEnviCTe.cs" />
     <Compile Include="Extencoes\ExtretConsStatServ.cs" />
     <Compile Include="Validacao\Validador.cs" />

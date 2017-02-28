@@ -1,27 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
-using System.Web.Services.Protocols;
-using System.Xml;
-using CTeDLL.Classes.Servicos.Consulta;
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Inutilizacao;
-using CTeDLL.Classes.Servicos.Recepcao;
-using CTeDLL.Classes.Servicos.Recepcao.Retorno;
-using CTeDLL.Classes.Servicos.Status;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Servicos.Retorno;
-using CTeDLL.Wsdl;
-using CTeDLL.Wsdl.ConsultaProtocolo;
-using CTeDLL.Wsdl.Evento;
-using CTeDLL.Wsdl.Inutilizacao;
-using CTeDLL.Wsdl.Recepcao;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
+﻿using System.Security.Cryptography.X509Certificates;
 
 namespace CTeDLL.Servicos
 {

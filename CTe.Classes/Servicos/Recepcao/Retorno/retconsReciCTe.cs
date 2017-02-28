@@ -2,22 +2,21 @@
 using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Protocolo;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Recepcao.Retorno
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("CTeDLL.retconsReciCTe")]
-    [ComVisible(true)]
-    public class retconsReciCTe : Servicos.RetornoBase
+    public class retConsReciCTe : RetornoBase
     {
         /// <summary>
         ///     BR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     Identificação do Ambiente: 1 – Produção / 2 - Homologação
@@ -73,6 +72,20 @@ namespace CTeDLL.Classes.Servicos.Recepcao.Retorno
         public bool ShouldSerializecMsg()
         {
             return cMsg.HasValue;
+        }
+
+        public static retConsReciCTe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retConsReciCTe>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static retConsReciCTe LoadXml(string xml, consReciCTe consSitCTe)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitCTe);
+            return retorno;
         }
     }
 }
