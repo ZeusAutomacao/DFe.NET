@@ -9,7 +9,7 @@ namespace CTeDLL.Servicos.Eventos
 {
     public class ServicoController : IServicoController
     {
-        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, IEventoContainer container, TipoEvento tipoEvento)
+        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
         {
             var evento = FactoryEvento.CriaEvento(cte, tipoEvento, sequenciaEvento, container);
             evento.Assina();

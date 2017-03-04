@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class refNF
     {
+        private decimal _valor;
         public string CNPJ { get; set; }
 
         public string CPF { get; set; }
@@ -21,7 +23,11 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
         public int nro { get; set; }
 
-        public decimal valor { get; set; }
+        public decimal valor
+        {
+            get { return _valor.Arredondar(2); }
+            set { _valor = value.Arredondar(2); }
+        }
 
         [XmlIgnore]
         public DateTime dEmi { get; set; }

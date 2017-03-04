@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
@@ -32,14 +32,50 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         }
 
 
-        public decimal vBC { get; set; }
-        public decimal vICMS { get; set; }
-        public decimal vBCST { get; set; }
-        public decimal vST { get; set; }
-        public decimal vProd { get; set; }
-        public decimal vNF { get; set; }
+        public decimal vBC
+        {
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
+        }
+
+        public decimal vICMS
+        {
+            get { return _vIcms.Arredondar(2); }
+            set { _vIcms = value.Arredondar(2); }
+        }
+
+        public decimal vBCST
+        {
+            get { return _vBcst.Arredondar(2); }
+            set { _vBcst = value.Arredondar(2); }
+        }
+
+        public decimal vST
+        {
+            get { return _vSt.Arredondar(2); }
+            set { _vSt = value.Arredondar(2); }
+        }
+
+        public decimal vProd
+        {
+            get { return _vProd.Arredondar(2); }
+            set { _vProd = value.Arredondar(2); }
+        }
+
+        public decimal vNF
+        {
+            get { return _vNf.Arredondar(2); }
+            set { _vNf = value.Arredondar(2); }
+        }
+
         public int nCFOP { get; set; }
-        public decimal nPeso { get; set; }
+
+        public decimal nPeso
+        {
+            get { return _nPeso.Arredondar(3); }
+            set { _nPeso = value.Arredondar(3); }
+        }
+
         public string PIN { get; set; }
 
         [XmlIgnore]
@@ -67,5 +103,13 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
         [XmlElement("infUnidCarga")]
         public List<infUnidCarga> infUnidCarga;
+
+        private decimal _vBc;
+        private decimal _vIcms;
+        private decimal _vBcst;
+        private decimal _vSt;
+        private decimal _vProd;
+        private decimal _vNf;
+        private decimal _nPeso;
     }
 }

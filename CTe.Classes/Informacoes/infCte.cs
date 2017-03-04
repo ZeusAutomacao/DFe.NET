@@ -7,7 +7,6 @@ using CTeDLL.Classes.Informacoes.Remetente;
 using CTeDLL.Classes.Informacoes.Expedidor;
 using CTeDLL.Classes.Informacoes.Recebedor;
 using CTeDLL.Classes.Informacoes.Destinatario;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Informacoes.Valores;
 using CTeDLL.Classes.Informacoes.Impostos;
 using CTeDLL.Classes.Informacoes.InfCTeNormal;

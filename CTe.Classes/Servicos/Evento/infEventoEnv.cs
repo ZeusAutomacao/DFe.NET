@@ -46,6 +46,7 @@ namespace CTeDLL.Classes.Servicos.Evento
         [XmlIgnore]
         public DateTime dhEvento { get; set; }
 
+        [XmlElement(ElementName = "dhEvento")]
         public string ProxydhEvento
         {
             get

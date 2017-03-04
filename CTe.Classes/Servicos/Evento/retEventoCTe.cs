@@ -4,6 +4,7 @@ using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Evento
 {
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class retEventoCTe : RetornoBase
     {
         /// <summary>

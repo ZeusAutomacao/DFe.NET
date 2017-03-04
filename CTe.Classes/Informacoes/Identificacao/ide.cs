@@ -29,7 +29,9 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// <summary>
         /// Versão 2.00
         /// </summary>
-        public forPag forPag { get; set; }
+        public forPag? forPag { get; set; }
+
+        public bool forPagSpecified { get; set; }
 
         /// <summary>
         ///     B06 - Modelo do Documento Fiscal
@@ -156,12 +158,12 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// <summary>
         /// Versao 3.00 é obrigatório
         /// </summary>
-        public indIEToma? IndIeToma { get; set; }
+        public indIEToma? indIEToma { get; set; }
 
         /// <summary>
         /// Se null, não aparece no xml
         /// </summary>
-        public bool IndIeTomaSpecified { get { return IndIeToma.HasValue; } }
+        public bool indIETomaSpecified { get { return indIEToma.HasValue; } }
 
         /// <summary>
         /// Versão 2.00 = toma03
@@ -172,6 +174,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         public tomaBase3 tomaBase3 { get; set; }
         public toma4 toma4 { get; set; }
 
+        [XmlIgnore]
         public DateTime? dhCont { get; set; }
 
         [XmlElement(ElementName = "dhCont")]
@@ -183,7 +186,10 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
                 return dhCont.Value.ParaDataHoraString();
             }
-            set { dhCont = Convert.ToDateTime(value); }
+            set
+            {
+                dhCont = Convert.ToDateTime(value);
+            }
         }
 
         public string xJust { get; set; }

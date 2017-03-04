@@ -1,7 +1,11 @@
-﻿namespace CTeDLL.Classes.Informacoes.InfCTeNormal
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
+
+namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infServVinc
     {
-        public infCTeMultimodal infCTeMultimodal { get; set; }
+        [XmlElement(ElementName = "infCTeMultimodal")]
+        public List<infCTeMultimodal> infCTeMultimodal { get; set; }
     }
 }

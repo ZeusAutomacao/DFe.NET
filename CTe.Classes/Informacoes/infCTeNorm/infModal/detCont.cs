@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Classes;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
@@ -31,16 +32,30 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
     public class infNFAquav
     {
+        private decimal? _unidRat;
         public short serie { get; set; }
         public string nDoc { get; set; }
-        public decimal? unidRat { get; set; }
+
+        public decimal? unidRat
+        {
+            get { return _unidRat.Arredondar(2); }
+            set { _unidRat = value.Arredondar(2); }
+        }
+
         public bool unidRatSpecified => unidRat.HasValue;
     }
 
     public class infNFeAquav
     {
+        private decimal? _unidRat;
         public string chave { get; set; }
-        public decimal? unidRat { get; set; }
+
+        public decimal? unidRat
+        {
+            get { return _unidRat.Arredondar(2); }
+            set { _unidRat = value.Arredondar(2); }
+        }
+
         public bool unidRatSpecified => unidRat.HasValue;
     }
 }

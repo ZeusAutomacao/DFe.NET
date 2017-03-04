@@ -6,6 +6,6 @@ namespace CTeDLL.Servicos.Eventos.Contratos
 {
     public interface IServicoController
     {
-        retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, IEventoContainer container, TipoEvento evento);
+        retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento evento);
     }
 }

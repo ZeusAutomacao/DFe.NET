@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
-
-namespace CTeDLL.Classes.Informacoes.Expedidor
+﻿namespace CTeDLL.Classes.Informacoes.Expedidor
 {
     public class exped
     {

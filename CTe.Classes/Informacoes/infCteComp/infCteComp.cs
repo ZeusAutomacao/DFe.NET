@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-
-namespace CTeDLL.Classes.Informacoes.InfCTeComplementar
+﻿namespace CTeDLL.Classes.Informacoes.InfCTeComplementar
 {
     public class infCteComp
     {
+        /// <summary>
+        /// Versão 2.0
+        /// </summary>
         public string chave { get; set; }
+
+        /// <summary>
+        /// Versão 3.0
+        /// </summary>
+        public string chCTe { get; set; }
     }
 }

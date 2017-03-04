@@ -4,7 +4,7 @@
     {
         public static string Chave(this Classes.CTe cte)
         {
-            var chave = cte.infCte.Id.Substring(4, 44);
+            var chave = cte.infCte.Id.Substring(3, 44);
             return chave;
         }
     }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class dup
     {
+        private decimal? _vDup;
         public string nDup { get; set; }
 
         [XmlIgnore]
@@ -22,7 +24,11 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
             }
             set { dVenc = Convert.ToDateTime(value); } }
 
-        public decimal? vDup { get; set; }
+        public decimal? vDup
+        {
+            get { return _vDup.Arredondar(2); }
+            set { _vDup = value.Arredondar(2); }
+        }
 
         public bool vDupSpecified => vDup.HasValue;
     }

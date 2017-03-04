@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Xml.Serialization;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class duto : ContainerModal
     {
-        public decimal? vTar { get; set; }
+        private decimal? _vTar;
+
+        public decimal? vTar
+        {
+            get { return _vTar.Arredondar(6); }
+            set { _vTar = value.Arredondar(6); }
+        }
+
         public bool vTarSpecified => vTar.HasValue;
 
         [XmlIgnore]

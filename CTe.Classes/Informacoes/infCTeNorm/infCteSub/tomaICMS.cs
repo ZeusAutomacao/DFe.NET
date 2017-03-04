@@ -7,7 +7,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
     {
         public string refNFe { get; set; }
 
-        public refNF refNf { get; set; }
+        public refNF refNF { get; set; }
 
         public string refCte { get; set; }
     }

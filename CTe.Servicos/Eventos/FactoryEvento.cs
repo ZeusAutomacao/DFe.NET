@@ -9,7 +9,7 @@ namespace CTeDLL.Servicos.Eventos
 {
     public class FactoryEvento
     {
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, IEventoContainer container)
+        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 

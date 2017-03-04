@@ -31,7 +31,10 @@ namespace CTeDLL.Classes.Informacoes.Destinatario
         [XmlElement(ElementName = "CEP")]
         public string ProxyCEP
         {
-            get { return CEP.ToString("D8"); }
+            get
+            {
+                return CEP.ToString("D8");
+            }
             set { CEP = long.Parse(value); }
         }
 

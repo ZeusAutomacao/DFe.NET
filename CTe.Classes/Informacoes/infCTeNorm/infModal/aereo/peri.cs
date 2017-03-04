@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal.Aereo
 {
-    public class peri
+    public class aereoPeri
     {
         public string nONU { get; set; }
 

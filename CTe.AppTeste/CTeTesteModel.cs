@@ -15,6 +15,7 @@ using CTeDLL.Servicos.ConsultaRecibo;
 using CTeDLL.Servicos.ConsultaStatus;
 using CTeDLL.Servicos.Eventos;
 using CTeDLL.Servicos.Inutilizacao;
+using CTeDLL.Utils.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -743,7 +744,7 @@ namespace CTe.AppTeste
                 new infCorrecao
                 {
                     campoAlterado = "fone",
-                    grupoAlterado = "enderRem",
+                    grupoAlterado = "rem",
                     valorAlterado = "14991001000"
                 }
             }; 

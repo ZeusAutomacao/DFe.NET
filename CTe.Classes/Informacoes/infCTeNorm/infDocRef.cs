@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Xml.Serialization;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infDocRef
     {
+        private decimal? _vDoc;
         public string nDoc { get; set; }
         public short serie { get; set; }
         public short? subserie { get; set; }
@@ -17,7 +19,12 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         [XmlElement(ElementName = "dEmi")]
         public string ProxydEmi { get { return dEmi.ParaDataString(); } set { dEmi = Convert.ToDateTime(value); } }
 
-        public decimal? vDoc { get; set; }
+        public decimal? vDoc
+        {
+            get { return _vDoc.Arredondar(2); }
+            set { _vDoc = value.Arredondar(2); }
+        }
+
         public bool vDocSpecified => vDoc.HasValue;
     }
 }

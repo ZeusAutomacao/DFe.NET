@@ -4,7 +4,7 @@ using CTeDLL.Classes.Servicos.Tipos;
 namespace CTeDLL.Classes.Servicos.Evento
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class evCancCTe : IEventoContainer
+    public class evCancCTe : EventoContainer
     {
         public evCancCTe()
         {

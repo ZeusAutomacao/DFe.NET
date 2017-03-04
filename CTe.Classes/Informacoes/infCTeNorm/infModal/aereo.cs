@@ -15,6 +15,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         [XmlIgnore]
         public DateTime dPrevAereo { get; set; }
 
+        [XmlElement(ElementName = "dPrevAereo")]
         public string ProxydPrevAereo
         {
             get { return dPrevAereo.ParaDataString(); }
@@ -30,6 +31,6 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         public tarifa tarifa { get; set; }
 
         [XmlElement(ElementName = "peri")]
-        public List<Aereo.peri> peri { get; set; }
+        public List<aereoPeri> peri { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 
@@ -8,13 +9,19 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class ferrov : ContainerModal
     {
+        private decimal _vFrete;
         public tpTraf tpTraf { get; set; }
 
         public trafMut trafMut { get; set; }
 
         public string fluxo { get; set; }
         public string idTrem { get; set; }
-        public decimal vFrete { get; set; }
+
+        public decimal vFrete
+        {
+            get { return _vFrete.Arredondar(2); }
+            set { _vFrete = value.Arredondar(2); }
+        }
 
         [XmlElement(ElementName = "ferroEnv")]
         public List<ferroEnv> ferroEnv { get; set; }
@@ -26,10 +33,16 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
     public class trafMut
     {
+        private decimal? _vFrete;
         public respFat respFat { get; set; }
         public ferrEmi ferrEmi { get; set; }
 
-        public decimal? vFrete { get; set; }
+        public decimal? vFrete
+        {
+            get { return _vFrete.Arredondar(2); }
+            set { _vFrete = value.Arredondar(2); }
+        }
+
         public bool vFreteSpecified => vFrete.HasValue;
         public string chCTeFerroOrigem { get; set; }
 
@@ -57,7 +70,22 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         public string xBairro { get; set; }
         public string cMun { get; set; }
         public string xMun { get; set; }
-        public string CEP { get; set; }
+        /// <summary>
+        /// 3 - CEP
+        /// </summary>
+        [XmlIgnore]
+        public long CEP { get; set; }
+
+        /// <summary>
+        /// Proxy para colocar zeros a esquerda no CEP 
+        /// </summary>
+        [XmlElement(ElementName = "CEP")]
+        public string ProxyCEP
+        {
+            get { return CEP.ToString("D8"); }
+            set { CEP = long.Parse(value); }
+        }
+
         [XmlIgnore]
         public Estado UF { get; set; }
 
@@ -71,8 +99,15 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
     public class detVag
     {
+        private decimal? _cap;
         public string nVag { get; set; }
-        public decimal? cap { get; set; }
+
+        public decimal? cap
+        {
+            get { return _cap.Arredondar(3); }
+            set { _cap = value.Arredondar(3); }
+        }
+
         public bool capSpecified => cap.HasValue;
 
         public string tpVag { get; set; }

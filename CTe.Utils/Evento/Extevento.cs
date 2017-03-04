@@ -56,7 +56,7 @@ namespace CTeDLL.Utils.Evento
             ValidarSchemaEventoContainer(eventoCTe.infEvento.detEvento.EventoContainer, eventoCTe.versao);
         }
 
-        private static void ValidarSchemaEventoContainer(IEventoContainer container, versao versao)
+        private static void ValidarSchemaEventoContainer(EventoContainer container, versao versao)
         {
             if (container.GetType() == typeof(evCancCTe))
             {

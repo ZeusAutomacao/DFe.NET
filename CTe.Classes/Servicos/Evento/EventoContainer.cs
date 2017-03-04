@@ -1,6 +1,6 @@
 ﻿namespace CTeDLL.Classes.Servicos.Evento
 {
-    public interface IEventoContainer
+    public abstract class EventoContainer
     {
         
     }

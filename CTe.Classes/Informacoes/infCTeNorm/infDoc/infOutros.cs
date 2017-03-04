@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace CTeDLL.Classes.Informacoes.InfCTeNormal
@@ -18,7 +19,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         /// <summary>
         /// Proxy para dPrev no formato AAAA-MM-DD
         /// </summary>
-        [XmlElement(ElementName = "dPrev")]
+        [XmlElement(ElementName = "dEmi")]
         public string ProxyddEmi
         {
             get
@@ -33,8 +34,12 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         }
 
 
+        public decimal? vDocFisc
+        {
+            get { return _vDocFisc.Arredondar(2); }
+            set { _vDocFisc = value.Arredondar(2); }
+        }
 
-        public decimal? vDocFisc { get; set; }
         public bool vDocFiscSpecified => vDocFisc.HasValue;
 
         [XmlIgnore]
@@ -62,5 +67,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 
         [XmlElement("infUnidCarga")]
         public List<infUnidCarga> infUnidCarga;
+
+        private decimal? _vDocFisc;
     }
 }

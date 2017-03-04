@@ -1,7 +1,4 @@
-﻿using System;
-using System.Xml.Serialization;
-
-namespace CTeDLL.Classes.Informacoes.Destinatario
+﻿namespace CTeDLL.Classes.Informacoes.Destinatario
 {
     public class dest
     {

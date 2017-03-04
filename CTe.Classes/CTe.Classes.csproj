@@ -175,7 +175,7 @@
     <Compile Include="Servicos\Evento\envEvento.cs" />
     <Compile Include="Servicos\Evento\evCancCTe.cs" />
     <Compile Include="Servicos\Evento\evCCeCTe.cs" />
-    <Compile Include="Servicos\Evento\IEventoContainer.cs" />
+    <Compile Include="Servicos\Evento\EventoContainer.cs" />
     <Compile Include="Servicos\Evento\eventoCTe.cs" />
     <Compile Include="Servicos\Evento\Flags\TipoEvento.cs" />
     <Compile Include="Servicos\Evento\infEventoEnv.cs" />
