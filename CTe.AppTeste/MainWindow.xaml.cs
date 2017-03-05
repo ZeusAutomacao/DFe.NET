@@ -87,9 +87,9 @@ namespace CTe.AppTeste
             _model.CartaCorrecao();
         }
 
-        private void CriarEEnviar_Click(object sender, RoutedEventArgs e)
+        private void CriarEnviarCTe2_Click(object sender, RoutedEventArgs e)
         {
-            
+            _model.CriarEnviarCTe2();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)

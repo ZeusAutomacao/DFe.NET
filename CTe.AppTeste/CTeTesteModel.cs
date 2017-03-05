@@ -7,15 +7,19 @@ using CTe.AppTeste.ModelBase;
 using CTe.Servicos.ConsultaProtocolo;
 using CTe.Utils.Extencoes;
 using CTeDLL;
+using CTeDLL.Classes.Informacoes;
+using CTeDLL.Classes.Informacoes.Emitente;
+using CTeDLL.Classes.Informacoes.Identificacao;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
 using CTeDLL.Servicos.ConsultaRecibo;
 using CTeDLL.Servicos.ConsultaStatus;
 using CTeDLL.Servicos.Eventos;
 using CTeDLL.Servicos.Inutilizacao;
 using CTeDLL.Utils.CTe;
+using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -726,7 +730,7 @@ namespace CTe.AppTeste
 
             var caminho = BuscarArquivoXml();
 
-            var cte = Classes.CTe.LoadXmlArquivo(caminho);
+            var cte = CteEletronico.LoadXmlArquivo(caminho);
 
             var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
 
@@ -753,6 +757,89 @@ namespace CTe.AppTeste
             var retorno = servico.AdicionarCorrecoes();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void CriarEnviarCTe2()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var cteEletronico = new CteEletronico();
+
+            #region infCte
+
+            cteEletronico.infCte = new infCte();
+            cteEletronico.infCte.versao = config.ConfigWebService.Versao;
+
+            #endregion
+            
+            #region ide
+
+            cteEletronico.infCte.ide = new ide();
+            cteEletronico.infCte.ide.cUF = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.cCT = GetRandom();
+            cteEletronico.infCte.ide.CFOP = 5353;
+            cteEletronico.infCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
+            cteEletronico.infCte.ide.forPag = forPag.Pago;
+            cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
+            cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
+            cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
+            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
+            cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
+            cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
+            cteEletronico.infCte.ide.tpCTe = tpCTe.Normal;
+            cteEletronico.infCte.ide.procEmi = procEmi.AplicativoContribuinte;
+            cteEletronico.infCte.ide.verProc = "0.0.0.1";
+            cteEletronico.infCte.ide.cMunEnv = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunEnv = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFEnv = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.modal = modal.rodoviario;
+            cteEletronico.infCte.ide.tpServ = tpServ.normal;
+            cteEletronico.infCte.ide.cMunIni = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunIni = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFIni = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.cMunFim = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunFim = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFFim = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.retira = retira.Nao;
+            cteEletronico.infCte.ide.tomaBase3 = new toma03
+            {
+                toma = toma.Remetente
+            };
+
+            #endregion
+
+            #region emit
+
+            cteEletronico.infCte.emit = new emit();
+            cteEletronico.infCte.emit.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.emit.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.emit.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.emit.xFant = config.Empresa.NomeFantasia;
+
+            cteEletronico.infCte.emit.enderEmit = new enderEmit();
+            cteEletronico.infCte.emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.emit.enderEmit.nro = config.Empresa.Numero;
+            cteEletronico.infCte.emit.enderEmit.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.emit.enderEmit.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.emit.enderEmit.UF = config.Empresa.SiglaUf;
+            cteEletronico.infCte.emit.enderEmit.fone = config.Empresa.Telefone;
+
+            #endregion
+
+            var xmlVerificacao = cteEletronico.ObterXmlString();
+
+        }
+
+
+        private static int GetRandom()
+        {
+            var rand = new Random();
+            return rand.Next(11111111, 99999999);
         }
     }
 }

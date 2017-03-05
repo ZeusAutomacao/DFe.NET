@@ -235,7 +235,7 @@
                     <Button Grid.Column="1" Grid.Row="1" Click="ConsultaPorNumeroRecibo_Click">Consulta Por Número Recibo</Button>
                     <Button Grid.Row="2" Grid.Column="0" Click="EventoCancelarCTe_Click">Evento Cancelar CT-e</Button>
                     <Button Grid.Row="2" Grid.Column="1" Click="CartaCorrecao_Click">Carta Correção</Button>
-                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEEnviar_Click">Criar e Enviar CT-e</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEnviarCTe2_Click">Criar e Enviar CT-e 2.00</Button>
 
                     <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
                         <TabItem Header="XmlEnvio">

@@ -2,8 +2,8 @@
 
 namespace CTeDLL.Classes.Informacoes.Identificacao
 {
-    public class tomaBase3
+    public abstract class tomaBase3
     {
-        public toma toma { get; set; }
+        public toma toma { get; set; } 
     }
 }

@@ -20,7 +20,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// </summary>
         public Estado cUF { get; set; }
 
-        public string cCT { get; set; }
+        public int cCT { get; set; }
 
         public int CFOP { get; set; }
 
@@ -31,7 +31,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// </summary>
         public forPag? forPag { get; set; }
 
-        public bool forPagSpecified { get; set; }
+        public bool forPagSpecified => forPag.HasValue;
 
         /// <summary>
         ///     B06 - Modelo do Documento Fiscal
@@ -40,7 +40,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
         public short serie { get; set; }
 
-        public int nCT { get; set; }
+        public long nCT { get; set; }
 
         /// <summary>
         /// Versão 3.0  AAAA-MM-DDTHH:MM:DD TZD
@@ -106,7 +106,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         /// </summary>
         public string refCTE { get; set; }
 
-        public string cMunEnv { get; set; }
+        public long cMunEnv { get; set; }
 
         public string xMunEnv { get; set; }
 
@@ -124,7 +124,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
 
         public tpServ tpServ { get; set; }
 
-        public string cMunIni { get; set; }
+        public long cMunIni { get; set; }
 
         public string xMunIni { get; set; }
 
@@ -135,7 +135,7 @@ namespace CTeDLL.Classes.Informacoes.Identificacao
         public string ProxyUFIni { get { return UFIni.GetSiglaUfString(); }
             set { UFIni = UFIni.SiglaParaEstado(value); } }
 
-        public string cMunFim { get; set; }
+        public long cMunFim { get; set; }
 
         public string xMunFim { get; set; }
 
