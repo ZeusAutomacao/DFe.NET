@@ -8,9 +8,12 @@ using CTe.Servicos.ConsultaProtocolo;
 using CTe.Utils.Extencoes;
 using CTeDLL;
 using CTeDLL.Classes.Informacoes;
+using CTeDLL.Classes.Informacoes.Destinatario;
 using CTeDLL.Classes.Informacoes.Emitente;
 using CTeDLL.Classes.Informacoes.Identificacao;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Informacoes.Remetente;
+using CTeDLL.Classes.Informacoes.Valores;
 using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Evento;
 using CTeDLL.Classes.Servicos.Tipos;
@@ -830,6 +833,57 @@ namespace CTe.AppTeste
             cteEletronico.infCte.emit.enderEmit.fone = config.Empresa.Telefone;
 
             #endregion
+
+            // Remetente , no caso adicionei os mesmos dados do emitente.. mas seriam o do remente.
+            #region rem
+            cteEletronico.infCte.rem = new rem();
+            cteEletronico.infCte.rem.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.rem.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.rem.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.rem.xFant = config.Empresa.NomeFantasia;
+            cteEletronico.infCte.rem.fone = config.Empresa.Telefone;
+
+            cteEletronico.infCte.rem.enderReme = new enderReme();
+            cteEletronico.infCte.rem.enderReme.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.rem.enderReme.nro = config.Empresa.Numero;
+            cteEletronico.infCte.rem.enderReme.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.rem.enderReme.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.rem.enderReme.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.rem.enderReme.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.rem.enderReme.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.rem.enderReme.UF = config.Empresa.SiglaUf;
+            #endregion
+
+            // Destinatário
+            #region dest
+
+            cteEletronico.infCte.dest = new CTeDLL.Classes.Informacoes.Destinatario.dest();
+            cteEletronico.infCte.dest.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.dest.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.dest.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.dest.fone = config.Empresa.Telefone;
+
+            cteEletronico.infCte.dest.enderDest = new enderDest();
+            cteEletronico.infCte.dest.enderDest.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.dest.enderDest.nro = config.Empresa.Numero;
+            cteEletronico.infCte.dest.enderDest.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.dest.enderDest.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.dest.enderDest.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.dest.enderDest.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.dest.enderDest.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.dest.enderDest.UF = config.Empresa.SiglaUf;
+
+            #endregion
+
+            #region vPrest
+                
+            cteEletronico.infCte.vPrest = new vPrest();
+            cteEletronico.infCte.vPrest.vTPrest = 100m;
+            cteEletronico.infCte.vPrest.vRec = 100m;
+
+            #endregion
+
+
 
             var xmlVerificacao = cteEletronico.ObterXmlString();
 
