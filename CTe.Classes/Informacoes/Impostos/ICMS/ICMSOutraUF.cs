@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
 using CTeDLL.Classes.Informacoes.Impostos.Tipos;
 using DFe.Classes;
 
@@ -11,7 +12,7 @@ namespace CTeDLL.Classes.Informacoes.Impostos
         private decimal _vBcOutraUf;
         private decimal _pIcmsOutraUf;
         private decimal _vIcmsOutraUf;
-        public string CST { get; set; } = "90";
+        public CST CST { get; set; } = CST.ICMS90;
 
         public decimal pRedBCOutraUF
         {

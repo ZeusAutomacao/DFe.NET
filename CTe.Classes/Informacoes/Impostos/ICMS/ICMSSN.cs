@@ -5,7 +5,6 @@ namespace CTeDLL.Classes.Informacoes.Impostos
 {
     public class ICMSSN : ICMSBasico
     {
-        public string CST { get; set; } = "90";
         public indSN indSN { get; set; } = indSN.Sim;
     }
 }

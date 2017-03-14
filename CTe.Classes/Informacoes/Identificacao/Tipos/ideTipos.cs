@@ -533,4 +533,23 @@ namespace CTeDLL.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("1")]
         Negociavel = 1
     }
+
+    
+    public enum CST
+    {
+        [XmlEnum("00")]
+        ICMS00 = 00,
+        [XmlEnum("20")]
+        ICMS20 = 20,
+        [XmlEnum("40")]
+        ICMS40,
+        [XmlEnum("41")]
+        ICMS41,
+        [XmlEnum("51")]
+        ICMS51,
+        [XmlEnum("60")]
+        ICMS60,
+        [XmlEnum("90")]
+        ICMS90
+    }
 }

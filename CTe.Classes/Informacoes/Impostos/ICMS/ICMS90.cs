@@ -1,4 +1,5 @@
-﻿using CTeDLL.Classes.Informacoes.Impostos.Tipos;
+﻿using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Informacoes.Impostos.Tipos;
 using DFe.Classes;
 
 namespace CTeDLL.Classes.Informacoes.Impostos
@@ -10,7 +11,7 @@ namespace CTeDLL.Classes.Informacoes.Impostos
         private decimal _pIcms;
         private decimal _vIcms;
         private decimal _vCred;
-        public string CST { get; set; } = "90";
+        public CST CST { get; set; } = CST.ICMS90;
 
         public decimal pRedBC
         {

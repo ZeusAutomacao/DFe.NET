@@ -12,6 +12,8 @@ using CTeDLL.Classes.Informacoes.Destinatario;
 using CTeDLL.Classes.Informacoes.Emitente;
 using CTeDLL.Classes.Informacoes.Identificacao;
 using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Informacoes.Impostos;
+using CTeDLL.Classes.Informacoes.InfCTeNormal;
 using CTeDLL.Classes.Informacoes.Remetente;
 using CTeDLL.Classes.Informacoes.Valores;
 using CTeDLL.Classes.Servicos;
@@ -27,6 +29,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using infNFe = CTeDLL.Classes.Informacoes.InfCTeNormal.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace CTe.AppTeste
@@ -883,7 +886,51 @@ namespace CTe.AppTeste
 
             #endregion
 
+            #region imp
 
+            cteEletronico.infCte.imp = new imp();
+            cteEletronico.infCte.imp.ICMS = new ICMS();
+            cteEletronico.infCte.imp.ICMS.TipoICMS = new ICMSSN();
+
+            #endregion
+
+            #region infCTeNorm
+
+            cteEletronico.infCte.infCTeNorm = new infCTeNorm();
+            cteEletronico.infCte.infCTeNorm.infCarga = new infCarga();
+            cteEletronico.infCte.infCTeNorm.infCarga.vCarga = 1000m;
+            cteEletronico.infCte.infCTeNorm.infCarga.proPred = "Linguiça com piqui";
+
+            cteEletronico.infCte.infCTeNorm.infCarga.infQ = new List<infQ>();
+            cteEletronico.infCte.infCTeNorm.infCarga.infQ.Add(new infQ
+            {
+                cUnid = cUnid.KG,
+                qCarga = 10000,
+                tpMed = "quilos gramas"
+            });
+
+            cteEletronico.infCte.infCTeNorm.infDoc = new infDoc();
+            cteEletronico.infCte.infCTeNorm.infDoc.infNFe = new List<infNFe>();
+            cteEletronico.infCte.infCTeNorm.infDoc.infNFe.Add(new infNFe
+            {
+                chave = "52161021025760000123550010000087341557247948"
+            });
+
+            cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
+            cteEletronico.infCte.infCTeNorm.seg.Add(new seg
+            {
+                respSeg = respSeg.Destinatario
+            });
+
+            cteEletronico.infCte.infCTeNorm.infModal = new infModal();
+            cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
+            var rodoviario = new rodo();
+            rodoviario.RNTRC = config.Empresa.RNTRC;
+            rodoviario.dPrev = DateTime.Now;
+            rodoviario.lota = lota.Nao;
+
+            cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
+            #endregion
 
             var xmlVerificacao = cteEletronico.ObterXmlString();
 
