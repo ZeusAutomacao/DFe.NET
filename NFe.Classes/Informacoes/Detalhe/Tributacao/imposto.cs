@@ -55,6 +55,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         public ICMS ICMS { get; set; }
 
         /// <summary>
+        ///     U01 - Grupo ISSQN
+        /// </summary>
+        public ISSQN ISSQN { get; set; }
+
+        /// <summary>
         ///     O01 - Grupo IPI
         /// </summary>
         public IPI IPI { get; set; }
@@ -88,11 +93,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         /// NA01 - Informação do ICMS Interestadua
         /// </summary>
         public ICMSUFDest ICMSUFDest { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
 
         public bool ShouldSerializevTotTrib()
         {

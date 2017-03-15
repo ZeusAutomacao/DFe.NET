@@ -34,11 +34,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -65,10 +60,6 @@
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
       <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
       <Name>MDFe.Classes</Name>
@@ -78,7 +69,7 @@
       <Name>MDFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
-      <Project>{81B3BC65-A499-4E19-8AB4-09C6D874C540}</Project>
+      <Project>{81b3bc65-a499-4e19-8ab4-09c6d874c540}</Project>
       <Name>MDFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>

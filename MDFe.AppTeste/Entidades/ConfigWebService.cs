@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Servicos.Flags;
 
 namespace MDFe.AppTeste.Entidades
 {
     [Serializable]
     public class ConfigWebService
     {
-        public EstadoUF UfDestino { get; set; }
+        public Estado UfEmitente { get; set; }
         public TipoAmbiente Ambiente { get; set; }
         public short Serie { get; set; }
         public long Numeracao { get; set; }

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Retorno.MDFeRetRecepcao;
+using MDFe.Classes.Servicos.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
+namespace MDFe.Classes.Retorno
 {
     [Serializable]
     [XmlRoot(ElementName = "mdfeProc", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
@@ -19,7 +18,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
         public VersaoServico Versao { get; set; }
 
         [XmlElement(ElementName = "MDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
-        public MDFe MDFe { get; set; }
+        public Informacoes.MDFe MDFe { get; set; }
 
         [XmlElement(ElementName = "protMDFe")]
         public MDFeProtMDFe ProtMDFe { get; set; }

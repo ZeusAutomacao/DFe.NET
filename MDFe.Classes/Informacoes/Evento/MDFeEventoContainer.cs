@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
+namespace MDFe.Classes.Informacoes.Evento
 {
     [Serializable]
     public class MDFeEventoContainer

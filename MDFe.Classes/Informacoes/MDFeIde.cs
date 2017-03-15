@@ -36,9 +36,10 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using DFe.Utils;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeIde
@@ -53,7 +54,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Código da UF do emitente do MDF-e. 
         /// </summary>
         [XmlElement(ElementName = "cUF")]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         /// <summary>
         /// 2 - Tipo do Ambiente 
@@ -71,7 +72,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Modelo do Manifesto Eletrônico
         /// </summary>
         [XmlElement(ElementName = "mod")]
-        public MDFeModelo Mod { get; set; }
+        public ModeloDocumento Mod { get; set; }
 
         /// <summary>
         /// 2- Série do Manifesto
@@ -86,10 +87,20 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public long NMDF { get; set; }
 
         /// <summary>
-        /// 2 - Código numérico que compõe a Chave de Acesso.
+        /// 2 - Código numérico que compõe a Chave de Acesso. 
+        /// </summary>
+        [XmlIgnore]
+        public int CMDF { get; set; }
+
+        /// <summary>
+        /// Proxy para cMDF
         /// </summary>
         [XmlElement(ElementName = "cMDF")]
-        public long CMDF { get; set; }
+        public string ProxyCMDF
+        {
+            get { return CMDF.ToString("00000000"); }
+            set { CMDF = int.Parse(value); }
+        }
 
         /// <summary>
         /// 2 - Digito verificador da chave de acesso do Manifesto
@@ -115,7 +126,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
-            get { return DhEmi.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get { return DhEmi.ParaDataHoraStringSemUtc(); }
             set { DhEmi = DateTime.Parse(value); }
         }
 
@@ -141,7 +152,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Sigla da UF do Carregamento 
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFIni { get; set; }
+        public Estado UFIni { get; set; }
 
         /// <summary>
         /// Proxy para UFIni
@@ -157,7 +168,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Sigla da UF do Descarregamento
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFFim { get; set; }
+        public Estado UFFim { get; set; }
 
         /// <summary>
         /// Proxy para UFFim
@@ -192,7 +203,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
-            get { return DhIniViagem?.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get { return DhIniViagem.ParaDataHoraStringUtc(); }
             set { DhIniViagem = DateTime.Parse(value); }
         }
     }

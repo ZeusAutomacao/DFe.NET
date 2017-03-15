@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Globalization;
+using DFe.Utils;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Assinatura;
 using NFe.Utils.Validacao;
@@ -118,16 +119,25 @@ namespace NFe.Utils.NFe
             #region Define cNF
 
             var tamanhocNf = 9;
-            var versao = (Decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture));
+            var versao = (decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture));
             if (versao >= 2) tamanhocNf = 8;
             nfeLocal.infNFe.ide.cNF = Convert.ToInt32(nfeLocal.infNFe.ide.cNF).ToString().PadLeft(tamanhocNf, '0');
 
             #endregion
 
-            var chave = Gerador.GerarChave(nfeLocal.infNFe);
+            var modeloDocumentoFiscal = nfeLocal.infNFe.ide.mod;
+            var tipoEmissao = (int)nfeLocal.infNFe.ide.tpEmis;
+            var codigoNumerico = int.Parse(nfeLocal.infNFe.ide.cNF);
+            var estado = nfeLocal.infNFe.ide.cUF;
+            var dataEHoraEmissao = nfeLocal.infNFe.ide.dhEmi;
+            var cnpj = nfeLocal.infNFe.emit.CNPJ;
+            var numeroDocumento = nfeLocal.infNFe.ide.nNF;
+            var serie = nfeLocal.infNFe.ide.serie;
 
-            nfeLocal.infNFe.Id = Gerador.GerarId(chave);
-            nfeLocal.infNFe.ide.cDV = Convert.ToInt16(chave.Substring(chave.Length - 1, 1));
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
+            nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
 
             var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id);
             nfeLocal.Signature = assinatura;

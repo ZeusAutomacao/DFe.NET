@@ -35,9 +35,9 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeVeicTracao
@@ -106,7 +106,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - UF em que veículo está licenciado 
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UF { get; set; }
+        public Estado UF { get; set; }
 
         /// <summary>
         /// Proxy para obter a sigla uf

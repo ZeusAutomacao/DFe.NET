@@ -34,9 +34,9 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeVeicReboque
@@ -87,7 +87,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public MDFeTpCar TpCar { get; set; }
 
         [XmlIgnore]
-        public EstadoUF UF { get; set; }
+        public Estado UF { get; set; }
 
         [XmlElement(ElementName = "UF")]
         public string ProxyUF

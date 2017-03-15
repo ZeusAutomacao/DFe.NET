@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno
+namespace MDFe.Classes.Retorno
 {
     public class RetornoBase
     {

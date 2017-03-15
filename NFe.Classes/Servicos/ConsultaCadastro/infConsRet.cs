@@ -30,6 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Utils;
+
 namespace NFe.Classes.Servicos.ConsultaCadastro
 {
     public class infConsRet
@@ -71,9 +77,20 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
         public string CPF { get; set; }
 
         /// <summary>
-        ///     GR06e - Data e hora de processamento da consulta Formato = AAAA-MM-DDTHH:MM:SS
+        ///     GR06e - Data e hora de processamento da consulta
         /// </summary>
-        public string dhCons { get; set; }
+        [XmlIgnore]
+        public DateTime dhCons { get; set; }
+
+        /// <summary>
+        /// Proxy para dhCons no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhCons")]
+        public string ProxydhCons
+        {
+            get { return dhCons.ParaDataHoraStringUtc(); }
+            set { dhCons = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     GR06f - Código da UF que atendeu a solicitação.

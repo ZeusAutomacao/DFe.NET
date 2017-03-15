@@ -34,7 +34,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     public class MDFeInfPercurso
     {
@@ -42,7 +42,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 3 - Sigla das Unidades da Federação do percurso do veículo.
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFPer { get; set; }
+        public Estado UFPer { get; set; }
 
         /// <summary>
         /// Proxy para UFPer

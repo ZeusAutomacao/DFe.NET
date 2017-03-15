@@ -34,6 +34,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DFe.Utils;
 
 namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
@@ -72,9 +73,20 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         public string chNFe { get; set; }
 
         /// <summary>
-        /// D07 - Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// D07 - Data e hora do evento
         /// </summary>
+        [XmlIgnore]
         public DateTime dhEvento { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEvento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEvento")]
+        public string ProxydhEvento
+        {
+            get { return dhEvento.ParaDataHoraStringUtc(); }
+            set { dhEvento = DateTime.Parse(value); }
+        }
 
         /// <summary>
         /// D08 - Código do evento

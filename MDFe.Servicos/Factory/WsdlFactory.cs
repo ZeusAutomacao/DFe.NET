@@ -107,7 +107,7 @@ namespace MDFe.Servicos.Factory
 
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
         {
-            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfDestino.GetCodigoIbgeEmString();
+            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
             var certificadoDigital = MDFeConfiguracao.X509Certificate2;
 
             return new WsdlConfiguracao

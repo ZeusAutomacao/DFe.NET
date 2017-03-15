@@ -36,9 +36,9 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Servicos.Autorizacao;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
+namespace MDFe.Classes.Retorno.MDFeRecepcao
 {
     [Serializable]
     [XmlRoot(ElementName = "retEnviMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
@@ -51,7 +51,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao
         public TipoAmbiente TpAmb { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

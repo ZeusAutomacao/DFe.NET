@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -44,7 +44,12 @@ namespace NFe.Danfe.Base
         public byte[] Logomarca { get; set; }
 
         /// <summary>
-        /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
+        /// Determina se deve ser impresso uma tarja "DOCUMENTO CANCELADO", indicando que o DANFE impresso refere-se ao DANFE de uma NFe cancelada
+        /// </summary>
+        public bool DocumentoCancelado { get; set; }
+
+        /// <summary>
+        /// Retorna um objeto do tipo <see cref="Image"/> a partir da logo armazenada na propriedade <see cref="Logomarca"/>
         /// </summary>
         /// <returns></returns>
         public Image ObterLogo()

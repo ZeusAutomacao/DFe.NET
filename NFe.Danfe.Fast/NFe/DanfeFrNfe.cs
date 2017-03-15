@@ -34,6 +34,7 @@
 using System.IO;
 using FastReport;
 using NFe.Classes;
+using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.Fast.NFe
 {
@@ -43,32 +44,35 @@ namespace NFe.Danfe.Fast.NFe
     public class DanfeFrNfe : DanfeBase
     {
         /// <summary>
-        /// Construtor da classe reponsável pela impressão do DANFE da NFe em Fast Reports
+        /// Construtor da classe responsável pela impressão do DANFE da NFe em Fast Reports
         /// </summary>
         /// <param name="proc">Objeto do tipo nfeProc</param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo configuracaoDanfeNfe contendo as definições de impressão</param>
-        public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe)
+        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
+        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
+        public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
         {
-            #region Define as varíaveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
+            #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
             Relatorio = new Report();
             Relatorio.RegisterData(new[] { proc }, "NFe", 20);
             Relatorio.GetDataSource("NFe").Enabled = true;
             Relatorio.Load(new MemoryStream(Properties.Resources.NFeRetrato));
             Relatorio.SetParameterValue("DuasLinhas", configuracaoDanfeNfe.DuasLinhas);
-            Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.Cancelada);
+            Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.DocumentoCancelado);
+            Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);            
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfe.ObterLogo();
 
             #endregion
         }
 
         /// <summary>
-        /// Construtor da classe reponsável pela impressão do DANFE da NFe em Fast Reports.
-        /// Use esse construtor apenas para impressão em contigência, já que neste modo ainda não é possível obter o grupo protNFe 
+        /// Construtor da classe responsável pela impressão do DANFE da NFe em Fast Reports.
+        /// Use esse construtor apenas para impressão em contingência, já que neste modo ainda não é possível obter o grupo protNFe 
         /// </summary>
-        /// <param name="nfe">Objeto do tipo NFe</param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo ConfiguracaoDanfeNfe contendo as definições de impressão</param>
-        public DanfeFrNfe(Classes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe)
+        /// <param name="nfe">Objeto do tipo <see cref="Classes.NFe"/></param>
+        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
+        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
+        public DanfeFrNfe(Classes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe, desenvolvedor)
         {
         }
     }

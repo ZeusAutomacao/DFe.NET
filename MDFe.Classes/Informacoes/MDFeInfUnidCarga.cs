@@ -33,9 +33,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeInfUnidCarga

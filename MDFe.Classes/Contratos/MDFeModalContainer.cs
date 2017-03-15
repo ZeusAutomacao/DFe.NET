@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Contratos
+namespace MDFe.Classes.Contratos
 {
     [Serializable]
     public abstract class MDFeModalContainer

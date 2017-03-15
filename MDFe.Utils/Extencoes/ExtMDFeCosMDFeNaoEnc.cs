@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Validacao;
 

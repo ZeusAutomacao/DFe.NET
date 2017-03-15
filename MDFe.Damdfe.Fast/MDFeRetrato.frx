@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="01/24/2017 15:45:47" ReportInfo.CreatorVersion="2017.1.17.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+using DFe.Classes.Flags;
+using MDFe.Classes.Informacoes;
+
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    private string FormatarCampo(long valor, char format)
+    {
+      return FormatarCampo(valor.ToString(), format);
+    }   
+    
+    private string FormatarCampo(string valor, char format)
+    {
+      switch (format)
+      {
+        case 'c':  //CEP
+          if (valor.Length == 8)
+            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);          
+          break;
+        case 'f':  //Telefone /celular         
+          if (valor.Length == 10)
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
+          else if (valor.Length == 11)
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);          
+          break;
+        case 'd': //cpf / cnpj
+          if (valor.Length == 11)
+            valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
+          else if (valor.Length == 14)
+            valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
+          break;   
+        case 'p':
+          if (valor.Length == 7)
+            valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
+          break;
+      }                               
+      return valor;
+    }
+    
+    private void txtChaveMDFe_BeforePrint(object sender, EventArgs e)
+    {
+      var chave = Substring( ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Id&quot;)) , 3);
+      if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
+      {
+        var chaveFormatada = &quot;&quot;;
+        for (int i = 0; i &lt; chave.Length; i += 4)  
+          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
+        txtChaveMDFe.Text = chaveFormatada;      
+      }                
+    }   
+    
+    
+    private int? qtdeCTe = 0;
+    private int? qtdeNFe = 0;
+    private int? qtdeMDFe = 0;
+
+    private void PageHeader1_BeforePrint(object sender, EventArgs e)
+    {
+      //Veiculos e Reboques
+      txtPlaca.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Placa&quot;));
+      txtRntrc.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Prop.RNTRC&quot;));      
+      if ( string.IsNullOrEmpty(txtRntrc.Text) )
+         txtRntrc.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.RNTRC&quot;));
+      
+      var veic = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque&quot;);
+      veic.Init();
+      while (veic.HasMoreRows)
+      {
+        txtPlaca.Text += Environment.NewLine + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));        
+        string rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Prop.RNTRC&quot;));
+        if ( string.IsNullOrEmpty(rntrc) )
+          rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.RNTRC&quot;));
+        txtRntrc.Text += Environment.NewLine + rntrc;
+       
+        veic.Next();
+      }
+      
+      //Condutores
+      txtCpf.Text = &quot;&quot;;
+      txtNome.Text = &quot;&quot;;      
+      var moto = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor&quot;);
+      moto.Init();
+      while (moto.HasMoreRows)
+      {
+        txtCpf.Text += FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF&quot;), 'd') + Environment.NewLine;
+        txtNome.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome&quot;)) + Environment.NewLine;        
+        moto.Next();        
+      }
+      
+      //Vales Pedágio
+      txtCnpjResp.Text = &quot;&quot;;
+      txtCnpjFornec.Text = &quot;&quot;;
+      txtNumComprovante.Text = &quot;&quot;;      
+      var vale = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp&quot;); 
+      vale.Init();
+      while (vale.HasMoreRows)
+      {
+        txtCnpjResp.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJPg&quot;)), 'd') + Environment.NewLine;
+        txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJForn&quot;)), 'd') + Environment.NewLine;
+        txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.NCompra&quot;)) + Environment.NewLine;
+        vale.Next();
+      }
+      
+      //Totais
+      qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
+      qtdeCTe = qtdeCTe ?? 0;
+      Text38.Text = qtdeCTe.ToString();
+      
+      qtdeNFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe&quot;));
+      qtdeNFe = qtdeNFe ?? 0;
+      Text39.Text = qtdeNFe.ToString();
+      
+      qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
+      qtdeMDFe = qtdeMDFe ?? 0;
+      Text40.Text = qtdeMDFe.ToString();
+      
+      Subreport1.Visible = qtdeCTe &gt; 0;      
+      Subreport2.Visible = qtdeNFe &gt; 0; 
+      Subreport3.Visible = qtdeMDFe &gt; 0;
+      
+      Child1.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
+      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
+      Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
+    }
+
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="MDFeProcMDFe" ReferenceName="MDFeProcMDFe" DataType="MDFe.Classes.Retorno.MDFeProcMDFe[], MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null" Enabled="true">
+      <Column Name="Versao" DataType="MDFe.Classes.Servicos.Flags.VersaoServico, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+      <Column Name="MDFe" DataType="MDFe.Classes.Informacoes.MDFe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+        <Column Name="InfMDFe" DataType="MDFe.Classes.Informacoes.MDFeInfMDFe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Versao" DataType="MDFe.Classes.Servicos.Flags.VersaoServico, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="Ide" DataType="MDFe.Classes.Informacoes.MDFeIde, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpEmit" DataType="MDFe.Classes.Flags.MDFeTipoEmitente, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Serie" DataType="System.Int16"/>
+            <Column Name="NMDF" DataType="System.Int64"/>
+            <Column Name="CMDF" DataType="System.Int32"/>
+            <Column Name="ProxyCMDF" DataType="System.String"/>
+            <Column Name="CDV" DataType="System.Byte"/>
+            <Column Name="Modal" DataType="MDFe.Classes.Flags.MDFeModal, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="DhEmi" DataType="System.DateTime"/>
+            <Column Name="ProxyDhEmi" DataType="System.String"/>
+            <Column Name="TpEmis" DataType="MDFe.Classes.Flags.MDFeTipoEmissao, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProcEmi" DataType="MDFe.Classes.Flags.MDFeIdentificacaoProcessoEmissao, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="VerProc" DataType="System.String"/>
+            <Column Name="UFIni" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProxyUFIni" DataType="System.String"/>
+            <Column Name="UFFim" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProxyUFFim" DataType="System.String"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="InfMunCarrega" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunCarrega, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunCarrega" Enabled="true">
+              <Column Name="CMunCarrega" DataType="System.String"/>
+              <Column Name="XMunCarrega" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="InfPercurso" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfPercurso, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfPercurso" Enabled="true">
+              <Column Name="UFPer" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUFPer" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <Column Name="DhIniViagem" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="ProxyDhIniViagem" DataType="System.String"/>
+          </Column>
+          <Column Name="Emit" DataType="MDFe.Classes.Informacoes.MDFeEmit, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="XNome" DataType="System.String"/>
+            <Column Name="XFant" DataType="System.String"/>
+            <Column Name="EnderEmit" DataType="MDFe.Classes.Informacoes.MDFeEnderEmit, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="XLgr" DataType="System.String"/>
+              <Column Name="Nro" DataType="System.String"/>
+              <Column Name="XCpl" DataType="System.String"/>
+              <Column Name="XBairro" DataType="System.String"/>
+              <Column Name="CMun" DataType="System.Int64"/>
+              <Column Name="XMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="Fone" DataType="System.String"/>
+              <Column Name="Email" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="InfModal" DataType="MDFe.Classes.Informacoes.MDFeInfModal, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="VersaoModal" DataType="MDFe.Classes.Flags.MDFeVersaoModal, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Modal" DataType="MDFe.Classes.Contratos.MDFeModalContainer, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="RNTRC" DataType="System.String"/>
+              <Column Name="CIOT" DataType="System.String"/>
+              <Column Name="VeicTracao" DataType="MDFe.Classes.Informacoes.MDFeVeicTracao, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="CInt" DataType="System.String"/>
+                <Column Name="Placa" DataType="System.String"/>
+                <Column Name="RENAVAM" DataType="System.String"/>
+                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="CPF" DataType="System.String"/>
+                  <Column Name="CNPJ" DataType="System.String"/>
+                  <Column Name="RNTRC" DataType="System.String"/>
+                  <Column Name="XNome" DataType="System.String"/>
+                  <Column Name="IE" DataType="System.String"/>
+                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="ProxyUF" DataType="System.String"/>
+                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                </Column>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="Condutor" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeCondutor, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Condutor" Enabled="true">
+                  <Column Name="XNome" DataType="System.String"/>
+                  <Column Name="CPF" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="TpRod" DataType="MDFe.Classes.Flags.MDFeTpRod, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="ProxyUF" DataType="System.String"/>
+              </Column>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="VeicReboque" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeVeicReboque, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="VeicReboque" Enabled="true">
+                <Column Name="CInt" DataType="System.String"/>
+                <Column Name="Placa" DataType="System.String"/>
+                <Column Name="RENAVAM" DataType="System.String"/>
+                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="CPF" DataType="System.String"/>
+                  <Column Name="CNPJ" DataType="System.String"/>
+                  <Column Name="RNTRC" DataType="System.String"/>
+                  <Column Name="XNome" DataType="System.String"/>
+                  <Column Name="IE" DataType="System.String"/>
+                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="ProxyUF" DataType="System.String"/>
+                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                </Column>
+                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="ProxyUF" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="ValePed" DataType="MDFe.Classes.Informacoes.MDFeValePed, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="Disp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeDisp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Disp" Enabled="true">
+                  <Column Name="CNPJForn" DataType="System.String"/>
+                  <Column Name="CNPJPg" DataType="System.String"/>
+                  <Column Name="NCompra" DataType="System.String"/>
+                </BusinessObjectDataSource>
+              </Column>
+              <Column Name="CodAgPorto" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="InfDoc" DataType="MDFe.Classes.Informacoes.MDFeInfDoc, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="InfMunDescarga" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunDescarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunDescarga" Enabled="true">
+              <Column Name="CMunDescarga" DataType="System.String"/>
+              <Column Name="XMunDescarga" DataType="System.String"/>
+              <BusinessObjectDataSource Name="InfCTe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfCTe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="ChCTe" DataType="System.String"/>
+                <Column Name="SegCodBarra" DataType="System.String"/>
+                <BusinessObjectDataSource Name="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="IdUnidTransp" DataType="System.String"/>
+                  <BusinessObjectDataSource Name="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <Column Name="NLacre" DataType="System.String"/>
+                  </BusinessObjectDataSource>
+                  <BusinessObjectDataSource Name="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="IdUnidCarga" DataType="System.String"/>
+                    <BusinessObjectDataSource Name="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                      <Column Name="NLacre" DataType="System.String"/>
+                    </BusinessObjectDataSource>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  </BusinessObjectDataSource>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </BusinessObjectDataSource>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="InfNFe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfNFe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="ChNFe" DataType="System.String"/>
+                <Column Name="SegCodBarra" DataType="System.String"/>
+                <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidTransps" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="IdUnidTransp" DataType="System.String"/>
+                  <BusinessObjectDataSource Name="LacUnidTransps1" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
+                    <Column Name="NLacre" DataType="System.String"/>
+                  </BusinessObjectDataSource>
+                  <BusinessObjectDataSource Name="InfUnidCargas1" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="IdUnidCarga" DataType="System.String"/>
+                    <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
+                      <Column Name="NLacre" DataType="System.String"/>
+                    </BusinessObjectDataSource>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  </BusinessObjectDataSource>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </BusinessObjectDataSource>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="InfMdFeTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMDFeTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="ChMDFe" DataType="System.String"/>
+                <BusinessObjectDataSource Name="InfUnidTransp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="IdUnidTransp" DataType="System.String"/>
+                  <BusinessObjectDataSource Name="LacUnidTransps2" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
+                    <Column Name="NLacre" DataType="System.String"/>
+                  </BusinessObjectDataSource>
+                  <BusinessObjectDataSource Name="InfUnidCargas2" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="IdUnidCarga" DataType="System.String"/>
+                    <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
+                      <Column Name="NLacre" DataType="System.String"/>
+                    </BusinessObjectDataSource>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  </BusinessObjectDataSource>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                </BusinessObjectDataSource>
+              </BusinessObjectDataSource>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="Tot" DataType="MDFe.Classes.Informacoes.MDFeTot, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="QCTe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="QNFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="QMDFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="vCarga" DataType="System.Decimal"/>
+            <Column Name="CUnid" DataType="MDFe.Classes.Flags.MDFeCUnid, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="QCarga" DataType="System.Decimal"/>
+            <Column Name="QCTeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="QNFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="QMDFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+          </Column>
+          <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="Lacres" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacre, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Lacres" Enabled="true">
+            <Column Name="NLacre" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="AutXml" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeAutXML, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="AutXml" Enabled="true">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+          </BusinessObjectDataSource>
+          <Column Name="InfAdic" DataType="MDFe.Classes.Informacoes.MDFeInfAdic, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="InfAdFisco" DataType="System.String"/>
+            <Column Name="InfCpl" DataType="System.String"/>
+          </Column>
+        </Column>
+        <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+          <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="URI" DataType="System.String"/>
+              <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="DigestValue" DataType="System.String"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource10" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+            </Column>
+          </Column>
+          <Column Name="SignatureValue" DataType="System.String"/>
+          <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+            <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Certificate" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+      <Column Name="ProtMDFe" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeProtMDFe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Versao" DataType="System.String"/>
+        <Column Name="InfProt" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeInfProtMDFe, MDFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="VerAplic" DataType="System.String"/>
+          <Column Name="ChMDFe" DataType="System.String"/>
+          <Column Name="DhRecbto" DataType="System.DateTime"/>
+          <Column Name="NProt" DataType="System.String"/>
+          <Column Name="DigVal" DataType="System.String"/>
+          <Column Name="CStat" DataType="System.Int16"/>
+          <Column Name="XMotivo" DataType="System.String"/>
+          <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                <Column Name="URI" DataType="System.String"/>
+                <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </Column>
+                <Column Name="DigestValue" DataType="System.String"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource11" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+              </Column>
+            </Column>
+            <Column Name="SignatureValue" DataType="System.String"/>
+            <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.6, Culture=neutral, PublicKeyToken=null">
+                <Column Name="X509Certificate" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+    </BusinessObjectDataSource>
+    <Parameter Name="DoocumentoCancelado" DataType="System.Boolean"/>
+    <Parameter Name="DocumentoEncerrado" DataType="System.Boolean"/>
+    <Parameter Name="Desenvolvedor" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261">
+    <PageHeaderBand Name="PageHeader1" Width="748.44" Height="409.8" BeforePrintEvent="PageHeader1_BeforePrint">
+      <ShapeObject Name="Shape1" Width="746.55" Height="200.34"/>
+      <LineObject Name="Line1" Left="368.55" Top="1.45" Height="197.45"/>
+      <LineObject Name="Line3" Left="368.55" Top="41.58" Width="376"/>
+      <LineObject Name="Line4" Left="368.55" Top="124.74" Width="376"/>
+      <LineObject Name="Line6" Top="170.1" Width="745.55"/>
+      <BarcodeObject Name="BarcodeChave" Left="397.9" Top="68.15" Width="321.32" Height="47.25" AutoSize="false" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text1" Left="379" Top="51.25" Width="94.5" Height="11.9" Text="Controle do Fisco" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text2" Left="375" Top="129.3" Width="94.5" Height="11.9" Text="Chave de Acesso" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="txtChaveMDFe" Left="370.8" Top="146.2" Width="372" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" HorzAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <TextObject Name="Text3" Left="375" Top="9.45" Width="100.5" Height="20.9" Text="DAMDFE" Font="Times New Roman, 14.25pt, style=Bold"/>
+      <TextObject Name="Text4" Left="505.95" Top="15.45" Width="226.8" Height="10.9" Text="Documento Auxiliar de Manifesto de Documentos Fiscais" Font="Times New Roman, 6.75pt"/>
+      <PictureObject Name="poEmitLogo" Left="5.45" Top="42.7" Width="114.73" Height="96.72" Image=""/>
+      <TextObject Name="Text5" Left="4" Top="5.45" Width="351.65" Height="29.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <TextObject Name="Text6" Left="122.4" Top="42.25" Width="243.7" Height="122.85" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]&#13;&#10;INSCRIÇÃO ESTADUAL: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;TELEFONE: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Fone],'f')]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Email]" Font="Times New Roman, 8.25pt"/>
+      <LineObject Name="Line5" Left="34.02" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text7" Left="-0.76" Top="170.1" Width="38.8" Height="10.45" Text="MODELO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text8" Left="2.45" Top="181.55" Width="29.35" Height="15.9" Text="58" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line7" Left="64.48" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text9" Left="31.8" Top="171.1" Width="35.8" Height="10.45" Text="SÉRIE" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text10" Left="35.25" Top="181.55" Width="27.35" Height="15.9" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line8" Left="136.3" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text11" Left="66.15" Top="171.1" Width="68.15" Height="10.45" Text="NÚMERO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text12" Left="63.6" Top="181.55" Width="74.15" Height="15.9" Text="[Format(&quot;{0:000'.'000'.'000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.NMDF] )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line9" Left="170.32" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text13" Left="133.85" Top="170.99" Width="39.8" Height="10.45" Text="FOLHA" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text14" Left="138.3" Top="181.44" Width="30.35" Height="15.9" Text="[Page#]/[TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line10" Left="272.16" Top="170.1" Width="47.25"/>
+      <LineObject Name="Line11" Left="330.86" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text15" Left="172.1" Top="170.99" Width="118.4" Height="10.45" Text="EMISSÃO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text16" Left="172.1" Top="181.44" Width="118.4" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line13" Left="292.95" Top="170.1" Height="29.35"/>
+      <TextObject Name="Text17" Left="292.95" Top="170.99" Width="37.8" Height="10.45" Text="UF Carga" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text18" Left="294.95" Top="181.44" Width="34.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text19" Left="329.75" Top="170.99" Width="39.35" Height="10.45" Text="UF Descar." HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
+      <TextObject Name="Text20" Left="331.75" Top="181.44" Width="34.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text21" Left="374" Top="171" Width="175.55" Height="10" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Font="Times New Roman, 6pt, style=Bold"/>
+      <TextObject Name="Text22" Left="374.1" Top="183.55" Width="368.55" Height="11.9" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <ShapeObject Name="Shape2" Top="201.23" Width="746.55" Height="207.9"/>
+      <LineObject Name="Line14" Top="220.13" Width="745.55"/>
+      <LineObject Name="Line15" Left="313.74" Top="202.23" Height="205.9"/>
+      <TextObject Name="Text23" Left="3.7" Top="204.9" Width="306.95" Height="11.9" Text="Veículo de tração e Reboque" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text24" Left="316.3" Top="204.9" Width="426.35" Height="11.9" Text="Condutor" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line16" Left="132.3" Top="220.35" Height="82.6"/>
+      <LineObject Name="Line17" Top="303.4" Width="313.3"/>
+      <LineObject Name="Line18" Top="318.85" Width="313.3"/>
+      <TextObject Name="Text25" Left="2" Top="304.85" Width="309.95" Height="11.9" Text="Vale Pedágio" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line19" Top="235.25" Width="745.55"/>
+      <LineObject Name="Line20" Left="94.5" Top="319.3" Height="88.95"/>
+      <LineObject Name="Line21" Top="334.2" Width="313.3"/>
+      <LineObject Name="Line22" Left="189.45" Top="318.3" Height="89.95"/>
+      <TextObject Name="Text26" Left="2.45" Top="221.35" Width="127.3" Height="11.9" Text="Placa" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text27" Left="135.3" Top="221.26" Width="175.55" Height="11.9" Text="RNTRC" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text28" Left="1" Top="320.3" Width="95.5" Height="11.9" Text="Responsável CNPJ" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text29" Left="94.5" Top="320.3" Width="95.5" Height="11.9" Text="Fornecedor CNPJ" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text30" Left="189" Top="320.3" Width="123.85" Height="11.9" Text="N. Comprovante" Font="Times New Roman, 8.25pt"/>
+      <LineObject Name="Line23" Left="442.7" Top="220.35" Height="187.55"/>
+      <TextObject Name="Text31" Left="317.3" Top="221.26" Width="123.3" Height="11.9" Text="CPF" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text32" Left="446.15" Top="221.26" Width="297.4" Height="11.9" Text="Nome" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="txtPlaca" Left="2.45" Top="237.25" Width="127.5" Height="64.7" Font="Times New Roman, 9pt"/>
+      <TextObject Name="txtRntrc" Left="133.75" Top="237.25" Width="177.75" Height="64.7" Font="Times New Roman, 9pt"/>
+      <TextObject Name="txtCpf" Left="316.3" Top="238.25" Width="124.5" Height="167.2" Font="Times New Roman, 9pt"/>
+      <TextObject Name="txtNome" Left="444.15" Top="238.25" Width="298.6" Height="167.2" Font="Times New Roman, 9pt"/>
+      <TextObject Name="txtCnpjResp" Left="2" Top="336.2" Width="90.7" Height="69.7" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="txtCnpjFornec" Left="95.5" Top="336.2" Width="92.7" Height="69.7" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="txtNumComprovante" Left="191" Top="337.2" Width="121.05" Height="69.7" Font="Times New Roman, 6.75pt"/>
+      <ChildBand Name="Child1" Top="413.13" Width="748.44" Height="27.35" Visible="false">
+        <TextObject Name="Text60" Left="242.25" Top="6" Width="235.25" Height="16.25" Fill.Color="Gray" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Times New Roman, 11.25pt, style=Bold" TextFill.Color="White"/>
+        <ChildBand Name="Child2" Top="443.82" Width="748.44" Height="92.4">
+          <ShapeObject Name="Shape3" Top="3.45" Width="746.55" Height="49.25"/>
+          <TextObject Name="Text42" Left="0.45" Top="64.6" Width="745.2" Height="19.35" Text="RELAÇÃO DOS DOCUMENTOS FISCAIS ELETRÔNICOS" HorzAlign="Center" Font="Times New Roman, 14.25pt, style=Bold, Underline"/>
+          <TextObject Name="Text38" Left="2" Top="34.8" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text39" Left="200.45" Top="34.8" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text40" Left="398.9" Top="34.78" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text41" Left="597.35" Top="34.8" Width="146.85" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text34" Left="1.9" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade CT-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <LineObject Name="Line24" Left="1" Top="19.35" Width="744.55"/>
+          <TextObject Name="Text35" Left="200.45" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade NF-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text36" Left="398.9" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade MDF-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text37" Left="597.35" Top="20.9" Width="146.85" Height="11.9" Text="Peso Total (KG)" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <TextObject Name="Text33" Left="2" Top="5.45" Width="741.65" Height="11.9" Text="MODAL RODOVIÁRIO DE CARGA" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+          <LineObject Name="Line26" Left="198.45" Top="18.9" Height="32.8"/>
+          <LineObject Name="Line27" Left="396.9" Top="18.9" Height="32.8"/>
+          <LineObject Name="Line28" Left="595.35" Top="18.9" Height="32.8"/>
+        </ChildBand>
+      </ChildBand>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="539.55" Width="748.44" Height="32.35" DataSource="BusinessObjectDataSource9">
+      <TextObject Name="Text43" Left="28.35" Top="1" Width="678.95" Height="17.9" Border.Lines="All" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <SubreportObject Name="Subreport1" Top="20.35" Width="742.1" Height="10.45" ReportPage="Page2"/>
+      <SubreportObject Name="Subreport2" Top="20.35" Width="742.01" Height="10.58" ReportPage="Page3"/>
+      <SubreportObject Name="Subreport3" Top="20.35" Width="742.01" Height="10.45" ReportPage="Page4"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="575.23" Width="748.44" Height="97.5">
+      <TextObject Name="Text61" Left="4.45" Top="4.45" Width="738.55" Height="88.5" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
+      <ShapeObject Name="Shape4" Top="1" Width="746.55" Height="96.5"/>
+      <TextObject Name="Text56" Left="3" Top="4.45" Width="63.5" Height="14.45" Text="Observação" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text57" Left="4" Top="20.9" Width="739.3" Height="61.25" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text58" Left="5" Top="85.05" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text59" Left="444.05" Top="85.05" Width="299.75" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+    </PageFooterBand>
+  </ReportPage>
+  <ReportPage Name="Page2" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
+    <DataBand Name="Data2" Top="34.13" Width="368.55" Height="18.9" DataSource="InfCTe" Columns.Count="2">
+      <TextObject Name="Text44" Left="1" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+      <DataHeaderBand Name="DataHeader1" Width="737.1" Height="31.8">
+        <TextObject Name="Text45" Width="736.65" Height="14.9" Text="Conhecimento de Transporte Eletrônico" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
+        <TextObject Name="Text46" Top="16.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <TextObject Name="Text47" Left="367.55" Top="16.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <LineObject Name="Line2" Left="31.9" Top="30.45" Width="670.95"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page3" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
+    <DataBand Name="Data3" Top="36.68" Width="368.55" Height="18.9" DataSource="InfNFe" Columns.Count="2">
+      <LineObject Name="Line29" Left="-9450" Top="-9450" Height="37.8"/>
+      <TextObject Name="Text51" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+      <DataHeaderBand Name="DataHeader2" Width="737.1" Height="34.35">
+        <TextObject Name="Text48" Top="1" Width="736.65" Height="14.9" Text="Nota Fiscal Eletrônica" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
+        <TextObject Name="Text49" Top="17.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <TextObject Name="Text50" Left="367.55" Top="17.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <LineObject Name="Line30" Left="31.9" Top="32.45" Width="670.95"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page4" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
+    <DataBand Name="Data4" Top="35.13" Width="368.55" Height="18.9" DataSource="InfMdFeTransps" Columns.Count="2">
+      <TextObject Name="Text55" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+      <DataHeaderBand Name="DataHeader3" Width="737.1" Height="32.8">
+        <TextObject Name="Text52" Width="736.65" Height="14.9" Text="Manifesto Eletrônico de Documentos Fiscais" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
+        <TextObject Name="Text53" Top="16.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <TextObject Name="Text54" Left="367.55" Top="16.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+        <LineObject Name="Line31" Left="31.9" Top="31.45" Width="670.95"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+</Report>

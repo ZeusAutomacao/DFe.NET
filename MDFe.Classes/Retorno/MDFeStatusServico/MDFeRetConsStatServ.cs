@@ -36,9 +36,9 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.StatusServico;
+using MDFe.Classes.Informacoes.StatusServico;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeStatusServico
+namespace MDFe.Classes.Retorno.MDFeStatusServico
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
@@ -61,7 +61,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeStatusServico
         public string XMotivo { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

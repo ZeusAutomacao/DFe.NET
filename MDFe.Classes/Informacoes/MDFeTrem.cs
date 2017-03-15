@@ -32,9 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
+using DFe.Utils;
+using MDFe.Classes.Contratos;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeTrem : MDFeModalContainer
@@ -56,7 +57,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhTrem")]
         public string ProxyDhTrem {
-            get { return DhTrem?.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get { return DhTrem.ParaDataHoraStringUtc(); }
             set { DhTrem = DateTime.Parse(value); }
         }
 

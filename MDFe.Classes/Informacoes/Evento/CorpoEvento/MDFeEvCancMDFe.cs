@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
     [XmlRoot(ElementName = "evCancMDFe")]

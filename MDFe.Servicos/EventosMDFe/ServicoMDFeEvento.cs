@@ -30,8 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeEvento;
-using MDFeEletronica = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFe.Classes.Retorno.MDFeEvento;
+using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {

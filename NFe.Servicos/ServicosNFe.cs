@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
@@ -48,7 +47,6 @@ using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
-using NFe.Utils.Assinatura;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
@@ -78,7 +76,12 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Utils.Excecoes;
+using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
 {
@@ -95,7 +98,7 @@ namespace NFe.Servicos
         public ServicosNFe(ConfiguracaoServico cFgServico)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado();
+            _certificado = CertificadoDigital.ObterCertificado(ConfiguracaoServico.Instancia.Certificado);
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -248,7 +251,7 @@ namespace NFe.Servicos
             var dadosStatus = new XmlDocument();
             dadosStatus.LoadXml(xmlStatus);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-sta.xml", xmlStatus);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-sta.xml", xmlStatus);
 
             XmlNode retorno;
             try
@@ -257,13 +260,13 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeStatusServico, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
             var retConsStatServ = new retConsStatServ().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-sta.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-sta.xml", retornoXmlString);
 
             return new RetornoNfeStatusServico(pedStatus.ObterXmlString(), retConsStatServ.ObterXmlString(),
                 retornoXmlString, retConsStatServ);
@@ -319,7 +322,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeConsultaProtocolo, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -387,7 +390,7 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina();
+            pedInutilizacao.Assina(_certificado);
 
             #endregion
 
@@ -407,7 +410,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeInutilizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -470,7 +473,7 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina();
+                evento.Assina(_certificado);
             }
 
             #endregion
@@ -491,7 +494,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(servicoEvento, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -549,7 +552,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110111,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -587,7 +590,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110110,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -623,7 +626,7 @@ namespace NFe.Servicos
                 //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = (int) tipoEventoManifestacaoDestinatario,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -664,10 +667,7 @@ namespace NFe.Servicos
                 cOrgaoAutor = nfe.infNFe.ide.cUF,
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
-                dhEmi =
-                    !string.IsNullOrEmpty(nfe.infNFe.ide.dhEmi)
-                        ? nfe.infNFe.ide.dhEmi
-                        : Convert.ToDateTime(nfe.infNFe.ide.dEmi).ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEmi = nfe.infNFe.ide.dhEmi,
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
                 dest = new dest
@@ -689,7 +689,7 @@ namespace NFe.Servicos
                 CNPJ = nfe.infNFe.emit.CNPJ,
                 CPF = nfe.infNFe.emit.CPF,
                 chNFe = nfe.infNFe.Id.Substring(3),
-                dhEvento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                dhEvento = DateTime.Now,
                 tpEvento = 110140,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -760,7 +760,7 @@ namespace NFe.Servicos
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-cad.xml", xmlConsulta);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -769,13 +769,13 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeConsultaCadastro, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retConsCad().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-cad.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-cad.xml", retornoXmlString);
 
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
@@ -836,7 +836,7 @@ namespace NFe.Servicos
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-ped-DistDFeInt.xml", xmlConsulta);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -845,13 +845,13 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeDistribuicaoDFe, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
             var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ToString("yyyyMMddHHmmss") + "-distDFeInt.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
@@ -941,7 +941,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeRecepcao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1002,7 +1002,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeRetRecepcao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1079,7 +1079,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeAutorizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1139,7 +1139,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeRetAutorizacao, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1204,7 +1204,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeDownloadNF, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;
@@ -1271,7 +1271,7 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
-                throw new ComunicacaoException(ex.Message);
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfceAdministracaoCSC, ex);
             }
 
             var retornoXmlString = retorno.OuterXml;

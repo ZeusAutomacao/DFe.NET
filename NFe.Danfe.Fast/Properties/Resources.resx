@@ -121,19 +121,10 @@
   <data name="NFCe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\NFCe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="NFeEvento" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\NFe\NFeEvento.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="NFeRetrato" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFe\NFeRetrato.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OpenSans_CondBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFCe\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OpenSans_CondLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFCe\Fontes\OpenSans-CondLight.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="OpenSans_CondLightItalic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFCe\Fontes\OpenSans-CondLightItalic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UbuntuCondensed_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\NFCe\Fontes\UbuntuCondensed-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
