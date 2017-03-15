@@ -18,7 +18,7 @@ namespace CTeDLL.Utils.CTe
                     Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd");
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd");
+                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd");
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +

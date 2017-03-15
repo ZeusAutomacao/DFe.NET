@@ -787,7 +787,11 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.cCT = GetRandom();
             cteEletronico.infCte.ide.CFOP = 5353;
             cteEletronico.infCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
-            cteEletronico.infCte.ide.forPag = forPag.Pago;
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.ide.forPag = forPag.Pago;
+            }
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
@@ -810,10 +814,28 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.xMunFim = config.Empresa.NomeMunicipio;
             cteEletronico.infCte.ide.UFFim = config.Empresa.SiglaUf;
             cteEletronico.infCte.ide.retira = retira.Nao;
-            cteEletronico.infCte.ide.tomaBase3 = new toma03
+
+            if (config.ConfigWebService.Versao == versao.ve300)
             {
-                toma = toma.Remetente
-            };
+                cteEletronico.infCte.ide.indIEToma = indIEToma.ContribuinteIcms;
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.ide.tomaBase3 = new toma03
+                {
+                    toma = toma.Remetente
+                };
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                cteEletronico.infCte.ide.tomaBase3 = new toma3
+                {
+                    toma = toma.Remetente
+                };
+            }
+
 
             #endregion
 
@@ -891,7 +913,15 @@ namespace CTe.AppTeste
 
             cteEletronico.infCte.imp = new imp();
             cteEletronico.infCte.imp.ICMS = new ICMS();
-            cteEletronico.infCte.imp.ICMS.TipoICMS = new ICMSSN();
+
+            var icmsSimplesNacional = new ICMSSN();
+
+            cteEletronico.infCte.imp.ICMS.TipoICMS = icmsSimplesNacional;
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                icmsSimplesNacional.CST = CST.ICMS90;
+            }
 
             #endregion
 
@@ -917,18 +947,36 @@ namespace CTe.AppTeste
                 chave = "52161021025760000123550010000087341557247948"
             });
 
-            cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
-            cteEletronico.infCte.infCTeNorm.seg.Add(new seg
+            if (config.ConfigWebService.Versao == versao.ve200)
             {
-                respSeg = respSeg.Destinatario
-            });
+                cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
+                cteEletronico.infCte.infCTeNorm.seg.Add(new seg
+                {
+                    respSeg = respSeg.Destinatario
+                });
+            }
 
             cteEletronico.infCte.infCTeNorm.infModal = new infModal();
-            cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+            }
+
             var rodoviario = new rodo();
             rodoviario.RNTRC = config.Empresa.RNTRC;
-            rodoviario.dPrev = DateTime.Now;
-            rodoviario.lota = lota.Nao;
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                rodoviario.dPrev = DateTime.Now;
+                rodoviario.lota = lota.Nao;
+            }
+            
 
             cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
