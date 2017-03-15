@@ -23,6 +23,7 @@ using CTeDLL.Servicos.ConsultaRecibo;
 using CTeDLL.Servicos.ConsultaStatus;
 using CTeDLL.Servicos.Eventos;
 using CTeDLL.Servicos.Inutilizacao;
+using CTeDLL.Servicos.Recepcao;
 using CTeDLL.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
@@ -932,7 +933,14 @@ namespace CTe.AppTeste
             cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
 
-            var xmlVerificacao = cteEletronico.ObterXmlString();
+            var servicoRecepcao = new ServicoCTeRecepcao();
+            servicoRecepcao.CTeRecepcao(1, new List<CteEletronico> { cteEletronico });
+            //var retornoEnvio = servicoRecepcao.CTeRecepcao(1, cteEletronico);
+
+            //OnSucessoSync(new RetornoEEnvio(retornoEnvio));
+
+            //config.ConfigWebService.Numeracao++;
+            //new ConfiguracaoDao().SalvarConfiguracao(config);
 
         }
 

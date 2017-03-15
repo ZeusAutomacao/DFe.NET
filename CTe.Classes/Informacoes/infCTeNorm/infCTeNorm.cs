@@ -19,6 +19,7 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
         /// <summary>
         /// Versao 2.0
         /// </summary>
+        [XmlElement(ElementName = "seg")]
         public List<seg> seg { get; set; }
 
         public infModal infModal { get; set; }

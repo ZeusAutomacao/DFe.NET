@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTeDLL.Classes.Servicos.Tipos;
 using DFe.Utils;
 using CteEletronica = CTe.Classes.CTe;
 
@@ -8,7 +9,7 @@ namespace CTeDLL.Classes.Servicos.Recepcao
     [XmlRoot(ElementName = "enviCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class enviCTe
     {
-        public enviCTe(string versao, int idLote, List<CteEletronica> cTe)
+        public enviCTe(versao versao, int idLote, List<CteEletronica> cTe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -23,7 +24,7 @@ namespace CTeDLL.Classes.Servicos.Recepcao
         ///     AP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
         ///     AP03 - Identificador de controle do envio do lote.

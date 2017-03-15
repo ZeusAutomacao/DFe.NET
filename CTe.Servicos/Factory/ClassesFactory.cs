@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using CTe.Classes.Ext;
 using CTeDLL.Classes.Servicos.Consulta;
 using CTeDLL.Classes.Servicos.Evento;
 using CTeDLL.Classes.Servicos.Inutilizacao;
+using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Recepcao.Retorno;
 using CTeDLL.Classes.Servicos.Status;
 using CTeDLL.Servicos.Inutilizacao;
 using DFe.Classes.Extencoes;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using NFe.Utils.Annotations;
+using CTeEletronica = CTe.Classes.CTe;
 
 namespace CTeDLL.Servicos.Factory
 {
@@ -100,6 +98,13 @@ namespace CTeDLL.Servicos.Factory
             {
                 infCorrecao = infCorrecaos
             };
+        }
+
+        public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList)
+        {
+            var configuracaoServico = ConfiguracaoServico.Instancia;
+
+            return new enviCTe(configuracaoServico.VersaoLayout, lote, cteEletronicoList);
         }
     }
 }

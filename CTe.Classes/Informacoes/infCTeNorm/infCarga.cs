@@ -6,35 +6,42 @@ namespace CTeDLL.Classes.Informacoes.InfCTeNormal
 {
     public class infCarga
     {
+        private decimal? _vCarga;
+        private decimal? _vCargaAverb;
+
+        [XmlElement(Order = 1)]
         public decimal? vCarga
         {
             get { return _vCarga.Arredondar(2); }
             set { _vCarga = value.Arredondar(2); }
         }
 
-        public bool vCargaSpecified => vCarga.HasValue;
-
+        [XmlElement(Order = 2)]
         public string proPred { get; set; }
+
+        [XmlElement(Order = 3)]
         public string xOutCat { get; set; }
 
-        [XmlElement("infQ")]
-        public List<infQ> infQ;
-
-        private decimal? _vCarga;
-        private decimal? _vCargaAverb;
+        [XmlElement(ElementName = "infQ", Order = 4)]
+        public List<infQ> infQ { get; set; }
 
         /// <summary>
         /// Versão 3.0 - Opcional
         /// </summary>
+        [XmlElement(Order = 5)]
         public decimal? vCargaAverb
         {
             get { return _vCargaAverb.Arredondar(2); }
             set { _vCargaAverb = value.Arredondar(2); }
         }
 
-        public bool vCargaAverbSpecified => vCargaAverb.HasValue;
-
+        [XmlElement(Order = 6)]
         public infDoc infDoc { get; set; }
+
+        [XmlElement(Order = 7)]
         public docAnt docAnt { get; set; }
+
+        public bool vCargaSpecified => vCarga.HasValue;
+        public bool vCargaAverbSpecified => vCargaAverb.HasValue;
     }
 }

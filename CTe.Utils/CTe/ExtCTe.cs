@@ -1,8 +1,11 @@
 ﻿using System;
-using System.Globalization;
 using CTeDLL.Classes.Servicos.Tipos;
 using System.Runtime.InteropServices;
+using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTeDLL.Classes.Informacoes.InfCTeNormal;
+using CTeDLL.Utils.Validacao;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 using CteEletronica = CTe.Classes.CTe;
 
 namespace CTeDLL.Utils.CTe
@@ -62,17 +65,103 @@ namespace CTeDLL.Utils.CTe
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna um objeto CTe devidamente tradado</returns>
-        public static CteEletronica Valida(this CteEletronica cte)
+        public static void ValidaSchema(this CteEletronica cte)
         {
             if (cte == null) throw new ArgumentNullException("cte");
 
-            // todo var versao = (Decimal.Parse(cte.infCte.versao, CultureInfo.InvariantCulture));
+            var xmlValidacao = cte.ObterXmlString();
 
-            var xmlNfe = cte.ObterXmlString();
-            // todo var cfgServico = ConfiguracaoServico.Instancia;
-            // todo Validador.Valida(ServicoCTe.CteRecepcao, cfgServico.VersaoCteRecepcao, xmlNfe, false, cfgServico.DiretorioSchemas);
+            switch (cte.infCte.versao)
+            {
+                case versao.ve200:
+                    Validador.Valida(xmlValidacao, "cte_v2.00.xsd");
+                    break;
+                case versao.ve300:
+                    Validador.Valida(xmlValidacao, "cte_v3.00.xsd");
+                    break;
+                default:
+                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                        "a versão está inválida, somente é permitido " +
+                                                        "versão 2.00 é 3.00");
+            }
 
-            return cte; //Para uso no formato fluent
+
+            var xmlModal = FuncoesXml.ClasseParaXmlString(cte.infCte.infCTeNorm.infModal); 
+
+            switch (cte.infCte.infCTeNorm.infModal.versaoModal)
+            {
+                case versaoModal.veM200:
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
+                    {
+                        Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
+                    {
+                        Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
+                    {
+                        Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
+                    {
+                        Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
+                    {
+                        Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
+                    {
+                        Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd");
+                    }
+                    break;
+                case versaoModal.veM300:
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
+                    {
+                        Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
+                    {
+                        Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
+                    {
+                        Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
+                    {
+                        Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
+                    {
+                        Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
+                    {
+                        Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd");
+                    }
+
+                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
+                    {
+                        Validador.Valida(xmlModal, "cteModalRodoviarioOS_v.3.00.xsd");
+                    }
+                    break;
+                default:
+                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                        "a versão está inválida, somente é permitido " +
+                                                        "versão 2.00 é 3.00");
+            }
         }
 
         /// <summary>
@@ -80,32 +169,30 @@ namespace CTeDLL.Utils.CTe
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna um objeto do tipo CTe assinado</returns>
-        public static CteEletronica Assina(this CteEletronica cte)
+        public static void Assina(this CteEletronica cte)
         {
-            var cteLocal = cte;
-            if (cteLocal == null) throw new ArgumentNullException("cte");
+            if (cte == null) throw new ArgumentNullException("cte");
 
-            #region Define cNF
+            var configuracaoServico = ConfiguracaoServico.Instancia;
 
-            var tamanhocNf = 9;
+            var modeloDocumentoFiscal = cte.infCte.ide.mod;
+            var tipoEmissao = (int)cte.infCte.ide.tpEmis;
+            var codigoNumerico = cte.infCte.ide.cCT;
+            var estado = cte.infCte.ide.cUF;
+            var dataEHoraEmissao = cte.infCte.ide.dhEmi;
+            var cnpj = cte.infCte.emit.CNPJ;
+            var numeroDocumento = cte.infCte.ide.nCT;
+            int serie = cte.infCte.ide.serie;
 
-            // todo
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
-            //var versao = (Decimal.Parse(cteLocal.infCte.versao, CultureInfo.InvariantCulture));
-            //if (versao >= 2) tamanhocNf = 8;
-            //cteLocal.infCte.ide.cCT = Convert.ToInt32(cteLocal.infCte.ide.cCT).ToString().PadLeft(tamanhocNf, '0');
+            cte.infCte.Id = "CTe" + dadosChave.Chave;
+            cte.infCte.versao = configuracaoServico.VersaoLayout;
+            cte.infCte.ide.cDV = dadosChave.DigitoVerificador;
 
-            #endregion
+            var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, configuracaoServico.X509Certificate2);
 
-            // todo
-            /*var chave = Gerador.GerarChave(cteLocal.infCte);
-
-            cteLocal.infCte.Id = Gerador.GerarId(chave);
-            cteLocal.infCte.ide.cDV = Convert.ToInt16(chave.Substring(chave.Length - 1, 1));
-
-            var assinatura = Assinador.ObterAssinatura(cteLocal, cteLocal.infCte.Id);
-            cteLocal.Signature = assinatura;*/
-            return cteLocal;
+            cte.Signature = assinatura;
         }
     }
 }
