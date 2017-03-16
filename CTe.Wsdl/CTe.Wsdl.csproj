@@ -42,9 +42,7 @@
   <ItemGroup>
     <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
-    <Compile Include="cteCabecMsg.cs" />
     <Compile Include="Evento\CteRecepcaoEvento.cs" />
-    <Compile Include="ICteServico.cs" />
     <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\CteRecepcao.cs" />
