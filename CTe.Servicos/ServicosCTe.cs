@@ -792,7 +792,7 @@ namespace CTeDLL.Servicos
 
             var retorno = ws.Execute(dadosEnvio);
             var retornoXmlString = retorno.OuterXml;
-            var retEnvio = new retEnviCTe().CarregarDeXmlString(retornoXmlString);
+            var retEnvio = new retEnviCte().CarregarDeXmlString(retornoXmlString);
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString, ServicoCTe.CteRetRecepcao);
 
@@ -898,7 +898,7 @@ namespace CTeDLL.Servicos
 
             var retorno = ws.Execute(dadosEnvio);
             var retornoXmlString = retorno.OuterXml;
-            var retEnvio = new retEnviCTe().CarregarDeXmlString(retornoXmlString);
+            var retEnvio = new retEnviCte().CarregarDeXmlString(retornoXmlString);
 
             if (retEnvio.infRec.nRec != null)
                 SalvarArquivoXml(retEnvio.infRec.nRec + "-rec.xml", retornoXmlString, ServicoCTe.CteRetAutorizacao);

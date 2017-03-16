@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using CTeDLL.Classes.Servicos.Recepcao;
 using CTeDLL.Classes.Servicos.Tipos;
 using CTeDLL.Utils.Validacao;
@@ -48,6 +49,14 @@ namespace CTeDLL.Utils.CTe
             var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
 
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
+        }
+
+        public static XmlDocument CriaRequestWs(this enviCTe enviCTe)
+        {
+            var request = new XmlDocument();
+            request.LoadXml(enviCTe.ObterXmlString());
+
+            return request;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace CTe.Servicos.ConsultaProtocolo
 {
     public class ConsultaProtcoloServico
     {
-        public RetornoBase ConsultaProtocolo(string chave)
+        public retConsSitCTe ConsultaProtocolo(string chave)
         {
             var consSitCTe = ClassesFactory.CriarconsSitCTe(chave);
             consSitCTe.ValidarSchema();

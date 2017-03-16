@@ -2,11 +2,12 @@
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTeDLL.Classes.Servicos.Recepcao
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class retEnviCTe : Servicos.RetornoBase
+    public class retEnviCte : RetornoBase
     {
         /// <summary>
         ///     AR02 - Versão do leiaute
@@ -49,5 +50,20 @@ namespace CTeDLL.Classes.Servicos.Recepcao
         ///     AR07 - Dados do Recibo do Lote (Só é gerado se o Lote for aceito)
         /// </summary>
         public infRec infRec { get; set; }
+
+
+        public static retEnviCte LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retEnviCte>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static retEnviCte LoadXml(string xml, enviCTe enviCte)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
+            return retorno;
+        }
     }
 }

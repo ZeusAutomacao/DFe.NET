@@ -982,14 +982,12 @@ namespace CTe.AppTeste
             #endregion
 
             var servicoRecepcao = new ServicoCTeRecepcao();
-            servicoRecepcao.CTeRecepcao(1, new List<CteEletronico> { cteEletronico });
-            //var retornoEnvio = servicoRecepcao.CTeRecepcao(1, cteEletronico);
+            var retornoEnvio = servicoRecepcao.CTeRecepcao(1, new List<CteEletronico> { cteEletronico });
 
-            //OnSucessoSync(new RetornoEEnvio(retornoEnvio));
+            OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
-            //config.ConfigWebService.Numeracao++;
-            //new ConfiguracaoDao().SalvarConfiguracao(config);
-
+            config.ConfigWebService.Numeracao++;
+            new ConfiguracaoDao().SalvarConfiguracao(config);
         }
 
 

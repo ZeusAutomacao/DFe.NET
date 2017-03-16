@@ -1,4 +1,5 @@
-﻿using CTeDLL.Classes.Servicos.Recepcao;
+﻿using CTeDLL.Classes.Servicos.Inutilizacao;
+using CTeDLL.Classes.Servicos.Recepcao;
 using DFe.Utils;
 
 namespace CTeDLL.Utils.Recepcao
@@ -6,24 +7,37 @@ namespace CTeDLL.Utils.Recepcao
     public static class ExtretEnviCTe
     {
         /// <summary>
-        ///     Coverte uma string XML no formato NFe para um objeto retEnviCTe
+        ///     Coverte uma string XML no formato NFe para um objeto retEnviCte
         /// </summary>
-        /// <param name="retEnviCTe"></param>
+        /// <param name="retEnviCte"></param>
         /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo retEnviCTe</returns>
-        public static retEnviCTe CarregarDeXmlString(this retEnviCTe retEnviCTe, string xmlString)
+        /// <returns>Retorna um objeto do tipo retEnviCte</returns>
+        public static retEnviCte CarregarDeXmlString(this retEnviCte retEnviCte, string xmlString)
         {
-            return FuncoesXml.XmlStringParaClasse<retEnviCTe>(xmlString);
+            return FuncoesXml.XmlStringParaClasse<retEnviCte>(xmlString);
         }
 
         /// <summary>
-        ///     Converte o objeto retEnviCTe para uma string no formato XML
+        ///     Converte o objeto retEnviCte para uma string no formato XML
         /// </summary>
-        /// <param name="retEnviCTe"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnviCTe</returns>
-        public static string ObterXmlString(this retEnviCTe retEnviCTe)
+        /// <param name="retEnviCte"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnviCte</returns>
+        public static string ObterXmlString(this retEnviCte retEnviCte)
         {
-            return FuncoesXml.ClasseParaXmlString(retEnviCTe);
+            return FuncoesXml.ClasseParaXmlString(retEnviCte);
+        }
+
+        public static void SalvarXmlEmDisco(this retEnviCte retEnviCte)
+        {
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infRec.nRec + "-rec.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }
     }
 }
