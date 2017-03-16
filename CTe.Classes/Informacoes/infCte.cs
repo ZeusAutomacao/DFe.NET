@@ -30,23 +30,22 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Identificacao;
-using CTeDLL.Classes.Informacoes.Complemento;
-using CTeDLL.Classes.Informacoes.Emitente;
-using CTeDLL.Classes.Informacoes.Remetente;
-using CTeDLL.Classes.Informacoes.Expedidor;
-using CTeDLL.Classes.Informacoes.Recebedor;
-using CTeDLL.Classes.Informacoes.Destinatario;
-using CTeDLL.Classes.Informacoes.Valores;
-using CTeDLL.Classes.Informacoes.Impostos;
-using CTeDLL.Classes.Informacoes.InfCTeNormal;
-using CTeDLL.Classes.Informacoes.InfCTeComplementar;
-using CTeDLL.Classes.Informacoes.InfCTeAnulacao;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Informacoes.Complemento;
+using CTe.Classes.Informacoes.Destinatario;
+using CTe.Classes.Informacoes.Emitente;
+using CTe.Classes.Informacoes.Expedidor;
+using CTe.Classes.Informacoes.infCTeNormal;
+using CTe.Classes.Informacoes.Identificacao;
+using CTe.Classes.Informacoes.Impostos;
+using CTe.Classes.Informacoes.Recebedor;
+using CTe.Classes.Informacoes.Remetente;
+using CTe.Classes.Informacoes.Valores;
+using CTe.Classes.Servicos.Tipos;
 
-namespace CTeDLL.Classes.Informacoes
+namespace CTe.Classes.Informacoes
 {
     public class infCte
     {
@@ -78,9 +77,9 @@ namespace CTeDLL.Classes.Informacoes
 
         public infCTeNorm infCTeNorm { get; set; }
 
-        public infCteComp infCteComp { get; set; }
+        public infCteComp.infCteComp infCteComp { get; set; }
 
-        public infCteAnu infCteAnu { get; set; }
+        public infCteAnu.infCteAnu infCteAnu { get; set; }
 
         [XmlElement("autXML")]
         public List<autXML> autXML { get; set; }

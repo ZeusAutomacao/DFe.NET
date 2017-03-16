@@ -30,7 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace CTeDLL.Classes.Informacoes.InfCTeComplementar
+namespace CTe.Classes.Informacoes.infCteComp
 {
     public class infCteComp
     {

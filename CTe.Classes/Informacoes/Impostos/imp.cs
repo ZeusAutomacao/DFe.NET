@@ -30,13 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Classes;
 
-namespace CTeDLL.Classes.Informacoes.Impostos
+namespace CTe.Classes.Informacoes.Impostos
 {
     public class imp
     {
-        public ICMS ICMS;
+        public Tributacao.ICMS ICMS;
         private decimal? _vTotTrib;
 
         public decimal? vTotTrib

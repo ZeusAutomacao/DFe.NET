@@ -30,13 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Complemento.Tipos;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
+using CTe.Classes.Informacoes.Complemento.Tipos;
+using CTe.Classes.Informacoes.Tipos;
 using DFe.Utils;
 
-namespace CTeDLL.Classes.Informacoes.Complemento
+namespace CTe.Classes.Informacoes.Complemento
 {
     public class noInter : comHoraBase
     {

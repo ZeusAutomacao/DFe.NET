@@ -32,8 +32,8 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 using CTe.Classes.Ext;
-using CTeDLL.Classes.Informacoes;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Informacoes;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Assinatura;
 using DFe.Utils;
 
@@ -60,10 +60,10 @@ namespace CTe.Classes
             set
             {
                 if(value.Equals("2.00"))
-                    versao = CTeDLL.Classes.Servicos.Tipos.versao.ve200;
+                    versao = Servicos.Tipos.versao.ve200;
 
                 if(value.Equals("3.00"))
-                    versao = CTeDLL.Classes.Servicos.Tipos.versao.ve300;
+                    versao = Servicos.Tipos.versao.ve300;
             }
         }
 

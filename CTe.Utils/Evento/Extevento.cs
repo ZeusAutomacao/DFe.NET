@@ -30,16 +30,18 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml;
+using CTe.Classes;
+using CTe.Classes.Servicos.Evento;
+using CTe.Classes.Servicos.Tipos;
 using CTe.Utils.Extencoes;
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Validacao;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 
-namespace CTeDLL.Utils.Evento
+namespace CTe.Utils.Evento
 {
     public static class Extevento
     {

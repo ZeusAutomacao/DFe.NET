@@ -30,16 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Runtime.InteropServices;
 
-namespace CTeDLL.Classes.Informacoes
+namespace CTe.Classes.Informacoes
 {
-
-    [Guid("0e829c36-cf37-4647-a367-6b90a6752916")]
-    [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("CTeDLL.Classes")]
-    [ComVisible(true)]
     public class autXML
     {
         private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo autXML!";

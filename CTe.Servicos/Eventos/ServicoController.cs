@@ -30,14 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Evento.Flags;
-using CTeDLL.Servicos.Eventos.Contratos;
-using CTeDLL.Servicos.Factory;
-using CTeDLL.Utils.Evento;
+
+using CTe.Classes.Servicos.Evento;
+using CTe.Classes.Servicos.Evento.Flags;
+using CTe.Servicos.Eventos.Contratos;
+using CTe.Servicos.Factory;
+using CTe.Utils.Evento;
 using CteEletronico = CTe.Classes.CTe;
 
-namespace CTeDLL.Servicos.Eventos
+namespace CTe.Servicos.Eventos
 {
     public class ServicoController : IServicoController
     {

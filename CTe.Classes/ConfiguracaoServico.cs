@@ -30,16 +30,17 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 
-namespace CTeDLL
+namespace CTe.Classes
 {
     public sealed class ConfiguracaoServico
     {

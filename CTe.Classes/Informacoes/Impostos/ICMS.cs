@@ -30,10 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Impostos.Tipos;
 
-namespace CTeDLL.Classes.Informacoes.Impostos
+using System.Xml.Serialization;
+using CTe.Classes.Informacoes.Impostos.ICMS;
+using CTe.Classes.Informacoes.Impostos.ICMS.Tipos;
+
+namespace CTe.Classes.Informacoes.Impostos.Tributacao
 {
     public class ICMS
     {

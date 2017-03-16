@@ -30,11 +30,13 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
+using CTe.Classes;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 
-namespace CTeDLL.Servicos.Enderecos.Helpers
+namespace CTe.Servicos.Enderecos.Helpers
 {
     public class UrlHelper
     {

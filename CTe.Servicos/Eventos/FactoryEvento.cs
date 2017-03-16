@@ -30,14 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Text;
+using CTe.Classes;
+using CTe.Classes.Servicos.Evento;
+using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Utils.Extencoes;
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Evento.Flags;
 using CTeEletronico = CTe.Classes.CTe;
 
-namespace CTeDLL.Servicos.Eventos
+namespace CTe.Servicos.Eventos
 {
     public class FactoryEvento
     {

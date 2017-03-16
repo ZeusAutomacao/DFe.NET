@@ -30,18 +30,20 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using CTe.Classes;
 using CTe.Classes.Ext;
-using CTeDLL.Servicos.Enderecos.Helpers;
-using CTeDLL.Wsdl.Configuracao;
-using CTeDLL.Wsdl.ConsultaProtocolo;
-using CTeDLL.Wsdl.Evento;
-using CTeDLL.Wsdl.Inutilizacao;
-using CTeDLL.Wsdl.Recepcao;
-using CTeDLL.Wsdl.RetRecepcao;
-using CTeDLL.Wsdl.Status;
+using CTe.Servicos.Enderecos.Helpers;
+using CTe.Wsdl.Configuracao;
+using CTe.Wsdl.ConsultaProtocolo;
+using CTe.Wsdl.Evento;
+using CTe.Wsdl.Inutilizacao;
+using CTe.Wsdl.Recepcao;
+using CTe.Wsdl.RetRecepcao;
+using CTe.Wsdl.Status;
 using DFe.Classes.Extencoes;
 
-namespace CTeDLL.Servicos.Factory
+namespace CTe.Servicos.Factory
 {
     public class WsdlFactory
     {

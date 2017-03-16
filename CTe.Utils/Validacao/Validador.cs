@@ -30,12 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
+using CTe.Classes;
 
-namespace CTeDLL.Utils.Validacao
+namespace CTe.Utils.Validacao
 {
     public static class Validador
     {

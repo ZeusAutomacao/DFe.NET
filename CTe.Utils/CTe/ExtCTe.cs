@@ -30,22 +30,19 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using CTeDLL.Classes.Servicos.Tipos;
-using System.Runtime.InteropServices;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
-using CTeDLL.Classes.Informacoes.InfCTeNormal;
-using CTeDLL.Utils.Validacao;
+using CTe.Classes;
+using CTe.Classes.Informacoes.infCTeNormal.infModals;
+using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes.Servicos.Tipos;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using CteEletronica = CTe.Classes.CTe;
 
-namespace CTeDLL.Utils.CTe
+namespace CTe.Utils.CTe
 {
-    [Guid("1b8cc7c5-eeb0-41e5-8ed3-aea95cbdac3c")]
-    [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("CTeDLL.Classes")]
-    [ComVisible(true)]
     public static class ExtCTe
     {
         /// <summary>

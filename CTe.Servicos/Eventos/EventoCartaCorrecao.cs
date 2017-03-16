@@ -30,13 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Evento.Flags;
-using CTeDLL.Servicos.Factory;
+using CTe.Classes.Servicos.Evento;
+using CTe.Classes.Servicos.Evento.Flags;
+using CTe.Servicos.Factory;
 using CteEletronico = CTe.Classes.CTe;
 
-namespace CTeDLL.Servicos.Eventos
+namespace CTe.Servicos.Eventos
 {
     public class EventoCartaCorrecao
     {

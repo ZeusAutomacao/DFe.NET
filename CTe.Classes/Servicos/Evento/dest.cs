@@ -30,10 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using DFe.Classes;
 
-namespace CTeDLL.Classes.Servicos.Evento
+namespace CTe.Classes.Servicos.Evento
 {
     public class dest
     {

@@ -30,14 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml;
-using CTeDLL.Classes.Servicos.Recepcao;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Validacao;
+using CTe.Classes;
+using CTe.Classes.Servicos.Recepcao;
+using CTe.Classes.Servicos.Tipos;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 
-namespace CTeDLL.Utils.CTe
+namespace CTe.Utils.CTe
 {
     public static class ExtEnvCte
     {

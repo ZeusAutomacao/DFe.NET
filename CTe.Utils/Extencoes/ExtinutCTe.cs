@@ -32,10 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml;
-using CTeDLL;
-using CTeDLL.Classes.Servicos.Inutilizacao;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Validacao;
+using CTe.Classes;
+using CTe.Classes.Servicos.Inutilizacao;
+using CTe.Classes.Servicos.Tipos;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 

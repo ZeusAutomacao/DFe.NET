@@ -30,17 +30,18 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extencoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 
-namespace CTeDLL.Classes.Informacoes.Identificacao
+namespace CTe.Classes.Informacoes.Identificacao
 {
     public class ide
     {

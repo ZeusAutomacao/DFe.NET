@@ -30,9 +30,10 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 
-namespace CTeDLL.Classes.Servicos
+namespace CTe.Classes.Servicos
 {
     public abstract class RetornoBase
     {

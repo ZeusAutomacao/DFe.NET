@@ -32,10 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml;
-using CTeDLL;
-using CTeDLL.Classes.Servicos.Recepcao.Retorno;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Validacao;
+using CTe.Classes;
+using CTe.Classes.Servicos.Recepcao.Retorno;
+using CTe.Classes.Servicos.Tipos;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 
 namespace CTe.Utils.Extencoes

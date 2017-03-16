@@ -30,11 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using CTe.Utils.Extencoes;
-using CTeDLL.Classes.Servicos.Status;
-using CTeDLL.Servicos.Factory;
 
-namespace CTeDLL.Servicos.ConsultaStatus
+using CTe.Classes.Servicos.Status;
+using CTe.Servicos.Factory;
+using CTe.Utils.Extencoes;
+
+namespace CTe.Servicos.ConsultaStatus
 {
     public class StatusServico
     {

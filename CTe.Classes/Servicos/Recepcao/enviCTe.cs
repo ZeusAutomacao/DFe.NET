@@ -30,13 +30,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Utils;
 using CteEletronica = CTe.Classes.CTe;
 
-namespace CTeDLL.Classes.Servicos.Recepcao
+namespace CTe.Classes.Servicos.Recepcao
 {
     [XmlRoot(ElementName = "enviCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class enviCTe
@@ -66,7 +67,7 @@ namespace CTeDLL.Classes.Servicos.Recepcao
         /// <summary>
         ///     AP04 - Conjunto de CT-e transmitidas
         /// </summary>
-        [XmlElement("CTe")]
+        [XmlElement(ElementName = "CTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
         public List<CteEletronica> CTe { get; set; }
 
 

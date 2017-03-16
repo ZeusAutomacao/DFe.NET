@@ -30,11 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Utils;
 
-namespace CTeDLL.Classes.Servicos.Evento
+namespace CTe.Classes.Servicos.Evento
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class retEventoCTe : RetornoBase

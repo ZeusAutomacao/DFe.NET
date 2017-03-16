@@ -30,10 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using CTeDLL.Classes.Servicos.Inutilizacao;
+
+using CTe.Classes;
+using CTe.Classes.Servicos.Inutilizacao;
 using DFe.Utils;
 
-namespace CTeDLL.Utils.Inutilizacao
+namespace CTe.Utils.Inutilizacao
 {
     public static class ExtretInutCTe
     {

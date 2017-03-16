@@ -30,15 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
-using CTeDLL.Classes.Servicos.Evento.Flags;
-using CTeDLL.Classes.Servicos.Tipos;
+using CTe.Classes.Servicos.Evento.Flags;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 
-namespace CTeDLL.Classes.Servicos.Evento
+namespace CTe.Classes.Servicos.Evento
 {
     public class infEventoEnv
     {

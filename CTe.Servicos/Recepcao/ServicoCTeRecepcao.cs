@@ -30,15 +30,17 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
-using CTeDLL.Classes.Servicos.Recepcao;
-using CTeDLL.Servicos.Factory;
-using CTeDLL.Utils.CTe;
-using CTeDLL.Utils.Recepcao;
+using CTe.Classes;
+using CTe.Classes.Servicos.Recepcao;
+using CTe.Servicos.Factory;
+using CTe.Utils.CTe;
+using CTe.Utils.Recepcao;
 using DFe.Classes.Flags;
 using CTeEletronico = CTe.Classes.CTe;
 
-namespace CTeDLL.Servicos.Recepcao
+namespace CTe.Servicos.Recepcao
 {
     public class ServicoCTeRecepcao
     {

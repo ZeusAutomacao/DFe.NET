@@ -36,32 +36,38 @@ using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
+using CTe.Classes;
+using CTe.Classes.Informacoes;
+using CTe.Classes.Informacoes.Destinatario;
+using CTe.Classes.Informacoes.Emitente;
+using CTe.Classes.Informacoes.infCTeNormal;
+using CTe.Classes.Informacoes.infCTeNormal.infCargas;
+using CTe.Classes.Informacoes.infCTeNormal.infModals;
+using CTe.Classes.Informacoes.Identificacao;
+using CTe.Classes.Informacoes.Impostos;
+using CTe.Classes.Informacoes.Impostos.ICMS;
+using CTe.Classes.Informacoes.Impostos.Tributacao;
+using CTe.Classes.Informacoes.Remetente;
+using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes.Informacoes.Valores;
+using CTe.Classes.Servicos;
+using CTe.Classes.Servicos.Evento;
+using CTe.Classes.Servicos.Recepcao;
+using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.ConsultaProtocolo;
+using CTe.Servicos.ConsultaRecibo;
+using CTe.Servicos.ConsultaStatus;
+using CTe.Servicos.Eventos;
+using CTe.Servicos.Inutilizacao;
+using CTe.Servicos.Recepcao;
 using CTe.Utils.Extencoes;
-using CTeDLL;
-using CTeDLL.Classes.Informacoes;
-using CTeDLL.Classes.Informacoes.Destinatario;
-using CTeDLL.Classes.Informacoes.Emitente;
-using CTeDLL.Classes.Informacoes.Identificacao;
-using CTeDLL.Classes.Informacoes.Identificacao.Tipos;
-using CTeDLL.Classes.Informacoes.Impostos;
-using CTeDLL.Classes.Informacoes.InfCTeNormal;
-using CTeDLL.Classes.Informacoes.Remetente;
-using CTeDLL.Classes.Informacoes.Valores;
-using CTeDLL.Classes.Servicos;
-using CTeDLL.Classes.Servicos.Evento;
-using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Servicos.ConsultaRecibo;
-using CTeDLL.Servicos.ConsultaStatus;
-using CTeDLL.Servicos.Eventos;
-using CTeDLL.Servicos.Inutilizacao;
-using CTeDLL.Servicos.Recepcao;
 using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using infNFe = CTeDLL.Classes.Informacoes.InfCTeNormal.infNFe;
+using dest = CTe.Classes.Informacoes.Destinatario.dest;
+using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace CTe.AppTeste
@@ -651,7 +657,7 @@ namespace CTe.AppTeste
             {
                 if (caminhoArquivoXml.Contains("completo"))
                 {
-                    var enviCTe = CTeDLL.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
+                    var enviCTe = Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviCTe.CTe[0].Chave();
                 }
@@ -749,7 +755,11 @@ namespace CTe.AppTeste
 
             var caminho = BuscarArquivoXml();
 
-            var cte = CteEletronico.LoadXmlArquivo(caminho);
+            // aqui estou fazendo um load no lote de ct-e
+            var cte = enviCTe.LoadXmlArquivo(caminho).CTe[0];
+
+            // aqui estou fazendo um load no xml de envio de um ct-e
+            //var cte = CteEletronico.LoadXmlArquivo(caminho);
 
             var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
             var protocolo = InputBoxTuche("Protocolo");
@@ -769,7 +779,7 @@ namespace CTe.AppTeste
             var caminho = BuscarArquivoXml();
 
             // aqui estou fazendo um load no lote de ct-e
-            var cte = CTeDLL.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminho).CTe[0];
+            var cte = enviCTe.LoadXmlArquivo(caminho).CTe[0];
 
             // aqui estou fazendo um load no xml de envio de um ct-e
             //var cte = CteEletronico.LoadXmlArquivo(caminho);
@@ -918,7 +928,7 @@ namespace CTe.AppTeste
             // Destinatário
             #region dest
 
-            cteEletronico.infCte.dest = new CTeDLL.Classes.Informacoes.Destinatario.dest();
+            cteEletronico.infCte.dest = new dest();
             cteEletronico.infCte.dest.CNPJ = config.Empresa.Cnpj;
             cteEletronico.infCte.dest.IE = config.Empresa.InscricaoEstadual;
             cteEletronico.infCte.dest.xNome = config.Empresa.Nome;

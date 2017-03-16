@@ -30,14 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
+using CTe.Classes.Servicos.Inutilizacao;
+using CTe.Servicos.Factory;
 using CTe.Utils.Extencoes;
-using CTeDLL.Classes.Servicos.Inutilizacao;
-using CTeDLL.Servicos.Factory;
-using CTeDLL.Utils.Inutilizacao;
+using CTe.Utils.Inutilizacao;
 using DFe.Classes.Flags;
 
-namespace CTeDLL.Servicos.Inutilizacao
+namespace CTe.Servicos.Inutilizacao
 {
     public class ConfigInutiliza
     { 
