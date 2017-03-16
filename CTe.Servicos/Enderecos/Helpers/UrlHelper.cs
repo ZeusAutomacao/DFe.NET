@@ -48,10 +48,133 @@ namespace CTe.Servicos.Enderecos.Helpers
             {
                 case TipoAmbiente.Homologacao:
                     return UrlHomologacao();
+                case TipoAmbiente.Producao:
+                    return UrlProducao();
             }
 
-            // todo fazer urls para produção ainda
-            return null;
+            throw new InvalidOperationException("Tipo Ambiente inválido");
+        }
+
+        private static UrlCTe UrlProducao()
+        {
+            var configuracaoServico = ConfiguracaoServico.Instancia;
+
+            switch (configuracaoServico.cUF)
+            {
+                case Estado.MT:
+                    return new UrlCTe
+                    {
+                        CteStatusServico = @"https://cte.sefaz.mt.gov.br/ctews/services/CteStatusServico",
+                        CteRetRecepcao = "https://cte.sefaz.mt.gov.br/ctews/services/CteRetRecepcao",
+                        CteRecepcao = "https://cte.sefaz.mt.gov.br/ctews/services/CteRecepcao",
+                        CteInutilizacao = "https://cte.sefaz.mt.gov.br/ctews/services/CteInutilizacao",
+                        CteRecepcaoEvento = "https://cte.sefaz.mt.gov.br/ctews2/services/CteRecepcaoEvento?wsdl",
+                        CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews/services/CteConsulta"
+                    };
+                case Estado.MS:
+                    return new UrlCTe
+                    {
+                        CteStatusServico = @"https://producao.cte.ms.gov.br/ws/CteStatusServico",
+                        CteRetRecepcao = @"https://producao.cte.ms.gov.br/ws/CteRetRecepcao",
+                        CteRecepcao = @"https://producao.cte.ms.gov.br/ws/CteRecepcao",
+                        CteInutilizacao = @"https://producao.cte.ms.gov.br/ws/CteInutilizacao",
+                        CteRecepcaoEvento = @"https://producao.cte.ms.gov.br/ws/CteRecepcaoEvento",
+                        CteConsulta = @"https://producao.cte.ms.gov.br/ws/CteConsulta"
+                    };
+                case Estado.MG:
+                    return new UrlCTe
+                    {
+                        CteStatusServico = @"https://cte.fazenda.mg.gov.br/cte/services/CteStatusServico",
+                        CteRetRecepcao = @"https://cte.fazenda.mg.gov.br/cte/services/CteRetRecepcao",
+                        CteRecepcao = @"https://cte.fazenda.mg.gov.br/cte/services/CteRecepcao",
+                        CteInutilizacao = @"https://cte.fazenda.mg.gov.br/cte/services/CteInutilizacao",
+                        CteRecepcaoEvento = @"https://cte.fazenda.mg.gov.br/cte/services/RecepcaoEvento",
+                        CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CteConsulta"
+                    };
+                case Estado.PR:
+                    return new UrlCTe
+                    {
+                        CteStatusServico = @"	https://cte.fazenda.pr.gov.br/cte/CteStatusServico?wsdl",
+                        CteRetRecepcao = @"https://cte.fazenda.pr.gov.br/cte/CteRetRecepcao?wsdl",
+                        CteRecepcao = @"https://cte.fazenda.pr.gov.br/cte/CteRecepcao?wsdl",
+                        CteInutilizacao = @"https://cte.fazenda.pr.gov.br/cte/CteInutilizacao?wsdl",
+                        CteRecepcaoEvento = @"https://cte.fazenda.pr.gov.br/cte/CteRecepcaoEvento?wsdl",
+                        CteConsulta = @"https://cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl"
+                    };
+                case Estado.RS:
+                    return new UrlCTe
+                    {
+                        CteStatusServico =
+                            @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",
+                        CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx",
+                        CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
+                        CteInutilizacao =
+                            @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
+                        CteRecepcaoEvento =
+                            @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
+                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx"
+                    };
+                case Estado.SP:
+                    return new UrlCTe
+                    {
+                        CteStatusServico =
+                            @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteStatusServico.asmx",
+                        CteRetRecepcao =
+                            @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteRetRecepcao.asmx",
+                        CteRecepcao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteRecepcao.asmx",
+                        CteInutilizacao =
+                            @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
+                        CteRecepcaoEvento =
+                            @"https://nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
+                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx"
+                    };
+                case Estado.AC:
+                case Estado.AL:
+                case Estado.AM:
+                case Estado.BA:
+                case Estado.CE:
+                case Estado.DF:
+                case Estado.ES:
+                case Estado.GO:
+                case Estado.MA:
+                case Estado.PA:
+                case Estado.PB:
+                case Estado.PI:
+                case Estado.RJ:
+                case Estado.RN:
+                case Estado.RO:
+                case Estado.SC:
+                case Estado.SE:
+                case Estado.TO:
+                    return new UrlCTe
+                    {
+                        CteStatusServico =
+                            @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",
+                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
+                        CteInutilizacao =
+                            @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
+                        CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
+                        CteRecepcaoEvento =
+                            @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
+                        CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx"
+                    };
+                case Estado.AP:
+                case Estado.PE:
+                case Estado.RR:
+                    return new UrlCTe
+                    {
+                        CteStatusServico = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteStatusServico.asmx",
+                        CteRetRecepcao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRetRecepcao.asmx",
+                        CteRecepcao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteRecepcao.asmx",
+                        CteInutilizacao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
+                        CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcaoEvento.asmx",
+                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx"
+                    };
+                default:
+                    throw new InvalidOperationException(
+                        "Não achei a url do seu estado(uf), tente com outra unidade federativa");
+            }
+
         }
 
         private static UrlCTe UrlHomologacao()
