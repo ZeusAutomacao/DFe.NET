@@ -60,7 +60,7 @@ using CTe.Servicos.ConsultaStatus;
 using CTe.Servicos.Eventos;
 using CTe.Servicos.Inutilizacao;
 using CTe.Servicos.Recepcao;
-using CTe.Utils.Extencoes;
+using CTe.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;

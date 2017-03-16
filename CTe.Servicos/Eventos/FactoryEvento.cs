@@ -36,7 +36,7 @@ using System.Text;
 using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
-using CTe.Utils.Extencoes;
+using CTe.Utils.CTe;
 using CTeEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Eventos

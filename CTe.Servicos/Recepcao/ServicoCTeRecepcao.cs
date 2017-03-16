@@ -66,6 +66,7 @@ namespace CTe.Servicos.Recepcao
             {
                 cte.Assina();
                 cte.ValidaSchema();
+                cte.SalvarXmlEmDisco();
             }
 
             enviCte.ValidaSchema();

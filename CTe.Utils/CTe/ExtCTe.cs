@@ -80,16 +80,6 @@ namespace CTe.Utils.CTe
         }
 
         /// <summary>
-        ///     Grava os dados do objeto CTe em um arquivo XML
-        /// </summary>
-        /// <param name="cte">Objeto CTe</param>
-        /// <param name="arquivoXml">Diretório com nome do arquivo a ser gravado</param>
-        public static void SalvarArquivoXml(this CteEletronica cte, string arquivoXml)
-        {
-            FuncoesXml.ClasseParaArquivoXml(cte, arquivoXml);
-        }
-
-        /// <summary>
         ///     Gera id, cdv, assina e faz alguns ajustes nos dados da classe CTe antes de utilizá-la
         /// </summary>
         /// <param name="cte"></param>
@@ -223,5 +213,26 @@ namespace CTe.Utils.CTe
 
             cte.Signature = assinatura;
         }
+
+        public static string Chave(this CteEletronica cte)
+        {
+            var chave = cte.infCte.Id.Substring(3, 44);
+            return chave;
+        }
+
+        public static void SalvarXmlEmDisco(this CteEletronica cte)
+        {
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
+        }
+
+
     }
 }
