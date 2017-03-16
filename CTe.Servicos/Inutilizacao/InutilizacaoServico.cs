@@ -53,6 +53,8 @@ namespace CTeDLL.Servicos.Inutilizacao
             var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
+            retorno.SalvarXmlEmDisco();
+
             return retorno;
         }
 

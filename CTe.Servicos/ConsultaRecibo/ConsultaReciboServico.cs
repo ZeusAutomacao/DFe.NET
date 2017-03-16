@@ -23,6 +23,8 @@ namespace CTeDLL.Servicos.ConsultaRecibo
             var retornoXml = webService.cteRetRecepcao(consReciCTe.CriaRequestWs());
 
             var retorno = retConsReciCTe.LoadXml(retornoXml.OuterXml, consReciCTe);
+            retorno.SalvarXmlEmDisco();
+
             return retorno;
         }
     }

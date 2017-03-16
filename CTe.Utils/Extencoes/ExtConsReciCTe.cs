@@ -3,7 +3,6 @@ using System.Xml;
 using CTeDLL;
 using CTeDLL.Classes.Servicos.Recepcao.Retorno;
 using CTeDLL.Classes.Servicos.Tipos;
-using CTeDLL.Utils.Recepcao;
 using CTeDLL.Utils.Validacao;
 using DFe.Utils;
 
@@ -59,6 +58,21 @@ namespace CTe.Utils.Extencoes
             request.LoadXml(consReciCTe.ObterXmlString());
 
             return request;
+        }
+
+
+        // Salvar Retorno de Envio de Recibo
+        public static void SalvarXmlEmDisco(this retConsReciCTe retConsReciCTe)
+        {
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + retConsReciCTe.nRec + @"-rec.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retConsReciCTe, arquivoSalvar);
         }
     }
 }

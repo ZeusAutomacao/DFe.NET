@@ -16,6 +16,8 @@ namespace CTeDLL.Servicos.ConsultaStatus
             var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
 
             var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
+            retorno.SalvarXmlEmDisco();
+
             return retorno;
         }
     }

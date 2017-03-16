@@ -89,7 +89,7 @@ namespace CTe.AppTeste
 
         private void CriarEnviarCTe2_Click(object sender, RoutedEventArgs e)
         {
-            _model.CriarEnviarCTe2();
+            _model.CriarEnviarCTe2e3();
         }
 
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)

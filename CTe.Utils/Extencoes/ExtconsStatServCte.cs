@@ -47,7 +47,7 @@ namespace CTe.Utils.Extencoes
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
+            var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-ped-sta.xml";
 
             FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
         }

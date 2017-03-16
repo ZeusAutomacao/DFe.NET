@@ -1,5 +1,4 @@
 ﻿using CTe.Utils.Extencoes;
-using CTeDLL.Classes.Servicos;
 using CTeDLL.Classes.Servicos.Consulta;
 using CTeDLL.Servicos.Factory;
 

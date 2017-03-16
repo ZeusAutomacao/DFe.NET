@@ -24,7 +24,6 @@ using CTeDLL.Servicos.ConsultaStatus;
 using CTeDLL.Servicos.Eventos;
 using CTeDLL.Servicos.Inutilizacao;
 using CTeDLL.Servicos.Recepcao;
-using CTeDLL.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -626,7 +625,7 @@ namespace CTe.AppTeste
                 }
                 else
                 {
-                    var cte = Classes.CTe.LoadXmlArquivo(caminhoArquivoXml);
+                    var cte = CteEletronico.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = cte.Chave();
                 }
@@ -718,7 +717,7 @@ namespace CTe.AppTeste
 
             var caminho = BuscarArquivoXml();
 
-            var cte = Classes.CTe.LoadXmlArquivo(caminho);
+            var cte = CteEletronico.LoadXmlArquivo(caminho);
 
             var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
             var protocolo = InputBoxTuche("Protocolo");
@@ -737,7 +736,11 @@ namespace CTe.AppTeste
 
             var caminho = BuscarArquivoXml();
 
-            var cte = CteEletronico.LoadXmlArquivo(caminho);
+            // aqui estou fazendo um load no lote de ct-e
+            var cte = CTeDLL.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminho).CTe[0];
+
+            // aqui estou fazendo um load no xml de envio de um ct-e
+            //var cte = CteEletronico.LoadXmlArquivo(caminho);
 
             var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
 
@@ -766,7 +769,7 @@ namespace CTe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void CriarEnviarCTe2()
+        public void CriarEnviarCTe2e3()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoes(config);
@@ -981,8 +984,11 @@ namespace CTe.AppTeste
             cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
 
+
+            var numeroLote = InputBoxTuche("Número Lote");
+
             var servicoRecepcao = new ServicoCTeRecepcao();
-            var retornoEnvio = servicoRecepcao.CTeRecepcao(1, new List<CteEletronico> { cteEletronico });
+            var retornoEnvio = servicoRecepcao.CTeRecepcao(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 

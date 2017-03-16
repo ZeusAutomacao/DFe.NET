@@ -20,6 +20,7 @@ namespace CTeDLL.Servicos.Eventos
             var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
         }

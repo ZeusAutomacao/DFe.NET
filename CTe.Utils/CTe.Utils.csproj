@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consulta\ExtprocEventoCTe.cs" />
-    <Compile Include="Consulta\ExtretConsSitCTe.cs" />
     <Compile Include="CTe\ExCteProc.cs" />
     <Compile Include="CTe\ExtCTe.cs" />
     <Compile Include="CTe\ExtEnvCte.cs" />
@@ -54,8 +53,9 @@
     <Compile Include="Extencoes\ExtevCancCTe.cs" />
     <Compile Include="Extencoes\ExtevCCeCTe.cs" />
     <Compile Include="Extencoes\ExtinutCTe.cs" />
-    <Compile Include="Extencoes\ExtretConsReciCTe.cs" />
+    <Compile Include="Extencoes\ExtConsReciCTe.cs" />
     <Compile Include="Extencoes\ExtretConsSitCTe.cs" />
+    <Compile Include="Extencoes\ExtretConsStatServCte.cs" />
     <Compile Include="Inutilizacao\ExtretInutCTe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\ExtconsReciCTe.cs" />

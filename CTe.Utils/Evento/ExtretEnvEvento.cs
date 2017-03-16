@@ -25,5 +25,18 @@ namespace CTeDLL.Utils.Evento
         {
             return FuncoesXml.ClasseParaXmlString(retEnvEvento);
         }
+
+        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte)
+        {
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infEvento.chCTe + "-eve.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
+        }
     }
 }
