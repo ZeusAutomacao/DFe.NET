@@ -68,7 +68,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
         public string prtTrans { get; set; }
         public string prtDest { get; set; }
         public tpNav? tpNav { get; set; }
-        public bool tpNavSpecified => tpNav.HasValue;
+        public bool tpNavSpecified { get { return tpNav.HasValue; } }
         public string irin { get; set; }
 
         [XmlElement(ElementName = "detCont")]

@@ -74,10 +74,10 @@ namespace CTe.Classes.Informacoes.Impostos
         }
 
 
-        public bool vPISSpecified => vPIS.HasValue;
-        public bool vCOFINSSpecified => vCOFINS.HasValue;
-        public bool vIRSpecified => vIR.HasValue;
-        public bool vINSSSpecified => vINSS.HasValue;
-        public bool vCSLLSpecified => vCSLL.HasValue;
+        public bool vPISSpecified { get { return vPIS.HasValue; } }
+        public bool vCOFINSSpecified { get { return vCOFINS.HasValue; } }
+        public bool vIRSpecified { get { return vIR.HasValue; } }
+        public bool vINSSSpecified { get { return vINSS.HasValue; } }
+        public bool vCSLLSpecified { get { return vCSLL.HasValue; } }
     }
 }

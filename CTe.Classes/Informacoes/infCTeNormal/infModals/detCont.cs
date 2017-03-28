@@ -75,7 +75,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
             set { _unidRat = value.Arredondar(2); }
         }
 
-        public bool unidRatSpecified => unidRat.HasValue;
+        public bool unidRatSpecified { get { return unidRat.HasValue; } }
     }
 
     public class infNFeAquav
@@ -89,6 +89,6 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
             set { _unidRat = value.Arredondar(2); }
         }
 
-        public bool unidRatSpecified => unidRat.HasValue;
+        public bool unidRatSpecified { get { return unidRat.HasValue; } }
     }
 }

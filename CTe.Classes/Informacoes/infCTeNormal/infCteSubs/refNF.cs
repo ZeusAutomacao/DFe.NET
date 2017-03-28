@@ -52,7 +52,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infCteSubs
 
         public short? subserie { get; set; }
 
-        public bool subserieSpecified => subserie.HasValue;
+        public bool subserieSpecified { get { return subserie.HasValue; } }
 
         public int nro { get; set; }
 

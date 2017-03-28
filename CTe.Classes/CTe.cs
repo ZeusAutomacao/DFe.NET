@@ -67,7 +67,7 @@ namespace CTe.Classes
             }
         }
 
-        public bool versaoSpecified => versao.HasValue;
+        public bool versaoSpecified { get { return versao.HasValue; } }
 
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
         public infCte infCte;

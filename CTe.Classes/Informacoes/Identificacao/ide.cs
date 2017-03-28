@@ -64,7 +64,7 @@ namespace CTe.Classes.Informacoes.Identificacao
         /// </summary>
         public forPag? forPag { get; set; }
 
-        public bool forPagSpecified => forPag.HasValue;
+        public bool forPagSpecified { get { return forPag.HasValue; } }
 
         /// <summary>
         ///     B06 - Modelo do Documento Fiscal

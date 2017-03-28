@@ -62,6 +62,6 @@ namespace CTe.Classes.Informacoes.infCTeNormal.cobrancas
             set { _vDup = value.Arredondar(2); }
         }
 
-        public bool vDupSpecified => vDup.HasValue;
+        public bool vDupSpecified { get { return vDup.HasValue; } }
     }
 }

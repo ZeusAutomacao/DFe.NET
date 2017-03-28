@@ -53,6 +53,6 @@ namespace CTe.Classes.Informacoes.infCTeNormal
             set { _vCarga = value.Arredondar(2); }
         }
 
-        public bool vCargaSpecified => vCarga.HasValue;
+        public bool vCargaSpecified { get { return vCarga.HasValue; } }
     }
 }

@@ -38,9 +38,14 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 {
     public class ICMSSN : ICMSBasico
     {
-        public CST? CST { get; set; }
-        public bool CSTSpecified => CST.HasValue;
+        public ICMSSN()
+        {
+            indSN = indSN.Sim;
+        }
 
-        public indSN indSN { get; set; } = indSN.Sim;
+        public CST? CST { get; set; }
+        public bool CSTSpecified { get { return CST.HasValue; } }
+
+        public indSN indSN { get; set; }
     }
 }

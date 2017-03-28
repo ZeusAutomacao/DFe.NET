@@ -38,6 +38,11 @@ namespace CTe.Classes.Informacoes.Complemento
 {
     public class semHora : comHoraBase
     {
-         public tpHor tpHor { get; set; } = tpHor.SemHoraDefinida;
+        public semHora()
+        {
+            tpHor = tpHor.SemHoraDefinida;
+        }
+
+        public tpHor tpHor { get; set; } 
     }
 }

@@ -73,7 +73,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             set { _vDocFisc = value.Arredondar(2); }
         }
 
-        public bool vDocFiscSpecified => vDocFisc.HasValue;
+        public bool vDocFiscSpecified { get { return vDocFisc.HasValue; } }
 
         [XmlIgnore]
         public DateTime? dPrev { get; set; }

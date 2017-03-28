@@ -61,8 +61,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.cobrancas
         }
 
 
-        public bool vOrigSpecified => vOrig.HasValue;
-        public bool vDescSpecified => vDesc.HasValue;
-        public bool vLiqSpecified => vLiq.HasValue;
+        public bool vOrigSpecified { get { return vOrig.HasValue; } }
+        public bool vDescSpecified { get { return vDesc.HasValue; } }
+        public bool vLiqSpecified { get { return vLiq.HasValue; } }
     }
 }

@@ -48,7 +48,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
             set { _vTar = value.Arredondar(6); }
         }
 
-        public bool vTarSpecified => vTar.HasValue;
+        public bool vTarSpecified { get { return vTar.HasValue; } }
 
         [XmlIgnore]
         public DateTime dIni { get; set; }

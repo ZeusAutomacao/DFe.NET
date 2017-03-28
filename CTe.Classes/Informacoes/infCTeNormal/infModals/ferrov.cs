@@ -76,7 +76,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
             set { _vFrete = value.Arredondar(2); }
         }
 
-        public bool vFreteSpecified => vFrete.HasValue;
+        public bool vFreteSpecified { get { return vFrete.HasValue; } }
         public string chCTeFerroOrigem { get; set; }
 
         [XmlElement(ElementName = "ferroEnv")]
@@ -141,7 +141,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
             set { _cap = value.Arredondar(3); }
         }
 
-        public bool capSpecified => cap.HasValue;
+        public bool capSpecified { get { return cap.HasValue; } }
 
         public string tpVag { get; set; }
         public decimal pesoR { get; set; }

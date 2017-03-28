@@ -39,10 +39,15 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 {
     public class ICMS00 : ICMSBasico
     {
+        public ICMS00()
+        {
+            CST = CST.ICMS00;
+        }
+
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
-        public CST CST { get; set; } = CST.ICMS00;
+        public CST CST { get; set; }
 
         public decimal vBC
         {

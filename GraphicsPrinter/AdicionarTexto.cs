@@ -82,6 +82,6 @@ namespace GraphicsPrinter
         public string Texto { get; private set; }
         public Font Fonte { get; private set; }
 
-        public int TamanhoFonte => _tamanhoFonte;
+        public int TamanhoFonte  {get { return _tamanhoFonte; } }
     }
 }

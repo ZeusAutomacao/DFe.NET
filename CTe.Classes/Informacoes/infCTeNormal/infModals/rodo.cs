@@ -64,7 +64,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
         }
 
         public lota? lota { get; set; }
-        public bool lotaSpecified => lota.HasValue;
+        public bool lotaSpecified { get { return lota.HasValue; } }
 
         public string CIOT { get; set; }
 

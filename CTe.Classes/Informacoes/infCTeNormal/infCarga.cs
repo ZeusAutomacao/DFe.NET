@@ -75,7 +75,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         [XmlElement(Order = 7)]
         public docAnt docAnt { get; set; }
 
-        public bool vCargaSpecified => vCarga.HasValue;
-        public bool vCargaAverbSpecified => vCargaAverb.HasValue;
+        public bool vCargaSpecified { get { return vCarga.HasValue; } }
+        public bool vCargaAverbSpecified { get { return vCargaAverb.HasValue; } }
     }
 }

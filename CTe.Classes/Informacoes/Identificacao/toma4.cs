@@ -37,7 +37,12 @@ namespace CTe.Classes.Informacoes.Identificacao
 {
     public class toma4
     {
-        public toma toma { get; set; } = toma.Outros;
+        public toma4()
+        {
+            toma = toma.Outros;
+        }
+
+        public toma toma { get; set; }
 
         public string CNPJ { get; set; }
 

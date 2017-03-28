@@ -41,7 +41,12 @@ namespace CTe.Classes.Informacoes.Complemento
 {
     public class noPeriodo : comDataBase
     {
-        public tpPer tpPer { get; set; } = tpPer.NoPeriodo;
+        public noPeriodo()
+        {
+            tpPer = tpPer.NoPeriodo;
+        }
+
+        public tpPer tpPer { get; set; } 
 
         [XmlIgnore]
         public DateTime dIni { get; set; }

@@ -38,6 +38,11 @@ namespace CTe.Classes.Informacoes.Complemento
 {
     public class semData : comDataBase
     {
-        public tpPer tpPer { get; set; } = tpPer.SemDataDefinida;
+        public semData()
+        {
+            tpPer = tpPer.SemDataDefinida;
+        }
+
+        public tpPer tpPer { get; set; } 
     }
 }

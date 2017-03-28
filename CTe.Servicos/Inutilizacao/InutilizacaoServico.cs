@@ -54,13 +54,13 @@ namespace CTe.Servicos.Inutilizacao
             ModeloDocumento = modeloDocumento;
         }
 
-        public int Ano { get; }
-        public string Cnpj { get; }
-        public short Serie { get; }
-        public long NumeroInicial { get; }
-        public long NumeroFinal { get; }
-        public string Justificativa { get; }
-        public ModeloDocumento ModeloDocumento { get; }
+        public int Ano { get; private set; }
+        public string Cnpj { get; private set; }
+        public short Serie { get; private set; }
+        public long NumeroInicial { get; private set; }
+        public long NumeroFinal { get; private set; }
+        public string Justificativa { get; private set; }
+        public ModeloDocumento ModeloDocumento { get; private set; }
     }
 
     public class InutilizacaoServico

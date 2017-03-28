@@ -41,7 +41,12 @@ namespace CTe.Classes.Informacoes.Complemento
 {
     public class noInter : comHoraBase
     {
-        public tpHor tpHor { get; set; } = tpHor.NoIntervaloDeTempo;
+        public tpHor tpHor { get; set; }
+
+        public noInter()
+        {
+            tpHor = tpHor.NoIntervaloDeTempo;
+        }
 
         [XmlIgnore]
         public TimeSpan hIni { get; set; }

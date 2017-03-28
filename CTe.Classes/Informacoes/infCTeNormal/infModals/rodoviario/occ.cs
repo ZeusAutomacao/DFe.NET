@@ -40,7 +40,9 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviario
     public class occ
     {
         public short? serie { get; set; }
-        public bool serieSpecified => serie.HasValue;
+        public bool serieSpecified {
+            get { return serie.HasValue; }
+        }
 
         public int nOcc { get; set; }
 

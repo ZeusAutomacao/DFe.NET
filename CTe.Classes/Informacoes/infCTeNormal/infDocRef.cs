@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Dynamic;
 using System.Xml.Serialization;
 using DFe.Classes;
 using DFe.Utils;
@@ -44,7 +45,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         public string nDoc { get; set; }
         public short serie { get; set; }
         public short? subserie { get; set; }
-        public bool subserieSpecified => subserie.HasValue;
+        public bool subserieSpecified { get { return subserie.HasValue; } }
 
         [XmlIgnore]
         public DateTime dEmi { get; set; }
@@ -58,6 +59,6 @@ namespace CTe.Classes.Informacoes.infCTeNormal
             set { _vDoc = value.Arredondar(2); }
         }
 
-        public bool vDocSpecified => vDoc.HasValue;
+        public bool vDocSpecified { get { return vDoc.HasValue; } }
     }
 }

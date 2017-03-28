@@ -54,6 +54,6 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             set { _qtdRat = value.Arredondar(3); }
         }
 
-        public bool qtdRatSpecified => qtdRat.HasValue;
+        public bool qtdRatSpecified { get { return qtdRat.HasValue; } }
     }
 }

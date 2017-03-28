@@ -39,11 +39,16 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 {
     public class ICMSOutraUF : ICMSBasico
     {
+        public ICMSOutraUF()
+        {
+            CST = CST.ICMS90;
+        }
+
         private decimal _pRedBcOutraUf;
         private decimal _vBcOutraUf;
         private decimal _pIcmsOutraUf;
         private decimal _vIcmsOutraUf;
-        public CST CST { get; set; } = CST.ICMS90;
+        public CST CST { get; set; }
 
         public decimal pRedBCOutraUF
         {

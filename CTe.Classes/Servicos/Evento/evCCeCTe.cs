@@ -59,6 +59,6 @@ namespace CTe.Classes.Servicos.Evento
         public string campoAlterado { get; set; }
         public string valorAlterado { get; set; }
         public int? nroItemAlterado { get; set; }
-        public bool nroItemAlteradoSpecified => nroItemAlterado.HasValue;
+        public bool nroItemAlteradoSpecified { get { return nroItemAlterado.HasValue; } }
     }
 }
