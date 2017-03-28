@@ -31,67 +31,66 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Drawing;
-using System.IO;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace GraphicsPrinter
 {
-    public class AdicionarImagem
+    public class RedimensionaImagemPara
     {
-        private readonly Graphics _graphics;
-        private readonly string _caminhoImagem;
-        private readonly int _posicaoX;
-        private readonly int _posicaoY;
-        private readonly Image _imagem;
+        private readonly AdicionarImagem _adicionarImagem;
+        private readonly int _largura;
+        private readonly int _altura;
 
-        public AdicionarImagem(Graphics graphics, string caminhoImagem, int posicaoX, int posicaoY)
+        public RedimensionaImagemPara(AdicionarImagem adicionarImagem, int largura, int altura)
         {
-            _graphics = graphics;
-            _caminhoImagem = caminhoImagem;
-            _posicaoX = posicaoX;
-            _posicaoY = posicaoY;
+            _adicionarImagem = adicionarImagem;
+            _largura = largura;
+            _altura = altura;
         }
-
-        public AdicionarImagem(Graphics graphics, Image imagem, int posicaoX, int posicaoY)
-        {
-            _graphics = graphics;
-            _imagem = imagem;
-            _posicaoX = posicaoX;
-            _posicaoY = posicaoY;
-        }
-
-        public AdicionarImagem(AdicionarImagem adicionarImagem, Image novaImagem)
-        {
-            _graphics = adicionarImagem.Graphics;
-            _imagem = novaImagem;
-            _posicaoX = adicionarImagem.PosicaoX;
-            _posicaoY = adicionarImagem.PosicaoY;
-        }
-
-        public Image Logo => _imagem;
-        public Graphics Graphics => _graphics;
-        public int PosicaoX => _posicaoX;
-        public int PosicaoY => _posicaoY;
 
         public void Desenhar()
         {
-            try
-            {
-                Image imagemUtilizada = null;
+            Image logo = _adicionarImagem.Logo;
 
-                if (_imagem != null)
+            if (logo.Size.Width != 50 || logo.Size.Height != 24)
+            {
+                logo = Redimensionar(logo, _largura, _altura);
+            }
+
+            new AdicionarImagem(_adicionarImagem, logo).Desenhar();
+        }
+
+        /// <summary>
+        /// Redimensione a imagem para a largura e altura especificadas.
+        /// </summary>
+        /// <param name="logo">A imagem para redimensionar.</param>
+        /// <param name="largura">A largura para redimensionar para.</param>
+        /// <param name="altura">A altura para redimensionar para.</param>
+        /// <returns>A imagem redimensionada.</returns>
+        private static Bitmap Redimensionar(Image logo, int largura, int altura)
+        {
+            var destRect = new Rectangle(0, 0, largura, altura);
+            var destImage = new Bitmap(largura, altura);
+
+            destImage.SetResolution(logo.HorizontalResolution, logo.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
                 {
-                    imagemUtilizada = _imagem;
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(logo, destRect, 0, 0, logo.Width, logo.Height, GraphicsUnit.Pixel, wrapMode);
                 }
-
-                if (File.Exists(_caminhoImagem))
-                    imagemUtilizada = Image.FromFile(_caminhoImagem);
-
-                // ReSharper disable once AssignNullToNotNullAttribute
-                _graphics.DrawImage(imagemUtilizada, new Point(_posicaoX, _posicaoY));
             }
-            catch
-            {
-            }
-        } 
+
+            return destImage;
+        }
     }
 }
