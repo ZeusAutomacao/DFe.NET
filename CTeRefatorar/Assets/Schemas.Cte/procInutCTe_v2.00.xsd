@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="inutCTeTiposBasico_v2.00.xsd"/>
+	<xs:element name="procInutCTe" type="TProcInutCTe">
+		<xs:annotation>
+			<xs:documentation>Pedido de inutilzação de numeração de CT-e processado</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

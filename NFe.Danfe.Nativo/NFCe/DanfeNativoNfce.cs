@@ -471,7 +471,13 @@ namespace NFe.Danfe.Nativo.NFCe
                 LinhaHorizontal(g, x, y, larguraLinha);
             }
 
-            string observacoes = _nfe.infNFe?.infAdic?.infCpl;
+
+            string observacoes = string.Empty;
+
+            if (_nfe != null)
+                if(_nfe.infNFe != null)
+                    if (_nfe.infNFe.infAdic != null)
+                        observacoes = _nfe.infNFe.infAdic.infCpl;
 
             if (!string.IsNullOrEmpty(observacoes))
             {

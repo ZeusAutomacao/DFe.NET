@@ -85,5 +85,10 @@ namespace DFe.Utils
         {
             return data.ToString("yyyyMMddHHmmss");
         }
+
+        public static string ParaHoraString(this TimeSpan hora)
+        {
+            return hora.ToString(@"hh\:mm\:ss");
+        }
     }
 }

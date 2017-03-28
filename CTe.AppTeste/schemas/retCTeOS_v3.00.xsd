@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="cteTiposBasico_v3.00.xsd"/>
+	<xs:element name="retCTeOS" type="TRetCTeOS">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do retorno do recibo de envio do CT-e OS (Modelo 67)</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>
