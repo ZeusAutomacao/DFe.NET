@@ -30,17 +30,18 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Classes.Informacoes;
-using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFe
     {

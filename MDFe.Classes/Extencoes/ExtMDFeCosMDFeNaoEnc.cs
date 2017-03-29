@@ -30,23 +30,45 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using DFe.Utils;
-using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
-using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Utils.Extencoes
+using System.Xml;
+using DFe.Utils;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Validacao;
+
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeRetConsSitMDFe
+    public static class ExtMDFeCosMDFeNaoEnc
     {
-        public static void SalvarXmlEmDisco(this MDFeRetConsSitMDFe retConsSitMdFe, string chave)
+        public static string XmlString(this MDFeCosMDFeNaoEnc consMDFeNaoEnc)
+        {
+            return FuncoesXml.ClasseParaXmlString(consMDFeNaoEnc);
+        }
+
+        public static void ValidarSchema(this MDFeCosMDFeNaoEnc consMdFeNaoEnc)
+        {
+            var xmlValidacao = consMdFeNaoEnc.XmlString();
+            Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
+        }
+
+        public static XmlDocument CriaRequestWs(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
+        {
+            var request = new XmlDocument();
+            request.LoadXml(cosMdFeNaoEnc.XmlString());
+
+            return request;
+        }
+
+        public static void SalvarXmlEmDisco(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
+            var arquivoSalvar = caminhoXml + @"\" + cosMdFeNaoEnc.CNPJ + "-ped-sit.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(retConsSitMdFe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(cosMdFeNaoEnc, arquivoSalvar);
         }
     }
 }

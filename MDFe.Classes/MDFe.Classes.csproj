@@ -37,14 +37,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
+    <Compile Include="Extencoes\ExtMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeConsReciMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeConsStatServMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="Extencoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeEvCancMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeEvEncMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsReciMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetConsStatServ.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetEnviMDFe.cs" />
+    <Compile Include="Extencoes\ExtMDFeRetEventoMDFe.cs" />
+    <Compile Include="Extencoes\ExtVersaoServico.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
+    <Compile Include="Flags\MDFeRespSeg.cs" />
     <Compile Include="Flags\MDFeTipoEmissao.cs" />
     <Compile Include="Flags\MDFeTipoEmitente.cs" />
     <Compile Include="Flags\MDFeTpCar.cs" />
     <Compile Include="Flags\MDFeTpRod.cs" />
     <Compile Include="Flags\MDFeTpProp.cs" />
+    <Compile Include="Flags\MDFeTpTransp.cs" />
     <Compile Include="Flags\MDFeTpUnidCarga.cs" />
     <Compile Include="Flags\MDFeTpUnidCargaVazia.cs" />
     <Compile Include="Flags\MDFeTpUnidTransp.cs" />
@@ -87,8 +106,10 @@
     <Compile Include="Informacoes\MDFeLacre.cs" />
     <Compile Include="Informacoes\MDFeLacUnidCarga.cs" />
     <Compile Include="Informacoes\MDFeLacUnidTransp.cs" />
+    <Compile Include="Informacoes\MDFePeri.cs" />
     <Compile Include="Informacoes\MDFeProp.cs" />
     <Compile Include="Informacoes\MDFeRodo.cs" />
+    <Compile Include="Informacoes\MDFeSeg.cs" />
     <Compile Include="Informacoes\MDFeTot.cs" />
     <Compile Include="Informacoes\MDFeTrem.cs" />
     <Compile Include="Informacoes\MDFeVag.cs" />
@@ -111,7 +132,6 @@
     <Compile Include="Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
     <Compile Include="Retorno\RetornoBase.cs" />
     <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
-    <Compile Include="Servicos\Flags\VersaoServico.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
@@ -122,6 +142,13 @@
       <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
+      <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
+      <Name>MDFe.Utils</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Servicos\Flags\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

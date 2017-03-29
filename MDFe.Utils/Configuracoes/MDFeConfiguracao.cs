@@ -36,7 +36,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using MDFe.Classes.Servicos.Flags;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Utils.Configuracoes
 {
@@ -88,6 +88,7 @@ namespace MDFe.Utils.Configuracoes
         public int TimeOut { get; set; }
         public Estado UfEmitente { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
+        public VersaoServico VersaoLayout { get; set; }
         public VersaoServico VersaoMDFeRecepcao { get; set; }
         public VersaoServico VersaoMDFeRetRecepcao { get; set; }
         public VersaoServico VersaoMDFeRecepcaoEvento { get; set; }

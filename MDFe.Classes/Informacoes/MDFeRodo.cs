@@ -40,6 +40,9 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeRodo : MDFeModalContainer
     {
+        [XmlElement(ElementName = "infANTT")]
+        public MDFeInfANTT infANTT { get; set; }
+
         /// <summary>
         /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
         /// </summary>
@@ -75,5 +78,12 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "codAgPorto")]
         public string CodAgPorto { get; set; }
+    }
+
+    [Serializable]
+    public class MDFeInfANTT
+    {
+        [XmlElement(ElementName = "RNTRC")]
+        public string RNTRC { get; set; }
     }
 }

@@ -30,23 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Utils;
-using MDFe.Classes.Retorno.MDFeRecepcao;
+using MDFe.Classes.Retorno.MDFeEvento;
 using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeRetEnviMDFe
+    public static class ExtMDFeRetEventoMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetEnviMDFe retEnviMDFe)
+        public static void SalvarXmlEmDisco(this MDFeRetEventoMDFe retEvento, string chave)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviMDFe.InfRec.NRec + "-rec.xml";
+            var arquivoSalvar = caminhoXml + @"\" + chave + "-env.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(retEnviMDFe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(retEvento, arquivoSalvar);
         }
     }
 }

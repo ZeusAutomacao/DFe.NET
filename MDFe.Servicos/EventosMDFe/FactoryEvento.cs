@@ -32,11 +32,11 @@
 /********************************************************************************/
 
 using System;
+using MDFe.Classes.Extencoes;
 using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.Flags;
-using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Extencoes;
+using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 using MDFe.Classes.Retorno.MDFeRetRecepcao;
-using MDFe.Classes.Servicos.Flags;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Retorno
 {

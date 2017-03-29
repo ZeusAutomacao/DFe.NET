@@ -30,24 +30,25 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeEvCancMDFe
+    public static class ExtMDFeEvIncCondutorMDFe
     {
-        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe)
+        public static void ValidaSchema(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)
         {
-            var xmlCancelamento = evCancMDFe.XmlString();
+            var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
 
-            Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
+            Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
         }
 
-        public static string XmlString(this MDFeEvCancMDFe evCancMDFe)
+        public static string XmlString(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)
         {
-            return FuncoesXml.ClasseParaXmlString(evCancMDFe);
+            return FuncoesXml.ClasseParaXmlString(evIncCondutorMDFe);
         }
     }
 }

@@ -30,18 +30,55 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Servicos.Flags;
 
-namespace MDFe.Utils.Extencoes
+using System;
+using System.Xml;
+using DFe.Utils;
+using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Validacao;
+
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtVersaoServico
+    public static class ExtMDFeEnviMDFe
     {
-        public static string GetVersaoString(this VersaoServico versaoServico)
+        public static void Valida(this MDFeEnviMDFe enviMDFe)
         {
-            var codigoString = versaoServico.ToString();
-            var codigoFormatado = codigoString.Substring(6, 3);
-            codigoFormatado = codigoFormatado.Insert(1, ".");
-            return codigoFormatado;
+            if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
+
+            var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
+
+            Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
+
+            enviMDFe.MDFe.Valida();
+        }
+
+        public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
+        {
+            var dadosEnvio = new XmlDocument();
+            dadosEnvio.LoadXml(enviMDFe.XmlString());
+
+            return dadosEnvio;
+        }
+
+        public static string XmlString(this MDFeEnviMDFe enviMDFe)
+        {
+            var xmlString = FuncoesXml.ClasseParaXmlString(enviMDFe);
+
+            return xmlString;
+        }
+
+        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe)
+        {
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
+
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-completo-mdfe.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
+
+            enviMDFe.MDFe.SalvarXmlEmDisco();
         }
     }
 }
