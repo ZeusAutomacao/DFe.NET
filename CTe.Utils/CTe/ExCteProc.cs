@@ -43,8 +43,7 @@ public static class ExtCteProc
     /// <returns>Retorna um cteProc carregada com os dados do XML</returns>
     public static cteProc CarregarDeArquivoXml(this cteProc cteProc, string arquivoXml)
     {
-        var s = FuncoesXml.ObterNodeDeArquivoXml(typeof(cteProc).Name, arquivoXml);
-        return FuncoesXml.XmlStringParaClasse<cteProc>(s);
+        return FuncoesXml.ArquivoXmlParaClasse<cteProc>(arquivoXml);
     }
 
     /// <summary>
