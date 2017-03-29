@@ -31,7 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using DFe.Utils;
-using cteProc = CTe.Classes.Protocolo.protCTe;
+using cteProc = CTe.Classes.cteProc;
 
 public static class ExtCteProc
 {

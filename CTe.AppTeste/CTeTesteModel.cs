@@ -707,7 +707,7 @@ namespace CTe.AppTeste
 
         private static DialogResult MessageBoxConfirmTuche(string mensagem)
         {
-            return MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            return MessageBox.Show(mensagem, @"CT-e", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         }
 
 
