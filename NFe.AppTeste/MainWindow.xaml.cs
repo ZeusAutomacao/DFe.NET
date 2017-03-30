@@ -386,9 +386,12 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+
+				//A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+				if (_configuracoes.CfgServico.ModeloDocumento == ModeloDocumento.NFCe)
+					_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
+
+				var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
@@ -947,14 +950,14 @@ namespace NFe.AppTeste
         {
             var ide = new ide
             {
-                cUF = Estado.SE,
+                cUF = _configuracoes.CfgServico.cUF,
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
                 tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                cMunFG = _configuracoes.EnderecoEmitente.cMun,
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
                 cNF = "1234",
@@ -1077,7 +1080,7 @@ namespace NFe.AppTeste
                 prod = GetProduto(i + 1),
                 imposto = new imposto
                 {
-                    vTotTrib = 0.17m,
+                    //vTotTrib = 0.17m,
                     ICMS = new ICMS
                     {
                         TipoICMS =
@@ -1107,12 +1110,12 @@ namespace NFe.AppTeste
                 }
             };
 
-            if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
-                det.imposto.IPI = new IPI()
-                {
-                    cEnq = 999,
-                    TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
-                };
+            //if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
+            //    det.imposto.IPI = new IPI()
+            //    {
+            //        cEnq = 999,
+            //        TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
+            //    };
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;

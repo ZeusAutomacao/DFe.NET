@@ -43,6 +43,8 @@ Temporary Items
 .apdisk
 /BuildProcessTemplates
 /.vs/Zeus NFe/v14/.suo
+/*/*.user
+
 /NFe.AppTeste/obj/Debug
 /NFe.Classes/obj/Debug
 /Nfe.Impressao/obj/Debug
