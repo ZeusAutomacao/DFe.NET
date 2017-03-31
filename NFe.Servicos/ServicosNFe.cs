@@ -863,7 +863,7 @@ namespace NFe.Servicos
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
 
-                    if (conteudo.StartsWith("<retNFe"))
+                    if (conteudo.StartsWith("<resNFe"))
                     {
                         var retConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
@@ -876,8 +876,21 @@ namespace NFe.Servicos
                                 conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
                     }
+                    else if (conteudo.StartsWith("<resEvento"))
+                    {
+                        var resEventoConteudo =
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(
+                                conteudo);
+                        chNFe = resEventoConteudo.chNFe;
+                    }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+
+                    if (chNFe == string.Empty)
+                    {
+                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE_";
+                    }
+
                     SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
 
                 }
@@ -1159,7 +1172,7 @@ namespace NFe.Servicos
         ///     Consulta a Situação da NFe
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
-        public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves)
+        public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves, string nomeSaida = "")
         {
             var versaoServico = ServicoNFe.NfeDownloadNF.VersaoServicoParaString(_cFgServico.VersaoNfeDownloadNF);
 
@@ -1196,7 +1209,12 @@ namespace NFe.Servicos
             var dadosDownload = new XmlDocument();
             dadosDownload.LoadXml(xmlDownload);
 
-            SalvarArquivoXml(cnpj + "-ped-down.xml", xmlDownload);
+            if (nomeSaida == "")
+            {
+                nomeSaida = cnpj;
+            }
+
+            SalvarArquivoXml(nomeSaida + "-ped-down.xml", xmlDownload);
 
             XmlNode retorno;
             try
@@ -1211,7 +1229,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retDownload = new retDownloadNFe().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(cnpj + "-down.xml", retornoXmlString);
+            SalvarArquivoXml(nomeSaida + "-down.xml", retornoXmlString);
 
             return new RetornoNfeDownload(pedDownload.ObterXmlString(), retDownload.ObterXmlString(), retornoXmlString, retDownload);
 
