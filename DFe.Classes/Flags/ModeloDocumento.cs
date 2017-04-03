@@ -44,6 +44,10 @@ namespace DFe.Classes.Flags
         [XmlEnum("58")]
         MDFe = 58,
         [XmlEnum("65")]
-        NFCe = 65
+        NFCe = 65,
+        [XmlEnum("57")]
+        CTe = 57,
+        [XmlEnum("67")]
+        CTeOS = 67
     }
 }
