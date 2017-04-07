@@ -47,7 +47,7 @@ namespace MDFe.Servicos.EventosMDFe
         {
             var eventoMDFe = new MDFeEventoMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 InfEvento = new MDFeInfEvento
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),

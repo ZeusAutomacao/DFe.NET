@@ -39,6 +39,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:enumBindable="clr-namespace:MDFe.AppTeste.EnumBindable"
         xmlns:flags="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
+        xmlns:flagsCte="clr-namespace:MDFe.Utils.Flags;assembly=MDFe.Utils"
         mc:Ignorable="d"
         Loaded="MDFeTeste_OnLoaded"
         Title="MainWindow" Height="720.696" Width="771.522">
@@ -178,30 +179,14 @@
                                 </GroupBox>
                                 <GroupBox Header="Versão de cada serviço">
                                     <StackPanel>
-                                        <GroupBox Header="MDFeRecepcao">
+                                        <GroupBox Header="Versão WebService">
                                             <StackPanel>
-                                                <RadioButton GroupName="MDFeRecepcao" IsChecked="True">1.00</RadioButton>
+                                                <ComboBox IsEditable="False"
+                                                ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flagsCte:VersaoServico}}}"
+                                              SelectedItem="{Binding VersaoLayout}">
+
+                                                </ComboBox>
                                             </StackPanel>
-                                        </GroupBox>
-
-                                        <GroupBox Header="MDFeRetRecepcao">
-                                            <RadioButton GroupName="MDFeRetRecepcao" IsChecked="True">1.00</RadioButton>
-                                        </GroupBox>
-
-                                        <GroupBox Header="MDFeRecepcaoEvento">
-                                            <RadioButton GroupName="MDFeRecepcaoEvento" IsChecked="True">1.00</RadioButton>
-                                        </GroupBox>
-
-                                        <GroupBox Header="MDFeConsulta">
-                                            <RadioButton GroupName="MDFeConsulta" IsChecked="True">1.00</RadioButton>
-                                        </GroupBox>
-
-                                        <GroupBox Header="MDFeStatusServico">
-                                            <RadioButton GroupName="MDFeStatusServico" IsChecked="True">1.00</RadioButton>
-                                        </GroupBox>
-
-                                        <GroupBox Header="MDFeConsNaoEnc">
-                                            <RadioButton GroupName="MDFeConsNaoEnc" IsChecked="True">1.00</RadioButton>
                                         </GroupBox>
 
                                         <GroupBox Header="Diretório Schemas">

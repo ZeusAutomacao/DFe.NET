@@ -89,11 +89,5 @@ namespace MDFe.Utils.Configuracoes
         public Estado UfEmitente { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoLayout { get; set; }
-        public VersaoServico VersaoMDFeRecepcao { get; set; }
-        public VersaoServico VersaoMDFeRetRecepcao { get; set; }
-        public VersaoServico VersaoMDFeRecepcaoEvento { get; set; }
-        public VersaoServico VersaoMDFeConsulta { get; set; }
-        public VersaoServico VersaoMDFeStatusServico { get; set; }
-        public VersaoServico VersaoMDFeConsNaoEnc { get; set; }
     }
 }

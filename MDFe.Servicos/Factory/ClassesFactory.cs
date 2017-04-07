@@ -52,7 +52,7 @@ namespace MDFe.Servicos.Factory
             {
                 CNPJ = cnpj,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
@@ -63,7 +63,7 @@ namespace MDFe.Servicos.Factory
         {
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
@@ -131,7 +131,7 @@ namespace MDFe.Servicos.Factory
         {
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 NRec = numeroRecibo
             };
@@ -144,7 +144,7 @@ namespace MDFe.Servicos.Factory
             return new MDFeConsStatServMDFe
             {
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
             }; 
         }

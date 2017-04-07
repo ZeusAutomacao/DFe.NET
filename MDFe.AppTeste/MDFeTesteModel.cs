@@ -109,6 +109,7 @@ namespace MDFe.AppTeste
         private bool _isSalvarXml;
         private int _timeOut;
         private bool _manterCertificadoEmCache;
+        private VersaoServico _versaoLayout;
 
         #region empresa
 
@@ -350,63 +351,13 @@ namespace MDFe.AppTeste
             }
         }
 
-        public VersaoServico VersaoMDFeRecepcao
+        public VersaoServico VersaoLayout
         {
-            get { return _versaoMdFeRecepcao; }
+            get { return _versaoLayout; }
             set
             {
-                _versaoMdFeRecepcao = value;
-                OnPropertyChanged("VersaoMDFeRecepcao");
-            }
-        }
-
-        public VersaoServico VersaoMDFeRetRecepcao
-        {
-            get { return _versaoMdFeRetRecepcao; }
-            set
-            {
-                _versaoMdFeRetRecepcao = value;
-                OnPropertyChanged("VersaoMDFeRetRecepcao");
-            }
-        }
-
-        public VersaoServico VersaoMDFeRecepcaoEvento
-        {
-            get { return _versaoMdFeRecepcaoEvento; }
-            set
-            {
-                _versaoMdFeRecepcaoEvento = value;
-                OnPropertyChanged("VersaoMDFeRecepcaoEvento");
-            }
-        }
-
-        public VersaoServico VersaoMDFeConsulta
-        {
-            get { return _versaoMdFeConsulta; }
-            set
-            {
-                _versaoMdFeConsulta = value;
-                OnPropertyChanged("VersaoMDFeConsulta");
-            }
-        }
-
-        public VersaoServico VersaoMDFeStatusServico
-        {
-            get { return _versaoMdFeStatusServico; }
-            set
-            {
-                _versaoMdFeStatusServico = value;
-                OnPropertyChanged("VersaoMDFeStatusServico");
-            }
-        }
-
-        public VersaoServico VersaoMDFeConsNaoEnc
-        {
-            get { return _versaoMdFeConsNaoEnc; }
-            set
-            {
-                _versaoMdFeConsNaoEnc = value;
-                OnPropertyChanged("VersaoMDFeConsNaoEnc");
+                _versaoLayout = value;
+                OnPropertyChanged("VersaoLayout");
             }
         }
 
@@ -509,12 +460,7 @@ namespace MDFe.AppTeste
                     UfEmitente = UfDestino,
                     Numeracao = Numeracao,
                     Serie = Serie,
-                    VersaoMDFeConsNaoEnc = VersaoServico.Versao100,
-                    VersaoMDFeConsulta = VersaoServico.Versao100,
-                    VersaoMDFeRecepcao = VersaoServico.Versao100,
-                    VersaoMDFeRecepcaoEvento = VersaoServico.Versao100,
-                    VersaoMDFeRetRecepcao = VersaoServico.Versao100,
-                    VersaoMDFeStatusServico = VersaoServico.Versao100,
+                    VersaoLayout = VersaoLayout,
                     CaminhoSchemas = DiretorioSchemas,
                     TimeOut = TimeOut
                 },
@@ -588,12 +534,7 @@ namespace MDFe.AppTeste
 
             UfDestino = config.ConfigWebService.UfEmitente;
 
-            VersaoMDFeConsNaoEnc = config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            VersaoMDFeConsulta = config.ConfigWebService.VersaoMDFeConsulta;
-            VersaoMDFeRecepcao = config.ConfigWebService.VersaoMDFeRecepcao;
-            VersaoMDFeRecepcaoEvento = config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            VersaoMDFeRetRecepcao = config.ConfigWebService.VersaoMDFeRetRecepcao;
-            VersaoMDFeStatusServico = config.ConfigWebService.VersaoMDFeStatusServico;
+            VersaoLayout = config.ConfigWebService.VersaoLayout;
 
             DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
             DiretorioSalvarXml = config.DiretorioSalvarXml;
@@ -1151,18 +1092,8 @@ namespace MDFe.AppTeste
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
             Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
-                config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
-                config.ConfigWebService.VersaoMDFeConsulta;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
-                config.ConfigWebService.VersaoMDFeRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
-                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
-                config.ConfigWebService.VersaoMDFeRetRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
-                config.ConfigWebService.VersaoMDFeStatusServico;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
