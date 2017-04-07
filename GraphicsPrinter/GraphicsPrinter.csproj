@@ -54,6 +54,7 @@
     <Compile Include="MedidasLinha.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QrCode.cs" />
+    <Compile Include="RedimensionaImagemPara.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">

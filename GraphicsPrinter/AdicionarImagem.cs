@@ -59,6 +59,19 @@ namespace GraphicsPrinter
             _posicaoY = posicaoY;
         }
 
+        public AdicionarImagem(AdicionarImagem adicionarImagem, Image novaImagem)
+        {
+            _graphics = adicionarImagem.Graphics;
+            _imagem = novaImagem;
+            _posicaoX = adicionarImagem.PosicaoX;
+            _posicaoY = adicionarImagem.PosicaoY;
+        }
+
+        public Image Logo {get { return _imagem; } }
+        public Graphics Graphics { get { return _graphics; } }
+        public int PosicaoX { get { return _posicaoX; } }
+        public int PosicaoY { get { return _posicaoY; } }
+
         public void Desenhar()
         {
             try

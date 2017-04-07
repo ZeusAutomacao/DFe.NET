@@ -63,7 +63,17 @@ namespace DFe.Utils
         /// <returns></returns>
         public static string ParaDataHoraStringSemUtc(this DateTime data)
         {
-            return data.ToString("yyyy-MM-ddTHH:mm:dd");
+            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:dd");
+        }
+
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataHoraStringSemUtc(this DateTime? data)
+        {
+            return ParaDataHoraStringSemUtc(data.GetValueOrDefault());
         }
 
         /// <summary>
@@ -84,6 +94,11 @@ namespace DFe.Utils
         public static string ParaDataHoraString(this DateTime data)
         {
             return data.ToString("yyyyMMddHHmmss");
+        }
+
+        public static string ParaHoraString(this TimeSpan hora)
+        {
+            return hora.ToString(@"hh\:mm\:ss");
         }
     }
 }
