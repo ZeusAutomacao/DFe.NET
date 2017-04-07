@@ -30,45 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml;
+
 using DFe.Utils;
-using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Retorno.MDFeStatusServico;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeConsSitMDFe
+    public static class ExtMDFeRetConsStatServ
     {
-        public static void ValidarSchema(this MDFeConsSitMDFe consSitMdfe)
-        {
-            var xmlEnvio = consSitMdfe.XmlString();
-
-            Validador.Valida(xmlEnvio, "consSitMdfe_v1.00.xsd");
-        }
-
-        public static string XmlString(this MDFeConsSitMDFe consSitMdfe)
-        {
-            return FuncoesXml.ClasseParaXmlString(consSitMdfe);
-        }
-
-        public static XmlDocument CriaRequestWs(this MDFeConsSitMDFe consSitMdfe)
-        {
-            var request = new XmlDocument();
-            request.LoadXml(consSitMdfe.XmlString());
-
-            return request;
-        }
-
-        public static void SalvarXmlEmDisco(this MDFeConsSitMDFe consSitMdfe)
+        public static void SalvarXmlEmDisco(this MDFeRetConsStatServ retConsStatServ)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + consSitMdfe.ChMDFe + "-ped-sit.xml";
+            var arquivoSalvar = caminhoXml + @"\-retorno-status-servico.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(consSitMdfe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(retConsStatServ, arquivoSalvar);
         }
     }
 }

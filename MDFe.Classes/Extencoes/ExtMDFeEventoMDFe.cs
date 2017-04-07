@@ -30,18 +30,88 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Servicos.Flags;
 
-namespace MDFe.Utils.Extencoes
+using System.Xml;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
+
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtVersaoServico
+    public static class ExtMDFeEventoMDFe
     {
-        public static string GetVersaoString(this VersaoServico versaoServico)
+        public static void ValidarSchema(this MDFeEventoMDFe evento)
         {
-            var codigoString = versaoServico.ToString();
-            var codigoFormatado = codigoString.Substring(6, 3);
-            codigoFormatado = codigoFormatado.Insert(1, ".");
-            return codigoFormatado;
+            var xmlValido = evento.XmlString();
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValido, "eventoMDFe_v3.00.xsd");
+                    break;
+            }
+
+            var tipoEvento = evento.InfEvento.DetEvento.EventoContainer.GetType();
+
+            if (tipoEvento == typeof (MDFeEvCancMDFe))
+            {
+                var objetoXml = (MDFeEvCancMDFe) evento.InfEvento.DetEvento.EventoContainer;
+                objetoXml.ValidaSchema();
+            }
+
+            if (tipoEvento == typeof (MDFeEvEncMDFe))
+            {
+                var objetoXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
+
+                objetoXml.ValidaSchema();
+            }
+
+            if (tipoEvento == typeof (MDFeEvIncCondutorMDFe))
+            {
+                var objetoXml = (MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer;
+
+                objetoXml.ValidaSchema();
+            }
+
+
         }
+
+        public static XmlDocument CriaXmlRequestWs(this MDFeEventoMDFe evento)
+        {
+            var xmlRequest = new XmlDocument();
+            xmlRequest.LoadXml(evento.XmlString());
+
+            return xmlRequest;
+        }
+
+        public static string XmlString(this MDFeEventoMDFe evento)
+        {
+            return FuncoesXml.ClasseParaXmlString(evento);
+        }
+
+        public static void Assinar(this MDFeEventoMDFe evento)
+        {
+            evento.Signature = AssinaturaDigital.Assina(evento, evento.InfEvento.Id,
+                MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static void SalvarXmlEmDisco(this MDFeEventoMDFe evento, string chave)
+        {
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
+
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
+        }
+
     }
 }
