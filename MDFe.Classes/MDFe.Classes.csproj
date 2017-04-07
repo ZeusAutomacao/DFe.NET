@@ -68,6 +68,8 @@
     <Compile Include="Flags\MDFeTpUnidCargaVazia.cs" />
     <Compile Include="Flags\MDFeTpUnidTransp.cs" />
     <Compile Include="Flags\MDFeVersaoModal.cs" />
+    <Compile Include="Flags\tpNav.cs" />
+    <Compile Include="Flags\tpUnidTranspVazia.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
@@ -80,6 +82,7 @@
     <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
     <Compile Include="Informacoes\infCIOT.cs" />
     <Compile Include="Informacoes\infContratante.cs" />
+    <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
     <Compile Include="Informacoes\MDFeAereo.cs" />
     <Compile Include="Informacoes\MDFeAquav.cs" />
