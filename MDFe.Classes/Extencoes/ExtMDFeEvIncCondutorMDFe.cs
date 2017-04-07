@@ -33,6 +33,8 @@
 
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Extencoes
@@ -43,7 +45,15 @@ namespace MDFe.Classes.Extencoes
         {
             var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
 
-            Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v3.00.xsd");
+                    break;
+            }
         }
 
         public static string XmlString(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)

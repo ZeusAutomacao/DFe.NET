@@ -57,7 +57,7 @@ namespace MDFe.Servicos.EventosMDFe
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
                     {
-                        VersaoServico = VersaoServico.Versao100,
+                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                         EventoContainer = evento
                     },
                     DhEvento = DateTime.Now,

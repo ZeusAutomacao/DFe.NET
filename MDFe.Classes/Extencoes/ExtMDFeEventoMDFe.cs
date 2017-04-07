@@ -37,6 +37,7 @@ using DFe.Utils.Assinatura;
 using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Extencoes
@@ -47,7 +48,15 @@ namespace MDFe.Classes.Extencoes
         {
             var xmlValido = evento.XmlString();
 
-            Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValido, "eventoMDFe_v3.00.xsd");
+                    break;
+            }
 
             var tipoEvento = evento.InfEvento.DetEvento.EventoContainer.GetType();
 
