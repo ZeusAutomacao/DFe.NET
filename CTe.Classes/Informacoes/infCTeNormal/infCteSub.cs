@@ -52,7 +52,13 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         /// legislação, não utilizar antes de NT
         /// específica tratar desse procedimento
         /// </summary>
-        public byte indAlteraToma { get; set; }
+        public byte? indAlteraToma { get; set; }
+
+        /// <summary>
+        /// Se null, não aparece no xml
+        /// </summary>
+        public bool indAlteraTomaSpecified { get { return indAlteraToma.HasValue; } }
+
 
         /// <summary>
         /// Versao 2.0

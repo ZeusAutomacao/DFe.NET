@@ -104,82 +104,84 @@ namespace CTe.Utils.CTe
                                                         "versão 2.00 é 3.00");
             }
 
-
-            var xmlModal = FuncoesXml.ClasseParaXmlString(cte.infCte.infCTeNorm.infModal); 
-
-            switch (cte.infCte.infCTeNorm.infModal.versaoModal)
+            if (cte.infCte.ide.tpCTe != tpCTe.Anulacao  && cte.infCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
             {
-                case versaoModal.veM200:
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
-                    {
-                        Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd");
-                    }
+                var xmlModal = FuncoesXml.ClasseParaXmlString(cte.infCte.infCTeNorm.infModal);
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
-                    {
-                        Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd");
-                    }
+                switch (cte.infCte.infCTeNorm.infModal.versaoModal)
+                {
+                    case versaoModal.veM200:
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
+                        {
+                            Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
-                    {
-                        Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
+                        {
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
-                    {
-                        Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
+                        {
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
-                    {
-                        Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
+                        {
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
-                    {
-                        Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd");
-                    }
-                    break;
-                case versaoModal.veM300:
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
-                    {
-                        Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
+                        {
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
-                    {
-                        Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
+                        {
+                            Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd");
+                        }
+                        break;
+                    case versaoModal.veM300:
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
+                        {
+                            Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
-                    {
-                        Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
+                        {
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
-                    {
-                        Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
+                        {
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
-                    {
-                        Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
+                        {
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
-                    {
-                        Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd");
-                    }
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
+                        {
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd");
+                        }
 
-                    if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
-                    {
-                        Validador.Valida(xmlModal, "cteModalRodoviarioOS_v.3.00.xsd");
-                    }
-                    break;
-                default:
-                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
-                                                        "a versão está inválida, somente é permitido " +
-                                                        "versão 2.00 é 3.00");
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
+                        {
+                            Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd");
+                        }
+
+                        if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
+                        {
+                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v.3.00.xsd");
+                        }
+                        break;
+                    default:
+                        throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                            "a versão está inválida, somente é permitido " +
+                                                            "versão 2.00 é 3.00");
+                }
             }
         }
 
