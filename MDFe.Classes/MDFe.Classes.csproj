@@ -78,6 +78,8 @@
     <Compile Include="Informacoes\Evento\MDFeEventoContainer.cs" />
     <Compile Include="Informacoes\Evento\MDFeEventoMDFe.cs" />
     <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
+    <Compile Include="Informacoes\infCIOT.cs" />
+    <Compile Include="Informacoes\infContratante.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
     <Compile Include="Informacoes\MDFeAereo.cs" />
     <Compile Include="Informacoes\MDFeAquav.cs" />

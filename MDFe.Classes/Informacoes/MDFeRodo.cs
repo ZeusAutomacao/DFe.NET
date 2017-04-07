@@ -78,6 +78,9 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "codAgPorto")]
         public string CodAgPorto { get; set; }
+
+        [XmlElement(ElementName = "lacRodo")]
+        public List<MDFeLacre> lacRodo { get; set; }
     }
 
     [Serializable]
@@ -85,5 +88,7 @@ namespace MDFe.Classes.Informacoes
     {
         [XmlElement(ElementName = "RNTRC")]
         public string RNTRC { get; set; }
+
+        public List<infCIOT> infCIOT { get; set; }
     }
 }
