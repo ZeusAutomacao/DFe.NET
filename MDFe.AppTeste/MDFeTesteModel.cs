@@ -559,7 +559,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
             mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
-            mdfe.InfMDFe.Ide.Serie = 750;
+            mdfe.InfMDFe.Ide.Serie = 751;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
             mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
@@ -734,6 +734,34 @@ namespace MDFe.AppTeste
             }
 
             #endregion infMunDescarga
+
+            #region seg
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.Seg = new List<MDFeSeg>();
+
+                mdfe.InfMDFe.Seg.Add(new MDFeSeg
+                {
+                    InfResp = new MDFeInfResp
+                    {
+                        CNPJ = "21025760000123",
+                        RespSeg = MDFeRespSeg.EmitenteDoMDFe
+                    },
+                    InfSeg = new MDFeInfSeg
+                    {
+                        CNPJ = "21025760000123",
+                        XSeg = "aaaaaaaaaa"
+                    },
+                    NApol = "aaaaaaaaaa",
+                    NAver = new List<string>
+                        {
+                            "aaaaaaaa"
+                        }
+                });
+            }
+
+            #endregion
 
             #region Totais (tot)
             mdfe.InfMDFe.Tot.QCTe = 1;

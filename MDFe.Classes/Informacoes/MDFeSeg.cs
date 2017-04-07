@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using MDFe.Classes.Flags;
 
@@ -12,6 +13,12 @@ namespace MDFe.Classes.Informacoes
 
         [XmlElement(ElementName = "infSeg")]
         public MDFeInfSeg InfSeg { get; set; }
+
+        [XmlElement(ElementName = "nApol")]
+        public string NApol { get; set; }
+
+        [XmlElement(ElementName = "nAver")]
+        public List<string> NAver { get; set; }
     }
 
     [Serializable]
@@ -22,12 +29,6 @@ namespace MDFe.Classes.Informacoes
 
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
-
-        [XmlElement(ElementName = "nApol")]
-        public string NApol { get; set; }
-
-        [XmlElement(ElementName = "nAver")]
-        public string NAver { get; set; }
     }
 
     [Serializable]

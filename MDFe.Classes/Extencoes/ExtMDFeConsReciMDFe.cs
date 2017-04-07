@@ -35,6 +35,7 @@ using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Extencoes
@@ -45,7 +46,15 @@ namespace MDFe.Classes.Extencoes
         {
             var xmlValidacao = consReciMDFe.XmlString();
 
-            Validador.Valida(xmlValidacao, "consReciMdfe_v1.00.xsd");
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValidacao, "consReciMdfe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consReciMdfe_v3.00.xsd");
+                    break;
+            }
         }
 
         public static string XmlString(this MDFeConsReciMDFe consReciMDFe)
