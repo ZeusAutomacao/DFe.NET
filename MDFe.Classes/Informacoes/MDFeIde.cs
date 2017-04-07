@@ -227,7 +227,10 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
-            get { return DhIniViagem.ParaDataHoraStringUtc(); }
+            get
+            {
+                return DhIniViagem.ParaDataHoraStringSemUtc();
+            }
             set { DhIniViagem = DateTime.Parse(value); }
         }
     }
