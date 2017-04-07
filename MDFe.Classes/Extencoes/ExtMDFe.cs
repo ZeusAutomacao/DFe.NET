@@ -51,7 +51,15 @@ namespace MDFe.Classes.Extencoes
 
             var xmlMdfe = FuncoesXml.ClasseParaXmlString(mdfe);
 
-            Validador.Valida(xmlMdfe, "MDFe_v1.00.xsd");
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlMdfe, "MDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlMdfe, "MDFe_v3.00.xsd");
+                    break;
+            }
 
             var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType();
             var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
@@ -59,22 +67,54 @@ namespace MDFe.Classes.Extencoes
 
             if (tipoModal == typeof (MDFeRodo))
             {
-                Validador.Valida(xmlModal, "MDFeModalRodoviario_v1.00.xsd");
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v1.00.xsd");
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v3.00.xsd");
+                        break;
+                }
             }
 
             if (tipoModal == typeof (MDFeAereo))
             {
-                Validador.Valida(xmlModal, "MDFeModalAereo_v1.00.xsd");
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "MDFeModalAereo_v1.00.xsd");
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "MDFeModalAereo_v3.00.xsd");
+                        break;
+                }
             }
 
             if (tipoModal == typeof (MDFeAquav))
             {
-                Validador.Valida(xmlModal, "MDFeModalAquaviario_v1.00.xsd");
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v1.00.xsd");
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v3.00.xsd");
+                        break;
+                }
             }
 
             if (tipoModal == typeof (MDFeFerrov))
             {
-                Validador.Valida(xmlModal, "MDFeModalFerroviario_v1.00.xsd");
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v1.00.xsd");
+                        break;
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v3.00.xsd");
+                        break;
+                }
             }
 
             return mdfe;
@@ -96,7 +136,7 @@ namespace MDFe.Classes.Extencoes
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
-            mdfe.InfMDFe.Versao = VersaoServico.Versao100;
+            mdfe.InfMDFe.Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 
             var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);

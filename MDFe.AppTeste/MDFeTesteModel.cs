@@ -51,6 +51,7 @@ using MDFe.Servicos.EventosMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
+using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -547,11 +548,11 @@ namespace MDFe.AppTeste
             }
         }
 
-        public void CriarEnviar100()
+        public void CriarEnviar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new MDFe.Classes.Informacoes.MDFe();
+            var mdfe = new MDFeEletronico();
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
@@ -609,18 +610,20 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                RNTRC = config.Empresa.RNTRC,
-                VeicTracao = new MDFeVeicTracao
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    Placa = "KKK9888",
-                    RENAVAM = "888888888",
-                    UF = Estado.GO,
-                    Tara = 222,
-                    CapM3 = 222,
-                    CapKG = 22,
-                    Condutor = new List<MDFeCondutor>
+                    RNTRC = config.Empresa.RNTRC,
+                    VeicTracao = new MDFeVeicTracao
+                    {
+                        Placa = "KKK9888",
+                        RENAVAM = "888888888",
+                        UF = Estado.GO,
+                        Tara = 222,
+                        CapM3 = 222,
+                        CapKG = 22,
+                        Condutor = new List<MDFeCondutor>
                     {
                         new MDFeCondutor
                         {
@@ -628,10 +631,76 @@ namespace MDFe.AppTeste
                             XNome = "Ricardão"
                         }
                     },
-                    TpRod = MDFeTpRod.Outros,
-                    TpCar = MDFeTpCar.NaoAplicavel
-                }
-            };
+                        TpRod = MDFeTpRod.Outros,
+                        TpCar = MDFeTpCar.NaoAplicavel
+                    }
+                };
+            }
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                {
+                    infANTT = new MDFeInfANTT
+                    {
+                        RNTRC = config.Empresa.RNTRC,
+
+                        // não é obrigatorio
+                        infCIOT = new List<infCIOT>
+                        {
+                            new infCIOT
+                            {
+                                CIOT = "123456789123",
+                                CNPJ = "21025760000123"
+                            }
+                        },
+                        valePed = new MDFeValePed
+                        {
+                            Disp = new List<MDFeDisp>
+                                    {
+                                        new MDFeDisp
+                                        {
+                                            CNPJForn = "21025760000123",
+                                            CNPJPg = "21025760000123",
+                                            NCompra = "838388383",
+                                            vValePed = 100.33m
+                                        }
+                                    }
+                        }
+                    },
+
+                    VeicTracao = new MDFeVeicTracao
+                        {
+                            Placa = "KKK9888",
+                            RENAVAM = "888888888",
+                            UF = Estado.GO,
+                            Tara = 222,
+                            CapM3 = 222,
+                            CapKG = 22,
+                            Condutor = new List<MDFeCondutor>
+                        {
+                            new MDFeCondutor
+                            {
+                                CPF = "11392381754",
+                                XNome = "Ricardão"
+                            }
+                        },
+                            TpRod = MDFeTpRod.Outros,
+                            TpCar = MDFeTpCar.NaoAplicavel
+                        },
+
+                    lacRodo = new List<MDFeLacre>
+                    {
+                        new MDFeLacre
+                        {
+                            NLacre = "lacre01"
+                        }
+                    }
+
+                };
+            }
+
             #endregion modal
 
             #region infMunDescarga
@@ -650,6 +719,20 @@ namespace MDFe.AppTeste
                     }
                 }
             };
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
+                {
+                    new MDFePeri
+                    {
+                        NONU = "1111",
+                        QTotProd = "quantidade 20"
+                    }
+                };
+            }
+
             #endregion infMunDescarga
 
             #region Totais (tot)
@@ -688,7 +771,7 @@ namespace MDFe.AppTeste
             DiretorioSchemas = dlg.SelectedPath;
         }
 
-        public void GerarESalvar1_0()
+        public void GerarESalvar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -820,7 +903,7 @@ namespace MDFe.AppTeste
             DiretorioSalvarXml = dlg.SelectedPath;
         }
 
-        public void ConsultaPorRecibo1_0()
+        public void ConsultaPorRecibo()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -839,7 +922,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void ConsultaPorProtocolo1_0()
+        public void ConsultaPorProtocolo()
         {
             var porChave = MessageBoxConfirmTuche("Sim = Por chave\nNão = Por arquivo xml");
             var chave = string.Empty;
@@ -959,7 +1042,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoIncluirCondutor1_0()
+        public void EventoIncluirCondutor()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1001,7 +1084,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoEncerramento1_0()
+        public void EventoEncerramento()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1035,7 +1118,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoCancelar1_0()
+        public void EventoCancelar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);

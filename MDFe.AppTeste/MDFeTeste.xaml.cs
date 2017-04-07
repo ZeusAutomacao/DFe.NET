@@ -70,9 +70,9 @@ namespace MDFe.AppTeste
             stw.Close();
         }
 
-        private void Enviar1_0_Click(object sender, RoutedEventArgs e)
+        private void Enviar_Click(object sender, RoutedEventArgs e)
         {
-            _model.CriarEnviar100();
+            _model.CriarEnviar();
         }
 
         private void ArquivoCertificado_Click(object sender, RoutedEventArgs e)
@@ -100,9 +100,9 @@ namespace MDFe.AppTeste
             _model.BuscarDiretorioSchema();
         }
 
-        private void GerarESalvar1_0_Click(object sender, RoutedEventArgs e)
+        private void GerarESalvar_Click(object sender, RoutedEventArgs e)
         {
-            _model.GerarESalvar1_0();
+            _model.GerarESalvar();
         }
 
         private void BuscarDiretorioSalvarXml_Click(object sender, RoutedEventArgs e)
@@ -112,12 +112,12 @@ namespace MDFe.AppTeste
 
         private void ConsultaPorRecibo_Click(object sender, RoutedEventArgs e)
         {
-            _model.ConsultaPorRecibo1_0();
+            _model.ConsultaPorRecibo();
         }
 
         private void ConsultaPorProtocolo_Click(object sender, RoutedEventArgs e)
         {
-            _model.ConsultaPorProtocolo1_0();
+            _model.ConsultaPorProtocolo();
         }
 
         private void ConsultaStatus_Click(object sender, RoutedEventArgs e)
@@ -132,17 +132,17 @@ namespace MDFe.AppTeste
 
         private void EventoIncluirCondutor_Click(object sender, RoutedEventArgs e)
         {
-            _model.EventoIncluirCondutor1_0();
+            _model.EventoIncluirCondutor();
         }
 
-        private void EventoEncerrarMDFe1_0_Click(object sender, RoutedEventArgs e)
+        private void EventoEncerrarMDFe_Click(object sender, RoutedEventArgs e)
         {
-            _model.EventoEncerramento1_0();
+            _model.EventoEncerramento();
         }
 
-        private void EventoCancelarMDFe1_0_Click(object sender, RoutedEventArgs e)
+        private void EventoCancelarMDFe_Click(object sender, RoutedEventArgs e)
         {
-            _model.EventoCancelar1_0();
+            _model.EventoCancelar();
         }
     }
 }

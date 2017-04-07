@@ -32,8 +32,11 @@
 /********************************************************************************/
 
 using MDFe.Classes.Extencoes;
+using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.RecepcaoMDFe
@@ -43,6 +46,16 @@ namespace MDFe.Servicos.RecepcaoMDFe
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    break;
+                case VersaoServico.Versao300:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    break;
+            }
 
             enviMDFe.MDFe.Assina();
             enviMDFe.Valida();

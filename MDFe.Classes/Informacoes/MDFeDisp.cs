@@ -61,7 +61,7 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "nCompra")]
         public string NCompra { get; set; }
 
-        public decimal VValePed
+        public decimal vValePed
         {
             get { return _vValePed.Arredondar(2); }
             set { _vValePed = value.Arredondar(2); }

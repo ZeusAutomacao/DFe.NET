@@ -89,6 +89,12 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "RNTRC")]
         public string RNTRC { get; set; }
 
+        [XmlElement(ElementName = "infCIOT")]
         public List<infCIOT> infCIOT { get; set; }
+
+        public MDFeValePed valePed { get; set; }
+
+        [XmlElement(ElementName = "infContratante")]
+        public List<infContratante> infContratante { get; set; }
     }
 }

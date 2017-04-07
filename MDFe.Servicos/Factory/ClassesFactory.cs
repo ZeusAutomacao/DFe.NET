@@ -121,7 +121,7 @@ namespace MDFe.Servicos.Factory
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = VersaoServico.Versao100
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
         };
 
             return enviMdfe;
