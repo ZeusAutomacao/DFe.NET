@@ -936,7 +936,7 @@ namespace MDFe.AppTeste
             MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.OK, icon);
         }
 
-        public void ConsultaStatusServico1_0()
+        public void ConsultaStatusServico()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -948,7 +948,7 @@ namespace MDFe.AppTeste
 
         }
 
-        public void ConsultaNaoEncerrados1_0()
+        public void ConsultaNaoEncerrados()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);

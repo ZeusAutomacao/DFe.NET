@@ -35,6 +35,7 @@ using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
 namespace MDFe.Classes.Extencoes
@@ -49,7 +50,16 @@ namespace MDFe.Classes.Extencoes
         public static void ValidarSchema(this MDFeCosMDFeNaoEnc consMdFeNaoEnc)
         {
             var xmlValidacao = consMdFeNaoEnc.XmlString();
-            Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v3.00.xsd");
+                    break;
+            }
         }
 
         public static XmlDocument CriaRequestWs(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)

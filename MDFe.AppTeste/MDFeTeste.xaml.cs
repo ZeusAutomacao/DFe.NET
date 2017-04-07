@@ -122,12 +122,12 @@ namespace MDFe.AppTeste
 
         private void ConsultaStatus_Click(object sender, RoutedEventArgs e)
         {
-            _model.ConsultaStatusServico1_0();
+            _model.ConsultaStatusServico();
         }
 
-        private void ConsultaNaoEncerrados1_0_Click(object sender, RoutedEventArgs e)
+        private void ConsultaNaoEncerrados_Click(object sender, RoutedEventArgs e)
         {
-            _model.ConsultaNaoEncerrados1_0();
+            _model.ConsultaNaoEncerrados();
         }
 
         private void EventoIncluirCondutor_Click(object sender, RoutedEventArgs e)
