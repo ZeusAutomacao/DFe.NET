@@ -33,7 +33,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Classes.Servicos.Flags;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -86,6 +86,13 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "infDoc")]
         public MDFeInfDoc InfDoc { get; set; }
+
+        /// <summary>
+        /// 1 - Informações de Seguro da carga
+        /// MDF-e 3.0
+        /// </summary>
+        [XmlElement(ElementName = "seg")]
+        public List<MDFeSeg> Seg { get; set; }
 
         /// <summary>
         /// 1 - Totalizadores da carga transportada e seus documentos fiscais

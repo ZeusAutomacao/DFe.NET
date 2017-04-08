@@ -30,24 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Utils;
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using MDFe.Utils.Validacao;
+using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
+using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeEvIncCondutorMDFe
+    public static class ExtMDFeRetConsSitMDFe
     {
-        public static void ValidaSchema(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)
+        public static void SalvarXmlEmDisco(this MDFeRetConsSitMDFe retConsSitMdFe, string chave)
         {
-            var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
 
-            Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
-        }
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-        public static string XmlString(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)
-        {
-            return FuncoesXml.ClasseParaXmlString(evIncCondutorMDFe);
+            var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retConsSitMdFe, arquivoSalvar);
         }
     }
 }

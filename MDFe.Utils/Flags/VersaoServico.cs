@@ -30,13 +30,17 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 
-namespace MDFe.Classes.Servicos.Flags
+namespace MDFe.Utils.Flags
 {
     public enum VersaoServico
     {
         [XmlEnum("1.00")]
-        Versao100 = 100
+        Versao100 = 100,
+
+        [XmlEnum("3.00")]
+        Versao300 = 300
     }
 }

@@ -30,45 +30,55 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml;
 using DFe.Utils;
-using MDFe.Classes.Informacoes.StatusServico;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeConsStatServMDFe
+    public static class ExtMDFeCosMDFeNaoEnc
     {
-        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe)
+        public static string XmlString(this MDFeCosMDFeNaoEnc consMDFeNaoEnc)
         {
-            var xmlValidacao = consStatServMDFe.XmlString();
-
-            Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd");
+            return FuncoesXml.ClasseParaXmlString(consMDFeNaoEnc);
         }
 
-        public static string XmlString(this MDFeConsStatServMDFe consStatServMDFe)
+        public static void ValidarSchema(this MDFeCosMDFeNaoEnc consMdFeNaoEnc)
         {
-            return FuncoesXml.ClasseParaXmlString(consStatServMDFe);
+            var xmlValidacao = consMdFeNaoEnc.XmlString();
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v3.00.xsd");
+                    break;
+            }
         }
 
-        public static XmlDocument CriaRequestWs(this MDFeConsStatServMDFe consStatServMdFe)
+        public static XmlDocument CriaRequestWs(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
         {
             var request = new XmlDocument();
-            request.LoadXml(consStatServMdFe.XmlString());
+            request.LoadXml(cosMdFeNaoEnc.XmlString());
 
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe)
+        public static void SalvarXmlEmDisco(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
+            var arquivoSalvar = caminhoXml + @"\" + cosMdFeNaoEnc.CNPJ + "-ped-sit.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(consStatServMdFe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(cosMdFeNaoEnc, arquivoSalvar);
         }
     }
 }

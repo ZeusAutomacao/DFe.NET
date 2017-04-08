@@ -30,23 +30,55 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using DFe.Utils;
-using MDFe.Classes.Retorno.MDFeEvento;
-using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Utils.Extencoes
+using System.Xml;
+using DFe.Utils;
+using MDFe.Classes.Informacoes.StatusServico;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
+
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeRetEventoMDFe
+    public static class ExtMDFeConsStatServMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetEventoMDFe retEvento, string chave)
+        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe)
+        {
+            var xmlValidacao = consStatServMDFe.XmlString();
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v3.00.xsd");
+                    break;
+            }
+        }
+
+        public static string XmlString(this MDFeConsStatServMDFe consStatServMDFe)
+        {
+            return FuncoesXml.ClasseParaXmlString(consStatServMDFe);
+        }
+
+        public static XmlDocument CriaRequestWs(this MDFeConsStatServMDFe consStatServMdFe)
+        {
+            var request = new XmlDocument();
+            request.LoadXml(consStatServMdFe.XmlString());
+
+            return request;
+        }
+
+        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-env.xml";
+            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(retEvento, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(consStatServMdFe, arquivoSalvar);
         }
     }
 }

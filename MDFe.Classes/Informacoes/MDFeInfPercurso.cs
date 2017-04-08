@@ -52,5 +52,7 @@ namespace MDFe.Classes.Informacoes
             get { return UFPer.GetSiglaUfString(); }
             set { UFPer = UFPer.SiglaParaEstado(value); }
         }
+
+
     }
 }
