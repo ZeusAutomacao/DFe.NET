@@ -80,5 +80,15 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
         public List<lacRodo> lacRodo { get; set; }
 
         public List<moto> moto { get; set; }
+
+        public bool ShouldSerializeveic()
+        {
+            return veic != null;
+        }
+
+        public bool ShouldSerializemoto()
+        {
+            return moto != null;
+        }
     }
 }
