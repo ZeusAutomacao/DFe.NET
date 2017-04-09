@@ -18,6 +18,7 @@
 /*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
 /* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
 /* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
+/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
 /* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
 /*                                                                              */
 /*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
@@ -778,12 +779,21 @@ namespace MDFe.AppTeste
             #endregion
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
+
+            // Evento executado antes do envio da mdf-e para a sefaz
+            //servicoRecepcao.AntesDeEnviar += AntesEnviar;
+
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        private void AntesEnviar(object sender, AntesDeEnviar e)
+        {
+            MessageBoxTuche(e.enviMdFe.MDFe.Chave());
         }
 
         private static int GetRandom()
