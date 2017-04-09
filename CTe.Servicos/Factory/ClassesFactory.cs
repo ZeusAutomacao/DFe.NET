@@ -42,7 +42,7 @@ using CTe.Classes.Servicos.Recepcao;
 using CTe.Classes.Servicos.Recepcao.Retorno;
 using CTe.Classes.Servicos.Status;
 using CTe.Servicos.Inutilizacao;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using CTeEletronica = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Factory
