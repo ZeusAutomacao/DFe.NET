@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
@@ -44,6 +45,8 @@ namespace CTe.Servicos.Recepcao
 {
     public class ServicoCTeRecepcao
     {
+        public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
+
         public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
         {
             var instanciaConfiguracao = ConfiguracaoServico.Instancia;
@@ -73,12 +76,21 @@ namespace CTe.Servicos.Recepcao
             enviCte.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlCteRecepcao();
+
+            OnAntesDeEnviar(enviCte);
+
             var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        protected virtual void OnAntesDeEnviar(enviCTe enviCTe)
+        {
+            var handler = AntesDeEnviar;
+            if (handler != null) handler(this, new AntesEnviarRecepcao(enviCTe));
         }
     }
 }
