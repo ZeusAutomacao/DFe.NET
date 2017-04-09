@@ -30,10 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils.Excecoes
+namespace NFe.Utils.Excesoes
 {
     /// <summary>
     /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe

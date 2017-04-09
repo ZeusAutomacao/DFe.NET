@@ -30,11 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Linq;
 using DFe.Classes.Entidades;
 
-namespace DFe.Classes.Extencoes
+namespace DFe.Classes.Extensoes
 {
     public static class ExtEstadoUF
     {

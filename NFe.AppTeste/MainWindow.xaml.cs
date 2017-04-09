@@ -69,7 +69,6 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Email;
-using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
@@ -82,6 +81,7 @@ using NFe.Danfe.Base;
 using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
+using NFe.Utils.Excesoes;
 using Color = System.Drawing.Color;
 using NFeZeus = NFe.Classes.NFe;
 

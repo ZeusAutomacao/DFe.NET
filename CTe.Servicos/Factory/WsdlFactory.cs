@@ -41,7 +41,7 @@ using CTe.Wsdl.Inutilizacao;
 using CTe.Wsdl.Recepcao;
 using CTe.Wsdl.RetRecepcao;
 using CTe.Wsdl.Status;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 
 namespace CTe.Servicos.Factory
 {
