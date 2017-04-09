@@ -33,7 +33,7 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="CIOT" minOccurs="0">
+				<xs:element name="CIOT" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Código Identificador da Operação de Transporte</xs:documentation>
 						<xs:documentation>Também Conhecido como conta frete</xs:documentation>

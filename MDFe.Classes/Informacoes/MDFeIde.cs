@@ -34,10 +34,12 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Flags;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -67,6 +69,16 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "tpEmit")]
         public MDFeTipoEmitente TpEmit { get; set; }
+
+        /// <summary>
+        /// MDF-e 3.0
+        /// Tipo do Transportador
+        /// Opcional
+        /// </summary>
+        [XmlElement(ElementName = "tpTransp")]
+        public MDFeTpTransp? TpTransp { get; set; }
+
+        public bool TpTranspSpecified { get { return TpTransp.HasValue; } }
 
         /// <summary>
         /// 2 - Modelo do Manifesto Eletrônico
@@ -126,7 +138,19 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
-            get { return DhEmi.ParaDataHoraStringSemUtc(); }
+            get
+            {
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        return DhEmi.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhEmi.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para MDF-e");
+                }
+
+            }
             set { DhEmi = DateTime.Parse(value); }
         }
 
@@ -203,7 +227,10 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
-            get { return DhIniViagem.ParaDataHoraStringUtc(); }
+            get
+            {
+                return DhIniViagem.ParaDataHoraStringSemUtc();
+            }
             set { DhIniViagem = DateTime.Parse(value); }
         }
     }

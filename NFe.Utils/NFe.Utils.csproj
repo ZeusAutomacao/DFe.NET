@@ -63,9 +63,9 @@
     <Compile Include="Evento\ExtenvEvento.cs" />
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtretEnvEvento.cs" />
-    <Compile Include="Excecoes\FabricaComunicacaoException.cs" />
-    <Compile Include="Excecoes\ValidacaoSchemaException.cs" />
-    <Compile Include="Excecoes\ComunicacaoException.cs" />
+    <Compile Include="Excesoes\FabricaComunicacaoException.cs" />
+    <Compile Include="Excesoes\ValidacaoSchemaException.cs" />
+    <Compile Include="Excesoes\ComunicacaoException.cs" />
     <Compile Include="InformacoesSuplementares\ExtinfNFeSupl.cs" />
     <Compile Include="Inutilizacao\ExtinutNFe.cs" />
     <Compile Include="Inutilizacao\ExtretInutNFe.cs" />

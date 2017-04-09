@@ -214,5 +214,13 @@ namespace NFe.Utils
                 return _instancia;
             }
         }
+
+        /// <summary>
+        ///     Limpa a instancia atual caso exista
+        /// </summary>
+        public static void LimparIntancia()
+        {
+            _instancia = null;
+        }
     }
 }

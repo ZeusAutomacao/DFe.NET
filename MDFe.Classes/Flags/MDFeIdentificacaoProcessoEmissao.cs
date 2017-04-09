@@ -38,7 +38,7 @@ namespace MDFe.Classes.Flags
     {
         [XmlEnum("0")]
         EmissaoComAplicativoContribuinte = 0,
-        [XmlEnum("1")]
-        EmissoPeloContribuinteComAplicativoFornecidoPeloFisco = 1
+        [XmlEnum("3")]
+        EmissoPeloContribuinteComAplicativoFornecidoPeloFisco = 3
     }
 }
