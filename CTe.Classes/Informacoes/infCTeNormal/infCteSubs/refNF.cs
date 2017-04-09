@@ -46,7 +46,10 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infCteSubs
 
         public string CPF { get; set; }
 
-        public mod mod { get; set; }
+        /// <summary>
+        /// Modelos:  01, 1B, 02, 2D, 2E, 04, 06, 07, 08, 8B, 09, 10, 11, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 55
+        /// </summary>
+        public string mod { get; set; }
 
         public short serie { get; set; }
 

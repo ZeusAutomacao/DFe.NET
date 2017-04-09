@@ -37,23 +37,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
-    <Compile Include="Extencoes\ExtMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeConsReciMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeConsSitMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeConsStatServMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeCosMDFeNaoEnc.cs" />
-    <Compile Include="Extencoes\ExtMDFeEnviMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeEvCancMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeEvEncMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeEventoMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeEvIncCondutorMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetConsMDFeNao.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetConsReciMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetConsSitMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetConsStatServ.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetEnviMDFe.cs" />
-    <Compile Include="Extencoes\ExtMDFeRetEventoMDFe.cs" />
-    <Compile Include="Extencoes\ExtVersaoServico.cs" />
+    <Compile Include="Extensoes\ExtMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsStatServMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="Extensoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsStatServ.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetEnviMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtVersaoServico.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
@@ -152,9 +152,7 @@
       <Name>MDFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Servicos\Flags\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -31,9 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
+using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
@@ -43,6 +45,8 @@ namespace MDFe.Servicos.RecepcaoMDFe
 {
     public class ServicoMDFeRecepcao
     {
+        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
+
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
@@ -62,12 +66,21 @@ namespace MDFe.Servicos.RecepcaoMDFe
             enviMDFe.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+
+            OnAntesDeEnviar(enviMDFe);
+
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
+        {
+            var handler = AntesDeEnviar;
+            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
         }
     }
 }
