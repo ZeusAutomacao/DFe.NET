@@ -30,18 +30,17 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Servicos.Flags;
 
-namespace MDFe.Utils.Extencoes
+using System.Xml.Serialization;
+
+namespace MDFe.Utils.Flags
 {
-    public static class ExtVersaoServico
+    public enum VersaoServico
     {
-        public static string GetVersaoString(this VersaoServico versaoServico)
-        {
-            var codigoString = versaoServico.ToString();
-            var codigoFormatado = codigoString.Substring(6, 3);
-            codigoFormatado = codigoFormatado.Insert(1, ".");
-            return codigoFormatado;
-        }
+        [XmlEnum("1.00")]
+        Versao100 = 100,
+
+        [XmlEnum("3.00")]
+        Versao300 = 300
     }
 }

@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
+using DFe.Classes;
 using MDFe.Classes.Flags;
 
 namespace MDFe.Classes.Informacoes
@@ -39,6 +40,9 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeTot
     {
+        private decimal _vCarga;
+        private decimal _qCarga;
+
         /// <summary>
         /// 2 - Quantidade total de CT-e relacionados no Manifesto
         /// </summary>
@@ -61,7 +65,11 @@ namespace MDFe.Classes.Informacoes
         /// 2 - Valor total da carga / mercadorias transportadas
         /// </summary>
         [XmlElement(ElementName = "vCarga")]
-        public decimal vCarga { get; set; }
+        public decimal vCarga
+        {
+            get { return _vCarga.Arredondar(2); }
+            set { _vCarga = value.Arredondar(2); }
+        }
 
         /// <summary>
         /// 2 - Codigo da unidade de medida do Peso Bruto da Carga / Mercadorias transportadas
@@ -73,7 +81,11 @@ namespace MDFe.Classes.Informacoes
         /// 2 - Peso Bruto Total da Carga / Mercadorias transportadas
         /// </summary>
         [XmlElement(ElementName = "qCarga")]
-        public decimal QCarga { get; set; }
+        public decimal QCarga
+        {
+            get { return _qCarga.Arredondar(4); }
+            set { _qCarga = value.Arredondar(4); }
+        }
 
 
         /// <summary>

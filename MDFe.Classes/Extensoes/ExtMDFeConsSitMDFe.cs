@@ -30,54 +30,55 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
+
 using System.Xml;
 using DFe.Utils;
-using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Classes.Informacoes.ConsultaProtocolo;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeEnviMDFe
+    public static class ExtMDFeConsSitMDFe
     {
-        public static void Valida(this MDFeEnviMDFe enviMDFe)
+        public static void ValidarSchema(this MDFeConsSitMDFe consSitMdfe)
         {
-            if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
+            var xmlEnvio = consSitMdfe.XmlString();
 
-            var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
-
-            Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
-
-            enviMDFe.MDFe.Valida();
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlEnvio, "consSitMdfe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlEnvio, "consSitMdfe_v3.00.xsd");
+                    break;
+            }
         }
 
-        public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
+        public static string XmlString(this MDFeConsSitMDFe consSitMdfe)
         {
-            var dadosEnvio = new XmlDocument();
-            dadosEnvio.LoadXml(enviMDFe.XmlString());
-
-            return dadosEnvio;
+            return FuncoesXml.ClasseParaXmlString(consSitMdfe);
         }
 
-        public static string XmlString(this MDFeEnviMDFe enviMDFe)
+        public static XmlDocument CriaRequestWs(this MDFeConsSitMDFe consSitMdfe)
         {
-            var xmlString = FuncoesXml.ClasseParaXmlString(enviMDFe);
+            var request = new XmlDocument();
+            request.LoadXml(consSitMdfe.XmlString());
 
-            return xmlString;
+            return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe)
+        public static void SalvarXmlEmDisco(this MDFeConsSitMDFe consSitMdfe)
         {
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-completo-mdfe.xml";
+            var arquivoSalvar = caminhoXml + @"\" + consSitMdfe.ChMDFe + "-ped-sit.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
-
-            enviMDFe.MDFe.SalvarXmlEmDisco();
+            FuncoesXml.ClasseParaArquivoXml(consSitMdfe, arquivoSalvar);
         }
     }
 }

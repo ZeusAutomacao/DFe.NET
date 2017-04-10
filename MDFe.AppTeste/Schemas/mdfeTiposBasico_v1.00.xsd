@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-sofwares@procergs.rs.gov.br (PROCERGS) -->
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposGeralMDFe_v1.00.xsd"/>
@@ -324,7 +324,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
-												<xs:element name="infCTe" minOccurs="0" maxOccurs="4000">
+												<xs:element name="infCTe" minOccurs="0" maxOccurs="10000">
 													<xs:annotation>
 														<xs:documentation>Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de transporte</xs:documentation>
 													</xs:annotation>
@@ -349,7 +349,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
-												<xs:element name="infNFe" minOccurs="0" maxOccurs="4000">
+												<xs:element name="infNFe" minOccurs="0" maxOccurs="10000">
 													<xs:annotation>
 														<xs:documentation>Nota Fiscal Eletronica</xs:documentation>
 													</xs:annotation>
@@ -374,7 +374,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
-												<xs:element name="infMDFeTransp" minOccurs="0" maxOccurs="4000">
+												<xs:element name="infMDFeTransp" minOccurs="0" maxOccurs="10000">
 													<xs:annotation>
 														<xs:documentation>Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário (vide regras MOC)</xs:documentation>
 													</xs:annotation>

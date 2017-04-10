@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusDFe                                                  */
-/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
-/*                                                                              */
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,44 +30,22 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Linq;
-using DFe.Classes.Entidades;
+using NFe.Classes.Servicos.Tipos;
 
-namespace DFe.Classes.Extencoes
+namespace NFe.Utils.Excesoes
 {
-    public static class ExtEstadoUF
+    /// <summary>
+    /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+    /// </summary>
+    public class ComunicacaoException : Exception
     {
-        public static Estado SiglaParaEstado(this Estado estado, string siglaUf)
-        {
-            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(e => e.GetSiglaUfString() == siglaUf);
-
-            return enumValues;
-        }
-
-        public static Estado CodigoIbgeParaEstado(this Estado estado, string codigoIbge)
-        {
-            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(est => est.GetCodigoIbgeEmString() == codigoIbge);
-
-            return enumValues;
-        }
-
-        public static string GetSiglaUfString(this Estado estado)
-        {
-            return estado.ToString();
-        }
-
-        public static string GetCodigoIbgeEmString(this Estado estado)
-        {
-            var codigo = (byte) estado;
-            return codigo.ToString();
-        }
-
-        public static byte GetCodigoIbgeEmByte(this Estado estado)
-        {
-            var codigo = (byte) estado;
-
-            return codigo;
-        }
+        /// <summary>
+        /// Houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+        /// </summary>
+        /// <param name="servico">Serviço que gerou o erro</param>
+        /// <param name="message"></param>
+        public ComunicacaoException(ServicoNFe servico, string message) : base(string.Format("Sem comunicação com o serviço {0}:\n{1}", servico, message)){}
     }
 }

@@ -30,21 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils.Excecoes
+using System;
+using NFe.Utils.NFe;
+
+namespace NFe.Utils.Excesoes
 {
     /// <summary>
-    /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+    /// Utilize essa classe para determinar se houve erros de validação de schema XSD
+    /// Na biblioteca, são realizadas validações de schema XSD
+    /// <para>1 - No consumo de qualquer serviço, o pacote a ser enviado para a SEFAZ é validado, para garantir que está de acordo com a estrutura esperada</para>
+    /// <para>2 - No método de extensão <see cref="ExtNFe.Valida"/>, responsável por validar, contra o schema, um objeto NFe</para>    
     /// </summary>
-    public class ComunicacaoException : Exception
+    public class ValidacaoSchemaException : Exception
     {
         /// <summary>
-        /// Houve problemas com a internet, durante o envio dos dados para um webservice da NFe
+        /// Houve erros de validação de schema XSD
         /// </summary>
-        /// <param name="servico">Serviço que gerou o erro</param>
         /// <param name="message"></param>
-        public ComunicacaoException(ServicoNFe servico, string message) : base(string.Format("Sem comunicação com o serviço {0}:\n{1}", servico, message)){}
+        public ValidacaoSchemaException(string message) : base(string.Format("Erros na validação:\n {0}", message)) {}
     }
 }

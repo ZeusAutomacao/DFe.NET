@@ -1031,12 +1031,24 @@ namespace CTe.AppTeste
             var numeroLote = InputBoxTuche("Número Lote");
 
             var servicoRecepcao = new ServicoCTeRecepcao();
+
+            // Evento executado antes do envio do CT-e para o WebService
+            // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
+
             var retornoEnvio = servicoRecepcao.CTeRecepcao(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        private void AntesEnviarLoteCte(object sender, AntesEnviarRecepcao e)
+        {
+            e.enviCTe.CTe.ForEach(cte =>
+            {
+                MessageBoxTuche(cte.Chave());
+            });
         }
 
 

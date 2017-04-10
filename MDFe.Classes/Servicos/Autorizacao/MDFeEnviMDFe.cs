@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Utils;
-using MDFe.Classes.Servicos.Flags;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Servicos.Autorizacao
 {

@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,23 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using NFe.Utils.NFe;
 
-namespace NFe.Utils.Excecoes
+using DFe.Utils;
+using MDFe.Classes.Retorno.MDFeRetRecepcao;
+using MDFe.Utils.Configuracoes;
+
+namespace MDFe.Classes.Extencoes
 {
-    /// <summary>
-    /// Utilize essa classe para determinar se houve erros de validação de schema XSD
-    /// Na biblioteca, são realizadas validações de schema XSD
-    /// <para>1 - No consumo de qualquer serviço, o pacote a ser enviado para a SEFAZ é validado, para garantir que está de acordo com a estrutura esperada</para>
-    /// <para>2 - No método de extensão <see cref="ExtNFe.Valida"/>, responsável por validar, contra o schema, um objeto NFe</para>    
-    /// </summary>
-    public class ValidacaoSchemaException : Exception
+    public static class ExtMDFeRetConsReciMDFe
     {
-        /// <summary>
-        /// Houve erros de validação de schema XSD
-        /// </summary>
-        /// <param name="message"></param>
-        public ValidacaoSchemaException(string message) : base(string.Format("Erros na validação:\n {0}", message)) {}
+        public static void SalvarXmlEmDisco(this MDFeRetConsReciMDFe consReciMdFe)
+        {
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
+
+            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + consReciMdFe.NRec + "-pro-rec.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(consReciMdFe, arquivoSalvar);
+        }
     }
 }

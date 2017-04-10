@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusMDFe                                                 */
-/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
-/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
+/* Projeto: Biblioteca ZeusDFe                                                  */
+/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
+/*                                                                              */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,78 +30,45 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
-using MDFe.Classes.Informacoes.Evento;
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+using System;
+using System.Linq;
+using DFe.Classes.Entidades;
+
+namespace DFe.Classes.Extensoes
 {
-    public static class ExtMDFeEventoMDFe
+    public static class ExtEstadoUF
     {
-        public static void ValidarSchema(this MDFeEventoMDFe evento)
+        public static Estado SiglaParaEstado(this Estado estado, string siglaUf)
         {
-            var xmlValido = evento.XmlString();
+            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(e => e.GetSiglaUfString() == siglaUf);
 
-            Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
-
-            var tipoEvento = evento.InfEvento.DetEvento.EventoContainer.GetType();
-
-            if (tipoEvento == typeof (MDFeEvCancMDFe))
-            {
-                var objetoXml = (MDFeEvCancMDFe) evento.InfEvento.DetEvento.EventoContainer;
-                objetoXml.ValidaSchema();
-            }
-
-            if (tipoEvento == typeof (MDFeEvEncMDFe))
-            {
-                var objetoXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                objetoXml.ValidaSchema();
-            }
-
-            if (tipoEvento == typeof (MDFeEvIncCondutorMDFe))
-            {
-                var objetoXml = (MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                objetoXml.ValidaSchema();
-            }
-
-
+            return enumValues;
         }
 
-        public static XmlDocument CriaXmlRequestWs(this MDFeEventoMDFe evento)
+        public static Estado CodigoIbgeParaEstado(this Estado estado, string codigoIbge)
         {
-            var xmlRequest = new XmlDocument();
-            xmlRequest.LoadXml(evento.XmlString());
+            var enumValues = Enum.GetValues(typeof(Estado)).Cast<Estado>().FirstOrDefault(est => est.GetCodigoIbgeEmString() == codigoIbge);
 
-            return xmlRequest;
+            return enumValues;
         }
 
-        public static string XmlString(this MDFeEventoMDFe evento)
+        public static string GetSiglaUfString(this Estado estado)
         {
-            return FuncoesXml.ClasseParaXmlString(evento);
+            return estado.ToString();
         }
 
-        public static void Assinar(this MDFeEventoMDFe evento)
+        public static string GetCodigoIbgeEmString(this Estado estado)
         {
-            evento.Signature = AssinaturaDigital.Assina(evento, evento.InfEvento.Id,
-                MDFeConfiguracao.X509Certificate2);
+            var codigo = (byte) estado;
+            return codigo.ToString();
         }
 
-        public static void SalvarXmlEmDisco(this MDFeEventoMDFe evento, string chave)
+        public static byte GetCodigoIbgeEmByte(this Estado estado)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var codigo = (byte) estado;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
+            return codigo;
         }
-
     }
 }

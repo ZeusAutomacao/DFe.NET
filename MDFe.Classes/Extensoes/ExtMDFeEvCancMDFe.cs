@@ -30,23 +30,35 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Utils;
-using MDFe.Classes.Retorno.MDFeStatusServico;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
 
-namespace MDFe.Utils.Extencoes
+namespace MDFe.Classes.Extencoes
 {
-    public static class ExtMDFeRetConsStatServ
+    public static class ExtMDFeEvCancMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetConsStatServ retConsStatServ)
+        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var xmlCancelamento = evCancMDFe.XmlString();
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd");
+                    break;
+            }
+        }
 
-            var arquivoSalvar = caminhoXml + @"\-retorno-status-servico.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServ, arquivoSalvar);
+        public static string XmlString(this MDFeEvCancMDFe evCancMDFe)
+        {
+            return FuncoesXml.ClasseParaXmlString(evCancMDFe);
         }
     }
 }

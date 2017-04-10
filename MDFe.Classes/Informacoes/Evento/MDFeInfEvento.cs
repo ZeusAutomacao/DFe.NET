@@ -33,16 +33,21 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.Flags;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes.Evento
 {
     [Serializable]
     public class MDFeInfEvento
     {
+        [XmlIgnore]
+        private readonly VersaoServico _versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout;
+
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }
 
@@ -74,7 +79,18 @@ namespace MDFe.Classes.Informacoes.Evento
         [XmlElement(ElementName = "dhEvento")]
         public string ProxyDhEvento
         {
-            get { return DhEvento.ParaDataHoraStringSemUtc(); }
+            get
+            {
+                switch (_versaoServico)
+                {
+                    case VersaoServico.Versao100:
+                        return DhEvento.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhEvento.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão inválida do mdf-e");
+                }
+            }
             set { DhEvento = DateTime.Parse(value); }
         }
 

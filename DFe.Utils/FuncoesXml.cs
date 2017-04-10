@@ -51,7 +51,7 @@ namespace DFe.Utils
         public static string ClasseParaXmlString<T>(T objeto)
         {
             XElement xml;
-            var ser = new XmlSerializer(typeof (T));
+            var ser = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
 
             using (var memory = new MemoryStream())
             {
@@ -74,7 +74,7 @@ namespace DFe.Utils
         /// <returns></returns>
         public static T XmlStringParaClasse<T>(string input) where T : class
         {
-            var ser = new XmlSerializer(typeof (T));
+            var ser = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
 
             using (var sr = new StringReader(input))
                 return (T) ser.Deserialize(sr);
@@ -94,7 +94,7 @@ namespace DFe.Utils
                 throw new FileNotFoundException("Arquivo " + arquivo + " não encontrado!");
             }
 
-            var serializador = new XmlSerializer(typeof (T));
+            var serializador = XmlSerializer.FromTypes(new[] { typeof(T) })[0]; 
             var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
