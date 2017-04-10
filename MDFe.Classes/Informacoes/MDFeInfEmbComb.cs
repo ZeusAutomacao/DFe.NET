@@ -43,5 +43,7 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "cEmbComb")]
         public string CEmbComb { get; set; }
+
+        public string xBalsa { get; set; }
     }
 }

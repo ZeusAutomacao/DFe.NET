@@ -31,15 +31,15 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using MDFe.Classes.Extencoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Classes.Informacoes.StatusServico;
 using MDFe.Classes.Servicos.Autorizacao;
-using MDFe.Classes.Servicos.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Extencoes;
+using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
@@ -52,7 +52,7 @@ namespace MDFe.Servicos.Factory
             {
                 CNPJ = cnpj,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
@@ -63,7 +63,7 @@ namespace MDFe.Servicos.Factory
         {
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
@@ -121,7 +121,7 @@ namespace MDFe.Servicos.Factory
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = VersaoServico.Versao100
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
         };
 
             return enviMdfe;
@@ -131,7 +131,7 @@ namespace MDFe.Servicos.Factory
         {
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 NRec = numeroRecibo
             };
@@ -144,7 +144,7 @@ namespace MDFe.Servicos.Factory
             return new MDFeConsStatServMDFe
             {
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
             }; 
         }

@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -52,5 +52,7 @@ namespace MDFe.Classes.Informacoes
             get { return UFPer.GetSiglaUfString(); }
             set { UFPer = UFPer.SiglaParaEstado(value); }
         }
+
+
     }
 }

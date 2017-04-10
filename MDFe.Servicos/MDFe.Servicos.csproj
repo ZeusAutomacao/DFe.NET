@@ -51,6 +51,7 @@
     <Compile Include="Factory\ClassesFactory.cs" />
     <Compile Include="Factory\WsdlFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecepcaoMDFe\AntesDeEnviar.cs" />
     <Compile Include="RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
     <Compile Include="RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
     <Compile Include="StatusServicoMDFe\ServicoMDFeStatusServico.cs" />

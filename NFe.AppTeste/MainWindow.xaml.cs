@@ -36,6 +36,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -68,7 +69,6 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Email;
-using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
@@ -77,8 +77,13 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using NFe.Danfe.Base;
+using NFe.Danfe.Base.Fontes;
+using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
+using NFe.Utils.Excesoes;
 using Color = System.Drawing.Color;
+using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste
 {
@@ -1608,49 +1613,44 @@ namespace NFe.AppTeste
 
         private void BtnCupom_Click(object sender, RoutedEventArgs e)
         {
-            var arquivoXml = Funcoes.BuscarArquivoXml();
+            string arquivoXml = Funcoes.BuscarArquivoXml();
             try
             {
-                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                nfeProc proc = null;
+                NFeZeus nfe = null;
+                string arquivo = string.Empty;
 
-                var nInfCpl = 0;
-                if (proc.NFe.infNFe.infAdic != null)
+                try
                 {
-                    var infCpl = proc.NFe.infNFe.infAdic.infCpl.Split('|');//Pega quantidade de itens na informação complementar separando pelo "|"
-                    nInfCpl = infCpl.Length;
+                    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = proc.ObterXmlString();
                 }
-                var nProdutos = proc.NFe.infNFe.det.Count + nInfCpl;
-
-                //Ajusta tamanho (Larg x Alt) do cupom, de acordo com a quantidade de produtos e informações complementares
-                var imgNfCe = new Bitmap(Convert.ToInt32(svCupom.Width), 600 + (nProdutos * 15));
-
-                //Gera grafico na classe
-                var g = Graphics.FromImage(imgNfCe);
-                g.SmoothingMode = SmoothingMode.AntiAlias;
-                g.FillRectangle(new SolidBrush(Color.LightGoldenrodYellow), 0, 0, imgNfCe.Size.Width, imgNfCe.Size.Height);
-
-                var impr = new DanfeNativoNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                impr.GerarNfCe(g);
-
-                //Converte para BitmapImage, para ser inserida no Canvas para visualização
-                using (var ms = new MemoryStream())
+                catch (Exception)
                 {
-                    imgNfCe.Save(ms, ImageFormat.Png);
-                    ms.Position = 0;
-
-                    var bitmapImg = new BitmapImage();
-                    bitmapImg.BeginInit();
-                    bitmapImg.StreamSource = ms;
-                    bitmapImg.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImg.EndInit();
-
-                    cvCupom.Height = imgNfCe.Height;
-                    cvCupom.Width = imgNfCe.Width;
-
-                    var imgCupom = new ImageBrush {ImageSource = bitmapImg};
-                    cvCupom.Background = imgCupom;
-                    TabInferior.SelectedIndex = 6;
+                    nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = nfe.ObterXmlString();
                 }
+
+                
+
+                DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
+                    _configuracoes.ConfiguracaoDanfeNfce, 
+                    _configuracoes.ConfiguracaoCsc.CIdToken, 
+                    _configuracoes.ConfiguracaoCsc.Csc,
+                    0 /*troco*//*, "Arial Black"*/);
+
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                fileDialog.ShowDialog();
+
+                if(string.IsNullOrEmpty(fileDialog.FileName))
+                    throw new ArgumentException("Não foi selecionado nem uma pasta");
+
+
+
+                //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
+                impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
+
             }
             catch (Exception ex)
             {
