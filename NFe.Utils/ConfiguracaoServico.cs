@@ -222,5 +222,19 @@ namespace NFe.Utils
         {
             _instancia = null;
         }
+
+        /// <summary>
+        ///     Cria explicitamente uma nova instancia no Singleton de ConfiguracaoServico
+        /// </summary>
+        /// <returns></returns>
+        public static ConfiguracaoServico NovaInstancia()
+        {
+            lock (SyncRoot)
+            {
+                _instancia = new ConfiguracaoServico();
+            }
+            
+            return _instancia;
+        }
     }
 }
