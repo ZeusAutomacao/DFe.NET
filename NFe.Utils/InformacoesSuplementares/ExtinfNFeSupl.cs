@@ -106,9 +106,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
 
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/ConsultaDANFENFCe"),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214278/consumid"),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/ConsultaDANFENFCe"),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao"),
 
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe"),
