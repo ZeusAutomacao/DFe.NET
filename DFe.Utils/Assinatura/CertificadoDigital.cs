@@ -203,6 +203,14 @@ namespace DFe.Utils.Assinatura
             _certificado = ObterDadosCertificado(configuracaoCertificado);
             return _certificado;
         }
+
+
+        public static void clearCache()
+        {
+            if (_certificado != null)
+                _certificado =null;
+
+        }
     }
 
     internal static class MetodosNativos

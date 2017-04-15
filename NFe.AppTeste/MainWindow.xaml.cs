@@ -77,6 +77,7 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using DFe.Classes.Extensoes;
 using NFe.Danfe.Base;
 using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.NFCe;
@@ -241,6 +242,9 @@ namespace NFe.AppTeste
                 #region Consulta Situação NFe pelo XML
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrWhiteSpace(arquivoXml))
+                    return;
+
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
@@ -316,7 +320,10 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+
                 _nfe.Valida();
 
                 #endregion
@@ -386,10 +393,15 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+                {
+                    //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.    
+                }
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -724,7 +736,9 @@ namespace NFe.AppTeste
         private void CarregaArquivoNfe()
         {
             var arquivoXml = Funcoes.BuscarArquivoXml();
-            _nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+
+            if (!string.IsNullOrWhiteSpace(arquivoXml))
+                _nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
         }
 
         private void BtnValida_Click(object sender, RoutedEventArgs e)
@@ -797,6 +811,10 @@ namespace NFe.AppTeste
             try
             {
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+
+                if (string.IsNullOrWhiteSpace(arquivoXml))
+                    return;
+
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
@@ -945,16 +963,18 @@ namespace NFe.AppTeste
 
         protected virtual ide GetIdentificacao(int numero, ModeloDocumento modelo, VersaoServico versao)
         {
+            var estado = Estado.SE;
+
             var ide = new ide
             {
-                cUF = Estado.SE,
+                cUF = estado.SiglaParaEstado(_configuracoes.Emitente.enderEmit.UF),
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
                 tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                cMunFG = _configuracoes.EnderecoEmitente.cMun,
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
                 cNF = "1234",
