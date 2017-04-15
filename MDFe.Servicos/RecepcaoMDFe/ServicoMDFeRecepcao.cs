@@ -31,30 +31,56 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRecepcao;
+using System;
+using MDFe.Classes.Extencoes;
+using MDFe.Classes.Flags;
+using MDFe.Classes.Retorno.MDFeRecepcao;
+using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.Factory;
-using MDFe.Utils.Extencoes;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.RecepcaoMDFe
 {
     public class ServicoMDFeRecepcao
     {
+        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
+
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    break;
+                case VersaoServico.Versao300:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    break;
+            }
 
             enviMDFe.MDFe.Assina();
             enviMDFe.Valida();
             enviMDFe.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+
+            OnAntesDeEnviar(enviMDFe);
+
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
+        {
+            var handler = AntesDeEnviar;
+            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
         }
     }
 }

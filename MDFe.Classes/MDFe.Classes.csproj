@@ -7,7 +7,7 @@
     <ProjectGuid>{9794CB98-4691-4218-A127-C573C2E7FF83}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ManifestoDocumentoFiscalEletronico.Classes</RootNamespace>
+    <RootNamespace>MDFe.Classes</RootNamespace>
     <AssemblyName>MDFe.Classes</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,28 +33,43 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
+    <Compile Include="Extensoes\ExtMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeConsStatServMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="Extensoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetConsStatServ.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetEnviMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeRetEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtVersaoServico.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />
-    <Compile Include="Flags\MDFeModelo.cs" />
+    <Compile Include="Flags\MDFeRespSeg.cs" />
     <Compile Include="Flags\MDFeTipoEmissao.cs" />
     <Compile Include="Flags\MDFeTipoEmitente.cs" />
     <Compile Include="Flags\MDFeTpCar.cs" />
     <Compile Include="Flags\MDFeTpRod.cs" />
     <Compile Include="Flags\MDFeTpProp.cs" />
+    <Compile Include="Flags\MDFeTpTransp.cs" />
     <Compile Include="Flags\MDFeTpUnidCarga.cs" />
     <Compile Include="Flags\MDFeTpUnidCargaVazia.cs" />
     <Compile Include="Flags\MDFeTpUnidTransp.cs" />
     <Compile Include="Flags\MDFeVersaoModal.cs" />
+    <Compile Include="Flags\tpNav.cs" />
+    <Compile Include="Flags\tpUnidTranspVazia.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
@@ -65,6 +80,9 @@
     <Compile Include="Informacoes\Evento\MDFeEventoContainer.cs" />
     <Compile Include="Informacoes\Evento\MDFeEventoMDFe.cs" />
     <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
+    <Compile Include="Informacoes\infCIOT.cs" />
+    <Compile Include="Informacoes\infContratante.cs" />
+    <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
     <Compile Include="Informacoes\MDFeAereo.cs" />
     <Compile Include="Informacoes\MDFeAquav.cs" />
@@ -93,8 +111,10 @@
     <Compile Include="Informacoes\MDFeLacre.cs" />
     <Compile Include="Informacoes\MDFeLacUnidCarga.cs" />
     <Compile Include="Informacoes\MDFeLacUnidTransp.cs" />
+    <Compile Include="Informacoes\MDFePeri.cs" />
     <Compile Include="Informacoes\MDFeProp.cs" />
     <Compile Include="Informacoes\MDFeRodo.cs" />
+    <Compile Include="Informacoes\MDFeSeg.cs" />
     <Compile Include="Informacoes\MDFeTot.cs" />
     <Compile Include="Informacoes\MDFeTrem.cs" />
     <Compile Include="Informacoes\MDFeVag.cs" />
@@ -117,7 +137,6 @@
     <Compile Include="Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
     <Compile Include="Retorno\RetornoBase.cs" />
     <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
-    <Compile Include="Servicos\Flags\VersaoServico.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
@@ -127,6 +146,10 @@
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
+      <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
+      <Name>MDFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

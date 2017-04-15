@@ -36,7 +36,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Xml.Linq;
+using DFe.Classes.Entidades;
+using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
@@ -105,9 +106,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
 
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/ConsultaDANFENFCe"),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214278/consumid"),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/ConsultaDANFENFCe"),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao"),
 
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe"),
@@ -226,7 +227,7 @@ namespace NFe.Utils.InformacoesSuplementares
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
-            var dhEmi = ObterHexDeString(nfe.infNFe.ide.dhEmi);
+            var dhEmi = ObterHexDeString(nfe.infNFe.ide.ProxyDhEmi);
 
             //Passo 2: Converter o valor do Digest Value da NFC-e (digVal) para HEXA;
             //Ao se efetuar a assinatura digital da NFCe emitida em contingência off-line, o campo digest value constante da XMl Signature deve obrigatoriamente ser idêntico ao encontrado quando da geração do digest value para a montagem QR Code.

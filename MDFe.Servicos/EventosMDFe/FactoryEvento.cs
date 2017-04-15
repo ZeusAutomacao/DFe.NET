@@ -32,12 +32,12 @@
 /********************************************************************************/
 
 using System;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Extencoes;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Extencoes;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFe.Utils.Flags;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {
@@ -47,7 +47,7 @@ namespace MDFe.Servicos.EventosMDFe
         {
             var eventoMDFe = new MDFeEventoMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento,
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 InfEvento = new MDFeInfEvento
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
@@ -57,7 +57,7 @@ namespace MDFe.Servicos.EventosMDFe
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
                     {
-                        VersaoServico = VersaoServico.Versao100,
+                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                         EventoContainer = evento
                     },
                     DhEvento = DateTime.Now,

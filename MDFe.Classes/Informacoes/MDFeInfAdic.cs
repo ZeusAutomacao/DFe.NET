@@ -31,9 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeInfAdic

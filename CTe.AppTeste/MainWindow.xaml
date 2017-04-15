@@ -1,0 +1,256 @@
+﻿<Window x:Class="CTe.AppTeste.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:enumBindable="clr-namespace:CTe.AppTeste.EnumBindable"
+        xmlns:flags="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
+        xmlns:flagsCte="clr-namespace:CTe.Classes.Servicos.Tipos;assembly=CTe.Classes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="720.696" Width="771.522"
+        Loaded="MainWindow_OnLoaded">
+    <DockPanel>
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Dados">
+                <StackPanel>
+                    <TabControl>
+                        <TabItem Header="Empresa">
+                            <StackPanel>
+                                <GroupBox Header="Emitente">
+                                    <StackPanel>
+
+                                        <TextBlock>RNTRC</TextBlock>
+                                        <TextBox MaxLength="8" Text="{Binding Rntrc}"></TextBox>
+
+                                        <TextBlock>Cnpj</TextBlock>
+                                        <TextBox MaxLength="14" Text="{Binding Cnpj}"></TextBox>
+                                        <TextBlock>IE (Inscrição Estadual)</TextBlock>
+                                        <TextBox MaxLength="14" Text="{Binding InscricaoEstadual}"></TextBox>
+                                        <TextBlock>Nome</TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Nome}"></TextBox>
+                                        <TextBlock>Nome Fantasia</TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding NomeFantasia}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Endereço do Emitente">
+                                    <StackPanel>
+                                        <TextBlock Text="Logradouro"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Logradouro}"></TextBox>
+
+                                        <TextBlock Text="Número"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Numero}"></TextBox>
+
+                                        <TextBlock Text="Complemento"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Complemento}"></TextBox>
+
+                                        <TextBlock Text="Bairro"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Bairro}"></TextBox>
+
+                                        <TextBlock Text="Código IBGE Município"></TextBlock>
+                                        <TextBox MaxLength="7" Text="{Binding CodigoIbgeMunicipio}"></TextBox>
+
+                                        <TextBlock Text="Nome Município"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding NomeMunicipio}"></TextBox>
+
+                                        <TextBlock Text="CEP"></TextBlock>
+                                        <TextBox MaxLength="8" Text="{Binding Cep}"></TextBox>
+
+                                        <TextBlock Text="Sigla UF"></TextBlock>
+                                        <ComboBox IsEditable="False"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:Estado}}}"
+                                                  SelectedItem="{Binding SiglaUf}">
+                                        </ComboBox>
+
+                                        <TextBlock Text="Telefone"></TextBlock>
+                                        <TextBox MaxLength="12" Text="{Binding Telefone}"></TextBox>
+
+                                        <TextBlock Text="Endereço de E-mail"></TextBlock>
+                                        <TextBox MaxLength="60" Text="{Binding Email}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                        <TabItem Header="Certificado Digital">
+                            <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0">
+                                <StackPanel>
+
+                                    <StackPanel Name="SpSerie" Margin="0,10,0,0">
+                                        <TextBlock Text="Número de Série" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <DockPanel>
+                                            <TextBox HorizontalAlignment="Left" Height="23"
+                                                     Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                                                     Width="275"
+                                                     Text="{Binding NumeroDeSerie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     IsReadOnly="True" />
+                                            <Button Content="..." Width="21"
+                                                    DockPanel.Dock="Right" Click="Certificado_Click"
+                                                    Margin="10,0,0,0" />
+                                        </DockPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Name="SpArquivo" Margin="0,10,0,0">
+                                        <TextBlock Text="Arquivo" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <DockPanel>
+                                            <TextBox x:Name="TxtArquivoCertificado" HorizontalAlignment="Left"
+                                                     Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                                                     Width="275"
+                                                     Text="{Binding CaminhoArquivo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     IsReadOnly="True" />
+                                            <Button Content="..." Width="21"
+                                                    DockPanel.Dock="Right" Margin="10,0,0,0" Click="ArquivoCertificado_Click" />
+                                        </DockPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,10,0,0">
+                                        <TextBlock Text="Senha" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="TxtSenhaCertificado" HorizontalAlignment="Left" Height="23"
+                                                     Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
+                                                     Width="280"
+                                                     Text="{Binding Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="0,10,0,0">
+                                            <CheckBox Margin="10,0,0,0" IsChecked="{Binding ManterCertificadoEmCache}">Manter certificado em cache</CheckBox>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </GroupBox>
+                        </TabItem>
+                        <TabItem Header="Web Service">
+                            <StackPanel>
+                                <GroupBox Header="UF Destino">
+                                    <ComboBox IsEditable="False"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:Estado}}}"
+                                              SelectedItem="{Binding UfDestino}">
+
+                                    </ComboBox>
+                                </GroupBox>
+                                <GroupBox Header="Ambiente">
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton GroupName="ambiente" Margin="0,0,5,0" 
+                                                     IsChecked="{Binding AmbienteProducao}">Produção</RadioButton>
+                                        <RadioButton GroupName="ambiente" 
+                                                     IsChecked="{Binding AmbienteHomologacao}">Homologação</RadioButton>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Informações">
+                                    <StackPanel>
+                                        <TextBlock>Serie</TextBlock>
+                                        <TextBox MaxLength="3" Text="{Binding Serie}"></TextBox>
+
+                                        <TextBlock>Númeração</TextBlock>
+                                        <TextBox MaxLength="9" Text="{Binding Numeracao}"></TextBox>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Versão de cada serviço">
+                                    <StackPanel>
+                                        <GroupBox Header="Versão WebService">
+                                            <StackPanel>
+                                                <ComboBox IsEditable="False"
+                                                ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flagsCte:versao}}}"
+                                              SelectedItem="{Binding VersaoLayout}">
+
+                                                </ComboBox>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                        <GroupBox Header="Diretório Schemas">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="35"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+
+
+                                                    <TextBox Text="{Binding DiretorioSchemas}" IsReadOnly="True"></TextBox>
+                                                    <Button Grid.Column="1" Click="BuscarDiretorioSchema_Click">...</Button>
+
+                                                </Grid>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                        <GroupBox Header="Diretório Salvar XMLs">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                        <ColumnDefinition Width="35"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                        <RowDefinition Height="Auto"></RowDefinition>
+                                                    </Grid.RowDefinitions>
+
+                                                    <CheckBox IsChecked="{Binding IsSalvarXml}">Salvar Xml</CheckBox>
+
+                                                    <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding DiretorioSalvarXml}" IsReadOnly="True"></TextBox>
+                                                    <Button Grid.Row="1" Grid.Column="1" Click="BuscarDiretorioSalvarXml_Click">...</Button>
+
+                                                </Grid>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                        <GroupBox Header="TimeOut - milissegundos">
+                                            <StackPanel>
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBox Text="{Binding TimeOut}"></TextBox>
+                                                </Grid>
+                                            </StackPanel>
+                                        </GroupBox>
+
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </TabItem>
+                    </TabControl>
+                    <Button Click="SalvarConfiguracoesXml_Click">Salvar Configurações</Button>
+                </StackPanel>
+
+            </TabItem>
+            <TabItem Header="Exemplos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="355*"/>
+                        <ColumnDefinition Width="379*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Button Click="ConsultarStatusServico">Consultar Status Serviço</Button>
+                    <Button Grid.Row="0" Grid.Column="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo</Button>
+                    <Button Grid.Column="0" Grid.Row="1" Click="InutilizacaoDeNumeracao_Click">Inutilizacao de Númeração</Button>
+                    <Button Grid.Column="1" Grid.Row="1" Click="ConsultaPorNumeroRecibo_Click">Consulta Por Número Recibo</Button>
+                    <Button Grid.Row="2" Grid.Column="0" Click="EventoCancelarCTe_Click">Evento Cancelar CT-e</Button>
+                    <Button Grid.Row="2" Grid.Column="1" Click="CartaCorrecao_Click">Carta Correção</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEnviarCTe2_Click">Criar e Enviar CT-e 2.00 Ou 3.00</Button>
+
+                    <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                        <TabItem Header="XmlEnvio">
+                            <Grid Background="#FFE5E5E5">
+                                <WebBrowser x:Name="WebXmlEnvio" />
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="XmlRetorno">
+                            <Grid Background="#FFE5E5E5">
+                                <WebBrowser x:Name="WebXmlRetorno" />
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

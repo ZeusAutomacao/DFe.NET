@@ -17,7 +17,7 @@ namespace MDFe.AppTeste.Entidades
         public long CodigoIbgeMunicipio { get; set; }
         public string NomeMunicipio { get; set; }
         public string Cep { get; set; }
-        public EstadoUF SiglaUf { get; set; }
+        public Estado SiglaUf { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
         public string RNTRC { get; set; }

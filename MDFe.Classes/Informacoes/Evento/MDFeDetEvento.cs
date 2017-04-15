@@ -32,10 +32,10 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Utils.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento
+namespace MDFe.Classes.Informacoes.Evento
 {
     [Serializable]
     public class MDFeDetEvento

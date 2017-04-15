@@ -31,7 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using NFe.Classes.Assinatura;
+using DFe.Classes.Assinatura;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Protocolo

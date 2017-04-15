@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Utils;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",

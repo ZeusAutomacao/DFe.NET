@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -34,11 +34,14 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
+using DFe.Utils;
+using MDFe.Classes.Flags;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeIde
@@ -53,7 +56,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Código da UF do emitente do MDF-e. 
         /// </summary>
         [XmlElement(ElementName = "cUF")]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         /// <summary>
         /// 2 - Tipo do Ambiente 
@@ -68,10 +71,20 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         public MDFeTipoEmitente TpEmit { get; set; }
 
         /// <summary>
+        /// MDF-e 3.0
+        /// Tipo do Transportador
+        /// Opcional
+        /// </summary>
+        [XmlElement(ElementName = "tpTransp")]
+        public MDFeTpTransp? TpTransp { get; set; }
+
+        public bool TpTranspSpecified { get { return TpTransp.HasValue; } }
+
+        /// <summary>
         /// 2 - Modelo do Manifesto Eletrônico
         /// </summary>
         [XmlElement(ElementName = "mod")]
-        public MDFeModelo Mod { get; set; }
+        public ModeloDocumento Mod { get; set; }
 
         /// <summary>
         /// 2- Série do Manifesto
@@ -89,7 +102,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Código numérico que compõe a Chave de Acesso. 
         /// </summary>
         [XmlIgnore]
-        public long CMDF { get; set; }
+        public int CMDF { get; set; }
 
         /// <summary>
         /// Proxy para cMDF
@@ -125,7 +138,19 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
-            get { return DhEmi.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get
+            {
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        return DhEmi.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhEmi.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para MDF-e");
+                }
+
+            }
             set { DhEmi = DateTime.Parse(value); }
         }
 
@@ -151,7 +176,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Sigla da UF do Carregamento 
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFIni { get; set; }
+        public Estado UFIni { get; set; }
 
         /// <summary>
         /// Proxy para UFIni
@@ -167,7 +192,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// 2 - Sigla da UF do Descarregamento
         /// </summary>
         [XmlIgnore]
-        public EstadoUF UFFim { get; set; }
+        public Estado UFFim { get; set; }
 
         /// <summary>
         /// Proxy para UFFim
@@ -202,7 +227,10 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem {
-            get { return DhIniViagem?.ToString("yyyy-MM-ddTHH:mm:dd"); }
+            get
+            {
+                return DhIniViagem.ParaDataHoraStringSemUtc();
+            }
             set { DhIniViagem = DateTime.Parse(value); }
         }
     }

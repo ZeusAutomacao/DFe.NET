@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Flags
+namespace MDFe.Classes.Flags
 {
     public enum MDFeTpUnidTransp
     {
@@ -45,7 +45,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Flags
         [XmlEnum("4")]
         Balsa = 4,
         [XmlEnum("5")]
-        Aeronavel = 5,
+        Aeronave = 5,
         [XmlEnum("6")]
         Vagao = 6,
         [XmlEnum("7")]

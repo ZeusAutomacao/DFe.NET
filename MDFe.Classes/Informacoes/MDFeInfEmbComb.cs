@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeInfEmbComb
@@ -43,5 +43,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "cEmbComb")]
         public string CEmbComb { get; set; }
+
+        public string xBalsa { get; set; }
     }
 }

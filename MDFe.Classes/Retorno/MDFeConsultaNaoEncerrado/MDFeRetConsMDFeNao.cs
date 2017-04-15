@@ -34,13 +34,13 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaNaoEncerrados;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Utils.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaNaoEncerrado
+namespace MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
@@ -63,7 +63,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaNaoEnce
         public string XMotivo { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

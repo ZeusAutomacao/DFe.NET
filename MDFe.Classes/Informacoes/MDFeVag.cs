@@ -32,12 +32,31 @@
 /********************************************************************************/
 using System;
 using System.Xml.Serialization;
+using DFe.Classes;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeVag
     {
+        private decimal _pesoBc;
+        private decimal _pesoR;
+        private decimal _tu;
+
+        public decimal pesoBC
+        {
+            get { return _pesoBc.Arredondar(3); }
+            set { _pesoBc = value.Arredondar(3); }
+        }
+
+        public decimal pesoR
+        {
+            get { return _pesoR.Arredondar(3); }
+            set { _pesoR = value.Arredondar(3); }
+        }
+
+        public string tpVag { get; set; }
+
         /// <summary>
         /// 2 - Serie de Identificação do vagão
         /// </summary>
@@ -56,10 +75,16 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "nSeq")]
         public short? NSeq { get; set; }
 
+        public bool NSeqSpecified { get { return NSeq.HasValue; } }
+
         /// <summary>
         /// 2 - Tonelada Útil 
         /// </summary>
         [XmlElement(ElementName = "TU")]
-        public decimal TU { get; set; }
+        public decimal TU
+        {
+            get { return _tu.Arredondar(3); }
+            set { _tu = value.Arredondar(3); }
+        }
     }
 }

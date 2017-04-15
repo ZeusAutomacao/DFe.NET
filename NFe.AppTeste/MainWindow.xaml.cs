@@ -33,13 +33,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
-using System.Web.Services.Protocols;
 using System.Windows;
 using System.Windows.Forms;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Classes;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Cobranca;
@@ -62,15 +68,23 @@ using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
-using NFe.Utils.Assinatura;
 using NFe.Utils.Email;
-using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using DFe.Classes.Extensoes;
+using NFe.Danfe.Base;
+using NFe.Danfe.Base.Fontes;
+using NFe.Danfe.Base.NFCe;
+using NFe.Danfe.Nativo.NFCe;
+using NFe.Utils.Excesoes;
+using Color = System.Drawing.Color;
+using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste
 {
@@ -96,8 +110,8 @@ namespace NFe.AppTeste
         {
             try
             {
-                var cert = CertificadoDigital.ObterDoRepositorio();
-                TxtCertificado.Text = cert.SerialNumber;
+                var cert = CertificadoDigital.ListareObterDoRepositorio();
+                _configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                 //TxtValidade.Text = "Validade: " + cert.GetExpirationDateString();
             }
             catch (Exception ex)
@@ -172,6 +186,16 @@ namespace NFe.AppTeste
                     : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoApp>(path + ArquivoConfiguracao);
                 if (_configuracoes.CfgServico.TimeOut == 0)
                     _configuracoes.CfgServico.TimeOut = 3000; //mínimo
+
+                #region Carrega a logo no controle logoEmitente
+
+                if (_configuracoes.ConfiguracaoDanfeNfce.Logomarca != null && _configuracoes.ConfiguracaoDanfeNfce.Logomarca.Length > 0)
+                    using (var stream = new MemoryStream(_configuracoes.ConfiguracaoDanfeNfce.Logomarca))
+                    {
+                        LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    }
+
+                #endregion
             }
             catch (Exception ex)
             {
@@ -218,6 +242,9 @@ namespace NFe.AppTeste
                 #region Consulta Situação NFe pelo XML
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrWhiteSpace(arquivoXml))
+                    return;
+
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
@@ -268,22 +295,12 @@ namespace NFe.AppTeste
             }
             catch (ComunicacaoException ex)
             {
+                //Faça o tratamento de contingência OffLine aqui.
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
             {
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
-                {
-                    //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
-                    //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
-                    throw;
-                }
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
 
@@ -303,7 +320,10 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
                 _nfe.Assina();
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+
                 _nfe.Valida();
 
                 #endregion
@@ -373,10 +393,15 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+                {
+                    //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.    
+                }
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -386,6 +411,7 @@ namespace NFe.AppTeste
             }
             catch (ComunicacaoException ex)
             {
+                //Faça o tratamento de contingência OffLine aqui.
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (ValidacaoSchemaException ex)
@@ -394,12 +420,6 @@ namespace NFe.AppTeste
             }
             catch (Exception ex)
             {
-                if (ex is SoapException | ex is InvalidOperationException | ex is WebException)
-                {
-                    //Faça o tratamento de contingência OffLine aqui. Em produção, acredito que tratar apenas as exceções SoapException e WebException sejam suficientes
-                    //Ver https://msdn.microsoft.com/pt-br/library/system.web.services.protocols.soaphttpclientprotocol.invoke(v=vs.110).aspx
-                    throw;
-                }
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
@@ -716,7 +736,9 @@ namespace NFe.AppTeste
         private void CarregaArquivoNfe()
         {
             var arquivoXml = Funcoes.BuscarArquivoXml();
-            _nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+
+            if (!string.IsNullOrWhiteSpace(arquivoXml))
+                _nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
         }
 
         private void BtnValida_Click(object sender, RoutedEventArgs e)
@@ -789,6 +811,10 @@ namespace NFe.AppTeste
             try
             {
                 var arquivoXml = Funcoes.BuscarArquivoXml();
+
+                if (string.IsNullOrWhiteSpace(arquivoXml))
+                    return;
+
                 var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
@@ -937,16 +963,18 @@ namespace NFe.AppTeste
 
         protected virtual ide GetIdentificacao(int numero, ModeloDocumento modelo, VersaoServico versao)
         {
+            var estado = Estado.SE;
+
             var ide = new ide
             {
-                cUF = Estado.SE,
+                cUF = estado.SiglaParaEstado(_configuracoes.Emitente.enderEmit.UF),
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
                 tpNF = TipoNFe.tnSaida,
-                cMunFG = 2802908,
+                cMunFG = _configuracoes.EnderecoEmitente.cMun,
                 tpEmis = _configuracoes.CfgServico.tpEmis,
                 tpImp = TipoImpressao.tiRetrato,
                 cNF = "1234",
@@ -957,10 +985,7 @@ namespace NFe.AppTeste
 
             if (ide.tpEmis != TipoEmissao.teNormal)
             {
-                ide.dhCont =
-                    DateTime.Now.ToString(versao == VersaoServico.ve310
-                        ? "yyyy-MM-ddTHH:mm:sszzz"
-                        : "yyyy-MM-ddTHH:mm:ss");
+                ide.dhCont = DateTime.Now;
                 ide.xJust = "TESTE DE CONTIGÊNCIA PARA NFe/NFCe";
             }
 
@@ -968,8 +993,8 @@ namespace NFe.AppTeste
 
             if (versao == VersaoServico.ve200)
             {
-                ide.dEmi = DateTime.Today.ToString("yyyy-MM-dd"); //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
-                ide.dSaiEnt = DateTime.Today.ToString("yyyy-MM-dd");
+                ide.dEmi = DateTime.Today; //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
+                ide.dSaiEnt = DateTime.Today;
             }
 
             #endregion
@@ -978,10 +1003,10 @@ namespace NFe.AppTeste
 
             if (versao != VersaoServico.ve310) return ide;
             ide.idDest = DestinoOperacao.doInterna;
-            ide.dhEmi = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
             if (ide.mod == ModeloDocumento.NFe)
-                ide.dhSaiEnt = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+                ide.dhSaiEnt = DateTime.Now;
             else
                 ide.tpImp = TipoImpressao.tiNFCe;
             ide.procEmi = ProcessoEmissao.peAplicativoContribuinte;
@@ -1389,7 +1414,7 @@ namespace NFe.AppTeste
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            TxtArquivoCertificado.Text = Funcoes.BuscarArquivoCertificado();
+            _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
         }
 
         private void BtnAdminCsc_Click(object sender, RoutedEventArgs e)
@@ -1604,6 +1629,78 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+        }
+
+        private void BtnCupom_Click(object sender, RoutedEventArgs e)
+        {
+            string arquivoXml = Funcoes.BuscarArquivoXml();
+            try
+            {
+                nfeProc proc = null;
+                NFeZeus nfe = null;
+                string arquivo = string.Empty;
+
+                try
+                {
+                    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = proc.ObterXmlString();
+                }
+                catch (Exception)
+                {
+                    nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                    arquivo = nfe.ObterXmlString();
+                }
+
+                
+
+                DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
+                    _configuracoes.ConfiguracaoDanfeNfce, 
+                    _configuracoes.ConfiguracaoCsc.CIdToken, 
+                    _configuracoes.ConfiguracaoCsc.Csc,
+                    0 /*troco*//*, "Arial Black"*/);
+
+                SaveFileDialog fileDialog = new SaveFileDialog();
+
+                fileDialog.ShowDialog();
+
+                if(string.IsNullOrEmpty(fileDialog.FileName))
+                    throw new ArgumentException("Não foi selecionado nem uma pasta");
+
+
+
+                //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
+                impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
+
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                {
+                    Funcoes.Mensagem(ex.Message, TituloErro, MessageBoxButton.OK);
+                }
+            }
+        }
+
+        private void btnLogo_Click(object sender, RoutedEventArgs e)
+        {
+            var arquivo = Funcoes.BuscarImagem();
+            if (string.IsNullOrEmpty(arquivo)) return;
+            var imagem = Image.FromFile(arquivo);
+            LogoEmitente.Source = new BitmapImage(new Uri(arquivo));
+
+            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = new byte[0];
+            using (var stream = new MemoryStream())
+            {
+                imagem.Save(stream, ImageFormat.Png);
+                stream.Close();
+                _configuracoes.ConfiguracaoDanfeNfce.Logomarca = stream.ToArray();
+            }
+        }
+
+        private void btnRemoveLogo_Click(object sender, RoutedEventArgs e)
+        {
+            LogoEmitente.Source = null;
+            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
         }
     }
 }

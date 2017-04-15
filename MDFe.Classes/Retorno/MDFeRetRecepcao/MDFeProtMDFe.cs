@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao
+namespace MDFe.Classes.Retorno.MDFeRetRecepcao
 {
     [Serializable]
     [XmlRoot(ElementName = "protMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]

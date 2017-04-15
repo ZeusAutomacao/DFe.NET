@@ -34,12 +34,13 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using SignatureZeus = DFe.Classes.Assinatura.Signature;
 
 namespace DFe.Utils.Assinatura
 {
     public class AssinaturaDigital
     {
-        public static Classes.Assinatura.Signature Assina<T>(T objeto, string id, X509Certificate2 certificado) where T : class
+        public static SignatureZeus Assina<T>(T objeto, string id, X509Certificate2 certificado) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)

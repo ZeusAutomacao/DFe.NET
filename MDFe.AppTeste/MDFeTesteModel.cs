@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -17,6 +17,7 @@
 /*                                                                              */
 /*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
 /* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
+/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
 /* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
 /* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
 /*                                                                              */
@@ -37,22 +38,23 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using ManifestoDocumentoFiscalEletronico.Classes.Flags;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes;
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Autorizacao;
-using ManifestoDocumentoFiscalEletronico.Classes.Servicos.Flags;
+using MDFe.Classes.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Retorno;
+using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
+using MDFe.Classes.Extencoes;
 using MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using MDFe.Servicos.ConsultaProtocoloMDFe;
 using MDFe.Servicos.EventosMDFe;
 using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
-using MDFe.Utils.Extencoes;
-using MDFeEletronico = ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe;
+using MDFe.Utils.Configuracoes;
+using MDFe.Utils.Flags;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -85,13 +87,13 @@ namespace MDFe.AppTeste
         private long _codigoIbgeMunicipio;
         private string _nomeMunicipio;
         private string _cep;
-        private EstadoUF _siglaUf;
+        private Estado _siglaUf;
         private string _telefone;
         private string _email;
         private string _numeroDeSerie;
         private string _caminhoArquivo;
         private string _senha;
-        private EstadoUF _ufDestino;
+        private Estado _ufDestino;
         private TipoAmbiente _ambiente;
         private short _serie;
         private long _numeracao;
@@ -108,6 +110,8 @@ namespace MDFe.AppTeste
         private string _diretorioSalvarXml;
         private bool _isSalvarXml;
         private int _timeOut;
+        private bool _manterCertificadoEmCache;
+        private VersaoServico _versaoLayout;
 
         #region empresa
 
@@ -231,7 +235,7 @@ namespace MDFe.AppTeste
             }
         }
 
-        public EstadoUF SiglaUf
+        public Estado SiglaUf
         {
             get { return _siglaUf; }
             set
@@ -295,11 +299,21 @@ namespace MDFe.AppTeste
             }
         }
 
+        public bool ManterCertificadoEmCache
+        {
+            get { return _manterCertificadoEmCache; }
+            set
+            {
+                _manterCertificadoEmCache = value; 
+                OnPropertyChanged("ManterCertificadoEmCache");
+            }
+        }
+
         #endregion
 
         #region configWebService
 
-        public EstadoUF UfDestino
+        public Estado UfDestino
         {
             get { return _ufDestino; }
             set
@@ -339,63 +353,13 @@ namespace MDFe.AppTeste
             }
         }
 
-        public VersaoServico VersaoMDFeRecepcao
+        public VersaoServico VersaoLayout
         {
-            get { return _versaoMdFeRecepcao; }
+            get { return _versaoLayout; }
             set
             {
-                _versaoMdFeRecepcao = value;
-                OnPropertyChanged("VersaoMDFeRecepcao");
-            }
-        }
-
-        public VersaoServico VersaoMDFeRetRecepcao
-        {
-            get { return _versaoMdFeRetRecepcao; }
-            set
-            {
-                _versaoMdFeRetRecepcao = value;
-                OnPropertyChanged("VersaoMDFeRetRecepcao");
-            }
-        }
-
-        public VersaoServico VersaoMDFeRecepcaoEvento
-        {
-            get { return _versaoMdFeRecepcaoEvento; }
-            set
-            {
-                _versaoMdFeRecepcaoEvento = value;
-                OnPropertyChanged("VersaoMDFeRecepcaoEvento");
-            }
-        }
-
-        public VersaoServico VersaoMDFeConsulta
-        {
-            get { return _versaoMdFeConsulta; }
-            set
-            {
-                _versaoMdFeConsulta = value;
-                OnPropertyChanged("VersaoMDFeConsulta");
-            }
-        }
-
-        public VersaoServico VersaoMDFeStatusServico
-        {
-            get { return _versaoMdFeStatusServico; }
-            set
-            {
-                _versaoMdFeStatusServico = value;
-                OnPropertyChanged("VersaoMDFeStatusServico");
-            }
-        }
-
-        public VersaoServico VersaoMDFeConsNaoEnc
-        {
-            get { return _versaoMdFeConsNaoEnc; }
-            set
-            {
-                _versaoMdFeConsNaoEnc = value;
-                OnPropertyChanged("VersaoMDFeConsNaoEnc");
+                _versaoLayout = value;
+                OnPropertyChanged("VersaoLayout");
             }
         }
 
@@ -490,19 +454,15 @@ namespace MDFe.AppTeste
                 {
                     CaminhoArquivo = CaminhoArquivo,
                     NumeroDeSerie = NumeroDeSerie,
-                    Senha = Senha
+                    Senha = Senha,
+                    ManterEmCache = ManterCertificadoEmCache
                 },
                 ConfigWebService =
                 {
                     UfEmitente = UfDestino,
                     Numeracao = Numeracao,
                     Serie = Serie,
-                    VersaoMDFeConsNaoEnc = VersaoServico.Versao100,
-                    VersaoMDFeConsulta = VersaoServico.Versao100,
-                    VersaoMDFeRecepcao = VersaoServico.Versao100,
-                    VersaoMDFeRecepcaoEvento = VersaoServico.Versao100,
-                    VersaoMDFeRetRecepcao = VersaoServico.Versao100,
-                    VersaoMDFeStatusServico = VersaoServico.Versao100,
+                    VersaoLayout = VersaoLayout,
                     CaminhoSchemas = DiretorioSchemas,
                     TimeOut = TimeOut
                 },
@@ -522,8 +482,7 @@ namespace MDFe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            var numeroSerie = CertificadoDigital.ObterDoRepositorio();
-            NumeroDeSerie = numeroSerie.SerialNumber;
+            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()
@@ -562,6 +521,7 @@ namespace MDFe.AppTeste
             Rntrc = config.Empresa.RNTRC;
 
             Senha = config.CertificadoDigital.Senha;
+            ManterCertificadoEmCache = config.CertificadoDigital.ManterEmCache;
             CaminhoArquivo = config.CertificadoDigital.CaminhoArquivo;
             NumeroDeSerie = config.CertificadoDigital.NumeroDeSerie;
 
@@ -576,12 +536,7 @@ namespace MDFe.AppTeste
 
             UfDestino = config.ConfigWebService.UfEmitente;
 
-            VersaoMDFeConsNaoEnc = config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            VersaoMDFeConsulta = config.ConfigWebService.VersaoMDFeConsulta;
-            VersaoMDFeRecepcao = config.ConfigWebService.VersaoMDFeRecepcao;
-            VersaoMDFeRecepcaoEvento = config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            VersaoMDFeRetRecepcao = config.ConfigWebService.VersaoMDFeRetRecepcao;
-            VersaoMDFeStatusServico = config.ConfigWebService.VersaoMDFeStatusServico;
+            VersaoLayout = config.ConfigWebService.VersaoLayout;
 
             DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
             DiretorioSalvarXml = config.DiretorioSalvarXml;
@@ -594,17 +549,17 @@ namespace MDFe.AppTeste
             }
         }
 
-        public void CriarEnviar100()
+        public void CriarEnviar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
+            var mdfe = new MDFeEletronico();
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
             mdfe.InfMDFe.Ide.Serie = 750;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
@@ -613,8 +568,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -656,18 +611,20 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                RNTRC = config.Empresa.RNTRC,
-                VeicTracao = new MDFeVeicTracao
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    Placa = "KKK9888",
-                    RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
-                    Tara = 222,
-                    CapM3 = 222,
-                    CapKG = 22,
-                    Condutor = new List<MDFeCondutor>
+                    RNTRC = config.Empresa.RNTRC,
+                    VeicTracao = new MDFeVeicTracao
+                    {
+                        Placa = "KKK9888",
+                        RENAVAM = "888888888",
+                        UF = Estado.GO,
+                        Tara = 222,
+                        CapM3 = 222,
+                        CapKG = 22,
+                        Condutor = new List<MDFeCondutor>
                     {
                         new MDFeCondutor
                         {
@@ -675,10 +632,76 @@ namespace MDFe.AppTeste
                             XNome = "Ricardão"
                         }
                     },
-                    TpRod = MDFeTpRod.Outros,
-                    TpCar = MDFeTpCar.NaoAplicavel
-                }
-            };
+                        TpRod = MDFeTpRod.Outros,
+                        TpCar = MDFeTpCar.NaoAplicavel
+                    }
+                };
+            }
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                {
+                    infANTT = new MDFeInfANTT
+                    {
+                        RNTRC = config.Empresa.RNTRC,
+
+                        // não é obrigatorio
+                        infCIOT = new List<infCIOT>
+                        {
+                            new infCIOT
+                            {
+                                CIOT = "123456789123",
+                                CNPJ = "21025760000123"
+                            }
+                        },
+                        valePed = new MDFeValePed
+                        {
+                            Disp = new List<MDFeDisp>
+                                    {
+                                        new MDFeDisp
+                                        {
+                                            CNPJForn = "21025760000123",
+                                            CNPJPg = "21025760000123",
+                                            NCompra = "838388383",
+                                            vValePed = 100.33m
+                                        }
+                                    }
+                        }
+                    },
+
+                    VeicTracao = new MDFeVeicTracao
+                        {
+                            Placa = "KKK9888",
+                            RENAVAM = "888888888",
+                            UF = Estado.GO,
+                            Tara = 222,
+                            CapM3 = 222,
+                            CapKG = 22,
+                            Condutor = new List<MDFeCondutor>
+                        {
+                            new MDFeCondutor
+                            {
+                                CPF = "11392381754",
+                                XNome = "Ricardão"
+                            }
+                        },
+                            TpRod = MDFeTpRod.Outros,
+                            TpCar = MDFeTpCar.NaoAplicavel
+                        },
+
+                    lacRodo = new List<MDFeLacre>
+                    {
+                        new MDFeLacre
+                        {
+                            NLacre = "lacre01"
+                        }
+                    }
+
+                };
+            }
+
             #endregion modal
 
             #region infMunDescarga
@@ -697,7 +720,49 @@ namespace MDFe.AppTeste
                     }
                 }
             };
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
+                {
+                    new MDFePeri
+                    {
+                        NONU = "1111",
+                        QTotProd = "quantidade 20"
+                    }
+                };
+            }
+
             #endregion infMunDescarga
+
+            #region seg
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.Seg = new List<MDFeSeg>();
+
+                mdfe.InfMDFe.Seg.Add(new MDFeSeg
+                {
+                    InfResp = new MDFeInfResp
+                    {
+                        CNPJ = "21025760000123",
+                        RespSeg = MDFeRespSeg.EmitenteDoMDFe
+                    },
+                    InfSeg = new MDFeInfSeg
+                    {
+                        CNPJ = "21025760000123",
+                        XSeg = "aaaaaaaaaa"
+                    },
+                    NApol = "aaaaaaaaaa",
+                    NAver = new List<string>
+                        {
+                            "aaaaaaaa"
+                        }
+                });
+            }
+
+            #endregion
 
             #region Totais (tot)
             mdfe.InfMDFe.Tot.QCTe = 1;
@@ -714,12 +779,21 @@ namespace MDFe.AppTeste
             #endregion
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
+
+            // Evento executado antes do envio da mdf-e para a sefaz
+            //servicoRecepcao.AntesDeEnviar += AntesEnviar;
+
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        private void AntesEnviar(object sender, AntesDeEnviar e)
+        {
+            MessageBoxTuche(e.enviMdFe.MDFe.Chave());
         }
 
         private static int GetRandom()
@@ -735,18 +809,18 @@ namespace MDFe.AppTeste
             DiretorioSchemas = dlg.SelectedPath;
         }
 
-        public void GerarESalvar1_0()
+        public void GerarESalvar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new ManifestoDocumentoFiscalEletronico.Classes.Informacoes.MDFe();
+            var mdfe = new MDFeEletronico();
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
             mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
             mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = MDFeModelo.MDFe;
-            mdfe.InfMDFe.Ide.Serie = 750;
+            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
+            mdfe.InfMDFe.Ide.Serie = 751;
             mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
             mdfe.InfMDFe.Ide.CMDF = GetRandom();
             mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
@@ -754,8 +828,8 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = EstadoUF.GO;
-            mdfe.InfMDFe.Ide.UFFim = EstadoUF.MT;
+            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
             mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
@@ -797,18 +871,21 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                RNTRC = config.Empresa.RNTRC,
-                VeicTracao = new MDFeVeicTracao
+                mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    Placa = "KKK9888",
-                    RENAVAM = "888888888",
-                    UF = EstadoUF.GO,
-                    Tara = 222,
-                    CapM3 = 222,
-                    CapKG = 22,
-                    Condutor = new List<MDFeCondutor>
+                    RNTRC = config.Empresa.RNTRC,
+                    VeicTracao = new MDFeVeicTracao
+                    {
+                        Placa = "KKK9888",
+                        RENAVAM = "888888888",
+                        UF = Estado.GO,
+                        Tara = 222,
+                        CapM3 = 222,
+                        CapKG = 22,
+                        Condutor = new List<MDFeCondutor>
                     {
                         new MDFeCondutor
                         {
@@ -816,10 +893,77 @@ namespace MDFe.AppTeste
                             XNome = "Ricardão"
                         }
                     },
-                    TpRod = MDFeTpRod.Outros,
-                    TpCar = MDFeTpCar.NaoAplicavel
-                }
-            };
+                        TpRod = MDFeTpRod.Outros,
+                        TpCar = MDFeTpCar.NaoAplicavel
+                    }
+                };
+            }
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                {
+                    infANTT = new MDFeInfANTT
+                    {
+                        RNTRC = config.Empresa.RNTRC,
+
+                        // não é obrigatorio
+                        infCIOT = new List<infCIOT>
+                        {
+                            new infCIOT
+                            {
+                                CIOT = "123456789123",
+                                CNPJ = "21025760000123"
+                            }
+                        },
+                        valePed = new MDFeValePed
+                        {
+                            Disp = new List<MDFeDisp>
+                                    {
+                                        new MDFeDisp
+                                        {
+                                            CNPJForn = "21025760000123",
+                                            CNPJPg = "21025760000123",
+                                            NCompra = "838388383",
+                                            vValePed = 100.33m
+                                        }
+                                    }
+                        }
+                    },
+
+                    VeicTracao = new MDFeVeicTracao
+                    {
+                        Placa = "KKK9888",
+                        RENAVAM = "888888888",
+                        UF = Estado.GO,
+                        Tara = 222,
+                        CapM3 = 222,
+                        CapKG = 22,
+                        Condutor = new List<MDFeCondutor>
+                        {
+                            new MDFeCondutor
+                            {
+                                CPF = "11392381754",
+                                XNome = "Ricardão"
+                            }
+                        },
+                        TpRod = MDFeTpRod.Outros,
+                        TpCar = MDFeTpCar.NaoAplicavel
+                    },
+
+                    lacRodo = new List<MDFeLacre>
+                    {
+                        new MDFeLacre
+                        {
+                            NLacre = "lacre01"
+                        }
+                    }
+
+                };
+            }
+
             #endregion modal
 
             #region infMunDescarga
@@ -838,7 +982,49 @@ namespace MDFe.AppTeste
                     }
                 }
             };
+
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
+                {
+                    new MDFePeri
+                    {
+                        NONU = "1111",
+                        QTotProd = "quantidade 20"
+                    }
+                };
+            }
+
             #endregion infMunDescarga
+
+            #region seg
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.Seg = new List<MDFeSeg>();
+
+                mdfe.InfMDFe.Seg.Add(new MDFeSeg
+                {
+                    InfResp = new MDFeInfResp
+                    {
+                        CNPJ = "21025760000123",
+                        RespSeg = MDFeRespSeg.EmitenteDoMDFe
+                    },
+                    InfSeg = new MDFeInfSeg
+                    {
+                        CNPJ = "21025760000123",
+                        XSeg = "aaaaaaaaaa"
+                    },
+                    NApol = "aaaaaaaaaa",
+                    NAver = new List<string>
+                        {
+                            "aaaaaaaa"
+                        }
+                });
+            }
+
+            #endregion
 
             #region Totais (tot)
             mdfe.InfMDFe.Tot.QCTe = 1;
@@ -867,7 +1053,7 @@ namespace MDFe.AppTeste
             DiretorioSalvarXml = dlg.SelectedPath;
         }
 
-        public void ConsultaPorRecibo1_0()
+        public void ConsultaPorRecibo()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -886,7 +1072,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void ConsultaPorProtocolo1_0()
+        public void ConsultaPorProtocolo()
         {
             var porChave = MessageBoxConfirmTuche("Sim = Por chave\nNão = Por arquivo xml");
             var chave = string.Empty;
@@ -983,7 +1169,7 @@ namespace MDFe.AppTeste
             MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.OK, icon);
         }
 
-        public void ConsultaStatusServico1_0()
+        public void ConsultaStatusServico()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -995,7 +1181,7 @@ namespace MDFe.AppTeste
 
         }
 
-        public void ConsultaNaoEncerrados1_0()
+        public void ConsultaNaoEncerrados()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1006,7 +1192,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoIncluirCondutor1_0()
+        public void EventoIncluirCondutor()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1048,7 +1234,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoEncerramento1_0()
+        public void EventoEncerramento()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1082,7 +1268,7 @@ namespace MDFe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoCancelar1_0()
+        public void EventoCancelar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1126,25 +1312,21 @@ namespace MDFe.AppTeste
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {
-            Utils.Configuracoes.MDFeConfiguracao.SenhaCertificadoDigital = config.CertificadoDigital.Senha;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoCertificadoDigital = config.CertificadoDigital.CaminhoArquivo;
-            Utils.Configuracoes.MDFeConfiguracao.NumeroSerieCertificadoDigital = config.CertificadoDigital.NumeroDeSerie;
+            var configuracaoCertificado = new ConfiguracaoCertificado
+            {
+                Senha = config.CertificadoDigital.Senha,
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
+            };
+
+            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
             Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsNaoEnc =
-                config.ConfigWebService.VersaoMDFeConsNaoEnc;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeConsulta =
-                config.ConfigWebService.VersaoMDFeConsulta;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcao =
-                config.ConfigWebService.VersaoMDFeRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRecepcaoEvento =
-                config.ConfigWebService.VersaoMDFeRecepcaoEvento;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeRetRecepcao =
-                config.ConfigWebService.VersaoMDFeRetRecepcao;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoMDFeStatusServico =
-                config.ConfigWebService.VersaoMDFeStatusServico;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;

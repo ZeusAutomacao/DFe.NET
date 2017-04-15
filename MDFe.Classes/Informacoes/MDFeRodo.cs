@@ -33,13 +33,16 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
+using MDFe.Classes.Contratos;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeRodo : MDFeModalContainer
     {
+        [XmlElement(ElementName = "infANTT")]
+        public MDFeInfANTT infANTT { get; set; }
+
         /// <summary>
         /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
         /// </summary>
@@ -75,5 +78,23 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "codAgPorto")]
         public string CodAgPorto { get; set; }
+
+        [XmlElement(ElementName = "lacRodo")]
+        public List<MDFeLacre> lacRodo { get; set; }
+    }
+
+    [Serializable]
+    public class MDFeInfANTT
+    {
+        [XmlElement(ElementName = "RNTRC")]
+        public string RNTRC { get; set; }
+
+        [XmlElement(ElementName = "infCIOT")]
+        public List<infCIOT> infCIOT { get; set; }
+
+        public MDFeValePed valePed { get; set; }
+
+        [XmlElement(ElementName = "infContratante")]
+        public List<infContratante> infContratante { get; set; }
     }
 }

@@ -33,9 +33,10 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
+using DFe.Utils;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEvento
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
     [XmlRoot(ElementName = "evEncMDFe")]
@@ -58,12 +59,12 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes.Evento.CorpoEve
         [XmlElement(ElementName = "dtEnc")]
         public string ProxyDhEmi
         {
-            get { return DtEnc.ToString("yyyy-MM-dd"); }
+            get { return DtEnc.ParaDataString(); }
             set { DtEnc = DateTime.Parse(value); }
         }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy

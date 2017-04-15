@@ -33,13 +33,15 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using ManifestoDocumentoFiscalEletronico.Classes.Contratos;
+using MDFe.Classes.Contratos;
+using MDFe.Classes.Flags;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
+namespace MDFe.Classes.Informacoes
 {
     [Serializable]
     public class MDFeAquav : MDFeModalContainer
     {
+        public string irin { get; set; }
         /// <summary>
         /// 1 - CNPJ da Agência de Navegação
         /// </summary>
@@ -82,6 +84,12 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         [XmlElement(ElementName = "cPrtDest")]
         public string CPrtDest { get; set; }
 
+        public string prtTrans { get; set; }
+
+        public tpNav? tpNav { get; set; }
+
+        public bool tpNavSpecified { get { return tpNav.HasValue; } }
+
         /// <summary>
         /// 1 - Grupo de informações dos terminais de carregamento.
         /// </summary>
@@ -105,5 +113,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "infUnidCargaVazia")]
         public List<MDFeInfUnidCargaVazia> InfUnidCargaVazias { get; set; }
+
+        public List<infUnidTranspVazia> infUnidTranspVazia { get; set; }
     }
 }

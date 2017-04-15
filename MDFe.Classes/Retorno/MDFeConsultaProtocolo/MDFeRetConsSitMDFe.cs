@@ -31,15 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extencoes;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using ManifestoDocumentoFiscalEletronico.Classes.Informacoes.ConsultaProtocolo;
-using ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeRetRecepcao;
+using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Retorno.MDFeRetRecepcao;
 
-namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtocolo
+namespace MDFe.Classes.Retorno.MDFeConsultaProtocolo
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
@@ -62,7 +63,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
         public string XMotivo { get; set; }
 
         [XmlIgnore]
-        public EstadoUF CUF { get; set; }
+        public Estado CUF { get; set; }
 
         [XmlElement(ElementName = "cUF")]
         public string CUFProxy
@@ -78,7 +79,7 @@ namespace ManifestoDocumentoFiscalEletronico.Classes.Retorno.MDFeConsultaProtoco
         public MDFeProtMDFe ProtMDFe { get; set; }
 
         [XmlElement(ElementName = "procEventoMDFe")]
-        public MDFeProcEventoMDFe ProcEventoMDFe { get; set; }
+        public List<MDFeProcEventoMDFe> ProcEventoMDFe { get; set; }
 
         public static MDFeRetConsSitMDFe LoadXml(string xml)
         {

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:element name="aereo">
+		<xs:annotation>
+			<xs:documentation>Informações do modal Aéreo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nMinu" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número da Minuta</xs:documentation>
+						<xs:documentation>Documento que precede o CT-e, assinado pelo expedidor, espécie de pedido de serviço</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{9}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nOCA" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número Operacional do Conhecimento Aéreo</xs:documentation>
+						<xs:documentation>Os três primeiros dígitos representam um código que os operadores de transporte aéreo associados à IATA possuem. Em seguida um número de série de sete dígitos determinados pelo operador de tansporte aéreo. Para finalizar, um dígito verificador</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{11}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dPrevAereo" type="TData">
+					<xs:annotation>
+						<xs:documentation>Data prevista da entrega</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="xLAgEmi" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Identificação do Emissor</xs:documentation>
+						<xs:documentation>Preencher com o nome da filial, da franquia ou da representante legal emissora do CT-e da empresa de transporte aéreo. </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="20"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IdT" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Identificação Interna do Tomador</xs:documentation>
+						<xs:documentation>Preencher com o código identificador entre o cliente tomador e a empresa aérea. Exemplo: CNPJ, conta corrente, etc.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="14"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="tarifa">
+					<xs:annotation>
+						<xs:documentation>Informações de tarifa</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CL">
+								<xs:annotation>
+									<xs:documentation>Classe</xs:documentation>
+									<xs:documentation>Preencher com:
+									M - Tarifa Mínima;
+									G - Tarifa Geral;
+									E - Tarifa Específica</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="1"/>
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="M"/>
+										<xs:pattern value="G"/>
+										<xs:pattern value="E"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cTar" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Código da Tarifa</xs:documentation>
+									<xs:documentation>Deverão ser incluídos os códigos de três dígitos, correspondentes à tarifa.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="vTar" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor da Tarifa</xs:documentation>
+									<xs:documentation>Valor da tarifa por kg quando for o caso.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="natCarga">
+					<xs:annotation>
+						<xs:documentation>Natureza da carga</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="xDime" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Dimensão</xs:documentation>
+									<xs:documentation>Formato:1234X1234X1234 (cm)
+
+Esse campo deve sempre que possível ser preenchido. Entretanto, quando for impossível o preenchimento das dimensões, fica obrigatório o preechimento da cubagem em metro cúbico da infQ do leiaute do CT-e da estrutura genérica.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="5"/>
+										<xs:maxLength value="14"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cInfManu" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Informações de manuseio</xs:documentation>
+									<xs:documentation>1 - certificado do expedidor para embarque de animal vivo;
+									2 - artigo perigoso conforme Declaração do Expedidor anexa;
+									3 - somente em aeronave cargueira;  
+									4 - artigo perigoso - declaração do expedidor não requerida; 
+									5 - artigo perigoso em quantidade isenta;
+									6 - gelo seco para refrigeração (especificar no campo observações a quantidade)
+									7 - não restrito (especificar a Disposição Especial no campo observações)
+									8 - artigo perigoso em carga consolidada (especificar a quantidade no campo observações)
+									9 - autorização da autoridade governamental anexa (especificar no campo observações)
+									99 - outro (especificar no campo observações)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+										<xs:enumeration value="4"/>
+										<xs:enumeration value="5"/>
+										<xs:enumeration value="6"/>
+										<xs:enumeration value="7"/>
+										<xs:enumeration value="8"/>
+										<xs:enumeration value="9"/>
+										<xs:enumeration value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cIMP" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Carga especial</xs:documentation>
+									<xs:documentation>Informar o código Interline Message Procedure - IMP</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="3"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
