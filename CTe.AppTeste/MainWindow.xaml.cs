@@ -133,5 +133,10 @@ namespace CTe.AppTeste
         {
             _model.ConsultaPorNumeroRecibo();
         }
+
+        private void CriarEnviarAutomaticoCTe2_Click(object sender, RoutedEventArgs e)
+        {
+            _model.CriarEnviarCTeConsultaReciboAutomatico2e3();
+        }
     }
 }
