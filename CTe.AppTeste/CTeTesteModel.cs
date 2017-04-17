@@ -58,6 +58,7 @@ using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.ConsultaProtocolo;
 using CTe.Servicos.ConsultaRecibo;
 using CTe.Servicos.ConsultaStatus;
+using CTe.Servicos.EnviarCte;
 using CTe.Servicos.Eventos;
 using CTe.Servicos.Inutilizacao;
 using CTe.Servicos.Recepcao;
@@ -79,6 +80,12 @@ namespace CTe.AppTeste
         {
             Envio = retorno.EnvioXmlString;
             Retorno = retorno.RetornoXmlString;
+        }
+
+        public RetornoEEnvio(string envio, string retorno)
+        {
+            Envio = envio;
+            Retorno = retorno;
         }
 
         public string Envio { get; set; }
@@ -1056,6 +1063,247 @@ namespace CTe.AppTeste
         {
             var rand = new Random();
             return rand.Next(11111111, 99999999);
+        }
+
+        public void CriarEnviarCTeConsultaReciboAutomatico2e3()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var cteEletronico = new CteEletronico();
+
+            #region infCte
+
+            cteEletronico.infCte = new infCte();
+            cteEletronico.infCte.versao = config.ConfigWebService.Versao;
+
+            #endregion
+
+            #region ide
+
+            cteEletronico.infCte.ide = new ide();
+            cteEletronico.infCte.ide.cUF = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.cCT = GetRandom();
+            cteEletronico.infCte.ide.CFOP = 5353;
+            cteEletronico.infCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.ide.forPag = forPag.Pago;
+            }
+            cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
+            cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
+            cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
+            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
+            cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
+            cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
+            cteEletronico.infCte.ide.tpCTe = tpCTe.Normal;
+            cteEletronico.infCte.ide.procEmi = procEmi.AplicativoContribuinte;
+            cteEletronico.infCte.ide.verProc = "0.0.0.1";
+            cteEletronico.infCte.ide.cMunEnv = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunEnv = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFEnv = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.modal = modal.rodoviario;
+            cteEletronico.infCte.ide.tpServ = tpServ.normal;
+            cteEletronico.infCte.ide.cMunIni = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunIni = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFIni = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.cMunFim = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.ide.xMunFim = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.ide.UFFim = config.Empresa.SiglaUf;
+            cteEletronico.infCte.ide.retira = retira.Nao;
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                cteEletronico.infCte.ide.indIEToma = indIEToma.ContribuinteIcms;
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.ide.tomaBase3 = new toma03
+                {
+                    toma = toma.Remetente
+                };
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                cteEletronico.infCte.ide.tomaBase3 = new toma3
+                {
+                    toma = toma.Remetente
+                };
+            }
+
+
+            #endregion
+
+            #region emit
+
+            cteEletronico.infCte.emit = new emit();
+            cteEletronico.infCte.emit.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.emit.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.emit.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.emit.xFant = config.Empresa.NomeFantasia;
+
+            cteEletronico.infCte.emit.enderEmit = new enderEmit();
+            cteEletronico.infCte.emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.emit.enderEmit.nro = config.Empresa.Numero;
+            cteEletronico.infCte.emit.enderEmit.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.emit.enderEmit.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.emit.enderEmit.UF = config.Empresa.SiglaUf;
+            cteEletronico.infCte.emit.enderEmit.fone = config.Empresa.Telefone;
+
+            #endregion
+
+            // Remetente , no caso adicionei os mesmos dados do emitente.. mas seriam o do remente.
+            #region rem
+            cteEletronico.infCte.rem = new rem();
+            cteEletronico.infCte.rem.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.rem.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.rem.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.rem.xFant = config.Empresa.NomeFantasia;
+            cteEletronico.infCte.rem.fone = config.Empresa.Telefone;
+
+            cteEletronico.infCte.rem.enderReme = new enderReme();
+            cteEletronico.infCte.rem.enderReme.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.rem.enderReme.nro = config.Empresa.Numero;
+            cteEletronico.infCte.rem.enderReme.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.rem.enderReme.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.rem.enderReme.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.rem.enderReme.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.rem.enderReme.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.rem.enderReme.UF = config.Empresa.SiglaUf;
+            #endregion
+
+            // Destinatário
+            #region dest
+
+            cteEletronico.infCte.dest = new dest();
+            cteEletronico.infCte.dest.CNPJ = config.Empresa.Cnpj;
+            cteEletronico.infCte.dest.IE = config.Empresa.InscricaoEstadual;
+            cteEletronico.infCte.dest.xNome = config.Empresa.Nome;
+            cteEletronico.infCte.dest.fone = config.Empresa.Telefone;
+
+            cteEletronico.infCte.dest.enderDest = new enderDest();
+            cteEletronico.infCte.dest.enderDest.xLgr = config.Empresa.Logradouro;
+            cteEletronico.infCte.dest.enderDest.nro = config.Empresa.Numero;
+            cteEletronico.infCte.dest.enderDest.xCpl = config.Empresa.Complemento;
+            cteEletronico.infCte.dest.enderDest.xBairro = config.Empresa.Bairro;
+            cteEletronico.infCte.dest.enderDest.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteEletronico.infCte.dest.enderDest.xMun = config.Empresa.NomeMunicipio;
+            cteEletronico.infCte.dest.enderDest.CEP = long.Parse(config.Empresa.Cep);
+            cteEletronico.infCte.dest.enderDest.UF = config.Empresa.SiglaUf;
+
+            #endregion
+
+            #region vPrest
+
+            cteEletronico.infCte.vPrest = new vPrest();
+            cteEletronico.infCte.vPrest.vTPrest = 100m;
+            cteEletronico.infCte.vPrest.vRec = 100m;
+
+            #endregion
+
+            #region imp
+
+            cteEletronico.infCte.imp = new imp();
+            cteEletronico.infCte.imp.ICMS = new ICMS();
+
+            var icmsSimplesNacional = new ICMSSN();
+
+            cteEletronico.infCte.imp.ICMS.TipoICMS = icmsSimplesNacional;
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                icmsSimplesNacional.CST = CST.ICMS90;
+            }
+
+            #endregion
+
+            #region infCTeNorm
+
+            cteEletronico.infCte.infCTeNorm = new infCTeNorm();
+            cteEletronico.infCte.infCTeNorm.infCarga = new infCarga();
+            cteEletronico.infCte.infCTeNorm.infCarga.vCarga = 1000m;
+            cteEletronico.infCte.infCTeNorm.infCarga.proPred = "Linguiça com piqui";
+
+            cteEletronico.infCte.infCTeNorm.infCarga.infQ = new List<infQ>();
+            cteEletronico.infCte.infCTeNorm.infCarga.infQ.Add(new infQ
+            {
+                cUnid = cUnid.KG,
+                qCarga = 10000,
+                tpMed = "quilos gramas"
+            });
+
+            cteEletronico.infCte.infCTeNorm.infDoc = new infDoc();
+            cteEletronico.infCte.infCTeNorm.infDoc.infNFe = new List<infNFe>();
+            cteEletronico.infCte.infCTeNorm.infDoc.infNFe.Add(new infNFe
+            {
+                chave = "52161021025760000123550010000087341557247948"
+            });
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
+                cteEletronico.infCte.infCTeNorm.seg.Add(new seg
+                {
+                    respSeg = respSeg.Destinatario
+                });
+            }
+
+            cteEletronico.infCte.infCTeNorm.infModal = new infModal();
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
+            }
+
+            if (config.ConfigWebService.Versao == versao.ve300)
+            {
+                cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+            }
+
+            var rodoviario = new rodo();
+            rodoviario.RNTRC = config.Empresa.RNTRC;
+
+            if (config.ConfigWebService.Versao == versao.ve200)
+            {
+                rodoviario.dPrev = DateTime.Now;
+                rodoviario.lota = lota.Nao;
+            }
+
+
+            cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
+            #endregion
+
+
+            var numeroLote = InputBoxTuche("Número Lote");
+
+
+            var servico = new ServicoEnviarCte();
+
+
+            var retorno = servico.Enviar(Convert.ToInt32(numeroLote), cteEletronico);
+
+
+            string xmlRetorno = string.Empty;
+
+            if (retorno.CteProc != null)
+                xmlRetorno = retorno.CteProc.ObterXmlString();
+
+            if (retorno.RetConsReciCTe.protCTe[0].infProt.cStat != 100)
+            {
+                xmlRetorno = retorno.RetConsReciCTe.RetornoXmlString;
+            }
+
+            OnSucessoSync(new RetornoEEnvio(retorno.RetEnviCte.EnvioXmlString, xmlRetorno));
+
+            config.ConfigWebService.Numeracao++;
+            new ConfiguracaoDao().SalvarConfiguracao(config);
         }
     }
 }
