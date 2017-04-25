@@ -83,6 +83,8 @@ namespace DFe.Utils.Assinatura
         /// <returns></returns>
         private static X509Certificate2 ObterDoRepositorio(string serial, OpenFlags opcoesDeAbertura)
         {
+            if (string.IsNullOrEmpty(serial))
+                throw new ArgumentException("O número de série do certificado digital não foi informado!");
             X509Certificate2 certificado = null;
             var store = ObterX509Store(opcoesDeAbertura);
             try
