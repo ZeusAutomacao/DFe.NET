@@ -206,12 +206,43 @@ namespace DFe.Utils.Assinatura
             return _certificado;
         }
 
-
-        public static void clearCache()
+        /// <summary>
+        /// Extenção para certificado digital
+        /// <para>Se usado ele retorna true se for um hardware, se for PenDriver ou SmartCard</para>
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        /// <returns>bool</returns>
+        public static bool IsA3(this X509Certificate2 x509Certificate2)
         {
-            if (_certificado != null)
-                _certificado =null;
+            if (x509Certificate2 == null)
+                return false;
 
+            bool result = false;
+
+            try
+            {
+                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+
+                if (service != null)
+                {
+                    if (service.CspKeyContainerInfo.Removable &&
+                        service.CspKeyContainerInfo.HardwareDevice)
+                        result = true;
+                }
+            }
+            catch
+            {
+                //assume que é false
+                result = false;
+            }
+
+            return result;
+        }
+
+
+        public static void ClearCache()
+        {
+            _certificado = null;
         }
     }
 
