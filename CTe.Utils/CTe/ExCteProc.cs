@@ -30,6 +30,9 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using CTe.Classes;
+using CTe.Utils.CTe;
 using DFe.Utils;
 using cteProc = CTe.Classes.cteProc;
 
@@ -76,5 +79,20 @@ public static class ExtCteProc
     public static void SalvarArquivoXml(this cteProc cteProc, string arquivoXml)
     {
         FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoXml);
+    }
+
+    public static void SalvarXmlEmDisco(this cteProc cteProc)
+    {
+        if (cteProc == null) return;
+
+        var instanciaServico = ConfiguracaoServico.Instancia;
+
+        if (instanciaServico.NaoSalvarXml()) return;
+
+        var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+        var arquivoSalvar = caminhoXml + @"\" + cteProc.CTe.Chave() + "-cteproc.xml";
+
+        FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoSalvar);
     }
 }

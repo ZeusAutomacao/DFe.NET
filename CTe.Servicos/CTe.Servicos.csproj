@@ -45,6 +45,8 @@
     <Compile Include="ConsultaStatus\StatusServico.cs" />
     <Compile Include="Enderecos\Helpers\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlCTe.cs" />
+    <Compile Include="EnviarCte\RetornoEnviarCte.cs" />
+    <Compile Include="EnviarCte\ServicoEnviarCte.cs" />
     <Compile Include="Eventos\Contratos\IServicoController.cs" />
     <Compile Include="Eventos\EventoCancelamento.cs" />
     <Compile Include="Eventos\EventoCartaCorrecao.cs" />
