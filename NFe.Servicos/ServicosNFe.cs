@@ -608,7 +608,15 @@ namespace NFe.Servicos
         }
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
-            string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+                    string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+                    string justificativa = null)
+        {
+            return RecepcaoEventoManifestacaoDestinatario(idlote, sequenciaEvento, new[] { chaveNFe },
+                tipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
+        }
+
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
+            string[] chavesNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
             string justificativa = null)
         {
             var versaoServico =
@@ -620,26 +628,32 @@ namespace NFe.Servicos
                 descEvento = tipoEventoManifestacaoDestinatario.Descricao(),
                 xJust = justificativa
             };
-            var infEvento = new infEventoEnv
+
+            var eventos = new List<evento>();
+            foreach (var chaveNFe in chavesNFe)
             {
-                cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN,
-                //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
-                tpAmb = _cFgServico.tpAmb,
-                chNFe = chaveNFe,
-                dhEvento = DateTime.Now,
-                tpEvento = (int) tipoEventoManifestacaoDestinatario,
-                nSeqEvento = sequenciaEvento,
-                verEvento = versaoServico,
-                detEvento = detEvento
-            };
-            if (cpfcnpj.Length == 11)
-                infEvento.CPF = cpfcnpj;
-            else
-                infEvento.CNPJ = cpfcnpj;
+                var infEvento = new infEventoEnv
+                {
+                    cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN,
+                    //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
+                    tpAmb = _cFgServico.tpAmb,
+                    chNFe = chaveNFe,
+                    dhEvento = DateTime.Now,
+                    tpEvento = (int)tipoEventoManifestacaoDestinatario,
+                    nSeqEvento = sequenciaEvento,
+                    verEvento = versaoServico,
+                    detEvento = detEvento
+                };
+                if (cpfcnpj.Length == 11)
+                    infEvento.CPF = cpfcnpj;
+                else
+                    infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+                eventos.Add(new evento { versao = versaoServico, infEvento = infEvento });
+            }
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento},
+
+            var retorno = RecepcaoEvento(idlote, eventos,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
