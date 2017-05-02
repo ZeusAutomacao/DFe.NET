@@ -206,39 +206,6 @@ namespace DFe.Utils.Assinatura
             return _certificado;
         }
 
-        /// <summary>
-        /// Extenção para certificado digital
-        /// <para>Se usado ele retorna true se for um hardware, se for PenDriver ou SmartCard</para>
-        /// </summary>
-        /// <param name="x509Certificate2"></param>
-        /// <returns>bool</returns>
-        public static bool IsA3(this X509Certificate2 x509Certificate2)
-        {
-            if (x509Certificate2 == null)
-                return false;
-
-            bool result = false;
-
-            try
-            {
-                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
-
-                if (service != null)
-                {
-                    if (service.CspKeyContainerInfo.Removable &&
-                        service.CspKeyContainerInfo.HardwareDevice)
-                        result = true;
-                }
-            }
-            catch
-            {
-                //assume que é false
-                result = false;
-            }
-
-            return result;
-        }
-
 
         public static void ClearCache()
         {
@@ -296,6 +263,58 @@ namespace DFe.Utils.Assinatura
             {
                 throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
             }
+        }
+    }
+
+    public static class ExtensaoCertificadoDigital
+    {
+        /// <summary>
+        /// Extenção para certificado digital
+        /// <para>Verificar validade do certificado digital, se vencido dispara ArgumentException</para>
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        public static void VerificaValidade(this X509Certificate2 x509Certificate2)
+        {
+            DateTime dataExpiracao = Convert.ToDateTime(x509Certificate2.GetExpirationDateString());
+
+            if (dataExpiracao <= DateTime.Now)
+            {
+                throw new ArgumentException("Certificado digital vencido na data => " + dataExpiracao);
+            }
+        }
+
+
+        /// <summary>
+        /// Extenção para certificado digital
+        /// <para>Se usado ele retorna true se for um hardware, se for PenDriver ou SmartCard</para>
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        /// <returns>bool</returns>
+        public static bool IsA3(this X509Certificate2 x509Certificate2)
+        {
+            if (x509Certificate2 == null)
+                return false;
+
+            bool result = false;
+
+            try
+            {
+                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+
+                if (service != null)
+                {
+                    if (service.CspKeyContainerInfo.Removable &&
+                        service.CspKeyContainerInfo.HardwareDevice)
+                        result = true;
+                }
+            }
+            catch
+            {
+                //assume que é false
+                result = false;
+            }
+
+            return result;
         }
     }
 }
