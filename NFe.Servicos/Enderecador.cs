@@ -91,13 +91,13 @@ namespace NFe.Servicos
 
             #region Listas
 
-            var emissaoComum = new List<TipoEmissao> {TipoEmissao.teNormal, TipoEmissao.teEPEC, TipoEmissao.teFSIA, TipoEmissao.teFSDA, TipoEmissao.teOffLine};
+            var emissaoComum = new List<TipoEmissao> { TipoEmissao.teNormal, TipoEmissao.teEPEC, TipoEmissao.teFSIA, TipoEmissao.teFSDA, TipoEmissao.teOffLine };
 
-            var versaoDoisETres = new List<VersaoServico> {VersaoServico.ve200, VersaoServico.ve310};
+            var versaoDoisETres = new List<VersaoServico> { VersaoServico.ve200, VersaoServico.ve310 };
 
-            var svanEstados = new List<Estado> {Estado.MA, Estado.PA, Estado.PI};
+            var svanEstados = new List<Estado> { Estado.MA, Estado.PA, Estado.PI };
 
-            var svrsEstadosConsultaCadastro = new List<Estado> {Estado.AC, Estado.RN, Estado.PB, Estado.SC};
+            var svrsEstadosConsultaCadastro = new List<Estado> { Estado.AC, Estado.RN, Estado.PB, Estado.SC };
 
             var svrsEstadosDemaisServicos = new List<Estado>
             {
@@ -120,17 +120,17 @@ namespace NFe.Servicos
                 Estado.TO
             };
 
-            var svcanEstados = new List<Estado> {Estado.AC, Estado.AL, Estado.AP, Estado.DF, Estado.ES, Estado.MG, Estado.PB, Estado.RJ, Estado.RN, Estado.RO, Estado.RR, Estado.RS, Estado.SC, Estado.SE, Estado.SP, Estado.TO};
+            var svcanEstados = new List<Estado> { Estado.AC, Estado.AL, Estado.AP, Estado.DF, Estado.ES, Estado.MG, Estado.PB, Estado.RJ, Estado.RN, Estado.RO, Estado.RR, Estado.RS, Estado.SC, Estado.SE, Estado.SP, Estado.TO };
 
-            var svcRsEstados = new List<Estado> {Estado.AM, Estado.BA, Estado.CE, Estado.GO, Estado.MA, Estado.MS, Estado.MT, Estado.PA, Estado.PE, Estado.PI, Estado.PR};
+            var svcRsEstados = new List<Estado> { Estado.AM, Estado.BA, Estado.CE, Estado.GO, Estado.MA, Estado.MS, Estado.MT, Estado.PA, Estado.PE, Estado.PI, Estado.PR };
 
-            var todosOsEstados = Enum.GetValues(typeof (Estado)).Cast<Estado>().ToList();
+            var todosOsEstados = Enum.GetValues(typeof(Estado)).Cast<Estado>().ToList();
 
-            var todosOsModelos = Enum.GetValues(typeof (ModeloDocumento)).Cast<ModeloDocumento>().ToList();
+            var todosOsModelos = Enum.GetValues(typeof(ModeloDocumento)).Cast<ModeloDocumento>().ToList();
 
-            var todosOsAmbientes = Enum.GetValues(typeof (TipoAmbiente)).Cast<TipoAmbiente>().ToList();
+            var todosOsAmbientes = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
 
-            var eventoCceCanc = new List<ServicoNFe> {ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento};
+            var eventoCceCanc = new List<ServicoNFe> { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento };
 
             #endregion
 
@@ -537,8 +537,10 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl"));
+
                 if (emissao != TipoEmissao.teEPEC)
-                    endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
+                    endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
+
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
@@ -575,10 +577,20 @@ namespace NFe.Servicos
                     versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeStatusServico, versao, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl")));
                 endServico.AddRange(
                     versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaCadastro, versao, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl")));
-                if (emissao != TipoEmissao.teEPEC)
-                    foreach (var servicoNFe in eventoCceCanc)
-                        endServico.AddRange(
-                            versaoDoisETres.Select(versao => new EnderecoServico(servicoNFe, versao, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
+
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe,
+                    "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl"));
+
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve100,
+                    TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe,
+                    "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl"));
+
+                //if (emissao != TipoEmissao.teEPEC)
+                //    foreach (var servicoNFe in eventoCceCanc)
+                //        endServico.AddRange(
+                //            versaoDoisETres.Select(versao => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
+
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
 
@@ -988,7 +1000,7 @@ namespace NFe.Servicos
                 foreach (var emissao in emissaoComum)
                 {
                     #region NFe
-                    
+
                     if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PI)
                     {
                         if (emissao != TipoEmissao.teEPEC)
@@ -1285,8 +1297,8 @@ namespace NFe.Servicos
         public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
             var definicao = from d in ListaEnderecos
-                where d.Estado == cfgServico.cUF && d.ServicoNFe == servico && d.TipoAmbiente == cfgServico.tpAmb && d.TipoEmissao == cfgServico.tpEmis && d.VersaoServico == ObterVersaoServico(servico, cfgServico) && d.ModeloDocumento == cfgServico.ModeloDocumento
-                select d.Url;
+                            where d.Estado == cfgServico.cUF && d.ServicoNFe == servico && d.TipoAmbiente == cfgServico.tpAmb && d.TipoEmissao == cfgServico.tpEmis && d.VersaoServico == ObterVersaoServico(servico, cfgServico) && d.ModeloDocumento == cfgServico.ModeloDocumento
+                            select d.Url;
             var listaRetorno = definicao as IList<string> ?? definicao.ToList();
             var qtdeRetorno = listaRetorno.Count();
 

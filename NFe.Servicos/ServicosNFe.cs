@@ -1069,14 +1069,6 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            if (_cFgServico.cUF == Estado.MT)
-            {
-                //Caso seja enviado para MT, remover caracteres especiais
-                // This ISO does not contain special characters
-                var tempBytes = Encoding.GetEncoding("ISO-8859-8").GetBytes(xmlEnvio);
-                xmlEnvio = Encoding.UTF8.GetString(tempBytes);
-            }
-
             Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
