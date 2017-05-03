@@ -34,7 +34,7 @@
 using System;
 using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils.Excesoes
+namespace NFe.Utils.Excecoes
 {
     /// <summary>
     /// Utilize essa classe para determinar se houve problemas com a internet, durante o envio dos dados para um webservice da NFe
