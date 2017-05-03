@@ -54,14 +54,17 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc)
+        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc , string report = "")
         {
             #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
             Relatorio = new Report();
             Relatorio.RegisterData(new[] { proc }, "NFCe", 20);
             Relatorio.GetDataSource("NFCe").Enabled = true;
-            Relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
+            if (string.IsNullOrEmpty(report))
+                Relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
+            else
+                Relatorio.Load(report);
             Relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             Relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             Relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
