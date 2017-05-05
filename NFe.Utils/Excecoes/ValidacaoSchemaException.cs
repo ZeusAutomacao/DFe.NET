@@ -34,7 +34,7 @@
 using System;
 using NFe.Utils.NFe;
 
-namespace NFe.Utils.Excesoes
+namespace NFe.Utils.Excecoes
 {
     /// <summary>
     /// Utilize essa classe para determinar se houve erros de validação de schema XSD

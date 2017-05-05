@@ -42,6 +42,8 @@ namespace CTe.Servicos.EnviarCte
                 };
             }
 
+            cteProc.SalvarXmlEmDisco();
+
             return new RetornoEnviarCte(retEnviCte, retConsReciCTe, cteProc);
         }
     }

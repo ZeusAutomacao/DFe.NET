@@ -36,7 +36,7 @@ using System.Collections.Generic;
 using System.Net;
 using NFe.Classes.Servicos.Tipos;
 
-namespace NFe.Utils.Excesoes
+namespace NFe.Utils.Excecoes
 {
     /// <summary>
     /// Classe responsável pelo tratamento da exceção ComunicacaoException
