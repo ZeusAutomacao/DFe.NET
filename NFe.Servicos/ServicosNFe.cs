@@ -621,7 +621,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             var detEvento = new detEvento
             {
                 versao = versaoServico,
