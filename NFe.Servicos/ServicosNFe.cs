@@ -80,7 +80,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using NFe.Utils.Excesoes;
+using NFe.Utils.Excecoes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos

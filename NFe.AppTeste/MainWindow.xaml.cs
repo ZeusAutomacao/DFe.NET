@@ -76,7 +76,7 @@ using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
 using DFe.Classes.Extensoes;
 using NFe.Danfe.Nativo.NFCe;
-using NFe.Utils.Excesoes;
+using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste

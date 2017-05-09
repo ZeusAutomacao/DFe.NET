@@ -58,5 +58,15 @@ namespace NFe.Utils.Consulta
         {
             return FuncoesXml.ClasseParaXmlString(retConsSitNFe);
         }
+
+        /// <summary>
+        ///     Verifica se esta autorizado
+        /// </summary>
+        /// <param name="consSitNFe"></param>
+        /// <returns>bool</returns>
+        public static bool Autorizada(this retConsSitNFe consSitNFe)
+        {
+            return NfeSituacao.Autorizada(consSitNFe.cStat);
+        }
     }
 }
