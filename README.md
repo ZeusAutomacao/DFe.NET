@@ -1,9 +1,14 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
 [![Issues](https://img.shields.io/github/issues/adeniltonbs/Zeus.Net.NFe.NFCe.svg?style=flat-square)](https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues)
 
-Zeus.NFe.NFCe  [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/) 
-Zeus.MDFe  [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
-Zeus.CTe  [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
+Zeus.NFe.NFCe  
+[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/) 
+
+Zeus.MDFe  
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
+
+Zeus.CTe  
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
 
 
 Zeus.Net.NFe.NFCe
