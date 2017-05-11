@@ -55,6 +55,7 @@ namespace DFe.Utils
         private string _arquivo;
         private string _senha;
         private TipoCertificado _tipoCertificado;
+        private string _cacheId;
 
         /// <summary>
         /// Tipo de certificado a ser usado
@@ -124,6 +125,20 @@ namespace DFe.Utils
                 if (value == _senha) return;
                 _senha = value;
                 OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Senha).Name);
+            }
+        }
+
+        /// <summary>
+        /// Id do certificado no cache do Zeus
+        /// </summary>
+        public string CacheId
+        {
+            get { return _cacheId; }
+            set
+            {
+                if (value == _cacheId) return;
+                _cacheId = value;
+                OnPropertyChanged("CacheId");
             }
         }
 
