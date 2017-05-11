@@ -126,6 +126,8 @@ namespace NFe.AppTeste
 
                 //Exemplo com using para chamar o método Dispose da classe.
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
+                // se usar cache você pode por um id no certificado e salvar mais de um certificado digital também na memoria com o zeus
+                //_configuracoes.CfgServico.Certificado.CacheId = "1";
                 using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
                     var retornoStatus = servicoNFe.NfeStatusServico();
