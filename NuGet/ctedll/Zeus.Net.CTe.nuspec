@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Zeus.Net.CTe</id>
+        <version>0.0.0</version>
+        <title>Zeus CT-e (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe</projectUrl>
+        <iconUrl>https://avatars1.githubusercontent.com/u/6733483?v=3&amp;s=400</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Biblioteca para geração de CT-e.</description>
+        <releaseNotes />
+        <copyright>zeus</copyright>
+        <language>pt-BR</language>
+        <tags>df-e dfe cte ct-e</tags>
+    </metadata>
+    <files>
+        <file src="..\..\CTe.AppTeste\bin\Release\CTe.Classes.dll" target="lib\net40\CTe.Classes.dll" />
+        <file src="..\..\CTe.AppTeste\bin\Release\CTe.Servicos.dll" target="lib\net40\CTe.Servicos.dll" />
+        <file src="..\..\CTe.AppTeste\bin\Release\CTe.Utils.dll" target="lib\net40\CTe.Utils.dll" />
+        <file src="..\..\CTe.AppTeste\bin\Release\CTe.Wsdl.dll" target="lib\net40\CTe.Wsdl.dll" />
+        <file src="..\..\CTe.AppTeste\bin\Release\DFe.Classes.dll" target="lib\net40\DFe.Classes.dll" />
+        <file src="..\..\CTe.AppTeste\bin\Release\DFe.Utils.dll" target="lib\net40\DFe.Utils.dll" />
+    </files>
+</package>
