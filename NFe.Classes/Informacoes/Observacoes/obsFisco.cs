@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Informacoes.Observacoes
 {
     public class obsFisco
@@ -37,6 +39,7 @@ namespace NFe.Classes.Informacoes.Observacoes
         /// <summary>
         ///     Z08 - Identificação do campo
         /// </summary>
+        [XmlAttribute]
         public string xCampo { get; set; }
 
         /// <summary>
