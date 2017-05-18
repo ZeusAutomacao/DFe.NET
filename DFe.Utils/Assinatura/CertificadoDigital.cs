@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -42,7 +43,7 @@ namespace DFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
-        private static X509Certificate2 _certificado;
+        private static readonly Dictionary<string, X509Certificate2> CacheCertificado = new Dictionary<string, X509Certificate2>();
 
         #region Métodos privados
 
@@ -200,16 +201,27 @@ namespace DFe.Utils.Assinatura
         {
             if (!configuracaoCertificado.ManterDadosEmCache)
                 return ObterDadosCertificado(configuracaoCertificado);
-            if (_certificado != null)
-                return _certificado;
-            _certificado = ObterDadosCertificado(configuracaoCertificado);
-            return _certificado;
+
+            if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
+                return CacheCertificado[configuracaoCertificado.CacheId];
+
+            X509Certificate2 certificado = ObterDadosCertificado(configuracaoCertificado);
+
+            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
+                ? certificado.SerialNumber
+                : configuracaoCertificado.CacheId;
+
+            configuracaoCertificado.CacheId = keyCertificado;
+
+            CacheCertificado.Add(keyCertificado, certificado);
+
+            return CacheCertificado[keyCertificado];
         }
 
 
         public static void ClearCache()
         {
-            _certificado = null;
+            CacheCertificado.Clear();
         }
     }
 
