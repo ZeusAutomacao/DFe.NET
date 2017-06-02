@@ -44,7 +44,7 @@ namespace MDFe.Servicos.Enderecos.Helper
                     case TipoAmbiente.Producao:
                         return new UrlMDFe
                         {
-                            MDFeConsNaoEnc = "https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx",
+                            MDFeConsNaoEnc = "https://mdfe.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx",
                             MDFeStatusServico = "https://mdfe.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx",
                             MDFeRetRecepcao = "https://mdfe.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx",
                             MDFeConsulta = "https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx",

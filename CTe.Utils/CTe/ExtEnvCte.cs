@@ -37,6 +37,7 @@ using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
 using CTe.Classes.Servicos.Tipos;
 using CTe.Utils.Validacao;
+using DFe.Classes.Entidades;
 using DFe.Utils;
 
 namespace CTe.Utils.CTe
@@ -88,7 +89,14 @@ namespace CTe.Utils.CTe
         public static XmlDocument CriaRequestWs(this enviCTe enviCTe)
         {
             var request = new XmlDocument();
-            request.LoadXml(enviCTe.ObterXmlString());
+
+            var xml = enviCTe.ObterXmlString();
+
+            if (ConfiguracaoServico.Instancia.cUF == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
+                xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
+
+            request.LoadXml(xml);
 
             return request;
         }
