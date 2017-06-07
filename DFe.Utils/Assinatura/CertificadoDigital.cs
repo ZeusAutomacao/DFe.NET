@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
@@ -42,7 +43,7 @@ namespace DFe.Utils.Assinatura
 {
     public static class CertificadoDigital
     {
-        private static X509Certificate2 _certificado;
+        private static readonly Dictionary<string, X509Certificate2> CacheCertificado = new Dictionary<string, X509Certificate2>();
 
         #region Métodos privados
 
@@ -200,49 +201,27 @@ namespace DFe.Utils.Assinatura
         {
             if (!configuracaoCertificado.ManterDadosEmCache)
                 return ObterDadosCertificado(configuracaoCertificado);
-            if (_certificado != null)
-                return _certificado;
-            _certificado = ObterDadosCertificado(configuracaoCertificado);
-            return _certificado;
-        }
 
-        /// <summary>
-        /// Extenção para certificado digital
-        /// <para>Se usado ele retorna true se for um hardware, se for PenDriver ou SmartCard</para>
-        /// </summary>
-        /// <param name="x509Certificate2"></param>
-        /// <returns>bool</returns>
-        public static bool IsA3(this X509Certificate2 x509Certificate2)
-        {
-            if (x509Certificate2 == null)
-                return false;
+            if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
+                return CacheCertificado[configuracaoCertificado.CacheId];
 
-            bool result = false;
+            X509Certificate2 certificado = ObterDadosCertificado(configuracaoCertificado);
 
-            try
-            {
-                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
+                ? certificado.SerialNumber
+                : configuracaoCertificado.CacheId;
 
-                if (service != null)
-                {
-                    if (service.CspKeyContainerInfo.Removable &&
-                        service.CspKeyContainerInfo.HardwareDevice)
-                        result = true;
-                }
-            }
-            catch
-            {
-                //assume que é false
-                result = false;
-            }
+            configuracaoCertificado.CacheId = keyCertificado;
 
-            return result;
+            CacheCertificado.Add(keyCertificado, certificado);
+
+            return CacheCertificado[keyCertificado];
         }
 
 
         public static void ClearCache()
         {
-            _certificado = null;
+            CacheCertificado.Clear();
         }
     }
 
@@ -296,6 +275,58 @@ namespace DFe.Utils.Assinatura
             {
                 throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
             }
+        }
+    }
+
+    public static class ExtensaoCertificadoDigital
+    {
+        /// <summary>
+        /// Extenção para certificado digital
+        /// <para>Verificar validade do certificado digital, se vencido dispara ArgumentException</para>
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        public static void VerificaValidade(this X509Certificate2 x509Certificate2)
+        {
+            DateTime dataExpiracao = Convert.ToDateTime(x509Certificate2.GetExpirationDateString());
+
+            if (dataExpiracao <= DateTime.Now)
+            {
+                throw new ArgumentException("Certificado digital vencido na data => " + dataExpiracao);
+            }
+        }
+
+
+        /// <summary>
+        /// Extenção para certificado digital
+        /// <para>Se usado ele retorna true se for um hardware, se for PenDriver ou SmartCard</para>
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        /// <returns>bool</returns>
+        public static bool IsA3(this X509Certificate2 x509Certificate2)
+        {
+            if (x509Certificate2 == null)
+                return false;
+
+            bool result = false;
+
+            try
+            {
+                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+
+                if (service != null)
+                {
+                    if (service.CspKeyContainerInfo.Removable &&
+                        service.CspKeyContainerInfo.HardwareDevice)
+                        result = true;
+                }
+            }
+            catch
+            {
+                //assume que é false
+                result = false;
+            }
+
+            return result;
         }
     }
 }

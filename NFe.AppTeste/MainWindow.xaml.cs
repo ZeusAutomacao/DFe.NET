@@ -34,9 +34,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
-using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -75,15 +73,10 @@ using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DFe.Classes.Extensoes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.Fontes;
-using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Nativo.NFCe;
-using NFe.Utils.Excesoes;
-using Color = System.Drawing.Color;
+using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste
@@ -133,6 +126,8 @@ namespace NFe.AppTeste
 
                 //Exemplo com using para chamar o método Dispose da classe.
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
+                // se usar cache você pode por um id no certificado e salvar mais de um certificado digital também na memoria com o zeus
+                //_configuracoes.CfgServico.Certificado.CacheId = "1";
                 using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
                     var retornoStatus = servicoNFe.NfeStatusServico();
