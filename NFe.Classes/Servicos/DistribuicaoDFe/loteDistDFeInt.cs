@@ -49,7 +49,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// B12 - NSU do documento fiscal
         /// </summary>
         [XmlAttribute()]
-        public ushort NSU { get; set; }
+        public long NSU { get; set; }
 
         /// <summary>
         /// B13 - Identificação do Schema XML que será utilizado para validar o XML existente no campo seguinte.
