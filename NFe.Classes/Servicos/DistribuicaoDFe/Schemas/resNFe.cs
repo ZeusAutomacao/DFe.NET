@@ -77,7 +77,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// ISENTO (contribuinte do ICMS ISENTO de Inscrição no Cadastro de Contribuintes) ou 
         /// IE (Contribuinte do ICMS)
         /// </summary>
-        public ulong IE { get; set; }
+        public string IE { get; set; }
 
         /// <summary>
         /// C08 - Data de Emissão da NF-e
