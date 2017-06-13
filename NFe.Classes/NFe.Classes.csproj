@@ -48,6 +48,7 @@
     <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
     <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
     <Compile Include="Servicos\AdmCsc\retAdmCscNFCe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\consNSU.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\distDFeInt.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\distNSU.cs" />

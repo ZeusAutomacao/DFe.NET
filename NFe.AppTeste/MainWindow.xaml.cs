@@ -1544,11 +1544,19 @@ namespace NFe.AppTeste
                 if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
 
                 var nsu = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Ultimo NSU Retornado");
-                if (string.IsNullOrEmpty(nsu)) throw new Exception("NSU deve ser informado!");
+                if (string.IsNullOrEmpty(nsu))
+                    nsu = "0";
                 if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
 
+                string chnfe = "";
+                if (string.IsNullOrEmpty(nsu) || int.Parse(nsu) < 0)
+                    chnfe = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Chave Eletrônica NFe");
+
+                if ((string.IsNullOrEmpty(nsu) || int.Parse(nsu) < 0) && string.IsNullOrEmpty(chnfe))
+                    throw new Exception("NSU ou Chave Eletrônica devem ser informadors");
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, nsu);
+                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, nsu, chNFE: chnfe);
 
                 TrataRetorno(retornoNFeDistDFe);
 
