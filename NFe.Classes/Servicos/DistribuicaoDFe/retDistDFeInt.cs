@@ -78,12 +78,12 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// B08 - Último NSU pesquisado no Ambiente Nacional. Se for o caso, o solicitante pode continuar a consulta a partir 
         /// deste NSU para obter novos resultados.
         /// </summary>
-        public ushort ultNSU { get; set; }
+        public long ultNSU { get; set; }
 
         /// <summary>
         /// B09 - Maior NSU existente no Ambiente Nacional para o CNPJ/CPF informado
         /// </summary>
-        public ushort maxNSU { get; set; }
+        public long maxNSU { get; set; }
 
         [XmlArrayItem("docZip", IsNullable = false)]
         public loteDistDFeInt[] loteDistDFeInt { get; set; }
