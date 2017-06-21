@@ -445,7 +445,7 @@ namespace NFe.Servicos
                 throw new Exception(
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
-
+            
             var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
 
             #region Cria o objeto wdsl para consulta
@@ -621,12 +621,12 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             var detEvento = new detEvento
             {
                 versao = versaoServico,
-                descEvento = tipoEventoManifestacaoDestinatario.Descricao(),
-                xJust = justificativa
+                xJust = justificativa,
+                descEvento = tipoEventoManifestacaoDestinatario.Descricao()                
             };
 
             var eventos = new List<evento>();
