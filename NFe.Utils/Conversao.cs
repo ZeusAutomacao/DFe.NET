@@ -47,6 +47,11 @@ namespace NFe.Utils
             switch (versaoServico)
             {
                 case VersaoServico.ve100:
+                    switch (servicoNFe)
+                    {
+                        case ServicoNFe.NFeDistribuicaoDFe:
+                            return "1.01";
+                    }
                     return "1.00";
                 case VersaoServico.ve200:
                     switch (servicoNFe)

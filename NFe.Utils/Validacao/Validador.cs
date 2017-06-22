@@ -89,7 +89,7 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.NfeDownloadNF:
                     return "downloadNFe_v1.00.xsd";
                 case ServicoNFe.NFeDistribuicaoDFe:
-                    return "distDFeInt_v1.00.xsd";
+                    return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
             }
             return null;
         }

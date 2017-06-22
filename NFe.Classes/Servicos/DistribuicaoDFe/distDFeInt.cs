@@ -105,8 +105,12 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         public distNSU distNSU { get; set; }
 
         /// <summary>
-        /// A08 - Grupo para consultar um DF-e a partir de um NSU específico
+        /// A09 - Grupo para consultar um DF-e a partir de um NSU específico
         /// </summary>
         public consNSU consNSU { get; set; }
+
+        /// <summary>
+        /// A11 - Grupo para consultar uma NF-e pela chave de acesso        /// </summary>
+        public consChNFe consChNFe { get; set; }
     }
 }
