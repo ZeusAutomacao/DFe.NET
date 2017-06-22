@@ -1111,18 +1111,25 @@ namespace MDFe.AppTeste
 
             if (caminhoArquivoXml != null)
             {
-                if (caminhoArquivoXml.Contains("completo"))
+                try
                 {
                     var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviMDFe.MDFe.Chave();
                 }
-                else
+                catch
                 {
-                    var mdfe = MDFeEletronico.LoadXmlArquivo(caminhoArquivoXml);
-
-                    chave = mdfe.Chave();
+                    try
+                    {
+                        chave = MDFeEletronico.LoadXmlArquivo(caminhoArquivoXml).Chave();
+                    }
+                    catch
+                    {
+                        var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoArquivoXml);
+                        chave = proc.MDFe.Chave();
+                    }
                 }
+
             }
             return chave;
         }
@@ -1203,15 +1210,23 @@ namespace MDFe.AppTeste
             MDFeEletronico mdfe;
             var caminhoXml = BuscarArquivoXmlMDFe();
 
-            if (caminhoXml.Contains("completo"))
+            try
             {
                 var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
-            else
+            catch
             {
-                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
             }
 
             var nomeCondutor = InputBoxTuche("Nome condutor");
@@ -1242,15 +1257,23 @@ namespace MDFe.AppTeste
             MDFeEletronico mdfe;
             var caminhoXml = BuscarArquivoXmlMDFe();
 
-            if (caminhoXml.Contains("completo"))
+            try
             {
                 var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
-            else
+            catch
             {
-                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
             }
 
             var evento = new ServicoMDFeEvento();
@@ -1278,15 +1301,23 @@ namespace MDFe.AppTeste
             MDFeEletronico mdfe;
             var caminhoXml = BuscarArquivoXmlMDFe();
 
-            if (caminhoXml.Contains("completo"))
+            try
             {
                 var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
-            else
+            catch
             {
-                mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
             }
 
             var protocolo = InputBoxTuche("Digite um protocolo");
