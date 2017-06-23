@@ -49,14 +49,17 @@ namespace NFe.Danfe.Fast.NFe
         /// <param name="proc">Objeto do tipo nfeProc</param>
         /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
+        public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
         {
             #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
             Relatorio = new Report();
             Relatorio.RegisterData(new[] { proc }, "NFe", 20);
             Relatorio.GetDataSource("NFe").Enabled = true;
-            Relatorio.Load(new MemoryStream(Properties.Resources.NFeRetrato));
+            if (string.IsNullOrEmpty(arquivoRelatorio))
+                Relatorio.Load(new MemoryStream(Properties.Resources.NFeRetrato));
+            else
+                Relatorio.Load(arquivoRelatorio);            
             Relatorio.SetParameterValue("DuasLinhas", configuracaoDanfeNfe.DuasLinhas);
             Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.DocumentoCancelado);
             Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);            
