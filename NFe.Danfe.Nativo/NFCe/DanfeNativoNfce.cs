@@ -630,8 +630,11 @@ namespace NFe.Danfe.Nativo.NFCe
                 mensagem.Append(dest.CNPJ);
             }
 
-            mensagem.Append(" ");
-            mensagem.Append(dest.xNome);
+            if (!string.IsNullOrEmpty(dest.xNome))
+            {
+                mensagem.Append(" ");
+                mensagem.Append(dest.xNome);
+            }
 
             enderDest enderecoDest = dest.enderDest;
 
