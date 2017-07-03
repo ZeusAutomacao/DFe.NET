@@ -80,6 +80,8 @@ namespace NFe.Utils.Validacao
                             return "consStatServ_v2.00.xsd";
                         case VersaoServico.ve310:
                             return "consStatServ_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "consStatServ_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NFeAutorizacao:

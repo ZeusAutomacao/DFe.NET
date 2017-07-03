@@ -132,6 +132,10 @@ namespace NFe.Servicos
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeStatusServico4(url, _certificado, _cFgServico.TimeOut);
+                    }
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
                     {
                         return new NfeStatusServico3(url, _certificado, _cFgServico.TimeOut);
@@ -222,7 +226,7 @@ namespace NFe.Servicos
             var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 
             #region Cria o objeto wdsl para consulta
-
+            // todo 4.0
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
             ws.nfeCabecMsg = new nfeCabecMsg

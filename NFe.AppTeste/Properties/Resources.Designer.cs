@@ -71,7 +71,8 @@ namespace NFe.AppTeste.Properties {
         ///&lt;br&gt;&lt;b&gt;Valor Total:&lt;/b&gt; 1.234,56
         ///&lt;/p&gt;
         ///&lt;p&gt;Consulte a autencidade de sua NFe acessando &lt;a href=&quot;http://www.nfe.fazenda.gov.br/portal/consulta.aspx?tipoConsulta=completa&amp;tipoConteudo=XbSeqxE8pl8=&quot;&gt;Consulta NFe Completa&lt;/a&gt; &lt;/p&gt;
-        ///ZEUS Automação [rest of string was truncated]&quot;;.
+        ///ZEUS Automação
+        ///&lt;/html&gt;.
         /// </summary>
         internal static string MensagemHtml {
             get {
