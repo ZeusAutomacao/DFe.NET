@@ -4,6 +4,7 @@ using CTe.Classes.Servicos.Recepcao;
 using CTe.Classes.Servicos.Recepcao.Retorno;
 using CTe.Servicos.ConsultaRecibo;
 using CTe.Servicos.Recepcao;
+using CTe.Utils.CTe;
 
 namespace CTe.Servicos.EnviarCte
 {
