@@ -43,10 +43,14 @@ namespace CTe.Dacte.Fast
     {
         protected Report Relatorio;
 
-        public DacteFrCte(cteProc proc, ConfiguracaoDacte config)
+        public DacteFrCte(cteProc proc, ConfiguracaoDacte config, string arquivoRelatorio = "")
         {
             Relatorio = new Report();
             RegisterData(proc);
+            if (!string.IsNullOrEmpty(arquivoRelatorio))
+                Relatorio.Load(arquivoRelatorio);
+            else
+                Relatorio.Load(new MemoryStream(Properties.Resources.CTeRetrato));
             Configurar(config);
         }
 
@@ -58,8 +62,7 @@ namespace CTe.Dacte.Fast
         public void RegisterData(cteProc proc)
         {
             Relatorio.RegisterData(new[] { proc }, "cteProc", 20);
-            Relatorio.GetDataSource("cteProc").Enabled = true;
-            Relatorio.Load(new MemoryStream(Properties.Resources.CTeRetrato));
+            Relatorio.GetDataSource("cteProc").Enabled = true;            
         }
 
         public void Configurar(ConfiguracaoDacte config)

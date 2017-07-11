@@ -86,7 +86,8 @@ namespace CTe.Dacte.AppTeste
                         Logomarca = ImageToByte(pcbLogotipo.Image),
                         DocumentoCancelado = chbCancelado.Checked,
                         Desenvolvedor = txtDesenvolvedor.Text
-                    });
+                    },
+                    arquivoRelatorio: txtArquivo.Text);
                 return rpt;
             }
             catch (Exception ex)
@@ -116,5 +117,21 @@ namespace CTe.Dacte.AppTeste
             if (dacte != null)
                 dacte.ExibirDesign();
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog
+            {
+                Title = "Carrgar relatório",
+                FileName = "",
+                DefaultExt = ".frx",
+                Filter = "Relatório em Fast Reports (.frx) | *.frx"
+            };
+            dlg.ShowDialog();
+            string frx = dlg.FileName;
+            if (File.Exists(frx))
+                txtArquivo.Text = frx;
+        }
+
     }
 }

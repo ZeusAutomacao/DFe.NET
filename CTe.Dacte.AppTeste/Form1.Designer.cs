@@ -38,6 +38,9 @@
             this.pcbLogotipo = new System.Windows.Forms.PictureBox();
             this.chbCancelado = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.txtArquivo = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLogotipo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +120,7 @@
             // chbCancelado
             // 
             this.chbCancelado.AutoSize = true;
-            this.chbCancelado.Location = new System.Drawing.Point(228, 59);
+            this.chbCancelado.Location = new System.Drawing.Point(228, 99);
             this.chbCancelado.Name = "chbCancelado";
             this.chbCancelado.Size = new System.Drawing.Size(135, 17);
             this.chbCancelado.TabIndex = 12;
@@ -134,11 +137,40 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // txtArquivo
+            // 
+            this.txtArquivo.Location = new System.Drawing.Point(227, 73);
+            this.txtArquivo.Name = "txtArquivo";
+            this.txtArquivo.Size = new System.Drawing.Size(269, 20);
+            this.txtArquivo.TabIndex = 23;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(224, 56);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Arquivo .frx";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(498, 71);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(27, 22);
+            this.button6.TabIndex = 24;
+            this.button6.Text = "...";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(534, 161);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.txtArquivo);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.txtDesenvolvedor);
@@ -169,6 +201,9 @@
         private System.Windows.Forms.PictureBox pcbLogotipo;
         private System.Windows.Forms.CheckBox chbCancelado;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox txtArquivo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button6;
     }
 }
 
