@@ -54,7 +54,7 @@ namespace CTe.Classes.Informacoes.Valores
         }
 
         [XmlElement("Comp", Order = 2)]
-        public List<Comp> Comp;
+        public List<Comp> Comp { get; set; }
 
         private decimal _vTPrest;
         private decimal _vRec;
