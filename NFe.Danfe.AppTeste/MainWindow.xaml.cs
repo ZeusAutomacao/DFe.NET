@@ -215,9 +215,9 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
                 var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
-                danfe.Visualizar();
+                //danfe.Visualizar();
                 //danfe.Imprimir();
-                //danfe.ExibirDesign();
+                danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion

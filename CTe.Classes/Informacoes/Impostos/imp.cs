@@ -37,9 +37,9 @@ namespace CTe.Classes.Informacoes.Impostos
 {
     public class imp
     {
-        public Tributacao.ICMS ICMS;
-        private decimal? _vTotTrib;
+        public Tributacao.ICMS ICMS { get; set; }
 
+        private decimal? _vTotTrib;
         public decimal? vTotTrib
         {
             get { return _vTotTrib.Arredondar(2); }

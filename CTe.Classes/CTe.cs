@@ -70,10 +70,10 @@ namespace CTe.Classes
         public bool versaoSpecified { get { return versao.HasValue; } }
 
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
-        public infCte infCte;
+        public infCte infCte { get; set; }
 
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
-        public Signature Signature;
+        public Signature Signature { get; set; }
 
         public static CTe LoadXmlString(string xml)
         {
