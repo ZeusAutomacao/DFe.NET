@@ -1096,8 +1096,8 @@ namespace MDFe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
-            var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
-            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
+            var servicoConsultaProtocolo = new MDFeConsulta();
+            var retorno = servicoConsultaProtocolo.Consulta(chave);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -1180,8 +1180,8 @@ namespace MDFe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
-            var servicoStatusServico = new ServicoMDFeStatusServico();
-            var retorno = servicoStatusServico.MDFeStatusServico();
+            var servicoStatusServico = new MDFeStatusConsulta();
+            var retorno = servicoStatusServico.StatusConsulta();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
 

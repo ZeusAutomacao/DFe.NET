@@ -37,9 +37,9 @@ using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.ConsultaProtocoloMDFe
 {
-    public class ServicoMDFeConsultaProtocolo
+    public class MDFeConsulta
     {
-        public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave)
+        public MDFeRetConsSitMDFe Consulta(string chave)
         {
             var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave);
             consSitMdfe.ValidarSchema();

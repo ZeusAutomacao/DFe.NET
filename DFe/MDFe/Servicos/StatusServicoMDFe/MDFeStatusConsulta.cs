@@ -37,9 +37,9 @@ using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.StatusServicoMDFe
 {
-    public class ServicoMDFeStatusServico
+    public class MDFeStatusConsulta
     {
-        public MDFeRetConsStatServ MDFeStatusServico()
+        public MDFeRetConsStatServ StatusConsulta()
         {
             var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
             consStatServMDFe.ValidarSchema();

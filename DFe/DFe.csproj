@@ -401,7 +401,7 @@
     <Compile Include="MDFe\Classes\Servicos\Autorizacao\MDFeEnviMDFe.cs" />
     <Compile Include="MDFe\Facade\MDFeFacade.cs" />
     <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
-    <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
+    <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\MDFeConsulta.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\UrlMDFe.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\Contratos\IServicoController.cs" />
@@ -416,7 +416,7 @@
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\AntesDeEnviar.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\MDFeEnviarLote.cs" />
     <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\MDFeConsultaLote.cs" />
-    <Compile Include="MDFe\Servicos\StatusServicoMDFe\ServicoMDFeStatusServico.cs" />
+    <Compile Include="MDFe\Servicos\StatusServicoMDFe\MDFeStatusConsulta.cs" />
     <Compile Include="MDFe\Configuracoes\MDFeConfiguracao.cs" />
     <Compile Include="MDFe\Classes\Flags\VersaoServico.cs" />
     <Compile Include="MDFe\Validacao\Validador.cs" />
