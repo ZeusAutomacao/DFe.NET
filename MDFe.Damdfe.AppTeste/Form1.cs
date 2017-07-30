@@ -7,13 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
-using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Fast;
 using MDFe.Damdfe.Base;
-using DFe.Utils;
 using System.IO;
+using DFe.MDFe.Classes.Retorno;
+using DFe.Utils;
 
 namespace MDFe.Damdfe.AppTeste
 {
@@ -51,7 +49,7 @@ namespace MDFe.Damdfe.AppTeste
                 if (!File.Exists(xml))
                     return null;
 
-                mdfe = FuncoesXml.ArquivoXmlParaClasse<MDFe.Classes.Retorno.MDFeProcMDFe>(xml);
+                mdfe = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(xml);
             }
             catch (Exception ex)
             {

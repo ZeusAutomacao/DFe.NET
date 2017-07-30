@@ -39,8 +39,7 @@
 
 using System;
 using System.IO;
-using NFe.Classes.Servicos.ConsultaCadastro;
-using NFe.Classes.Servicos.Status;
+using DFe.NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Integracao.Enums;
 
 namespace NFe.Integracao

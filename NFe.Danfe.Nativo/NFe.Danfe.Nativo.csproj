@@ -55,25 +55,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
     <ProjectReference Include="..\GraphicsPrinter\GraphicsPrinter.csproj">
       <Project>{3067efcc-91de-48ea-8f7e-e0d95216c6dc}</Project>
       <Name>GraphicsPrinter</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
       <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
       <Name>NFe.Danfe.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
-      <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

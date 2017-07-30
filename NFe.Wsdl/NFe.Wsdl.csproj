@@ -44,84 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdmCsc\NfceCsc.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Autorizacao\NfeAutorizacao.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Autorizacao\NfeAutorizacao3.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Download\NfeDownloadNF.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Evento\RecepcaoEPEC.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Evento\RecepcaoEvento.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="INfeServico.cs" />
-    <Compile Include="INfeServicoAutorizacao.cs" />
-    <Compile Include="Inutilizacao\NfeInutilizacao.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inutilizacao\NfeInutilizacao2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="nfeCabecMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recepcao\NfeRecepcao2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Recepcao\NfeRetRecepcao2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Status\NFeStatusServico4.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Status\NfeStatusServico.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Status\NfeStatusServico2.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Status\NfeStatusServico3.cs">
-      <SubType>Component</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
@@ -129,10 +57,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFe.Wsdl.cd" />
-    <None Include="NFe.Wsdl.licenseheader" />
+    <Folder Include="Status\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

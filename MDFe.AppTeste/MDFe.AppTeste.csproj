@@ -408,25 +408,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
-      <Name>MDFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
-      <Name>MDFe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
-      <Name>MDFe.Utils</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -1,0 +1,749 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DFe</RootNamespace>
+    <AssemblyName>DFe</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Assinatura\CanonicalizationMethod.cs" />
+    <Compile Include="Classes\Assinatura\DigestMethod.cs" />
+    <Compile Include="Classes\Assinatura\KeyInfo.cs" />
+    <Compile Include="Classes\Assinatura\Reference.cs" />
+    <Compile Include="Classes\Assinatura\Signature.cs" />
+    <Compile Include="Classes\Assinatura\SignatureMethod.cs" />
+    <Compile Include="Classes\Assinatura\SignedInfo.cs" />
+    <Compile Include="Classes\Assinatura\Transform.cs" />
+    <Compile Include="Classes\Assinatura\X509Data.cs" />
+    <Compile Include="Classes\Entidades\Estado.cs" />
+    <Compile Include="Classes\Ext\Valor.cs" />
+    <Compile Include="Classes\Flags\ModeloDocumento.cs" />
+    <Compile Include="Classes\Flags\TipoAmbiente.cs" />
+    <Compile Include="CTe\Classes\ConfiguracaoServico.cs" />
+    <Compile Include="CTe\Classes\CTe.cs" />
+    <Compile Include="CTe\Classes\cteProc.cs" />
+    <Compile Include="CTe\Classes\Ext\extversao.cs" />
+    <Compile Include="CTe\Classes\Informacoes\autXML.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Comp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\compl.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\comData.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\comHora.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\noInter.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\noPeriodo.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\semData.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Entrega\semHora.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\fluxo.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\ObsCont.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\ObsFisco.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\pass.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Complemento\Tipos\EntregaTipos.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Destinatario\dest.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Destinatario\enderDest.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Destinatario\locEnt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Emitente\emit.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Emitente\emitTipos.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Emitente\enderEmit.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Expedidor\enderExped.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Expedidor\exped.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\enderToma.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\ide.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\infPercurso.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\toma03.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\toma3.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\toma4.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\tomaBase3.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Identificacao\tomaCteOs.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMSUFFim.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMS00.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMS20.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMS45.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMS60.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMS90.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMSOutraUF.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\ICMSSN.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\ICMS\Tipos\ICMSBasico.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\imp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Impostos\infTribFed.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCte.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteAnu\infCteAnu.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteComp\impComp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteComp\impComp\ICMSComp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteComp\infCteComp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteComp\vPresComp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCteComp\vPresComp\compComp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\cobr.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\cobrancas\dup.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\cobrancas\fat.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\contQantidades\lacContQt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\contQt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\docAnt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\docAnteriores\emiDocAnt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\docAnteriores\idDocAnt.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\docAnteriores\idDocAntEle.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\docAnteriores\idDocAntPap.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCarga.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCargas\infQ.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCTeMultimodal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCTeNorm.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCteSub.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCteSubs\refNF.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCteSubs\tomaICMS.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infCteSubs\tomaNaoICMS.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDoc.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocRef.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\infNF.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\infNFe.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\infOutros.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\infUnidCarga.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\infUnidTransp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\lacUnidCarga.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infDocumentos\lacUnidTransp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infGlobalizado.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\aereo.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\aereos\natCarga.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\aereos\peri.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\aereos\tarifa.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\aquav.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\balsa.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\ContainerModal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\detCont.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\duto.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\ferrov.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\infTotAP.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\lacRodo.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\moto.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\multimodal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodo.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodoOS.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodoviarioOS\prop.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodoviarioOS\veic.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodoviario\emiOcc.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\rodoviario\occ.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infModals\valePed.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infQcteOs.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infServico.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\infServVinc.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\peri.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\seg.cs" />
+    <Compile Include="CTe\Classes\Informacoes\infCTeNormal\veicNovos.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Recebedor\enderReceb.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Recebedor\receb.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\enderReme.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\infNF.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\infNFe.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\infOutros.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\locColeta.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\locRet.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Remetente\rem.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\CL.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\ConsumidorFinal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\CST.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\cUnid.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\DestinoOperacao.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\ferrEmi.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\FinalidadeNFe.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\forPag.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\IdentificadorOperacaoCsc.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\IndicadorPagamento.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\indIEToma.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\indNegociavel.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\indSN.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\lota.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\mod.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\modal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\PresencaComprador.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\procEmi.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\respFat.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\respSeg.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\retira.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\toma.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpCar.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpCTe.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpDoc.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpDocAnterior.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpEmis.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpHor.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpImp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpNav.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpPer.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpProp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpPropProp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpRod.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpServ.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpTraf.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpUnidCarga.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpUnidTransp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\tpVeic.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\uniAP.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Tipos\versaoModal.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Valores\Comp.cs" />
+    <Compile Include="CTe\Classes\Informacoes\Valores\vPrest.cs" />
+    <Compile Include="CTe\Classes\Protocolo\infProt.cs" />
+    <Compile Include="CTe\Classes\Protocolo\protCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Consulta\consSitCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Consulta\procEventoCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Consulta\retConsSitCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\dest.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\detEvento.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\detEventoTipos.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\envEvento.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\evCancCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\evCCeCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\EventoContainer.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\eventoCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\Flags\TipoEvento.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\infEventoEnv.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\infEventoRet.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\retEnvEvento.cs" />
+    <Compile Include="CTe\Classes\Servicos\Evento\retEventoCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Inutilizacao\infInutEnv.cs" />
+    <Compile Include="CTe\Classes\Servicos\Inutilizacao\infInutRet.cs" />
+    <Compile Include="CTe\Classes\Servicos\Inutilizacao\inutCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Inutilizacao\retInutCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Recepcao\enviCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Recepcao\infRec.cs" />
+    <Compile Include="CTe\Classes\Servicos\Recepcao\retEnviCte.cs" />
+    <Compile Include="CTe\Classes\Servicos\Recepcao\Retorno\consReciCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\Recepcao\Retorno\retConsReciCTe.cs" />
+    <Compile Include="CTe\Classes\Servicos\RetornoBase.cs" />
+    <Compile Include="CTe\Classes\Servicos\Status\consStatServ.cs" />
+    <Compile Include="CTe\Classes\Servicos\Status\retConsStatServ.cs" />
+    <Compile Include="CTe\Classes\Servicos\Tipos\ServicosTipos.cs" />
+    <Compile Include="CTe\Servicos\ConsultaProtocolo\ConsultaProtcoloServico.cs" />
+    <Compile Include="CTe\Servicos\ConsultaRecibo\ConsultaReciboServico.cs" />
+    <Compile Include="CTe\Servicos\ConsultaStatus\StatusServico.cs" />
+    <Compile Include="CTe\Servicos\Enderecos\Helpers\UrlHelper.cs" />
+    <Compile Include="CTe\Servicos\Enderecos\UrlCTe.cs" />
+    <Compile Include="CTe\Servicos\EnviarCte\RetornoEnviarCte.cs" />
+    <Compile Include="CTe\Servicos\EnviarCte\ServicoEnviarCte.cs" />
+    <Compile Include="CTe\Servicos\Eventos\Contratos\IServicoController.cs" />
+    <Compile Include="CTe\Servicos\Eventos\EventoCancelamento.cs" />
+    <Compile Include="CTe\Servicos\Eventos\EventoCartaCorrecao.cs" />
+    <Compile Include="CTe\Servicos\Eventos\FactoryEvento.cs" />
+    <Compile Include="CTe\Servicos\Eventos\ServicoController.cs" />
+    <Compile Include="CTe\Servicos\Factory\ClassesFactory.cs" />
+    <Compile Include="CTe\Servicos\Factory\WsdlFactory.cs" />
+    <Compile Include="CTe\Servicos\Inutilizacao\InutilizacaoServico.cs" />
+    <Compile Include="CTe\Servicos\Recepcao\AntesEnviarRecepcao.cs" />
+    <Compile Include="CTe\Servicos\Recepcao\ServicoCTeRecepcao.cs" />
+    <Compile Include="CTe\Utils\Consulta\ExtprocEventoCTe.cs" />
+    <Compile Include="CTe\Utils\CTe\ExCteProc.cs" />
+    <Compile Include="CTe\Utils\CTe\ExtCTe.cs" />
+    <Compile Include="CTe\Utils\CTe\ExtEnvCte.cs" />
+    <Compile Include="CTe\Utils\Evento\ExtenvEvento.cs" />
+    <Compile Include="CTe\Utils\Evento\Extevento.cs" />
+    <Compile Include="CTe\Utils\Evento\ExtprocEventoCTe.cs" />
+    <Compile Include="CTe\Utils\Evento\ExtretEnvEvento.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtConsReciCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtconsSitCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtconsStatServCte.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtevCancCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtevCCeCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtinutCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtretConsSitCTe.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtretConsStatServ.cs" />
+    <Compile Include="CTe\Utils\Extencoes\ExtretConsStatServCte.cs" />
+    <Compile Include="CTe\Utils\Inutilizacao\ExtretInutCTe.cs" />
+    <Compile Include="CTe\Utils\Recepcao\ExtconsReciCTe.cs" />
+    <Compile Include="CTe\Utils\Recepcao\ExtretEnviCTe.cs" />
+    <Compile Include="CTe\Utils\Validacao\Validador.cs" />
+    <Compile Include="CTe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
+    <Compile Include="CTe\Wsdl\ConsultaProtocolo\CteConsulta.cs" />
+    <Compile Include="CTe\Wsdl\Evento\CteRecepcaoEvento.cs" />
+    <Compile Include="CTe\Wsdl\Inutilizacao\CteInutilizacao.cs" />
+    <Compile Include="CTe\Wsdl\Recepcao\CteRecepcao.cs" />
+    <Compile Include="CTe\Wsdl\RetRecepcao\CteRetRecepcao.cs" />
+    <Compile Include="CTe\Wsdl\Status\CteStatusServico.cs" />
+    <Compile Include="MDFe\Classes\Contratos\MDFeModalContainer.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeConsReciMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeConsStatServMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeEvCancMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeEvEncMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetConsReciMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetConsStatServ.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetEnviMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtMDFeRetEventoMDFe.cs" />
+    <Compile Include="MDFe\Classes\Extensoes\ExtVersaoServico.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeCUnid.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeIdentificacaoProcessoEmissao.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeModal.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeRespSeg.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTipoEmissao.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTipoEmitente.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpCar.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpProp.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpRod.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpTransp.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpUnidCarga.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpUnidCargaVazia.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeTpUnidTransp.cs" />
+    <Compile Include="MDFe\Classes\Flags\MDFeVersaoModal.cs" />
+    <Compile Include="MDFe\Classes\Flags\tpNav.cs" />
+    <Compile Include="MDFe\Classes\Flags\tpUnidTranspVazia.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\CorpoEvento\MDFeEvEncMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\CorpoEvento\MDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\Flags\MDFeTipoEvento.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\MDFeDetEvento.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\MDFeEventoContainer.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\MDFeEventoMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\Evento\MDFeInfEvento.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\infCIOT.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\infContratante.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\infUnidTranspVazia.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeAereo.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeAquav.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeAutXML.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeCondutor.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeDisp.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeEmit.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeFerrov.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeIde.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfAdic.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfCTe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfDoc.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfEmbComb.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfMDFeTransp.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfModal.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfMunCarrega.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfMunDescarga.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfNFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfPercurso.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfTermCarreg.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfTermDescarreg.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfUnidCarga.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfUnidCargaVazia.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeInfUnidTransp.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeLacre.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeLacUnidCarga.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeLacUnidTransp.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFePeri.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeProp.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeRodo.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeSeg.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeTot.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeTrem.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeVag.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeValePed.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeVeicReboque.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\MDFeVeicTracao.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
+    <Compile Include="MDFe\Classes\Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeEvento\MDFeRetInfEvento.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeProcEventoMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeProcMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeRetRecepcao\MDFeInfProtMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeRetRecepcao\MDFeProtMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeRetRecepcao\MDFeRetConsReciMDFe.cs" />
+    <Compile Include="MDFe\Classes\Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
+    <Compile Include="MDFe\Classes\Retorno\RetornoBase.cs" />
+    <Compile Include="MDFe\Classes\Servicos\Autorizacao\MDFeEnviMDFe.cs" />
+    <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
+    <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
+    <Compile Include="MDFe\Servicos\Enderecos\Helper\UrlHelper.cs" />
+    <Compile Include="MDFe\Servicos\Enderecos\UrlMDFe.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\Contratos\IServicoController.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\EventoCancelar.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\EventoEncerramento.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\EventoInclusaoCondutor.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\FactoryEvento.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\ServicoController.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\ServicoMDFeEvento.cs" />
+    <Compile Include="MDFe\Servicos\Factory\ClassesFactory.cs" />
+    <Compile Include="MDFe\Servicos\Factory\WsdlFactory.cs" />
+    <Compile Include="MDFe\Servicos\RecepcaoMDFe\AntesDeEnviar.cs" />
+    <Compile Include="MDFe\Servicos\RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
+    <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
+    <Compile Include="MDFe\Servicos\StatusServicoMDFe\ServicoMDFeStatusServico.cs" />
+    <Compile Include="MDFe\Utils\Configuracoes\MDFeConfiguracao.cs" />
+    <Compile Include="MDFe\Utils\Flags\VersaoServico.cs" />
+    <Compile Include="MDFe\Utils\Validacao\Validador.cs" />
+    <Compile Include="MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
+    <Compile Include="MDFe\Wsdl\Gerado\MDFeStatusServico\MDFeStatusServico.cs" />
+    <Compile Include="NFe\Classes\Enums.cs" />
+    <Compile Include="NFe\Classes\infNFeSupl.cs" />
+    <Compile Include="NFe\Classes\Informacoes\autXML.cs" />
+    <Compile Include="NFe\Classes\Informacoes\avulsa.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cana\cana.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cana\deduc.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cana\forDia.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cobranca\cobr.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cobranca\dup.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Cobranca\fat.cs" />
+    <Compile Include="NFe\Classes\Informacoes\compra.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Destinatario\dest.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Destinatario\destTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Destinatario\enderDest.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\DeclaracaoImportacao\adi.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\DeclaracaoImportacao\DI.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\det.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Exportacao\detExport.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Exportacao\exportInd.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\impostoDevol.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\IPIDevolvido.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\prod.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\arma.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\CIDE.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\comb.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\med.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\ProdutoEspecifico.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\ProdEspecifico\veicProd.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\prodTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS00.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS10.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS20.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS30.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS40.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS51.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS60.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS70.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMS90.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSPart.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN101.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN102.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN201.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN202.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN500.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSSN900.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSST.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSBasico.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Estadual\Tipos\ICMSTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINS.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINSAliq.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINSNT.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINSOutr.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINSQtde.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\COFINSST.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\II.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\IPI.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\IPINT.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\IPITrib.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PIS.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PISAliq.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PISNT.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PISOutr.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PISQtde.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\PISST.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\COFINSBasico.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\COFINSTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\IPIBasico.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\IPITipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\PISBasico.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Federal\Tipos\PISTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\imposto.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Municipal\ISSQN.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Detalhe\Tributacao\Municipal\ISSQNTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Emitente\emit.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Emitente\emitTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Emitente\enderEmit.cs" />
+    <Compile Include="NFe\Classes\Informacoes\entrega.cs" />
+    <Compile Include="NFe\Classes\Informacoes\exporta.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\ide.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\NFref.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\refECF.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\refNF.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\refNFP.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Identificacao\Tipos\ideTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\infNFe.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Observacoes\infAdic.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Observacoes\obsCont.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Observacoes\obsFisco.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Observacoes\procRef.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Observacoes\procRefTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Pagamento\card.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Pagamento\pag.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Pagamento\pagTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\retirada.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Total\ICMSTot.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Total\ISSQNtot.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Total\ISSQNtotTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Total\retTrib.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Total\total.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\lacres.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\reboque.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\retTransp.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\transp.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\transporta.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\transpTipos.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\veicTransp.cs" />
+    <Compile Include="NFe\Classes\Informacoes\Transporte\vol.cs" />
+    <Compile Include="NFe\Classes\NFe.cs" />
+    <Compile Include="NFe\Classes\nfeProc.cs" />
+    <Compile Include="NFe\Classes\Protocolo\infProt.cs" />
+    <Compile Include="NFe\Classes\Protocolo\protNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\AdmCsc\admCscNFCe.cs" />
+    <Compile Include="NFe\Classes\Servicos\AdmCsc\dadosCsc.cs" />
+    <Compile Include="NFe\Classes\Servicos\AdmCsc\retAdmCscNFCe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Autorizacao\enviNFe3.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\ConsCad.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\ConsultaCadastroTipos.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\ender.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\infCad.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\infConsEnv.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\infConsRet.cs" />
+    <Compile Include="NFe\Classes\Servicos\ConsultaCadastro\retConsCad.cs" />
+    <Compile Include="NFe\Classes\Servicos\Consulta\consSitNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Consulta\procEventoNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Consulta\retConsSitNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\consNSU.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\distDFeInt.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\distNSU.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\loteDistDFeInt.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\retDistDFeInt.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\detEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\evento.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\eventoInfEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\infProt.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\nfeProc.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\procEventoNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\protNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\resEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\resNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\retEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\DistribuicaoDFe\Schemas\retInfEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Download\downloadNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Download\procNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Download\procNFeGrupoZip.cs" />
+    <Compile Include="NFe\Classes\Servicos\Download\retDownloadNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Download\retNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\dest.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\detEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\detEventoTipos.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\envEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\evento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\infEventoEnv.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\infEventoRet.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\retEnvEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Evento\retEvento.cs" />
+    <Compile Include="NFe\Classes\Servicos\Inutilizacao\infInutEnv.cs" />
+    <Compile Include="NFe\Classes\Servicos\Inutilizacao\infInutRet.cs" />
+    <Compile Include="NFe\Classes\Servicos\Inutilizacao\inutNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Inutilizacao\procInutNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Inutilizacao\retInutNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\IRetornoServico.cs" />
+    <Compile Include="NFe\Classes\Servicos\Recepcao\enviNFe2.cs" />
+    <Compile Include="NFe\Classes\Servicos\Recepcao\infRec.cs" />
+    <Compile Include="NFe\Classes\Servicos\Recepcao\retEnviNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Recepcao\Retorno\consReciNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Recepcao\Retorno\retConsReciNFe.cs" />
+    <Compile Include="NFe\Classes\Servicos\Status\consStatServ.cs" />
+    <Compile Include="NFe\Classes\Servicos\Status\retConsStatServ.cs" />
+    <Compile Include="NFe\Classes\Servicos\Tipos\ServicosTipos.cs" />
+    <Compile Include="NFe\Classes\Valor.cs" />
+    <Compile Include="NFe\Servicos\Enderecador.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoAdmCscNFCe.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoBasico.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoConsulta.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNFeAutorizacao.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeConsultaCadastro.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeDistDFeInt.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeDownload.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeInutilizacao.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeRecepcao.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNFeRetAutorizacao.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeRetRecepcao.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoNfeStatusServico.cs" />
+    <Compile Include="NFe\Servicos\Retorno\RetornoRecepcaoEvento.cs" />
+    <Compile Include="NFe\Servicos\ServicosNFe.cs" />
+    <Compile Include="NFe\Utils\AdmCsc\ExtAdmCscNFCe.cs" />
+    <Compile Include="NFe\Utils\AdmCsc\ExtretAdmCscNFCe.cs" />
+    <Compile Include="NFe\Utils\Assinatura\Assinador.cs" />
+    <Compile Include="NFe\Utils\Autorizacao\ExtenviNFe3.cs" />
+    <Compile Include="NFe\Utils\Compressao.cs" />
+    <Compile Include="NFe\Utils\ConfiguracaoServico.cs" />
+    <Compile Include="NFe\Utils\ConsultaCadastro\ExtConsCad.cs" />
+    <Compile Include="NFe\Utils\ConsultaCadastro\ExtretConsCad.cs" />
+    <Compile Include="NFe\Utils\Consulta\ExtconsSitNFe.cs" />
+    <Compile Include="NFe\Utils\Consulta\ExtprocEventoNFe.cs" />
+    <Compile Include="NFe\Utils\Consulta\ExtretConsSitNFe.cs" />
+    <Compile Include="NFe\Utils\Conversao.cs" />
+    <Compile Include="NFe\Utils\DistribuicaoDFe\ExtdistDFeInt.cs" />
+    <Compile Include="NFe\Utils\DistribuicaoDFe\ExtretDistDFeInt.cs" />
+    <Compile Include="NFe\Utils\Download\ExtdownloadNFe.cs" />
+    <Compile Include="NFe\Utils\Download\ExtretDownloadNFe.cs" />
+    <Compile Include="NFe\Utils\Email\ConfiguracaoEmail.cs" />
+    <Compile Include="NFe\Utils\Email\EmailBuilder.cs" />
+    <Compile Include="NFe\Utils\Evento\ExtenvEvento.cs" />
+    <Compile Include="NFe\Utils\Evento\Extevento.cs" />
+    <Compile Include="NFe\Utils\Evento\ExtretEnvEvento.cs" />
+    <Compile Include="NFe\Utils\Excecoes\ComunicacaoException.cs" />
+    <Compile Include="NFe\Utils\Excecoes\FabricaComunicacaoException.cs" />
+    <Compile Include="NFe\Utils\Excecoes\ValidacaoSchemaException.cs" />
+    <Compile Include="NFe\Utils\InformacoesSuplementares\ExtinfNFeSupl.cs" />
+    <Compile Include="NFe\Utils\Inutilizacao\ExtinutNFe.cs" />
+    <Compile Include="NFe\Utils\Inutilizacao\ExtretInutNFe.cs" />
+    <Compile Include="NFe\Utils\NfeSituacao.cs" />
+    <Compile Include="NFe\Utils\NFe\ExtNFe.cs" />
+    <Compile Include="NFe\Utils\NFe\ExtNfeProc.cs" />
+    <Compile Include="NFe\Utils\Recepcao\ExtconsReciNFe.cs" />
+    <Compile Include="NFe\Utils\Recepcao\ExtenviNFe2.cs" />
+    <Compile Include="NFe\Utils\Recepcao\ExtretConsReciNFe.cs" />
+    <Compile Include="NFe\Utils\Recepcao\ExtretEnviNFe.cs" />
+    <Compile Include="NFe\Utils\Status\ExtconsStatServ.cs" />
+    <Compile Include="NFe\Utils\Status\ExtretConsStatServ.cs" />
+    <Compile Include="NFe\Utils\Tributacao\Estadual\ICMSGeral.cs" />
+    <Compile Include="NFe\Utils\Validacao\Validador.cs" />
+    <Compile Include="NFe\Wsdl\Autorizacao\NfeAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Autorizacao\NfeAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Autorizacao\NfeRetAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Autorizacao\NfeRetAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\ConsultaCadastro\CE\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\AdmCsc\NfceCsc.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\ConsultaProtocolo\NfeConsulta.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\ConsultaProtocolo\NfeConsulta2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\ConsultaProtocolo\NfeConsulta3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\DistribuicaoDFe\NfeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Download\NfeDownloadNF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Evento\RecepcaoEPEC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Evento\RecepcaoEvento.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\INfeServico.cs" />
+    <Compile Include="NFe\Wsdl\INfeServicoAutorizacao.cs" />
+    <Compile Include="NFe\Wsdl\Inutilizacao\NfeInutilizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Inutilizacao\NfeInutilizacao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Inutilizacao\NfeInutilizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\nfeCabecMsg.cs" />
+    <Compile Include="NFe\Wsdl\Recepcao\NfeRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Recepcao\NfeRetRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Status\NfeStatusServico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Status\NfeStatusServico2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Status\NfeStatusServico3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NFe\Wsdl\Status\NFeStatusServico4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\Assinatura\AssinaturaDigital.cs" />
+    <Compile Include="Utils\Assinatura\CertificadoDigital.cs" />
+    <Compile Include="Utils\ChaveFiscal.cs" />
+    <Compile Include="Utils\ConfiguracaoCertificado.cs" />
+    <Compile Include="Utils\DataHora.cs" />
+    <Compile Include="Utils\EnumExt.cs" />
+    <Compile Include="Utils\FuncoesXml.cs" />
+    <Compile Include="Utils\Reflexao.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="NFe\Classes\NFe.Classes.licenseheader" />
+    <None Include="NFe\Servicos\NFe.Servicos.cd" />
+    <None Include="NFe\Servicos\NFe.Servicos.licenseheader" />
+    <None Include="NFe\Utils\NFe.Utils.cd" />
+    <None Include="NFe\Utils\NFe.Utils.licenseheader" />
+    <None Include="NFe\Wsdl\NFe.Wsdl.cd" />
+    <None Include="NFe\Wsdl\NFe.Wsdl.licenseheader" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

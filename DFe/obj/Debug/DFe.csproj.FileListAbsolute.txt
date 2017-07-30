@@ -1,0 +1,7 @@
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\bin\Debug\DFe.dll
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\bin\Debug\DFe.pdb
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\obj\Debug\DFe.dll
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\obj\Debug\DFe.pdb
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\bin\Debug\JetBrains.Annotations.dll
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\bin\Debug\JetBrains.Annotations.xml
+C:\Users\rober\Documents\Projetos\Zeus\Zeus.Net.NFe.NFCe\DFe\obj\Debug\DFe.csprojResolveAssemblyReference.cache

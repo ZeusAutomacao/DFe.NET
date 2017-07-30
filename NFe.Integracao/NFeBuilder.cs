@@ -35,8 +35,8 @@ using System;
 using System.Xml.Serialization;
 using System.IO;
 using System.Collections.Generic;
-using NFe.Classes;
-using NFe.Classes.Servicos.Autorizacao;
+using DFe.NFe.Classes;
+using DFe.NFe.Classes.Servicos.Autorizacao;
 using NFe.Integracao.Enums;
 
 namespace NFe.Integracao
@@ -47,11 +47,11 @@ namespace NFe.Integracao
     /// </summary>
     public class NFeBuilder
     {
-        private readonly IList<Classes.NFe> _nFe;
+        private readonly IList<DFe.NFe.Classes.NFe> _nFe;
 
         public NFeBuilder(string pathArquivoXml, TipoXmlNFe tipo)
         {
-            _nFe = new List<Classes.NFe>();
+            _nFe = new List<DFe.NFe.Classes.NFe>();
 
             try
             {
@@ -74,8 +74,8 @@ namespace NFe.Integracao
                         break;
                     default:
                     {
-                        var desserializador = new XmlSerializer(typeof(Classes.NFe));
-                        _nFe.Add(((Classes.NFe)desserializador.Deserialize(reader)));
+                        var desserializador = new XmlSerializer(typeof(DFe.NFe.Classes.NFe));
+                        _nFe.Add(((DFe.NFe.Classes.NFe)desserializador.Deserialize(reader)));
                     }
                         break;
                 }
@@ -90,7 +90,7 @@ namespace NFe.Integracao
         /// Método responsável por montar uma NF-e.
         /// </summary>
         /// <returns>Retorna uma das notas presentes em "this.NFe" removendo a mesma da listagem.</returns>
-        public Classes.NFe Build()
+        public DFe.NFe.Classes.NFe Build()
         {
             if (_nFe.Count <= 0)
                 throw new InvalidOperationException("Não existem informações para a montagem da classe");
@@ -103,7 +103,7 @@ namespace NFe.Integracao
         /// Monta uma lista de NF-e.
         /// </summary>
         /// <returns>Retorna todas as NF-e´s presentes em "this.NFe"</returns>
-        public IList<Classes.NFe> BuildAll()
+        public IList<DFe.NFe.Classes.NFe> BuildAll()
         {
             if (_nFe.Count <= 0)
                 throw new InvalidOperationException("Não existem informações para a montagem da classe");

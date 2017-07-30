@@ -1,7 +1,5 @@
-﻿using CTe.Classes;
-using CTe.Dacte.Base;
+﻿using CTe.Dacte.Base;
 using CTe.Dacte.Fast;
-using DFe.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DFe.CTe.Classes;
+using DFe.Utils;
 
 namespace CTe.Dacte.AppTeste
 {

@@ -36,25 +36,25 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.MDFe.Classes.Extensoes;
+using DFe.MDFe.Classes.Flags;
+using DFe.MDFe.Classes.Informacoes;
+using DFe.MDFe.Classes.Retorno;
+using DFe.MDFe.Classes.Servicos.Autorizacao;
+using DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
+using DFe.MDFe.Servicos.ConsultaProtocoloMDFe;
+using DFe.MDFe.Servicos.EventosMDFe;
+using DFe.MDFe.Servicos.RecepcaoMDFe;
+using DFe.MDFe.Servicos.RetRecepcaoMDFe;
+using DFe.MDFe.Servicos.StatusServicoMDFe;
+using DFe.MDFe.Utils.Configuracoes;
+using DFe.MDFe.Utils.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using MDFe.Classes.Flags;
-using MDFe.Classes.Informacoes;
-using MDFe.Classes.Retorno;
-using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
-using MDFe.Classes.Extencoes;
-using MDFe.Servicos.ConsultaNaoEncerradosMDFe;
-using MDFe.Servicos.ConsultaProtocoloMDFe;
-using MDFe.Servicos.EventosMDFe;
-using MDFe.Servicos.RecepcaoMDFe;
-using MDFe.Servicos.RetRecepcaoMDFe;
-using MDFe.Servicos.StatusServicoMDFe;
-using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
-using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
+using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -1351,16 +1351,16 @@ namespace MDFe.AppTeste
                 Serial = config.CertificadoDigital.NumeroDeSerie
             };
 
-            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)

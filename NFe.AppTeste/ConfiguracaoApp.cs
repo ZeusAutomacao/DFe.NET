@@ -33,14 +33,14 @@
 using System;
 using System.IO;
 using System.Net;
+using DFe.NFe.Classes.Informacoes.Emitente;
+using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.NFe.Utils;
+using DFe.NFe.Utils.Email;
 using DFe.Utils;
 using NFe.AppTeste.Properties;
-using NFe.Classes.Informacoes.Emitente;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
-using NFe.Utils;
-using NFe.Utils.Email;
 
 namespace NFe.AppTeste
 {

@@ -37,18 +37,18 @@ using System.Drawing.Imaging;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
+using DFe.NFe.Classes;
+using DFe.NFe.Classes.Informacoes.Destinatario;
+using DFe.NFe.Classes.Informacoes.Detalhe;
+using DFe.NFe.Classes.Informacoes.Emitente;
+using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.NFe.Classes.Informacoes.Pagamento;
+using DFe.NFe.Classes.Servicos.Download;
+using DFe.NFe.Utils.InformacoesSuplementares;
+using DFe.NFe.Utils.NFe;
 using GraphicsPrinter;
-using NFe.Classes;
-using NFe.Classes.Informacoes.Destinatario;
-using NFe.Classes.Informacoes.Detalhe;
-using NFe.Classes.Informacoes.Emitente;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Informacoes.Pagamento;
-using NFe.Classes.Servicos.Download;
 using NFe.Danfe.Base.NFCe;
-using NFe.Utils.InformacoesSuplementares;
-using NFe.Utils.NFe;
-using NFeZeus = NFe.Classes.NFe;
+using NFeZeus = DFe.NFe.Classes.NFe;
 
 namespace NFe.Danfe.Nativo.NFCe
 {

@@ -32,13 +32,13 @@
 /********************************************************************************/
 
 using System.IO;
+using DFe.NFe.Classes;
+using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.NFe.Utils;
+using DFe.NFe.Utils.InformacoesSuplementares;
 using FastReport;
 using FastReport.Barcode;
-using NFe.Classes;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Danfe.Base.NFCe;
-using NFe.Utils;
-using NFe.Utils.InformacoesSuplementares;
 
 namespace NFe.Danfe.Fast.NFCe
 {
@@ -92,7 +92,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce, cIdToken, csc)
+        public DanfeFrNfce(DFe.NFe.Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce, cIdToken, csc)
         {
         }
     }

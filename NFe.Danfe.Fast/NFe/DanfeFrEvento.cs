@@ -32,8 +32,9 @@
 /********************************************************************************/
 
 using System.IO;
+using DFe.NFe.Classes;
+using DFe.NFe.Classes.Servicos.Consulta;
 using FastReport;
-using NFe.Classes;
 using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.Fast.NFe
@@ -46,11 +47,11 @@ namespace NFe.Danfe.Fast.NFe
         /// <summary>
         /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
         /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
+        /// <param name="proc">Objeto do tipo <see cref="DFe.NFe.Classes.nfeProc"/></param>
+        /// <param name="procEventoNFe">Objeto do tipo <see cref="DFe.NFe.Classes.Servicos.Consulta.procEventoNFe"/></param>
         /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
+        public DanfeFrEvento(nfeProc proc, procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
         {
             #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 

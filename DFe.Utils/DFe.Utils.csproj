@@ -38,22 +38,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assinatura\AssinaturaDigital.cs" />
-    <Compile Include="Assinatura\CertificadoDigital.cs" />
-    <Compile Include="ConfiguracaoCertificado.cs" />
-    <Compile Include="DataHora.cs" />
-    <Compile Include="EnumExt.cs" />
-    <Compile Include="FuncoesXml.cs" />
-    <Compile Include="ChaveFiscal.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reflexao.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
-      <Name>DFe.Classes</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assinatura\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

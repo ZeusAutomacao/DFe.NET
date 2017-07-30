@@ -40,44 +40,43 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using DFe.Utils;
-using DFe.Utils.Assinatura;
-using NFe.Classes;
-using NFe.Classes.Informacoes;
-using NFe.Classes.Informacoes.Cobranca;
-using NFe.Classes.Informacoes.Destinatario;
-using NFe.Classes.Informacoes.Detalhe;
-using NFe.Classes.Informacoes.Detalhe.Tributacao;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
-using NFe.Classes.Informacoes.Emitente;
-using NFe.Classes.Informacoes.Identificacao;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Informacoes.Observacoes;
-using NFe.Classes.Informacoes.Pagamento;
-using NFe.Classes.Informacoes.Total;
-using NFe.Classes.Informacoes.Transporte;
-using NFe.Classes.Servicos.ConsultaCadastro;
-using NFe.Classes.Servicos.Tipos;
-using NFe.Servicos;
-using NFe.Servicos.Retorno;
-using NFe.Utils;
-using NFe.Utils.Email;
-using NFe.Utils.InformacoesSuplementares;
-using NFe.Utils.NFe;
-using NFe.Utils.Tributacao.Estadual;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
-using DFe.Classes.Extensoes;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.NFe.Classes;
+using DFe.NFe.Classes.Informacoes;
+using DFe.NFe.Classes.Informacoes.Cobranca;
+using DFe.NFe.Classes.Informacoes.Destinatario;
+using DFe.NFe.Classes.Informacoes.Detalhe;
+using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao;
+using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
+using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
+using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using DFe.NFe.Classes.Informacoes.Emitente;
+using DFe.NFe.Classes.Informacoes.Identificacao;
+using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.NFe.Classes.Informacoes.Observacoes;
+using DFe.NFe.Classes.Informacoes.Pagamento;
+using DFe.NFe.Classes.Informacoes.Total;
+using DFe.NFe.Classes.Informacoes.Transporte;
+using DFe.NFe.Classes.Servicos.ConsultaCadastro;
+using DFe.NFe.Classes.Servicos.Tipos;
+using DFe.NFe.Servicos;
+using DFe.NFe.Servicos.Retorno;
+using DFe.NFe.Utils;
+using DFe.NFe.Utils.Email;
+using DFe.NFe.Utils.Excecoes;
+using DFe.NFe.Utils.InformacoesSuplementares;
+using DFe.NFe.Utils.NFe;
+using DFe.NFe.Utils.Tributacao.Estadual;
+using DFe.Utils.Assinatura;
 using NFe.Danfe.Nativo.NFCe;
-using NFe.Utils.Excecoes;
-using NFeZeus = NFe.Classes.NFe;
+using NFeZeus = DFe.NFe.Classes.NFe;
 
 namespace NFe.AppTeste
 {
@@ -89,7 +88,7 @@ namespace NFe.AppTeste
         private const string ArquivoConfiguracao = @"\configuracao.xml";
         private const string TituloErro = "Erro";
         private ConfiguracaoApp _configuracoes;
-        private Classes.NFe _nfe;
+        private NFeZeus _nfe;
         private readonly string _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         public MainWindow()
@@ -240,7 +239,7 @@ namespace NFe.AppTeste
                 if (string.IsNullOrWhiteSpace(arquivoXml))
                     return;
 
-                var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                var nfe = new NFeZeus().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
@@ -282,7 +281,7 @@ namespace NFe.AppTeste
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> {_nfe});
+                var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<NFeZeus> {_nfe});
 
                 TrataRetorno(retornoEnvio);
 
@@ -396,7 +395,7 @@ namespace NFe.AppTeste
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFeZeus> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -733,7 +732,7 @@ namespace NFe.AppTeste
             var arquivoXml = Funcoes.BuscarArquivoXml();
 
             if (!string.IsNullOrWhiteSpace(arquivoXml))
-                _nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                _nfe = new NFeZeus().CarregarDeArquivoXml(arquivoXml);
         }
 
         private void BtnValida_Click(object sender, RoutedEventArgs e)
@@ -810,7 +809,7 @@ namespace NFe.AppTeste
                 if (string.IsNullOrWhiteSpace(arquivoXml))
                     return;
 
-                var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                var nfe = new NFeZeus().CarregarDeArquivoXml(arquivoXml);
                 var chave = nfe.infNFe.Id.Substring(3);
 
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
@@ -859,7 +858,7 @@ namespace NFe.AppTeste
                 BtnImportarXml_Click(sender, e);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFeZeus> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
             }
@@ -921,9 +920,9 @@ namespace NFe.AppTeste
 
         #region Criar NFe
 
-        protected virtual Classes.NFe GetNf(int numero, ModeloDocumento modelo, VersaoServico versao)
+        protected virtual NFeZeus GetNf(int numero, ModeloDocumento modelo, VersaoServico versao)
         {
-            var nf = new Classes.NFe {infNFe = GetInf(numero, modelo, versao)};
+            var nf = new NFeZeus {infNFe = GetInf(numero, modelo, versao)};
             return nf;
         }
 
@@ -1642,7 +1641,7 @@ namespace NFe.AppTeste
                 }
                 catch (Exception)
                 {
-                    nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                    nfe = new NFeZeus().CarregarDeArquivoXml(arquivoXml);
                     arquivo = nfe.ObterXmlString();
                 }
 

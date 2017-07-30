@@ -71,29 +71,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
-      <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
-      <Name>NFe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
-      <Name>NFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj">
-      <Project>{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}</Project>
-      <Name>NFe.Wsdl</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -63,9 +63,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794CB98-4691-4218-A127-C573C2E7FF83}</Project>
-      <Name>MDFe.Classes</Name>
+    <ProjectReference Include="..\DFe\DFe.csproj">
+      <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
+      <Name>DFe</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">
       <Project>{2419900b-1e90-4181-9338-3e84237c3b00}</Project>

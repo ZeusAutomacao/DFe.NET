@@ -40,22 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
-    <Compile Include="Evento\CteRecepcaoEvento.cs" />
-    <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recepcao\CteRecepcao.cs" />
-    <Compile Include="RetRecepcao\CteRetRecepcao.cs" />
-    <Compile Include="Status\CteStatusServico.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
+    <Folder Include="Configuracao\" />
+    <Folder Include="ConsultaProtocolo\" />
+    <Folder Include="Evento\" />
+    <Folder Include="Inutilizacao\" />
+    <Folder Include="Recepcao\" />
+    <Folder Include="RetRecepcao\" />
+    <Folder Include="Status\" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

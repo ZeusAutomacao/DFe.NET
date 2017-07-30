@@ -37,39 +37,38 @@ using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
-using CTe.Classes;
-using CTe.Classes.Informacoes;
-using CTe.Classes.Informacoes.Destinatario;
-using CTe.Classes.Informacoes.Emitente;
-using CTe.Classes.Informacoes.infCTeNormal;
-using CTe.Classes.Informacoes.infCTeNormal.infCargas;
-using CTe.Classes.Informacoes.infCTeNormal.infModals;
-using CTe.Classes.Informacoes.Identificacao;
-using CTe.Classes.Informacoes.Impostos;
-using CTe.Classes.Informacoes.Impostos.ICMS;
-using CTe.Classes.Informacoes.Impostos.Tributacao;
-using CTe.Classes.Informacoes.Remetente;
-using CTe.Classes.Informacoes.Tipos;
-using CTe.Classes.Informacoes.Valores;
-using CTe.Classes.Servicos;
-using CTe.Classes.Servicos.Evento;
-using CTe.Classes.Servicos.Recepcao;
-using CTe.Classes.Servicos.Tipos;
-using CTe.Servicos.ConsultaProtocolo;
-using CTe.Servicos.ConsultaRecibo;
-using CTe.Servicos.ConsultaStatus;
-using CTe.Servicos.EnviarCte;
-using CTe.Servicos.Eventos;
-using CTe.Servicos.Inutilizacao;
-using CTe.Servicos.Recepcao;
-using CTe.Utils.CTe;
-using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.CTe.Classes;
+using DFe.CTe.Classes.Informacoes;
+using DFe.CTe.Classes.Informacoes.Destinatario;
+using DFe.CTe.Classes.Informacoes.Emitente;
+using DFe.CTe.Classes.Informacoes.infCTeNormal;
+using DFe.CTe.Classes.Informacoes.infCTeNormal.infCargas;
+using DFe.CTe.Classes.Informacoes.infCTeNormal.infModals;
+using DFe.CTe.Classes.Informacoes.Identificacao;
+using DFe.CTe.Classes.Informacoes.Impostos;
+using DFe.CTe.Classes.Informacoes.Impostos.ICMSCTe;
+using DFe.CTe.Classes.Informacoes.Remetente;
+using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.CTe.Classes.Informacoes.Valores;
+using DFe.CTe.Classes.Servicos;
+using DFe.CTe.Classes.Servicos.Evento;
+using DFe.CTe.Classes.Servicos.Recepcao;
+using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.CTe.Servicos.ConsultaProtocolo;
+using DFe.CTe.Servicos.ConsultaRecibo;
+using DFe.CTe.Servicos.ConsultaStatus;
+using DFe.CTe.Servicos.EnviarCte;
+using DFe.CTe.Servicos.Eventos;
+using DFe.CTe.Servicos.Inutilizacao;
+using DFe.CTe.Servicos.Recepcao;
+using DFe.CTe.Utils.CTe;
+using CteEletronico = DFe.CTe.Classes.CTe;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using dest = CTe.Classes.Informacoes.Destinatario.dest;
-using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
+using dest = DFe.CTe.Classes.Informacoes.Destinatario.dest;
+using infNFe = DFe.CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace CTe.AppTeste
@@ -665,7 +664,7 @@ namespace CTe.AppTeste
             {
                 if (caminhoArquivoXml.Contains("completo"))
                 {
-                    var enviCTe = Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
+                    var enviCTe = DFe.CTe.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviCTe.CTe[0].Chave();
                 }

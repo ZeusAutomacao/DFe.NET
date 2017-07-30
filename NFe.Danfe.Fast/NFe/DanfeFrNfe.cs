@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.IO;
+using DFe.NFe.Classes;
 using FastReport;
-using NFe.Classes;
 using NFe.Danfe.Base.NFe;
 
 namespace NFe.Danfe.Fast.NFe
@@ -72,10 +72,10 @@ namespace NFe.Danfe.Fast.NFe
         /// Construtor da classe responsável pela impressão do DANFE da NFe em Fast Reports.
         /// Use esse construtor apenas para impressão em contingência, já que neste modo ainda não é possível obter o grupo protNFe 
         /// </summary>
-        /// <param name="nfe">Objeto do tipo <see cref="Classes.NFe"/></param>
+        /// <param name="nfe">Objeto do tipo <see cref="DFe.NFe.Classes.NFe"/></param>
         /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        public DanfeFrNfe(Classes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe, desenvolvedor)
+        public DanfeFrNfe(DFe.NFe.Classes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe, desenvolvedor)
         {
         }
     }
