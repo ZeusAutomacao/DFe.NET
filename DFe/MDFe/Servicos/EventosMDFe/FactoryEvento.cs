@@ -35,7 +35,7 @@ using System;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Informacoes.Evento;
 using DFe.MDFe.Classes.Informacoes.Evento.Flags;
-using DFe.MDFe.Utils.Configuracoes;
+using DFe.MDFe.Configuracoes;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe

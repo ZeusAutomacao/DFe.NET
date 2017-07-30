@@ -41,14 +41,13 @@ using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes;
 using DFe.MDFe.Classes.Retorno;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
+using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using DFe.MDFe.Servicos.ConsultaProtocoloMDFe;
 using DFe.MDFe.Servicos.EventosMDFe;
 using DFe.MDFe.Servicos.RecepcaoMDFe;
 using DFe.MDFe.Servicos.RetRecepcaoMDFe;
 using DFe.MDFe.Servicos.StatusServicoMDFe;
-using DFe.MDFe.Utils.Configuracoes;
-using DFe.MDFe.Utils.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.AppTeste.Dao;
@@ -778,12 +777,12 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            var servicoRecepcao = new ServicoMDFeRecepcao();
+            var servicoRecepcao = new MDFeEnviarLote();
 
             // Evento executado antes do envio da mdf-e para a sefaz
             //servicoRecepcao.AntesDeEnviar += AntesEnviar;
 
-            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
+            var retornoEnvio = servicoRecepcao.EnviarLote(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 

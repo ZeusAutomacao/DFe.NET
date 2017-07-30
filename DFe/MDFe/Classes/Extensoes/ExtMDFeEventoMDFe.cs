@@ -32,11 +32,11 @@
 /********************************************************************************/
 
 using System.Xml;
+using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes.Evento;
 using DFe.MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using DFe.MDFe.Utils.Configuracoes;
-using DFe.MDFe.Utils.Flags;
-using DFe.MDFe.Utils.Validacao;
+using DFe.MDFe.Configuracoes;
+using DFe.MDFe.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 

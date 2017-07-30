@@ -35,9 +35,9 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
-using DFe.MDFe.Utils.Configuracoes;
+using DFe.MDFe.Configuracoes;
 
-namespace DFe.MDFe.Utils.Validacao
+namespace DFe.MDFe.Validacao
 {
     public class Validador
     {

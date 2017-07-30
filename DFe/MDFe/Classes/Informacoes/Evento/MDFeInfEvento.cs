@@ -35,9 +35,9 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes.Evento.Flags;
-using DFe.MDFe.Utils.Configuracoes;
-using DFe.MDFe.Utils.Flags;
+using DFe.MDFe.Configuracoes;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Informacoes.Evento

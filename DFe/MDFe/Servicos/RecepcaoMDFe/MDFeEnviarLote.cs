@@ -36,18 +36,17 @@ using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
+using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Servicos.Factory;
-using DFe.MDFe.Utils.Configuracoes;
-using DFe.MDFe.Utils.Flags;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.RecepcaoMDFe
 {
-    public class ServicoMDFeRecepcao
+    public class MDFeEnviarLote
     {
         public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        public MDFeRetEnviMDFe EnviarLote(long lote, MDFeEletronico mdfe)
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 

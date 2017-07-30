@@ -34,7 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
-using DFe.MDFe.Utils.Flags;
+using DFe.MDFe.Classes.Flags;
 
 namespace DFe.MDFe.Classes.Informacoes.StatusServico
 {

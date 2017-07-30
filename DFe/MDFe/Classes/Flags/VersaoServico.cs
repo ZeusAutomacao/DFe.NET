@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 
-namespace DFe.MDFe.Utils.Flags
+namespace DFe.MDFe.Classes.Flags
 {
     public enum VersaoServico
     {

@@ -36,8 +36,8 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
-using DFe.MDFe.Utils.Flags;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado

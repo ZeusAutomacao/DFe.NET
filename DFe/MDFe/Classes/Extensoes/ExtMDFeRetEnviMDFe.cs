@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
-using DFe.MDFe.Utils.Configuracoes;
+using DFe.MDFe.Configuracoes;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Extensoes

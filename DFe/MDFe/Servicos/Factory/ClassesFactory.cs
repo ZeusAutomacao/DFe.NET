@@ -39,7 +39,7 @@ using DFe.MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using DFe.MDFe.Classes.Informacoes.RetRecepcao;
 using DFe.MDFe.Classes.Informacoes.StatusServico;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
-using DFe.MDFe.Utils.Configuracoes;
+using DFe.MDFe.Configuracoes;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.Factory

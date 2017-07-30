@@ -33,10 +33,10 @@
 
 using System;
 using DFe.Classes.Entidades;
+using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes;
-using DFe.MDFe.Utils.Configuracoes;
-using DFe.MDFe.Utils.Flags;
-using DFe.MDFe.Utils.Validacao;
+using DFe.MDFe.Configuracoes;
+using DFe.MDFe.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFEletronico = DFe.MDFe.Classes.Informacoes.MDFe;

@@ -399,6 +399,7 @@
     <Compile Include="MDFe\Classes\Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
     <Compile Include="MDFe\Classes\Retorno\RetornoBase.cs" />
     <Compile Include="MDFe\Classes\Servicos\Autorizacao\MDFeEnviMDFe.cs" />
+    <Compile Include="MDFe\Facade\MDFeFacade.cs" />
     <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
     <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\Helper\UrlHelper.cs" />
@@ -413,12 +414,12 @@
     <Compile Include="MDFe\Servicos\Factory\ClassesFactory.cs" />
     <Compile Include="MDFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\AntesDeEnviar.cs" />
-    <Compile Include="MDFe\Servicos\RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
+    <Compile Include="MDFe\Servicos\RecepcaoMDFe\MDFeEnviarLote.cs" />
     <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
     <Compile Include="MDFe\Servicos\StatusServicoMDFe\ServicoMDFeStatusServico.cs" />
-    <Compile Include="MDFe\Utils\Configuracoes\MDFeConfiguracao.cs" />
-    <Compile Include="MDFe\Utils\Flags\VersaoServico.cs" />
-    <Compile Include="MDFe\Utils\Validacao\Validador.cs" />
+    <Compile Include="MDFe\Configuracoes\MDFeConfiguracao.cs" />
+    <Compile Include="MDFe\Classes\Flags\VersaoServico.cs" />
+    <Compile Include="MDFe\Validacao\Validador.cs" />
     <Compile Include="MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="MDFe\Wsdl\Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />

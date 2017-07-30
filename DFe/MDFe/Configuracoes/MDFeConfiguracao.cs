@@ -34,11 +34,11 @@
 using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.MDFe.Utils.Flags;
+using DFe.MDFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 
-namespace DFe.MDFe.Utils.Configuracoes
+namespace DFe.MDFe.Configuracoes
 {
     public class MDFeConfiguracao
     {
