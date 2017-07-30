@@ -37,9 +37,9 @@ using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.RetRecepcaoMDFe
 {
-    public class ServicoMDFeRetRecepcao
+    public class MDFeConsultaLote
     {
-        public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo)
+        public MDFeRetConsReciMDFe ConsultaLote(string numeroRecibo)
         {
             var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
             consReciMdfe.ValidaSchema();

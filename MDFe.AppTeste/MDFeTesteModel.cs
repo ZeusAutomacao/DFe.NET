@@ -1065,8 +1065,8 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var servicoRecibo = new ServicoMDFeRetRecepcao();
-            var retorno = servicoRecibo.MDFeRetRecepcao(recibo);
+            var servicoRecibo = new MDFeConsultaLote();
+            var retorno = servicoRecibo.ConsultaLote(recibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

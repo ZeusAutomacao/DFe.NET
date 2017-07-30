@@ -415,7 +415,7 @@
     <Compile Include="MDFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\AntesDeEnviar.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\MDFeEnviarLote.cs" />
-    <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
+    <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\MDFeConsultaLote.cs" />
     <Compile Include="MDFe\Servicos\StatusServicoMDFe\ServicoMDFeStatusServico.cs" />
     <Compile Include="MDFe\Configuracoes\MDFeConfiguracao.cs" />
     <Compile Include="MDFe\Classes\Flags\VersaoServico.cs" />
