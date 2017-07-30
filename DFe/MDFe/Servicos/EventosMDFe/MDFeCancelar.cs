@@ -38,9 +38,9 @@ using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
-    public class EventoCancelar
+    public class MDFeCancelar
     {
-        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
+        public MDFeRetEventoMDFe Cancelar(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
         {
             var cancelamento = ClassesFactory.CriaEvCancMDFe(protocolo, justificativa);
 

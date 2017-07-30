@@ -405,7 +405,7 @@
     <Compile Include="MDFe\Servicos\Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\UrlMDFe.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\Contratos\IServicoController.cs" />
-    <Compile Include="MDFe\Servicos\EventosMDFe\EventoCancelar.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\MDFeCancelar.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\EventoEncerramento.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\EventoInclusaoCondutor.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\FactoryEvento.cs" />
