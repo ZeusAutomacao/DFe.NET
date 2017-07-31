@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="07/31/2017 17:29:42" ReportInfo.CreatorVersion="2017.1.17.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="07/31/2017 17:32:01" ReportInfo.CreatorVersion="2017.1.17.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -896,8 +896,14 @@ namespace FastReport
             <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="EventoContainer" DataType="CTe.Classes.Servicos.Evento.EventoContainer, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="descEvento" DataType="System.String"/>
-              <Column Name="nProt" DataType="System.String"/>
-              <Column Name="xJust" DataType="System.String"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="infCorrecao" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.infCorrecao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infCorrecao" Enabled="true">
+                <Column Name="grupoAlterado" DataType="System.String"/>
+                <Column Name="campoAlterado" DataType="System.String"/>
+                <Column Name="valorAlterado" DataType="System.String"/>
+                <Column Name="nroItemAlterado" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="nroItemAlteradoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              </BusinessObjectDataSource>
+              <Column Name="xCondUso" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
