@@ -1192,7 +1192,7 @@ namespace MDFe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
-            var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
+            var servicoConsultaNaoEncerrados = new MDFeConsultaNaoEncerradas();
             var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
 
             OnSucessoSync(new RetornoEEnvio(retorno));

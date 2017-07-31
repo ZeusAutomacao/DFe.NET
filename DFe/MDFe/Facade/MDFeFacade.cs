@@ -1,8 +1,10 @@
-﻿using DFe.MDFe.Classes.Retorno.MDFeConsultaProtocolo;
+﻿using DFe.MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
+using DFe.MDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using DFe.MDFe.Classes.Retorno.MDFeEvento;
 using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
 using DFe.MDFe.Classes.Retorno.MDFeRetRecepcao;
 using DFe.MDFe.Classes.Retorno.MDFeStatusServico;
+using DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using DFe.MDFe.Servicos.ConsultaProtocoloMDFe;
 using DFe.MDFe.Servicos.EventosMDFe;
 using DFe.MDFe.Servicos.RecepcaoMDFe;
@@ -19,6 +21,9 @@ namespace DFe.MDFe.Facade
         private readonly MDFeStatusConsulta _statusConsulta;
         private readonly MDFeConsulta _consulta;
         private readonly MDFeCancelar _cancelar;
+        private readonly MDFeConsultaNaoEncerradas _consultaNaoEncerradas;
+        private readonly MDFeIncluirCondutor _incluirCondutor;
+        private readonly MDFeEncerrar _encerrar;
 
         public MDFeFacade()
         {
@@ -27,6 +32,9 @@ namespace DFe.MDFe.Facade
             _statusConsulta = new MDFeStatusConsulta();
             _consulta = new MDFeConsulta();
             _cancelar = new MDFeCancelar();
+            _consultaNaoEncerradas = new MDFeConsultaNaoEncerradas();
+            _incluirCondutor = new MDFeIncluirCondutor();
+            _encerrar = new MDFeEncerrar();
         }
 
         public MDFeRetEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)
@@ -52,6 +60,21 @@ namespace DFe.MDFe.Facade
         public MDFeRetEventoMDFe Cancelar(MdfeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
         {
             return _cancelar.Cancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+        }
+
+        public MDFeRetConsMDFeNao ConsultaNaoEncerradas(string cnpj)
+        {
+            return _consultaNaoEncerradas.MDFeConsultaNaoEncerrados(cnpj);
+        }
+
+        public MDFeRetEventoMDFe IncluirCondutor(MdfeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
+        {
+            return _incluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+        }
+
+        public MDFeRetEventoMDFe Encerrar(MdfeEletronico mdfe, byte sequenciaEvento, string protocolo)
+        {
+            return _encerrar.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
         }
     }
 }

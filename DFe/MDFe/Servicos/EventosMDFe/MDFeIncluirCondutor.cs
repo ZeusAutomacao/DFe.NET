@@ -38,13 +38,13 @@ using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
-    public class EventoEncerramento
+    public class MDFeIncluirCondutor
     {
-        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
         {
-            var encerramento = ClassesFactory.CriaEvEncMDFe(mdfe, protocolo);
+            var incluirCodutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
+            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor);
 
             return retorno;
         }

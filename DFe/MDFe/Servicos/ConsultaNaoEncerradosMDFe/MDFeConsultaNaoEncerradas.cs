@@ -37,7 +37,7 @@ using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class MDFeConsultaNaoEncerradas
     {
         public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
         {

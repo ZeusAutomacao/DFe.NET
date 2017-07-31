@@ -400,14 +400,14 @@
     <Compile Include="MDFe\Classes\Retorno\RetornoBase.cs" />
     <Compile Include="MDFe\Classes\Servicos\Autorizacao\MDFeEnviMDFe.cs" />
     <Compile Include="MDFe\Facade\MDFeFacade.cs" />
-    <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
+    <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\MDFeConsultaNaoEncerradas.cs" />
     <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\MDFeConsulta.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\Helper\UrlHelper.cs" />
     <Compile Include="MDFe\Servicos\Enderecos\UrlMDFe.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\Contratos\IServicoController.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\MDFeCancelar.cs" />
-    <Compile Include="MDFe\Servicos\EventosMDFe\EventoEncerramento.cs" />
-    <Compile Include="MDFe\Servicos\EventosMDFe\EventoInclusaoCondutor.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\MDFeEncerrar.cs" />
+    <Compile Include="MDFe\Servicos\EventosMDFe\MDFeIncluirCondutor.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\FactoryEvento.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\ServicoController.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\ServicoMDFeEvento.cs" />
