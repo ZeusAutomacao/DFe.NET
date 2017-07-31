@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="07/31/2017 17:18:04" ReportInfo.CreatorVersion="2017.1.17.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="07/31/2017 17:29:42" ReportInfo.CreatorVersion="2017.1.17.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -182,6 +182,7 @@ namespace FastReport
       else
         Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xCondUso]&quot;;
        
+      Child1.Visible = (TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.CartaCorrecao;
       if ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.CartaCorrecao)
       {
         var ds = Report.GetDataSource(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao&quot;);
@@ -895,14 +896,8 @@ namespace FastReport
             <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="EventoContainer" DataType="CTe.Classes.Servicos.Evento.EventoContainer, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="descEvento" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="infCorrecao" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.infCorrecao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infCorrecao" Enabled="true">
-                <Column Name="grupoAlterado" DataType="System.String"/>
-                <Column Name="campoAlterado" DataType="System.String"/>
-                <Column Name="valorAlterado" DataType="System.String"/>
-                <Column Name="nroItemAlterado" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="nroItemAlteradoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-              </BusinessObjectDataSource>
-              <Column Name="xCondUso" DataType="System.String"/>
+              <Column Name="nProt" DataType="System.String"/>
+              <Column Name="xJust" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
@@ -982,7 +977,7 @@ namespace FastReport
     <Parameter Name="Desenvolvedor" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1">
-    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="1000.7" BeforePrintEvent="ReportTitle1_BeforePrint">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="521.75" BeforePrintEvent="ReportTitle1_BeforePrint">
       <ShapeObject Name="Shape1" Width="718.2" Height="44.8"/>
       <TextObject Name="Text1" Top="1" Width="718.2" Height="18.9" Text="DESCRIÇÃO DO EVENTO" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text2" Top="17.9" Width="718.2" Height="11.45" Text="Não possui valor fiscal, simples representação da CC-e indicada abaixo." HorzAlign="Center" Font="Times New Roman, 8.25pt"/>
@@ -1148,17 +1143,19 @@ namespace FastReport
       <TextObject Name="Text73" Left="1" Top="427.7" Width="717.2" Height="9.45" Text="DESCRIÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
       <LineObject Name="Line34" Left="1.38" Top="439.15" Width="716.2" Diagonal="true"/>
       <TextObject Name="Text55" Left="2" Top="440.15" Width="713.75" Height="78.6" Font="Times New Roman, 9pt"/>
-      <ShapeObject Name="Shape7" Top="528.2" Width="718.2" Height="472.5"/>
-      <TextObject Name="Text74" Left="1" Top="530.2" Width="717.2" Height="9.45" Text="CORREÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
-      <LineObject Name="Line35" Left="1.38" Top="541.65" Width="715.2" Diagonal="true"/>
-      <TextObject Name="Text57" Top="542.1" Width="717.2" Height="13.45" Text="ITEM     GRUPO          CAMPO          VALOR" Font="Courier New, 8.25pt, style=Bold"/>
-      <LineObject Name="Line27" Left="63.15" Top="542.1" Height="457.6"/>
-      <LineObject Name="Line28" Left="165.1" Top="542.1" Height="457.6"/>
-      <LineObject Name="Line36" Left="267.6" Top="542.1" Height="457.6"/>
-      <LineObject Name="Line30" Left="1" Top="555.1" Width="716.2"/>
-      <TextObject Name="Text75" Top="555.55" Width="717.2" Height="443.7" Font="Courier New, 8.25pt"/>
+      <ChildBand Name="Child1" Top="525.75" Width="718.2" Height="474.5">
+        <LineObject Name="Line30" Left="1" Top="28.35" Width="716.2"/>
+        <TextObject Name="Text75" Top="28.8" Width="717.2" Height="443.7" Font="Courier New, 8.25pt"/>
+        <LineObject Name="Line35" Left="1.38" Top="14.9" Width="715.2" Diagonal="true"/>
+        <TextObject Name="Text57" Top="15.35" Width="717.2" Height="13.45" Text="ITEM     GRUPO          CAMPO          VALOR" Font="Courier New, 8.25pt, style=Bold"/>
+        <LineObject Name="Line27" Left="63.15" Top="15.35" Height="457.6"/>
+        <LineObject Name="Line28" Left="165.1" Top="15.35" Height="457.6"/>
+        <LineObject Name="Line36" Left="267.6" Top="15.35" Height="457.6"/>
+        <TextObject Name="Text74" Left="1" Top="3.45" Width="717.2" Height="9.45" Text="CORREÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+        <ShapeObject Name="Shape7" Top="1.45" Width="718.2" Height="472.5"/>
+      </ChildBand>
     </ReportTitleBand>
-    <PageFooterBand Name="PageFooter1" Top="1003.73" Width="718.2" Height="37.8">
+    <PageFooterBand Name="PageFooter1" Top="1004.25" Width="718.2" Height="37.8">
       <TextObject Name="Text56" Left="179.55" Width="538.65" Height="37.8" Text="Data e hora da impressão: [FormatDateTime(DateTime.Now,&quot;dd/MM/yyyy HH:mm:ss&quot;)]&#13;&#10;Página: [Page#]/[TotalPages#]&#13;&#10;Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial Narrow, 8.25pt"/>
     </PageFooterBand>
   </ReportPage>
