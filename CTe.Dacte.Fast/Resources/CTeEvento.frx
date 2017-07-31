@@ -1,0 +1,1165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="07/31/2017 17:18:04" ReportInfo.CreatorVersion="2017.1.17.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+using DFe.Classes.Flags;
+using DFe.Classes.Entidades;
+using CTe.Classes.Servicos.Evento.Flags;
+
+using CTe.Classes.Informacoes;
+using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes.Informacoes.Identificacao;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    private string FormatarChave(string chave)
+    {
+      string retorno = &quot;&quot;;
+      chave = chave.Substring(3);
+      for (int i = 0; i &lt; chave.Length; i++)
+      {
+        retorno += chave[i];
+        if ((i+1) % 4 == 0)
+          retorno += &quot; &quot;;
+      }
+      return retorno;      
+    }   
+    
+    private string FormatarCampo(long valor, char format)
+    {
+      string _valor = valor.ToString();
+      if (format == 'c' &amp;&amp; valor &gt; 0)
+        _valor = valor.ToString(&quot;00000000&quot;);   
+      else if (format == 'c')
+        _valor = &quot;&quot;;
+      
+      return this.FormatarCampo(_valor, format);  
+    }
+    
+    private string FormatarCampo(string valor, char format)
+    {
+      switch (format)
+      {
+        case 'c':  //CEP
+          if (valor.Length == 8)
+            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3); 
+          break;
+        case 'f':  //Telefone /celular         
+          if (valor.Length == 10)
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
+          else if (valor.Length == 11)
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);          
+          break;
+        case 'd': //cpf / cnpj
+          if (valor.Length == 11)
+            valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
+          else if (valor.Length == 14)
+            valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
+          break;   
+        case 'p':
+          if (valor.Length == 7)
+            valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);   
+          break;
+      }                               
+      return valor;
+    }
+        
+    private void ReportTitle1_BeforePrint(object sender, EventArgs e)
+    {
+      Text1.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? &quot;CANCELAMENTO&quot; : &quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
+      Text2.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? 
+        &quot;Não possui valor fiscal, simples representação do cancelamento indicado abaixo.&quot; : 
+        &quot;Não possui valor fiscal, simples representação da CC-e indicada abaixo.&quot;;     
+      Text3.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? 
+        &quot;CONSULTE A AUTENTICIDADE DO CANCELAMENTO NO SITE DA SEFAZ AUTORIZADORA.&quot; : 
+        &quot;CONSULTE A AUTENTICIDADE DA CARTA DE CORREÇÃO ELETRÔNICA NO SITE DA SEFAZ AUTORIZADORA&quot;;
+            
+      Text6.Text = Convert.ToInt32(((ModeloDocumento)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.mod&quot;))).ToString();
+            
+      int toma = 4;      
+      if ((tomaBase3)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tomaBase3&quot;) != null)
+        toma = Convert.ToInt32((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tomaBase3.toma&quot;));
+      else if ((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.toma&quot;) != null)
+        toma = Convert.ToInt32((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.toma&quot;));
+            
+      switch (toma)
+      {
+        case 0: //REMETENTE
+          string cnpjRemetente = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.rem.CNPJ&quot;));
+          if (string.IsNullOrEmpty(cnpjRemetente))
+            cnpjRemetente = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.rem.CPF&quot;));
+          
+          Text34.Text = &quot;[cteProc.CTe.infCte.rem.xNome]&quot;;
+          Text36.Text = FormatarCampo(cnpjRemetente,'d');
+          Text40.Text = &quot;[cteProc.CTe.infCte.rem.enderReme.xLgr], [cteProc.CTe.infCte.rem.enderReme.nro] [cteProc.CTe.infCte.rem.enderReme.xCpl]&quot;;
+          Text41.Text = &quot;[cteProc.CTe.infCte.rem.enderReme.xBairro]&quot;;
+          Text42.Text = FormatarCampo( ((Int64)Report.GetColumnValue(&quot;cteProc.CTe.infCte.rem.enderReme.CEP&quot;)).ToString(),'c');
+          Text46.Text = &quot;[cteProc.CTe.infCte.rem.enderReme.xMun] - [cteProc.CTe.infCte.rem.enderReme.ProxyUF] - [cteProc.CTe.infCte.rem.enderReme.cMun]&quot;;
+          Text47.Text = FormatarCampo(((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.rem.fone&quot;)) ,'f');
+          Text48.Text = &quot;[cteProc.CTe.infCte.rem.IE]&quot;;         
+          break;
+        case 1: //Expedidor
+          string cnpjExpedidor = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.exped.CNPJ&quot;));
+          if (string.IsNullOrEmpty(cnpjExpedidor))
+            cnpjExpedidor = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.exped.CPF&quot;));
+          
+          Text34.Text = &quot;[cteProc.CTe.infCte.exped.xNome]&quot;;
+          Text36.Text = FormatarCampo(cnpjExpedidor,'d');
+          Text40.Text = &quot;[cteProc.CTe.infCte.exped.enderExped.xLgr], [cteProc.CTe.infCte.exped.enderExped.nro] [cteProc.CTe.infCte.exped.enderExped.xCpl]&quot;;
+          Text41.Text = &quot;[cteProc.CTe.infCte.exped.enderExped.xBairro]&quot;;
+          Text42.Text = FormatarCampo( ((Int64)Report.GetColumnValue(&quot;cteProc.CTe.infCte.exped.enderExped.CEP&quot;)).ToString(),'c');
+          Text46.Text = &quot;[cteProc.CTe.infCte.exped.enderExped.xMun] - [cteProc.CTe.infCte.exped.enderExped.ProxyUF] - [cteProc.CTe.infCte.exped.enderExped.cMun]&quot;;
+          Text47.Text = FormatarCampo(((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.exped.fone&quot;)) ,'f');
+          Text48.Text = &quot;[cteProc.CTe.infCte.exped.IE]&quot;;          
+          break;
+        case 2: //Recebedor
+          string cnpjRecebedor = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.receb.CNPJ&quot;));
+          if (string.IsNullOrEmpty(cnpjRecebedor))
+            cnpjRecebedor = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.receb.CPF&quot;));
+          
+          Text34.Text = &quot;[cteProc.CTe.infCte.receb.xNome]&quot;;
+          Text36.Text = FormatarCampo(cnpjRecebedor,'d');
+          Text40.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xLgr], [cteProc.CTe.infCte.receb.enderReceb.nro] [cteProc.CTe.infCte.receb.enderReceb.xCpl]&quot;;
+          Text41.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xBairro]&quot;;
+          Text42.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.receb.enderReceb.CEP],'c')]&quot;;
+          Text46.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xMun] - [cteProc.CTe.infCte.receb.enderReceb.ProxyUF] - [cteProc.CTe.infCte.receb.enderReceb.cMun]&quot;;
+          Text47.Text = FormatarCampo(((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.receb.fone&quot;)) ,'f');
+          Text48.Text = &quot;[cteProc.CTe.infCte.receb.IE]&quot;;   
+          break;
+        case 3: //Destinatário
+          string cnpjDestinatario = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.dest.CNPJ&quot;));
+          if (string.IsNullOrEmpty(cnpjDestinatario))
+            cnpjDestinatario = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.dest.CPF&quot;));
+                   
+          Text34.Text = &quot;[cteProc.CTe.infCte.dest.xNome]&quot;;
+          Text36.Text = FormatarCampo(cnpjDestinatario,'d');
+          Text40.Text = &quot;[cteProc.CTe.infCte.dest.enderDest.xLgr], [cteProc.CTe.infCte.dest.enderDest.nro] [cteProc.CTe.infCte.dest.enderDest.xCpl]&quot;;
+          Text41.Text = &quot;[cteProc.CTe.infCte.dest.enderDest.xBairro]&quot;;
+          Text42.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.dest.enderDest.CEP],'c')]&quot;;
+          Text46.Text = &quot;[cteProc.CTe.infCte.dest.enderDest.xMun] - [cteProc.CTe.infCte.dest.enderDest.ProxyUF] - [cteProc.CTe.infCte.dest.enderDest.cMun]&quot;;
+          Text47.Text = FormatarCampo(((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.dest.fone&quot;)) ,'f');
+          Text48.Text = &quot;[cteProc.CTe.infCte.dest.IE]&quot;; 
+          break;
+        case 4: //Outros
+          string cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.CNPJ&quot;));
+          if (string.IsNullOrEmpty(cnpjTomador))
+            cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.CPF&quot;));
+          
+          Text34.Text = &quot;[cteProc.CTe.infCte.ide.toma4.xNome]&quot;;
+          Text36.Text = FormatarCampo(cnpjTomador,'d');
+          Text40.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xLgr], [cteProc.CTe.infCte.ide.toma4.enderToma.nro] [cteProc.CTe.infCte.ide.toma4.enderToma.xCpl]&quot;;
+          Text41.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xBairro]&quot;;
+          Text42.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.ide.toma4.enderToma.CEP],'c')]&quot;;
+          Text46.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xMun] - [cteProc.CTe.infCte.ide.toma4.enderToma.ProxyUF] - [cteProc.CTe.infCte.ide.toma4.enderToma.cMun]&quot;;
+          Text47.Text = FormatarCampo(((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.fone&quot;)) ,'f');
+          Text48.Text = &quot;[cteProc.CTe.infCte.ide.toma4.IE]&quot;;           
+          break;
+      }
+      
+      Text49.Text = Text1.Text;
+      Text51.Text = Convert.ToInt32((Estado)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.cOrgao&quot;)).ToString();
+      Text67.Text = ((TipoAmbiente)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpAmb&quot;) == TipoAmbiente.Homologacao) ? &quot;HOMOLOGAÇÃO - SEM VALOR FISCAL&quot; : &quot;PRODUÇÃO - COM VALOR FISCAL&quot;;
+      Text64.Text = ((String)Report.GetColumnValue(&quot;procEventoCTe.retEvento.infEvento.nProt&quot;)) + &quot;   &quot; + FormatDateTime((Nullable&lt;DateTime&gt;)Report.GetColumnValue(&quot;procEventoCTe.retEvento.infEvento.dhRegEvento&quot;) ?? DateTime.MinValue, @&quot;dd/MM/yyyy HH:mm:ss&quot;);
+      Text70.Text = Convert.ToInt32((Estado)Report.GetColumnValue(&quot;procEventoCTe.retEvento.infEvento.cOrgao&quot;)).ToString();
+      Text73.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? &quot;DESCRIÇÃO&quot; : &quot;CONDIÇÕES DE USO&quot;;
+      
+      if ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento)
+        Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xJust]&quot;;
+      else
+        Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xCondUso]&quot;;
+       
+      if ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.CartaCorrecao)
+      {
+        var ds = Report.GetDataSource(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao&quot;);
+        ds.Init();        
+        while (ds.HasMoreRows)
+        {
+          Text75.Text += completar((((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao.nroItemAlterado&quot;)) ?? 0).ToString(&quot;00000&quot;),9);
+          Text75.Text += completar((String)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao.grupoAlterado&quot;), 15);
+          Text75.Text += completar((String)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao.campoAlterado&quot;), 15);         
+          Text75.Text += completar(((String)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao.valorAlterado&quot;)), 65);
+          Text75.Text += &quot;\n&quot;;
+          
+          //O valor alterado pode ser maior que 65 caracteres que é o que &quot;cabe&quot; no layout, logo, gerar uma nova linha
+          string str = ((String)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao.valorAlterado&quot;));
+          if (str.Length &gt; 65)
+          {
+            str = str.Substring(65);
+            while (str.Length &gt; 0)
+            {
+              string txt = str;              
+              if (str.Length &gt; 65)
+              {                
+                txt = str.Substring(0,65);
+                str = str.Substring(65);                
+              }
+              else
+              {
+                txt = str;
+                str = &quot;&quot;;
+              }
+              Text75.Text += completar(&quot; &quot;, 39) + txt + &quot;\n&quot;;
+            }
+          }                   
+          ds.Next();  
+        }
+       
+      }   
+    }
+    
+    private string completar(string str, int tamanho)
+    {
+      if (str.Length &gt; tamanho)
+        str = str.Substring(0,tamanho);
+      
+      while (str.Length &lt; tamanho)
+        str += &quot; &quot;;
+      return str;
+    }
+    
+  }
+    
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="cteProc" ReferenceName="cteProc" DataType="CTe.Classes.cteProc[], CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Enabled="true">
+      <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+      <Column Name="CTe" DataType="CTe.Classes.CTe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="System.Nullable`1[[CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+        <Column Name="ProxyVersao" DataType="System.String"/>
+        <Column Name="versaoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+        <Column Name="infCte" DataType="CTe.Classes.Informacoes.infCte, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="ide" DataType="CTe.Classes.Informacoes.Identificacao.ide, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="cUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="cCT" DataType="System.Int32"/>
+            <Column Name="ProxycCT" DataType="System.String"/>
+            <Column Name="CFOP" DataType="System.Int32"/>
+            <Column Name="natOp" DataType="System.String"/>
+            <Column Name="forPag" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.forPag, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="forPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="serie" DataType="System.Int16"/>
+            <Column Name="nCT" DataType="System.Int64"/>
+            <Column Name="dhEmi" DataType="System.DateTime"/>
+            <Column Name="ProxydhEmi" DataType="System.String"/>
+            <Column Name="tpImp" DataType="CTe.Classes.Informacoes.Tipos.tpImp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpEmis" DataType="CTe.Classes.Informacoes.Tipos.tpEmis, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="cDV" DataType="System.Int32"/>
+            <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpCTe" DataType="CTe.Classes.Informacoes.Tipos.tpCTe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="procEmi" DataType="CTe.Classes.Informacoes.Tipos.procEmi, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="verProc" DataType="System.String"/>
+            <Column Name="indGlobalizado" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="indGlobalizadoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="refCTE" DataType="System.String"/>
+            <Column Name="cMunEnv" DataType="System.Int64"/>
+            <Column Name="xMunEnv" DataType="System.String"/>
+            <Column Name="UFEnv" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProxyUFEnv" DataType="System.String"/>
+            <Column Name="modal" DataType="CTe.Classes.Informacoes.Tipos.modal, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpServ" DataType="CTe.Classes.Informacoes.Tipos.tpServ, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="cMunIni" DataType="System.Int64"/>
+            <Column Name="xMunIni" DataType="System.String"/>
+            <Column Name="UFIni" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProxyUFIni" DataType="System.String"/>
+            <Column Name="cMunFim" DataType="System.Int64"/>
+            <Column Name="xMunFim" DataType="System.String"/>
+            <Column Name="UFFim" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProxyUFFim" DataType="System.String"/>
+            <BusinessObjectDataSource Name="infPercurso" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Identificacao.infPercurso, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="UFPer" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUFPer" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <Column Name="retira" DataType="CTe.Classes.Informacoes.Tipos.retira, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="xDetRetira" DataType="System.String"/>
+            <Column Name="indIEToma" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.indIEToma, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="indIETomaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="tomaBase3" DataType="CTe.Classes.Informacoes.Identificacao.tomaBase3, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            </Column>
+            <Column Name="toma4" DataType="CTe.Classes.Informacoes.Identificacao.toma4, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="CPF" DataType="System.String"/>
+              <Column Name="IE" DataType="System.String"/>
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="xFant" DataType="System.String"/>
+              <Column Name="fone" DataType="System.String"/>
+              <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="xLgr" DataType="System.String"/>
+                <Column Name="nro" DataType="System.String"/>
+                <Column Name="xCpl" DataType="System.String"/>
+                <Column Name="xBairro" DataType="System.String"/>
+                <Column Name="cMun" DataType="System.Int64"/>
+                <Column Name="xMun" DataType="System.String"/>
+                <Column Name="CEP" DataType="System.Int64"/>
+                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="ProxyUF" DataType="System.String"/>
+                <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="xPais" DataType="System.String"/>
+              </Column>
+              <Column Name="email" DataType="System.String"/>
+            </Column>
+            <Column Name="dhCont" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="ProxydhCont" DataType="System.String"/>
+            <Column Name="xJust" DataType="System.String"/>
+          </Column>
+          <Column Name="compl" DataType="CTe.Classes.Informacoes.Complemento.compl, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="xCaracAd" DataType="System.String"/>
+            <Column Name="xCaracSer" DataType="System.String"/>
+            <Column Name="xEmi" DataType="System.String"/>
+            <Column Name="fluxo" DataType="CTe.Classes.Informacoes.Complemento.fluxo, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xOrig" DataType="System.String"/>
+              <BusinessObjectDataSource Name="pass" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.pass, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="xPass" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="xDest" DataType="System.String"/>
+              <Column Name="xRota" DataType="System.String"/>
+            </Column>
+            <Column Name="Entrega" DataType="CTe.Classes.Informacoes.Complemento.Entrega, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="comData" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comDataBase, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="comHora" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comHoraBase, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            </Column>
+            <Column Name="origCalc" DataType="System.String"/>
+            <Column Name="destCalc" DataType="System.String"/>
+            <Column Name="xObs" DataType="System.String"/>
+            <BusinessObjectDataSource Name="ObsCont" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsCont, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="ObsFisco" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsFisco, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="xCampo" DataType="System.String"/>
+              <Column Name="xTexto" DataType="System.String"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="emit" DataType="CTe.Classes.Informacoes.Emitente.emit, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="IEST" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="xFant" DataType="System.String"/>
+            <Column Name="enderEmit" DataType="CTe.Classes.Informacoes.Emitente.enderEmit, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="fone" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="toma" DataType="CTe.Classes.Informacoes.Identificacao.tomaCteOs, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="xFant" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="xPais" DataType="System.String"/>
+            </Column>
+            <Column Name="email" DataType="System.String"/>
+          </Column>
+          <Column Name="rem" DataType="CTe.Classes.Informacoes.Remetente.rem, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="xFant" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="enderReme" DataType="CTe.Classes.Informacoes.Remetente.enderReme, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="xPais" DataType="System.String"/>
+            </Column>
+            <Column Name="email" DataType="System.String"/>
+            <Column Name="locColeta" DataType="CTe.Classes.Informacoes.Remetente.locColeta, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="CPF" DataType="System.String"/>
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="exped" DataType="CTe.Classes.Informacoes.Expedidor.exped, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="enderExped" DataType="CTe.Classes.Informacoes.Expedidor.enderExped, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="xPais" DataType="System.String"/>
+            </Column>
+            <Column Name="email" DataType="System.String"/>
+          </Column>
+          <Column Name="receb" DataType="CTe.Classes.Informacoes.Recebedor.receb, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="enderReceb" DataType="CTe.Classes.Informacoes.Recebedor.enderReceb, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="xPais" DataType="System.String"/>
+            </Column>
+            <Column Name="email" DataType="System.String"/>
+          </Column>
+          <Column Name="dest" DataType="CTe.Classes.Informacoes.Destinatario.dest, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+            <Column Name="IE" DataType="System.String"/>
+            <Column Name="xNome" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="ISUF" DataType="System.String"/>
+            <Column Name="enderDest" DataType="CTe.Classes.Informacoes.Destinatario.enderDest, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
+              <Column Name="ProxyCEP" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+              <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="cPaisSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="xPais" DataType="System.String"/>
+            </Column>
+            <Column Name="email" DataType="System.String"/>
+            <Column Name="locEnt" DataType="CTe.Classes.Informacoes.Destinatario.locEnt, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CNPJ" DataType="System.String"/>
+              <Column Name="CPF" DataType="System.String"/>
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="xLgr" DataType="System.String"/>
+              <Column Name="nro" DataType="System.String"/>
+              <Column Name="xCpl" DataType="System.String"/>
+              <Column Name="xBairro" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
+              <Column Name="xMun" DataType="System.String"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ProxyUF" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="vPrest" DataType="CTe.Classes.Informacoes.Valores.vPrest, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="vTPrest" DataType="System.Decimal"/>
+            <Column Name="vRec" DataType="System.Decimal"/>
+            <BusinessObjectDataSource Name="Comp" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Valores.Comp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="xNome" DataType="System.String"/>
+              <Column Name="vComp" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+          </Column>
+          <Column Name="imp" DataType="CTe.Classes.Informacoes.Impostos.imp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="CST" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                <Column Name="CSTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="indSN" DataType="CTe.Classes.Informacoes.Tipos.indSN, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              </Column>
+            </Column>
+            <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="vTotTribSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="infAdFisco" DataType="System.String"/>
+            <Column Name="ICMSUFFim" DataType="CTe.Classes.Informacoes.Impostos.ICMSUFFim, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="vBCUFFim" DataType="System.Decimal"/>
+              <Column Name="pFCPUFFim" DataType="System.Decimal"/>
+              <Column Name="pICMSUFFim" DataType="System.Decimal"/>
+              <Column Name="pICMSInter" DataType="System.Decimal"/>
+              <Column Name="pICMSInterPart" DataType="System.Decimal"/>
+              <Column Name="vFCPUFFim" DataType="System.Decimal"/>
+              <Column Name="vICMSUFFim" DataType="System.Decimal"/>
+              <Column Name="vICMSUFIni" DataType="System.Decimal"/>
+            </Column>
+            <Column Name="infTribFed" DataType="CTe.Classes.Informacoes.Impostos.infTribFed, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vIR" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vINSS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vCSLL" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vPISSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vCOFINSSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vIRSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vINSSSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vCSLLSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            </Column>
+          </Column>
+          <Column Name="infCTeNorm" DataType="CTe.Classes.Informacoes.infCTeNormal.infCTeNorm, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infServico" DataType="CTe.Classes.Informacoes.infCTeNormal.infServico, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xDescServ" DataType="System.String"/>
+            </Column>
+            <Column Name="infQ" DataType="CTe.Classes.Informacoes.infCTeNormal.infQcteOs, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="qCarga" DataType="System.Decimal"/>
+            </Column>
+            <BusinessObjectDataSource Name="infDocRef" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocRef, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="nDoc" DataType="System.String"/>
+              <Column Name="serie" DataType="System.Int16"/>
+              <Column Name="subserie" DataType="System.Nullable`1[[System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="subserieSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="dEmi" DataType="System.DateTime"/>
+              <Column Name="ProxydEmi" DataType="System.String"/>
+              <Column Name="vDoc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vDocSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            </BusinessObjectDataSource>
+            <Column Name="infCarga" DataType="CTe.Classes.Informacoes.infCTeNormal.infCarga, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="vCarga" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="proPred" DataType="System.String"/>
+              <Column Name="xOutCat" DataType="System.String"/>
+              <BusinessObjectDataSource Name="infQ" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCargas.infQ, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="cUnid" DataType="CTe.Classes.Informacoes.Tipos.cUnid, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="tpMed" DataType="System.String"/>
+                <Column Name="qCarga" DataType="System.Decimal"/>
+              </BusinessObjectDataSource>
+              <Column Name="vCargaAverb" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <BusinessObjectDataSource Name="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="nRoma" DataType="System.String"/>
+                  <Column Name="nPed" DataType="System.String"/>
+                  <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="serie" DataType="System.Int16"/>
+                  <Column Name="nDoc" DataType="System.String"/>
+                  <Column Name="dEmi" DataType="System.DateTime"/>
+                  <Column Name="ProxyddEmi" DataType="System.String"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="vICMS" DataType="System.Decimal"/>
+                  <Column Name="vBCST" DataType="System.Decimal"/>
+                  <Column Name="vST" DataType="System.Decimal"/>
+                  <Column Name="vProd" DataType="System.Decimal"/>
+                  <Column Name="vNF" DataType="System.Decimal"/>
+                  <Column Name="nCFOP" DataType="System.Int32"/>
+                  <Column Name="nPeso" DataType="System.Decimal"/>
+                  <Column Name="PIN" DataType="System.String"/>
+                  <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="ProxyddPrev" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="chave" DataType="System.String"/>
+                  <Column Name="PIN" DataType="System.String"/>
+                  <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="ProxyddPrev" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="descOutros" DataType="System.String"/>
+                  <Column Name="nDoc" DataType="System.String"/>
+                  <Column Name="dEmi" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="ProxyddEmi" DataType="System.String"/>
+                  <Column Name="vDocFisc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vDocFiscSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="ProxyddPrev" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="nCont" DataType="System.String"/>
+                <Column Name="dPrev" DataType="System.String"/>
+              </Column>
+              <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="vCargaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vCargaAverbSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            </Column>
+            <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <BusinessObjectDataSource Name="infNF1" Alias="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infNF" Enabled="true">
+                <Column Name="nRoma" DataType="System.String"/>
+                <Column Name="nPed" DataType="System.String"/>
+                <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="serie" DataType="System.Int16"/>
+                <Column Name="nDoc" DataType="System.String"/>
+                <Column Name="dEmi" DataType="System.DateTime"/>
+                <Column Name="ProxyddEmi" DataType="System.String"/>
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="vICMS" DataType="System.Decimal"/>
+                <Column Name="vBCST" DataType="System.Decimal"/>
+                <Column Name="vST" DataType="System.Decimal"/>
+                <Column Name="vProd" DataType="System.Decimal"/>
+                <Column Name="vNF" DataType="System.Decimal"/>
+                <Column Name="nCFOP" DataType="System.Int32"/>
+                <Column Name="nPeso" DataType="System.Decimal"/>
+                <Column Name="PIN" DataType="System.String"/>
+                <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="ProxyddPrev" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="infNFe1" Alias="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infNFe" Enabled="true">
+                <Column Name="chave" DataType="System.String"/>
+                <Column Name="PIN" DataType="System.String"/>
+                <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="ProxyddPrev" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <BusinessObjectDataSource Name="infOutros1" Alias="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infOutros" Enabled="true">
+                <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="descOutros" DataType="System.String"/>
+                <Column Name="nDoc" DataType="System.String"/>
+                <Column Name="dEmi" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="ProxyddEmi" DataType="System.String"/>
+                <Column Name="vDocFisc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDocFiscSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="ProxyddPrev" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="nCont" DataType="System.String"/>
+              <Column Name="dPrev" DataType="System.String"/>
+            </Column>
+            <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <BusinessObjectDataSource Name="seg" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.seg, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="respSeg" DataType="CTe.Classes.Informacoes.Tipos.respSeg, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="xSeg" DataType="System.String"/>
+              <Column Name="nApol" DataType="System.String"/>
+              <Column Name="nAver" DataType="System.String"/>
+              <Column Name="vCarga" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vCargaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            </BusinessObjectDataSource>
+            <Column Name="infModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModal, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="versaoModal" DataType="CTe.Classes.Informacoes.Tipos.versaoModal, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ContainerModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.ContainerModal, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="RNTRC" DataType="System.String"/>
+                <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="ProxydPrev" DataType="System.String"/>
+                <Column Name="lota" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.lota, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                <Column Name="lotaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="CIOT" DataType="System.String"/>
+                <BusinessObjectDataSource Name="valePed" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.valePed, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="CNPJForn" DataType="System.String"/>
+                  <Column Name="nCompra" DataType="System.String"/>
+                  <Column Name="CNPJPg" DataType="System.String"/>
+                  <Column Name="vValePed" DataType="System.Decimal"/>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="veic" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.veic, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="cInt" DataType="System.String"/>
+                  <Column Name="RENAVAM" DataType="System.String"/>
+                  <Column Name="placa" DataType="System.String"/>
+                  <Column Name="tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="taraSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="capKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="capKGSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="capM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="capM3Specified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="tpProp" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpProp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpPropSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="tpVeic" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpVeic, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpVeicSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="tpCar" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpCar, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpCarSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="tpRod" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpRod, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpRodSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="ProxyUF" DataType="System.String"/>
+                  <Column Name="prop" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.prop, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                    <Column Name="CPF" DataType="System.String"/>
+                    <Column Name="CNPJ" DataType="System.String"/>
+                    <Column Name="RNTRC" DataType="System.String"/>
+                    <Column Name="TAF" DataType="System.String"/>
+                    <Column Name="NroRegEstadual" DataType="System.String"/>
+                    <Column Name="xNome" DataType="System.String"/>
+                    <Column Name="IE" DataType="System.String"/>
+                    <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="ProxyUF" DataType="System.String"/>
+                    <Column Name="tpProp" DataType="CTe.Classes.Informacoes.Tipos.tpPropProp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                  </Column>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="lacRodo" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.lacRodo, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="nLacre" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="moto" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.moto, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="xNome" DataType="System.String"/>
+                  <Column Name="CPF" DataType="System.String"/>
+                </BusinessObjectDataSource>
+              </Column>
+            </Column>
+            <BusinessObjectDataSource Name="peri" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.peri, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="nONU" DataType="System.String"/>
+              <Column Name="xNomeAE" DataType="System.String"/>
+              <Column Name="xClaRisco" DataType="System.String"/>
+              <Column Name="grEmb" DataType="System.String"/>
+              <Column Name="qTotProd" DataType="System.String"/>
+              <Column Name="qVolTipo" DataType="System.String"/>
+              <Column Name="pontoFulgor" DataType="System.String"/>
+            </BusinessObjectDataSource>
+            <BusinessObjectDataSource Name="veicNovos" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.veicNovos, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="chassi" DataType="System.String"/>
+              <Column Name="cCor" DataType="System.String"/>
+              <Column Name="xCor" DataType="System.String"/>
+              <Column Name="cMod" DataType="System.Int32"/>
+              <Column Name="vUnit" DataType="System.Decimal"/>
+              <Column Name="vFrete" DataType="System.Decimal"/>
+            </BusinessObjectDataSource>
+            <Column Name="cobr" DataType="CTe.Classes.Informacoes.infCTeNormal.cobr, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="fat" DataType="CTe.Classes.Informacoes.infCTeNormal.cobrancas.fat, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="nFat" DataType="System.String"/>
+                <Column Name="vOrig" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vLiq" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="vOrigSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="vDescSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="vLiqSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              </Column>
+            </Column>
+            <Column Name="infCteSub" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSub, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="chCte" DataType="System.String"/>
+              <Column Name="refCteAnu" DataType="System.String"/>
+              <Column Name="tomaICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="refNFe" DataType="System.String"/>
+                <Column Name="refNF" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.refNF, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="CNPJ" DataType="System.String"/>
+                  <Column Name="CPF" DataType="System.String"/>
+                  <Column Name="mod" DataType="System.String"/>
+                  <Column Name="serie" DataType="System.Int16"/>
+                  <Column Name="subserie" DataType="System.Nullable`1[[System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="subserieSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="nro" DataType="System.Int32"/>
+                  <Column Name="valor" DataType="System.Decimal"/>
+                  <Column Name="dEmi" DataType="System.DateTime"/>
+                  <Column Name="ProxydEmi" DataType="System.String"/>
+                </Column>
+                <Column Name="refCte" DataType="System.String"/>
+              </Column>
+              <Column Name="indAlteraToma" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="indAlteraTomaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="tomaNaoICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaNaoICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+                <Column Name="refCteAnu" DataType="System.String"/>
+              </Column>
+            </Column>
+            <Column Name="infGlobalizado" DataType="CTe.Classes.Informacoes.infCTeNormal.infGlobalizado, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="xObs" DataType="System.String"/>
+            </Column>
+            <Column Name="infServVinc" DataType="CTe.Classes.Informacoes.infCTeNormal.infServVinc, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <BusinessObjectDataSource Name="infCTeMultimodal" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCTeMultimodal, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="chCTeMultimodal" DataType="System.String"/>
+              </BusinessObjectDataSource>
+            </Column>
+          </Column>
+          <Column Name="infCteComp" DataType="CTe.Classes.Informacoes.infCteComp.infCteComp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="chave" DataType="System.String"/>
+            <Column Name="chCTe" DataType="System.String"/>
+          </Column>
+          <Column Name="infCteAnu" DataType="CTe.Classes.Informacoes.infCteAnu.infCteAnu, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="chCte" DataType="System.String"/>
+            <Column Name="dEmi" DataType="System.DateTime"/>
+            <Column Name="ProxydEmi" DataType="System.String"/>
+          </Column>
+          <BusinessObjectDataSource Name="autXML" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.autXML, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="CPF" DataType="System.String"/>
+          </BusinessObjectDataSource>
+        </Column>
+        <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+          <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="URI" DataType="System.String"/>
+              <BusinessObjectDataSource Name="Transforms" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="DigestValue" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="SignatureValue" DataType="System.String"/>
+          <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Certificate" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+      <Column Name="protCTe" DataType="CTe.Classes.Protocolo.protCTe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infProt" DataType="CTe.Classes.Protocolo.infProt, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="verAplic" DataType="System.String"/>
+          <Column Name="chCTe" DataType="System.String"/>
+          <Column Name="dhRecbto" DataType="System.DateTime"/>
+          <Column Name="nProt" DataType="System.String"/>
+          <Column Name="digVal" DataType="System.String"/>
+          <Column Name="cStat" DataType="System.Int32"/>
+          <Column Name="xMotivo" DataType="System.String"/>
+          <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="URI" DataType="System.String"/>
+                <BusinessObjectDataSource Name="Transforms1" Alias="Transforms" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms" Enabled="true">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </Column>
+                <Column Name="DigestValue" DataType="System.String"/>
+              </Column>
+            </Column>
+            <Column Name="SignatureValue" DataType="System.String"/>
+            <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="X509Certificate" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="procEventoCTe" ReferenceName="procEventoCTe" DataType="CTe.Classes.Servicos.Consulta.procEventoCTe[], CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" Enabled="true">
+      <Column Name="versao" DataType="System.String"/>
+      <Column Name="eventoCTe" DataType="CTe.Classes.Servicos.Evento.eventoCTe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoEnv, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="cOrgao" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="CNPJ" DataType="System.String"/>
+          <Column Name="chCTe" DataType="System.String"/>
+          <Column Name="dhEvento" DataType="System.DateTime"/>
+          <Column Name="ProxydhEvento" DataType="System.String"/>
+          <Column Name="tpEvento" DataType="CTe.Classes.Servicos.Evento.Flags.TipoEvento, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="nSeqEvento" DataType="System.Int32"/>
+          <Column Name="detEvento" DataType="CTe.Classes.Servicos.Evento.detEvento, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+            <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="EventoContainer" DataType="CTe.Classes.Servicos.Evento.EventoContainer, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+              <Column Name="descEvento" DataType="System.String"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="infCorrecao" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.infCorrecao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" PropName="infCorrecao" Enabled="true">
+                <Column Name="grupoAlterado" DataType="System.String"/>
+                <Column Name="campoAlterado" DataType="System.String"/>
+                <Column Name="valorAlterado" DataType="System.String"/>
+                <Column Name="nroItemAlterado" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="nroItemAlteradoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              </BusinessObjectDataSource>
+              <Column Name="xCondUso" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+        <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+          <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Algorithm" DataType="System.String"/>
+            </Column>
+            <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="URI" DataType="System.String"/>
+              <BusinessObjectDataSource Name="Transforms2" Alias="Transforms" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms" Enabled="true">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </BusinessObjectDataSource>
+              <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="DigestValue" DataType="System.String"/>
+            </Column>
+          </Column>
+          <Column Name="SignatureValue" DataType="System.String"/>
+          <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Certificate" DataType="System.String"/>
+            </Column>
+          </Column>
+        </Column>
+      </Column>
+      <BusinessObjectDataSource Name="retEvento" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.retEventoCTe, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoRet, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Id" DataType="System.String"/>
+          <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="verAplic" DataType="System.String"/>
+          <Column Name="cOrgao" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="cStat" DataType="System.Int32"/>
+          <Column Name="xMotivo" DataType="System.String"/>
+          <Column Name="chCTe" DataType="System.String"/>
+          <Column Name="tpEvento" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+          <Column Name="xEvento" DataType="System.String"/>
+          <Column Name="nSeqEvento" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+          <Column Name="dhRegEvento" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+          <Column Name="nProt" DataType="System.String"/>
+          <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Algorithm" DataType="System.String"/>
+              </Column>
+              <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="URI" DataType="System.String"/>
+                <BusinessObjectDataSource Name="Transforms3" Alias="Transforms" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms" Enabled="true">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="Algorithm" DataType="System.String"/>
+                </Column>
+                <Column Name="DigestValue" DataType="System.String"/>
+              </Column>
+            </Column>
+            <Column Name="SignatureValue" DataType="System.String"/>
+            <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
+                <Column Name="X509Certificate" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+        </Column>
+        <Column Name="EnvioXmlString" DataType="System.String"/>
+        <Column Name="RetornoXmlString" DataType="System.String"/>
+      </BusinessObjectDataSource>
+    </BusinessObjectDataSource>
+    <Parameter Name="Desenvolvedor" DataType="System.String"/>
+  </Dictionary>
+  <ReportPage Name="Page1">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="1000.7" BeforePrintEvent="ReportTitle1_BeforePrint">
+      <ShapeObject Name="Shape1" Width="718.2" Height="44.8"/>
+      <TextObject Name="Text1" Top="1" Width="718.2" Height="18.9" Text="DESCRIÇÃO DO EVENTO" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text2" Top="17.9" Width="718.2" Height="11.45" Text="Não possui valor fiscal, simples representação da CC-e indicada abaixo." HorzAlign="Center" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text3" Top="30.35" Width="718.2" Height="11.45" Text="Consulte a autenticidade da carta de correção eletrônica no site da SEFAZ autorizadora." HorzAlign="Center" Font="Times New Roman, 8.25pt"/>
+      <ShapeObject Name="Shape2" Top="50.25" Width="718.2" Height="68.15"/>
+      <TextObject Name="Text4" Top="52.25" Width="718.2" Height="9.45" Text="CONHECIMENTO DE TRANSPORTE ELETRÔNICO - CTe" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line1" Left="0.38" Top="63.7" Width="717.2" Diagonal="true"/>
+      <LineObject Name="Line2" Top="90.05" Width="321.3"/>
+      <LineObject Name="Line3" Left="321.3" Top="64.15" Height="53.7"/>
+      <BarcodeObject Name="BarcodeChave" Left="358.55" Top="71.15" Width="330.77" Height="38.8" AutoSize="false" Text="[Substring( [cteProc.CTe.infCte.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text5" Left="-1" Top="63.7" Width="46.7" Height="9.45" Text="MODELO" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line4" Left="44.25" Top="63.7" Height="26.35"/>
+      <TextObject Name="Text6" Left="1" Top="74.15" Width="41.8" Height="13.9" Text="00" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text7" Left="47.25" Top="63.7" Width="34.25" Height="9.45" Text="SÉRIE" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line5" Left="79.5" Top="63.7" Height="26.35"/>
+      <TextObject Name="Text8" Left="46.25" Top="74.15" Width="33.35" Height="13.9" Text="[cteProc.CTe.infCte.ide.serie]" Format="Custom" Format.Format="000" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text9" Left="80.4" Top="63.7" Width="72.05" Height="9.45" Text="NÚMERO" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line6" Left="152.45" Top="63.7" Height="26.35"/>
+      <TextObject Name="Text10" Left="80.4" Top="74.15" Width="73.15" Height="13.9" Text="[cteProc.CTe.infCte.ide.nCT]" Format="Custom" Format.Format="000,000,000" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text11" Left="153.65" Top="65.15" Width="128.75" Height="9.45" Text="DATA E HORA DE EMISSÃO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text12" Left="162.65" Top="75.2" Width="121.4" Height="13.9" Text="[cteProc.CTe.infCte.ide.dhEmi]" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text13" Left="1.45" Top="90.05" Width="301.85" Height="9.45" Text="CHAVE DE ACESSO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text14" Left="2" Top="101.95" Width="317.85" Height="13.9" Text="[FormatarChave([cteProc.CTe.infCte.Id])]" HorzAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <ShapeObject Name="Shape3" Top="128.3" Width="718.2" Height="89.5"/>
+      <TextObject Name="Text15" Top="129.3" Width="718.2" Height="9.45" Text="EMITENTE" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line7" Left="0.38" Top="140.75" Width="717.2" Diagonal="true"/>
+      <LineObject Name="Line8" Left="1" Top="166.65" Width="716.2"/>
+      <LineObject Name="Line9" Left="1" Top="192.29" Width="716.2"/>
+      <TextObject Name="Text16" Left="2" Top="142.2" Width="84.5" Height="9.45" Text="NOME / RAZÃO SOCIAL" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text17" Left="1.45" Top="151.2" Width="523.75" Height="13.9" Text="[cteProc.CTe.infCte.emit.xNome]" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line10" Left="527.2" Top="140.75" Height="25.35"/>
+      <TextObject Name="Text18" Left="529.2" Top="142.26" Width="75.05" Height="9.45" Text="CNPJ" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text19" Left="529.2" Top="151.2" Width="186.55" Height="13.9" Text="[FormatarCampo([cteProc.CTe.infCte.emit.CNPJ],'d')]" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line11" Left="415.8" Top="167.1" Height="25.35"/>
+      <LineObject Name="Line12" Left="623.7" Top="167.1" Height="25.35"/>
+      <TextObject Name="Text20" Left="1.89" Top="168.55" Width="84.5" Height="9.45" Text="ENDEREÇO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text21" Left="416.8" Top="168.65" Width="75.05" Height="9.45" Text="BAIRRO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text22" Left="624.7" Top="168.65" Width="75.05" Height="9.45" Text="CEP" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text23" Left="1.45" Top="177.55" Width="418.8" Height="13.9" Text="[cteProc.CTe.infCte.emit.enderEmit.xLgr], [cteProc.CTe.infCte.emit.enderEmit.nro] [cteProc.CTe.infCte.emit.enderEmit.xCpl]" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text24" Left="416.8" Top="177.55" Width="209.45" Height="13.9" Text="[cteProc.CTe.infCte.emit.enderEmit.xBairro]" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text25" Left="625.7" Top="177.55" Width="90.6" Height="13.9" Text="[FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.CEP],'c')]" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text26" Left="2" Top="193.45" Width="84.5" Height="9.45" Text="MUNICÍPIO" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line13" Left="274.05" Top="192" Height="25.35"/>
+      <LineObject Name="Line14" Left="443.15" Top="192.45" Height="24.35"/>
+      <TextObject Name="Text27" Left="275.5" Top="193.45" Width="84.5" Height="9.45" Text="FONE / FAX" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text28" Left="444.15" Top="193.45" Width="122.3" Height="9.45" Text="INSCRIÇÃO ESTADUAL" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text29" Left="1" Top="202.9" Width="272.05" Height="13.9" Text="[cteProc.CTe.infCte.emit.enderEmit.xMun] - [cteProc.CTe.infCte.emit.enderEmit.ProxyUF] - [cteProc.CTe.infCte.emit.enderEmit.cMun]" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text30" Left="274.05" Top="202.9" Width="168.1" Height="13.9" Text="[FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.fone],'f')]" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text31" Left="444.15" Top="202.9" Width="168.1" Height="13.9" Text="[cteProc.CTe.infCte.emit.IE]" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <ShapeObject Name="Shape4" Top="228.25" Width="718.2" Height="89.5"/>
+      <TextObject Name="Text32" Top="229.25" Width="718.2" Height="9.45" Text="TOMADOR DO SERVIÇO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line15" Left="0.38" Top="240.7" Width="717.2" Diagonal="true"/>
+      <LineObject Name="Line16" Left="1" Top="266.6" Width="716.2"/>
+      <LineObject Name="Line17" Left="1" Top="292.24" Width="716.2"/>
+      <TextObject Name="Text33" Left="2" Top="242.15" Width="84.5" Height="9.45" Text="NOME / RAZÃO SOCIAL" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text34" Left="1.45" Top="251.15" Width="523.75" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line18" Left="527.2" Top="240.7" Height="25.35"/>
+      <TextObject Name="Text35" Left="529.2" Top="242.21" Width="75.05" Height="9.45" Text="CNPJ" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text36" Left="529.2" Top="251.15" Width="186.55" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line19" Left="415.8" Top="267.05" Height="25.35"/>
+      <LineObject Name="Line20" Left="623.7" Top="267.05" Height="25.35"/>
+      <TextObject Name="Text37" Left="1.89" Top="268.5" Width="84.5" Height="9.45" Text="ENDEREÇO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text38" Left="416.8" Top="268.6" Width="75.05" Height="9.45" Text="BAIRRO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text39" Left="624.7" Top="268.6" Width="75.05" Height="9.45" Text="CEP" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text40" Left="1.45" Top="277.5" Width="418.8" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text41" Left="416.8" Top="277.5" Width="209.45" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text42" Left="625.7" Top="277.5" Width="90.6" Height="13.9" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text43" Left="2" Top="293.4" Width="84.5" Height="9.45" Text="MUNICÍPIO" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line21" Left="274.05" Top="291.95" Height="25.35"/>
+      <LineObject Name="Line22" Left="443.15" Top="292.4" Height="24.35"/>
+      <TextObject Name="Text44" Left="275.5" Top="293.4" Width="84.5" Height="9.45" Text="FONE / FAX" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text45" Left="444.15" Top="293.4" Width="122.3" Height="9.45" Text="INSCRIÇÃO ESTADUAL" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text46" Left="1" Top="302.85" Width="272.05" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text47" Left="274.05" Top="302.85" Width="168.1" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text48" Left="444.15" Top="302.85" Width="168.1" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <ShapeObject Name="Shape5" Top="327.75" Width="718.2" Height="89.5"/>
+      <TextObject Name="Text49" Top="328.75" Width="718.2" Height="9.45" Text="CANCELAMENTO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line23" Left="0.38" Top="340.2" Width="717.2" Diagonal="true"/>
+      <LineObject Name="Line24" Left="1" Top="366.1" Width="716.2"/>
+      <LineObject Name="Line25" Left="1" Top="391.74" Width="716.2"/>
+      <TextObject Name="Text50" Left="1" Top="341.65" Width="41.7" Height="9.45" Text="ORGÃO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text51" Left="0.45" Top="351.65" Width="38.8" Height="13.9" Text="00" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line26" Left="359.1" Top="340.2" Height="26.35"/>
+      <TextObject Name="Text52" Left="361.1" Top="341.71" Width="188.45" Height="9.45" Text="DATA E HORA DE EMISSÃO DO EVENTO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text53" Left="360.1" Top="351.65" Width="186.55" Height="13.9" Text="[procEventoCTe.retEvento.infEvento.dhRegEvento]" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text54" Left="1.89" Top="368" Width="46.7" Height="9.45" Text="EVENTO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text60" Left="2" Top="392.9" Width="84.5" Height="9.45" Text="STATUS" Font="Times New Roman, 6.75pt"/>
+      <LineObject Name="Line29" Left="274.05" Top="391.45" Height="25.35"/>
+      <TextObject Name="Text61" Left="275.5" Top="392.9" Width="160.1" Height="11.45" Text="Nº PROTOCOLO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text63" Left="1" Top="402.35" Width="272.05" Height="13.9" Text="[procEventoCTe.retEvento.infEvento.cStat] - [procEventoCTe.retEvento.infEvento.xMotivo]" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <TextObject Name="Text64" Left="292.95" Top="402.35" Width="432.7" Height="13.9" Font="Times New Roman, 8.25pt, style=Bold">
+        <Formats>
+          <GeneralFormat/>
+          <GeneralFormat/>
+          <GeneralFormat/>
+        </Formats>
+      </TextObject>
+      <LineObject Name="Line31" Left="39.8" Top="340.65" Height="25.35"/>
+      <TextObject Name="Text66" Left="41.8" Top="341.65" Width="70.05" Height="9.45" Text="AMBIENTE" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text67" Left="41.8" Top="351.48" Width="315.85" Height="13.9" Text="AMBIENTE" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line32" Left="548.1" Top="339.65" Height="26.35"/>
+      <TextObject Name="Text68" Left="550.55" Top="341.89" Width="155.1" Height="10.45" Text="SEQUÊNCIA DO EVENTO" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text69" Left="550.1" Top="351.48" Width="165.65" Height="13.9" Text="[procEventoCTe.retEvento.infEvento.nSeqEvento]" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <LineObject Name="Line33" Left="61.15" Top="366.55" Height="25.35"/>
+      <TextObject Name="Text70" Left="2" Top="377.45" Width="56.7" Height="13.9" Text="000000" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text71" Left="63.3" Top="377.45" Width="652.05" Height="13.9" Text="[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.descEvento]" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text72" Left="62.6" Top="368" Width="264.05" Height="9.45" Text="DESCRIÇÃO DO EVENTO" Font="Times New Roman, 6.75pt"/>
+      <ShapeObject Name="Shape6" Top="426.25" Width="718.2" Height="95.5"/>
+      <TextObject Name="Text73" Left="1" Top="427.7" Width="717.2" Height="9.45" Text="DESCRIÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line34" Left="1.38" Top="439.15" Width="716.2" Diagonal="true"/>
+      <TextObject Name="Text55" Left="2" Top="440.15" Width="713.75" Height="78.6" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape7" Top="528.2" Width="718.2" Height="472.5"/>
+      <TextObject Name="Text74" Left="1" Top="530.2" Width="717.2" Height="9.45" Text="CORREÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <LineObject Name="Line35" Left="1.38" Top="541.65" Width="715.2" Diagonal="true"/>
+      <TextObject Name="Text57" Top="542.1" Width="717.2" Height="13.45" Text="ITEM     GRUPO          CAMPO          VALOR" Font="Courier New, 8.25pt, style=Bold"/>
+      <LineObject Name="Line27" Left="63.15" Top="542.1" Height="457.6"/>
+      <LineObject Name="Line28" Left="165.1" Top="542.1" Height="457.6"/>
+      <LineObject Name="Line36" Left="267.6" Top="542.1" Height="457.6"/>
+      <LineObject Name="Line30" Left="1" Top="555.1" Width="716.2"/>
+      <TextObject Name="Text75" Top="555.55" Width="717.2" Height="443.7" Font="Courier New, 8.25pt"/>
+    </ReportTitleBand>
+    <PageFooterBand Name="PageFooter1" Top="1003.73" Width="718.2" Height="37.8">
+      <TextObject Name="Text56" Left="179.55" Width="538.65" Height="37.8" Text="Data e hora da impressão: [FormatDateTime(DateTime.Now,&quot;dd/MM/yyyy HH:mm:ss&quot;)]&#13;&#10;Página: [Page#]/[TotalPages#]&#13;&#10;Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial Narrow, 8.25pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
