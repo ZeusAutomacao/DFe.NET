@@ -399,6 +399,7 @@
     <Compile Include="MDFe\Classes\Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
     <Compile Include="MDFe\Classes\Retorno\RetornoBase.cs" />
     <Compile Include="MDFe\Classes\Servicos\Autorizacao\MDFeEnviMDFe.cs" />
+    <Compile Include="Configuracao\DFeConfig.cs" />
     <Compile Include="MDFe\Facade\MDFeFacade.cs" />
     <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\MDFeConsultaNaoEncerradas.cs" />
     <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\MDFeConsulta.cs" />
