@@ -40,11 +40,11 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class MDFeEncerrar
     {
-        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe MDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
-            var encerramento = ClassesFactory.CriaEvEncMDFe(mdfe, protocolo);
+            var encerramento = ClassesFactory.CriaEvEncMDFe(codigoIbgeCidade, protocolo);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
+            var retorno = new ServicoController().Executar(chave, cnpj, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
 
             return retorno;
         }

@@ -40,11 +40,11 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class MDFeCancelar
     {
-        public MDFeRetEventoMDFe Cancelar(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
+        public MDFeRetEventoMDFe Cancelar(string chave, string cnpjEmitente, byte sequenciaEvento, string protocolo, string justificativa)
         {
             var cancelamento = ClassesFactory.CriaEvCancMDFe(protocolo, justificativa);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, cancelamento, MDFeTipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, cancelamento, MDFeTipoEvento.Cancelamento);
 
             return retorno;
         }

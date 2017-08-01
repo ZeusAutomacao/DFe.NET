@@ -40,11 +40,11 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class MDFeIncluirCondutor
     {
-        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(string chave, string cnpj, byte sequenciaEvento, string nome, string cpf)
         {
             var incluirCodutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor);
+            var retorno = new ServicoController().Executar(chave, cnpj, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor);
 
             return retorno;
         }

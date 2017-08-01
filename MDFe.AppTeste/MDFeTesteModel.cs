@@ -1243,7 +1243,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
+            var retorno = evento.MDFeEventoIncluirCondutor(mdfe.Chave(), mdfe.CNPJEmitente(), 1, nomeCondutor, cpfCondutor);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1285,7 +1285,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo);
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe.Chave(), mdfe.CNPJEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1335,7 +1335,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
+            var retorno = evento.MDFeEventoCancelar(mdfe.Chave(), mdfe.CNPJEmitente(), 1, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

@@ -40,6 +40,7 @@ namespace DFe.MDFe.Servicos.EventosMDFe.Contratos
 {
     public interface IServicoController
     {
-        MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento);
+        MDFeRetEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer,
+            MDFeTipoEvento tipoEvento);
     }
 }

@@ -32,34 +32,33 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Retorno.MDFeEvento;
-using MDFeEletronica = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class ServicoMDFeEvento
     {
         public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
-            MDFeEletronica mdfe, byte sequenciaEvento, string nome,
+            string chave, string cnpj, byte sequenciaEvento, string nome,
             string cpf)
         {
             var eventoIncluirCondutor = new MDFeIncluirCondutor();
 
-            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(chave, cnpj, sequenciaEvento, nome, cpf);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
             var eventoEncerramento = new MDFeEncerrar();
 
-            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+            return eventoEncerramento.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
+        public MDFeRetEventoMDFe MDFeEventoCancelar(string chave, string cnpj, byte sequenciaEvento, string protocolo,
             string justificativa)
         {
             var eventoCancelamento = new MDFeCancelar();
 
-            return eventoCancelamento.Cancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+            return eventoCancelamento.Cancelar(chave, cnpj, sequenciaEvento, protocolo, justificativa);
         }
     }
 }

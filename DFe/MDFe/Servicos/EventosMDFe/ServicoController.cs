@@ -37,27 +37,26 @@ using DFe.MDFe.Classes.Informacoes.Evento.Flags;
 using DFe.MDFe.Classes.Retorno.MDFeEvento;
 using DFe.MDFe.Servicos.EventosMDFe.Contratos;
 using DFe.MDFe.Servicos.Factory;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class ServicoController : IServicoController
     {
-        public MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento)
+        public MDFeRetEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento)
         {
-            var evento = FactoryEvento.CriaEvento(mdfe,
+            var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente,
                 tipoEvento,
                 sequenciaEvento,
                 eventoContainer);
 
             evento.ValidarSchema();
-            evento.SalvarXmlEmDisco(mdfe.Chave());
+            evento.SalvarXmlEmDisco(chave);
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
             var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco(mdfe.Chave());
+            retorno.SalvarXmlEmDisco(chave);
 
             return retorno;
         }

@@ -42,18 +42,18 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public static class FactoryEvento
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public static MDFeEventoMDFe CriaEvento(string chave, string cnpjEmitente, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
         {
             var eventoMDFe = new MDFeEventoMDFe
             {
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 InfEvento = new MDFeInfEvento
                 {
-                    Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
+                    Id = "ID" + (long)tipoEvento + chave + sequenciaEvento.ToString("D2"),
                     TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    CNPJ = MDFe.CNPJEmitente(),
-                    COrgao = MDFe.UFEmitente(),
-                    ChMDFe = MDFe.Chave(),
+                    CNPJ = cnpjEmitente,
+                    COrgao = MDFeConfiguracao.VersaoWebService.UfEmitente,
+                    ChMDFe = chave,
                     DetEvento = new MDFeDetEvento
                     {
                         VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,

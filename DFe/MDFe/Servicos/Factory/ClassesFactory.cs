@@ -84,14 +84,14 @@ namespace DFe.MDFe.Servicos.Factory
             return cancelamento;
         }
 
-        public static MDFeEvEncMDFe CriaEvEncMDFe(MDFeEletronico mdfe, string protocolo)
+        public static MDFeEvEncMDFe CriaEvEncMDFe(long codigoIbgeCidade, string protocolo)
         {
             var encerramento = new MDFeEvEncMDFe
             {
-                CUF = mdfe.UFEmitente(),
+                CUF = MDFeConfiguracao.VersaoWebService.UfEmitente,
                 DtEnc = DateTime.Now,
                 DescEvento = "Encerramento",
-                CMun = mdfe.CodigoIbgeMunicipioEmitente(),
+                CMun = codigoIbgeCidade,
                 NProt = protocolo
             };
 

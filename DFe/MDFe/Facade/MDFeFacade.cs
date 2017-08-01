@@ -57,9 +57,9 @@ namespace DFe.MDFe.Facade
             return _consulta.Consulta(chave);
         }
 
-        public MDFeRetEventoMDFe Cancelar(MdfeEletronico mdfe, byte sequenciaEvento, string protocolo, string justificativa)
+        public MDFeRetEventoMDFe Cancelar(string chave, string cnpjEmitente, byte sequenciaEvento, string protocolo, string justificativa)
         {
-            return _cancelar.Cancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+            return _cancelar.Cancelar(chave, cnpjEmitente, sequenciaEvento, protocolo, justificativa);
         }
 
         public MDFeRetConsMDFeNao ConsultaNaoEncerradas(string cnpj)
@@ -67,14 +67,14 @@ namespace DFe.MDFe.Facade
             return _consultaNaoEncerradas.MDFeConsultaNaoEncerrados(cnpj);
         }
 
-        public MDFeRetEventoMDFe IncluirCondutor(MdfeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
+        public MDFeRetEventoMDFe IncluirCondutor(string chave, string cnpj, byte sequenciaEvento, string nome, string cpf)
         {
-            return _incluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+            return _incluirCondutor.MDFeEventoIncluirCondutor(chave, cnpj, sequenciaEvento, nome, cpf);
         }
 
-        public MDFeRetEventoMDFe Encerrar(MdfeEletronico mdfe, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe Encerrar(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
-            return _encerrar.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+            return _encerrar.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
         }
     }
 }
