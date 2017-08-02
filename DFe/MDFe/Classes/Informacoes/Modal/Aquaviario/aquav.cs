@@ -35,97 +35,85 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Adicionais;
-using DFe.MDFe.Classes.Informacoes.AutorizadoDownloadXml;
-using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
-using DFe.MDFe.Classes.Informacoes.Emitente;
-using DFe.MDFe.Classes.Informacoes.Identificacao;
-using DFe.MDFe.Classes.Informacoes.Lacres;
-using DFe.MDFe.Classes.Informacoes.Modal;
-using DFe.MDFe.Classes.Informacoes.Seguro;
-using DFe.MDFe.Classes.Informacoes.Totalizadores;
 
-namespace DFe.MDFe.Classes.Informacoes
+namespace DFe.MDFe.Classes.Informacoes.Modal.Aquaviario
 {
     [Serializable]
-    public class infMDFe
+    public class aquav : ModalContainer
     {
-        public infMDFe()
-        {
-            ide = new ide();
-            Emit = new emit();
-            InfModal = new infModal();
-            InfDoc = new infDoc();
-            Tot = new tot();
-            versao = VersaoServico.Versao100;
-        }
+        public string irin { get; set; }
         /// <summary>
-        /// 1 - Versão do leiaute 
+        /// 1 - CNPJ da Agência de Navegação
         /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico versao { get; set; }
+        [XmlElement(ElementName = "CNPJAgeNav")]
+        public string CNPJAgeNav { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        /// 1 - Código do tipo de embarcação 
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string id { get; set; }
+        [XmlElement(ElementName = "tpEmb")]
+        public byte tpEmb { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 1 - Código da embarcação
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public ide ide { get; set; }
+        [XmlElement(ElementName = "cEmbar")]
+        public string cEmbar { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
+        /// 1 - Nome da embarcação 
         /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public emit Emit { get; set; }
+        [XmlElement(ElementName = "xEmbar")]
+        public string xEmbar { get; set; }
 
         /// <summary>
-        /// 1 - Informações do modal
+        /// 1 - Número da Viagem 
         /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public infModal InfModal { get; set; }
+        [XmlElement(ElementName = "nViag")]
+        public string nViag { get; set; }
 
         /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
+        /// 1 - Código do Porto de Embarque 
         /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public infDoc InfDoc { get; set; }
+        [XmlElement(ElementName = "cPrtEmb")]
+        public string cPrtEmb { get; set; }
 
         /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
+        /// 1 - Código do Porto de Destino 
         /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<seg> Seg { get; set; }
+        [XmlElement(ElementName = "cPrtDest")]
+        public string cPrtDest { get; set; }
+
+        public string prtTrans { get; set; }
+
+        public tpNav? tpNav { get; set; }
+
+        public bool tpNavSpecified { get { return tpNav.HasValue; } }
 
         /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
+        /// 1 - Grupo de informações dos terminais de carregamento.
         /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public tot Tot { get; set; }
+        [XmlElement(ElementName = "infTermCarreg")]
+        public List<infTermCarreg> infTermCarreg { get; set; }
 
         /// <summary>
-        /// 1 - Lacres do MDF-e
+        /// 1 - Grupo de informações dos terminais de descarregamento.
         /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<lacres> Lacres { get; set; }
+        [XmlElement(ElementName = "infTermDescarreg")]
+        public List<infTermDescarreg> infTermDescarreg { get; set; }
 
         /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
+        /// 1 - Informações das Embarcações do Comboio
         /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<autXML> AutXml { get; set; }
+        [XmlElement(ElementName = "infEmbComb")]
+        public List<infEmbComb> infEmbComb { get; set; }
 
         /// <summary>
-        /// 1 - Informações Adicionais
+        /// 1 - Informações das Undades de Carga vazias
         /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public infAdic InfAdic { get; set; }
+        [XmlElement(ElementName = "infUnidCargaVazia")]
+        public List<infUnidTranspVazia> infUnidCargaVazia { get; set; }
+
+        public List<infUnidCargaVazia> infUnidTranspVazia { get; set; }
     }
 }

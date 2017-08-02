@@ -32,100 +32,76 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Classes.Ext;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Adicionais;
-using DFe.MDFe.Classes.Informacoes.AutorizadoDownloadXml;
-using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
-using DFe.MDFe.Classes.Informacoes.Emitente;
-using DFe.MDFe.Classes.Informacoes.Identificacao;
-using DFe.MDFe.Classes.Informacoes.Lacres;
-using DFe.MDFe.Classes.Informacoes.Modal;
-using DFe.MDFe.Classes.Informacoes.Seguro;
-using DFe.MDFe.Classes.Informacoes.Totalizadores;
 
-namespace DFe.MDFe.Classes.Informacoes
+namespace DFe.MDFe.Classes.Informacoes.Totalizadores
 {
     [Serializable]
-    public class infMDFe
+    public class tot
     {
-        public infMDFe()
+        private decimal _vCarga;
+        private decimal _qCarga;
+
+        /// <summary>
+        /// 2 - Quantidade total de CT-e relacionados no Manifesto
+        /// </summary>
+        [XmlElement(ElementName = "qCTe")]
+        public int? qCTe { get; set; }
+
+        /// <summary>
+        /// 2 - Quantidade total de NF-e relacionadas no Manifesto
+        /// </summary>
+        [XmlElement(ElementName = "qNFe")]
+        public int? qNFe { get; set; }
+
+        /// <summary>
+        /// 2 - Quantidade total de MDF-e relacionados no Manifesto Aquaviário
+        /// </summary>
+        [XmlElement(ElementName = "qMDFe")]
+        public int? qMDFe { get; set; }
+
+        /// <summary>
+        /// 2 - Valor total da carga / mercadorias transportadas
+        /// </summary>
+        [XmlElement(ElementName = "vCarga")]
+        public decimal vCarga
         {
-            ide = new ide();
-            Emit = new emit();
-            InfModal = new infModal();
-            InfDoc = new infDoc();
-            Tot = new tot();
-            versao = VersaoServico.Versao100;
+            get { return _vCarga.Arredondar(2); }
+            set { _vCarga = value.Arredondar(2); }
         }
-        /// <summary>
-        /// 1 - Versão do leiaute 
-        /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico versao { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        /// 2 - Codigo da unidade de medida do Peso Bruto da Carga / Mercadorias transportadas
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string id { get; set; }
+        [XmlElement(ElementName = "cUnid")]
+        public cUnid cUnid { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 2 - Peso Bruto Total da Carga / Mercadorias transportadas
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public ide ide { get; set; }
+        [XmlElement(ElementName = "qCarga")]
+        public decimal qCarga
+        {
+            get { return _qCarga.Arredondar(4); }
+            set { _qCarga = value.Arredondar(4); }
+        }
+
 
         /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
+        /// Se null não aparece no xml
         /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public emit Emit { get; set; }
+        public bool qCTeSpecified { get { return qCTe.HasValue; } }
 
         /// <summary>
-        /// 1 - Informações do modal
+        /// Se null não aparece no xml
         /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public infModal InfModal { get; set; }
+        public bool qNFeSpecified { get { return qNFe.HasValue; } }
 
         /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
+        /// Se null não aparece no xml
         /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public infDoc InfDoc { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
-        /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<seg> Seg { get; set; }
-
-        /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
-        /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public tot Tot { get; set; }
-
-        /// <summary>
-        /// 1 - Lacres do MDF-e
-        /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<lacres> Lacres { get; set; }
-
-        /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
-        /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<autXML> AutXml { get; set; }
-
-        /// <summary>
-        /// 1 - Informações Adicionais
-        /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public infAdic InfAdic { get; set; }
+        public bool qMDFeSpecified { get { return qMDFe.HasValue; } }
     }
 }

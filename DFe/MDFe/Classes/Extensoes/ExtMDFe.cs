@@ -35,6 +35,11 @@ using System;
 using DFe.Classes.Entidades;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes;
+using DFe.MDFe.Classes.Informacoes.Modal;
+using DFe.MDFe.Classes.Informacoes.Modal.Aereo;
+using DFe.MDFe.Classes.Informacoes.Modal.Aquaviario;
+using DFe.MDFe.Classes.Informacoes.Modal.Ferroviario;
+using DFe.MDFe.Classes.Informacoes.Modal.Rodoviario;
 using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;
@@ -65,7 +70,7 @@ namespace DFe.MDFe.Classes.Extensoes
             var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
 
 
-            if (tipoModal == typeof (MDFeRodo))
+            if (tipoModal == typeof (rodo))
             {
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
@@ -78,7 +83,7 @@ namespace DFe.MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeAereo))
+            if (tipoModal == typeof (aereo))
             {
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
@@ -91,7 +96,7 @@ namespace DFe.MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeAquav))
+            if (tipoModal == typeof (aquav))
             {
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
@@ -104,7 +109,7 @@ namespace DFe.MDFe.Classes.Extensoes
                 }
             }
 
-            if (tipoModal == typeof (MDFeFerrov))
+            if (tipoModal == typeof (ferrov))
             {
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
@@ -124,22 +129,22 @@ namespace DFe.MDFe.Classes.Extensoes
         {
             if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
-            var modeloDocumentoFiscal = mdfe.InfMDFe.Ide.Mod;
-            var tipoEmissao = (int) mdfe.InfMDFe.Ide.TpEmis;
-            var codigoNumerico = mdfe.InfMDFe.Ide.CMDF;
-            var estado = mdfe.InfMDFe.Ide.CUF;
-            var dataEHoraEmissao = mdfe.InfMDFe.Ide.DhEmi;
+            var modeloDocumentoFiscal = mdfe.InfMDFe.ide.mod;
+            var tipoEmissao = (int) mdfe.InfMDFe.ide.tpEmis;
+            var codigoNumerico = mdfe.InfMDFe.ide.cMDF;
+            var estado = mdfe.InfMDFe.ide.cUF;
+            var dataEHoraEmissao = mdfe.InfMDFe.ide.dhEmi;
             var cnpj = mdfe.InfMDFe.Emit.CNPJ;
-            var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
-            int serie = mdfe.InfMDFe.Ide.Serie;
+            var numeroDocumento = mdfe.InfMDFe.ide.nMDF;
+            int serie = mdfe.InfMDFe.ide.serie;
 
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
-            mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
-            mdfe.InfMDFe.Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
-            mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
+            mdfe.InfMDFe.id = "MDFe" + dadosChave.Chave;
+            mdfe.InfMDFe.versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
+            mdfe.InfMDFe.ide.cDV = dadosChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
+            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.id, MDFeConfiguracao.X509Certificate2);
 
             mdfe.Signature = assinatura;
 
@@ -163,7 +168,7 @@ namespace DFe.MDFe.Classes.Extensoes
 
         public static string Chave(this MDFEletronico mdfe)
         {
-            var chave = mdfe.InfMDFe.Id.Substring(4, 44);
+            var chave = mdfe.InfMDFe.id.Substring(4, 44);
             return chave;
         }
 
@@ -176,14 +181,14 @@ namespace DFe.MDFe.Classes.Extensoes
 
         public static Estado UFEmitente(this MDFEletronico mdfe)
         {
-            var estadoUf = mdfe.InfMDFe.Emit.EnderEmit.UF;
+            var estadoUf = mdfe.InfMDFe.Emit.enderEmit.UF;
 
             return estadoUf;
         }
 
         public static long CodigoIbgeMunicipioEmitente(this MDFEletronico mdfe)
         {
-            var codigo = mdfe.InfMDFe.Emit.EnderEmit.CMun;
+            var codigo = mdfe.InfMDFe.Emit.enderEmit.cMun;
 
             return codigo;
         }

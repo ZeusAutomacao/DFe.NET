@@ -39,6 +39,13 @@ using DFe.Classes.Flags;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes;
+using DFe.MDFe.Classes.Informacoes.Adicionais;
+using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
+using DFe.MDFe.Classes.Informacoes.Identificacao;
+using DFe.MDFe.Classes.Informacoes.Lacres;
+using DFe.MDFe.Classes.Informacoes.Modal;
+using DFe.MDFe.Classes.Informacoes.Modal.Rodoviario;
+using DFe.MDFe.Classes.Informacoes.Seguro;
 using DFe.MDFe.Classes.Retorno;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
 using DFe.MDFe.Configuracoes;
@@ -555,38 +562,38 @@ namespace MDFe.AppTeste
             var mdfe = new MDFeEletronico();
 
             #region (ide)
-            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
-            mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
-            mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
-            mdfe.InfMDFe.Ide.Serie = 750;
-            mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
-            mdfe.InfMDFe.Ide.CMDF = GetRandom();
-            mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
-            mdfe.InfMDFe.Ide.DhEmi = DateTime.Now;
-            mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
-            mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
-            mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
-            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
+            mdfe.InfMDFe.ide.cUF = config.ConfigWebService.UfEmitente;
+            mdfe.InfMDFe.ide.tpAmb = config.ConfigWebService.Ambiente;
+            mdfe.InfMDFe.ide.tpEmit = tpEmit.PrestadorServicoDeTransporte;
+            mdfe.InfMDFe.ide.mod = ModeloDocumento.MDFe;
+            mdfe.InfMDFe.ide.serie = 750;
+            mdfe.InfMDFe.ide.nMDF = ++config.ConfigWebService.Numeracao;
+            mdfe.InfMDFe.ide.cMDF = GetRandom();
+            mdfe.InfMDFe.ide.modal = modal.Rodoviario;
+            mdfe.InfMDFe.ide.dhEmi = DateTime.Now;
+            mdfe.InfMDFe.ide.tpEmis = tpEmis.Normal;
+            mdfe.InfMDFe.ide.procEmi = procEmi.EmissaoComAplicativoContribuinte;
+            mdfe.InfMDFe.ide.verProc = "versao28383";
+            mdfe.InfMDFe.ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.ide.UFFim = Estado.MT;
 
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5211701",
-                XMunCarrega = "JANDAIA"
+                cMunCarrega = "5211701",
+                xMunCarrega = "JANDAIA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5209952",
-                XMunCarrega = "INDIARA"
+                cMunCarrega = "5209952",
+                xMunCarrega = "INDIARA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5200134",
-                XMunCarrega = "ACREUNA"
+                cMunCarrega = "5200134",
+                xMunCarrega = "ACREUNA"
             });
 
             #endregion (ide)
@@ -594,45 +601,45 @@ namespace MDFe.AppTeste
             #region dados emitente (emit)
             mdfe.InfMDFe.Emit.CNPJ = config.Empresa.Cnpj;
             mdfe.InfMDFe.Emit.IE = config.Empresa.InscricaoEstadual;
-            mdfe.InfMDFe.Emit.XNome = config.Empresa.Nome;
-            mdfe.InfMDFe.Emit.XFant = config.Empresa.NomeFantasia;
+            mdfe.InfMDFe.Emit.xNome = config.Empresa.Nome;
+            mdfe.InfMDFe.Emit.xFant = config.Empresa.NomeFantasia;
 
-            mdfe.InfMDFe.Emit.EnderEmit.XLgr = config.Empresa.Logradouro;
-            mdfe.InfMDFe.Emit.EnderEmit.Nro = config.Empresa.Numero;
-            mdfe.InfMDFe.Emit.EnderEmit.XCpl = config.Empresa.Complemento;
-            mdfe.InfMDFe.Emit.EnderEmit.XBairro = config.Empresa.Bairro;
-            mdfe.InfMDFe.Emit.EnderEmit.CMun = config.Empresa.CodigoIbgeMunicipio;
-            mdfe.InfMDFe.Emit.EnderEmit.XMun = config.Empresa.NomeMunicipio;
-            mdfe.InfMDFe.Emit.EnderEmit.CEP = long.Parse(config.Empresa.Cep);
-            mdfe.InfMDFe.Emit.EnderEmit.UF = config.Empresa.SiglaUf;
-            mdfe.InfMDFe.Emit.EnderEmit.Fone = config.Empresa.Telefone;
-            mdfe.InfMDFe.Emit.EnderEmit.Email = config.Empresa.Email;
+            mdfe.InfMDFe.Emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            mdfe.InfMDFe.Emit.enderEmit.nro = config.Empresa.Numero;
+            mdfe.InfMDFe.Emit.enderEmit.xCpl = config.Empresa.Complemento;
+            mdfe.InfMDFe.Emit.enderEmit.xBairro = config.Empresa.Bairro;
+            mdfe.InfMDFe.Emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            mdfe.InfMDFe.Emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            mdfe.InfMDFe.Emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            mdfe.InfMDFe.Emit.enderEmit.UF = config.Empresa.SiglaUf;
+            mdfe.InfMDFe.Emit.enderEmit.fone = config.Empresa.Telefone;
+            mdfe.InfMDFe.Emit.enderEmit.email = config.Empresa.Email;
             #endregion dados emitente (emit)
 
             #region modal
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                mdfe.InfMDFe.InfModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
-                    VeicTracao = new MDFeVeicTracao
+                    VeicTracao = new veicTracao
                     {
-                        Placa = "KKK9888",
+                        placa = "KKK9888",
                         RENAVAM = "888888888",
                         UF = Estado.GO,
-                        Tara = 222,
-                        CapM3 = 222,
-                        CapKG = 22,
-                        Condutor = new List<MDFeCondutor>
+                        tara = 222,
+                        capM3 = 222,
+                        capKG = 22,
+                        condutor = new List<condutor>
                     {
-                        new MDFeCondutor
+                        new condutor
                         {
                             CPF = "11392381754",
-                            XNome = "Ricardão"
+                            xNome = "Ricardão"
                         }
                     },
-                        TpRod = MDFeTpRod.Outros,
-                        TpCar = MDFeTpCar.NaoAplicavel
+                        tpRod = tpRod.Outros,
+                        tpCar = tpCar.NaoAplicavel
                     }
                 };
             }
@@ -640,9 +647,9 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                mdfe.InfMDFe.InfModal.Modal = new rodo
                 {
-                    infANTT = new MDFeInfANTT
+                    infANTT = new infANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
@@ -655,46 +662,46 @@ namespace MDFe.AppTeste
                                 CNPJ = "21025760000123"
                             }
                         },
-                        valePed = new MDFeValePed
+                        valePed = new valePed
                         {
-                            Disp = new List<MDFeDisp>
+                            disp = new List<disp>
                                     {
-                                        new MDFeDisp
+                                        new disp
                                         {
                                             CNPJForn = "21025760000123",
                                             CNPJPg = "21025760000123",
-                                            NCompra = "838388383",
+                                            nCompra = "838388383",
                                             vValePed = 100.33m
                                         }
                                     }
                         }
                     },
 
-                    VeicTracao = new MDFeVeicTracao
+                    VeicTracao = new veicTracao
                         {
-                            Placa = "KKK9888",
+                            placa = "KKK9888",
                             RENAVAM = "888888888",
                             UF = Estado.GO,
-                            Tara = 222,
-                            CapM3 = 222,
-                            CapKG = 22,
-                            Condutor = new List<MDFeCondutor>
+                            tara = 222,
+                            capM3 = 222,
+                            capKG = 22,
+                            condutor = new List<condutor>
                         {
-                            new MDFeCondutor
+                            new condutor
                             {
                                 CPF = "11392381754",
-                                XNome = "Ricardão"
+                                xNome = "Ricardão"
                             }
                         },
-                            TpRod = MDFeTpRod.Outros,
-                            TpCar = MDFeTpCar.NaoAplicavel
+                            tpRod = tpRod.Outros,
+                            tpCar = tpCar.NaoAplicavel
                         },
 
-                    lacRodo = new List<lacres>
+                    lacRodo = new List<lacRodo>
                     {
-                        new lacres
+                        new lacRodo
                         {
-                            NLacre = "lacre01"
+                            nLacre = "lacre01"
                         }
                     }
 
@@ -704,17 +711,17 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<infMunDescarga>
+            mdfe.InfMDFe.InfDoc.infMunDescarga = new List<infMunDescarga>
             {
                 new infMunDescarga
                 {
-                    XMunDescarga = "CUIABA",
-                    CMunDescarga = "5103403",
-                    InfCTe = new List<infCTe>
+                    xMunDescarga = "CUIABA",
+                    cMunDescarga = "5103403",
+                    infCTe = new List<infCTe>
                     {
                         new infCTe
                         {
-                            ChCTe = "52161021351378000100577500000000191194518006"
+                            chCTe = "52161021351378000100577500000000191194518006"
                         }
                     }
                 }
@@ -723,12 +730,12 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<peri>
+                mdfe.InfMDFe.InfDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
                 {
                     new peri
                     {
-                        NONU = "1111",
-                        QTotProd = "quantidade 20"
+                        nONU = "1111",
+                        qTotProd = "quantidade 20"
                     }
                 };
             }
@@ -743,18 +750,18 @@ namespace MDFe.AppTeste
 
                 mdfe.InfMDFe.Seg.Add(new seg
                 {
-                    InfResp = new infResp
+                    infResp = new infResp
                     {
                         CNPJ = "21025760000123",
-                        RespSeg = MDFeRespSeg.EmitenteDoMDFe
+                        respSeg = respSeg.EmitenteDoMDFe
                     },
-                    InfSeg = new infSeg
+                    infSeg = new infSeg
                     {
                         CNPJ = "21025760000123",
-                        XSeg = "aaaaaaaaaa"
+                        xSeg = "aaaaaaaaaa"
                     },
-                    NApol = "aaaaaaaaaa",
-                    NAver = new List<string>
+                    nApol = "aaaaaaaaaa",
+                    nAver = new List<string>
                         {
                             "aaaaaaaa"
                         }
@@ -764,16 +771,16 @@ namespace MDFe.AppTeste
             #endregion
 
             #region Totais (tot)
-            mdfe.InfMDFe.Tot.QCTe = 1;
+            mdfe.InfMDFe.Tot.qCTe = 1;
             mdfe.InfMDFe.Tot.vCarga = 500.00m;
-            mdfe.InfMDFe.Tot.CUnid = MDFeCUnid.KG;
-            mdfe.InfMDFe.Tot.QCarga = 100.0000m;
+            mdfe.InfMDFe.Tot.cUnid = cUnid.KG;
+            mdfe.InfMDFe.Tot.qCarga = 100.0000m;
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
             mdfe.InfMDFe.InfAdic = new infAdic
             {
-                InfCpl = "aaaaaaaaaaaaaaaa"
+                infCpl = "aaaaaaaaaaaaaaaa"
             };
             #endregion
 
@@ -815,38 +822,38 @@ namespace MDFe.AppTeste
             var mdfe = new MDFeEletronico();
 
             #region (ide)
-            mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
-            mdfe.InfMDFe.Ide.TpAmb = config.ConfigWebService.Ambiente;
-            mdfe.InfMDFe.Ide.TpEmit = MDFeTipoEmitente.PrestadorServicoDeTransporte;
-            mdfe.InfMDFe.Ide.Mod = ModeloDocumento.MDFe;
-            mdfe.InfMDFe.Ide.Serie = 751;
-            mdfe.InfMDFe.Ide.NMDF = ++config.ConfigWebService.Numeracao;
-            mdfe.InfMDFe.Ide.CMDF = GetRandom();
-            mdfe.InfMDFe.Ide.Modal = MDFeModal.Rodoviario;
-            mdfe.InfMDFe.Ide.DhEmi = DateTime.Now;
-            mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
-            mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
-            mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
-            mdfe.InfMDFe.Ide.UFFim = Estado.MT;
+            mdfe.InfMDFe.ide.cUF = config.ConfigWebService.UfEmitente;
+            mdfe.InfMDFe.ide.tpAmb = config.ConfigWebService.Ambiente;
+            mdfe.InfMDFe.ide.tpEmit = tpEmit.PrestadorServicoDeTransporte;
+            mdfe.InfMDFe.ide.mod = ModeloDocumento.MDFe;
+            mdfe.InfMDFe.ide.serie = 751;
+            mdfe.InfMDFe.ide.nMDF = ++config.ConfigWebService.Numeracao;
+            mdfe.InfMDFe.ide.cMDF = GetRandom();
+            mdfe.InfMDFe.ide.modal = modal.Rodoviario;
+            mdfe.InfMDFe.ide.dhEmi = DateTime.Now;
+            mdfe.InfMDFe.ide.tpEmis = tpEmis.Normal;
+            mdfe.InfMDFe.ide.procEmi = procEmi.EmissaoComAplicativoContribuinte;
+            mdfe.InfMDFe.ide.verProc = "versao28383";
+            mdfe.InfMDFe.ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.ide.UFFim = Estado.MT;
 
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5211701",
-                XMunCarrega = "JANDAIA"
+                cMunCarrega = "5211701",
+                xMunCarrega = "JANDAIA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5209952",
-                XMunCarrega = "INDIARA"
+                cMunCarrega = "5209952",
+                xMunCarrega = "INDIARA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
+            mdfe.InfMDFe.ide.infMunCarrega.Add(new infMunCarrega
             {
-                CMunCarrega = "5200134",
-                XMunCarrega = "ACREUNA"
+                cMunCarrega = "5200134",
+                xMunCarrega = "ACREUNA"
             });
 
             #endregion (ide)
@@ -854,46 +861,46 @@ namespace MDFe.AppTeste
             #region dados emitente (emit)
             mdfe.InfMDFe.Emit.CNPJ = config.Empresa.Cnpj;
             mdfe.InfMDFe.Emit.IE = config.Empresa.InscricaoEstadual;
-            mdfe.InfMDFe.Emit.XNome = config.Empresa.Nome;
-            mdfe.InfMDFe.Emit.XFant = config.Empresa.NomeFantasia;
+            mdfe.InfMDFe.Emit.xNome = config.Empresa.Nome;
+            mdfe.InfMDFe.Emit.xFant = config.Empresa.NomeFantasia;
 
-            mdfe.InfMDFe.Emit.EnderEmit.XLgr = config.Empresa.Logradouro;
-            mdfe.InfMDFe.Emit.EnderEmit.Nro = config.Empresa.Numero;
-            mdfe.InfMDFe.Emit.EnderEmit.XCpl = config.Empresa.Complemento;
-            mdfe.InfMDFe.Emit.EnderEmit.XBairro = config.Empresa.Bairro;
-            mdfe.InfMDFe.Emit.EnderEmit.CMun = config.Empresa.CodigoIbgeMunicipio;
-            mdfe.InfMDFe.Emit.EnderEmit.XMun = config.Empresa.NomeMunicipio;
-            mdfe.InfMDFe.Emit.EnderEmit.CEP = long.Parse(config.Empresa.Cep);
-            mdfe.InfMDFe.Emit.EnderEmit.UF = config.Empresa.SiglaUf;
-            mdfe.InfMDFe.Emit.EnderEmit.Fone = config.Empresa.Telefone;
-            mdfe.InfMDFe.Emit.EnderEmit.Email = config.Empresa.Email;
+            mdfe.InfMDFe.Emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            mdfe.InfMDFe.Emit.enderEmit.nro = config.Empresa.Numero;
+            mdfe.InfMDFe.Emit.enderEmit.xCpl = config.Empresa.Complemento;
+            mdfe.InfMDFe.Emit.enderEmit.xBairro = config.Empresa.Bairro;
+            mdfe.InfMDFe.Emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            mdfe.InfMDFe.Emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            mdfe.InfMDFe.Emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            mdfe.InfMDFe.Emit.enderEmit.UF = config.Empresa.SiglaUf;
+            mdfe.InfMDFe.Emit.enderEmit.fone = config.Empresa.Telefone;
+            mdfe.InfMDFe.Emit.enderEmit.email = config.Empresa.Email;
             #endregion dados emitente (emit)
 
             #region modal
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
-                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
+                mdfe.InfMDFe.InfModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
-                    VeicTracao = new MDFeVeicTracao
+                    VeicTracao = new veicTracao
                     {
-                        Placa = "KKK9888",
+                        placa = "KKK9888",
                         RENAVAM = "888888888",
                         UF = Estado.GO,
-                        Tara = 222,
-                        CapM3 = 222,
-                        CapKG = 22,
-                        Condutor = new List<MDFeCondutor>
+                        tara = 222,
+                        capM3 = 222,
+                        capKG = 22,
+                        condutor = new List<condutor>
                     {
-                        new MDFeCondutor
+                        new condutor
                         {
                             CPF = "11392381754",
-                            XNome = "Ricardão"
+                            xNome = "Ricardão"
                         }
                     },
-                        TpRod = MDFeTpRod.Outros,
-                        TpCar = MDFeTpCar.NaoAplicavel
+                        tpRod = tpRod.Outros,
+                        tpCar = tpCar.NaoAplicavel
                     }
                 };
             }
@@ -901,10 +908,10 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
-                mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
+                mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
+                mdfe.InfMDFe.InfModal.Modal = new rodo
                 {
-                    infANTT = new MDFeInfANTT
+                    infANTT = new infANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
@@ -917,46 +924,46 @@ namespace MDFe.AppTeste
                                 CNPJ = "21025760000123"
                             }
                         },
-                        valePed = new MDFeValePed
+                        valePed = new valePed
                         {
-                            Disp = new List<MDFeDisp>
+                            disp = new List<disp>
                                     {
-                                        new MDFeDisp
+                                        new disp
                                         {
                                             CNPJForn = "21025760000123",
                                             CNPJPg = "21025760000123",
-                                            NCompra = "838388383",
+                                            nCompra = "838388383",
                                             vValePed = 100.33m
                                         }
                                     }
                         }
                     },
 
-                    VeicTracao = new MDFeVeicTracao
+                    VeicTracao = new veicTracao
                     {
-                        Placa = "KKK9888",
+                        placa = "KKK9888",
                         RENAVAM = "888888888",
                         UF = Estado.GO,
-                        Tara = 222,
-                        CapM3 = 222,
-                        CapKG = 22,
-                        Condutor = new List<MDFeCondutor>
+                        tara = 222,
+                        capM3 = 222,
+                        capKG = 22,
+                        condutor = new List<condutor>
                         {
-                            new MDFeCondutor
+                            new condutor
                             {
                                 CPF = "11392381754",
-                                XNome = "Ricardão"
+                                xNome = "Ricardão"
                             }
                         },
-                        TpRod = MDFeTpRod.Outros,
-                        TpCar = MDFeTpCar.NaoAplicavel
+                        tpRod = tpRod.Outros,
+                        tpCar = tpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<lacres>
+                    lacRodo = new List<lacRodo>
                     {
-                        new lacres
+                        new lacRodo
                         {
-                            NLacre = "lacre01"
+                            nLacre = "lacre01"
                         }
                     }
 
@@ -966,17 +973,17 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<infMunDescarga>
+            mdfe.InfMDFe.InfDoc.infMunDescarga = new List<infMunDescarga>
             {
                 new infMunDescarga
                 {
-                    XMunDescarga = "CUIABA",
-                    CMunDescarga = "5103403",
-                    InfCTe = new List<infCTe>
+                    xMunDescarga = "CUIABA",
+                    cMunDescarga = "5103403",
+                    infCTe = new List<infCTe>
                     {
                         new infCTe
                         {
-                            ChCTe = "52161021351378000100577500000000191194518006"
+                            chCTe = "52161021351378000100577500000000191194518006"
                         }
                     }
                 }
@@ -985,12 +992,12 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<peri>
+                mdfe.InfMDFe.InfDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
                 {
                     new peri
                     {
-                        NONU = "1111",
-                        QTotProd = "quantidade 20"
+                        nONU = "1111",
+                        qTotProd = "quantidade 20"
                     }
                 };
             }
@@ -1005,18 +1012,18 @@ namespace MDFe.AppTeste
 
                 mdfe.InfMDFe.Seg.Add(new seg
                 {
-                    InfResp = new infResp
+                    infResp = new infResp
                     {
                         CNPJ = "21025760000123",
-                        RespSeg = MDFeRespSeg.EmitenteDoMDFe
+                        respSeg = respSeg.EmitenteDoMDFe
                     },
-                    InfSeg = new infSeg
+                    infSeg = new infSeg
                     {
                         CNPJ = "21025760000123",
-                        XSeg = "aaaaaaaaaa"
+                        xSeg = "aaaaaaaaaa"
                     },
-                    NApol = "aaaaaaaaaa",
-                    NAver = new List<string>
+                    nApol = "aaaaaaaaaa",
+                    nAver = new List<string>
                         {
                             "aaaaaaaa"
                         }
@@ -1026,16 +1033,16 @@ namespace MDFe.AppTeste
             #endregion
 
             #region Totais (tot)
-            mdfe.InfMDFe.Tot.QCTe = 1;
+            mdfe.InfMDFe.Tot.qCTe = 1;
             mdfe.InfMDFe.Tot.vCarga = 500.00m;
-            mdfe.InfMDFe.Tot.CUnid = MDFeCUnid.KG;
-            mdfe.InfMDFe.Tot.QCarga = 100.0000m;
+            mdfe.InfMDFe.Tot.cUnid = cUnid.KG;
+            mdfe.InfMDFe.Tot.qCarga = 100.0000m;
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
             mdfe.InfMDFe.InfAdic = new infAdic
             {
-                InfCpl = "aaaaaaaaaaaaaaaa"
+                infCpl = "aaaaaaaaaaaaaaaa"
             };
             #endregion
 

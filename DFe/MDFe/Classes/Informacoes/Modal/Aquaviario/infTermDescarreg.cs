@@ -32,54 +32,23 @@
 /********************************************************************************/
 
 using System;
-using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
-using DFe.MDFe.Classes.Servicos.Autorizacao;
-using DFe.MDFe.Configuracoes;
-using DFe.MDFe.Servicos.Factory;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
+using System.Xml.Serialization;
 
-namespace DFe.MDFe.Servicos.RecepcaoMDFe
+namespace DFe.MDFe.Classes.Informacoes.Modal.Aquaviario
 {
-    public class MDFeEnviarLote
+    [Serializable]
+    public class infTermDescarreg
     {
-        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
+        /// <summary>
+        /// 2 - Código do Terminal de Descarregamento
+        /// </summary>
+        [XmlElement(ElementName = "cTermDescarreg")]
+        public string cTermDescarreg { get; set; }
 
-        public MDFeRetEnviMDFe EnviarLote(long lote, MDFeEletronico mdfe)
-        {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
-
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
-                    break;
-                case VersaoServico.Versao300:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
-                    break;
-            }
-
-            enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
-
-            OnAntesDeEnviar(enviMDFe);
-
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
-
-            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
-        }
-
-        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
-        {
-            var handler = AntesDeEnviar;
-            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
-        }
+        /// <summary>
+        /// 2 - Nome do Terminal de Descarregamento
+        /// </summary>
+        [XmlElement(ElementName = "xTermDescarreg")]
+        public string xTermDescarreg { get; set; }
     }
 }

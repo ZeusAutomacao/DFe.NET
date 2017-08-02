@@ -32,100 +32,60 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Adicionais;
-using DFe.MDFe.Classes.Informacoes.AutorizadoDownloadXml;
-using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
-using DFe.MDFe.Classes.Informacoes.Emitente;
-using DFe.MDFe.Classes.Informacoes.Identificacao;
-using DFe.MDFe.Classes.Informacoes.Lacres;
-using DFe.MDFe.Classes.Informacoes.Modal;
-using DFe.MDFe.Classes.Informacoes.Seguro;
-using DFe.MDFe.Classes.Informacoes.Totalizadores;
+using DFe.Classes.Ext;
 
-namespace DFe.MDFe.Classes.Informacoes
+namespace DFe.MDFe.Classes.Informacoes.Modal.Ferroviario
 {
     [Serializable]
-    public class infMDFe
+    public class vag
     {
-        public infMDFe()
+        private decimal _pesoBc;
+        private decimal _pesoR;
+        private decimal _tu;
+
+        public decimal pesoBC
         {
-            ide = new ide();
-            Emit = new emit();
-            InfModal = new infModal();
-            InfDoc = new infDoc();
-            Tot = new tot();
-            versao = VersaoServico.Versao100;
+            get { return _pesoBc.Arredondar(3); }
+            set { _pesoBc = value.Arredondar(3); }
         }
-        /// <summary>
-        /// 1 - Versão do leiaute 
-        /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico versao { get; set; }
+
+        public decimal pesoR
+        {
+            get { return _pesoR.Arredondar(3); }
+            set { _pesoR = value.Arredondar(3); }
+        }
+
+        public string tpVag { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        /// 2 - Serie de Identificação do vagão
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string id { get; set; }
+        [XmlElement(ElementName = "serie")]
+        public short serie { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 2 - Número de Identificação do vagão 
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public ide ide { get; set; }
+        [XmlElement(ElementName = "nVag")]
+        public long nVag { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
+        /// 2 - Sequencia do vagão na composição
         /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public emit Emit { get; set; }
+        [XmlElement(ElementName = "nSeq")]
+        public short? nSeq { get; set; }
+
+        public bool nSeqSpecified { get { return nSeq.HasValue; } }
 
         /// <summary>
-        /// 1 - Informações do modal
+        /// 2 - Tonelada Útil 
         /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public infModal InfModal { get; set; }
-
-        /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
-        /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public infDoc InfDoc { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
-        /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<seg> Seg { get; set; }
-
-        /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
-        /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public tot Tot { get; set; }
-
-        /// <summary>
-        /// 1 - Lacres do MDF-e
-        /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<lacres> Lacres { get; set; }
-
-        /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
-        /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<autXML> AutXml { get; set; }
-
-        /// <summary>
-        /// 1 - Informações Adicionais
-        /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public infAdic InfAdic { get; set; }
+        [XmlElement(ElementName = "TU")]
+        public decimal TU
+        {
+            get { return _tu.Arredondar(3); }
+            set { _tu = value.Arredondar(3); }
+        }
     }
 }

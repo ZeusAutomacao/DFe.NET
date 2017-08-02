@@ -47,27 +47,27 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
     {
         public ide()
         {
-            InfMunCarrega = new List<infMunCarrega>();
-            InfPercurso = new List<infPercurso>();
+            infMunCarrega = new List<infMunCarrega>();
+            infPercurso = new List<infPercurso>();
         }
 
         /// <summary>
         /// 2 - Código da UF do emitente do MDF-e. 
         /// </summary>
         [XmlElement(ElementName = "cUF")]
-        public Estado CUF { get; set; }
+        public Estado cUF { get; set; }
 
         /// <summary>
         /// 2 - Tipo do Ambiente 
         /// </summary>
         [XmlElement(ElementName = "tpAmb")]
-        public TipoAmbiente TpAmb { get; set; }
+        public TipoAmbiente tpAmb { get; set; }
 
         /// <summary>
         /// 2 - Tipo do Emitente 
         /// </summary>
         [XmlElement(ElementName = "tpEmit")]
-        public MDFeTipoEmitente TpEmit { get; set; }
+        public tpEmit tpEmit { get; set; }
 
         /// <summary>
         /// MDF-e 3.0
@@ -75,101 +75,101 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
         /// Opcional
         /// </summary>
         [XmlElement(ElementName = "tpTransp")]
-        public MDFeTpTransp? TpTransp { get; set; }
+        public tpTransp? tpTransp { get; set; }
 
-        public bool TpTranspSpecified { get { return TpTransp.HasValue; } }
+        public bool TpTranspSpecified { get { return tpTransp.HasValue; } }
 
         /// <summary>
         /// 2 - Modelo do Manifesto Eletrônico
         /// </summary>
         [XmlElement(ElementName = "mod")]
-        public ModeloDocumento Mod { get; set; }
+        public ModeloDocumento mod { get; set; }
 
         /// <summary>
         /// 2- Série do Manifesto
         /// </summary>
         [XmlElement(ElementName = "serie")]
-        public short Serie { get; set; }
+        public short serie { get; set; }
 
         /// <summary>
         /// 2- Número do Manifesto 
         /// </summary>
         [XmlElement(ElementName = "nMDF")]
-        public long NMDF { get; set; }
+        public long nMDF { get; set; }
 
         /// <summary>
         /// 2 - Código numérico que compõe a Chave de Acesso. 
         /// </summary>
         [XmlIgnore]
-        public int CMDF { get; set; }
+        public int cMDF { get; set; }
 
         /// <summary>
         /// Proxy para cMDF
         /// </summary>
         [XmlElement(ElementName = "cMDF")]
-        public string ProxyCMDF
+        public string ProxycMDF
         {
-            get { return CMDF.ToString("00000000"); }
-            set { CMDF = int.Parse(value); }
+            get { return cMDF.ToString("00000000"); }
+            set { cMDF = int.Parse(value); }
         }
 
         /// <summary>
         /// 2 - Digito verificador da chave de acesso do Manifesto
         /// </summary>
         [XmlElement(ElementName = "cDV")]
-        public byte CDV { get; set; }
+        public byte cDV { get; set; }
 
         /// <summary>
         /// 2 - Modalidade de transporte 
         /// </summary>
         [XmlElement(ElementName = "modal")]
-        public MDFeModal Modal { get; set; }
+        public modal modal { get; set; }
 
         /// <summary>
         /// 2 - Data e hora de emissão do Manifesto 
         /// </summary>
         [XmlIgnore]
-        public DateTime DhEmi { get; set; }
+        public DateTime dhEmi { get; set; }
 
         /// <summary>
         /// Proxy para dhEmi
         /// </summary>
         [XmlElement(ElementName = "dhEmi")]
-        public string ProxyDhEmi
+        public string ProxydhEmi
         {
             get
             {
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        return DhEmi.ParaDataHoraStringSemUtc();
+                        return dhEmi.ParaDataHoraStringSemUtc();
                     case VersaoServico.Versao300:
-                        return DhEmi.ParaDataHoraStringUtc();
+                        return dhEmi.ParaDataHoraStringUtc();
                     default:
                         throw new InvalidOperationException("Versão Inválida para MDF-e");
                 }
 
             }
-            set { DhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTime.Parse(value); }
         }
 
         /// <summary>
         /// 2 - Forma de emissão do Manifesto (Normal ou Contingência)
         /// </summary>
         [XmlElement(ElementName = "tpEmis")]
-        public MDFeTipoEmissao TpEmis { get; set; }
+        public tpEmis tpEmis { get; set; }
 
         /// <summary>
         /// 2 - Identificação do processo de emissão do Manifesto
         /// </summary>
         [XmlElement(ElementName = "procEmi")]
-        public MDFeIdentificacaoProcessoEmissao ProcEmi { get; set; }
+        public procEmi procEmi { get; set; }
 
         /// <summary>
         /// 2 - Versão do processo de emissão 
         /// </summary>
         [XmlElement(ElementName = "verProc")]
-        public string VerProc { get; set; }
+        public string verProc { get; set; }
 
         /// <summary>
         /// 2 - Sigla da UF do Carregamento 
@@ -207,13 +207,13 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
         /// 2 - Informações dos Municípios de Carregamento
         /// </summary>
         [XmlElement(ElementName = "infMunCarrega")]
-        public List<infMunCarrega> InfMunCarrega { get; set; }
+        public List<infMunCarrega> infMunCarrega { get; set; }
 
         /// <summary>
         /// 2 - Informações do Percurso do MDF-e 
         /// </summary>
         [XmlElement(ElementName = "infPercurso")]
-        public List<infPercurso> InfPercurso { get; set; }
+        public List<infPercurso> infPercurso { get; set; }
 
         /// <summary>
         /// 2 - Data e hora previstos de inicio da viagem

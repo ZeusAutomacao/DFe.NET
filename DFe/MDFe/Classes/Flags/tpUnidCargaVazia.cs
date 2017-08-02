@@ -31,55 +31,15 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
-using DFe.MDFe.Classes.Servicos.Autorizacao;
-using DFe.MDFe.Configuracoes;
-using DFe.MDFe.Servicos.Factory;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
+using System.Xml.Serialization;
 
-namespace DFe.MDFe.Servicos.RecepcaoMDFe
+namespace DFe.MDFe.Classes.Flags
 {
-    public class MDFeEnviarLote
+    public enum tpUnidCargaVazia
     {
-        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
-
-        public MDFeRetEnviMDFe EnviarLote(long lote, MDFeEletronico mdfe)
-        {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
-
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
-                    break;
-                case VersaoServico.Versao300:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
-                    break;
-            }
-
-            enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
-
-            OnAntesDeEnviar(enviMDFe);
-
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
-
-            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
-        }
-
-        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
-        {
-            var handler = AntesDeEnviar;
-            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
-        }
+        [XmlEnum("1")]
+        Container = 1,
+        [XmlEnum("2")]
+        Carreta = 2
     }
 }

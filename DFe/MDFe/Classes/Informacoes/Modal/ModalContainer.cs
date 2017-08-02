@@ -32,54 +32,12 @@
 /********************************************************************************/
 
 using System;
-using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
-using DFe.MDFe.Classes.Servicos.Autorizacao;
-using DFe.MDFe.Configuracoes;
-using DFe.MDFe.Servicos.Factory;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
-namespace DFe.MDFe.Servicos.RecepcaoMDFe
+namespace DFe.MDFe.Classes.Informacoes.Modal
 {
-    public class MDFeEnviarLote
+    [Serializable]
+    public abstract class ModalContainer
     {
-        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
-
-        public MDFeRetEnviMDFe EnviarLote(long lote, MDFeEletronico mdfe)
-        {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
-
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
-                    break;
-                case VersaoServico.Versao300:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
-                    break;
-            }
-
-            enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
-
-            OnAntesDeEnviar(enviMDFe);
-
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
-
-            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
-        }
-
-        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
-        {
-            var handler = AntesDeEnviar;
-            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
-        }
+         
     }
 }

@@ -32,100 +32,36 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Adicionais;
-using DFe.MDFe.Classes.Informacoes.AutorizadoDownloadXml;
-using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
-using DFe.MDFe.Classes.Informacoes.Emitente;
-using DFe.MDFe.Classes.Informacoes.Identificacao;
-using DFe.MDFe.Classes.Informacoes.Lacres;
-using DFe.MDFe.Classes.Informacoes.Modal;
-using DFe.MDFe.Classes.Informacoes.Seguro;
-using DFe.MDFe.Classes.Informacoes.Totalizadores;
+using DFe.MDFe.Classes.Informacoes.Modal.Aereo;
+using DFe.MDFe.Classes.Informacoes.Modal.Aquaviario;
+using DFe.MDFe.Classes.Informacoes.Modal.Ferroviario;
+using DFe.MDFe.Classes.Informacoes.Modal.Rodoviario;
 
-namespace DFe.MDFe.Classes.Informacoes
+namespace DFe.MDFe.Classes.Informacoes.Modal
 {
     [Serializable]
-    public class infMDFe
+    public class infModal
     {
-        public infMDFe()
+        public infModal()
         {
-            ide = new ide();
-            Emit = new emit();
-            InfModal = new infModal();
-            InfDoc = new infDoc();
-            Tot = new tot();
-            versao = VersaoServico.Versao100;
+            versaoModal = Flags.versaoModal.Versao100;
         }
-        /// <summary>
-        /// 1 - Versão do leiaute 
-        /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico versao { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        ///  2- Versão do leiaute específico para o Modal
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string id { get; set; }
+        [XmlAttribute(AttributeName = "versaoModal")]
+        public versaoModal versaoModal { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 2 - XML do modal Insira neste local o XML específico do modal(rodoviário, aéreo, ferroviário ou aquaviário)
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public ide ide { get; set; }
-
-        /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
-        /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public emit Emit { get; set; }
-
-        /// <summary>
-        /// 1 - Informações do modal
-        /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public infModal InfModal { get; set; }
-
-        /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
-        /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public infDoc InfDoc { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
-        /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<seg> Seg { get; set; }
-
-        /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
-        /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public tot Tot { get; set; }
-
-        /// <summary>
-        /// 1 - Lacres do MDF-e
-        /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<lacres> Lacres { get; set; }
-
-        /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
-        /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<autXML> AutXml { get; set; }
-
-        /// <summary>
-        /// 1 - Informações Adicionais
-        /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public infAdic InfAdic { get; set; }
+        [XmlElement("rodo", typeof(rodo), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("aereo", typeof(aereo), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("aquav", typeof(aquav), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("ferrov", typeof(ferrov), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        public ModalContainer Modal { get; set; }
     }
 }
