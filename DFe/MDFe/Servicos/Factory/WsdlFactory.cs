@@ -34,8 +34,8 @@
 using DFe.Classes.Entidades;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Configuracoes;
-using DFe.MDFe.Servicos.Enderecos.Helper;
 using DFe.MDFe.Wsdl.Configuracao;
+using DFe.MDFe.Wsdl.Enderecos.Helper;
 using DFe.MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using DFe.MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
 using DFe.MDFe.Wsdl.Gerado.MDFeEventos;

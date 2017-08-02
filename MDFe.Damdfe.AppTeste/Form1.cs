@@ -34,7 +34,7 @@ namespace MDFe.Damdfe.AppTeste
 
         public DamdfeFrMDFe GetReport()
         {
-            MDFeProcMDFe mdfe = null;
+            mdfeProc mdfe = null;
             try
             {
                 var dlg = new OpenFileDialog
@@ -49,7 +49,7 @@ namespace MDFe.Damdfe.AppTeste
                 if (!File.Exists(xml))
                     return null;
 
-                mdfe = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(xml);
+                mdfe = FuncoesXml.ArquivoXmlParaClasse<mdfeProc>(xml);
             }
             catch (Exception ex)
             {

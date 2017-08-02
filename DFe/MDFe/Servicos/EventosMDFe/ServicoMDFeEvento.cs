@@ -31,13 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.MDFe.Classes.Retorno.MDFeEvento;
+using DFe.MDFe.Classes.Retorno.Evento;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class ServicoMDFeEvento
     {
-        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
+        public retEventoMDFe MDFeEventoIncluirCondutor(
             string chave, string cnpj, byte sequenciaEvento, string nome,
             string cpf)
         {
@@ -46,14 +46,14 @@ namespace DFe.MDFe.Servicos.EventosMDFe
             return eventoIncluirCondutor.MDFeEventoIncluirCondutor(chave, cnpj, sequenciaEvento, nome, cpf);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
+        public retEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
             var eventoEncerramento = new MDFeEncerrar();
 
             return eventoEncerramento.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoCancelar(string chave, string cnpj, byte sequenciaEvento, string protocolo,
+        public retEventoMDFe MDFeEventoCancelar(string chave, string cnpj, byte sequenciaEvento, string protocolo,
             string justificativa)
         {
             var eventoCancelamento = new MDFeCancelar();

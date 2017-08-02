@@ -1,9 +1,9 @@
-﻿using DFe.MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using DFe.MDFe.Classes.Retorno.MDFeConsultaProtocolo;
-using DFe.MDFe.Classes.Retorno.MDFeEvento;
-using DFe.MDFe.Classes.Retorno.MDFeRecepcao;
-using DFe.MDFe.Classes.Retorno.MDFeRetRecepcao;
-using DFe.MDFe.Classes.Retorno.MDFeStatusServico;
+﻿using DFe.MDFe.Classes.Retorno.Autorizacao;
+using DFe.MDFe.Classes.Retorno.ConsultaNaoEncerrados;
+using DFe.MDFe.Classes.Retorno.ConsultaProtocolo;
+using DFe.MDFe.Classes.Retorno.Evento;
+using DFe.MDFe.Classes.Retorno.RetRecepcao;
+using DFe.MDFe.Classes.Retorno.StatusServico;
 using DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using DFe.MDFe.Servicos.ConsultaProtocoloMDFe;
 using DFe.MDFe.Servicos.EventosMDFe;
@@ -37,42 +37,42 @@ namespace DFe.MDFe.Facade
             _encerrar = new MDFeEncerrar();
         }
 
-        public MDFeRetEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)
+        public retEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)
         {
             return _enviarLote.EnviarLote(lote, mdfe);
         }
 
-        public MDFeRetConsReciMDFe ConsultaLote(string numeroRecibo)
+        public retConsReciMDFe ConsultaLote(string numeroRecibo)
         {
             return _consultaLote.ConsultaLote(numeroRecibo);
         }
 
-        public MDFeRetConsStatServ StatusConsulta()
+        public retConsStatServMDFe StatusConsulta()
         {
             return _statusConsulta.StatusConsulta();
         }
 
-        public MDFeRetConsSitMDFe Consulta(string chave)
+        public retConsSitMDFe Consulta(string chave)
         {
             return _consulta.Consulta(chave);
         }
 
-        public MDFeRetEventoMDFe Cancelar(string chave, string cnpjEmitente, byte sequenciaEvento, string protocolo, string justificativa)
+        public retEventoMDFe Cancelar(string chave, string cnpjEmitente, byte sequenciaEvento, string protocolo, string justificativa)
         {
             return _cancelar.Cancelar(chave, cnpjEmitente, sequenciaEvento, protocolo, justificativa);
         }
 
-        public MDFeRetConsMDFeNao ConsultaNaoEncerradas(string cnpj)
+        public retConsMDFeNaoEnc ConsultaNaoEncerradas(string cnpj)
         {
             return _consultaNaoEncerradas.MDFeConsultaNaoEncerrados(cnpj);
         }
 
-        public MDFeRetEventoMDFe IncluirCondutor(string chave, string cnpj, byte sequenciaEvento, string nome, string cpf)
+        public retEventoMDFe IncluirCondutor(string chave, string cnpj, byte sequenciaEvento, string nome, string cpf)
         {
             return _incluirCondutor.MDFeEventoIncluirCondutor(chave, cnpj, sequenciaEvento, nome, cpf);
         }
 
-        public MDFeRetEventoMDFe Encerrar(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
+        public retEventoMDFe Encerrar(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
             return _encerrar.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
         }

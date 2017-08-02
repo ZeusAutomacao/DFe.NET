@@ -46,106 +46,106 @@ namespace DFe.MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj)
+        public static consMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj)
         {
-            var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
+            var consMDFeNaoEnc = new consMDFeNaoEnc
             {
                 CNPJ = cnpj,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                XServ = "CONSULTAR NÃO ENCERRADOS"
+                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                xServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
             return consMDFeNaoEnc;
         }
 
-        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
+        public static consSitMDFe CriarConsSitMDFe(string chave)
         {
-            var consSitMdfe = new MDFeConsSitMDFe
+            var consSitMdfe = new consSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                XServ = "CONSULTAR",
-                ChMDFe = chave
+                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                xServ = "CONSULTAR",
+                chMDFe = chave
             };
 
             return consSitMdfe;
         }
 
-        public static MDFeEvCancMDFe CriaEvCancMDFe(string protocolo, string justificativa)
+        public static evCancMDFe CriaEvCancMDFe(string protocolo, string justificativa)
         {
-            var cancelamento = new MDFeEvCancMDFe
+            var cancelamento = new evCancMDFe
             {
-                DescEvento = "Cancelamento",
-                NProt = protocolo,
-                XJust = justificativa
+                descEvento = "Cancelamento",
+                nProt = protocolo,
+                xJust = justificativa
             };
 
             return cancelamento;
         }
 
-        public static MDFeEvEncMDFe CriaEvEncMDFe(long codigoIbgeCidade, string protocolo)
+        public static evEncMDFe CriaEvEncMDFe(long codigoIbgeCidade, string protocolo)
         {
-            var encerramento = new MDFeEvEncMDFe
+            var encerramento = new evEncMDFe
             {
-                CUF = MDFeConfiguracao.VersaoWebService.UfEmitente,
-                DtEnc = DateTime.Now,
-                DescEvento = "Encerramento",
-                CMun = codigoIbgeCidade,
-                NProt = protocolo
+                cUF = MDFeConfiguracao.VersaoWebService.UfEmitente,
+                dtEnc = DateTime.Now,
+                descEvento = "Encerramento",
+                cMun = codigoIbgeCidade,
+                nProt = protocolo
             };
 
             return encerramento;
         }
 
-        public static MDFeEvIncCondutorMDFe CriaEvIncCondutorMDFe(string nome, string cpf)
+        public static evIncCondutorMDFe CriaEvIncCondutorMDFe(string nome, string cpf)
         {
-            var condutor = new MDFeCondutorIncluir
+            var condutor = new condutor
             {
-                XNome = nome,
+                xNome = nome,
                 CPF = cpf
             };
 
-            var incluirCodutor = new MDFeEvIncCondutorMDFe
+            var incluirCodutor = new evIncCondutorMDFe
             {
-                DescEvento = "Inclusao Condutor",
-                Condutor = condutor
+                descEvento = "Inclusao Condutor",
+                condutor = condutor
             };
 
             return incluirCodutor;
         }
 
-        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        public static enviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
         {
-            var enviMdfe = new MDFeEnviMDFe
+            var enviMdfe = new enviMDFe
             {
                 MDFe = mdfe,
-                IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
+                idLote = lote.ToString(),
+                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
         };
 
             return enviMdfe;
         }
 
-        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        public static consReciMDFe CriaConsReciMDFe(string numeroRecibo)
         {
-            var consReciMDFe = new MDFeConsReciMDFe
+            var consReciMDFe = new consReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                NRec = numeroRecibo
+                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                nRec = numeroRecibo
             };
 
             return consReciMDFe;
         }
 
-        public static MDFeConsStatServMDFe CriaConsStatServMDFe()
+        public static consStatServMDFe CriaConsStatServMDFe()
         {
-            return new MDFeConsStatServMDFe
+            return new consStatServMDFe
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                XServ = "STATUS"
+                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                xServ = "STATUS"
             }; 
         }
     }

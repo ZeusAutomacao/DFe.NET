@@ -5,14 +5,14 @@ namespace DFe.MDFe.Servicos.RecepcaoMDFe
 {
     public class AntesDeEnviar : EventArgs
     {
-        private MDFeEnviMDFe _enviMdFe;
+        private enviMDFe _enviMdFe;
 
-        public AntesDeEnviar(MDFeEnviMDFe enviMdfe)
+        public AntesDeEnviar(enviMDFe enviMdfe)
         {
             _enviMdFe = enviMdfe;
         }
 
-        public MDFeEnviMDFe enviMdFe
+        public enviMDFe enviMdFe
         {
             get { return _enviMdFe; }
             set { _enviMdFe = value; }

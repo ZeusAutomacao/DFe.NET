@@ -31,7 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.MDFe.Classes.Retorno.MDFeEvento;
+using DFe.MDFe.Classes.Retorno.Evento;
 using DFe.MDFe.Classes.Servicos.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
@@ -40,7 +40,7 @@ namespace DFe.MDFe.Servicos.EventosMDFe.Contratos
 {
     public interface IServicoController
     {
-        MDFeRetEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer,
-            MDFeTipoEvento tipoEvento);
+        retEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer,
+            tpEvento tipoEvento);
     }
 }

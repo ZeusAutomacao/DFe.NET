@@ -32,14 +32,14 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Retorno.MDFeStatusServico;
+using DFe.MDFe.Classes.Retorno.StatusServico;
 using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.StatusServicoMDFe
 {
     public class MDFeStatusConsulta
     {
-        public MDFeRetConsStatServ StatusConsulta()
+        public retConsStatServMDFe StatusConsulta()
         {
             var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
             consStatServMDFe.ValidarSchema();
@@ -48,7 +48,7 @@ namespace DFe.MDFe.Servicos.StatusServicoMDFe
             var webService = WsdlFactory.CriaWsdlMDFeStatusServico();
             var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
 
-            var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consStatServMDFe);
+            var retorno = retConsStatServMDFe.LoadXml(retornoXml.OuterXml, consStatServMDFe);
             retorno.SalvarXmlEmDisco();
 
             return retorno;

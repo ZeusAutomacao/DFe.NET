@@ -32,14 +32,14 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Retorno.MDFeConsultaProtocolo;
+using DFe.MDFe.Classes.Retorno.ConsultaProtocolo;
 using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.ConsultaProtocoloMDFe
 {
     public class MDFeConsulta
     {
-        public MDFeRetConsSitMDFe Consulta(string chave)
+        public retConsSitMDFe Consulta(string chave)
         {
             var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave);
             consSitMdfe.ValidarSchema();
@@ -48,7 +48,7 @@ namespace DFe.MDFe.Servicos.ConsultaProtocoloMDFe
             var webService = WsdlFactory.CriaWsdlMDFeConsulta();
             var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
 
-            var retorno = MDFeRetConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
+            var retorno = retConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
             retorno.SalvarXmlEmDisco(chave);
 
             return retorno;

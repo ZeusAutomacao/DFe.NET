@@ -622,7 +622,7 @@ namespace MDFe.AppTeste
                 mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
-                    VeicTracao = new veicTracao
+                    veicTracao = new veicTracao
                     {
                         placa = "KKK9888",
                         RENAVAM = "888888888",
@@ -677,7 +677,7 @@ namespace MDFe.AppTeste
                         }
                     },
 
-                    VeicTracao = new veicTracao
+                    veicTracao = new veicTracao
                         {
                             placa = "KKK9888",
                             RENAVAM = "888888888",
@@ -883,7 +883,7 @@ namespace MDFe.AppTeste
                 mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
-                    VeicTracao = new veicTracao
+                    veicTracao = new veicTracao
                     {
                         placa = "KKK9888",
                         RENAVAM = "888888888",
@@ -939,7 +939,7 @@ namespace MDFe.AppTeste
                         }
                     },
 
-                    VeicTracao = new veicTracao
+                    veicTracao = new veicTracao
                     {
                         placa = "KKK9888",
                         RENAVAM = "888888888",
@@ -1119,7 +1119,7 @@ namespace MDFe.AppTeste
             {
                 try
                 {
-                    var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoArquivoXml);
+                    var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviMDFe.MDFe.Chave();
                 }
@@ -1131,7 +1131,7 @@ namespace MDFe.AppTeste
                     }
                     catch
                     {
-                        var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoArquivoXml);
+                        var proc = FuncoesXml.ArquivoXmlParaClasse<mdfeProc>(caminhoArquivoXml);
                         chave = proc.MDFe.Chave();
                     }
                 }
@@ -1218,7 +1218,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
@@ -1230,7 +1230,7 @@ namespace MDFe.AppTeste
                 }
                 catch
                 {
-                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<mdfeProc>(caminhoXml);
                     mdfe = proc.MDFe;
                 }
             }
@@ -1265,7 +1265,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
@@ -1277,7 +1277,7 @@ namespace MDFe.AppTeste
                 }
                 catch
                 {
-                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<mdfeProc>(caminhoXml);
                     mdfe = proc.MDFe;
                 }
             }
@@ -1309,7 +1309,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
@@ -1321,7 +1321,7 @@ namespace MDFe.AppTeste
                 }
                 catch
                 {
-                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<mdfeProc>(caminhoXml);
                     mdfe = proc.MDFe;
                 }
             }

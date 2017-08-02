@@ -32,14 +32,14 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Retorno.MDFeRetRecepcao;
+using DFe.MDFe.Classes.Retorno.RetRecepcao;
 using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.RetRecepcaoMDFe
 {
     public class MDFeConsultaLote
     {
-        public MDFeRetConsReciMDFe ConsultaLote(string numeroRecibo)
+        public retConsReciMDFe ConsultaLote(string numeroRecibo)
         {
             var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
             consReciMdfe.ValidaSchema();
@@ -48,7 +48,7 @@ namespace DFe.MDFe.Servicos.RetRecepcaoMDFe
             var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao();
             var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
 
-            var retorno = MDFeRetConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
+            var retorno = retConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
             retorno.SalvarXmlEmDisco();
 
             return retorno;

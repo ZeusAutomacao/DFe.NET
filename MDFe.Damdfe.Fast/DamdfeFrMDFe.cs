@@ -43,7 +43,7 @@ namespace MDFe.Damdfe.Fast
     {
         protected Report Relatorio;
 
-        public DamdfeFrMDFe(MDFeProcMDFe proc, ConfiguracaoDamdfe config)
+        public DamdfeFrMDFe(mdfeProc proc, ConfiguracaoDamdfe config)
         {
             Relatorio = new Report();
             RegisterData(proc);
@@ -56,7 +56,7 @@ namespace MDFe.Damdfe.Fast
             Relatorio = new Report();
         }
 
-        public void RegisterData(MDFeProcMDFe proc)
+        public void RegisterData(mdfeProc proc)
         {
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;

@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Retorno.MDFeEvento;
+using DFe.MDFe.Classes.Retorno.Evento;
 using DFe.MDFe.Classes.Servicos.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.MDFe.Servicos.EventosMDFe.Contratos;
@@ -42,7 +42,7 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class ServicoController : IServicoController
     {
-        public MDFeRetEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento)
+        public retEventoMDFe Executar(string chave, string cnpjEmitente, byte sequenciaEvento, MDFeEventoContainer eventoContainer, tpEvento tipoEvento)
         {
             var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente,
                 tipoEvento,
@@ -55,7 +55,7 @@ namespace DFe.MDFe.Servicos.EventosMDFe
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
             var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
-            var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
+            var retorno = retEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
             retorno.SalvarXmlEmDisco(chave);
 
             return retorno;

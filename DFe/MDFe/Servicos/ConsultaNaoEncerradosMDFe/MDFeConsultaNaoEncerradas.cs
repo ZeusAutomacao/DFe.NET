@@ -32,14 +32,14 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
+using DFe.MDFe.Classes.Retorno.ConsultaNaoEncerrados;
 using DFe.MDFe.Servicos.Factory;
 
 namespace DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class MDFeConsultaNaoEncerradas
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public retConsMDFeNaoEnc MDFeConsultaNaoEncerrados(string cnpj)
         {
             var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
             consMDFeNaoEnc.ValidarSchema();
@@ -48,7 +48,7 @@ namespace DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe
             var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
 
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
+            var retorno = retConsMDFeNaoEnc.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
             retorno.SalvarXmlEmDisco(cnpj);
 
             return retorno;

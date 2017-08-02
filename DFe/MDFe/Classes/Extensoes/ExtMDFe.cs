@@ -34,8 +34,6 @@
 using System;
 using DFe.Classes.Entidades;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes;
-using DFe.MDFe.Classes.Informacoes.Modal;
 using DFe.MDFe.Classes.Informacoes.Modal.Aereo;
 using DFe.MDFe.Classes.Informacoes.Modal.Aquaviario;
 using DFe.MDFe.Classes.Informacoes.Modal.Ferroviario;

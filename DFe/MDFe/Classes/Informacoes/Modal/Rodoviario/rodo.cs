@@ -59,19 +59,19 @@ namespace DFe.MDFe.Classes.Informacoes.Modal.Rodoviario
         /// 1 - Dados do Veículo com a Tração
         /// </summary>
         [XmlElement(ElementName = "veicTracao")]
-        public veicTracao VeicTracao { get; set; }
+        public veicTracao veicTracao { get; set; }
 
         /// <summary>
         /// 1 - Dados dos reboques
         /// </summary>
         [XmlElement(ElementName = "veicReboque")]
-        public List<veicReboque> VeicReboque { get; set; }
+        public List<veicReboque> veicReboque { get; set; }
 
         /// <summary>
         /// 1 - Informações de Vale Pedágio
         /// </summary>
         [XmlElement(ElementName = "valePed")]
-        public valePed ValePed { get; set; }
+        public valePed valePed { get; set; }
 
         /// <summary>
         /// 1 - Código de Agendamento no porto 
