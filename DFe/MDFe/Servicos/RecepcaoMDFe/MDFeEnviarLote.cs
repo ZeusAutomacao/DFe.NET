@@ -53,10 +53,10 @@ namespace DFe.MDFe.Servicos.RecepcaoMDFe
             switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
+                    mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao100;
                     break;
                 case VersaoServico.Versao300:
-                    mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
+                    mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao300;
                     break;
             }
 

@@ -77,7 +77,7 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
         [XmlElement(ElementName = "tpTransp")]
         public tpTransp? tpTransp { get; set; }
 
-        public bool TpTranspSpecified { get { return tpTransp.HasValue; } }
+        public bool tpTranspSpecified { get { return tpTransp.HasValue; } }
 
         /// <summary>
         /// 2 - Modelo do Manifesto Eletrônico
@@ -219,18 +219,18 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
         /// 2 - Data e hora previstos de inicio da viagem
         /// </summary>
         [XmlIgnore]
-        public DateTime? DhIniViagem { get; set; }
+        public DateTime? dhIniViagem { get; set; }
 
         /// <summary>
         /// Proxy para dhIniViagem
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
-        public string ProxyDhIniViagem {
+        public string ProxydhIniViagem {
             get
             {
-                return DhIniViagem.ParaDataHoraStringSemUtc();
+                return dhIniViagem.ParaDataHoraStringSemUtc();
             }
-            set { DhIniViagem = DateTime.Parse(value); }
+            set { dhIniViagem = DateTime.Parse(value); }
         }
     }
 }

@@ -599,27 +599,27 @@ namespace MDFe.AppTeste
             #endregion (ide)
 
             #region dados emitente (emit)
-            mdfe.InfMDFe.Emit.CNPJ = config.Empresa.Cnpj;
-            mdfe.InfMDFe.Emit.IE = config.Empresa.InscricaoEstadual;
-            mdfe.InfMDFe.Emit.xNome = config.Empresa.Nome;
-            mdfe.InfMDFe.Emit.xFant = config.Empresa.NomeFantasia;
+            mdfe.InfMDFe.emit.CNPJ = config.Empresa.Cnpj;
+            mdfe.InfMDFe.emit.IE = config.Empresa.InscricaoEstadual;
+            mdfe.InfMDFe.emit.xNome = config.Empresa.Nome;
+            mdfe.InfMDFe.emit.xFant = config.Empresa.NomeFantasia;
 
-            mdfe.InfMDFe.Emit.enderEmit.xLgr = config.Empresa.Logradouro;
-            mdfe.InfMDFe.Emit.enderEmit.nro = config.Empresa.Numero;
-            mdfe.InfMDFe.Emit.enderEmit.xCpl = config.Empresa.Complemento;
-            mdfe.InfMDFe.Emit.enderEmit.xBairro = config.Empresa.Bairro;
-            mdfe.InfMDFe.Emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
-            mdfe.InfMDFe.Emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
-            mdfe.InfMDFe.Emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
-            mdfe.InfMDFe.Emit.enderEmit.UF = config.Empresa.SiglaUf;
-            mdfe.InfMDFe.Emit.enderEmit.fone = config.Empresa.Telefone;
-            mdfe.InfMDFe.Emit.enderEmit.email = config.Empresa.Email;
+            mdfe.InfMDFe.emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            mdfe.InfMDFe.emit.enderEmit.nro = config.Empresa.Numero;
+            mdfe.InfMDFe.emit.enderEmit.xCpl = config.Empresa.Complemento;
+            mdfe.InfMDFe.emit.enderEmit.xBairro = config.Empresa.Bairro;
+            mdfe.InfMDFe.emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            mdfe.InfMDFe.emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            mdfe.InfMDFe.emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            mdfe.InfMDFe.emit.enderEmit.UF = config.Empresa.SiglaUf;
+            mdfe.InfMDFe.emit.enderEmit.fone = config.Empresa.Telefone;
+            mdfe.InfMDFe.emit.enderEmit.email = config.Empresa.Email;
             #endregion dados emitente (emit)
 
             #region modal
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                mdfe.InfMDFe.InfModal.Modal = new rodo
+                mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
                     VeicTracao = new veicTracao
@@ -647,7 +647,7 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfModal.Modal = new rodo
+                mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     infANTT = new infANTT
                     {
@@ -711,7 +711,7 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.infMunDescarga = new List<infMunDescarga>
+            mdfe.InfMDFe.infDoc.infMunDescarga = new List<infMunDescarga>
             {
                 new infMunDescarga
                 {
@@ -730,7 +730,7 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
+                mdfe.InfMDFe.infDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
                 {
                     new peri
                     {
@@ -771,14 +771,14 @@ namespace MDFe.AppTeste
             #endregion
 
             #region Totais (tot)
-            mdfe.InfMDFe.Tot.qCTe = 1;
-            mdfe.InfMDFe.Tot.vCarga = 500.00m;
-            mdfe.InfMDFe.Tot.cUnid = cUnid.KG;
-            mdfe.InfMDFe.Tot.qCarga = 100.0000m;
+            mdfe.InfMDFe.tot.qCTe = 1;
+            mdfe.InfMDFe.tot.vCarga = 500.00m;
+            mdfe.InfMDFe.tot.cUnid = cUnid.KG;
+            mdfe.InfMDFe.tot.qCarga = 100.0000m;
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
-            mdfe.InfMDFe.InfAdic = new infAdic
+            mdfe.InfMDFe.infAdic = new infAdic
             {
                 infCpl = "aaaaaaaaaaaaaaaa"
             };
@@ -859,28 +859,28 @@ namespace MDFe.AppTeste
             #endregion (ide)
 
             #region dados emitente (emit)
-            mdfe.InfMDFe.Emit.CNPJ = config.Empresa.Cnpj;
-            mdfe.InfMDFe.Emit.IE = config.Empresa.InscricaoEstadual;
-            mdfe.InfMDFe.Emit.xNome = config.Empresa.Nome;
-            mdfe.InfMDFe.Emit.xFant = config.Empresa.NomeFantasia;
+            mdfe.InfMDFe.emit.CNPJ = config.Empresa.Cnpj;
+            mdfe.InfMDFe.emit.IE = config.Empresa.InscricaoEstadual;
+            mdfe.InfMDFe.emit.xNome = config.Empresa.Nome;
+            mdfe.InfMDFe.emit.xFant = config.Empresa.NomeFantasia;
 
-            mdfe.InfMDFe.Emit.enderEmit.xLgr = config.Empresa.Logradouro;
-            mdfe.InfMDFe.Emit.enderEmit.nro = config.Empresa.Numero;
-            mdfe.InfMDFe.Emit.enderEmit.xCpl = config.Empresa.Complemento;
-            mdfe.InfMDFe.Emit.enderEmit.xBairro = config.Empresa.Bairro;
-            mdfe.InfMDFe.Emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
-            mdfe.InfMDFe.Emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
-            mdfe.InfMDFe.Emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
-            mdfe.InfMDFe.Emit.enderEmit.UF = config.Empresa.SiglaUf;
-            mdfe.InfMDFe.Emit.enderEmit.fone = config.Empresa.Telefone;
-            mdfe.InfMDFe.Emit.enderEmit.email = config.Empresa.Email;
+            mdfe.InfMDFe.emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            mdfe.InfMDFe.emit.enderEmit.nro = config.Empresa.Numero;
+            mdfe.InfMDFe.emit.enderEmit.xCpl = config.Empresa.Complemento;
+            mdfe.InfMDFe.emit.enderEmit.xBairro = config.Empresa.Bairro;
+            mdfe.InfMDFe.emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            mdfe.InfMDFe.emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            mdfe.InfMDFe.emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            mdfe.InfMDFe.emit.enderEmit.UF = config.Empresa.SiglaUf;
+            mdfe.InfMDFe.emit.enderEmit.fone = config.Empresa.Telefone;
+            mdfe.InfMDFe.emit.enderEmit.email = config.Empresa.Email;
             #endregion dados emitente (emit)
 
             #region modal
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
-                mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao100;
-                mdfe.InfMDFe.InfModal.Modal = new rodo
+                mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao100;
+                mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     RNTRC = config.Empresa.RNTRC,
                     VeicTracao = new veicTracao
@@ -908,8 +908,8 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfModal.versaoModal = versaoModal.Versao300;
-                mdfe.InfMDFe.InfModal.Modal = new rodo
+                mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao300;
+                mdfe.InfMDFe.infModal.Modal = new rodo
                 {
                     infANTT = new infANTT
                     {
@@ -973,7 +973,7 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.infMunDescarga = new List<infMunDescarga>
+            mdfe.InfMDFe.infDoc.infMunDescarga = new List<infMunDescarga>
             {
                 new infMunDescarga
                 {
@@ -992,7 +992,7 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
+                mdfe.InfMDFe.infDoc.infMunDescarga[0].infCTe[0].Peri = new List<peri>
                 {
                     new peri
                     {
@@ -1033,14 +1033,14 @@ namespace MDFe.AppTeste
             #endregion
 
             #region Totais (tot)
-            mdfe.InfMDFe.Tot.qCTe = 1;
-            mdfe.InfMDFe.Tot.vCarga = 500.00m;
-            mdfe.InfMDFe.Tot.cUnid = cUnid.KG;
-            mdfe.InfMDFe.Tot.qCarga = 100.0000m;
+            mdfe.InfMDFe.tot.qCTe = 1;
+            mdfe.InfMDFe.tot.vCarga = 500.00m;
+            mdfe.InfMDFe.tot.cUnid = cUnid.KG;
+            mdfe.InfMDFe.tot.qCarga = 100.0000m;
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
-            mdfe.InfMDFe.InfAdic = new infAdic
+            mdfe.InfMDFe.infAdic = new infAdic
             {
                 infCpl = "aaaaaaaaaaaaaaaa"
             };

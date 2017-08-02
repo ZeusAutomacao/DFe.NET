@@ -46,7 +46,7 @@ namespace DFe.MDFe.Classes.Informacoes.Modal
     {
         public infModal()
         {
-            versaoModal = Flags.versaoModal.Versao100;
+            versaoModal = versaoModal.Versao100;
         }
 
         /// <summary>

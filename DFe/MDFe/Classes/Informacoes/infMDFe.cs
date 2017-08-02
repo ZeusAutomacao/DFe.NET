@@ -53,10 +53,10 @@ namespace DFe.MDFe.Classes.Informacoes
         public infMDFe()
         {
             ide = new ide();
-            Emit = new emit();
-            InfModal = new infModal();
-            InfDoc = new infDoc();
-            Tot = new tot();
+            emit = new emit();
+            infModal = new infModal();
+            infDoc = new infDoc();
+            tot = new tot();
             versao = VersaoServico.Versao100;
         }
         /// <summary>
@@ -83,19 +83,19 @@ namespace DFe.MDFe.Classes.Informacoes
         /// 1 - Identificação do Emitente do Manifesto
         /// </summary>
         [XmlElement(ElementName = "emit")]
-        public emit Emit { get; set; }
+        public emit emit { get; set; }
 
         /// <summary>
         /// 1 - Informações do modal
         /// </summary>
         [XmlElement(ElementName = "infModal")]
-        public infModal InfModal { get; set; }
+        public infModal infModal { get; set; }
 
         /// <summary>
         /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
         /// </summary>
         [XmlElement(ElementName = "infDoc")]
-        public infDoc InfDoc { get; set; }
+        public infDoc infDoc { get; set; }
 
         /// <summary>
         /// 1 - Informações de Seguro da carga
@@ -108,24 +108,24 @@ namespace DFe.MDFe.Classes.Informacoes
         /// 1 - Totalizadores da carga transportada e seus documentos fiscais
         /// </summary>
         [XmlElement(ElementName = "tot")]
-        public tot Tot { get; set; }
+        public tot tot { get; set; }
 
         /// <summary>
         /// 1 - Lacres do MDF-e
         /// </summary>
         [XmlElement(ElementName = "lacres")]
-        public List<lacres> Lacres { get; set; }
+        public List<lacres> lacres { get; set; }
 
         /// <summary>
         /// 1 - Autorizados para download do XML do DF-e
         /// </summary>
         [XmlElement(ElementName = "autXML")]
-        public List<autXML> AutXml { get; set; }
+        public List<autXML> autXml { get; set; }
 
         /// <summary>
         /// 1 - Informações Adicionais
         /// </summary>
         [XmlElement(ElementName = "infAdic")]
-        public infAdic InfAdic { get; set; }
+        public infAdic infAdic { get; set; }
     }
 }

@@ -66,8 +66,8 @@ namespace DFe.MDFe.Classes.Extensoes
                     break;
             }
 
-            var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType();
-            var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
+            var tipoModal = mdfe.InfMDFe.infModal.Modal.GetType();
+            var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.infModal);
 
 
             if (tipoModal == typeof (rodo))
@@ -134,7 +134,7 @@ namespace DFe.MDFe.Classes.Extensoes
             var codigoNumerico = mdfe.InfMDFe.ide.cMDF;
             var estado = mdfe.InfMDFe.ide.cUF;
             var dataEHoraEmissao = mdfe.InfMDFe.ide.dhEmi;
-            var cnpj = mdfe.InfMDFe.Emit.CNPJ;
+            var cnpj = mdfe.InfMDFe.emit.CNPJ;
             var numeroDocumento = mdfe.InfMDFe.ide.nMDF;
             int serie = mdfe.InfMDFe.ide.serie;
 
@@ -174,21 +174,21 @@ namespace DFe.MDFe.Classes.Extensoes
 
         public static string CNPJEmitente(this MDFEletronico mdfe)
         {
-            var cnpj = mdfe.InfMDFe.Emit.CNPJ;
+            var cnpj = mdfe.InfMDFe.emit.CNPJ;
 
             return cnpj;
         }
 
         public static Estado UFEmitente(this MDFEletronico mdfe)
         {
-            var estadoUf = mdfe.InfMDFe.Emit.enderEmit.UF;
+            var estadoUf = mdfe.InfMDFe.emit.enderEmit.UF;
 
             return estadoUf;
         }
 
         public static long CodigoIbgeMunicipioEmitente(this MDFEletronico mdfe)
         {
-            var codigo = mdfe.InfMDFe.Emit.enderEmit.cMun;
+            var codigo = mdfe.InfMDFe.emit.enderEmit.cMun;
 
             return codigo;
         }
