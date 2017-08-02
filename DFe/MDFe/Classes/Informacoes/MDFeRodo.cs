@@ -81,7 +81,7 @@ namespace DFe.MDFe.Classes.Informacoes
         public string CodAgPorto { get; set; }
 
         [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
+        public List<lacres> lacRodo { get; set; }
     }
 
     [Serializable]

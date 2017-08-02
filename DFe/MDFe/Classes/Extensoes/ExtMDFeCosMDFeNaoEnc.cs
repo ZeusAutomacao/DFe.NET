@@ -33,7 +33,7 @@
 
 using System.Xml;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
 using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;

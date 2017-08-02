@@ -33,7 +33,7 @@
 
 using System.Xml;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.ConsultaProtocolo;
+using DFe.MDFe.Classes.Servicos.ConsultaProtocolo;
 using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;

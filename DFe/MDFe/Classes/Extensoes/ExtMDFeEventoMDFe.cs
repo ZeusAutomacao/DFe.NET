@@ -33,8 +33,8 @@
 
 using System.Xml;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Evento;
-using DFe.MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using DFe.MDFe.Classes.Servicos.Evento;
+using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;

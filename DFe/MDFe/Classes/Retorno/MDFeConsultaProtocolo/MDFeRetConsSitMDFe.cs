@@ -36,8 +36,8 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.ConsultaProtocolo;
 using DFe.MDFe.Classes.Retorno.MDFeRetRecepcao;
+using DFe.MDFe.Classes.Servicos.ConsultaProtocolo;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Retorno.MDFeConsultaProtocolo

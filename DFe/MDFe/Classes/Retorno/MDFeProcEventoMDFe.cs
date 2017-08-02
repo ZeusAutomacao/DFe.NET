@@ -33,8 +33,8 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.MDFe.Classes.Informacoes.Evento;
 using DFe.MDFe.Classes.Retorno.MDFeEvento;
+using DFe.MDFe.Classes.Servicos.Evento;
 
 namespace DFe.MDFe.Classes.Retorno
 {

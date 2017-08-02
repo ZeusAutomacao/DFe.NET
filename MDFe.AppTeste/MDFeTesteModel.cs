@@ -571,19 +571,19 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5211701",
                 XMunCarrega = "JANDAIA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5209952",
                 XMunCarrega = "INDIARA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5200134",
                 XMunCarrega = "ACREUNA"
@@ -690,9 +690,9 @@ namespace MDFe.AppTeste
                             TpCar = MDFeTpCar.NaoAplicavel
                         },
 
-                    lacRodo = new List<MDFeLacre>
+                    lacRodo = new List<lacres>
                     {
-                        new MDFeLacre
+                        new lacres
                         {
                             NLacre = "lacre01"
                         }
@@ -704,15 +704,15 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<MDFeInfMunDescarga>
+            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<infMunDescarga>
             {
-                new MDFeInfMunDescarga
+                new infMunDescarga
                 {
                     XMunDescarga = "CUIABA",
                     CMunDescarga = "5103403",
-                    InfCTe = new List<MDFeInfCTe>
+                    InfCTe = new List<infCTe>
                     {
-                        new MDFeInfCTe
+                        new infCTe
                         {
                             ChCTe = "52161021351378000100577500000000191194518006"
                         }
@@ -723,9 +723,9 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
+                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<peri>
                 {
-                    new MDFePeri
+                    new peri
                     {
                         NONU = "1111",
                         QTotProd = "quantidade 20"
@@ -739,16 +739,16 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.Seg = new List<MDFeSeg>();
+                mdfe.InfMDFe.Seg = new List<seg>();
 
-                mdfe.InfMDFe.Seg.Add(new MDFeSeg
+                mdfe.InfMDFe.Seg.Add(new seg
                 {
-                    InfResp = new MDFeInfResp
+                    InfResp = new infResp
                     {
                         CNPJ = "21025760000123",
                         RespSeg = MDFeRespSeg.EmitenteDoMDFe
                     },
-                    InfSeg = new MDFeInfSeg
+                    InfSeg = new infSeg
                     {
                         CNPJ = "21025760000123",
                         XSeg = "aaaaaaaaaa"
@@ -771,7 +771,7 @@ namespace MDFe.AppTeste
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
-            mdfe.InfMDFe.InfAdic = new MDFeInfAdic
+            mdfe.InfMDFe.InfAdic = new infAdic
             {
                 InfCpl = "aaaaaaaaaaaaaaaa"
             };
@@ -831,19 +831,19 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5211701",
                 XMunCarrega = "JANDAIA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5209952",
                 XMunCarrega = "INDIARA"
             });
 
-            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new MDFeInfMunCarrega
+            mdfe.InfMDFe.Ide.InfMunCarrega.Add(new infMunCarrega
             {
                 CMunCarrega = "5200134",
                 XMunCarrega = "ACREUNA"
@@ -952,9 +952,9 @@ namespace MDFe.AppTeste
                         TpCar = MDFeTpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<MDFeLacre>
+                    lacRodo = new List<lacres>
                     {
-                        new MDFeLacre
+                        new lacres
                         {
                             NLacre = "lacre01"
                         }
@@ -966,15 +966,15 @@ namespace MDFe.AppTeste
             #endregion modal
 
             #region infMunDescarga
-            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<MDFeInfMunDescarga>
+            mdfe.InfMDFe.InfDoc.InfMunDescarga = new List<infMunDescarga>
             {
-                new MDFeInfMunDescarga
+                new infMunDescarga
                 {
                     XMunDescarga = "CUIABA",
                     CMunDescarga = "5103403",
-                    InfCTe = new List<MDFeInfCTe>
+                    InfCTe = new List<infCTe>
                     {
-                        new MDFeInfCTe
+                        new infCTe
                         {
                             ChCTe = "52161021351378000100577500000000191194518006"
                         }
@@ -985,9 +985,9 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
+                mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<peri>
                 {
-                    new MDFePeri
+                    new peri
                     {
                         NONU = "1111",
                         QTotProd = "quantidade 20"
@@ -1001,16 +1001,16 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.Seg = new List<MDFeSeg>();
+                mdfe.InfMDFe.Seg = new List<seg>();
 
-                mdfe.InfMDFe.Seg.Add(new MDFeSeg
+                mdfe.InfMDFe.Seg.Add(new seg
                 {
-                    InfResp = new MDFeInfResp
+                    InfResp = new infResp
                     {
                         CNPJ = "21025760000123",
                         RespSeg = MDFeRespSeg.EmitenteDoMDFe
                     },
-                    InfSeg = new MDFeInfSeg
+                    InfSeg = new infSeg
                     {
                         CNPJ = "21025760000123",
                         XSeg = "aaaaaaaaaa"
@@ -1033,7 +1033,7 @@ namespace MDFe.AppTeste
             #endregion Totais (tot)
 
             #region informações adicionais (infAdic)
-            mdfe.InfMDFe.InfAdic = new MDFeInfAdic
+            mdfe.InfMDFe.InfAdic = new infAdic
             {
                 InfCpl = "aaaaaaaaaaaaaaaa"
             };

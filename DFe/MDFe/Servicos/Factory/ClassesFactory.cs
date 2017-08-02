@@ -33,12 +33,12 @@
 
 using System;
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
-using DFe.MDFe.Classes.Informacoes.ConsultaProtocolo;
-using DFe.MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using DFe.MDFe.Classes.Informacoes.RetRecepcao;
-using DFe.MDFe.Classes.Informacoes.StatusServico;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
+using DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
+using DFe.MDFe.Classes.Servicos.ConsultaProtocolo;
+using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
+using DFe.MDFe.Classes.Servicos.RetRecepcao;
+using DFe.MDFe.Classes.Servicos.StatusServico;
 using DFe.MDFe.Configuracoes;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 

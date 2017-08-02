@@ -45,11 +45,11 @@ namespace DFe.MDFe.Classes.Informacoes
     {
         public MDFe()
         {
-            InfMDFe = new MDFeInfMDFe();
+            InfMDFe = new infMDFe();
         }
 
         [XmlElement(ElementName = "infMDFe")]
-        public MDFeInfMDFe InfMDFe { get; set; }
+        public infMDFe InfMDFe { get; set; }
 
         [XmlElement(ElementName = "Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }

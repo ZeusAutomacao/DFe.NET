@@ -33,8 +33,8 @@
 
 using System;
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Informacoes.Evento;
-using DFe.MDFe.Classes.Informacoes.Evento.Flags;
+using DFe.MDFe.Classes.Servicos.Evento;
+using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.MDFe.Configuracoes;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 

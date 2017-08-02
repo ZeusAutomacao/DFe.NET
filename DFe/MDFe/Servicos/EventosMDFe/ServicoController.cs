@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Informacoes.Evento;
-using DFe.MDFe.Classes.Informacoes.Evento.Flags;
 using DFe.MDFe.Classes.Retorno.MDFeEvento;
+using DFe.MDFe.Classes.Servicos.Evento;
+using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.MDFe.Servicos.EventosMDFe.Contratos;
 using DFe.MDFe.Servicos.Factory;
 

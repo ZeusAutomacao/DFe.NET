@@ -35,7 +35,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.RetRecepcao;
+using DFe.MDFe.Classes.Servicos.RetRecepcao;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Retorno.MDFeRetRecepcao
