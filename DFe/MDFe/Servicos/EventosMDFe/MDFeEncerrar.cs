@@ -31,20 +31,31 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Retorno.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.MDFe.Servicos.Factory;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public class MDFeEncerrar
     {
+        public DFeConfig DfeConfig { get; }
+        public CertificadoDigital CertificadoDigital { get; }
+
+        public MDFeEncerrar(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            DfeConfig = dfeConfig;
+            CertificadoDigital = certificadoDigital;
+        }
+
         public retEventoMDFe MDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
-            var encerramento = ClassesFactory.CriaEvEncMDFe(codigoIbgeCidade, protocolo);
+            var encerramento = ClassesFactory.CriaEvEncMDFe(codigoIbgeCidade, protocolo, DfeConfig);
 
-            var retorno = new ServicoController().Executar(chave, cnpj, sequenciaEvento, encerramento, tpEvento.Encerramento);
+            var retorno = new ServicoController(DfeConfig, CertificadoDigital).Executar(chave, cnpj, sequenciaEvento, encerramento, tpEvento.Encerramento);
 
             return retorno;
         }

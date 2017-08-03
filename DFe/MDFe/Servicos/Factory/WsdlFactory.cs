@@ -31,9 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
 using DFe.Classes.Entidades;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Wsdl.Configuracao;
 using DFe.MDFe.Wsdl.Enderecos.Helper;
 using DFe.MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
@@ -47,78 +48,78 @@ namespace DFe.MDFe.Servicos.Factory
 {
     public static class WsdlFactory
     {
-        public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc()
+        public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeConsNaoEnc;
+            var versao = dfeConfig.VersaoServico.GetVersaoString();
+            var configuracaoWsdl = CriaConfiguracao(url, versao, dfeConfig, certificadoDigital);
 
             var ws = new MDFeConsNaoEnc(configuracaoWsdl);
             return ws;
         }
 
-        public static MDFeConsulta CriaWsdlMDFeConsulta()
+        public static MDFeConsulta CriaWsdlMDFeConsulta(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsulta;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeConsulta;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var versao = dfeConfig.VersaoServico.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao, dfeConfig, certificadoDigital);
 
             return new MDFeConsulta(configuracaoWsdl);
         }
 
-        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento()
+        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeRecepcaoEvento;
+            var versao = dfeConfig.VersaoServico.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, dfeConfig, certificadoDigital);
 
             return new MDFeRecepcaoEvento(configuracaoWsdl);
         }
 
-        public static MDFeRecepcao CriaWsdlMDFeRecepcao()
+        public static MDFeRecepcao CriaWsdlMDFeRecepcao(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcao;
-            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeRecepcao;
+            var versaoServico = dfeConfig.VersaoServico.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versaoServico);
+            var configuracaoWsdl = CriaConfiguracao(url, versaoServico, dfeConfig, certificadoDigital);
 
-            return new MDFeRecepcao(configuracaoWsdl); ;
+            return new MDFeRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
+        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeRetRecepcao;
+            var versao = dfeConfig.VersaoServico.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, dfeConfig, certificadoDigital);
 
             return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
+        public static MDFeStatusServico CriaWsdlMDFeStatusServico(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeStatusServico;
+            var versao = dfeConfig.VersaoServico.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, dfeConfig, certificadoDigital);
 
             return new MDFeStatusServico(configuracaoWsdl);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
+        private static WsdlConfiguracao CriaConfiguracao(string url, string versao, DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
-            var certificadoDigital = MDFeConfiguracao.X509Certificate2;
+            var codigoEstado = dfeConfig.EstadoUf.GetCodigoIbgeEmString();
 
             return new WsdlConfiguracao
             {
-                CertificadoDigital = certificadoDigital,
+                CertificadoDigital = certificadoDigital.ObterCertificadoDigital(),
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = MDFeConfiguracao.VersaoWebService.TimeOut
+                TimeOut = dfeConfig.TimeOut
             };
         }
     }

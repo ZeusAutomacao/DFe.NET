@@ -31,9 +31,9 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;
 
@@ -41,17 +41,17 @@ namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtevIncCondutorMDFe
     {
-        public static void ValidaSchema(this evIncCondutorMDFe evIncCondutorMDFe)
+        public static void ValidaSchema(this evIncCondutorMDFe evIncCondutorMDFe, DFeConfig dfeConfig)
         {
             var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (dfeConfig.VersaoServico)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd", dfeConfig);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v3.00.xsd");
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v3.00.xsd", dfeConfig);
                     break;
             }
         }

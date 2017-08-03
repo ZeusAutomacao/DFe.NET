@@ -31,9 +31,9 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;
 
@@ -41,17 +41,17 @@ namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtevCancMDFe
     {
-        public static void ValidaSchema(this evCancMDFe evCancMDFe)
+        public static void ValidaSchema(this evCancMDFe evCancMDFe, DFeConfig dfeConfig)
         {
             var xmlCancelamento = evCancMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (dfeConfig.VersaoServico)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd", dfeConfig);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd");
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd", dfeConfig);
                     break;
             }
         }

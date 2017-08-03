@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Retorno.RetRecepcao;
 using DFe.MDFe.Servicos.Factory;
@@ -39,17 +41,30 @@ namespace DFe.MDFe.Servicos.RetRecepcaoMDFe
 {
     public class MDFeConsultaLote
     {
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public MDFeConsultaLote(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public retConsReciMDFe ConsultaLote(string numeroRecibo)
         {
-            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
-            consReciMdfe.ValidaSchema();
-            consReciMdfe.SalvarXmlEmDisco();
+            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo, _dfeConfig);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao();
+            consReciMdfe.ValidaSchema(_dfeConfig);
+
+            consReciMdfe.SalvarXmlEmDisco(_dfeConfig);
+
+            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(_dfeConfig, _certificadoDigital);
+
             var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
 
             var retorno = retConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
-            retorno.SalvarXmlEmDisco();
+
+            retorno.SalvarXmlEmDisco(_dfeConfig);
 
             return retorno;
         }

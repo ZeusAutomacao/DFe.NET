@@ -37,7 +37,6 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Configuracoes;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Informacoes.Identificacao
@@ -135,23 +134,7 @@ namespace DFe.MDFe.Classes.Informacoes.Identificacao
         /// Proxy para dhEmi
         /// </summary>
         [XmlElement(ElementName = "dhEmi")]
-        public string ProxydhEmi
-        {
-            get
-            {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-                {
-                    case VersaoServico.Versao100:
-                        return dhEmi.ParaDataHoraStringSemUtc();
-                    case VersaoServico.Versao300:
-                        return dhEmi.ParaDataHoraStringUtc();
-                    default:
-                        throw new InvalidOperationException("Versão Inválida para MDF-e");
-                }
-
-            }
-            set { dhEmi = DateTime.Parse(value); }
-        }
+        public string ProxydhEmi { get; set; }
 
         /// <summary>
         /// 2 - Forma de emissão do Manifesto (Normal ou Contingência)

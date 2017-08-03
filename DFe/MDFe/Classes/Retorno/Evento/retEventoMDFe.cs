@@ -47,8 +47,8 @@ namespace DFe.MDFe.Classes.Retorno.Evento
         [XmlAttribute(AttributeName = "versao")]
         public string versao { get; set; }
 
-        [XmlElement(ElementName = "infEvento")]
-        public infEvento infEvento { get; set; }
+        [XmlElement("infEvento")]
+        public infEventoRet infEvento { get; set; }
 
         [XmlElement(ElementName = "Signature")]
         public Signature Signature { get; set; }

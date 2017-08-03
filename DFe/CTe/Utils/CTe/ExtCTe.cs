@@ -211,9 +211,9 @@ namespace DFe.CTe.Utils.CTe
             cte.infCte.versao = configuracaoServico.VersaoLayout;
             cte.infCte.ide.cDV = dadosChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, configuracaoServico.X509Certificate2);
+           // todo ajustar var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, configuracaoServico.X509Certificate2);
 
-            cte.Signature = assinatura;
+           // todo ajustar cte.Signature = assinatura;
         }
 
         public static string Chave(this CteEletronica cte)

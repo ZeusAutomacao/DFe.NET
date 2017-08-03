@@ -1,4 +1,6 @@
-﻿using DFe.MDFe.Classes.Retorno.Autorizacao;
+﻿using DFe.CertificadosDigitais;
+using DFe.Configuracao;
+using DFe.MDFe.Classes.Retorno.Autorizacao;
 using DFe.MDFe.Classes.Retorno.ConsultaNaoEncerrados;
 using DFe.MDFe.Classes.Retorno.ConsultaProtocolo;
 using DFe.MDFe.Classes.Retorno.Evento;
@@ -16,6 +18,9 @@ namespace DFe.MDFe.Facade
 {
     public class MDFeFacade
     {
+        private DFeConfig DfeConfig { get; }
+        public CertificadoDigital CertificadoDigital { get; }
+
         private readonly MDFeEnviarLote _enviarLote;
         private readonly MDFeConsultaLote _consultaLote;
         private readonly MDFeStatusConsulta _statusConsulta;
@@ -25,16 +30,18 @@ namespace DFe.MDFe.Facade
         private readonly MDFeIncluirCondutor _incluirCondutor;
         private readonly MDFeEncerrar _encerrar;
 
-        public MDFeFacade()
+        public MDFeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
-            _enviarLote = new MDFeEnviarLote();
-            _consultaLote = new MDFeConsultaLote();
-            _statusConsulta = new MDFeStatusConsulta();
-            _consulta = new MDFeConsulta();
-            _cancelar = new MDFeCancelar();
-            _consultaNaoEncerradas = new MDFeConsultaNaoEncerradas();
-            _incluirCondutor = new MDFeIncluirCondutor();
-            _encerrar = new MDFeEncerrar();
+            DfeConfig = dfeConfig;
+            CertificadoDigital = certificadoDigital;
+            _enviarLote = new MDFeEnviarLote(DfeConfig, CertificadoDigital);
+            _consultaLote = new MDFeConsultaLote(DfeConfig, CertificadoDigital);
+            _statusConsulta = new MDFeStatusConsulta(DfeConfig, CertificadoDigital);
+            _consulta = new MDFeConsulta(DfeConfig, CertificadoDigital);
+            _cancelar = new MDFeCancelar(DfeConfig, CertificadoDigital);
+            _consultaNaoEncerradas = new MDFeConsultaNaoEncerradas(DfeConfig, CertificadoDigital);
+            _incluirCondutor = new MDFeIncluirCondutor(DfeConfig, certificadoDigital);
+            _encerrar = new MDFeEncerrar(DfeConfig, CertificadoDigital);
         }
 
         public retEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)

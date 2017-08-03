@@ -65,8 +65,8 @@ namespace DFe.CTe.Utils.Evento
             if (eventoCTe.infEvento.Id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            eventoCTe.Signature = AssinaturaDigital.Assina(eventoCTe, eventoCTe.infEvento.Id,
-                ConfiguracaoServico.Instancia.X509Certificate2);
+            // todo eventoCTe.Signature = AssinaturaDigital.Assina(eventoCTe, eventoCTe.infEvento.Id,
+                // todo ConfiguracaoServico.Instancia.X509Certificate2);
         }
 
         public static void ValidarSchema(this eventoCTe eventoCTe)

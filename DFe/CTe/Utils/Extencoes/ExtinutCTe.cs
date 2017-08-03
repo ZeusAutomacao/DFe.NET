@@ -48,8 +48,8 @@ namespace DFe.CTe.Utils.Extencoes
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 
-            inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                configuracaoServico.X509Certificate2);
+            // todo inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
+                // todo configuracaoServico.X509Certificate2);
         }
 
 

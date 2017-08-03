@@ -43,11 +43,6 @@ namespace DFe.MDFe.Classes.Servicos.Autorizacao
         ElementName = "enviMDFe")]
     public class enviMDFe
     {
-        public enviMDFe()
-        {
-            versao = VersaoServico.Versao100;
-        }
-
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico versao { get; set; }
 

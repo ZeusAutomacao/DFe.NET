@@ -32,46 +32,64 @@
 /********************************************************************************/
 
 using System;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Retorno.Autorizacao;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Servicos.Factory;
+using DFe.Utils;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.RecepcaoMDFe
 {
     public class MDFeEnviarLote
     {
+        public CertificadoDigital CertificadoDigital { get; }
+        private readonly DFeConfig _dfeConfig;
+
+        public MDFeEnviarLote(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            CertificadoDigital = certificadoDigital;
+            _dfeConfig = dfeConfig;
+        }
+
         public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
 
         public retEnviMDFe EnviarLote(long lote, MDFeEletronico mdfe)
         {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, _dfeConfig);
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            mdfe.InfMDFe.versao = _dfeConfig.VersaoServico;
+
+            switch (mdfe.InfMDFe.versao)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao100;
+                    mdfe.InfMDFe.ide.ProxydhEmi = mdfe.InfMDFe.ide.dhEmi.ParaDataHoraStringSemUtc();
                     break;
                 case VersaoServico.Versao300:
                     mdfe.InfMDFe.infModal.versaoModal = versaoModal.Versao300;
+                    mdfe.InfMDFe.ide.ProxydhEmi = mdfe.InfMDFe.ide.dhEmi.ParaDataHoraStringUtc();
                     break;
             }
 
-            enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
+            enviMDFe.MDFe.Assina(_dfeConfig, CertificadoDigital);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            enviMDFe.Valida(_dfeConfig);
+
+            enviMDFe.SalvarXmlEmDisco(_dfeConfig);
+
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(_dfeConfig, CertificadoDigital);
 
             OnAntesDeEnviar(enviMDFe);
 
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = retEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
+
+            retorno.SalvarXmlEmDisco(_dfeConfig);
 
             return retorno;
         }

@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using System.Xml;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.RetRecepcao;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;
 
@@ -42,17 +42,17 @@ namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtconsReciMDFe
     {
-        public static void ValidaSchema(this consReciMDFe consReciMDFe)
+        public static void ValidaSchema(this consReciMDFe consReciMDFe, DFeConfig dfeConfig)
         {
             var xmlValidacao = consReciMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (dfeConfig.VersaoServico)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consReciMdfe_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMdfe_v1.00.xsd", dfeConfig);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consReciMdfe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMdfe_v3.00.xsd", dfeConfig);
                     break;
             }
         }
@@ -70,11 +70,11 @@ namespace DFe.MDFe.Classes.Extensoes
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this consReciMDFe consReciMDFe)
+        public static void SalvarXmlEmDisco(this consReciMDFe consReciMDFe, DFeConfig dfeConfig)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = dfeConfig.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + consReciMDFe.nRec + "-ped-rec.xml";
 

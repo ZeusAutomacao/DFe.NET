@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Retorno.StatusServico;
 using DFe.MDFe.Servicos.Factory;
@@ -39,17 +41,30 @@ namespace DFe.MDFe.Servicos.StatusServicoMDFe
 {
     public class MDFeStatusConsulta
     {
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public MDFeStatusConsulta(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public retConsStatServMDFe StatusConsulta()
         {
-            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
-            consStatServMDFe.ValidarSchema();
-            consStatServMDFe.SalvarXmlEmDisco();
+            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe(_dfeConfig);
 
-            var webService = WsdlFactory.CriaWsdlMDFeStatusServico();
+            consStatServMDFe.ValidarSchema(_dfeConfig);
+
+            consStatServMDFe.SalvarXmlEmDisco(_dfeConfig);
+
+            var webService = WsdlFactory.CriaWsdlMDFeStatusServico(_dfeConfig, _certificadoDigital);
+
             var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
 
             var retorno = retConsStatServMDFe.LoadXml(retornoXml.OuterXml, consStatServMDFe);
-            retorno.SalvarXmlEmDisco();
+
+            retorno.SalvarXmlEmDisco(_dfeConfig);
 
             return retorno;
 

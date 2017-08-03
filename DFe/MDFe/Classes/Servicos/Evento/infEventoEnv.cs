@@ -31,34 +31,60 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.MDFe.Classes.Retorno.Evento;
+using System;
+using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.MDFe.Classes.Servicos.Evento.Flags;
 
-namespace DFe.MDFe.Servicos.EventosMDFe
+namespace DFe.MDFe.Classes.Servicos.Evento
 {
-    public class ServicoMDFeEvento
+    [Serializable]
+    [XmlRoot(ElementName = "infEvento", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+    public class infEventoEnv
     {
-        public retEventoMDFe MDFeEventoIncluirCondutor(
-            string chave, string cnpj, byte sequenciaEvento, string nome,
-            string cpf)
-        {
-            var eventoIncluirCondutor = new MDFeIncluirCondutor();
+        [XmlAttribute(AttributeName = "Id")]
+        public string Id { get; set; }
 
-            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(chave, cnpj, sequenciaEvento, nome, cpf);
+        [XmlIgnore]
+        public Estado cOrgao { get; set; }
+
+        [XmlElement(ElementName = "cOrgao")]
+        public string cOrgaoProxy
+        {
+            get
+            {
+                return cOrgao.GetCodigoIbgeEmString();
+            }
+            set { cOrgao = cOrgao.CodigoIbgeParaEstado(value); }
         }
 
-        public retEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
-        {
-            var eventoEncerramento = new MDFeEncerrar();
+        [XmlElement(ElementName = "tpAmb")]
+        public TipoAmbiente tpAmb { get; set; }
 
-            return eventoEncerramento.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
+        [XmlElement(ElementName = "CNPJ")]
+        public string CNPJ { get; set; }
+
+        [XmlElement(ElementName = "chMDFe")]
+        public string chMDFe { get; set; }
+
+        [XmlIgnore]
+        public DateTime dhEvento { get; set; }
+
+        [XmlElement(ElementName = "dhEvento")]
+        public string ProxydhEvento
+        {
+            get;
+            set;
         }
 
-        public retEventoMDFe MDFeEventoCancelar(string chave, string cnpj, byte sequenciaEvento, string protocolo,
-            string justificativa)
-        {
-            var eventoCancelamento = new MDFeCancelar();
+        [XmlElement(ElementName = "tpEvento")]
+        public tpEvento tpEvento { get; set; }
 
-            return eventoCancelamento.Cancelar(chave, cnpj, sequenciaEvento, protocolo, justificativa);
-        }
+        [XmlElement(ElementName = "nSeqEvento")]
+        public byte nSeqEvento { get; set; }
+
+        [XmlElement(ElementName = "detEvento")]
+        public detEvento detEvento { get; set; }
     }
 }

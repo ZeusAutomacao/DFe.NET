@@ -45,8 +45,8 @@ namespace DFe.MDFe.Classes.Servicos.Evento
         [XmlAttribute(AttributeName = "versao")]
         public VersaoServico versao { get; set; }
 
-        [XmlElement(ElementName = "infEvento")]
-        public infEvento infEvento { get; set; }
+        [XmlElement("infEvento", typeof(infEventoEnv))]
+        public infEventoEnv infEvento { get; set; }
 
         [XmlElement(ElementName = "Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }

@@ -57,7 +57,6 @@ namespace DFe.MDFe.Classes.Informacoes
             infModal = new infModal();
             infDoc = new infDoc();
             tot = new tot();
-            versao = VersaoServico.Versao100;
         }
         /// <summary>
         /// 1 - Versão do leiaute 
@@ -71,7 +70,7 @@ namespace DFe.MDFe.Classes.Informacoes
         /// precedida do literal "MDFe" 
         /// </summary>
         [XmlAttribute(AttributeName = "Id")]
-        public string id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// 1 - Identificação do MDF-e

@@ -13,7 +13,7 @@ namespace DFe.CertificadosDigitais
             _configCertificadoDigital = configCertificadoDigital;
         }
 
-        protected virtual X509Certificate2 ObterCertificadoDigital()
+        public virtual X509Certificate2 ObterCertificadoDigital()
         {
             switch (_configCertificadoDigital.TipoCertificado)
             {

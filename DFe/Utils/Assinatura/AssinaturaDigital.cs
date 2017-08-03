@@ -41,8 +41,10 @@ namespace DFe.Utils.Assinatura
 {
     public class AssinaturaDigital
     {
-        public static SignatureZeus Assina<T>(T objeto, string id, X509Certificate2 certificado) where T : class
+        public static SignatureZeus Assina<T>(T objeto, string id, CertificadosDigitais.CertificadoDigital configCertificado) where T : class
         {
+            var certificado = configCertificado.ObterCertificadoDigital();
+
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");

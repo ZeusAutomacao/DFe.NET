@@ -35,21 +35,21 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
-using DFe.MDFe.Configuracoes;
-using DFe.Utils;
 
-namespace DFe.MDFe.Classes.Servicos.Evento
+namespace DFe.MDFe.Classes.Retorno.Evento
 {
     [Serializable]
-    public class infEvento
+    public class infEventoRet
     {
-        [XmlIgnore]
-        private readonly VersaoServico _versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout;
-
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }
+
+        [XmlElement(ElementName = "tpAmb")]
+        public TipoAmbiente tpAmb { get; set; }
+
+        [XmlElement(ElementName = "verAplic")]
+        public string verAplic { get; set; }
 
         [XmlIgnore]
         public Estado cOrgao { get; set; }
@@ -64,43 +64,28 @@ namespace DFe.MDFe.Classes.Servicos.Evento
             set { cOrgao = cOrgao.CodigoIbgeParaEstado(value); }
         }
 
-        [XmlElement(ElementName = "tpAmb")]
-        public TipoAmbiente tpAmb { get; set; }
+        [XmlElement(ElementName = "cStat")]
+        public short cStat { get; set; }
 
-        [XmlElement(ElementName = "CNPJ")]
-        public string CNPJ { get; set; }
+        [XmlElement(ElementName = "xMotivo")]
+        public string xMotivo { get; set; }
 
         [XmlElement(ElementName = "chMDFe")]
         public string chMDFe { get; set; }
 
-        [XmlIgnore]
-        public DateTime dhEvento { get; set; }
-
-        [XmlElement(ElementName = "dhEvento")]
-        public string ProxydhEvento
-        {
-            get
-            {
-                switch (_versaoServico)
-                {
-                    case VersaoServico.Versao100:
-                        return dhEvento.ParaDataHoraStringSemUtc();
-                    case VersaoServico.Versao300:
-                        return dhEvento.ParaDataHoraStringUtc();
-                    default:
-                        throw new InvalidOperationException("Versão inválida do mdf-e");
-                }
-            }
-            set { dhEvento = DateTime.Parse(value); }
-        }
-
         [XmlElement(ElementName = "tpEvento")]
         public tpEvento tpEvento { get; set; }
+
+        [XmlElement(ElementName = "xEvento")]
+        public string xEvento { get; set; }
 
         [XmlElement(ElementName = "nSeqEvento")]
         public byte nSeqEvento { get; set; }
 
-        [XmlElement(ElementName = "detEvento")]
-        public detEvento detEvento { get; set; }
+        [XmlElement(ElementName = "dhRegEvento")]
+        public DateTime? dhRegEvento { get; set; }
+
+        [XmlElement(ElementName = "nProt")]
+        public string nProt { get; set; }
     }
 }

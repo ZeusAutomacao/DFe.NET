@@ -35,15 +35,15 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
-using DFe.MDFe.Configuracoes;
+using DFe.Configuracao;
 
 namespace DFe.MDFe.Validacao
 {
     public class Validador
     {
-        public static void Valida(string xml, string schema)
+        public static void Valida(string xml, string schema, DFeConfig dfeConfig)
         {
-            var pathSchema = MDFeConfiguracao.CaminhoSchemas;
+            var pathSchema = dfeConfig.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);

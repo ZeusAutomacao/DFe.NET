@@ -77,8 +77,8 @@ namespace DFe.MDFe.Classes.Retorno.ConsultaProtocolo
         [XmlElement(ElementName = "protMDFe")]
         public protMDFe protMDFe { get; set; }
 
-        [XmlElement(ElementName = "procEventoMDFe")]
-        public List<procEventoMDFe> ProcEventoMDFe { get; set; }
+        [XmlElement(ElementName = "procEventoMDFe", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        public List<procEventoMDFe> procEventoMDFe { get; set; }
 
         public static retConsSitMDFe LoadXml(string xml)
         {

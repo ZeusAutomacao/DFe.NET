@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using DFe.Classes.Entidades;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
 using DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
@@ -39,32 +41,31 @@ using DFe.MDFe.Classes.Servicos.ConsultaProtocolo;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.MDFe.Classes.Servicos.RetRecepcao;
 using DFe.MDFe.Classes.Servicos.StatusServico;
-using DFe.MDFe.Configuracoes;
 using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static consMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj)
+        public static consMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj, DFeConfig dfeConfig)
         {
             var consMDFeNaoEnc = new consMDFeNaoEnc
             {
                 CNPJ = cnpj,
-                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                tpAmb = dfeConfig.TipoAmbiente,
+                versao = dfeConfig.VersaoServico,
                 xServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
             return consMDFeNaoEnc;
         }
 
-        public static consSitMDFe CriarConsSitMDFe(string chave)
+        public static consSitMDFe CriarConsSitMDFe(string chave, DFeConfig dfeConfig)
         {
             var consSitMdfe = new consSitMDFe
             {
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                versao = dfeConfig.VersaoServico,
+                tpAmb = dfeConfig.TipoAmbiente,
                 xServ = "CONSULTAR",
                 chMDFe = chave
             };
@@ -84,11 +85,11 @@ namespace DFe.MDFe.Servicos.Factory
             return cancelamento;
         }
 
-        public static evEncMDFe CriaEvEncMDFe(long codigoIbgeCidade, string protocolo)
+        public static evEncMDFe CriaEvEncMDFe(long codigoIbgeCidade, string protocolo, DFeConfig dfeConfig)
         {
             var encerramento = new evEncMDFe
             {
-                cUF = MDFeConfiguracao.VersaoWebService.UfEmitente,
+                cUF = dfeConfig.EstadoUf,
                 dtEnc = DateTime.Now,
                 descEvento = "Encerramento",
                 cMun = codigoIbgeCidade,
@@ -115,36 +116,36 @@ namespace DFe.MDFe.Servicos.Factory
             return incluirCodutor;
         }
 
-        public static enviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        public static enviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe, DFeConfig dfeConfig)
         {
             var enviMdfe = new enviMDFe
             {
                 MDFe = mdfe,
                 idLote = lote.ToString(),
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
-        };
+                versao = dfeConfig.VersaoServico
+            };
 
             return enviMdfe;
         }
 
-        public static consReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        public static consReciMDFe CriaConsReciMDFe(string numeroRecibo, DFeConfig dfeConfig)
         {
             var consReciMDFe = new consReciMDFe
             {
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                versao = dfeConfig.VersaoServico,
+                tpAmb = dfeConfig.TipoAmbiente,
                 nRec = numeroRecibo
             };
 
             return consReciMDFe;
         }
 
-        public static consStatServMDFe CriaConsStatServMDFe()
+        public static consStatServMDFe CriaConsStatServMDFe(DFeConfig dfeConfig)
         {
             return new consStatServMDFe
             {
-                tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                tpAmb = dfeConfig.TipoAmbiente,
+                versao = dfeConfig.VersaoServico,
                 xServ = "STATUS"
             }; 
         }

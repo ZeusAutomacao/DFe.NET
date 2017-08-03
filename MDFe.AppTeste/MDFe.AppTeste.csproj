@@ -69,6 +69,7 @@
     <Compile Include="Entidades\Configuracao.cs" />
     <Compile Include="Entidades\ConfigWebService.cs" />
     <Compile Include="Entidades\Empresa.cs" />
+    <Compile Include="Entidades\MDFeConfig.cs" />
     <Compile Include="EnumBindable\EnumBindingSourceExtension.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>

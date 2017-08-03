@@ -32,29 +32,31 @@
 /********************************************************************************/
 
 using System.Xml;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.MDFe.Configuracoes;
 using DFe.MDFe.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;
 
 namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExteventoMDFe
     {
-        public static void ValidarSchema(this eventoMDFe evento)
+        public static void ValidarSchema(this eventoMDFe evento, DFeConfig dfeConfig)
         {
             var xmlValido = evento.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (dfeConfig.VersaoServico)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
+                    Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd", dfeConfig);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValido, "eventoMDFe_v3.00.xsd");
+                    Validador.Valida(xmlValido, "eventoMDFe_v3.00.xsd", dfeConfig);
                     break;
             }
 
@@ -63,21 +65,21 @@ namespace DFe.MDFe.Classes.Extensoes
             if (tipoEvento == typeof (evCancMDFe))
             {
                 var objetoXml = (evCancMDFe) evento.infEvento.detEvento.EventoContainer;
-                objetoXml.ValidaSchema();
+                objetoXml.ValidaSchema(dfeConfig);
             }
 
             if (tipoEvento == typeof (evEncMDFe))
             {
                 var objetoXml = (evEncMDFe)evento.infEvento.detEvento.EventoContainer;
 
-                objetoXml.ValidaSchema();
+                objetoXml.ValidaSchema(dfeConfig);
             }
 
             if (tipoEvento == typeof (evIncCondutorMDFe))
             {
                 var objetoXml = (evIncCondutorMDFe)evento.infEvento.detEvento.EventoContainer;
 
-                objetoXml.ValidaSchema();
+                objetoXml.ValidaSchema(dfeConfig);
             }
 
 
@@ -96,17 +98,17 @@ namespace DFe.MDFe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(evento);
         }
 
-        public static void Assinar(this eventoMDFe evento)
+        public static void Assinar(this eventoMDFe evento, CertificadoDigital certificadoDigital)
         {
             evento.Signature = AssinaturaDigital.Assina(evento, evento.infEvento.Id,
-                MDFeConfiguracao.X509Certificate2);
+                certificadoDigital);
         }
 
-        public static void SalvarXmlEmDisco(this eventoMDFe evento, string chave)
+        public static void SalvarXmlEmDisco(this eventoMDFe evento, string chave, DFeConfig dfeConfig)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = dfeConfig.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
 

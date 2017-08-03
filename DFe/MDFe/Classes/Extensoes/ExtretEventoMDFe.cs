@@ -31,19 +31,19 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Retorno.Evento;
-using DFe.MDFe.Configuracoes;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtretEventoMDFe
     {
-        public static void SalvarXmlEmDisco(this retEventoMDFe retEvento, string chave)
+        public static void SalvarXmlEmDisco(this retEventoMDFe retEvento, string chave, DFeConfig dfeConfig)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = dfeConfig.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + chave + "-env.xml";
 

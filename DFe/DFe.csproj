@@ -361,7 +361,7 @@
     <Compile Include="MDFe\Classes\Servicos\Evento\detEvento.cs" />
     <Compile Include="MDFe\Classes\Servicos\Evento\MDFeEventoContainer.cs" />
     <Compile Include="MDFe\Classes\Servicos\Evento\eventoMDFe.cs" />
-    <Compile Include="MDFe\Classes\Servicos\Evento\infEvento.cs" />
+    <Compile Include="MDFe\Classes\Servicos\Evento\infEventoEnv.cs" />
     <Compile Include="MDFe\Classes\Informacoes\Modal\Rodoviario\infCIOT.cs" />
     <Compile Include="MDFe\Classes\Informacoes\Modal\Rodoviario\infContratante.cs" />
     <Compile Include="MDFe\Classes\Informacoes\Modal\Aquaviario\infUnidCargaVazia.cs" />
@@ -408,7 +408,7 @@
     <Compile Include="MDFe\Classes\Retorno\ConsultaNaoEncerrados\retConsMDFeNaoEnc.cs" />
     <Compile Include="MDFe\Classes\Retorno\ConsultaProtocolo\retConsSitMDFe.cs" />
     <Compile Include="MDFe\Classes\Retorno\Evento\retEventoMDFe.cs" />
-    <Compile Include="MDFe\Classes\Retorno\Evento\infEvento.cs" />
+    <Compile Include="MDFe\Classes\Retorno\Evento\infEventoRet.cs" />
     <Compile Include="MDFe\Classes\Retorno\ConsultaProtocolo\procEventoMDFe.cs" />
     <Compile Include="MDFe\Classes\Retorno\mdfeProc.cs" />
     <Compile Include="MDFe\Classes\Retorno\Autorizacao\retEnviMDFe.cs" />
@@ -430,14 +430,12 @@
     <Compile Include="MDFe\Servicos\EventosMDFe\MDFeIncluirCondutor.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\FactoryEvento.cs" />
     <Compile Include="MDFe\Servicos\EventosMDFe\ServicoController.cs" />
-    <Compile Include="MDFe\Servicos\EventosMDFe\ServicoMDFeEvento.cs" />
     <Compile Include="MDFe\Servicos\Factory\ClassesFactory.cs" />
     <Compile Include="MDFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\AntesDeEnviar.cs" />
     <Compile Include="MDFe\Servicos\RecepcaoMDFe\MDFeEnviarLote.cs" />
     <Compile Include="MDFe\Servicos\RetRecepcaoMDFe\MDFeConsultaLote.cs" />
     <Compile Include="MDFe\Servicos\StatusServicoMDFe\MDFeStatusConsulta.cs" />
-    <Compile Include="MDFe\Configuracoes\MDFeConfiguracao.cs" />
     <Compile Include="MDFe\Classes\Flags\VersaoServico.cs" />
     <Compile Include="MDFe\Validacao\Validador.cs" />
     <Compile Include="MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />

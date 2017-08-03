@@ -32,31 +32,33 @@
 /********************************************************************************/
 
 using System;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
+using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
-using DFe.MDFe.Configuracoes;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
+using DFe.Utils;
 
 namespace DFe.MDFe.Servicos.EventosMDFe
 {
     public static class FactoryEvento
     {
-        public static eventoMDFe CriaEvento(string chave, string cnpjEmitente, tpEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public static eventoMDFe CriaEvento(string chave, string cnpjEmitente, tpEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento, DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
             var eventoMDFe = new eventoMDFe
             {
-                versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                infEvento = new infEvento
+                versao = dfeConfig.VersaoServico,
+                infEvento = new infEventoEnv
                 {
                     Id = "ID" + (long)tipoEvento + chave + sequenciaEvento.ToString("D2"),
-                    tpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                    tpAmb = dfeConfig.TipoAmbiente,
                     CNPJ = cnpjEmitente,
-                    cOrgao = MDFeConfiguracao.VersaoWebService.UfEmitente,
+                    cOrgao = dfeConfig.EstadoUf,
                     chMDFe = chave,
                     detEvento = new detEvento
                     {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                        VersaoServico = dfeConfig.VersaoServico,
                         EventoContainer = evento
                     },
                     dhEvento = DateTime.Now,
@@ -65,7 +67,17 @@ namespace DFe.MDFe.Servicos.EventosMDFe
                 }
             };
 
-            eventoMDFe.Assinar();
+            switch (dfeConfig.VersaoServico)
+            {
+                case VersaoServico.Versao100:
+                    eventoMDFe.infEvento.ProxydhEvento = eventoMDFe.infEvento.dhEvento.ParaDataHoraStringSemUtc();
+                    break;
+                case VersaoServico.Versao300:
+                    eventoMDFe.infEvento.ProxydhEvento = eventoMDFe.infEvento.dhEvento.ParaDataHoraStringUtc();
+                    break;
+            }
+
+            eventoMDFe.Assinar(certificadoDigital);
 
             return eventoMDFe;
         }
