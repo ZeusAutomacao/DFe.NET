@@ -1556,7 +1556,7 @@ namespace NFe.AppTeste
                     throw new Exception("NSU ou Chave Eletrônica devem ser informadors");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, nsu, chNFE: chnfe);
+                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, ultNSU: nsu, chNFE: chnfe);
 
                 TrataRetorno(retornoNFeDistDFe);
 

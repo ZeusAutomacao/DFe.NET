@@ -805,6 +805,7 @@ namespace NFe.Servicos
         /// <param name="documento">CNPJ/CPF do interessado no DF-e</param>
         /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
         /// <param name="nSU">Número Sequencial Único</param>
+        /// <param name="chNFE">Chave eletronica da NF-e</param>
         /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
         public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", string chNFE = "")
         {
@@ -836,10 +837,12 @@ namespace NFe.Servicos
             if (documento.Length > 11)
                 pedDistDFeInt.CNPJ = documento;
 
-            if (!ultNSU.Equals("0"))
+            if (string.IsNullOrEmpty(chNFE))
                 pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
+
             if (!nSU.Equals("0"))
                 pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+
             if (!string.IsNullOrEmpty(chNFE))
                 pedDistDFeInt.consChNFe = new consChNFe { chNFe = chNFE };
 
