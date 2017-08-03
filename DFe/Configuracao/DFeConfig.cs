@@ -1,7 +1,6 @@
 ﻿using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.MDFe.Classes.Flags;
-using DFe.Utils;
 
 namespace DFe.Configuracao
 {
@@ -9,10 +8,8 @@ namespace DFe.Configuracao
     {
         public DFeConfig()
         {
-            ConfiguracaoCertificado = new ConfiguracaoCertificado();
+            
         }
-
-        public ConfiguracaoCertificado ConfiguracaoCertificado { get; }
 
         public bool IsSalvarXml { get; set; }
         public string CaminhoSchemas { get; set; }
@@ -22,5 +19,10 @@ namespace DFe.Configuracao
         public abstract TipoAmbiente TipoAmbiente { get; set; }
         public abstract VersaoServico VersaoServico { get; set; }
         public abstract Estado EstadoUf { get; set; }
+
+        protected bool NaoSalvarXml()
+        {
+            return !IsSalvarXml;
+        }
     }
 }
