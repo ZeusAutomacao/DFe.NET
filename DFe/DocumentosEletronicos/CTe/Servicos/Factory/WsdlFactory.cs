@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Ext;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;

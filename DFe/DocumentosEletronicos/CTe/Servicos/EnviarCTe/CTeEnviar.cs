@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
-using DFe.DocumentosEletronicos.CTe.Utils.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 {

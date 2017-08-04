@@ -32,10 +32,9 @@
 /********************************************************************************/
 
 using System;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
-using DFe.DocumentosEletronicos.CTe.Utils.Inutilizacao;
 using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
@@ -85,7 +84,8 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
             var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
-            retorno.SalvarXmlEmDisco();
+
+            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2));
 
             return retorno;
         }

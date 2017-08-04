@@ -31,17 +31,35 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
-using DFe.Ext;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Extencoes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtretConsStatServCte
+    public static class ExtretEnviCTe
     {
-        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte)
+        /// <summary>
+        ///     Coverte uma string XML no formato NFe para um objeto retEnviCte
+        /// </summary>
+        /// <param name="retEnviCte"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo retEnviCte</returns>
+        public static retEnviCte CarregarDeXmlString(this retEnviCte retEnviCte, string xmlString)
+        {
+            return FuncoesXml.XmlStringParaClasse<retEnviCte>(xmlString);
+        }
+
+        /// <summary>
+        ///     Converte o objeto retEnviCte para uma string no formato XML
+        /// </summary>
+        /// <param name="retEnviCte"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnviCte</returns>
+        public static string ObterXmlString(this retEnviCte retEnviCte)
+        {
+            return FuncoesXml.ClasseParaXmlString(retEnviCte);
+        }
+
+        public static void SalvarXmlEmDisco(this retEnviCte retEnviCte)
         {
             var instanciaServico = ConfiguracaoServico.Instancia;
 
@@ -49,9 +67,9 @@ namespace DFe.DocumentosEletronicos.CTe.Utils.Extencoes
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-sta.xml";
+            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infRec.nRec + "-rec.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }
     }
 }

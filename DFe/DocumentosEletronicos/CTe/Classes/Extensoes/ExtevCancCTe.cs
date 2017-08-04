@@ -31,70 +31,21 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.ManipuladorDeXml;
-using cteProc = DFe.DocumentosEletronicos.CTe.Classes.cteProc;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.CTe
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtCteProc
+    public static class ExtevCancCTe
     {
         /// <summary>
-        ///     Carrega um arquivo XML para um objeto da classe cteProc
+        ///     Converte o objeto evento para uma string no formato XML
         /// </summary>
-        /// <param name="cteProc"></param>
-        /// <param name="arquivoXml">arquivo XML</param>
-        /// <returns>Retorna um cteProc carregada com os dados do XML</returns>
-        public static cteProc CarregarDeArquivoXml(this cteProc cteProc, string arquivoXml)
+        /// <param name="eventoCancelamento"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
+        public static string ObterXmlString(this evCancCTe eventoCancelamento)
         {
-            return FuncoesXml.ArquivoXmlParaClasse<cteProc>(arquivoXml);
-        }
-
-        /// <summary>
-        ///     Converte o objeto cteProc para uma string no formato XML
-        /// </summary>
-        /// <param name="cteProc"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do cteProc</returns>
-        public static string ObterXmlString(this cteProc cteProc)
-        {
-            return FuncoesXml.ClasseParaXmlString(cteProc);
-        }
-
-        /// <summary>
-        ///     Coverte uma string XML no formato cteProc para um objeto cteProc
-        /// </summary>
-        /// <param name="cteProc"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo cteProc</returns>
-        public static cteProc CarregarDeXmlString(this cteProc cteProc, string xmlString)
-        {
-            var s = FuncoesXml.ObterNodeDeStringXml(typeof(cteProc).Name, xmlString);
-            return FuncoesXml.XmlStringParaClasse<cteProc>(s);
-        }
-
-        /// <summary>
-        ///     Grava os dados do objeto cteProc em um arquivo XML
-        /// </summary>
-        /// <param name="cteProc">Objeto cteProc</param>
-        /// <param name="arquivoXml">Diretório com nome do arquivo a ser gravado</param>
-        public static void SalvarArquivoXml(this cteProc cteProc, string arquivoXml)
-        {
-            FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoXml);
-        }
-
-        public static void SalvarXmlEmDisco(this cteProc cteProc)
-        {
-            if (cteProc == null) return;
-
-            var instanciaServico = ConfiguracaoServico.Instancia;
-
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + cteProc.CTe.Chave() + "-cteproc.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoSalvar);
+            return FuncoesXml.ClasseParaXmlString(eventoCancelamento);
         }
     }
 }

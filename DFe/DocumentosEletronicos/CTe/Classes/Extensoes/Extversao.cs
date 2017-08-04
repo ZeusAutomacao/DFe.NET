@@ -31,33 +31,24 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
-using DFe.ManipuladorDeXml;
+using System;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Consulta
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtprocEventoCTe
+    public static class Extversao
     {
-        /// <summary>
-        ///     Converte o objeto procEventoCTe para uma string no formato XML
-        /// </summary>
-        /// <param name="procEventoCTe"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto procEventoCTe</returns>
-        public static string ObterXmlString(this procEventoCTe procEventoCTe)
+        public static string GetString(this versao versao)
         {
-            return FuncoesXml.ClasseParaXmlString(procEventoCTe);
-        }
-
-        /// <summary>
-        ///     Coverte uma string XML no formato procEventoCTe para um objeto procEventoCTe
-        /// </summary>
-        /// <param name="procEventoCTe"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo procEventoNFe</returns>
-        public static procEventoCTe CarregarDeXmlString(this procEventoCTe procEventoCTe, string xmlString)
-        {
-            var s = FuncoesXml.ObterNodeDeStringXml(typeof(procEventoCTe).Name, xmlString);
-            return FuncoesXml.XmlStringParaClasse<procEventoCTe>(s);
+            switch (versao)
+            {
+                    case versao.ve200:
+                    return "2.00";
+                    case versao.ve300:
+                    return "3.00";
+                default:
+                    throw new InvalidOperationException("A emissão do CT-e possui apenas a versão 2.00 é 3.00");
+            }
         }
     }
 }

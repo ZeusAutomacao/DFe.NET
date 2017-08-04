@@ -35,5 +35,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.docAnte
     public class idDocAntEle
     {
         public string chave { get; set; }
+        public string chCTe { get; set; }
     }
 }

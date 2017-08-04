@@ -159,6 +159,26 @@ namespace DFe.ManipuladorDeXml
         ///     nfeproc, enviNFe, etc.
         /// </summary>
         /// <param name="nomeDoNode"></param>
+        /// <param name="stream"></param>
+        /// <returns>Retorna a string contendo o node XML cujo strem foi passado no parâmetro nomeDoNode</returns>
+        public static string ObterNodeDeStream(string nomeDoNode, StreamReader stream)
+        {
+            var xmlDoc = XDocument.Load(stream);
+
+            var xmlString = (from d in xmlDoc.Descendants()
+                where d.Name.LocalName == nomeDoNode
+                select d).FirstOrDefault();
+
+            if (xmlString == null)
+                throw new Exception(String.Format("Nenhum objeto {0} encontrado no stream!", nomeDoNode));
+            return xmlString.ToString();
+        }
+
+        /// <summary>
+        ///     Obtém um node XML no formato string de um arquivo XML. Util por exemplo, para extrair uma NFe de um XML contendo um
+        ///     nfeproc, enviNFe, etc.
+        /// </summary>
+        /// <param name="nomeDoNode"></param>
         /// <param name="arquivoXml"></param>
         /// <returns>Retorna a string contendo o node XML cujo nome foi passado no parâmetro nomeDoNode</returns>
         public static string ObterNodeDeArquivoXml(string nomeDoNode, string arquivoXml)

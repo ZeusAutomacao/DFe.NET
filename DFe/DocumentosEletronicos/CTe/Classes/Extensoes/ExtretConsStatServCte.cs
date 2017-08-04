@@ -31,17 +31,26 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
+using System;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
+using DFe.Ext;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Evento
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtprocEventoCTe
+    public static class ExtretConsStatServCte
     {
-        public static procEventoCTe CarregarDeArquivoXml(this procEventoCTe guia, string arquivoXml)
+        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte)
         {
-            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof(procEventoCTe).Name, arquivoXml);
-            return FuncoesXml.XmlStringParaClasse<procEventoCTe>(s);
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-sta.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
         }
     }
 }

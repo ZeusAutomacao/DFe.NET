@@ -31,37 +31,47 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
+using System;
+using System.Xml;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Inutilizacao
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtretInutCTe
+    public static class ExtconsSitCTe
     {
-        /// <summary>
-        ///     Coverte uma string XML no formato NFe para um objeto retInutCTe
-        /// </summary>
-        /// <param name="retInutCTe"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo retInutCTe</returns>
-        public static retInutCTe CarregarDeXmlString(this retInutCTe retInutCTe, string xmlString)
+
+        public static void ValidarSchema(this consSitCTe consSitCTe)
         {
-            return FuncoesXml.XmlStringParaClasse<retInutCTe>(xmlString);
+            var xmlValidacao = consSitCTe.ObterXmlString();
+
+            switch (consSitCTe.versao)
+            {
+                case versao.ve200:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd");
+                    break;
+                case versao.ve300:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd");
+                    break;
+                default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                        "a versão está inválida, somente é permitido " +
+                                                        "versão 2.00 é 3.00");
+            }
         }
 
         /// <summary>
-        ///     Converte o objeto retInutCTe para uma string no formato XML
+        ///     Converte o objeto consSitCTe para uma string no formato XML
         /// </summary>
-        /// <param name="retInutCTe"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retInutCTe</returns>
-        public static string ObterXmlString(this retInutCTe retInutCTe)
+        /// <param name="pedConsulta"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto consSitCTe</returns>
+        public static string ObterXmlString(this consSitCTe pedConsulta)
         {
-            return FuncoesXml.ClasseParaXmlString(retInutCTe);
+            return FuncoesXml.ClasseParaXmlString(pedConsulta);
         }
 
-        
-        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe)
+        public static void SalvarXmlEmDisco(this consSitCTe statuServCte)
         {
             var instanciaServico = ConfiguracaoServico.Instancia;
 
@@ -69,14 +79,17 @@ namespace DFe.DocumentosEletronicos.CTe.Utils.Inutilizacao
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var chaveNome = retInutCTe.infInut.ano + retInutCTe.infInut.CNPJ
-                            + (int) retInutCTe.infInut.mod + retInutCTe.infInut.serie + retInutCTe.infInut.nCTIni.Value.ToString("D9") +
-                            retInutCTe.infInut.nCTFin.Value.ToString("D9");
+            var arquivoSalvar = caminhoXml + @"\-ped-sit.xml";
 
-            var arquivoSalvar = caminhoXml + @"\" + chaveNome + "-inu.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(retInutCTe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
         }
 
+        public static XmlDocument CriaRequestWs(this consSitCTe consStatServMdFe)
+        {
+            var request = new XmlDocument();
+            request.LoadXml(consStatServMdFe.ObterXmlString());
+
+            return request;
+        }
     }
 }

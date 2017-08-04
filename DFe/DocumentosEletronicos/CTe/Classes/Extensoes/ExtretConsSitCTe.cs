@@ -31,21 +31,45 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Extencoes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtevCancCTe
+    public static class ExtretConsSitCTe
     {
         /// <summary>
-        ///     Converte o objeto evento para uma string no formato XML
+        ///     Coverte uma string XML no formato CTe para um objeto retConsSitCTe
         /// </summary>
-        /// <param name="eventoCancelamento"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
-        public static string ObterXmlString(this evCancCTe eventoCancelamento)
+        /// <param name="retConsSitCTe"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo retConsSitNFe</returns>
+        public static retConsSitCTe CarregarDeXmlString(this retConsSitCTe retConsSitCTe, string xmlString)
         {
-            return FuncoesXml.ClasseParaXmlString(eventoCancelamento);
+            return FuncoesXml.XmlStringParaClasse<retConsSitCTe>(xmlString);
+        }
+
+        /// <summary>
+        ///     Converte o objeto retConsSitCTe para uma string no formato XML
+        /// </summary>
+        /// <param name="retConsSitCTe"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsSitCTe</returns>
+        public static string ObterXmlString(this retConsSitCTe retConsSitCTe)
+        {
+            return FuncoesXml.ClasseParaXmlString(retConsSitCTe);
+        }
+
+        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave)
+        {
+            var configuracaoServico = ConfiguracaoServico.Instancia;
+
+            if (configuracaoServico.NaoSalvarXml()) return;
+
+            var caminhoXml = configuracaoServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
         }
     }
 }

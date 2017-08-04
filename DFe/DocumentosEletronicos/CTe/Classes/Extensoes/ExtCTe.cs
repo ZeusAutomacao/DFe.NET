@@ -33,15 +33,14 @@
 
 using System;
 using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.DocumentosEletronicos.CTe.Utils.Validacao;
+using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.ManipuladorDeXml;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.CTe
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtCTe
     {

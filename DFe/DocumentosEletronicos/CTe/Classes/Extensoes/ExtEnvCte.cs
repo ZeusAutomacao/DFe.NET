@@ -31,36 +31,48 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using System;
+using System.Xml;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.Entidades;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Evento
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtretEnvEvento
+    public static class ExtEnvCte
     {
-        /// <summary>
-        ///     Carrega um objeto do tipo retEnvEvento a partir de uma string no formato XML
-        /// </summary>
-        /// <param name="retEnvEvento"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto retEnvEvento com as informações da string XML</returns>
-        public static retEnvEvento CarregarDeXmlString(this retEnvEvento retEnvEvento, string xmlString)
+        public static void ValidaSchema(this enviCTe enviCTe)
         {
-            return FuncoesXml.XmlStringParaClasse<retEnvEvento>(xmlString);
+            var xmlValidacao = enviCTe.ObterXmlString();
+
+            switch (enviCTe.versao)
+            {
+                case versao.ve200:
+                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd");
+                    break;
+                case versao.ve300:
+                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd");
+                    break;
+                default:
+                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                        "a versão está inválida, somente é permitido " +
+                                                        "versão 2.00 é 3.00");
+            }
         }
 
         /// <summary>
-        ///     Converte um objeto do tipo retEnvEvento para uma string no formato XML com os dados do objeto
+        ///     Converte o objeto enviCTe para uma string no formato XML
         /// </summary>
-        /// <param name="retEnvEvento"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnvEvento</returns>
-        public static string ObterXmlString(this retEnvEvento retEnvEvento)
+        /// <param name="pedEnvio"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto enviCTe</returns>
+        public static string ObterXmlString(this enviCTe pedEnvio)
         {
-            return FuncoesXml.ClasseParaXmlString(retEnvEvento);
+            return FuncoesXml.ClasseParaXmlString(pedEnvio);
         }
 
-        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte)
+        public static void SalvarXmlEmDisco(this enviCTe enviCte)
         {
             var instanciaServico = ConfiguracaoServico.Instancia;
 
@@ -68,9 +80,24 @@ namespace DFe.DocumentosEletronicos.CTe.Utils.Evento
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infEvento.chCTe + "-eve.xml";
+            var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
 
-            FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
+        }
+
+        public static XmlDocument CriaRequestWs(this enviCTe enviCTe)
+        {
+            var request = new XmlDocument();
+
+            var xml = enviCTe.ObterXmlString();
+
+            if (ConfiguracaoServico.Instancia.cUF == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
+                xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
+
+            request.LoadXml(xml);
+
+            return request;
         }
     }
 }

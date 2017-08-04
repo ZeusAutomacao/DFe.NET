@@ -34,11 +34,10 @@
 using System;
 using System.Collections.Generic;
 using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
-using DFe.DocumentosEletronicos.CTe.Utils.CTe;
-using DFe.DocumentosEletronicos.CTe.Utils.Recepcao;
 using DFe.Flags;
 using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 

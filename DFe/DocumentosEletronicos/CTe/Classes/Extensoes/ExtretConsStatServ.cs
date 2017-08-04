@@ -31,46 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Extencoes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtretConsSitCTe
+    public static class ExtretConsStatServ
     {
         /// <summary>
-        ///     Coverte uma string XML no formato CTe para um objeto retConsSitCTe
+        ///     Carrega um objeto do tipo retConsStatServ a partir de uma string no formato XML
         /// </summary>
-        /// <param name="retConsSitCTe"></param>
+        /// <param name="retConsStatServ"></param>
         /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo retConsSitNFe</returns>
-        public static retConsSitCTe CarregarDeXmlString(this retConsSitCTe retConsSitCTe, string xmlString)
+        /// <returns>Retorna um objeto retConsStatServ com as informações da string XML</returns>
+        public static retConsStatServCte CarregarDeXmlString(this retConsStatServCte retConsStatServ, string xmlString)
         {
-            return FuncoesXml.XmlStringParaClasse<retConsSitCTe>(xmlString);
+            return FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xmlString);
         }
 
         /// <summary>
-        ///     Converte o objeto retConsSitCTe para uma string no formato XML
+        ///     Converte um objeto do tipo retConsStatServ para uma string no formato XML com os dados do objeto
         /// </summary>
-        /// <param name="retConsSitCTe"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsSitCTe</returns>
-        public static string ObterXmlString(this retConsSitCTe retConsSitCTe)
+        /// <param name="retConsStatServ"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsStatServ</returns>
+        public static string ObterXmlString(this retConsStatServCte retConsStatServ)
         {
-            return FuncoesXml.ClasseParaXmlString(retConsSitCTe);
-        }
-
-        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave)
-        {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            if (configuracaoServico.NaoSalvarXml()) return;
-
-            var caminhoXml = configuracaoServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
+            return FuncoesXml.ClasseParaXmlString(retConsStatServ);
         }
     }
 }

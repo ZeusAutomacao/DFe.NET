@@ -52,7 +52,15 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Identificacao
         /// </summary>
         public Estado cUF { get; set; }
 
+        [XmlIgnore]
         public int cCT { get; set; }
+
+        [XmlElement(ElementName = "cCT")]
+        public string ProxycCT
+        {
+            get { return this.cCT.ToString("00000000"); }
+            set { this.cCT = int.Parse(value); }
+        }
 
         public int CFOP { get; set; }
 

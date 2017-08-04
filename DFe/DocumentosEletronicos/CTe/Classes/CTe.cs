@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes.Ext;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.ManipuladorDeXml;

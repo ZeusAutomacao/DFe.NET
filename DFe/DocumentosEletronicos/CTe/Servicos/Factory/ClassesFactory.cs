@@ -97,7 +97,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
                     CNPJ = configInutiliza.Cnpj,
                     ano = configInutiliza.Ano,
                     nCTIni = configInutiliza.NumeroInicial,
-                    nCTFin = configInutiliza.NumeroInicial,
+                    nCTFin = configInutiliza.NumeroFinal,
                     mod = configInutiliza.ModeloDocumento,
                     serie = configInutiliza.Serie,
                     xJust = configInutiliza.Justificativa,

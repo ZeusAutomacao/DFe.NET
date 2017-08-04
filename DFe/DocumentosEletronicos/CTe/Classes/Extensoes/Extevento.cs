@@ -33,14 +33,12 @@
 
 using System;
 using System.Xml;
-using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
-using DFe.DocumentosEletronicos.CTe.Utils.Validacao;
+using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Evento
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class Extevento
     {

@@ -31,36 +31,35 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Recepcao
+namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
-    public static class ExtretEnviCTe
+    public static class ExtretEnvEvento
     {
         /// <summary>
-        ///     Coverte uma string XML no formato NFe para um objeto retEnviCte
+        ///     Carrega um objeto do tipo retEnvEvento a partir de uma string no formato XML
         /// </summary>
-        /// <param name="retEnviCte"></param>
+        /// <param name="retEnvEvento"></param>
         /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo retEnviCte</returns>
-        public static retEnviCte CarregarDeXmlString(this retEnviCte retEnviCte, string xmlString)
+        /// <returns>Retorna um objeto retEnvEvento com as informações da string XML</returns>
+        public static retEnvEvento CarregarDeXmlString(this retEnvEvento retEnvEvento, string xmlString)
         {
-            return FuncoesXml.XmlStringParaClasse<retEnviCte>(xmlString);
+            return FuncoesXml.XmlStringParaClasse<retEnvEvento>(xmlString);
         }
 
         /// <summary>
-        ///     Converte o objeto retEnviCte para uma string no formato XML
+        ///     Converte um objeto do tipo retEnvEvento para uma string no formato XML com os dados do objeto
         /// </summary>
-        /// <param name="retEnviCte"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnviCte</returns>
-        public static string ObterXmlString(this retEnviCte retEnviCte)
+        /// <param name="retEnvEvento"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retEnvEvento</returns>
+        public static string ObterXmlString(this retEnvEvento retEnvEvento)
         {
-            return FuncoesXml.ClasseParaXmlString(retEnviCte);
+            return FuncoesXml.ClasseParaXmlString(retEnvEvento);
         }
 
-        public static void SalvarXmlEmDisco(this retEnviCte retEnviCte)
+        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte)
         {
             var instanciaServico = ConfiguracaoServico.Instancia;
 
@@ -68,7 +67,7 @@ namespace DFe.DocumentosEletronicos.CTe.Utils.Recepcao
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infRec.nRec + "-rec.xml";
+            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infEvento.chCTe + "-eve.xml";
 
             FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }

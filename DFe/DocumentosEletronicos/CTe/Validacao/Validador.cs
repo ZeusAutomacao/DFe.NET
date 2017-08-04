@@ -31,21 +31,62 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.ManipuladorDeXml;
+using System;
+using System.IO;
+using System.Xml;
+using System.Xml.Schema;
+using DFe.DocumentosEletronicos.CTe.Classes;
 
-namespace DFe.DocumentosEletronicos.CTe.Utils.Extencoes
+namespace DFe.DocumentosEletronicos.CTe.Validacao
 {
-    public static class ExtevCCeCTe
+    public static class Validador
     {
-        /// <summary>
-        ///     Converte o objeto evento para uma string no formato XML
-        /// </summary>
-        /// <param name="eventoCancelamento"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
-        public static string ObterXmlString(this evCCeCTe evCCeCTe)
+        public static void Valida(string xml, string schema)
         {
-            return FuncoesXml.ClasseParaXmlString(evCCeCTe);
+            var servicoInstancia = ConfiguracaoServico.Instancia;
+
+            var pathSchema = servicoInstancia.DiretorioSchemas;
+
+            if (!Directory.Exists(pathSchema))
+                throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
+
+            var arquivoSchema = pathSchema + @"\" + schema;
+
+            // Define o tipo de validação
+            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
+
+            // Carrega o arquivo de esquema
+            var schemas = new XmlSchemaSet();
+            cfg.Schemas = schemas;
+            // Quando carregar o eschema, especificar o namespace que ele valida
+            // e a localização do arquivo 
+            schemas.Add(null, arquivoSchema);
+            // Especifica o tratamento de evento para os erros de validacao
+            cfg.ValidationEventHandler += ValidationEventHandler;
+            // cria um leitor para validação
+            var validator = XmlReader.Create(new StringReader(xml), cfg);
+            try
+            {
+                // Faz a leitura de todos os dados XML
+                while (validator.Read())
+                {
+                }
+            }
+            catch (XmlException err)
+            {
+                // Um erro ocorre se o documento XML inclui caracteres ilegais
+                // ou tags que não estão aninhadas corretamente
+                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message);
+            }
+            finally
+            {
+                validator.Close();
+            }
+        }
+
+        private static void ValidationEventHandler(object sender, ValidationEventArgs e)
+        {
+            throw new Exception("Erros da validação : " + e.Message);
         }
     }
 }

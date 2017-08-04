@@ -46,11 +46,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Identificacao
 
         public string xBairro { get; set; }
 
-        public string cMun { get; set; }
+        public long cMun { get; set; }
 
         public string xMun { get; set; }
 
-        public string CEP { get; set; }
+        public long CEP { get; set; }
 
         [XmlIgnore]
         public Estado UF { get; set; }
