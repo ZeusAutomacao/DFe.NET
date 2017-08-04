@@ -33,6 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Informacoes.Modal.Aereo

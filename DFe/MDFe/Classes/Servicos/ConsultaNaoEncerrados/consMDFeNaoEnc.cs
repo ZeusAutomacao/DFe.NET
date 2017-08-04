@@ -33,7 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Flags;
+using DFe.Flags;
 using DFe.MDFe.Classes.Flags;
 
 namespace DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados

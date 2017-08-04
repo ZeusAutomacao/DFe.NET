@@ -34,6 +34,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.NFe.Classes.Servicos.DistribuicaoDFe.Schemas

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.CTe.Classes;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using cteProc = DFe.CTe.Classes.cteProc;
 

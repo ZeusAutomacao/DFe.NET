@@ -39,8 +39,9 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Ext;
+using DFe.Flags;
 using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.NFe.Classes.Servicos.AdmCsc;
 using DFe.NFe.Classes.Servicos.Autorizacao;
@@ -85,7 +86,7 @@ using DFe.Utils;
 using DFe.Utils.Assinatura;
 using detEvento = DFe.NFe.Classes.Servicos.Evento.detEvento;
 using evento = DFe.NFe.Classes.Servicos.Evento.evento;
-using FuncoesXml = DFe.Utils.FuncoesXml;
+using FuncoesXml = DFe.ManipuladorDeXml.FuncoesXml;
 using procEventoNFe = DFe.NFe.Classes.Servicos.Consulta.procEventoNFe;
 
 namespace DFe.NFe.Servicos

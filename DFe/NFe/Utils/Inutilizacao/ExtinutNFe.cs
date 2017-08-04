@@ -33,6 +33,7 @@
 
 using System;
 using System.Security.Cryptography.X509Certificates;
+using DFe.ManipuladorDeXml;
 using DFe.NFe.Classes.Servicos.Inutilizacao;
 using DFe.NFe.Utils.Assinatura;
 using DFe.Utils;

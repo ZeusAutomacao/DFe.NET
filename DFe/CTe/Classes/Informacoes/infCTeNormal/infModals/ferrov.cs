@@ -33,9 +33,9 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Ext;
 using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.Entidades;
+using DFe.Ext;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infModals
 {

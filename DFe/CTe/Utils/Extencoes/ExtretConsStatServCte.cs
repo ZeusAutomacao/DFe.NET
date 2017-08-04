@@ -34,6 +34,8 @@
 using System;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Status;
+using DFe.Ext;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Utils.Extencoes

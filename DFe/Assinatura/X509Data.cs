@@ -30,17 +30,13 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
-using System.Xml.Serialization;
-
-namespace DFe.Classes.Assinatura
+namespace DFe.Assinatura
 {
-    public class CanonicalizationMethod
+    public class X509Data
     {
         /// <summary>
-        ///     XS04 - Atributo Algorithm de CanonicalizationMethod: http://www.w3.org/TR/2001/REC-xml-c14n-20010315
+        ///     XS21 - Certificado Digital X509 em Base64
         /// </summary>
-        [XmlAttribute]
-        public string Algorithm { get; set; }
+        public string X509Certificate { get; set; }
     }
 }

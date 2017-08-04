@@ -33,6 +33,7 @@
 
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Consulta;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Utils.Extencoes

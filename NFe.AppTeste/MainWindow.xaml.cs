@@ -45,8 +45,9 @@ using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
+using DFe.ManipuladorDeXml;
 using DFe.NFe.Classes;
 using DFe.NFe.Classes.Informacoes;
 using DFe.NFe.Classes.Informacoes.Cobranca;
@@ -77,6 +78,7 @@ using DFe.NFe.Utils.Tributacao.Estadual;
 using DFe.Utils.Assinatura;
 using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.NFe.Classes.NFe;
+using Reflexao = DFe.Ext.Reflexao;
 
 namespace NFe.AppTeste
 {
@@ -1332,7 +1334,7 @@ namespace NFe.AppTeste
         {
             richTextBox.Document.Blocks.Clear();
 
-            foreach (var atributos in objeto.LerPropriedades())
+            foreach (var atributos in Reflexao.LerPropriedades(objeto))
             {
                 richTextBox.AppendText(atributos.Key + " = " + atributos.Value + "\r");
             }

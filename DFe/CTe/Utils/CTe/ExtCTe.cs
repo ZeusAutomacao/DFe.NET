@@ -32,11 +32,13 @@
 /********************************************************************************/
 
 using System;
+using DFe.Assinatura;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.CTe.Classes.Informacoes.Tipos;
 using DFe.CTe.Classes.Servicos.Tipos;
 using DFe.CTe.Utils.Validacao;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using CteEletronica = DFe.CTe.Classes.CTe;

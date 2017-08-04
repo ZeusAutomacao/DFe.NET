@@ -33,8 +33,9 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Servicos.Recepcao

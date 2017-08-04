@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
+using DFe.Assinatura;
 using DFe.NFe.Classes.Informacoes;
 
 namespace DFe.NFe.Classes

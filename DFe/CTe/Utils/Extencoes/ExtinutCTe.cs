@@ -37,6 +37,7 @@ using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Inutilizacao;
 using DFe.CTe.Classes.Servicos.Tipos;
 using DFe.CTe.Utils.Validacao;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 

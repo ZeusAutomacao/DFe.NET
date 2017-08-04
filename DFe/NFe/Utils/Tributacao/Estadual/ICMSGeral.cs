@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using DFe.Ext;
 using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using DFe.NFe.Classes.Informacoes.Emitente;

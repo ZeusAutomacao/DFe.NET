@@ -31,18 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace DFe.Classes.Assinatura
-{
-    public class KeyInfo
-    {
-        public KeyInfo()
-        {
-            X509Data = new X509Data();
-        }
+using System.Xml.Serialization;
 
+namespace DFe.Assinatura
+{
+    public class DigestMethod
+    {
         /// <summary>
-        ///     XS20 - Grupo X509
+        ///     XS16 - Atributo Algorithm de DigestMethod: http://www.w3.org/2000/09/xmldsig#sha1
         /// </summary>
-        public X509Data X509Data { get; set; }
+        [XmlAttribute]
+        public string Algorithm { get; set; }
     }
 }

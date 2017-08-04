@@ -35,6 +35,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.CTe.Classes.Informacoes.Complemento.Tipos;
 using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.Complemento.EntregaCte

@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Flags;
+using DFe.Flags;
 using DFe.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using DFe.NFe.Classes.Informacoes.Emitente;
 using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;

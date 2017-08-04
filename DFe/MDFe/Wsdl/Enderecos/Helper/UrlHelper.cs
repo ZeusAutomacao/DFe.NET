@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.MDFe.Wsdl.Enderecos.Helper
 {

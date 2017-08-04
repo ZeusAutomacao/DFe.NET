@@ -33,8 +33,8 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
-using DFe.Classes.Flags;
+using DFe.Assinatura;
+using DFe.Flags;
 
 namespace DFe.MDFe.Classes.Retorno.RetRecepcao
 {

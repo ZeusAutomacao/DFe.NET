@@ -33,14 +33,22 @@
 
 using System.Xml.Serialization;
 
-namespace DFe.Classes.Assinatura
+namespace DFe.Flags
 {
-    public class DigestMethod
+    /// <summary>
+    ///     Código do modelo do Documento Fiscal. 55 = NF-e; 58 = MDFe; 65 = NFC-e.
+    /// </summary>
+    public enum ModeloDocumento
     {
-        /// <summary>
-        ///     XS16 - Atributo Algorithm de DigestMethod: http://www.w3.org/2000/09/xmldsig#sha1
-        /// </summary>
-        [XmlAttribute]
-        public string Algorithm { get; set; }
+        [XmlEnum("55")]
+        NFe = 55,
+        [XmlEnum("58")]
+        MDFe = 58,
+        [XmlEnum("65")]
+        NFCe = 65,
+        [XmlEnum("57")]
+        CTe = 57,
+        [XmlEnum("67")]
+        CTeOS = 67
     }
 }

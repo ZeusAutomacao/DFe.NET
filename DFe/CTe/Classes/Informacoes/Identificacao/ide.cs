@@ -34,10 +34,11 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes.Informacoes.Tipos;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.Entidades;
+using DFe.Ext;
+using DFe.Flags;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.Identificacao

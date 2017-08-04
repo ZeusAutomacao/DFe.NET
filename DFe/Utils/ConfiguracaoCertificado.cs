@@ -33,6 +33,7 @@
 
 using System;
 using System.ComponentModel;
+using DFe.Ext;
 using JetBrains.Annotations;
 
 namespace DFe.Utils

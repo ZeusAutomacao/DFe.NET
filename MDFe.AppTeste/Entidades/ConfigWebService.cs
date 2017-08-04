@@ -1,6 +1,6 @@
 using System;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
 using DFe.MDFe.Classes.Flags;
 
 namespace MDFe.AppTeste.Entidades

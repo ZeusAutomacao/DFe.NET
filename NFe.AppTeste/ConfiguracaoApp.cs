@@ -33,6 +33,8 @@
 using System;
 using System.IO;
 using System.Net;
+using DFe.Ext;
+using DFe.ManipuladorDeXml;
 using DFe.NFe.Classes.Informacoes.Emitente;
 using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.NFe.Utils;

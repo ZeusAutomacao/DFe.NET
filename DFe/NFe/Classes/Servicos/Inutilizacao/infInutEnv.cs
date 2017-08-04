@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
 using TipoAmbiente = DFe.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace DFe.NFe.Classes.Servicos.Inutilizacao

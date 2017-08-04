@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace DFe.Utils
+namespace DFe.Ext
 {
     public static class EnumExt
     {

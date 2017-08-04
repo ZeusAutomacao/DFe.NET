@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Classes.Entidades;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Ext;
 using DFe.CTe.Servicos.Enderecos.Helpers;
@@ -42,6 +41,7 @@ using DFe.CTe.Wsdl.Inutilizacao;
 using DFe.CTe.Wsdl.Recepcao;
 using DFe.CTe.Wsdl.RetRecepcao;
 using DFe.CTe.Wsdl.Status;
+using DFe.Entidades;
 
 namespace DFe.CTe.Servicos.Factory
 {

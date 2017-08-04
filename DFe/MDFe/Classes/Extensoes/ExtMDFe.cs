@@ -32,8 +32,10 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Entidades;
+using DFe.Assinatura;
 using DFe.Configuracao;
+using DFe.Entidades;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Informacoes.Modal.Aereo;
 using DFe.MDFe.Classes.Informacoes.Modal.Aquaviario;

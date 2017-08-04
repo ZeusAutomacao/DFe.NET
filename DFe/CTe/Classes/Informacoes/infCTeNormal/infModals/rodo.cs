@@ -37,6 +37,7 @@ using System.Xml.Serialization;
 using DFe.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviario;
 using DFe.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS;
 using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infModals

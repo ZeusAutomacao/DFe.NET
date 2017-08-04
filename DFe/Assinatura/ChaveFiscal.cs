@@ -33,10 +33,10 @@
 
 using System;
 using System.Text;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
 
-namespace DFe.Utils
+namespace DFe.Assinatura
 {
     /// <summary>
     /// Classe com métodos para tratamento da chave dos documentos fiscais

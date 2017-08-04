@@ -33,6 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.NFe.Classes.Informacoes.Detalhe.ProdEspecifico

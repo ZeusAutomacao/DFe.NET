@@ -33,7 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Ext;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infCteSubs

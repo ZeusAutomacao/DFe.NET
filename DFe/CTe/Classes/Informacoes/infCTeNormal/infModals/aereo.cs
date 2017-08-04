@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.CTe.Classes.Informacoes.infCTeNormal.infModals.aereos;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infModals

@@ -1,7 +1,7 @@
 ﻿using DFe.CertificadosDigitais.Cache;
 using DFe.CertificadosDigitais.Cache.Implementacoes;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
 using DFe.MDFe.Classes.Flags;
 
 namespace DFe.Configuracao

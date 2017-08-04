@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Ext;
+using DFe.Ext;
 
 namespace DFe.CTe.Classes.Servicos.Evento
 {

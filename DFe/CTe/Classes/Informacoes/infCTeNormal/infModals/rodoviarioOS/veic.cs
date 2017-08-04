@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
 using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.Entidades;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS
 {

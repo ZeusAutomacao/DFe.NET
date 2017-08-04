@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.CTe.Classes.Servicos.Status;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Utils.Extencoes

@@ -37,6 +37,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using DFe.Configuracao;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Autorizacao;
 using DFe.MDFe.Validacao;

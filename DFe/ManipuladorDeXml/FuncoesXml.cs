@@ -38,7 +38,7 @@ using System.Text;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace DFe.Utils
+namespace DFe.ManipuladorDeXml
 {
     public static class FuncoesXml
     {

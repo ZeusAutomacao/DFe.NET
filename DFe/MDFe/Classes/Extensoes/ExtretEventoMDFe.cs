@@ -33,6 +33,7 @@
 
 using System;
 using DFe.Configuracao;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Retorno.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.ResolvePastas;

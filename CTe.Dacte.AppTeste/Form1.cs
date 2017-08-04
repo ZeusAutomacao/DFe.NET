@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DFe.CTe.Classes;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace CTe.Dacte.AppTeste

@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusDFe                                                  */
+/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
+/*                                                                              */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -31,75 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace DFe.Utils
+namespace DFe.Assinatura
 {
-    public static class DataHora
+    public class Reference
     {
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DD
+        ///     XS08 - Atributo URI da tag Reference
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataString(this DateTime data)
-        {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-dd");
-        }
+        [XmlAttribute]
+        public string URI { get; set; }
 
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        ///     XS10 - Grupo do algorithm de Transform
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime data)
-        {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:sszzz");
-        }
+        public List<Transform> Transforms { get; set; }
 
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        ///     XS15 - Grupo do Método de DigestMethod
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataHoraStringSemUtc(this DateTime data)
-        {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:dd");
-        }
+        public DigestMethod DigestMethod { get; set; }
 
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        ///     XS17 - Digest Value (Hash SHA-1 – Base64)
         /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataHoraStringSemUtc(this DateTime? data)
-        {
-            return ParaDataHoraStringSemUtc(data.GetValueOrDefault());
-        }
-
-        /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime? data)
-        {
-            return ParaDataHoraStringUtc(data.GetValueOrDefault());
-        }
-
-        /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DD HH:mm:ss
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        public static string ParaDataHoraString(this DateTime data)
-        {
-            return data.ToString("yyyyMMddHHmmss");
-        }
-
-        public static string ParaHoraString(this TimeSpan hora)
-        {
-            return hora.ToString(@"hh\:mm\:ss");
-        }
+        public string DigestValue { get; set; }
     }
 }

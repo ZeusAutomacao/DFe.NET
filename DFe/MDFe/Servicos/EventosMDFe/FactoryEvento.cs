@@ -34,6 +34,7 @@
 using System;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
+using DFe.Ext;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento;

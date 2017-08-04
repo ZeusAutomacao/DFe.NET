@@ -33,6 +33,7 @@
 
 using System.Xml.Serialization;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Servicos.Evento

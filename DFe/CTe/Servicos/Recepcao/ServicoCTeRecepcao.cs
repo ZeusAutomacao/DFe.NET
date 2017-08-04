@@ -33,12 +33,12 @@
 
 using System;
 using System.Collections.Generic;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Recepcao;
 using DFe.CTe.Servicos.Factory;
 using DFe.CTe.Utils.CTe;
 using DFe.CTe.Utils.Recepcao;
+using DFe.Flags;
 using CTeEletronico = DFe.CTe.Classes.CTe;
 
 namespace DFe.CTe.Servicos.Recepcao

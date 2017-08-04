@@ -34,8 +34,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Ext;
+using DFe.Flags;
 using DFe.MDFe.Classes.Flags;
 using DFe.Utils;
 

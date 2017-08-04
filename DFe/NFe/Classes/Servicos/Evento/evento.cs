@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
+using DFe.Assinatura;
 
 namespace DFe.NFe.Classes.Servicos.Evento
 {

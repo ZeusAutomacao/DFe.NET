@@ -33,10 +33,11 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes.Servicos.Evento.Flags;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.Entidades;
+using DFe.Ext;
+using DFe.Flags;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Servicos.Evento

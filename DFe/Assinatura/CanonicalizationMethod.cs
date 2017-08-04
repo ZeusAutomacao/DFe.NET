@@ -33,22 +33,14 @@
 
 using System.Xml.Serialization;
 
-namespace DFe.Classes.Flags
+namespace DFe.Assinatura
 {
-    /// <summary>
-    ///     Código do modelo do Documento Fiscal. 55 = NF-e; 58 = MDFe; 65 = NFC-e.
-    /// </summary>
-    public enum ModeloDocumento
+    public class CanonicalizationMethod
     {
-        [XmlEnum("55")]
-        NFe = 55,
-        [XmlEnum("58")]
-        MDFe = 58,
-        [XmlEnum("65")]
-        NFCe = 65,
-        [XmlEnum("57")]
-        CTe = 57,
-        [XmlEnum("67")]
-        CTeOS = 67
+        /// <summary>
+        ///     XS04 - Atributo Algorithm de CanonicalizationMethod: http://www.w3.org/TR/2001/REC-xml-c14n-20010315
+        /// </summary>
+        [XmlAttribute]
+        public string Algorithm { get; set; }
     }
 }

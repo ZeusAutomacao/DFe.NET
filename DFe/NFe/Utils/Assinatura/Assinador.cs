@@ -35,9 +35,10 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using Signature = DFe.Classes.Assinatura.Signature;
+using Signature = DFe.Assinatura.Signature;
 
 namespace DFe.NFe.Utils.Assinatura
 {

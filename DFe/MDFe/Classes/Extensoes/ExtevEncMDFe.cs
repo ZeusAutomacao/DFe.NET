@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.Configuracao;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.MDFe.Validacao;

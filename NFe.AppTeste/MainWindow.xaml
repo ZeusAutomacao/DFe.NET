@@ -7,14 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:net="clr-namespace:System.Net;assembly=System"
-    xmlns:entidades="clr-namespace:DFe.Classes.Entidades;assembly=DFe"
-    xmlns:entidades1="clr-namespace:DFe.Classes.Entidades;assembly=DFe"
-    xmlns:flags="clr-namespace:DFe.Classes.Flags;assembly=DFe"
-    xmlns:flags1="clr-namespace:DFe.Classes.Flags;assembly=DFe"
     xmlns:utils1="clr-namespace:DFe.Utils;assembly=DFe"
     xmlns:nfceemit="clr-namespace:DFe.NFe.Classes.Informacoes.Emitente;assembly=DFe"
     xmlns:nfeclsidetipos="clr-namespace:DFe.NFe.Classes.Informacoes.Identificacao.Tipos;assembly=DFe"
     xmlns:nfeclservicostipos="clr-namespace:DFe.NFe.Classes.Servicos.Tipos;assembly=DFe"
+    xmlns:entidades="clr-namespace:DFe.Entidades;assembly=DFe"
+    xmlns:flags="clr-namespace:DFe.Flags;assembly=DFe"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
@@ -48,7 +46,7 @@
                     MethodName="GetNames"
                     ObjectType="{x:Type sys:Enum}">
                     <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="entidades1:Estado" />
+                        <x:Type TypeName="entidades:Estado" />
                     </ObjectDataProvider.MethodParameters>
                 </ObjectDataProvider>
             </CollectionViewSource.Source>
@@ -202,7 +200,7 @@
                                         <RadioButton x:Name="RbtNfce" Content="NFCe"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="117,13,0,0"
-                                                     IsChecked="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags1:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}" />
+                                                     IsChecked="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}" />
                                     </Grid>
                                 </GroupBox>
 

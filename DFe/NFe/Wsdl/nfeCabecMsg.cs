@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.Web.Services.Protocols;
-using DFe.Classes.Entidades;
+using DFe.Entidades;
 
 namespace DFe.NFe.Wsdl
 {

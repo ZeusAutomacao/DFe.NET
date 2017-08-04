@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MDFe.Damdfe.Fast;
 using MDFe.Damdfe.Base;
 using System.IO;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Retorno;
 using DFe.Utils;
 

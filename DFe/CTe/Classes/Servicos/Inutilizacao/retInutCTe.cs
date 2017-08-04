@@ -32,8 +32,9 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
+using DFe.Assinatura;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Servicos.Inutilizacao

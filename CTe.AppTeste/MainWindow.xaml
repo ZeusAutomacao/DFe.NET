@@ -4,9 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:enumBindable="clr-namespace:CTe.AppTeste.EnumBindable"
-        xmlns:flags="clr-namespace:DFe.Classes.Entidades;assembly=DFe"
-        xmlns:entidades="clr-namespace:DFe.Classes.Entidades;assembly=DFe"
         xmlns:flagsCte="clr-namespace:DFe.CTe.Classes.Servicos.Tipos;assembly=DFe"
+        xmlns:flags="clr-namespace:DFe.Entidades;assembly=DFe"
         mc:Ignorable="d"
         Title="MainWindow" Height="720.696" Width="771.522"
         Loaded="MainWindow_OnLoaded">
@@ -122,7 +121,7 @@
                             <StackPanel>
                                 <GroupBox Header="UF Destino">
                                     <ComboBox IsEditable="False"
-                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type entidades:Estado}}}"
+                                      ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flags:Estado}}}"
                                               SelectedItem="{Binding UfDestino}">
 
                                     </ComboBox>

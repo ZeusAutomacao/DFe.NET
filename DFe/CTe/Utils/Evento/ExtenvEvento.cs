@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.CTe.Classes.Servicos.Evento;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Utils.Evento

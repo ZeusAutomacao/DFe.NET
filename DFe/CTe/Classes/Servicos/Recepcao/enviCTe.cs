@@ -34,6 +34,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using CteEletronica = DFe.CTe.Classes.CTe;
 

@@ -34,7 +34,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DFe.Classes.Entidades;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Consulta;
 using DFe.CTe.Classes.Servicos.Evento;
@@ -43,6 +42,7 @@ using DFe.CTe.Classes.Servicos.Recepcao;
 using DFe.CTe.Classes.Servicos.Recepcao.Retorno;
 using DFe.CTe.Classes.Servicos.Status;
 using DFe.CTe.Servicos.Inutilizacao;
+using DFe.Entidades;
 using CTeEletronica = DFe.CTe.Classes.CTe;
 
 namespace DFe.CTe.Servicos.Factory

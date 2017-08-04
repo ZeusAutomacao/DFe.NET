@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes;
+using DFe.Entidades;
+using DFe.Flags;
 
 namespace DFe.CTe.Servicos.Enderecos.Helpers
 {

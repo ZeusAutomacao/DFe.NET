@@ -38,6 +38,7 @@ using DFe.CTe.Classes.Servicos.Evento;
 using DFe.CTe.Classes.Servicos.Tipos;
 using DFe.CTe.Utils.Extencoes;
 using DFe.CTe.Utils.Validacao;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 

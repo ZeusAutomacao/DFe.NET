@@ -33,7 +33,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
+using DFe.Entidades;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.docAnteriores
 {

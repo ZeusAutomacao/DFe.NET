@@ -32,7 +32,6 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Entidades;
 using DFe.Configuracao;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Classes.Servicos.Autorizacao;

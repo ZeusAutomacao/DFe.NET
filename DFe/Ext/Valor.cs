@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace DFe.Classes.Ext
+namespace DFe.Ext
 {
     public static class Valor
     {

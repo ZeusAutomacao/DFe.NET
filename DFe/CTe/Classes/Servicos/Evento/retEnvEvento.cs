@@ -33,8 +33,8 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
 
 namespace DFe.CTe.Classes.Servicos.Evento
 {

@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using DFe.CertificadosDigitais;
-using DFe.Classes.Entidades;
 using DFe.Configuracao;
+using DFe.Entidades;
 using DFe.MDFe.Classes.Extensoes;
 using DFe.MDFe.Wsdl.Configuracao;
 using DFe.MDFe.Wsdl.Enderecos.Helper;

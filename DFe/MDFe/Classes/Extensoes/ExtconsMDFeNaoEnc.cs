@@ -34,6 +34,7 @@
 using System;
 using System.Xml;
 using DFe.Configuracao;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
 using DFe.MDFe.Validacao;

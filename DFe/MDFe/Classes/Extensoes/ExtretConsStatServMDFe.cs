@@ -33,6 +33,7 @@
 
 using System;
 using DFe.Configuracao;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Retorno.StatusServico;
 using DFe.ResolvePastas;
 using DFe.Utils;

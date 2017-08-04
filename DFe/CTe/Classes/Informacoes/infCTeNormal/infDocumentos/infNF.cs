@@ -34,8 +34,8 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Ext;
 using DFe.CTe.Classes.Informacoes.Tipos;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes.Informacoes.infCTeNormal.infDocumentos

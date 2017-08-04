@@ -33,7 +33,8 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
+using DFe.Entidades;
+using DFe.Ext;
 using DFe.Utils;
 
 namespace DFe.NFe.Classes.Servicos.ConsultaCadastro

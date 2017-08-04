@@ -34,8 +34,9 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
+using DFe.Entidades;
+using DFe.Flags;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
 using DFe.Utils;

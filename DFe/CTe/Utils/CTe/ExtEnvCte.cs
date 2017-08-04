@@ -33,11 +33,12 @@
 
 using System;
 using System.Xml;
-using DFe.Classes.Entidades;
 using DFe.CTe.Classes;
 using DFe.CTe.Classes.Servicos.Recepcao;
 using DFe.CTe.Classes.Servicos.Tipos;
 using DFe.CTe.Utils.Validacao;
+using DFe.Entidades;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Utils.CTe

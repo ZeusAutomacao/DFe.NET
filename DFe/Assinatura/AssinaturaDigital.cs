@@ -32,12 +32,12 @@
 /********************************************************************************/
 
 using System;
-using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using SignatureZeus = DFe.Classes.Assinatura.Signature;
+using DFe.ManipuladorDeXml;
+using SignatureZeus = DFe.Assinatura.Signature;
 
-namespace DFe.Utils.Assinatura
+namespace DFe.Assinatura
 {
     public class AssinaturaDigital
     {
@@ -52,7 +52,7 @@ namespace DFe.Utils.Assinatura
             var documento = new XmlDocument { PreserveWhitespace = true };
             documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
             var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
-            var reference = new Reference { Uri = "#" + id };
+            var reference = new System.Security.Cryptography.Xml.Reference { Uri = "#" + id };
 
             // adicionando EnvelopedSignatureTransform a referencia
             var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
@@ -64,7 +64,7 @@ namespace DFe.Utils.Assinatura
             docXml.AddReference(reference);
 
             // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-            var keyInfo = new KeyInfo();
+            var keyInfo = new System.Security.Cryptography.Xml.KeyInfo();
             keyInfo.AddClause(new KeyInfoX509Data(certificado));
 
             docXml.KeyInfo = keyInfo;
@@ -72,7 +72,7 @@ namespace DFe.Utils.Assinatura
 
             //// recuperando a representacao do XML assinado
             var xmlDigitalSignature = docXml.GetXml();
-            var assinatura = FuncoesXml.XmlStringParaClasse<Classes.Assinatura.Signature>(xmlDigitalSignature.OuterXml);
+            var assinatura = FuncoesXml.XmlStringParaClasse<SignatureZeus>(xmlDigitalSignature.OuterXml);
             return assinatura;
         }
     }

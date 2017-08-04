@@ -37,7 +37,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace DFe.Utils
+namespace DFe.Ext
 {
     public static class Reflexao
     {

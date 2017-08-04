@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.Flags;
 
 namespace DFe.CTe.Classes.Servicos.Consulta
 {

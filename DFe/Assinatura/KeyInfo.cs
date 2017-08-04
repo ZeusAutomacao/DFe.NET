@@ -31,18 +31,18 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
-namespace DFe.Classes.Assinatura
+namespace DFe.Assinatura
 {
-    public class Transform
+    public class KeyInfo
     {
+        public KeyInfo()
+        {
+            X509Data = new X509Data();
+        }
+
         /// <summary>
-        ///     XS13 - Atributos válidos Algorithm do Transform:
-        ///     <para>http://www.w3.org/TR/2001/REC-xml-c14n-20010315</para>
-        ///     <para>http://www.w3.org/2000/09/xmldsig#enveloped-signature</para>
+        ///     XS20 - Grupo X509
         /// </summary>
-        [XmlAttribute]
-        public string Algorithm { get; set; }
+        public X509Data X509Data { get; set; }
     }
 }

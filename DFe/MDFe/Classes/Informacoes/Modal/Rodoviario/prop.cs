@@ -33,7 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
+using DFe.Entidades;
 using DFe.MDFe.Classes.Flags;
 
 namespace DFe.MDFe.Classes.Informacoes.Modal.Rodoviario

@@ -33,6 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.ManipuladorDeXml;
 using DFe.MDFe.Classes.Flags;
 using DFe.Utils;
 

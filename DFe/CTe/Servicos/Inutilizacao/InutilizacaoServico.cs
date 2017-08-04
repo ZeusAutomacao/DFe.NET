@@ -32,11 +32,11 @@
 /********************************************************************************/
 
 using System;
-using DFe.Classes.Flags;
 using DFe.CTe.Classes.Servicos.Inutilizacao;
 using DFe.CTe.Servicos.Factory;
 using DFe.CTe.Utils.Extencoes;
 using DFe.CTe.Utils.Inutilizacao;
+using DFe.Flags;
 
 namespace DFe.CTe.Servicos.Inutilizacao
 {

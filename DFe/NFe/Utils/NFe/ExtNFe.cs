@@ -33,6 +33,8 @@
 
 using System;
 using System.Globalization;
+using DFe.Assinatura;
+using DFe.ManipuladorDeXml;
 using DFe.NFe.Classes.Servicos.Tipos;
 using DFe.NFe.Utils.Assinatura;
 using DFe.NFe.Utils.Validacao;

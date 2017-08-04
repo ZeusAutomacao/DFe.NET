@@ -33,7 +33,8 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
+using DFe.Assinatura;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Informacoes

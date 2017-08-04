@@ -32,10 +32,11 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
+using DFe.Assinatura;
 using DFe.CTe.Classes.Ext;
 using DFe.CTe.Classes.Informacoes;
 using DFe.CTe.Classes.Servicos.Tipos;
+using DFe.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace DFe.CTe.Classes
