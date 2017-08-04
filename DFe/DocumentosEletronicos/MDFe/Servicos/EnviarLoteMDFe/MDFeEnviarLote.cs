@@ -39,10 +39,11 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.MDFe.Servicos.Factory;
+using DFe.DocumentosEletronicos.MDFe.Servicos.RecepcaoMDFe;
 using DFe.Ext;
 using MDFeEletronico = DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.MDFe;
 
-namespace DFe.DocumentosEletronicos.MDFe.Servicos.RecepcaoMDFe
+namespace DFe.DocumentosEletronicos.MDFe.Servicos.EnviarLoteMDFe
 {
     public class MDFeEnviarLote
     {

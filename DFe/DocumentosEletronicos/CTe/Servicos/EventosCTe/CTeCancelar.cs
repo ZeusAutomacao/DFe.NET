@@ -31,25 +31,34 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
+using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
+using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaStatus
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
-    public class StatusServico
+    public class CTeCancelar
     {
-        public retConsStatServCte ConsultaStatus()
+        private readonly CteEletronico _cte;
+        private readonly int _sequenciaEvento;
+        private readonly string _numeroProtocolo;
+        private readonly string _justificativa;
+
+        public CTeCancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
-            var consStatServCte = ClassesFactory.CriaConsStatServCte();
-            consStatServCte.ValidarSchema();
-            consStatServCte.SalvarXmlEmDisco();
+            _cte = cte;
+            _sequenciaEvento = sequenciaEvento;
+            _numeroProtocolo = numeroProtocolo;
+            _justificativa = justificativa;
+        }
 
-            var webService = WsdlFactory.CriaWsdlCteStatusServico();
-            var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
+        public retEventoCTe Cancelar()
+        {
+            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
-            retorno.SalvarXmlEmDisco();
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
 
             return retorno;
         }

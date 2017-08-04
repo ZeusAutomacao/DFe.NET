@@ -31,35 +31,67 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Collections.Generic;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Utils.CTe;
+using DFe.DocumentosEletronicos.CTe.Utils.Recepcao;
+using DFe.Flags;
+using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 {
-    public class EventoCartaCorrecao
+    public class CTeEnviarLote
     {
-        private readonly CteEletronico _cte;
-        private readonly int _sequenciaEvento;
-        private readonly List<infCorrecao> _infCorrecaos;
+        public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
 
-        public EventoCartaCorrecao(CteEletronico cte, int sequenciaEvento,
-            List<infCorrecao> infCorrecaos)
+        public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
         {
-            _cte = cte;
-            _sequenciaEvento = sequenciaEvento;
-            _infCorrecaos = infCorrecaos;
-        }
+            var instanciaConfiguracao = ConfiguracaoServico.Instancia;
 
-        public retEventoCTe AdicionarCorrecoes()
-        {
-            var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
+            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
+            if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao)
+            {
+                foreach (var cte in enviCte.CTe)
+                {
+                    const string razaoSocial = "CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+
+                    cte.infCte.rem.xNome = razaoSocial;
+                    cte.infCte.dest.xNome = razaoSocial;
+                }
+            }
+
+
+            foreach (var cte in enviCte.CTe)
+            {
+                cte.Assina();
+                cte.ValidaSchema();
+                cte.SalvarXmlEmDisco();
+            }
+
+            enviCte.ValidaSchema();
+            enviCte.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+
+            OnAntesDeEnviar(enviCte);
+
+            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
+
+            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        protected virtual void OnAntesDeEnviar(enviCTe enviCTe)
+        {
+            var handler = AntesDeEnviar;
+            if (handler != null) handler(this, new AntesEnviarRecepcao(enviCTe));
         }
     }
 }

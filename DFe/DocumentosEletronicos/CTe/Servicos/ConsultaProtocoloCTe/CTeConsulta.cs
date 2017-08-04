@@ -35,9 +35,9 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocolo
+namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
 {
-    public class ConsultaProtcoloServico
+    public class CTeConsulta
     {
         public retConsSitCTe ConsultaProtocolo(string chave)
         {

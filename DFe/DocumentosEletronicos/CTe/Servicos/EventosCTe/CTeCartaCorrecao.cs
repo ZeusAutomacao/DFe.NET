@@ -31,33 +31,34 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Collections.Generic;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
+using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
-    public class EventoCancelamento
+    public class CTeCartaCorrecao
     {
         private readonly CteEletronico _cte;
         private readonly int _sequenciaEvento;
-        private readonly string _numeroProtocolo;
-        private readonly string _justificativa;
+        private readonly List<infCorrecao> _infCorrecaos;
 
-        public EventoCancelamento(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        public CTeCartaCorrecao(CteEletronico cte, int sequenciaEvento,
+            List<infCorrecao> infCorrecaos)
         {
             _cte = cte;
             _sequenciaEvento = sequenciaEvento;
-            _numeroProtocolo = numeroProtocolo;
-            _justificativa = justificativa;
+            _infCorrecaos = infCorrecaos;
         }
 
-        public retEventoCTe Cancelar()
+        public retEventoCTe AdicionarCorrecoes()
         {
-            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
+            var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
 
             return retorno;
         }

@@ -35,13 +35,13 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaRecibo
+namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe
 {
-    public class ConsultaReciboServico
+    public class CTeConsultaLote
     {
         private readonly string _recibo;
 
-        public ConsultaReciboServico(string recibo)
+        public CTeConsultaLote(string recibo)
         {
             _recibo = recibo;
         }

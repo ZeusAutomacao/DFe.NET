@@ -31,83 +31,27 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Utils.Extencoes;
-using DFe.DocumentosEletronicos.CTe.Utils.Inutilizacao;
-using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Inutilizacao
+namespace DFe.DocumentosEletronicos.CTe.Servicos.StatusServicoCTe
 {
-    public class ConfigInutiliza
-    { 
-        public ConfigInutiliza(string cnpj, short serie, long numeroInicial, long numeroFinal, int ano,
-            string justificativa, ModeloDocumento modeloDocumento = ModeloDocumento.CTe)
-        {
-            Cnpj = cnpj;
-            Serie = serie;
-            NumeroInicial = numeroInicial;
-            NumeroFinal = numeroFinal;
-            Ano = ano;
-            Justificativa = justificativa;
-            ModeloDocumento = modeloDocumento;
-        }
-
-        public int Ano { get; private set; }
-        public string Cnpj { get; private set; }
-        public short Serie { get; private set; }
-        public long NumeroInicial { get; private set; }
-        public long NumeroFinal { get; private set; }
-        public string Justificativa { get; private set; }
-        public ModeloDocumento ModeloDocumento { get; private set; }
-    }
-
-    public class InutilizacaoServico
+    public class CTeStatusConsulta
     {
-        private readonly ConfigInutiliza _configInutiliza;
-
-        public InutilizacaoServico(ConfigInutiliza configInutiliza)
+        public retConsStatServCte ConsultaStatus()
         {
-            Validacoes(configInutiliza);
+            var consStatServCte = ClassesFactory.CriaConsStatServCte();
+            consStatServCte.ValidarSchema();
+            consStatServCte.SalvarXmlEmDisco();
 
-            _configInutiliza = configInutiliza;
-        }
+            var webService = WsdlFactory.CriaWsdlCteStatusServico();
+            var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
 
-        public retInutCTe Inutilizar()
-        {
-            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza);
-            inutCte.Assinar();
-            inutCte.ValidarShcema();
-            inutCte.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlCteInutilizacao();
-            var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
-
-            var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
+            var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
-        }
-
-        private static void Validacoes(ConfigInutiliza configInutiliza)
-        {
-            if (configInutiliza == null) throw new ArgumentNullException("Preciso de uma configuração de inutilização");
-
-            if (string.IsNullOrEmpty(configInutiliza.Cnpj))
-                throw new InvalidOperationException("Para inutilizar a númeração eu preciso do cnpj do emitente");
-
-            if (configInutiliza.Serie <= 0)
-                throw new InvalidOperationException("Preciso que a série seja maior que 0");
-
-            if (configInutiliza.NumeroInicial <= 0)
-                throw new InvalidOperationException("Preciso que o número inicial seja maior que 0");
-
-            if (configInutiliza.NumeroFinal <= 0)
-                throw new InvalidOperationException("Preciso que o número final seja maior que 0");
-
-            if (configInutiliza.NumeroInicial > configInutiliza.NumeroFinal)
-                throw new InvalidOperationException("Preciso que o número inicial seja maior que o número final");
         }
     }
 }

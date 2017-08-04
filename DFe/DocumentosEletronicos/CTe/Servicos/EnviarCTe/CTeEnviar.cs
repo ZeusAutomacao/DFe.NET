@@ -2,28 +2,28 @@
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
-using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaRecibo;
-using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Utils.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCte
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 {
-    public class ServicoEnviarCte
+    public class CTeEnviar
     {
         public RetornoEnviarCte Enviar(int lote, Classes.CTe cte)
         {
-            ServicoCTeRecepcao servicoRecepcao = new ServicoCTeRecepcao();
+            CTeEnviarLote enviarLote = new CTeEnviarLote();
 
-            retEnviCte retEnviCte = servicoRecepcao.CTeRecepcao(lote, new List<Classes.CTe> {cte});
+            retEnviCte retEnviCte = enviarLote.CTeRecepcao(lote, new List<Classes.CTe> {cte});
 
             if (retEnviCte.cStat != 103)
             {
                 return new RetornoEnviarCte(retEnviCte, null, null);
             }
 
-            ConsultaReciboServico servicoConsultaRecibo = new ConsultaReciboServico(retEnviCte.infRec.nRec);
+            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote(retEnviCte.infRec.nRec);
 
-            retConsReciCTe retConsReciCTe = servicoConsultaRecibo.Consultar();
+            retConsReciCTe retConsReciCTe = servicoCTeConsultaRecibo.Consultar();
 
 
             cteProc cteProc = null;

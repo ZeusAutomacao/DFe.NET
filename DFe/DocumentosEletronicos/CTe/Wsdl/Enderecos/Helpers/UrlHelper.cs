@@ -36,7 +36,7 @@ using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.Entidades;
 using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Enderecos.Helpers
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers
 {
     public class UrlHelper
     {

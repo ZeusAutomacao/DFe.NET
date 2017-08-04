@@ -41,7 +41,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
-using DFe.DocumentosEletronicos.CTe.Servicos.Inutilizacao;
+using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.Entidades;
 using CTeEletronica = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 

@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,15 +30,43 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Enderecos
+
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
+using DFe.DocumentosEletronicos.MDFe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.MDFe.Classes.Retorno.RetRecepcao;
+using DFe.DocumentosEletronicos.MDFe.Servicos.Factory;
+
+namespace DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaLoteMDFe
 {
-    public class UrlCTe
+    public class MDFeConsultaLote
     {
-        public string CteConsulta { get; set; }
-        public string CteInutilizacao { get; set; }
-        public string CteRecepcao { get; set; }
-        public string CteRecepcaoEvento { get; set; }
-        public string CteRetRecepcao { get; set; }
-        public string CteStatusServico { get; set; }
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public MDFeConsultaLote(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
+        public retConsReciMDFe ConsultaLote(string numeroRecibo)
+        {
+            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo, _dfeConfig);
+
+            consReciMdfe.ValidaSchema(_dfeConfig);
+
+            consReciMdfe.SalvarXmlEmDisco(_dfeConfig);
+
+            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(_dfeConfig, _certificadoDigital);
+
+            var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
+
+            var retorno = retConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
+
+            retorno.SalvarXmlEmDisco(_dfeConfig);
+
+            return retorno;
+        }
     }
 }

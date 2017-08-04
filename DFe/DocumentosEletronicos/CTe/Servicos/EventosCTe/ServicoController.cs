@@ -31,66 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
+using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
+using DFe.DocumentosEletronicos.CTe.Servicos.Eventos.Contratos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using DFe.DocumentosEletronicos.CTe.Utils.CTe;
-using DFe.DocumentosEletronicos.CTe.Utils.Recepcao;
-using DFe.Flags;
-using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using DFe.DocumentosEletronicos.CTe.Utils.Evento;
+using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Recepcao
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
-    public class ServicoCTeRecepcao
+    public class ServicoController : IServicoController
     {
-        public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
-
-        public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
+        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
         {
-            var instanciaConfiguracao = ConfiguracaoServico.Instancia;
+            var evento = FactoryEvento.CriaEvento(cte, tipoEvento, sequenciaEvento, container);
+            evento.Assina();
+            evento.ValidarSchema();
+            evento.SalvarXmlEmDisco();
 
-            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList);
+            var webService = WsdlFactory.CriaWsdlCteEvento();
+            var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
 
-            if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao)
-            {
-                foreach (var cte in enviCte.CTe)
-                {
-                    const string razaoSocial = "CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
-
-                    cte.infCte.rem.xNome = razaoSocial;
-                    cte.infCte.dest.xNome = razaoSocial;
-                }
-            }
-
-
-            foreach (var cte in enviCte.CTe)
-            {
-                cte.Assina();
-                cte.ValidaSchema();
-                cte.SalvarXmlEmDisco();
-            }
-
-            enviCte.ValidaSchema();
-            enviCte.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlCteRecepcao();
-
-            OnAntesDeEnviar(enviCte);
-
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
-
-            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+            var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
             retorno.SalvarXmlEmDisco();
 
             return retorno;
-        }
-
-        protected virtual void OnAntesDeEnviar(enviCTe enviCTe)
-        {
-            var handler = AntesDeEnviar;
-            if (handler != null) handler(this, new AntesEnviarRecepcao(enviCTe));
         }
     }
 }

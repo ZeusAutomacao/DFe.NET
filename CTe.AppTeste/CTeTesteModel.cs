@@ -54,13 +54,15 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocolo;
-using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaRecibo;
-using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaStatus;
-using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCte;
+using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
-using DFe.DocumentosEletronicos.CTe.Servicos.Inutilizacao;
+using DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Servicos.StatusServicoCTe;
 using DFe.DocumentosEletronicos.CTe.Utils.CTe;
 using DFe.Entidades;
 using DFe.Flags;
@@ -603,7 +605,7 @@ namespace CTe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoes(config);
 
-            var statusServico = new StatusServico();
+            var statusServico = new CTeStatusConsulta();
             var retorno = statusServico.ConsultaStatus();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -642,7 +644,7 @@ namespace CTe.AppTeste
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoes(config);
 
-            var servicoConsultaProtocolo = new ConsultaProtcoloServico();
+            var servicoConsultaProtocolo = new CTeConsulta();
             var retorno = servicoConsultaProtocolo.ConsultaProtocolo(chave);
 
 
@@ -736,7 +738,7 @@ namespace CTe.AppTeste
                 justificativa
             );
 
-            var statusServico = new InutilizacaoServico(configInutilizar);
+            var statusServico = new CTeInutilizacao(configInutilizar);
             var retorno = statusServico.Inutilizar();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -749,7 +751,7 @@ namespace CTe.AppTeste
 
             var numeroRecibo = InputBoxTuche("Número Recibo");
 
-            var consultaReciboServico = new ConsultaReciboServico(numeroRecibo);
+            var consultaReciboServico = new CTeConsultaLote(numeroRecibo);
             var retorno = consultaReciboServico.Consultar();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -772,7 +774,7 @@ namespace CTe.AppTeste
             var protocolo = InputBoxTuche("Protocolo");
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
-            var servico = new EventoCancelamento(cte, sequenciaEvento, protocolo, justificativa);
+            var servico = new CTeCancelar(cte, sequenciaEvento, protocolo, justificativa);
             var retorno = servico.Cancelar();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -812,7 +814,7 @@ namespace CTe.AppTeste
                 }
             }; 
 
-            var servico = new EventoCartaCorrecao(cte, sequenciaEvento, correcoes);
+            var servico = new CTeCartaCorrecao(cte, sequenciaEvento, correcoes);
             var retorno = servico.AdicionarCorrecoes();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -1036,7 +1038,7 @@ namespace CTe.AppTeste
 
             var numeroLote = InputBoxTuche("Número Lote");
 
-            var servicoRecepcao = new ServicoCTeRecepcao();
+            var servicoRecepcao = new CTeEnviarLote();
 
             // Evento executado antes do envio do CT-e para o WebService
             // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
@@ -1283,7 +1285,7 @@ namespace CTe.AppTeste
             var numeroLote = InputBoxTuche("Número Lote");
 
 
-            var servico = new ServicoEnviarCte();
+            var servico = new CTeEnviar();
 
 
             var retorno = servico.Enviar(Convert.ToInt32(numeroLote), cteEletronico);

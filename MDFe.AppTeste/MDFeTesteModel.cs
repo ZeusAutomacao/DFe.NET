@@ -48,7 +48,6 @@ using DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaProtocoloMDFe;
 using DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe;
 using DFe.DocumentosEletronicos.MDFe.Servicos.RecepcaoMDFe;
-using DFe.DocumentosEletronicos.MDFe.Servicos.RetRecepcaoMDFe;
 using DFe.Entidades;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;

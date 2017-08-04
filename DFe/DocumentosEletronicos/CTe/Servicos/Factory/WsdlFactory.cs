@@ -33,9 +33,9 @@
 
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Ext;
-using DFe.DocumentosEletronicos.CTe.Servicos.Enderecos.Helpers;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Recepcao;
