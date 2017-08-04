@@ -31,19 +31,40 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.Configuracao;
 using DFe.MDFe.Classes.Retorno.Evento;
+using DFe.MDFe.Classes.Servicos.Evento.Flags;
+using DFe.ResolvePastas;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtretEventoMDFe
     {
-        public static void SalvarXmlEmDisco(this retEventoMDFe retEvento, string chave, DFeConfig dfeConfig)
+        public static void SalvarXmlEmDisco(this retEventoMDFe retEvento, string chave, DFeConfig dfeConfig, tpEvento tipoEvento)
         {
             if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = dfeConfig.CaminhoSalvarXml;
+            string caminhoXml;
+
+            switch (tipoEvento)
+            {
+                case tpEvento.Cancelamento:
+                    caminhoXml = new ResolvePasta(dfeConfig, retEvento.infEvento.dhRegEvento ?? DateTime.Now).PastaCanceladosRetorno();
+                    break;
+                case tpEvento.Encerramento:
+                    caminhoXml = new ResolvePasta(dfeConfig, retEvento.infEvento.dhRegEvento ?? DateTime.Now).PastaEncerramentoRetorno();
+                    break;
+                case tpEvento.InclusaoDeCondutor:
+                    caminhoXml = new ResolvePasta(dfeConfig, retEvento.infEvento.dhRegEvento ?? DateTime.Now).PastaIncluirCondutorRetorno();
+                    break;
+                case tpEvento.RegistroDePassagem:
+                    caminhoXml = new ResolvePasta(dfeConfig, retEvento.infEvento.dhRegEvento ?? DateTime.Now).PastaRegistroDePassagemRetorno();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
+            }
 
             var arquivoSalvar = caminhoXml + @"\" + chave + "-env.xml";
 

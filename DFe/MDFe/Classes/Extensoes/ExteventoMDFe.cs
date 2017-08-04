@@ -31,13 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.MDFe.Classes.Flags;
 using DFe.MDFe.Classes.Servicos.Evento;
 using DFe.MDFe.Classes.Servicos.Evento.CorpoEvento;
+using DFe.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.MDFe.Validacao;
+using DFe.ResolvePastas;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;
@@ -104,11 +107,29 @@ namespace DFe.MDFe.Classes.Extensoes
                 certificadoDigital);
         }
 
-        public static void SalvarXmlEmDisco(this eventoMDFe evento, string chave, DFeConfig dfeConfig)
+        public static void SalvarXmlEmDisco(this eventoMDFe evento, string chave, DFeConfig dfeConfig, tpEvento tipoEvento)
         {
             if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = dfeConfig.CaminhoSalvarXml;
+            string caminhoXml;
+
+            switch (tipoEvento)
+            {
+                case tpEvento.Cancelamento:
+                    caminhoXml = new ResolvePasta(dfeConfig, evento.infEvento.dhEvento).PastaCanceladosEnvio();
+                    break;
+                case tpEvento.Encerramento:
+                    caminhoXml = new ResolvePasta(dfeConfig, evento.infEvento.dhEvento).PastaEncerramentoEnvio();
+                    break;
+                case tpEvento.InclusaoDeCondutor:
+                    caminhoXml = new ResolvePasta(dfeConfig, evento.infEvento.dhEvento).PastaIncluirCondutorEnvio();
+                    break;
+                case tpEvento.RegistroDePassagem:
+                    caminhoXml = new ResolvePasta(dfeConfig, evento.infEvento.dhEvento).PastaRegistroDePassagemEnvio();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
+            }
 
             var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
 

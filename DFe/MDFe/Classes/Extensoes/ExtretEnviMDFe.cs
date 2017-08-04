@@ -33,17 +33,19 @@
 
 using DFe.Configuracao;
 using DFe.MDFe.Classes.Retorno.Autorizacao;
+using DFe.ResolvePastas;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Extensoes
 {
     public static class ExtretEnviMDFe
     {
-        public static void SalvarXmlEmDisco(this retEnviMDFe retEnviMDFe, DFeConfig dfeConfig)
+        public static void SalvarXmlEmDisco(this retEnviMDFe retEnviMDFe, DFeConfig dfeConfig, string cnpj)
         {
             if (dfeConfig.NaoSalvarXml()) return;
+            
 
-            var caminhoXml = dfeConfig.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(dfeConfig, retEnviMDFe.infRec.dhRecbto).PastaRetornoEnviados();
 
             var arquivoSalvar = caminhoXml + @"\" + retEnviMDFe.infRec.nRec + "-rec.xml";
 

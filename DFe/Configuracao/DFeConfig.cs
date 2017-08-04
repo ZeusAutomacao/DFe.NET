@@ -6,11 +6,6 @@ namespace DFe.Configuracao
 {
     public abstract class DFeConfig
     {
-        public DFeConfig()
-        {
-            
-        }
-
         public bool IsSalvarXml { get; set; }
         public string CaminhoSchemas { get; set; }
         public string CaminhoSalvarXml { get; set; }
@@ -19,6 +14,7 @@ namespace DFe.Configuracao
         public abstract TipoAmbiente TipoAmbiente { get; set; }
         public abstract VersaoServico VersaoServico { get; set; }
         public abstract Estado EstadoUf { get; set; }
+        public abstract string CnpjEmitente { get; set; }
 
         public bool NaoSalvarXml()
         {

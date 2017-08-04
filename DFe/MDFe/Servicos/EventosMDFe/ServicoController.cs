@@ -63,7 +63,8 @@ namespace DFe.MDFe.Servicos.EventosMDFe
                 _certificadoDigital);
 
             evento.ValidarSchema(_dfeConfig);
-            evento.SalvarXmlEmDisco(chave, _dfeConfig);
+
+            evento.SalvarXmlEmDisco(chave, _dfeConfig, tipoEvento);
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento(_dfeConfig, _certificadoDigital);
 
@@ -71,7 +72,7 @@ namespace DFe.MDFe.Servicos.EventosMDFe
 
             var retorno = retEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
 
-            retorno.SalvarXmlEmDisco(chave, _dfeConfig);
+            retorno.SalvarXmlEmDisco(chave, _dfeConfig, tipoEvento);
 
             return retorno;
         }

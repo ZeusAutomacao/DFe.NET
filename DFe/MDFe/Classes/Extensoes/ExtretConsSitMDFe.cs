@@ -31,8 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.Configuracao;
 using DFe.MDFe.Classes.Retorno.ConsultaProtocolo;
+using DFe.ResolvePastas;
 using DFe.Utils;
 
 namespace DFe.MDFe.Classes.Extensoes
@@ -43,7 +45,7 @@ namespace DFe.MDFe.Classes.Extensoes
         {
             if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = dfeConfig.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaProtocoloRetorno();
 
             var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
 

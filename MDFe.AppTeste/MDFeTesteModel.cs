@@ -1387,7 +1387,8 @@ namespace MDFe.AppTeste
                 VersaoServico = config.ConfigWebService.VersaoLayout,
                 TipoAmbiente = config.ConfigWebService.Ambiente,
                 EstadoUf = config.ConfigWebService.UfEmitente,
-                TimeOut = config.ConfigWebService.TimeOut
+                TimeOut = config.ConfigWebService.TimeOut,
+                CnpjEmitente = config.Empresa.Cnpj
             };
 
 

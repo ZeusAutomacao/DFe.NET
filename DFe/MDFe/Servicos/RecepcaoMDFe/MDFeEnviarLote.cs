@@ -89,7 +89,7 @@ namespace DFe.MDFe.Servicos.RecepcaoMDFe
 
             var retorno = retEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig);
+            retorno.SalvarXmlEmDisco(_dfeConfig, enviMDFe.MDFe.InfMDFe.emit.CNPJ);
 
             return retorno;
         }

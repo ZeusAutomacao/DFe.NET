@@ -94,5 +94,15 @@ namespace DFe.MDFe.Classes.Retorno.Autorizacao
 
             return retorno;
         }
+
+        public bool IsAutorizado()
+        {
+            return cStat == 103;
+        }
+
+        public bool IsRejeicao()
+        {
+            return cStat != 103;
+        }
     }
 }
