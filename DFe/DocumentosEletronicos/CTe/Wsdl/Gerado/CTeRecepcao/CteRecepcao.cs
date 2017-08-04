@@ -47,24 +47,24 @@
 
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 
-namespace DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao
 {
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "CteInutilizacaoSoap12",
-        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao")]
-    public partial class CteInutilizacao : System.Web.Services.Protocols.SoapHttpClientProtocol
+    [System.Web.Services.WebServiceBindingAttribute(Name = "CteRecepcaoSoap12",
+        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao")]
+    public partial class CteRecepcao : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
         private cteCabecMsg cteCabecMsgValueField;
 
-        private System.Threading.SendOrPostCallback cteInutilizacaoCTOperationCompleted;
+        private System.Threading.SendOrPostCallback cteRecepcaoLoteOperationCompleted;
 
         /// <remarks/>
-        public CteInutilizacao(WsdlConfiguracao configuracao)
+        public CteRecepcao(WsdlConfiguracao configuracao)
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = configuracao.Url;
@@ -84,23 +84,23 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao
         }
 
         /// <remarks/>
-        public event cteInutilizacaoCTCompletedEventHandler cteInutilizacaoCTCompleted;
+        public event cteRecepcaoLoteCompletedEventHandler cteRecepcaoLoteCompleted;
 
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("cteCabecMsgValue",
             Direction = System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute(
-            "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao/cteInutilizacaoCT",
+            "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao/cteRecepcaoLote",
             Use = System.Web.Services.Description.SoapBindingUse.Literal,
             ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return:
             System.Xml.Serialization.XmlElementAttribute(
-                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao")]
-        public System.Xml.XmlNode cteInutilizacaoCT(
+                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao")]
+        public System.Xml.XmlNode cteRecepcaoLote(
         [System.Xml.Serialization.XmlElementAttribute(
-            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao")] System.Xml.XmlNode cteDadosMsg)
+            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao")] System.Xml.XmlNode cteDadosMsg)
         {
-            object[] results = this.Invoke("cteInutilizacaoCT", new object[]
+            object[] results = this.Invoke("cteRecepcaoLote", new object[]
             {
                 cteDadosMsg
             });
@@ -108,50 +108,50 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao
         }
 
         /// <remarks/>
-        public System.IAsyncResult BegincteInutilizacaoCT(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
+        public System.IAsyncResult BegincteRecepcaoLote(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
             object asyncState)
         {
-            return this.BeginInvoke("cteInutilizacaoCT", new object[]
+            return this.BeginInvoke("cteRecepcaoLote", new object[]
             {
                 cteDadosMsg
             }, callback, asyncState);
         }
 
         /// <remarks/>
-        public System.Xml.XmlNode EndcteInutilizacaoCT(System.IAsyncResult asyncResult)
+        public System.Xml.XmlNode EndcteRecepcaoLote(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode) (results[0]));
         }
 
         /// <remarks/>
-        public void cteInutilizacaoCTAsync(System.Xml.XmlNode cteDadosMsg)
+        public void cteRecepcaoLoteAsync(System.Xml.XmlNode cteDadosMsg)
         {
-            this.cteInutilizacaoCTAsync(cteDadosMsg, null);
+            this.cteRecepcaoLoteAsync(cteDadosMsg, null);
         }
 
         /// <remarks/>
-        public void cteInutilizacaoCTAsync(System.Xml.XmlNode cteDadosMsg, object userState)
+        public void cteRecepcaoLoteAsync(System.Xml.XmlNode cteDadosMsg, object userState)
         {
-            if ((this.cteInutilizacaoCTOperationCompleted == null))
+            if ((this.cteRecepcaoLoteOperationCompleted == null))
             {
-                this.cteInutilizacaoCTOperationCompleted =
-                    new System.Threading.SendOrPostCallback(this.OncteInutilizacaoCTOperationCompleted);
+                this.cteRecepcaoLoteOperationCompleted =
+                    new System.Threading.SendOrPostCallback(this.OncteRecepcaoLoteOperationCompleted);
             }
-            this.InvokeAsync("cteInutilizacaoCT", new object[]
+            this.InvokeAsync("cteRecepcaoLote", new object[]
             {
                 cteDadosMsg
-            }, this.cteInutilizacaoCTOperationCompleted, userState);
+            }, this.cteRecepcaoLoteOperationCompleted, userState);
         }
 
-        private void OncteInutilizacaoCTOperationCompleted(object arg)
+        private void OncteRecepcaoLoteOperationCompleted(object arg)
         {
-            if ((this.cteInutilizacaoCTCompleted != null))
+            if ((this.cteRecepcaoLoteCompleted != null))
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs =
                     ((System.Web.Services.Protocols.InvokeCompletedEventArgs) (arg));
-                this.cteInutilizacaoCTCompleted(this,
-                    new cteInutilizacaoCTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
+                this.cteRecepcaoLoteCompleted(this,
+                    new cteRecepcaoLoteCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
                         invokeArgs.UserState));
             }
         }
@@ -168,8 +168,8 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao",
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcao",
         IsNullable = false)]
     public partial class cteCabecMsg : System.Web.Services.Protocols.SoapHeader
     {
@@ -205,18 +205,18 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-    public delegate void cteInutilizacaoCTCompletedEventHandler(object sender, cteInutilizacaoCTCompletedEventArgs e);
+    public delegate void cteRecepcaoLoteCompletedEventHandler(object sender, cteRecepcaoLoteCompletedEventArgs e);
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class cteInutilizacaoCTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    public partial class cteRecepcaoLoteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
         private object[] results;
 
-        internal cteInutilizacaoCTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
+        internal cteRecepcaoLoteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
             object userState) :
             base(exception, cancelled, userState)
         {

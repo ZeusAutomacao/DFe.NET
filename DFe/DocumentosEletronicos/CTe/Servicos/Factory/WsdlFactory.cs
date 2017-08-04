@@ -34,13 +34,13 @@
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Inutilizacao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Recepcao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.RetRecepcao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Status;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeConsultaProtocolo;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico;
 using DFe.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory

@@ -47,24 +47,24 @@
 
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 
-namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao
 {
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "CteStatusServicoSoap12",
-        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
-    public partial class CteStatusServico : System.Web.Services.Protocols.SoapHttpClientProtocol
+    [System.Web.Services.WebServiceBindingAttribute(Name = "CteRetRecepcaoSoap12",
+        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao")]
+    public partial class CteRetRecepcao : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
         private cteCabecMsg cteCabecMsgValueField;
 
-        private System.Threading.SendOrPostCallback cteStatusServicoCTOperationCompleted;
+        private System.Threading.SendOrPostCallback cteRetRecepcaoOperationCompleted;
 
         /// <remarks/>
-        public CteStatusServico(WsdlConfiguracao configuracao)
+        public CteRetRecepcao(WsdlConfiguracao configuracao)
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = configuracao.Url;
@@ -84,23 +84,23 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
         }
 
         /// <remarks/>
-        public event cteStatusServicoCTCompletedEventHandler cteStatusServicoCTCompleted;
+        public event cteRetRecepcaoCompletedEventHandler cteRetRecepcaoCompleted;
 
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("cteCabecMsgValue",
             Direction = System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute(
-            "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico/cteStatusServicoCT",
+            "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao/cteRetRecepcao",
             Use = System.Web.Services.Description.SoapBindingUse.Literal,
             ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return:
             System.Xml.Serialization.XmlElementAttribute(
-                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
-        public System.Xml.XmlNode cteStatusServicoCT(
+                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao")]
+        public System.Xml.XmlNode cteRetRecepcao(
         [System.Xml.Serialization.XmlElementAttribute(
-            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")] System.Xml.XmlNode cteDadosMsg)
+            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao")] System.Xml.XmlNode cteDadosMsg)
         {
-            object[] results = this.Invoke("cteStatusServicoCT", new object[]
+            object[] results = this.Invoke("cteRetRecepcao", new object[]
             {
                 cteDadosMsg
             });
@@ -108,50 +108,50 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
         }
 
         /// <remarks/>
-        public System.IAsyncResult BegincteStatusServicoCT(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
+        public System.IAsyncResult BegincteRetRecepcao(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
             object asyncState)
         {
-            return this.BeginInvoke("cteStatusServicoCT", new object[]
+            return this.BeginInvoke("cteRetRecepcao", new object[]
             {
                 cteDadosMsg
             }, callback, asyncState);
         }
 
         /// <remarks/>
-        public System.Xml.XmlNode EndcteStatusServicoCT(System.IAsyncResult asyncResult)
+        public System.Xml.XmlNode EndcteRetRecepcao(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode) (results[0]));
         }
 
         /// <remarks/>
-        public void cteStatusServicoCTAsync(System.Xml.XmlNode cteDadosMsg)
+        public void cteRetRecepcaoAsync(System.Xml.XmlNode cteDadosMsg)
         {
-            this.cteStatusServicoCTAsync(cteDadosMsg, null);
+            this.cteRetRecepcaoAsync(cteDadosMsg, null);
         }
 
         /// <remarks/>
-        public void cteStatusServicoCTAsync(System.Xml.XmlNode cteDadosMsg, object userState)
+        public void cteRetRecepcaoAsync(System.Xml.XmlNode cteDadosMsg, object userState)
         {
-            if ((this.cteStatusServicoCTOperationCompleted == null))
+            if ((this.cteRetRecepcaoOperationCompleted == null))
             {
-                this.cteStatusServicoCTOperationCompleted =
-                    new System.Threading.SendOrPostCallback(this.OncteStatusServicoCTOperationCompleted);
+                this.cteRetRecepcaoOperationCompleted =
+                    new System.Threading.SendOrPostCallback(this.OncteRetRecepcaoOperationCompleted);
             }
-            this.InvokeAsync("cteStatusServicoCT", new object[]
+            this.InvokeAsync("cteRetRecepcao", new object[]
             {
                 cteDadosMsg
-            }, this.cteStatusServicoCTOperationCompleted, userState);
+            }, this.cteRetRecepcaoOperationCompleted, userState);
         }
 
-        private void OncteStatusServicoCTOperationCompleted(object arg)
+        private void OncteRetRecepcaoOperationCompleted(object arg)
         {
-            if ((this.cteStatusServicoCTCompleted != null))
+            if ((this.cteRetRecepcaoCompleted != null))
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs =
                     ((System.Web.Services.Protocols.InvokeCompletedEventArgs) (arg));
-                this.cteStatusServicoCTCompleted(this,
-                    new cteStatusServicoCTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
+                this.cteRetRecepcaoCompleted(this,
+                    new cteRetRecepcaoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
                         invokeArgs.UserState));
             }
         }
@@ -168,8 +168,8 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico",
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao",
         IsNullable = false)]
     public partial class cteCabecMsg : System.Web.Services.Protocols.SoapHeader
     {
@@ -205,18 +205,18 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-    public delegate void cteStatusServicoCTCompletedEventHandler(object sender, cteStatusServicoCTCompletedEventArgs e);
+    public delegate void cteRetRecepcaoCompletedEventHandler(object sender, cteRetRecepcaoCompletedEventArgs e);
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class cteStatusServicoCTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    public partial class cteRetRecepcaoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
         private object[] results;
 
-        internal cteStatusServicoCTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
+        internal cteRetRecepcaoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
             object userState) :
             base(exception, cancelled, userState)
         {
@@ -233,4 +233,5 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Status
             }
         }
     }
+
 }

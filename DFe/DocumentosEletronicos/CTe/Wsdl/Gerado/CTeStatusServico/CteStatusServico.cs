@@ -47,24 +47,24 @@
 
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 
-namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico
 {
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Web.Services.WebServiceBindingAttribute(Name = "CteConsultaSoap12",
-        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta")]
-    public partial class CteConsulta : System.Web.Services.Protocols.SoapHttpClientProtocol
+    [System.Web.Services.WebServiceBindingAttribute(Name = "CteStatusServicoSoap12",
+        Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
+    public partial class CteStatusServico : System.Web.Services.Protocols.SoapHttpClientProtocol
     {
 
         private cteCabecMsg cteCabecMsgValueField;
 
-        private System.Threading.SendOrPostCallback cteConsultaCTOperationCompleted;
+        private System.Threading.SendOrPostCallback cteStatusServicoCTOperationCompleted;
 
         /// <remarks/>
-        public CteConsulta(WsdlConfiguracao configuracao)
+        public CteStatusServico(WsdlConfiguracao configuracao)
         {
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = configuracao.Url;
@@ -84,23 +84,23 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
         }
 
         /// <remarks/>
-        public event cteConsultaCTCompletedEventHandler cteConsultaCTCompleted;
+        public event cteStatusServicoCTCompletedEventHandler cteStatusServicoCTCompleted;
 
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("cteCabecMsgValue",
             Direction = System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute(
-            "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta/cteConsultaCT",
+            "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico/cteStatusServicoCT",
             Use = System.Web.Services.Description.SoapBindingUse.Literal,
             ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
         [return:
             System.Xml.Serialization.XmlElementAttribute(
-                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta")]
-        public System.Xml.XmlNode cteConsultaCT(
+                Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
+        public System.Xml.XmlNode cteStatusServicoCT(
         [System.Xml.Serialization.XmlElementAttribute(
-            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta")] System.Xml.XmlNode cteDadosMsg)
+            Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")] System.Xml.XmlNode cteDadosMsg)
         {
-            object[] results = this.Invoke("cteConsultaCT", new object[]
+            object[] results = this.Invoke("cteStatusServicoCT", new object[]
             {
                 cteDadosMsg
             });
@@ -108,50 +108,50 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
         }
 
         /// <remarks/>
-        public System.IAsyncResult BegincteConsultaCT(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
+        public System.IAsyncResult BegincteStatusServicoCT(System.Xml.XmlNode cteDadosMsg, System.AsyncCallback callback,
             object asyncState)
         {
-            return this.BeginInvoke("cteConsultaCT", new object[]
+            return this.BeginInvoke("cteStatusServicoCT", new object[]
             {
                 cteDadosMsg
             }, callback, asyncState);
         }
 
         /// <remarks/>
-        public System.Xml.XmlNode EndcteConsultaCT(System.IAsyncResult asyncResult)
+        public System.Xml.XmlNode EndcteStatusServicoCT(System.IAsyncResult asyncResult)
         {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode) (results[0]));
         }
 
         /// <remarks/>
-        public void cteConsultaCTAsync(System.Xml.XmlNode cteDadosMsg)
+        public void cteStatusServicoCTAsync(System.Xml.XmlNode cteDadosMsg)
         {
-            this.cteConsultaCTAsync(cteDadosMsg, null);
+            this.cteStatusServicoCTAsync(cteDadosMsg, null);
         }
 
         /// <remarks/>
-        public void cteConsultaCTAsync(System.Xml.XmlNode cteDadosMsg, object userState)
+        public void cteStatusServicoCTAsync(System.Xml.XmlNode cteDadosMsg, object userState)
         {
-            if ((this.cteConsultaCTOperationCompleted == null))
+            if ((this.cteStatusServicoCTOperationCompleted == null))
             {
-                this.cteConsultaCTOperationCompleted =
-                    new System.Threading.SendOrPostCallback(this.OncteConsultaCTOperationCompleted);
+                this.cteStatusServicoCTOperationCompleted =
+                    new System.Threading.SendOrPostCallback(this.OncteStatusServicoCTOperationCompleted);
             }
-            this.InvokeAsync("cteConsultaCT", new object[]
+            this.InvokeAsync("cteStatusServicoCT", new object[]
             {
                 cteDadosMsg
-            }, this.cteConsultaCTOperationCompleted, userState);
+            }, this.cteStatusServicoCTOperationCompleted, userState);
         }
 
-        private void OncteConsultaCTOperationCompleted(object arg)
+        private void OncteStatusServicoCTOperationCompleted(object arg)
         {
-            if ((this.cteConsultaCTCompleted != null))
+            if ((this.cteStatusServicoCTCompleted != null))
             {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs =
                     ((System.Web.Services.Protocols.InvokeCompletedEventArgs) (arg));
-                this.cteConsultaCTCompleted(this,
-                    new cteConsultaCTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
+                this.cteStatusServicoCTCompleted(this,
+                    new cteStatusServicoCTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
                         invokeArgs.UserState));
             }
         }
@@ -168,8 +168,8 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta",
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico",
         IsNullable = false)]
     public partial class cteCabecMsg : System.Web.Services.Protocols.SoapHeader
     {
@@ -205,18 +205,18 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
-    public delegate void cteConsultaCTCompletedEventHandler(object sender, cteConsultaCTCompletedEventArgs e);
+    public delegate void cteStatusServicoCTCompletedEventHandler(object sender, cteStatusServicoCTCompletedEventArgs e);
 
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class cteConsultaCTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    public partial class cteStatusServicoCTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
     {
 
         private object[] results;
 
-        internal cteConsultaCTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
+        internal cteStatusServicoCTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled,
             object userState) :
             base(exception, cancelled, userState)
         {
@@ -233,6 +233,4 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.ConsultaProtocolo
             }
         }
     }
-
-
 }
