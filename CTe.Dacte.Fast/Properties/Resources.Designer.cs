@@ -63,6 +63,16 @@ namespace CTe.Dacte.Fast.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] CTeEvento {
+            get {
+                object obj = ResourceManager.GetObject("CTeEvento", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] CTeRetrato {
             get {
                 object obj = ResourceManager.GetObject("CTeRetrato", resourceCulture);

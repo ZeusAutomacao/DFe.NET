@@ -61,17 +61,13 @@ namespace CTe.Utils.Inutilizacao
         }
 
         
-        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe)
+        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome)
         {
             var instanciaServico = ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var chaveNome = retInutCTe.infInut.ano + retInutCTe.infInut.CNPJ
-                            + (int) retInutCTe.infInut.mod + retInutCTe.infInut.serie + retInutCTe.infInut.nCTIni.Value.ToString("D9") +
-                            retInutCTe.infInut.nCTFin.Value.ToString("D9");
 
             var arquivoSalvar = caminhoXml + @"\" + chaveNome + "-inu.xml";
 
