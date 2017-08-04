@@ -1,6 +1,6 @@
 ﻿using DFe.CertificadosDigitais;
 using DFe.Configuracao;
-using DFe.MDFe.Facade;
+using DFe.DocumentosEletronicos.MDFe.Facade;
 
 namespace DFe.Facade
 {

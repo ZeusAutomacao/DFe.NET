@@ -37,11 +37,11 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using DFe.DocumentosEletronicos.NFe.Classes;
+using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Consulta;
+using DFe.DocumentosEletronicos.NFe.Utils.NFe;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
-using DFe.NFe.Classes;
-using DFe.NFe.Classes.Servicos.Consulta;
-using DFe.NFe.Utils.NFe;
 using DFe.Utils;
 using NFe.Danfe.Fast.NFCe;
 using NFe.Danfe.Fast.NFe;
@@ -175,7 +175,7 @@ namespace NFe.Danfe.AppTeste
                 var arquivoXml = Funcoes.BuscarArquivoXml();
                 if (string.IsNullOrEmpty(arquivoXml))
                     return;
-                var nfe = new DFe.NFe.Classes.NFe().CarregarDeArquivoXml(arquivoXml);
+                var nfe = new DFe.DocumentosEletronicos.NFe.Classes.NFe().CarregarDeArquivoXml(arquivoXml);
                 if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
 

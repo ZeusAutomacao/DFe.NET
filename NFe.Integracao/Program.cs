@@ -39,7 +39,7 @@
 
 using System;
 using System.IO;
-using DFe.NFe.Classes.Servicos.ConsultaCadastro;
+using DFe.DocumentosEletronicos.NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Integracao.Enums;
 
 namespace NFe.Integracao

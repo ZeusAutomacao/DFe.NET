@@ -35,30 +35,29 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DFe.CertificadosDigitais.Implementacao;
+using DFe.DocumentosEletronicos.MDFe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
+using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Adicionais;
+using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.DocumentosFiscais;
+using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Identificacao;
+using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Rodoviario;
+using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Seguro;
+using DFe.DocumentosEletronicos.MDFe.Classes.Retorno;
+using DFe.DocumentosEletronicos.MDFe.Facade;
+using DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
+using DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaProtocoloMDFe;
+using DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe;
+using DFe.DocumentosEletronicos.MDFe.Servicos.RecepcaoMDFe;
+using DFe.DocumentosEletronicos.MDFe.Servicos.RetRecepcaoMDFe;
 using DFe.Entidades;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
-using DFe.MDFe.Classes.Extensoes;
-using DFe.MDFe.Classes.Flags;
-using DFe.MDFe.Classes.Informacoes.Adicionais;
-using DFe.MDFe.Classes.Informacoes.DocumentosFiscais;
-using DFe.MDFe.Classes.Informacoes.Identificacao;
-using DFe.MDFe.Classes.Informacoes.Modal.Rodoviario;
-using DFe.MDFe.Classes.Informacoes.Seguro;
-using DFe.MDFe.Classes.Retorno;
-using DFe.MDFe.Facade;
-using DFe.MDFe.Servicos.ConsultaNaoEncerradosMDFe;
-using DFe.MDFe.Servicos.ConsultaProtocoloMDFe;
-using DFe.MDFe.Servicos.EventosMDFe;
-using DFe.MDFe.Servicos.RecepcaoMDFe;
-using DFe.MDFe.Servicos.RetRecepcaoMDFe;
-using DFe.MDFe.Servicos.StatusServicoMDFe;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
-using MDFeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
+using MDFeEletronico = DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace MDFe.AppTeste
@@ -1127,7 +1126,7 @@ namespace MDFe.AppTeste
             {
                 try
                 {
-                    var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoArquivoXml);
+                    var enviMDFe = DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviMDFe.MDFe.Chave();
                 }
@@ -1233,7 +1232,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
@@ -1281,7 +1280,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }
@@ -1326,7 +1325,7 @@ namespace MDFe.AppTeste
 
             try
             {
-                var enviMDFe = DFe.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
+                var enviMDFe = DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao.enviMDFe.LoadXmlArquivo(caminhoXml);
 
                 mdfe = enviMDFe.MDFe;
             }

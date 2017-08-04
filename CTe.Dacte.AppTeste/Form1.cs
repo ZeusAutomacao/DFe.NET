@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DFe.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.ManipuladorDeXml;
 using DFe.Utils;
 

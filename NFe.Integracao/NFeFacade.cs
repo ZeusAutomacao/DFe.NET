@@ -33,19 +33,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.DocumentosEletronicos.NFe.Classes.Servicos.ConsultaCadastro;
+using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.NFe.Servicos;
+using DFe.DocumentosEletronicos.NFe.Servicos.Retorno;
+using DFe.DocumentosEletronicos.NFe.Utils;
+using DFe.DocumentosEletronicos.NFe.Utils.NFe;
 using DFe.Entidades;
 using DFe.Ext;
 using DFe.Flags;
-using DFe.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.NFe.Classes.Servicos.ConsultaCadastro;
-using DFe.NFe.Classes.Servicos.Status;
-using DFe.NFe.Classes.Servicos.Tipos;
-using DFe.NFe.Servicos;
-using DFe.NFe.Servicos.Retorno;
-using DFe.NFe.Utils;
-using DFe.NFe.Utils.NFe;
 using DFe.Utils;
-using TipoAmbiente = DFe.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Integracao
 {
@@ -71,11 +71,11 @@ namespace NFe.Integracao
         /// <param name="numLote"></param>
         /// <param name="nfe"></param>
         /// <returns></returns>
-        public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, DFe.NFe.Classes.NFe nfe)
+        public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, DFe.DocumentosEletronicos.NFe.Classes.NFe nfe)
         {
             nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
             var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
-            return servicoNFe.NFeAutorizacao(numLote, IndicadorSincronizacao.Assincrono, new List<DFe.NFe.Classes.NFe> { nfe });
+            return servicoNFe.NFeAutorizacao(numLote, IndicadorSincronizacao.Assincrono, new List<DFe.DocumentosEletronicos.NFe.Classes.NFe> { nfe });
         }
 
         /// <summary>

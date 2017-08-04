@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.IO;
-using DFe.MDFe.Classes.Retorno;
+using DFe.DocumentosEletronicos.MDFe.Classes.Retorno;
 using FastReport;
 using FastReport.Export.Pdf;
 using MDFe.Damdfe.Base;
