@@ -313,6 +313,7 @@
     <Compile Include="CTe\Wsdl\Recepcao\CteRecepcao.cs" />
     <Compile Include="CTe\Wsdl\RetRecepcao\CteRetRecepcao.cs" />
     <Compile Include="CTe\Wsdl\Status\CteStatusServico.cs" />
+    <Compile Include="Facade\FacadeBase.cs" />
     <Compile Include="MDFe\Classes\Informacoes\Modal\ModalContainer.cs" />
     <Compile Include="MDFe\Classes\Extensoes\ExtMDFe.cs" />
     <Compile Include="MDFe\Classes\Extensoes\ExtconsReciMDFe.cs" />
@@ -421,6 +422,7 @@
     <Compile Include="MDFe\Classes\Retorno\RetornoBase.cs" />
     <Compile Include="MDFe\Classes\Servicos\Autorizacao\enviMDFe.cs" />
     <Compile Include="Configuracao\DFeConfig.cs" />
+    <Compile Include="MDFe\Facade\ControleCache.cs" />
     <Compile Include="MDFe\Facade\MDFeFacade.cs" />
     <Compile Include="MDFe\Servicos\ConsultaNaoEncerradosMDFe\MDFeConsultaNaoEncerradas.cs" />
     <Compile Include="MDFe\Servicos\ConsultaProtocoloMDFe\MDFeConsulta.cs" />

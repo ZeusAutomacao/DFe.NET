@@ -1,5 +1,6 @@
 ﻿using DFe.CertificadosDigitais;
 using DFe.Configuracao;
+using DFe.Facade;
 using DFe.MDFe.Classes.Retorno.Autorizacao;
 using DFe.MDFe.Classes.Retorno.ConsultaNaoEncerrados;
 using DFe.MDFe.Classes.Retorno.ConsultaProtocolo;
@@ -16,11 +17,8 @@ using MdfeEletronico = DFe.MDFe.Classes.Informacoes.MDFe;
 
 namespace DFe.MDFe.Facade
 {
-    public class MDFeFacade
+    public class MDFeFacade : FacadeBase
     {
-        private DFeConfig DfeConfig { get; }
-        private CertificadoDigital CertificadoDigital { get; set; }
-
         private readonly MDFeEnviarLote _enviarLote;
         private readonly MDFeConsultaLote _consultaLote;
         private readonly MDFeStatusConsulta _statusConsulta;
@@ -30,10 +28,9 @@ namespace DFe.MDFe.Facade
         private readonly MDFeIncluirCondutor _incluirCondutor;
         private readonly MDFeEncerrar _encerrar;
 
-        public MDFeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        public MDFeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital) : base(dfeConfig, certificadoDigital)
         {
             DfeConfig = dfeConfig;
-            DefineConfiguracaoCertificadoDigital(dfeConfig, certificadoDigital);
 
             _enviarLote = new MDFeEnviarLote(DfeConfig, CertificadoDigital);
             _consultaLote = new MDFeConsultaLote(DfeConfig, CertificadoDigital);
@@ -43,13 +40,6 @@ namespace DFe.MDFe.Facade
             _consultaNaoEncerradas = new MDFeConsultaNaoEncerradas(DfeConfig, CertificadoDigital);
             _incluirCondutor = new MDFeIncluirCondutor(DfeConfig, certificadoDigital);
             _encerrar = new MDFeEncerrar(DfeConfig, CertificadoDigital);
-        }
-
-        private void DefineConfiguracaoCertificadoDigital(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
-        {
-            if (VerificaSeTemCache(dfeConfig, certificadoDigital)) return;
-
-            CertificadoDigital = certificadoDigital;
         }
 
         public retEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)
@@ -90,24 +80,6 @@ namespace DFe.MDFe.Facade
         public retEventoMDFe Encerrar(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
             return _encerrar.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
-        }
-
-        private bool VerificaSeTemCache(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
-        {
-            if (!dfeConfig.IsEfetuarCacheCertificadoDigital) return false;
-
-            var certificadoDigitalBuscado =
-                dfeConfig.ProxyCacheCertificadoDigital.BuscarPorCnpjEmitente(dfeConfig.CnpjEmitente);
-
-            if (certificadoDigitalBuscado != null)
-            {
-                CertificadoDigital = certificadoDigitalBuscado;
-                return true;
-            }
-
-            dfeConfig.ProxyCacheCertificadoDigital.Adicionar(dfeConfig.CnpjEmitente, certificadoDigital);
-            CertificadoDigital = certificadoDigital;
-            return true;
         }
     }
 }

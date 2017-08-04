@@ -1196,7 +1196,7 @@ namespace MDFe.AppTeste
             var configMdfe = CarregarConfiguracoesMDFe(config);
             var configCert = CarregarCertitifcado(config);
 
-            var servicoStatusServico = new MDFeStatusConsulta(configMdfe, configCert);
+            var servicoStatusServico = new MDFeFacade(configMdfe, configCert);
 
             var retorno = servicoStatusServico.StatusConsulta();
 
