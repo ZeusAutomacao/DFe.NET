@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 

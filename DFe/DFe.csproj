@@ -240,8 +240,8 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Protocolo\infProt.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Protocolo\protCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Consulta\consSitCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Consulta\procEventoCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Consulta\retConsSitCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Consulta\procEventoCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Consulta\retConsSitCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\dest.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\detEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\detEventoTipos.cs" />
@@ -252,9 +252,9 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\eventoCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\Flags\TipoEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\infEventoEnv.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\infEventoRet.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\infEventoRet.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\retEnvEvento.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Evento\retEventoCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\retEventoCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\infInutEnv.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\infInutRet.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\inutCTe.cs" />
@@ -756,7 +756,9 @@
     <Compile Include="ManipuladorDeXml\FuncoesXml.cs" />
     <Compile Include="Ext\Reflexao.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DocumentosEletronicos\CTe\Classes\Retorno\Autorizacao\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="DocumentosEletronicos\NFe\Classes\NFe.Classes.licenseheader" />
     <None Include="DocumentosEletronicos\NFe\Servicos\NFe.Servicos.cd" />

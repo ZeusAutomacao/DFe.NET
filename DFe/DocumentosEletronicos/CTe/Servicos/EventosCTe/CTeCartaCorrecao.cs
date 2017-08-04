@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Collections.Generic;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;

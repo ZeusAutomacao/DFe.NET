@@ -33,6 +33,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.Entidades;
 using DFe.Flags;
 

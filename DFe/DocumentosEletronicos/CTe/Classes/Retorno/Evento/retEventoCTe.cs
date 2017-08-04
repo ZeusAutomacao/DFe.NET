@@ -32,10 +32,12 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class retEventoCTe : RetornoBase

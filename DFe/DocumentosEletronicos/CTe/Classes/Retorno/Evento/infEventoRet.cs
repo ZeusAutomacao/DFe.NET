@@ -37,7 +37,7 @@ using DFe.Assinatura;
 using DFe.Entidades;
 using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento
 {
     public class infEventoRet
     {
