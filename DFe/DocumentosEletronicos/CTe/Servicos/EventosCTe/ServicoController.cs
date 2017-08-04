@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
@@ -43,18 +45,18 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class ServicoController : IServicoController
     {
-        public retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
+        public retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento, DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente, tipoEvento, sequenciaEvento, container);
+            var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente, tipoEvento, sequenciaEvento, container, config);
             evento.Assina();
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco();
+            evento.ValidarSchema(config);
+            evento.SalvarXmlEmDisco(config);
 
-            var webService = WsdlFactory.CriaWsdlCteEvento();
+            var webService = WsdlFactory.CriaWsdlCteEvento(config, certificadoDigital);
             var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(config);
 
             return retorno;
         }

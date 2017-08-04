@@ -33,9 +33,10 @@
 
 using System;
 using System.Xml;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -43,17 +44,17 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
     public static class ExtconsSitCTe
     {
 
-        public static void ValidarSchema(this consSitCTe consSitCTe)
+        public static void ValidarSchema(this consSitCTe consSitCTe, DFeConfig config)
         {
             var xmlValidacao = consSitCTe.ObterXmlString();
 
             switch (consSitCTe.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", config);
                     break;
                 default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
                                                         "a versão está inválida, somente é permitido " +
@@ -71,13 +72,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(pedConsulta);
         }
 
-        public static void SalvarXmlEmDisco(this consSitCTe statuServCte)
+        public static void SalvarXmlEmDisco(this consSitCTe statuServCte, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\-ped-sit.xml";
 

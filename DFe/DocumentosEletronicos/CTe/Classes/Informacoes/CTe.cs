@@ -35,6 +35,7 @@ using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
@@ -47,24 +48,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
         /// CTeOs
         /// </summary>
         [XmlIgnore]
-        public versao? versao { get; set; }
+        public VersaoServico? versao { get; set; }
 
         [XmlAttribute(AttributeName = "versao")]
         public string ProxyVersao
         {
-            get
-            {
-                if (versao == null) return null;
-                return versao.Value.GetString();
-            }
-            set
-            {
-                if(value.Equals("2.00"))
-                    versao = Flags.versao.ve200;
-
-                if(value.Equals("3.00"))
-                    versao = Flags.versao.ve300;
-            }
+            get;
+            set;
         }
 
         public bool versaoSpecified { get { return versao.HasValue; } }

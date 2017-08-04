@@ -33,10 +33,12 @@
 
 using System;
 using DFe.Assinatura;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -83,7 +85,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna um objeto CTe devidamente tradado</returns>
-        public static void ValidaSchema(this CteEletronica cte)
+        public static void ValidaSchema(this CteEletronica cte, DFeConfig config)
         {
             if (cte == null) throw new ArgumentNullException("cte");
 
@@ -91,11 +93,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             switch (cte.infCte.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "cte_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "cte_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "cte_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "cte_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -112,68 +114,68 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                     case versaoModal.veM200:
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
                         {
-                            Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
                         {
-                            Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
                         {
-                            Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
                         {
-                            Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
                         {
-                            Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd");
+                            Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd", config);
                         }
                         break;
                     case versaoModal.veM300:
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
                         {
-                            Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
                         {
-                            Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
                         {
-                            Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
                         {
-                            Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
                         {
-                            Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd");
+                            Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd", config);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v.3.00.xsd");
+                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v.3.00.xsd", config);
                         }
                         break;
                     default:
@@ -189,11 +191,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna um objeto do tipo CTe assinado</returns>
-        public static void Assina(this CteEletronica cte)
+        public static void Assina(this CteEletronica cte, DFeConfig config)
         {
             if (cte == null) throw new ArgumentNullException("cte");
-
-            var configuracaoServico = ConfiguracaoServico.Instancia;
 
             var modeloDocumentoFiscal = cte.infCte.ide.mod;
             var tipoEmissao = (int)cte.infCte.ide.tpEmis;
@@ -207,7 +207,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             cte.infCte.Id = "CTe" + dadosChave.Chave;
-            cte.infCte.versao = configuracaoServico.VersaoLayout;
+            cte.infCte.versao = config.VersaoServico;
             cte.infCte.ide.cDV = dadosChave.DigitoVerificador;
 
            // todo ajustar var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, configuracaoServico.X509Certificate2);
@@ -221,13 +221,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return chave;
         }
 
-        public static void SalvarXmlEmDisco(this CteEletronica cte)
+        public static void SalvarXmlEmDisco(this CteEletronica cte, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
 

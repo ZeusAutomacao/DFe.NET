@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.Configuracao;
 using DFe.Entidades;
 using DFe.Flags;
 
@@ -40,26 +40,22 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers
 {
     public class UrlHelper
     {
-        public static UrlCTe ObterUrlServico()
+        public static UrlCTe ObterUrlServico(DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            switch (configuracaoServico.tpAmb)
+            switch (config.TipoAmbiente)
             {
                 case TipoAmbiente.Homologacao:
-                    return UrlHomologacao();
+                    return UrlHomologacao(config);
                 case TipoAmbiente.Producao:
-                    return UrlProducao();
+                    return UrlProducao(config);
             }
 
             throw new InvalidOperationException("Tipo Ambiente inválido");
         }
 
-        private static UrlCTe UrlProducao()
+        private static UrlCTe UrlProducao(DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            switch (configuracaoServico.cUF)
+            switch (config.EstadoUf)
             {
                 case Estado.MT:
                     return new UrlCTe
@@ -177,11 +173,9 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers
 
         }
 
-        private static UrlCTe UrlHomologacao()
+        private static UrlCTe UrlHomologacao(DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            switch (configuracaoServico.cUF)
+            switch (config.EstadoUf)
             {
                 case Estado.MT:
                     return new UrlCTe

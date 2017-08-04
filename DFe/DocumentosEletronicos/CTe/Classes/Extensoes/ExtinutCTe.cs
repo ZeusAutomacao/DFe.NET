@@ -33,9 +33,13 @@
 
 using System;
 using System.Xml;
+using DFe.Assinatura;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.DocumentosEletronicos.NFe.Utils;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -44,9 +48,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
     {
         public static void Assinar(this inutCTe inutCTe)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            // todo inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
+           // todo inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
                 // todo configuracaoServico.X509Certificate2);
         }
 
@@ -61,18 +63,18 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
         }
 
-        public static void ValidarShcema(this inutCTe inutCTe)
+        public static void ValidarShcema(this inutCTe inutCTe, DFeConfig config)
         {
 
             var xmlValidacao = inutCTe.ObterXmlString();
 
             switch (inutCTe.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -81,13 +83,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             }
         }
 
-        public static void SalvarXmlEmDisco(this inutCTe inutCTe)
+        public static void SalvarXmlEmDisco(this inutCTe inutCTe, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\"+inutCTe.infInut.Id+ "-ped-inu.xml";
 

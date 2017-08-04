@@ -33,7 +33,7 @@
 
 using System;
 using System.Text;
-using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 
@@ -41,10 +41,8 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
 {
     public class FactoryEvento
     {
-        public static eventoCTe CriaEvento(string chave, string cnpjEmitente, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        public static eventoCTe CriaEvento(string chave, string cnpjEmitente, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container, DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             var id = new StringBuilder("ID");
             id.Append((int)tipoEvento);
             id.Append(chave);
@@ -52,19 +50,19 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
 
             return new eventoCTe
             {
-                versao = configuracaoServico.VersaoLayout,
+                versao = config.VersaoServico,
                 infEvento = new infEventoEnv
                 {
-                    tpAmb = configuracaoServico.tpAmb,
+                    tpAmb = config.TipoAmbiente,
                     CNPJ = cnpjEmitente,
-                    cOrgao = configuracaoServico.cUF,
+                    cOrgao = config.EstadoUf,
                     chCTe = chave,
                     dhEvento = DateTime.Now,
                     nSeqEvento = sequenciaEvento,
                     tpEvento = tipoEvento,
                     detEvento = new detEvento
                     {
-                        versaoEvento = configuracaoServico.VersaoLayout,
+                        versaoEvento = config.VersaoServico,
                         EventoContainer = container
                     },
                     Id = id.ToString()

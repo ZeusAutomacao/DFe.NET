@@ -33,27 +33,29 @@
 
 using System;
 using System.Xml;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Entidades;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtEnvCte
     {
-        public static void ValidaSchema(this enviCTe enviCTe)
+        public static void ValidaSchema(this enviCTe enviCTe, DFeConfig config)
         {
             var xmlValidacao = enviCTe.ObterXmlString();
 
             switch (enviCTe.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -72,26 +74,24 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(pedEnvio);
         }
 
-        public static void SalvarXmlEmDisco(this enviCTe enviCte)
+        public static void SalvarXmlEmDisco(this enviCTe enviCte, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
 
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
         }
 
-        public static XmlDocument CriaRequestWs(this enviCTe enviCTe)
+        public static XmlDocument CriaRequestWs(this enviCTe enviCTe, DFeConfig config)
         {
             var request = new XmlDocument();
 
             var xml = enviCTe.ObterXmlString();
 
-            if (ConfiguracaoServico.Instancia.cUF == Estado.PR)
+            if (config.EstadoUf == Estado.PR)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 

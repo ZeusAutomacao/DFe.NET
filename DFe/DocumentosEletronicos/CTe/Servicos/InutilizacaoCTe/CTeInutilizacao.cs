@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
@@ -65,21 +67,30 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
 
     public class CTeInutilizacao
     {
+        private readonly DFeConfig _config;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeInutilizacao(DFeConfig config, CertificadoDigital certificadoDigital)
+        {
+            _config = config;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public retInutCTe Inutilizacao(ConfigInutiliza configInutiliza)
         {
             Validacoes(configInutiliza);
 
-            var inutCte = ClassesFactory.CriaInutCTe(configInutiliza);
+            var inutCte = ClassesFactory.CriaInutCTe(configInutiliza, _config);
             inutCte.Assinar();
-            inutCte.ValidarShcema();
-            inutCte.SalvarXmlEmDisco();
+            inutCte.ValidarShcema(_config);
+            inutCte.SalvarXmlEmDisco(_config);
 
-            var webService = WsdlFactory.CriaWsdlCteInutilizacao();
+            var webService = WsdlFactory.CriaWsdlCteInutilizacao(_config, _certificadoDigital);
             var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
 
-            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2));
+            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), _config);
 
             return retorno;
         }

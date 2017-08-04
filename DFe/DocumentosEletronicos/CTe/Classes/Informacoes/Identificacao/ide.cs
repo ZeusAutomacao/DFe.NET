@@ -44,9 +44,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Identificacao
 {
     public class ide
     {
-        [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
-
         /// <summary>
         ///     B02 - Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.
         /// </summary>
@@ -92,19 +89,8 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Identificacao
         [XmlElement(ElementName = "dhEmi")]
         public string ProxydhEmi
         {
-            get
-            {
-                switch (_configuracaoServico.VersaoLayout)
-                {
-                    case versao.ve200:
-                        return dhEmi.ParaDataHoraStringSemUtc();
-                    case versao.ve300:
-                        return dhEmi.ParaDataHoraStringUtc();
-                    default:
-                        throw new InvalidOperationException("Versão Inválida para CT-e");
-                }
-            }
-            set { dhEmi = DateTime.Parse(value); }
+            get;
+            set;
         }
 
         public tpImp tpImp { get; set; }

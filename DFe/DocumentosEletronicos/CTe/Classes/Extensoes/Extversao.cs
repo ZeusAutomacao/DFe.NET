@@ -33,18 +33,19 @@
 
 using System;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class Extversao
     {
-        public static string GetString(this versao versao)
+        public static string GetString(this VersaoServico versao)
         {
             switch (versao)
             {
-                    case versao.ve200:
+                    case VersaoServico.Versao200:
                     return "2.00";
-                    case versao.ve300:
+                    case VersaoServico.Versao300:
                     return "3.00";
                 default:
                     throw new InvalidOperationException("A emissão do CT-e possui apenas a versão 2.00 é 3.00");

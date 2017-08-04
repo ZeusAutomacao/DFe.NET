@@ -73,7 +73,6 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoEventoManifestacaoDestinatario.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\versao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Ext\Valor.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="CertificadosDigitais\Implementacao\DFeConfigCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\CertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\IDFeConfigCertificadoDigital.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\ConfiguracaoServico.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\CTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\cteProc.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Extensoes\Extversao.cs" />
@@ -442,7 +440,7 @@
     <Compile Include="DocumentosEletronicos\MDFe\Servicos\EnviarLoteMDFe\MDFeEnviarLote.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Servicos\ConsultaLoteMDFe\MDFeConsultaLote.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Servicos\StatusServicoMDFe\MDFeStatusConsulta.cs" />
-    <Compile Include="DocumentosEletronicos\MDFe\Classes\Flags\VersaoServico.cs" />
+    <Compile Include="Flags\VersaoServico.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Validacao\Validador.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />

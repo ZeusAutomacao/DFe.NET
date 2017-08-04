@@ -35,6 +35,7 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes

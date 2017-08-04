@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
@@ -47,72 +49,70 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
 {
     public class WsdlFactory
     {
-        public static CteStatusServico CriaWsdlCteStatusServico()
+        public static CteStatusServico CriaWsdlCteStatusServico(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteStatusServico;
+            var url = UrlHelper.ObterUrlServico(config).CteStatusServico;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteStatusServico(configuracaoWsdl);
         }
 
-        public static CteConsulta CriaWsdlConsultaProtocolo()
+        public static CteConsulta CriaWsdlConsultaProtocolo(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteConsulta;
+            var url = UrlHelper.ObterUrlServico(config).CteConsulta;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteConsulta(configuracaoWsdl);
         }
 
-        public static CteInutilizacao CriaWsdlCteInutilizacao()
+        public static CteInutilizacao CriaWsdlCteInutilizacao(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteInutilizacao;
+            var url = UrlHelper.ObterUrlServico(config).CteInutilizacao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteInutilizacao(configuracaoWsdl);
         }
 
-        public static CteRetRecepcao CriaWsdlCteRetRecepcao()
+        public static CteRetRecepcao CriaWsdlCteRetRecepcao(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteRetRecepcao;
+            var url = UrlHelper.ObterUrlServico(config).CteRetRecepcao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteRetRecepcao(configuracaoWsdl);
         }
 
-        public static CteRecepcao CriaWsdlCteRecepcao()
+        public static CteRecepcao CriaWsdlCteRecepcao(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteRecepcao;
+            var url = UrlHelper.ObterUrlServico(config).CteRecepcao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteRecepcao(configuracaoWsdl);
         }
 
-        public static CteRecepcaoEvento CriaWsdlCteEvento()
+        public static CteRecepcaoEvento CriaWsdlCteEvento(DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var url = UrlHelper.ObterUrlServico().CteRecepcaoEvento;
+            var url = UrlHelper.ObterUrlServico(config).CteRecepcaoEvento;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteRecepcaoEvento(configuracaoWsdl);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url)
+        private static WsdlConfiguracao CriaConfiguracao(string url, DFeConfig config, CertificadoDigital certificadoDigital)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            var codigoEstado = configuracaoServico.cUF.GetCodigoIbgeEmString();
-            var certificadoDigital = configuracaoServico.X509Certificate2;
-            var versaoEmString = configuracaoServico.VersaoLayout.GetString();
-            var timeOut = configuracaoServico.TimeOut;
+            var codigoEstado = config.EstadoUf.GetCodigoIbgeEmString();
+            var certificadoDigitalX509 = certificadoDigital.ObterCertificadoDigital();
+            var versaoEmString = config.VersaoServico.GetString();
+            var timeOut = config.TimeOut;
 
             return new WsdlConfiguracao
             {
-                CertificadoDigital = certificadoDigital,
+                CertificadoDigital = certificadoDigitalX509,
                 Versao = versaoEmString,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,

@@ -42,10 +42,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
 {
     public class infEventoEnv
     {
-
-        [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
-
         /// <summary>
         ///     HP07 - Grupo de informações do registro do Evento
         /// </summary>
@@ -81,20 +77,8 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
         [XmlElement(ElementName = "dhEvento")]
         public string ProxydhEvento
         {
-            get
-            {
-                switch (_configuracaoServico.VersaoLayout)
-                {
-                    case versao.ve200:
-                        return dhEvento.ParaDataHoraStringSemUtc();
-                    case versao.ve300:
-                        return dhEvento.ParaDataHoraStringUtc();
-                    default:
-                        throw new InvalidOperationException("Versão Inválida para CT-e");
-                }
-            }
-
-            set { dhEvento = Convert.ToDateTime(value); }
+            get;
+            set;
         }
 
         /// <summary>

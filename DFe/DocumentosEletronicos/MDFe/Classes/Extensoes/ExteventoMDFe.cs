@@ -40,6 +40,7 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 using DFe.ResolvePastas;
 using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;

@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
 {
@@ -48,7 +48,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
         ///     PR02 - Versão do leiaute das informações de Protocolo.
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     PR03 - Informações do Protocolo de resposta. TAG a ser assinada

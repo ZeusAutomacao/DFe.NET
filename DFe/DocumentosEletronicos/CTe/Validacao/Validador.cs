@@ -35,17 +35,16 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes;
 
 namespace DFe.DocumentosEletronicos.CTe.Validacao
 {
     public static class Validador
     {
-        public static void Valida(string xml, string schema)
+        public static void Valida(string xml, string schema, DFeConfig config)
         {
-            var servicoInstancia = ConfiguracaoServico.Instancia;
-
-            var pathSchema = servicoInstancia.DiretorioSchemas;
+            var pathSchema = config.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);

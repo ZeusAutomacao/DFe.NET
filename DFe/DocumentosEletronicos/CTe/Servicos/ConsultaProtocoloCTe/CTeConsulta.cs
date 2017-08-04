@@ -31,26 +31,36 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
 {
     public class CTeConsulta
     {
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeConsulta(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public retConsSitCTe Consulta(string chave)
         {
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave);
-            consSitCTe.ValidarSchema();
-            consSitCTe.SalvarXmlEmDisco();
+            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, _dfeConfig);
+            consSitCTe.ValidarSchema(_dfeConfig);
+            consSitCTe.SalvarXmlEmDisco(_dfeConfig);
 
-            var webService = WsdlFactory.CriaWsdlConsultaProtocolo();
+            var webService = WsdlFactory.CriaWsdlConsultaProtocolo(_dfeConfig, _certificadoDigital);
             var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
 
             var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave);
+            retorno.SalvarXmlEmDisco(chave, _dfeConfig);
 
             return retorno;
         }

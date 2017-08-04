@@ -32,15 +32,15 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
 {
     public class detEvento
     {
         [XmlAttribute]
-        public versao versaoEvento { get; set; }
+        public VersaoServico versaoEvento { get; set; }
 
         [XmlElement("evCancCTe", typeof(evCancCTe), Namespace = "http://www.portalfiscal.inf.br/cte")]
         [XmlElement("evCCeCTe", typeof(evCCeCTe), Namespace = "http://www.portalfiscal.inf.br/cte")]

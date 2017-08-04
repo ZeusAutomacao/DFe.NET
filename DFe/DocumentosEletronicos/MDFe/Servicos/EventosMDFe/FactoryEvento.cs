@@ -39,6 +39,7 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.Ext;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe
 {

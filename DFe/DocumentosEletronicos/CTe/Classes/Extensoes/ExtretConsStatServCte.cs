@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.Ext;
 using DFe.ManipuladorDeXml;
@@ -40,13 +41,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtretConsStatServCte
     {
-        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte)
+        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-sta.xml";
 

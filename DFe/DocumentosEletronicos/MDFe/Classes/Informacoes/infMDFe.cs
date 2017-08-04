@@ -44,6 +44,7 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Lacres;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Seguro;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Totalizadores;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes
 {

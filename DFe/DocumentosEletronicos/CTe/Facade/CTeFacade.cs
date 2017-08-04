@@ -33,14 +33,14 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
 
         public CTeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital) : base(dfeConfig, certificadoDigital)
         {
-            _enviar = new CTeEnviar();
-            _enviarLote = new CTeEnviarLote();
-            _consultaLote = new CTeConsultaLote();
-            _statusConsulta = new CTeStatusConsulta();
-            _consulta = new CTeConsulta();
-            _cancelar = new CTeCancelar();
-            _cartaCorrecao = new CTeCartaCorrecao();
-            _inutilizacao = new CTeInutilizacao();
+            _enviar = new CTeEnviar(DfeConfig, CertificadoDigital);
+            _enviarLote = new CTeEnviarLote(DfeConfig, CertificadoDigital);
+            _consultaLote = new CTeConsultaLote(DfeConfig, CertificadoDigital);
+            _statusConsulta = new CTeStatusConsulta(DfeConfig, CertificadoDigital);
+            _consulta = new CTeConsulta(DfeConfig, CertificadoDigital);
+            _cancelar = new CTeCancelar(DfeConfig, CertificadoDigital);
+            _cartaCorrecao = new CTeCartaCorrecao(DfeConfig, CertificadoDigital);
+            _inutilizacao = new CTeInutilizacao(DfeConfig, CertificadoDigital);
         }
 
         public RetornoEnviarCte Enviar(int lote, CteEletronico cte)

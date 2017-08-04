@@ -33,27 +33,28 @@
 
 using System;
 using System.Xml;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Ext;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtconsStatServCte
     {
-        public static void ValidarSchema(this consStatServCte consStatServCte)
+        public static void ValidarSchema(this consStatServCte consStatServCte, DFeConfig config)
         {
             var xmlValidacao = consStatServCte.ObterXmlString();
 
             switch (consStatServCte.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -72,13 +73,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(pedStatus);
         }
 
-        public static void SalvarXmlEmDisco(this consStatServCte statuServCte)
+        public static void SalvarXmlEmDisco(this consStatServCte statuServCte, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-ped-sta.xml";
 

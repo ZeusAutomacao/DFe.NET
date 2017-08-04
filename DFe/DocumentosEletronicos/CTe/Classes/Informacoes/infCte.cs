@@ -45,13 +45,14 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Recebedor;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Remetente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 {
     public class infCte
     {
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         [XmlAttribute]
         public string Id { get; set; }

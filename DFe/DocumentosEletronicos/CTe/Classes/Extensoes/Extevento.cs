@@ -33,10 +33,12 @@
 
 using System;
 using System.Xml;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -67,17 +69,17 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                 // todo ConfiguracaoServico.Instancia.X509Certificate2);
         }
 
-        public static void ValidarSchema(this eventoCTe eventoCTe)
+        public static void ValidarSchema(this eventoCTe eventoCTe, DFeConfig config)
         {
             var xmlEvento = eventoCTe.ObterXmlString();
 
             switch (eventoCTe.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlEvento, "eventoCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlEvento, "eventoCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlEvento, "eventoCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlEvento, "eventoCTe_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -85,10 +87,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                                                    "versão 2.00 é 3.00");
             }
 
-            ValidarSchemaEventoContainer(eventoCTe.infEvento.detEvento.EventoContainer, eventoCTe.versao);
+            ValidarSchemaEventoContainer(eventoCTe.infEvento.detEvento.EventoContainer, eventoCTe.versao, config);
         }
 
-        private static void ValidarSchemaEventoContainer(EventoContainer container, versao versao)
+        private static void ValidarSchemaEventoContainer(EventoContainer container, VersaoServico versao, DFeConfig config)
         {
             if (container.GetType() == typeof(evCancCTe))
             {
@@ -98,11 +100,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
                 switch (versao)
                 {
-                    case versao.ve200:
-                        Validador.Valida(xmlEventoCancelamento, "evCancCTe_v2.00.xsd");
+                    case VersaoServico.Versao200:
+                        Validador.Valida(xmlEventoCancelamento, "evCancCTe_v2.00.xsd", config);
                         break;
-                    case versao.ve300:
-                        Validador.Valida(xmlEventoCancelamento, "evCancCTe_v3.00.xsd");
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlEventoCancelamento, "evCancCTe_v3.00.xsd", config);
                         break;
                     default:
                         throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -121,11 +123,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
                 switch (versao)
                 {
-                    case versao.ve200:
-                        Validador.Valida(xmlEventoCCe, "evCCeCTe_v2.00.xsd");
+                    case VersaoServico.Versao200:
+                        Validador.Valida(xmlEventoCCe, "evCCeCTe_v2.00.xsd", config);
                         break;
-                    case versao.ve300:
-                        Validador.Valida(xmlEventoCCe, "evCCeCTe_v3.00.xsd");
+                    case VersaoServico.Versao300:
+                        Validador.Valida(xmlEventoCCe, "evCCeCTe_v3.00.xsd", config);
                         break;
                     default:
                         throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -135,13 +137,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             }
         }
 
-        public static void SalvarXmlEmDisco(this eventoCTe eventoCTe)
+        public static void SalvarXmlEmDisco(this eventoCTe eventoCTe, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + eventoCTe.infEvento.chCTe + "-ped-eve.xml";
 

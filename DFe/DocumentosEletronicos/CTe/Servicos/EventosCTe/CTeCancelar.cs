@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
@@ -40,12 +42,20 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class CTeCancelar
     {
+        private readonly DFeConfig _config;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeCancelar(DFeConfig config, CertificadoDigital certificadoDigital)
+        {
+            _config = config;
+            _certificadoDigital = certificadoDigital;
+        }
 
         public retEventoCTe Cancelar(string chave, string cnpjEmitente, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(justificativa, numeroProtocolo);
 
-            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento, _config, _certificadoDigital);
 
             return retorno;
         }

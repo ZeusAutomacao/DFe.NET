@@ -87,6 +87,7 @@ using detEvento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.detEvent
 using evento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.evento;
 using FuncoesXml = DFe.ManipuladorDeXml.FuncoesXml;
 using procEventoNFe = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Consulta.procEventoNFe;
+using VersaoServico = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace DFe.DocumentosEletronicos.NFe.Servicos
 {

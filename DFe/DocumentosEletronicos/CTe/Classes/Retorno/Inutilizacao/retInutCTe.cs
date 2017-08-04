@@ -33,9 +33,8 @@
 
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
@@ -47,7 +46,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
         ///     DR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     DR03 - Dados da resposta - TAG a ser assinada

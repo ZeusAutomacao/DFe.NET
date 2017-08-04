@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.ManipuladorDeXml;
@@ -61,13 +62,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         }
 
         
-        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome)
+        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + chaveNome + "-inu.xml";
 

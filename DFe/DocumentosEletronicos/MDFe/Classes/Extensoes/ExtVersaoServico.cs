@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 {

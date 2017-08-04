@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.Entidades;
 using DFe.Flags;
 
@@ -44,7 +43,7 @@ namespace CTe.AppTeste.Entidades
         public TipoAmbiente Ambiente { get; set; }
         public short Serie { get; set; }
         public long Numeracao { get; set; }
-        public versao Versao { get; set; }
+        public VersaoServico Versao { get; set; }
         public string CaminhoSchemas { get; set; }
         public int TimeOut { get; set; }
     }

@@ -34,6 +34,7 @@
 using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao
 {
@@ -49,7 +50,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao
         ///     DP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     DP03 - Dados do Pedido

@@ -79,6 +79,7 @@ using DFe.Utils.Assinatura;
 using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.DocumentosEletronicos.NFe.Classes.NFe;
 using Reflexao = DFe.Ext.Reflexao;
+using VersaoServico = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.AppTeste
 {

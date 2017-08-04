@@ -40,6 +40,7 @@
         xmlns:enumBindable="clr-namespace:MDFe.AppTeste.EnumBindable"
         xmlns:flags="clr-namespace:DFe.Entidades;assembly=DFe"
         xmlns:flagsCte="clr-namespace:DFe.DocumentosEletronicos.MDFe.Classes.Flags;assembly=DFe"
+        xmlns:flagsCte1="clr-namespace:DFe.Flags;assembly=DFe"
         mc:Ignorable="d"
         Loaded="MDFeTeste_OnLoaded"
         Title="MainWindow" Height="720.696" Width="771.522">
@@ -182,7 +183,7 @@
                                         <GroupBox Header="Versão WebService">
                                             <StackPanel>
                                                 <ComboBox IsEditable="False"
-                                                ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flagsCte:VersaoServico}}}"
+                                                ItemsSource="{Binding Source={enumBindable:EnumBindingSourceExtension {x:Type flagsCte1:VersaoServico}}}"
                                               SelectedItem="{Binding VersaoLayout}">
 
                                                 </ComboBox>

@@ -34,6 +34,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -42,7 +43,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao
     [XmlRoot(ElementName = "enviCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class enviCTe
     {
-        public enviCTe(versao versao, int idLote, List<CteEletronica> cTe)
+        public enviCTe(VersaoServico versao, int idLote, List<CteEletronica> cTe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -57,7 +58,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao
         ///     AP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     AP03 - Identificador de controle do envio do lote.

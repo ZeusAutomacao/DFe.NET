@@ -33,8 +33,6 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.Entidades;
 using DFe.Flags;
@@ -49,7 +47,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico
         ///     FR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     FR03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação

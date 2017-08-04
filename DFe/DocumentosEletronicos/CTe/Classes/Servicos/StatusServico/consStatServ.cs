@@ -49,7 +49,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico
         ///     FP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     FP03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação

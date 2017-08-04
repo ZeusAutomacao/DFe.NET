@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System.Collections.Generic;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
@@ -41,12 +43,21 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class CTeCartaCorrecao
     {
+        private readonly DFeConfig _config;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeCartaCorrecao(DFeConfig config, CertificadoDigital certificadoDigital)
+        {
+            _config = config;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public retEventoCTe CartaCorrecao(string chave, string cnpjEmitente, int sequenciaEvento,
             List<infCorrecao> infCorrecaos)
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(infCorrecaos);
 
-            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
+            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao, _config, _certificadoDigital);
 
             return retorno;
         }

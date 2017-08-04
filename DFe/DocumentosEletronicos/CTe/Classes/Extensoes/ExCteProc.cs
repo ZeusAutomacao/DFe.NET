@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.ManipuladorDeXml;
 using cteProc = DFe.DocumentosEletronicos.CTe.Classes.Retorno.cteProc;
 
@@ -81,15 +82,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoXml);
         }
 
-        public static void SalvarXmlEmDisco(this cteProc cteProc)
+        public static void SalvarXmlEmDisco(this cteProc cteProc, DFeConfig config)
         {
             if (cteProc == null) return;
 
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + cteProc.CTe.Chave() + "-cteproc.xml";
 

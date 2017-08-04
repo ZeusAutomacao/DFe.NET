@@ -32,9 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento
@@ -46,7 +45,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento
         ///     HR10 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     HR11 - Grupo de informações do registro do Evento

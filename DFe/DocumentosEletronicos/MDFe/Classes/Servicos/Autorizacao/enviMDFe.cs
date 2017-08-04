@@ -34,6 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao

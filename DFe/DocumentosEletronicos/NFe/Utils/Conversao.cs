@@ -38,6 +38,7 @@ using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
 using DFe.Flags;
 using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using VersaoServico = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace DFe.DocumentosEletronicos.NFe.Utils
 {

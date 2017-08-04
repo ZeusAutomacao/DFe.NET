@@ -33,8 +33,6 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.Entidades;
 using DFe.Flags;
@@ -49,7 +47,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta
         ///     ER02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     ER03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação

@@ -44,7 +44,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao
         ///     BP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     BP03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação

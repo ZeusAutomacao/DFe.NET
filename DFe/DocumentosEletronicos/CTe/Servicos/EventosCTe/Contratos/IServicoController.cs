@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
@@ -39,7 +41,6 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe.Contratos
 {
     public interface IServicoController
     {
-        retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container,
-            TipoEvento tipoEvento);
+        retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento, DFeConfig config, CertificadoDigital certificadoDigital);
     }
 }

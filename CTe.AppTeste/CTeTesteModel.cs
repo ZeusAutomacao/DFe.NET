@@ -37,6 +37,7 @@ using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
+using DFe.CertificadosDigitais.Implementacao;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
@@ -127,7 +128,7 @@ namespace CTe.AppTeste
         private bool _ambienteHomologacao;
         private string _diretorioSchemas;
         private int _timeOut;
-        private versao _versaoLayout;
+        private VersaoServico _versaoLayout;
 
         #region empresa
 
@@ -369,7 +370,7 @@ namespace CTe.AppTeste
             }
         }
 
-        public versao VersaoLayout
+        public VersaoServico VersaoLayout
         {
             get { return _versaoLayout; }
             set
@@ -580,32 +581,45 @@ namespace CTe.AppTeste
             DiretorioSalvarXml = dlg.SelectedPath;
         }
 
-        private static void CarregarConfiguracoes(Configuracao config)
+        private static CTeConfig CarregarConfiguracoes(Configuracao config)
         {
-            var configuracaoCertificado = new ConfiguracaoCertificado
+            var cteConfig = new CTeConfig();    
+            
+            cteConfig.TimeOut = config.ConfigWebService.TimeOut;
+            cteConfig.EstadoUf = config.ConfigWebService.UfEmitente;
+            cteConfig.TipoAmbiente = config.ConfigWebService.Ambiente;
+            cteConfig.VersaoServico = config.ConfigWebService.Versao;
+            cteConfig.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            cteConfig.IsSalvarXml = config.IsSalvarXml;
+            cteConfig.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            cteConfig.CnpjEmitente = config.Empresa.Cnpj;
+
+            return cteConfig;
+        }
+
+        private static DFeCertificadoDigital CarregarCertitifcado(Configuracao config)
+        {
+            var configCert = new DFeConfigCertificadoDigital
             {
-                Arquivo = config.CertificadoDigital.CaminhoArquivo,
-                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
-                Serial = config.CertificadoDigital.NumeroDeSerie
+                Serial = config.CertificadoDigital.NumeroDeSerie,
+                LocalArquivo = config.CertificadoDigital.CaminhoArquivo,
+                Senha = config.CertificadoDigital.Senha,
+                TipoCertificado = TipoCertificado.A1Repositorio
             };
 
 
-            ConfiguracaoServico.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
-            ConfiguracaoServico.Instancia.TimeOut = config.ConfigWebService.TimeOut;
-            ConfiguracaoServico.Instancia.cUF = config.ConfigWebService.UfEmitente;
-            ConfiguracaoServico.Instancia.tpAmb = config.ConfigWebService.Ambiente;
-            ConfiguracaoServico.Instancia.VersaoLayout = config.ConfigWebService.Versao;
-            ConfiguracaoServico.Instancia.DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
-            ConfiguracaoServico.Instancia.IsSalvarXml = config.IsSalvarXml;
-            ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
+            return new DFeCertificadoDigital(configCert);
         }
+
+
 
         public void ConsultarStatusServico2()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
-            var statusServico = new CTeStatusConsulta();
+            var statusServico = new CTeStatusConsulta(configCTe, certificado);
             var retorno = statusServico.ConsultaStatus();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -642,9 +656,10 @@ namespace CTe.AppTeste
 
 
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
-            var servicoConsultaProtocolo = new CTeConsulta();
+            var servicoConsultaProtocolo = new CTeConsulta(configCTe, certificado);
             var retorno = servicoConsultaProtocolo.Consulta(chave);
 
 
@@ -722,7 +737,8 @@ namespace CTe.AppTeste
         public void InutilizacaoDeNumeracao()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var numeroInicial = int.Parse(InputBoxTuche("Númeração Inicial"));
             var numeroFinal = int.Parse(InputBoxTuche("Númeração Final"));
@@ -738,7 +754,7 @@ namespace CTe.AppTeste
                 justificativa
             );
 
-            var statusServico = new CTeInutilizacao();
+            var statusServico = new CTeInutilizacao(configCTe, certificado);
             var retorno = statusServico.Inutilizacao(configInutilizar);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -747,11 +763,12 @@ namespace CTe.AppTeste
         public void ConsultaPorNumeroRecibo()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var numeroRecibo = InputBoxTuche("Número Recibo");
 
-            var consultaReciboServico = new CTeConsultaLote();
+            var consultaReciboServico = new CTeConsultaLote(configCTe, certificado);
             var retorno = consultaReciboServico.ConsultaLote(numeroRecibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -760,7 +777,8 @@ namespace CTe.AppTeste
         public void EventoCancelarCTe()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var caminho = BuscarArquivoXml();
 
@@ -774,7 +792,7 @@ namespace CTe.AppTeste
             var protocolo = InputBoxTuche("Protocolo");
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
-            var servico = new CTeCancelar();
+            var servico = new CTeCancelar(configCTe, certificado);
             var retorno = servico.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -783,7 +801,8 @@ namespace CTe.AppTeste
         public void CartaCorrecao()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var caminho = BuscarArquivoXml();
 
@@ -814,7 +833,7 @@ namespace CTe.AppTeste
                 }
             }; 
 
-            var servico = new CTeCartaCorrecao();
+            var servico = new CTeCartaCorrecao(configCTe, certificado);
             var retorno = servico.CartaCorrecao(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, correcoes);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -823,7 +842,8 @@ namespace CTe.AppTeste
         public void CriarEnviarCTe2e3()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var cteEletronico = new CteEletronico();
 
@@ -842,7 +862,7 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.CFOP = 5353;
             cteEletronico.infCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.ide.forPag = forPag.Pago;
             }
@@ -869,12 +889,12 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.UFFim = config.Empresa.SiglaUf;
             cteEletronico.infCte.ide.retira = retira.Nao;
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.ide.indIEToma = indIEToma.ContribuinteIcms;
             }
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.ide.tomaBase3 = new toma03
                 {
@@ -882,7 +902,7 @@ namespace CTe.AppTeste
                 };
             }
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.ide.tomaBase3 = new toma3
                 {
@@ -972,7 +992,7 @@ namespace CTe.AppTeste
 
             cteEletronico.infCte.imp.ICMS.TipoICMS = icmsSimplesNacional;
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 icmsSimplesNacional.CST = CST.ICMS90;
             }
@@ -1001,7 +1021,7 @@ namespace CTe.AppTeste
                 chave = "52161021025760000123550010000087341557247948"
             });
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
                 cteEletronico.infCte.infCTeNorm.seg.Add(new seg
@@ -1012,12 +1032,12 @@ namespace CTe.AppTeste
 
             cteEletronico.infCte.infCTeNorm.infModal = new infModal();
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
             }
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
             }
@@ -1025,7 +1045,7 @@ namespace CTe.AppTeste
             var rodoviario = new rodo();
             rodoviario.RNTRC = config.Empresa.RNTRC;
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 rodoviario.dPrev = DateTime.Now;
                 rodoviario.lota = lota.Nao;
@@ -1038,7 +1058,7 @@ namespace CTe.AppTeste
 
             var numeroLote = InputBoxTuche("Número Lote");
 
-            var servicoRecepcao = new CTeEnviarLote();
+            var servicoRecepcao = new CTeEnviarLote(configCTe, certificado);
 
             // Evento executado antes do envio do CT-e para o WebService
             // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
@@ -1069,7 +1089,8 @@ namespace CTe.AppTeste
         public void CriarEnviarCTeConsultaReciboAutomatico2e3()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            var configCTe = CarregarConfiguracoes(config);
+            var certificado = CarregarCertitifcado(config);
 
             var cteEletronico = new CteEletronico();
 
@@ -1088,7 +1109,7 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.CFOP = 5353;
             cteEletronico.infCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.ide.forPag = forPag.Pago;
             }
@@ -1115,12 +1136,12 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.UFFim = config.Empresa.SiglaUf;
             cteEletronico.infCte.ide.retira = retira.Nao;
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.ide.indIEToma = indIEToma.ContribuinteIcms;
             }
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.ide.tomaBase3 = new toma03
                 {
@@ -1128,7 +1149,7 @@ namespace CTe.AppTeste
                 };
             }
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.ide.tomaBase3 = new toma3
                 {
@@ -1218,7 +1239,7 @@ namespace CTe.AppTeste
 
             cteEletronico.infCte.imp.ICMS.TipoICMS = icmsSimplesNacional;
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 icmsSimplesNacional.CST = CST.ICMS90;
             }
@@ -1247,7 +1268,7 @@ namespace CTe.AppTeste
                 chave = "52161021025760000123550010000087341557247948"
             });
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.infCTeNorm.seg = new List<seg>();
                 cteEletronico.infCte.infCTeNorm.seg.Add(new seg
@@ -1258,12 +1279,12 @@ namespace CTe.AppTeste
 
             cteEletronico.infCte.infCTeNorm.infModal = new infModal();
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
             }
 
-            if (config.ConfigWebService.Versao == versao.ve300)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao300)
             {
                 cteEletronico.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
             }
@@ -1271,7 +1292,7 @@ namespace CTe.AppTeste
             var rodoviario = new rodo();
             rodoviario.RNTRC = config.Empresa.RNTRC;
 
-            if (config.ConfigWebService.Versao == versao.ve200)
+            if (config.ConfigWebService.Versao == VersaoServico.Versao200)
             {
                 rodoviario.dPrev = DateTime.Now;
                 rodoviario.lota = lota.Nao;
@@ -1285,7 +1306,7 @@ namespace CTe.AppTeste
             var numeroLote = InputBoxTuche("Número Lote");
 
 
-            var servico = new CTeEnviar();
+            var servico = new CTeEnviar(configCTe, certificado);
 
 
             var retorno = servico.Enviar(Convert.ToInt32(numeroLote), cteEletronico);

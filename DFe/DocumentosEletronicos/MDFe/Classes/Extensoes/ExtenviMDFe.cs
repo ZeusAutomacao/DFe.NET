@@ -37,6 +37,7 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 using DFe.ResolvePastas;
 

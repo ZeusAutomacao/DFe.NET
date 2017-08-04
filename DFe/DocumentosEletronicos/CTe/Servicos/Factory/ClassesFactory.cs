@@ -34,7 +34,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
@@ -42,6 +42,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
+using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Entidades;
 using CTeEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -49,37 +50,31 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
 {
     public class ClassesFactory
     {
-        public static consStatServCte CriaConsStatServCte()
+        public static consStatServCte CriaConsStatServCte(DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             return new consStatServCte
             {
-                versao = configuracaoServico.VersaoLayout,
-                tpAmb = configuracaoServico.tpAmb
+                versao = config.VersaoServico,
+                tpAmb = config.TipoAmbiente
             };
         }
 
-        public static consSitCTe CriarconsSitCTe(string chave)
+        public static consSitCTe CriarconsSitCTe(string chave, DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             return new consSitCTe
             {
-                tpAmb = configuracaoServico.tpAmb,
-                versao = configuracaoServico.VersaoLayout,
+                tpAmb = config.TipoAmbiente,
+                versao = config.VersaoServico,
                 chCTe = chave
             };
         }
 
-        public static inutCTe CriaInutCTe(ConfigInutiliza configInutiliza)
+        public static inutCTe CriaInutCTe(ConfigInutiliza configInutiliza, DFeConfig config)
         {
             if (configInutiliza == null) throw new ArgumentNullException("Preciso de uma configuração de inutilização");
 
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             var id = new StringBuilder("ID");
-            id.Append(configuracaoServico.cUF.GetCodigoIbgeEmString());
+            id.Append(config.EstadoUf.GetCodigoIbgeEmString());
             id.Append(configInutiliza.Cnpj);
             id.Append((byte) configInutiliza.ModeloDocumento);
             id.Append(configInutiliza.Serie.ToString("D3"));
@@ -88,12 +83,12 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
 
             return new inutCTe
             {
-                versao = configuracaoServico.VersaoLayout,
+                versao = config.VersaoServico,
                 infInut = new infInutEnv
                 {
                     Id = id.ToString(),
-                    tpAmb = configuracaoServico.tpAmb,
-                    cUF = configuracaoServico.cUF,
+                    tpAmb = config.TipoAmbiente,
+                    cUF = config.EstadoUf,
                     CNPJ = configInutiliza.Cnpj,
                     ano = configInutiliza.Ano,
                     nCTIni = configInutiliza.NumeroInicial,
@@ -105,14 +100,14 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
             };
         }
 
-        public static consReciCTe CriaConsReciCTe(string recibo)
+        public static consReciCTe CriaConsReciCTe(string recibo, DFeConfig config)
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 
             return new consReciCTe
             {
-                tpAmb = configuracaoServico.tpAmb,
-                versao = configuracaoServico.VersaoLayout,
+                tpAmb = config.TipoAmbiente,
+                versao = config.VersaoServico,
                 nRec = recibo
             };
         }
@@ -134,11 +129,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
             };
         }
 
-        public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList)
+        public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList, DFeConfig config)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            return new enviCTe(configuracaoServico.VersaoLayout, lote, cteEletronicoList);
+            return new enviCTe(config.VersaoServico, lote, cteEletronicoList);
         }
     }
 }

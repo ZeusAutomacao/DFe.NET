@@ -34,6 +34,7 @@
 using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
 {
@@ -44,7 +45,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
         ///     HP05 - Versão do leiaute do evento
         /// </summary>
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         /// <summary>
         ///     HP06 - Grupo de informações do registro do Evento

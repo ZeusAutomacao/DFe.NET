@@ -33,27 +33,28 @@
 
 using System;
 using System.Xml;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtConsReciCTe
     {
-        public static void ValidarSchema(this consReciCTe consReciCTe)
+        public static void ValidarSchema(this consReciCTe consReciCTe, DFeConfig config)
         {
             var xmlValidacao = consReciCTe.ObterXmlString();
 
             switch (consReciCTe.versao)
             {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consReciCTe_v2.00.xsd");
+                case VersaoServico.Versao200:
+                    Validador.Valida(xmlValidacao, "consReciCTe_v2.00.xsd", config);
                     break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consReciCTe_v3.00.xsd");
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlValidacao, "consReciCTe_v3.00.xsd", config);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -72,13 +73,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(consReciCTe);
         }
 
-        public static void SalvarXmlEmDisco(this consReciCTe consReciCTe)
+        public static void SalvarXmlEmDisco(this consReciCTe consReciCTe, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\"+ consReciCTe.nRec + @"-ped-rec.xml";
 
@@ -95,13 +94,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
 
         // Salvar Retorno de Envio de Recibo
-        public static void SalvarXmlEmDisco(this retConsReciCTe retConsReciCTe)
+        public static void SalvarXmlEmDisco(this retConsReciCTe retConsReciCTe, DFeConfig config)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + retConsReciCTe.nRec + @"-rec.xml";
 

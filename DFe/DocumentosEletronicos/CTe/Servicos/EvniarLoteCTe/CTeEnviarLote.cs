@@ -33,7 +33,8 @@
 
 using System;
 using System.Collections.Generic;
-using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
@@ -46,15 +47,22 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 {
     public class CTeEnviarLote
     {
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeEnviarLote(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
 
         public retEnviCte EnviarLote(int lote, List<CTeEletronico> cteEletronicosList)
         {
-            var instanciaConfiguracao = ConfiguracaoServico.Instancia;
+            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList, _dfeConfig);
 
-            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList);
-
-            if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao)
+            if (_dfeConfig.TipoAmbiente == TipoAmbiente.Homologacao)
             {
                 foreach (var cte in enviCte.CTe)
                 {
@@ -68,22 +76,22 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 
             foreach (var cte in enviCte.CTe)
             {
-                cte.Assina();
-                cte.ValidaSchema();
-                cte.SalvarXmlEmDisco();
+                cte.Assina(_dfeConfig);
+                cte.ValidaSchema(_dfeConfig);
+                cte.SalvarXmlEmDisco(_dfeConfig);
             }
 
-            enviCte.ValidaSchema();
-            enviCte.SalvarXmlEmDisco();
+            enviCte.ValidaSchema(_dfeConfig);
+            enviCte.SalvarXmlEmDisco(_dfeConfig);
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+            var webService = WsdlFactory.CriaWsdlCteRecepcao(_dfeConfig, _certificadoDigital);
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
+            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(_dfeConfig));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(_dfeConfig);
 
             return retorno;
         }

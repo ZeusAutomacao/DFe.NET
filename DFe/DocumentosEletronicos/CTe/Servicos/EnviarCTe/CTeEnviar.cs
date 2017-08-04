@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using DFe.CertificadosDigitais;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
@@ -11,9 +13,18 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 {
     public class CTeEnviar
     {
+        private readonly DFeConfig _dfeConfig;
+        private readonly CertificadoDigital _certificadoDigital;
+
+        public CTeEnviar(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            _dfeConfig = dfeConfig;
+            _certificadoDigital = certificadoDigital;
+        }
+
         public RetornoEnviarCte Enviar(int lote, Classes.Informacoes.CTe cte)
         {
-            CTeEnviarLote enviarLote = new CTeEnviarLote();
+            CTeEnviarLote enviarLote = new CTeEnviarLote(_dfeConfig, _certificadoDigital);
 
             retEnviCte retEnviCte = enviarLote.EnviarLote(lote, new List<Classes.Informacoes.CTe> {cte});
 
@@ -22,7 +33,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
                 return new RetornoEnviarCte(retEnviCte, null, null);
             }
 
-            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote();
+            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote(_dfeConfig, _certificadoDigital);
 
             retConsReciCTe retConsReciCTe = servicoCTeConsultaRecibo.ConsultaLote(retEnviCte.infRec.nRec);
 
@@ -39,12 +50,12 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
                 cteProc = new cteProc
                 {
                     CTe = cte,
-                    versao = ConfiguracaoServico.Instancia.VersaoLayout,
+                    versao = cte.infCte.versao,
                     protCTe = retConsReciCTe.protCTe[0]
                 };
             }
 
-            cteProc.SalvarXmlEmDisco();
+            cteProc.SalvarXmlEmDisco(_dfeConfig);
 
             return new RetornoEnviarCte(retEnviCte, retConsReciCTe, cteProc);
         }

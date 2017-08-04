@@ -41,6 +41,7 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Ferroviario;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Rodoviario;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
 using DFe.Entidades;
+using DFe.Flags;
 using DFe.ManipuladorDeXml;
 using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;
 using MDFEletronico = DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.MDFe;

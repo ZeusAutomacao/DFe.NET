@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
 {
@@ -10,7 +10,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
     public class cteProc
     {
         [XmlAttribute]
-        public versao versao { get; set; }
+        public VersaoServico versao { get; set; }
 
         public Informacoes.CTe CTe { get; set; }
 
