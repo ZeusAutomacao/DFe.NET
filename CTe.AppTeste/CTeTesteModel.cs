@@ -38,9 +38,7 @@ using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
 using DFe.CertificadosDigitais.Implementacao;
-using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
@@ -54,9 +52,9 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Remetente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
+using DFe.DocumentosEletronicos.CTe.Facade;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
@@ -619,8 +617,8 @@ namespace CTe.AppTeste
             var configCTe = CarregarConfiguracoes(config);
             var certificado = CarregarCertitifcado(config);
 
-            var statusServico = new CTeStatusConsulta(configCTe, certificado);
-            var retorno = statusServico.ConsultaStatus();
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.StatusConsulta();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -659,8 +657,8 @@ namespace CTe.AppTeste
             var configCTe = CarregarConfiguracoes(config);
             var certificado = CarregarCertitifcado(config);
 
-            var servicoConsultaProtocolo = new CTeConsulta(configCTe, certificado);
-            var retorno = servicoConsultaProtocolo.Consulta(chave);
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.Consulta(chave);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -754,8 +752,8 @@ namespace CTe.AppTeste
                 justificativa
             );
 
-            var statusServico = new CTeInutilizacao(configCTe, certificado);
-            var retorno = statusServico.Inutilizacao(configInutilizar);
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.Inutilizacao(configInutilizar);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -768,8 +766,8 @@ namespace CTe.AppTeste
 
             var numeroRecibo = InputBoxTuche("Número Recibo");
 
-            var consultaReciboServico = new CTeConsultaLote(configCTe, certificado);
-            var retorno = consultaReciboServico.ConsultaLote(numeroRecibo);
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.ConsultaLote(numeroRecibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -792,8 +790,8 @@ namespace CTe.AppTeste
             var protocolo = InputBoxTuche("Protocolo");
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
-            var servico = new CTeCancelar(configCTe, certificado);
-            var retorno = servico.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa);
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -831,10 +829,10 @@ namespace CTe.AppTeste
                     grupoAlterado = "rem",
                     valorAlterado = "14991001000"
                 }
-            }; 
+            };
 
-            var servico = new CTeCartaCorrecao(configCTe, certificado);
-            var retorno = servico.CartaCorrecao(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, correcoes);
+            var facade = new CTeFacade(configCTe, certificado);
+            var retorno = facade.CartaCorrecao(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, correcoes);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1058,12 +1056,12 @@ namespace CTe.AppTeste
 
             var numeroLote = InputBoxTuche("Número Lote");
 
-            var servicoRecepcao = new CTeEnviarLote(configCTe, certificado);
+            var facade = new CTeFacade(configCTe, certificado);
 
             // Evento executado antes do envio do CT-e para o WebService
             // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
 
-            var retornoEnvio = servicoRecepcao.EnviarLote(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
+            var retornoEnvio = facade.EnviarLote(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -1306,10 +1304,10 @@ namespace CTe.AppTeste
             var numeroLote = InputBoxTuche("Número Lote");
 
 
-            var servico = new CTeEnviar(configCTe, certificado);
+            var facade = new CTeFacade(configCTe, certificado);
 
 
-            var retorno = servico.Enviar(Convert.ToInt32(numeroLote), cteEletronico);
+            var retorno = facade.Enviar(Convert.ToInt32(numeroLote), cteEletronico);
 
 
             string xmlRetorno = string.Empty;
