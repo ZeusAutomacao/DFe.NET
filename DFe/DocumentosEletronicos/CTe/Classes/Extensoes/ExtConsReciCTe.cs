@@ -39,6 +39,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -77,7 +78,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaLoteEnvio();
 
             var arquivoSalvar = caminhoXml + @"\"+ consReciCTe.nRec + @"-ped-rec.xml";
 
@@ -98,7 +99,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaLoteRetorno();
 
             var arquivoSalvar = caminhoXml + @"\" + retConsReciCTe.nRec + @"-rec.xml";
 

@@ -32,7 +32,10 @@
 /********************************************************************************/
 
 using System;
+using System.Diagnostics;
 using System.Xml;
+using DFe.Assinatura;
+using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
@@ -40,6 +43,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -60,13 +64,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="eventoCTe"></param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
-        public static void Assina(this eventoCTe eventoCTe)
+        public static void Assina(this eventoCTe eventoCTe, CertificadoDigital certificadoDigital)
         {
             if (eventoCTe.infEvento.Id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            // todo eventoCTe.Signature = AssinaturaDigital.Assina(eventoCTe, eventoCTe.infEvento.Id,
-                // todo ConfiguracaoServico.Instancia.X509Certificate2);
+            eventoCTe.Signature = AssinaturaDigital.Assina(eventoCTe, eventoCTe.infEvento.Id,
+                certificadoDigital);
         }
 
         public static void ValidarSchema(this eventoCTe eventoCTe, DFeConfig config)
@@ -137,11 +141,23 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             }
         }
 
-        public static void SalvarXmlEmDisco(this eventoCTe eventoCTe, DFeConfig config)
+        public static void SalvarXmlEmDisco(this eventoCTe eventoCTe, DFeConfig config, TipoEvento tipoEvento)
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = string.Empty;
+
+            switch (tipoEvento)
+            {
+                case TipoEvento.Cancelamento:
+                    caminhoXml = new ResolvePasta(config, eventoCTe.infEvento.dhEvento).PastaCanceladosEnvio();
+                    break;
+                case TipoEvento.CartaCorrecao:
+                    caminhoXml = new ResolvePasta(config, eventoCTe.infEvento.dhEvento).PastaCartaCorrecaoEnvio();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
+            }
 
             var arquivoSalvar = caminhoXml + @"\" + eventoCTe.infEvento.chCTe + "-ped-eve.xml";
 

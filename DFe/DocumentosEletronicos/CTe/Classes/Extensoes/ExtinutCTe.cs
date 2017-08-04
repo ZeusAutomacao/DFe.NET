@@ -34,6 +34,7 @@
 using System;
 using System.Xml;
 using DFe.Assinatura;
+using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
@@ -41,15 +42,16 @@ using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtinutCTe
     {
-        public static void Assinar(this inutCTe inutCTe)
+        public static void Assinar(this inutCTe inutCTe, CertificadoDigital certificadoDigital)
         {
-           // todo inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                // todo configuracaoServico.X509Certificate2);
+           inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
+                certificadoDigital);
         }
 
 
@@ -87,7 +89,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaInutilizacaoEnvio();
 
             var arquivoSalvar = caminhoXml + @"\"+inutCTe.infInut.Id+ "-ped-inu.xml";
 

@@ -31,20 +31,36 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtretEnvEvento
     {
 
-        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte, DFeConfig config)
+        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte, DFeConfig config, TipoEvento tipoEvento)
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = string.Empty;
+
+            switch (tipoEvento)
+            {
+                case TipoEvento.Cancelamento:
+                    caminhoXml = new ResolvePasta(config, retEnviCte.infEvento.dhRegEvento ?? DateTime.Now).PastaCanceladosRetorno();
+                    break;
+                case TipoEvento.CartaCorrecao:
+                    caminhoXml = new ResolvePasta(config, retEnviCte.infEvento.dhRegEvento ?? DateTime.Now).PastaCartaCorrecaoRetorno();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
+            }
+
 
             var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infEvento.chCTe + "-eve.xml";
 

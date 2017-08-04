@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
 
 namespace DFe.ResolvePastas
 {
@@ -21,6 +22,17 @@ namespace DFe.ResolvePastas
             var caminhoXml = CriaDiretorio();
 
             caminhoXml.Append(@"\Autorizar\Enviado");
+
+            CriaDiretorioSeNaoExistir(caminhoXml);
+
+            return caminhoXml.ToString();
+        }
+
+        public string PastaEnviarLote()
+        {
+            var caminhoXml = CriaDiretorio();
+
+            caminhoXml.Append(@"\Lote\Enviado");
 
             CriaDiretorioSeNaoExistir(caminhoXml);
 
@@ -181,7 +193,7 @@ namespace DFe.ResolvePastas
             return caminhoXml.ToString();
         }
 
-        public string ConsultaLoteRetorno()
+        public string PastaConsultaLoteRetorno()
         {
             var caminhoXml = CriaDiretorio();
 
@@ -232,6 +244,59 @@ namespace DFe.ResolvePastas
             caminhoXml.Append(@"\");
             caminhoXml.Append(DataEnvioWs.ToString("MMMM"));
             return caminhoXml;
+        }
+
+        public string PastaRetornoEnviadosProc()
+        {
+            var caminho = new StringBuilder(PastaRetornoEnviados());
+
+            caminho.Append(@"\Proc");
+
+            return caminho.ToString();
+        }
+
+        public string PastaCartaCorrecaoEnvio()
+        {
+            var caminhoXml = CriaDiretorio();
+
+            caminhoXml.Append(@"\CartaCorrecao\Envio");
+
+            CriaDiretorioSeNaoExistir(caminhoXml);
+
+            return caminhoXml.ToString();
+        }
+
+        public string PastaCartaCorrecaoRetorno()
+        {
+            var caminhoXml = CriaDiretorio();
+
+            caminhoXml.Append(@"\CartaCorrecao\Retorno");
+
+            CriaDiretorioSeNaoExistir(caminhoXml);
+
+            return caminhoXml.ToString();
+        }
+
+        public string PastaInutilizacaoEnvio()
+        {
+            var caminhoXml = CriaDiretorio();
+
+            caminhoXml.Append(@"\Inutilizacao\Envio");
+
+            CriaDiretorioSeNaoExistir(caminhoXml);
+
+            return caminhoXml.ToString();
+        }
+
+        public string PastaInutilizacaoRetorno()
+        {
+            var caminhoXml = CriaDiretorio();
+
+            caminhoXml.Append(@"\Inutilizacao\Retorno");
+
+            CriaDiretorioSeNaoExistir(caminhoXml);
+
+            return caminhoXml.ToString();
         }
     }
 }

@@ -33,6 +33,7 @@
 
 using DFe.Configuracao;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 using cteProc = DFe.DocumentosEletronicos.CTe.Classes.Retorno.cteProc;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -88,7 +89,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, cteProc.CTe.infCte.ide.dhEmi).PastaRetornoEnviadosProc();
 
             var arquivoSalvar = caminhoXml + @"\" + cteProc.CTe.Chave() + "-cteproc.xml";
 

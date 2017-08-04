@@ -36,6 +36,7 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.Ext;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -45,7 +46,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaStatusRetorno();
 
             var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-sta.xml";
 

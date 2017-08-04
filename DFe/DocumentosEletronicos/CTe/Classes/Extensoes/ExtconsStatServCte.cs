@@ -39,6 +39,7 @@ using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Ext;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -77,7 +78,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaStatusEnvio();
 
             var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-ped-sta.xml";
 

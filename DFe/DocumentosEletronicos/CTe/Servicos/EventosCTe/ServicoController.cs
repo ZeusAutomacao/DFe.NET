@@ -48,15 +48,15 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
         public retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento, DFeConfig config, CertificadoDigital certificadoDigital)
         {
             var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente, tipoEvento, sequenciaEvento, container, config);
-            evento.Assina();
+            evento.Assina(certificadoDigital);
             evento.ValidarSchema(config);
-            evento.SalvarXmlEmDisco(config);
+            evento.SalvarXmlEmDisco(config, tipoEvento);
 
             var webService = WsdlFactory.CriaWsdlCteEvento(config, certificadoDigital);
             var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco(config);
+            retorno.SalvarXmlEmDisco(config, tipoEvento);
 
             return retorno;
         }

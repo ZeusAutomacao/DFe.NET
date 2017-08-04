@@ -76,7 +76,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 
             foreach (var cte in enviCte.CTe)
             {
-                cte.Assina(_dfeConfig);
+                cte.Assina(_dfeConfig, _certificadoDigital);
                 cte.ValidaSchema(_dfeConfig);
                 cte.SalvarXmlEmDisco(_dfeConfig);
             }
@@ -91,6 +91,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
             var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(_dfeConfig));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+
             retorno.SalvarXmlEmDisco(_dfeConfig);
 
             return retorno;

@@ -81,7 +81,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
             Validacoes(configInutiliza);
 
             var inutCte = ClassesFactory.CriaInutCTe(configInutiliza, _config);
-            inutCte.Assinar();
+            inutCte.Assinar(_certificadoDigital);
             inutCte.ValidarShcema(_config);
             inutCte.SalvarXmlEmDisco(_config);
 

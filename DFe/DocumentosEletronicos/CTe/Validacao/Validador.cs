@@ -36,7 +36,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Classes;
 
 namespace DFe.DocumentosEletronicos.CTe.Validacao
 {

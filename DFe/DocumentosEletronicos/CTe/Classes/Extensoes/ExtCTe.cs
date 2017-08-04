@@ -33,6 +33,7 @@
 
 using System;
 using DFe.Assinatura;
+using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
@@ -40,6 +41,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -191,7 +193,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna um objeto do tipo CTe assinado</returns>
-        public static void Assina(this CteEletronica cte, DFeConfig config)
+        public static void Assina(this CteEletronica cte, DFeConfig config, CertificadoDigital certificadoDigital)
         {
             if (cte == null) throw new ArgumentNullException("cte");
 
@@ -210,9 +212,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             cte.infCte.versao = config.VersaoServico;
             cte.infCte.ide.cDV = dadosChave.DigitoVerificador;
 
-           // todo ajustar var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, configuracaoServico.X509Certificate2);
+           var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, certificadoDigital);
 
-           // todo ajustar cte.Signature = assinatura;
+           cte.Signature = assinatura;
         }
 
         public static string Chave(this CteEletronica cte)
@@ -225,7 +227,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, cte.infCte.ide.dhEmi).PastaEnviar();
 
             var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
 

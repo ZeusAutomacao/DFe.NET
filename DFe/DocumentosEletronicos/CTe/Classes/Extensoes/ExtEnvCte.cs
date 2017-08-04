@@ -40,6 +40,7 @@ using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.Entidades;
 using DFe.Flags;
 using DFe.ManipuladorDeXml;
+using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -78,7 +79,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = config.CaminhoSalvarXml;
+            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaEnviarLote();
 
             var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
 

@@ -45,7 +45,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
         {
             if (dfeConfig.NaoSalvarXml()) return;
 
-            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).ConsultaLoteRetorno();
+            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaLoteRetorno();
 
             var arquivoSalvar = caminhoXml + @"\" + consReciRetConsReciMdFe.nRec + "-pro-rec.xml";
 
