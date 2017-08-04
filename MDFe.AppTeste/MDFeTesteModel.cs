@@ -1388,7 +1388,8 @@ namespace MDFe.AppTeste
                 TipoAmbiente = config.ConfigWebService.Ambiente,
                 EstadoUf = config.ConfigWebService.UfEmitente,
                 TimeOut = config.ConfigWebService.TimeOut,
-                CnpjEmitente = config.Empresa.Cnpj
+                CnpjEmitente = config.Empresa.Cnpj,
+                IsEfetuarCacheCertificadoDigital = true
             };
 
 

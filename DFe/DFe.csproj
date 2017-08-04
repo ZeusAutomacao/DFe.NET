@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificadosDigitais\Cache\Implementacoes\CacheCertificadoDigital.cs" />
+    <Compile Include="CertificadosDigitais\Cache\IProxyCacheCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\Ext\ExtCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\Implementacao\DFeCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\IProxyCertificadoDigitalA1Arquivo.cs" />

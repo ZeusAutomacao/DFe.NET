@@ -19,7 +19,7 @@ namespace DFe.MDFe.Facade
     public class MDFeFacade
     {
         private DFeConfig DfeConfig { get; }
-        public CertificadoDigital CertificadoDigital { get; }
+        private CertificadoDigital CertificadoDigital { get; set; }
 
         private readonly MDFeEnviarLote _enviarLote;
         private readonly MDFeConsultaLote _consultaLote;
@@ -33,7 +33,8 @@ namespace DFe.MDFe.Facade
         public MDFeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
             DfeConfig = dfeConfig;
-            CertificadoDigital = certificadoDigital;
+            DefineConfiguracaoCertificadoDigital(dfeConfig, certificadoDigital);
+
             _enviarLote = new MDFeEnviarLote(DfeConfig, CertificadoDigital);
             _consultaLote = new MDFeConsultaLote(DfeConfig, CertificadoDigital);
             _statusConsulta = new MDFeStatusConsulta(DfeConfig, CertificadoDigital);
@@ -42,6 +43,13 @@ namespace DFe.MDFe.Facade
             _consultaNaoEncerradas = new MDFeConsultaNaoEncerradas(DfeConfig, CertificadoDigital);
             _incluirCondutor = new MDFeIncluirCondutor(DfeConfig, certificadoDigital);
             _encerrar = new MDFeEncerrar(DfeConfig, CertificadoDigital);
+        }
+
+        private void DefineConfiguracaoCertificadoDigital(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            if (VerificaSeTemCache(dfeConfig, certificadoDigital)) return;
+
+            CertificadoDigital = certificadoDigital;
         }
 
         public retEnviMDFe EnviarLote(long lote, MdfeEletronico mdfe)
@@ -82,6 +90,24 @@ namespace DFe.MDFe.Facade
         public retEventoMDFe Encerrar(string chave, string cnpj, long codigoIbgeCidade, byte sequenciaEvento, string protocolo)
         {
             return _encerrar.MDFeEventoEncerramento(chave, cnpj, codigoIbgeCidade, sequenciaEvento, protocolo);
+        }
+
+        private bool VerificaSeTemCache(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            if (!dfeConfig.IsEfetuarCacheCertificadoDigital) return false;
+
+            var certificadoDigitalBuscado =
+                dfeConfig.ProxyCacheCertificadoDigital.BuscarPorCnpjEmitente(dfeConfig.CnpjEmitente);
+
+            if (certificadoDigitalBuscado != null)
+            {
+                CertificadoDigital = certificadoDigitalBuscado;
+                return true;
+            }
+
+            dfeConfig.ProxyCacheCertificadoDigital.Adicionar(dfeConfig.CnpjEmitente, certificadoDigital);
+            CertificadoDigital = certificadoDigital;
+            return true;
         }
     }
 }
