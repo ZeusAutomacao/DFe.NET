@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos.Contratos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;

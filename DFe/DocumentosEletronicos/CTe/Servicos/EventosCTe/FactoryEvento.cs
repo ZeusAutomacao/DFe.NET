@@ -35,8 +35,8 @@ using System;
 using System.Text;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
 using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos

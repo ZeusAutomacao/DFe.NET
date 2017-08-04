@@ -34,6 +34,7 @@
 using System;
 using System.Xml;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.ManipuladorDeXml;

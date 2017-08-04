@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags
+namespace DFe.DocumentosEletronicos.CTe.Classes.Flags
 {
     public enum TipoEvento
     {

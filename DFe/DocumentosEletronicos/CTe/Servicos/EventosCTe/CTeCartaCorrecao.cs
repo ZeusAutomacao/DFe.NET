@@ -32,9 +32,10 @@
 /********************************************************************************/
 
 using System.Collections.Generic;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
