@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento
 {

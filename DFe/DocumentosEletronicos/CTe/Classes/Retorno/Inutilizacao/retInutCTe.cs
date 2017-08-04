@@ -31,50 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
+using System.Xml.Serialization;
+using DFe.Assinatura;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
+using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
 {
-    public class autXML
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class retInutCTe : RetornoBase
     {
-        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo autXML!";
-        private string cnpj;
-        private string cpf;
+        /// <summary>
+        ///     DR02 - Versão do leiaute
+        /// </summary>
+        [XmlAttribute]
+        public versao versao { get; set; }
 
         /// <summary>
-        ///     GA02 - CNPJ Autorizado
+        ///     DR03 - Dados da resposta - TAG a ser assinada
         /// </summary>
-        public string CNPJ
+        public infInutRet infInut { get; set; }
+
+        /// <summary>
+        ///     DR18 - Assinatura XML do grupo identificado pelo atributo “Id”
+        ///     A decisão de assinar a mensagem fica a critério da UF interessada.
+        /// </summary>
+        [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
+        public Signature Signature { get; set; }
+
+        public static retInutCTe LoadXml(string xml, inutCTe inutCTe)
         {
-            get { return cnpj; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cpf))
-                    cnpj = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
-            }
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(inutCTe);
+
+            return retorno;
         }
 
-        /// <summary>
-        ///     GA03 - CPF Autorizado
-        /// </summary>
-        public string CPF
+        private static retInutCTe LoadXml(string xml)
         {
-            get { return cpf; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                if (string.IsNullOrEmpty(cnpj))
-                    cpf = value;
-                else
-                {
-                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
-                }
-            }
+            var retorno = FuncoesXml.XmlStringParaClasse<retInutCTe>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
         }
     }
 }

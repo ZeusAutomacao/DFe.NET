@@ -30,73 +30,20 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
-using System;
-using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao
 {
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class retConsStatServCte : RetornoBase
+    public class infRec
     {
         /// <summary>
-        ///     FR02 - Versão do leiaute
+        ///     AR08 - Número do Recibo gerado pelo Portal da Secretaria de Fazenda Estadual (vide item 5.5).
         /// </summary>
-        [XmlAttribute]
-        public versao versao { get; set; }
+        public string nRec { get; set; }
 
         /// <summary>
-        ///     FR03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
+        ///     AR10 - Tempo médio de resposta do serviço (em segundos) dos últimos 5 minutos (vide item 5.7). Nota: Caso o tempo
+        ///     médio de resposta fique abaixo de 1 (um) segundo, o tempo será informado como 1 segundo. Arredondar as frações de
+        ///     segundos para cima.
         /// </summary>
-        public TipoAmbiente tpAmb { get; set; }
-
-        /// <summary>
-        ///     FR04 - Versão do Aplicativo que processou a consulta. A versão deve ser iniciada com a sigla da UF nos casos de WS
-        ///     próprio ou a sigla SCAN, SVAN ou SVRS nos demais casos.
-        /// </summary>
-        public string verAplic { get; set; }
-
-        /// <summary>
-        ///     FR05 - Código do status da resposta.
-        /// </summary>
-        public int cStat { get; set; }
-
-        /// <summary>
-        ///     FR06 - Descrição literal do status da resposta.
-        /// </summary>
-        public string xMotivo { get; set; }
-
-        /// <summary>
-        ///     FR07 - Código da UF que atendeu a solicitação
-        /// </summary>
-        public Estado cUF { get; set; }
-
-        public DateTime dhRecbto { get; set; }
-
         public int tMed { get; set; }
-
-        public DateTime dhRetorno { get; set; }
-
-        public string xObs { get; set; }
-
-        public static retConsStatServCte LoadXml(string xml, consStatServCte consStatServCte)
-        {
-            var retorno = LoadXml(xml);
-            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServCte);
-
-            return retorno;
-        }
-
-        private static retConsStatServCte LoadXml(string xml)
-        {
-            var retorno = FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xml);
-            retorno.RetornoXmlString = xml;
-
-            return retorno;
-        }
     }
 }

@@ -35,11 +35,12 @@ using System;
 using System.Collections.Generic;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
 using DFe.Flags;
-using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 {

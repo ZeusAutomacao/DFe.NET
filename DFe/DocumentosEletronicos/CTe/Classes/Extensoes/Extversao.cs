@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

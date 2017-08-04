@@ -31,72 +31,28 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
 using System.Xml.Serialization;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
 {
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class retEnviCte : RetornoBase
+    public class protCTe
     {
+        public protCTe()
+        {
+            infProt = new infProt();
+        }
+
         /// <summary>
-        ///     AR02 - Versão do leiaute
+        ///     PR02 - Versão do leiaute das informações de Protocolo.
         /// </summary>
         [XmlAttribute]
-        public string versao { get; set; }
+        public versao versao { get; set; }
 
         /// <summary>
-        ///     AR03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
+        ///     PR03 - Informações do Protocolo de resposta. TAG a ser assinada
         /// </summary>
-        public TipoAmbiente tpAmb { get; set; }
-
-        /// <summary>
-        ///     AR04 - Versão do Aplicativo que recebeu o Lote. A versão deve ser iniciada com a sigla da UF nos casos de WS
-        ///     próprio ou a sigla SCAN, SVAN ou SVRS nos demais casos.
-        /// </summary>
-        public string verAplic { get; set; }
-
-        /// <summary>
-        ///     AR05 - Código do status da resposta (vide item 5.1.1)
-        /// </summary>
-        public int cStat { get; set; }
-
-        /// <summary>
-        ///     AR06 - Descrição literal do status da resposta
-        /// </summary>
-        public string xMotivo { get; set; }
-
-        /// <summary>
-        ///     AR06a - Código da UF que atendeu a solicitação.
-        /// </summary>
-        public Estado cUF { get; set; }
-
-        /// <summary>
-        ///     AR06b - Data e Hora do Recebimento Formato = AAAA-MM-DDTHH:MM:SS Preenchido com data e hora do recebimento do lote.
-        /// </summary>
-        public DateTime dhRecbto { get; set; }
-
-        /// <summary>
-        ///     AR07 - Dados do Recibo do Lote (Só é gerado se o Lote for aceito)
-        /// </summary>
-        public infRec infRec { get; set; }
-
-
-        public static retEnviCte LoadXml(string xml)
-        {
-            var retorno = FuncoesXml.XmlStringParaClasse<retEnviCte>(xml);
-            retorno.RetornoXmlString = xml;
-            return retorno;
-        }
-
-        public static retEnviCte LoadXml(string xml, enviCTe enviCte)
-        {
-            var retorno = LoadXml(xml);
-            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
-            return retorno;
-        }
+        public infProt infProt { get; set; }
     }
 }

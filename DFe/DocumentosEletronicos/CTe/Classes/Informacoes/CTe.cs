@@ -32,33 +32,57 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.Flags;
+using DFe.Assinatura;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status
+namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class consStatServCte
+    public class CTe
     {
-        public consStatServCte()
+        /// <summary>
+        /// CTe Modelo 67/ CTE Ordem de Serviço
+        /// CTeOs
+        /// </summary>
+        [XmlIgnore]
+        public versao? versao { get; set; }
+
+        [XmlAttribute(AttributeName = "versao")]
+        public string ProxyVersao
         {
-            xServ = "STATUS";
+            get
+            {
+                if (versao == null) return null;
+                return versao.Value.GetString();
+            }
+            set
+            {
+                if(value.Equals("2.00"))
+                    versao = Flags.versao.ve200;
+
+                if(value.Equals("3.00"))
+                    versao = Flags.versao.ve300;
+            }
         }
 
-        /// <summary>
-        ///     FP02 - Versão do leiaute
-        /// </summary>
-        [XmlAttribute]
-        public versao versao { get; set; }
+        public bool versaoSpecified { get { return versao.HasValue; } }
 
-        /// <summary>
-        ///     FP03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
-        /// </summary>
-        public TipoAmbiente tpAmb { get; set; }
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
+        public infCte infCte { get; set; }
 
-        /// <summary>
-        ///     FP04 - Serviço solicitado 'STATUS'
-        /// </summary>
-        public string xServ { get; set; }
+        [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
+        public Signature Signature { get; set; }
+
+        public static CTe LoadXmlString(string xml)
+        {
+            return FuncoesXml.XmlStringParaClasse<CTe>(xml);
+        }
+
+        public static CTe LoadXmlArquivo(string caminhoArquivoXml)
+        {
+            return FuncoesXml.ArquivoXmlParaClasse<CTe>(caminhoArquivoXml);
+        }
     }
 }

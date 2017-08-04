@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.ManipuladorDeXml;
-using cteProc = DFe.DocumentosEletronicos.CTe.Classes.cteProc;
+using cteProc = DFe.DocumentosEletronicos.CTe.Classes.Retorno.cteProc;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

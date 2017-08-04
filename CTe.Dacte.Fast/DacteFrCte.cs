@@ -36,6 +36,7 @@ using FastReport;
 using FastReport.Export.Pdf;
 using CTe.Dacte.Base;
 using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 
 namespace CTe.Dacte.Fast
 {

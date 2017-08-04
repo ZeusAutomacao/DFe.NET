@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Protocolo;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte",
@@ -13,7 +12,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes
         [XmlAttribute]
         public versao versao { get; set; }
 
-        public CTe CTe { get; set; }
+        public Informacoes.CTe CTe { get; set; }
 
         public protCTe protCTe { get; set; }
     }

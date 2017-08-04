@@ -33,6 +33,8 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.AutorizadoDownloadXml;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Complemento;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
@@ -43,7 +45,6 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Recebedor;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Remetente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 {

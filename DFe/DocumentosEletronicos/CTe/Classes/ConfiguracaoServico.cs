@@ -34,7 +34,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.Entidades;
 using DFe.Flags;
 using DFe.Utils;

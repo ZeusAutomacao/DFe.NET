@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao
 {

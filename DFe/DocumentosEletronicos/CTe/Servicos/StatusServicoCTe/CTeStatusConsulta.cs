@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.StatusServicoCTe

@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe

@@ -31,29 +31,63 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using System;
+using DFe.Assinatura;
 using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao
 {
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class consReciCTe
+    public class infProt
     {
         /// <summary>
-        ///     BP02 - Versão do leiaute
+        ///     PR04 - Identificador da TAG a ser assinada, somente precisa ser informado se a UF assinar a resposta.
         /// </summary>
-        [XmlAttribute]
-        public versao versao { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
-        ///     BP03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação
+        ///     PR05 - Identificação do Ambiente
         /// </summary>
         public TipoAmbiente tpAmb { get; set; }
 
         /// <summary>
-        ///     BP04 - Número do Recibo Número gerado pelo Portal da Secretaria de Fazenda Estadual (vide item 5.5).
+        ///     PR06 - Versão do Aplicativo que processou a consulta.
         /// </summary>
-        public string nRec { get; set; }
+        public string verAplic { get; set; }
+
+        /// <summary>
+        ///     PR07 - Chave de Acesso da CT-e
+        /// </summary>
+        public string chCTe { get; set; }
+
+        /// <summary>
+        ///     PR08 - Data e hora de recebimento
+        /// </summary>
+        public DateTime dhRecbto { get; set; }
+
+        /// <summary>
+        ///     PR09 - Número do Protocolo da CT-e
+        /// </summary>
+        public string nProt { get; set; }
+
+        /// <summary>
+        ///     PR10 - Digest Value da CT-e processada Utilizado para conferir a integridade da CTe original.
+        /// </summary>
+        public string digVal { get; set; }
+
+        /// <summary>
+        ///     PR11 - Código do status da resposta.
+        /// </summary>
+        public int cStat { get; set; }
+
+        /// <summary>
+        ///     PR12 - Descrição literal do status da resposta.
+        /// </summary>
+        public string xMotivo { get; set; }
+
+        /// <summary>
+        ///     PR13 - Assinatura XML do grupo identificado pelo atributo “Id”
+        ///     A decisão de assinar a mensagem fica a critério da UF interessada.
+        /// </summary>
+        public Signature Signature { get; set; }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:enumBindable="clr-namespace:CTe.AppTeste.EnumBindable"
         xmlns:flags="clr-namespace:DFe.Entidades;assembly=DFe"
-        xmlns:flagsCte="clr-namespace:DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;assembly=DFe"
+        xmlns:flagsCte="clr-namespace:DFe.DocumentosEletronicos.CTe.Classes.Flags;assembly=DFe"
         mc:Ignorable="d"
         Title="MainWindow" Height="720.696" Width="771.522"
         Loaded="MainWindow_OnLoaded">

@@ -36,7 +36,7 @@ using System.Xml.Serialization;
 using DFe.Entidades;
 using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
 {
     public class infInutRet
     {

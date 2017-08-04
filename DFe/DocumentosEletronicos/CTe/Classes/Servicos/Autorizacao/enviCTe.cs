@@ -31,59 +31,54 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Informacoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.ManipuladorDeXml;
+using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes
+namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao
 {
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class CTe
+    [XmlRoot(ElementName = "enviCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class enviCTe
     {
+        public enviCTe(versao versao, int idLote, List<CteEletronica> cTe)
+        {
+            this.versao = versao;
+            this.idLote = idLote;
+            CTe = cTe;
+        }
+
+        internal enviCTe() //para serialização apenas
+        {
+        }
+
         /// <summary>
-        /// CTe Modelo 67/ CTE Ordem de Serviço
-        /// CTeOs
+        ///     AP02 - Versão do leiaute
         /// </summary>
-        [XmlIgnore]
-        public versao? versao { get; set; }
+        [XmlAttribute]
+        public versao versao { get; set; }
 
-        [XmlAttribute(AttributeName = "versao")]
-        public string ProxyVersao
+        /// <summary>
+        ///     AP03 - Identificador de controle do envio do lote.
+        /// </summary>
+        public int idLote { get; set; }
+
+        /// <summary>
+        ///     AP04 - Conjunto de CT-e transmitidas
+        /// </summary>
+        [XmlElement(ElementName = "CTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
+        public List<CteEletronica> CTe { get; set; }
+
+
+        public static enviCTe LoadXmlString(string xml)
         {
-            get
-            {
-                if (versao == null) return null;
-                return versao.Value.GetString();
-            }
-            set
-            {
-                if(value.Equals("2.00"))
-                    versao = Servicos.Tipos.versao.ve200;
-
-                if(value.Equals("3.00"))
-                    versao = Servicos.Tipos.versao.ve300;
-            }
+            return FuncoesXml.XmlStringParaClasse<enviCTe>(xml);
         }
 
-        public bool versaoSpecified { get { return versao.HasValue; } }
-
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
-        public infCte infCte { get; set; }
-
-        [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
-        public Signature Signature { get; set; }
-
-        public static CTe LoadXmlString(string xml)
+        public static enviCTe LoadXmlArquivo(string caminhoArquivoXml)
         {
-            return FuncoesXml.XmlStringParaClasse<CTe>(xml);
-        }
-
-        public static CTe LoadXmlArquivo(string caminhoArquivoXml)
-        {
-            return FuncoesXml.ArquivoXmlParaClasse<CTe>(caminhoArquivoXml);
+            return FuncoesXml.ArquivoXmlParaClasse<enviCTe>(caminhoArquivoXml);
         }
     }
 }

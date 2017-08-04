@@ -31,36 +31,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
+using System;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
+namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.AutorizadoDownloadXml
 {
-    public class CTeCancelar
+    public class autXML
     {
-        private readonly CteEletronico _cte;
-        private readonly int _sequenciaEvento;
-        private readonly string _numeroProtocolo;
-        private readonly string _justificativa;
+        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo autXML!";
+        private string cnpj;
+        private string cpf;
 
-        public CTeCancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        /// <summary>
+        ///     GA02 - CNPJ Autorizado
+        /// </summary>
+        public string CNPJ
         {
-            _cte = cte;
-            _sequenciaEvento = sequenciaEvento;
-            _numeroProtocolo = numeroProtocolo;
-            _justificativa = justificativa;
+            get { return cnpj; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(cpf))
+                    cnpj = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
 
-        public retEventoCTe Cancelar()
+        /// <summary>
+        ///     GA03 - CPF Autorizado
+        /// </summary>
+        public string CPF
         {
-            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
-
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
-
-            return retorno;
+            get { return cpf; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(cnpj))
+                    cpf = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
     }
 }

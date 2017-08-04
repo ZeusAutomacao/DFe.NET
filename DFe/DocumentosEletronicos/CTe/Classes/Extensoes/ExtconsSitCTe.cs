@@ -33,8 +33,8 @@
 
 using System;
 using System.Xml;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.ManipuladorDeXml;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Recepcao
 {

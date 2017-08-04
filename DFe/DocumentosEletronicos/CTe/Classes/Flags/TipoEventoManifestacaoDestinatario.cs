@@ -31,15 +31,25 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
+using System.ComponentModel;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos
+namespace DFe.DocumentosEletronicos.CTe.Classes.Flags
 {
-    public abstract class RetornoBase
+    /// <summary>
+    /// Tipo do evento de manifestação do destinatário.
+    /// </summary>
+    public enum TipoEventoManifestacaoDestinatario
     {
-        [XmlIgnore]
-        public string EnvioXmlString { get; set; }
-        [XmlIgnore]
-        public string RetornoXmlString { get; set; }
+        [Description("Confirmacao da Operacao")]
+        TeMdConfirmacaoDaOperacao = 210200,
+
+        [Description("Ciencia da Operacao")]
+        TeMdCienciaDaOperacao = 210210,
+
+        [Description("Desconhecimento da Operacao")]
+        TeMdDesconhecimentoDaOperacao = 210220,
+
+        [Description("Operacao nao Realizada")]
+        TeMdOperacaoNaoRealizada = 210240
     }
 }

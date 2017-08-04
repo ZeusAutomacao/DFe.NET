@@ -68,6 +68,12 @@
     <Compile Include="Assinatura\SignedInfo.cs" />
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\IndicadorSincronizacao.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\ServicoCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoEventoManifestacaoDestinatario.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\versao.cs" />
     <Compile Include="Entidades\Estado.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="Flags\ModeloDocumento.cs" />
@@ -76,10 +82,10 @@
     <Compile Include="CertificadosDigitais\CertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\IDFeConfigCertificadoDigital.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\ConfiguracaoServico.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\CTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\cteProc.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\CTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\cteProc.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Extensoes\Extversao.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\autXML.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\AutorizadoDownloadXml\autXML.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Complemento\Comp.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Complemento\compl.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Complemento\Entrega.cs" />
@@ -237,8 +243,8 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Tipos\versaoModal.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Valores\Comp.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Informacoes\Valores\vPrest.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Protocolo\infProt.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Protocolo\protCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\RetRecepcao\infProt.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\protCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Consulta\consSitCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Consulta\procEventoCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Consulta\retConsSitCTe.cs" />
@@ -254,18 +260,17 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\infEventoRet.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\retEventoCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\infInutEnv.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\infInutRet.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Inutilizacao\infInutRet.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\inutCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Inutilizacao\retInutCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Recepcao\enviCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Recepcao\infRec.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Recepcao\retEnviCte.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Recepcao\Retorno\consReciCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Recepcao\Retorno\retConsReciCTe.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\RetornoBase.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Status\consStatServ.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Status\retConsStatServ.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Tipos\ServicosTipos.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Inutilizacao\retInutCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\Autorizacao\enviCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Autorizacao\infRec.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Autorizacao\retEnviCte.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\RetRecepcao\consReciCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\RetRecepcao\retConsReciCTe.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\RetornoBase.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Servicos\StatusServico\consStatServ.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\StatusServico\retConsStatServ.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\ConsultaProtocoloCTe\CTeConsulta.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\ConsultaLoteCTe\CTeConsultaLote.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\StatusServicoCTe\CTeStatusConsulta.cs" />
@@ -754,9 +759,7 @@
     <Compile Include="ManipuladorDeXml\FuncoesXml.cs" />
     <Compile Include="Ext\Reflexao.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DocumentosEletronicos\CTe\Classes\Retorno\Autorizacao\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="DocumentosEletronicos\NFe\Classes\NFe.Classes.licenseheader" />
     <None Include="DocumentosEletronicos\NFe\Servicos\NFe.Servicos.cd" />

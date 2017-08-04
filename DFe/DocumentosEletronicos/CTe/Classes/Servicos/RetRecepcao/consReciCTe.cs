@@ -31,54 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
-using DFe.ManipuladorDeXml;
-using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao
+namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao
 {
-    [XmlRoot(ElementName = "enviCTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
-    public class enviCTe
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class consReciCTe
     {
-        public enviCTe(versao versao, int idLote, List<CteEletronica> cTe)
-        {
-            this.versao = versao;
-            this.idLote = idLote;
-            CTe = cTe;
-        }
-
-        internal enviCTe() //para serialização apenas
-        {
-        }
-
         /// <summary>
-        ///     AP02 - Versão do leiaute
+        ///     BP02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
         public versao versao { get; set; }
 
         /// <summary>
-        ///     AP03 - Identificador de controle do envio do lote.
+        ///     BP03 - Identificação do Ambiente: 1 – Produção / 2 – Homologação
         /// </summary>
-        public int idLote { get; set; }
+        public TipoAmbiente tpAmb { get; set; }
 
         /// <summary>
-        ///     AP04 - Conjunto de CT-e transmitidas
+        ///     BP04 - Número do Recibo Número gerado pelo Portal da Secretaria de Fazenda Estadual (vide item 5.5).
         /// </summary>
-        [XmlElement(ElementName = "CTe", Namespace = "http://www.portalfiscal.inf.br/cte")]
-        public List<CteEletronica> CTe { get; set; }
-
-
-        public static enviCTe LoadXmlString(string xml)
-        {
-            return FuncoesXml.XmlStringParaClasse<enviCTe>(xml);
-        }
-
-        public static enviCTe LoadXmlArquivo(string caminhoArquivoXml)
-        {
-            return FuncoesXml.ArquivoXmlParaClasse<enviCTe>(caminhoArquivoXml);
-        }
+        public string nRec { get; set; }
     }
 }

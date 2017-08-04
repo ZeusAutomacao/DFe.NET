@@ -31,27 +31,74 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
+using DFe.Entidades;
+using DFe.Flags;
+using DFe.ManipuladorDeXml;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Protocolo
+namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico
 {
-    public class protCTe
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class retConsStatServCte : RetornoBase
     {
-        public protCTe()
-        {
-            infProt = new infProt();
-        }
-
         /// <summary>
-        ///     PR02 - Versão do leiaute das informações de Protocolo.
+        ///     FR02 - Versão do leiaute
         /// </summary>
         [XmlAttribute]
         public versao versao { get; set; }
 
         /// <summary>
-        ///     PR03 - Informações do Protocolo de resposta. TAG a ser assinada
+        ///     FR03 - Identificação do Ambiente: 1 – Produção / 2 - Homologação
         /// </summary>
-        public infProt infProt { get; set; }
+        public TipoAmbiente tpAmb { get; set; }
+
+        /// <summary>
+        ///     FR04 - Versão do Aplicativo que processou a consulta. A versão deve ser iniciada com a sigla da UF nos casos de WS
+        ///     próprio ou a sigla SCAN, SVAN ou SVRS nos demais casos.
+        /// </summary>
+        public string verAplic { get; set; }
+
+        /// <summary>
+        ///     FR05 - Código do status da resposta.
+        /// </summary>
+        public int cStat { get; set; }
+
+        /// <summary>
+        ///     FR06 - Descrição literal do status da resposta.
+        /// </summary>
+        public string xMotivo { get; set; }
+
+        /// <summary>
+        ///     FR07 - Código da UF que atendeu a solicitação
+        /// </summary>
+        public Estado cUF { get; set; }
+
+        public DateTime dhRecbto { get; set; }
+
+        public int tMed { get; set; }
+
+        public DateTime dhRetorno { get; set; }
+
+        public string xObs { get; set; }
+
+        public static retConsStatServCte LoadXml(string xml, consStatServCte consStatServCte)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServCte);
+
+            return retorno;
+        }
+
+        private static retConsStatServCte LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
     }
 }

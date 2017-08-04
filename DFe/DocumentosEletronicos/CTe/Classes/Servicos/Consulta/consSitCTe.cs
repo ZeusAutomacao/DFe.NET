@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta

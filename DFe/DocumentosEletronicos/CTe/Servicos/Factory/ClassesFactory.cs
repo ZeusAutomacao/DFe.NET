@@ -35,16 +35,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DFe.DocumentosEletronicos.CTe.Classes;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.Retorno;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.Entidades;
-using CTeEletronica = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using CTeEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
 {

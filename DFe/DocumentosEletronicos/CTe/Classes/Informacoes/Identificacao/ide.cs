@@ -34,8 +34,8 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.Entidades;
 using DFe.Ext;
 using DFe.Flags;

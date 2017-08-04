@@ -38,7 +38,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos.Contratos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {

@@ -39,6 +39,7 @@ using CTe.AppTeste.Entidades;
 using CTe.AppTeste.ModelBase;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
@@ -51,15 +52,13 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos.ICMSCTe;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Remetente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
+using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Tipos;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
-using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
@@ -67,7 +66,7 @@ using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.CTe.Servicos.StatusServicoCTe;
 using DFe.Entidades;
 using DFe.Flags;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.CTe;
+using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using dest = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario.dest;
@@ -667,7 +666,7 @@ namespace CTe.AppTeste
             {
                 if (caminhoArquivoXml.Contains("completo"))
                 {
-                    var enviCTe = DFe.DocumentosEletronicos.CTe.Classes.Servicos.Recepcao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
+                    var enviCTe = DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao.enviCTe.LoadXmlArquivo(caminhoArquivoXml);
 
                     chave = enviCTe.CTe[0].Chave();
                 }
