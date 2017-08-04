@@ -68,14 +68,14 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             return _consulta.Consulta(chave);
         }
 
-        public retEventoCTe Cancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        public retEventoCTe Cancelar(string chave, string cnpjEmitente, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
-            return _cancelar.Cancelar(cte, sequenciaEvento, numeroProtocolo, justificativa);
+            return _cancelar.Cancelar(chave, cnpjEmitente, sequenciaEvento, numeroProtocolo, justificativa);
         }
 
-        public retEventoCTe CartaCorrecao(CteEletronico cte, int sequenciaEvento, List<infCorrecao> infCorrecaos)
+        public retEventoCTe CartaCorrecao(string chave, string cnpjEmitente, int sequenciaEvento, List<infCorrecao> infCorrecaos)
         {
-            return _cartaCorrecao.CartaCorrecao(cte, sequenciaEvento, infCorrecaos);
+            return _cartaCorrecao.CartaCorrecao(chave, cnpjEmitente, sequenciaEvento, infCorrecaos);
         }
 
         public retInutCTe Inutilizacao(ConfigInutiliza configInutiliza)

@@ -36,17 +36,16 @@ using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
-using DFe.DocumentosEletronicos.CTe.Servicos.Eventos.Contratos;
+using DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe.Contratos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class ServicoController : IServicoController
     {
-        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
+        public retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
         {
-            var evento = FactoryEvento.CriaEvento(cte, tipoEvento, sequenciaEvento, container);
+            var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente, tipoEvento, sequenciaEvento, container);
             evento.Assina();
             evento.ValidarSchema();
             evento.SalvarXmlEmDisco();

@@ -34,22 +34,20 @@
 using System;
 using System.Text;
 using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
 {
     public class FactoryEvento
     {
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        public static eventoCTe CriaEvento(string chave, string cnpjEmitente, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 
             var id = new StringBuilder("ID");
             id.Append((int)tipoEvento);
-            id.Append(cte.Chave());
+            id.Append(chave);
             id.Append(sequenciaEvento.ToString("D2"));
 
             return new eventoCTe
@@ -58,9 +56,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos
                 infEvento = new infEventoEnv
                 {
                     tpAmb = configuracaoServico.tpAmb,
-                    CNPJ = cte.infCte.emit.CNPJ,
+                    CNPJ = cnpjEmitente,
                     cOrgao = configuracaoServico.cUF,
-                    chCTe = cte.Chave(),
+                    chCTe = chave,
                     dhEvento = DateTime.Now,
                     nSeqEvento = sequenciaEvento,
                     tpEvento = tipoEvento,

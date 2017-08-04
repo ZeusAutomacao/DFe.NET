@@ -775,7 +775,7 @@ namespace CTe.AppTeste
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
             var servico = new CTeCancelar();
-            var retorno = servico.Cancelar(cte, sequenciaEvento, protocolo, justificativa);
+            var retorno = servico.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -815,7 +815,7 @@ namespace CTe.AppTeste
             }; 
 
             var servico = new CTeCartaCorrecao();
-            var retorno = servico.CartaCorrecao(cte, sequenciaEvento, correcoes);
+            var retorno = servico.CartaCorrecao(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, correcoes);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

@@ -41,11 +41,11 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
     public class CTeCancelar
     {
 
-        public retEventoCTe Cancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        public retEventoCTe Cancelar(string chave, string cnpjEmitente, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(justificativa, numeroProtocolo);
 
-            var retorno = new ServicoController().Executar(cte, sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(chave, cnpjEmitente, sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
 
             return retorno;
         }

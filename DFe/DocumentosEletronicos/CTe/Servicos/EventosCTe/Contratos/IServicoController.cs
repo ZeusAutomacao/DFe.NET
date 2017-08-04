@@ -34,12 +34,12 @@
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
-using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
-namespace DFe.DocumentosEletronicos.CTe.Servicos.Eventos.Contratos
+namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe.Contratos
 {
     public interface IServicoController
     {
-        retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento evento);
+        retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container,
+            TipoEvento tipoEvento);
     }
 }
