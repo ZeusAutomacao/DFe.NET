@@ -784,12 +784,12 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            var servicoRecepcao = new MDFeFacade(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
             // Evento executado antes do envio da mdf-e para a sefaz
             // servicoRecepcao.AntesDeEnviar += AntesEnviar;
 
-            var retornoEnvio = servicoRecepcao.EnviarLote(1, mdfe);
+            var retornoEnvio = facade.EnviarLote(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -1077,8 +1077,8 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var servicoRecibo = new MDFeConsultaLote(configMdfe, configCert);
-            var retorno = servicoRecibo.ConsultaLote(recibo);
+            var facade = new MDFeFacade(configMdfe, configCert);
+            var retorno = facade.ConsultaLote(recibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1110,8 +1110,8 @@ namespace MDFe.AppTeste
             var configMdfe = CarregarConfiguracoesMDFe(config);
             var configCert = CarregarCertitifcado(config);
 
-            var servicoConsultaProtocolo = new MDFeConsulta(configMdfe, configCert);
-            var retorno = servicoConsultaProtocolo.Consulta(chave);
+            var facade = new MDFeFacade(configMdfe, configCert);
+            var retorno = facade.Consulta(chave);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -1196,9 +1196,9 @@ namespace MDFe.AppTeste
             var configMdfe = CarregarConfiguracoesMDFe(config);
             var configCert = CarregarCertitifcado(config);
 
-            var servicoStatusServico = new MDFeFacade(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
-            var retorno = servicoStatusServico.StatusConsulta();
+            var retorno = facade.StatusConsulta();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
 
@@ -1211,9 +1211,9 @@ namespace MDFe.AppTeste
             var configMdfe = CarregarConfiguracoesMDFe(config);
             var configCert = CarregarCertitifcado(config);
 
-            var servicoConsultaNaoEncerrados = new MDFeConsultaNaoEncerradas(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
-            var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
+            var retorno = facade.ConsultaNaoEncerradas(config.Empresa.Cnpj);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1225,7 +1225,7 @@ namespace MDFe.AppTeste
             var configCert = CarregarCertitifcado(config);
 
 
-            var evento = new MDFeIncluirCondutor(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
             MDFeEletronico mdfe;
             var caminhoXml = BuscarArquivoXmlMDFe();
@@ -1264,7 +1264,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoIncluirCondutor(mdfe.Chave(), mdfe.CNPJEmitente(), 1, nomeCondutor, cpfCondutor);
+            var retorno = facade.IncluirCondutor(mdfe.Chave(), mdfe.CNPJEmitente(), 1, nomeCondutor, cpfCondutor);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1297,7 +1297,7 @@ namespace MDFe.AppTeste
                 }
             }
 
-            var evento = new MDFeFacade(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
             var protocolo = InputBoxTuche("Digite um protocolo");
 
@@ -1307,7 +1307,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.Encerrar(mdfe.Chave(), mdfe.CNPJEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
+            var retorno = facade.Encerrar(mdfe.Chave(), mdfe.CNPJEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1318,7 +1318,7 @@ namespace MDFe.AppTeste
             var configMdfe = CarregarConfiguracoesMDFe(config);
             var configCert = CarregarCertitifcado(config);
 
-            var evento = new MDFeFacade(configMdfe, configCert);
+            var facade = new MDFeFacade(configMdfe, configCert);
 
             MDFeEletronico mdfe;
             var caminhoXml = BuscarArquivoXmlMDFe();
@@ -1358,7 +1358,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.Cancelar(mdfe.Chave(), mdfe.CNPJEmitente(), 1, protocolo, justificativa);
+            var retorno = facade.Cancelar(mdfe.Chave(), mdfe.CNPJEmitente(), 1, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
