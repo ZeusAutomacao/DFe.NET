@@ -34,9 +34,7 @@
 using System.Collections.Generic;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -44,23 +42,12 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class CTeCartaCorrecao
     {
-        private readonly CteEletronico _cte;
-        private readonly int _sequenciaEvento;
-        private readonly List<infCorrecao> _infCorrecaos;
-
-        public CTeCartaCorrecao(CteEletronico cte, int sequenciaEvento,
+        public retEventoCTe CartaCorrecao(CteEletronico cte, int sequenciaEvento,
             List<infCorrecao> infCorrecaos)
         {
-            _cte = cte;
-            _sequenciaEvento = sequenciaEvento;
-            _infCorrecaos = infCorrecaos;
-        }
+            var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(infCorrecaos);
 
-        public retEventoCTe AdicionarCorrecoes()
-        {
-            var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
-
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
+            var retorno = new ServicoController().Executar(cte, sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
 
             return retorno;
         }

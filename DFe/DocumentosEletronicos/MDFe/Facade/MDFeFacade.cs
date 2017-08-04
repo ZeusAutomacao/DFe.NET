@@ -30,8 +30,6 @@ namespace DFe.DocumentosEletronicos.MDFe.Facade
 
         public MDFeFacade(DFeConfig dfeConfig, CertificadoDigital certificadoDigital) : base(dfeConfig, certificadoDigital)
         {
-            DfeConfig = dfeConfig;
-
             _enviarLote = new MDFeEnviarLote(DfeConfig, CertificadoDigital);
             _consultaLote = new MDFeConsultaLote(DfeConfig, CertificadoDigital);
             _statusConsulta = new MDFeStatusConsulta(DfeConfig, CertificadoDigital);

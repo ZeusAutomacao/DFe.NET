@@ -4,7 +4,6 @@ using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
 
@@ -16,16 +15,16 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
         {
             CTeEnviarLote enviarLote = new CTeEnviarLote();
 
-            retEnviCte retEnviCte = enviarLote.CTeRecepcao(lote, new List<Classes.Informacoes.CTe> {cte});
+            retEnviCte retEnviCte = enviarLote.EnviarLote(lote, new List<Classes.Informacoes.CTe> {cte});
 
             if (retEnviCte.cStat != 103)
             {
                 return new RetornoEnviarCte(retEnviCte, null, null);
             }
 
-            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote(retEnviCte.infRec.nRec);
+            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote();
 
-            retConsReciCTe retConsReciCTe = servicoCTeConsultaRecibo.Consultar();
+            retConsReciCTe retConsReciCTe = servicoCTeConsultaRecibo.ConsultaLote(retEnviCte.infRec.nRec);
 
 
             cteProc cteProc = null;

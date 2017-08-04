@@ -39,16 +39,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe
 {
     public class CTeConsultaLote
     {
-        private readonly string _recibo;
-
-        public CTeConsultaLote(string recibo)
+        public retConsReciCTe ConsultaLote(string recibo)
         {
-            _recibo = recibo;
-        }
-
-        public retConsReciCTe Consultar()
-        {
-            var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo);
+            var consReciCTe = ClassesFactory.CriaConsReciCTe(recibo);
             consReciCTe.ValidarSchema();
             consReciCTe.SalvarXmlEmDisco();
 

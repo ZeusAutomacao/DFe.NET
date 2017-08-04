@@ -65,18 +65,11 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
 
     public class CTeInutilizacao
     {
-        private readonly ConfigInutiliza _configInutiliza;
-
-        public CTeInutilizacao(ConfigInutiliza configInutiliza)
+        public retInutCTe Inutilizacao(ConfigInutiliza configInutiliza)
         {
             Validacoes(configInutiliza);
 
-            _configInutiliza = configInutiliza;
-        }
-
-        public retInutCTe Inutilizar()
-        {
-            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza);
+            var inutCte = ClassesFactory.CriaInutCTe(configInutiliza);
             inutCte.Assinar();
             inutCte.ValidarShcema();
             inutCte.SalvarXmlEmDisco();

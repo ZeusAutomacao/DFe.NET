@@ -645,7 +645,7 @@ namespace CTe.AppTeste
             CarregarConfiguracoes(config);
 
             var servicoConsultaProtocolo = new CTeConsulta();
-            var retorno = servicoConsultaProtocolo.ConsultaProtocolo(chave);
+            var retorno = servicoConsultaProtocolo.Consulta(chave);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -738,8 +738,8 @@ namespace CTe.AppTeste
                 justificativa
             );
 
-            var statusServico = new CTeInutilizacao(configInutilizar);
-            var retorno = statusServico.Inutilizar();
+            var statusServico = new CTeInutilizacao();
+            var retorno = statusServico.Inutilizacao(configInutilizar);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -751,8 +751,8 @@ namespace CTe.AppTeste
 
             var numeroRecibo = InputBoxTuche("Número Recibo");
 
-            var consultaReciboServico = new CTeConsultaLote(numeroRecibo);
-            var retorno = consultaReciboServico.Consultar();
+            var consultaReciboServico = new CTeConsultaLote();
+            var retorno = consultaReciboServico.ConsultaLote(numeroRecibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -774,8 +774,8 @@ namespace CTe.AppTeste
             var protocolo = InputBoxTuche("Protocolo");
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
-            var servico = new CTeCancelar(cte, sequenciaEvento, protocolo, justificativa);
-            var retorno = servico.Cancelar();
+            var servico = new CTeCancelar();
+            var retorno = servico.Cancelar(cte, sequenciaEvento, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -814,8 +814,8 @@ namespace CTe.AppTeste
                 }
             }; 
 
-            var servico = new CTeCartaCorrecao(cte, sequenciaEvento, correcoes);
-            var retorno = servico.AdicionarCorrecoes();
+            var servico = new CTeCartaCorrecao();
+            var retorno = servico.CartaCorrecao(cte, sequenciaEvento, correcoes);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1043,7 +1043,7 @@ namespace CTe.AppTeste
             // Evento executado antes do envio do CT-e para o WebService
             // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
 
-            var retornoEnvio = servicoRecepcao.CTeRecepcao(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
+            var retornoEnvio = servicoRecepcao.EnviarLote(int.Parse(numeroLote), new List<CteEletronico> { cteEletronico });
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 

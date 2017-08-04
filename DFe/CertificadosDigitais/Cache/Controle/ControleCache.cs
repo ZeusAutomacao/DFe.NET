@@ -1,12 +1,11 @@
-﻿using DFe.CertificadosDigitais;
-using DFe.Configuracao;
+﻿using DFe.Configuracao;
 
-namespace DFe.DocumentosEletronicos.MDFe.Facade
+namespace DFe.CertificadosDigitais.Cache.Controle
 {
     public class ControleCache
     {
         private DFeConfig Config { get; }
-        public CertificadoDigital CertificadoDigital { get; }
+        private CertificadoDigital CertificadoDigital { get; }
 
         public ControleCache(DFeConfig config, CertificadoDigital certificadoDigital)
         {

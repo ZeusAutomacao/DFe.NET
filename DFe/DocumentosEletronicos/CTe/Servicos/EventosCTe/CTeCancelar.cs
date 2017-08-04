@@ -33,7 +33,6 @@
 
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -41,24 +40,12 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
     public class CTeCancelar
     {
-        private readonly CteEletronico _cte;
-        private readonly int _sequenciaEvento;
-        private readonly string _numeroProtocolo;
-        private readonly string _justificativa;
 
-        public CTeCancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        public retEventoCTe Cancelar(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
-            _cte = cte;
-            _sequenciaEvento = sequenciaEvento;
-            _numeroProtocolo = numeroProtocolo;
-            _justificativa = justificativa;
-        }
+            var eventoCancelar = ClassesFactory.CriaEvCancCTe(justificativa, numeroProtocolo);
 
-        public retEventoCTe Cancelar()
-        {
-            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
-
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(cte, sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
 
             return retorno;
         }

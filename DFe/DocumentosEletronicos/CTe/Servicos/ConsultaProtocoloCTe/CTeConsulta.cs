@@ -40,7 +40,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
 {
     public class CTeConsulta
     {
-        public retConsSitCTe ConsultaProtocolo(string chave)
+        public retConsSitCTe Consulta(string chave)
         {
             var consSitCTe = ClassesFactory.CriarconsSitCTe(chave);
             consSitCTe.ValidarSchema();

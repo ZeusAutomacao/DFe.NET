@@ -1,4 +1,5 @@
 ﻿using DFe.CertificadosDigitais;
+using DFe.CertificadosDigitais.Cache.Controle;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Facade;
 

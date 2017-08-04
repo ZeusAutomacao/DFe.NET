@@ -48,7 +48,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
     {
         public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
 
-        public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
+        public retEnviCte EnviarLote(int lote, List<CTeEletronico> cteEletronicosList)
         {
             var instanciaConfiguracao = ConfiguracaoServico.Instancia;
 
