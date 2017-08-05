@@ -33,20 +33,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.NFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Autorizacao;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.ConsultaCadastro;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Evento;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Inutilizacao;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.ConsultaCadastro;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Servicos;
-using DFe.DocumentosEletronicos.NFe.Servicos.Retorno;
 using DFe.DocumentosEletronicos.NFe.Utils;
-using DFe.DocumentosEletronicos.NFe.Utils.NFe;
-using DFe.Entidades;
 using DFe.Ext;
-using DFe.Flags;
 using DFe.Utils;
 using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos.VersaoServico;
+using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace NFe.Integracao
 {
@@ -72,11 +77,11 @@ namespace NFe.Integracao
         /// <param name="numLote"></param>
         /// <param name="nfe"></param>
         /// <returns></returns>
-        public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, DFe.DocumentosEletronicos.NFe.Classes.NFe nfe)
+        public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe nfe)
         {
             nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
             var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
-            return servicoNFe.NFeAutorizacao(numLote, IndicadorSincronizacao.Assincrono, new List<DFe.DocumentosEletronicos.NFe.Classes.NFe> { nfe });
+            return servicoNFe.NFeAutorizacao(numLote, IndicadorSincronizacao.Assincrono, new List<DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe> { nfe });
         }
 
         /// <summary>

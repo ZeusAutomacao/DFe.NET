@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using DFe.Configuracao;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using cteProc = DFe.DocumentosEletronicos.CTe.Classes.Retorno.cteProc;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes

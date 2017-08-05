@@ -33,7 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.NFe.Flags;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Destinatario
 {

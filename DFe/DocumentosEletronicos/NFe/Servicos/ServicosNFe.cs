@@ -39,7 +39,22 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using DFe.Compressoes;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.NFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.AdmCsc;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Autorizacao;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.ConsultaCadastro;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.DistribuicaoDFe;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Download;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Evento;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Inutilizacao;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Recepcao;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.AdmCsc;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Consulta;
@@ -50,24 +65,11 @@ using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Download;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Recepcao;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Recepcao.Retorno;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
-using DFe.DocumentosEletronicos.NFe.Servicos.Retorno;
+using DFe.DocumentosEletronicos.NFe.Excecoes;
+using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Utils;
-using DFe.DocumentosEletronicos.NFe.Utils.AdmCsc;
-using DFe.DocumentosEletronicos.NFe.Utils.Autorizacao;
-using DFe.DocumentosEletronicos.NFe.Utils.Consulta;
-using DFe.DocumentosEletronicos.NFe.Utils.ConsultaCadastro;
-using DFe.DocumentosEletronicos.NFe.Utils.DistribuicaoDFe;
-using DFe.DocumentosEletronicos.NFe.Utils.Download;
-using DFe.DocumentosEletronicos.NFe.Utils.Evento;
-using DFe.DocumentosEletronicos.NFe.Utils.Excecoes;
-using DFe.DocumentosEletronicos.NFe.Utils.Inutilizacao;
-using DFe.DocumentosEletronicos.NFe.Utils.NFe;
-using DFe.DocumentosEletronicos.NFe.Utils.Recepcao;
-using DFe.DocumentosEletronicos.NFe.Utils.Status;
-using DFe.DocumentosEletronicos.NFe.Utils.Validacao;
+using DFe.DocumentosEletronicos.NFe.Validacao;
 using DFe.DocumentosEletronicos.NFe.Wsdl;
 using DFe.DocumentosEletronicos.NFe.Wsdl.AdmCsc;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Autorizacao;
@@ -75,19 +77,18 @@ using DFe.DocumentosEletronicos.NFe.Wsdl.ConsultaCadastro.CE;
 using DFe.DocumentosEletronicos.NFe.Wsdl.ConsultaProtocolo;
 using DFe.DocumentosEletronicos.NFe.Wsdl.DistribuicaoDFe;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Download;
+using DFe.DocumentosEletronicos.NFe.Wsdl.Enderecos;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Evento;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Inutilizacao;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Recepcao;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Status;
-using DFe.Entidades;
 using DFe.Ext;
-using DFe.Flags;
 using DFe.Utils.Assinatura;
 using detEvento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.detEvento;
 using evento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.evento;
-using FuncoesXml = DFe.ManipuladorDeXml.FuncoesXml;
-using procEventoNFe = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Consulta.procEventoNFe;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos.VersaoServico;
+using FuncoesXml = DFe.DocumentosEletronicos.ManipuladorDeXml.FuncoesXml;
+using procEventoNFe = DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta.procEventoNFe;
+using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace DFe.DocumentosEletronicos.NFe.Servicos
 {
@@ -676,7 +677,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         /// <param name="nfe"></param>
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe,
+        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.Informacoes.NFe nfe,
             string veraplic)
         {
             var versaoServico =
@@ -936,7 +937,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         /// <param name="idLote"></param>
         /// <param name="nFes"></param>
         /// <returns>Retorna um objeto da classe RetornoNfeRecepcao com com os dados do resultado da transmissão</returns>
-        public RetornoNfeRecepcao NfeRecepcao(int idLote, List<Classes.NFe> nFes)
+        public RetornoNfeRecepcao NfeRecepcao(int idLote, List<Classes.Informacoes.NFe> nFes)
         {
             var versaoServico = ServicoNFe.NfeRecepcao.VersaoServicoParaString(_cFgServico.VersaoNfeRecepcao);
 
@@ -1066,7 +1067,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
+        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.Informacoes.NFe> nFes,
             bool compactarMensagem = false)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);

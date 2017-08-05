@@ -33,7 +33,7 @@
 
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

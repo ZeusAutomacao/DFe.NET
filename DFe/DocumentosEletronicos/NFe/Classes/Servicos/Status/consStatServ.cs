@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.Entidades;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status
 {

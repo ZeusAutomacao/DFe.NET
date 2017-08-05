@@ -1,5 +1,5 @@
 ﻿using System;
-using DFe.Entidades;
+using DFe.DocumentosEletronicos.Entidades;
 
 namespace MDFe.AppTeste.Entidades
 {

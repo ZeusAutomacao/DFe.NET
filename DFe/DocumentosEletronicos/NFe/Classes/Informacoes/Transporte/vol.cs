@@ -33,6 +33,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Transporte
 {

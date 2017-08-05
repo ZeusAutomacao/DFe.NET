@@ -33,7 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.Entidades;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento

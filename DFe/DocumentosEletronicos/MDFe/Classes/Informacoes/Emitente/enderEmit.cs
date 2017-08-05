@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml.Serialization;
-using DFe.Entidades;
+using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Emitente
 {

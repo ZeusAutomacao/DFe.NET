@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
-using DFe.Entidades;
+using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS
 {

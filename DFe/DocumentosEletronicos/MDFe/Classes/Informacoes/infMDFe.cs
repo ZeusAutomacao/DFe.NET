@@ -34,6 +34,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Adicionais;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.AutorizadoDownloadXml;
@@ -44,7 +45,6 @@ using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Lacres;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Seguro;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Totalizadores;
-using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes
 {

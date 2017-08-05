@@ -1,6 +1,6 @@
 ﻿using DFe.Configuracao;
-using DFe.Entidades;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 
 
 namespace CTe.AppTeste.Entidades

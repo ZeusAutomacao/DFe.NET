@@ -34,10 +34,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.ConsultaProtocolo;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.ConsultaProtocolo
 {

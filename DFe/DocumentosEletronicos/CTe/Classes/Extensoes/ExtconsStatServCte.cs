@@ -36,10 +36,10 @@ using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.Ext;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

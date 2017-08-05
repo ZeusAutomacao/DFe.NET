@@ -42,8 +42,8 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.NFe.Utils;
-using DFe.Entidades;
 using CTeEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory

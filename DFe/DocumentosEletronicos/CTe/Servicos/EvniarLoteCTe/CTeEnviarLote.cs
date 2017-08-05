@@ -41,8 +41,8 @@ using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.Ext;
-using DFe.Flags;
 using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe

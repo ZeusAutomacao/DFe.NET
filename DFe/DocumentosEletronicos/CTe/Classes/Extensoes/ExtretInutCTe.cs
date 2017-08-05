@@ -35,8 +35,8 @@ using System;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

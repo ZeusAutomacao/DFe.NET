@@ -43,7 +43,7 @@ using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico;
-using DFe.Entidades;
+using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
 {

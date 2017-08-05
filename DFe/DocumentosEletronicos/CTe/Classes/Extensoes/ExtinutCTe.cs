@@ -39,10 +39,10 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.NFe.Utils;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

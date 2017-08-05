@@ -35,8 +35,8 @@ using System;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

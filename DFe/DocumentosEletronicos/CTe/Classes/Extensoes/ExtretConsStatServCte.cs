@@ -34,9 +34,9 @@
 using System;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.Ext;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

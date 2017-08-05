@@ -34,7 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes
 {

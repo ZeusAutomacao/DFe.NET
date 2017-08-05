@@ -34,8 +34,8 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
-using DFe.Entidades;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Rodoviario
 {

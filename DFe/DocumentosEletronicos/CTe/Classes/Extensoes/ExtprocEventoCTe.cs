@@ -33,7 +33,7 @@
 
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

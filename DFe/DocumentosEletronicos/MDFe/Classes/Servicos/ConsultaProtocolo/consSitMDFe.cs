@@ -33,8 +33,8 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
-using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Servicos.ConsultaProtocolo
 {

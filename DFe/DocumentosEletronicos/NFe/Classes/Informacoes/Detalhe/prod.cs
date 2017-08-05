@@ -36,6 +36,7 @@ using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Exportacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.ProdEspecifico;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe
 {

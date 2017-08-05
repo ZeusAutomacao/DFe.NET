@@ -34,6 +34,7 @@
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao
 {

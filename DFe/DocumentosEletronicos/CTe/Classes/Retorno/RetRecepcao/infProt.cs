@@ -33,7 +33,7 @@
 
 using System;
 using DFe.Assinatura;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao
 {

@@ -39,7 +39,7 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Recepcao
     [XmlRoot(ElementName = "enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class enviNFe2
     {
-        public enviNFe2(string versao, int idLote, List<NFe> nFe)
+        public enviNFe2(string versao, int idLote, List<Informacoes.NFe> nFe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -65,6 +65,6 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Recepcao
         ///     AP04 - Conjunto de NF-e transmitidas
         /// </summary>
         [XmlElement("NFe")]
-        public List<NFe> NFe { get; set; }
+        public List<Informacoes.NFe> NFe { get; set; }
     }
 }

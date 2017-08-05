@@ -32,9 +32,9 @@
 /********************************************************************************/
 
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.MDFe.Classes.Retorno.Autorizacao;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 {

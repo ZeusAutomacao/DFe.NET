@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Inutilizacao;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Inutilizacao
 {

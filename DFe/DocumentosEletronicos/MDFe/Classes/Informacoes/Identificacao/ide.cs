@@ -34,10 +34,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
-using DFe.Entidades;
 using DFe.Ext;
-using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Identificacao
 {

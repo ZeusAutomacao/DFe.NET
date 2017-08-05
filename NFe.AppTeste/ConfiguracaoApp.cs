@@ -33,12 +33,12 @@
 using System;
 using System.IO;
 using System.Net;
+using DFe.Configuracao.Email;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Utils;
-using DFe.DocumentosEletronicos.NFe.Utils.Email;
 using DFe.Ext;
-using DFe.ManipuladorDeXml;
 using DFe.Utils;
 using NFe.AppTeste.Properties;
 using NFe.Danfe.Base;

@@ -33,6 +33,8 @@
 
 using System.IO;
 using DFe.DocumentosEletronicos.NFe.Classes;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Consulta;
 using FastReport;
 using NFe.Danfe.Base.NFe;

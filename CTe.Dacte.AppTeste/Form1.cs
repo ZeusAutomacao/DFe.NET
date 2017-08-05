@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.Utils;
 
 namespace CTe.Dacte.AppTeste

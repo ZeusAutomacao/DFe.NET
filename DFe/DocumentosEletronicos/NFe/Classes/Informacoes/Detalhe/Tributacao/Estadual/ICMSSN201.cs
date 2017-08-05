@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {

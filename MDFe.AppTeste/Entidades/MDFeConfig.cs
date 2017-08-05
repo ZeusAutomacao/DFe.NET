@@ -1,7 +1,7 @@
 ﻿using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
-using DFe.Entidades;
-using DFe.Flags;
 
 namespace MDFe.AppTeste.Entidades
 {

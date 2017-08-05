@@ -38,7 +38,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
 {

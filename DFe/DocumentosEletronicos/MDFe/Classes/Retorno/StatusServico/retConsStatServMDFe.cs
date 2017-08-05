@@ -33,10 +33,10 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.StatusServico;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.StatusServico
 {

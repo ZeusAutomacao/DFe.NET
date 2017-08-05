@@ -34,8 +34,8 @@
 using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
 {

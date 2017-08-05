@@ -33,12 +33,18 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.AutorizadoDownloadXml;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Cana;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Cobranca;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.ComercioExterior;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Compras;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Destinatario;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.IdentificacaoFiscoEmitente;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.LocalEntrega;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.LocalRetirada;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Observacoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Pagamento;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Total;

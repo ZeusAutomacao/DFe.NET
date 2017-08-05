@@ -38,9 +38,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:enumBindable="clr-namespace:MDFe.AppTeste.EnumBindable"
-        xmlns:flags="clr-namespace:DFe.Entidades;assembly=DFe"
         xmlns:flagsCte="clr-namespace:DFe.DocumentosEletronicos.MDFe.Classes.Flags;assembly=DFe"
-        xmlns:flagsCte1="clr-namespace:DFe.Flags;assembly=DFe"
+        xmlns:flags="clr-namespace:DFe.DocumentosEletronicos.Entidades;assembly=DFe"
+        xmlns:flagsCte1="clr-namespace:DFe.DocumentosEletronicos.Flags;assembly=DFe"
         mc:Ignorable="d"
         Loaded="MDFeTeste_OnLoaded"
         Title="MainWindow" Height="720.696" Width="771.522">

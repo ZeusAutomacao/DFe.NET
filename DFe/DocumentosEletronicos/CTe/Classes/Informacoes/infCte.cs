@@ -44,7 +44,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Recebedor;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Remetente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 {

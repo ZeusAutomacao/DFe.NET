@@ -33,8 +33,8 @@
 
 using System;
 using DFe.Configuracao;
-using DFe.Entidades;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers
 {

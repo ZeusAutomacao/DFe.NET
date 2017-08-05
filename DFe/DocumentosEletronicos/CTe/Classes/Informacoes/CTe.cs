@@ -35,8 +35,8 @@ using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 {

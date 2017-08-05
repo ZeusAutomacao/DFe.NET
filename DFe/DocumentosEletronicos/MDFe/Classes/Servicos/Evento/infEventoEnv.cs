@@ -33,9 +33,9 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.Flags;
-using DFe.Entidades;
-using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento
 {

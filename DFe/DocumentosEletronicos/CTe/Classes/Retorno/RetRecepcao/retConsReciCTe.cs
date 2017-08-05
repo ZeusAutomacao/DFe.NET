@@ -34,9 +34,9 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao
 {

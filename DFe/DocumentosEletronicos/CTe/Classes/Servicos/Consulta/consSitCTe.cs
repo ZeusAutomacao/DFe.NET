@@ -33,7 +33,7 @@
 
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta
 {

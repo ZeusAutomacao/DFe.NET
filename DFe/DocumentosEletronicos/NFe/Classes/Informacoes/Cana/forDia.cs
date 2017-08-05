@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Cana
 {

@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

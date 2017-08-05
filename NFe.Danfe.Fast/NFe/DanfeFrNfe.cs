@@ -33,6 +33,8 @@
 
 using System.IO;
 using DFe.DocumentosEletronicos.NFe.Classes;
+using DFe.DocumentosEletronicos.NFe.Classes.Informacoes;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
 using FastReport;
 using NFe.Danfe.Base.NFe;
 
@@ -75,7 +77,7 @@ namespace NFe.Danfe.Fast.NFe
         /// <param name="nfe">Objeto do tipo <see cref="NFe"/></param>
         /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        public DanfeFrNfe(DFe.DocumentosEletronicos.NFe.Classes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe, desenvolvedor)
+        public DanfeFrNfe(DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe nfe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor) : this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfe, desenvolvedor)
         {
         }
     }

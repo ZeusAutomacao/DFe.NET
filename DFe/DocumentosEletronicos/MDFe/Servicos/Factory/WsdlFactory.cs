@@ -33,6 +33,7 @@
 
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.MDFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Enderecos.Helper;
@@ -42,7 +43,6 @@ using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeEventos;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeRecepcao;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeRetRecepcao;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeStatusServico;
-using DFe.Entidades;
 
 namespace DFe.DocumentosEletronicos.MDFe.Servicos.Factory
 {

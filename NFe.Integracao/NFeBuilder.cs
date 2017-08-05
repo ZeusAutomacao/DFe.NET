@@ -36,6 +36,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Collections.Generic;
 using DFe.DocumentosEletronicos.NFe.Classes;
+using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Autorizacao;
 using NFe.Integracao.Enums;
 
@@ -47,11 +48,11 @@ namespace NFe.Integracao
     /// </summary>
     public class NFeBuilder
     {
-        private readonly IList<DFe.DocumentosEletronicos.NFe.Classes.NFe> _nFe;
+        private readonly IList<DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe> _nFe;
 
         public NFeBuilder(string pathArquivoXml, TipoXmlNFe tipo)
         {
-            _nFe = new List<DFe.DocumentosEletronicos.NFe.Classes.NFe>();
+            _nFe = new List<DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe>();
 
             try
             {
@@ -74,8 +75,8 @@ namespace NFe.Integracao
                         break;
                     default:
                     {
-                        var desserializador = new XmlSerializer(typeof(DFe.DocumentosEletronicos.NFe.Classes.NFe));
-                        _nFe.Add(((DFe.DocumentosEletronicos.NFe.Classes.NFe)desserializador.Deserialize(reader)));
+                        var desserializador = new XmlSerializer(typeof(DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe));
+                        _nFe.Add(((DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe)desserializador.Deserialize(reader)));
                     }
                         break;
                 }
@@ -90,7 +91,7 @@ namespace NFe.Integracao
         /// Método responsável por montar uma NF-e.
         /// </summary>
         /// <returns>Retorna uma das notas presentes em "this.NFe" removendo a mesma da listagem.</returns>
-        public DFe.DocumentosEletronicos.NFe.Classes.NFe Build()
+        public DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe Build()
         {
             if (_nFe.Count <= 0)
                 throw new InvalidOperationException("Não existem informações para a montagem da classe");
@@ -103,7 +104,7 @@ namespace NFe.Integracao
         /// Monta uma lista de NF-e.
         /// </summary>
         /// <returns>Retorna todas as NF-e´s presentes em "this.NFe"</returns>
-        public IList<DFe.DocumentosEletronicos.NFe.Classes.NFe> BuildAll()
+        public IList<DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe> BuildAll()
         {
             if (_nFe.Count <= 0)
                 throw new InvalidOperationException("Não existem informações para a montagem da classe");

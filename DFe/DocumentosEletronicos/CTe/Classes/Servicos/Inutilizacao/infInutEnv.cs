@@ -32,8 +32,8 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.Entidades;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao
 {

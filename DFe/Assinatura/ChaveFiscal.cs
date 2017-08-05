@@ -33,8 +33,8 @@
 
 using System;
 using System.Text;
-using DFe.Entidades;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.Assinatura
 {

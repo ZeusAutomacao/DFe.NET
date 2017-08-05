@@ -34,8 +34,8 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Assinatura;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento;
-using DFe.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.Evento
 {

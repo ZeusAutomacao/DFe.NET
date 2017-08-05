@@ -34,7 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.Flags;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.RetRecepcao
 {

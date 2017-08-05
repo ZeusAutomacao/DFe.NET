@@ -34,10 +34,10 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.Entidades;
 using DFe.Ext;
-using DFe.Flags;
 using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao

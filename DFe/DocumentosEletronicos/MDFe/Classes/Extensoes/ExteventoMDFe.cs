@@ -35,14 +35,14 @@ using System;
 using System.Xml;
 using DFe.Assinatura;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.Flags;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes

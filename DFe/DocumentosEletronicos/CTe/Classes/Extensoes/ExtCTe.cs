@@ -39,9 +39,9 @@ using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Validacao;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes

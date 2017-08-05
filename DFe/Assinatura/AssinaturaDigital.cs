@@ -34,7 +34,7 @@
 using System;
 using System.Security.Cryptography.Xml;
 using System.Xml;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using SignatureZeus = DFe.Assinatura.Signature;
 
 namespace DFe.Assinatura

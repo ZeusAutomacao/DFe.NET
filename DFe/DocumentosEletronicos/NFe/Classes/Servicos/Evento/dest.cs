@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento
 {

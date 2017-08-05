@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.IO;
-using DFe.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.Utils;
 using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;

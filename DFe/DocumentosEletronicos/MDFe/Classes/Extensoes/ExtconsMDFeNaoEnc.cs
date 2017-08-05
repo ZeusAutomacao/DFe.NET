@@ -34,12 +34,12 @@
 using System;
 using System.Xml;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.ConsultaNaoEncerrados;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 {

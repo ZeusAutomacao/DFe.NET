@@ -34,15 +34,15 @@
 using System;
 using DFe.Assinatura;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Aereo;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Aquaviario;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Ferroviario;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Rodoviario;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
 using CertificadoDigital = DFe.CertificadosDigitais.CertificadoDigital;
 using MDFEletronico = DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.MDFe;
 

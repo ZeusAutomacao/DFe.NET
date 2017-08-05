@@ -37,10 +37,10 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
-using DFe.Entidades;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {

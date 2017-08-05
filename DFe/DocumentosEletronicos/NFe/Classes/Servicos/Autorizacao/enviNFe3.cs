@@ -33,14 +33,14 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Tipos;
+using DFe.DocumentosEletronicos.NFe.Flags;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Autorizacao
 {
     [XmlRoot(ElementName = "enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class enviNFe3
     {
-        public enviNFe3(string versao, int idLote, IndicadorSincronizacao indSinc, List<NFe> nFe)
+        public enviNFe3(string versao, int idLote, IndicadorSincronizacao indSinc, List<Informacoes.NFe> nFe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -72,6 +72,6 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Autorizacao
         ///     AP04 - Conjunto de NF-e transmitidas
         /// </summary>
         [XmlElement("NFe")]
-        public List<NFe> NFe { get; set; }
+        public List<Informacoes.NFe> NFe { get; set; }
     }
 }

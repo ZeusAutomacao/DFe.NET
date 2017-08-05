@@ -37,9 +37,9 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
-using DFe.Flags;
-using DFe.ManipuladorDeXml;
-using DFe.ResolvePastas;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
