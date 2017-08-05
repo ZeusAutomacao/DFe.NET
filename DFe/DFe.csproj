@@ -79,6 +79,7 @@
     <Compile Include="DocumentosEletronicos\NFe\Flags\ServicoNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\TipoEventoManifestacaoDestinatario.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\VersaoServico.cs" />
+    <Compile Include="DocumentosEletronicos\NFe\Servicos\StatusServicoNFe\NFeStatusServico.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
     <Compile Include="DocumentosEletronicos\Flags\TipoAmbiente.cs" />
