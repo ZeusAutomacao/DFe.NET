@@ -33,7 +33,6 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.AutorizadoDownloadXml;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Complemento;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario;

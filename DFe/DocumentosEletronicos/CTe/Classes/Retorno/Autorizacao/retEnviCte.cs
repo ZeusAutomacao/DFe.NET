@@ -33,7 +33,6 @@
 
 using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.Entidades;
 using DFe.Flags;

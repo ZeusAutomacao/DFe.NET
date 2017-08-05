@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
 
 namespace DFe.ResolvePastas
 {
@@ -251,6 +250,8 @@ namespace DFe.ResolvePastas
             var caminho = new StringBuilder(PastaRetornoEnviados());
 
             caminho.Append(@"\Proc");
+
+            CriaDiretorioSeNaoExistir(caminho);
 
             return caminho.ToString();
         }

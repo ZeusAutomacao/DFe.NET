@@ -36,10 +36,12 @@ using System.Collections.Generic;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
+using DFe.Ext;
 using DFe.Flags;
 using CTeEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
@@ -61,6 +63,28 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
         public retEnviCte EnviarLote(int lote, List<CTeEletronico> cteEletronicosList)
         {
             var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList, _dfeConfig);
+
+            switch (_dfeConfig.VersaoServico)
+            {
+                case VersaoServico.Versao200:
+                    foreach (var cte in cteEletronicosList)
+                    {
+                        cte.infCte.ide.ProxydhEmi = cte.infCte.ide.dhEmi.ParaDataHoraStringSemUtc();
+                        cte.infCte.versao = VersaoServico.Versao200;
+                        cte.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM200;
+                    }
+                    break;
+                case VersaoServico.Versao300:
+                    foreach (var cte in cteEletronicosList)
+                    {
+                        cte.infCte.ide.ProxydhEmi = cte.infCte.ide.dhEmi.ParaDataHoraStringUtc();
+                        cte.infCte.versao = VersaoServico.Versao300;
+                        cte.infCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+                    }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
             if (_dfeConfig.TipoAmbiente == TipoAmbiente.Homologacao)
             {

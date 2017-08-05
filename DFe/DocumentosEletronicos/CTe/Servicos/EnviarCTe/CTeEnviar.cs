@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;

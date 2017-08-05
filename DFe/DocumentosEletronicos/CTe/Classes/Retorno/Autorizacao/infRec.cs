@@ -30,10 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+
 namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao
 {
     public class infRec
     {
+        public DateTime? dhRecbto;
+
         /// <summary>
         ///     AR08 - Número do Recibo gerado pelo Portal da Secretaria de Fazenda Estadual (vide item 5.5).
         /// </summary>
