@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
@@ -40,6 +41,8 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.CTe.Servicos.Eventos;
 using DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe.Contratos;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
+using DFe.Ext;
+using DFe.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
 {
@@ -48,6 +51,20 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
         public retEventoCTe Executar(string chave, string cnpjEmitente, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento, DFeConfig config, CertificadoDigital certificadoDigital)
         {
             var evento = FactoryEvento.CriaEvento(chave, cnpjEmitente, tipoEvento, sequenciaEvento, container, config);
+
+
+            switch (config.VersaoServico)
+            {
+                case VersaoServico.Versao200:
+                    evento.infEvento.ProxydhEvento = evento.infEvento.dhEvento.ParaDataHoraStringSemUtc();
+                    break;
+                case VersaoServico.Versao300:
+                    evento.infEvento.ProxydhEvento = evento.infEvento.dhEvento.ParaDataHoraStringUtc();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
             evento.Assina(certificadoDigital);
             evento.ValidarSchema(config);
             evento.SalvarXmlEmDisco(config, tipoEvento);
