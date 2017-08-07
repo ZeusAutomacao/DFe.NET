@@ -35,6 +35,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Excecoes;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Utils;
@@ -60,29 +61,29 @@ namespace DFe.DocumentosEletronicos.NFe.Validacao
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "inutNFe_v2.00.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "inutNFe_v3.10.xsd";
                     }
                     break;
                 case ServicoNFe.NfeConsultaProtocolo:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "consSitNFe_v2.01.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "consSitNFe_v3.10.xsd";
                     }
                     break;
                 case ServicoNFe.NfeStatusServico:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "consStatServ_v2.00.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "consStatServ_v3.10.xsd";
-                        case VersaoServico.ve400:
+                        case VersaoServico.Versao400:
                             return "consStatServ_v4.00.xsd";
                     }
                     break;

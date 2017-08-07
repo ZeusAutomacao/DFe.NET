@@ -88,7 +88,6 @@ using detEvento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.detEvent
 using evento = DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento.evento;
 using FuncoesXml = DFe.DocumentosEletronicos.ManipuladorDeXml.FuncoesXml;
 using procEventoNFe = DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta.procEventoNFe;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace DFe.DocumentosEletronicos.NFe.Servicos
 {
@@ -128,7 +127,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
-            if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
+            if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.Versao310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
         }
@@ -139,15 +138,15 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.Versao400)
                     {
                         return new NFeStatusServico4(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {
                         return new NfeStatusServico3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.Versao310 &
                         _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
@@ -155,11 +154,11 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.Versao310)
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310 &
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.Versao310 &
                         _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
@@ -177,16 +176,16 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.Versao310)
                         return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
+                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
+                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.Versao310 &
                         _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);

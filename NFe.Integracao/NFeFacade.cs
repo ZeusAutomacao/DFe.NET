@@ -37,21 +37,17 @@ using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.ConsultaCadastro;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Evento;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.ConsultaCadastro;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Servicos;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
-using DFe.Utils;
 using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace NFe.Integracao
 {
@@ -174,19 +170,19 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.tpEmis = temiss;
             //-------------------------------------------------------------------------------
             //Versão atual da NFe/NFCe: 3.10
-            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.Versao310;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.Versao310;
             #endregion
 
         }

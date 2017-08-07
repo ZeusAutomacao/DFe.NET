@@ -38,7 +38,6 @@ using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -48,18 +47,18 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         {
             switch (versaoServico)
             {
-                case VersaoServico.ve100:
+                case VersaoServico.Versao100:
                     return "1.00";
-                case VersaoServico.ve200:
+                case VersaoServico.Versao200:
                     switch (servicoNFe)
                     {
                         case ServicoNFe.NfeConsultaProtocolo:
                             return "2.01";
                     }
                     return "2.00";
-                case VersaoServico.ve310:
+                case VersaoServico.Versao310:
                     return "3.10";
-                case VersaoServico.ve400:
+                case VersaoServico.Versao400:
                     return "4.00";
             }
             return "";
@@ -82,11 +81,11 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         {
             switch (versao)
             {
-                case VersaoServico.ve100:
+                case VersaoServico.Versao100:
                     return "1.00";
-                case VersaoServico.ve200:
+                case VersaoServico.Versao200:
                     return "2.00";
-                case VersaoServico.ve310:
+                case VersaoServico.Versao310:
                     return "3.10";
             }
             return null;

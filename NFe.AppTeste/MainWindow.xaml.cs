@@ -80,7 +80,6 @@ using DFe.Utils.Assinatura;
 using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe;
 using Reflexao = DFe.Ext.Reflexao;
-using VersaoServico = DFe.DocumentosEletronicos.NFe.Flags.VersaoServico;
 
 namespace NFe.AppTeste
 {
@@ -948,7 +947,7 @@ namespace NFe.AppTeste
 
             infNFe.total = GetTotal(versao, infNFe.det);
 
-            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
+            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.Versao310)
                 infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 Somente
             if (infNFe.ide.mod == ModeloDocumento.NFCe)
                 infNFe.pag = GetPagamento(infNFe.total.ICMSTot); //NFCe Somente  
@@ -989,7 +988,7 @@ namespace NFe.AppTeste
 
             #region V2.00
 
-            if (versao == VersaoServico.ve200)
+            if (versao == VersaoServico.Versao200)
             {
                 ide.dEmi = DateTime.Today; //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
                 ide.dSaiEnt = DateTime.Today;
@@ -999,7 +998,7 @@ namespace NFe.AppTeste
 
             #region V3.00
 
-            if (versao != VersaoServico.ve310) return ide;
+            if (versao != VersaoServico.Versao310) return ide;
             ide.idDest = DestinoOperacao.doInterna;
             ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
@@ -1064,7 +1063,7 @@ namespace NFe.AppTeste
 
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";
-            if (versao != VersaoServico.ve310) return dest;
+            if (versao != VersaoServico.Versao310) return dest;
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
             dest.email = "teste@gmail.com"; //V3.00 Somente
             return dest;
@@ -1101,7 +1100,7 @@ namespace NFe.AppTeste
                         TipoICMS =
                             crt == CRT.SimplesNacional
                                 ? InformarCSOSN(Csosnicms.Csosn102)
-                                : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
+                                : InformarICMS(Csticms.Cst00, VersaoServico.Versao310)
                     },
                     //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
 
@@ -1181,7 +1180,7 @@ namespace NFe.AppTeste
                 vICMS = 0.17m,
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
-            if (versao == VersaoServico.ve310)
+            if (versao == VersaoServico.Versao310)
                 icms20.vICMSDeson = 0.10m; //V3.00 ou maior Somente
 
             switch (CST)
@@ -1251,7 +1250,7 @@ namespace NFe.AppTeste
                 vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
                 vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
             };
-            if (versao == VersaoServico.ve310)
+            if (versao == VersaoServico.Versao310)
                 icmsTot.vICMSDeson = 0;
 
             foreach (var produto in produtos)
