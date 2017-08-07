@@ -34,7 +34,7 @@
 using System;
 using DFe.DocumentosEletronicos.Flags;
 
-namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
+namespace DFe.DocumentosEletronicos.Ext
 {
     public static class ExtVersaoServico
     {

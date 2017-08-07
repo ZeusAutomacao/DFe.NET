@@ -34,6 +34,7 @@
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Ext;
 using DFe.DocumentosEletronicos.MDFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Enderecos.Helper;

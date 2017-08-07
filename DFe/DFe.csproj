@@ -338,7 +338,7 @@
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Extensoes\ExtretConsStatServMDFe.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Extensoes\ExtretEnviMDFe.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Extensoes\ExtretEventoMDFe.cs" />
-    <Compile Include="DocumentosEletronicos\MDFe\Classes\Extensoes\ExtVersaoServico.cs" />
+    <Compile Include="DocumentosEletronicos\Ext\ExtVersaoServico.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Flags\cUnid.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Flags\procEmi.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Flags\modal.cs" />
