@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="07/28/2017 15:55:03" ReportInfo.CreatorVersion="2017.1.18.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="07/30/2017 20:16:24" ReportInfo.CreatorVersion="2017.1.18.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ using CTe.Classes.Informacoes.Tipos;
 using CTe.Classes.Informacoes.Impostos.Tributacao;
 using CTe.Classes.Informacoes.Impostos.ICMS;
 using CTe.Classes.Informacoes.Impostos.ICMS.Tipos;
+using CTe.Classes.Informacoes.Identificacao;
 
 namespace FastReport
 { 
@@ -119,16 +120,16 @@ namespace FastReport
         cnpjRecebedor = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.receb.CPF&quot;));
       Text109.Text = FormatarCampo(cnpjRecebedor, 'd');
       
-      string cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.toma.CNPJ&quot;));
+      string cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.CNPJ&quot;));
       if (string.IsNullOrEmpty(cnpjTomador))
-        cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.toma.CPF&quot;));
+        cnpjTomador = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.CPF&quot;));
       
-      int toma = 4;
-      if ((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tomaBase3.toma&quot;) != null)
+      int toma = 4;      
+      if ((tomaBase3)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tomaBase3&quot;) != null)
         toma = Convert.ToInt32((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tomaBase3.toma&quot;));
       else if ((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.toma&quot;) != null)
         toma = Convert.ToInt32((toma)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.toma&quot;));
-      
+            
       switch (toma)
       {
         case 0: //REMETENTE
@@ -177,14 +178,15 @@ namespace FastReport
           break;
         case 4: //Outros
           Text44.Text = &quot;OUTROS&quot;;
-          Text118.Text = &quot;[cteProc.CTe.infCte.toma.xNome]&quot;;
-          Text119.Text = &quot;[cteProc.CTe.infCte.toma.enderToma.xMun] - [cteProc.CTe.infCte.toma.enderToma.ProxyUF]&quot;;
-          Text120.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.toma.enderToma.CEP],'c')]&quot;;
-          Text121.Text = &quot;[cteProc.CTe.infCte.toma.enderToma.xLgr], [cteProc.CTe.infCte.toma.enderToma.nro] [cteProc.CTe.infCte.toma.enderToma.xCpl]&quot;;
-          Text123.Text = &quot;[cteProc.CTe.infCte.toma.enderToma.xPais] - [cteProc.CTe.infCte.toma.enderToma.cPais]&quot;;
+          Text118.Text = &quot;[cteProc.CTe.infCte.ide.toma4.xNome]&quot;;
+          Text119.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xMun] - [cteProc.CTe.infCte.ide.toma4.enderToma.ProxyUF]&quot;;
+          Text120.Text = FormatarCampo(((Int64)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.enderToma.CEP&quot;)).ToString(), 'c');
+          Text121.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xLgr], [cteProc.CTe.infCte.ide.toma4.enderToma.nro] [cteProc.CTe.infCte.ide.toma4.enderToma.xCpl]&quot;;
+          Text123.Text = &quot;[cteProc.CTe.infCte.ide.toma4.enderToma.xPais] - [cteProc.CTe.infCte.ide.toma4.enderToma.cPais]&quot;;            
           Text126.Text = FormatarCampo(cnpjTomador,'d');
-          Text127.Text = &quot;[cteProc.CTe.infCte.toma.IE]&quot;;
-          Text128.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.toma.fone],'f')]&quot;;
+          Text127.Text = &quot;[cteProc.CTe.infCte.ide.toma4.IE]&quot;;
+          Text128.Text = FormatarCampo((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.toma4.fone&quot;), 'f');
+          
           break;
       }
       
@@ -441,9 +443,9 @@ namespace FastReport
                 <Column Name="nro" DataType="System.String"/>
                 <Column Name="xCpl" DataType="System.String"/>
                 <Column Name="xBairro" DataType="System.String"/>
-                <Column Name="cMun" DataType="System.String"/>
+                <Column Name="cMun" DataType="System.Int64"/>
                 <Column Name="xMun" DataType="System.String"/>
-                <Column Name="CEP" DataType="System.String"/>
+                <Column Name="CEP" DataType="System.Int64"/>
                 <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="ProxyUF" DataType="System.String"/>
                 <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -455,6 +457,7 @@ namespace FastReport
             <Column Name="dhCont" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="ProxydhCont" DataType="System.String"/>
             <Column Name="xJust" DataType="System.String"/>
+            <Column Name="ProxycCT" DataType="System.String"/>
           </Column>
           <Column Name="compl" DataType="CTe.Classes.Informacoes.Complemento.compl, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <Column Name="xCaracAd" DataType="System.String"/>
@@ -520,9 +523,9 @@ namespace FastReport
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
               <Column Name="xBairro" DataType="System.String"/>
-              <Column Name="cMun" DataType="System.String"/>
+              <Column Name="cMun" DataType="System.Int64"/>
               <Column Name="xMun" DataType="System.String"/>
-              <Column Name="CEP" DataType="System.String"/>
+              <Column Name="CEP" DataType="System.Int64"/>
               <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="ProxyUF" DataType="System.String"/>
               <Column Name="cPais" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -663,6 +666,10 @@ namespace FastReport
             <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
                 <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="vBCSTRet" DataType="System.Decimal"/>
+                <Column Name="vICMSSTRet" DataType="System.Decimal"/>
+                <Column Name="pICMSSTRet" DataType="System.Decimal"/>
+                <Column Name="vCred" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -1018,7 +1025,7 @@ namespace FastReport
     <Parameter Name="Desenvolvedor" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="8" TopMargin="12" RightMargin="7" BottomMargin="7" FirstPageSource="261" OtherPagesSource="261">
-    <PageHeaderBand Name="PageHeader1" Width="737.1" Height="889.75" BeforePrintEvent="PageHeader1_BeforePrint">
+    <PageHeaderBand Name="PageHeader1" Top="20" Width="737.1" Height="889.75" BeforePrintEvent="PageHeader1_BeforePrint">
       <ShapeObject Name="Shape2" Top="74.6" Width="737.1" Height="170.1"/>
       <TextObject Name="Text24" Left="605.8" Top="77.05" Width="129.85" Height="25.9" Text="MODAL&#13;&#10;RODOVIÁRIO" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <ShapeObject Name="Shape1" Width="737.1" Height="69.93"/>
@@ -1269,12 +1276,12 @@ namespace FastReport
       <TextObject Name="Text202" Left="357.1" Top="580.23" Width="104.95" Height="8.9" Text="VALOR" HorzAlign="Right" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text203" Left="1" Top="591.35" Width="228.8" Height="38.25" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text204" Left="233.25" Top="591.35" Width="228.8" Height="38.25" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="Text193" Left="2" Top="709.75" Width="363.1" Height="92.05" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF               26.363.645/0001-82        550-1&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009" Font="Courier New, 6pt, style=Bold"/>
+      <TextObject Name="Text193" Left="2" Top="709.75" Width="363.1" Height="92.05" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Font="Courier New, 6pt, style=Bold"/>
       <LineObject Name="Line64" Left="368.55" Top="697.3" Height="105.95"/>
-      <TextObject Name="Text205" Left="372.55" Top="709.75" Width="363.1" Height="92.05" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009" Font="Courier New, 6pt, style=Bold"/>
+      <TextObject Name="Text205" Left="372.55" Top="709.75" Width="363.1" Height="92.05" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Font="Courier New, 6pt, style=Bold"/>
       <TextObject Name="Text198" Left="1.45" Top="698.3" Width="364.55" Height="9.45" Text="TP DOC                    CPF/CNPJ EMITENTE                 SÉRIE/NRO. DOCUMENTO" Font="Microsoft Sans Serif, 6.75pt"/>
       <TextObject Name="Text206" Left="368.55" Top="698.3" Width="364.55" Height="9.45" Text="TP DOC                    CPF/CNPJ EMITENTE                 SÉRIE/NRO. DOCUMENTO" Font="Microsoft Sans Serif, 6.75pt"/>
-      <ChildBand Name="Child1" Top="892.78" Width="737.1" Height="50.15">
+      <ChildBand Name="Child1" Top="929.75" Width="737.1" Height="50.15">
         <ShapeObject Name="Shape10" Top="1.45" Width="737.1" Height="47.25"/>
         <LineObject Name="Line48" Left="1" Top="15.35" Width="734.55"/>
         <TextObject Name="Text167" Left="1" Top="2.9" Width="735.1" Height="11.45" Text="DADOS ESPECÍFICOS DO MODAL RODOVIÁRIO - CARGA FRACIONADA" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
@@ -1293,7 +1300,7 @@ namespace FastReport
         <TextObject Name="Text184" Left="207.9" Top="28.8" Width="111.95" Height="14.45" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.dPrev]" Font="Times New Roman, 8.25pt"/>
       </ChildBand>
     </PageHeaderBand>
-    <ColumnFooterBand Name="ColumnFooter1" Top="945.96" Width="737.1" Height="71.6">
+    <ColumnFooterBand Name="ColumnFooter1" Top="999.9" Width="737.1" Height="71.6">
       <ShapeObject Name="Shape11" Width="737.1" Height="56.7"/>
       <TextObject Name="Text164" Left="311.85" Top="58.7" Width="423.25" Height="11.45" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text165" Left="1" Top="2" Width="442.15" Height="11.45" Text="USO EXCLUSIVO DO EMISSOR DO CTE" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
