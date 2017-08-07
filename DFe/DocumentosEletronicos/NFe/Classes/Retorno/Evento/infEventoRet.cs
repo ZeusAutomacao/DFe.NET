@@ -35,6 +35,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.Assinatura;
 using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.Ext;
 

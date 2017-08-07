@@ -37,7 +37,6 @@ using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Detalhe.Tributacao.Estad
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Flags;
-using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -68,9 +67,9 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         {
             switch (tpAmb)
             {
-                case TipoAmbiente.taHomologacao:
+                case TipoAmbiente.Homologacao:
                     return "Homologação";
-                case TipoAmbiente.taProducao:
+                case TipoAmbiente.Producao:
                     return "Produção";
                 default:
                     throw new ArgumentOutOfRangeException("tpAmb", tpAmb, null);

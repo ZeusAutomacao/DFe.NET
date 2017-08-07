@@ -81,6 +81,7 @@
     <Compile Include="DocumentosEletronicos\NFe\Servicos\Factory\ClassesFactory.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\StatusServicoNFe\NFeStatusServico.cs" />
+    <Compile Include="DocumentosEletronicos\NFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
     <Compile Include="DocumentosEletronicos\Flags\TipoAmbiente.cs" />

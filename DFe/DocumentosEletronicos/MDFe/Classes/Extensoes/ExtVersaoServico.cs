@@ -31,8 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.DocumentosEletronicos.Flags;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 {
@@ -40,10 +40,21 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
     {
         public static string GetVersaoString(this VersaoServico versaoServico)
         {
-            var codigoString = versaoServico.ToString();
-            var codigoFormatado = codigoString.Substring(6, 3);
-            codigoFormatado = codigoFormatado.Insert(1, ".");
-            return codigoFormatado;
+            switch (versaoServico)
+            {
+                case VersaoServico.Versao100:
+                    return "1.00";
+                case VersaoServico.Versao200:
+                    return "2.00";
+                case VersaoServico.Versao300:
+                    return "3.00";
+                case VersaoServico.Versao310:
+                    return "3.10";
+                case VersaoServico.Versao400:
+                    return "4.00";
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(versaoServico), versaoServico, null);
+            }
         }
     }
 }

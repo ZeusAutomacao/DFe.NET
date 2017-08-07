@@ -34,8 +34,7 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Entidades;
-using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta
 {

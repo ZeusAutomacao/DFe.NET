@@ -35,7 +35,6 @@ using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
-using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Retorno.Inutilizacao
 {

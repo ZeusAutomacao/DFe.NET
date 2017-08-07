@@ -44,7 +44,6 @@ using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
-using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.AdmCsc;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Consulta;
@@ -232,7 +231,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
             var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 
             #region Cria o objeto wdsl para consulta
-            // todo 4.0
+            
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
             ws.nfeCabecMsg = new nfeCabecMsg

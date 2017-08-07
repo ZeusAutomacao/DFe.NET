@@ -34,12 +34,12 @@ using System;
 using System.IO;
 using System.Net;
 using DFe.Configuracao.Email;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
-using DFe.Utils;
 using NFe.AppTeste.Properties;
 using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
@@ -53,7 +53,7 @@ namespace NFe.AppTeste
         public ConfiguracaoApp()
         {
             CfgServico = ConfiguracaoServico.Instancia;
-            CfgServico.tpAmb = TipoAmbiente.taHomologacao;
+            CfgServico.tpAmb = TipoAmbiente.Homologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
             CfgServico.ProtocoloDeSeguranca = ServicePointManager.SecurityProtocol;
             Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};

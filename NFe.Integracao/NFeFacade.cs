@@ -47,7 +47,6 @@ using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Servicos;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
-using TipoAmbiente = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Integracao
 {

@@ -275,11 +275,11 @@
                                             <RadioButton x:Name="RbtAmbProducao" Content="Produção"
                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
                                                          Margin="10,13,0,0"
-                                                         IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static nfeclsidetipos:TipoAmbiente.taProducao}, Converter={StaticResource EnumParaBool}}" />
+                                                         IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static flags:TipoAmbiente.Producao}, Converter={StaticResource EnumParaBool}}" />
                                             <RadioButton x:Name="RbtAmbHomologacao" Content="Homologação"
                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
                                                          Margin="117,13,0,0"
-                                                         IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static nfeclsidetipos:TipoAmbiente.taHomologacao}, Converter={StaticResource EnumParaBool}}" />
+                                                         IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static flags:TipoAmbiente.Homologacao}, Converter={StaticResource EnumParaBool}}" />
                                         </Grid>
                                     </GroupBox>
                                     <GroupBox Header="Selecione a versão de cada serviço">

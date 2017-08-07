@@ -34,7 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Entidades;
-using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Servicos.Evento
