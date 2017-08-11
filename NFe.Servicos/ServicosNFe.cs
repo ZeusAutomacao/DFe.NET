@@ -31,11 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Classes.Servicos.Download;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Inutilizacao;
@@ -43,31 +48,31 @@ using NFe.Classes.Servicos.Recepcao;
 using NFe.Classes.Servicos.Recepcao.Retorno;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
+using NFe.Utils.DistribuicaoDFe;
 using NFe.Utils.Download;
 using NFe.Utils.Evento;
+using NFe.Utils.Excecoes;
 using NFe.Utils.Inutilizacao;
 using NFe.Utils.NFe;
 using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
-using NFe.Utils.DistribuicaoDFe;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.DistribuicaoDFe;
 using NFe.Wsdl.Download;
 using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
-using NFe.Wsdl.DistribuicaoDFe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,13 +81,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
-using NFe.Utils.Excecoes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
-using NFe.Classes;
 
 namespace NFe.Servicos
 {
@@ -814,7 +813,6 @@ namespace NFe.Servicos
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
-
             ws.nfeCabecMsg = new nfeCabecMsg
             {
                 cUF = _cFgServico.cUF,
@@ -841,10 +839,18 @@ namespace NFe.Servicos
                 pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
 
             if (!nSU.Equals("0"))
+            {
                 pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+                pedDistDFeInt.distNSU = null;
+                pedDistDFeInt.consChNFe = null;
+            }
 
             if (!string.IsNullOrEmpty(chNFE))
+            {
                 pedDistDFeInt.consChNFe = new consChNFe { chNFe = chNFE };
+                pedDistDFeInt.consNSU = null;
+                pedDistDFeInt.distNSU = null;
+            }
 
             #endregion
 
@@ -901,7 +907,6 @@ namespace NFe.Servicos
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
-
                     if (chNFe == string.Empty)
                         chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
