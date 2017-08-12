@@ -57,8 +57,6 @@ namespace NFe.Utils
                     return "2.00";
                 case VersaoServico.ve310:
                     return "3.10";
-                case VersaoServico.ve400:
-                    return "4.00";
             }
             return "";
         }
