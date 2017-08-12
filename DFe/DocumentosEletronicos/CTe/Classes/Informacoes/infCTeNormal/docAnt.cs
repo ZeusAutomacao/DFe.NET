@@ -31,14 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.docAnteriores;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
 {
     public class docAnt
     {
-        [XmlElement(ElementName = "emiDocAnt")]
         public emiDocAnt emiDocAnt { get; set; }
     }
 }
