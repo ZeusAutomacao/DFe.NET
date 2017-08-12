@@ -33,6 +33,7 @@
 
 using DFe.Utils;
 using NFe.Classes;
+using System.IO;
 
 public static class ExtNfeProc
 {
@@ -45,6 +46,18 @@ public static class ExtNfeProc
     public static nfeProc CarregarDeArquivoXml(this nfeProc nfeProc, string arquivoXml)
     {
         var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (nfeProc).Name, arquivoXml);
+        return FuncoesXml.XmlStringParaClasse<nfeProc>(s);
+    }
+
+    /// <summary>
+    ///     Carrega um arquivo XML para um objeto da classe nfeProc
+    /// </summary>
+    /// <param name="nfeProc"></param>
+    /// <param name="stream">Stream contendo o arquivo xml</param>
+    /// <returns>Retorna um nfeProc carregada com os dados do XML</returns>
+    public static nfeProc CarregardeStream(this nfeProc nfeProc, StreamReader stream)
+    {
+        var s = FuncoesXml.ObterNodeDeStream(typeof(nfeProc).Name, stream);
         return FuncoesXml.XmlStringParaClasse<nfeProc>(s);
     }
 
