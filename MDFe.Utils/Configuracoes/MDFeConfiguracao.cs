@@ -69,18 +69,29 @@ namespace MDFe.Utils.Configuracoes
             return _versaoWebService;
         }
 
-        public static X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
-
-
-        public static bool NaoSalvarXml()
+        private static X509Certificate2 _certificado = null;
+        public static X509Certificate2 X509Certificate2
         {
-            return !IsSalvarXml;
+            get
+            {
+                if (_certificado != null)
+                    if (!ConfiguracaoCertificado.ManterDadosEmCache)
+                        _certificado.Reset();
+                _certificado = ObterCertificado();
+                return _certificado;
+            }
         }
 
         private static X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
         }
+
+        public static bool NaoSalvarXml()
+        {
+            return !IsSalvarXml;
+        }
+       
     }
 
     public class MDFeVersaoWebService
