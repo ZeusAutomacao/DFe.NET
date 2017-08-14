@@ -58,19 +58,10 @@ namespace CTe.Classes
         /// </summary>
         public ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
-        private X509Certificate2 _certificado = null;
-        public X509Certificate2 X509Certificate2 {
-            get {
-                if (this._certificado != null)
-                    if (!this.ConfiguracaoCertificado.ManterDadosEmCache)
-                        this._certificado.Reset();
-                _certificado = ObterCertificado();
-                return _certificado;
-            }
-        }
+        public X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
 
         private X509Certificate2 ObterCertificado()
-        {                
+        {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
         }
 
