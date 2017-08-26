@@ -75,6 +75,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\Entidades\Estado.cs" />
+    <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\IndicadorSincronizacao.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\ServicoNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\TipoEventoManifestacaoDestinatario.cs" />

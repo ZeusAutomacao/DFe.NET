@@ -814,16 +814,13 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
         /// <param name="nSU">Número Sequencial Único</param>
         /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
-        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU,
-            string nSU = "0")
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", string chNFE = "")
         {
-            var versaoServico =
-                ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
+            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
 
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
-
             ws.nfeCabecMsg = new nfeCabecMsg
             {
                 cUF = _cFgServico.cUF,
@@ -838,17 +835,30 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
             {
                 versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
-                cUFAutor = _cFgServico.cUF,
-                distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')}
-
+                cUFAutor = _cFgServico.cUF
             };
 
             if (documento.Length == 11)
                 pedDistDFeInt.CPF = documento;
             if (documento.Length > 11)
                 pedDistDFeInt.CNPJ = documento;
+
+            if (string.IsNullOrEmpty(chNFE))
+                pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
+
             if (!nSU.Equals("0"))
-                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
+            {
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+                pedDistDFeInt.distNSU = null;
+                pedDistDFeInt.consChNFe = null;
+            }
+
+            if (!string.IsNullOrEmpty(chNFE))
+            {
+                pedDistDFeInt.consChNFe = new consChNFe { chNFe = chNFE };
+                pedDistDFeInt.consNSU = null;
+                pedDistDFeInt.distNSU = null;
+            }
 
             #endregion
 
@@ -882,49 +892,42 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
 
                     if (conteudo.StartsWith("<resNFe"))
                     {
                         var retConteudo =
-                            FuncoesXml.XmlStringParaClasse<resNFe>(conteudo);
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
                         chNFe = retConteudo.chNFe;
                     }
                     else if (conteudo.StartsWith("<procEventoNFe"))
                     {
                         var procEventoNFeConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(
-                                conteudo);
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
                     }
                     else if (conteudo.StartsWith("<resEvento"))
                     {
                         var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<resEvento>(
-                                conteudo);
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
-
                     if (chNFe == string.Empty)
-                    {
-                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE_";
-                    }
+                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
-                    SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
-
+                    SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
                 }
             }
 
             #endregion
 
-            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), ExtretDistDFeInt.ObterXmlString(retConsulta),
-                retornoXmlString, retConsulta);
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
 
             #endregion
+
         }
 
         #region Recepção
