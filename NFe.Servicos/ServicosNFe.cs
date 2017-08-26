@@ -31,11 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.AdmCsc;
 using NFe.Classes.Servicos.Autorizacao;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Classes.Servicos.ConsultaCadastro;
+using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Classes.Servicos.Download;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Inutilizacao;
@@ -43,31 +48,31 @@ using NFe.Classes.Servicos.Recepcao;
 using NFe.Classes.Servicos.Recepcao.Retorno;
 using NFe.Classes.Servicos.Status;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Classes.Servicos.DistribuicaoDFe;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.AdmCsc;
 using NFe.Utils.Autorizacao;
 using NFe.Utils.Consulta;
 using NFe.Utils.ConsultaCadastro;
+using NFe.Utils.DistribuicaoDFe;
 using NFe.Utils.Download;
 using NFe.Utils.Evento;
+using NFe.Utils.Excecoes;
 using NFe.Utils.Inutilizacao;
 using NFe.Utils.NFe;
 using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
-using NFe.Utils.DistribuicaoDFe;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.DistribuicaoDFe;
 using NFe.Wsdl.Download;
 using NFe.Wsdl.Evento;
 using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
-using NFe.Wsdl.DistribuicaoDFe;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -76,11 +81,6 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
-using NFe.Utils.Excecoes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -383,8 +383,8 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int) pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
-                pedInutilizacao.infInut.CNPJ, (int) pedInutilizacao.infInut.mod,
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+                pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
                 pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
@@ -510,12 +510,12 @@ namespace NFe.Servicos
             {
                 var eve = evento;
                 var retEvento = (from retevento in retEnvEvento.retEvento
-                    where
-                    retevento.infEvento.chNFe == eve.infEvento.chNFe &&
-                    retevento.infEvento.tpEvento == eve.infEvento.tpEvento
-                    select retevento).SingleOrDefault();
+                                 where
+                                 retevento.infEvento.chNFe == eve.infEvento.chNFe &&
+                                 retevento.infEvento.tpEvento == eve.infEvento.tpEvento
+                                 select retevento).SingleOrDefault();
 
-                var procevento = new procEventoNFe {evento = eve, versao = eve.versao, retEvento = retEvento};
+                var procevento = new procEventoNFe { evento = eve, versao = eve.versao, retEvento = retEvento };
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
@@ -546,7 +546,7 @@ namespace NFe.Servicos
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento {nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa};
+            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -563,9 +563,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
             return retorno;
         }
 
@@ -584,7 +584,7 @@ namespace NFe.Servicos
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento {versao = versaoServico, xCorrecao = correcao, xJust = null};
+            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -601,9 +601,9 @@ namespace NFe.Servicos
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
             return retorno;
         }
 
@@ -710,9 +710,9 @@ namespace NFe.Servicos
                 detEvento = detevento
             };
 
-            var evento = new evento {versao = versaoServico, infEvento = infEvento};
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> {evento}, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
 
@@ -747,7 +747,7 @@ namespace NFe.Servicos
             var pedConsulta = new ConsCad
             {
                 versao = versaoServico,
-                infCons = new infConsEnv {UF = uf}
+                infCons = new infConsEnv { UF = uf }
             };
 
             switch (tipoDocumento)
@@ -804,17 +804,15 @@ namespace NFe.Servicos
         /// <param name="documento">CNPJ/CPF do interessado no DF-e</param>
         /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
         /// <param name="nSU">Número Sequencial Único</param>
+        /// <param name="chNFE">Chave eletronica da NF-e</param>
         /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
-        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU,
-            string nSU = "0")
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", string chNFE = "")
         {
-            var versaoServico =
-                ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
+            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
 
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
-
             ws.nfeCabecMsg = new nfeCabecMsg
             {
                 cUF = _cFgServico.cUF,
@@ -829,17 +827,30 @@ namespace NFe.Servicos
             {
                 versao = versaoServico,
                 tpAmb = _cFgServico.tpAmb,
-                cUFAutor = _cFgServico.cUF,
-                distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')}
-
+                cUFAutor = _cFgServico.cUF
             };
 
             if (documento.Length == 11)
                 pedDistDFeInt.CPF = documento;
             if (documento.Length > 11)
                 pedDistDFeInt.CNPJ = documento;
+
+            if (string.IsNullOrEmpty(chNFE))
+                pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
+
             if (!nSU.Equals("0"))
-                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
+            {
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
+                pedDistDFeInt.distNSU = null;
+                pedDistDFeInt.consChNFe = null;
+            }
+
+            if (!string.IsNullOrEmpty(chNFE))
+            {
+                pedDistDFeInt.consChNFe = new consChNFe { chNFe = chNFE };
+                pedDistDFeInt.consNSU = null;
+                pedDistDFeInt.distNSU = null;
+            }
 
             #endregion
 
@@ -873,7 +884,6 @@ namespace NFe.Servicos
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-
                     string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
                     string chNFe = string.Empty;
 
@@ -886,34 +896,27 @@ namespace NFe.Servicos
                     else if (conteudo.StartsWith("<procEventoNFe"))
                     {
                         var procEventoNFeConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(
-                                conteudo);
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
                     }
                     else if (conteudo.StartsWith("<resEvento"))
                     {
                         var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(
-                                conteudo);
+                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
-
                     if (chNFe == string.Empty)
-                    {
-                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE_";
-                    }
+                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
-                    SalvarArquivoXml(chNFe + "_" + schema[0] + ".xml", conteudo);
-
+                    SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
                 }
             }
 
             #endregion
 
-            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(),
-                retornoXmlString, retConsulta);
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
 
             #endregion
         }
@@ -1198,7 +1201,7 @@ namespace NFe.Servicos
             {
                 cUF = _cFgServico.cUF,
                 //Embora em http://www.nfe.fazenda.gov.br/portal/webServices.aspx?tipoConteudo=Wak0FwB7dKs=#GO esse serviço está nas versões 2.00 e 3.10, ele rejeita se mandar a versão diferente de 1.00. Testado no Ambiente Nacional - (AN)
-                versaoDados = /*versaoServico*/ "1.00" 
+                versaoDados = /*versaoServico*/ "1.00"
             };
 
             #endregion
@@ -1324,7 +1327,7 @@ namespace NFe.Servicos
 
         // Flag: Dispose já foi chamado?
         private bool _disposed;
-        
+
         // Implementação protegida do padrão Dispose.
         private void Dispose(bool disposing)
         {
