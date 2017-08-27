@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConfiguracaoCsc.cs" />
+    <Compile Include="Dao\NfeConfig.cs" />
     <Compile Include="EnumParaInteger.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>

@@ -1,4 +1,5 @@
-﻿using DFe.CertificadosDigitais;
+﻿using System.Net;
+using DFe.CertificadosDigitais;
 using DFe.CertificadosDigitais.Cache.Controle;
 using DFe.Configuracao;
 
@@ -15,6 +16,8 @@ namespace DFe.Facade
             CertificadoDigital = certificadoDigital;
 
             DefineConfiguracaoCertificadoDigital(dfeConfig, certificadoDigital);
+
+            DefineProtocoloDeSeguranca();
         }
 
         private void DefineConfiguracaoCertificadoDigital(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
@@ -31,6 +34,11 @@ namespace DFe.Facade
             CertificadoDigital = new ControleCache(dfeConfig, certificadoDigital).ExecutaCache();
 
             return true;
+        }
+
+        private void DefineProtocoloDeSeguranca()
+        {
+            ServicePointManager.SecurityProtocol = DfeConfig.ProtocoloDeSeguranca;
         }
     }
 }

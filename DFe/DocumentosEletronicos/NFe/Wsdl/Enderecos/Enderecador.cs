@@ -38,6 +38,7 @@ using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.DocumentosEletronicos.NFe.Configuracao;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Utils;
 
@@ -1255,43 +1256,43 @@ namespace DFe.DocumentosEletronicos.NFe.Wsdl.Enderecos
         ///     A versão configurada para o serviço é armazenada em ConfiguracaoServico
         /// </summary>
         /// <param name="servico"></param>
-        /// <param name="cfgServico"></param>
+        /// <param name="nfeBaseConfig"></param>
         /// <returns>Retorna um item do enum VersaoServico, com a versão do serviço</returns>
-        private static VersaoServico? ObterVersaoServico(this ServicoNFe servico, ConfiguracaoServico cfgServico)
+        private static VersaoServico? ObterVersaoServico(this ServicoNFe servico, NFeBaseConfig nfeBaseConfig)
         {
             switch (servico)
             {
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoCancelmento:
-                    return cfgServico.VersaoRecepcaoEventoCceCancelamento;
+                    return nfeBaseConfig.VersaoRecepcaoEventoCceCancelamento;
                 case ServicoNFe.RecepcaoEventoEpec:
-                    return cfgServico.VersaoRecepcaoEventoEpec;
+                    return nfeBaseConfig.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                    return cfgServico.VersaoRecepcaoEventoManifestacaoDestinatario;
+                    return nfeBaseConfig.VersaoRecepcaoEventoManifestacaoDestinatario;
                 case ServicoNFe.NfeRecepcao:
-                    return cfgServico.VersaoNfeRecepcao;
+                    return nfeBaseConfig.VersaoNfeRecepcao;
                 case ServicoNFe.NfeRetRecepcao:
-                    return cfgServico.VersaoNfeRetRecepcao;
+                    return nfeBaseConfig.VersaoNfeRetRecepcao;
                 case ServicoNFe.NfeConsultaCadastro:
-                    return cfgServico.VersaoNfeConsultaCadastro;
+                    return nfeBaseConfig.VersaoNfeConsultaCadastro;
                 case ServicoNFe.NfeInutilizacao:
-                    return cfgServico.VersaoNfeInutilizacao;
+                    return nfeBaseConfig.VersaoNfeInutilizacao;
                 case ServicoNFe.NfeConsultaProtocolo:
-                    return cfgServico.VersaoNfeConsultaProtocolo;
+                    return nfeBaseConfig.VersaoNfeConsultaProtocolo;
                 case ServicoNFe.NfeStatusServico:
-                    return cfgServico.VersaoNfeStatusServico;
+                    return nfeBaseConfig.VersaoNfeStatusServico;
                 case ServicoNFe.NFeAutorizacao:
-                    return cfgServico.VersaoNFeAutorizacao;
+                    return nfeBaseConfig.VersaoNFeAutorizacao;
                 case ServicoNFe.NFeRetAutorizacao:
-                    return cfgServico.VersaoNFeRetAutorizacao;
+                    return nfeBaseConfig.VersaoNFeRetAutorizacao;
                 case ServicoNFe.NFeDistribuicaoDFe:
-                    return cfgServico.VersaoNFeDistribuicaoDFe;
+                    return nfeBaseConfig.VersaoNFeDistribuicaoDFe;
                 case ServicoNFe.NfeConsultaDest:
-                    return cfgServico.VersaoNfeConsultaDest;
+                    return nfeBaseConfig.VersaoNfeConsultaDest;
                 case ServicoNFe.NfeDownloadNF:
-                    return cfgServico.VersaoNfeDownloadNF;
+                    return nfeBaseConfig.VersaoNfeDownloadNF;
                 case ServicoNFe.NfceAdministracaoCSC:
-                    return cfgServico.VersaoNfceAministracaoCSC;
+                    return nfeBaseConfig.VersaoNfceAministracaoCSC;
             }
             return null;
         }
@@ -1303,10 +1304,10 @@ namespace DFe.DocumentosEletronicos.NFe.Wsdl.Enderecos
         /// <param name="servico"></param>
         /// <param name="cfgServico"></param>
         /// <returns></returns>
-        private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        private static string Erro(ServicoNFe servico, NFeBaseConfig baseConfig)
         {
-            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(servico.ObterVersaoServico(cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + Conversao.TpAmbParaString(cfgServico.tpAmb) +
-                   " para emissão tipo " + Conversao.TipoEmissaoParaString(cfgServico.tpEmis) + ", documento: " + cfgServico.ModeloDocumento.ModeloDocumentoParaString() + "!";
+            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(servico.ObterVersaoServico(baseConfig)) + ", não disponível para a UF " + baseConfig.EstadoUf + ", no ambiente de " + Conversao.TpAmbParaString(baseConfig.TipoAmbiente) +
+                   " para emissão tipo " + Conversao.TipoEmissaoParaString(baseConfig.TipoEmissao) + ", documento: " + baseConfig.ModeloDocumento.ModeloDocumentoParaString() + "!";
         }
 
         /// <summary>
@@ -1315,16 +1316,16 @@ namespace DFe.DocumentosEletronicos.NFe.Wsdl.Enderecos
         /// <param name="servico"></param>
         /// <param name="cfgServico"></param>
         /// <returns></returns>
-        public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        public static string ObterUrlServico(NFeBaseConfig nfeBaseConfig)
         {
             var definicao = from d in ListaEnderecos
-                where d.Estado == cfgServico.cUF && d.ServicoNFe == servico && d.TipoAmbiente == cfgServico.tpAmb && d.TipoEmissao == cfgServico.tpEmis && d.VersaoServico == ObterVersaoServico(servico, cfgServico) && d.ModeloDocumento == cfgServico.ModeloDocumento
+                where d.Estado == nfeBaseConfig.EstadoUf && d.ServicoNFe == nfeBaseConfig.ServicoNFe && d.TipoAmbiente == nfeBaseConfig.TipoAmbiente && d.TipoEmissao == nfeBaseConfig.TipoEmissao && d.VersaoServico == ObterVersaoServico(nfeBaseConfig.ServicoNFe, nfeBaseConfig) && d.ModeloDocumento == nfeBaseConfig.ModeloDocumento
                 select d.Url;
             var listaRetorno = definicao as IList<string> ?? definicao.ToList();
             var qtdeRetorno = listaRetorno.Count();
 
             if (qtdeRetorno == 0)
-                throw new Exception(Erro(servico, cfgServico));
+                throw new Exception(Erro(nfeBaseConfig.ServicoNFe, nfeBaseConfig));
             if (qtdeRetorno > 1)
                 throw new Exception("A função ObterUrlServico obteve mais de um resultado!");
             return listaRetorno.FirstOrDefault();

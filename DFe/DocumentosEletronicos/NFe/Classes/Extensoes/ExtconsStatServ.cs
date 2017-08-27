@@ -31,8 +31,14 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
+using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
+using DFe.DocumentosEletronicos.MDFe.Validacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.NFe.Configuracao;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -46,6 +52,37 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         public static string ObterXmlString(this consStatServ pedStatus)
         {
             return FuncoesXml.ClasseParaXmlString(pedStatus);
+        }
+
+        public static void ValidarSchema(this consStatServ pedStatus, NFeBaseConfig config)
+        {
+            var xml = pedStatus.ObterXmlString();
+
+            switch (config.VersaoNfeStatusServico)
+            {
+                case VersaoServico.Versao200:
+                    Validador.Valida(xml, "consStatServ_v2.00.xsd", config);
+                    break;
+                case VersaoServico.Versao310:
+                    Validador.Valida(xml, "consStatServ_v3.10.xsd", config);
+                    break;
+                case VersaoServico.Versao400:
+                    Validador.Valida(xml, "consStatServ_v4.00.xsd", config);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pedStatus));
+            }
+        }
+
+        public static void SalvarXmlEmDisco(this consStatServ consStatServ, DFeConfig dfeConfig)
+        {
+            if (dfeConfig.NaoSalvarXml()) return;
+
+            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaStatusEnvio();
+
+            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(consStatServ, arquivoSalvar);
         }
     }
 }

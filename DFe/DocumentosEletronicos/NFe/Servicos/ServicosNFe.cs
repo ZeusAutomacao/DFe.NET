@@ -121,7 +121,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
 
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
+            var url = string.Empty; // todo Enderecador.ObterUrlServico(servico, _cFgServico);
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
@@ -133,7 +133,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
 
         private INfeServico CriarServico(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
+            var url = string.Empty; // todo Enderecador.ObterUrlServico(servico, _cFgServico);
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:

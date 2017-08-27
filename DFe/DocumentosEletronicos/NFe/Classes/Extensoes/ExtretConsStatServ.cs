@@ -31,9 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Status;
+using DFe.DocumentosEletronicos.NFe.Configuracao;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -58,6 +60,17 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         public static string ObterXmlString(this retConsStatServ retConsStatServ)
         {
             return FuncoesXml.ClasseParaXmlString(retConsStatServ);
+        }
+
+        public static void SalvarXmlEmDisco(this retConsStatServ retConsStatServ, NFeBaseConfig dfeConfig)
+        {
+            if (dfeConfig.NaoSalvarXml()) return;
+
+            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaStatusRetorno();
+
+            var arquivoSalvar = caminhoXml + @"\-retorno-status-servico.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retConsStatServ, arquivoSalvar);
         }
     }
 }

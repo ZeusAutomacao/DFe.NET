@@ -1,4 +1,5 @@
-﻿using DFe.Configuracao;
+﻿using System.Net;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 
@@ -10,6 +11,7 @@ namespace CTe.AppTeste.Entidades
         public override TipoAmbiente TipoAmbiente { get; set; }
         public override VersaoServico VersaoServico { get; set; }
         public override Estado EstadoUf { get; set; }
+        public override SecurityProtocolType ProtocoloDeSeguranca { get; set; }
         public override string CnpjEmitente { get; set; }
     }
 }

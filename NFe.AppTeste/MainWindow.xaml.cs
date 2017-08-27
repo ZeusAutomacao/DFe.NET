@@ -37,6 +37,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -45,6 +46,7 @@ using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
+using DFe.CertificadosDigitais.Implementacao;
 using DFe.Configuracao.Email;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
@@ -71,12 +73,14 @@ using DFe.DocumentosEletronicos.NFe.Classes.Nfce;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.ConsultaCadastro;
 using DFe.DocumentosEletronicos.NFe.Excecoes;
+using DFe.DocumentosEletronicos.NFe.Facade;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Servicos;
 using DFe.DocumentosEletronicos.NFe.Tributacao.Estadual;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
 using DFe.Utils.Assinatura;
+using NFe.AppTeste.Dao;
 using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe;
 using Reflexao = DFe.Ext.Reflexao;
@@ -130,11 +134,41 @@ namespace NFe.AppTeste
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
                 // se usar cache você pode por um id no certificado e salvar mais de um certificado digital também na memoria com o zeus
                 //_configuracoes.CfgServico.Certificado.CacheId = "1";
-                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
+                /*using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
                     var retornoStatus = servicoNFe.NfeStatusServico();
                     TrataRetorno(retornoStatus);
-                }
+                }*/
+
+                var nfeConfig = new NfeConfig
+                {
+                   ServicoNFe = ServicoNFe.NfeStatusServico,
+                   EstadoUf = _configuracoes.CfgServico.cUF,
+                   TipoEmissao = _configuracoes.CfgServico.tpEmis,
+                   TipoAmbiente = _configuracoes.CfgServico.tpAmb,
+                   CaminhoSalvarXml = _configuracoes.CfgServico.DiretorioSalvarXml,
+                   CaminhoSchemas = _configuracoes.CfgServico.DiretorioSchemas,
+                   CnpjEmitente = _configuracoes.Emitente.CNPJ,
+                   IsSalvarXml = true,
+                   ModeloDocumento = _configuracoes.CfgServico.ModeloDocumento,
+                   ProtocoloDeSeguranca = _configuracoes.CfgServico.ProtocoloDeSeguranca,
+                   TimeOut = _configuracoes.CfgServico.TimeOut,
+                   VersaoNfeStatusServico = _configuracoes.CfgServico.VersaoNfeStatusServico
+                };
+
+                var configCertificado = new DFeConfigCertificadoDigital
+                {
+                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
+                    Senha = _configuracoes.CfgServico.Certificado.Senha,
+                    Serial = _configuracoes.CfgServico.Certificado.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                };
+
+                var facade = new NFeFacade(nfeConfig,  new DFeCertificadoDigital(configCertificado));
+
+                var retornoStatus = facade.StatusConsulta();
+
+                TrataRetorno(retornoStatus);
 
                 #endregion
             }
