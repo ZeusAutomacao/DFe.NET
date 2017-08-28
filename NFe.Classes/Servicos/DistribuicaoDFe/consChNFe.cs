@@ -30,21 +30,24 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Informacoes.Observacoes
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
-    public class obsCont
+    /// <summary>
+    /// A11 - Grupo para consultar uma NF-e pela chave de acesso
+    /// </summary>
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    public class consChNFe
     {
         /// <summary>
-        ///     Z05 - Identificação do campo
+        /// A12 - Chave de acesso específica
         /// </summary>
-        [XmlAttribute]
-        public string xCampo { get; set; }
-
-        /// <summary>
-        ///     Z06 - Conteúdo do campo
-        /// </summary>
-        public string xTexto { get; set; }
+        public string chNFe { get; set; }
     }
 }
