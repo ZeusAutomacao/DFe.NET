@@ -99,9 +99,9 @@ namespace NFe.Utils.NFe
             var xmlNfe = nfe.ObterXmlString();
             var cfgServico = ConfiguracaoServico.Instancia;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false, cfgServico);
             if (versao >= 3)
-                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false, cfgServico);
 
             return nfe; //Para uso no formato fluent
         }
@@ -110,8 +110,9 @@ namespace NFe.Utils.NFe
         ///     Assina um objeto NFe
         /// </summary>
         /// <param name="nfe"></param>
+        /// <param name="cfgServico">ConfiguracaoServico para uso na classe Assinador</param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
-        public static Classes.NFe Assina(this Classes.NFe nfe)
+        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
@@ -139,7 +140,7 @@ namespace NFe.Utils.NFe
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
 
-            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id);
+            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }
