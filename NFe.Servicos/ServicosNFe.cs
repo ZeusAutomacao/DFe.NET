@@ -431,7 +431,106 @@ namespace NFe.Servicos
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
+        public RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
+        {
+            var listaEventos = new List<ServicoNFe>
+            {
+                ServicoNFe.RecepcaoEventoCartaCorrecao,
+                ServicoNFe.RecepcaoEventoCancelmento,
+                ServicoNFe.RecepcaoEventoEpec,
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+            };
+            if (
+                !listaEventos.Contains(servicoEvento))
+                throw new Exception(
+                    string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
+                        MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
+
+            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(servicoEvento);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Cria o objeto envEvento
+
+            var pedEvento = new envEvento
+            {
+                versao = versaoServico,
+                idLote = idlote,
+                evento = eventos
+            };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlEvento = pedEvento.ObterXmlString();
+            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+            var dadosEvento = new XmlDocument();
+            dadosEvento.LoadXml(xmlEvento);
+
+            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+
+            XmlNode retorno;
+            try
+            {
+                retorno = ws.Execute(dadosEvento);
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(servicoEvento, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retEnvEvento = new retEnvEvento().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(idlote + "-eve.xml", retornoXmlString);
+
+            #region Obtém um procEventoNFe de cada evento e salva em arquivo
+
+            var listprocEventoNFe = new List<procEventoNFe>();
+
+            foreach (var evento in eventos)
+            {
+                var eve = evento;
+                var retEvento = (from retevento in retEnvEvento.retEvento
+                                 where
+                                 retevento.infEvento.chNFe == eve.infEvento.chNFe &&
+                                 retevento.infEvento.tpEvento == eve.infEvento.tpEvento
+                                 select retevento).SingleOrDefault();
+
+                var procevento = new procEventoNFe { evento = eve, versao = eve.versao, retEvento = retEvento };
+                listprocEventoNFe.Add(procevento);
+                if (!_cFgServico.SalvarXmlServicos) continue;
+                var proceventoXmlString = procevento.ObterXmlString();
+                SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
+            }
+
+            #endregion
+
+            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString,
+                retEnvEvento, listprocEventoNFe);
+
+            #endregion
+        }
+
+        /// <summary>
+        ///     Envia um evento genérico
+        /// </summary>
+        /// <param name="idlote"></param>
+        /// <param name="eventos"></param>
+        /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
+        /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
+        private RetornoRecepcaoEvento RecepcaoEventoEAssina(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
         {
             var listaEventos = new List<ServicoNFe>
             {
@@ -565,7 +664,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEventoEAssina(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
             return retorno;
         }
 
@@ -603,7 +702,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEventoEAssina(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
             return retorno;
         }
 
@@ -653,7 +752,7 @@ namespace NFe.Servicos
             }
 
 
-            var retorno = RecepcaoEvento(idlote, eventos,
+            var retorno = RecepcaoEventoEAssina(idlote, eventos,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
@@ -712,7 +811,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEventoEAssina(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
             return retorno;
         }
 
