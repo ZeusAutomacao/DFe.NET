@@ -158,5 +158,17 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "email")]
         public string Email { get; set; }
+
+        public bool ShouldSerializeEmail()
+        {
+            if (!string.IsNullOrEmpty(Email))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
