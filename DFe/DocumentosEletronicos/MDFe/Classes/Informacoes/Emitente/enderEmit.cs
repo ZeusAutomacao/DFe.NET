@@ -86,5 +86,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Emitente
         /// </summary>
         [XmlElement(ElementName = "email")]
         public string email { get; set; }
+
+        public bool ShouldSerializeEmail()
+        {
+            return !string.IsNullOrEmpty(email);
+        }
     }
 }
