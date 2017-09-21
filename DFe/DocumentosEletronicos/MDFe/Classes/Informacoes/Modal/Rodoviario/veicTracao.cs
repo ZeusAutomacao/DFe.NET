@@ -120,5 +120,8 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Rodoviario
             }
             set { UF = UF.SiglaParaEstado(value); }
         }
+
+        public bool CapKGSpecified { get { return capKG.HasValue; } }
+        public bool CapM3Specified { get { return capM3.HasValue; } }
     }
 }

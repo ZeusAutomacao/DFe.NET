@@ -41,5 +41,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Flags
         Cancelamento = 110111,
         [XmlEnum("110110")]
         CartaCorrecao = 110110,
+        [XmlEnum("310610")]
+        MDFeAutorizado = 310610
     }
 }

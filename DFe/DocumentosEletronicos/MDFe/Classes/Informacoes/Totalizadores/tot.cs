@@ -68,7 +68,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Totalizadores
         [XmlElement(ElementName = "vCarga")]
         public decimal vCarga
         {
-            get { return _vCarga.Arredondar(2); }
+            get { return _vCarga; }
             set { _vCarga = value.Arredondar(2); }
         }
 
@@ -84,7 +84,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Totalizadores
         [XmlElement(ElementName = "qCarga")]
         public decimal qCarga
         {
-            get { return _qCarga.Arredondar(4); }
+            get { return _qCarga; }
             set { _qCarga = value.Arredondar(4); }
         }
 
