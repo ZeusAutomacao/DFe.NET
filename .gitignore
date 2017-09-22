@@ -12,7 +12,6 @@ Desktop.ini
 *.suo
 *.user
 *.sln.docstates
-*storage.ide
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -137,3 +136,7 @@ Temporary Items
 /CTe.Dacte.Base/bin/Debug
 /CTe.Dacte.Fast/obj/Debug
 /CTe.Dacte.Fast/bin/Debug
+/DFe/bin
+/DFe/obj
+/.vs/Zeus NFe/v15/sqlite3/storage.ide
+/.vs/ZeusDFe/v15/sqlite3/storage.ide
