@@ -53,10 +53,10 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS
         public bool tpPropSpecified { get { return tpProp.HasValue; } }
         public tpVeic? tpVeic { get; set; }
         public bool tpVeicSpecified { get { return tpVeic.HasValue; } }
-        public tpCar? tpCar { get; set; }
-        public bool tpCarSpecified { get { return tpCar.HasValue; } }
         public tpRod? tpRod { get; set; }
         public bool tpRodSpecified { get { return tpRod.HasValue; } }
+        public tpCar? tpCar { get; set; }
+        public bool tpCarSpecified { get { return tpCar.HasValue; } }
 
         [XmlIgnore]
         public Estado UF { get; set; }
