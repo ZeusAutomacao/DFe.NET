@@ -1,9 +1,18 @@
+# Ignorar .vs/
+.vs/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
 
 # Folder config file
 Desktop.ini
+
+# User-specific files
+*.suo
+*.user
+*.sln.docstates
+*storage.ide
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
@@ -42,7 +51,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 /BuildProcessTemplates
-.vs/
 /NFe.AppTeste/obj/Debug
 /NFe.Classes/obj/Debug
 /Nfe.Impressao/obj/Debug
