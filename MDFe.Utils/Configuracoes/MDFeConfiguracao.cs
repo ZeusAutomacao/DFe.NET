@@ -37,10 +37,11 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Utils.Flags;
+using System;
 
 namespace MDFe.Utils.Configuracoes
 {
-    public class MDFeConfiguracao
+    public class MDFeConfiguracao : IDisposable 
     {
         private static MDFeVersaoWebService _versaoWebService;
 
@@ -90,6 +91,24 @@ namespace MDFe.Utils.Configuracoes
         private static X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
+        }
+
+        public void Dispose()
+        {
+            if (!ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
+            {
+                _certificado.Reset();
+                _certificado = null;
+            }
+        }
+
+        ~MDFeConfiguracao()
+        {
+            if (!ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
+            {
+                _certificado.Reset();
+                _certificado = null;
+            }
         }
     }
 
