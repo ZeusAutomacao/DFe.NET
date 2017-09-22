@@ -92,16 +92,25 @@ namespace NFe.Servicos
         private readonly string _path;
 
         /// <summary>
-        ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
+        /// Cria uma instância da Classe responsável pelos serviços relacionados à NFe
         /// </summary>
-        /// <param name="cFgServico"></param>
+        /// <param name="cFgServico">Configurações</param>
         public ServicosNFe(ConfiguracaoServico cFgServico)
-        {
-            _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
-            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            : this(cFgServico, CertificadoDigital.ObterCertificado(cFgServico.Certificado))
+        { }
 
-            //Define a versão do protocolo de segurança
+        /// <summary>
+        /// Cria uma instância da Classe responsável pelos serviços relacionados à NFe
+        /// </summary>
+        /// <param name="cFgServico">Configurações</param>
+        /// <param name="certificado">Certificado digital</param>
+        public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado)
+        {
+            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            _cFgServico = cFgServico;
+            _certificado = certificado;
+
+            // Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
         }
 
