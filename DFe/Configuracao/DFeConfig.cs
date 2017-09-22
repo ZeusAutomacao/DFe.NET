@@ -3,7 +3,6 @@ using DFe.CertificadosDigitais.Cache;
 using DFe.CertificadosDigitais.Cache.Implementacoes;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 
 namespace DFe.Configuracao
 {

@@ -31,17 +31,20 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.cobrancas;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
 {
+    [Serializable]
     public class cobr
     {
+        [XmlElement("fat", Order = 1)]
         public fat fat { get; set; }
 
-        [XmlElement("dup")]
+        [XmlElement("dup", Order = 2)]
         public List<dup> dup;
     }
 }
