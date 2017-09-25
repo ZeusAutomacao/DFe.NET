@@ -102,7 +102,7 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
             var xmlNfe = ObterXmlString(nfe);
             var cfgServico = ConfiguracaoServico.Instancia;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false); // 
             if (versao >= 3)
                 Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
 

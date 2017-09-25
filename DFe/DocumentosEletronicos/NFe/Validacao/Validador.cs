@@ -99,7 +99,7 @@ namespace DFe.DocumentosEletronicos.NFe.Validacao
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true) // validar schema
         {
             var pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
 
