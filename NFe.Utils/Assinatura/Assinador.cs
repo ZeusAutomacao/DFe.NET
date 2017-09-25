@@ -67,7 +67,7 @@ namespace NFe.Utils.Assinatura
         /// <param name="certificadoDigital">Informe o certificado digital</param>
         /// <param name="manterDadosEmCache">Validador para manter o certificado em cache</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital, bool manterDadosEmCache = true) where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital, bool manterDadosEmCache = false) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
