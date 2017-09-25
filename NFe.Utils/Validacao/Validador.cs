@@ -94,17 +94,27 @@ namespace NFe.Utils.Validacao
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, ConfiguracaoServico cfgServico = null)
         {
-            var pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
+            var pathSchema = String.Empty;
 
+            if (cfgServico == null || (cfgServico != null && string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)))
+                pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
+            else
+                pathSchema = cfgServico.DiretorioSchemas;
+
+            Valida(servicoNFe, versaoServico, stringXml, loteNfe, pathSchema);
+        }
+
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, string pathSchema = null)
+        {
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
             var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
 
             // Define o tipo de validação
-            var cfg = new XmlReaderSettings {ValidationType = ValidationType.Schema};
+            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
