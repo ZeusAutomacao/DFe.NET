@@ -33,15 +33,15 @@
   <ItemGroup>
     <Reference Include="FastReport, Version=2017.1.17.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net\FastReport.dll</HintPath>
     </Reference>
     <Reference Include="FastReport.Bars, Version=2017.1.17.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.Bars.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net\FastReport.Bars.dll</HintPath>
     </Reference>
     <Reference Include="FastReport.Editor, Version=2017.1.17.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.Editor.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\FastReports\FastReport.Net\FastReport.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -80,11 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MDFeRetrato.frx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dlls\FastReport.Bars.dll" />
-    <Content Include="Dlls\FastReport.dll" />
-    <Content Include="Dlls\FastReport.Editor.dll" />
+    <None Include="Resources\MDFeRetrato.frx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

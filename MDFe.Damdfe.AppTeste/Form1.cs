@@ -61,14 +61,15 @@ namespace MDFe.Damdfe.AppTeste
 
             try
             {
-                var rpt = new DamdfeFrMDFe(mdfe,
-                    new ConfiguracaoDamdfe()
+                var rpt = new DamdfeFrMDFe(proc: mdfe,
+                    config: new ConfiguracaoDamdfe()
                     {
                         Logomarca = ImageToByte(pcbLogotipo.Image),
                         DocumentoEncerrado = chbEncerrado.Checked,
                         DocumentoCancelado = chbCancelado.Checked,
                         Desenvolvedor = txtDesenvolvedor.Text
-                    });
+                    },
+                    arquivoRelatorio: txtArquivoFrx.Text);
                 return rpt;
             }
             catch(Exception ex)
