@@ -191,7 +191,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         ///     Consulta o status do Serviço de NFe 
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeStatusServico com os dados status do serviço</returns>
-        public RetornoNfeStatusServico NfeStatusServico()
+        public RetornoNfeStatusServico NfeStatusServico() // todo integração ajustar
         {
             var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 

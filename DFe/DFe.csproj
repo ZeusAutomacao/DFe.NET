@@ -81,6 +81,7 @@
     <Compile Include="DocumentosEletronicos\NFe\Flags\IndicadorSincronizacao.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\ServicoNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\TipoEventoManifestacaoDestinatario.cs" />
+    <Compile Include="DocumentosEletronicos\NFe\Servicos\EnviarNFe\NFeEnviar.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\Factory\ClassesFactory.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\StatusServicoNFe\NFeStatusServico.cs" />
