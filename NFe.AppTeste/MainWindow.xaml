@@ -455,17 +455,21 @@
                                                     <Label Content="NFeAutorizacao"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="150,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static flags:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static flags:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static flags:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="NFeAutorizacao" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static flags:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
