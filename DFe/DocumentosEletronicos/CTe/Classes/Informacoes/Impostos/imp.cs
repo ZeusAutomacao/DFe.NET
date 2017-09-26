@@ -51,7 +51,5 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos
         public string infAdFisco { get; set; }
 
         public ICMSUFFim ICMSUFFim { get; set; }
-
-        public infTribFed infTribFed { get; set; }
     }
 }

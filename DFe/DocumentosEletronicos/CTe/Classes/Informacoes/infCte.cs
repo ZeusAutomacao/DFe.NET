@@ -62,8 +62,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 
         public emit emit { get; set; }
 
-        public tomaCteOs toma { get; set; }
-
         public rem rem { get; set; }
 
         public exped exped { get; set; }

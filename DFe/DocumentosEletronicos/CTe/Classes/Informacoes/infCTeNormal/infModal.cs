@@ -43,7 +43,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
         public versaoModal versaoModal { get; set; }
 
         [XmlElement("rodo", typeof(rodo), Namespace = "http://www.portalfiscal.inf.br/cte")]
-        [XmlElement("rodoOS", typeof(rodoOS), Namespace = "http://www.portalfiscal.inf.br/cte")]
         [XmlElement("aereo", typeof(aereo), Namespace = "http://www.portalfiscal.inf.br/cte")]
         [XmlElement("aquav", typeof(aquav), Namespace = "http://www.portalfiscal.inf.br/cte")]
         [XmlElement("ferrov", typeof(ferrov), Namespace = "http://www.portalfiscal.inf.br/cte")]

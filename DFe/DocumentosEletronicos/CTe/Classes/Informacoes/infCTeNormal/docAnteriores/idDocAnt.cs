@@ -39,9 +39,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.docAnte
     public class idDocAnt
     {
         [XmlElement(ElementName = "idDocAntPap")]
-        public List<idDocAntPap> idDocAntPap;
+        public List<idDocAntPap> idDocAntPap { get; set; }
 
         [XmlElement(ElementName = "idDocAntEle")]
-        public List<idDocAntEle> idDocAntEle;
+        public List<idDocAntEle> idDocAntEle { get; set; }
     }
 }

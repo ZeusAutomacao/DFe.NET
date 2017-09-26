@@ -39,6 +39,14 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infCteS
 
         public refNF refNF { get; set; }
 
+        /// <summary>
+        /// Versão 2.00 tem isso!
+        /// </summary>
+        public string refCteAnu { get; set; }
+
+        /// <summary>
+        /// Versão 3.00 tem isso!
+        /// </summary>
         public string refCte { get; set; }
     }
 }

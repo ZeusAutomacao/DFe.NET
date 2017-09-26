@@ -46,12 +46,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos
         [XmlEnum("3")]
         redespachoIntermediario,
         [XmlEnum("4")]
-        servicoVinculadoMultimodal,
-        [XmlEnum("6")]
-        transportePessoas = 6,
-        [XmlEnum("7")]
-        transporteValores = 7,
-        [XmlEnum("8")]
-        excessoBagagem = 8
+        servicoVinculadoMultimodal
     }
 }

@@ -47,9 +47,5 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
 
         [XmlElement(ElementName = "infOutros")]
         public List<infOutros> infOutros { get; set; }
-
-        public string nCont { get; set; }
-
-        public string dPrev { get; set; }
     }
 }

@@ -54,7 +54,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario
         /// 3 - CEP
         /// </summary>
         [XmlIgnore]
-        public long CEP { get; set; }
+        public long? CEP { get; set; }
 
         /// <summary>
         /// Proxy para colocar zeros a esquerda no CEP 
@@ -64,7 +64,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario
         {
             get
             {
-                return CEP.ToString("D8");
+                return CEP != null ? CEP.Value.ToString("D8") : null;
             }
             set { CEP = long.Parse(value); }
         }

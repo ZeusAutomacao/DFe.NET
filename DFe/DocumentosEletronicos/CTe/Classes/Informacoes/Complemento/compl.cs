@@ -33,6 +33,7 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Complemento
 {
@@ -44,8 +45,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Complemento
 
         public string xEmi { get; set; }
 
+        [CanBeNull]
         public fluxo fluxo { get; set; }
 
+        [CanBeNull]
         public Entrega Entrega { get; set; }
 
         public string origCalc { get; set; }

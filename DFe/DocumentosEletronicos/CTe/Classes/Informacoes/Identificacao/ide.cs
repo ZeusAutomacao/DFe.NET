@@ -174,9 +174,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Identificacao
             UFFim = UFFim.SiglaParaEstado(value);
         } }
 
-        [XmlElement(ElementName = "infPercurso")]
-        public List<infPercurso> infPercurso { get; set; }
-
         public retira retira { get; set; }
 
         public string xDetRetira { get; set; }

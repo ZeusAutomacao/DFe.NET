@@ -46,7 +46,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos.ICMSCTe
         private decimal _vBcstRet;
         private decimal _vIcmsstRet;
         private decimal _pIcmsstRet;
-        private decimal _vCred;
+        private decimal? _vCred;
         public CST CST { get; set; }
 
         public decimal vBCSTRet
@@ -67,7 +67,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos.ICMSCTe
             set { _pIcmsstRet = value.Arredondar(2); }
         }
 
-        public decimal vCred
+        public decimal? vCred
         {
             get { return _vCred.Arredondar(2); }
             set { _vCred = value.Arredondar(2); }

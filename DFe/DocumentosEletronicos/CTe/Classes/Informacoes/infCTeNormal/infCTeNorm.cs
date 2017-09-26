@@ -38,11 +38,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
 {
     public class infCTeNorm
     {
-        public infServico infServico { get; set; }
-        public infQcteOs infQ { get; set; }
-
-        [XmlElement(ElementName = "infDocRef")]
-        public List<infDocRef> infDocRef { get; set; }
         public infCarga infCarga { get; set; }
         public infDoc infDoc { get; set; }
         public docAnt docAnt { get; set; }

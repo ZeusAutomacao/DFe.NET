@@ -43,14 +43,14 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos.ICMSCTe
             CST = CST.ICMS90;
         }
 
-        private decimal _pRedBc;
+        private decimal? _pRedBc;
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
-        private decimal _vCred;
+        private decimal? _vCred;
         public CST CST { get; set; }
 
-        public decimal pRedBC
+        public decimal? pRedBC
         {
             get { return _pRedBc.Arredondar(2); }
             set { _pRedBc = value.Arredondar(2); }
@@ -74,7 +74,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Impostos.ICMSCTe
             set { _vIcms = value.Arredondar(2); }
         }
 
-        public decimal vCred
+        public decimal? vCred
         {
             get { return _vCred.Arredondar(2); }
             set { _vCred = value.Arredondar(2); }
