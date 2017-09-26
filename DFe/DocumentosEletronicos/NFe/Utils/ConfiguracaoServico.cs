@@ -48,9 +48,13 @@ namespace DFe.DocumentosEletronicos.NFe.Utils
         private string _diretorioSchemas;
         private bool _salvarXmlServicos;
 
-        private ConfiguracaoServico()
+        public ConfiguracaoServico()
         {
             Certificado = new ConfiguracaoCertificado();
+        }
+
+        static ConfiguracaoServico()
+        {
         }
 
         /// <summary>
