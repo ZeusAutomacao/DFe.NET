@@ -73,6 +73,12 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoEventoManifestacaoDestinatario.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\CTeOS.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Complemento\compl.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Identificacao\ide.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\infCte.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\enderToma.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\toma.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\Entidades\Estado.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />

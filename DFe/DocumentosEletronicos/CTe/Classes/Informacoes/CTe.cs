@@ -33,8 +33,6 @@
 
 using System.Xml.Serialization;
 using DFe.Assinatura;
-using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
@@ -43,22 +41,6 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class CTe
     {
-        /// <summary>
-        /// CTe Modelo 67/ CTE Ordem de Serviço
-        /// CTeOs
-        /// </summary>
-        [XmlIgnore]
-        public VersaoServico? versao { get; set; }
-
-        [XmlAttribute(AttributeName = "versao")]
-        public string ProxyVersao
-        {
-            get;
-            set;
-        }
-
-        public bool versaoSpecified { get { return versao.HasValue; } }
-
         [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
         public infCte infCte { get; set; }
 
