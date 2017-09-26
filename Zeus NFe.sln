@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Classes", "NFe.Classes\NFe.Classes.csproj", "{29CA1DA2-440D-484B-951A-CF1B2EB27984}"
 EndProject
@@ -69,6 +69,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Dacte.Fast", "CTe.Dacte.Fast\CTe.Dacte.Fast.csproj", "{1D58CBBD-56A5-4A10-8DAB-F795D35150EE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Dacte.AppTeste", "CTe.Dacte.AppTeste\CTe.Dacte.AppTeste.csproj", "{827FA496-0F49-4E93-8CE9-2246CCD353B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{164EF13E-7F27-4BC8-92A4-A82B1696B279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Testes", "NFe.Testes\NFe.Testes.csproj", "{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -192,6 +196,10 @@ Global
 		{827FA496-0F49-4E93-8CE9-2246CCD353B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{827FA496-0F49-4E93-8CE9-2246CCD353B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{827FA496-0F49-4E93-8CE9-2246CCD353B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -213,5 +221,6 @@ Global
 		{E46ECA77-8732-4D99-9460-FA5E2CD90266} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{1D58CBBD-56A5-4A10-8DAB-F795D35150EE} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{827FA496-0F49-4E93-8CE9-2246CCD353B8} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
+		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1} = {164EF13E-7F27-4BC8-92A4-A82B1696B279}
 	EndGlobalSection
 EndGlobal
