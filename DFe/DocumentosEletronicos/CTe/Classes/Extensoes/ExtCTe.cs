@@ -38,6 +38,7 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;

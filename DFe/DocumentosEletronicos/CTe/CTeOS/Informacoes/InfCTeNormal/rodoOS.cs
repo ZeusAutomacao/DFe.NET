@@ -31,32 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Xml.Serialization;
-using DFe.Ext;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal
+namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
-    public class infDocRef
+    public class rodoOS : ContainerModal
     {
-        private decimal? _vDoc;
-        public string nDoc { get; set; }
-        public short serie { get; set; }
-        public short? subserie { get; set; }
-        public bool subserieSpecified { get { return subserie.HasValue; } }
+        public string TAF { get; set; }
 
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
+        public string NroRegEstadual { get; set; }
 
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi { get { return dEmi.ParaDataString(); } set { dEmi = Convert.ToDateTime(value); } }
-
-        public decimal? vDoc
-        {
-            get { return _vDoc.Arredondar(2); }
-            set { _vDoc = value.Arredondar(2); }
-        }
-
-        public bool vDocSpecified { get { return vDoc.HasValue; } }
+        public veic veic { get; set; }
     }
 }

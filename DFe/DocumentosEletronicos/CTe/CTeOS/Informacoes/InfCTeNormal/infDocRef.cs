@@ -31,43 +31,34 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
-using DFe.DocumentosEletronicos.Entidades;
+using DFe.Ext;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS
+namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
-    public class veic
+    public class infDocRef
     {
-        public string cInt { get; set; }
-        public string RENAVAM { get; set; }
-        public string placa { get; set; }
-        public int? tara { get; set; }
-        public bool taraSpecified { get { return tara.HasValue; } }
-        public int? capKG { get; set; }
-        public bool capKGSpecified { get { return capKG.HasValue; } }
-        public int? capM3 { get; set; }
-        public bool capM3Specified { get { return capM3.HasValue; } }
-        public tpProp? tpProp { get; set; }
-        public bool tpPropSpecified { get { return tpProp.HasValue; } }
-        public tpVeic? tpVeic { get; set; }
-        public bool tpVeicSpecified { get { return tpVeic.HasValue; } }
-        public tpRod? tpRod { get; set; }
-        public bool tpRodSpecified { get { return tpRod.HasValue; } }
-        public tpCar? tpCar { get; set; }
-        public bool tpCarSpecified { get { return tpCar.HasValue; } }
+        private decimal? _vDoc;
+
+
+        public string nDoc { get; set; }
+        public short serie { get; set; }
+        public short? subserie { get; set; }
+        public bool subserieSpecified { get { return subserie.HasValue; } }
 
         [XmlIgnore]
-        public Estado UF { get; set; }
+        public DateTime dEmi { get; set; }
 
+        [XmlElement(ElementName = "dEmi")]
+        public string ProxydEmi { get { return dEmi.ParaDataString(); } set { dEmi = Convert.ToDateTime(value); } }
 
-        [XmlElement(ElementName = "UF")]
-        public string ProxyUF
+        public decimal? vDoc
         {
-            get { return UF.GetSiglaUfString(); }
-            set { UF = UF.SiglaParaEstado(value); }
+            get { return _vDoc.Arredondar(2); }
+            set { _vDoc = value.Arredondar(2); }
         }
 
-        public prop prop { get; set; }
+        public bool vDocSpecified { get { return vDoc.HasValue; } }
     }
 }

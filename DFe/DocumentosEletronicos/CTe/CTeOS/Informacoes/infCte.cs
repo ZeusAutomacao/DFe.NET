@@ -3,6 +3,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Complemento;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador;
 using DFe.DocumentosEletronicos.Flags;
 
@@ -26,6 +27,6 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes
 
         public vPrest vPrest { get; set; }
 
-
+        public imp imp { get; set; }
     }
 }
