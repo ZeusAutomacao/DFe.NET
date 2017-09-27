@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
@@ -41,6 +42,7 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 
         public string NroRegEstadual { get; set; }
 
-        public veic veic { get; set; }
+        [XmlElement(ElementName = "veic")]
+        public veicOs veic { get; set; }
     }
 }

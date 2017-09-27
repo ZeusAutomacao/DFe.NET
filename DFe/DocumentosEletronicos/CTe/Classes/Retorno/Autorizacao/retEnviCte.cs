@@ -34,6 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
@@ -94,6 +95,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao
         }
 
         public static retEnviCte LoadXml(string xml, enviCTe enviCte)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
+            return retorno;
+        }
+
+        public static retEnviCte LoadXml(string xml, enviCTeOs enviCte)
         {
             var retorno = LoadXml(xml);
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);

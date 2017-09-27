@@ -2,7 +2,7 @@
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
-    public class seg
+    public class segOs
     {
         public respSeg respSeg { get; set; }
 

@@ -3,7 +3,7 @@ using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos
 {
-    public class imp
+    public class impOs
     {
         public ICMS ICMS { get; set; }
 

@@ -33,7 +33,6 @@
 
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;

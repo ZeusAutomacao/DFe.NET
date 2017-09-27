@@ -14,6 +14,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno
 
         public Informacoes.CTe CTe { get; set; }
 
+        [XmlElement("CTeOS")]
+        public CTeOS.CTeOS CTeOS { get; set; }
+
         public protCTe protCTe { get; set; }
     }
 }

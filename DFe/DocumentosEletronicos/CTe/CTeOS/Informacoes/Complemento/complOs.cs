@@ -4,7 +4,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Complemento;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Complemento
 {
-    public class compl
+    public class complOs
     {
         public string xCaracAd { get; set; }
 

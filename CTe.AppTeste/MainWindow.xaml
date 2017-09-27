@@ -227,6 +227,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -238,6 +239,7 @@
                     <Button Grid.Row="2" Grid.Column="1" Click="CartaCorrecao_Click">Carta Correção</Button>
                     <Button Grid.Row="3" Grid.Column="0" Click="CriarEnviarCTe2_Click">Criar e Enviar CT-e 2.00 Ou 3.00</Button>
                     <Button Grid.Row="3" Grid.Column="1" Click="CriarEnviarAutomaticoCTe2_Click">Criar e Enviar/Consulta Recibo Automatico CT-e 2.00 Ou 3.00</Button>
+                    <Button Grid.Row="4" Grid.Column="0" Click="CriarEnviarCTeOS_Click">Criar e Enviar CT-e OS</Button>
 
                     <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
                         <TabItem Header="XmlEnvio">

@@ -2,7 +2,7 @@
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
-    public class infCteSub
+    public class infCteSubOs
     {
         public string chCte { get; set; }
         

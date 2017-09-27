@@ -41,6 +41,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.StatusServico;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.NFe.Utils;
@@ -132,6 +133,11 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
         public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList, DFeConfig config)
         {
             return new enviCTe(config.VersaoServico, lote, cteEletronicoList);
+        }
+
+        public static enviCTeOs CriaEnviCTeOS(int lote, List<CTeOS.CTeOS> cteEletronicoList, DFeConfig config)
+        {
+            return new enviCTeOs(config.VersaoServico, lote, cteEletronicoList);
         }
     }
 }

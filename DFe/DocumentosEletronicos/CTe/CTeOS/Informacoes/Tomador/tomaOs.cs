@@ -1,6 +1,8 @@
-﻿namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
+﻿using System.Xml.Serialization;
+
+namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
 {
-    public class toma
+    public class tomaOs
     {
         public string CNPJ { get; set; }
 
@@ -14,7 +16,8 @@
 
         public string fone { get; set; }
 
-        public enderToma enderToma { get; set; }
+        [XmlElement(ElementName = "enderToma")]
+        public enderTomaOs enderToma { get; set; }
 
         public string email { get; set; }
     }

@@ -72,6 +72,16 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         }
 
         /// <summary>
+        ///     Converte o objeto CTe para uma string no formato XML
+        /// </summary>
+        /// <param name="cte"></param>
+        /// <returns>Retorna uma string no formato XML com os dados da CTe</returns>
+        public static string ObterXmlString(this CTeOS.CTeOS cte)
+        {
+            return FuncoesXml.ClasseParaXmlString(cte);
+        }
+
+        /// <summary>
         ///     Coverte uma string XML no formato CTe para um objeto CTe
         /// </summary>
         /// <param name="cte"></param>
@@ -218,9 +228,44 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
            cte.Signature = assinatura;
         }
 
+        /// <summary>
+        ///     Assina um objeto CTe
+        /// </summary>
+        /// <param name="cteOS"></param>
+        /// <returns>Retorna um objeto do tipo CTe assinado</returns>
+        public static void Assina(this CTeOS.CTeOS cte, DFeConfig config, CertificadoDigital certificadoDigital)
+        {
+            if (cte == null) throw new ArgumentNullException("cteOS");
+
+            var modeloDocumentoFiscal = cte.InfCte.ide.mod;
+            var tipoEmissao = (int)cte.InfCte.ide.tpEmis;
+            var codigoNumerico = cte.InfCte.ide.cCT;
+            var estado = cte.InfCte.ide.cUF;
+            var dataEHoraEmissao = cte.InfCte.ide.dhEmi;
+            var cnpj = cte.InfCte.emit.CNPJ;
+            var numeroDocumento = cte.InfCte.ide.nCT;
+            int serie = cte.InfCte.ide.serie;
+
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
+
+            cte.InfCte.Id = "CTe" + dadosChave.Chave;
+            cte.InfCte.versao = config.VersaoServico;
+            cte.InfCte.ide.cDV = dadosChave.DigitoVerificador;
+
+            var assinatura = AssinaturaDigital.Assina(cte, cte.InfCte.Id, certificadoDigital);
+
+            cte.Signature = assinatura;
+        }
+
         public static string Chave(this CteEletronica cte)
         {
             var chave = cte.infCte.Id.Substring(3, 44);
+            return chave;
+        }
+
+        public static string Chave(this CTeOS.CTeOS cte)
+        {
+            var chave = cte.InfCte.Id.Substring(3, 44);
             return chave;
         }
 
@@ -233,6 +278,38 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
 
             FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
+        }
+
+        public static void SalvarXmlEmDisco(this CTeOS.CTeOS cte, DFeConfig config)
+        {
+            if (config.NaoSalvarXml()) return;
+
+            var caminhoXml = new ResolvePasta(config, cte.InfCte.ide.dhEmi).PastaEnviar();
+
+            var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
+        }
+
+        /// <summary>
+        ///     Gera id, cdv, assina e faz alguns ajustes nos dados da classe CTe antes de utilizá-la
+        /// </summary>
+        /// <param name="cte"></param>
+        /// <returns>Retorna um objeto CTe devidamente tradado</returns>
+        public static void ValidaSchema(this CTeOS.CTeOS cte, DFeConfig config)
+        {
+            if (cte == null) throw new ArgumentNullException("cte");
+
+            var xmlValidacao = cte.ObterXmlString();
+
+            Validador.Valida(xmlValidacao, "CTeOS_v3.00.xsd", config);
+
+            if (cte.InfCte.ide.tpCTe != tpCTe.Anulacao && cte.InfCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
+            {
+                var xmlModal = FuncoesXml.ClasseParaXmlString(cte.InfCte.infCTeNorm.infModal);
+
+                Validador.Valida(xmlModal, "cteModalRodoviarioOS_v3.00.xsd", config);
+            }
         }
 
 

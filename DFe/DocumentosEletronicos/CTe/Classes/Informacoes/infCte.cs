@@ -60,7 +60,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 
         public compl compl { get; set; }
 
-        public emit emit { get; set; }
+        public emitOs emit { get; set; }
 
         public rem rem { get; set; }
 
@@ -70,7 +70,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes
 
         public dest dest { get; set; }
 
-        public vPrest vPrest { get; set; }
+        public vPrestOs vPrest { get; set; }
 
         public imp imp { get; set; }
 

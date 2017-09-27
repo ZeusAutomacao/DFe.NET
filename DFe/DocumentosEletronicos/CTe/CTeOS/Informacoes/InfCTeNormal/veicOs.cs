@@ -1,11 +1,10 @@
 ﻿using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS;
-using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
-    public class veic
+    public class veicOs
     {
         public string placa { get; set; }
         public string RENAVAM { get; set; }

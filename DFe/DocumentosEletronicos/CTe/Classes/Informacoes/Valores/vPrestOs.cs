@@ -31,23 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente
+using System.Collections.Generic;
+using System.Xml.Serialization;
+using DFe.Ext;
+
+namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores
 {
-    public class emit
+    public class vPrestOs
     {
-        public string CNPJ { get; set; }
+        [XmlElement("vTPrest", Order = 0)]
+        public decimal vTPrest
+        {
+            get { return _vTPrest.Arredondar(2); }
+            set { _vTPrest = value.Arredondar(2); }
+        }
 
-        public string IE { get; set; }
+        [XmlElement("vRec", Order = 1)]
+        public decimal vRec
+        {
+            get { return _vRec.Arredondar(2); }
+            set { _vRec = value.Arredondar(2); }
+        }
 
-        /// <summary>
-        /// Versão 3.00 - Não é obrigatório
-        /// </summary>
-        public string IEST { get; set; }
+        [XmlElement("Comp", Order = 2)]
+        public List<Comp> Comp { get; set; }
 
-        public string xNome { get; set; }
-
-        public string xFant { get; set; }
-
-        public enderEmit enderEmit { get; set; }
+        private decimal _vTPrest;
+        private decimal _vRec;
     }
 }

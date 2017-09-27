@@ -9,7 +9,7 @@ using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao
 {
-    public class ide
+    public class ideOs
     {
         /// <summary>
         ///     B02 - Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.

@@ -3,7 +3,7 @@ using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
 {
-    public class enderToma
+    public class enderTomaOs
     {
         public string xLgr { get; set; }
 
