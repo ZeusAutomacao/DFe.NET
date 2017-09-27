@@ -1,8 +1,6 @@
-﻿using DFe.DocumentosEletronicos.CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
+﻿using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 {

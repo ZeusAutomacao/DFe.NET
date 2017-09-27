@@ -9,7 +9,7 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
         [XmlAttribute]
         public versaoModal versaoModal { get; set; }
 
-        [XmlElement("rodoOs", typeof(rodoOS), Namespace = "http://www.portalfiscal.inf.br/cte")]
+        [XmlElement("rodoOS", typeof(rodoOS), Namespace = "http://www.portalfiscal.inf.br/cte")]
         public ContainerModal ContainerModal { get; set; }
     }
 }

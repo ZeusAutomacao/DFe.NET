@@ -2,11 +2,16 @@
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
+using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
+using DFe.DocumentosEletronicos.Flags;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 {
@@ -21,42 +26,25 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
             _certificadoDigital = certificadoDigital;
         }
 
-        public RetornoEnviarCte Enviar(int lote, CTeOS.CTeOS cte)
+        public retCTeOS Enviar(CTeOS.CTeOS cte)
         {
-            CTeOSEnviarLote enviarLote = new CTeOSEnviarLote(_dfeConfig, _certificadoDigital);
+            cte.InfCte.ide.ProxydhEmi = cte.InfCte.ide.dhEmi.ParaDataHoraStringUtc();
+            cte.InfCte.versao = VersaoServico.Versao300;
+            cte.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
 
-            retEnviCte retEnviCte = enviarLote.EnviarLote(lote, new List<CTeOS.CTeOS> { cte });
-
-            if (retEnviCte.cStat != 103)
-            {
-                return new RetornoEnviarCte(retEnviCte, null, null);
-            }
-
-            CTeConsultaLote servicoCTeConsultaRecibo = new CTeConsultaLote(_dfeConfig, _certificadoDigital);
-
-            retConsReciCTe retConsReciCTe = servicoCTeConsultaRecibo.ConsultaLote(retEnviCte.infRec.nRec);
+            cte.Assina(_dfeConfig, _certificadoDigital);
+            cte.ValidaSchema(_dfeConfig);
+            cte.SalvarXmlEmDisco(_dfeConfig);
 
 
-            cteProc cteProc = null;
-            if (retConsReciCTe.cStat == 104)
-            {
+            var webService = WsdlFactory.CriaWsdlCteRecepcaoOs(_dfeConfig, _certificadoDigital);
 
-                if (retConsReciCTe.protCTe[0].infProt.cStat != 100)
-                {
-                    return new RetornoEnviarCte(retEnviCte, retConsReciCTe, null);
-                }
+            var retornoXml = webService.cteRecepcaoOS(cte.CriaRequestWs(_dfeConfig));
 
-                cteProc = new cteProc
-                {
-                    CTeOS = cte,
-                    versao = cte.InfCte.versao,
-                    protCTe = retConsReciCTe.protCTe[0]
-                };
-            }
 
-            cteProc.SalvarXmlEmDisco(_dfeConfig);
+            var retCteOs = retCTeOS.LoadXml(retornoXml.OuterXml);
 
-            return new RetornoEnviarCte(retEnviCte, retConsReciCTe, cteProc);
+            return retCteOs;
         }
     }
 }

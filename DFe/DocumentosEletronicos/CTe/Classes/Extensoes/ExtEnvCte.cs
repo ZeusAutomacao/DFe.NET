@@ -66,29 +66,12 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             }
         }
 
-        public static void ValidaSchema(this enviCTeOs enviCTe, DFeConfig config)
-        {
-            var xmlValidacao = enviCTe.ObterXmlString();
-
-            Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", config);
-        }
-
         /// <summary>
         ///     Converte o objeto enviCTe para uma string no formato XML
         /// </summary>
         /// <param name="pedEnvio"></param>
         /// <returns>Retorna uma string no formato XML com os dados do objeto enviCTe</returns>
         public static string ObterXmlString(this enviCTe pedEnvio)
-        {
-            return FuncoesXml.ClasseParaXmlString(pedEnvio);
-        }
-
-        /// <summary>
-        ///     Converte o objeto enviCTe para uma string no formato XML
-        /// </summary>
-        /// <param name="pedEnvio"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto enviCTe</returns>
-        public static string ObterXmlString(this enviCTeOs pedEnvio)
         {
             return FuncoesXml.ClasseParaXmlString(pedEnvio);
         }
@@ -104,33 +87,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
         }
 
-        public static void SalvarXmlEmDisco(this enviCTeOs enviCte, DFeConfig config)
-        {
-            if (config.NaoSalvarXml()) return;
-
-            var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaEnviarLote();
-
-            var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
-
-            FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
-        }
-
         public static XmlDocument CriaRequestWs(this enviCTe enviCTe, DFeConfig config)
-        {
-            var request = new XmlDocument();
-
-            var xml = enviCTe.ObterXmlString();
-
-            if (config.EstadoUf == Estado.PR)
-                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
-                xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
-
-            request.LoadXml(xml);
-
-            return request;
-        }
-
-        public static XmlDocument CriaRequestWs(this enviCTeOs enviCTe, DFeConfig config)
         {
             var request = new XmlDocument();
 

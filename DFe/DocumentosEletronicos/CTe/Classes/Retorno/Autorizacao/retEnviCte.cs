@@ -100,12 +100,5 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
             return retorno;
         }
-
-        public static retEnviCte LoadXml(string xml, enviCTeOs enviCte)
-        {
-            var retorno = LoadXml(xml);
-            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
-            return retorno;
-        }
     }
 }

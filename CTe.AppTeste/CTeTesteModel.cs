@@ -1345,8 +1345,8 @@ namespace CTe.AppTeste
             cteOS.InfCte.ide = new ideOs();
             cteOS.InfCte.ide.cUF = config.Empresa.SiglaUf;
             cteOS.InfCte.ide.cCT = GetRandom();
-            cteOS.InfCte.ide.CFOP = 5353;
-            cteOS.InfCte.ide.natOp = "PRESTAÇÃO DE SERVICO DE TRANSPORTE CT-E EXEMPLO";
+            cteOS.InfCte.ide.CFOP = 6357;
+            cteOS.InfCte.ide.natOp = "TRANSPORTE DE PASSAGEIROS";
             cteOS.InfCte.ide.mod = ModeloDocumento.CTeOS;
             cteOS.InfCte.ide.serie = config.ConfigWebService.Serie;
             cteOS.InfCte.ide.nCT = config.ConfigWebService.Numeracao;
@@ -1462,20 +1462,17 @@ namespace CTe.AppTeste
 
             var rodoviario = new rodoOS();
 
-            rodoviario.TAF = "88888888888";
-            rodoviario.NroRegEstadual = "23632667367";
+            rodoviario.TAF = "888888888888";
+            //rodoviario.NroRegEstadual = "23632667367";
 
 
             cteOS.InfCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
 
-
-            var numeroLote = InputBoxTuche("Número Lote");
-
             var facade = new CTeFacade(configCTe, certificado);
 
            
-            var retornoEnvio = facade.EnviarLoteCTeOS(int.Parse(numeroLote), new List<CTeOS> { cteOS });
+            var retornoEnvio = facade.Enviar(cteOS);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 

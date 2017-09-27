@@ -134,10 +134,5 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
         {
             return new enviCTe(config.VersaoServico, lote, cteEletronicoList);
         }
-
-        public static enviCTeOs CriaEnviCTeOS(int lote, List<CTeOS.CTeOS> cteEletronicoList, DFeConfig config)
-        {
-            return new enviCTeOs(config.VersaoServico, lote, cteEletronicoList);
-        }
     }
 }

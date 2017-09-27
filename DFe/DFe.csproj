@@ -85,10 +85,10 @@
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfCTeNormal\veicOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\enderTomaOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\tomaOs.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Servicos\Autorizacao\enviCTeOs.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Servicos\Autorizacao\retCTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\CTeEnviarOS.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Servicos\EvniarLoteCTe\CTeOSEnviarLote.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeRecepcao\CteRecepcaoOS.cs" />
     <Compile Include="DocumentosEletronicos\Entidades\Estado.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Configuracao\NFeBaseConfig.cs" />

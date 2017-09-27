@@ -8,6 +8,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
@@ -24,7 +25,6 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
     {
         private readonly CTeEnviar _enviar;
         private readonly CTeEnviarOS _enviarOS;
-        private readonly CTeOSEnviarLote _enviarLoteCTeOS;
         private readonly CTeEnviarLote _enviarLote;
         private readonly CTeConsultaLote _consultaLote;
         private readonly CTeStatusConsulta _statusConsulta;
@@ -38,7 +38,6 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             _enviar = new CTeEnviar(DfeConfig, CertificadoDigital);
             _enviarOS = new CTeEnviarOS(DfeConfig, CertificadoDigital);
             _enviarLote = new CTeEnviarLote(DfeConfig, CertificadoDigital);
-            _enviarLoteCTeOS = new CTeOSEnviarLote(DfeConfig, CertificadoDigital);
             _consultaLote = new CTeConsultaLote(DfeConfig, CertificadoDigital);
             _statusConsulta = new CTeStatusConsulta(DfeConfig, CertificadoDigital);
             _consulta = new CTeConsulta(DfeConfig, CertificadoDigital);
@@ -52,14 +51,14 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             return _enviar.Enviar(lote, cte);
         }
 
+        public retCTeOS Enviar(CTeOS.CTeOS cteOs)
+        {
+            return _enviarOS.Enviar(cteOs);
+        }
+
         public retEnviCte EnviarLote(int lote, List<CteEletronico> loteCte)
         {
             return _enviarLote.EnviarLote(lote, loteCte);
-        }
-
-        public retEnviCte EnviarLoteCTeOS(int lote, List<CTeOS.CTeOS> loteCteOs)
-        {
-            return _enviarLoteCTeOS.EnviarLote(lote, loteCteOs);
         }
 
         public retConsReciCTe ConsultaLote(string recibo)

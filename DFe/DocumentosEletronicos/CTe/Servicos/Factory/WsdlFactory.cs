@@ -41,6 +41,7 @@ using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeConsultaProtocolo;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcaoOS;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico;
 using DFe.DocumentosEletronicos.Entidades;
@@ -92,6 +93,15 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
             var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
 
             return new CteRecepcao(configuracaoWsdl);
+        }
+
+        public static CteRecepcaoOS CriaWsdlCteRecepcaoOs(DFeConfig config, CertificadoDigital certificadoDigital)
+        {
+            var url = UrlHelper.ObterUrlServico(config).CteRecepcaoOS;
+
+            var configuracaoWsdl = CriaConfiguracao(url, config, certificadoDigital);
+
+            return new CteRecepcaoOS(configuracaoWsdl);
         }
 
         public static CteRecepcaoEvento CriaWsdlCteEvento(DFeConfig config, CertificadoDigital certificadoDigital)

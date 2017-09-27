@@ -32,14 +32,17 @@
 /********************************************************************************/
 
 using System;
+using System.Xml;
 using DFe.Assinatura;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
+using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
 using DFe.DocumentosEletronicos.CTe.Validacao;
+using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
@@ -310,6 +313,21 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
                 Validador.Valida(xmlModal, "cteModalRodoviarioOS_v3.00.xsd", config);
             }
+        }
+
+        public static XmlDocument CriaRequestWs(this CTeOS.CTeOS cteOs, DFeConfig config)
+        {
+            var request = new XmlDocument();
+
+            var xml = cteOs.ObterXmlString();
+
+            if (config.EstadoUf == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
+                xml = xml.Replace("<CTeOS>", "<CTeOS xmlns=\"http://www.portalfiscal.inf.br/cte\">");
+
+            request.LoadXml(xml);
+
+            return request;
         }
 
 

@@ -40,5 +40,6 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos
         public string CteRecepcaoEvento { get; set; }
         public string CteRetRecepcao { get; set; }
         public string CteStatusServico { get; set; }
+        public string CteRecepcaoOS { get; set; }
     }
 }
