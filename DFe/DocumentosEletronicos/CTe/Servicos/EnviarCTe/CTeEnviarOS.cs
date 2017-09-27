@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using DFe.CertificadosDigitais;
+﻿using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
-using DFe.DocumentosEletronicos.CTe.Classes.Retorno;
-using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
-using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Extensoes;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
-using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
-using DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.Factory;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.Ext;
@@ -41,8 +36,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 
             var retornoXml = webService.cteRecepcaoOS(cte.CriaRequestWs(_dfeConfig));
 
+            var retCteOs = retCTeOS.LoadXml(retornoXml.OuterXml, cte);
 
-            var retCteOs = retCTeOS.LoadXml(retornoXml.OuterXml);
+            retCteOs.SalvarXmlEmDisco(_dfeConfig);
 
             return retCteOs;
         }

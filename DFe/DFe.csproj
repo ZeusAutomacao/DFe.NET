@@ -74,6 +74,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\CTeOS.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Extensoes\extretCteOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Complemento\complOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Identificacao\ideOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Impostos\impOs.cs" />

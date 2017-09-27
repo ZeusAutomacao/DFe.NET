@@ -1345,7 +1345,7 @@ namespace CTe.AppTeste
             cteOS.InfCte.ide = new ideOs();
             cteOS.InfCte.ide.cUF = config.Empresa.SiglaUf;
             cteOS.InfCte.ide.cCT = GetRandom();
-            cteOS.InfCte.ide.CFOP = 6357;
+            cteOS.InfCte.ide.CFOP = 5357;
             cteOS.InfCte.ide.natOp = "TRANSPORTE DE PASSAGEIROS";
             cteOS.InfCte.ide.mod = ModeloDocumento.CTeOS;
             cteOS.InfCte.ide.serie = config.ConfigWebService.Serie;
