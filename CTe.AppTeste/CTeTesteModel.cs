@@ -1435,6 +1435,9 @@ namespace CTe.AppTeste
                 icmsSimplesNacional.CST = CST.ICMS90;
             }
 
+            cteOS.InfCte.imp.infTribFed = new infTribFed();
+            cteOS.InfCte.imp.infTribFed.vINSS = 20.00m;
+
             #endregion
 
             #region infCTeNorm
