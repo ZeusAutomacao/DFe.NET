@@ -52,26 +52,26 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 
         public decimal vBCSTRet
         {
-            get { return _vBcstRet.Arredondar(2); }
-            set { _vBcstRet = value.Arredondar(2); }
+            get { return _vBcstRet; }
+            set { _vBcstRet = value; }
         }
 
         public decimal vICMSSTRet
         {
-            get { return _vIcmsstRet.Arredondar(2); }
-            set { _vIcmsstRet = value.Arredondar(2); }
+            get { return _vIcmsstRet; }
+            set { _vIcmsstRet = value; }
         }
 
         public decimal pICMSSTRet
         {
-            get { return _pIcmsstRet.Arredondar(2); }
-            set { _pIcmsstRet = value.Arredondar(2); }
+            get { return _pIcmsstRet; }
+            set { _pIcmsstRet = value; }
         }
 
         public decimal vCred
         {
-            get { return _vCred.Arredondar(2); }
-            set { _vCred = value.Arredondar(2); }
+            get { return _vCred; }
+            set { _vCred = value; }
         }
     }
 }

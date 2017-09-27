@@ -45,14 +45,14 @@ namespace MDFe.Classes.Informacoes
 
         public decimal pesoBC
         {
-            get { return _pesoBc.Arredondar(3); }
-            set { _pesoBc = value.Arredondar(3); }
+            get { return _pesoBc; }
+            set { _pesoBc = value; }
         }
 
         public decimal pesoR
         {
-            get { return _pesoR.Arredondar(3); }
-            set { _pesoR = value.Arredondar(3); }
+            get { return _pesoR; }
+            set { _pesoR = value; }
         }
 
         public string tpVag { get; set; }
@@ -83,8 +83,8 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "TU")]
         public decimal TU
         {
-            get { return _tu.Arredondar(3); }
-            set { _tu = value.Arredondar(3); }
+            get { return _tu; }
+            set { _tu = value; }
         }
     }
 }

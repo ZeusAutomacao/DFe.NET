@@ -68,7 +68,7 @@ namespace MDFe.Classes.Informacoes
         public decimal vCarga
         {
             get { return _vCarga; }
-            set { _vCarga = value.Arredondar(2); }
+            set { _vCarga = value; }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace MDFe.Classes.Informacoes
         public decimal QCarga
         {
             get { return _qCarga; }
-            set { _qCarga = value.Arredondar(4); }
+            set { _qCarga = value; }
         }
 
 

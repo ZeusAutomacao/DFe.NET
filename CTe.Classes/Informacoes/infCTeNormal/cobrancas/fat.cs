@@ -44,20 +44,20 @@ namespace CTe.Classes.Informacoes.infCTeNormal.cobrancas
 
         public decimal? vOrig
         {
-            get { return _vOrig.Arredondar(2); }
-            set { _vOrig = value.Arredondar(2); }
+            get { return _vOrig; }
+            set { _vOrig = value; }
         }
 
         public decimal? vDesc
         {
-            get { return _vDesc.Arredondar(2); }
-            set { _vDesc = value.Arredondar(2); }
+            get { return _vDesc; }
+            set { _vDesc = value; }
         }
 
         public decimal? vLiq
         {
-            get { return _vLiq.Arredondar(2); }
-            set { _vLiq = value.Arredondar(2); }
+            get { return _vLiq; }
+            set { _vLiq = value; }
         }
 
 

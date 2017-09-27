@@ -71,8 +71,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal? unidRat
         {
-            get { return _unidRat.Arredondar(2); }
-            set { _unidRat = value.Arredondar(2); }
+            get { return _unidRat; }
+            set { _unidRat = value; }
         }
 
         public bool unidRatSpecified { get { return unidRat.HasValue; } }
@@ -85,8 +85,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal? unidRat
         {
-            get { return _unidRat.Arredondar(2); }
-            set { _unidRat = value.Arredondar(2); }
+            get { return _unidRat; }
+            set { _unidRat = value; }
         }
 
         public bool unidRatSpecified { get { return unidRat.HasValue; } }

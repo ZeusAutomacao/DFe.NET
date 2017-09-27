@@ -71,7 +71,6 @@
     <Compile Include="Servicos\Download\retDownloadNFe.cs" />
     <Compile Include="Servicos\Download\retNFe.cs" />
     <Compile Include="Servicos\Inutilizacao\procInutNFe.cs" />
-    <Compile Include="Valor.cs" />
     <Compile Include="Informacoes\Cana\cana.cs" />
     <Compile Include="Informacoes\Cana\deduc.cs" />
     <Compile Include="Informacoes\Cana\forDia.cs" />
@@ -217,6 +216,7 @@
     <Compile Include="Servicos\Status\consStatServ.cs" />
     <Compile Include="Servicos\Status\retConsStatServ.cs" />
     <Compile Include="Servicos\Tipos\ServicosTipos.cs" />
+    <Compile Include="Valor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="NFe.Classes.licenseheader" />

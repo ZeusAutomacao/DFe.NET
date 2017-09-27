@@ -67,46 +67,46 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
 
         public decimal vBC
         {
-            get { return _vBc.Arredondar(2); }
-            set { _vBc = value.Arredondar(2); }
+            get { return _vBc; }
+            set { _vBc = value; }
         }
 
         public decimal vICMS
         {
-            get { return _vIcms.Arredondar(2); }
-            set { _vIcms = value.Arredondar(2); }
+            get { return _vIcms; }
+            set { _vIcms = value; }
         }
 
         public decimal vBCST
         {
-            get { return _vBcst.Arredondar(2); }
-            set { _vBcst = value.Arredondar(2); }
+            get { return _vBcst; }
+            set { _vBcst = value; }
         }
 
         public decimal vST
         {
-            get { return _vSt.Arredondar(2); }
-            set { _vSt = value.Arredondar(2); }
+            get { return _vSt; }
+            set { _vSt = value; }
         }
 
         public decimal vProd
         {
-            get { return _vProd.Arredondar(2); }
-            set { _vProd = value.Arredondar(2); }
+            get { return _vProd; }
+            set { _vProd = value; }
         }
 
         public decimal vNF
         {
-            get { return _vNf.Arredondar(2); }
-            set { _vNf = value.Arredondar(2); }
+            get { return _vNf; }
+            set { _vNf = value; }
         }
 
         public int nCFOP { get; set; }
 
         public decimal nPeso
         {
-            get { return _nPeso.Arredondar(3); }
-            set { _nPeso = value.Arredondar(3); }
+            get { return _nPeso; }
+            set { _nPeso = value; }
         }
 
         public string PIN { get; set; }
