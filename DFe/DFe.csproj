@@ -772,6 +772,9 @@
     <Compile Include="DocumentosEletronicos\NFe\Wsdl\Status\NFeStatusServico4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Http\Envelope.cs" />
+    <Compile Include="Http\Ext\ExtHttpWebRequest.cs" />
+    <Compile Include="Http\RequestWS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocumentosEletronicos\ManipulaPasta\ResolvePasta.cs" />
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
