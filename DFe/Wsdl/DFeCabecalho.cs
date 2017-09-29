@@ -13,5 +13,6 @@ namespace DFe.Wsdl
 
         public Estado CodigoUF { get; }
         public VersaoServico VersaoServico { get; }
+
     }
 }

@@ -11,24 +11,24 @@ namespace DFe.Http
 {
     public class RequestWS
     {
-        public string EnviaSefaz(DFeEnvelope envelope, string url, string metodo)
+        public string EnviaSefaz(DFeSoapConfig soapConfig)
         {
             try
             {
                 string XMLRetorno = string.Empty;
-                string xmlSoap = new Envelope().Construir(envelope);
+                string xmlSoap = new Envelope().Construir(soapConfig);
 
-                Uri uri = new Uri(url);
+                Uri uri = new Uri(soapConfig.Url);
 
                 WebRequest webRequest = WebRequest.Create(uri);
                 HttpWebRequest httpWR = (HttpWebRequest)webRequest;
-                // todo httpWR.Timeout
+                httpWR.Timeout = soapConfig.TimeOut == 0 ? 2000 : soapConfig.TimeOut;
 
                 httpWR.ContentLength = Encoding.ASCII.GetBytes(xmlSoap).Length;
 
-                httpWR.ClientCertificates.Add(new X509Certificate2(@"certificado", "senha do mesmo"));
+                httpWR.ClientCertificates.Add(soapConfig.Certificado);
 
-                httpWR.ComposeContentType("application/soap+xml", Encoding.UTF8, metodo);
+                httpWR.ComposeContentType("application/soap+xml", Encoding.UTF8, soapConfig.Metodo);
 
                 httpWR.Method = "POST";
 

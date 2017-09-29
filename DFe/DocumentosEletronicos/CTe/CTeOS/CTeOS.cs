@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS
 {
-    [XmlRoot(ElementName = "CTeOS", Namespace = "http://www.portalfiscal.inf.br/cte")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class CTeOS
     {
         public CTeOS()

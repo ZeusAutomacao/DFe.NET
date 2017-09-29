@@ -103,7 +103,11 @@
     <Compile Include="DocumentosEletronicos\NFe\Servicos\Factory\WsdlFactory.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Servicos\StatusServicoNFe\NFeStatusServico.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="DocumentosEletronicos\Wsdl\DFeEnvelope.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\CteTagCabecalho.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\ITagCabecalho.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Corpo\CteTagCorpo.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Corpo\ITagCorpo.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\DFeSoapConfig.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
     <Compile Include="DocumentosEletronicos\Flags\TipoAmbiente.cs" />
@@ -777,9 +781,6 @@
     <Compile Include="Http\Envelope.cs" />
     <Compile Include="Http\Ext\ExtHttpWebRequest.cs" />
     <Compile Include="Http\RequestWS.cs" />
-    <Compile Include="Http\SoapAtributos\DFeSoapAction.cs" />
-    <Compile Include="Http\SoapAtributos\DFeSoapAtributo.cs" />
-    <Compile Include="Http\SoapAtributos\DFeSoapHeaderAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocumentosEletronicos\ManipulaPasta\ResolvePasta.cs" />
     <Compile Include="Assinatura\AssinaturaDigital.cs" />

@@ -1,15 +1,15 @@
 ﻿using DFe.DocumentosEletronicos.Wsdl;
+using DFe.Http;
 
 namespace DFe.Wsdl
 {
     public abstract class DFeSoapHttpClientProtocol
     {
-        protected string Invoke(DFeEnvelope envelope)
+        protected string Invoke(DFeSoapConfig soapConfig)
         {
-            var atributos = GetType().CustomAttributes;
+            var request = new RequestWS().EnviaSefaz(soapConfig);
 
-
-            return string.Empty;
+            return request;
         }
     }
 }
