@@ -4,18 +4,19 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
+using DFe.DocumentosEletronicos.Wsdl;
 using DFe.Http.Ext;
 
 namespace DFe.Http
 {
     public class RequestWS
     {
-        public string EnviaSefaz(XmlNode xml, string url, string metodo)
+        public string EnviaSefaz(DFeEnvelope envelope, string url, string metodo)
         {
             try
             {
                 string XMLRetorno = string.Empty;
-                string xmlSoap = new Envelope().Construir(xml);
+                string xmlSoap = new Envelope().Construir(envelope);
 
                 Uri uri = new Uri(url);
 

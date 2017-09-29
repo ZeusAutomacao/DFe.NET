@@ -1,11 +1,11 @@
 ﻿using System.Text;
-using System.Xml;
+using DFe.DocumentosEletronicos.Wsdl;
 
 namespace DFe.Http
 {
     public class Envelope
     {
-        public string Construir(XmlNode xml)
+        public string Construir(DFeEnvelope envelope)
         {
             StringBuilder env = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 
@@ -24,7 +24,7 @@ namespace DFe.Http
             env.Append("<soap12:Body>");
 
             env.Append("<nfeDadosMsg xmlns=\"http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico\">");
-            env.Append(xml.LastChild.OuterXml.ToString());
+            env.Append(envelope.Xml.LastChild.OuterXml);
             env.Append("</nfeDadosMsg>");
 
             env.Append("</soap12:Body>");
