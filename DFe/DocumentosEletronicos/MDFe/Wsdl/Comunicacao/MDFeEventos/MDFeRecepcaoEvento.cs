@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeEventos
+namespace DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeEventos
 {
     public class MDFeRecepcaoEvento : DFeSoapHttpClientProtocol
     {

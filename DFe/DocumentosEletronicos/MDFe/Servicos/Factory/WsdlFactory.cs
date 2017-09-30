@@ -36,14 +36,14 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Ext;
 using DFe.DocumentosEletronicos.MDFe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeConsultaNaoEncerrados;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeConsultaProtoloco;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeEventos;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeRecepcao;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeRetRecepcao;
+using DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeStatusServico;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.MDFe.Wsdl.Enderecos.Helper;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeEventos;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeRecepcao;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeRetRecepcao;
-using DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeStatusServico;
 
 namespace DFe.DocumentosEletronicos.MDFe.Servicos.Factory
 {

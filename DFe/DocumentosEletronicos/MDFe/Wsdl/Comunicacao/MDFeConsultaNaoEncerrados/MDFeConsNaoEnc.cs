@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
+namespace DFe.DocumentosEletronicos.MDFe.Wsdl.Comunicacao.MDFeConsultaNaoEncerrados
 {
     public class MDFeConsNaoEnc : DFeSoapHttpClientProtocol
     {
