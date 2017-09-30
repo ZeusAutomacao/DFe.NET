@@ -59,13 +59,13 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe
 
             var webService = WsdlFactory.CriaWsdlCteRetRecepcao(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.cteRetRecepcao(consReciCTe.CriaRequestWs());
+            var retConsReciCTe = webService.Autorizar(consReciCTe.CriaRequestWs());
 
-            var retorno = retConsReciCTe.LoadXml(retornoXml.OuterXml, consReciCTe);
+            retConsReciCTe.LoadXml(consReciCTe);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig);
+            retConsReciCTe.SalvarXmlEmDisco(_dfeConfig);
 
-            return retorno;
+            return retConsReciCTe;
         }
     }
 }

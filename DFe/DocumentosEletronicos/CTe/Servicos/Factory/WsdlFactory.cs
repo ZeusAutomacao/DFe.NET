@@ -33,7 +33,6 @@
 
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Classes;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;

@@ -118,5 +118,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitCTe);
             return retorno;
         }
+
+        public void LoadXml(consReciCTe consReciCTe)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consReciCTe);
+        }
     }
 }
