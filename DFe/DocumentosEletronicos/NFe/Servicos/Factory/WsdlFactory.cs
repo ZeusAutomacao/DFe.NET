@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using DFe.CertificadosDigitais;
-using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Configuracao;
