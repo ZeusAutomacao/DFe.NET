@@ -43,6 +43,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testes", "Testes", "{87AE1A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFeTeste", "DFeTeste\DFeTeste.csproj", "{6D040D1F-E079-4E32-B7DF-6E13D5141180}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFeStandard", "DFeStandard\DFeStandard.csproj", "{19C22E52-EC12-410E-8855-4126994B3842}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{6D040D1F-E079-4E32-B7DF-6E13D5141180}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D040D1F-E079-4E32-B7DF-6E13D5141180}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D040D1F-E079-4E32-B7DF-6E13D5141180}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19C22E52-EC12-410E-8855-4126994B3842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19C22E52-EC12-410E-8855-4126994B3842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19C22E52-EC12-410E-8855-4126994B3842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19C22E52-EC12-410E-8855-4126994B3842}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
