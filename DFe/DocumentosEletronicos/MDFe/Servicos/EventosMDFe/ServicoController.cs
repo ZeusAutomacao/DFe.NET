@@ -68,13 +68,12 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
+            var retEventoMdFe = webService.Autorizar(evento.CriaXmlRequestWs());
 
-            var retorno = retEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
+            retEventoMdFe.LoadXml(evento);
+            retEventoMdFe.SalvarXmlEmDisco(chave, _dfeConfig, tipoEvento);
 
-            retorno.SalvarXmlEmDisco(chave, _dfeConfig, tipoEvento);
-
-            return retorno;
+            return retEventoMdFe;
         }
     }
 }

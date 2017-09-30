@@ -68,5 +68,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.Evento
 
             return retorno;
         }
+
+        public void LoadXml(eventoMDFe evento)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(evento);
+        }
     }
 }

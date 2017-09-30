@@ -99,6 +99,7 @@
     <Compile Include="DocumentosEletronicos\Entidades\Estado.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
+    <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Configuracao\NFeBaseConfig.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Facade\NFeFacade.cs" />
@@ -479,7 +480,6 @@
     <Compile Include="DocumentosEletronicos\Flags\VersaoServico.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Validacao\Validador.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeStatusServico\MDFeStatusServico.cs" />
