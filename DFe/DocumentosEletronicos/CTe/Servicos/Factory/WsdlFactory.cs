@@ -37,11 +37,11 @@ using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeConsultaProtocolo;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeInutilizacao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeRecepcaoEvento;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeRetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeStatusServico;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
 using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory

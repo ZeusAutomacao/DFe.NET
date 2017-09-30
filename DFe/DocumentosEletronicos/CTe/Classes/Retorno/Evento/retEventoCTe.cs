@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.Flags;
@@ -67,6 +68,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(evento);
 
             return retorno;
+        }
+
+        internal void LoadXml(eventoCTe evento)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(evento);
         }
     }
 }

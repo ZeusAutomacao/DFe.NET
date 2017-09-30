@@ -91,6 +91,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\CTeEnviarOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeInutilizacao\CteInutilizacao.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeRecepcaoEvento\CteRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeRecepcao\CteRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeRecepcao\CteRecepcaoOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeRetRecepcao\CteRetRecepcao.cs" />
@@ -344,7 +345,6 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Extensoes\ExtretEnviCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Validacao\Validador.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Wsdl\Evento\CteRecepcaoEvento.cs" />
     <Compile Include="Facade\FacadeBase.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Informacoes\Modal\ModalContainer.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Extensoes\ExtMDFe.cs" />

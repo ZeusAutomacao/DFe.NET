@@ -70,12 +70,12 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
             evento.SalvarXmlEmDisco(config, tipoEvento);
 
             var webService = WsdlFactory.CriaWsdlCteEvento(config, certificadoDigital);
-            var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
+            var retEventoCTe = webService.Autorizar(evento.CriaXmlRequestWs());
 
-            var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco(config, tipoEvento);
+            retEventoCTe.LoadXml(evento);
+            retEventoCTe.SalvarXmlEmDisco(config, tipoEvento);
 
-            return retorno;
+            return retEventoCTe;
         }
     }
 }
