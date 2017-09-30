@@ -91,12 +91,17 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico
             return retorno;
         }
 
-        private static retConsStatServCte LoadXml(string xml)
+        public static retConsStatServCte LoadXml(string xml)
         {
             var retorno = FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xml);
             retorno.RetornoXmlString = xml;
 
             return retorno;
+        }
+
+        public void LoadXml(consStatServCte consStatServCte)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServCte);
         }
     }
 }

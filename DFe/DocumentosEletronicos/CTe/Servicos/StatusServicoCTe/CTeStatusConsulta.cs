@@ -57,12 +57,13 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.StatusServicoCTe
             consStatServCte.SalvarXmlEmDisco(_config);
 
             var webService = WsdlFactory.CriaWsdlCteStatusServico(_config, _certificadoDigital);
-            var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
 
-            var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
-            retorno.SalvarXmlEmDisco(_config);
+            var retConsStatServCte = webService.Autorizar(consStatServCte.CriaRequestWs());
 
-            return retorno;
+            retConsStatServCte.LoadXml(consStatServCte);
+            retConsStatServCte.SalvarXmlEmDisco(_config);
+
+            return retConsStatServCte;
         }
     }
 }
