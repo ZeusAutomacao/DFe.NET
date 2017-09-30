@@ -104,5 +104,11 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.Autorizacao
         {
             return cStat != 103;
         }
+
+        public void LoadXml(enviMDFe enviMdFe)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviMdFe.MDFe);
+            RetornoCompleto = FuncoesXml.ClasseParaXmlString(enviMdFe);
+        }
     }
 }

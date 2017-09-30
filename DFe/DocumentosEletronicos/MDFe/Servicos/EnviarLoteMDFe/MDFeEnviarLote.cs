@@ -87,13 +87,13 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.EnviarLoteMDFe
 
             OnAntesDeEnviar(enviMDFe);
 
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+            
+            var retEnviMdFe = webService.Autorizar(enviMDFe.CriaXmlRequestWs());
 
-            var retorno = retEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
+            retEnviMdFe.LoadXml(enviMDFe);
+            retEnviMdFe.SalvarXmlEmDisco(_dfeConfig, enviMDFe.MDFe.InfMDFe.emit.CNPJ);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig, enviMDFe.MDFe.InfMDFe.emit.CNPJ);
-
-            return retorno;
+            return retEnviMdFe;
         }
 
         protected virtual void OnAntesDeEnviar(enviMDFe enviMdfe)

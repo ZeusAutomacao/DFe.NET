@@ -80,14 +80,14 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.Factory
             return new MDFeRecepcaoEvento(configuracaoWsdl);
         }
 
-        public static MDFeRecepcao CriaWsdlMDFeRecepcao(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
+        public static MDFeRecepecao CriaWsdlMDFeRecepcao(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
             var url = UrlHelper.ObterUrlServico(dfeConfig.TipoAmbiente).MDFeRecepcao;
             var versaoServico = dfeConfig.VersaoServico.GetVersaoString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versaoServico, dfeConfig, certificadoDigital);
 
-            return new MDFeRecepcao(configuracaoWsdl);
+            return new MDFeRecepecao(configuracaoWsdl);
         }
 
         public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
