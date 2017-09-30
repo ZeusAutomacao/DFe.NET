@@ -57,12 +57,14 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
             consSitCTe.SalvarXmlEmDisco(_dfeConfig);
 
             var webService = WsdlFactory.CriaWsdlConsultaProtocolo(_dfeConfig, _certificadoDigital);
-            var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
 
-            var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave, _dfeConfig);
+            var retConsSitCTe = webService.Autorizar(consSitCTe.CriaRequestWs());
 
-            return retorno;
+            retConsSitCTe.LoadXml(consSitCTe);
+
+            retConsSitCTe.SalvarXmlEmDisco(chave, _dfeConfig);
+
+            return retConsSitCTe;
         }
     }
 }
