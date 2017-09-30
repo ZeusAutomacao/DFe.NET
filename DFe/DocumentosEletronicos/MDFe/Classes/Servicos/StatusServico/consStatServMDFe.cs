@@ -34,7 +34,6 @@
 using System;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Flags;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 
 namespace DFe.DocumentosEletronicos.MDFe.Classes.Servicos.StatusServico
 {

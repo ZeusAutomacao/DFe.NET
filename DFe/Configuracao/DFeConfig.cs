@@ -11,7 +11,7 @@ namespace DFe.Configuracao
         public DFeConfig()
         {
             ProxyCacheCertificadoDigital = new CacheCertificadoDigital();
-            ProtocoloDeSeguranca = SecurityProtocolType.Ssl3;
+            ProtocoloDeSeguranca = SecurityProtocolType.Tls;
         }
 
         public bool IsSalvarXml { get; set; }
