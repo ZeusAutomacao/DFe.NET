@@ -43,7 +43,7 @@ namespace DFe.DocumentosEletronicos.NFe.Wsdl.AdmCsc
     [WebServiceBinding(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
     public class NfceCsc : SoapHttpClientProtocol, INfeServico
     {
-         public NfceCsc(string url, X509Certificate certificado, int timeOut)
+        public NfceCsc(string url, X509Certificate certificado, int timeOut)
         {
             SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;

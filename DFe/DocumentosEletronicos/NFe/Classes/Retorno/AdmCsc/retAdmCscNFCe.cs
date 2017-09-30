@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos;
 

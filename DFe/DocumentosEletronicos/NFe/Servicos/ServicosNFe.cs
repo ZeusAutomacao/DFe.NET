@@ -98,7 +98,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
 
         private INfeServico CriarServico(ServicoNFe servico)
         {
-            var url = string.Empty; // todo Enderecador.ObterUrlServico(servico, _cFgServico);
+            var url = "https://homolog.sefaz.go.gov.br/nfe/services/v2/CscNFCe?wsdl"; // todo Enderecador.ObterUrlServico(servico, _cFgServico);
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
