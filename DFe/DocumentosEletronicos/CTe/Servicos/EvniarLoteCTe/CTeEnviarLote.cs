@@ -112,13 +112,13 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EvniarLoteCTe
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(_dfeConfig));
+            var retEnviCte = webService.Autorizar(enviCte.CriaRequestWs(_dfeConfig));
 
-            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+            retEnviCte.LoadXml(enviCte);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig);
+            retEnviCte.SalvarXmlEmDisco(_dfeConfig);
 
-            return retorno;
+            return retEnviCte;
         }
 
         protected virtual void OnAntesDeEnviar(enviCTe enviCTe)

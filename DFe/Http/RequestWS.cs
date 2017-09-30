@@ -22,7 +22,7 @@ namespace DFe.Http
                 HttpWebRequest httpWR = (HttpWebRequest)webRequest;
                 httpWR.Timeout = soapConfig.TimeOut == 0 ? 2000 : soapConfig.TimeOut;
 
-                httpWR.ContentLength = Encoding.ASCII.GetBytes(xmlSoap).Length;
+                httpWR.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
 
                 httpWR.ClientCertificates.Add(soapConfig.Certificado);
 
@@ -32,7 +32,7 @@ namespace DFe.Http
 
                 Stream reqStream = httpWR.GetRequestStream();
                 StreamWriter streamWriter = new StreamWriter(reqStream);
-                streamWriter.Write(xmlSoap, 0, Encoding.ASCII.GetBytes(xmlSoap).Length);
+                streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
                 streamWriter.Close();
 
                 WebResponse webResponse = httpWR.GetResponse();

@@ -31,7 +31,9 @@ namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao
 
             var ret = Invoke(SoapConfig);
 
-            var retCteOs = retCTeOS.LoadXml(ret);
+            var xmlConverter = GetTagConverter(ret, "retCTeOS");
+
+            var retCteOs = retCTeOS.LoadXml(xmlConverter);
 
             return retCteOs;
         }

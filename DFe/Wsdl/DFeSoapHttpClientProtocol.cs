@@ -10,12 +10,16 @@ namespace DFe.Wsdl
         {
             var xmlRetorno = RequestWS.EnviaSefaz(soapConfig);
 
+            return xmlRetorno;
+        }
+
+        protected virtual string GetTagConverter(string ret, string tag)
+        {
             XmlDocument doc = new XmlDocument();
-            doc.Load(new System.IO.StringReader(xmlRetorno));
-
-            XmlNodeList xmlList = doc.GetElementsByTagName("retCTeOS");
-
-            return xmlList[0].OuterXml;
+            doc.Load(new System.IO.StringReader(ret));
+            XmlNodeList xmlList = doc.GetElementsByTagName(tag);
+            var xmlConverter = xmlList[0].OuterXml;
+            return xmlConverter;
         }
     }
 }
