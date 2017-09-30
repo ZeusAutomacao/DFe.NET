@@ -97,6 +97,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeRetRecepcao\CteRetRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeStatusServico\CteStatusServico.cs" />
     <Compile Include="DocumentosEletronicos\Entidades\Estado.cs" />
+    <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Configuracao\NFeBaseConfig.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Facade\NFeFacade.cs" />
@@ -110,8 +111,10 @@
     <Compile Include="DocumentosEletronicos\NFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\CteTagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\ITagCabecalho.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\MdfeTagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\CteTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\ITagCorpo.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Corpo\MdfeTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\DFeSoapConfig.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
@@ -475,7 +478,6 @@
     <Compile Include="DocumentosEletronicos\Flags\VersaoServico.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Validacao\Validador.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Gerado\MDFeRecepcao\MDFeRecepcao.cs" />

@@ -78,19 +78,24 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.ConsultaNaoEncerrados
         [XmlElement(ElementName = "infMDFe")]
         public List<infMDFe> infMDFe { get; set; }
 
-        public static retConsMDFeNaoEnc LoadXmlString(string xml)
+        public static retConsMDFeNaoEnc LoadXml(string xml)
         {
             var retorno = FuncoesXml.XmlStringParaClasse<retConsMDFeNaoEnc>(xml);
             retorno.RetornoXmlString = xml;
             return retorno;
         }
 
-        public static retConsMDFeNaoEnc LoadXmlString(string xml, consMDFeNaoEnc consConsMdFeNaoEnc)
+        public static retConsMDFeNaoEnc LoadXml(string xml, consMDFeNaoEnc consConsMdFeNaoEnc)
         {
-            var retorno = LoadXmlString(xml);
+            var retorno = LoadXml(xml);
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consConsMdFeNaoEnc);
 
             return retorno;
+        }
+
+        public void LoadXml(consMDFeNaoEnc consMdFeNaoEnc)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consMdFeNaoEnc);
         }
     }
 }

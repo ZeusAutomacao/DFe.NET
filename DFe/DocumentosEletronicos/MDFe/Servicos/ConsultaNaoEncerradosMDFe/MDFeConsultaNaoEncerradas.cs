@@ -60,13 +60,13 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaNaoEncerradosMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(_dfeConfig, CertificadoDigital);
 
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            var retConsMdFeNaoEnc = webService.Autorizar(consMDFeNaoEnc.CriaRequestWs());
 
-            var retorno = retConsMDFeNaoEnc.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
 
-            retorno.SalvarXmlEmDisco(cnpj, _dfeConfig);
+            retConsMdFeNaoEnc.LoadXml(consMDFeNaoEnc);
+            retConsMdFeNaoEnc.SalvarXmlEmDisco(cnpj, _dfeConfig);
 
-            return retorno;
+            return retConsMdFeNaoEnc;
         }
     }
 }

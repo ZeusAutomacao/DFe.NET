@@ -120,7 +120,9 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.Factory
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = dfeConfig.TimeOut
+                TimeOut = dfeConfig.TimeOut,
+                VersaoLayout = dfeConfig.VersaoServico,
+                EstadoUF = dfeConfig.EstadoUf
             };
         }
     }
