@@ -41,7 +41,6 @@ using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeConsultaProtocolo;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcaoOS;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico;
 using DFe.DocumentosEletronicos.Entidades;
@@ -126,7 +125,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory
                 Versao = versaoEmString,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = timeOut
+                TimeOut = timeOut,
+                EstadoUF = config.EstadoUf,
+                VersaoLayout = config.VersaoServico
             };
         }
     }

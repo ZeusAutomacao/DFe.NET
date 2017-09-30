@@ -32,15 +32,19 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
+using DFe.DocumentosEletronicos.Entidades;
+using DFe.DocumentosEletronicos.Flags;
 
 namespace DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao
 {
     public class WsdlConfiguracao
     {
+        public Estado EstadoUF { get; set; }
         public string Url { get; set; }
         public string CodigoIbgeEstado { get; set; }
         public string Versao { get; set; }
         public X509Certificate2 CertificadoDigital { get; set; }
         public int TimeOut { get; set; }
+        public VersaoServico VersaoLayout { get; set; }
     }
 }

@@ -59,5 +59,10 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(cteOS);
             return retorno;
         }
+
+        public void LoadXml(CTeOS cteOS)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(cteOS);
+        }
     }
 }

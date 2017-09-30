@@ -34,9 +34,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
 
             var webService = WsdlFactory.CriaWsdlCteRecepcaoOs(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.cteRecepcaoOS(cte.CriaRequestWs(_dfeConfig));
+            var retCteOs = webService.Autorizar(cte.CriaRequestWs(_dfeConfig));
 
-            var retCteOs = retCTeOS.LoadXml(retornoXml.OuterXml, cte);
+            retCteOs.LoadXml(cte);
 
             retCteOs.SalvarXmlEmDisco(_dfeConfig);
 
