@@ -53,6 +53,7 @@ using DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe;
 using DFe.DocumentosEletronicos.MDFe.Servicos.RecepcaoMDFe;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using DFe.Utils.Flags;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;

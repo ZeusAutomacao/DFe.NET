@@ -1,4 +1,4 @@
-﻿using DFe.Utils;
+﻿using DFe.Utils.Flags;
 
 namespace DFe.CertificadosDigitais
 {

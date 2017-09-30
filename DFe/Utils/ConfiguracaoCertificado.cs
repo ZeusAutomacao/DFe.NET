@@ -34,22 +34,11 @@
 using System;
 using System.ComponentModel;
 using DFe.Ext;
+using DFe.Utils.Flags;
 using JetBrains.Annotations;
 
 namespace DFe.Utils
 {
-    public enum TipoCertificado
-    {
-        [Description("Certificado A1")]
-        A1Repositorio,
-
-        [Description("Certificado A1 em arquivo")]
-        A1Arquivo,
-
-        [Description("Certificado A3")]
-        A3
-    }
-
     public class ConfiguracaoCertificado : INotifyPropertyChanged
     {
         private string _serial;

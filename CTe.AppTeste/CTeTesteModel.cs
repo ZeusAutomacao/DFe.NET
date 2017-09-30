@@ -67,6 +67,7 @@ using DFe.DocumentosEletronicos.Flags;
 using CteEletronico = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using DFe.Utils.Flags;
 using dest = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Destinatario.dest;
 using infNFe = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;

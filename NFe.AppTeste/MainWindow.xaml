@@ -7,12 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:net="clr-namespace:System.Net;assembly=System"
-    xmlns:utils1="clr-namespace:DFe.Utils;assembly=DFe"
     xmlns:nfceemit="clr-namespace:DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Emitente;assembly=DFe"
     xmlns:nfeclsidetipos="clr-namespace:DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;assembly=DFe"
     xmlns:entidades="clr-namespace:DFe.DocumentosEletronicos.Entidades;assembly=DFe"
     xmlns:flags="clr-namespace:DFe.DocumentosEletronicos.Flags;assembly=DFe"
     xmlns:nfeclservicostipos="clr-namespace:DFe.DocumentosEletronicos.NFe.Flags;assembly=DFe"
+    xmlns:utils11="clr-namespace:DFe.Utils.Flags;assembly=DFe"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
@@ -89,17 +89,17 @@
                                             <RadioButton GroupName="TipoCertificado" Content="A1"
                                                                  HorizontalAlignment="Left" Margin="130,6,0,5"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils1:TipoCertificado.A1Repositorio}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Repositorio}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                             <RadioButton GroupName="TipoCertificado" Content="A1 em arquivo"
                                                                  HorizontalAlignment="Left" Margin="180,6,0,5"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils1:TipoCertificado.A1Arquivo}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Arquivo}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                             <RadioButton GroupName="TipoCertificado" Content="A3"
                                                                  HorizontalAlignment="Left" Margin="290,6,0,5"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils1:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                         </Grid>
                                     </StackPanel>

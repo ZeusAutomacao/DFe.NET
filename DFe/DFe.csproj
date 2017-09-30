@@ -795,6 +795,7 @@
     <Compile Include="Ext\EnumExt.cs" />
     <Compile Include="DocumentosEletronicos\ManipuladorDeXml\FuncoesXml.cs" />
     <Compile Include="Ext\Reflexao.cs" />
+    <Compile Include="Utils\Flags\TipoCertificado.cs" />
     <Compile Include="Wsdl\DFeCabecalho.cs" />
     <Compile Include="Wsdl\DFeCorpo.cs" />
     <Compile Include="Wsdl\DFeSoapHttpClientProtocol.cs" />

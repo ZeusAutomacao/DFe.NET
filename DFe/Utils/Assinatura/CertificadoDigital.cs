@@ -39,6 +39,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using DFe.CertificadosDigitais.Ext;
+using DFe.Utils.Flags;
 
 namespace DFe.Utils.Assinatura
 {

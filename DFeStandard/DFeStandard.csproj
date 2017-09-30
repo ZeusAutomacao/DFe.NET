@@ -5,7 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="11.0.0" />
     <PackageReference Include="System.Security.Cryptography.Xml" Version="4.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\DFe\**\*.cs">
+      <Link>DFe\%(RecursiveDir)%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="..\DFe\DocumentosEletronicos\NFe\**" />
+    <Compile Remove="..\DFe\obj\Debug\**" />
+    <Compile Remove="..\DFe\Properties\**" />
+    <Compile Remove="..\DFe\Utils\Assinatura\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="..\DFe\Utils\ConfiguracaoCertificado.cs" />
   </ItemGroup>
 
 </Project>

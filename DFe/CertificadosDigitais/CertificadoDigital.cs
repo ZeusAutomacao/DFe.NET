@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
 using DFe.Utils;
+using DFe.Utils.Flags;
 
 namespace DFe.CertificadosDigitais
 {

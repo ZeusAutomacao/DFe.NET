@@ -1,5 +1,5 @@
 ﻿using DFe.CertificadosDigitais.Servicos;
-using DFe.Utils;
+using DFe.Utils.Flags;
 
 namespace DFe.CertificadosDigitais.Implementacao
 {
