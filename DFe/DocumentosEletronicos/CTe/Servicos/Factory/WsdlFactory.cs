@@ -34,14 +34,14 @@
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeConsultaProtocolo;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeInutilizacao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeRetRecepcao;
+using DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeStatusServico;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Enderecos.Helpers;
 using DFe.DocumentosEletronicos.CTe.Wsdl.Evento;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeConsultaProtocolo;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRecepcao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeRetRecepcao;
-using DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico;
 using DFe.DocumentosEletronicos.Entidades;
 
 namespace DFe.DocumentosEletronicos.CTe.Servicos.Factory

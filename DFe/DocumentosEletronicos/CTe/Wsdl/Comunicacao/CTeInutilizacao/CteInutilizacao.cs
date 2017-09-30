@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeInutilizacao
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeInutilizacao
 {
     public class CteInutilizacao : DFeSoapHttpClientProtocol
     {

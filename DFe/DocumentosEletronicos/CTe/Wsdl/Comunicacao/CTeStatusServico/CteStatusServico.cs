@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.CTe.Wsdl.Gerado.CTeStatusServico
+namespace DFe.DocumentosEletronicos.CTe.Wsdl.Comunicacao.CTeStatusServico
 {
     public class CteStatusServico : DFeSoapHttpClientProtocol
     {
