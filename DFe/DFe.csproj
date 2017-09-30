@@ -90,6 +90,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\CTeEnviarOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeConsultaProtocolo\CteConsulta.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeInutilizacao\CteInutilizacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeRecepcao\CteRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeRecepcao\CteRecepcaoOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeRetRecepcao\CteRetRecepcao.cs" />
@@ -343,7 +344,6 @@
     <Compile Include="DocumentosEletronicos\CTe\Validacao\Validador.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Evento\CteRecepcaoEvento.cs" />
-    <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeInutilizacao\CteInutilizacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Gerado\CTeStatusServico\CteStatusServico.cs" />
     <Compile Include="Facade\FacadeBase.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Classes\Informacoes\Modal\ModalContainer.cs" />

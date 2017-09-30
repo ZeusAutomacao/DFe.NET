@@ -60,6 +60,15 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
 
+
+        public static retInutCTe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retInutCTe>(xml);
+            retorno.RetornoXmlString = xml;
+
+            return retorno;
+        }
+
         public static retInutCTe LoadXml(string xml, inutCTe inutCTe)
         {
             var retorno = LoadXml(xml);
@@ -68,12 +77,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao
             return retorno;
         }
 
-        private static retInutCTe LoadXml(string xml)
+        public void LoadXml(inutCTe inutCTe)
         {
-            var retorno = FuncoesXml.XmlStringParaClasse<retInutCTe>(xml);
-            retorno.RetornoXmlString = xml;
-
-            return retorno;
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(inutCTe);
         }
     }
 }

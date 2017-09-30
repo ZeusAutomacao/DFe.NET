@@ -86,13 +86,13 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe
             inutCte.SalvarXmlEmDisco(_config);
 
             var webService = WsdlFactory.CriaWsdlCteInutilizacao(_config, _certificadoDigital);
-            var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
+            var retInutCTe = webService.Autorizar(inutCte.CriaRequestWs());
 
-            var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
+            retInutCTe.LoadXml(inutCte);
 
-            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), _config);
+            retInutCTe.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), _config);
 
-            return retorno;
+            return retInutCTe;
         }
 
         private static void Validacoes(ConfigInutiliza configInutiliza)
