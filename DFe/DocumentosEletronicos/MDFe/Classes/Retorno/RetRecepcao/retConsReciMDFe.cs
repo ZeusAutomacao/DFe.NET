@@ -94,5 +94,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.RetRecepcao
 
             return retorno;
         }
+
+        public void LoadXml(consReciMDFe consReciMdfe)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consReciMdfe);
+        }
     }
 }

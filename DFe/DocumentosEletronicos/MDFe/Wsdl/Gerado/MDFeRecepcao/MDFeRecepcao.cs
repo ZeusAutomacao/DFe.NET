@@ -8,11 +8,11 @@ using DFe.Wsdl;
 
 namespace DFe.DocumentosEletronicos.MDFe.Wsdl.Gerado.MDFeRecepcao
 {
-    public class MDFeRecepecao : DFeSoapHttpClientProtocol
+    public class MDFeRecepcao : DFeSoapHttpClientProtocol
     {
         private DFeSoapConfig SoapConfig { get; set; }
 
-        public MDFeRecepecao(WsdlConfiguracao configuracaoWsdl)
+        public MDFeRecepcao(WsdlConfiguracao configuracaoWsdl)
         {
             SoapConfig = new DFeSoapConfig
             {

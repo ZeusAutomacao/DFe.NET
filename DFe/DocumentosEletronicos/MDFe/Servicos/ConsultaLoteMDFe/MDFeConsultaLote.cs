@@ -60,13 +60,12 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaLoteMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
+            var retConsReciMdFe = webService.Autorizar(consReciMdfe.CriaRequestWs());
 
-            var retorno = retConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
+            retConsReciMdFe.LoadXml(consReciMdfe);
+            retConsReciMdFe.SalvarXmlEmDisco(_dfeConfig);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig);
-
-            return retorno;
+            return retConsReciMdFe;
         }
     }
 }
