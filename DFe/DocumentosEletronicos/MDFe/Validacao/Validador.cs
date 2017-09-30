@@ -43,6 +43,8 @@ namespace DFe.DocumentosEletronicos.MDFe.Validacao
     {
         public static void Valida(string xml, string schema, DFeConfig dfeConfig)
         {
+            if (dfeConfig.NaoValidarSchemasNetCore) return;
+
             var pathSchema = dfeConfig.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))

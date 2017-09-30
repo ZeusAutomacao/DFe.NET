@@ -19,6 +19,7 @@ namespace DFe.Configuracao
         public string CaminhoSalvarXml { get; set; }
         public int TimeOut { get; set; }
         public bool IsEfetuarCacheCertificadoDigital { get; set; }
+        public bool NaoValidarSchemasNetCore { get; set; }
         public IProxyCacheCertificadoDigital ProxyCacheCertificadoDigital { get; set; } 
 
         public abstract TipoAmbiente TipoAmbiente { get; set; }

@@ -43,6 +43,8 @@ namespace DFe.DocumentosEletronicos.CTe.Validacao
     {
         public static void Valida(string xml, string schema, DFeConfig config)
         {
+            if (config.NaoValidarSchemasNetCore) return;
+
             var pathSchema = config.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
