@@ -93,5 +93,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.ConsultaProtocolo
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitMdfe);
             return retorno;
         }
+
+        public void LoadXml(consSitMDFe consSitMdfe)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consSitMdfe);
+        }
     }
 }

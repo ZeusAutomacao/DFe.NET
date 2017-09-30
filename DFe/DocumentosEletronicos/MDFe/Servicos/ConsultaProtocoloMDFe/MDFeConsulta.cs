@@ -60,13 +60,12 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.ConsultaProtocoloMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeConsulta(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
+            var retConsSitMdFe = webService.Autorizar(consSitMdfe.CriaRequestWs());
 
-            var retorno = retConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
+            retConsSitMdFe.LoadXml(consSitMdfe);
+            retConsSitMdFe.SalvarXmlEmDisco(chave, _dfeConfig);
 
-            retorno.SalvarXmlEmDisco(chave, _dfeConfig);
-
-            return retorno;
+            return retConsSitMdFe;
         }
     }
 }
