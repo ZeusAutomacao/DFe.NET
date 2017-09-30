@@ -60,13 +60,13 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.StatusServicoMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeStatusServico(_dfeConfig, _certificadoDigital);
 
-            var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
+            var retConsStatServMdFe = webService.Autorizar(consStatServMDFe.CriaRequestWs());
 
-            var retorno = retConsStatServMDFe.LoadXml(retornoXml.OuterXml, consStatServMDFe);
 
-            retorno.SalvarXmlEmDisco(_dfeConfig);
+            retConsStatServMdFe.LoadXml(consStatServMDFe);
+            retConsStatServMdFe.SalvarXmlEmDisco(_dfeConfig);
 
-            return retorno;
+            return retConsStatServMdFe;
 
         }
     }

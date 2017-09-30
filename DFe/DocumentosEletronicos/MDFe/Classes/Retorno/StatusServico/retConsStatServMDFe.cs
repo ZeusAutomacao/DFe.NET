@@ -103,5 +103,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Retorno.StatusServico
 
             return retorno;
         }
+
+        public void LoadXml(consStatServMDFe consStatServMdFe)
+        {
+            EnvioXmlString = FuncoesXml.ClasseParaXmlString(consStatServMdFe);
+        }
     }
 }
