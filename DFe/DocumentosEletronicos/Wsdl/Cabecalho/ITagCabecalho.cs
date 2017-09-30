@@ -1,7 +1,9 @@
-﻿namespace DFe.DocumentosEletronicos.Wsdl.Cabecalho
+﻿using DFe.Wsdl;
+
+namespace DFe.DocumentosEletronicos.Wsdl.Cabecalho
 {
     public interface ITagCabecalho
     {
-        string GetTagCabecalho(DFeSoapConfig soapConfig);
+        string GetTagCabecalho(DFeCabecalho dfeCabecalho);
     }
 }

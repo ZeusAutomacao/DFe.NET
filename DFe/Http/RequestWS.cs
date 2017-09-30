@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Xml;
 using DFe.DocumentosEletronicos.Wsdl;
 using DFe.Http.Ext;
 
@@ -11,12 +9,12 @@ namespace DFe.Http
 {
     public class RequestWS
     {
-        public string EnviaSefaz(DFeSoapConfig soapConfig)
+        public static string EnviaSefaz(DFeSoapConfig soapConfig)
         {
             try
             {
                 string XMLRetorno = string.Empty;
-                string xmlSoap = new Envelope().Construir(soapConfig);
+                string xmlSoap = Envelope.Construir(soapConfig);
 
                 Uri uri = new Uri(soapConfig.Url);
 

@@ -1,27 +1,28 @@
 ﻿using System.Text;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Ext;
+using DFe.Wsdl;
 
 namespace DFe.DocumentosEletronicos.Wsdl.Cabecalho
 {
     public class CteTagCabecalho : ITagCabecalho
     {
-        public string GetTagCabecalho(DFeSoapConfig soapConfig)
+        public string GetTagCabecalho(DFeCabecalho dfeCabecalho)
         {
             StringBuilder env = new StringBuilder();
 
             env.Append("<cteCabecMsg xmlns=\"");
 
-            env.Append(soapConfig.NamespaceHeader);
+            env.Append(dfeCabecalho.NamespaceHeader);
 
             env.Append("\">");
 
             env.Append("<cUF>");
-            env.Append(soapConfig.DFeCabecalho.CodigoUF.GetCodigoIbgeEmString());
+            env.Append(dfeCabecalho.CodigoUF.GetCodigoIbgeEmString());
             env.Append("</cUF>");
 
             env.Append("<versaoDados>");
-            env.Append(soapConfig.DFeCabecalho.VersaoServico.GetVersaoString());
+            env.Append(dfeCabecalho.VersaoServico.GetVersaoString());
             env.Append("</versaoDados>");
 
             env.Append("</cteCabecMsg>");

@@ -1,4 +1,5 @@
-﻿using DFe.DocumentosEletronicos.Wsdl;
+﻿using System.Xml;
+using DFe.DocumentosEletronicos.Wsdl;
 using DFe.Http;
 
 namespace DFe.Wsdl
@@ -7,9 +8,14 @@ namespace DFe.Wsdl
     {
         protected string Invoke(DFeSoapConfig soapConfig)
         {
-            var request = new RequestWS().EnviaSefaz(soapConfig);
+            var xmlRetorno = RequestWS.EnviaSefaz(soapConfig);
 
-            return request;
+            XmlDocument doc = new XmlDocument();
+            doc.Load(new System.IO.StringReader(xmlRetorno));
+
+            XmlNodeList xmlList = doc.GetElementsByTagName("retCTeOS");
+
+            return xmlList[0].OuterXml;
         }
     }
 }

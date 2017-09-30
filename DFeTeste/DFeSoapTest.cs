@@ -21,19 +21,26 @@ namespace DFeTeste
         public void TesteConfig()
         {
             var config = new DFeSoapConfig();
-            config.DFeCabecalho = new DFeCabecalho(Estado.GO, VersaoServico.Versao300);
-            config.NamespaceBody = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS";
-            config.NamespaceHeader = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS";
+            config.DFeCabecalho = new DFeCabecalho(Estado.GO, VersaoServico.Versao300, new CteTagCabecalho(), "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS");
+            config.DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS", new CteTagCorpo());
             config.Metodo = "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS/cteRecepcaoOS";
             config.Url = @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoos/cterecepcaoos.asmx";
             config.TimeOut = 50000;
-            config.TagTagCabecalho = new CteTagCabecalho();
-            config.TagCorpo = new CteTagCorpo();
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3;
 
+            config.Certificado = new X509Certificate2(@"C:\Users\rober\Documents\Certificados\AGIL4 TECNOLOGIA LTDA  ME21025760000123.pfx", "agil4@123");
+            CTeOS cteOs = CTeOS.LoadXmlArquivo(@"C:\Users\rober\Desktop\xmlcteos\21351378000100\setembro\Autorizar\Enviado\52170921351378000100670010000000081603356706-cte.xml");
 
-            Assert.AreEqual("http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS", config.NamespaceBody);
+            var request = new XmlDocument();
+            request.LoadXml(cteOs.ObterXmlString());
+
+            config.DFeCorpo.Xml = request;
+
+            var xml = new CteRecepcaoOSS().Autorizar(config);
+
+
+            Assert.AreEqual("http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoOS", config.DFeCorpo.NamespaceBody);
         }
     }
 }

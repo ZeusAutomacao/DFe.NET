@@ -1,7 +1,9 @@
-﻿namespace DFe.DocumentosEletronicos.Wsdl.Corpo
+﻿using DFe.Wsdl;
+
+namespace DFe.DocumentosEletronicos.Wsdl.Corpo
 {
     public interface ITagCorpo
     {
-        string GetTagCorpo(DFeSoapConfig soapConfig);
+        string GetTagCorpo(DFeCorpo dfeCorpo);
     }
 }

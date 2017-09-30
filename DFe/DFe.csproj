@@ -792,6 +792,7 @@
     <Compile Include="DocumentosEletronicos\ManipuladorDeXml\FuncoesXml.cs" />
     <Compile Include="Ext\Reflexao.cs" />
     <Compile Include="Wsdl\DFeCabecalho.cs" />
+    <Compile Include="Wsdl\DFeCorpo.cs" />
     <Compile Include="Wsdl\DFeSoapHttpClientProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
