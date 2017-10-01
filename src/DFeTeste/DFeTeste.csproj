@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DFeSoapTest.cs" />
+    <Compile Include="MDFe\MDFeConfiguracao.cs" />
+    <Compile Include="MDFe\MDFeConfiguracaoFacotory.cs" />
+    <Compile Include="MDFe\StatusServico\NFeStatusServicoTest.cs" />
+    <Compile Include="Soap\DFeSoapTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,5 +58,6 @@
       <Name>DFe</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

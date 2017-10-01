@@ -47,7 +47,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
     {
         public static void ValidarSchema(this consStatServMDFe consStatServMDFe, DFeConfig dfeConfig)
         {
-            var xmlValidacao = consStatServMDFe.XmlString();
+            var xmlValidacao = consStatServMDFe.GetXml();
 
             switch (dfeConfig.VersaoServico)
             {
@@ -60,15 +60,17 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
             }
         }
 
-        public static string XmlString(this consStatServMDFe consStatServMDFe)
+        public static string GetXml(this consStatServMDFe consStatServMDFe)
         {
-            return FuncoesXml.ClasseParaXmlString(consStatServMDFe);
+            var xml = FuncoesXml.ClasseParaXmlString(consStatServMDFe);
+
+            return xml;
         }
 
         public static XmlDocument CriaRequestWs(this consStatServMDFe consStatServMdFe)
         {
             var request = new XmlDocument();
-            request.LoadXml(consStatServMdFe.XmlString());
+            request.LoadXml(consStatServMdFe.GetXml());
 
             return request;
         }

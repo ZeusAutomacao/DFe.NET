@@ -6,7 +6,7 @@ using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Wsdl;
 using NUnit.Framework;
 
-namespace DFeTeste
+namespace DFeTeste.Soap
 {
     [TestFixture(Description = "Testes Para Classes Soap do projeto")]
     public class DFeSoapTest
