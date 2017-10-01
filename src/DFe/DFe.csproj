@@ -53,10 +53,12 @@
     <Compile Include="CertificadosDigitais\Ext\ExtCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\Implementacao\DFeCertificadoDigital.cs" />
     <Compile Include="CertificadosDigitais\IProxyCertificadoDigitalA1Arquivo.cs" />
+    <Compile Include="CertificadosDigitais\IProxyCertificadoDigitalA1ArrayBytes.cs" />
     <Compile Include="CertificadosDigitais\IProxyCertificadoDigitalA1Repositorio.cs" />
     <Compile Include="CertificadosDigitais\IProxyCertificadoDigitalA3.cs" />
     <Compile Include="CertificadosDigitais\Servicos\ProxyBase.cs" />
     <Compile Include="CertificadosDigitais\Servicos\ProxyCertificadoDigitalA1Arquivo.cs" />
+    <Compile Include="CertificadosDigitais\Servicos\ProxyCertificadoDigitalA1ArrayBytes.cs" />
     <Compile Include="CertificadosDigitais\Servicos\ProxyCertificadoDigitalA1Repositorio.cs" />
     <Compile Include="CertificadosDigitais\Servicos\ProxyCertificadoDigitalA3.cs" />
     <Compile Include="Assinatura\CanonicalizationMethod.cs" />

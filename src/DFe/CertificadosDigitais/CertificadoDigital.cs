@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-using DFe.Utils;
 using DFe.Utils.Flags;
 
 namespace DFe.CertificadosDigitais
@@ -20,6 +19,8 @@ namespace DFe.CertificadosDigitais
             {
                 case TipoCertificado.A1Arquivo:
                     return _configCertificadoDigital.ProxyCertificadoDigitalA1Arquivo.Obter(_configCertificadoDigital);
+                case TipoCertificado.A1ByteArray:
+                    return _configCertificadoDigital.ProxyCertificadoDigitalA1ArrayBytes.Obter(_configCertificadoDigital);
                 case TipoCertificado.A1Repositorio:
                     return _configCertificadoDigital.ProxyCertificadoDigitalA1Repositorio.Obter(_configCertificadoDigital);
                 case TipoCertificado.A3:

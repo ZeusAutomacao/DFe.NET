@@ -10,6 +10,9 @@ namespace DFe.Utils.Flags
         [Description("Certificado A1 em arquivo")]
         A1Arquivo,
 
+        [Description("Certificado A1 em byte array")]
+        A1ByteArray,
+
         [Description("Certificado A3")]
         A3
     }
