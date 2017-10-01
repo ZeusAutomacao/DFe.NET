@@ -142,7 +142,6 @@ namespace NFe.AppTeste
 
                 var nfeConfig = new NfeConfig
                 {
-                   ServicoNFe = ServicoNFe.NfeStatusServico,
                    EstadoUf = _configuracoes.CfgServico.cUF,
                    TipoEmissao = _configuracoes.CfgServico.tpEmis,
                    TipoAmbiente = _configuracoes.CfgServico.tpAmb,
@@ -413,8 +412,7 @@ namespace NFe.AppTeste
         {
             try
             {
-                #region Cria e Envia NFe
-
+                #region Cria e Envia NFe 
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
@@ -423,7 +421,8 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+
+                _nfe.Assina(); 
 
                 if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
                 {
@@ -431,10 +430,34 @@ namespace NFe.AppTeste
                     _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.    
                 }
 
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFeZeus> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
-                //Para consumir o serviço de forma síncrona, use a linha abaixo:
-                //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
+
+                var nfeConfig = new NfeConfig
+                {
+                    EstadoUf = _configuracoes.CfgServico.cUF,
+                    TipoEmissao = _configuracoes.CfgServico.tpEmis,
+                    TipoAmbiente = _configuracoes.CfgServico.tpAmb,
+                    CaminhoSalvarXml = _configuracoes.CfgServico.DiretorioSalvarXml,
+                    CaminhoSchemas = _configuracoes.CfgServico.DiretorioSchemas,
+                    CnpjEmitente = _configuracoes.Emitente.CNPJ,
+                    IsSalvarXml = true,
+                    ModeloDocumento = _configuracoes.CfgServico.ModeloDocumento,
+                    ProtocoloDeSeguranca = _configuracoes.CfgServico.ProtocoloDeSeguranca,
+                    TimeOut = _configuracoes.CfgServico.TimeOut,
+                    VersaoNfeStatusServico = _configuracoes.CfgServico.VersaoNfeStatusServico,
+                    VersaoNFeAutorizacao = _configuracoes.CfgServico.VersaoNFeAutorizacao
+                };
+
+                var configCertificado = new DFeConfigCertificadoDigital
+                {
+                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
+                    Senha = _configuracoes.CfgServico.Certificado.Senha,
+                    Serial = _configuracoes.CfgServico.Certificado.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                };
+
+                var facade = new NFeFacade(nfeConfig, new DFeCertificadoDigital(configCertificado));
+
+                var retornoEnvio = facade.Enviar(Convert.ToInt32(lote), new List<NFeZeus> { _nfe }, IndicadorSincronizacao.Sincrono, false);
 
                 TrataRetorno(retornoEnvio);
 

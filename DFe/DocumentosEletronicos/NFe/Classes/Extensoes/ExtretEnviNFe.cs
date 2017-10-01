@@ -31,10 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
 using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Autorizacao;
-using DFe.DocumentosEletronicos.NFe.Classes.Retorno.Recepcao;
-using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Recepcao;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -59,6 +59,18 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         public static string ObterXmlString(this retEnviNFe retEnviNFe)
         {
             return FuncoesXml.ClasseParaXmlString(retEnviNFe);
+        }
+
+        public static void SalvarXmlEmDisco(this retEnviNFe retEnviMDFe, DFeConfig dfeConfig, int idlote)
+        {
+            if (dfeConfig.NaoSalvarXml()) return;
+
+
+            var caminhoXml = new ResolvePasta(dfeConfig, retEnviMDFe.dhRecbto).PastaRetornoEnviados();
+
+            var arquivoSalvar = caminhoXml + @"\" + idlote + "-rec.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(retEnviMDFe, arquivoSalvar);
         }
     }
 }

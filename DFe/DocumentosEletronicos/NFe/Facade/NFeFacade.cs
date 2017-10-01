@@ -25,9 +25,9 @@ namespace DFe.DocumentosEletronicos.NFe.Facade
             IndicadorSincronizacao indSinc = IndicadorSincronizacao.Assincrono, bool compactarMensagem = false)
         {
 
-            _nfeEnviar.Enviar(idLote, nfes, indSinc, compactarMensagem);
+            var retorno = _nfeEnviar.Enviar(idLote, nfes, indSinc, compactarMensagem);
 
-            return null;
+            return retorno;
         }
 
         public RetornoNfeStatusServico StatusConsulta()

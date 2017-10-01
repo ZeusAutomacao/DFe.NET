@@ -114,5 +114,22 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos.Factory
 
             return null;
         }
+
+        public static INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico, NFeBaseConfig dfeConfig, CertificadoDigital certificadoDigital)
+        {
+            var url = Enderecador.ObterUrlServico(dfeConfig);
+
+            var certX509Implementacao = certificadoDigital.ObterCertificadoDigital();
+
+            if (servico != ServicoNFe.NFeAutorizacao)
+                throw new Exception(
+                    string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
+                        MethodBase.GetCurrentMethod().Name));
+
+            if (dfeConfig.EstadoUf == Estado.PR & dfeConfig.VersaoNFeAutorizacao == VersaoServico.Versao310)
+                return new NfeAutorizacao3(url, certX509Implementacao, dfeConfig.TimeOut);
+
+            return new NfeAutorizacao(url, certX509Implementacao, dfeConfig.TimeOut);
+        }
     }
 }

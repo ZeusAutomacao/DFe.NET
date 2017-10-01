@@ -21,6 +21,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos.StatusServicoNFe
         {
             _config = config;
             _certificadoDigital = certificadoDigital;
+            _config.ServicoNFe = ServicoNFe.NfeStatusServico;
         }
 
         public RetornoNfeStatusServico StatusServico()

@@ -31,8 +31,14 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
+using DFe.Configuracao;
+using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.DocumentosEletronicos.ManipulaPasta;
+using DFe.DocumentosEletronicos.MDFe.Validacao;
 using DFe.DocumentosEletronicos.NFe.Classes.Servicos.Autorizacao;
+using DFe.DocumentosEletronicos.NFe.Configuracao;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
 {
@@ -46,6 +52,31 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Extensoes
         public static string ObterXmlString(this enviNFe3 pedEnvio)
         {
             return FuncoesXml.ClasseParaXmlString(pedEnvio);
+        }
+
+        public static void ValidarSchema(this enviNFe3 pedStatus, NFeBaseConfig config)
+        {
+            var xml = pedStatus.ObterXmlString();
+
+            switch (config.VersaoNfeStatusServico)
+            {
+                case VersaoServico.Versao310:
+                    Validador.Valida(xml, "enviNFe_v3.10.xsd", config);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(pedStatus));
+            }
+        }
+
+        public static void SalvarXmlEmDisco(this enviNFe3 enviNFe3, DFeConfig dfeConfig, int idLote)
+        {
+            if (dfeConfig.NaoSalvarXml()) return;
+
+            var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaCanceladosEnvio();
+
+            var arquivoSalvar = caminhoXml + $"\\{idLote}-env-lot.xml.xml";
+
+            FuncoesXml.ClasseParaArquivoXml(enviNFe3, arquivoSalvar);
         }
     }
 }
