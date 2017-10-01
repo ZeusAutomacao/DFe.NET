@@ -962,7 +962,7 @@ namespace NFe.AppTeste
 
             var ide = new ide
             {
-                cUF = estado.SiglaParaEstado(_configuracoes.Emitente.enderEmit.UF),
+                cUF = estado.SiglaParaEstado(_configuracoes.EnderecoEmitente.UF),
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
@@ -1409,7 +1409,21 @@ namespace NFe.AppTeste
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+            if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1ByteArray)
+            {
+                var caminhoArquivo = Funcoes.BuscarArquivoCertificado();
+                if (!string.IsNullOrWhiteSpace(caminhoArquivo))
+                {
+                    _configuracoes.CfgServico.Certificado.ArrayBytesArquivo = File.ReadAllBytes(caminhoArquivo);
+                    _configuracoes.CfgServico.Certificado.Arquivo = null;
+                }
+                TxtArquivoCertificado.Text = caminhoArquivo;
+            }
+            else if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1Arquivo)
+            {
+                _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+                TxtArquivoCertificado.Text = _configuracoes.CfgServico.Certificado.Arquivo;
+            }
         }
 
         private void BtnAdminCsc_Click(object sender, RoutedEventArgs e)
