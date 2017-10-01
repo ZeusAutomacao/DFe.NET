@@ -80,6 +80,7 @@ using DFe.DocumentosEletronicos.NFe.Tributacao.Estadual;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
 using DFe.Utils.Assinatura;
+using DFe.Utils.Flags;
 using NFe.AppTeste.Dao;
 using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe;
@@ -160,7 +161,8 @@ namespace NFe.AppTeste
                     LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
                     Senha = _configuracoes.CfgServico.Certificado.Senha,
                     Serial = _configuracoes.CfgServico.Certificado.Serial,
-                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado,
+                    ArrayBytesArquivo = _configuracoes.CfgServico.Certificado.ArrayBytesArquivo
                 };
 
                 var facade = new NFeFacade(nfeConfig,  new DFeCertificadoDigital(configCertificado));
@@ -1495,7 +1497,22 @@ namespace NFe.AppTeste
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+            if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1ByteArray)
+            {
+                var caminhoArquivo = Funcoes.BuscarArquivoCertificado();
+                if (!string.IsNullOrWhiteSpace(caminhoArquivo))
+                {
+                    // todo adicionado mas não esta funcionando por essas configurações. 
+                    _configuracoes.CfgServico.Certificado.ArrayBytesArquivo = File.ReadAllBytes(caminhoArquivo);
+                    _configuracoes.CfgServico.Certificado.Arquivo = null;
+                }
+                TxtArquivoCertificado.Text = caminhoArquivo;
+            }
+            else if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1Arquivo)
+            {
+                _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+                TxtArquivoCertificado.Text = _configuracoes.CfgServico.Certificado.Arquivo;
+            }
         }
 
         private void BtnAdminCsc_Click(object sender, RoutedEventArgs e)

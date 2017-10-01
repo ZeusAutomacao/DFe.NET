@@ -138,6 +138,8 @@ namespace DFe.Utils
         /// </summary>
         public bool ManterDadosEmCache { get; set; }
 
+        public byte[] ArrayBytesArquivo { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

@@ -11,7 +11,7 @@ namespace DFe.CertificadosDigitais.Servicos
             var senha = configCertificadoDigital.Senha;
 
             if (certificadoEmBytes == null)
-                throw new ArgumentException("Adicionar LocalArquivo do certificado digital!");
+                throw new ArgumentException("Adicionar certificado digital!");
 
             var certificado = new X509Certificate2(certificadoEmBytes, senha, X509KeyStorageFlags.MachineKeySet);
             return certificado;

@@ -25,11 +25,12 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos.EnviarNFe
         {
             _dfeConfig = dfeConfig;
             _certificadoDigital = certificadoDigital;
-            _dfeConfig.ServicoNFe = ServicoNFe.NFeAutorizacao;
         }
 
         public RetornoNFeAutorizacao Enviar(int idLote, List<Classes.Informacoes.NFe> nfes, IndicadorSincronizacao indSinc, bool compactarMensagem)
         {
+            _dfeConfig.ServicoNFe = ServicoNFe.NFeAutorizacao;
+
             var enviNFe3 = ClassesFactory.CriaEnviNFe3(_dfeConfig, idLote, indSinc, nfes);
 
             enviNFe3.ValidarSchema(_dfeConfig);
