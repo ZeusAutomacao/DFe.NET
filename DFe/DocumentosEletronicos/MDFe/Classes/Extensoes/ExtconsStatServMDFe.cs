@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
@@ -79,7 +80,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaStatusEnvio();
 
-            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, "-pedido-status-servico.xml");
 
             FuncoesXml.ClasseParaArquivoXml(consStatServMdFe, arquivoSalvar);
         }

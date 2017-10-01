@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
@@ -47,7 +48,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaStatusRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\-retorno-status-servico.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, "-retorno-status-servico.xml");
 
             FuncoesXml.ClasseParaArquivoXml(retConsStatServ, arquivoSalvar);
         }

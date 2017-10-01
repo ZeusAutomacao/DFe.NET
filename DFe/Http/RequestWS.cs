@@ -23,7 +23,7 @@ namespace DFe.Http
                 httpWR.Timeout = soapConfig.TimeOut == 0 ? 2000 : soapConfig.TimeOut;
 
                 httpWR.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
-
+                
                 httpWR.ClientCertificates.Add(soapConfig.Certificado);
 
                 httpWR.ComposeContentType("application/soap+xml", Encoding.UTF8, soapConfig.Metodo);
