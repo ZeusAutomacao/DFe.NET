@@ -457,7 +457,7 @@ namespace NFe.AppTeste
 
                 var facade = new NFeFacade(nfeConfig, new DFeCertificadoDigital(configCertificado));
 
-                var retornoEnvio = facade.Enviar(Convert.ToInt32(lote), new List<NFeZeus> { _nfe }, IndicadorSincronizacao.Sincrono, false);
+                var retornoEnvio = facade.Enviar(Convert.ToInt32(lote), new List<NFeZeus> { _nfe }, IndicadorSincronizacao.Assincrono, false);
 
                 TrataRetorno(retornoEnvio);
 
@@ -917,8 +917,35 @@ namespace NFe.AppTeste
 
                 BtnImportarXml_Click(sender, e);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<NFeZeus> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+
+
+                var nfeConfig = new NfeConfig
+                {
+                    EstadoUf = _configuracoes.CfgServico.cUF,
+                    TipoEmissao = _configuracoes.CfgServico.tpEmis,
+                    TipoAmbiente = _configuracoes.CfgServico.tpAmb,
+                    CaminhoSalvarXml = _configuracoes.CfgServico.DiretorioSalvarXml,
+                    CaminhoSchemas = _configuracoes.CfgServico.DiretorioSchemas,
+                    CnpjEmitente = _configuracoes.Emitente.CNPJ,
+                    IsSalvarXml = true,
+                    ModeloDocumento = _configuracoes.CfgServico.ModeloDocumento,
+                    ProtocoloDeSeguranca = _configuracoes.CfgServico.ProtocoloDeSeguranca,
+                    TimeOut = _configuracoes.CfgServico.TimeOut,
+                    VersaoNfeStatusServico = _configuracoes.CfgServico.VersaoNfeStatusServico,
+                    VersaoNFeAutorizacao = _configuracoes.CfgServico.VersaoNFeAutorizacao
+                };
+
+                var configCertificado = new DFeConfigCertificadoDigital
+                {
+                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
+                    Senha = _configuracoes.CfgServico.Certificado.Senha,
+                    Serial = _configuracoes.CfgServico.Certificado.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                };
+
+                var facade = new NFeFacade(nfeConfig, new DFeCertificadoDigital(configCertificado));
+
+                var retornoEnvio = facade.Enviar(Convert.ToInt32(lote), new List<NFeZeus> { _nfe }, IndicadorSincronizacao.Assincrono, false);
 
                 TrataRetorno(retornoEnvio);
             }
