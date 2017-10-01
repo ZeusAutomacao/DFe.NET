@@ -32,13 +32,14 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Assinatura;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.Flags;
@@ -131,7 +132,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
                     throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
             }
 
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-ped-eve.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(chave).Append("-ped-eve.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
         }

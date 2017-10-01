@@ -34,7 +34,6 @@
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
@@ -33,9 +35,13 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = new ResolvePasta(config, retEnviCte?.protCTe?.infProt?.dhRecbto ?? DateTime.Now).PastaRetornoEnviados();
+            var dataEnvio = retEnviCte?.protCTe?.infProt?.dhRecbto ?? DateTime.Now;
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviCte?.protCTe?.infProt?.nProt + "-rec.xml";
+            var caminhoXml = new ResolvePasta(config, dataEnvio).PastaRetornoEnviados();
+
+            var protocolo = retEnviCte?.protCTe?.infProt?.nProt ?? "000000";
+
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(protocolo).Append("-rec.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }

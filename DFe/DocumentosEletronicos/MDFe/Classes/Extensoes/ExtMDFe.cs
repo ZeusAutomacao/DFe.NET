@@ -32,12 +32,13 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Assinatura;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Aereo;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Aquaviario;
 using DFe.DocumentosEletronicos.MDFe.Classes.Informacoes.Modal.Ferroviario;
@@ -161,7 +162,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
             if (dfeConfig.NaoSalvarXml()) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
-                nomeArquivo = dfeConfig.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
+                nomeArquivo = Path.Combine(dfeConfig.CaminhoSalvarXml, new StringBuilder(mdfe.Chave()).Append("-mdfe.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
         }

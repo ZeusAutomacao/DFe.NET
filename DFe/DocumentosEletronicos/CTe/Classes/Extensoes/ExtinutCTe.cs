@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Assinatura;
 using DFe.CertificadosDigitais;
@@ -89,7 +91,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaInutilizacaoEnvio();
 
-            var arquivoSalvar = caminhoXml + @"\"+inutCTe.infInut.Id+ "-ped-inu.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(inutCTe.infInut.Id).Append("-ped-inu.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(inutCTe, arquivoSalvar);
         }

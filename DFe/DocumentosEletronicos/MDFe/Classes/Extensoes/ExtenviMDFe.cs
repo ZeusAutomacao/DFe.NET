@@ -32,12 +32,13 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
 
@@ -85,7 +86,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(dfeConfig, enviMDFe.MDFe.InfMDFe.ide.dhEmi).PastaEnviar();
 
-            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-mdfe.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(enviMDFe.MDFe.Chave()).Append("-mdfe.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
 

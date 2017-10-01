@@ -32,14 +32,14 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Assinatura;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.infCTeNormal.infModals;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.DocumentosEletronicos.Entidades;
@@ -278,7 +278,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, cte.infCte.ide.dhEmi).PastaEnviar();
 
-            var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(cte.Chave()).Append("-cte.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
         }
@@ -289,7 +289,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, cte.InfCte.ide.dhEmi).PastaEnviar();
 
-            var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(cte.Chave()).Append("-cte.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
         }

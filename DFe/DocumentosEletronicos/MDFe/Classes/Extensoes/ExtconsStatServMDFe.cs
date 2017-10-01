@@ -38,7 +38,6 @@ using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.StatusServico;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
 

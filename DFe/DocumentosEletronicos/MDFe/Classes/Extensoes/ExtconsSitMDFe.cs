@@ -32,12 +32,13 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
-using DFe.DocumentosEletronicos.MDFe.Classes.Flags;
 using DFe.DocumentosEletronicos.MDFe.Classes.Servicos.ConsultaProtocolo;
 using DFe.DocumentosEletronicos.MDFe.Validacao;
 
@@ -79,7 +80,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaConsultaProtocoloEnvio();
 
-            var arquivoSalvar = caminhoXml + @"\" + consSitMdfe.chMDFe + "-ped-sit.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(consSitMdfe.chMDFe).Append("-ped-sit.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(consSitMdfe, arquivoSalvar);
         }

@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
@@ -66,7 +68,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
                     throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
             }
 
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-env.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(chave).Append("-env.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retEvento, arquivoSalvar);
         }

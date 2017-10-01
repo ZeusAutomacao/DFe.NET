@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
@@ -79,7 +80,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaProtocoloEnvio();
 
-            var arquivoSalvar = caminhoXml + @"\-ped-sit.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, "-ped-sit.xml");
 
             FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
         }

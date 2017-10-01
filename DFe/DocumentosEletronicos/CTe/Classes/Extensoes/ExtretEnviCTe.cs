@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
@@ -68,7 +70,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, retEnviCte.infRec.dhRecbto ?? DateTime.Now).PastaRetornoEnviados();
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infRec.nRec + "-rec.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(retEnviCte.infRec.nRec).Append("-rec.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }

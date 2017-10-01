@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
@@ -62,7 +64,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             }
 
 
-            var arquivoSalvar = caminhoXml + @"\" + retEnviCte.infEvento.chCTe + "-eve.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(retEnviCte.infEvento.chCTe).Append("-eve.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retEnviCte, arquivoSalvar);
         }

@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Inutilizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Inutilizacao;
@@ -70,7 +72,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaInutilizacaoRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\" + chaveNome + "-inu.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(chaveNome).Append("-inu.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retInutCTe, arquivoSalvar);
         }

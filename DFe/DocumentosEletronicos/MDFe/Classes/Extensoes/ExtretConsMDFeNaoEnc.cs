@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
@@ -47,7 +49,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(dfeConfig, DateTime.Now).PastaNaoEncerradoRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\" + cnpj + "-sit.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(cnpj).Append("-sit.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(naoEnc, arquivoSalvar);
         }

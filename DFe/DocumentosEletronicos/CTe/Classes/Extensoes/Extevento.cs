@@ -32,7 +32,8 @@
 /********************************************************************************/
 
 using System;
-using System.Diagnostics;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Assinatura;
 using DFe.CertificadosDigitais;
@@ -159,7 +160,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                     throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
             }
 
-            var arquivoSalvar = caminhoXml + @"\" + eventoCTe.infEvento.chCTe + "-ped-eve.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(eventoCTe.infEvento.chCTe).Append("-ped-eve.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(eventoCTe, arquivoSalvar);
         }

@@ -32,11 +32,11 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Configuracao;
-using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Autorizacao;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Validacao;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
@@ -82,7 +82,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaEnviarLote();
 
-            var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(enviCte.idLote).Append("-env-lot.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
         }

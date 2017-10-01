@@ -32,9 +32,10 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
-using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Consulta;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
 
@@ -69,7 +70,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaProtocoloRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\" + chave + "-sit.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(chave).Append("-sit.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
         }

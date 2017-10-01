@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
@@ -48,7 +50,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaStatusRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-sta.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(DateTime.Now.ParaDataHoraString()).Append("-sta.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
         }

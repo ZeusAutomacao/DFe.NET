@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Text;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
@@ -80,7 +82,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaLoteEnvio();
 
-            var arquivoSalvar = caminhoXml + @"\"+ consReciCTe.nRec + @"-ped-rec.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(consReciCTe.nRec).Append("-ped-rec.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(consReciCTe, arquivoSalvar);
         }
@@ -101,7 +103,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             var caminhoXml = new ResolvePasta(config, DateTime.Now).PastaConsultaLoteRetorno();
 
-            var arquivoSalvar = caminhoXml + @"\" + retConsReciCTe.nRec + @"-rec.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, new StringBuilder(retConsReciCTe.nRec).Append("-rec.xml").ToString());
 
             FuncoesXml.ClasseParaArquivoXml(retConsReciCTe, arquivoSalvar);
         }

@@ -50,7 +50,7 @@ namespace DFe.DocumentosEletronicos.CTe.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + schema;
+            var arquivoSchema = Path.Combine(pathSchema, schema);
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
