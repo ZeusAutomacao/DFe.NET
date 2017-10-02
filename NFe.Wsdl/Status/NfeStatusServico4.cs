@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Status
 {
-    [WebServiceBinding(Name = "NfeStatusServicoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")]
+    [WebServiceBinding(Name = "NFeStatusServico4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
     public class NfeStatusServico4 : SoapHttpClientProtocol, INfeServico
     {
         public NfeStatusServico4(string url, X509Certificate certificado, int timeOut)
@@ -22,10 +22,10 @@ namespace NFe.Wsdl.Status
         [Obsolete("Não utilizar na nfe 4.0")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4/nfeStatusServicoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
         [WebMethod(MessageName = "nfeStatusServicoNF")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico4")] XmlNode nfeDadosMsg)
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")] XmlNode nfeDadosMsg)
         {
             var results = Invoke("nfeStatusServicoNF", new object[] { nfeDadosMsg });
             return (XmlNode)(results[0]);
