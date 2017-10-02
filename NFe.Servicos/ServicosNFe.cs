@@ -141,6 +141,11 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:

@@ -584,6 +584,10 @@
                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
                                                          Margin="117,13,0,0"
                                                          IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Tls}, Converter={StaticResource EnumParaBool}}" />
+                                            <RadioButton x:Name="RbtTls12" Content="Tls1.2"
+                                                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                         Margin="196,13,0,0"
+                                                         IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Tls}, Converter={StaticResource EnumParaBool}}" />
                                         </Grid>
                                     </GroupBox>
                                     <StackPanel Height="30" Orientation="Horizontal">
