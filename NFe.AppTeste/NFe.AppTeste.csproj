@@ -111,6 +111,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\Averb_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\cabecMsg_v1.02.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -151,6 +154,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\consReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\consSitNFe_v2.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -158,6 +164,9 @@
     <None Include="Schemas\consSitNFe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\consSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\consStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -167,9 +176,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\consStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\distDFeInt_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\distDFeInt_v1.01.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\downloadNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -227,10 +242,16 @@
     <None Include="Schemas\e411503_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\e790700_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\e990900_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\e990910_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\envAverb_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\envCancelPProrrogNFe_v1.0.xsd">
@@ -273,6 +294,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\enviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\envPProrrogNFe_v1.0.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -312,6 +336,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\inutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\leiauteAverb_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\LeiauteCadastroEmissorDFe_v1.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -340,6 +370,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteConsStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -347,6 +380,9 @@
     <None Include="Schemas\leiauteConsStatServ_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\leiauteConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteConsultaCadastro_v1.01.xsd">
       <SubType>Designer</SubType>
@@ -384,6 +420,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteNFe_v2.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -391,6 +430,9 @@
     <None Include="Schemas\leiauteNFe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\leiauteNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteRemIndus_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -412,6 +454,12 @@
     <None Include="Schemas\nfe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\nfe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\procAverbNFe_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\procCancNFe_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -449,6 +497,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\procInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\procNFe_v2.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -457,6 +508,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\procNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\procRemIndus_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -464,9 +518,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\resEvento_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\resNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\resNFe_v1.01.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retAtuCadEmiDFe_v1.01.xsd">
       <SubType>Designer</SubType>
@@ -496,6 +556,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retConsReciNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retConsSitNFe_v2.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -503,6 +566,9 @@
     <None Include="Schemas\retConsSitNFe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retConsSitNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retConsStatServ_v2.00.xsd">
       <SubType>Designer</SubType>
@@ -512,9 +578,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retConsStatServ_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retDistDFeInt_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retDistDFeInt_v1.01.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retDownloadNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -523,6 +595,9 @@
     <None Include="Schemas\retDPEC_v1.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retEnvAverb_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retEnvCancelPProrrogNFe_v1.0.xsd">
       <SubType>Designer</SubType>
@@ -560,6 +635,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retEnviNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retEnvRemIndus_v1.00.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -580,6 +658,9 @@
     <None Include="Schemas\retInutNFe_v3.10.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retInutNFe_v4.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retPProrrogNFe_v1.0.xsd">
       <SubType>Designer</SubType>
@@ -605,9 +686,15 @@
     <None Include="Schemas\tiposBasico_v3.10_OPENSSL.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Schemas\tiposBasico_v4.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\tiposDistDFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\tiposDistDFe_v1.01.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\xmldsig-core-schema_v1.01.xsd">
       <SubType>Designer</SubType>
