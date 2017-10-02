@@ -426,17 +426,22 @@
                                                     <Label Content="NfeStatusServico"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="232,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+
+                                                    <RadioButton GroupName="NfeStatusServico" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">

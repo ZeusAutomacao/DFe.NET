@@ -225,11 +225,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
