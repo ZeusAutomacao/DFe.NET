@@ -41,10 +41,10 @@ namespace DFe.Utils
     {
         [Description("Certificado A1")]
         A1Repositorio,
-
         [Description("Certificado A1 em arquivo")]
         A1Arquivo,
-
+        [Description("Certificado A1 em byte array")]
+        A1ByteArray,
         [Description("Certificado A3")]
         A3
     }
@@ -56,6 +56,7 @@ namespace DFe.Utils
         private string _senha;
         private TipoCertificado _tipoCertificado;
         private string _cacheId;
+        private byte[] _arrayBytesArquivo;
 
         /// <summary>
         /// Tipo de certificado a ser usado
@@ -68,6 +69,7 @@ namespace DFe.Utils
                 Serial = null;
                 Arquivo = null;
                 Senha = null;
+                ArrayBytesArquivo = null;
                 _tipoCertificado = value;
                 OnPropertyChanged(this.ObterPropriedadeInfo(c => c.TipoCertificado).Name);
             }
@@ -91,6 +93,21 @@ namespace DFe.Utils
                 OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Serial).Name);
             }
         }
+
+        /// <summary>
+        /// Array de bytes do certificado
+        /// </summary>
+        public byte[] ArrayBytesArquivo
+        {
+            get { return _arrayBytesArquivo; }
+            set
+            {
+                if (value == _arrayBytesArquivo) return;
+                _arrayBytesArquivo = value;
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.ArrayBytesArquivo).Name);
+            }
+        }
+
 
         /// <summary>
         ///     Arquivo do certificado digital
