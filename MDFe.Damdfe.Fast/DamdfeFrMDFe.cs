@@ -43,12 +43,15 @@ namespace MDFe.Damdfe.Fast
     {
         protected Report Relatorio;
 
-        public DamdfeFrMDFe(MDFeProcMDFe proc, ConfiguracaoDamdfe config)
+        public DamdfeFrMDFe(MDFeProcMDFe proc, ConfiguracaoDamdfe config, string arquivoRelatorio = null)
         {
             Relatorio = new Report();
             RegisterData(proc);
-            Configurar(config);
-            
+            if (!string.IsNullOrEmpty(arquivoRelatorio))
+                Relatorio.Load(arquivoRelatorio);
+            else
+                Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
+            Configurar(config);            
         }
 
         public DamdfeFrMDFe()
@@ -59,8 +62,7 @@ namespace MDFe.Damdfe.Fast
         public void RegisterData(MDFeProcMDFe proc)
         {
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
-            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;
-            Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
+            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
         }
 
         public void Configurar(ConfiguracaoDamdfe config)
