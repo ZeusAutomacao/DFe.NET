@@ -30,17 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FastReport, Version=2017.1.18.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+    <Reference Include="FastReport, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MDFe.Damdfe.Fast\Dlls\FastReport.dll</HintPath>
+      <HintPath>Dlls\FastReport.dll</HintPath>
     </Reference>
-    <Reference Include="FastReport.Bars, Version=2017.1.18.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+    <Reference Include="FastReport.Bars, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MDFe.Damdfe.Fast\Dlls\FastReport.Bars.dll</HintPath>
+      <HintPath>Dlls\FastReport.Bars.dll</HintPath>
     </Reference>
-    <Reference Include="FastReport.Editor, Version=2017.1.18.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+    <Reference Include="FastReport.Editor, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\MDFe.Damdfe.Fast\Dlls\FastReport.Editor.dll</HintPath>
+      <HintPath>Dlls\FastReport.Editor.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,11 +62,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Dlls\FastReport.Bars.dll" />
-    <Content Include="Dlls\FastReport.dll" />
-    <Content Include="Dlls\FastReport.Editor.dll" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
