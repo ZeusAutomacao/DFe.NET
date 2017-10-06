@@ -71,7 +71,14 @@ namespace CTe.Dacte.AppTeste
                 if (!File.Exists(xml))
                     return null;
 
-                cte = FuncoesXml.ArquivoXmlParaClasse<cteProc>(xml);
+                try
+                {
+                    cte = FuncoesXml.ArquivoXmlParaClasse<cteProc>(xml);
+                }
+                catch
+                {
+                    cte = new cteProc() { CTe = FuncoesXml.ArquivoXmlParaClasse<Classes.CTe>(xml), protCTe = new Classes.Protocolo.protCTe() };
+                }
             }
             catch (Exception ex)
             {
