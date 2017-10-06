@@ -86,7 +86,8 @@ namespace CTe.Dacte.AppTeste
                     {
                         Logomarca = ImageToByte(pcbLogotipo.Image),
                         DocumentoCancelado = chbCancelado.Checked,
-                        Desenvolvedor = txtDesenvolvedor.Text
+                        Desenvolvedor = txtDesenvolvedor.Text,
+                        QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.Checked
                     },
                     arquivoRelatorio: txtArquivo.Text);
                 return rpt;

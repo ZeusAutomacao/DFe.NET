@@ -67,7 +67,8 @@ namespace MDFe.Damdfe.AppTeste
                         Logomarca = ImageToByte(pcbLogotipo.Image),
                         DocumentoEncerrado = chbEncerrado.Checked,
                         DocumentoCancelado = chbCancelado.Checked,
-                        Desenvolvedor = txtDesenvolvedor.Text
+                        Desenvolvedor = txtDesenvolvedor.Text,
+                        QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.Checked
                     },
                     arquivoRelatorio: txtArquivoFrx.Text);
                 return rpt;

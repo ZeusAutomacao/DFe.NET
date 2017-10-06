@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/11/2017 09:14:34" ReportInfo.CreatorVersion="2017.1.17.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="10/06/2017 13:30:46" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -367,7 +367,9 @@ namespace FastReport
         aux = !aux;
         _infDocOutros.Next();
       }
-      
+     
+      if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
+        Text168.Text = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.xObs&quot;)).Replace(&quot;;&quot;, Environment.NewLine);
     }
     
   }
@@ -665,7 +667,9 @@ namespace FastReport
           <Column Name="imp" DataType="CTe.Classes.Informacoes.Impostos.imp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="CST" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
+                <Column Name="CSTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="indSN" DataType="CTe.Classes.Informacoes.Tipos.indSN, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -1019,9 +1023,10 @@ namespace FastReport
     </BusinessObjectDataSource>
     <Parameter Name="DoocumentoCancelado" DataType="System.Boolean"/>
     <Parameter Name="Desenvolvedor" DataType="System.String"/>
+    <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="8" TopMargin="7" RightMargin="7" BottomMargin="7" FirstPageSource="261" OtherPagesSource="261">
-    <PageHeaderBand Name="PageHeader1" Width="737.1" Height="968.8" BeforePrintEvent="PageHeader1_BeforePrint">
+    <PageHeaderBand Name="PageHeader1" Top="20" Width="737.1" Height="968.8" BeforePrintEvent="PageHeader1_BeforePrint">
       <ShapeObject Name="Shape2" Top="74.6" Width="737.1" Height="170.1"/>
       <TextObject Name="Text24" Left="605.8" Top="77.05" Width="129.85" Height="25.9" Text="MODAL&#13;&#10;RODOVIÁRIO" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <ShapeObject Name="Shape1" Width="737.1" Height="69.93"/>
@@ -1277,7 +1282,7 @@ namespace FastReport
       <TextObject Name="Text206" Left="368.55" Top="691.3" Width="364.55" Height="9.45" Text="TP DOC                    CPF/CNPJ EMITENTE                 SÉRIE/NRO. DOCUMENTO" Font="Microsoft Sans Serif, 6.75pt"/>
       <TextObject Name="Text193" Left="2" Top="701.75" Width="363.1" Height="179.1" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Font="Courier New, 6pt, style=Bold"/>
       <TextObject Name="Text205" Left="372.55" Top="701.75" Width="363.1" Height="179.1" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Font="Courier New, 6pt, style=Bold"/>
-      <ChildBand Name="Child1" Top="971.5" Width="737.1" Height="48.15">
+      <ChildBand Name="Child1" Top="1008.8" Width="737.1" Height="48.15">
         <TextObject Name="Text181" Left="2.45" Top="27.8" Width="83.6" Height="14.45" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.RNTRC]" Font="Times New Roman, 8.25pt"/>
         <TextObject Name="Text182" Left="86.05" Top="27.8" Width="83.6" Height="14.45" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.CIOT]" Font="Times New Roman, 8.25pt"/>
         <TextObject Name="Text183" Left="172.1" Top="27.8" Width="36.35" Height="14.45" Font="Times New Roman, 8.25pt"/>
@@ -1296,7 +1301,7 @@ namespace FastReport
         <TextObject Name="Text167" Left="1" Top="1.9" Width="735.1" Height="11.45" Text="DADOS ESPECÍFICOS DO MODAL RODOVIÁRIO - CARGA FRACIONADA" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       </ChildBand>
     </PageHeaderBand>
-    <ColumnFooterBand Name="ColumnFooter1" Top="1022.36" Width="737.1" Height="71.6">
+    <ColumnFooterBand Name="ColumnFooter1" Top="1076.95" Width="737.1" Height="71.6">
       <ShapeObject Name="Shape11" Width="737.1" Height="56.7"/>
       <TextObject Name="Text164" Left="311.85" Top="58.7" Width="423.25" Height="11.45" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text165" Left="1" Top="2" Width="442.15" Height="11.45" Text="USO EXCLUSIVO DO EMISSOR DO CTE" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
