@@ -69,6 +69,7 @@
     <None Include="NFCe\NFCe.frx" />
     <None Include="NFe\NFeEvento.frx" />
     <None Include="NFe\NFeRetrato.frx" />
+    <None Include="Resources\NFeRetrato.frx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

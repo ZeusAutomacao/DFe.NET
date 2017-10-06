@@ -62,7 +62,8 @@ namespace NFe.Danfe.Fast.NFe
                 Relatorio.Load(arquivoRelatorio);
             Relatorio.SetParameterValue("DuasLinhas", configuracaoDanfeNfe.DuasLinhas);
             Relatorio.SetParameterValue("Cancelada", configuracaoDanfeNfe.DocumentoCancelado);
-            Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);            
+            Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);
+            Relatorio.SetParameterValue("QuebrarLinhasObservacao", configuracaoDanfeNfe.QuebrarLinhasObservacao);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfe.ObterLogo();
 
             #endregion
