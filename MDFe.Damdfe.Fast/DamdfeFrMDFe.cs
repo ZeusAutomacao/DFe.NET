@@ -70,6 +70,7 @@ namespace MDFe.Damdfe.Fast
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
+            Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }
 

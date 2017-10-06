@@ -36,12 +36,14 @@ namespace NFe.Danfe.Base.NFe
     public class ConfiguracaoDanfeNfe : ConfiguracaoDanfe
     {
         public bool DuasLinhas { get; set; }
+        public bool QuebrarLinhasObservacao { get; set; }
 
-        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool documentoCancelado = false)
+        public ConfiguracaoDanfeNfe(byte[] logomarca = null, bool duasLinhas = true, bool documentoCancelado = false, bool quebrarLinhasObservacao = false)
         {
             Logomarca = logomarca;
             DuasLinhas = duasLinhas;
             DocumentoCancelado = documentoCancelado;
+            QuebrarLinhasObservacao = quebrarLinhasObservacao;
         }
 
         /// <summary>

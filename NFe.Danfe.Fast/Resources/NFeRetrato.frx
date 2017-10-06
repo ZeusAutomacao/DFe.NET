@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="05/08/2017 17:11:45" ReportInfo.CreatorVersion="2017.1.17.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/22/2015 14:20:37" ReportInfo.Modified="10/06/2017 13:06:11" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -60,6 +60,9 @@ namespace FastReport
       txtTipoNfe.Text = ((int) ((TipoNFe)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpNF&quot;)) ).ToString();
 
       lblHomologacao.Visible = ((int)((TipoAmbiente) (Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.tpAmb&quot;)))) == 2;
+      
+      if (string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;NFe.protNFe.infProt.nProt&quot;)))
+        Text17.Text = &quot;NFe sem autorização de uso pela SEFAZ&quot;;
       
       if (!((Boolean)Report.GetParameterValue(&quot;Cancelada&quot;)))
       {
@@ -160,6 +163,12 @@ namespace FastReport
         Text132.Text=&quot;CSOSN&quot;;
       else
         Text132.Text=&quot;O / CST&quot;;
+      
+      if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
+      {
+        Text36.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infCpl&quot;)).Replace(&quot;;&quot;,Environment.NewLine) + Environment.NewLine + 
+          ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infAdFisco&quot;)).Replace(&quot;;&quot;,Environment.NewLine);
+      }
     }
 
     private void txtChaveNfe_BeforePrint(object sender, EventArgs e)
@@ -530,8 +539,10 @@ namespace FastReport
                 <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBCSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="vICMSSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pICMS" DataType="System.Decimal"/>
+                  <Column Name="vICMS" DataType="System.Decimal"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -845,18 +856,19 @@ namespace FastReport
     <Parameter Name="DuasLinhas" DataType="System.Boolean"/>
     <Parameter Name="Cancelada" DataType="System.Boolean"/>
     <Parameter Name="desenvolvedor" DataType="System.String"/>
+    <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7" FirstPageSource="261" OtherPagesSource="261">
-    <ReportTitleBand Name="Canhoto" Width="744.66" Height="83.27" PrintOn="FirstPage" Guides="66.15">
+    <ReportTitleBand Name="Canhoto" Top="20" Width="744.66" Height="73.82" PrintOn="FirstPage" Guides="66.15">
       <TextObject Name="Text1" Width="642.6" Height="37.8" Border.Lines="All" Border.Width="0.5" Text="Recebemos de [NFe.NFe.infNFe.emit.xNome] os produtos e/ou serviços constantes da Nota Fiscal Eletrônica indicada ao lado. &#13;&#10;[ResumoCanhoto]" Padding="2, 2, 2, 0" Font="Times New Roman, 7pt"/>
       <TextObject Name="Text2" Left="642.6" Width="102.06" Height="68.04" Border.Lines="All" Border.Width="0.5" Text="NF-e&#13;&#10;Nº [Format(&quot;{0:000'.'000'.'000}&quot;, [NFe.NFe.infNFe.ide.nNF] )]&#13;&#10;Série [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie] )]" Padding="2, 2, 2, 0" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Text3" Top="37.8" Width="113.4" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="DATA DO RECEBIMENTO" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
       <TextObject Name="Text4" Left="113.4" Top="37.8" Width="529.2" Height="30.24" Border.Lines="All" Border.Width="0.5" Text="IDENTIFICAÇÃO E ASSINATURA DO RECEBEDOR" Padding="2, 2, 2, 0" Font="Times New Roman, 6pt"/>
-      <LineObject Name="Line1" Top="73.82" Width="744.66" Border.Style="Dash" Border.Width="0.5"/>
+      <LineObject Name="Line1" Top="70.82" Width="744.66" Border.Style="Dash" Border.Width="0.5"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="87.27" Width="744.66" Height="175.45">
+    <PageHeaderBand Name="PageHeader1" Top="113.82" Width="744.66" Height="175.45">
       <TextObject Name="Text5" Width="302.4" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="[NFe.NFe.infNFe.emit.xNome]" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
-      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.28" Height="81.27"/>
+      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.28" Height="81.27" Image=""/>
       <TextObject Name="Text6" Left="100.93" Top="37.8" Width="200.34" Height="81.27" Text="[NFe.NFe.infNFe.emit.enderEmit.xLgr], [NFe.NFe.infNFe.emit.enderEmit.nro], [NFe.NFe.infNFe.emit.enderEmit.xCpl] - [NFe.NFe.infNFe.emit.enderEmit.xBairro] - [NFe.NFe.infNFe.emit.enderEmit.xMun] - [NFe.NFe.infNFe.emit.enderEmit.UF]&#13;&#10;Fone: [Format(&quot;{0:(00)0000-0000}&quot;, [NFe.NFe.infNFe.emit.enderEmit.fone] )] - CEP: [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFe.NFe.infNFe.emit.enderEmit.CEP] ) )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text7" Left="302.4" Width="120.96" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="DANFE" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text8" Left="304.29" Top="17.01" Width="117.18" Height="23.68" Text="Documento Auxiliar da &#13;&#10;Nota Fiscal Eletrônica" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
@@ -871,16 +883,14 @@ namespace FastReport
       <TextObject Name="Text14" Left="1.78" Top="129.8" Width="415.8" Height="17.01" BeforePrintEvent="txtChaveNfe_BeforePrint" Text="[NFe.NFe.infNFe.ide.natOp]" Padding="0, 0, 0, 0" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text15" Left="423.25" Top="80.05" Width="321.3" Height="34.02" Border.Lines="All" Border.Width="0.5" Text="Consulta de autenticidade no portal nacional da NF-e&#13;&#10;www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizadora" Padding="2, 2, 2, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text16" Left="423.25" Top="113.4" Width="321.3" Height="34.02" Border.Lines="All" Border.Width="0.5" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
-      <TextObject Name="Text17" Left="426.15" Top="128.85" Width="159.65" Height="18.9" Text="[NFe.protNFe.infProt.nProt]" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-      <TextObject Name="Text18" Left="583.9" Top="128.85" Width="9.45" Height="18.9" Text="-" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-      <TextObject Name="Text19" Left="594.35" Top="128.85" Width="147.2" Height="18.9" Text="[NFe.protNFe.infProt.dhRecbto]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      <TextObject Name="Text17" Left="425.15" Top="128.85" Width="317.85" Height="18.9" Text="[NFe.protNFe.infProt.nProt] - [FormatDateTime([NFe.protNFe.infProt.dhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text20" Top="147.8" Width="247.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO ESTADUAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text21" Left="247.7" Top="147.8" Width="247.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO MUNICIPAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text22" Left="495.95" Top="147.8" Width="248.81" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text23" Left="-0.55" Top="156.55" Width="245.7" Height="18.9" Text="[NFe.NFe.infNFe.emit.IE]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text24" Left="248.6" Top="156.55" Width="245.7" Height="18.9" Text="[NFe.NFe.infNFe.emit.IEST]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text25" Left="496.3" Top="156.55" Width="245.7" Height="18.9" Text="[FormatarCampo([NFe.NFe.infNFe.emit.CNPJ],'d')]" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-      <ChildBand Name="Child3" Top="266.72" Width="744.66" Height="112.18" PrintOn="FirstPage" BeforePrintEvent="Child3_BeforePrint">
+      <ChildBand Name="Child3" Top="309.27" Width="744.66" Height="112.18" PrintOn="FirstPage" BeforePrintEvent="Child3_BeforePrint">
         <TextObject Name="Text26" Left="1.55" Top="4" Width="236.7" Height="11.35" Text="DESTINATÁRIO / REMETENTE" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
         <TextObject Name="Text27" Left="1.55" Top="17.45" Width="436.81" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
         <TextObject Name="Text28" Left="437.7" Top="17.45" Width="162.76" Height="25.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
@@ -908,12 +918,12 @@ namespace FastReport
         <TextObject Name="Text31" Left="438.25" Top="28.8" Width="163.1" Height="18.9" Text="[FormatarCampo([NFe.NFe.infNFe.dest.CPF],'d')]" WordWrap="false" Font="Times New Roman, 8pt, style=Bold"/>
         <TextObject Name="Text49" Left="367.1" Top="79.6" Width="123.5" Height="12.9" Text="[NFe.NFe.infNFe.dest.enderDest.fone]" Font="Times New Roman, 8pt, style=Bold"/>
         <TextObject Name="Memo55" Left="2" Top="96.95" Width="430.87" Height="13.23" Text="FATURA/DUPLICATAS" Padding="0, 1, 0, 1" Font="Times New Roman, 8.25pt, style=Bold"/>
-        <ChildBand Name="Child4" Top="382.9" Width="744.66" Height="18.9" BeforePrintEvent="Child4_BeforePrint">
+        <ChildBand Name="Child4" Top="441.45" Width="744.66" Height="18.9" BeforePrintEvent="Child4_BeforePrint">
           <SubreportObject Name="Subreport1" Top="-0.1" Width="94.5" Height="18.9" PrintOn="FirstPage" ReportPage="Page2"/>
-          <ChildBand Name="Child5" Top="405.8" Width="744.66" Height="28.67" Visible="false" PrintOn="FirstPage">
+          <ChildBand Name="Child5" Top="480.35" Width="744.66" Height="28.67" Visible="false" PrintOn="FirstPage">
             <TextObject Name="Text168" Width="745.1" Height="28.67" Border.Lines="All"/>
             <TextObject Name="Text169" Left="6.45" Top="7" Width="302.4" Height="18.9" Text="PAGAMENTO A VISTA" Font="Times New Roman, 8.25pt, style=Bold"/>
-            <ChildBand Name="Child1" Top="438.47" Width="744.66" Height="185.5" PrintOn="FirstPage">
+            <ChildBand Name="Child1" Top="529.02" Width="744.66" Height="185.5" PrintOn="FirstPage">
               <TextObject Name="Text55" Top="15.4" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BASE DE CÁLC ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
               <TextObject Name="Text56" Left="84.06" Top="15.4" Width="84.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR ICMS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
               <TextObject Name="Text57" Left="168.12" Top="15.4" Width="82.06" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="BASE CÁLC ICMS ST" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
@@ -988,8 +998,8 @@ namespace FastReport
               <TextObject Name="Text127" Left="604.8" Top="146.05" Width="140.75" Height="15.9" Text="[NFe.NFe.infNFe.transp.vol.pesoL]" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
               <TextObject Name="Text33" Left="330.75" Top="94.45" Width="81.15" Height="14.9" Text="[NFe.NFe.infNFe.transp.modFrete]" Font="Times New Roman, 8pt, style=Bold"/>
               <TextObject Name="Text91" Left="2" Top="72.1" Width="273.4" Height="9.35" Text="TRANSPORTADOR / VOLUMES TRANSPORTADOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-              <TextObject Name="lblCancelada" Left="284.5" Top="166.6" Width="151.2" Height="18.9" Visible="true" Fill.Color="Gray" Text="NFe CANCELADA" Font="Arial, 12pt, style=Bold" TextFill.Color="White"/>
-              <ChildBand Name="Child2" Top="627.97" Width="744.66" Height="24.35">
+              <TextObject Name="lblCancelada" Left="284.5" Top="166.6" Width="151.2" Height="18.9" Fill.Color="Gray" Text="NFe CANCELADA" Font="Arial, 12pt, style=Bold" TextFill.Color="White"/>
+              <ChildBand Name="Child2" Top="734.52" Width="744.66" Height="24.35">
                 <TextObject Name="Text167" Left="691.52" Top="1.89" Width="54.05" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="ALÍQUOTAS" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 5pt"/>
                 <TextObject Name="Text128" Left="2" Top="1.45" Width="200.25" Height="9.35" Text="DADOS DOS PRODUTOS / SERVIÇOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
                 <TextObject Name="Text129" Top="12.85" Width="66.15" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="CÓD PRODUTO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
@@ -1012,7 +1022,7 @@ namespace FastReport
         </ChildBand>
       </ChildBand>
     </PageHeaderBand>
-    <DataBand Name="dbProdutos" Top="656.32" Width="744.66" Height="34.8" BeforePrintEvent="dbProdutos_BeforePrint" DataSource="det">
+    <DataBand Name="dbProdutos" Top="778.87" Width="744.66" Height="34.8" BeforePrintEvent="dbProdutos_BeforePrint" DataSource="det">
       <TextObject Name="Text142" Top="1" Width="65.39" Height="18" Text="[NFe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" Font="Times New Roman, 6pt"/>
       <TextObject Name="Text144" Left="260.05" Top="1" Width="49.25" Height="18" Text="[NFe.NFe.infNFe.det.prod.NCM]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
       <TextObject Name="Text147" Left="341.65" Top="0.5" Width="33.35" Height="18" Text="[NFe.NFe.infNFe.det.prod.CFOP]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
@@ -1044,11 +1054,11 @@ namespace FastReport
       <TextObject Name="Text166" Left="692.87" Top="1.13" Width="26.46" Height="18" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt" Trimming="EllipsisCharacter"/>
       <TextObject Name="Text143" Left="67.15" Top="1.2" Width="192.78" Height="18" Text="[NFe.NFe.infNFe.det.prod.xProd]" VertAlign="Center" Font="Times New Roman, 6pt"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="695.12" Width="744.66" Height="179.55" PrintOn="FirstPage">
-      <TextObject Name="Text155" Top="53.7" Width="470.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text36" Top="67.15" Width="468.5" Height="95.95" Text="[NFe.NFe.infNFe.infAdic.infCpl]&#13;&#10;[NFe.NFe.infNFe.infAdic.infAdFisco]" Font="Arial, 8pt"/>
-      <TextObject Name="Text156" Left="470.5" Top="53.7" Width="274.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text37" Left="472.5" Top="67.15" Width="274.05" Height="95.95" Font="Arial, 8pt"/>
+    <PageFooterBand Name="PageFooter1" Top="833.67" Width="744.66" Height="189" PrintOn="FirstPage">
+      <TextObject Name="Text155" Top="53.7" Width="470.06" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text36" Top="67.15" Width="468.5" Height="105.4" Text="[NFe.NFe.infNFe.infAdic.infCpl]&#13;&#10;[NFe.NFe.infNFe.infAdic.infAdFisco]" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text156" Left="470.5" Top="53.7" Width="274.06" Height="120.96" Border.Lines="All" Border.Width="0.5" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text37" Left="472.5" Top="67.15" Width="274.05" Height="105.4" Font="Arial, 8pt"/>
       <TextObject Name="Text157" Left="2" Top="42.25" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text158" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSCRIÇÃO MUNICIPAL" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text159" Left="186.11" Top="12.45" Width="186.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR TOTAL DOS SERVIÇOS" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt"/>
@@ -1060,8 +1070,8 @@ namespace FastReport
       <TextObject Name="Text163" Left="375" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vBC]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
       <TextObject Name="Text164" Left="561.55" Top="25.35" Width="179.55" Height="11.45" Text="[NFe.NFe.infNFe.total.ISSQNtot.vISS]" VertAlign="Center" Font="Times New Roman, 6pt, style=Bold"/>
       <TextObject Name="lblHomologacao" Left="467.95" Top="96.15" Width="279.5" Height="73.05" Visible="false" Text="NF-e EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" Font="Arial, 14pt, style=Bold"/>
-      <TextObject Name="Memo150" Left="1.45" Top="167.1" Width="359.06" Height="9.45" Text="Data e hora da impressão: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
-      <TextObject Name="Memo151" Left="382.55" Top="167.65" Width="359.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Memo150" Left="1.45" Top="176.55" Width="359.06" Height="9.45" Text="Data e hora da impressão: [((DateTime)Report.GetVariableValue(&quot;Date&quot;))]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Memo151" Left="382.55" Top="177.1" Width="359.06" Height="9.45" Text="Desenvolvido por: [desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
     </PageFooterBand>
   </ReportPage>
   <ReportPage Name="Page2">
