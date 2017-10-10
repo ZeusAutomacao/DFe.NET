@@ -43,7 +43,9 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 
 
         public string nDoc { get; set; }
-        public short serie { get; set; }
+        public short? serie { get; set; }
+        public bool serieSpecified { get { return serie.HasValue; } }
+
         public short? subserie { get; set; }
         public bool subserieSpecified { get { return subserie.HasValue; } }
 

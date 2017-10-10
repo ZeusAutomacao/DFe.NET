@@ -26,6 +26,6 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 
         public infCteAnu infCteAnu { get; set; }
 
-        public autXML autXml { get; set; }
+        public List<autXML> autXml { get; set; }
     }
 }
