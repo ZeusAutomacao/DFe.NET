@@ -17,7 +17,7 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
 
         public string xMun { get; set; }
 
-        public long CEP { get; set; }
+        public long? CEP { get; set; }
 
         [XmlIgnore]
         public Estado UF { get; set; }
