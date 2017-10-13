@@ -82,7 +82,6 @@ using DFe.Ext;
 using DFe.Utils.Assinatura;
 using DFe.Utils.Flags;
 using NFe.AppTeste.Dao;
-using NFe.Danfe.Nativo.NFCe;
 using NFeZeus = DFe.DocumentosEletronicos.NFe.Classes.Informacoes.NFe;
 using Reflexao = DFe.Ext.Reflexao;
 
@@ -221,11 +220,12 @@ namespace NFe.AppTeste
 
                 #region Carrega a logo no controle logoEmitente
 
-                if (_configuracoes.ConfiguracaoDanfeNfce.Logomarca != null && _configuracoes.ConfiguracaoDanfeNfce.Logomarca.Length > 0)
+                // todo removido para ser adicionado posteriormente 
+                /*if (_configuracoes.ConfiguracaoDanfeNfce.Logomarca != null && _configuracoes.ConfiguracaoDanfeNfce.Logomarca.Length > 0)
                     using (var stream = new MemoryStream(_configuracoes.ConfiguracaoDanfeNfce.Logomarca))
                     {
                         LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
-                    }
+                    }*/
 
                 #endregion
             }
@@ -1740,7 +1740,8 @@ namespace NFe.AppTeste
 
         private void BtnCupom_Click(object sender, RoutedEventArgs e)
         {
-            string arquivoXml = Funcoes.BuscarArquivoXml();
+            // todo removido para ser adicionado posteriormente 
+            /*string arquivoXml = Funcoes.BuscarArquivoXml();
             try
             {
                 nfeProc proc = null;
@@ -1756,41 +1757,42 @@ namespace NFe.AppTeste
                 {
                     nfe = new NFeZeus().CarregarDeArquivoXml(arquivoXml);
                     arquivo = nfe.ObterXmlString();
-                }
-
-                
-
-                DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
-                    _configuracoes.ConfiguracaoDanfeNfce, 
-                    _configuracoes.ConfiguracaoCsc.CIdToken, 
-                    _configuracoes.ConfiguracaoCsc.Csc,
-                    0 /*troco*//*, "Arial Black"*/);
-
-                SaveFileDialog fileDialog = new SaveFileDialog();
-
-                fileDialog.ShowDialog();
-
-                if(string.IsNullOrEmpty(fileDialog.FileName))
-                    throw new ArgumentException("Não foi selecionado nem uma pasta");
+                }*/
 
 
 
-                //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
-                impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
+            /*DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
+                _configuracoes.ConfiguracaoDanfeNfce, 
+                _configuracoes.ConfiguracaoCsc.CIdToken, 
+                _configuracoes.ConfiguracaoCsc.Csc,*/
+            //0 /*troco*//*, "Arial Black"*/);
 
-            }
-            catch (Exception ex)
+            /*SaveFileDialog fileDialog = new SaveFileDialog();
+
+            fileDialog.ShowDialog();
+
+            if(string.IsNullOrEmpty(fileDialog.FileName))
+                throw new ArgumentException("Não foi selecionado nem uma pasta");
+
+
+
+            //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
+            impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
+
+        }
+        catch (Exception ex)
+        {
+            if (!string.IsNullOrEmpty(ex.Message))
             {
-                if (!string.IsNullOrEmpty(ex.Message))
-                {
-                    Funcoes.Mensagem(ex.Message, TituloErro, MessageBoxButton.OK);
-                }
+                Funcoes.Mensagem(ex.Message, TituloErro, MessageBoxButton.OK);
             }
+        }*/
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
         {
-            var arquivo = Funcoes.BuscarImagem();
+            // todo removido para ser adicionado posteriormente 
+            /*var arquivo = Funcoes.BuscarImagem();
             if (string.IsNullOrEmpty(arquivo)) return;
             var imagem = Image.FromFile(arquivo);
             LogoEmitente.Source = new BitmapImage(new Uri(arquivo));
@@ -1801,13 +1803,14 @@ namespace NFe.AppTeste
                 imagem.Save(stream, ImageFormat.Png);
                 stream.Close();
                 _configuracoes.ConfiguracaoDanfeNfce.Logomarca = stream.ToArray();
-            }
+            }*/
         }
 
         private void btnRemoveLogo_Click(object sender, RoutedEventArgs e)
         {
-            LogoEmitente.Source = null;
-            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
+            // todo removido para ser adicionado posteriormente 
+            /*LogoEmitente.Source = null;
+            _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;*/
         }
     }
 }

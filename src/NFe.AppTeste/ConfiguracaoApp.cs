@@ -41,8 +41,6 @@ using DFe.DocumentosEletronicos.NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.DocumentosEletronicos.NFe.Utils;
 using DFe.Ext;
 using NFe.AppTeste.Properties;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFCe;
 
 namespace NFe.AppTeste
 {
@@ -60,7 +58,7 @@ namespace NFe.AppTeste
             EnderecoEmitente = new enderEmit();
             ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
             ConfiguracaoCsc = new ConfiguracaoCsc("000001", "");
-            ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha);
+            // todo removido para posteriormente ser adicionado novamente ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha);
         }
 
         public ConfiguracaoServico CfgServico
@@ -81,7 +79,7 @@ namespace NFe.AppTeste
         public enderEmit EnderecoEmitente { get; set; }
         public ConfiguracaoEmail ConfiguracaoEmail { get; set; }
         public ConfiguracaoCsc ConfiguracaoCsc { get; set; }
-        public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
+        // todo removido para ser adicionado posteriormente public ConfiguracaoDanfeNfce ConfiguracaoDanfeNfce { get; set; }
 
         /// <summary>
         ///     Salva os dados de CfgServico em um arquivo XML

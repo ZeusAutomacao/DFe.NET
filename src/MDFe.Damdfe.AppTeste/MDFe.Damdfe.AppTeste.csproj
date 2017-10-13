@@ -87,14 +87,6 @@
       <Project>{5D92FE73-17C8-4F06-B9AF-7F8F70B6D8C4}</Project>
       <Name>DFe</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">
-      <Project>{2419900B-1E90-4181-9338-3E84237C3B00}</Project>
-      <Name>MDFe.Damdfe.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj">
-      <Project>{730D4787-C8CF-4FA1-B9F5-DC814DBEAB7A}</Project>
-      <Name>MDFe.Damdfe.Fast</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
