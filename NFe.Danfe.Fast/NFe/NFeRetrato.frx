@@ -988,7 +988,7 @@ namespace FastReport
               <TextObject Name="Text127" Left="604.8" Top="146.05" Width="140.75" Height="15.9" Text="[NFe.NFe.infNFe.transp.vol.pesoL]" HorzAlign="Right" Font="Times New Roman, 8pt, style=Bold"/>
               <TextObject Name="Text33" Left="330.75" Top="94.45" Width="81.15" Height="14.9" Text="[NFe.NFe.infNFe.transp.modFrete]" Font="Times New Roman, 8pt, style=Bold"/>
               <TextObject Name="Text91" Left="2" Top="72.1" Width="273.4" Height="9.35" Text="TRANSPORTADOR / VOLUMES TRANSPORTADOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-              <TextObject Name="lblCancelada" Left="284.5" Top="166.6" Width="151.2" Height="18.9" Visible="false" Fill.Color="Gray" Text="NFe CANCELADA" Font="Arial, 12pt, style=Bold" TextFill.Color="White"/>
+              <TextObject Name="lblCancelada" Left="284.5" Top="166.6" Width="151.2" Height="18.9" Visible="true" Fill.Color="Gray" Text="NFe CANCELADA" Font="Arial, 12pt, style=Bold" TextFill.Color="White"/>
               <ChildBand Name="Child2" Top="627.97" Width="744.66" Height="24.35">
                 <TextObject Name="Text167" Left="691.52" Top="1.89" Width="54.05" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="WhiteSmoke" Text="ALÍQUOTAS" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 5pt"/>
                 <TextObject Name="Text128" Left="2" Top="1.45" Width="200.25" Height="9.35" Text="DADOS DOS PRODUTOS / SERVIÇOS" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
