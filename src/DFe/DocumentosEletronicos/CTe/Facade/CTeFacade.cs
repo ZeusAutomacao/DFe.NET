@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
+using DFe.DocumentosEletronicos.CTe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Autorizacao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Evento;
@@ -9,6 +11,7 @@ using DFe.DocumentosEletronicos.CTe.Classes.Retorno.RetRecepcao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.StatusServico;
 using DFe.DocumentosEletronicos.CTe.Classes.Servicos.Evento.CorpoEvento;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
+using DFe.DocumentosEletronicos.CTe.Facade.Flags;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaLoteCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
@@ -76,8 +79,21 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             return _consulta.Consulta(chave);
         }
 
-        public retEventoCTe Cancelar(string chave, string cnpjEmitente, int sequenciaEvento, string numeroProtocolo, string justificativa)
+        public retEventoCTe Cancelar(string chave, string cnpjEmitente, int sequenciaEvento, string numeroProtocolo, string justificativa, ConsultaProtocolo consultaProtocolo)
         {
+            if (consultaProtocolo == ConsultaProtocolo.Sim)
+            {
+                var retConSitCTe = Consulta(chave);
+
+                foreach (var procEventoCTe in retConSitCTe.procEventoCTe)
+                {
+                    if (procEventoCTe.eventoCTe.infEvento.tpEvento == TipoEvento.Cancelamento)
+                    {
+                        
+                    }
+                }
+            }
+
             return _cancelar.Cancelar(chave, cnpjEmitente, sequenciaEvento, numeroProtocolo, justificativa);
         }
 

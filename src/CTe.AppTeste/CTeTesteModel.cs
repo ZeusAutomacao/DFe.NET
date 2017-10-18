@@ -60,6 +60,7 @@ using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador;
 using DFe.DocumentosEletronicos.CTe.Facade;
+using DFe.DocumentosEletronicos.CTe.Facade.Flags;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.Entidades;
@@ -796,7 +797,7 @@ namespace CTe.AppTeste
             var justificativa = InputBoxTuche("Justificativa mínimo 15 digitos vlw");
 
             var facade = new CTeFacade(configCTe, certificado);
-            var retorno = facade.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa);
+            var retorno = facade.Cancelar(cte.Chave(), cte.infCte.emit.CNPJ, sequenciaEvento, protocolo, justificativa, ConsultaProtocolo.Sim);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

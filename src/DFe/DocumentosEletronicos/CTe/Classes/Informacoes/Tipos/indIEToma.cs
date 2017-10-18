@@ -38,10 +38,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos
     public enum indIEToma
     {
         [XmlEnum("1")]
-        ContribuinteIcms,
+        ContribuinteIcms = 1,
         [XmlEnum("2")]
-        ContribuinteIsentoDeInscricao,
+        ContribuinteIsentoDeInscricao = 2,
         [XmlEnum("9")]
-        NaoContribuinte
+        NaoContribuinte = 9
     }
 }

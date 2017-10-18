@@ -75,6 +75,7 @@
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoEventoManifestacaoDestinatario.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\CTeCancelado.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\CTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Extensoes\extretCteOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Complemento\complOs.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\tomaOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Servicos\Autorizacao\retCTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Facade\Flags\ConsultaProtocolo.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\CTeEnviarOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Wsdl\Comunicacao\CTeInutilizacao\CteInutilizacao.cs" />
