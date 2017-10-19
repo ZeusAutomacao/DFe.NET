@@ -205,9 +205,9 @@ namespace NFe.Danfe.AppTeste
             {
                 #region Carrega um XML com nfeProc para a variável
 
-                 var arquivoXml = Funcoes.BuscarArquivoXml();
-                 if (string.IsNullOrEmpty(arquivoXml))
-                     return;
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
 
                 nfeProc proc = null;
 
@@ -232,12 +232,24 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
                 var danfe = new DanfeFrNfe(proc: proc,
-                                    configuracaoDanfeNfe: new ConfiguracaoDanfeNfe(logomarca: _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
-                                                                                   duasLinhas: rdbDuasLinhas.IsChecked ?? false,
-                                                                                   documentoCancelado: chbCancelado.IsChecked ?? false,
-                                                                                   quebrarLinhasObservacao: chbQuebrarLinhaObservacao.IsChecked ?? false), 
+                                    configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
+                                    {
+                                        Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
+                                        DuasLinhas = rdbDuasLinhas.IsChecked ?? false,
+                                        DocumentoCancelado = chbCancelado.IsChecked ?? false,
+                                        QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.IsChecked ?? false,
+                                        ExibirResumoCanhoto = true,
+                                        ResumoCanhoto = string.Empty,
+                                        ChaveContingencia = string.Empty,
+                                        ExibeCampoFatura = false,
+                                        ImprimirISSQN = false,
+                                        ImprimirDescPorc = false,
+                                        ImprimirTotalLiquido = false,
+                                        ImprimirUnidQtdeValor = ImprimirUnidQtdeValor.Comercial
+                                    },
                                     desenvolvedor: "NOME DA SOFTWARE HOUSE",
                                     arquivoRelatorio: string.Empty);
+
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
