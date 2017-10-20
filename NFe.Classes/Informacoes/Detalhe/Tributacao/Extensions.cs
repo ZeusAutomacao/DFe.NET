@@ -53,7 +53,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             try
             {
                 var property = instance.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
-                return (decimal?)property?.GetValue(instance, null) ?? 0M;
+
+                if (property != null)
+                {
+                    return (decimal?)property.GetValue(instance, null) ?? 0M;
+                }
+
+                return 0M;
             }
             catch (Exception)
             {
