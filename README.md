@@ -16,6 +16,8 @@ Zeus.Net.NFe.NFCe
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
+Grupo [Telegram](https://t.me/joinchat/DyE_jQ7rF3rxTqK1Kwoqog) para discussão
+
 Biblioteca gratuita para Geração de NFe 2.0 e 3.10, NFCe 3.10 e MDF-e e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx e https://mdfe-portal.sefaz.rs.gov.br
 
 A biblioteca foi desenvolvida com o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2015 Update 1.
