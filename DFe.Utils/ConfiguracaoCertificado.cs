@@ -40,13 +40,16 @@ namespace DFe.Utils
     public enum TipoCertificado
     {
         [Description("Certificado A1")]
-        A1Repositorio,
+        A1Repositorio = 0,
+
         [Description("Certificado A1 em arquivo")]
-        A1Arquivo,
-        [Description("Certificado A1 em byte array")]
-        A1ByteArray,
+        A1Arquivo = 1,
+
         [Description("Certificado A3")]
-        A3
+        A3 = 2,
+
+        [Description("Certificado A1 em byte array")]
+        A1ByteArray = 3
     }
 
     public class ConfiguracaoCertificado : INotifyPropertyChanged
