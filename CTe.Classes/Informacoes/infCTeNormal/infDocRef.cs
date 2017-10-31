@@ -55,8 +55,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal
 
         public decimal? vDoc
         {
-            get { return _vDoc.Arredondar(2); }
-            set { _vDoc = value.Arredondar(2); }
+            get { return _vDoc; }
+            set { _vDoc = value; }
         }
 
         public bool vDocSpecified { get { return vDoc.HasValue; } }

@@ -42,8 +42,8 @@ namespace CTe.Classes.Informacoes.Impostos
         private decimal? _vTotTrib;
         public decimal? vTotTrib
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get { return _vTotTrib; }
+            set { _vTotTrib = value; }
         }
 
         public bool vTotTribSpecified { get { return vTotTrib.HasValue; } }

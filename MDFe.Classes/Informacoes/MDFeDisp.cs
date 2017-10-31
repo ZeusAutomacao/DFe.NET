@@ -63,8 +63,8 @@ namespace MDFe.Classes.Informacoes
 
         public decimal vValePed
         {
-            get { return _vValePed.Arredondar(2); }
-            set { _vValePed = value.Arredondar(2); }
+            get { return _vValePed; }
+            set { _vValePed = value; }
         }
     }
 }
