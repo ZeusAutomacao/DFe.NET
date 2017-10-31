@@ -62,8 +62,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pMVAST
         {
-            get { return _pMvast; }
-            set { _pMvast = value; }
+            get { return _pMvast.Arredondar(4); }
+            set { _pMvast = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBCST
         {
-            get { return _pRedBcst; }
-            set { _pRedBcst = value; }
+            get { return _pRedBcst.Arredondar(4); }
+            set { _pRedBcst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCST
         {
             get { return _vBcst; }
-            set { _vBcst = value; }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal pICMSST
         {
             get { return _pIcmsst; }
-            set { _pIcmsst = value; }
+            set { _pIcmsst = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSST
         {
             get { return _vIcmsst; }
-            set { _vIcmsst = value; }
+            set { _vIcmsst = value.Arredondar(2); }
         }
 
         public bool ShouldSerializepMVAST()

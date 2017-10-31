@@ -50,6 +50,7 @@
     <Compile Include="Flags\ModeloDocumento.cs" />
     <Compile Include="Flags\TipoAmbiente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Valor.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

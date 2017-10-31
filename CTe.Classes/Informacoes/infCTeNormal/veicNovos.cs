@@ -48,8 +48,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal
 
         public decimal vUnit
         {
-            get { return _vUnit; }
-            set { _vUnit = value; }
+            get { return _vUnit.Arredondar(2); }
+            set { _vUnit = value.Arredondar(2); }
         }
 
         public decimal vFrete { get; set; }

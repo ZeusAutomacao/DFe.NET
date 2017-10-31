@@ -42,8 +42,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal qTotProd
         {
-            get { return _qTotProd; }
-            set { _qTotProd = value; }
+            get { return _qTotProd.Arredondar(4); }
+            set { _qTotProd = value.Arredondar(4); }
         }
 
         public uniAP uniAP { get; set; }

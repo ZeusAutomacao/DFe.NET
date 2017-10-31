@@ -45,32 +45,32 @@ namespace CTe.Classes.Informacoes.Impostos
 
         public decimal? vPIS
         {
-            get { return _vPis; }
-            set { _vPis = value; }
+            get { return _vPis.Arredondar(2); }
+            set { _vPis = value.Arredondar(2); }
         }
 
         public decimal? vCOFINS
         {
-            get { return _vCofins; }
-            set { _vCofins = value; }
+            get { return _vCofins.Arredondar(2); }
+            set { _vCofins = value.Arredondar(2); }
         }
 
         public decimal? vIR
         {
-            get { return _vIr; }
-            set { _vIr = value; }
+            get { return _vIr.Arredondar(2); }
+            set { _vIr = value.Arredondar(2); }
         }
 
         public decimal? vINSS
         {
-            get { return _vInss; }
-            set { _vInss = value; }
+            get { return _vInss.Arredondar(2); }
+            set { _vInss = value.Arredondar(2); }
         }
 
         public decimal? vCSLL
         {
-            get { return _vCsll; }
-            set { _vCsll = value; }
+            get { return _vCsll.Arredondar(2); }
+            set { _vCsll = value.Arredondar(2); }
         }
 
 

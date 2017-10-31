@@ -51,7 +51,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal qBCProd
         {
             get { return _qBcProd; }
-            set { _qBcProd = value; }
+            set { _qBcProd = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vAliqProd
         {
             get { return _vAliqProd; }
-            set { _vAliqProd = value; }
+            set { _vAliqProd = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vCOFINS
         {
             get { return _vCofins; }
-            set { _vCofins = value; }
+            set { _vCofins = value.Arredondar(2); }
         }
     }
 }
