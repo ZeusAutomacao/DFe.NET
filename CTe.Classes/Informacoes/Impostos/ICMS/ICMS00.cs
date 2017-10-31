@@ -51,20 +51,20 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 
         public decimal vBC
         {
-            get { return _vBc.Arredondar(2); }
-            set { _vBc = value.Arredondar(2); }
+            get { return _vBc; }
+            set { _vBc = value; }
         }
 
         public decimal pICMS
         {
-            get { return _pIcms.Arredondar(2); }
-            set { _pIcms = value.Arredondar(2); }
+            get { return _pIcms; }
+            set { _pIcms = value; }
         }
 
         public decimal vICMS
         {
-            get { return _vIcms.Arredondar(2); }
-            set { _vIcms = value.Arredondar(2); }
+            get { return _vIcms; }
+            set { _vIcms = value; }
         }
     }
 }

@@ -45,8 +45,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infCargas
 
         public decimal qCarga
         {
-            get { return _qCarga.Arredondar(4); }
-            set { _qCarga = value.Arredondar(4); }
+            get { return _qCarga; }
+            set { _qCarga = value; }
         }
     }
 }

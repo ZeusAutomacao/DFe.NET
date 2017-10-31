@@ -42,7 +42,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal pDevol
         {
             get { return _pDevol; }
-            set { _pDevol = value.Arredondar(2); }
+            set { _pDevol = value; }
         }
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         public decimal vBC
         {
             get { return _vBc; }
-            set { _vBc = value.Arredondar(2); }
+            set { _vBc = value; }
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         public decimal vAliq
         {
             get { return _vAliq; }
-            set { _vAliq = value.Arredondar(2); }
+            set { _vAliq = value; }
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         public decimal vISSQN
         {
             get { return _vIssqn; }
-            set { _vIssqn = value.Arredondar(2); }
+            set { _vIssqn = value; }
         }
 
         /// <summary>
@@ -85,8 +85,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// </summary>
         public decimal? vDeducao
         {
-            get { return _vDeducao.Arredondar(2); }
-            set { _vDeducao = value.Arredondar(2); }
+            get { return _vDeducao; }
+            set { _vDeducao = value; }
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// </summary>
         public decimal? vOutro
         {
-            get { return _vOutro.Arredondar(2); }
-            set { _vOutro = value.Arredondar(2); }
+            get { return _vOutro; }
+            set { _vOutro = value; }
         }
 
         /// <summary>
@@ -103,8 +103,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// </summary>
         public decimal? vDescIncond
         {
-            get { return _vDescIncond.Arredondar(2); }
-            set { _vDescIncond = value.Arredondar(2); }
+            get { return _vDescIncond; }
+            set { _vDescIncond = value; }
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// </summary>
         public decimal? vDescCond
         {
-            get { return _vDescCond.Arredondar(2); }
-            set { _vDescCond = value.Arredondar(2); }
+            get { return _vDescCond; }
+            set { _vDescCond = value; }
         }
 
         /// <summary>
@@ -121,8 +121,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
         /// </summary>
         public decimal? vISSRet
         {
-            get { return _vIssRet.Arredondar(2); }
-            set { _vIssRet = value.Arredondar(2); }
+            get { return _vIssRet; }
+            set { _vIssRet = value; }
         }
 
         /// <summary>

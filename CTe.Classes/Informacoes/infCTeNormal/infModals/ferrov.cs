@@ -52,8 +52,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal vFrete
         {
-            get { return _vFrete.Arredondar(2); }
-            set { _vFrete = value.Arredondar(2); }
+            get { return _vFrete; }
+            set { _vFrete = value; }
         }
 
         [XmlElement(ElementName = "ferroEnv")]
@@ -72,8 +72,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal? vFrete
         {
-            get { return _vFrete.Arredondar(2); }
-            set { _vFrete = value.Arredondar(2); }
+            get { return _vFrete; }
+            set { _vFrete = value; }
         }
 
         public bool vFreteSpecified { get { return vFrete.HasValue; } }
@@ -137,8 +137,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal? cap
         {
-            get { return _cap.Arredondar(3); }
-            set { _cap = value.Arredondar(3); }
+            get { return _cap; }
+            set { _cap = value; }
         }
 
         public bool capSpecified { get { return cap.HasValue; } }

@@ -122,7 +122,7 @@ namespace CTe.Classes.Servicos.Evento
         public decimal vNF
         {
             get { return _vNf; }
-            set { _vNf = Valor.Arredondar(value, 2); }
+            set { _vNf = value; }
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace CTe.Classes.Servicos.Evento
         public decimal vICMS
         {
             get { return _vIcms; }
-            set { _vIcms = Valor.Arredondar(value, 2); }
+            set { _vIcms = value; }
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace CTe.Classes.Servicos.Evento
         public decimal vST
         {
             get { return _vSt; }
-            set { _vSt = Valor.Arredondar(value, 2); }
+            set { _vSt = value; }
         }
 
         public bool ShouldSerializeIE()

@@ -52,26 +52,26 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 
         public decimal pRedBCOutraUF
         {
-            get { return _pRedBcOutraUf.Arredondar(2); }
-            set { _pRedBcOutraUf = value.Arredondar(2); }
+            get { return _pRedBcOutraUf; }
+            set { _pRedBcOutraUf = value; }
         }
 
         public decimal vBCOutraUF
         {
-            get { return _vBcOutraUf.Arredondar(2); }
-            set { _vBcOutraUf = value.Arredondar(2); }
+            get { return _vBcOutraUf; }
+            set { _vBcOutraUf = value; }
         }
 
         public decimal pICMSOutraUF
         {
-            get { return _pIcmsOutraUf.Arredondar(2); }
-            set { _pIcmsOutraUf = value.Arredondar(2); }
+            get { return _pIcmsOutraUf; }
+            set { _pIcmsOutraUf = value; }
         }
 
         public decimal vICMSOutraUF
         {
-            get { return _vIcmsOutraUf.Arredondar(2); }
-            set { _vIcmsOutraUf = value.Arredondar(2); }
+            get { return _vIcmsOutraUf; }
+            set { _vIcmsOutraUf = value; }
         }
     }
 }

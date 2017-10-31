@@ -118,7 +118,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal qCom
         {
             get { return _qcom; }
-            set { _qcom = value.Arredondar(4); }
+            set { _qcom = value; }
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vUnCom
         {
             get { return _vUnCom; }
-            set { _vUnCom = value.Arredondar(10); }
+            set { _vUnCom = value; }
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vProd
         {
             get { return _vprod; }
-            set { _vprod = value.Arredondar(2); }
+            set { _vprod = value; }
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal qTrib
         {
             get { return _qtrib; }
-            set { _qtrib = value.Arredondar(4); }
+            set { _qtrib = value; }
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vUnTrib
         {
             get { return _vUnTrib; }
-            set { _vUnTrib = value.Arredondar(10); }
+            set { _vUnTrib = value; }
         }
 
         /// <summary>
@@ -176,8 +176,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public decimal? vFrete
         {
-            get { return _vFrete.Arredondar(2); }
-            set { _vFrete = value.Arredondar(2); }
+            get { return _vFrete; }
+            set { _vFrete = value; }
         }
 
         /// <summary>
@@ -185,8 +185,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public decimal? vSeg
         {
-            get { return _vSeg.Arredondar(2); }
-            set { _vSeg = value.Arredondar(2); }
+            get { return _vSeg; }
+            set { _vSeg = value; }
         }
 
         /// <summary>
@@ -194,8 +194,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public decimal? vDesc
         {
-            get { return _vDesc.Arredondar(2); }
-            set { _vDesc = value.Arredondar(2); }
+            get { return _vDesc; }
+            set { _vDesc = value; }
         }
 
         /// <summary>
@@ -203,8 +203,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public decimal? vOutro
         {
-            get { return _vOutro.Arredondar(2); }
-            set { _vOutro = value.Arredondar(2); }
+            get { return _vOutro; }
+            set { _vOutro = value; }
         }
 
         /// <summary>

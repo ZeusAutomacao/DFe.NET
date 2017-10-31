@@ -52,8 +52,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vBC
         {
-            get { return _vBc.Arredondar(2); }
-            set { _vBc = value.Arredondar(2); }
+            get { return _vBc; }
+            set { _vBc = value; }
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? pIPI
         {
-            get { return _pIpi.Arredondar(4); }
-            set { _pIpi = value.Arredondar(4); }
+            get { return _pIpi; }
+            set { _pIpi = value; }
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? qUnid
         {
-            get { return _qUnid.Arredondar(4); }
-            set { _qUnid = value.Arredondar(4); }
+            get { return _qUnid; }
+            set { _qUnid = value; }
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vUnid
         {
-            get { return _vUnid.Arredondar(4); }
-            set { _vUnid = value.Arredondar(4); }
+            get { return _vUnid; }
+            set { _vUnid = value; }
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vIPI
         {
-            get { return _vIpi.Arredondar(2); }
-            set { _vIpi = value.Arredondar(2); }
+            get { return _vIpi; }
+            set { _vIpi = value; }
         }
 
         public bool ShouldSerializevBC()

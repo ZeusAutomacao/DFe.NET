@@ -60,8 +60,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vBC
         {
-            get { return _vBc.Arredondar(2); }
-            set { _vBc = value.Arredondar(2); }
+            get { return _vBc; }
+            set { _vBc = value; }
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal pICMS
         {
-            get { return _pIcms.Arredondar(4); }
-            set { _pIcms = value.Arredondar(4); }
+            get { return _pIcms; }
+            set { _pIcms = value; }
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal vICMS
         {
-            get { return _vIcms.Arredondar(2); }
-            set { _vIcms = value.Arredondar(2); }
+            get { return _vIcms; }
+            set { _vIcms = value; }
         }
     }
 }

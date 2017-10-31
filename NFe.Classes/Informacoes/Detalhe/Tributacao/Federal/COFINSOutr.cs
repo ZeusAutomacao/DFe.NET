@@ -52,8 +52,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vBC
         {
-            get { return _vBc.Arredondar(2); }
-            set { _vBc = value.Arredondar(2); }
+            get { return _vBc; }
+            set { _vBc = value; }
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? pCOFINS
         {
-            get { return _pCofins.Arredondar(4); }
-            set { _pCofins = value.Arredondar(4); }
+            get { return _pCofins; }
+            set { _pCofins = value; }
         }
 
         /// <summary>
@@ -70,8 +70,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? qBCProd
         {
-            get { return _qBcProd.Arredondar(4); }
-            set { _qBcProd = value.Arredondar(4); }
+            get { return _qBcProd; }
+            set { _qBcProd = value; }
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vAliqProd
         {
-            get { return _vAliqProd.Arredondar(4); }
-            set { _vAliqProd = value.Arredondar(4); }
+            get { return _vAliqProd; }
+            set { _vAliqProd = value; }
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// </summary>
         public decimal? vCOFINS
         {
-            get { return _vCofins.Arredondar(2); }
-            set { _vCofins = value.Arredondar(2); }
+            get { return _vCofins; }
+            set { _vCofins = value; }
         }
 
         public bool ShouldSerializevBC()
