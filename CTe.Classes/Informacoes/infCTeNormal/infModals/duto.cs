@@ -44,8 +44,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal? vTar
         {
-            get { return _vTar; }
-            set { _vTar = value; }
+            get { return _vTar.Arredondar(6); }
+            set { _vTar = value.Arredondar(6); }
         }
 
         public bool vTarSpecified { get { return vTar.HasValue; } }

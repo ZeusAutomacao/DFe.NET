@@ -57,7 +57,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCSTRet
         {
             get { return _vBcstRet; }
-            set { _vBcstRet = value; }
+            set { _vBcstRet = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSSTRet
         {
             get { return _vIcmsstRet; }
-            set { _vIcmsstRet = value; }
+            set { _vIcmsstRet = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vBCSTDest
         {
             get { return _vBcstDest; }
-            set { _vBcstDest = value; }
+            set { _vBcstDest = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public decimal vICMSSTDest
         {
             get { return _vIcmsstDest; }
-            set { _vIcmsstDest = value; }
+            set { _vIcmsstDest = value.Arredondar(2); }
         }
     }
 }

@@ -53,32 +53,32 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 
         public decimal pRedBC
         {
-            get { return _pRedBc; }
-            set { _pRedBc = value; }
+            get { return _pRedBc.Arredondar(2); }
+            set { _pRedBc = value.Arredondar(2); }
         }
 
         public decimal vBC
         {
-            get { return _vBc; }
-            set { _vBc = value; }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         public decimal pICMS
         {
-            get { return _pIcms; }
-            set { _pIcms = value; }
+            get { return _pIcms.Arredondar(2); }
+            set { _pIcms = value.Arredondar(2); }
         }
 
         public decimal vICMS
         {
-            get { return _vIcms; }
-            set { _vIcms = value; }
+            get { return _vIcms.Arredondar(2); }
+            set { _vIcms = value.Arredondar(2); }
         }
 
         public decimal vCred
         {
-            get { return _vCred; }
-            set { _vCred = value; }
+            get { return _vCred.Arredondar(2); }
+            set { _vCred = value.Arredondar(2); }
         }
     }
 }

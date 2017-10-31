@@ -42,7 +42,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vIPIDevol
         {
             get { return _vIpiDevol; }
-            set { _vIpiDevol = value; }
+            set { _vIpiDevol = value.Arredondar(2); }
         }
     }
 }

@@ -53,8 +53,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSDeson
         {
-            get { return _vIcmsDeson; }
-            set { _vIcmsDeson = value; }
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
         }
 
         /// <summary>

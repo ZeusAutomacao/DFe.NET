@@ -53,7 +53,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal qtde
         {
             get { return _qtde; }
-            set { _qtde = value; }
+            set { _qtde = value.Arredondar(10); }
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal qTotMes
         {
             get { return _qTotMes; }
-            set { _qTotMes = value; }
+            set { _qTotMes = value.Arredondar(10); }
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal qTotAnt
         {
             get { return _qTotAnt; }
-            set { _qTotAnt = value; }
+            set { _qTotAnt = value.Arredondar(10); }
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal qTotGer
         {
             get { return _qTotGer; }
-            set { _qTotGer = value; }
+            set { _qTotGer = value.Arredondar(10); }
         }
     }
 }
