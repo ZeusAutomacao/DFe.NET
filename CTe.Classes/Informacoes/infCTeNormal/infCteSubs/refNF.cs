@@ -61,8 +61,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infCteSubs
 
         public decimal valor
         {
-            get { return _valor; }
-            set { _valor = value; }
+            get { return _valor.Arredondar(2); }
+            set { _valor = value.Arredondar(2); }
         }
 
         [XmlIgnore]

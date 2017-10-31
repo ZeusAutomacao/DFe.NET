@@ -47,7 +47,7 @@ namespace NFe.Classes.Informacoes.Pagamento
         public decimal vPag
         {
             get { return _vPag; }
-            set { _vPag = value; }
+            set { _vPag = value.Arredondar(2); }
         }
 
         /// <summary>

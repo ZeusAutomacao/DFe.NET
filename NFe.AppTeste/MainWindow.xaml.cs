@@ -1300,7 +1300,7 @@ namespace NFe.AppTeste
 
         protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
-            var valorParcela = (icmsTot.vProd/2).Arredondar(2);
+            var valorParcela = Valor.Arredondar(icmsTot.vProd/2, 2);
             var c = new cobr
             {
                 fat = new fat {nFat = "12345678910", vLiq = icmsTot .vProd},
@@ -1316,7 +1316,7 @@ namespace NFe.AppTeste
 
         protected virtual List<pag> GetPagamento(ICMSTot icmsTot)
         {
-            var valorPagto = (icmsTot.vProd / 2).Arredondar(2);
+            var valorPagto = Valor.Arredondar(icmsTot.vProd / 2, 2);
             var p = new List<pag>
             {
                 new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},

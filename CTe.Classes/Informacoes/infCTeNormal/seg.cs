@@ -49,8 +49,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal
 
         public decimal? vCarga
         {
-            get { return _vCarga; }
-            set { _vCarga = value; }
+            get { return _vCarga.Arredondar(2); }
+            set { _vCarga = value.Arredondar(2); }
         }
 
         public bool vCargaSpecified { get { return vCarga.HasValue; } }

@@ -45,7 +45,7 @@ namespace NFe.Classes.Informacoes.Transporte
         public decimal vServ
         {
             get { return _vServ; }
-            set { _vServ = value; }
+            set { _vServ = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace NFe.Classes.Informacoes.Transporte
         public decimal vBCRet
         {
             get { return _vBcRet; }
-            set { _vBcRet = value; }
+            set { _vBcRet = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace NFe.Classes.Informacoes.Transporte
         public decimal pICMSRet
         {
             get { return _pIcmsRet; }
-            set { _pIcmsRet = value; }
+            set { _pIcmsRet = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace NFe.Classes.Informacoes.Transporte
         public decimal vICMSRet
         {
             get { return _vIcmsRet; }
-            set { _vIcmsRet = value; }
+            set { _vIcmsRet = value.Arredondar(2); }
         }
 
         /// <summary>

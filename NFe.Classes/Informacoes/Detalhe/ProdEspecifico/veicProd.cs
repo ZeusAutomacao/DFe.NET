@@ -74,7 +74,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         public decimal pesoL
         {
             get { return _pesoL; }
-            set { _pesoL = value; }
+            set { _pesoL = value.Arredondar(3); }
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         public decimal pesoB
         {
             get { return _pesoB; }
-            set { _pesoB = value; }
+            set { _pesoB = value.Arredondar(3); }
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         public decimal CMT
         {
             get { return _cmt; }
-            set { _cmt = value; }
+            set { _cmt = value.Arredondar(4); }
         }
 
         /// <summary>

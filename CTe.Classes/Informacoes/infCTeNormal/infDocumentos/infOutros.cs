@@ -69,8 +69,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
 
         public decimal? vDocFisc
         {
-            get { return _vDocFisc; }
-            set { _vDocFisc = value; }
+            get { return _vDocFisc.Arredondar(2); }
+            set { _vDocFisc = value.Arredondar(2); }
         }
 
         public bool vDocFiscSpecified { get { return vDocFisc.HasValue; } }

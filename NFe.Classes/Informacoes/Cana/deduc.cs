@@ -30,9 +30,6 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
-using DFe.Classes;
-
 namespace NFe.Classes.Informacoes.Cana
 {
     public class deduc
@@ -53,7 +50,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vDed
         {
             get { return _vDed; }
-            set { _vDed = value; }
+            set { _vDed = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -62,7 +59,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vFor
         {
             get { return _vFor; }
-            set { _vFor = value; }
+            set { _vFor = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -71,7 +68,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vTotDed
         {
             get { return _vTotDed; }
-            set { _vTotDed = value; }
+            set { _vTotDed = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -80,7 +77,7 @@ namespace NFe.Classes.Informacoes.Cana
         public decimal vLiqFor
         {
             get { return _vLiqFor; }
-            set { _vLiqFor = value; }
+            set { _vLiqFor = value.Arredondar(2); }
         }
     }
 }

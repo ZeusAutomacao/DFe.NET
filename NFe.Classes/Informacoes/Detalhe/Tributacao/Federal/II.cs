@@ -45,7 +45,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vBC
         {
             get { return _vBc; }
-            set { _vBc = value; }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vDespAdu
         {
             get { return _vDespAdu; }
-            set { _vDespAdu = value; }
+            set { _vDespAdu = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vII
         {
             get { return _vIi; }
-            set { _vIi = value; }
+            set { _vIi = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vIOF
         {
             get { return _vIof; }
-            set { _vIof = value; }
+            set { _vIof = value.Arredondar(2); }
         }
     }
 }

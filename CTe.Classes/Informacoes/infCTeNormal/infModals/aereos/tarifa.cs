@@ -45,8 +45,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals.aereos
 
         public decimal vTar
         {
-            get { return _vTar; }
-            set { _vTar = value; }
+            get { return _vTar.Arredondar(2); }
+            set { _vTar = value.Arredondar(2); }
         }
     }
 }

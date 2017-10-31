@@ -45,14 +45,14 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
 
         public decimal vPrest
         {
-            get { return _vPrest; }
-            set { _vPrest = value; }
+            get { return _vPrest.Arredondar(2); }
+            set { _vPrest = value.Arredondar(2); }
         }
 
         public decimal vAFRMM
         {
-            get { return _vAfrmm; }
-            set { _vAfrmm = value; }
+            get { return _vAfrmm.Arredondar(2); }
+            set { _vAfrmm = value.Arredondar(2); }
         }
 
         public string nBooking { get; set; }

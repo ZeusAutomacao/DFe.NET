@@ -59,8 +59,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vBC
         {
-            get { return _vBc; }
-            set { _vBc = value; }
+            get { return _vBc.Arredondar(2); }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vICMS
         {
-            get { return _vIcms; }
-            set { _vIcms = value; }
+            get { return _vIcms.Arredondar(2); }
+            set { _vIcms = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vICMSDeson
         {
-            get { return _vIcmsDeson; }
-            set { _vIcmsDeson = value; }
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
         } //Nulable por conta da v2.00
 
         public bool ShouldSerializevICMSDeson()
@@ -91,8 +91,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vFCPUFDest
         {
-            get { return _vFcpufDest; }
-            set { _vFcpufDest = value; }
+            get { return _vFcpufDest.Arredondar(2); }
+            set { _vFcpufDest = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevFCPUFDest()
@@ -105,8 +105,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vICMSUFDest
         {
-            get { return _vIcmsufDest; }
-            set { _vIcmsufDest = value; }
+            get { return _vIcmsufDest.Arredondar(2); }
+            set { _vIcmsufDest = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevICMSUFDest()
@@ -119,8 +119,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal? vICMSUFRemet
         {
-            get { return _vIcmsufRemet; }
-            set { _vIcmsufRemet = value; }
+            get { return _vIcmsufRemet.Arredondar(2); }
+            set { _vIcmsufRemet = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevICMSUFRemet()
@@ -133,8 +133,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vBCST
         {
-            get { return _vBcst; }
-            set { _vBcst = value; }
+            get { return _vBcst.Arredondar(2); }
+            set { _vBcst = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -142,8 +142,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vST
         {
-            get { return _vSt; }
-            set { _vSt = value; }
+            get { return _vSt.Arredondar(2); }
+            set { _vSt = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -151,8 +151,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vProd
         {
-            get { return _vProd; }
-            set { _vProd = value; }
+            get { return _vProd.Arredondar(2); }
+            set { _vProd = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vFrete
         {
-            get { return _vFrete; }
-            set { _vFrete = value; }
+            get { return _vFrete.Arredondar(2); }
+            set { _vFrete = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -169,8 +169,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vSeg
         {
-            get { return _vSeg; }
-            set { _vSeg = value; }
+            get { return _vSeg.Arredondar(2); }
+            set { _vSeg = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -178,8 +178,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vDesc
         {
-            get { return _vDesc; }
-            set { _vDesc = value; }
+            get { return _vDesc.Arredondar(2); }
+            set { _vDesc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -187,8 +187,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vII
         {
-            get { return _vIi; }
-            set { _vIi = value; }
+            get { return _vIi.Arredondar(2); }
+            set { _vIi = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -196,8 +196,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vIPI
         {
-            get { return _vIpi; }
-            set { _vIpi = value; }
+            get { return _vIpi.Arredondar(2); }
+            set { _vIpi = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -205,8 +205,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vPIS
         {
-            get { return _vPis; }
-            set { _vPis = value; }
+            get { return _vPis.Arredondar(2); }
+            set { _vPis = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -214,8 +214,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vCOFINS
         {
-            get { return _vCofins; }
-            set { _vCofins = value; }
+            get { return _vCofins.Arredondar(2); }
+            set { _vCofins = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vOutro
         {
-            get { return _vOutro; }
-            set { _vOutro = value; }
+            get { return _vOutro.Arredondar(2); }
+            set { _vOutro = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -232,8 +232,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vNF
         {
-            get { return _vNf; }
-            set { _vNf = value; }
+            get { return _vNf.Arredondar(2); }
+            set { _vNf = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -241,8 +241,8 @@ namespace NFe.Classes.Informacoes.Total
         /// </summary>
         public decimal vTotTrib
         {
-            get { return _vTotTrib; }
-            set { _vTotTrib = value; }
+            get { return _vTotTrib.Arredondar(2); }
+            set { _vTotTrib = value.Arredondar(2); }
         }
 
     }

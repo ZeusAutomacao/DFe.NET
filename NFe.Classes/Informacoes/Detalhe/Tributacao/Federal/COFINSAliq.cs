@@ -51,7 +51,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vBC
         {
             get { return _vBc; }
-            set { _vBc = value; }
+            set { _vBc = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal pCOFINS
         {
             get { return _pCofins; }
-            set { _pCofins = value; }
+            set { _pCofins = value.Arredondar(4); }
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         public decimal vCOFINS
         {
             get { return _vCofins; }
-            set { _vCofins = value; }
+            set { _vCofins = value.Arredondar(2); }
         }
     }
 }
