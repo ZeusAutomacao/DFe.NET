@@ -46,8 +46,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         [XmlElement(Order = 1)]
         public decimal? vCarga
         {
-            get { return _vCarga; }
-            set { _vCarga = value; }
+            get { return _vCarga.Arredondar(2); }
+            set { _vCarga = value.Arredondar(2); }
         }
 
         [XmlElement(Order = 2)]
@@ -65,8 +65,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal
         [XmlElement(Order = 5)]
         public decimal? vCargaAverb
         {
-            get { return _vCargaAverb; }
-            set { _vCargaAverb = value; }
+            get { return _vCargaAverb.Arredondar(2); }
+            set { _vCargaAverb = value.Arredondar(2); }
         }
 
         [XmlElement(Order = 6)]

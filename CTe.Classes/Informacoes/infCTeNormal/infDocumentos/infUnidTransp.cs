@@ -53,8 +53,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
 
         public decimal? qtdRat
         {
-            get { return _qtdRat; }
-            set { _qtdRat = value; }
+            get { return _qtdRat.Arredondar(3); }
+            set { _qtdRat = value.Arredondar(3); }
         }
 
         public bool qtdRatSpecified { get { return qtdRat.HasValue; } }

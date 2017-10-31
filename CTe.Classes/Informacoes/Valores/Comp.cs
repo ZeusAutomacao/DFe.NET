@@ -42,8 +42,8 @@ namespace CTe.Classes.Informacoes.Valores
 
         public decimal vComp
         {
-            get { return _vComp; }
-            set { _vComp = value; }
+            get { return _vComp.Arredondar(2); }
+            set { _vComp = value.Arredondar(2); }
         }
     }
 }

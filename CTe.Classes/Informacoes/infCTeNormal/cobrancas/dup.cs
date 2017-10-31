@@ -58,8 +58,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.cobrancas
 
         public decimal? vDup
         {
-            get { return _vDup; }
-            set { _vDup = value; }
+            get { return _vDup.Arredondar(2); }
+            set { _vDup = value.Arredondar(2); }
         }
 
         public bool vDupSpecified { get { return vDup.HasValue; } }
