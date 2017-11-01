@@ -73,7 +73,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             try
             {
                 var property = instance.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
-                return (OrigemMercadoria?)property?.GetValue(instance, null) ?? OrigemMercadoria.OmNacional;
+                return (OrigemMercadoria) (property != null ? (OrigemMercadoria?) property.GetValue(instance, null) : OrigemMercadoria.OmNacional);
             }
             catch (Exception)
             {
@@ -86,7 +86,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             try
             {
                 var property = instance.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
-                return (Csticms?)property?.GetValue(instance, null) ?? Csticms.Cst90;
+                return (Csticms) (property != null ? (Csticms?) property.GetValue(instance, null) : Csticms.Cst90);
             }
             catch (Exception)
             {
@@ -99,7 +99,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             try
             {
                 var property = instance.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
-                return (Csosnicms?)property?.GetValue(instance, null) ?? Csosnicms.Csosn900;
+                return (Csosnicms) (property != null ? (Csosnicms?) property.GetValue(instance, null) : Csosnicms.Csosn900);
             }
             catch (Exception)
             {
