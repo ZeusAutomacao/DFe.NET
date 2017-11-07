@@ -962,7 +962,7 @@ namespace NFe.AppTeste
 
             var ide = new ide
             {
-                cUF = estado.SiglaParaEstado(_configuracoes.Emitente.enderEmit.UF),
+                cUF = estado.SiglaParaEstado(_configuracoes.EnderecoEmitente.UF),
                 natOp = "VENDA",
                 indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
@@ -1144,13 +1144,13 @@ namespace NFe.AppTeste
                 CFOP = 5102,
                 uCom = "UNID",
                 qCom = 1,
-                vUnCom = 1,
-                vProd = 1,
+                vUnCom = 1.1m,
+                vProd = 1.1m,
                 vDesc = 0.10m,
                 cEANTrib = "7770000000012",
                 uTrib = "UNID",
                 qTrib = 1,
-                vUnTrib = 1,
+                vUnTrib = 1.1m,
                 indTot = IndicadorTotal.ValorDoItemCompoeTotalNF,
                 //NVE = {"AA0001", "AB0002", "AC0002"},
                 //CEST = ?
@@ -1173,9 +1173,9 @@ namespace NFe.AppTeste
                 orig = OrigemMercadoria.OmNacional,
                 CST = Csticms.Cst20,
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
-                vBC = 1,
-                pICMS = 17,
-                vICMS = 0.17m,
+                vBC = 1.1m,
+                pICMS = 18,
+                vICMS = 0.20m,
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             if (versao == VersaoServico.ve310)
@@ -1189,9 +1189,9 @@ namespace NFe.AppTeste
                         CST = Csticms.Cst00,
                         modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                         orig = OrigemMercadoria.OmNacional,
-                        pICMS = 17,
-                        vBC = 1,
-                        vICMS = 0.17m
+                        pICMS = 18,
+                        vBC = 1.1m,
+                        vICMS = 0.20m
                     };
                 case Csticms.Cst20:
                     return icms20;
@@ -1209,9 +1209,9 @@ namespace NFe.AppTeste
                 orig = OrigemMercadoria.OmNacional,
                 CST = Csticms.Cst20,
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
-                vBC = 1,
-                pICMS = 17,
-                vICMS = 0.17m,
+                vBC = 1.1m,
+                pICMS = 18,
+                vICMS = 0.20m,
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             return icmsGeral.ObterICMSBasico(crt);
@@ -1271,8 +1271,6 @@ namespace NFe.AppTeste
             var t = new total {ICMSTot = icmsTot};
             return t;
         }
-
-
 
         protected virtual transp GetTransporte()
         {
@@ -1409,7 +1407,21 @@ namespace NFe.AppTeste
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+            if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1ByteArray)
+            {
+                var caminhoArquivo = Funcoes.BuscarArquivoCertificado();
+                if (!string.IsNullOrWhiteSpace(caminhoArquivo))
+                {
+                    _configuracoes.CfgServico.Certificado.ArrayBytesArquivo = File.ReadAllBytes(caminhoArquivo);
+                    _configuracoes.CfgServico.Certificado.Arquivo = null;
+                }
+                TxtArquivoCertificado.Text = caminhoArquivo;
+            }
+            else if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1Arquivo)
+            {
+                _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
+                TxtArquivoCertificado.Text = _configuracoes.CfgServico.Certificado.Arquivo;
+            }
         }
 
         private void BtnAdminCsc_Click(object sender, RoutedEventArgs e)

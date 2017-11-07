@@ -70,7 +70,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public string cEAN
         {
-            get { return _cEan; }
+            get { return _cEan ?? string.Empty; } //Sempre serializar o campo cEAN, mesmo que não tenha valor 
             set { _cEan = value ?? string.Empty; }
         }
 
@@ -144,7 +144,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public string cEANTrib
         {
-            get { return _cEanTrib; }
+            get { return _cEanTrib ?? string.Empty; } //Sempre serializar o campo cEANTrib, mesmo que não tenha valor 
             set { _cEanTrib = value ?? string.Empty; }
         }
 

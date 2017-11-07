@@ -74,11 +74,13 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
         [XmlElement(ElementName = "valePed")]
         public List<valePed> valePed { get; set; }
 
+        [XmlElement(ElementName = "veic")]
         public List<veic> veic { get; set; }
 
         [XmlElement(ElementName = "lacRodo")]
         public List<lacRodo> lacRodo { get; set; }
 
+        [XmlElement(ElementName = "moto")]
         public List<moto> moto { get; set; }
 
         public bool ShouldSerializeveic()
