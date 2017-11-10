@@ -1,5 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
-[![Issues](https://img.shields.io/github/issues/adeniltonbs/Zeus.Net.NFe.NFCe.svg?style=flat-square)](https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues)
+[![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
 
   
 [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
@@ -12,7 +12,7 @@
  Zeus.CTe  
 
 
-Zeus.Net.NFe.NFCe
+DFe.NET
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
