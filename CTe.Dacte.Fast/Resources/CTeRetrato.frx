@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="11/11/2017 08:41:17" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="11/11/2017 17:36:24" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -162,7 +162,7 @@ namespace FastReport
           Text121.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xLgr], [cteProc.CTe.infCte.receb.enderReceb.nro] [cteProc.CTe.infCte.receb.enderReceb.xCpl]&quot;;
           Text123.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xPais] - [cteProc.CTe.infCte.receb.enderReceb.cPais]&quot;;
           Text126.Text = FormatarCampo(cnpjRecebedor,'d');
-          Text127.Text = &quot;[cteProc.CTe.infCte0.receb.IE]&quot;;
+          Text127.Text = &quot;[cteProc.CTe.infCte.receb.IE]&quot;;
           Text128.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.receb.fone],'f')]&quot;; 
           break;
         case 3: //Destinatário
@@ -712,9 +712,10 @@ namespace FastReport
           <Column Name="imp" DataType="CTe.Classes.Informacoes.Impostos.imp, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
             <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-                <Column Name="CST" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]"/>
-                <Column Name="CSTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <Column Name="indSN" DataType="CTe.Classes.Informacoes.Tipos.indSN, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="pICMS" DataType="System.Decimal"/>
+                <Column Name="vICMS" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
