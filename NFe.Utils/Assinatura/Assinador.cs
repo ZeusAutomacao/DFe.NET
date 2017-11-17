@@ -48,7 +48,7 @@ namespace NFe.Utils.Assinatura
         /// <typeparam name="T"></typeparam>
         /// <param name="objeto"></param>
         /// <param name="id"></param>
-        /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
+        /// <param name="cfgServico">Configuração do serviço</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
         public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico cfgServico = null) where T : class
         {
@@ -77,8 +77,9 @@ namespace NFe.Utils.Assinatura
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
                 documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
-                var reference = new Reference { Uri = "#" + id };
+                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.GetRSAPrivateKey() };
+                docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA1Url;
+                var reference = new Reference { Uri = "#" + id, DigestMethod = SignedXml.XmlDsigSHA1Url};
 
                 // adicionando EnvelopedSignatureTransform a referencia
                 var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
@@ -105,7 +106,7 @@ namespace NFe.Utils.Assinatura
             {
                 //Se não mantém os dados do certificado em cache e o certificado não foi passado por parâmetro(isto é, ele foi criado dentro deste método), 
                 //então libera o certificado, chamando o método reset.
-                if (!manterDadosEmCache & certificadoDigital == null)
+                if (!manterDadosEmCache)
                     certificadoDigital.Reset();
             }
 
