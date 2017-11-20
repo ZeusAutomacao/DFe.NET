@@ -77,7 +77,7 @@ namespace NFe.Utils.Assinatura
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
                 documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.GetRSAPrivateKey() };
+                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
                 docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA1Url;
                 var reference = new Reference { Uri = "#" + id, DigestMethod = SignedXml.XmlDsigSHA1Url};
 
@@ -104,9 +104,8 @@ namespace NFe.Utils.Assinatura
             }
             finally
             {
-                //Se não mantém os dados do certificado em cache e o certificado não foi passado por parâmetro(isto é, ele foi criado dentro deste método), 
-                //então libera o certificado, chamando o método reset.
-                if (!manterDadosEmCache & certificadoDigital == null)
+                //Se não mantém os dados do certificado então libera o certificado, chamando o método reset.
+                if (!manterDadosEmCache & certificadoDigital != null)
                     certificadoDigital.Reset();
             }
 
