@@ -220,10 +220,10 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
-                danfe.Visualizar();
+                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE", @"C:\Program Files (x86)\Begin ERP\Arquivos\Frx\NFePaisagem.frx");
+                //danfe.Visualizar();
                 //danfe.Imprimir();
-                //danfe.ExibirDesign();
+                danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion

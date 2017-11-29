@@ -54,7 +54,7 @@ namespace DFe.Utils.Assinatura
         /// <returns></returns>
         private static X509Store ObterX509Store(OpenFlags openFlags)
         {
-            var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(openFlags);
             return store;
         }
