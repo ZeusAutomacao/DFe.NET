@@ -95,7 +95,7 @@ namespace NFe.Servicos
 
             var versaoDoisETres = new List<VersaoServico> {VersaoServico.ve200, VersaoServico.ve310};
 
-            var svanEstados = new List<Estado> {Estado.MA, Estado.PA, Estado.PI};
+            var svanEstados = new List<Estado> {Estado.MA, Estado.PA};
 
             var svrsEstadosConsultaCadastro = new List<Estado> {Estado.AC, Estado.RN, Estado.PB, Estado.SC};
 
@@ -111,7 +111,7 @@ namespace NFe.Servicos
                 Estado.PA, //Somente NFCe. PA usa o SVAN para NFe. Rev: 09/09/2015
                 Estado.PB,
                 Estado.PE, //Somente NFCe. PE tem endereços próprios para NFe. Rev: 01/12/2017
-                Estado.PI, //Somente NFCe. PI usa o SVAN para NFe. Rev: 09/09/2015
+                Estado.PI,
                 Estado.RJ,
                 Estado.RN,
                 Estado.RO,
@@ -690,7 +690,7 @@ namespace NFe.Servicos
 
             #region PI
 
-            //PI usa SVAN para NFe e SRVS para NFCe. Rev: 09/09/2015
+            //PI usa SRVS para NFe e para NFCe. Rev: 01/12/2017
 
             #endregion
 
@@ -1022,7 +1022,7 @@ namespace NFe.Servicos
                 {
                     #region NFe
                     
-                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PI & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
+                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
                     {
                         if (emissao != TipoEmissao.teEPEC)
                             endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx")));
@@ -1070,7 +1070,7 @@ namespace NFe.Servicos
                     #region NFe
 
                     //Rev: 09/09/2015
-                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PI)
+                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA)
                     {
                         if (emissao != TipoEmissao.teEPEC)
                             endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx")));
