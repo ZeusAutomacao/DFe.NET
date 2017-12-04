@@ -68,7 +68,6 @@ namespace NFe.Servicos
         public string Url { get; private set; }
     }
 
-
     public static class Enderecador
     {
         private static readonly List<EnderecoServico> ListaEnderecos;
@@ -132,25 +131,25 @@ namespace NFe.Servicos
 
             var eventoCceCanc = new List<ServicoNFe> { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento };
 
-            #endregion
+            #endregion Listas
 
             #region AC
 
             //AC usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion AC
 
             #region AL
 
             //AL usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion AL
 
             #region AP
 
             //AL usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion AP
 
             #region AM
 
@@ -178,7 +177,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -191,10 +190,10 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe, "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeRetRecepcao2"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFCe, "https://homnfce.sefaz.am.gov.br/nfce-services-nac/services/NfeInutilizacao2"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -215,7 +214,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe, "https://nfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFe, "https://nfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -228,12 +227,12 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe, "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeRetRecepcao2"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.AM, ModeloDocumento.NFCe, "https://nfce.sefaz.am.gov.br/nfce-services/services/NfeInutilizacao2"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion AM
 
             #region BA
 
@@ -261,11 +260,12 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.BA, ModeloDocumento.NFe, "https://hnfe.sefaz.ba.gov.br/webservices/NfeStatusServico/NfeStatusServico.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.BA, ModeloDocumento.NFe, "https://hnfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.BA, ModeloDocumento.NFe, "https://hnfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.BA, ModeloDocumento.NFe, "https://hnfe.sefaz.ba.gov.br/webservices/sre/recepcaoevento.asmx"));
 
-                #endregion
+                #endregion NFe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -291,12 +291,12 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.BA, ModeloDocumento.NFe, "https://nfe.sefaz.ba.gov.br/webservices/NfeAutorizacao/NfeAutorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.BA, ModeloDocumento.NFe, "https://nfe.sefaz.ba.gov.br/webservices/NfeRetAutorizacao/NfeRetAutorizacao.asmx"));
 
-                #endregion
+                #endregion NFe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion BA
 
             #region CE
 
@@ -319,7 +319,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.CE, ModeloDocumento.NFe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -338,15 +338,15 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.CE, ModeloDocumento.NFe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl"));
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion CE
 
             #region DF
 
             //DF usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion DF
 
             #region ES
 
@@ -363,7 +363,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion ES
 
             #region GO
 
@@ -392,7 +392,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -416,9 +416,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion GO
 
             #region MA
 
@@ -435,7 +435,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion MA
 
             #region MG
 
@@ -458,7 +458,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -476,9 +476,9 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion MG
 
             #region MS
 
@@ -502,7 +502,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MS, ModeloDocumento.NFe, "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetAutorizacao"));
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -520,9 +520,9 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao"));
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion MS
 
             #region MT
 
@@ -547,7 +547,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -558,10 +558,10 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://homologacao.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -596,7 +596,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -607,24 +607,24 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeStatusServico2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MT, ModeloDocumento.NFCe, "https://nfce.sefaz.mt.gov.br/nfcews/services/NfeConsulta2?wsdl"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion MT
 
             #region PA
 
             //PA usa SVAN para NFe e SRVS para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion PA
 
             #region PB
 
             //PA usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion PB
 
             #region PE
 
@@ -647,7 +647,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -665,15 +665,15 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion PE
 
             #region PI
 
             //PI usa SVAN para NFe e SRVS para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion PI
 
             #region PR
 
@@ -705,7 +705,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -716,10 +716,10 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe, "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeStatusServico3"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.PR, ModeloDocumento.NFCe, "https://homologacao.nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -744,7 +744,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeAutorizacao3?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFe, "https://nfe.fazenda.pr.gov.br/nfe/NFeRetAutorizacao3?wsdl"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -755,30 +755,30 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe, "https://nfce.fazenda.pr.gov.br/nfce/NFeStatusServico3"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.PR, ModeloDocumento.NFCe, "https://nfce.fazenda.pr.gov.br/nfce/NFeRecepcaoEvento"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion PR
 
             #region RJ
 
             //RJ usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion RJ
 
             #region RN
 
             //RN usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion RN
 
             #region RO
 
             //RO usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion RO
 
             #region RS
 
@@ -799,7 +799,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -810,10 +810,10 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -830,7 +830,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe, "https://nfe.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFe, "https://nfe.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -841,30 +841,30 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.RS, ModeloDocumento.NFCe, "https://nfce.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion RS
 
             #region RR
 
             //RR usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion RR
 
             #region SC
 
             //SC usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion SC
 
             #region SE
 
             //SE usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion SE
 
             #region SP
 
@@ -875,6 +875,7 @@ namespace NFe.Servicos
             foreach (var emissao in emissaoComum)
             {
                 #region NFe
+
                 if (emissao != TipoEmissao.teEPEC)
                     endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/recepcaoevento.asmx")));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/cadconsultacadastro2.asmx"));
@@ -884,7 +885,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -899,10 +900,10 @@ namespace NFe.Servicos
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoEpec, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe, "https://homologacao.nfce.epec.fazenda.sp.gov.br/EPECws/RecepcaoEPEC.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFCe, "https://homologacao.nfce.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -919,7 +920,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
 
-                #endregion
+                #endregion NFe
 
                 #region NFCe
 
@@ -934,18 +935,18 @@ namespace NFe.Servicos
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoEpec, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe, "https://nfce.epec.fazenda.sp.gov.br/EPECws/RecepcaoEPEC.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFCe, "https://nfce.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
 
-                #endregion
+                #endregion NFCe
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion SP
 
             #region TO
 
             //TO usa SRVS para NFe e para NFCe. Rev: 09/09/2015
 
-            #endregion
+            #endregion TO
 
             #region SVAN
 
@@ -968,7 +969,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -987,9 +988,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion SVAN
 
             #region SVRS
 
@@ -1014,7 +1015,7 @@ namespace NFe.Servicos
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
                     }
 
-                    #endregion
+                    #endregion NFe
 
                     #region NFCe
 
@@ -1025,7 +1026,7 @@ namespace NFe.Servicos
                     endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe, "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFCe, "https://nfce-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
-                    #endregion
+                    #endregion NFCe
                 }
             }
 
@@ -1040,7 +1041,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -1062,7 +1063,7 @@ namespace NFe.Servicos
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
                     }
 
-                    #endregion
+                    #endregion NFe
 
                     #region NFCe
 
@@ -1073,7 +1074,7 @@ namespace NFe.Servicos
                     endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe, "https://nfce.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFCe, "https://nfce.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx"));
 
-                    #endregion
+                    #endregion NFCe
                 }
             }
 
@@ -1089,9 +1090,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion SVRS
 
             #region SVC-AN
 
@@ -1112,7 +1113,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -1129,9 +1130,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion SVC-AN
 
             #region SVC-RS
 
@@ -1153,7 +1154,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -1171,9 +1172,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion SVC-RS
 
             #region Ambiente Nacional - (AN)
 
@@ -1201,7 +1202,7 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Homologação
 
             #region Produção
 
@@ -1224,9 +1225,9 @@ namespace NFe.Servicos
                 }
             }
 
-            #endregion
+            #endregion Produção
 
-            #endregion
+            #endregion Ambiente Nacional - (AN)
 
             return endServico;
         }
@@ -1245,32 +1246,46 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     return cfgServico.VersaoRecepcaoEventoCceCancelamento;
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
+
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return cfgServico.VersaoRecepcaoEventoManifestacaoDestinatario;
+
                 case ServicoNFe.NfeRecepcao:
                     return cfgServico.VersaoNfeRecepcao;
+
                 case ServicoNFe.NfeRetRecepcao:
                     return cfgServico.VersaoNfeRetRecepcao;
+
                 case ServicoNFe.NfeConsultaCadastro:
                     return cfgServico.VersaoNfeConsultaCadastro;
+
                 case ServicoNFe.NfeInutilizacao:
                     return cfgServico.VersaoNfeInutilizacao;
+
                 case ServicoNFe.NfeConsultaProtocolo:
                     return cfgServico.VersaoNfeConsultaProtocolo;
+
                 case ServicoNFe.NfeStatusServico:
                     return cfgServico.VersaoNfeStatusServico;
+
                 case ServicoNFe.NFeAutorizacao:
                     return cfgServico.VersaoNFeAutorizacao;
+
                 case ServicoNFe.NFeRetAutorizacao:
                     return cfgServico.VersaoNFeRetAutorizacao;
+
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return cfgServico.VersaoNFeDistribuicaoDFe;
+
                 case ServicoNFe.NfeConsultaDest:
                     return cfgServico.VersaoNfeConsultaDest;
+
                 case ServicoNFe.NfeDownloadNF:
                     return cfgServico.VersaoNfeDownloadNF;
+
                 case ServicoNFe.NfceAdministracaoCSC:
                     return cfgServico.VersaoNfceAministracaoCSC;
             }
