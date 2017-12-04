@@ -111,6 +111,7 @@
     <Compile Include="Status\NfeStatusServico3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Status\NfeStatusServico4.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
