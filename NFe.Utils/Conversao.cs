@@ -48,6 +48,7 @@ namespace NFe.Utils
             {
                 case VersaoServico.ve100:
                     return "1.00";
+
                 case VersaoServico.ve200:
                     switch (servicoNFe)
                     {
@@ -55,8 +56,12 @@ namespace NFe.Utils
                             return "2.01";
                     }
                     return "2.00";
+
                 case VersaoServico.ve310:
                     return "3.10";
+
+                case VersaoServico.ve400:
+                    return "4.00";
             }
             return "";
         }
@@ -67,8 +72,10 @@ namespace NFe.Utils
             {
                 case TipoAmbiente.taHomologacao:
                     return "Homologação";
+
                 case TipoAmbiente.taProducao:
                     return "Produção";
+
                 default:
                     throw new ArgumentOutOfRangeException("tpAmb", tpAmb, null);
             }
@@ -80,8 +87,10 @@ namespace NFe.Utils
             {
                 case VersaoServico.ve100:
                     return "1.00";
+
                 case VersaoServico.ve200:
                     return "2.00";
+
                 case VersaoServico.ve310:
                     return "3.10";
             }
@@ -90,7 +99,7 @@ namespace NFe.Utils
 
         public static string TipoEmissaoParaString(this TipoEmissao tipoEmissao)
         {
-            var s = Enum.GetName(typeof (TipoEmissao), tipoEmissao);
+            var s = Enum.GetName(typeof(TipoEmissao), tipoEmissao);
             return s != null ? s.Substring(2) : "";
         }
 
@@ -100,10 +109,13 @@ namespace NFe.Utils
             {
                 case CRT.SimplesNacional:
                     return "Simples Nacional";
+
                 case CRT.SimplesNacionalExcessoSublimite:
                     return "Simples Nacional - sublimite excedido";
+
                 case CRT.RegimeNormal:
                     return "Normal";
+
                 default:
                     throw new ArgumentOutOfRangeException("crt", crt, null);
             }
@@ -115,8 +127,10 @@ namespace NFe.Utils
             {
                 case ModeloDocumento.NFe:
                     return "NF-e";
+
                 case ModeloDocumento.NFCe:
                     return "NFC-e";
+
                 case ModeloDocumento.MDFe:
                     return "MDF-e";
             }
@@ -129,29 +143,40 @@ namespace NFe.Utils
             {
                 case Csticms.Cst00:
                     return "00";
+
                 case Csticms.Cst10:
                 case Csticms.CstPart10:
                     return "10";
+
                 case Csticms.Cst20:
                     return "20";
+
                 case Csticms.Cst30:
                     return "30";
+
                 case Csticms.Cst40:
                     return "40";
+
                 case Csticms.Cst41:
                 case Csticms.CstRep41:
                     return "41";
+
                 case Csticms.Cst50:
                     return "50";
+
                 case Csticms.Cst51:
                     return "51";
+
                 case Csticms.Cst60:
                     return "60";
+
                 case Csticms.Cst70:
                     return "70";
+
                 case Csticms.Cst90:
                 case Csticms.CstPart90:
                     return "90";
+
                 default:
                     throw new ArgumentOutOfRangeException("csticms", csticms, null);
             }
@@ -159,7 +184,7 @@ namespace NFe.Utils
 
         public static string CsosnicmsParaString(this Csosnicms csosnicms)
         {
-            return ((int) csosnicms).ToString();
+            return ((int)csosnicms).ToString();
         }
 
         public static string OrigemMercadoriaParaString(this OrigemMercadoria origemMercadoria)
