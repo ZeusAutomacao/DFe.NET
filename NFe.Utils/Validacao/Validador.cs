@@ -47,47 +47,64 @@ namespace NFe.Utils.Validacao
             {
                 case ServicoNFe.NfeRecepcao:
                     return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
+
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     return "envEventoCancNFe_v1.00.xsd";
+
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                     return "envCCe_v1.00.xsd";
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     return "envEPEC_v1.00.xsd";
+
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return "envConfRecebto_v1.00.xsd";
+
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {
                         case VersaoServico.ve200:
                             return "inutNFe_v2.00.xsd";
+
                         case VersaoServico.ve310:
                             return "inutNFe_v3.10.xsd";
                     }
                     break;
+
                 case ServicoNFe.NfeConsultaProtocolo:
                     switch (versaoServico)
                     {
                         case VersaoServico.ve200:
                             return "consSitNFe_v2.01.xsd";
+
                         case VersaoServico.ve310:
                             return "consSitNFe_v3.10.xsd";
                     }
                     break;
+
                 case ServicoNFe.NfeStatusServico:
                     switch (versaoServico)
                     {
                         case VersaoServico.ve200:
                             return "consStatServ_v2.00.xsd";
+
                         case VersaoServico.ve310:
                             return "consStatServ_v3.10.xsd";
+
+                        case VersaoServico.ve400:
+                            return "consStatServ_v4.00.xsd";
                     }
                     break;
+
                 case ServicoNFe.NFeAutorizacao:
                     return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+
                 case ServicoNFe.NfeConsultaCadastro:
                     return "consCad_v2.00.xsd";
+
                 case ServicoNFe.NfeDownloadNF:
                     return "downloadNFe_v1.00.xsd";
+
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return "distDFeInt_v1.00.xsd";
             }
@@ -104,13 +121,13 @@ namespace NFe.Utils.Validacao
             var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
 
             // Define o tipo de validação
-            var cfg = new XmlReaderSettings {ValidationType = ValidationType.Schema};
+            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
-            // e a localização do arquivo 
+            // e a localização do arquivo
             schemas.Add(null, arquivoSchema);
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += ValidationEventHandler;
