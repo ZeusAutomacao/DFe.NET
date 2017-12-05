@@ -78,6 +78,26 @@ namespace DFe.Utils.Assinatura
             return certificado;
         }
 
+
+        /// <summary>
+        /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
+        /// </summary>
+        /// <param name="arquivo">Arquivo do certificado digital</param>
+        /// <param name="senha">Senha do certificado digital</param>
+        /// <returns></returns>
+        private static X509Certificate2 ObterDoArrayBytes(byte[] arrayBytes, string senha)
+        {
+            try
+            {
+                var certificado = new X509Certificate2(arrayBytes, senha, X509KeyStorageFlags.MachineKeySet);
+                return certificado;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Não foi possivel converter o stream para o certificado.", ex);
+            }
+        }
+
         /// <summary>
         /// Obtém um objeto <see cref="X509Certificate2"/> pelo serial passado no parÂmetro
         /// </summary>
@@ -149,7 +169,7 @@ namespace DFe.Utils.Assinatura
         }
 
         /// <summary>
-        /// Se a propriedade <see cref="ConfiguracaoCertificado.Arquivo"/> for informada, Obtém o certificado do arquivo, senão obtém o certificado do repositório
+        /// Busca o certificado de acordo com o <see cref="ConfiguracaoCertificado.TipoCertificado"/>
         /// </summary>
         /// <returns></returns>
         private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
@@ -158,6 +178,8 @@ namespace DFe.Utils.Assinatura
             {
                 case TipoCertificado.A1Repositorio:
                     return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed);
+                case TipoCertificado.A1ByteArray:
+                    return ObterDoArrayBytes(configuracaoCertificado.ArrayBytesArquivo, configuracaoCertificado.Senha);
                 case TipoCertificado.A1Arquivo:
                     return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha);
                 case TipoCertificado.A3:
@@ -189,7 +211,7 @@ namespace DFe.Utils.Assinatura
             store.Close();
             return scollection[0];
         }
-        
+
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
         /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 

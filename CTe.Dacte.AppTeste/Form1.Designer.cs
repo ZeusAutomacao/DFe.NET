@@ -45,13 +45,14 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
+            this.chbQuebrarLinhaObservacao = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLogotipo)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(416, 126);
+            this.button5.Location = new System.Drawing.Point(416, 143);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(83, 28);
             this.button5.TabIndex = 21;
@@ -61,7 +62,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(324, 126);
+            this.button4.Location = new System.Drawing.Point(324, 143);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(83, 28);
             this.button4.TabIndex = 20;
@@ -134,7 +135,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(227, 126);
+            this.button1.Location = new System.Drawing.Point(227, 143);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 28);
             this.button1.TabIndex = 11;
@@ -174,7 +175,7 @@
             this.groupBox1.Controls.Add(this.button8);
             this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(225, 161);
+            this.groupBox1.Location = new System.Drawing.Point(225, 178);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(293, 54);
             this.groupBox1.TabIndex = 25;
@@ -214,11 +215,22 @@
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
+            // chbQuebrarLinhaObservacao
+            // 
+            this.chbQuebrarLinhaObservacao.AutoSize = true;
+            this.chbQuebrarLinhaObservacao.Location = new System.Drawing.Point(228, 120);
+            this.chbQuebrarLinhaObservacao.Name = "chbQuebrarLinhaObservacao";
+            this.chbQuebrarLinhaObservacao.Size = new System.Drawing.Size(163, 17);
+            this.chbQuebrarLinhaObservacao.TabIndex = 26;
+            this.chbQuebrarLinhaObservacao.Text = "Quebrar linha na observação";
+            this.chbQuebrarLinhaObservacao.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 223);
+            this.ClientSize = new System.Drawing.Size(534, 241);
+            this.Controls.Add(this.chbQuebrarLinhaObservacao);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.txtArquivo);
@@ -261,6 +273,7 @@
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.CheckBox chbQuebrarLinhaObservacao;
     }
 }
 

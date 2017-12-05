@@ -205,25 +205,54 @@ namespace NFe.Danfe.AppTeste
             {
                 #region Carrega um XML com nfeProc para a variável
 
-                 var arquivoXml = Funcoes.BuscarArquivoXml();
-                 if (string.IsNullOrEmpty(arquivoXml))
-                     return;
-                 var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
-                 if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
-                     throw new Exception("O XML informado não é um NFe!");
-                
-                 /*
-                 //Carregar atravez de um stream....                   
-                 var stream = new StreamReader(arquivoXml, Encoding.GetEncoding("ISO-8859-1"));
-                 var proc = new nfeProc().CarregardeStream(stream);               
-                 */
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+
+                nfeProc proc = null;
+
+                try
+                {
+                    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                }
+                catch //Carregar NFe ainda não transmitida à sefaz, como uma pré-visualização.
+                {
+                    proc = new nfeProc() { NFe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml), protNFe = new Classes.Protocolo.protNFe() };
+                }
+
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
+                    throw new Exception("O XML informado não é um NFe!");
+
+                /*
+                //Carregar atravez de um stream....                   
+                var stream = new StreamReader(arquivoXml, Encoding.GetEncoding("ISO-8859-1"));
+                var proc = new nfeProc().CarregardeStream(stream);               
+                */
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrNfe(proc, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE", @"C:\Program Files (x86)\Begin ERP\Arquivos\Frx\NFePaisagem.frx");
-                //danfe.Visualizar();
+                var danfe = new DanfeFrNfe(proc: proc,
+                                    configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
+                                    {
+                                        Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
+                                        DuasLinhas = rdbDuasLinhas.IsChecked ?? false,
+                                        DocumentoCancelado = chbCancelado.IsChecked ?? false,
+                                        QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.IsChecked ?? false,
+                                        ExibirResumoCanhoto = true,
+                                        ResumoCanhoto = string.Empty,
+                                        ChaveContingencia = string.Empty,
+                                        ExibeCampoFatura = false,
+                                        ImprimirISSQN = false,
+                                        ImprimirDescPorc = false,
+                                        ImprimirTotalLiquido = false,
+                                        ImprimirUnidQtdeValor = ImprimirUnidQtdeValor.Comercial
+                                    },
+                                    desenvolvedor: "NOME DA SOFTWARE HOUSE",
+                                    arquivoRelatorio: string.Empty);
+
+                danfe.Visualizar();
                 //danfe.Imprimir();
-                danfe.ExibirDesign();
+                //danfe.ExibirDesign();
                 //danfe.ExportarPdf(@"d:\teste.pdf");
 
                 #endregion
