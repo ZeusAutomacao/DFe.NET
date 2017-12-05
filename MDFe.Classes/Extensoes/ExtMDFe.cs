@@ -153,7 +153,7 @@ namespace MDFe.Classes.Extencoes
 
         public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (MDFeConfiguracao.NaoSalvarXml() && nomeArquivo == null) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
                 nomeArquivo = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";

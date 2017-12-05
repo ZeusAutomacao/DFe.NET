@@ -828,7 +828,7 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.Ide.TpEmis = MDFeTipoEmissao.Normal;
             mdfe.InfMDFe.Ide.ProcEmi = MDFeIdentificacaoProcessoEmissao.EmissaoComAplicativoContribuinte;
             mdfe.InfMDFe.Ide.VerProc = "versao28383";
-            mdfe.InfMDFe.Ide.UFIni = Estado.GO;
+            mdfe.InfMDFe.Ide.UFIni = Estado.SP;
             mdfe.InfMDFe.Ide.UFFim = Estado.MT;
 
 
