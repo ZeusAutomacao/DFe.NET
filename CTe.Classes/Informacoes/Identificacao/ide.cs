@@ -91,8 +91,10 @@ namespace CTe.Classes.Informacoes.Identificacao
                 {
                     case versao.ve200:
                         return dhEmi.ParaDataHoraStringSemUtc();
+
                     case versao.ve300:
-                        return dhEmi.ParaDataHoraStringUtc();
+                        return dhEmi.ParaDataHoraStringUtc(cUF);
+
                     default:
                         throw new InvalidOperationException("Versão Inválida para CT-e");
                 }
@@ -165,8 +167,11 @@ namespace CTe.Classes.Informacoes.Identificacao
         public Estado UFIni { get; set; }
 
         [XmlElement(ElementName = "UFIni")]
-        public string ProxyUFIni { get { return UFIni.GetSiglaUfString(); }
-            set { UFIni = UFIni.SiglaParaEstado(value); } }
+        public string ProxyUFIni
+        {
+            get { return UFIni.GetSiglaUfString(); }
+            set { UFIni = UFIni.SiglaParaEstado(value); }
+        }
 
         public long cMunFim { get; set; }
 
@@ -176,10 +181,14 @@ namespace CTe.Classes.Informacoes.Identificacao
         public Estado UFFim { get; set; }
 
         [XmlElement(ElementName = "UFFim")]
-        public string ProxyUFFim { get { return UFFim.GetSiglaUfString(); } set
+        public string ProxyUFFim
         {
-            UFFim = UFFim.SiglaParaEstado(value);
-        } }
+            get { return UFFim.GetSiglaUfString(); }
+            set
+            {
+                UFFim = UFFim.SiglaParaEstado(value);
+            }
+        }
 
         [XmlElement(ElementName = "infPercurso")]
         public List<infPercurso> infPercurso { get; set; }
@@ -205,6 +214,7 @@ namespace CTe.Classes.Informacoes.Identificacao
         [XmlElement("toma03", typeof(toma03))]
         [XmlElement("toma3", typeof(toma3))]
         public tomaBase3 tomaBase3 { get; set; }
+
         public toma4 toma4 { get; set; }
 
         [XmlIgnore]

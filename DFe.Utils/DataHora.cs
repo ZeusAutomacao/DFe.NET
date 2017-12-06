@@ -30,6 +30,9 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using DFe.Classes.Entidades;
+using DFe.Utils.Globalizacao;
 using System;
 
 namespace DFe.Utils
@@ -51,13 +54,23 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime data)
+        public static string ParaDataHoraStringUtc(this DateTime data, Estado? cUf = null)
         {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            if (data == DateTime.MinValue)
+                return null;
+
+            if (!cUf.HasValue)
+                return data.ToString("yyyy-MM-ddTHH:mm:sszzz");
+
+            var fh = new FusoHorario();
+
+            var horario = fh.NoEstado(data, cUf.ToString());
+
+            return new DateTimeOffset(data.Year, data.Month, data.Day, data.Hour, data.Minute, data.Second, TimeSpan.FromHours(horario)).ToString("yyyy-MM-ddTHH:mm:sszzz");
         }
 
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -67,7 +80,7 @@ namespace DFe.Utils
         }
 
         /// <summary>
-        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd 
+        /// Retorna uma string no formato AAAA-MM-DDThh:mm:dd
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -81,9 +94,9 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime? data)
+        public static string ParaDataHoraStringUtc(this DateTime? data, Estado? cUf = null)
         {
-            return ParaDataHoraStringUtc(data.GetValueOrDefault());
+            return ParaDataHoraStringUtc(data.GetValueOrDefault(), cUf);
         }
 
         /// <summary>
