@@ -1099,7 +1099,7 @@ namespace MDFe.AppTeste
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
             var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
-
+            
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
