@@ -61,6 +61,7 @@ using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
 using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador;
 using DFe.DocumentosEletronicos.CTe.Facade;
 using DFe.DocumentosEletronicos.CTe.Facade.Flags;
+using DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.InutilizacaoCTe;
 using DFe.DocumentosEletronicos.CTe.Servicos.Recepcao;
 using DFe.DocumentosEletronicos.Entidades;
@@ -1476,13 +1477,20 @@ namespace CTe.AppTeste
 
             var facade = new CTeFacade(configCTe, certificado);
 
-           
+
+            facade.AntesDeValidarSchemaCteOsHandler += AntesValidarSchema;
+
             var retornoEnvio = facade.Enviar(cteOS);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        private void AntesValidarSchema(object sender, AntesDeValidarSchema e)
+        {
+            Console.Out.WriteLine(e.Cte.InfCte.Id);
         }
     }
 }

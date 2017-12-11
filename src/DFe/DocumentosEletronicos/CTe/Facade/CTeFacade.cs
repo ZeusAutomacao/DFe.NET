@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
@@ -47,6 +48,8 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             _cancelar = new CTeCancelar(DfeConfig, CertificadoDigital);
             _cartaCorrecao = new CTeCartaCorrecao(DfeConfig, CertificadoDigital);
             _inutilizacao = new CTeInutilizacao(DfeConfig, CertificadoDigital);
+
+            Eventos();
         }
 
         public RetornoEnviarCte Enviar(int lote, CteEletronico cte)
@@ -106,5 +109,54 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
         {
             return _inutilizacao.Inutilizacao(configInutiliza);
         }
+
+        #region Eventos
+
+        public event EventHandler<AntesDeEnviarCteOs> AntesDeEnviarCteOsHandler;
+        public event EventHandler<AntesDeValidarSchema> AntesDeValidarSchemaCteOsHandler;
+        public event EventHandler<AntesDeAssinar> AntesDeAssinarCteOsHandler;
+
+        protected virtual void OnAntesDeEnviarCteOsHandler(AntesDeEnviarCteOs e)
+        {
+            AntesDeEnviarCteOsHandler?.Invoke(this, e);
+        }
+
+        private void AntesEnviarCteOs(object sender, AntesDeEnviarCteOs e)
+        {
+            OnAntesDeEnviarCteOsHandler(e);
+        }
+
+        private void AntesValidarSchemas(object sender, AntesDeValidarSchema e)
+        {
+           OnAntesDeValidarSchemaHandler(e);
+        }
+
+
+
+
+        private void Eventos()
+        {
+            _enviarOS.AntesDeEnviarCteOs += AntesEnviarCteOs;
+            _enviarOS.AntesDeValidarSchema += AntesValidarSchemas;
+            _enviarOS.AntesDeAssinar += AntesAssinar;
+        }
+
+
+        protected virtual void OnAntesDeValidarSchemaHandler(AntesDeValidarSchema e)
+        {
+            AntesDeValidarSchemaCteOsHandler?.Invoke(this, e);
+        }
+
+        protected virtual void OnAntesDeAssinarHandler(AntesDeAssinar e)
+        {
+            AntesDeAssinarCteOsHandler?.Invoke(this, e);
+        }
+
+        private void AntesAssinar(object sender, AntesDeAssinar e)
+        {
+            OnAntesDeAssinarHandler(e);    
+        }
+
+        #endregion
     }
 }

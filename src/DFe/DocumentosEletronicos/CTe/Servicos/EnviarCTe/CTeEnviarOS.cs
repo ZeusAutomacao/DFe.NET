@@ -1,4 +1,5 @@
-﻿using DFe.CertificadosDigitais;
+﻿using System;
+using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Tipos;
@@ -14,6 +15,9 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
     {
         private readonly DFeConfig _dfeConfig;
         private readonly CertificadoDigital _certificadoDigital;
+        public event EventHandler<AntesDeEnviarCteOs> AntesDeEnviarCteOs;
+        public event EventHandler<AntesDeValidarSchema> AntesDeValidarSchema;
+        public event EventHandler<AntesDeAssinar> AntesDeAssinar; 
 
         public CTeEnviarOS(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
@@ -27,13 +31,19 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
             cte.InfCte.versao = VersaoServico.Versao300;
             cte.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
 
+            OnAntesDeAssinar(new AntesDeAssinar(cte));
             cte.Assina(_dfeConfig, _certificadoDigital);
+
+            OnAntesDeValidarSchema(new AntesDeValidarSchema(cte));
             cte.ValidaSchema(_dfeConfig);
+
             cte.SalvarXmlEmDisco(_dfeConfig);
 
 
             var webService = WsdlFactory.CriaWsdlCteRecepcaoOs(_dfeConfig, _certificadoDigital);
 
+
+            OnAntesDeEnviarCteOs(new AntesDeEnviarCteOs(cte));
             var retCteOs = webService.Autorizar(cte.CriaRequestWs(_dfeConfig));
 
             retCteOs.LoadXml(cte);
@@ -41,6 +51,21 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EnviarCTe
             retCteOs.SalvarXmlEmDisco(_dfeConfig);
 
             return retCteOs;
+        }
+
+        protected virtual void OnAntesDeEnviarCteOs(AntesDeEnviarCteOs e)
+        {
+            AntesDeEnviarCteOs?.Invoke(this, e);
+        }
+
+        protected virtual void OnAntesDeValidarSchema(AntesDeValidarSchema e)
+        {
+            AntesDeValidarSchema?.Invoke(this, e);
+        }
+
+        protected virtual void OnAntesDeAssinar(AntesDeAssinar e)
+        {
+            AntesDeAssinar?.Invoke(this, e);
         }
     }
 }
