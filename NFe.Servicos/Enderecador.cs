@@ -567,9 +567,12 @@ namespace NFe.Servicos
 
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRecepcao2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetRecepcao2?wsdl"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl"));
+                endServico.AddRange(
+                    versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeInutilizacao,versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl")));
+                endServico.AddRange(
+                    versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl")));
+                endServico.AddRange(
+                    versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeStatusServico, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico2?wsdl")));
                 if (emissao != TipoEmissao.teEPEC)
                     endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl"));
@@ -1070,7 +1073,7 @@ namespace NFe.Servicos
                     #region NFe
 
                     //Rev: 09/09/2015
-                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA)
+                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
                     {
                         if (emissao != TipoEmissao.teEPEC)
                             endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx")));
