@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,9 @@ namespace DFe.DocumentosEletronicos.ManipuladorDeXml
 {
     public static class FuncoesXml
     {
+        // https://github.com/ZeusAutomacao/DFe.NET/issues/610
+        private static readonly Hashtable CacheSerializers = new Hashtable();
+
         /// <summary>
         ///     Serializa a classe passada para uma string no form
         /// </summary>
@@ -51,7 +55,8 @@ namespace DFe.DocumentosEletronicos.ManipuladorDeXml
         public static string ClasseParaXmlString<T>(T objeto)
         {
             XElement xml;
-            var ser = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+            var keyNomeClasseEmUso = typeof(T).Name;
+            var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
 
             using (var memory = new MemoryStream())
             {
@@ -74,7 +79,8 @@ namespace DFe.DocumentosEletronicos.ManipuladorDeXml
         /// <returns></returns>
         public static T XmlStringParaClasse<T>(string input) where T : class
         {
-            var ser = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
+            var keyNomeClasseEmUso = typeof(T).Name;
+            var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
 
             using (var sr = new StringReader(input))
                 return (T) ser.Deserialize(sr);
@@ -94,7 +100,8 @@ namespace DFe.DocumentosEletronicos.ManipuladorDeXml
                 throw new FileNotFoundException("Arquivo " + arquivo + " não encontrado!");
             }
 
-            var serializador = XmlSerializer.FromTypes(new[] { typeof(T) })[0]; 
+            var keyNomeClasseEmUso = typeof(T).Name;
+            var serializador = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
             var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
@@ -211,6 +218,21 @@ namespace DFe.DocumentosEletronicos.ManipuladorDeXml
             if (xmlString == null)
                 throw new Exception(String.Format("Nenhum objeto {0} encontrado no xml!", nomeDoNode));
             return xmlString.ToString();
+        }
+
+        // https://github.com/ZeusAutomacao/DFe.NET/issues/610
+        private static XmlSerializer BuscarNoCache(string chave, Type type)
+        {
+            if (CacheSerializers.Contains(chave))
+            {
+                return (XmlSerializer)CacheSerializers[chave];
+            }
+
+
+            var ser = XmlSerializer.FromTypes(new[] { type })[0];
+            CacheSerializers.Add(chave, ser);
+
+            return ser;
         }
     }
 }
