@@ -43,7 +43,7 @@ using DFe.Utils.Flags;
 
 namespace DFe.Utils.Assinatura
 {
-    public static class CertificadoDigital
+    public static class CertificadoDigitalAntiga
     {
         private static readonly Dictionary<string, X509Certificate2> CacheCertificado = new Dictionary<string, X509Certificate2>();
 
@@ -126,19 +126,19 @@ namespace DFe.Utils.Assinatura
         #endregion
 
         /// <summary>
-        /// Se a propriedade <see cref="ConfiguracaoCertificado.Arquivo"/> for informada, Obtém o certificado do arquivo, senão obtém o certificado do repositório
+        /// Se a propriedade <see cref="ConfiguracaoCertificadoAntiga.Arquivo"/> for informada, Obtém o certificado do arquivo, senão obtém o certificado do repositório
         /// </summary>
         /// <returns></returns>
-        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        private static X509Certificate2 ObterDadosCertificado(ConfiguracaoCertificadoAntiga configuracaoCertificadoAntiga)
         {
-            switch (configuracaoCertificado.TipoCertificado)
+            switch (configuracaoCertificadoAntiga.TipoCertificado)
             {
                 case TipoCertificado.A1Repositorio:
-                    return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed);
+                    return ObterDoRepositorio(configuracaoCertificadoAntiga.Serial, OpenFlags.MaxAllowed);
                 case TipoCertificado.A1Arquivo:
-                    return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha);
+                    return ObterDeArquivo(configuracaoCertificadoAntiga.Arquivo, configuracaoCertificadoAntiga.Senha);
                 case TipoCertificado.A3:
-                    return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha);
+                    return ObterDoRepositorioPassandoPin(configuracaoCertificadoAntiga.Serial, configuracaoCertificadoAntiga.Senha);
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -169,26 +169,26 @@ namespace DFe.Utils.Assinatura
         
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
-        /// <para>Se for informado <see cref="ConfiguracaoCertificado.Arquivo"/>, 
+        /// <para>Se for informado <see cref="ConfiguracaoCertificadoAntiga.Arquivo"/>, 
         /// o certificado digital será obtido pelo método <see cref="ObterDeArquivo(string,string)"/>,
         /// senão será obtido pelo método <see cref="ListareObterDoRepositorio"/> </para>
         /// <para>Para liberar os recursos do certificado, após seu uso, invoque o método <see cref="X509Certificate2.Reset()"/></para>
         /// </summary>
-        public static X509Certificate2 ObterCertificado(ConfiguracaoCertificado configuracaoCertificado)
+        public static X509Certificate2 ObterCertificado(ConfiguracaoCertificadoAntiga configuracaoCertificadoAntiga)
         {
-            if (!configuracaoCertificado.ManterDadosEmCache)
-                return ObterDadosCertificado(configuracaoCertificado);
+            if (!configuracaoCertificadoAntiga.ManterDadosEmCache)
+                return ObterDadosCertificado(configuracaoCertificadoAntiga);
 
-            if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
-                return CacheCertificado[configuracaoCertificado.CacheId];
+            if (!string.IsNullOrEmpty(configuracaoCertificadoAntiga.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificadoAntiga.CacheId))
+                return CacheCertificado[configuracaoCertificadoAntiga.CacheId];
 
-            X509Certificate2 certificado = ObterDadosCertificado(configuracaoCertificado);
+            X509Certificate2 certificado = ObterDadosCertificado(configuracaoCertificadoAntiga);
 
-            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
+            var keyCertificado = string.IsNullOrEmpty(configuracaoCertificadoAntiga.CacheId)
                 ? certificado.SerialNumber
-                : configuracaoCertificado.CacheId;
+                : configuracaoCertificadoAntiga.CacheId;
 
-            configuracaoCertificado.CacheId = keyCertificado;
+            configuracaoCertificadoAntiga.CacheId = keyCertificado;
 
             CacheCertificado.Add(keyCertificado, certificado);
 

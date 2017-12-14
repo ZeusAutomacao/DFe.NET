@@ -109,8 +109,8 @@ namespace NFe.AppTeste
         {
             try
             {
-                var cert = CertificadoDigital.ListareObterDoRepositorio();
-                _configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
+                var cert = CertificadoDigitalAntiga.ListareObterDoRepositorio();
+                _configuracoes.CfgServico.CertificadoAntiga.Serial = cert.SerialNumber;
                 //TxtValidade.Text = "Validade: " + cert.GetExpirationDateString();
             }
             catch (Exception ex)
@@ -157,11 +157,11 @@ namespace NFe.AppTeste
 
                 var configCertificado = new DFeConfigCertificadoDigital
                 {
-                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
-                    Senha = _configuracoes.CfgServico.Certificado.Senha,
-                    Serial = _configuracoes.CfgServico.Certificado.Serial,
-                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado,
-                    ArrayBytesArquivo = _configuracoes.CfgServico.Certificado.ArrayBytesArquivo
+                    LocalArquivo = _configuracoes.CfgServico.CertificadoAntiga.Arquivo,
+                    Senha = _configuracoes.CfgServico.CertificadoAntiga.Senha,
+                    Serial = _configuracoes.CfgServico.CertificadoAntiga.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.CertificadoAntiga.TipoCertificado,
+                    ArrayBytesArquivo = _configuracoes.CfgServico.CertificadoAntiga.ArrayBytesArquivo
                 };
 
                 var facade = new NFeFacade(nfeConfig,  new DFeCertificadoDigital(configCertificado));
@@ -451,10 +451,10 @@ namespace NFe.AppTeste
 
                 var configCertificado = new DFeConfigCertificadoDigital
                 {
-                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
-                    Senha = _configuracoes.CfgServico.Certificado.Senha,
-                    Serial = _configuracoes.CfgServico.Certificado.Serial,
-                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                    LocalArquivo = _configuracoes.CfgServico.CertificadoAntiga.Arquivo,
+                    Senha = _configuracoes.CfgServico.CertificadoAntiga.Senha,
+                    Serial = _configuracoes.CfgServico.CertificadoAntiga.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.CertificadoAntiga.TipoCertificado
                 };
 
                 var facade = new NFeFacade(nfeConfig, new DFeCertificadoDigital(configCertificado));
@@ -939,10 +939,10 @@ namespace NFe.AppTeste
 
                 var configCertificado = new DFeConfigCertificadoDigital
                 {
-                    LocalArquivo = _configuracoes.CfgServico.Certificado.Arquivo,
-                    Senha = _configuracoes.CfgServico.Certificado.Senha,
-                    Serial = _configuracoes.CfgServico.Certificado.Serial,
-                    TipoCertificado = _configuracoes.CfgServico.Certificado.TipoCertificado
+                    LocalArquivo = _configuracoes.CfgServico.CertificadoAntiga.Arquivo,
+                    Senha = _configuracoes.CfgServico.CertificadoAntiga.Senha,
+                    Serial = _configuracoes.CfgServico.CertificadoAntiga.Serial,
+                    TipoCertificado = _configuracoes.CfgServico.CertificadoAntiga.TipoCertificado
                 };
 
                 var facade = new NFeFacade(nfeConfig, new DFeCertificadoDigital(configCertificado));
@@ -1497,21 +1497,21 @@ namespace NFe.AppTeste
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
-            if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1ByteArray)
+            if (_configuracoes.CfgServico.CertificadoAntiga.TipoCertificado == TipoCertificado.A1ByteArray)
             {
                 var caminhoArquivo = Funcoes.BuscarArquivoCertificado();
                 if (!string.IsNullOrWhiteSpace(caminhoArquivo))
                 {
                     // todo adicionado mas não esta funcionando por essas configurações. 
-                    _configuracoes.CfgServico.Certificado.ArrayBytesArquivo = File.ReadAllBytes(caminhoArquivo);
-                    _configuracoes.CfgServico.Certificado.Arquivo = null;
+                    _configuracoes.CfgServico.CertificadoAntiga.ArrayBytesArquivo = File.ReadAllBytes(caminhoArquivo);
+                    _configuracoes.CfgServico.CertificadoAntiga.Arquivo = null;
                 }
                 TxtArquivoCertificado.Text = caminhoArquivo;
             }
-            else if (_configuracoes.CfgServico.Certificado.TipoCertificado == TipoCertificado.A1Arquivo)
+            else if (_configuracoes.CfgServico.CertificadoAntiga.TipoCertificado == TipoCertificado.A1Arquivo)
             {
-                _configuracoes.CfgServico.Certificado.Arquivo = Funcoes.BuscarArquivoCertificado();
-                TxtArquivoCertificado.Text = _configuracoes.CfgServico.Certificado.Arquivo;
+                _configuracoes.CfgServico.CertificadoAntiga.Arquivo = Funcoes.BuscarArquivoCertificado();
+                TxtArquivoCertificado.Text = _configuracoes.CfgServico.CertificadoAntiga.Arquivo;
             }
         }
 

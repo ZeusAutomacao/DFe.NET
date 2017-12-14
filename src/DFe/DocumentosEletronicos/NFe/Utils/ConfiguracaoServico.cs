@@ -50,7 +50,7 @@ namespace DFe.DocumentosEletronicos.NFe.Utils
 
         public ConfiguracaoServico()
         {
-            Certificado = new ConfiguracaoCertificado();
+            CertificadoAntiga = new ConfiguracaoCertificadoAntiga();
         }
 
         static ConfiguracaoServico()
@@ -60,7 +60,7 @@ namespace DFe.DocumentosEletronicos.NFe.Utils
         /// <summary>
         ///     Configurações relativas ao Certificado Digital
         /// </summary>
-        public ConfiguracaoCertificado Certificado { get; set; }
+        public ConfiguracaoCertificadoAntiga CertificadoAntiga { get; set; }
 
         /// <summary>
         ///     Tempo máximo de espera pela resposta do webservice, em milisegundos

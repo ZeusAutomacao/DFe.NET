@@ -39,7 +39,7 @@ using JetBrains.Annotations;
 
 namespace DFe.Utils
 {
-    public class ConfiguracaoCertificado : INotifyPropertyChanged
+    public class ConfiguracaoCertificadoAntiga : INotifyPropertyChanged
     {
         private string _serial;
         private string _arquivo;

@@ -93,22 +93,22 @@
                                                 <RadioButton GroupName="TipoCertificado" Content="A1"
                                                                  HorizontalAlignment="Left"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Repositorio}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.CertificadoAntiga.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Repositorio}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                                 <RadioButton GroupName="TipoCertificado" Content="A1 em arquivo"
                                                                  HorizontalAlignment="Left" 
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Arquivo}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.CertificadoAntiga.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1Arquivo}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                                 <RadioButton GroupName="TipoCertificado" Content="A1 array de bytes do arquivo"
                                                                  HorizontalAlignment="Left" 
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1ByteArray}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.CertificadoAntiga.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A1ByteArray}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                                 <RadioButton GroupName="TipoCertificado" Content="A3"
                                                                  HorizontalAlignment="Left" 
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
+                                                                 IsChecked="{Binding CfgServico.CertificadoAntiga.TipoCertificado, ConverterParameter={x:Static utils11:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                             </StackPanel>
 
@@ -122,7 +122,7 @@
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="275"
                                                      Style="{StaticResource TextBoxErro}"
-                                                     Text="{Binding CfgServico.Certificado.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                                     Text="{Binding CfgServico.CertificadoAntiga.Serial, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                                             <Button x:Name="BtnCertificado" Content="..." Width="21"
                                                     DockPanel.Dock="Right" Click="btnCertificado_Click"
                                                     Margin="10,0,0,0" />
@@ -149,7 +149,7 @@
                                                      Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top"
                                                      Width="280"
                                                      Style="{StaticResource TextBoxErro}"
-                                                     Text="{Binding CfgServico.Certificado.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
+                                                     Text="{Binding CfgServico.CertificadoAntiga.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -157,7 +157,7 @@
                                         <CheckBox Name="CbxManterDadosCert" Content="Manter certificado em cache"
                                               HorizontalAlignment="Left"
                                               VerticalAlignment="Top" Width="178"
-                                              IsChecked="{Binding CfgServico.Certificado.ManterDadosEmCache}" Margin="10,0,0,0"/>
+                                              IsChecked="{Binding CfgServico.CertificadoAntiga.ManterDadosEmCache}" Margin="10,0,0,0"/>
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>

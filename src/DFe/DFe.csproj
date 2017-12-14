@@ -795,9 +795,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DocumentosEletronicos\ManipulaPasta\ResolvePasta.cs" />
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
-    <Compile Include="Utils\Assinatura\CertificadoDigital.cs" />
+    <Compile Include="Utils\Assinatura\CertificadoDigitalAntiga.cs" />
     <Compile Include="Assinatura\ChaveFiscal.cs" />
-    <Compile Include="Utils\ConfiguracaoCertificado.cs" />
+    <Compile Include="Utils\ConfiguracaoCertificadoAntiga.cs" />
     <Compile Include="Ext\DataHora.cs" />
     <Compile Include="Ext\EnumExt.cs" />
     <Compile Include="DocumentosEletronicos\ManipuladorDeXml\FuncoesXml.cs" />

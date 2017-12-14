@@ -68,7 +68,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
         public ServicosNFe(ConfiguracaoServico cFgServico)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            _certificado = CertificadoDigitalAntiga.ObterCertificado(cFgServico.CertificadoAntiga);
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -1309,7 +1309,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
                 return;
 
             if (disposing)
-                if (!_cFgServico.Certificado.ManterDadosEmCache)
+                if (!_cFgServico.CertificadoAntiga.ManterDadosEmCache)
                     _certificado.Reset();
             _disposed = true;
         }

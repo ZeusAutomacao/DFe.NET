@@ -505,7 +505,7 @@ namespace CTe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
+            NumeroDeSerie = CertificadoDigitalAntiga.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()

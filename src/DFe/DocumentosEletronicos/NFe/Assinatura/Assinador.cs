@@ -57,7 +57,7 @@ namespace DFe.DocumentosEletronicos.NFe.Assinatura
             if (cfgServico == null)
                 cfgServico = ConfiguracaoServico.Instancia;
 
-            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache);
+            return ObterAssinatura<T>(objeto, id, CertificadoDigitalAntiga.ObterCertificado(cfgServico.CertificadoAntiga), cfgServico.CertificadoAntiga.ManterDadosEmCache);
         }
 
         /// <summary>
