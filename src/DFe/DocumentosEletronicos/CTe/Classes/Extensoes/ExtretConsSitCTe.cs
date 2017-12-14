@@ -74,5 +74,23 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
             FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
         }
+
+        public static bool IsAutorizado(this retConsSitCTe retConsSitCTe)
+        {
+            const int autorizado = 100;
+            return retConsSitCTe.cStat == autorizado; // manual cte 3.00 página 89
+        }
+
+        public static bool IsCancelada(this retConsSitCTe retConsSitCTe)
+        {
+            const int cancelada = 101;
+            return retConsSitCTe.cStat == cancelada; // manual cte 3.00 página 89
+        }
+
+        public static bool IsDenegada(this retConsSitCTe retConsSitCTe)
+        {
+            const int denegada = 110;
+            return retConsSitCTe.cStat == denegada; // manual cte 3.00 página 89
+        }
     }
 }
