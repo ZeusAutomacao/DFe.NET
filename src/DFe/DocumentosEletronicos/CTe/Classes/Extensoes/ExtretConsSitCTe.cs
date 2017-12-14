@@ -92,5 +92,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             const int denegada = 110;
             return retConsSitCTe.cStat == denegada; // manual cte 3.00 página 89
         }
+
+        public static bool IsRejeicao(this retConsSitCTe retConsSitCTe)
+        {
+            return !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe);
+        }
     }
 }
