@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using DFe.CertificadosDigitais;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
@@ -43,6 +44,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
     {
         private readonly DFeConfig _dfeConfig;
         private readonly CertificadoDigital _certificadoDigital;
+        public event EventHandler<AntesDeConsultar> AntesDeConsultar;
 
         public CTeConsulta(DFeConfig dfeConfig, CertificadoDigital certificadoDigital)
         {
@@ -58,6 +60,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
 
             var webService = WsdlFactory.CriaWsdlConsultaProtocolo(_dfeConfig, _certificadoDigital);
 
+            OnAntesDeConsultar(new AntesDeConsultar(consSitCTe));
             var retConsSitCTe = webService.Autorizar(consSitCTe.CriaRequestWs());
 
             retConsSitCTe.LoadXml(consSitCTe);
@@ -65,6 +68,11 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.ConsultaProtocoloCTe
             retConsSitCTe.SalvarXmlEmDisco(chave, _dfeConfig);
 
             return retConsSitCTe;
+        }
+
+        protected virtual void OnAntesDeConsultar(AntesDeConsultar e)
+        {
+            AntesDeConsultar?.Invoke(this, e);
         }
     }
 }

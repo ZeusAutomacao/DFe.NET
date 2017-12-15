@@ -92,6 +92,7 @@
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Servicos\Autorizacao\retCTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\Flags\ConsultaProtocolo.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Servicos\ConsultaProtocoloCTe\AntesDeConsultar.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\AntesDeAssinar.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\AntesDeEnviarCteOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Servicos\EnviarCTe\AntesDeValidarSchema.cs" />

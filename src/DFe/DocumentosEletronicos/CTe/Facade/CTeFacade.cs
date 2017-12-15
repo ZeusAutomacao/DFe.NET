@@ -116,6 +116,8 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
         public event EventHandler<AntesDeValidarSchema> AntesDeValidarSchemaCteOsHandler;
         public event EventHandler<AntesDeAssinar> AntesDeAssinarCteOsHandler;
 
+        public event EventHandler<AntesDeConsultar> AntesDeConculstarHandler; 
+
         protected virtual void OnAntesDeEnviarCteOsHandler(AntesDeEnviarCteOs e)
         {
             AntesDeEnviarCteOsHandler?.Invoke(this, e);
@@ -131,6 +133,11 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
            OnAntesDeValidarSchemaHandler(e);
         }
 
+        protected virtual void OnAntesDeConculstarHandler(AntesDeConsultar e)
+        {
+            AntesDeConculstarHandler?.Invoke(this, e);
+        }
+
 
 
 
@@ -139,6 +146,13 @@ namespace DFe.DocumentosEletronicos.CTe.Facade
             _enviarOS.AntesDeEnviarCteOs += AntesEnviarCteOs;
             _enviarOS.AntesDeValidarSchema += AntesValidarSchemas;
             _enviarOS.AntesDeAssinar += AntesAssinar;
+
+            _consulta.AntesDeConsultar += AntesDeConsultarAction;
+        }
+
+        private void AntesDeConsultarAction(object sender, AntesDeConsultar e)
+        {
+            OnAntesDeConculstarHandler(e);
         }
 
 
