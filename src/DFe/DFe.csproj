@@ -70,12 +70,14 @@
     <Compile Include="Assinatura\SignedInfo.cs" />
     <Compile Include="Assinatura\Transform.cs" />
     <Compile Include="Assinatura\X509Data.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Classes\Extensoes\ExtCTeOSProc.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\IndicadorSincronizacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\ServicoCTe.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoEventoManifestacaoDestinatario.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoManifestacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Flags\TipoRecepcaoEvento.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Classes\Retorno\Evento\CTeCancelado.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\Constantes\StatusAutorizacao.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\CTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Extensoes\extretCteOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Complemento\complOs.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfCTeNormal\veicOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\enderTomaOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\tomaOs.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Retorno\cteOSProc.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Servicos\Autorizacao\retCTeOS.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\CTeFacade.cs" />
     <Compile Include="DocumentosEletronicos\CTe\Facade\Flags\ConsultaProtocolo.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\MdfeTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\NfeTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\DFeSoapConfig.cs" />
+    <Compile Include="Ext\ExtObject.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
     <Compile Include="DocumentosEletronicos\Flags\TipoAmbiente.cs" />

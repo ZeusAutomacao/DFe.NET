@@ -36,8 +36,10 @@ using System.IO;
 using System.Text;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.CTe.Classes.Retorno.Consulta;
+using DFe.DocumentosEletronicos.CTe.Constantes;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
+using DFe.Ext;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
@@ -77,25 +79,22 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
         public static bool IsAutorizado(this retConsSitCTe retConsSitCTe)
         {
-            const int autorizado = 100;
-            return retConsSitCTe.cStat == autorizado; // manual cte 3.00 página 89
+            return retConsSitCTe.IsNotNull() && retConsSitCTe.cStat == (int)StatusAutorizacao.Autorizado; // manual cte 3.00 página 89
         }
 
         public static bool IsCancelada(this retConsSitCTe retConsSitCTe)
         {
-            const int cancelada = 101;
-            return retConsSitCTe.cStat == cancelada; // manual cte 3.00 página 89
+            return retConsSitCTe.IsNotNull() && retConsSitCTe.cStat == (int)StatusAutorizacao.Cancelada; // manual cte 3.00 página 89
         }
 
         public static bool IsDenegada(this retConsSitCTe retConsSitCTe)
         {
-            const int denegada = 110;
-            return retConsSitCTe.cStat == denegada; // manual cte 3.00 página 89
+            return retConsSitCTe.IsNotNull() && retConsSitCTe.cStat == (int)StatusAutorizacao.Denegada; // manual cte 3.00 página 89
         }
 
         public static bool IsRejeicao(this retConsSitCTe retConsSitCTe)
         {
-            return !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe);
+            return retConsSitCTe.IsNotNull() && !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe);
         }
     }
 }
