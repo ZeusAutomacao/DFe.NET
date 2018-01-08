@@ -171,6 +171,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\distDFeInt_v1.01.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\downloadNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
