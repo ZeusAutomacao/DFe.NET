@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
@@ -66,6 +67,71 @@ namespace NFe.Utils
                     return "4.00";
             }
             return "";
+        }
+
+        // criado pois tem estado que o evento de cancelamento sempre será versão 1.00 e a webservice podera ser 2.00 ou 3.00 ou seja 
+        // na montagem do xml vai ser 1.00 e a versão do webservice vai ser diferente da montagem exemplo: MT
+        public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico, Estado? estado)
+        {
+            switch (estado)
+            {
+                case Estado.AC:
+                case Estado.AL:
+                case Estado.AP:
+                case Estado.AM:
+                case Estado.BA:
+                case Estado.CE:
+                case Estado.DF:
+                case Estado.ES:
+                case Estado.GO:
+                case Estado.MA:
+                case Estado.MS:
+                case Estado.MG:
+                case Estado.PA:
+                case Estado.PB:
+                case Estado.PR:
+                case Estado.PE:
+                case Estado.PI:
+                case Estado.RJ:
+                case Estado.RN:
+                case Estado.RS:
+                case Estado.RO:
+                case Estado.RR:
+                case Estado.SC:
+                case Estado.SP:
+                case Estado.SE:
+                case Estado.TO:
+                case Estado.AN:
+                case Estado.EX:
+                case null:
+                    return VersaoServicoParaString(servicoNFe, versaoServico);
+                case Estado.MT:
+                    switch (versaoServico)
+                    {
+                        case VersaoServico.ve100:
+                            switch (servicoNFe)
+                            {
+                                case ServicoNFe.NFeDistribuicaoDFe:
+                                    return "1.01";
+                            }
+                            return "1.00";
+                        case VersaoServico.ve200:
+                            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento) return "1.00";
+
+                            switch (servicoNFe)
+                            {
+                                case ServicoNFe.NfeConsultaProtocolo:
+                                    return "2.01";
+                            }
+                            return "2.00";
+                        case VersaoServico.ve310:
+                            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento) return "1.00";
+                            return "3.10";
+                    }
+                    return "";
+                default:
+                    throw new ArgumentOutOfRangeException("estado", estado, null);
+            }
         }
 
         public static string TpAmbParaString(this TipoAmbiente tpAmb)
