@@ -39,12 +39,15 @@
             this.txtDesenvolvedor = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.txtArquivoFrx = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.chbQuebrarLinhaObservacao = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pcbLogotipo)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(228, 122);
+            this.button1.Location = new System.Drawing.Point(228, 159);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 28);
             this.button1.TabIndex = 0;
@@ -55,7 +58,7 @@
             // chbCancelado
             // 
             this.chbCancelado.AutoSize = true;
-            this.chbCancelado.Location = new System.Drawing.Point(228, 64);
+            this.chbCancelado.Location = new System.Drawing.Point(228, 90);
             this.chbCancelado.Name = "chbCancelado";
             this.chbCancelado.Size = new System.Drawing.Size(135, 17);
             this.chbCancelado.TabIndex = 1;
@@ -66,7 +69,7 @@
             // chbEncerrado
             // 
             this.chbEncerrado.AutoSize = true;
-            this.chbEncerrado.Location = new System.Drawing.Point(228, 87);
+            this.chbEncerrado.Location = new System.Drawing.Point(228, 113);
             this.chbEncerrado.Name = "chbEncerrado";
             this.chbEncerrado.Size = new System.Drawing.Size(133, 17);
             this.chbEncerrado.TabIndex = 2;
@@ -78,7 +81,7 @@
             // 
             this.pcbLogotipo.Location = new System.Drawing.Point(10, 29);
             this.pcbLogotipo.Name = "pcbLogotipo";
-            this.pcbLogotipo.Size = new System.Drawing.Size(202, 121);
+            this.pcbLogotipo.Size = new System.Drawing.Size(202, 147);
             this.pcbLogotipo.TabIndex = 3;
             this.pcbLogotipo.TabStop = false;
             // 
@@ -114,7 +117,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(225, 9);
+            this.label2.Location = new System.Drawing.Point(225, 4);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 13);
             this.label2.TabIndex = 7;
@@ -122,14 +125,14 @@
             // 
             // txtDesenvolvedor
             // 
-            this.txtDesenvolvedor.Location = new System.Drawing.Point(228, 28);
+            this.txtDesenvolvedor.Location = new System.Drawing.Point(228, 23);
             this.txtDesenvolvedor.Name = "txtDesenvolvedor";
             this.txtDesenvolvedor.Size = new System.Drawing.Size(298, 20);
             this.txtDesenvolvedor.TabIndex = 8;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(325, 122);
+            this.button4.Location = new System.Drawing.Point(325, 159);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(83, 28);
             this.button4.TabIndex = 9;
@@ -139,7 +142,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(417, 122);
+            this.button5.Location = new System.Drawing.Point(417, 159);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(83, 28);
             this.button5.TabIndex = 10;
@@ -147,11 +150,40 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // txtArquivoFrx
+            // 
+            this.txtArquivoFrx.Location = new System.Drawing.Point(228, 65);
+            this.txtArquivoFrx.Name = "txtArquivoFrx";
+            this.txtArquivoFrx.Size = new System.Drawing.Size(298, 20);
+            this.txtArquivoFrx.TabIndex = 12;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(225, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(60, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Arquivo Frx";
+            // 
+            // chbQuebrarLinhaObservacao
+            // 
+            this.chbQuebrarLinhaObservacao.AutoSize = true;
+            this.chbQuebrarLinhaObservacao.Location = new System.Drawing.Point(228, 136);
+            this.chbQuebrarLinhaObservacao.Name = "chbQuebrarLinhaObservacao";
+            this.chbQuebrarLinhaObservacao.Size = new System.Drawing.Size(168, 17);
+            this.chbQuebrarLinhaObservacao.TabIndex = 13;
+            this.chbQuebrarLinhaObservacao.Text = "Quebrar linha nas observação";
+            this.chbQuebrarLinhaObservacao.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 160);
+            this.ClientSize = new System.Drawing.Size(536, 197);
+            this.Controls.Add(this.chbQuebrarLinhaObservacao);
+            this.Controls.Add(this.txtArquivoFrx);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.txtDesenvolvedor);
@@ -185,6 +217,9 @@
         private System.Windows.Forms.TextBox txtDesenvolvedor;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.TextBox txtArquivoFrx;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox chbQuebrarLinhaObservacao;
     }
 }
 

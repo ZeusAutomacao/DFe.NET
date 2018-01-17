@@ -68,6 +68,7 @@ namespace CTe.Dacte.Fast
         {
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
+            Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
             if (Relatorio.FindObject("poEmitLogo") != null)
                 ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }

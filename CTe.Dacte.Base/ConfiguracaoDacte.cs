@@ -42,6 +42,7 @@ namespace CTe.Dacte.Base
         {
             this.Logomarca = null;
             this.DocumentoCancelado = false;
+            this.QuebrarLinhasObservacao = false;
         }
 
         /// <summary>
@@ -58,6 +59,11 @@ namespace CTe.Dacte.Base
         /// Informa o nome ou site do desenvolvedor do DACTe
         /// </summary>
         public string Desenvolvedor { get; set; }
+
+        /// <summary>
+        /// Substitui ; (ponto e virgula) por quebra de linha no DACTe
+        /// </summary>
+        public bool QuebrarLinhasObservacao { get; set; }
 
         /// <summary>
         /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 

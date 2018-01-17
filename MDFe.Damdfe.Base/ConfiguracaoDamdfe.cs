@@ -43,6 +43,7 @@ namespace MDFe.Damdfe.Base
             this.Logomarca = null;
             this.DocumentoCancelado = false;
             this.DocumentoEncerrado = false;
+            this.QuebrarLinhasObservacao = false;
         }
 
         /// <summary>
@@ -64,6 +65,11 @@ namespace MDFe.Damdfe.Base
         /// Informa o nome ou site do desenvolvedor do DAMDFe
         /// </summary>
         public string Desenvolvedor { get; set; }
+
+        /// <summary>
+        /// Substitui ; (ponto e virgula) por quebra de linha no DAMDFe
+        /// </summary>
+        public bool QuebrarLinhasObservacao { get; set; }
 
         /// <summary>
         /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
