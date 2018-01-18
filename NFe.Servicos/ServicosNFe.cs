@@ -185,6 +185,11 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
@@ -364,11 +369,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeInutilizacao);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 

@@ -97,6 +97,9 @@
     <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Inutilizacao\NFeInutilizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="nfeCabecMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\NfeRecepcao2.cs">
