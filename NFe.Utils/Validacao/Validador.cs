@@ -62,6 +62,8 @@ namespace NFe.Utils.Validacao
                             return "inutNFe_v2.00.xsd";
                         case VersaoServico.ve310:
                             return "inutNFe_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "inutNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeConsultaProtocolo:
