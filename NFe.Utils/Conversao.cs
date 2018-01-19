@@ -78,65 +78,12 @@ namespace NFe.Utils
                 return "2.00";
             }
 
-            switch (estado)
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento && versaoServico != VersaoServico.ve100)
             {
-                case Estado.AC:
-                case Estado.AL:
-                case Estado.AP:
-                case Estado.AM:
-                case Estado.BA:
-                case Estado.CE:
-                case Estado.DF:
-                case Estado.ES:
-                case Estado.GO:
-                case Estado.MA:
-                case Estado.MS:
-                case Estado.MG:
-                case Estado.PA:
-                case Estado.PB:
-                case Estado.PR:
-                case Estado.PE:
-                case Estado.PI:
-                case Estado.RJ:
-                case Estado.RN:
-                case Estado.RS:
-                case Estado.RO:
-                case Estado.RR:
-                case Estado.SC:
-                case Estado.SP:
-                case Estado.SE:
-                case Estado.TO:
-                case Estado.AN:
-                case Estado.EX:
-                case null:
-                    return VersaoServicoParaString(servicoNFe, versaoServico);
-                case Estado.MT:
-                    switch (versaoServico)
-                    {
-                        case VersaoServico.ve100:
-                            switch (servicoNFe)
-                            {
-                                case ServicoNFe.NFeDistribuicaoDFe:
-                                    return "1.01";
-                            }
-                            return "1.00";
-                        case VersaoServico.ve200:
-                            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento) return "1.00";
-
-                            switch (servicoNFe)
-                            {
-                                case ServicoNFe.NfeConsultaProtocolo:
-                                    return "2.01";
-                            }
-                            return "2.00";
-                        case VersaoServico.ve310:
-                            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento) return "1.00";
-                            return "3.10";
-                    }
-                    return "";
-                default:
-                    throw new ArgumentOutOfRangeException("estado", estado, null);
+                return "1.00";
             }
+
+            return VersaoServicoParaString(servicoNFe, versaoServico);
         }
 
         public static string TpAmbParaString(this TipoAmbiente tpAmb)
