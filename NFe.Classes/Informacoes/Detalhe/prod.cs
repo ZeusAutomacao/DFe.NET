@@ -98,6 +98,32 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string CEST { get; set; }
 
         /// <summary>
+        /// Versão 4.00
+        /// Indicador de Produção em escala relevante, conforme Cláusula 23 do Convenio ICMS 52/2017 ||||
+        /// Nota: preenchimento obrigatório para produtos com NCM
+        /// relacionado no Anexo XXVII do Convenio 52/2017
+        /// </summary>
+        public indEscala? indEscala { get; set; }
+
+        public bool indEscalaSpecified
+        {
+            get { return indEscala.HasValue; }
+        }
+
+        /// <summary>
+        /// Versão 4.00
+        /// CNPJ do Fabricante da Mercadoria, obrigatório para produto em escala NÃO relevante.
+        /// </summary>
+        public string CNPJFab { get; set; }
+
+        /// <summary>
+        /// Versão 4.00
+        /// Código de Benefício fiscal utilizado pela UF, aplicado ao item. Obs: Deve ser utilizado o mesmo código adotado na EFD e outras
+        /// declarações, nas UF que o exigem.
+        /// </summary>
+        public string cBenef { get; set; }
+
+        /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
         /// </summary>
         public string EXTIPI { get; set; }
