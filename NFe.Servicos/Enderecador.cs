@@ -911,6 +911,9 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeinutilizacao4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfestatusservico4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/cadconsultacadastro4.asmx"));
 
                 #endregion
 
@@ -946,6 +949,9 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfestatusservico2.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfestatusservico4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/cadconsultacadastro4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfeinutilizacao4.asmx"));
 
                 #endregion
 
