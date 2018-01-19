@@ -266,6 +266,12 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string nFCI { get; set; }
 
         /// <summary>
+        /// I80 - Detalhamento de produto sujeito a rastreabilidade
+        /// </summary>
+        [XmlElement("rastro")]
+        public List<rastro> rastro { get; set; }
+
+        /// <summary>
         ///     <para>129 (veicProd) - Detalhamento de Veículos novos</para>
         ///     <para>K01 (med) - Detalhamento de Medicamentos e de matérias-primas farmacêuticas</para>
         ///     <para>L01 (arma) - Detalhamento de Armamento</para>
