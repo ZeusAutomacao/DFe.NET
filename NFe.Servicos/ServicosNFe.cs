@@ -206,6 +206,13 @@ namespace NFe.Servicos
                             return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
                                 _cFgServico.TimeOut);
                     }
+
+
+                    if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
+                    {
+                        return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
                         _cFgServico.TimeOut);
 
@@ -744,17 +751,20 @@ namespace NFe.Servicos
             string documento)
         {
             var versaoServico =
-                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
+                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro, _cFgServico.cUF);
 
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
