@@ -267,6 +267,7 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         /// <summary>
         /// I80 - Detalhamento de produto sujeito a rastreabilidade
+        /// Versão 4.00
         /// </summary>
         [XmlElement("rastro")]
         public List<rastro> rastro { get; set; }
