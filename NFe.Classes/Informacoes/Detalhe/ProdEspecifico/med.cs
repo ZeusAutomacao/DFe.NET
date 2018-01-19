@@ -64,6 +64,11 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
             set { _qLote = value.Arredondar(3); }
         }
 
+        public bool qLoteSpecified
+        {
+            get { return qLote.HasValue; }
+        }
+
         /// <summary>
         ///     K04 - Data de fabricação.
         /// Versão 3.00
