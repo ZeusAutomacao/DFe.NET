@@ -36,19 +36,97 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
     {
         private decimal? _pMixGn;
         private decimal? _qTemp;
+        private decimal? _pGlp;
+        private decimal? _pGNn;
+        private decimal? _pGNi;
+        private decimal? _vPart;
 
         /// <summary>
         ///     LA02 - Código de produto da ANP
+        /// Versão 3.00
+        /// Versão 4.00
         /// </summary>
         public string cProdANP { get; set; }
 
         /// <summary>
         ///     LA03 - Percentual de Gás Natural para o produto GLP (cProdANP=210203001)
+        /// Versão 3.00
         /// </summary>
         public decimal? pMixGN
         {
             get { return _pMixGn.Arredondar(4); }
             set { _pMixGn = value.Arredondar(4); }
+        }
+
+        public bool pMixGNSpecified
+        {
+            get { return pMixGN.HasValue; }
+        }
+
+        /// <summary>
+        /// LA03 - Descrição do produto conforme ANP
+        /// Versão 4.00
+        /// </summary>
+        public string descANP { get; set; }
+
+        /// <summary>
+        /// LA03a - Percentual do GLP derivado do petróleo no produto GLP (cProdANP=210203001)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pGLP
+        {
+            get { return _pGlp.Arredondar(4); }
+            set { _pGlp = value.Arredondar(4); }
+        }
+
+        public bool pGLPSpecified
+        {
+            get { return pGLP.HasValue; }
+        }
+
+        /// <summary>
+        /// LA03b - Percentual de Gás Natural Nacional – GLGNn para o produto GLP (cProdANP= 210203001)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pGNn
+        {
+            get { return _pGNn.Arredondar(4); }
+            set { _pGNn = value.Arredondar(4); }
+        }
+
+        public bool pGNnSpecified
+        {
+            get { return pGNn.HasValue; }
+        }
+
+        /// <summary>
+        /// LA03c - Percentual de Gás Natural Importado – GLGNi para o produto GLP (cProdANP= 210203001)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pGNi
+        {
+            get { return _pGNi.Arredondar(4); }
+            set { _pGNi = value.Arredondar(4); }
+        }
+
+        public bool pGNiSpecified
+        {
+            get { return pGNi.HasValue; }
+        }
+
+        /// <summary>
+        /// LA03d - Valor de partida (cProdANP=210203001)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vPart
+        {
+            get { return _vPart.Arredondar(2); }
+            set { _vPart = value.Arredondar(2); }
+        }
+
+        public bool vPartSpecified
+        {
+            get { return vPart.HasValue; }
         }
 
         /// <summary>
@@ -63,6 +141,11 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         {
             get { return _qTemp.Arredondar(4); }
             set { _qTemp = value.Arredondar(4); }
+        }
+
+        public bool qTempSpecified
+        {
+            get { return qTemp.HasValue; }
         }
 
         /// <summary>
