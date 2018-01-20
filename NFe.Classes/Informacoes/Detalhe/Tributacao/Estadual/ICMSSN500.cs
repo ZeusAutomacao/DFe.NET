@@ -38,6 +38,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     {
         private decimal? _vBcstRet;
         private decimal? _vIcmsstRet;
+        private decimal _pSt;
+        private decimal? _vBcfcpstRet;
+        private decimal? _pFcpstRet;
+        private decimal? _vFcpstRet;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -58,6 +62,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBcstRet = value.Arredondar(2); }
         }
 
+        public decimal pST
+        {
+            get { return _pSt.Arredondar(4); }
+            set { _pSt = value.Arredondar(4); }
+        }
+
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
@@ -65,6 +75,49 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsstRet.Arredondar(2); }
             set { _vIcmsstRet = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// N27a - Valor da Base de Cálculo do FCP 
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCPSTRet
+        {
+            get { return _vBcfcpstRet.Arredondar(2); }
+            set { _vBcfcpstRet = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPSTRetSpecified
+        {
+            get { return vBCFCPSTRet.HasValue; }
+        }
+
+        /// <summary>
+        /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPSTRet
+        {
+            get { return _pFcpstRet.Arredondar(4); }
+            set { _pFcpstRet = value.Arredondar(4); }
+        }
+
+        public bool pFCPSTRetSpecified
+        {
+            get { return pFCPSTRet.HasValue; }
+        }
+
+        /// <summary>
+        /// N27d - Valor do FCP retido anteriormente por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPSTRet
+        {
+            get { return _vFcpstRet.Arredondar(2); }
+            set { _vFcpstRet = value.Arredondar(2); }
+        }
+
+        public bool vFCPSTRetSpecified
+        {
+            get { return vFCPSTRet.HasValue; }
         }
 
         public bool ShouldSerializevBCSTRet()
