@@ -53,6 +53,9 @@
     <Compile Include="Autorizacao\NfeAutorizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\NFeAutorizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
       <SubType>Component</SubType>
     </Compile>

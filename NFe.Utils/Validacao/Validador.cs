@@ -87,7 +87,13 @@ namespace NFe.Utils.Validacao
                     }
                     break;
                 case ServicoNFe.NFeAutorizacao:
-                    return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+
+                    if (versaoServico != VersaoServico.ve400)
+                    {
+                        return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+                    }
+
+                    return loteNfe ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
                 case ServicoNFe.NfeConsultaCadastro:
                     return "consCad_v2.00.xsd";
                 case ServicoNFe.NfeDownloadNF:

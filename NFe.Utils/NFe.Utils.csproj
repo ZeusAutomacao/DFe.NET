@@ -50,6 +50,7 @@
     <Compile Include="AdmCsc\ExtretAdmCscNFCe.cs" />
     <Compile Include="Assinatura\Assinador.cs" />
     <Compile Include="Autorizacao\ExtenviNFe3.cs" />
+    <Compile Include="Autorizacao\ExtenviNFe4.cs" />
     <Compile Include="Conversao.cs" />
     <Compile Include="Compressao.cs" />
     <Compile Include="ConfiguracaoServico.cs" />
