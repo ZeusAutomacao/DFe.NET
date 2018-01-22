@@ -945,7 +945,7 @@ namespace NFe.AppTeste
 
             infNFe.total = GetTotal(versao, infNFe.det);
 
-            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310) // no momento em que foi atualizado a lib não podia ter cobranca com pagamentos ao mesmo tempo
+            if (infNFe.ide.mod == ModeloDocumento.NFe & (versao == VersaoServico.ve310 || versao == VersaoServico.ve400)) 
                 infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 e 4.00 Somente
             if (infNFe.ide.mod == ModeloDocumento.NFCe || (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve400))
                 infNFe.pag = GetPagamento(infNFe.total.ICMSTot, versao); //NFCe Somente  
@@ -1354,7 +1354,7 @@ namespace NFe.AppTeste
                     detPag = new List<detPag>
                     {
                         new detPag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vProd - valorPagto}
                     },
                     vTroco = 0.50m
                 }
