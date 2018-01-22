@@ -177,6 +177,9 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
+                        return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                         return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
@@ -1240,11 +1243,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 

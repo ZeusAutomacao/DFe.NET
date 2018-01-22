@@ -499,17 +499,21 @@
                                                     <Label Content="NFeRetAutorizacao"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="NFeRetAutorizacao" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -793,9 +797,9 @@
                     <Button x:Name="BtnConsultarReciboLote2" Content="Consultar Recibo Lote 2.0"
                             HorizontalAlignment="Left" Margin="192,35,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote2_Click" />
-                    <Button x:Name="BtnCriareEnviar3" Content="Criar e Enviar 3.0" HorizontalAlignment="Left"
+                    <Button x:Name="BtnCriareEnviar3" Content="Criar e Enviar 3.0 Ou 4.0" HorizontalAlignment="Left"
                             Margin="10,60,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviar3_Click" />
-                    <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0"
+                    <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0 Ou 4.0"
                             HorizontalAlignment="Left" Margin="192,60,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote3_Click" />
                     <Button x:Name="BtnGerarNfe3" Content="Criar e Salvar XML 3.0" HorizontalAlignment="Left"
