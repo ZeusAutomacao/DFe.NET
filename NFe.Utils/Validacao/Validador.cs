@@ -73,6 +73,8 @@ namespace NFe.Utils.Validacao
                             return "consSitNFe_v2.01.xsd";
                         case VersaoServico.ve310:
                             return "consSitNFe_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "consSitNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeStatusServico:

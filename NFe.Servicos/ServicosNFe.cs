@@ -81,6 +81,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -155,6 +156,12 @@ namespace NFe.Servicos
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
+
+                    if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
+                    {
+                        return new NfeConsulta4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
@@ -316,11 +323,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
