@@ -78,7 +78,7 @@ namespace NFe.Utils
                 return "2.00";
             }
 
-            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento && versaoServico != VersaoServico.ve100 && estado == Estado.MT)
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento)
             {
                 return "1.00";
             }
