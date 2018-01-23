@@ -396,6 +396,7 @@ namespace NFe.Servicos
                     endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRetAutorizacao4?wsdl"));
                     endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4?wsdl"));
                     endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl"));
+                    endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl"));
                 }
             }
 
@@ -921,6 +922,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeconsultaprotocolo4.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.SP, ModeloDocumento.NFe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx"));
 
                 #endregion
 
@@ -963,6 +965,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nfeconsultaprotocolo4.asmx"));
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.SP, ModeloDocumento.NFe, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx"));
 
                 #endregion
 

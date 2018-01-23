@@ -98,6 +98,9 @@
     <Compile Include="Evento\RecepcaoEvento.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Evento\RecepcaoEvento4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="INfeServico.cs" />
     <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
