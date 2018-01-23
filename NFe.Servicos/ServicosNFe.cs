@@ -211,6 +211,11 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
+                    {
+                        return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
@@ -628,7 +633,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
             var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
             var infEvento = new infEventoEnv
             {

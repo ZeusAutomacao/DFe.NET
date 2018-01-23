@@ -15,7 +15,7 @@
     xmlns:utils="clr-namespace:DFe.Utils;assembly=DFe.Utils"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
-    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
+    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="1300"
     WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
@@ -66,8 +66,8 @@
         </CollectionViewSource>
     </Window.Resources>
     <Grid>
-        <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="369">
-            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="359" VerticalAlignment="Top">
+        <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="500" Margin="1,0,0,0">
+            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="490" VerticalAlignment="Top">
                 <TabControl VerticalAlignment="Top" Height="600">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
@@ -275,7 +275,7 @@
                     <TabItem Header="WebService">
                         <Grid Background="White">
                             <GroupBox Header="WebService" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Width="333" Margin="10,10,0,0">
+                                      Width="450" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
                                     <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
@@ -311,6 +311,10 @@
                                                                  HorizontalAlignment="Left" Margin="270,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="RecepcaoEventoCceCancelamento" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="312,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -782,7 +786,7 @@
                 </DockPanel>
             </StackPanel>
         </GroupBox>
-        <TabControl Name="TabSuperior" Height="266" Margin="384,10,0,0" VerticalAlignment="Top">
+        <TabControl Name="TabSuperior" Height="266" Margin="510,10,-0,0" VerticalAlignment="Top">
             <TabItem Header="NF-e/NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
@@ -840,7 +844,7 @@
             </TabItem>
 
         </TabControl>
-        <TabControl Name="TabInferior" Margin="384,281,0,0">
+        <TabControl Name="TabInferior" Margin="509,281,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>

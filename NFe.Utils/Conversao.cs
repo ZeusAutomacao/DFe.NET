@@ -78,7 +78,7 @@ namespace NFe.Utils
                 return "2.00";
             }
 
-            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento)
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao)
             {
                 return "1.00";
             }
