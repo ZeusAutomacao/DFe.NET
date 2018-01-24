@@ -1,0 +1,146 @@
+﻿[
+  // Norte
+  {
+    "Uf": "AM",
+    "Normal": -4,
+    "Verao": -4
+  },
+  {
+    "Uf": "AP",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "AC",
+    "Normal": -5,
+    "Verao": -5
+  },
+  {
+    "Uf": "PA",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "RO",
+    "Normal": -4,
+    "Verao": -4
+  },
+  {
+    "Uf": "RR",
+    "Normal": -4,
+    "Verao": -4
+  },
+  {
+    "Uf": "TO",
+    "Normal": -3,
+    "Verao": -2
+  },
+
+  // Nordeste
+  {
+    "Uf": "AL",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "BA",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "CE",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "MA",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "PB",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "PE",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "PI",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "RN",
+    "Normal": -3,
+    "Verao": -3
+  },
+  {
+    "Uf": "SE",
+    "Normal": -3,
+    "Verao": -3
+  },
+
+  // Centro Oeste
+  {
+    "Uf": "GO",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "MT",
+    "Normal": -4,
+    "Verao": -3
+  },
+  {
+    "Uf": "MS",
+    "Normal": -4,
+    "Verao": -3
+  },
+  {
+    "Uf": "DF",
+    "Normal": -3,
+    "Verao": -2
+  },
+
+  // Sudeste
+  {
+    "Uf": "SP",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "RJ",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "MG",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "ES",
+    "Normal": -3,
+    "Verao": -2
+  },
+
+  // Sul
+  {
+    "Uf": "RS",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "SC",
+    "Normal": -3,
+    "Verao": -2
+  },
+  {
+    "Uf": "PR",
+    "Normal": -3,
+    "Verao": -2
+  }
+]

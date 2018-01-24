@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
 
@@ -61,14 +62,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O06 - Código de Enquadramento Legal do IPI
         /// </summary>
-        public int cEnq { get; set; }
+        public string cEnq { get; set; }
 
         /// <summary>
         ///     O07 (IPITrib) - Grupo do CST 00, 49, 50 e 99
         ///     O08 (IPINT) - Grupo CST 01, 02, 03, 04, 51, 52, 53, 54 e 55
         /// </summary>
-        [XmlElement("IPITrib", typeof (IPITrib))]
-        [XmlElement("IPINT", typeof (IPINT))]
+        [XmlElement("IPITrib", typeof(IPITrib))]
+        [XmlElement("IPINT", typeof(IPINT))]
         public IPIBasico TipoIPI { get; set; }
 
         public bool ShouldSerializeqSelo()

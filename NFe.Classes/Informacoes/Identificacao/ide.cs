@@ -131,7 +131,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
-            get { return dhEmi.ParaDataHoraStringUtc(); }
+            get { return dhEmi.ParaDataHoraStringUtc(cUF); }
             set { dhEmi = DateTime.Parse(value); }
         }
 
@@ -147,7 +147,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement(ElementName = "dhSaiEnt")]
         public string ProxydhSaiEnt
         {
-            get { return dhSaiEnt.ParaDataHoraStringUtc(); }
+            get { return dhSaiEnt.ParaDataHoraStringUtc(cUF); }
             set { dhSaiEnt = DateTime.Parse(value); }
         }
 
@@ -226,7 +226,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement(ElementName = "dhCont")]
         public string ProxydhCont
         {
-            get { return dhCont.ParaDataHoraStringUtc(); }
+            get { return dhCont.ParaDataHoraStringUtc(cUF); }
             set { dhCont = DateTime.Parse(value); }
         }
 
