@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
@@ -38,6 +39,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     {
         private decimal? _vBcstRet;
         private decimal? _vIcmsstRet;
+        private decimal? _vBCFCPST;
+        private decimal? _pFCPSTRet;
+        private decimal? _vFCPSTRet;
+        private decimal? _pST;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -75,6 +80,62 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevICMSSTRet()
         {
             return vICMSSTRet.HasValue;
+        }
+
+        /// <summary>
+        /// N23a - Valor da Base de Cálculo do FCP retido anteriormente
+        /// </summary>
+        public decimal? vBCFCPST
+        {
+            get { return _vBCFCPST.Arredondar(2); }
+            set { _vBCFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCFCPST()
+        {
+            return vBCFCPST.HasValue;
+        }
+
+        /// <summary>
+        /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPSTRet
+        {
+            get { return _pFCPSTRet.Arredondar(2); }
+            set { _pFCPSTRet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepFCPSTRet()
+        {
+            return pFCPSTRet.HasValue;
+        }
+
+        /// <summary>
+        /// N27d - Valor do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPSTRet
+        {
+            get { return _vFCPSTRet.Arredondar(2); }
+            set { _vFCPSTRet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevFCPSTRet()
+        {
+            return vFCPSTRet.HasValue;
+        }
+
+        /// <summary>
+        /// N27e - Alíquota suportada pelo Consumidor Final
+        /// </summary>
+        public decimal? pST
+        {
+            get { return _pST.Arredondar(2); }
+            set { _pST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepST()
+        {
+            return pST.HasValue;
         }
     }
 }

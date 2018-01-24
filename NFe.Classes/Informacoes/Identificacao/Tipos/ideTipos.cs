@@ -136,10 +136,10 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoAmbiente
     {
-        [XmlEnum("1")] 
+        [XmlEnum("1")]
         [Description("Produção")]
         taProducao = 1,
-        
+
         [XmlEnum("2")]
         [Description("Homologação")]
         taHomologacao = 2
@@ -198,6 +198,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// <para>2 - Operação não presencial, pela Internet;</para>
     /// <para>3 - Operação não presencial, Teleatendimento;</para>
     /// <para>4 - NFC-e em operação com entrega a domicílio;</para>
+    /// <para>5 - Operação presencial, fora do estabelecimento;</para>
     /// <para>9 - Operação não presencial, outros.</para>
     /// </summary>
     public enum PresencaComprador
@@ -207,6 +208,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")] pcInternet = 2,
         [XmlEnum("3")] pcTeleatendimento = 3,
         [XmlEnum("4")] pcEntregaDomicilio = 4,
+        [XmlEnum("5")] pcForaEstabelcmento = 5,
         [XmlEnum("9")] pcOutros = 9
     }
 
@@ -220,8 +222,10 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     {
         [XmlEnum("1")]
         ioConsultaCscAtivos = 1,
+
         [XmlEnum("2")]
         ioSolicitaNovoCsc = 2,
+
         [XmlEnum("3")]
         ioRevogaCscAtivo = 3
     }

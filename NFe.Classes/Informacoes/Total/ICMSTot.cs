@@ -30,21 +30,26 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 namespace NFe.Classes.Informacoes.Total
 {
     public class ICMSTot
     {
         private decimal _vBc;
         private decimal _vIcms;
-        private decimal? _vIcmsDeson;
+        private decimal _vIcmsDeson;
+        private decimal _vFCP;
         private decimal _vBcst;
         private decimal _vSt;
+        private decimal _vFCPST;
+        private decimal _vFCPSTRet;
         private decimal _vProd;
         private decimal _vFrete;
         private decimal _vSeg;
         private decimal _vDesc;
         private decimal _vIi;
         private decimal _vIpi;
+        private decimal _vIPIDevol;
         private decimal _vPis;
         private decimal _vCofins;
         private decimal _vOutro;
@@ -75,15 +80,19 @@ namespace NFe.Classes.Informacoes.Total
         /// <summary>
         ///     W04a - Valor Total do ICMS desonerado
         /// </summary>
-        public decimal? vICMSDeson
+        public decimal vICMSDeson
         {
             get { return _vIcmsDeson.Arredondar(2); }
             set { _vIcmsDeson = value.Arredondar(2); }
         } //Nulable por conta da v2.00
 
-        public bool ShouldSerializevICMSDeson()
+        /// <summary>
+        /// W04h - Valor Total do FCP (Fundo de Combate à Pobreza)
+        /// </summary>
+        public decimal vFCP
         {
-            return vICMSDeson.HasValue;
+            get { return _vFCP.Arredondar(2); }
+            set { _vFCP = value.Arredondar(2); }
         }
 
         /// <summary>
@@ -147,6 +156,24 @@ namespace NFe.Classes.Informacoes.Total
         }
 
         /// <summary>
+        /// W06a - Valor Total do FCP (Fundo de Combate à Pobreza) retido por substituição tributária
+        /// </summary>
+        public decimal vFCPST
+        {
+            get { return _vFCPST.Arredondar(2); }
+            set { _vFCPST = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// W06b - Valor Total do FCP retido anteriormente por Substituição Tributária
+        /// </summary>
+        public decimal vFCPSTRet
+        {
+            get { return _vFCPSTRet.Arredondar(2); }
+            set { _vFCPSTRet = value.Arredondar(2); }
+        }
+
+        /// <summary>
         ///     W07 - Valor Total dos produtos e serviços
         /// </summary>
         public decimal vProd
@@ -201,6 +228,15 @@ namespace NFe.Classes.Informacoes.Total
         }
 
         /// <summary>
+        /// W12a - Valor Total do IPI devolvido
+        /// </summary>
+        public decimal vIPIDevol
+        {
+            get { return _vIPIDevol.Arredondar(2); }
+            set { _vIPIDevol = value.Arredondar(2); }
+        }
+
+        /// <summary>
         ///     W13 - Valor do PIS
         /// </summary>
         public decimal vPIS
@@ -244,6 +280,5 @@ namespace NFe.Classes.Informacoes.Total
             get { return _vTotTrib.Arredondar(2); }
             set { _vTotTrib = value.Arredondar(2); }
         }
-
     }
 }

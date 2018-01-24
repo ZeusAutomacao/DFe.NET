@@ -30,29 +30,20 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Informacoes.Pagamento
 {
     public class pag
     {
-        private decimal _vPag;
-
-        /// <summary>
-        ///     YA02 - Forma de pagamento
-        /// </summary>
-        public FormaPagamento tPag { get; set; }
-
-        /// <summary>
-        ///     YA03 - Valor do Pagamento
-        /// </summary>
-        public decimal vPag
+        public pag()
         {
-            get { return _vPag; }
-            set { _vPag = value.Arredondar(2); }
+            detPags = new List<detPag>();
         }
 
-        /// <summary>
-        ///     YA04 - Grupo de Cartões
-        /// </summary>
-        public card card { get; set; }
+        [XmlElement(ElementName = "detPag")]
+        public List<detPag> detPags { get; set; }
     }
 }

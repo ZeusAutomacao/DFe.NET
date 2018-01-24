@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
@@ -39,6 +40,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
+        private decimal? _pFCP;
+        private decimal? _vFCP;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -80,6 +83,34 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcms.Arredondar(2); }
             set { _vIcms = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)
+        /// </summary>
+        public decimal? pFCP
+        {
+            get { return _pFCP.Arredondar(2); }
+            set { _pFCP = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepFCP()
+        {
+            return pFCP.HasValue;
+        }
+
+        /// <summary>
+        /// N17c - Valor do ICMS relativo ao Fundo de Combate à Pobreza(FCP)
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFCP.Arredondar(2); }
+            set { _vFCP = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevFCP()
+        {
+            return vFCP.HasValue;
         }
     }
 }

@@ -38,12 +38,7 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// <summary>
         ///     YA04a - Tipo de Integração para pagamento
         /// </summary>
-        public TipoIntegracaoPagamento? tpIntegra { get; set; }
-
-        public bool ShouldSerializetpIntegra()
-        {
-            return tpIntegra.HasValue;
-        }
+        public TipoIntegracaoPagamento tpIntegra { get; set; }
 
         /// <summary>
         ///     YA05 - CNPJ da Credenciadora de cartão de crédito e/ou débito
@@ -64,5 +59,21 @@ namespace NFe.Classes.Informacoes.Pagamento
         ///     YA07 - Número de autorização da operação cartão de crédito e/ou débito
         /// </summary>
         public string cAut { get; set; }
+
+        private decimal? _vTroco;
+
+        /// <summary>
+        /// YA09 - Valor do troco
+        /// </summary>
+        public decimal? vTroco
+        {
+            get { return _vTroco.Arredondar(2); }
+            set { _vTroco = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevTroco()
+        {
+            return vTroco.HasValue;
+        }
     }
 }

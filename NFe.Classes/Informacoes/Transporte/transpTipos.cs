@@ -30,25 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Transporte
 {
     /// <summary>
-    ///     <para>0=Por conta do emitente;</para>
-    ///     <para>1=Por conta do destinatário/remetente;</para>
-    ///     <para>2=Por conta de terceiros;</para>
-    ///     <para>9=Sem frete. (V2.0)</para>
+    ///<para>0=Contratação do Frete por conta do Remetente(CIF);</para>
+    ///<para>1=Contratação do Frete por conta do Destinatário(FOB);</para>
+    ///<para>2=Contratação do Frete por conta de Terceiros;</para>
+    ///<para>3=Transporte Próprio por conta do Remetente;</para>
+    ///<para>4=Transporte Próprio por conta do Destinatário;</para>
+    ///<para>9=Sem Ocorrência de Transporte.</para>
     /// </summary>
     public enum ModalidadeFrete
     {
         [XmlEnum("0")]
-        mfContaEmitente = 0,
+        Cif = 0,
+
         [XmlEnum("1")]
-        mfContaDestinatario = 1,
+        Fob = 1,
+
         [XmlEnum("2")]
-        mfContaTerceiros = 2,
+        Terceiros = 2,
+
+        [XmlEnum("3")]
+        Remetente = 3,
+
+        [XmlEnum("4")]
+        Destinatario = 4,
+
         [XmlEnum("9")]
-        mfSemFrete = 9
+        SemFrete = 9
     }
 }

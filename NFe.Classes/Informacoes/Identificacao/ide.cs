@@ -62,7 +62,12 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B05 - Indicador da forma de pagamento
         /// </summary>
-        public IndicadorPagamento indPag { get; set; }
+        public IndicadorPagamento? indPag { get; set; }
+
+        public bool ShouldSerializeindPag()
+        {
+            return indPag.HasValue;
+        }
 
         /// <summary>
         ///     B06 - Modelo do Documento Fiscal

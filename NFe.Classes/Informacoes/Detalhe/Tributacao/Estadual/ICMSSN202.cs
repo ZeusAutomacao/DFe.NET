@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
@@ -41,6 +42,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBcst;
         private decimal _pIcmsst;
         private decimal _vIcmsst;
+        private decimal? _vBCFCPST;
+        private decimal? _pFCPST;
+        private decimal? _vFCPST;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -110,6 +114,48 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializepRedBCST()
         {
             return pRedBCST.HasValue;
+        }
+
+        /// <summary>
+        /// N23a - Valor da Base de Cálculo do FCP
+        /// </summary>
+        public decimal? vBCFCPST
+        {
+            get { return _vBCFCPST.Arredondar(2); }
+            set { _vBCFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizevBCFCPST()
+        {
+            return vBCFCPST.HasValue;
+        }
+
+        /// <summary>
+        /// N23b - Percentual do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPST
+        {
+            get { return _pFCPST.Arredondar(2); }
+            set { _pFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizepFCPST()
+        {
+            return pFCPST.HasValue;
+        }
+
+        /// <summary>
+        /// N23d - Valor do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPST
+        {
+            get { return _vFCPST.Arredondar(2); }
+            set { _vFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizevFCPST()
+        {
+            return vFCPST.HasValue;
         }
     }
 }

@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.IO;
 using System.Xml;
@@ -97,6 +98,9 @@ namespace NFe.Utils.Validacao
                     break;
 
                 case ServicoNFe.NFeAutorizacao:
+                    if (versaoServico == VersaoServico.ve400)
+                        return "enviNFe_v4.00.xsd";
+
                     return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
 
                 case ServicoNFe.NfeConsultaCadastro:

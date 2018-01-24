@@ -30,6 +30,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     public class ICMSUFDest
     {
         private decimal _vBcufDest;
+        private decimal? _vBCFCPUFDest;
         private decimal _pFcpufDest;
         private decimal _pIcmsufDest;
         private decimal _pIcmsInter;
@@ -48,6 +49,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
+        /// NA04 - Valor da BC FCP na UF de destino
+        /// </summary>
+        public decimal? vBCFCPUFDest
+        {
+            get { return _vBCFCPUFDest.Arredondar(2); }
+            set { _vBCFCPUFDest = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCFCPUFDest()
+        {
+            return vBCFCPUFDest.HasValue;
+        }
+
+        /// <summary>
         /// NA05 - Percentual do ICMS relativo ao Fundo de Combate à Pobreza (FCP) na UF de destino
         /// </summary>
         public decimal pFCPUFDest
@@ -55,7 +70,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _pFcpufDest; }
             set
             {
-                _pFcpufDest = value.Arredondar(4); }
+                _pFcpufDest = value.Arredondar(4);
+            }
         }
 
         /// <summary>

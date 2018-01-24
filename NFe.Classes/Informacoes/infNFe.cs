@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Cana;
@@ -129,7 +130,7 @@ namespace NFe.Classes.Informacoes
         ///     <para>Ocorrência: 0-100</para>
         /// </summary>
         [XmlElement("pag")]
-        public List<pag> pag { get; set; }
+        public pag pag { get; set; }
 
         /// <summary>
         ///     Z01 - Grupo de Informações Adicionais

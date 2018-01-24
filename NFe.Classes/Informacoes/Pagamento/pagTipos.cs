@@ -86,6 +86,10 @@ namespace NFe.Classes.Informacoes.Pagamento
         [XmlEnum("13")]
         fpValeCombustivel = 13,
 
+        [Description("Duplicata Mercantil")]
+        [XmlEnum("14")]
+        fpDuplicataMercantil = 14,
+
         [Description("Outros")]
         [XmlEnum("99")]
         fpOutro = 99
@@ -115,6 +119,26 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("Sorocred")]
         [XmlEnum("04")]
         bcSorocred = 4,
+
+        [Description("Diners Club")]
+        [XmlEnum("05")]
+        bcDinersClub = 5,
+
+        [Description("Elo")]
+        [XmlEnum("06")]
+        bcElo = 6,
+
+        [Description("Hipercard")]
+        [XmlEnum("07")]
+        bcHipercard = 7,
+
+        [Description("Aura")]
+        [XmlEnum("08")]
+        bcAura = 8,
+
+        [Description("Cabal")]
+        [XmlEnum("09")]
+        bcCabal = 9,
 
         [Description("Outros")]
         [XmlEnum("99")]

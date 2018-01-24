@@ -118,12 +118,18 @@ namespace NFe.Servicos
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
         {
             var url = Enderecador.ObterUrlServico(servico, _cFgServico);
+
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
+
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
+
+            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                return new NfeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
         }
 
@@ -173,6 +179,11 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
+                    {
+                        return new NFeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                         return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
@@ -684,7 +695,7 @@ namespace NFe.Servicos
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
                 dhEmi = nfe.infNFe.ide.dhEmi,
-                tpNF = nfe.infNFe.ide.tpNF,
+                //tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
                 dest = new dest
                 {
@@ -1054,11 +1065,12 @@ namespace NFe.Servicos
 
             var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
-            {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
 
             #endregion Cria o objeto wdsl para consulta
 
@@ -1075,7 +1087,7 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
+            //            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio);
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 

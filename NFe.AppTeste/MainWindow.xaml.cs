@@ -31,17 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Drawing.Text;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -65,25 +54,29 @@ using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Danfe.Nativo.NFCe;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.Email;
+using NFe.Utils.Excesoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using NFeZeus = NFe.Classes.NFe;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.Fontes;
-using NFe.Danfe.Base.NFCe;
-using NFe.Danfe.Nativo.NFCe;
-using NFe.Utils.Excesoes;
-using Color = System.Drawing.Color;
-using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.AppTeste
 {
@@ -384,14 +377,14 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
+                _configuracoes.CfgServico.VersaoNFeAutorizacao = VersaoServico.ve400;
+                _configuracoes.CfgServico.VersaoNFeRetAutorizacao = VersaoServico.ve400;
+
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
-
-                _configuracoes.CfgServico.VersaoNFeAutorizacao = VersaoServico.ve400;
-                _configuracoes.CfgServico.VersaoNFeRetAutorizacao = VersaoServico.ve400;
+                               //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
+                               //_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
@@ -426,6 +419,9 @@ namespace NFe.AppTeste
 
                 var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
                 if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
+
+                _configuracoes.CfgServico.VersaoNFeRetAutorizacao = VersaoServico.ve400;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoRecibo = servicoNFe.NFeRetAutorizacao(recibo);
 
@@ -937,10 +933,10 @@ namespace NFe.AppTeste
 
             infNFe.total = GetTotal(versao, infNFe.det);
 
-            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
+            if (infNFe.ide.mod == ModeloDocumento.NFe & (versao == VersaoServico.ve310 || versao == VersaoServico.ve400))
                 infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 Somente
-            if (infNFe.ide.mod == ModeloDocumento.NFCe)
-                infNFe.pag = GetPagamento(infNFe.total.ICMSTot); //NFCe Somente
+
+            infNFe.pag = GetPagamento(infNFe.total.ICMSTot);
 
             if (infNFe.ide.mod == ModeloDocumento.NFCe)
                 infNFe.infAdic = new infAdic() { infCpl = "Troco: 10,00" }; //Susgestão para impressão do troco em NFCe
@@ -954,7 +950,7 @@ namespace NFe.AppTeste
             {
                 cUF = Estado.SE,
                 natOp = "VENDA",
-                indPag = IndicadorPagamento.ipVista,
+                //indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
@@ -986,7 +982,7 @@ namespace NFe.AppTeste
 
             #region V3.00
 
-            if (versao != VersaoServico.ve310) return ide;
+            if (versao != VersaoServico.ve310 && versao != VersaoServico.ve400) return ide;
             ide.idDest = DestinoOperacao.doInterna;
             ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
@@ -1051,7 +1047,7 @@ namespace NFe.AppTeste
 
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";
-            if (versao != VersaoServico.ve310) return dest;
+            if (versao != VersaoServico.ve310 && versao != VersaoServico.ve400) return dest;
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
             dest.email = "teste@gmail.com"; //V3.00 Somente
             return dest;
@@ -1270,7 +1266,7 @@ namespace NFe.AppTeste
 
             var t = new transp
             {
-                modFrete = ModalidadeFrete.mfSemFrete //NFCe: Não pode ter frete
+                modFrete = ModalidadeFrete.SemFrete//NFCe: Não pode ter frete
                 //vol = volumes
             };
 
@@ -1304,14 +1300,14 @@ namespace NFe.AppTeste
             return c;
         }
 
-        protected virtual List<pag> GetPagamento(ICMSTot icmsTot)
+        protected virtual pag GetPagamento(ICMSTot icmsTot)
         {
             var valorPagto = Valor.Arredondar(icmsTot.vProd / 2, 2);
-            var p = new List<pag>
-            {
-                new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
-                new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
-            };
+
+            var p = new pag();
+            p.detPags.Add(new detPag { tPag = FormaPagamento.fpDinheiro, vPag = valorPagto });
+            p.detPags.Add(new detPag { tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto });
+
             return p;
         }
 

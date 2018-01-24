@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
@@ -93,6 +94,9 @@ namespace NFe.Utils
 
                 case VersaoServico.ve310:
                     return "3.10";
+
+                case VersaoServico.ve400:
+                    return "4.00";
             }
             return null;
         }

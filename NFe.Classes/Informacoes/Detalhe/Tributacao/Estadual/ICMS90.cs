@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
@@ -46,6 +47,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pIcmsst;
         private decimal? _vIcmsst;
         private decimal? _vIcmsDeson;
+        private decimal? _vBCFCP;
+        private decimal? _pFCP;
+        private decimal? _vFCP;
+        private decimal? _vBCFCPST;
+        private decimal? _pFCPST;
+        private decimal? _vFCPST;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -225,6 +232,89 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializemotDesICMS()
         {
             return motDesICMS.HasValue;
+        }
+
+        /// <summary>
+        /// N17a - Valor da Base de Cálculo do FCP
+        /// </summary>
+        public decimal? vBCFCP
+        {
+            get { return _vBCFCP.Arredondar(2); }
+            set { _vBCFCP = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCFCP()
+        {
+            return vBCFCP.HasValue;
+        }
+
+        /// <summary>
+        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)        /// </summary>
+        public decimal? pFCP
+        {
+            get { return _pFCP.Arredondar(2); }
+            set { _pFCP = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepFCP()
+        {
+            return pFCP.HasValue;
+        }
+
+        /// <summary>
+        /// N17c - Valor do ICMS relativo ao Fundo de Combate à Pobreza(FCP)
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFCP.Arredondar(2); }
+            set { _vFCP = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevFCP()
+        {
+            return vFCP.HasValue;
+        }
+
+        /// <summary>
+        /// N23a - Valor da Base de Cálculo do FCP
+        /// </summary>
+        public decimal? vBCFCPST
+        {
+            get { return _vBCFCPST.Arredondar(2); }
+            set { _vBCFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizevBCFCPST()
+        {
+            return vBCFCPST.HasValue;
+        }
+
+        /// <summary>
+        /// N23b - Percentual do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPST
+        {
+            get { return _pFCPST.Arredondar(2); }
+            set { _pFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizepFCPST()
+        {
+            return pFCPST.HasValue;
+        }
+
+        /// <summary>
+        /// N23d - Valor do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPST
+        {
+            get { return _vFCPST.Arredondar(2); }
+            set { _vFCPST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriealizevFCPST()
+        {
+            return vFCPST.HasValue;
         }
     }
 }
