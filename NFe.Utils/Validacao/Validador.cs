@@ -31,12 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using NFe.Classes.Servicos.Tipos;
+using NFe.Utils.Excesoes;
 using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
-using NFe.Classes.Servicos.Tipos;
-using NFe.Utils.Excesoes;
 
 namespace NFe.Utils.Validacao
 {
@@ -69,6 +69,9 @@ namespace NFe.Utils.Validacao
 
                         case VersaoServico.ve310:
                             return "inutNFe_v3.10.xsd";
+
+                        case VersaoServico.ve400:
+                            return "inutNFe_v4.00.xsd";
                     }
                     break;
 
@@ -80,6 +83,9 @@ namespace NFe.Utils.Validacao
 
                         case VersaoServico.ve310:
                             return "consSitNFe_v3.10.xsd";
+
+                        case VersaoServico.ve400:
+                            return "consSitNFe_v4.00.xsd";
                     }
                     break;
 

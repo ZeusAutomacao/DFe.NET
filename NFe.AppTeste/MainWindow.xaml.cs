@@ -207,6 +207,8 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
+                _configuracoes.CfgServico.VersaoNfeConsultaProtocolo = VersaoServico.ve400;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeConsultaProtocolo(chave);
                 TrataRetorno(retornoConsulta);
@@ -484,6 +486,8 @@ namespace NFe.AppTeste
 
                 var justificativa = Funcoes.InpuBox(this, "Inutilizar Numeração", "Justificativa");
                 if (string.IsNullOrEmpty(justificativa)) throw new Exception("A Justificativa deve ser informada!");
+
+                _configuracoes.CfgServico.VersaoNfeInutilizacao = VersaoServico.ve400;
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeInutilizacao(_configuracoes.Emitente.CNPJ, Convert.ToInt16(ano),

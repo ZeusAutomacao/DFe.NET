@@ -75,6 +75,7 @@
     <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo4.cs" />
     <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -98,6 +99,7 @@
     <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Inutilizacao\NfeInutilizacao4.cs" />
     <Compile Include="nfeCabecMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\NfeRecepcao2.cs">

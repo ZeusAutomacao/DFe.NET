@@ -157,6 +157,9 @@ namespace NFe.Servicos
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
+                    if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
+                        return new NFeConsultaProtocolo4(url, _certificado, _cFgServico.TimeOut);
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
@@ -189,6 +192,9 @@ namespace NFe.Servicos
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
+                    if (_cFgServico.VersaoNfeInutilizacao == VersaoServico.ve400)
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
