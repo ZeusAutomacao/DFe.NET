@@ -39,6 +39,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     {
         private decimal? _vBcstRet;
         private decimal? _vIcmsstRet;
+        private decimal? _vBCFCPSTRet;
         private decimal? _pFCPSTRet;
         private decimal? _vFCPSTRet;
         private decimal? _pST;
@@ -80,8 +81,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             return vICMSSTRet.HasValue;
         }
-
-        private decimal? _vBCFCPSTRet;
 
         /// <summary>
         /// N27a - Valor da Base de Cálculo do FCP retido anteriormente
