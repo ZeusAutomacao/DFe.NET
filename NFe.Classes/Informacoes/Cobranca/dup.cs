@@ -30,6 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.Xml.Serialization;
+using DFe.Utils;
+using NFe.Utils.Annotations;
+
 namespace NFe.Classes.Informacoes.Cobranca
 {
     public class dup
@@ -44,7 +50,20 @@ namespace NFe.Classes.Informacoes.Cobranca
         /// <summary>
         ///     Y09 - Data de vencimento
         /// </summary>
-        public string dVenc { get; set; }
+        [XmlIgnore]
+        public DateTime? dVenc { get; set; }
+
+        [XmlElement(ElementName = "dVenc")]
+        public string ProxydVenc
+        {
+            get
+            {
+                if (dVenc == null) return null;
+
+                return dVenc.Value.ParaDataString();
+            }
+            set { dVenc = Convert.ToDateTime(value); }
+        }
 
         /// <summary>
         ///     Y10 - Valor da duplicata
