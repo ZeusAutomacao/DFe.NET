@@ -416,9 +416,16 @@ namespace NFe.AppTeste
                     //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
                     if (_nfe.infNFeSupl == null)
                     {
-                        _nfe.infNFeSupl = new infNFeSupl();
+                        _nfe.infNFeSupl = new infNFeSupl
+                        {
+                            qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc)
+                        };
                     }
-                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
+                    else
+                    {
+                        _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
+                    }
+                    
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
