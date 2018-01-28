@@ -37,6 +37,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vFcpufDest;
         private decimal _vIcmsufDest;
         private decimal _vIcmsufRemet;
+        private decimal? _vBcfcpufDest;
 
         /// <summary>
         /// NA03 - Valor da BC do ICMS na UF de destino
@@ -45,6 +46,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vBcufDest; }
             set { _vBcufDest = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// NA04 - Valor da BC FCP na UF de destino
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCPUFDest
+        {
+            get { return _vBcfcpufDest.Arredondar(2); }
+            set { _vBcfcpufDest = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPUFDestSpecified
+        {
+            get { return vBCFCPUFDest.HasValue; }
         }
 
         /// <summary>

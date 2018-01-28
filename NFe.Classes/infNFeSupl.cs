@@ -47,6 +47,12 @@ namespace NFe.Classes
         /// </summary>
         public string qrCode { get; set; }
 
+        /// <summary>
+        /// ZX03 - Texto com a URL de consulta por chave de acesso a ser imrpessa no DANFE NFC-e
+        /// VERSÃO 4.00
+        /// </summary>
+        public string urlChave { get; set; }
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -55,9 +61,18 @@ namespace NFe.Classes
         public void ReadXml(XmlReader reader)
         {
             reader.ReadStartElement(typeof(infNFeSupl).Name);
+
             reader.ReadStartElement("qrCode");
             qrCode = reader.ReadString();
             reader.ReadEndElement();
+
+            if (urlChave != null)
+            {
+                reader.ReadStartElement("urlChave");
+                urlChave = reader.ReadString();
+                reader.ReadEndElement();
+            }
+
             reader.ReadEndElement();
         }
 
@@ -65,6 +80,12 @@ namespace NFe.Classes
         {
             writer.WriteStartElement("qrCode");
             writer.WriteCData(qrCode);
+            writer.WriteEndElement();
+
+            if (urlChave == null) return;
+
+            writer.WriteStartElement("urlChave");
+            writer.WriteString(urlChave);
             writer.WriteEndElement();
         }
     }
