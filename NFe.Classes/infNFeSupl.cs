@@ -66,9 +66,12 @@ namespace NFe.Classes
             qrCode = reader.ReadString();
             reader.ReadEndElement();
 
-            reader.ReadStartElement("urlChave");
-            urlChave = reader.ReadString();
-            reader.ReadEndElement();
+            if (urlChave != null)
+            {
+                reader.ReadStartElement("urlChave");
+                urlChave = reader.ReadString();
+                reader.ReadEndElement();
+            }
 
             reader.ReadEndElement();
         }
@@ -79,10 +82,11 @@ namespace NFe.Classes
             writer.WriteCData(qrCode);
             writer.WriteEndElement();
 
+            if (urlChave == null) return;
+
             writer.WriteStartElement("urlChave");
             writer.WriteString(urlChave);
             writer.WriteEndElement();
-
         }
     }
 }
