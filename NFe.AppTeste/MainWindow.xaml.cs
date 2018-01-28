@@ -314,10 +314,24 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
+                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                {
+                    _nfe.infNFeSupl = new infNFeSupl();
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                }
+
                 _nfe.Assina();
 
                 if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+                {
+                    if (_nfe.infNFeSupl == null)
+                    {
+                        _nfe.infNFeSupl = new infNFeSupl();
+                    }
+                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
+                }
 
                 _nfe.Valida();
 
@@ -387,12 +401,24 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
+                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                {
+                    _nfe.infNFeSupl = new infNFeSupl();
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                }
+
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
 
                 if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
                 {
                     //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.    
+                    if (_nfe.infNFeSupl == null)
+                    {
+                        _nfe.infNFeSupl = new infNFeSupl();
+                    }
+                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);

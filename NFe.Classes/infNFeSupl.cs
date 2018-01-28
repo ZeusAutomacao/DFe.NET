@@ -61,9 +61,15 @@ namespace NFe.Classes
         public void ReadXml(XmlReader reader)
         {
             reader.ReadStartElement(typeof(infNFeSupl).Name);
+
             reader.ReadStartElement("qrCode");
             qrCode = reader.ReadString();
             reader.ReadEndElement();
+
+            reader.ReadStartElement("urlChave");
+            urlChave = reader.ReadString();
+            reader.ReadEndElement();
+
             reader.ReadEndElement();
         }
 
@@ -72,6 +78,11 @@ namespace NFe.Classes
             writer.WriteStartElement("qrCode");
             writer.WriteCData(qrCode);
             writer.WriteEndElement();
+
+            writer.WriteStartElement("urlChave");
+            writer.WriteString(urlChave);
+            writer.WriteEndElement();
+
         }
     }
 }
