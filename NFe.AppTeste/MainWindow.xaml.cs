@@ -1370,6 +1370,7 @@ namespace NFe.AppTeste
                 return p;
             }
 
+
             // igual a versão 4 retorna isso
             var p4 = new List<pag>
             {
@@ -1379,7 +1380,7 @@ namespace NFe.AppTeste
                 {
                     detPag = new List<detPag>
                     {
-                        new detPag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = valorPagto},
                         new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vProd - valorPagto}
                     },
                     vTroco = 0.50m
