@@ -1060,6 +1060,13 @@ namespace NFe.Servicos
                         endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, estado, ModeloDocumento.NFe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx"));
                     }
 
                     #endregion
@@ -1115,6 +1122,14 @@ namespace NFe.Servicos
                         endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico2.asmx"));
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao.asmx"));
                         endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx"));
+                        endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, estado, ModeloDocumento.NFe, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx"));
                     }
 
                     #endregion
