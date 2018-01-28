@@ -38,6 +38,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     {
         private decimal? _vBcstRet;
         private decimal? _vIcmsstRet;
+        private decimal? _vBcfcpstRet;
+        private decimal? _pFcpstRet;
+        private decimal? _vFcpstRet;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -65,6 +68,39 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsstRet.Arredondar(2); }
             set { _vIcmsstRet = value.Arredondar(2); }
+        }
+
+        public decimal? vBCFCPSTRet
+        {
+            get { return _vBcfcpstRet.Arredondar(2); }
+            set { _vBcfcpstRet = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPSTRetSpecified
+        {
+            get { {return vBCFCPSTRet.HasValue;} }
+        }
+
+        public decimal? pFCPSTRet
+        {
+            get { return _pFcpstRet.Arredondar(4); }
+            set { _pFcpstRet = value.Arredondar(4); }
+        }
+
+        public bool pFCPSTRetSpecified {
+            get {
+            return pFCPSTRet.HasValue;
+        } }
+
+        public decimal? vFCPSTRet
+        {
+            get { return _vFcpstRet.Arredondar(2); }
+            set { _vFcpstRet = value.Arredondar(2); }
+        }
+
+        public bool vFCPSTRetSpecified
+        {
+            get { return vFCPSTRet.HasValue; }
         }
 
         public bool ShouldSerializevBCSTRet()

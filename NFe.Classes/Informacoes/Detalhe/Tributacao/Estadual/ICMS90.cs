@@ -46,6 +46,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pIcmsst;
         private decimal? _vIcmsst;
         private decimal? _vIcmsDeson;
+        private decimal? _vBcfcp;
+        private decimal? _pFcp;
+        private decimal? _vFcp;
+        private decimal? _vBcfcpst;
+        private decimal? _pFcpst;
+        private decimal? _vFcpst;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -99,6 +105,51 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
+        /// N17a - Valor da Base de Cálculo do FCP
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCP
+        {
+            get { return _vBcfcp.Arredondar(2); }
+            set { _vBcfcp = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPSpecified
+        {
+            get { return vBCFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pFCP
+        {
+            get { return _pFcp.Arredondar(4); }
+            set { _pFcp = value.Arredondar(4); }
+        }
+
+        public bool pFCPSpecified
+        {
+            get { return pFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFcp.Arredondar(2); }
+            set { _vFcp = value.Arredondar(2); }
+        }
+
+        public bool vFCPSpecified
+        {
+            get { return vFCP.HasValue; }
+        }
+
+        /// <summary>
         ///     N18 - Modalidade de determinação da BC do ICMS ST
         /// </summary>
         public DeterminacaoBaseIcmsSt? modBCST { get; set; }
@@ -146,6 +197,51 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsst.Arredondar(2); }
             set { _vIcmsst = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// N23a - Valor da Base de Cálculo do FCP retido por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCPST
+        {
+            get { return _vBcfcpst.Arredondar(2); }
+            set { _vBcfcpst = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPSTSpecified
+        {
+            get { return vBCFCPST.HasValue; }
+        }
+
+        /// <summary>
+        /// N23b - Percentual do FCP retido por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pFCPST
+        {
+            get { return _pFcpst.Arredondar(4); }
+            set { _pFcpst = value.Arredondar(4); }
+        }
+
+        public bool pFCPSTSpecified
+        {
+            get { return pFCPST.HasValue; }
+        }
+
+        /// <summary>
+        /// N23d - Valor do FCP retido por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCPST
+        {
+            get { return _vFcpst; }
+            set { _vFcpst = value; }
+        }
+
+        public bool vFCPSTSpecified
+        {
+            get { return vFCPST.HasValue; }
         }
 
         /// <summary>

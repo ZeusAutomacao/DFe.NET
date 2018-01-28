@@ -39,8 +39,15 @@ namespace NFe.Classes.Informacoes.Transporte
     {
         /// <summary>
         ///     X02 - Modalidade do frete
+        /// Versão 3.10
+        /// Versão 4.00
         /// </summary>
-        public ModalidadeFrete modFrete { get; set; }
+        public ModalidadeFrete? modFrete { get; set; }
+
+        public bool modFreteSpecified
+        {
+            get { return modFrete.HasValue; }
+        }
 
         /// <summary>
         ///     X03 - Grupo Transportador

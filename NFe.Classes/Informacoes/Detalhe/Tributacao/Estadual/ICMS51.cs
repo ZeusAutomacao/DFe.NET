@@ -43,6 +43,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pDif;
         private decimal? _vIcmsDif;
         private decimal? _vIcms;
+        private decimal? _vBcfcp;
+        private decimal? _pFcp;
+        private decimal? _vFcp;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -120,6 +123,51 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcms.Arredondar(2); }
             set { _vIcms = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// N17a - Valor da Base de Cálculo do FCP
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCP
+        {
+            get { return _vBcfcp.Arredondar(2); }
+            set { _vBcfcp = value.Arredondar(2); }
+        }
+
+        public bool vBCFCPSpecified
+        {
+            get { return vBCFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pFCP
+        {
+            get { return _pFcp.Arredondar(4); }
+            set { _pFcp = value.Arredondar(4); }
+        }
+
+        public bool pFCPSpecified
+        {
+            get { return pFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFcp.Arredondar(2); }
+            set { _vFcp = value.Arredondar(2); }
+        }
+
+        public bool vFCPSpecified
+        {
+            get { return vFCP.HasValue; }
         }
 
         public bool ShouldSerializemodBC()
