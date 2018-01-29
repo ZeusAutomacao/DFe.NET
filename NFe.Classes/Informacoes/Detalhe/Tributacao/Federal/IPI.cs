@@ -39,11 +39,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
     public class IPI
     {
         /// <summary>
-        ///     O02 - Classe de enquadramento do IPI para Cigarros e Bebidas
-        /// </summary>
-        public string clEnq { get; set; }
-
-        /// <summary>
         ///     O03 - CNPJ do produtor da mercadoria, quando diferente do emitente. Somente para os casos de exportação direta ou
         ///     indireta.
         /// </summary>

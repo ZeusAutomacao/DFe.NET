@@ -30,12 +30,12 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
+
 using NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao;
 using NFe.Classes.Informacoes.Detalhe.Exportacao;
 using NFe.Classes.Informacoes.Detalhe.ProdEspecifico;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe
 {
@@ -48,6 +48,7 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         private string _nRecopi;
         private ProdutoEspecifico _produtoEspecifico;
+        private int? _CNPJFab;
         private decimal _qcom;
         private decimal _qtrib;
         private decimal _vprod;
@@ -96,6 +97,27 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// I05c - Código CEST
         /// </summary>
         public string CEST { get; set; }
+
+        /// <summary>
+        /// I05d - Indicador de Escala Relevante
+        /// </summary>
+        public string indEscala { get; set; }
+
+        /// <summary>
+        /// i05e - CNPJ do Fabricante da Mercadoria
+        /// </summary>
+        public int? CNPJFab
+        {
+            get { return _CNPJFab; }
+            set { _CNPJFab = value; }
+        }
+
+        public bool ShouldSerializeCNPJFab()
+        {
+            return CNPJFab.HasValue && CNPJFab.Value > 0;
+        }
+
+        public string cBenef { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -297,6 +319,5 @@ namespace NFe.Classes.Informacoes.Detalhe
         {
             return vOutro.HasValue && vOutro > 0;
         }
-
     }
 }

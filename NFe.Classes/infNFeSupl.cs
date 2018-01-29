@@ -39,13 +39,18 @@ using System.Xml.Serialization;
 namespace NFe.Classes
 {
     [Serializable]
-    public class infNFeSupl: IXmlSerializable
+    public class infNFeSupl : IXmlSerializable
     {
         /// <summary>
         /// ZX02 - Texto com o QR-Code impresso no DANFE NFC-e
         /// O atributo qrCode deve ser serializado como CDATA, conforme NT2015.002, V141, regra ZX02-22
         /// </summary>
         public string qrCode { get; set; }
+
+        /// <summary>
+        /// Texto com a URL de consulta por chave de acesso a ser impressa no DANFE NFC-e.
+        /// </summary>
+        public string urlChave { get; set; }
 
         public XmlSchema GetSchema()
         {
