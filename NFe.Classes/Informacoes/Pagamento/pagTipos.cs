@@ -90,6 +90,14 @@ namespace NFe.Classes.Informacoes.Pagamento
         [XmlEnum("14")]
         fpDuplicataMercantil = 14,
 
+        [Description("Boleto Bancário")]
+        [XmlEnum("15")]
+        fpBoletoBancario = 15,
+
+        [Description("Sem Pagamento")]
+        [XmlEnum("90")]
+        fpSemPagamento = 90,
+
         [Description("Outros")]
         [XmlEnum("99")]
         fpOutro = 99
