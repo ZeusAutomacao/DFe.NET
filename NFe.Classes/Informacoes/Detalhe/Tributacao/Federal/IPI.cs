@@ -39,6 +39,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
     {
         /// <summary>
         ///     O02 - Classe de enquadramento do IPI para Cigarros e Bebidas
+        /// Versão 3.10
         /// </summary>
         public string clEnq { get; set; }
 
