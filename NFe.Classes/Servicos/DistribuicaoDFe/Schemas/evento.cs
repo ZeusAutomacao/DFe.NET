@@ -43,6 +43,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
     [XmlRoot(Namespace = "", IsNullable = false)]
     public class evento
     {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe", ElementName = "infEvento")]
         public eventoInfEvento infEvento { get; set; }
 
         [XmlAttribute()]
