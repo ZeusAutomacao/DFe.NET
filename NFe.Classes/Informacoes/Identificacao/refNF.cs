@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using DFe.Classes.Entidades;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Identificacao
 {
@@ -55,7 +56,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     BA07 - Modelo do Documento Fiscal
         /// </summary>
-        public string mod { get; set; }
+        public refMod mod { get; set; }
 
         /// <summary>
         ///     BA08 - Série do Documento Fiscal
