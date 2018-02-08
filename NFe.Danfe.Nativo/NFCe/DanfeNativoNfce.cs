@@ -369,7 +369,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 AdicionarTexto textoFormaPagamento = new AdicionarTexto(g, ObtemDescricao(pag), 7);
                 textoFormaPagamento.Desenhar(x, _y);
 
-                AdicionarTexto textoValorFormaPagamento = new AdicionarTexto(g, pag.vPag.ToString("N2"), 7);
+                AdicionarTexto textoValorFormaPagamento = new AdicionarTexto(g, pag.vPag.Value.ToString("N2"), 7);
                 int textoValorFormaPagamentoX = (larguraLinhaMargemDireita - textoValorFormaPagamento.Medida.Largura);
                 textoValorFormaPagamento.Desenhar(textoValorFormaPagamentoX, _y);
 
