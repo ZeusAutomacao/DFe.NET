@@ -46,6 +46,9 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>11=Vale Refeição</para>
     ///     <para>12=Vale Presente</para>
     ///     <para>13=Vale Combustível</para>
+    ///     <para>14=Duplicata Mercantil (versão 4.00)</para>
+    ///     <para>15=Boleto Bancário (versão 4.00)</para>
+    ///     <para>90=Sem pagamento (versão 4.00)</para>
     ///     <para>99=Outros</para>
     /// </summary>
     public enum FormaPagamento
@@ -68,6 +71,12 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel,
 
+        [Description("Duplicata Mercantil")] [XmlEnum("14")] fpDuplicataMercantil, // VERSÃO 4.00
+
+        [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario, // VERSÃO 4.00
+
+        [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento, // VERSÃO 4.00
+
         [Description("Outros")] [XmlEnum("99")] fpOutro
     }
 
@@ -76,6 +85,11 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>02=Mastercard</para>
     ///     <para>03=American Express</para>
     ///     <para>04=Sorocred</para>
+    ///     <para>05=Diners Club (versão 4.00)</para>
+    ///     <para>06=Elo (versão 4.00)</para>
+    ///     <para>07=Hipercard (versão 4.00)</para>
+    ///     <para>08=Aura (versão 4.00)</para>
+    ///     <para>09=Cabal (versão 4.00)</para>
     ///     <para>99=Outros</para>
     /// </summary>
     public enum BandeiraCartao
@@ -87,6 +101,16 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("American Express")] [XmlEnum("03")] bcAmericanExpress,
 
         [Description("Sorocred")] [XmlEnum("04")] bcSorocred,
+
+        [Description("Diners Club")] [XmlEnum("05")] bcDinersClub,
+
+        [Description("Elo")] [XmlEnum("06")] Elo,
+
+        [Description("Hipercard")] [XmlEnum("07")] Hipercard,
+
+        [Description("Aura")] [XmlEnum("08")] Aura,
+
+        [Description("Cabal")] [XmlEnum("09")] Cabal,
 
         [Description("Outros")] [XmlEnum("99")] bcOutros
     }

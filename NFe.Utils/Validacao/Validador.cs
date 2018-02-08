@@ -62,6 +62,8 @@ namespace NFe.Utils.Validacao
                             return "inutNFe_v2.00.xsd";
                         case VersaoServico.ve310:
                             return "inutNFe_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "inutNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeConsultaProtocolo:
@@ -71,6 +73,8 @@ namespace NFe.Utils.Validacao
                             return "consSitNFe_v2.01.xsd";
                         case VersaoServico.ve310:
                             return "consSitNFe_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "consSitNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeStatusServico:
@@ -80,10 +84,18 @@ namespace NFe.Utils.Validacao
                             return "consStatServ_v2.00.xsd";
                         case VersaoServico.ve310:
                             return "consStatServ_v3.10.xsd";
+                        case VersaoServico.ve400:
+                            return "consStatServ_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NFeAutorizacao:
-                    return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+
+                    if (versaoServico != VersaoServico.ve400)
+                    {
+                        return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
+                    }
+
+                    return loteNfe ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
                 case ServicoNFe.NfeConsultaCadastro:
                     return "consCad_v2.00.xsd";
                 case ServicoNFe.NfeDownloadNF:

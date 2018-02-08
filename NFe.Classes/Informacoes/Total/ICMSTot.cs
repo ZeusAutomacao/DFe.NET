@@ -53,6 +53,10 @@ namespace NFe.Classes.Informacoes.Total
         private decimal? _vFcpufDest;
         private decimal? _vIcmsufDest;
         private decimal? _vIcmsufRemet;
+        private decimal? _vFcp;
+        private decimal? _vFcpst;
+        private decimal? _vFcpstRet;
+        private decimal? _vIpiDevol;
 
         /// <summary>
         ///     W03 - Base de Cálculo do ICMS
@@ -129,6 +133,21 @@ namespace NFe.Classes.Informacoes.Total
         }
 
         /// <summary>
+        /// W04h - Valor Total do FCP (Fundo de Combate à Pobreza)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFcp.Arredondar(2); }
+            set { _vFcp = value.Arredondar(2); }
+        }
+
+        public bool vFCPSpecified
+        {
+            get { return vFCP.HasValue; }
+        }
+
+        /// <summary>
         ///     W05 - Base de Cálculo do ICMS ST
         /// </summary>
         public decimal vBCST
@@ -144,6 +163,36 @@ namespace NFe.Classes.Informacoes.Total
         {
             get { return _vSt.Arredondar(2); }
             set { _vSt = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// W06a - Valor Total do FCP (Vundo de Combate à Pobreza) retido por substituição tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCPST
+        {
+            get { return _vFcpst.Arredondar(2); }
+            set { _vFcpst = value.Arredondar(2); }
+        }
+
+        public bool vFCPSTSpecified
+        {
+            get { return vFCPST.HasValue; }
+        }
+
+        /// <summary>
+        /// W06b - Valor Total do FCP retido anteriormente por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCPSTRet
+        {
+            get { return _vFcpstRet.Arredondar(2); }
+            set { _vFcpstRet = value.Arredondar(2); }
+        }
+
+        public bool vFCPSTRetSpecified
+        {
+            get { return vFCPSTRet.HasValue; }
         }
 
         /// <summary>
@@ -198,6 +247,21 @@ namespace NFe.Classes.Informacoes.Total
         {
             get { return _vIpi.Arredondar(2); }
             set { _vIpi = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// W12a - Valor Total do IPI devolvido
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vIPIDevol
+        {
+            get { return _vIpiDevol.Arredondar(2); }
+            set { _vIpiDevol = value.Arredondar(2); }
+        }
+
+        public bool vIPIDevolSpecified
+        {
+            get { return vIPIDevol.HasValue; }
         }
 
         /// <summary>

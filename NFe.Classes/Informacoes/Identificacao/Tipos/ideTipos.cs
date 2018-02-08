@@ -207,6 +207,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")] pcInternet = 2,
         [XmlEnum("3")] pcTeleatendimento = 3,
         [XmlEnum("4")] pcEntregaDomicilio = 4,
+        [XmlEnum("5")] pcPresencialForaEstabelecimento, // versão 4.00
         [XmlEnum("9")] pcOutros = 9
     }
 
@@ -224,5 +225,14 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         ioSolicitaNovoCsc = 2,
         [XmlEnum("3")]
         ioRevogaCscAtivo = 3
+    }
+
+    public enum refMod
+    {
+        [XmlEnum("01")]
+        modelo = 1,
+
+        [XmlEnum("02")]
+        modelo2 = 2 // Versão 4.00
     }
 }
