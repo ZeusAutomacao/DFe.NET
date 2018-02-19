@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using DFe.Utils;
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
@@ -55,9 +56,11 @@ namespace MDFe.Servicos.RecepcaoMDFe
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringSemUtc();
                     break;
                 case VersaoServico.Versao300:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
                     break;
             }
 
