@@ -192,6 +192,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vFcpst = value; }
         }
 
+        public bool vFCPSTSpecified
+        {
+            get { return vFCPST.HasValue; }
+        }
+
         /// <summary>
         ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
         /// </summary>
