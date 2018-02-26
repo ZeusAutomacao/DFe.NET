@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
@@ -47,6 +48,11 @@ namespace NFe.Utils
             switch (versaoServico)
             {
                 case VersaoServico.ve100:
+                    switch (servicoNFe)
+                    {
+                        case ServicoNFe.NFeDistribuicaoDFe:
+                            return "1.01";
+                    }
                     return "1.00";
                 case VersaoServico.ve200:
                     switch (servicoNFe)
@@ -57,8 +63,27 @@ namespace NFe.Utils
                     return "2.00";
                 case VersaoServico.ve310:
                     return "3.10";
+                case VersaoServico.ve400:
+                    return "4.00";
             }
             return "";
+        }
+
+        // criado pois tem estado que o evento de cancelamento sempre será versão 1.00 e a webservice podera ser 2.00 ou 3.00 ou seja 
+        // na montagem do xml vai ser 1.00 e a versão do webservice vai ser diferente da montagem exemplo: MT
+        public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico, Estado? estado)
+        {
+            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
+            {
+                return "2.00";
+            }
+
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao)
+            {
+                return "1.00";
+            }
+
+            return VersaoServicoParaString(servicoNFe, versaoServico);
         }
 
         public static string TpAmbParaString(this TipoAmbiente tpAmb)
@@ -84,6 +109,8 @@ namespace NFe.Utils
                     return "2.00";
                 case VersaoServico.ve310:
                     return "3.10";
+                case VersaoServico.ve400:
+                    return "4.00";
             }
             return null;
         }

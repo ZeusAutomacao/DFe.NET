@@ -89,19 +89,20 @@ namespace NFe.Utils.NFe
         ///     Gera id, cdv, assina e faz alguns ajustes nos dados da classe NFe antes de utilizá-la
         /// </summary>
         /// <param name="nfe"></param>
+        /// <param name="cfgServico1"></param>
         /// <returns>Retorna um objeto NFe devidamente tradado</returns>
-        public static Classes.NFe Valida(this Classes.NFe nfe)
+        public static Classes.NFe Valida(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
 
             var versao = (Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture));
 
             var xmlNfe = nfe.ObterXmlString();
-            var cfgServico = ConfiguracaoServico.Instancia;
+            var config = cfgServico ?? ConfiguracaoServico.Instancia;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NfeRecepcao, config.VersaoNfeRecepcao, xmlNfe, false, config);
             if (versao >= 3)
-                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false);
+                Validador.Valida(ServicoNFe.NFeAutorizacao, config.VersaoNFeAutorizacao, xmlNfe, false, config);
 
             return nfe; //Para uso no formato fluent
         }
@@ -110,8 +111,9 @@ namespace NFe.Utils.NFe
         ///     Assina um objeto NFe
         /// </summary>
         /// <param name="nfe"></param>
+        /// <param name="cfgServico">ConfiguracaoServico para uso na classe Assinador</param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
-        public static Classes.NFe Assina(this Classes.NFe nfe)
+        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
@@ -139,7 +141,7 @@ namespace NFe.Utils.NFe
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
 
-            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id);
+            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }

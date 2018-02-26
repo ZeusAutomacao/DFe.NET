@@ -120,5 +120,8 @@ namespace MDFe.Classes.Informacoes
             }
             set { UF = UF.SiglaParaEstado(value); }
         }
+
+        public bool CapKGSpecified { get { return CapKG.HasValue; } }
+        public bool CapM3Specified { get { return CapM3.HasValue; } }
     }
 }

@@ -42,7 +42,7 @@ using DFe.Utils.Assinatura;
 
 namespace CTe.Classes
 {
-    public sealed class ConfiguracaoServico
+    public sealed class ConfiguracaoServico : IDisposable
     {
         private static volatile ConfiguracaoServico _instancia;
         private static readonly object SyncRoot = new object();
@@ -58,11 +58,40 @@ namespace CTe.Classes
         /// </summary>
         public ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
-        public X509Certificate2 X509Certificate2 { get { return ObterCertificado(); } }
+        private X509Certificate2 _certificado = null;
+        public X509Certificate2 X509Certificate2
+        {
+            get
+            {
+                if (this._certificado != null)
+                    if (!this.ConfiguracaoCertificado.ManterDadosEmCache)
+                        this._certificado.Reset();
+                _certificado = ObterCertificado();
+                return _certificado;
+            }
+        }
 
         private X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
+        }
+
+        public void Dispose()
+        {
+            if (!this.ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
+            {
+                _certificado.Reset();
+                _certificado = null;
+            }
+        }
+
+        ~ConfiguracaoServico()
+        {
+            if (!this.ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
+            {
+                _certificado.Reset();
+                _certificado = null;
+            }
         }
 
         /// <summary>

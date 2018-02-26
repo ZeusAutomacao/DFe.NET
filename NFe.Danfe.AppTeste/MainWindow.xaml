@@ -21,7 +21,7 @@
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="0,0,10,0" RenderTransformOrigin="0.493,0.552">
+                        <StackPanel Margin="0,0,10,0" RenderTransformOrigin="0.493,0.552" Height="339">
 
                             <GroupBox Header="Emissão Normal - Impressão dos produtos" Height="60"
                                           Margin="0,10,0,0">
@@ -85,6 +85,7 @@
                                 HorizontalAlignment="Left" VerticalAlignment="Top"
                                 Margin="0,10,0,0"
                                 IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
+                            <CheckBox x:Name="chbQuebrarLinhaObservacao" Content="Quebrar linha nas observações"/>
 
                         </StackPanel>
 

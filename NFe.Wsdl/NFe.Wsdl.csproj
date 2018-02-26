@@ -9,12 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFe.Wsdl</RootNamespace>
     <AssemblyName>NFe.Wsdl</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,6 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,16 +53,25 @@
     <Compile Include="Autorizacao\NfeAutorizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\NFeAutorizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\NfeRetAutorizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta.cs">
@@ -69,6 +81,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsulta4.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
@@ -83,6 +98,9 @@
     <Compile Include="Evento\RecepcaoEvento.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Evento\RecepcaoEvento4.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="INfeServico.cs" />
     <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
@@ -92,6 +110,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\NFeInutilizacao4.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="nfeCabecMsg.cs" />
@@ -109,6 +130,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Status\NfeStatusServico3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\NfeStatusServico4.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

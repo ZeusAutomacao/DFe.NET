@@ -70,7 +70,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public string cEAN
         {
-            get { return _cEan; }
+            get { return _cEan ?? string.Empty; } //Sempre serializar o campo cEAN, mesmo que não tenha valor 
             set { _cEan = value ?? string.Empty; }
         }
 
@@ -96,6 +96,32 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// I05c - Código CEST
         /// </summary>
         public string CEST { get; set; }
+
+        /// <summary>
+        /// Versão 4.00
+        /// Indicador de Produção em escala relevante, conforme Cláusula 23 do Convenio ICMS 52/2017 ||||
+        /// Nota: preenchimento obrigatório para produtos com NCM
+        /// relacionado no Anexo XXVII do Convenio 52/2017
+        /// </summary>
+        public indEscala? indEscala { get; set; }
+
+        public bool indEscalaSpecified
+        {
+            get { return indEscala.HasValue; }
+        }
+
+        /// <summary>
+        /// Versão 4.00
+        /// CNPJ do Fabricante da Mercadoria, obrigatório para produto em escala NÃO relevante.
+        /// </summary>
+        public string CNPJFab { get; set; }
+
+        /// <summary>
+        /// Versão 4.00
+        /// Código de Benefício fiscal utilizado pela UF, aplicado ao item. Obs: Deve ser utilizado o mesmo código adotado na EFD e outras
+        /// declarações, nas UF que o exigem.
+        /// </summary>
+        public string cBenef { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -144,7 +170,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public string cEANTrib
         {
-            get { return _cEanTrib; }
+            get { return _cEanTrib ?? string.Empty; } //Sempre serializar o campo cEANTrib, mesmo que não tenha valor 
             set { _cEanTrib = value ?? string.Empty; }
         }
 
@@ -238,6 +264,13 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     I70 - Número de controle da FCI - Ficha de Conteúdo de Importação
         /// </summary>
         public string nFCI { get; set; }
+
+        /// <summary>
+        /// I80 - Detalhamento de produto sujeito a rastreabilidade
+        /// Versão 4.00
+        /// </summary>
+        [XmlElement("rastro")]
+        public List<rastro> rastro { get; set; }
 
         /// <summary>
         ///     <para>129 (veicProd) - Detalhamento de Veículos novos</para>

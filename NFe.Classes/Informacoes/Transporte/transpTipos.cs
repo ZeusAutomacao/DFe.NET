@@ -35,16 +35,16 @@ using System.Xml.Serialization;
 namespace NFe.Classes.Informacoes.Transporte
 {
     /// <summary>
-    ///     <para>0=Por conta do emitente;</para>
-    ///     <para>1=Por conta do destinatário/remetente;</para>
-    ///     <para>2=Por conta de terceiros;</para>
-    ///     <para>9=Sem frete. (V2.0)</para>
+    /// Versão 3.10
+    /// Versão 4.00
     /// </summary>
     public enum ModalidadeFrete
     {
-        [XmlEnum("0")] mfContaEmitente,
+        [XmlEnum("0")] mfContaEmitenteOumfContaRemetente, // Versão 3.1 ou 4.00 com objetivos diferentes e claro
         [XmlEnum("1")] mfContaDestinatario,
         [XmlEnum("2")] mfContaTerceiros,
+        [XmlEnum("3")] mfProprioContaRemente, // Versão 4.00
+        [XmlEnum("4")] mfProprioContaDestinatario, // Versão 4.00
         [XmlEnum("9")] mfSemFrete
     }
 }

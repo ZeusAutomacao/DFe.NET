@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFe.Classes</RootNamespace>
     <AssemblyName>NFe.Classes</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
@@ -17,6 +17,7 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -26,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,6 +36,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,10 +47,15 @@
   <ItemGroup>
     <Compile Include="infNFeSupl.cs" />
     <Compile Include="Informacoes\Detalhe\ProdEspecifico\encerrante.cs" />
+    <Compile Include="Informacoes\Detalhe\rastro.cs" />
     <Compile Include="Informacoes\Detalhe\Tributacao\Estadual\ICMSUFDest.cs" />
+    <Compile Include="Informacoes\Detalhe\Tributacao\Extensions.cs" />
+    <Compile Include="Informacoes\Pagamento\detPag.cs" />
     <Compile Include="Servicos\AdmCsc\admCscNFCe.cs" />
     <Compile Include="Servicos\AdmCsc\dadosCsc.cs" />
     <Compile Include="Servicos\AdmCsc\retAdmCscNFCe.cs" />
+    <Compile Include="Servicos\Autorizacao\enviNFe4.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\consChNFe.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\consNSU.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\distDFeInt.cs" />
     <Compile Include="Servicos\DistribuicaoDFe\distNSU.cs" />
