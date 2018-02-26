@@ -200,10 +200,13 @@ namespace DFe.Utils.Assinatura
             var store = ObterX509Store(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
             var collection = store.Certificates;
             var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
-            var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
-                X509SelectionFlag.SingleSelection);
 
-            if (scollection.Count == 0)
+            var scollection = new X509Certificate2Collection(fcollection);
+
+            ///var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
+            //   X509SelectionFlag.SingleSelection);
+
+            if (scollection.Count == 0) 
             {
                 throw new Exception("Nenhum certificado foi selecionado!");
             }
