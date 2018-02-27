@@ -31,37 +31,47 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
-using System.Web.Services;
-using System.Web.Services.Description;
-using System.Web.Services.Protocols;
+using System.ServiceModel;
+//using System.Web.Services;
+//using System.Web.Services.Description;
+//using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
+using System.ServiceModel.Dispatcher;
 
 namespace NFe.Wsdl.AdmCsc
 {
-    [WebServiceBinding(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
-    public class NfceCsc : SoapHttpClientProtocol, INfeServico
+    //[WebServiceBinding(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
+
+    [ServiceContract(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
+    public class NfceCsc : INfeServico
     {
-         public NfceCsc(string url, X509Certificate certificado, int timeOut)
+        public NfceCsc(string url, X509Certificate certificado, int timeOut)
         {
-            SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);
+            //SoapVersion = SoapProtocolVersion.Soap12;
+            //Url = url;
+            //Timeout = timeOut;
+            //ClientCertificates.Add(certificado);
         }
 
-         [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
-         public nfeCabecMsg nfeCabecMsg { get; set; }
+        [MessageHeader(MustUnderstand = true)]
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
+        public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "admCscNFCe")]
+        //  [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
+        //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        //[WebMethod(MessageName = "admCscNFCe")]
+
+        [XmlSerializerFormat(Use = OperationFormatUse.Literal, Style = OperationFormatStyle.Rpc)]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe")]
         [return: XmlElementAttribute("cscNFCeResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
         public XmlNode Execute([XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")] XmlNode nfeDadosMsg)
-         {
-             var results = Invoke("admCscNFCe", new object[] { nfeDadosMsg });
-             return ((XmlNode)(results[0]));
-         }
+        {
+            //var results = Invoke("admCscNFCe", new object[] { nfeDadosMsg });
+            //return ((XmlNode)(results[0]));
+            return null;
+        }
     }
 }

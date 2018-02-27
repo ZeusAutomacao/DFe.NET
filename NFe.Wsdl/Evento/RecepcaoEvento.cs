@@ -31,36 +31,34 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
-using System.Web.Services;
-using System.Web.Services.Description;
-using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Evento
 {
-    [WebServiceBinding(Name = "RecepcaoEventoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
-    public class RecepcaoEvento : SoapHttpClientProtocol, INfeServico
+    //[WebServiceBinding(Name = "RecepcaoEventoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+    public class RecepcaoEvento :  INfeServico
     {
         public RecepcaoEvento(string url, X509Certificate certificado, int timeOut)
         {
-            SoapVersion = SoapProtocolVersion.Soap12;
+           /* SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;
             Timeout = timeOut;
-            ClientCertificates.Add(certificado);
+            ClientCertificates.Add(certificado);*/
         }
 
         [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
+        /*[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         [WebMethod(MessageName = "nfeRecepcaoEvento")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]*/
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
-            return ((XmlNode) (results[0]));
+            // var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
+            //return ((XmlNode) (results[0]));
+            return null;
         }
     }
 }
