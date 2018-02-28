@@ -45,7 +45,7 @@ namespace NFe.Wsdl.AdmCsc
 {
     //[WebServiceBinding(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
 
-    [ServiceContract(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
+   // [ServiceContract(Name = "CscNFCeBinding", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
     public class NfceCsc : INfeServico
     {
         public NfceCsc(string url, X509Certificate certificado, int timeOut)
@@ -56,7 +56,7 @@ namespace NFe.Wsdl.AdmCsc
             //ClientCertificates.Add(certificado);
         }
 
-        [MessageHeader(MustUnderstand = true)]
+        //[MessageHeader(MustUnderstand = true)]
         [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
@@ -64,8 +64,8 @@ namespace NFe.Wsdl.AdmCsc
         //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         //[WebMethod(MessageName = "admCscNFCe")]
 
-        [XmlSerializerFormat(Use = OperationFormatUse.Literal, Style = OperationFormatStyle.Rpc)]
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe")]
+        //[XmlSerializerFormat(Use = OperationFormatUse.Literal, Style = OperationFormatStyle.Rpc)]
+      //  [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe")]
         [return: XmlElementAttribute("cscNFCeResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
         public XmlNode Execute([XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")] XmlNode nfeDadosMsg)
         {

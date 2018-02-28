@@ -31,34 +31,117 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Autorizacao
 {
-    //[WebServiceBinding(Name = "NfeRetAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-    public class NfeRetAutorizacao : /*SoapHttpClientProtocol,*/ INfeServico
+
+    public class NfeRetAutorizacao : NfeRetAutorizacaoSoap12Client, INfeServico
     {
         public NfeRetAutorizacao(string url, X509Certificate certificado, int timeOut)
+            : base(url)
         {
-           /* SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
-
-       /* [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeRetAutorizacaoLote")]*/
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")] XmlNode nfeDadosMsg)
+        
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            // var results = Invoke("nfeRetAutorizacaoLote", new object[] {nfeDadosMsg});
-            // return ((XmlNode) (results[0]));
-            return null;
+            var result = base.nfeRetAutorizacaoLoteAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeRetAutorizacaoLoteResult;
+        }
+    }
+    
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao", ConfigurationName = "NfeRetAutorizacaoSoap12")]
+    public interface NfeRetAutorizacaoSoap12
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        System.Threading.Tasks.Task<nfeRetAutorizacaoLoteResponse> nfeRetAutorizacaoLoteAsync(nfeRetAutorizacaoLoteRequest request);
+    }
+    
+    public interface NfeRetAutorizacaoSoap12Channel : NfeRetAutorizacaoSoap12, System.ServiceModel.IClientChannel
+    {
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeRetAutorizacaoLoteRequest
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeRetAutorizacaoLoteRequest()
+        {
+        }
+
+        public nfeRetAutorizacaoLoteRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeRetAutorizacaoLoteResponse
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao", Order = 0)]
+        public System.Xml.XmlNode nfeRetAutorizacaoLoteResult;
+
+        public nfeRetAutorizacaoLoteResponse()
+        {
+        }
+
+        public nfeRetAutorizacaoLoteResponse(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeRetAutorizacaoLoteResult)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeRetAutorizacaoLoteResult = nfeRetAutorizacaoLoteResult;
+        }
+    }
+    
+    public partial class NfeRetAutorizacaoSoap12Client : System.ServiceModel.ClientBase<NfeRetAutorizacaoSoap12>
+    {
+
+        public NfeRetAutorizacaoSoap12Client()
+        {
+        }
+
+        public NfeRetAutorizacaoSoap12Client(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public NfeRetAutorizacaoSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+        
+        public System.Threading.Tasks.Task<nfeRetAutorizacaoLoteResponse> nfeRetAutorizacaoLoteAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeRetAutorizacaoLoteRequest inValue = new nfeRetAutorizacaoLoteRequest
+            {
+                nfeCabecMsg = nfeCabecMsg,
+                nfeDadosMsg = nfeDadosMsg
+            };
+            return this.Channel.nfeRetAutorizacaoLoteAsync(inValue);
         }
     }
 }
