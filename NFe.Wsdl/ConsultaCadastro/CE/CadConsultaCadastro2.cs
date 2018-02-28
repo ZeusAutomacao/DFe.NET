@@ -32,35 +32,120 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.ConsultaCadastro.CE
 {
-    //[WebServiceBinding(Name = "CadConsultaCadastro2Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
-    public class CadConsultaCadastro2 : /*SoapHttpClientProtocol, */INfeServico
+    public class CadConsultaCadastro2 : CadConsultaCadastro2Soap12Client, INfeServico
     {
-        public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut)
+        public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            /*SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        /*[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare
-            )]
-        [WebMethod(MessageName = "consultaCadastro2")]*/
-        [return: XmlElement("cadConsultaCadastro2Result", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            // var results = Invoke("consultaCadastro2", new object[] { nfeDadosMsg });
-            //return ((XmlNode)(results[0]));
-            return null;
+            var result = base.consultaCadastro2Async(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.consultaCadastro2Result;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class consultaCadastro2Request
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public consultaCadastro2Request()
+        {
+        }
+
+        public consultaCadastro2Request(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class consultaCadastro2Response
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", Order = 0)]
+        public System.Xml.XmlNode consultaCadastro2Result;
+
+        public consultaCadastro2Response()
+        {
+        }
+
+        public consultaCadastro2Response(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode consultaCadastro2Result)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.consultaCadastro2Result = consultaCadastro2Result;
+        }
+    }
+
+    public interface CadConsultaCadastro2Soap12Channel : CadConsultaCadastro2Soap12, System.ServiceModel.IClientChannel
+    {
+    }
+
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", ConfigurationName = "CadConsultaCadastro2Soap12")]
+    public interface CadConsultaCadastro2Soap12
+    {
+
+        // CODEGEN: Generating message contract since the operation consultaCadastro2 is neither RPC nor document wrapped.
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        consultaCadastro2Response consultaCadastro2(consultaCadastro2Request request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", ReplyAction = "*")]
+        System.Threading.Tasks.Task<consultaCadastro2Response> consultaCadastro2Async(consultaCadastro2Request request);
+    }
+
+
+    public partial class CadConsultaCadastro2Soap12Client : System.ServiceModel.ClientBase<CadConsultaCadastro2Soap12>
+    {
+
+        public CadConsultaCadastro2Soap12Client()
+        {
+        }
+
+        public CadConsultaCadastro2Soap12Client(string endpointAddressUri) :
+               base(
+                   new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                       new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                   new EndpointAddress(endpointAddressUri)
+                   )
+        {
+        }
+
+        public CadConsultaCadastro2Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<consultaCadastro2Response> consultaCadastro2Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            consultaCadastro2Request inValue = new consultaCadastro2Request();
+            inValue.nfeCabecMsg = nfeCabecMsg;
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.consultaCadastro2Async(inValue);
         }
     }
 }
