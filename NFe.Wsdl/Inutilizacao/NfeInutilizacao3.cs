@@ -31,34 +31,112 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Inutilizacao
 {
-    //[WebServiceBinding(Name = "NfeInutilizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")]
-    public class NfeInutilizacao3 : INfeServico
+    public class NfeInutilizacao3 : NfeInutilizacao3Soap12Client, INfeServico
     {
-        public NfeInutilizacao3(string url, X509Certificate certificado, int timeOut)
+        public NfeInutilizacao3(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            /*SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        /*[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3/nfeInutilizacaoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeInutilizacaoNF")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")]*/
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeInutilizacaoNF", new object[] {nfeDadosMsg});
-            // return ((XmlNode) (results[0]));
-            return null;
+            var result = base.nfeInutilizacaoNF3Async(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeInutilizacaoNF3Result;
+        }
+    }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3", ConfigurationName = "NfeInutilizacao3Soap12")]
+    public interface NfeInutilizacao3Soap12
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3/nfeInutilizacaoNF3", ReplyAction = "*")]
+        System.Threading.Tasks.Task<nfeInutilizacaoNF3Response> nfeInutilizacaoNF3Async(nfeInutilizacaoNF3Request request);
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeInutilizacaoNF3Request
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeInutilizacaoNF3Request()
+        {
+        }
+
+        public nfeInutilizacaoNF3Request(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeInutilizacaoNF3Response
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3", Order = 0)]
+        public System.Xml.XmlNode nfeInutilizacaoNF3Result;
+
+        public nfeInutilizacaoNF3Response()
+        {
+        }
+
+        public nfeInutilizacaoNF3Response(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeInutilizacaoNF3Result)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeInutilizacaoNF3Result = nfeInutilizacaoNF3Result;
+        }
+    }
+
+    public interface NfeInutilizacao3Soap12Channel : NfeInutilizacao3Soap12, System.ServiceModel.IClientChannel
+    {
+    }
+
+    public partial class NfeInutilizacao3Soap12Client : System.ServiceModel.ClientBase<NfeInutilizacao3Soap12>
+    {
+
+        public NfeInutilizacao3Soap12Client()
+        {
+        }
+
+        public NfeInutilizacao3Soap12Client(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public NfeInutilizacao3Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeInutilizacaoNF3Response> nfeInutilizacaoNF3Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeInutilizacaoNF3Request inValue = new nfeInutilizacaoNF3Request();
+            inValue.nfeCabecMsg = nfeCabecMsg;
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeInutilizacaoNF3Async(inValue);
         }
     }
 }
