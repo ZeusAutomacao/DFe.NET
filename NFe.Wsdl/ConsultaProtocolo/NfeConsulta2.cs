@@ -107,10 +107,6 @@ namespace NFe.Wsdl.ConsultaProtocolo
     public interface NfeConsulta2Soap12
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        nfeConsulta2NFResponse nfeConsultaNF2(nfeConsulta2NFRequest request);
-
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
         System.Threading.Tasks.Task<nfeConsulta2NFResponse> nfeConsultaNFAsync(nfeConsulta2NFRequest request);
     }
 
