@@ -31,34 +31,114 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Evento
 {
-    //[WebServiceBinding(Name = "RecepcaoEventoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
-    public class RecepcaoEvento :  INfeServico
+    public class RecepcaoEvento : RecepcaoEventoSoap12Client, INfeServico
     {
-        public RecepcaoEvento(string url, X509Certificate certificado, int timeOut)
+        public RecepcaoEvento(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-           /* SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        /*[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeRecepcaoEvento")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]*/
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            // var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
-            //return ((XmlNode) (results[0]));
-            return null;
+            var result = base.nfeRecepcaoEventoAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeRecepcaoEventoResult;
         }
     }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", ConfigurationName = "RecepcaoEventoSoap12")]
+    public interface RecepcaoEventoSoap12
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", ReplyAction = "*")]
+        System.Threading.Tasks.Task<nfeRecepcaoEventoResponse> nfeRecepcaoEventoAsync(nfeRecepcaoEventoRequest request);
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeRecepcaoEventoRequest
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeRecepcaoEventoRequest()
+        {
+        }
+
+        public nfeRecepcaoEventoRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeRecepcaoEventoResponse
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public System.Xml.XmlNode nfeRecepcaoEventoResult;
+
+        public nfeRecepcaoEventoResponse()
+        {
+        }
+
+        public nfeRecepcaoEventoResponse(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeRecepcaoEventoResult)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeRecepcaoEventoResult = nfeRecepcaoEventoResult;
+        }
+    }
+
+    public interface RecepcaoEventoSoap12Channel : RecepcaoEventoSoap12, System.ServiceModel.IClientChannel
+    {
+    }
+
+    public partial class RecepcaoEventoSoap12Client : System.ServiceModel.ClientBase<RecepcaoEventoSoap12>
+    {
+
+        public RecepcaoEventoSoap12Client()
+        {
+        }
+
+        public RecepcaoEventoSoap12Client(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public RecepcaoEventoSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeRecepcaoEventoResponse> nfeRecepcaoEventoAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeRecepcaoEventoRequest inValue = new nfeRecepcaoEventoRequest();
+            inValue.nfeCabecMsg = nfeCabecMsg;
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeRecepcaoEventoAsync(inValue);
+        }
+    }
+
+
 }

@@ -32,34 +32,109 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Evento
 {
-    //[WebServiceBinding(Name = "RecepcaoEPECSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
-    public class RecepcaoEPEC : INfeServico
+    public class RecepcaoEPEC : RecepcaoEPECSoapClient, INfeServico
     {
-        public RecepcaoEPEC(string url, X509Certificate certificado, int timeOut)
+        public RecepcaoEPEC(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-           /* SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
-
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-/*        [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeRecepcaoEvento")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]*/
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //   var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
-            //  return ((XmlNode) (results[0]));
-            return null;
+            var result = base.nfeRecepcaoEventoAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeDownloadNFResult;
         }
     }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", ConfigurationName = "RecepcaoEPECSoap")]
+    public interface RecepcaoEPECSoap
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", ReplyAction = "*")]
+        System.Threading.Tasks.Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(recepcaoEPECRequest request);
+    }
+    
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class recepcaoEPECRequest
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public recepcaoEPECRequest()
+        {
+        }
+
+        public recepcaoEPECRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class recepcaoEPECResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public System.Xml.XmlNode nfeDownloadNFResult;
+
+        public recepcaoEPECResponse()
+        {
+        }
+
+        public recepcaoEPECResponse(System.Xml.XmlNode nfeDownloadNFResult)
+        {
+            this.nfeDownloadNFResult = nfeDownloadNFResult;
+        }
+    }
+
+    public interface RecepcaoEPECSoapChannel : RecepcaoEPECSoap, System.ServiceModel.IClientChannel
+    {
+    }
+
+    public partial class RecepcaoEPECSoapClient : System.ServiceModel.ClientBase<RecepcaoEPECSoap>
+    {
+
+        public RecepcaoEPECSoapClient()
+        {
+        }
+
+        public RecepcaoEPECSoapClient(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public RecepcaoEPECSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            recepcaoEPECRequest inValue = new recepcaoEPECRequest();
+            inValue.nfeCabecMsg = nfeCabecMsg;
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeRecepcaoEventoAsync(inValue);
+        }
+    }
+
 }
