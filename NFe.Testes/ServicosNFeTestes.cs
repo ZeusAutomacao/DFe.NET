@@ -84,6 +84,17 @@ namespace NFe.Testes
             
             Assert.IsTrue("Lote processado" == result.Retorno.xMotivo.ToString());
         }
-        
+
+
+        [TestMethod]
+        public void teste()
+        {
+            var servico = CreateInstance();
+
+            var result = servico.NfeDistDFeInteresse("87554774", "67390111000122");
+
+            Assert.IsTrue("Lote processado" == result.Retorno.xMotivo.ToString());
+        }
+
     }
 }

@@ -32,35 +32,141 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.DistribuicaoDFe
 {
-   // [WebServiceBinding(Name = "NFeDistribuicaoDFeSoap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
-    public class NfeDistDFeInteresse :  INfeServico
+    public class NfeDistDFeInteresse : NFeDistribuicaoDFeSoapClient, INfeServico
     {
-        public NfeDistDFeInteresse(string url, X509Certificate certificado, int timeOut)
+        public NfeDistDFeInteresse(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-           /* SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        /*[SoapHeader("nfeCabecMsg")]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", RequestNamespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ResponseNamespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
-        [WebMethod(MessageName = "nfeDistDFeInteresse")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]*/
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")] XmlNode nfeDadosMsg)
+       
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeDistDFeInteresse", new object[] { nfeDadosMsg });
-            //return ((XmlNode)(results[0]));
-            return null;
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(nfeDadosMsg.InnerXml);
+            var result = base.nfeDistDFeInteresseAsync(doc.DocumentElement).Result;
+            return result.Body.nfeDistDFeInteresseResult;
         }
 
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeDistDFeInteresseRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Name = "nfeDistDFeInteresse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
+        public nfeDistDFeInteresseRequestBody Body;
+
+        public nfeDistDFeInteresseRequest()
+        {
+        }
+
+        public nfeDistDFeInteresseRequest(nfeDistDFeInteresseRequestBody Body)
+        {
+            this.Body = Body;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+    public partial class nfeDistDFeInteresseRequestBody
+    {
+
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 0)]
+        public System.Xml.XmlElement nfeDadosMsg;
+
+        public nfeDistDFeInteresseRequestBody()
+        {
+        }
+
+        public nfeDistDFeInteresseRequestBody(System.Xml.XmlElement nfeDadosMsg)
+        {
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeDistDFeInteresseResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Name = "nfeDistDFeInteresseResponse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
+        public nfeDistDFeInteresseResponseBody Body;
+
+        public nfeDistDFeInteresseResponse()
+        {
+        }
+
+        public nfeDistDFeInteresseResponse(nfeDistDFeInteresseResponseBody Body)
+        {
+            this.Body = Body;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+    public partial class nfeDistDFeInteresseResponseBody
+    {
+
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 0)]
+        public System.Xml.XmlElement nfeDistDFeInteresseResult;
+
+        public nfeDistDFeInteresseResponseBody()
+        {
+        }
+
+        public nfeDistDFeInteresseResponseBody(System.Xml.XmlElement nfeDistDFeInteresseResult)
+        {
+            this.nfeDistDFeInteresseResult = nfeDistDFeInteresseResult;
+        }
+    }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ConfigurationName = "NFeDistribuicaoDFeSoap")]
+    public interface NFeDistribuicaoDFeSoap
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", ReplyAction = "*")]
+        System.Threading.Tasks.Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(nfeDistDFeInteresseRequest request);
+    }
+    
+
+    public partial class NFeDistribuicaoDFeSoapClient : System.ServiceModel.ClientBase<NFeDistribuicaoDFeSoap>
+    {
+
+        public NFeDistribuicaoDFeSoapClient()
+        {
+        }
+
+        public NFeDistribuicaoDFeSoapClient(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public NFeDistribuicaoDFeSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(System.Xml.XmlElement nfeDadosMsg)
+        {
+            nfeDistDFeInteresseRequest inValue = new nfeDistDFeInteresseRequest();
+            inValue.Body = new nfeDistDFeInteresseRequestBody();
+            inValue.Body.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeDistDFeInteresseAsync(inValue);
+        }
     }
 }
