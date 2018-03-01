@@ -37,27 +37,27 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.ConsultaProtocolo
 {
     //[WebServiceBinding(Name = "NfeConsultaSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]
-    public class NfeConsulta3 :/* SoapHttpClientProtocol,*/ INfeServico
+    public class NfeConsulta3 : INfeServico
     {
         public NfeConsulta3(string url, X509Certificate certificado, int timeOut)
         {
-           /* SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+           // SoapVersion = SoapProtocolVersion.Soap12;
+         //   Url = url;
+         //   Timeout = timeOut;
+        //    ClientCertificates.Add(certificado);
         }
 
         [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-       /* [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3/nfeConsultaNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeConsultaNF")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]*/
+      //  [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
+     //   [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3/nfeConsultaNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+      //  [WebMethod(MessageName = "nfeConsultaNF")]
+      //  [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")] XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeConsultaNF", new object[] {nfeDadosMsg});
-            //return ((XmlNode) (results[0]));
+            // var results = Invoke("nfeConsultaNF", new object[] { nfeDadosMsg });
+            // return ((XmlNode)(results[0]));
             return null;
         }
     }

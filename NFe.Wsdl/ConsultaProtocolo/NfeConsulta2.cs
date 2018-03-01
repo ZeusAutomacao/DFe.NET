@@ -50,14 +50,14 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeConsultaNF2Async(this.nfeCabecMsg, nfeDadosMsg).Result;
-            return result.nfeConsultaNF2Result;
+            var result = base.nfeConsultaNFAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeConsultaNFResult;
         }
     }
 
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
-    public partial class nfeConsultaNF2Request
+    public partial class nfeConsulta2NFRequest
     {
 
         [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
@@ -66,11 +66,11 @@ namespace NFe.Wsdl.ConsultaProtocolo
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", Order = 0)]
         public System.Xml.XmlNode nfeDadosMsg;
 
-        public nfeConsultaNF2Request()
+        public nfeConsulta2NFRequest()
         {
         }
 
-        public nfeConsultaNF2Request(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public nfeConsulta2NFRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeDadosMsg = nfeDadosMsg;
@@ -79,23 +79,23 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
-    public partial class nfeConsultaNF2Response
+    public partial class nfeConsulta2NFResponse
     {
 
         [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
         public nfeCabecMsg nfeCabecMsg;
 
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", Order = 0)]
-        public System.Xml.XmlNode nfeConsultaNF2Result;
+        public System.Xml.XmlNode nfeConsultaNFResult;
 
-        public nfeConsultaNF2Response()
+        public nfeConsulta2NFResponse()
         {
         }
 
-        public nfeConsultaNF2Response(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeConsultaNF2Result)
+        public nfeConsulta2NFResponse(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeConsultaNFResult)
         {
             this.nfeCabecMsg = nfeCabecMsg;
-            this.nfeConsultaNF2Result = nfeConsultaNF2Result;
+            this.nfeConsultaNFResult = nfeConsultaNFResult;
         }
     }
 
@@ -108,10 +108,10 @@ namespace NFe.Wsdl.ConsultaProtocolo
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        nfeConsultaNF2Response nfeConsultaNF2(nfeConsultaNF2Request request);
+        nfeConsulta2NFResponse nfeConsultaNF2(nfeConsulta2NFRequest request);
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
-        System.Threading.Tasks.Task<nfeConsultaNF2Response> nfeConsultaNF2Async(nfeConsultaNF2Request request);
+        System.Threading.Tasks.Task<nfeConsulta2NFResponse> nfeConsultaNFAsync(nfeConsulta2NFRequest request);
     }
 
     public partial class NfeConsulta2Soap12Client : System.ServiceModel.ClientBase<NfeConsulta2Soap12>
@@ -135,12 +135,12 @@ namespace NFe.Wsdl.ConsultaProtocolo
         {
         }
 
-        public System.Threading.Tasks.Task<nfeConsultaNF2Response> nfeConsultaNF2Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public System.Threading.Tasks.Task<nfeConsulta2NFResponse> nfeConsultaNFAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
         {
-            nfeConsultaNF2Request inValue = new nfeConsultaNF2Request();
+            nfeConsulta2NFRequest inValue = new nfeConsulta2NFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeConsultaNF2Async(inValue);
+            return this.Channel.nfeConsultaNFAsync(inValue);
         }
     }
 
