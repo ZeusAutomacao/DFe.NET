@@ -59,6 +59,7 @@ namespace NFe.Wsdl.Recepcao
     public interface NfeRetRecepcao2Soap12
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetRecepcao2/nfeRecepcaoLote2", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeRetRecepcao2Response> nfeRetRecepcao2Async(nfeRetRecepcao2Request request);
     }
 
