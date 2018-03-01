@@ -31,34 +31,113 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Status
 {
-   // [WebServiceBinding(Name = "NfeStatusServicoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
-    public class NfeStatusServico3 : INfeServico
+    public class NfeStatusServico3 : NfeStatusServico3Soap12Client, INfeServico
     {
-        public NfeStatusServico3(string url, X509Certificate certificado, int timeOut)
-        {/*
-            SoapVersion = SoapProtocolVersion.Soap12;
-            Url = url;
-            Timeout = timeOut;
-            ClientCertificates.Add(certificado);*/
+        public NfeStatusServico3(string url, X509Certificate certificado, int timeOut) : base(url)
+        {
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-        /*[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3/nfeStatusServicoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [WebMethod(MessageName = "nfeStatusServicoNF")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]*/
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeStatusServicoNF", new object[] {nfeDadosMsg});
-            //return (XmlNode) (results[0]);
-            return null;
+            var result = base.nfeStatusServicoNF3Async(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return result.nfeStatusServicoNF3Result;
+        }
+    }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", ConfigurationName = "NfeStatusServico3Soap12")]
+    public interface NfeStatusServico3Soap12
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3/nfeStatusServicoNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        System.Threading.Tasks.Task<nfeStatusServicoNF3Response> nfeStatusServicoNF3Async(nfeStatusServicoNF3Request request);
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeStatusServicoNF3Request
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeStatusServicoNF3Request()
+        {
+        }
+
+        public nfeStatusServicoNF3Request(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeStatusServicoNF3Response
+    {
+
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
+        public nfeCabecMsg nfeCabecMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", Order = 0)]
+        public System.Xml.XmlNode nfeStatusServicoNF3Result;
+
+        public nfeStatusServicoNF3Response()
+        {
+        }
+
+        public nfeStatusServicoNF3Response(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeStatusServicoNF3Result)
+        {
+            this.nfeCabecMsg = nfeCabecMsg;
+            this.nfeStatusServicoNF3Result = nfeStatusServicoNF3Result;
+        }
+    }
+
+    public interface NfeStatusServico3Soap12Channel : NfeStatusServico3Soap12, System.ServiceModel.IClientChannel
+    {
+    }
+
+    public partial class NfeStatusServico3Soap12Client : System.ServiceModel.ClientBase<NfeStatusServico3Soap12>
+    {
+
+        public NfeStatusServico3Soap12Client()
+        {
+        }
+
+        public NfeStatusServico3Soap12Client(string endpointAddressUri) :
+                base(
+                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
+                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                    new EndpointAddress(endpointAddressUri)
+                    )
+        {
+        }
+
+        public NfeStatusServico3Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
+                base(binding, remoteAddress)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeStatusServicoNF3Response> nfeStatusServicoNF3Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeStatusServicoNF3Request inValue = new nfeStatusServicoNF3Request();
+            inValue.nfeCabecMsg = nfeCabecMsg;
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeStatusServicoNF3Async(inValue);
         }
     }
 }
