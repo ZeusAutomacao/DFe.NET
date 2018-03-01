@@ -60,10 +60,10 @@ namespace NFe.Wsdl.ConsultaProtocolo
     public partial class nfeConsulta3NFRequest
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", Order = 0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3", Order = 0)]
         public System.Xml.XmlNode nfeDadosMsg;
 
         public nfeConsulta3NFRequest()
@@ -82,10 +82,10 @@ namespace NFe.Wsdl.ConsultaProtocolo
     public partial class nfeConsulta3NFResponse
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
+        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", Order = 0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3", Order = 0)]
         public System.Xml.XmlNode nfeConsultaNFResult;
 
         public nfeConsulta3NFResponse()
@@ -103,10 +103,10 @@ namespace NFe.Wsdl.ConsultaProtocolo
     {
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", ConfigurationName = "NfeConsulta3Soap12")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3", ConfigurationName = "NfeConsulta3Soap12")]
     public interface NfeConsulta3Soap12
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3/nfeConsultaNF", ReplyAction = "*")]
         System.Threading.Tasks.Task<nfeConsulta3NFResponse> nfeConsultaNFAsync(nfeConsulta3NFRequest request);
     }
 
