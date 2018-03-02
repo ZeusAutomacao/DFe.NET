@@ -81,20 +81,99 @@ namespace NFe.Testes
             var servico = CreateInstance();
 
             var result = servico.NFeRetAutorizacao("351000117302663");
-            
+
             Assert.IsTrue("Lote processado" == result.Retorno.xMotivo.ToString());
+        }
+
+        //consulta NfeConsultaCadastro 1.0 hom não disponivel binding ok
+        [TestMethod]
+        public void ServicosNFe_WhenNfeConsultaCadastroBindingOK_ReturnExceptionService()
+        {
+            var servico = CreateInstance();
+            var message = default(string);
+            var esperado = "Serviço NfeConsultaCadastro, versão 1.00, não disponível para a UF SP, no ambiente de Homologação para emissão tipo Normal, documento: NF-e!";
+
+            try
+            {
+                var result = servico.NfeConsultaCadastro("SP", NFeClasses.Servicos.ConsultaCadastro.ConsultaCadastroTipoDocumento.Cnpj, null);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            Assert.IsTrue(esperado == message);
+        }
+
+        //consulta NfeConsultaProtocolo 1.0 hom não disponivel
+        [TestMethod]
+        public void ServicosNFe_WhenNfeConsultaProtocoloBindingOK_ReturnExceptionService()
+        {
+            var servico = CreateInstance();
+            var message = default(string);
+            var esperado = "Serviço NfeConsultaProtocolo, versão 1.00, não disponível para a UF SP, no ambiente de Homologação para emissão tipo Normal, documento: NF-e!";
+
+            try
+            {
+                var result = servico.NfeConsultaProtocolo("35171203744425000101550020000530201111012127");
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+            Assert.IsTrue(esperado == message);
         }
 
 
         [TestMethod]
-        public void teste()
+        public void ServicosNFe_WhenNfeDistDFeInteresseBindingOK_ReturnExceptionService()
+        {
+            var servico = CreateInstance();
+            var message = default(string);
+
+            try
+            {
+                var result = servico.NfeDistDFeInteresse("87554774", "67390111000122");
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+
+
+            Assert.IsTrue("One or more errors occurred." == message);
+        }
+
+        [TestMethod]
+        public void ServicosNFe_WhenRecepcaoEventoEPECBindingOK_ReturnExceptionService()
+        {
+            var servico = CreateInstance();
+            var message = default(string);
+            var esperado = "Serviço RecepcaoEventoEpec, versão 1.00, não disponível para a UF SP, no ambiente de Homologação para emissão tipo Normal, documento: NF-e!";
+
+            try
+            {
+                var result = servico.RecepcaoEvento(1, new List<NFeClasses.Servicos.Evento.evento>(), ServicoNFe.RecepcaoEventoEpec);
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            Assert.IsTrue(esperado == message);
+        }
+
+        [TestMethod]
+        public void ServicosNFe_WhenNfeStatusServico_ReturnsLoteOk()
         {
             var servico = CreateInstance();
 
-            var result = servico.NfeDistDFeInteresse("87554774", "67390111000122");
+            var result = servico.NfeStatusServico();
 
-            Assert.IsTrue("Lote processado" == result.Retorno.xMotivo.ToString());
+            Assert.IsTrue("Serviço em Operação" == result.Retorno.xMotivo.ToString());
         }
+
+
 
     }
 }
