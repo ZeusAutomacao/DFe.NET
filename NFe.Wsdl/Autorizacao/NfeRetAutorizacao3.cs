@@ -57,15 +57,11 @@ namespace NFe.Wsdl.Autorizacao
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3", ConfigurationName = "NfeRetAutorizacaoSoap12")]
-    public interface NfeRetAutorizacao3Soap12
+    public interface NfeRetAutorizacao3Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao3/nfeRetAutorizacaoLote", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeRetAutorizacao3LoteResponse> nfeRetAutorizacaoLoteAsync(nfeRetAutorizacao3LoteRequest request);
-    }
-
-    public interface NfeRetAutorizacao3Soap12Channel : NfeRetAutorizacao3Soap12, System.ServiceModel.IClientChannel
-    {
     }
 
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -113,24 +109,9 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
 
-    public partial class NfeRetAutorizacao3Soap12Client : System.ServiceModel.ClientBase<NfeRetAutorizacao3Soap12>
+    public partial class NfeRetAutorizacao3Soap12Client : SoapBindingClient<NfeRetAutorizacao3Soap12>
     {
-
-        public NfeRetAutorizacao3Soap12Client()
-        {
-        }
-
-        public NfeRetAutorizacao3Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeRetAutorizacao3Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeRetAutorizacao3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -141,7 +122,7 @@ namespace NFe.Wsdl.Autorizacao
                 nfeCabecMsg = nfeCabecMsg,
                 nfeDadosMsg = nfeDadosMsg
             };
-            return this.Channel.nfeRetAutorizacaoLoteAsync(inValue);
+            return ((NfeRetAutorizacao3Soap12)(this.Channel)).nfeRetAutorizacaoLoteAsync(inValue);
         }
     }
 }

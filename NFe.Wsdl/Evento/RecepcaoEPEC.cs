@@ -57,9 +57,10 @@ namespace NFe.Wsdl.Evento
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", ConfigurationName = "RecepcaoEPECSoap")]
-    public interface RecepcaoEPECSoap
+    public interface RecepcaoEPECSoap : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(recepcaoEPECRequest request);
     }
     
@@ -103,28 +104,9 @@ namespace NFe.Wsdl.Evento
         }
     }
 
-    public interface RecepcaoEPECSoapChannel : RecepcaoEPECSoap, System.ServiceModel.IClientChannel
+    public partial class RecepcaoEPECSoapClient : SoapBindingClient<RecepcaoEPECSoap>
     {
-    }
-
-    public partial class RecepcaoEPECSoapClient : System.ServiceModel.ClientBase<RecepcaoEPECSoap>
-    {
-
-        public RecepcaoEPECSoapClient()
-        {
-        }
-
-        public RecepcaoEPECSoapClient(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public RecepcaoEPECSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public RecepcaoEPECSoapClient(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -133,7 +115,7 @@ namespace NFe.Wsdl.Evento
             recepcaoEPECRequest inValue = new recepcaoEPECRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeRecepcaoEventoAsync(inValue);
+            return ((RecepcaoEPECSoap)(this.Channel)).nfeRecepcaoEventoAsync(inValue);
         }
     }
 

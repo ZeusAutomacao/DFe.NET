@@ -99,35 +99,17 @@ namespace NFe.Wsdl.ConsultaProtocolo
         }
     }
 
-    public interface NfeConsulta3Soap12Channel : NfeConsulta3Soap12, System.ServiceModel.IClientChannel
-    {
-    }
-
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3", ConfigurationName = "NfeConsulta3Soap12")]
-    public interface NfeConsulta3Soap12
+    public interface NfeConsulta3Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta3/nfeConsultaNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeConsulta3NFResponse> nfeConsultaNFAsync(nfeConsulta3NFRequest request);
     }
 
-    public partial class NfeConsulta3Soap12Client : System.ServiceModel.ClientBase<NfeConsulta3Soap12>
+    public partial class NfeConsulta3Soap12Client : SoapBindingClient<NfeConsulta3Soap12>
     {
-
-        public NfeConsulta3Soap12Client()
-        {
-        }
-
-        public NfeConsulta3Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeConsulta3Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeConsulta3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -136,7 +118,7 @@ namespace NFe.Wsdl.ConsultaProtocolo
             nfeConsulta3NFRequest inValue = new nfeConsulta3NFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeConsultaNFAsync(inValue);
+            return ((NfeConsulta3Soap12)(this.Channel)).nfeConsultaNFAsync(inValue);
         }
     }
 }

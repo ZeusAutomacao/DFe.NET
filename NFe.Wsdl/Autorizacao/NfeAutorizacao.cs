@@ -132,7 +132,7 @@ namespace NFe.Wsdl.Autorizacao
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao", ConfigurationName = "NfeAutorizacaoSoap12")]
-    public interface NfeAutorizacaoSoap12
+    public interface NfeAutorizacaoSoap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao/nfeAutorizacaoLote", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
@@ -143,27 +143,10 @@ namespace NFe.Wsdl.Autorizacao
         System.Threading.Tasks.Task<nfeAutorizacaoLoteResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacaoLoteZipRequest request);
     }
 
-    public interface NfeAutorizacaoSoap12Channel : NfeAutorizacaoSoap12, System.ServiceModel.IClientChannel
-    {
-    }
-
-    public partial class NfeAutorizacaoSoap12Client : System.ServiceModel.ClientBase<NfeAutorizacaoSoap12>
+    public partial class NfeAutorizacaoSoap12Client : SoapBindingClient<NfeAutorizacaoSoap12>
     {
 
-        public NfeAutorizacaoSoap12Client()
-        { }
-
-        public NfeAutorizacaoSoap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeAutorizacaoSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeAutorizacaoSoap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 

@@ -133,31 +133,17 @@ namespace NFe.Wsdl.DistribuicaoDFe
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ConfigurationName = "NFeDistribuicaoDFeSoap")]
-    public interface NFeDistribuicaoDFeSoap
+    public interface NFeDistribuicaoDFeSoap : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(nfeDistDFeInteresseRequest request);
     }
     
 
-    public partial class NFeDistribuicaoDFeSoapClient : System.ServiceModel.ClientBase<NFeDistribuicaoDFeSoap>
+    public partial class NFeDistribuicaoDFeSoapClient : SoapBindingClient<NFeDistribuicaoDFeSoap>
     {
-
-        public NFeDistribuicaoDFeSoapClient()
-        {
-        }
-
-        public NFeDistribuicaoDFeSoapClient(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NFeDistribuicaoDFeSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NFeDistribuicaoDFeSoapClient(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -166,7 +152,7 @@ namespace NFe.Wsdl.DistribuicaoDFe
             nfeDistDFeInteresseRequest inValue = new nfeDistDFeInteresseRequest();
             inValue.Body = new nfeDistDFeInteresseRequestBody();
             inValue.Body.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeDistDFeInteresseAsync(inValue);
+            return ((NFeDistribuicaoDFeSoap)(this.Channel)).nfeDistDFeInteresseAsync(inValue);
         }
     }
 }

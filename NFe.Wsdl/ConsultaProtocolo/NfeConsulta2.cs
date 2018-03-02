@@ -98,36 +98,18 @@ namespace NFe.Wsdl.ConsultaProtocolo
             this.nfeConsultaNFResult = nfeConsultaNFResult;
         }
     }
-
-    public interface NfeConsulta2Soap12Channel : NfeConsulta2Soap12, System.ServiceModel.IClientChannel
-    {
-    }
-
+    
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2", ConfigurationName = "NfeConsulta2Soap12")]
-    public interface NfeConsulta2Soap12
+    public interface NfeConsulta2Soap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF", ReplyAction = "*")]
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeConsulta2NFResponse> nfeConsultaNFAsync(nfeConsulta2NFRequest request);
     }
 
-    public partial class NfeConsulta2Soap12Client : System.ServiceModel.ClientBase<NfeConsulta2Soap12>
+    public partial class NfeConsulta2Soap12Client : SoapBindingClient<NfeConsulta2Soap12>
     {
-
-        public NfeConsulta2Soap12Client()
-        {
-        }
-
-        public NfeConsulta2Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeConsulta2Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeConsulta2Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -136,7 +118,7 @@ namespace NFe.Wsdl.ConsultaProtocolo
             nfeConsulta2NFRequest inValue = new nfeConsulta2NFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeConsultaNFAsync(inValue);
+            return ((NfeConsulta2Soap12)(this.Channel)).nfeConsultaNFAsync(inValue);
         }
     }
 

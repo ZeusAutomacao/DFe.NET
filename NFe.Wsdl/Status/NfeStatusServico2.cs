@@ -56,7 +56,7 @@ namespace NFe.Wsdl.Status
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2", ConfigurationName = "NfeStatusServico2Soap12")]
-    public interface NfeStatusServico2Soap12
+    public interface NfeStatusServico2Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2/nfeStatusServicoNF2", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
@@ -107,28 +107,9 @@ namespace NFe.Wsdl.Status
         }
     }
 
-    public interface NfeStatusServico2Soap12Channel : NfeStatusServico2Soap12, System.ServiceModel.IClientChannel
+    public partial class NfeStatusServico2Soap12Client : SoapBindingClient<NfeStatusServico2Soap12>
     {
-    }
-
-    public partial class NfeStatusServico2Soap12Client : System.ServiceModel.ClientBase<NfeStatusServico2Soap12>
-    {
-
-        public NfeStatusServico2Soap12Client()
-        {
-        }
-
-        public NfeStatusServico2Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeStatusServico2Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeStatusServico2Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -137,7 +118,7 @@ namespace NFe.Wsdl.Status
             nfeStatusServicoNF2Request inValue = new nfeStatusServicoNF2Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeStatusServicoNF2Async(inValue);
+            return ((NfeStatusServico2Soap12)(this.Channel)).nfeStatusServicoNF2Async(inValue);
         }
     }
 

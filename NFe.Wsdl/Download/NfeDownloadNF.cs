@@ -58,7 +58,7 @@ namespace NFe.Wsdl.Download
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", ConfigurationName = "NfeDownloadNFSoap")]
-    public interface NfeDownloadNFSoap
+    public interface NfeDownloadNFSoap : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF/nfeDownloadNF", ReplyAction = "*")]
         System.Threading.Tasks.Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeDownloadNFRequest request);
@@ -104,28 +104,9 @@ namespace NFe.Wsdl.Download
         }
     }
 
-    public interface NfeDownloadNFSoapChannel : NfeDownloadNFSoap, System.ServiceModel.IClientChannel
+    public partial class NfeDownloadNFSoapClient : SoapBindingClient<NfeDownloadNFSoap>
     {
-    }
-
-    public partial class NfeDownloadNFSoapClient : System.ServiceModel.ClientBase<NfeDownloadNFSoap>
-    {
-
-        public NfeDownloadNFSoapClient()
-        {
-        }
-
-        public NfeDownloadNFSoapClient(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeDownloadNFSoapClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeDownloadNFSoapClient(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -134,7 +115,7 @@ namespace NFe.Wsdl.Download
             nfeDownloadNFRequest inValue = new nfeDownloadNFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeDownloadNFAsync(inValue);
+            return ((NfeDownloadNFSoap)(this.Channel)).nfeDownloadNFAsync(inValue);
         }
     }
 

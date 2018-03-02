@@ -32,11 +32,8 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 {
@@ -99,53 +96,28 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
             this.consultaCadastro2Result = consultaCadastro2Result;
         }
     }
-
-    public interface CadConsultaCadastro2Soap12Channel : CadConsultaCadastro2Soap12, System.ServiceModel.IClientChannel
-    {
-    }
-
-
+    
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", ConfigurationName = "CadConsultaCadastro2Soap12")]
-    public interface CadConsultaCadastro2Soap12
+    public interface CadConsultaCadastro2Soap12 : IChannel
     {
-
-        // CODEGEN: Generating message contract since the operation consultaCadastro2 is neither RPC nor document wrapped.
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
-        consultaCadastro2Response consultaCadastro2(consultaCadastro2Request request);
-
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", ReplyAction = "*")]
         System.Threading.Tasks.Task<consultaCadastro2Response> consultaCadastro2Async(consultaCadastro2Request request);
     }
 
 
-    public partial class CadConsultaCadastro2Soap12Client : System.ServiceModel.ClientBase<CadConsultaCadastro2Soap12>
+    public partial class CadConsultaCadastro2Soap12Client : SoapBindingClient<CadConsultaCadastro2Soap12>
     {
-
-        public CadConsultaCadastro2Soap12Client()
+        public CadConsultaCadastro2Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
-
-        public CadConsultaCadastro2Soap12Client(string endpointAddressUri) :
-               base(
-                   new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                       new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                   new EndpointAddress(endpointAddressUri)
-                   )
-        {
-        }
-
-        public CadConsultaCadastro2Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
-        {
-        }
-
+        
         public System.Threading.Tasks.Task<consultaCadastro2Response> consultaCadastro2Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
         {
             consultaCadastro2Request inValue = new consultaCadastro2Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.consultaCadastro2Async(inValue);
+            return ((CadConsultaCadastro2Soap12)(this.Channel)).consultaCadastro2Async(inValue);
         }
     }    
 }

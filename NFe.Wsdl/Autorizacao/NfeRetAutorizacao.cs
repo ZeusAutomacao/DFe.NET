@@ -57,16 +57,13 @@ namespace NFe.Wsdl.Autorizacao
     }
     
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao", ConfigurationName = "NfeRetAutorizacaoSoap12")]
-    public interface NfeRetAutorizacaoSoap12
+    public interface NfeRetAutorizacaoSoap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRetAutorizacao/nfeRetAutorizacaoLote", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeRetAutorizacaoLoteResponse> nfeRetAutorizacaoLoteAsync(nfeRetAutorizacaoLoteRequest request);
     }
     
-    public interface NfeRetAutorizacaoSoap12Channel : NfeRetAutorizacaoSoap12, System.ServiceModel.IClientChannel
-    {
-    }
 
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
@@ -113,27 +110,12 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
     
-    public partial class NfeRetAutorizacaoSoap12Client : System.ServiceModel.ClientBase<NfeRetAutorizacaoSoap12>
+    public partial class NfeRetAutorizacaoSoap12Client : SoapBindingClient<NfeRetAutorizacaoSoap12>
     {
-
-        public NfeRetAutorizacaoSoap12Client()
+        public NfeRetAutorizacaoSoap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
-        public NfeRetAutorizacaoSoap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeRetAutorizacaoSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
-        {
-        }
-        
         public System.Threading.Tasks.Task<nfeRetAutorizacaoLoteResponse> nfeRetAutorizacaoLoteAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
         {
             nfeRetAutorizacaoLoteRequest inValue = new nfeRetAutorizacaoLoteRequest
@@ -141,7 +123,7 @@ namespace NFe.Wsdl.Autorizacao
                 nfeCabecMsg = nfeCabecMsg,
                 nfeDadosMsg = nfeDadosMsg
             };
-            return this.Channel.nfeRetAutorizacaoLoteAsync(inValue);
+            return ((NfeRetAutorizacaoSoap12)(this.Channel)).nfeRetAutorizacaoLoteAsync(inValue);
         }
     }
 }

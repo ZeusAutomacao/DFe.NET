@@ -56,9 +56,10 @@ namespace NFe.Wsdl.Inutilizacao
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao", ConfigurationName = "NfeInutilizacaoSoap12")]
-    public interface NfeInutilizacaoSoap12
+    public interface NfeInutilizacaoSoap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao/nfeInutilizacaoNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeInutilizacaoNFResponse> nfeInutilizacaoNFAsync(nfeInutilizacaoNFRequest request);
     }
 
@@ -105,29 +106,10 @@ namespace NFe.Wsdl.Inutilizacao
             this.nfeInutilizacaoNFResult = nfeInutilizacaoNFResult;
         }
     }
-
-    public interface NfeInutilizacaoSoap12Channel : NfeInutilizacaoSoap12, System.ServiceModel.IClientChannel
+    
+    public partial class NfeInutilizacaoSoap12Client : SoapBindingClient<NfeInutilizacaoSoap12>
     {
-    }
-
-    public partial class NfeInutilizacaoSoap12Client : System.ServiceModel.ClientBase<NfeInutilizacaoSoap12>
-    {
-
-        public NfeInutilizacaoSoap12Client()
-        {
-        }
-
-        public NfeInutilizacaoSoap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeInutilizacaoSoap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeInutilizacaoSoap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -136,7 +118,7 @@ namespace NFe.Wsdl.Inutilizacao
             nfeInutilizacaoNFRequest inValue = new nfeInutilizacaoNFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeInutilizacaoNFAsync(inValue);
+            return ((NfeInutilizacaoSoap12)(this.Channel)).nfeInutilizacaoNFAsync(inValue);
         }
     }
 

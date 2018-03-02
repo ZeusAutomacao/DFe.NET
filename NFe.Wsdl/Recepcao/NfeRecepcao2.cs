@@ -56,7 +56,7 @@ namespace NFe.Wsdl.Recepcao
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", ConfigurationName = "NfeRecepcao2Soap12")]
-    public interface NfeRecepcao2Soap12
+    public interface NfeRecepcao2Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2/nfeRecepcaoLote2", ReplyAction = "*")]
         [System.ServiceModel.XmlSerializerFormatAttribute()]
@@ -107,28 +107,9 @@ namespace NFe.Wsdl.Recepcao
         }
     }
 
-    public interface NfeRecepcao2Soap12Channel : NfeRecepcao2Soap12, System.ServiceModel.IClientChannel
+    public partial class NfeRecepcao2Soap12Client : SoapBindingClient<NfeRecepcao2Soap12>
     {
-    }
-
-    public partial class NfeRecepcao2Soap12Client : System.ServiceModel.ClientBase<NfeRecepcao2Soap12>
-    {
-
-        public NfeRecepcao2Soap12Client()
-        {
-        }
-
-        public NfeRecepcao2Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeRecepcao2Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeRecepcao2Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -137,7 +118,7 @@ namespace NFe.Wsdl.Recepcao
             nfeRecepcao2Request inValue = new nfeRecepcao2Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeRecepcaoLote2Async(inValue);
+            return ((NfeRecepcao2Soap12)(this.Channel)).nfeRecepcaoLote2Async(inValue);
         }
     }
 

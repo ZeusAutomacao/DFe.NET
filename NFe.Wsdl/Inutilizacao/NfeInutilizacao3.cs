@@ -56,9 +56,10 @@ namespace NFe.Wsdl.Inutilizacao
     }
 
     [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3", ConfigurationName = "NfeInutilizacao3Soap12")]
-    public interface NfeInutilizacao3Soap12
+    public interface NfeInutilizacao3Soap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3/nfeInutilizacaoNF3", ReplyAction = "*")]
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao3/nfeInutilizacaoNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeInutilizacaoNF3Response> nfeInutilizacaoNF3Async(nfeInutilizacaoNF3Request request);
     }
 
@@ -105,29 +106,10 @@ namespace NFe.Wsdl.Inutilizacao
             this.nfeInutilizacaoNF3Result = nfeInutilizacaoNF3Result;
         }
     }
-
-    public interface NfeInutilizacao3Soap12Channel : NfeInutilizacao3Soap12, System.ServiceModel.IClientChannel
+    
+    public partial class NfeInutilizacao3Soap12Client : SoapBindingClient<NfeInutilizacao3Soap12>
     {
-    }
-
-    public partial class NfeInutilizacao3Soap12Client : System.ServiceModel.ClientBase<NfeInutilizacao3Soap12>
-    {
-
-        public NfeInutilizacao3Soap12Client()
-        {
-        }
-
-        public NfeInutilizacao3Soap12Client(string endpointAddressUri) :
-                base(
-                    new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                        new HttpsTransportBindingElement { RequireClientCertificate = true }),
-                    new EndpointAddress(endpointAddressUri)
-                    )
-        {
-        }
-
-        public NfeInutilizacao3Soap12Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) :
-                base(binding, remoteAddress)
+        public NfeInutilizacao3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
         {
         }
 
@@ -136,7 +118,7 @@ namespace NFe.Wsdl.Inutilizacao
             nfeInutilizacaoNF3Request inValue = new nfeInutilizacaoNF3Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeInutilizacaoNF3Async(inValue);
+            return ((NfeInutilizacao3Soap12)(this.Channel)).nfeInutilizacaoNF3Async(inValue);
         }
     }
 }
