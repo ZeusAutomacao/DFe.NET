@@ -141,7 +141,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     B10 - Data e Hora da saída ou de entrada da mercadoria / produto
         /// </summary>
         [XmlIgnore]
-        public DateTime dhSaiEnt { get; set; }
+        public DateTime? dhSaiEnt { get; set; }
 
         /// <summary>
         /// Proxy para dhSaiEnt no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
