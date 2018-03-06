@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="02/21/2018 21:20:27" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="03/06/2018 16:22:46" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -125,7 +125,7 @@ namespace FastReport
           !string.IsNullOrEmpty(entregaUf);
         
         
-        var indPagto =   (IndicadorPagamento)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.indPag&quot;);
+        var indPagto =   (IndicadorPagamento?)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.indPag&quot;);
         var fatnFat = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.nFat&quot;); 
         var fatvOrig = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vOrig&quot;)) ?? 0M;
         var fatvDesc = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vDesc&quot;)) ?? 0M;
@@ -542,14 +542,14 @@ namespace FastReport
                 <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pICMS" DataType="System.Decimal"/>
-                  <Column Name="vICMS" DataType="System.Decimal"/>
-                  <Column Name="pFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="pFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="vFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="vFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="vBCSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vICMSSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="pFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="vFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -576,6 +576,9 @@ namespace FastReport
               <Column Name="PIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PIS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoPIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.PISBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTPIS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pPIS" DataType="System.Decimal"/>
+                  <Column Name="vPIS" DataType="System.Decimal"/>
                 </Column>
               </Column>
               <Column Name="PISST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISST, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -588,6 +591,9 @@ namespace FastReport
               <Column Name="COFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoCOFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.COFINSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTCOFINS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="vBC" DataType="System.Decimal"/>
+                  <Column Name="pCOFINS" DataType="System.Decimal"/>
+                  <Column Name="vCOFINS" DataType="System.Decimal"/>
                 </Column>
               </Column>
               <Column Name="COFINSST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSST, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
