@@ -707,41 +707,45 @@
                     </TabItem>
                     <TabItem Header="E-mail">
                         <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="222*"/>
+                                <ColumnDefinition Width="263*"/>
+                            </Grid.ColumnDefinitions>
                             <Label Content="Servidor SMTP" HorizontalAlignment="Left" Margin="10,5,0,0"
                                    VerticalAlignment="Top"/>
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.ServidorSmtp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      VerticalAlignment="Top" Width="268" />
-                            <Label Content="Porta" HorizontalAlignment="Left" Margin="283,5,0,0"
-                                   VerticalAlignment="Top"/>
+                                      VerticalAlignment="Top" Width="268" Grid.ColumnSpan="2" />
+                            <Label Content="Porta" HorizontalAlignment="Left" Margin="61.5,5,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1"/>
                             <TextBox x:Name="TxtPorta" HorizontalAlignment="Left" Height="23"
                                      Text="{Binding ConfiguracaoEmail.Porta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="283,31,0,0" VerticalAlignment="Top" Width="60"/>
+                                     Margin="61.5,31,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1"/>
                             <Label Content="Usuário" HorizontalAlignment="Left" Margin="10,55,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="221" />
-                            <Label Content="Senha" HorizontalAlignment="Left" Margin="236,59,0,0"
-                                   VerticalAlignment="Top"/>
-                            <TextBox HorizontalAlignment="Left" Height="23" Margin="236,85,0,0" TextWrapping="Wrap"
+                                     VerticalAlignment="Top" Width="221" Grid.ColumnSpan="2" />
+                            <Label Content="Senha" HorizontalAlignment="Left" Margin="14.5,59,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="14.5,85,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="107"/>
+                                     VerticalAlignment="Top" Width="107" Grid.Column="1"/>
                             <Label Content="Assunto" HorizontalAlignment="Left" Margin="10,105,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,131,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Assunto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="333" />
+                                     VerticalAlignment="Top" Width="333" Grid.ColumnSpan="2" />
                             <CheckBox Content="SMTP Exige conexão segura" HorizontalAlignment="Left"
                                       IsChecked="{Binding ConfiguracaoEmail.Ssl}"
                                       Margin="10,270,0,0" VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="166" Margin="10,329,0,0" TextWrapping="Wrap" AcceptsReturn="True"
                                          Text="{Binding ConfiguracaoEmail.Mensagem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalAlignment="Top" Width="333"/>
+                                         VerticalAlignment="Top" Width="333" Grid.ColumnSpan="2"/>
                             <Label Content="Mensagem do Email" HorizontalAlignment="Left" Margin="10,298,0,0"
                                    VerticalAlignment="Top" />
                             <Label Content="Timeout (em millisegundos)" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="168"/>
-                            <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,185,0,0" 
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,185,0,0" 
                                      Text="{Binding ConfiguracaoEmail.Timeout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalAlignment="Top" Width="120"/>
                             <CheckBox Content="Envio assíncrono" HorizontalAlignment="Left"
