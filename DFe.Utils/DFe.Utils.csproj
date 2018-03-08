@@ -43,6 +43,7 @@
     <Compile Include="Assinatura\AssinaturaDigital.cs" />
     <Compile Include="Assinatura\CertificadoDigital.cs" />
     <Compile Include="ConfiguracaoCertificado.cs" />
+    <Compile Include="DataHoraOffSet.cs" />
     <Compile Include="DataHora.cs" />
     <Compile Include="EnumExt.cs" />
     <Compile Include="FuncoesXml.cs" />
