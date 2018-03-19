@@ -66,11 +66,13 @@ namespace NFe.Classes
             qrCode = reader.ReadString();
             reader.ReadEndElement();
 
-            if (urlChave != null)
-            {
+            //Caso a versao nao seja 4.0, nao existirá urlChave
+            try {
                 reader.ReadStartElement("urlChave");
                 urlChave = reader.ReadString();
                 reader.ReadEndElement();
+            } catch (Exception ex) {
+                Console.WriteLine($"urlChave não encontrado{ex.Message}");
             }
 
             reader.ReadEndElement();
