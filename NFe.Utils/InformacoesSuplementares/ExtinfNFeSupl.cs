@@ -159,9 +159,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/"),
 
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode"),
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta"),
