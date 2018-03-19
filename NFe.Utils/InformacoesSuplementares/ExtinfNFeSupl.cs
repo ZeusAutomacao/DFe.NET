@@ -40,23 +40,26 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Utils.InformacoesSuplementares
 {
     internal class EnderecoConsultaPublicaNfce
     {
-        public EnderecoConsultaPublicaNfce(Estado estado, TipoAmbiente tipoAmbiente, TipoUrlConsultaPublica tipoUrlConsultaPublica, string url)
+        public EnderecoConsultaPublicaNfce(Estado estado, TipoAmbiente tipoAmbiente, TipoUrlConsultaPublica tipoUrlConsultaPublica, string url, VersaoServico versaoServico = VersaoServico.ve310)
         {
             TipoAmbiente = tipoAmbiente;
             Estado = estado;
             TipoUrlConsultaPublica = tipoUrlConsultaPublica;
             Url = url;
+            VersaoServico = versaoServico;
         }
 
         public TipoAmbiente TipoAmbiente { get; protected set; }
         public Estado Estado { get; protected set; }
         public TipoUrlConsultaPublica TipoUrlConsultaPublica { get; protected set; }
         public string Url { get; protected set; }
+        public VersaoServico VersaoServico { get; protected set; }
     }
 
     /// <summary>
@@ -155,6 +158,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe"),
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/"),
 
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode"),
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta"),
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode"),
@@ -203,9 +211,9 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <param name="estado"></param>
         /// <param name="tipoUrlConsultaPublica"></param>
         /// <returns></returns>
-        public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica)
-        {
-            var query = from qr in EndQrCodeNfce where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado && qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica select qr.Url;
+        public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico = VersaoServico.ve310)
+        {// todo endereço qrcode
+            var query = from qr in EndQrCodeNfce where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado && qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica && qr.VersaoServico == versaoServico select qr.Url;
             var listaRetorno = query as IList<string> ?? query.ToList();
             var qtdeRetorno = listaRetorno.Count();
 
@@ -224,7 +232,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <param name="cIdToken"></param>
         /// <param name="csc"></param>
         /// <returns></returns>
-        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc)
+        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc, VersaoServico versaoServico = VersaoServico.ve310)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
             var dhEmi = ObterHexDeString(nfe.infNFe.ide.ProxyDhEmi);
@@ -252,7 +260,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
-            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
+            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
         }
 
         /// <summary>
