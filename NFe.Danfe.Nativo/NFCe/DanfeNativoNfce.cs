@@ -45,6 +45,7 @@ using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Servicos.Download;
+using NFe.Classes.Servicos.Tipos;
 using NFe.Danfe.Base.NFCe;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
@@ -363,17 +364,16 @@ namespace NFe.Danfe.Nativo.NFCe
             tituloValorPago.Desenhar(tituloValorPagoX, _y);
             _y += tituloFormaPagamento.Medida.Altura;
 
-
             foreach (pag pag in _nfe.infNFe.pag)
             {
-                AdicionarTexto textoFormaPagamento = new AdicionarTexto(g, ObtemDescricao(pag), 7);
-                textoFormaPagamento.Desenhar(x, _y);
+                // v3.1
+                if (pag.tPag != null)
+                    AdicionaFormaPagamento(x, larguraLinhaMargemDireita, g, pag.tPag, pag.vPag);
 
-                AdicionarTexto textoValorFormaPagamento = new AdicionarTexto(g, pag.vPag.Value.ToString("N2"), 7);
-                int textoValorFormaPagamentoX = (larguraLinhaMargemDireita - textoValorFormaPagamento.Medida.Largura);
-                textoValorFormaPagamento.Desenhar(textoValorFormaPagamentoX, _y);
-
-                _y += textoFormaPagamento.Medida.Altura;
+                // v4.0
+                foreach (var detPag in pag.detPag) { 
+                    AdicionaFormaPagamento(x, larguraLinhaMargemDireita, g, detPag.tPag, detPag.vPag);
+                }
             }
 
             _y += 2;
@@ -517,6 +517,17 @@ namespace NFe.Danfe.Nativo.NFCe
 
                 _y += observacao.Medida.Altura;
             }
+        }
+
+        private void AdicionaFormaPagamento(int x, int larguraLinhaMargemDireita, Graphics g, FormaPagamento? formaPagamento, decimal? vPag) {
+            AdicionarTexto textoFormaPagamento = new AdicionarTexto(g, ObtemDescricao(formaPagamento), 7);
+            textoFormaPagamento.Desenhar(x, _y);
+
+            AdicionarTexto textoValorFormaPagamento = new AdicionarTexto(g, vPag.Value.ToString("N2"), 7);
+            int textoValorFormaPagamentoX = (larguraLinhaMargemDireita - textoValorFormaPagamento.Medida.Largura);
+            textoValorFormaPagamento.Desenhar(textoValorFormaPagamentoX, _y);
+
+            _y += textoFormaPagamento.Medida.Altura;
         }
 
         private string EnderecoEmitente()
@@ -759,9 +770,9 @@ namespace NFe.Danfe.Nativo.NFCe
             }
         }
 
-        private static string ObtemDescricao(pag pag)
+        private static string ObtemDescricao(FormaPagamento? formaPagamento)
         {
-            switch (pag.tPag)
+            switch (formaPagamento)
             {
                 case FormaPagamento.fpDinheiro:
                     return "Dinheiro";
@@ -781,10 +792,13 @@ namespace NFe.Danfe.Nativo.NFCe
                     return "Vale Presente";
                 case FormaPagamento.fpValeCombustivel:
                     return "Vale Combustível";
+                case FormaPagamento.fpDuplicataMercantil:
+                    return "Duplicata Mercantil";
+                case FormaPagamento.fpSemPagamento:
+                    return "Sem Pagamento";
                 case FormaPagamento.fpOutro:
                     return "Outros";
                 default: throw new ArgumentException("Forma pagamento inválida");
-
             }
         }
     }
