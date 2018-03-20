@@ -113,7 +113,7 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="cfgServico">ConfiguracaoServico para uso na classe Assinador</param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
-        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null, string digestmethod = "http://www.w3.org/2000/09/xmldsig#sha1")
+        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
@@ -141,7 +141,7 @@ namespace NFe.Utils.NFe
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
 
-            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico, digestmethod);
+            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }

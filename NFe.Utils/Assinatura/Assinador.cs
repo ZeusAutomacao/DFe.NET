@@ -50,12 +50,12 @@ namespace NFe.Utils.Assinatura
         /// <param name="id"></param>
         /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico cfgServico = null, string digestmethod = "http://www.w3.org/2000/09/xmldsig#sha1") where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico cfgServico = null) where T : class
         {
             if (cfgServico == null)
                 cfgServico = ConfiguracaoServico.Instancia;
 
-            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache);
+            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache, cfgServico.SignatureMethodSignedXml, cfgServico.DigestMethodReference);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace NFe.Utils.Assinatura
         /// <param name="certificadoDigital">Informe o certificado digital</param>
         /// <param name="manterDadosEmCache">Validador para manter o certificado em cache</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital, bool manterDadosEmCache = false, string digestmethod = "http://www.w3.org/2000/09/xmldsig#sha1") where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital, bool manterDadosEmCache = false, string signaturemethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestmethod = "http://www.w3.org/2000/09/xmldsig#sha1") where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
@@ -78,7 +78,10 @@ namespace NFe.Utils.Assinatura
                 var documento = new XmlDocument { PreserveWhitespace = true };
                 documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
                 var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
-                var reference = new Reference { Uri = "#" + id, DigestMethod = digestmethod };
+
+                docXml.SignedInfo.SignatureMethod = signaturemethod;
+
+                var reference = new Reference { Uri = "#" + id, DigestMethod = digestmethod};
 
                 // adicionando EnvelopedSignatureTransform a referencia
                 var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
