@@ -736,7 +736,7 @@ namespace NFe.Servicos
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
-
+                        
             var detevento = new detEvento
             {
                 versao = versaoServico,
