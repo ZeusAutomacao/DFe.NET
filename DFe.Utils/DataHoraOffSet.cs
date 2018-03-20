@@ -34,17 +34,16 @@ using System;
 
 namespace DFe.Utils
 {
-    public static class DataHora
+    public static class DataHoraOffSet
     {
-
         /// <summary>
         /// Retorna uma string no formato AAAA-MM-DD
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataString(this DateTime data)
+        public static string ParaDataString(this DateTimeOffset data)
         {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-dd");
+            return data == DateTimeOffset.MinValue ? null : data.ToString("yyyy-MM-dd");
         }
 
         /// <summary>
@@ -52,11 +51,11 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataString(this DateTime? data)
+        public static string ParaDataString(this DateTimeOffset? data)
         {
             if (data == null) return null;
 
-            return data == DateTime.MinValue ? null : data.Value.ToString("yyyy-MM-dd");
+            return data == DateTimeOffset.MinValue ? null : data.Value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>
@@ -64,9 +63,9 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime data)
+        public static string ParaDataHoraStringUtc(this DateTimeOffset data)
         {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:sszzz");
+            return data == DateTimeOffset.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:sszzz");
         }
 
         /// <summary>
@@ -74,9 +73,9 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringSemUtc(this DateTime data)
+        public static string ParaDataHoraStringSemUtc(this DateTimeOffset data)
         {
-            return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:dd");
+            return data == DateTimeOffset.MinValue ? null : data.ToString("yyyy-MM-ddTHH:mm:dd");
         }
 
         /// <summary>
@@ -84,7 +83,7 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringSemUtc(this DateTime? data)
+        public static string ParaDataHoraStringSemUtc(this DateTimeOffset? data)
         {
             return ParaDataHoraStringSemUtc(data.GetValueOrDefault());
         }
@@ -94,7 +93,7 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraStringUtc(this DateTime? data)
+        public static string ParaDataHoraStringUtc(this DateTimeOffset? data)
         {
             return ParaDataHoraStringUtc(data.GetValueOrDefault());
         }
@@ -104,14 +103,9 @@ namespace DFe.Utils
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static string ParaDataHoraString(this DateTime data)
+        public static string ParaDataHoraString(this DateTimeOffset data)
         {
             return data.ToString("yyyyMMddHHmmss");
-        }
-
-        public static string ParaHoraString(this TimeSpan hora)
-        {
-            return hora.ToString(@"hh\:mm\:ss");
         }
     }
 }
