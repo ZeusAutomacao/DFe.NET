@@ -165,7 +165,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     P23 - Data e hora
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEmi { get; set; }
+        public DateTimeOffset dhEmi { get; set; }
 
         /// <summary>
         /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -174,7 +174,7 @@ namespace NFe.Classes.Servicos.Evento
         public string ProxyDhEmi
         {
             get { return dhEmi.ParaDataHoraStringUtc(); }
-            set { dhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>
