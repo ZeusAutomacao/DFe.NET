@@ -51,10 +51,8 @@ using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFeZeus = NFe.Classes.NFe;
 
-namespace NFe.Danfe.Nativo.NFCe
-{
-    public class DanfeNativoNfce
-    {
+namespace NFe.Danfe.Nativo.NFCe {
+    public class DanfeNativoNfce {
         private string _cIdToken;
         private string _csc;
         private NFeZeus _nfe;
@@ -65,13 +63,11 @@ namespace NFe.Danfe.Nativo.NFCe
         private int _y;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
-            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null)
-        {
+            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null) {
             Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, totalPago, font);
         }
 
-        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null)
-        {
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null) {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
@@ -83,15 +79,13 @@ namespace NFe.Danfe.Nativo.NFCe
         }
 
         //Função para mandar imprimir na impressora padrão
-        public void Imprimir(string nomeImpressora = null, string salvarArquivoPdfEm = null)
-        {
+        public void Imprimir(string nomeImpressora = null, string salvarArquivoPdfEm = null) {
             PrintDocument printCupom = new PrintDocument();
 
             printCupom.PrinterSettings.PrinterName = !string.IsNullOrEmpty(nomeImpressora) ?
                     nomeImpressora : printCupom.PrinterSettings.PrinterName;
 
-            if (!string.IsNullOrEmpty(salvarArquivoPdfEm))
-            {
+            if (!string.IsNullOrEmpty(salvarArquivoPdfEm)) {
                 printCupom.DefaultPageSettings.PrinterSettings.PrintToFile = true;
                 printCupom.DefaultPageSettings.PrinterSettings.PrintFileName = salvarArquivoPdfEm;
                 printCupom.PrintController = new StandardPrintController();
@@ -101,29 +95,23 @@ namespace NFe.Danfe.Nativo.NFCe
             printCupom.Print();
         }
 
-        private void printCupom_PrintPage(object sender, PrintPageEventArgs e)
-        {
+        private void printCupom_PrintPage(object sender, PrintPageEventArgs e) {
             GerarNfCe(e.Graphics);
         }
 
-        public void GerarJPEG(string filename)
-        {
+        public void GerarJPEG(string filename) {
 
             // Feito esse de cima para poder pegar o tamanho real da mesma desenhando
-            using (Bitmap bmp = new Bitmap(300, 70000))
-            {
-                using (Graphics g = Graphics.FromImage(bmp))
-                {
+            using (Bitmap bmp = new Bitmap(300, 70000)) {
+                using (Graphics g = Graphics.FromImage(bmp)) {
                     g.Clear(Color.White);
                     GerarNfCe(g);
                 }
             }
 
             // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
-            using (Bitmap bmpFinal = new Bitmap(300, _y))
-            {
-                using (Graphics g = Graphics.FromImage(bmpFinal))
-                {
+            using (Bitmap bmpFinal = new Bitmap(300, _y)) {
+                using (Graphics g = Graphics.FromImage(bmpFinal)) {
                     g.Clear(Color.White);
                     GerarNfCe(g);
                     bmpFinal.Save(filename, ImageFormat.Jpeg);
@@ -131,8 +119,7 @@ namespace NFe.Danfe.Nativo.NFCe
             }
         }
 
-        private void GerarNfCe(Graphics graphics)
-        {
+        private void GerarNfCe(Graphics graphics) {
             Graphics g = graphics;
 
             int larguraLogo = 64;
@@ -142,17 +129,15 @@ namespace NFe.Danfe.Nativo.NFCe
             int x = 3;
             _y = 3;
 
-            if (_logo != null)
-            {
+            if (_logo != null) {
                 new RedimensionaImagemPara(new AdicionarImagem(g, _logo, x, _y), 50, 24).Desenhar();
             }
 
-            if (_logo == null)
-            {
+            if (_logo == null) {
                 larguraLogo = 0;
             }
 
-#region cabeçalho
+            #region cabeçalho
             int tamanhoFonteTitulo = 6;
 
             string cnpjERazaoSocial = CnpjERazaoSocial();
@@ -170,19 +155,18 @@ namespace NFe.Danfe.Nativo.NFCe
             _y += 5;
             #endregion
 
-#region contingência
-            if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
-            {
+            #region contingência
+            if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal) {
                 LinhaHorizontal(g, x, _y, larguraLinha);
                 _y += 2;
 
                 _y = MensagemContingencia(g, larguraLinha, _y);
             }
-#endregion
+            #endregion
 
             LinhaHorizontal(g, x, _y, larguraLinha);
 
-#region tabela de itens
+            #region tabela de itens
             int iniX = x;
 
             CriaHeaderColuna("CÓDIGO", g, iniX, _y);
@@ -211,9 +195,8 @@ namespace NFe.Danfe.Nativo.NFCe
 
             List<det> det = _nfe.infNFe.det;
 
-#region preencher itens
-            foreach (det detalhe in det)
-            {
+            #region preencher itens
+            foreach (det detalhe in det) {
                 AdicionarTexto codigo = new AdicionarTexto(g, detalhe.prod.cProd, 7);
                 codigo.Desenhar(x, _y);
 
@@ -262,8 +245,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 _y += quantidade.Medida.Altura;
 
                 decimal valorDescontoItem = detalhe.prod.vDesc ?? 0.0m;
-                if (valorDescontoItem > 0.0m)
-                {
+                if (valorDescontoItem > 0.0m) {
                     AdicionarTexto descontoColuna = new AdicionarTexto(g, "Desconto", 7);
                     descontoColuna.Desenhar(x + 50, _y);
 
@@ -278,8 +260,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 }
 
                 decimal valorAcrescimoItem = detalhe.prod.vOutro ?? 0.0m;
-                if (valorAcrescimoItem > 0.0m)
-                {
+                if (valorAcrescimoItem > 0.0m) {
                     AdicionarTexto acrescimoColuna = new AdicionarTexto(g, "Acréscimo", 7);
                     acrescimoColuna.Desenhar(x + 50, _y);
 
@@ -293,8 +274,7 @@ namespace NFe.Danfe.Nativo.NFCe
                     _y += acrescimoColuna.Medida.Altura;
                 }
 
-                if (valorDescontoItem > 0.0m || valorAcrescimoItem > 0.0m)
-                {
+                if (valorDescontoItem > 0.0m || valorAcrescimoItem > 0.0m) {
                     AdicionarTexto valorLiquidoTexto = new AdicionarTexto(g, "Valor Líquido", 7);
                     valorLiquidoTexto.Desenhar(x + 50, _y);
 
@@ -307,7 +287,7 @@ namespace NFe.Danfe.Nativo.NFCe
                     _y += valorLiquidoTexto.Medida.Altura;
                 }
             }
-#endregion
+            #endregion
 
             #endregion
 
@@ -337,8 +317,7 @@ namespace NFe.Danfe.Nativo.NFCe
             decimal totalOutras = det.Sum(prod => prod.prod.vOutro) ?? 0.0m;
             decimal valorTotalAPagar = valorTotal + totalOutras - totalDesconto;
 
-            if (totalDesconto > 0)
-            {
+            if (totalDesconto > 0) {
                 AdicionarTexto textoDesconto = new AdicionarTexto(g, "Desconto R$", 7);
                 textoDesconto.Desenhar(x, _y);
 
@@ -364,22 +343,21 @@ namespace NFe.Danfe.Nativo.NFCe
             tituloValorPago.Desenhar(tituloValorPagoX, _y);
             _y += tituloFormaPagamento.Medida.Altura;
 
-            foreach (pag pag in _nfe.infNFe.pag)
-            {
+            foreach (pag pag in _nfe.infNFe.pag) {
                 // v3.1
                 if (pag.tPag != null)
                     AdicionaFormaPagamento(x, larguraLinhaMargemDireita, g, pag.tPag, pag.vPag);
 
                 // v4.0
-                foreach (var detPag in pag.detPag) { 
-                    AdicionaFormaPagamento(x, larguraLinhaMargemDireita, g, detPag.tPag, detPag.vPag);
-                }
+                if (pag.detPag != null)
+                    foreach (var detPag in pag.detPag) {
+                        AdicionaFormaPagamento(x, larguraLinhaMargemDireita, g, detPag.tPag, detPag.vPag);
+                    }
             }
 
             _y += 2;
 
-            if (_troco > 0)
-            {
+            if (_troco > 0) {
                 AdicionarTexto textoTroco = new AdicionarTexto(g, "Troco R$ (TOTAL PAGO R$" + _totalPago.ToString("N2") + ")", 7);
                 textoTroco.Desenhar(x, _y);
 
@@ -388,7 +366,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 textoTrocoValor.Desenhar(textoTrocoValorX, _y);
                 _y += textoTroco.Medida.Altura;
             }
-#endregion
+            #endregion
 
             _y += 5;
 
@@ -396,7 +374,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             #region consulta QrCode
             AdicionarTexto textoConsulteChave = new AdicionarTexto(g, "Consulte pela Chave de Acesso em", 7);
-            int textoConsulteChaveX = ((larguraLinha - textoConsulteChave.Medida.Largura)/2);
+            int textoConsulteChaveX = ((larguraLinha - textoConsulteChave.Medida.Largura) / 2);
             textoConsulteChave.Desenhar(textoConsulteChaveX, _y);
 
             _y += textoConsulteChave.Medida.Altura;
@@ -404,7 +382,7 @@ namespace NFe.Danfe.Nativo.NFCe
             AdicionarTexto urlConsulta = new AdicionarTexto(g,
                 _nfe.infNFeSupl.ObterUrl(_nfe.infNFe.ide.tpAmb, _nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode),
                 7);
-            int urlConsultaX = ((larguraLinha - urlConsulta.Medida.Largura)/2);
+            int urlConsultaX = ((larguraLinha - urlConsulta.Medida.Largura) / 2);
             urlConsulta.Desenhar(urlConsultaX, _y);
 
             _y += urlConsulta.Medida.Altura;
@@ -412,12 +390,12 @@ namespace NFe.Danfe.Nativo.NFCe
             string novaChave = GeraChaveAcesso(_nfe);
 
             AdicionarTexto chave = new AdicionarTexto(g, novaChave, 7);
-            int urlChaveX = ((larguraLinha - chave.Medida.Largura)/2);
+            int urlChaveX = ((larguraLinha - chave.Medida.Largura) / 2);
             chave.Desenhar(urlChaveX, _y);
 
             _y += chave.Medida.Altura;
             _y += 10;
-#endregion
+            #endregion
 
 
             string mensagemConsumidor = MontaMensagemConsumidor(_nfe.infNFe.dest);
@@ -426,7 +404,7 @@ namespace NFe.Danfe.Nativo.NFCe
             DefineQuebraDeLinha quebraLinhaConsumidor = new DefineQuebraDeLinha(consumidor,
                 new ComprimentoMaximo(larguraLinhaMargemDireita), consumidor.Medida.Largura);
             consumidor = quebraLinhaConsumidor.DesenharComQuebras(g);
-            int consumidorX = (larguraLinha - consumidor.Medida.Largura)/2;
+            int consumidorX = (larguraLinha - consumidor.Medida.Largura) / 2;
             consumidor.Desenhar(consumidorX, _y);
 
             _y += consumidor.Medida.Altura + 10;
@@ -434,17 +412,16 @@ namespace NFe.Danfe.Nativo.NFCe
             string mensagemDadosNfCe = MontaMensagemDadosNfce(_nfe);
 
             AdicionarTexto dadosNfce = new AdicionarTexto(g, mensagemDadosNfCe, 7);
-            int dadosNfceX = (larguraLinha - dadosNfce.Medida.Largura)/2;
+            int dadosNfceX = (larguraLinha - dadosNfce.Medida.Largura) / 2;
             dadosNfce.Desenhar(dadosNfceX, _y);
 
             _y += dadosNfce.Medida.Altura;
 
-            if (_nfe.infNFe.ide.tpEmis == TipoEmissao.teNormal)
-            {
+            if (_nfe.infNFe.ide.tpEmis == TipoEmissao.teNormal) {
                 StringBuilder textoProtocoloAutorizacao = new StringBuilder("Protocolo de autorização: ");
                 textoProtocoloAutorizacao.Append(_proc.protNFe.infProt.nProt);
                 AdicionarTexto protocoloAutorizacao = new AdicionarTexto(g, textoProtocoloAutorizacao.ToString(), 7);
-                int protocoloAutorizacaoX = (larguraLinha - protocoloAutorizacao.Medida.Largura)/2;
+                int protocoloAutorizacaoX = (larguraLinha - protocoloAutorizacao.Medida.Largura) / 2;
                 protocoloAutorizacao.Desenhar(protocoloAutorizacaoX, _y);
                 _y += protocoloAutorizacao.Medida.Altura;
 
@@ -452,13 +429,12 @@ namespace NFe.Danfe.Nativo.NFCe
                 StringBuilder textoDataAutorizacao = new StringBuilder("Data de autorização ");
                 textoDataAutorizacao.Append(_proc.protNFe.infProt.dhRecbto.ToString("G"));
                 AdicionarTexto dataAutorizacao = new AdicionarTexto(g, textoDataAutorizacao.ToString(), 7);
-                int dataAutorizacaoX = (larguraLinha - dataAutorizacao.Medida.Largura)/2;
+                int dataAutorizacaoX = (larguraLinha - dataAutorizacao.Medida.Largura) / 2;
                 dataAutorizacao.Desenhar(dataAutorizacaoX, _y);
                 _y += dataAutorizacao.Medida.Altura;
             }
 
-            if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
-            {
+            if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal) {
                 _y += 10;
                 _y = MensagemContingencia(g, larguraLinha, _y);
             }
@@ -468,7 +444,7 @@ namespace NFe.Danfe.Nativo.NFCe
             string urlQrCode = ObtemUrlQrCode(_nfe, _cIdToken, _csc);
 
             Image qrCodeImagem = QrCode.Gerar(urlQrCode);
-            int qrCodeImagemX = (larguraLinha - qrCodeImagem.Size.Width)/2;
+            int qrCodeImagemX = (larguraLinha - qrCodeImagem.Size.Width) / 2;
             AdicionarImagem desenharQrCode = new AdicionarImagem(g, qrCodeImagem, qrCodeImagemX, _y);
             desenharQrCode.Desenhar();
 
@@ -481,14 +457,13 @@ namespace NFe.Danfe.Nativo.NFCe
             decimal tributosIncidentes = _nfe.infNFe.total.ICMSTot.vTotTrib;
 
 
-            if (tributosIncidentes != 0)
-            {
+            if (tributosIncidentes != 0) {
                 StringBuilder mensagemTributosTotais =
                     new StringBuilder("Tributos Totais Incidentes (Lei Federal 12.741/2012): R$");
                 mensagemTributosTotais.Append(tributosIncidentes.ToString("N2"));
 
                 AdicionarTexto tributosTotais = new AdicionarTexto(g, mensagemTributosTotais.ToString(), 7);
-                int tributosTotaisX = (larguraLinha - tributosTotais.Medida.Largura)/2;
+                int tributosTotaisX = (larguraLinha - tributosTotais.Medida.Largura) / 2;
                 tributosTotais.Desenhar(tributosTotaisX, _y);
 
                 _y += tributosTotais.Medida.Altura;
@@ -502,12 +477,11 @@ namespace NFe.Danfe.Nativo.NFCe
             string observacoes = string.Empty;
 
             if (_nfe != null)
-                if(_nfe.infNFe != null)
+                if (_nfe.infNFe != null)
                     if (_nfe.infNFe.infAdic != null)
                         observacoes = _nfe.infNFe.infAdic.infCpl;
 
-            if (!string.IsNullOrEmpty(observacoes))
-            {
+            if (!string.IsNullOrEmpty(observacoes)) {
                 _y += 5;
                 AdicionarTexto observacao = new AdicionarTexto(g, observacoes, 7);
                 DefineQuebraDeLinha quebraObservacao = new DefineQuebraDeLinha(observacao,
@@ -530,14 +504,12 @@ namespace NFe.Danfe.Nativo.NFCe
             _y += textoFormaPagamento.Medida.Altura;
         }
 
-        private string EnderecoEmitente()
-        {
+        private string EnderecoEmitente() {
             enderEmit enderEmit = _nfe.infNFe.emit.enderEmit;
 
             string foneEmit = string.Empty;
 
-            if (enderEmit.fone != null)
-            {
+            if (enderEmit.fone != null) {
                 StringBuilder fone = new StringBuilder(" - FONE: ");
                 fone.Append(enderEmit.fone);
                 foneEmit = fone.ToString();
@@ -548,13 +520,11 @@ namespace NFe.Danfe.Nativo.NFCe
             enderecoEmitenteBuilder.Append(enderEmit.xLgr);
             enderecoEmitenteBuilder.Append(" ");
 
-            if (string.IsNullOrEmpty(enderEmit.nro))
-            {
+            if (string.IsNullOrEmpty(enderEmit.nro)) {
                 enderecoEmitenteBuilder.Append("S/N, ");
             }
 
-            if (!string.IsNullOrEmpty(enderEmit.nro))
-            {
+            if (!string.IsNullOrEmpty(enderEmit.nro)) {
                 enderecoEmitenteBuilder.Append(enderEmit.nro);
                 enderecoEmitenteBuilder.Append(", ");
             }
@@ -569,27 +539,23 @@ namespace NFe.Danfe.Nativo.NFCe
             return enderecoEmitenteBuilder.ToString();
         }
 
-        private string CnpjERazaoSocial()
-        {
+        private string CnpjERazaoSocial() {
             string nomeEmpresa = string.Empty;
 
             emit emitente = _nfe.infNFe.emit;
 
-            if (!string.IsNullOrEmpty(emitente.xNome))
-            {
+            if (!string.IsNullOrEmpty(emitente.xNome)) {
                 nomeEmpresa = emitente.xNome;
             }
 
-            if (!string.IsNullOrEmpty(emitente.xFant))
-            {
+            if (!string.IsNullOrEmpty(emitente.xFant)) {
                 nomeEmpresa = emitente.xFant;
             }
             string cnpjERazaoSocial = string.Format("CNPJ: {0} {1}", emitente.CNPJ, nomeEmpresa);
             return cnpjERazaoSocial;
         }
 
-        private static string ObtemUrlQrCode(NFeZeus nfce, string idToken, string csc)
-        {
+        private static string ObtemUrlQrCode(NFeZeus nfce, string idToken, string csc) {
             string urlQrCode = nfce.infNFeSupl == null
                 ? nfce.infNFeSupl.ObterUrlQrCode(nfce,
                     idToken,
@@ -598,8 +564,7 @@ namespace NFe.Danfe.Nativo.NFCe
             return urlQrCode;
         }
 
-        private static string MontaMensagemDadosNfce(NFeZeus nfce)
-        {
+        private static string MontaMensagemDadosNfce(NFeZeus nfce) {
             StringBuilder mensagem = new StringBuilder("NFC-e nº ");
             mensagem.Append(nfce.infNFe.ide.nNF.ToString("D9"));
             mensagem.Append(" Série ");
@@ -612,37 +577,31 @@ namespace NFe.Danfe.Nativo.NFCe
             return mensagem.ToString();
         }
 
-        private static string MontaMensagemConsumidor(dest dest)
-        {
+        private static string MontaMensagemConsumidor(dest dest) {
             StringBuilder mensagem = new StringBuilder("CONSUMIDOR ");
 
-            if (dest == null || (string.IsNullOrEmpty(dest.CPF) && string.IsNullOrEmpty(dest.CNPJ)))
-            {
+            if (dest == null || (string.IsNullOrEmpty(dest.CPF) && string.IsNullOrEmpty(dest.CNPJ))) {
                 mensagem.Append("NÃO IDENTIFICADO");
                 return mensagem.ToString();
             }
 
-            if (!string.IsNullOrEmpty(dest.idEstrangeiro))
-            {
+            if (!string.IsNullOrEmpty(dest.idEstrangeiro)) {
                 mensagem.Append("Id ");
                 mensagem.Append(dest.idEstrangeiro);
             }
 
 
-            if (!string.IsNullOrEmpty(dest.CPF))
-            {
+            if (!string.IsNullOrEmpty(dest.CPF)) {
                 mensagem.Append("CPF ");
                 mensagem.Append(dest.CPF);
             }
 
-            if (!string.IsNullOrEmpty(dest.CNPJ))
-            {
+            if (!string.IsNullOrEmpty(dest.CNPJ)) {
                 mensagem.Append("CNPJ ");
                 mensagem.Append(dest.CNPJ);
             }
 
-            if (!string.IsNullOrEmpty(dest.xNome))
-            {
+            if (!string.IsNullOrEmpty(dest.xNome)) {
                 mensagem.Append(" ");
                 mensagem.Append(dest.xNome);
             }
@@ -686,19 +645,16 @@ namespace NFe.Danfe.Nativo.NFCe
             return mensagem.ToString().Replace(", ,", ", ");
         }
 
-        private static string GeraChaveAcesso(NFeZeus nfce)
-        {
+        private static string GeraChaveAcesso(NFeZeus nfce) {
             string chaveAcesso = nfce.infNFe.Id.Substring(3);
             string novaChave = string.Empty;
             int contaChaveAcesso = 0;
 
-            foreach (char c in chaveAcesso)
-            {
+            foreach (char c in chaveAcesso) {
                 contaChaveAcesso++;
                 novaChave += c;
 
-                if (contaChaveAcesso == 4)
-                {
+                if (contaChaveAcesso == 4) {
                     novaChave += " ";
                     contaChaveAcesso = 0;
                 }
@@ -706,74 +662,61 @@ namespace NFe.Danfe.Nativo.NFCe
             return novaChave;
         }
 
-        private static AdicionarTexto CriaHeaderColuna(string texto, Graphics graphics, int x, int y)
-        {
+        private static AdicionarTexto CriaHeaderColuna(string texto, Graphics graphics, int x, int y) {
             AdicionarTexto coluna = new AdicionarTexto(graphics, texto, 7);
             coluna.Desenhar(x, y);
 
             return coluna;
         }
 
-        private static void LinhaHorizontal(Graphics g, int x, int y, int larguraLinha)
-        {
+        private static void LinhaHorizontal(Graphics g, int x, int y, int larguraLinha) {
             new LinhaHorizontal(g, Pens.Black, x, y, larguraLinha, y).Desenhar();
         }
 
         private static int EscreverLinhaTitulo(Graphics g, string texto, int tamanhoFonteTitulo, int larguraLogo, int x,
-            int y, int larguraLinha)
-        {
+            int y, int larguraLinha) {
             AdicionarTexto adicionarTexto = new AdicionarTexto(g, texto, tamanhoFonteTitulo);
             ComprimentoMaximo larguraMaximaTexto = new ComprimentoMaximo((larguraLinha - larguraLogo));
             int laguraDoTexto = adicionarTexto.Medida.Largura;
             DefineQuebraDeLinha quebrarLinha = new DefineQuebraDeLinha(adicionarTexto, larguraMaximaTexto, laguraDoTexto);
             adicionarTexto = quebrarLinha.DesenharComQuebras(g);
-            int posisaoXTexto = x + larguraLogo + (((larguraLinha - larguraLogo) - adicionarTexto.Medida.Largura)/2);
+            int posisaoXTexto = x + larguraLogo + (((larguraLinha - larguraLogo) - adicionarTexto.Medida.Largura) / 2);
             adicionarTexto.Desenhar(posisaoXTexto, y);
             y += adicionarTexto.Medida.Altura;
             return y;
         }
 
-        private static int MensagemContingencia(Graphics g, int larguraLinha, int y)
-        {
+        private static int MensagemContingencia(Graphics g, int larguraLinha, int y) {
             AdicionarTexto contingenciaTitulo = new AdicionarTexto(g, "EMITIDA EM CONTINGÊNCIA", 10);
-            int restoContingenciaTituloX = (larguraLinha - contingenciaTitulo.Medida.Largura)/2;
+            int restoContingenciaTituloX = (larguraLinha - contingenciaTitulo.Medida.Largura) / 2;
             contingenciaTitulo.Desenhar(restoContingenciaTituloX, y);
             y += contingenciaTitulo.Medida.Altura;
 
             AdicionarTexto pendenteAutorizacaoTitulo = new AdicionarTexto(g, "Pendente de Autorização", 8);
-            int restoPendenteAutorizacaoTituloX = (larguraLinha - pendenteAutorizacaoTitulo.Medida.Largura)/2;
+            int restoPendenteAutorizacaoTituloX = (larguraLinha - pendenteAutorizacaoTitulo.Medida.Largura) / 2;
             pendenteAutorizacaoTitulo.Desenhar(restoPendenteAutorizacaoTituloX, y);
             y += pendenteAutorizacaoTitulo.Medida.Altura + 2;
             return y;
         }
 
-        private void CarregarXml(string xml)
-        {
-            try
-            {
+        private void CarregarXml(string xml) {
+            try {
                 nfeProc proc = new procNFe().nfeProc.CarregarDeXmlString(xml);
                 _proc = proc;
                 _nfe = _proc.NFe;
-            }
-            catch (Exception)
-            {
-                try
-                {
+            } catch (Exception) {
+                try {
                     NFeZeus nfe = new NFeZeus().CarregarDeXmlString(xml);
                     _nfe = nfe;
-                }
-                catch (Exception)
-                {
+                } catch (Exception) {
                     throw new ArgumentException(
                         "Ei! Verifique se seu xml está correto, pois identificamos uma falha ao tentar carregar ele.");
                 }
             }
         }
 
-        private static string ObtemDescricao(FormaPagamento? formaPagamento)
-        {
-            switch (formaPagamento)
-            {
+        private static string ObtemDescricao(FormaPagamento? formaPagamento) {
+            switch (formaPagamento) {
                 case FormaPagamento.fpDinheiro:
                     return "Dinheiro";
                 case FormaPagamento.fpCheque:
