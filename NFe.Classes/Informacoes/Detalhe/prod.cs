@@ -101,21 +101,12 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// <summary>
         /// I05d - Indicador de Escala Relevante
         /// </summary>
-        public string indEscala { get; set; }
+        public char? indEscala { get; set; }
 
         /// <summary>
         /// i05e - CNPJ do Fabricante da Mercadoria
         /// </summary>
-        public int? CNPJFab
-        {
-            get { return _CNPJFab; }
-            set { _CNPJFab = value; }
-        }
-
-        public bool ShouldSerializeCNPJFab()
-        {
-            return CNPJFab.HasValue && CNPJFab.Value > 0;
-        }
+        public string CNPJFab { get; set; }
 
         public string cBenef { get; set; }
 
