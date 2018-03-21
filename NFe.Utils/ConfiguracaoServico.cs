@@ -52,6 +52,9 @@ namespace NFe.Utils
         public ConfiguracaoServico()
         {
             Certificado = new ConfiguracaoCertificado();
+
+            Certificado.SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+            Certificado.DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
         }
 
         static ConfiguracaoServico()
@@ -200,18 +203,6 @@ namespace NFe.Utils
         ///     Diretório onde os xmls de envio/retorno devem ser salvos
         /// </summary>
         public string DiretorioSalvarXml { get; set; }
-
-
-        /// <summary>
-        ///     Algoritmo de Assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#rsa-sha1)
-        /// </summary>
-        public string SignatureMethodSignedXml { get; set; }
-
-
-        /// <summary>
-        ///     URI para DigestMethod na Classe Reference para auxiliar para a assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#sha1)
-        /// </summary>
-        public string DigestMethodReference { get; set; }
         
 
         /// <summary>
@@ -226,9 +217,6 @@ namespace NFe.Utils
                 {
                     if (_instancia != null) return _instancia;
                     _instancia = new ConfiguracaoServico();
-
-                    _instancia.SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-                    _instancia.DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
                 }
 
                 return _instancia;

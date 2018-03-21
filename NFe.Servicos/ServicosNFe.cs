@@ -437,7 +437,7 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado, _cFgServico.SignatureMethodSignedXml, _cFgServico.DigestMethodReference);
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
 
             #endregion
 
@@ -523,7 +523,7 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado, _cFgServico.SignatureMethodSignedXml,_cFgServico.DigestMethodReference);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference);
             }
 
             #endregion
