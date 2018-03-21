@@ -34,7 +34,7 @@ namespace FastReport
     private void txtDhEmissao_BeforePrint(object sender, EventArgs e)
     {
       txtDhEmissao.Text = &quot;Número: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.nNF] ), 9, '0')] Série: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.serie] ), 3, '0')] Emissão: &quot; + 
-        ((DateTime)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.dhEmi&quot;)).ToString();
+        ((DateTimeOffset)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.dhEmi&quot;)).DateTime.ToString();
     }
 
     private void txtEmitCnpj_BeforePrint(object sender, EventArgs e)
