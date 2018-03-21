@@ -55,7 +55,7 @@ namespace NFe.Utils.Assinatura
             if (cfgServico == null)
                 cfgServico = ConfiguracaoServico.Instancia;
 
-            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache, cfgServico.SignatureMethodSignedXml, cfgServico.DigestMethodReference);
+            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
         }
 
         /// <summary>
