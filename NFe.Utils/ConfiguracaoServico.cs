@@ -39,6 +39,7 @@ using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using System.Net.Security;
 
 namespace NFe.Utils
 {
@@ -162,6 +163,11 @@ namespace NFe.Utils
         ///     Versão do serviço admCscNFCe
         /// </summary>
         public VersaoServico VersaoNfceAministracaoCSC { get; set; }
+
+        /// <summary>
+        /// valida de retorno do protocolo ssl/https
+        /// </summary>
+        public RemoteCertificateValidationCallback ValidaCertificado { get; set; }
 
         /// <summary>
         ///     Protocolo de segurança que deve ser utilizado no consumo dos webservices

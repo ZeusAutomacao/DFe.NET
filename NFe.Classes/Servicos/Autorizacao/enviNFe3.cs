@@ -39,7 +39,7 @@ namespace NFe.Classes.Servicos.Autorizacao
     [XmlRoot(ElementName = "enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class enviNFe3
     {
-        public enviNFe3(string versao, int idLote, IndicadorSincronizacao indSinc, List<NFe> nFe)
+        public enviNFe3(string versao, double idLote, IndicadorSincronizacao indSinc, List<NFe> nFe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -59,8 +59,10 @@ namespace NFe.Classes.Servicos.Autorizacao
 
         /// <summary>
         ///     AP03 - Identificador de controle do envio do lote.
+        ///     Número sequencial autoincremental, de controle correspondente ao identificador único do lote enviado.
+        ///     A responsabilidade de gerar e controlar esse número é exclusiva do contribuinte.
         /// </summary>
-        public int idLote { get; set; }
+        public double idLote { get; set; }
 
         /// <summary>
         ///     AP03a - Indicador de Sincronização
