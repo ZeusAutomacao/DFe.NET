@@ -1035,6 +1035,7 @@ namespace NFe.AppTeste
                 ide.indPag = IndicadorPagamento.ipVista;
             }
 
+
             ide.idDest = DestinoOperacao.doInterna;
             ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
