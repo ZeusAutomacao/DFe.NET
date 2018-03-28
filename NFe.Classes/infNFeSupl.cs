@@ -66,7 +66,7 @@ namespace NFe.Classes
             qrCode = reader.ReadString();
             reader.ReadEndElement();
 
-            if (reader.Name == "urlChave" || urlChave != null)
+            if (reader.IsStartElement("urlChave"))
             {
                 reader.ReadStartElement("urlChave");
                 urlChave = reader.ReadString();
