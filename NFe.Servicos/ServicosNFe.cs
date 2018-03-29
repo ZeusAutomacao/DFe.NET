@@ -90,7 +90,6 @@ namespace NFe.Servicos
     {
         private readonly X509Certificate2 _certificado;
         private readonly ConfiguracaoServico _cFgServico;
-        private readonly string _path;
 
         /// <summary>
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
