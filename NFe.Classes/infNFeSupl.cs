@@ -39,7 +39,7 @@ using System.Xml.Serialization;
 namespace NFe.Classes
 {
     [Serializable]
-    public class infNFeSupl: IXmlSerializable
+    public class infNFeSupl : IXmlSerializable
     {
         /// <summary>
         /// ZX02 - Texto com o QR-Code impresso no DANFE NFC-e
@@ -59,14 +59,15 @@ namespace NFe.Classes
         }
 
         public void ReadXml(XmlReader reader)
-        { 
+        {
             reader.ReadStartElement(typeof(infNFeSupl).Name);
 
             reader.ReadStartElement("qrCode");
             qrCode = reader.ReadString();
             reader.ReadEndElement();
 
-            if (reader.IsStartElement("urlChave")) {
+            if (reader.IsStartElement("urlChave"))
+            {
                 reader.ReadStartElement("urlChave");
                 urlChave = reader.ReadString();
                 reader.ReadEndElement();
