@@ -165,7 +165,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     P23 - Data e hora
         /// </summary>
         [XmlIgnore]
-        public DateTimeOffset dhEmi { get; set; }
+        public DateTimeOffset? dhEmi { get; set; }
 
         /// <summary>
         /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -224,7 +224,7 @@ namespace NFe.Classes.Servicos.Evento
             cOrgaoAutor = null;
             tpAutor = null;
             verAplic = null;
-            dhEmi = DateTime.MinValue;
+            dhEmi = null;
             tpNF = null;
             IE = null;
             dest = null;
