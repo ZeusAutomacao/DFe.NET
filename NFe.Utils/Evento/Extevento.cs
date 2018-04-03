@@ -56,13 +56,13 @@ namespace NFe.Utils.Evento
         /// <param name="evento"></param>
         /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
-        public static evento Assina(this evento evento, X509Certificate2 certificadoDigital, string SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1")
+        public static evento Assina(this evento evento, X509Certificate2 certificadoDigital, string signatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1")
         {
             var eventoLocal = evento;
             if (eventoLocal.infEvento.Id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id, certificadoDigital, false, SignatureMethodSignedXml, DigestMethodReference);
+            var assinatura = Assinador.ObterAssinatura(eventoLocal, eventoLocal.infEvento.Id, certificadoDigital, false, signatureMethodSignedXml, digestMethodReference);
             eventoLocal.Signature = assinatura;
             return eventoLocal;
         }
