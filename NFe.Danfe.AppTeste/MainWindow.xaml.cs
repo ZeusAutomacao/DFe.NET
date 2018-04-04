@@ -320,7 +320,7 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "NFCeQRReduzido");
+                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", DanfeFrNFCeLayout.QRLateral);
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
