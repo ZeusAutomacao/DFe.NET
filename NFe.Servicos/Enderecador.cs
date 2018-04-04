@@ -802,6 +802,14 @@ namespace NFe.Servicos
                     versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeStatusServico, versao, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeStatusServico2")));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
+
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeInutilizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4"));
+
             }
 
             #endregion
@@ -820,6 +828,15 @@ namespace NFe.Servicos
                 endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaCadastro, versao, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro2")));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NfeRetAutorizacao?wsdl"));
+
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeInutilizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.PE, ModeloDocumento.NFe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4?wsdl"));
+
             }
 
             #endregion
