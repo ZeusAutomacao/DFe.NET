@@ -64,6 +64,8 @@ namespace NFe.Danfe.Fast.NFCe
             Relatorio.GetDataSource("NFCe").Enabled = true;
             if (string.IsNullOrEmpty(arquivoRelatorio))
                 Relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
+            else if(arquivoRelatorio.Equals("NFCeQRReduzido", System.StringComparison.InvariantCultureIgnoreCase))
+                Relatorio.Load(new MemoryStream(Properties.Resources.NFCeQRReduzido));
             else
                 Relatorio.Load(arquivoRelatorio);
             Relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
