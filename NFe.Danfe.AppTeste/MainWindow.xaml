@@ -168,6 +168,8 @@
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="BtnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left" 
                             VerticalAlignment="Top" Width="176" Margin="5,0" Click="btnEventoNFe_Click" />
+                        <Button x:Name="BtnNfceDanfeQRReduzido" Content="DANFE NFCe QR Reduzido" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeQRReduzido_Click" Margin="5,0,5,0"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
