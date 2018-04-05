@@ -42,6 +42,12 @@ using NFe.Utils.InformacoesSuplementares;
 
 namespace NFe.Danfe.Fast.NFCe
 {
+    public enum DanfeFrNFCeLayout
+    {
+        Normal,
+        QRLateral
+    }
+
     /// <summary>
     /// Classe responsável pela impressão do DANFE da NFCe em Fast Reports
     /// </summary>
@@ -55,7 +61,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
         /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc , string arquivoRelatorio = "")
+        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "", DanfeFrNFCeLayout danfeFrNFCeLayout = DanfeFrNFCeLayout.Normal)
         {
             #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
@@ -63,7 +69,7 @@ namespace NFe.Danfe.Fast.NFCe
             Relatorio.RegisterData(new[] { proc }, "NFCe", 20);
             Relatorio.GetDataSource("NFCe").Enabled = true;
             if (string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(new MemoryStream(Properties.Resources.NFCe));
+                Relatorio.Load(danfeFrNFCeLayout == DanfeFrNFCeLayout.Normal ? new MemoryStream(Properties.Resources.NFCe) : new MemoryStream(Properties.Resources.NFCeQRReduzido));
             else
                 Relatorio.Load(arquivoRelatorio);
             Relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
