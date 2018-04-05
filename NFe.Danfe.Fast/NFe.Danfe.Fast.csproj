@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NFCe\NFCe.frx" />
+    <None Include="NFCe\NFCeQRReduzido.frx" />
     <None Include="NFe\NFeEvento.frx" />
     <None Include="NFe\NFeRetrato.frx" />
     <None Include="Resources\NFeRetrato.frx" />
