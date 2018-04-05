@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="01/30/2017 09:27:49" ReportInfo.CreatorVersion="2017.1.17.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="04/05/2018 13:02:41" ReportInfo.CreatorVersion="2017.1.17.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +28,14 @@ namespace FastReport
     
     private void txtDescPagto_BeforePrint(object sender, EventArgs e)
     {
-      txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();       
+      if(Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;) != null)
+        txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();          
+    }
+    
+    private void txtDescDetPagto_BeforePrint(object sender, EventArgs e)
+    {
+      if(Report.GetDataSource(&quot;NFCe.NFe.infNFe.pag.detPag&quot;).RowCount != 0 &amp;&amp; Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.detPag.tPag&quot;) != null)
+        txtDescDetPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.detPag.tPag&quot;)).Descricao();
     }
 
     private void txtDhEmissao_BeforePrint(object sender, EventArgs e)
@@ -182,7 +189,7 @@ namespace FastReport
       if ( (NfceModoImpressao) ((Int32)Report.GetParameterValue(&quot;NfceModoImpressao&quot;)) != NfceModoImpressao.UnicaPagina)
         return;        
         
-    PgNfce.PaperHeight = 
+      PgNfce.PaperHeight = 
         (rtbTituloHeight + 
          phbEmitenteHeight + 
          ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;) ? phbCancelado.Height : 0)+
@@ -192,6 +199,7 @@ namespace FastReport
          dbProdutosDuasLinhasHeight + 
          gfbProdutosHeight +
          dbPagamentoHeight + 
+         dbDetPagamentoHeight +
          dbTributosHeight + 
          dbObservacaoHeight + 
          dbInfoFiscalHeight + 
@@ -255,6 +263,12 @@ namespace FastReport
     {
       dbPagamentoHeight = (dbPagamento.Visible ? dbPagamento.Height : 0);       
     }
+    
+    float dbDetPagamentoHeight;
+    private void dbDetPagamento_AfterPrint(object sender, EventArgs e)
+    {
+      dbDetPagamentoHeight = (dbDetPagamento.Visible ? dbDetPagamento.Height : 0);
+    }
 
     float dbTributosHeight;
     private void dbTributos_AfterPrint(object sender, EventArgs e)
@@ -290,6 +304,22 @@ namespace FastReport
       var vServ = ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;)) == null ? 0 : ((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ISSQNtot.vServ&quot;));
       txtValorTotal.Text = (((Decimal)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.total.ICMSTot.vProd&quot;)) + vServ).ToString();      
     }
+
+    private void dbPagamento_BeforePrint(object sender, EventArgs e)
+    {
+      dbPagamento.Visible = Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;) != null;
+    }
+
+	private void dbDetPagamento_BeforePrint(object sender, EventArgs e)
+    {
+      dbDetPagamento.Visible = Report.GetDataSource(&quot;NFCe.NFe.infNFe.pag.detPag&quot;).RowCount != 0 &amp;&amp; Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.detPag.tPag&quot;) != null;
+    }
+	
+	private void dbTroco_BeforePrint(object sender, EventArgs e)
+    {
+      dbTroco.Visible = Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.vTroco&quot;) != null;
+    }
+
   }
 }</ScriptText>
   <Dictionary>
@@ -625,12 +655,23 @@ namespace FastReport
           <BusinessObjectDataSource Name="pag" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Pagamento.pag, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
             <Column Name="tPag" DataType="NFe.Classes.Informacoes.Pagamento.FormaPagamento, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="vPag" DataType="System.Decimal"/>
-            <Column Name="card" DataType="NFe.Classes.Informacoes.Pagamento.card, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null">
-              <Column Name="CNPJ" DataType="System.String"/>
-              <Column Name="tBand" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.BandeiraCartao, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
-              <Column Name="cAut" DataType="System.String"/>
-              <Column Name="tpIntegra" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.TipoIntegracaoPagamento, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
+			<Column Name="card" DataType="NFe.Classes.Informacoes.Pagamento.card, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null">
+			  <Column Name="CNPJ" DataType="System.String"/>
+			  <Column Name="tBand" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.BandeiraCartao, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
+			  <Column Name="cAut" DataType="System.String"/>
+			  <Column Name="tpIntegra" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.TipoIntegracaoPagamento, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
             </Column>
+            <Column Name="vTroco" DataType="null"/>
+			<BusinessObjectDataSource Name="detPag" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Pagamento.pag.detPag, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="tPag" DataType="NFe.Classes.Informacoes.Pagamento.FormaPagamento, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="vPag" DataType="System.Decimal"/>
+              <Column Name="card" DataType="NFe.Classes.Informacoes.Pagamento.card, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null">
+			  <Column Name="CNPJ" DataType="System.String"/>
+			  <Column Name="tBand" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.BandeiraCartao, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
+			  <Column Name="cAut" DataType="System.String"/>
+			  <Column Name="tpIntegra" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.TipoIntegracaoPagamento, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null]]"/>
+            </Column>
+            </BusinessObjectDataSource>
           </BusinessObjectDataSource>
           <Column Name="infAdic" DataType="NFe.Classes.Informacoes.Observacoes.infAdic, NFe.Classes, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null">
             <Column Name="infAdFisco" DataType="System.String"/>
@@ -727,6 +768,7 @@ namespace FastReport
     <Parameter Name="NfceModoImpressao" DataType="NFe.Danfe.Base.NfceModoImpressao, NFe.Danfe.Base, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null"/>
     <Parameter Name="NfceCancelado" DataType="System.Boolean"/>
     <Total Name="QtdeItens" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
+	<Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbProdutosDuasLinhas"/>
   </Dictionary>
   <ReportPage Name="PgNfce" PaperWidth="79" LeftMargin="4.5" TopMargin="0" RightMargin="4.5" BottomMargin="1" FirstPageSource="15" OtherPagesSource="15" StartPageEvent="PgNfce_StartPage">
     <ReportTitleBand Name="rtbTitulo" Width="264.6" Height="85.8" BeforePrintEvent="rtbTitulo_BeforePrint" AfterPrintEvent="rtbTitulo_AfterPrint">
@@ -829,9 +871,18 @@ namespace FastReport
         </ChildBand>
       </GroupFooterBand>
     </GroupHeaderBand>
-    <DataBand Name="dbPagamento" Top="457.94" Width="264.6" Height="13.23" AfterPrintEvent="dbPagamento_AfterPrint" DataSource="pag">
+    <DataBand Name="dbPagamento" Top="457.94" Width="264.6" Height="13.23" BeforePrintEvent="dbPagamento_BeforePrint" AfterPrintEvent="dbPagamento_AfterPrint" DataSource="pag">
       <TextObject Name="txtDescPagto" Width="139.86" Height="13.23" BeforePrintEvent="txtDescPagto_BeforePrint" Text="[NFCe.NFe.infNFe.pag.tPag]" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text22" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+    </DataBand>
+    <DataBand Name="dbDetPagamento" Top="450.08" Width="264.6" Height="13.23" BeforePrintEvent="dbDetPagamento_BeforePrint" AfterPrintEvent="dbDetPagamento_AfterPrint" DataSource="detPag">
+      <TextObject Name="txtDescDetPagto" Width="139.86" Height="13.23" BeforePrintEvent="txtDescDetPagto_BeforePrint" Text="[NFCe.NFe.infNFe.pag.detPag.tPag]" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+      <TextObject Name="Text6" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.detPag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+      <DataFooterBand Name="dbTroco" Top="464.76" Width="264.6" Height="28.35" BeforePrintEvent="dbTroco_BeforePrint">
+        <TextObject Name="Text5" Left="202.23" Top="13.23" Width="62.37" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vTroco]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
+        <TextObject Name="Text13" Width="262.71" Height="13.23" Text="(TOTAL PAGO [FormatCurrency([TotalPagamentos], 2)])" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+        <TextObject Name="Text47" Top="13.23" Width="196.56" Height="13.23" Text="TROCO R$:" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
+      </DataFooterBand>
     </DataBand>
     <DataBand Name="dbTributos" Top="474.5" Width="264.6" Height="28.35" AfterPrintEvent="dbTributos_AfterPrint">
       <TextObject Name="Memo23" Left="192.87" Width="71.81" Height="28.35" Text="[NFCe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="2, 2, 2, 2" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
