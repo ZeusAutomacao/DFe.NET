@@ -168,6 +168,20 @@ namespace DFe.Utils
         /// </summary>
         public bool ManterDadosEmCache { get; set; }
 
+
+
+        /// <summary>
+        ///     Algoritmo de Assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#rsa-sha1)
+        /// </summary>
+        public string SignatureMethodSignedXml { get; set; }
+
+
+        /// <summary>
+        ///     URI para DigestMethod na Classe Reference para auxiliar para a assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#sha1)
+        /// </summary>
+        public string DigestMethodReference { get; set; }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
