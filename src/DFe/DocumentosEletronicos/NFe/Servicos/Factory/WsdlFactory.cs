@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Reflection;
 using DFe.CertificadosDigitais;
+using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.NFe.Comunicacao.NFeStatusServico;
 using DFe.DocumentosEletronicos.NFe.Configuracao;
 using DFe.DocumentosEletronicos.NFe.Flags;
 using DFe.DocumentosEletronicos.NFe.Wsdl;
 using DFe.DocumentosEletronicos.NFe.Wsdl.AdmCsc;
 using DFe.DocumentosEletronicos.NFe.Wsdl.Autorizacao;
+using DFe.DocumentosEletronicos.NFe.Wsdl.Configuracao;
 using DFe.DocumentosEletronicos.NFe.Wsdl.ConsultaCadastro.CE;
 using DFe.DocumentosEletronicos.NFe.Wsdl.ConsultaProtocolo;
 using DFe.DocumentosEletronicos.NFe.Wsdl.DistribuicaoDFe;
@@ -32,7 +35,14 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos.Factory
                 case ServicoNFe.NfeStatusServico:
                     if (nFeBaseConfig.VersaoNfeStatusServico == VersaoServico.Versao400)
                     {
-                        return new NFeStatusServico4(url, certX509Implementacao, nFeBaseConfig.TimeOut);
+                        return new NfeStatusServico4(new WsdlConfiguracao
+                        {
+                            CertificadoDigital = certX509Implementacao,
+                            EstadoUF = nFeBaseConfig.EstadoUf,
+                            TimeOut = nFeBaseConfig.TimeOut,
+                            Url = url,
+                            VersaoLayout = nFeBaseConfig.VersaoNfeStatusServico,
+                    });
                     }
                     if (nFeBaseConfig.EstadoUf == Estado.PR & nFeBaseConfig.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {

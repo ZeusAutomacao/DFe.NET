@@ -115,6 +115,7 @@
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Comunicacao\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="DocumentosEletronicos\MDFe\Wsdl\Comunicacao\MDFeStatusServico\MDFeStatusServico.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Classes\Servicos\DistribuicaoDFe\consChNFe.cs" />
+    <Compile Include="DocumentosEletronicos\NFe\Comunicacao\NFeStatusServico\NfeStatusServico4.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Configuracao\NFeBaseConfig.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Facade\NFeFacade.cs" />
     <Compile Include="DocumentosEletronicos\NFe\Flags\IndicadorSincronizacao.cs" />
@@ -129,7 +130,7 @@
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\CteTagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\ITagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\MdfeTagCabecalho.cs" />
-    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\NfeTagCabecalho.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\TagCabecalhoVazia.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\CteTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\ITagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\MdfeTagCorpo.cs" />
@@ -789,9 +790,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DocumentosEletronicos\NFe\Wsdl\Status\NfeStatusServico3.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DocumentosEletronicos\NFe\Wsdl\Status\NFeStatusServico4.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Http\Envelope.cs" />

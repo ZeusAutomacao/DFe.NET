@@ -8,7 +8,7 @@ namespace DFe.DocumentosEletronicos.NFe.Wsdl.Configuracao
     {
         public Estado EstadoUF;
         public string Url { get; set; }
-        public string Versao { get; set; }
+        public string Versao { get; set; } = "4.00";
         public X509Certificate2 CertificadoDigital { get; set; }
         public int TimeOut { get; set; }
         public VersaoServico VersaoLayout { get; set; }

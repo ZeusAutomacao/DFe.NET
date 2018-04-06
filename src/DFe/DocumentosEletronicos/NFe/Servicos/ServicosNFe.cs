@@ -104,7 +104,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos
                 case ServicoNFe.NfeStatusServico:
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.Versao400)
                     {
-                        return new NFeStatusServico4(url, _certificado, _cFgServico.TimeOut);
+                        // return null todo return new NFeStatusServico4(url, _certificado, _cFgServico.TimeOut);
                     }
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {

@@ -34,6 +34,7 @@
 using System.Xml.Serialization;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
+using DFe.DocumentosEletronicos.ManipuladorDeXml;
 
 namespace DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status
 {
@@ -71,5 +72,10 @@ namespace DFe.DocumentosEletronicos.NFe.Classes.Retorno.Status
         ///     FR07 - Código da UF que atendeu a solicitação
         /// </summary>
         public Estado cUF { get; set; }
+
+        public static retConsStatServ LoadXml(string xml)
+        {
+            return FuncoesXml.XmlStringParaClasse<retConsStatServ>(xml);
+        }
     }
 }
