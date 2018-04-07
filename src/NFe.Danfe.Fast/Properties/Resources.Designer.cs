@@ -73,6 +73,16 @@ namespace NFe.Danfe.Fast.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] NFCeQRReduzido {
+            get {
+                object obj = ResourceManager.GetObject("NFCeQRReduzido", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] NFeEvento {
             get {
                 object obj = ResourceManager.GetObject("NFeEvento", resourceCulture);

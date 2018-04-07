@@ -182,3 +182,7 @@ Temporary Items
 /DFe/obj
 /.vs/Zeus NFe/v15/sqlite3/storage.ide
 /.vs/ZeusDFe/v15/sqlite3/storage.ide
+/.vs
+.vs/Zeus NFe/v15/.suo
+/src/.vs/ZeusDFe/v15/Server/sqlite3/db.lock
+/src/.vs/ZeusDFe/v15/Server/sqlite3/storage.ide
