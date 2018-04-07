@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Reflection;
 using DFe.CertificadosDigitais;
-using DFe.DocumentosEletronicos.CTe.Classes.Extensoes;
 using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.NFe.Comunicacao.NFeStatusServico;
@@ -42,7 +41,7 @@ namespace DFe.DocumentosEletronicos.NFe.Servicos.Factory
                             TimeOut = nFeBaseConfig.TimeOut,
                             Url = url,
                             VersaoLayout = nFeBaseConfig.VersaoNfeStatusServico,
-                    });
+                        });
                     }
                     if (nFeBaseConfig.EstadoUf == Estado.PR & nFeBaseConfig.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {

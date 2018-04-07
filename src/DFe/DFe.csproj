@@ -810,7 +810,9 @@
     <Compile Include="Wsdl\DFeCorpo.cs" />
     <Compile Include="Wsdl\DFeSoapHttpClientProtocol.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DocumentosEletronicos\NFe\Comunicacao\NFeRecepcao\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="DocumentosEletronicos\NFe\Wsdl\NFe.Wsdl.cd" />
     <None Include="DocumentosEletronicos\NFe\Wsdl\NFe.Wsdl.licenseheader" />
