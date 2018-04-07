@@ -19,7 +19,7 @@ namespace DFe.DocumentosEletronicos.NFe.Comunicacao.NFeStatusServico
             SoapConfig = new DFeSoapConfig
             {
                 DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", new NfeTagCorpo()),
-                DFeCabecalho = new DFeCabecalho(configuracaoWsdl.EstadoUF, configuracaoWsdl.VersaoLayout, new NfeTagCabecalho(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4"),
+                DFeCabecalho = new DFeCabecalho(configuracaoWsdl.EstadoUF, configuracaoWsdl.VersaoLayout, new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4"),
                 Metodo = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF",
                 Url = configuracaoWsdl.Url,
                 Certificado = configuracaoWsdl.CertificadoDigital,

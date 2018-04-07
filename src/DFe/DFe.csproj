@@ -130,6 +130,7 @@
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\CteTagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\ITagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\MdfeTagCabecalho.cs" />
+    <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\NfeTagCabecalho.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Cabecalho\TagCabecalhoVazia.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\CteTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\ITagCorpo.cs" />
