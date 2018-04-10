@@ -15,7 +15,7 @@
     xmlns:utils="clr-namespace:DFe.Utils;assembly=DFe.Utils"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
-    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="960"
+    Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="706" Width="1300"
     WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
@@ -66,15 +66,15 @@
         </CollectionViewSource>
     </Window.Resources>
     <Grid>
-        <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="369">
-            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="359" VerticalAlignment="Top">
+        <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="500" Margin="1,0,0,0">
+            <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="490" VerticalAlignment="Top">
                 <TabControl VerticalAlignment="Top" Height="600">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
                             <GroupBox Header="Certificado" HorizontalAlignment="Left" VerticalAlignment="Top" Width="343" Margin="0,10,0,0" Height="384">
                                 <StackPanel>
                                     <StackPanel.Resources>
-                                        <Style x:Key="TextBoxErro" TargetType="TextBox"> 
+                                        <Style x:Key="TextBoxErro" TargetType="TextBox">
                                             <Style.Triggers>
                                                 <Trigger Property="Validation.HasError" Value="true">
                                                     <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
@@ -111,7 +111,7 @@
                                                                  IsChecked="{Binding CfgServico.Certificado.TipoCertificado, ConverterParameter={x:Static utils:TipoCertificado.A3}, Converter={StaticResource EnumParaBool}, 
                                                                  NotifyOnValidationError=True, ValidatesOnDataErrors=True}" />
                                             </StackPanel>
-                                            
+
                                         </Grid>
                                     </StackPanel>
 
@@ -275,7 +275,7 @@
                     <TabItem Header="WebService">
                         <Grid Background="White">
                             <GroupBox Header="WebService" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                      Width="333" Margin="10,10,0,0">
+                                      Width="450" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
                                     <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
@@ -311,6 +311,10 @@
                                                                  HorizontalAlignment="Left" Margin="270,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="RecepcaoEventoCceCancelamento" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="312,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -390,17 +394,22 @@
                                                     <Label Content="NfeInutilizacao"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NfeInutilizacao" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeInutilizacao" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeInutilizacao" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="232,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+
+                                                    <RadioButton GroupName="NfeInutilizacao" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -408,17 +417,21 @@
                                                     <Label Content="NfeConsultaProtocolo"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NfeConsultaProtocolo" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeConsultaProtocolo" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeConsultaProtocolo" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="232,6,0,5"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" Grid.ColumnSpan="2" />
+                                                    <RadioButton GroupName="NfeConsultaProtocolo" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -426,17 +439,22 @@
                                                     <Label Content="NfeStatusServico"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeStatusServico" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+
+                                                    <RadioButton GroupName="NfeStatusServico" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -444,17 +462,22 @@
                                                     <Label Content="NfeConsultaCadastro"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NfeConsultaCadastro" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeConsultaCadastro" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NfeConsultaCadastro" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" Grid.ColumnSpan="2" />
+
+                                                    <RadioButton GroupName="NfeConsultaCadastro" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -462,17 +485,21 @@
                                                     <Label Content="NFeAutorizacao"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeAutorizacao" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="NFeAutorizacao" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -480,17 +507,21 @@
                                                     <Label Content="NFeRetAutorizacao"
                                                            HorizontalAlignment="Left" Width="200" Margin="1,0,0,0" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="1.0"
-                                                                 HorizontalAlignment="Left" Margin="190,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="148,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="2.0"
-                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="191,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton GroupName="NFeRetAutorizacao" Content="3.1"
-                                                                 HorizontalAlignment="Left" Margin="270,6,0,5"
+                                                                 HorizontalAlignment="Left" Margin="230,6,0,5"
                                                                  VerticalAlignment="Center"
                                                                  IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                    <RadioButton GroupName="NFeRetAutorizacao" Content="4.0"
+                                                                 HorizontalAlignment="Left" Margin="271,6,0,5"
+                                                                 VerticalAlignment="Center"
+                                                                 IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                 </Grid>
                                             </StackPanel>
                                             <StackPanel Height="22" VerticalAlignment="Top">
@@ -579,6 +610,10 @@
                                                          HorizontalAlignment="Left" VerticalAlignment="Top"
                                                          Margin="117,13,0,0"
                                                          IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Tls}, Converter={StaticResource EnumParaBool}}" />
+                                            <RadioButton x:Name="RbtTls12" Content="Tls1.2"
+                                                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                         Margin="196,13,0,0"
+                                                         IsChecked="{Binding CfgServico.ProtocoloDeSeguranca, ConverterParameter={x:Static net:SecurityProtocolType.Tls12}, Converter={StaticResource EnumParaBool}}" />
                                         </Grid>
                                     </GroupBox>
                                     <StackPanel Height="30" Orientation="Horizontal">
@@ -672,41 +707,45 @@
                     </TabItem>
                     <TabItem Header="E-mail">
                         <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="222*"/>
+                                <ColumnDefinition Width="263*"/>
+                            </Grid.ColumnDefinitions>
                             <Label Content="Servidor SMTP" HorizontalAlignment="Left" Margin="10,5,0,0"
                                    VerticalAlignment="Top"/>
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,31,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.ServidorSmtp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                      VerticalAlignment="Top" Width="268" />
-                            <Label Content="Porta" HorizontalAlignment="Left" Margin="283,5,0,0"
-                                   VerticalAlignment="Top"/>
+                                      VerticalAlignment="Top" Width="268" Grid.ColumnSpan="2" />
+                            <Label Content="Porta" HorizontalAlignment="Left" Margin="61.5,5,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1"/>
                             <TextBox x:Name="TxtPorta" HorizontalAlignment="Left" Height="23"
                                      Text="{Binding ConfiguracaoEmail.Porta, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="283,31,0,0" VerticalAlignment="Top" Width="60"/>
+                                     Margin="61.5,31,0,0" VerticalAlignment="Top" Width="60" Grid.Column="1"/>
                             <Label Content="Usuário" HorizontalAlignment="Left" Margin="10,55,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,81,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="221" />
-                            <Label Content="Senha" HorizontalAlignment="Left" Margin="236,59,0,0"
-                                   VerticalAlignment="Top"/>
-                            <TextBox HorizontalAlignment="Left" Height="23" Margin="236,85,0,0" TextWrapping="Wrap"
+                                     VerticalAlignment="Top" Width="221" Grid.ColumnSpan="2" />
+                            <Label Content="Senha" HorizontalAlignment="Left" Margin="14.5,59,0,0"
+                                   VerticalAlignment="Top" Grid.Column="1"/>
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="14.5,85,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Senha, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="107"/>
+                                     VerticalAlignment="Top" Width="107" Grid.Column="1"/>
                             <Label Content="Assunto" HorizontalAlignment="Left" Margin="10,105,0,0"
                                    VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="23" Margin="10,131,0,0" TextWrapping="Wrap"
                                      Text="{Binding ConfiguracaoEmail.Assunto, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     VerticalAlignment="Top" Width="333" />
+                                     VerticalAlignment="Top" Width="333" Grid.ColumnSpan="2" />
                             <CheckBox Content="SMTP Exige conexão segura" HorizontalAlignment="Left"
                                       IsChecked="{Binding ConfiguracaoEmail.Ssl}"
                                       Margin="10,270,0,0" VerticalAlignment="Top" />
                             <TextBox HorizontalAlignment="Left" Height="166" Margin="10,329,0,0" TextWrapping="Wrap" AcceptsReturn="True"
                                          Text="{Binding ConfiguracaoEmail.Mensagem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                         VerticalAlignment="Top" Width="333"/>
+                                         VerticalAlignment="Top" Width="333" Grid.ColumnSpan="2"/>
                             <Label Content="Mensagem do Email" HorizontalAlignment="Left" Margin="10,298,0,0"
                                    VerticalAlignment="Top" />
                             <Label Content="Timeout (em millisegundos)" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" Width="168"/>
-                            <TextBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="23" Margin="10,185,0,0" 
+                            <TextBox HorizontalAlignment="Left" Height="23" Margin="10,185,0,0" 
                                      Text="{Binding ConfiguracaoEmail.Timeout, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                      VerticalAlignment="Top" Width="120"/>
                             <CheckBox Content="Envio assíncrono" HorizontalAlignment="Left"
@@ -741,7 +780,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
-                            
+
                         </Grid>
                     </TabItem>
                 </TabControl>
@@ -751,7 +790,7 @@
                 </DockPanel>
             </StackPanel>
         </GroupBox>
-        <TabControl Name="TabSuperior" Height="266" Margin="384,10,0,0" VerticalAlignment="Top">
+        <TabControl Name="TabSuperior" Height="266" Margin="510,10,-0,0" VerticalAlignment="Top">
             <TabItem Header="NF-e/NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
@@ -770,9 +809,9 @@
                     <Button x:Name="BtnConsultarReciboLote2" Content="Consultar Recibo Lote 2.0"
                             HorizontalAlignment="Left" Margin="192,35,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote2_Click" />
-                    <Button x:Name="BtnCriareEnviar3" Content="Criar e Enviar 3.0" HorizontalAlignment="Left"
+                    <Button x:Name="BtnCriareEnviar3" Content="Criar e Enviar 3.0 Ou 4.0" HorizontalAlignment="Left"
                             Margin="10,60,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviar3_Click" />
-                    <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0"
+                    <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0 Ou 4.0"
                             HorizontalAlignment="Left" Margin="192,60,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote3_Click" />
                     <Button x:Name="BtnGerarNfe3" Content="Criar e Salvar XML 3.0" HorizontalAlignment="Left"
@@ -809,7 +848,7 @@
             </TabItem>
 
         </TabControl>
-        <TabControl Name="TabInferior" Margin="384,281,0,0">
+        <TabControl Name="TabInferior" Margin="509,281,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>

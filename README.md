@@ -12,7 +12,7 @@
  Zeus.CTe  
 
 
-Zeus.Net.NFe.NFCe
+DFe.NET
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 

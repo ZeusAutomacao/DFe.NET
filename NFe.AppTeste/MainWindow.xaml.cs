@@ -314,10 +314,24 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
+                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                {
+                    _nfe.infNFeSupl = new infNFeSupl();
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                }
+
                 _nfe.Assina();
 
                 if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
+                {
+                    if (_nfe.infNFeSupl == null)
+                    {
+                        _nfe.infNFeSupl = new infNFeSupl();
+                    }
+                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
+                }
 
                 _nfe.Valida();
 
@@ -387,12 +401,31 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
+
+                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
+                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                {
+                    _nfe.infNFeSupl = new infNFeSupl();
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                }
+
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
 
                 if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
                 {
                     //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                    _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.    
+                    if (_nfe.infNFeSupl == null)
+                    {
+                        _nfe.infNFeSupl = new infNFeSupl
+                        {
+                            qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc)
+                        };
+                    }
+                    else
+                    {
+                        _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
+                    }
+                    
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -945,12 +978,12 @@ namespace NFe.AppTeste
 
             infNFe.total = GetTotal(versao, infNFe.det);
 
-            if (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve310)
-                infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 Somente
-            if (infNFe.ide.mod == ModeloDocumento.NFCe)
-                infNFe.pag = GetPagamento(infNFe.total.ICMSTot); //NFCe Somente  
+            if (infNFe.ide.mod == ModeloDocumento.NFe & (versao == VersaoServico.ve310 || versao == VersaoServico.ve400)) 
+                infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 e 4.00 Somente
+            if (infNFe.ide.mod == ModeloDocumento.NFCe || (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve400))
+                infNFe.pag = GetPagamento(infNFe.total.ICMSTot, versao); //NFCe Somente  
 
-            if (infNFe.ide.mod == ModeloDocumento.NFCe)
+            if (infNFe.ide.mod == ModeloDocumento.NFCe & versao != VersaoServico.ve400) 
                 infNFe.infAdic = new infAdic() {infCpl = "Troco: 10,00"}; //Susgestão para impressão do troco em NFCe
 
             return infNFe;
@@ -964,7 +997,6 @@ namespace NFe.AppTeste
             {
                 cUF = estado.SiglaParaEstado(_configuracoes.EnderecoEmitente.UF),
                 natOp = "VENDA",
-                indPag = IndicadorPagamento.ipVista,
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
@@ -996,7 +1028,14 @@ namespace NFe.AppTeste
 
             #region V3.00
 
-            if (versao != VersaoServico.ve310) return ide;
+            if (versao == VersaoServico.ve200) return ide;
+
+            if (versao == VersaoServico.ve310)
+            {
+                ide.indPag = IndicadorPagamento.ipVista;
+            }
+
+
             ide.idDest = DestinoOperacao.doInterna;
             ide.dhEmi = DateTime.Now;
             //Mude aqui para enviar a nfe vinculada ao EPEC, V3.10
@@ -1061,7 +1100,8 @@ namespace NFe.AppTeste
 
             //if (versao == VersaoServico.ve200)
             //    dest.IE = "ISENTO";
-            if (versao != VersaoServico.ve310) return dest;
+            if (versao == VersaoServico.ve200) return dest;
+
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
             dest.email = "teste@gmail.com"; //V3.00 Somente
             return dest;
@@ -1248,8 +1288,20 @@ namespace NFe.AppTeste
                 vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
                 vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
             };
-            if (versao == VersaoServico.ve310)
+
+            if (versao == VersaoServico.ve310 || versao == VersaoServico.ve400)
                 icmsTot.vICMSDeson = 0;
+
+            if (versao == VersaoServico.ve400)
+            {
+                icmsTot.vFCPUFDest = 0;
+                icmsTot.vICMSUFDest = 0;
+                icmsTot.vICMSUFRemet = 0;
+                icmsTot.vFCP = 0;
+                icmsTot.vFCPST = 0;
+                icmsTot.vFCPSTRet = 0;
+                icmsTot.vIPIDevol = 0;
+            }
 
             foreach (var produto in produtos)
             {
@@ -1312,15 +1364,39 @@ namespace NFe.AppTeste
             return c;
         }
 
-        protected virtual List<pag> GetPagamento(ICMSTot icmsTot)
+        protected virtual List<pag> GetPagamento(ICMSTot icmsTot, VersaoServico versao)
         {
             var valorPagto = Valor.Arredondar(icmsTot.vProd / 2, 2);
-            var p = new List<pag>
+
+            if (versao != VersaoServico.ve400) // difernte de versão 4 retorna isso
             {
-                new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
-                new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
+                var p = new List<pag>
+                {
+                    new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
+                    new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
+                };
+                return p;
+            }
+
+
+            // igual a versão 4 retorna isso
+            var p4 = new List<pag>
+            {
+                //new pag {detPag = new detPag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto}},
+                //new pag {detPag = new detPag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}}
+                new pag
+                {
+                    detPag = new List<detPag>
+                    {
+                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vProd - valorPagto}
+                    },
+                    vTroco = 0.50m
+                }
             };
-            return p;
+
+
+            return p4;
         }
 
         #endregion

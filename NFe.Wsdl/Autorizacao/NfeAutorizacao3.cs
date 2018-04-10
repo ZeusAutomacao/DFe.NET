@@ -141,7 +141,7 @@ namespace NFe.Wsdl.Autorizacao
         [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacao3LoteZipRequest request);
     }
-    
+
     public partial class NfeAutorizacao3Soap12Client : SoapBindingClient<NfeAutorizacao3Soap12>
     {
         public NfeAutorizacao3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
@@ -155,7 +155,7 @@ namespace NFe.Wsdl.Autorizacao
             inValue.nfeDadosMsg = nfeDadosMsg;
             return ((NfeAutorizacao3Soap12)(this.Channel)).nfeAutorizacaoLoteAsync(inValue);
         }
-        
+
         public System.Threading.Tasks.Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteZipAsync(nfeCabecMsg nfeCabecMsg, string nfeDadosMsgZip)
         {
             nfeAutorizacao3LoteZipRequest inValue = new nfeAutorizacao3LoteZipRequest();
@@ -165,5 +165,4 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
 }
-
 

@@ -89,19 +89,20 @@ namespace NFe.Utils.NFe
         ///     Gera id, cdv, assina e faz alguns ajustes nos dados da classe NFe antes de utilizá-la
         /// </summary>
         /// <param name="nfe"></param>
+        /// <param name="cfgServico1"></param>
         /// <returns>Retorna um objeto NFe devidamente tradado</returns>
-        public static Classes.NFe Valida(this Classes.NFe nfe)
+        public static Classes.NFe Valida(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
 
             var versao = (Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture));
 
             var xmlNfe = nfe.ObterXmlString();
-            var cfgServico = ConfiguracaoServico.Instancia;
+            var config = cfgServico ?? ConfiguracaoServico.Instancia;
             if (versao < 3)
-                Validador.Valida(ServicoNFe.NfeRecepcao, cfgServico.VersaoNfeRecepcao, xmlNfe, false, cfgServico);
+                Validador.Valida(ServicoNFe.NfeRecepcao, config.VersaoNfeRecepcao, xmlNfe, false, config);
             if (versao >= 3)
-                Validador.Valida(ServicoNFe.NFeAutorizacao, cfgServico.VersaoNFeAutorizacao, xmlNfe, false, cfgServico);
+                Validador.Valida(ServicoNFe.NFeAutorizacao, config.VersaoNFeAutorizacao, xmlNfe, false, config);
 
             return nfe; //Para uso no formato fluent
         }
@@ -135,7 +136,7 @@ namespace NFe.Utils.NFe
             var numeroDocumento = nfeLocal.infNFe.ide.nNF;
             var serie = nfeLocal.infNFe.ide.serie;
 
-            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao.LocalDateTime, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);

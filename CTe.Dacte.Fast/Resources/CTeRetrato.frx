@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="10/06/2017 13:38:06" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="01/05/2018 10:22:54" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -162,7 +162,7 @@ namespace FastReport
           Text121.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xLgr], [cteProc.CTe.infCte.receb.enderReceb.nro] [cteProc.CTe.infCte.receb.enderReceb.xCpl]&quot;;
           Text123.Text = &quot;[cteProc.CTe.infCte.receb.enderReceb.xPais] - [cteProc.CTe.infCte.receb.enderReceb.cPais]&quot;;
           Text126.Text = FormatarCampo(cnpjRecebedor,'d');
-          Text127.Text = &quot;[cteProc.CTe.infCte0.receb.IE]&quot;;
+          Text127.Text = &quot;[cteProc.CTe.infCte.receb.IE]&quot;;
           Text128.Text = &quot;[FormatarCampo([cteProc.CTe.infCte.receb.fone],'f')]&quot;; 
           break;
         case 3: //Destinatário
@@ -373,6 +373,48 @@ namespace FastReport
       
       if (string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;cteProc.protCTe.infProt.nProt&quot;)))
         Text26.Text = &quot;CTe sem autorização de uso da SEFAZ&quot;; 
+      
+      
+      //#592
+      Text173.Text = string.Empty;
+      Text207.Text = string.Empty;
+      var dsObsCont = Report.GetDataSource(&quot;cteProc.CTe.infCte.compl.ObsCont&quot;);
+      dsObsCont.Init();
+      while (dsObsCont.HasMoreRows)
+      {       
+        Text173.Text += ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.ObsCont.xCampo&quot;)) + Environment.NewLine;
+        string texto = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.ObsCont.xTexto&quot;));       
+        while (texto.Length &gt; 70)
+        {
+           Text173.Text += Environment.NewLine;
+           Text207.Text += texto.Substring(0,70) + Environment.NewLine;
+           texto = texto.Substring(70);
+        }
+        Text207.Text += texto + Environment.NewLine;  
+        dsObsCont.Next();        
+      }
+      
+      
+      //#592
+      Text208.Text = string.Empty;
+      Text209.Text = string.Empty;
+      var dsObsFisco = Report.GetDataSource(&quot;cteProc.CTe.infCte.compl.ObsFisco&quot;);
+      dsObsFisco.Init();
+      while (dsObsFisco.HasMoreRows)
+      {       
+        Text208.Text += ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.ObsFisco.xCampo&quot;));
+        string texto = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.ObsFisco.xTexto&quot;));
+        while (texto.Length &gt; 45)
+        {
+          Text208.Text += Environment.NewLine;
+          Text209.Text += texto.Substring(0,45) + Environment.NewLine;
+          texto = texto.Substring(45);
+        }
+        Text209.Text += texto + Environment.NewLine;  
+        
+        dsObsFisco.Next();        
+      }
+      
     }
     
   }
@@ -479,6 +521,8 @@ namespace FastReport
             <Column Name="Entrega" DataType="CTe.Classes.Informacoes.Complemento.Entrega, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
               <Column Name="comData" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comDataBase, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
                 <Column Name="tpPer" DataType="CTe.Classes.Informacoes.Tipos.tpPer, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="dProg" DataType="System.DateTime"/>
+                <Column Name="ProxydProg" DataType="System.String"/>
               </Column>
               <Column Name="comHora" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comHoraBase, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
                 <Column Name="tpHor" DataType="CTe.Classes.Informacoes.Tipos.tpHor, CTe.Classes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"/>
@@ -1030,6 +1074,8 @@ namespace FastReport
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="8" TopMargin="7" RightMargin="7" BottomMargin="7" FirstPageSource="261" OtherPagesSource="261">
     <PageHeaderBand Name="PageHeader1" Top="20" Width="737.1" Height="968.8" BeforePrintEvent="PageHeader1_BeforePrint">
+      <ShapeObject Name="Shape4" Top="480.4" Width="737.1" Height="85.6"/>
+      <TextObject Name="Text132" Left="11.45" Top="490.85" Width="232.8" Height="13.45" Text="[cteProc.CTe.infCte.infCTeNorm.infCarga.proPred]" Font="Times New Roman, 8.25pt"/>
       <ShapeObject Name="Shape2" Top="74.6" Width="737.1" Height="170.1"/>
       <TextObject Name="Text24" Left="605.8" Top="77.05" Width="129.85" Height="25.9" Text="MODAL&#13;&#10;RODOVIÁRIO" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <ShapeObject Name="Shape1" Width="737.1" Height="69.93"/>
@@ -1062,7 +1108,7 @@ namespace FastReport
       <TextObject Name="Text17" Left="158.65" Top="217.35" Width="152.2" Height="9.45" Text="FORMA DE PAGAMENTO" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text18" Left="2" Top="77.6" Width="309.85" Height="26.35" Text="[cteProc.CTe.infCte.emit.xNome]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Text19" Left="96.5" Top="103.95" Width="213.9" Height="77.6" Text="[cteProc.CTe.infCte.emit.enderEmit.xLgr], [cteProc.CTe.infCte.emit.enderEmit.nro] [cteProc.CTe.infCte.emit.enderEmit.xCpl]&#13;&#10;[cteProc.CTe.infCte.emit.enderEmit.xBairro]&#13;&#10;CEP: [FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.CEP] ,'c')] - [cteProc.CTe.infCte.emit.enderEmit.xMun] - [cteProc.CTe.infCte.emit.enderEmit.ProxyUF]&#13;&#10;CNPJ: [FormatarCampo([cteProc.CTe.infCte.emit.CNPJ],'d')]&#13;&#10;INSCRIÇÃO ESTADUAL: [cteProc.CTe.infCte.emit.IE]&#13;&#10;TELEFONE: [FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.fone],'f')]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6.75pt"/>
-      <PictureObject Name="poEmitLogo" Left="2" Top="103.95" Width="92.38" Height="77.82" Image=""/>
+      <PictureObject Name="poEmitLogo" Left="2" Top="103.95" Width="92.38" Height="77.82" Image="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"/>
       <LineObject Name="Line11" Left="314.74" Top="103.95" Width="422.25"/>
       <LineObject Name="Line12" Left="313.74" Top="126.3" Width="422.47"/>
       <LineObject Name="Line13" Left="313.74" Top="160.65" Width="422.47"/>
@@ -1154,7 +1200,7 @@ namespace FastReport
       <TextObject Name="Text90" Left="199" Top="422.8" Width="30.8" Height="8.45" Text="FONE" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text91" Left="51.25" Top="366.55" Width="316.75" Height="10.45" Text="[cteProc.CTe.infCte.exped.xNome]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text92" Left="51.25" Top="377" Width="315.75" Height="21.9" Text="[cteProc.CTe.infCte.exped.enderExped.xLgr], [cteProc.CTe.infCte.exped.enderExped.nro] [cteProc.CTe.infCte.exped.enderExped.xCpl] - [cteProc.CTe.infCte.exped.enderExped.xBairro]" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text93" Left="51.25" Top="399.9" Width="208.35" Height="10.45" Text="[cteProc.CTe.infCte.exped.enderExped.xMun] - [cteProc.CTe.infCte.exped.enderExped.ProxyUF]" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text93" Left="51.25" Top="400.9" Width="208.35" Height="10.45" Text="[cteProc.CTe.infCte.exped.enderExped.xMun] - [cteProc.CTe.infCte.exped.enderExped.ProxyUF]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text94" Left="51.25" Top="410.35" Width="148.2" Height="10.45" Text="[FormatarCampo([cteProc.CTe.infCte.exped.CNPJ],'d')]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text95" Left="51.25" Top="420.8" Width="148.2" Height="10.45" Text="[cteProc.CTe.infCte.exped.enderExped.xPais] - [cteProc.CTe.infCte.exped.enderExped.cPais]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text96" Left="274.05" Top="399.9" Width="93.5" Height="10.45" Text="[FormatarCampo([cteProc.CTe.infCte.exped.enderExped.CEP],'c')]" Font="Times New Roman, 8.25pt"/>
@@ -1192,12 +1238,10 @@ namespace FastReport
       <TextObject Name="Text128" Left="561.49" Top="464.99" Width="171.59" Height="11.45" Text="FONE" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text129" Left="624.08" Top="401.73" Width="20.35" Height="8.45" Text="CEP" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text130" Left="643.5" Top="399.84" Width="91.5" Height="10.45" Text="[FormatarCampo([cteProc.CTe.infCte.receb.enderReceb.CEP],'c')]" Font="Times New Roman, 8.25pt"/>
-      <ShapeObject Name="Shape4" Top="480.4" Width="737.1" Height="85.6"/>
       <LineObject Name="Line27" Left="1.13" Top="504.3" Width="734.1"/>
       <TextObject Name="Text131" Left="2.45" Top="482.4" Width="133.3" Height="8.45" Text="PRODUTO PREDOMINANTE" Font="Times New Roman, 5.25pt"/>
       <LineObject Name="Line28" Left="245.7" Top="481.38" Height="22.17"/>
       <LineObject Name="Line29" Left="491.4" Top="481.4" Height="22.35"/>
-      <TextObject Name="Text132" Left="11.45" Top="490.85" Width="232.8" Height="13.45" Text="[cteProc.CTe.infCte.infCTeNorm.infCarga.proPred]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text133" Left="248.15" Top="482.4" Width="242.25" Height="8.45" Text="OUTRAS CARACTERISTICAS DA CARGA" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text134" Left="257.15" Top="490.85" Width="232.8" Height="13.45" Text="[cteProc.CTe.infCte.infCTeNorm.infCarga.xOutCat]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text135" Left="492.85" Top="482.4" Width="242.25" Height="8.45" Text="VALOR TOTAL DA MERCADORIA" Font="Times New Roman, 5.25pt"/>
@@ -1311,20 +1355,10 @@ namespace FastReport
       <LineObject Name="Line46" Left="1" Top="14.45" Width="734.55"/>
       <LineObject Name="Line47" Left="444.15" Top="1" Height="54.7"/>
       <TextObject Name="Text166" Left="444.15" Top="2" Width="290.95" Height="11.45" Text="RESERVADO AO FISCO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
-      <SubreportObject Name="Subreport1" Left="1" Top="14.9" Width="442.15" Height="39.8" ReportPage="Page2"/>
-      <SubreportObject Name="Subreport2" Left="444.15" Top="14.9" Width="291.06" Height="39.8" ReportPage="Page3"/>
+      <TextObject Name="Text173" Left="1" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text207" Left="94.5" Top="14.74" Width="348.65" Height="39.8" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text208" Left="445.15" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text209" Left="538.1" Top="14.9" Width="198.45" Height="39.8" Text="123456789012345678901234567890123456789012345" Font="Arial Narrow, 6.75pt"/>
     </ColumnFooterBand>
-  </ReportPage>
-  <ReportPage Name="Page2" PaperWidth="117" PaperHeight="10.5" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
-    <DataBand Name="Data1" Width="442.26" Height="10.45" DataSource="ObsCont">
-      <TextObject Name="Text173" Width="85.05" Height="9.45" Text="[cteProc.CTe.infCte.compl.ObsCont.xCampo]" Font="Times New Roman, 6pt"/>
-      <TextObject Name="Text174" Left="87.05" Width="355.65" Height="9.45" Text="[cteProc.CTe.infCte.compl.ObsCont.xTexto]" Font="Times New Roman, 6pt"/>
-    </DataBand>
-  </ReportPage>
-  <ReportPage Name="Page3" PaperWidth="77" PaperHeight="10.5" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
-    <DataBand Name="Data2" Width="291.06" Height="10.45" DataSource="ObsFisco">
-      <TextObject Name="Text175" Width="75.6" Height="9.45" Text="[cteProc.CTe.infCte.compl.ObsFisco.xCampo]" Font="Times New Roman, 6pt"/>
-      <TextObject Name="Text176" Left="77.6" Width="214.9" Height="9.45" Text="[cteProc.CTe.infCte.compl.ObsFisco.xTexto]" Font="Times New Roman, 6pt"/>
-    </DataBand>
   </ReportPage>
 </Report>

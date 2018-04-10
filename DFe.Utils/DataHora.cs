@@ -36,6 +36,7 @@ namespace DFe.Utils
 {
     public static class DataHora
     {
+
         /// <summary>
         /// Retorna uma string no formato AAAA-MM-DD
         /// </summary>
@@ -44,6 +45,18 @@ namespace DFe.Utils
         public static string ParaDataString(this DateTime data)
         {
             return data == DateTime.MinValue ? null : data.ToString("yyyy-MM-dd");
+        }
+
+        /// <summary>
+        /// Retorna uma string no formato AAAA-MM-DD
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static string ParaDataString(this DateTime? data)
+        {
+            if (data == null) return null;
+
+            return data == DateTime.MinValue ? null : data.Value.ToString("yyyy-MM-dd");
         }
 
         /// <summary>

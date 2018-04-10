@@ -81,6 +81,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -126,12 +127,18 @@ namespace NFe.Servicos
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
         {
             var url = Enderecador.ObterUrlServico(servico, _cFgServico);
+
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
+
+            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+                return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
+
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
         }
 
@@ -150,9 +157,20 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
+
+                    if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
+                    {
+                        return new NfeConsulta4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
                     {
                         return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
@@ -175,6 +193,9 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
+                        return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                         return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
@@ -189,11 +210,21 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
+                    {
+                        return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
@@ -205,6 +236,13 @@ namespace NFe.Servicos
                             return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
                                 _cFgServico.TimeOut);
                     }
+
+
+                    if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
+                    {
+                        return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
                         _cFgServico.TimeOut);
 
@@ -234,11 +272,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
@@ -296,11 +337,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
@@ -365,11 +409,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeInutilizacao);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
@@ -399,7 +446,7 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado);
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
 
             #endregion
 
@@ -554,17 +601,20 @@ namespace NFe.Servicos
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
 
-            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
 
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(servicoEvento);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoRecepcaoEventoCceCancelamento != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
@@ -581,7 +631,7 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference);
             }
 
             #endregion
@@ -653,7 +703,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -691,8 +741,20 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
             var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
+
+            detEvento.descEvento = "Carta de Correção";
+            detEvento.xCondUso =
+                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída.";
+
+            if (_cFgServico.cUF == Estado.MT)
+            {
+                detEvento.xCondUso =
+                    "A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.";
+                detEvento.descEvento = "Carta de Correcao";
+            }
+
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
@@ -782,7 +844,7 @@ namespace NFe.Servicos
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
-
+                        
             var detevento = new detEvento
             {
                 versao = versaoServico,
@@ -836,17 +898,20 @@ namespace NFe.Servicos
             string documento)
         {
             var versaoServico =
-                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
+                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro, _cFgServico.cUF);
 
             #region Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 
@@ -1170,6 +1235,78 @@ namespace NFe.Servicos
         public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
             bool compactarMensagem = false)
         {
+            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
+            {
+                return NFeAutorizacaoVersao310(idLote, indSinc, nFes, compactarMensagem);
+            }
+
+            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+            {
+                return NFeAutorizacao4(idLote, indSinc, nFes, compactarMensagem);
+            }
+
+            throw new InvalidOperationException("Versão inválida");
+        }
+
+        private RetornoNFeAutorizacao NFeAutorizacao4(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
+        {
+            var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+
+            #endregion
+
+            #region Cria o objeto enviNFe
+
+            var pedEnvio = new enviNFe4(versaoServico, idLote, indSinc, nFes);
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlEnvio = pedEnvio.ObterXmlString();
+            if (_cFgServico.cUF == Estado.PR)
+                //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
+                xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
+
+            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+            var dadosEnvio = new XmlDocument();
+            dadosEnvio.LoadXml(xmlEnvio);
+
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            XmlNode retorno;
+            try
+            {
+                if (compactarMensagem)
+                {
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                    retorno = ws.ExecuteZip(xmlCompactado);
+                }
+                else
+                {
+                    retorno = ws.Execute(dadosEnvio);
+                }
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeAutorizacao, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
+
+            return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
+
+            #endregion
+        }
+
+        private RetornoNFeAutorizacao NFeAutorizacaoVersao310(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
+        {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
             #region Cria o objeto wdsl para consulta
@@ -1244,11 +1381,14 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
 
-            ws.nfeCabecMsg = new nfeCabecMsg
+            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.ve400)
             {
-                cUF = _cFgServico.cUF,
-                versaoDados = versaoServico
-            };
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
 
             #endregion
 

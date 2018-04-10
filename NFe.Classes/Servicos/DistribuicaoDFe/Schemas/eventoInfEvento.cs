@@ -58,6 +58,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 
         public decimal verEvento { get; set; }
 
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public detEvento detEvento { get; set; }
 
         [XmlAttribute()]
