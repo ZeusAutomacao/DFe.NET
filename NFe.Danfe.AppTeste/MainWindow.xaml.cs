@@ -302,6 +302,39 @@ namespace NFe.Danfe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+
+        private void BtnNfceDanfeQRReduzido_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
+                    throw new Exception("O XML informado não é um NFCe!");
+
+                #endregion
+
+                #region Abre a visualização do relatório para impressão
+
+                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", DanfeFrNFCeLayout.QRLateral);
+                danfe.Visualizar();
+                //danfe.Imprimir();
+                //danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
+
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 
 }
