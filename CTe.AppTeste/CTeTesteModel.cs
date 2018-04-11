@@ -1336,9 +1336,9 @@ namespace CTe.AppTeste
 
 
             var servicoCTe = new ServicoCTeDistribuicaoDFe();
-            var retornoNFeDistDFe = servicoCTe.CTeDistDFeInteresse(config.Empresa.SiglaUf.ToString(), cnpj, ultNSU: ultNSU, nSU: nsu);
+            var retornoCTeDistDFe = servicoCTe.CTeDistDFeInteresse(config.Empresa.SiglaUf.ToString(), cnpj, ultNSU: ultNSU, nSU: nsu);
 
-            OnSucessoSync(new RetornoEEnvio(retornoNFeDistDFe.EnvioStr, retornoNFeDistDFe.RetornoStr));
+            OnSucessoSync(new RetornoEEnvio(retornoCTeDistDFe.EnvioStr, retornoCTeDistDFe.RetornoStr));
 
             #endregion
 
