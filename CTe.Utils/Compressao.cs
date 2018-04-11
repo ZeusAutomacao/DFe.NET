@@ -30,37 +30,65 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.IO;
+using System.IO.Compression;
+using System.Text;
 
-using System;
-using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
-
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Utils
 {
-    public class idDocAntPap
+    public static class Compressao
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        private static void CopiarPara(Stream src, Stream dest)
         {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
+            var bytes = new byte[4096];
+
+            int cnt;
+
+            while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
+            {
+                dest.Write(bytes, 0, cnt);
             }
         }
+
+        /// <summary>
+        /// Compacta uma string para GZip
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static byte[] Zip(string str)
+        {
+            var bytes = Encoding.UTF8.GetBytes(str);
+
+            using (var msi = new MemoryStream(bytes))
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                {
+                    CopiarPara(msi, gs);
+                }
+
+                return mso.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Descompacta uma string GZip
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string Unzip(byte[] bytes)
+        {
+            using (var msi = new MemoryStream(bytes))
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(msi, CompressionMode.Decompress))
+                {
+                    CopiarPara(gs, mso);
+                }
+
+                return Encoding.UTF8.GetString(mso.ToArray());
+            }
+        }
+
     }
 }

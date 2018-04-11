@@ -31,36 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
 using DFe.Utils;
+using CTe.Classes.Servicos.DistribuicaoDFe;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Utils.DistribuicaoDFe
 {
-    public class idDocAntPap
+    public static class ExtretDistDFeInt
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        /// <summary>
+        /// Carrega um objeto do tipo retDistDFeInt a partir de uma string no formato XML
+        /// </summary>
+        /// <param name="retDistDFeInt">Objeto do tipo retDistDFeInt</param>
+        /// <param name="xmlString">String com uma estrutura XML</param>
+        /// <returns>Retorna um objeto retDistDFeInt com as informações da string XML</returns>
+        public static retDistDFeInt CarregarDeXmlString(this retDistDFeInt retDistDFeInt, string xmlString)
         {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
+            return FuncoesXml.XmlStringParaClasse<retDistDFeInt>(xmlString);
+        }
+
+        /// <summary>
+        /// Converte um objeto do tipo retDistDFeInt para uma string no formato XML com os dados do objeto
+        /// </summary>
+        /// <param name="retDistDFeInt">Objeto do tipo retDistDFeInt</param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retDistDFeInt</returns>
+        public static string ObterXmlString(this retDistDFeInt retDistDFeInt)
+        {
+            return FuncoesXml.ClasseParaXmlString(retDistDFeInt);
         }
     }
 }

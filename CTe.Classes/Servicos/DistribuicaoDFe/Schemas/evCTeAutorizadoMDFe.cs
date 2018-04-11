@@ -32,35 +32,22 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
+using CTe.Classes.Informacoes.Emitente;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    public class idDocAntPap
-    {
-        public tpDocAnterior tpDoc { get; set; }
+   public class evCTeAutorizadoMDFe
+   {
 
-        public short serie { get; set; }
+       [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
+       public MDFe MDFe { get; set; }
 
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte")]
+       public emit emit { get; set; }
 
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        public string descEvento { get; set; }
+   
     }
 }

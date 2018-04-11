@@ -31,36 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes.Assinatura;
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    public class idDocAntPap
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot(Namespace = "", IsNullable = false)]
+    public class eventoCTe
     {
-        public tpDocAnterior tpDoc { get; set; }
+  
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte", ElementName = "infEvento")]
+        public eventoInfEvento infEvento { get; set; }
 
-        public short serie { get; set; }
+        [XmlAttribute()]
+        public decimal versao { get; set; }
 
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
+        /// <summary>
+        ///     HP22 - Assinatura Digital do documento XML, a assinatura deverá ser aplicada no elemento infEvento
+        /// </summary>
+        [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
+        public Signature Signature { get; set; }
 
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        
     }
 }

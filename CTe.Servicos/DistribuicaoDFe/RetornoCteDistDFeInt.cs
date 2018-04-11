@@ -31,36 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+
+
 using System;
-using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CTe.Classes.Servicos.DistribuicaoDFe;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Servicos.DistribuicaoDFe
 {
-    public class idDocAntPap
+    public class RetornoCteDistDFeInt
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        public RetornoCteDistDFeInt(string envioStr, string retornoStr, string retornoCompletaStr, retDistDFeInt retorno)
         {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
+            EnvioStr = envioStr;
+            RetornoStr = retornoStr;
+            RetornoCompletoStr = retornoCompletaStr;
+            Retorno = retorno;
         }
+
+
+        public string EnvioStr { get; protected set; }
+        public string RetornoStr { get; protected set; }
+        public string RetornoCompletoStr { get; protected set; }
+
+        public new retDistDFeInt Retorno { get; set; }
     }
 }
