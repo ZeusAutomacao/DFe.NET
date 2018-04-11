@@ -31,36 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes;
+using CTe.Classes.Servicos.DistribuicaoDFe;
+using CTe.Utils.Validacao;
 using DFe.Utils;
+using System;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Utils.DistribuicaoDFe
 {
-    public class idDocAntPap
+    public static class ExtdistDFeInt
     {
-        public tpDocAnterior tpDoc { get; set; }
 
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        /// <summary>
+        /// Recebe um objeto ExtdistDFeInt e devolve a string no formato XML
+        /// </summary>
+        /// <param name="pedDistDFeInt">Objeto do Tipo distDFeInt</param>
+        /// <returns>string com XML no do objeto distDFeInt</returns>
+        public static string ObterXmlString(this distDFeInt pedDistDFeInt)
         {
-            get { 
-                return dEmi.ParaDataString();
+            return FuncoesXml.ClasseParaXmlString(pedDistDFeInt);
+        }
+
+        public static void ValidaSchema(this distDFeInt pedDistDFeInt)
+        {
+            var xmlValidacao = pedDistDFeInt.ObterXmlString();
+            
+
+            if (pedDistDFeInt.versao.Equals("1.00"))
+            {
+                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.00.xsd");
             }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
+            else if (pedDistDFeInt.versao.Equals("1.10"))
+            {
+                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.10.xsd");
+            }
+            else
+            {
+                throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                    "a versão está inválida, somente é permitido " +
+                                                    "versão 1.00 é 1.10");
             }
         }
+
+
+        public static void SalvarXmlEmDisco(this distDFeInt pedDistDFeInt, string arquivoSalvar)
+        {
+            var instanciaServico = ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var arquivoXml = instanciaServico.DiretorioSalvarXml + arquivoSalvar;
+
+            FuncoesXml.ClasseParaArquivoXml(pedDistDFeInt, arquivoXml);
+        }
+
     }
 }

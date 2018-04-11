@@ -32,35 +32,40 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    public class idDocAntPap
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class retInfEvento
     {
-        public tpDocAnterior tpDoc { get; set; }
+        public byte tpAmb { get; set; }
 
-        public short serie { get; set; }
+        public string verAplic { get; set; }
 
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
+        public byte cOrgao { get; set; }
 
-        public string nDoc { get; set; }
+        public byte cStat { get; set; }
 
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
+        public string xMotivo { get; set; }
 
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        public string chCTe { get; set; }
+
+        public uint tpEvento { get; set; }
+
+        public string xEvento { get; set; }
+
+        public byte nSeqEvento { get; set; }
+
+        public string CNPJDest { get; set; }
+
+        public string emailDest { get; set; }
+
+        public DateTime dhRegEvento { get; set; }
+
+        public string nProt { get; set; }
     }
 }

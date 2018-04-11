@@ -30,37 +30,40 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Web.Services.Protocols;
+using DFe.Classes.Entidades;
 
-using System;
-using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
-
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Wsdl.DistribuicaoDFe
 {
-    public class idDocAntPap
+   
+    public class cteCabecMsg : SoapHeader
     {
-        public tpDocAnterior tpDoc { get; set; }
+        private string cUFField;
 
-        public short serie { get; set; }
+        private string versaoDadosField;
 
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
+        private System.Xml.XmlAttribute[] anyAttrField;
 
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        /// <remarks/>
+        public string cUF
         {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
+            get { return this.cUFField; }
+            set { this.cUFField = value; }
+        }
+
+        /// <remarks/>
+        public string versaoDados
+        {
+            get { return this.versaoDadosField; }
+            set { this.versaoDadosField = value; }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAnyAttributeAttribute()]
+        public System.Xml.XmlAttribute[] AnyAttr
+        {
+            get { return this.anyAttrField; }
+            set { this.anyAttrField = value; }
         }
     }
 }
