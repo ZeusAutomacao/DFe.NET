@@ -146,7 +146,11 @@ namespace CTe.Dacte.AppTeste
                 if (!File.Exists(xml))
                     return null;
 
-                evento = FuncoesXml.ArquivoXmlParaClasse<procEventoCTe>(xml);
+                var stream = new StreamReader(xml, Encoding.GetEncoding("ISO-8859-1"));
+                var s = FuncoesXml.ObterNodeDeStream(typeof(procEventoCTe).Name, stream);
+                evento = FuncoesXml.XmlStringParaClasse<procEventoCTe>(s);
+
+                //evento = FuncoesXml.ArquivoXmlParaClasse<procEventoCTe>(xml);
             }
             catch (Exception ex)
             {
