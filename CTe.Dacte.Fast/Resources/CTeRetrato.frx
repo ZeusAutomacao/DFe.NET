@@ -226,7 +226,6 @@ namespace FastReport
       #region Dados do CTe complemento ou anulação
       if (dataBandCTeComplementoAnulacao.Visible)
       {
-        //Text211
         switch((tpCTe)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tpCTe&quot;))
         {
           case tpCTe.Complemento:
