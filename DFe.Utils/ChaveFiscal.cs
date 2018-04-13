@@ -54,7 +54,7 @@ namespace DFe.Utils
         /// <param name="tipoEmissao">Tipo de emissão do DF-e. Informar inteiro conforme consta no manual de orientação do contribuinte para o DF-e</param>
         /// <param name="cNf">Código numérico que compõe a Chave de Acesso. Número gerado pelo emitente para cada DF-e</param>
         /// <returns>Retorna um objeto <see cref="DadosChaveFiscal"/> com os dados da chave de acesso</returns>
-        public static DadosChaveFiscal ObterChave(Estado ufEmitente, DateTime dataEmissao, string cnpjEmitente, ModeloDocumento modelo, int serie, long numero, int tipoEmissao, int cNf)
+        public static DadosChaveFiscal ObterChave(Estado ufEmitente, DateTimeOffset dataEmissao, string cnpjEmitente, ModeloDocumento modelo, int serie, long numero, int tipoEmissao, int cNf)
         {
             var chave = new StringBuilder();
 
