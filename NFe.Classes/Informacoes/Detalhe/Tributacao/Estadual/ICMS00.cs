@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
@@ -45,21 +46,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
+        [XmlElement("orig", Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
+        [XmlElement("CST", Order = 2)]
         public Csticms CST { get; set; }
 
         /// <summary>
         ///     N13 - Modalidade de determinação da BC do ICMS
         /// </summary>
+        [XmlElement("modBC", Order = 3)]
         public DeterminacaoBaseIcms modBC { get; set; }
 
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
+        [XmlElement("vBC", Order = 4)]
         public decimal vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -69,6 +74,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
+        [XmlElement("pICMS", Order = 5)]
         public decimal pICMS
         {
             get { return _pIcms.Arredondar(4); }
@@ -78,6 +84,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
+        [XmlElement("vICMS", Order = 6)]
         public decimal vICMS
         {
             get { return _vIcms.Arredondar(2); }
@@ -88,6 +95,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
+        [XmlElement("pFCP", Order = 7)]
         public decimal? pFCP
         {
             get { return _pFcp.Arredondar(4); }
@@ -103,6 +111,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
+        [XmlElement("vFCP", Order = 8)]
         public decimal? vFCP
         {
             get { return _vFcp.Arredondar(2); }
