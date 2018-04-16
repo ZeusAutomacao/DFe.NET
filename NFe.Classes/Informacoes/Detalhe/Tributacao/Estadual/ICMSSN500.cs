@@ -62,6 +62,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBcstRet = value.Arredondar(2); }
         }
 
+        /// <summary>
+        /// N26a  - Alíquota suportada pelo Consumidor Final
+        /// </summary>
         public decimal? pST
         {
             get { return _pSt.Arredondar(4); }
