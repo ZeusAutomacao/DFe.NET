@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
@@ -48,21 +50,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
+        [XmlElement(Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
+        [XmlElement(Order = 2)]
         public Csticms CST { get; set; }
 
         /// <summary>
         ///     N13 - Modalidade de determinação da BC do ICMS
         /// </summary>
+        [XmlElement(Order = 3)]
         public DeterminacaoBaseIcms modBC { get; set; }
 
         /// <summary>
         ///     N14 - Percentual de redução da BC
         /// </summary>
+        [XmlElement(Order = 4)]
         public decimal pRedBC
         {
             get { return _pRedBc.Arredondar(4); }
@@ -72,6 +78,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
+        [XmlElement(Order = 5)]
         public decimal vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -81,6 +88,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
+        [XmlElement(Order = 6)]
         public decimal pICMS
         {
             get { return _pIcms.Arredondar(4); }
@@ -90,6 +98,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
+        [XmlElement(Order = 7)]
         public decimal vICMS
         {
             get { return _vIcms.Arredondar(2); }
@@ -100,6 +109,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17a - Valor da Base de Cálculo do FCP
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 8)]
         public decimal? vBCFCP
         {
             get { return _vBcfcp.Arredondar(2); }
@@ -115,6 +125,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 9)]
         public decimal? pFCP
         {
             get { return _pFcp.Arredondar(4); }
@@ -130,6 +141,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 10)]
         public decimal? vFCP
         {
             get { return _vFcp.Arredondar(2); }
@@ -144,6 +156,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N27a - Valor do ICMS desonerado
         /// </summary>
+        [XmlElement(Order = 11)]
         public decimal? vICMSDeson
         {
             get { return _vIcmsDeson.Arredondar(2); }
@@ -153,6 +166,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N28 - Motivo da desoneração do ICMS
         /// </summary>
+        [XmlElement(Order = 12)]
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
         public bool ShouldSerializevICMSDeson()

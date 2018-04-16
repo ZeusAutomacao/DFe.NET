@@ -227,11 +227,6 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         ///     Obtém a URL para uso no QR-Code
         /// </summary>
-        /// <param name="infNFeSupl"></param>
-        /// <param name="nfe"></param>
-        /// <param name="cIdToken"></param>
-        /// <param name="csc"></param>
-        /// <returns></returns>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc, VersaoServico versaoServico = VersaoServico.ve310)
         {
             //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
@@ -239,7 +234,7 @@ namespace NFe.Utils.InformacoesSuplementares
 
             //Passo 2: Converter o valor do Digest Value da NFC-e (digVal) para HEXA;
             //Ao se efetuar a assinatura digital da NFCe emitida em contingência off-line, o campo digest value constante da XMl Signature deve obrigatoriamente ser idêntico ao encontrado quando da geração do digest value para a montagem QR Code.
-            //Ver página 18 do Manual de Padrões Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2
+            //Ver página 18 do Manual de Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2
             if (nfe.Signature == null)
                 throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
             var digVal = ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
@@ -256,7 +251,7 @@ namespace NFe.Utils.InformacoesSuplementares
             //Passo 4: Adicionar, ao final dos parâmetros, o CSC (CSC do contribuinte disponibilizado pela SEFAZ do Estado onde a empresa esta localizada):
             var dadosParaSh1 = dadosBase + csc;
 
-            //Passo 5: Aplicar o algoritmo SHA-1 sobre todos os parâmetros concatenados. Asaída do algoritmo SHA-1 deve ser em HEXADECIMAL.
+            //Passo 5: Aplicar o algoritmo SHA-1 sobre todos os parâmetros concatenados. A saída do algoritmo SHA-1 deve ser em HEXADECIMAL.
             var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
@@ -264,10 +259,8 @@ namespace NFe.Utils.InformacoesSuplementares
         }
 
         /// <summary>
-        /// Obtém uma string SHA1, no formato hexadecimal da string passada no parâmeto        
+        /// Obtém uma <see cref="string"/> SHA1, no formato hexadecimal da <see cref="string"/> passada no parâmero        
         /// </summary>
-        /// <param name="s"></param>
-        /// <returns></returns>
         private static string ObterHexSha1DeString(string s)
         {
             var bytes = Encoding.UTF8.GetBytes(s);
