@@ -46,6 +46,7 @@ using NFe.Utils.NFe;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Danfe.Base.NFe;
 using System.Text;
+using NFe.Danfe.Base;
 
 namespace NFe.Danfe.AppTeste
 {
@@ -113,35 +114,7 @@ namespace NFe.Danfe.AppTeste
 
         private void BtnNfceDanfe_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                #region Carrega um XML com nfeProc para a variável
-
-                var arquivoXml = Funcoes.BuscarArquivoXml();
-                if (string.IsNullOrEmpty(arquivoXml))
-                    return;
-                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
-                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
-                    throw new Exception("O XML informado não é um NFCe!");
-
-                #endregion
-
-                #region Abre a visualização do relatório para impressão
-
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc);
-                danfe.Visualizar();
-                //danfe.Imprimir();
-                //danfe.ExibirDesign();
-                //danfe.ExportarPdf(@"d:\teste.pdf");
-
-                #endregion
-
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
+            ImprimirDanfeNfce(NfceLayoutQrCode.Normal);
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
@@ -305,6 +278,11 @@ namespace NFe.Danfe.AppTeste
 
         private void BtnNfceDanfeQRReduzido_Click(object sender, RoutedEventArgs e)
         {
+            ImprimirDanfeNfce(NfceLayoutQrCode.Lateral);
+        }
+
+        private void ImprimirDanfeNfce(NfceLayoutQrCode layout)
+        {
             try
             {
                 #region Carrega um XML com nfeProc para a variável
@@ -320,7 +298,7 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", DanfeFrNFCeLayout.QRLateral);
+                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", layout);
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
