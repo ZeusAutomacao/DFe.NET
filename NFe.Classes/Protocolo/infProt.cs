@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
@@ -61,7 +62,18 @@ namespace NFe.Classes.Protocolo
         /// <summary>
         ///     PR08 - Data e hora de recebimento
         /// </summary>
-        public DateTime dhRecbto { get; set; }
+        [XmlIgnore]
+        public DateTimeOffset dhRecbto { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxyDhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
 
         /// <summary>
         ///     PR09 - Número do Protocolo da NF-e
