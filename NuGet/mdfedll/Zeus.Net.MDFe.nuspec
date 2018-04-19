@@ -7,10 +7,10 @@
         <authors>Zeus</authors>
         <owners>Zeus</owners>
         <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
-        <iconUrl>https://avatars0.githubusercontent.com/u/32456879?s=200&v=4</iconUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/32456879?s=200&amp;v=4</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Biblioteca para geração de MDF-e.</description>
-        <releaseNotes />
+        <releaseNotes>Trocado namespace das classes</releaseNotes>
         <copyright>zeus</copyright>
         <language>pt-BR</language>
         <tags>df-e dfe mdfe mdf-e</tags>
