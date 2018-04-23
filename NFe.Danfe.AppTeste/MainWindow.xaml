@@ -23,7 +23,7 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Margin="0,0,10,0" RenderTransformOrigin="0.493,0.552" Height="339">
 
-                            <GroupBox Header="Emissão Normal - Impressão dos produtos" Height="60"
+                            <GroupBox Header="Emissão Normal - Impressão dos produtos"
                                           Margin="0,10,0,0">
                                 <Grid>
                                     <RadioButton Content="Não imprimir"
@@ -34,14 +34,14 @@
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="108,13,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
-                                    <RadioButton x:Name="rdbDuasLinhas" Content="Duas Linhas"
+                                    <RadioButton x:Name="RdbDuasLinhas" Content="Duas Linhas"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="190,13,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
-                            <GroupBox Header="Contigência - Impressão dos produtos"
-                                          Height="60" Margin="0,10,0,0">
+                            
+                            <GroupBox Header="Contigência - Impressão dos produtos" Margin="0,10,0,0">
                                 <Grid>
                                     <RadioButton Content="Uma Linha"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
@@ -54,11 +54,25 @@
                                 </Grid>
                             </GroupBox>
 
+                            <GroupBox Header="Posição do QRCode em relação aos dados do cliente" Margin="0,10,0,0">
+                                <Grid>
+                                    <RadioButton Content="Abaixo"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                 Margin="8,13,0,0"
+                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.NfceLayoutQrCode, ConverterParameter={x:Static base:NfceLayoutQrCode.Abaixo}, Converter={StaticResource EnumParaBool}}" />
+                                    <RadioButton Content="Lateral"
+                                                 HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                 Margin="138,13,0,0"
+                                                 IsChecked="{Binding ConfiguracaoDanfeNfce.NfceLayoutQrCode, ConverterParameter={x:Static base:NfceLayoutQrCode.Lateral}, Converter={StaticResource EnumParaBool}}" />
+                                </Grid>
+                            </GroupBox>
+
                             <CheckBox Content="Imprimir desconto do item"
                                           HorizontalAlignment="Left" VerticalAlignment="Top"
                                           Margin="0,10,0,0"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeDescontoItem}" />
-                            <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0" Height="98">
+                          
+                            <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0">
                                 <StackPanel>
                                     <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
@@ -81,11 +95,14 @@
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
-                            <CheckBox x:Name="chbCancelado" Content="Documento cancelado"
-                                HorizontalAlignment="Left" VerticalAlignment="Top"
-                                Margin="0,10,0,0"
-                                IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
-                            <CheckBox x:Name="chbQuebrarLinhaObservacao" Content="Quebrar linha nas observações"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <CheckBox x:Name="ChbCancelado" Content="Documento cancelado"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
+                                <CheckBox x:Name="ChbQuebrarLinhaObservacao" Content="Quebrar linha nas observações" Margin="10,0,0,0" 
+                                          IsChecked="{Binding ConfiguracaoDanfeNfe.QuebrarLinhasObservacao}"/>
+                            </StackPanel>
 
                         </StackPanel>
 
@@ -160,7 +177,7 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
                                 VerticalAlignment="Top" Width="177" Margin="5,10" Click="BtnNfeDanfeA4_Click" />
-                        <Button Name="BtnNfceDanfe" Content="DANFE NFCe Normal" HorizontalAlignment="Left"
+                        <Button Name="BtnNfceDanfe" Content="DANFE NFCe" HorizontalAlignment="Left"
                                 VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
                         <Button Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
                                 VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
@@ -168,8 +185,6 @@
                     <StackPanel Orientation="Horizontal">
                         <Button x:Name="BtnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left" 
                             VerticalAlignment="Top" Width="176" Margin="5,0" Click="btnEventoNFe_Click" />
-                        <Button x:Name="BtnNfceDanfeQRReduzido" Content="DANFE NFCe QR Reduzido" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeQRReduzido_Click" Margin="5,0,5,0"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
