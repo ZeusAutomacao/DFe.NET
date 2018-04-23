@@ -290,5 +290,59 @@ namespace NFe.Utils.Tributacao.Estadual
         public decimal vCredICMSSN { get; set; }
 
         #endregion
+
+        #region Fundo de combate a pobreza
+
+        /// <summary>
+        ///     Valor da Base de Cálculo do Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? vBCFCP { get; set; }
+
+        /// <summary>
+        ///     Percentual do Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? pFCP { get; set; }
+
+        /// <summary>
+        ///     Valor do Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? vFCP { get; set; }
+
+        /// <summary>
+        ///     Valor da Base de Cálculo do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? vBCFCPST { get; set; }
+
+        /// <summary>
+        ///     Percentual do Fundo de Combate à Pobreza (FCP) retido por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPST { get; set; }
+
+        /// <summary>
+        ///     Valor do Fundo de Combate à Pobreza (FCP) retido por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPST { get; set; }
+
+        #endregion
+
+        /// <summary>
+        ///     Alíquota suportada pelo Consumidor Final
+        /// </summary>
+        public decimal? pST { get; set; }
+
+        /// <summary>
+        ///     Valor da Base de Cálculo do FCP retido anteriormente por ST 
+        /// </summary>
+        public decimal? vBCFCPSTRet { get; set; }
+
+        /// <summary>
+        ///     Percentual do FCP retido anteriormente por Substituição Tributária
+        /// </summary>
+        public decimal? pFCPSTRet { get; set; }
+
+        /// <summary>
+        ///     Valor do FCP retido por Substituição Tributária
+        /// </summary>
+        public decimal? vFCPSTRet { get; set; }
     }
 }

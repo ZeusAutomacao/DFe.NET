@@ -80,6 +80,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcmsstRet = value.Arredondar(2); }
         }
 
+        /// <summary>
+        /// N27a - Valor da Base de Cálculo do FCP retido anteriormente por ST 
+        /// Versão 4.00
+        /// </summary>
         public decimal? vBCFCPSTRet
         {
             get { return _vBcfcpstRet.Arredondar(2); }
@@ -91,6 +95,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { {return vBCFCPSTRet.HasValue;} }
         }
 
+        /// <summary>
+        /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
         public decimal? pFCPSTRet
         {
             get { return _pFcpstRet.Arredondar(4); }
@@ -102,6 +110,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             return pFCPSTRet.HasValue;
         } }
 
+        /// <summary>
+        /// N27d - Valor do FCP retido por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
         public decimal? vFCPSTRet
         {
             get { return _vFcpstRet.Arredondar(2); }

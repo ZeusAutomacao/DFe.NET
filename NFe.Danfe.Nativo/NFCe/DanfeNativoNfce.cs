@@ -45,7 +45,6 @@ using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Servicos.Download;
-using NFe.Classes.Servicos.Tipos;
 using NFe.Danfe.Base.NFCe;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
