@@ -33,7 +33,6 @@
 
 using System.Drawing;
 using System.Drawing.Text;
-using System.Xml.Serialization;
 using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.Properties;
 
