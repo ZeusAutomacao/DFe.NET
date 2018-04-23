@@ -60,12 +60,13 @@ namespace DFe.Utils
 
             chave.Append(((int)ufEmitente).ToString("D2"))
                 .Append(Convert.ToDateTime(dataEmissao).ToString("yyMM"))
-                .Append(cnpjEmitente)
+                .Append(cnpjEmitente.PadLeft(14, '0').Substring(0, 14))
                 .Append(((int)modelo).ToString("D2"))
                 .Append(serie.ToString("D3"))
                 .Append(numero.ToString("D9"))
                 .Append(tipoEmissao.ToString())
                 .Append(cNf.ToString("D8"));
+
 
             var digitoVerificador = ObterDigitoVerificador(chave.ToString());
 
