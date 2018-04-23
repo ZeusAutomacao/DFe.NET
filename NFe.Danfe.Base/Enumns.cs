@@ -57,11 +57,11 @@ namespace NFe.Danfe.Base
 
     /// <summary>
     /// Layout de impressão do DANFE:
-    /// Normal - QRCode embaixo dos dados do cliente; QRLateral - QRCode ao lado dos dados do cliente (usa menos papel)
+    /// Abaixo - QRCode abaixo dos dados do cliente; QRLateral - QRCode ao lado dos dados do cliente (usa menos papel)
     /// </summary>
     public enum NfceLayoutQrCode
     {
-        Normal = 0,
+        Abaixo = 0,
         Lateral = 1
     }
 }

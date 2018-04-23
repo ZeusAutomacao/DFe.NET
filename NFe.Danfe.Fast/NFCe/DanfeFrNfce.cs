@@ -56,8 +56,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
         /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        /// <param name="nfceLayoutQrCode">Layout de impressão do QRCode no DANFE</param>
-        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "", NfceLayoutQrCode nfceLayoutQrCode = NfceLayoutQrCode.Normal)
+        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "")
         {
             #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
@@ -73,7 +72,7 @@ namespace NFe.Danfe.Fast.NFCe
             Relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
             Relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             Relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
-            Relatorio.SetParameterValue("NfceLayoutQrCode", nfceLayoutQrCode);
+            Relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);
             ((ReportPage) Relatorio.FindObject("PgNfce")).LeftMargin = configuracaoDanfeNfce.MargemEsquerda;
             ((ReportPage)Relatorio.FindObject("PgNfce")).RightMargin = configuracaoDanfeNfce.MargemDireita;
             ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
@@ -95,10 +94,8 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        /// /// <param name="nfceLayoutQrCode">Layout de impressão do QR Code no DANFE</param>
-        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc,
-            NfceLayoutQrCode nfceLayoutQrCode = NfceLayoutQrCode.Normal) : this(new nfeProc() {NFe = nfe},
-            configuracaoDanfeNfce, cIdToken, csc, string.Empty, nfceLayoutQrCode)
+        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc) : 
+            this(new nfeProc() {NFe = nfe}, configuracaoDanfeNfce, cIdToken, csc, string.Empty)
         {
         }
     }
