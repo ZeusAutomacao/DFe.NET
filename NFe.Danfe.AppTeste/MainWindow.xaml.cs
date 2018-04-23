@@ -114,7 +114,7 @@ namespace NFe.Danfe.AppTeste
 
         private void BtnNfceDanfe_Click(object sender, RoutedEventArgs e)
         {
-            ImprimirDanfeNfce(NfceLayoutQrCode.Normal);
+            ImprimirDanfeNfce(NfceLayoutQrCode.Abaixo);
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
@@ -298,7 +298,7 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", layout);
+                var danfe = new DanfeFrNfce(proc: proc, configuracaoDanfeNfce: _configuracoes.ConfiguracaoDanfeNfce, cIdToken: _configuracoes.CIdToken, csc: _configuracoes.Csc, arquivoRelatorio: string.Empty);
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
