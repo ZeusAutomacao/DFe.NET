@@ -46,25 +46,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
-        [XmlElement("orig", Order = 1)]
+        [XmlElement(Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
-        [XmlElement("CST", Order = 2)]
+        [XmlElement(Order = 2)]
         public Csticms CST { get; set; }
 
         /// <summary>
         ///     N13 - Modalidade de determinação da BC do ICMS
         /// </summary>
-        [XmlElement("modBC", Order = 3)]
+        [XmlElement(Order = 3)]
         public DeterminacaoBaseIcms modBC { get; set; }
 
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
-        [XmlElement("vBC", Order = 4)]
+        [XmlElement(Order = 4)]
         public decimal vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -74,7 +74,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
-        [XmlElement("pICMS", Order = 5)]
+        [XmlElement(Order = 5)]
         public decimal pICMS
         {
             get { return _pIcms.Arredondar(4); }
@@ -84,7 +84,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
-        [XmlElement("vICMS", Order = 6)]
+        [XmlElement(Order = 6)]
         public decimal vICMS
         {
             get { return _vIcms.Arredondar(2); }
@@ -95,7 +95,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
-        [XmlElement("pFCP", Order = 7)]
+        [XmlElement(Order = 7)]
         public decimal? pFCP
         {
             get { return _pFcp.Arredondar(4); }
@@ -111,7 +111,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
         /// Versão 4.00
         /// </summary>
-        [XmlElement("vFCP", Order = 8)]
+        [XmlElement(Order = 8)]
         public decimal? vFCP
         {
             get { return _vFcp.Arredondar(2); }
