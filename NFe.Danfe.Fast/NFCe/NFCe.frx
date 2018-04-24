@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="04/16/2018 17:05:51" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="04/23/2018 09:32:47" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace FastReport
     private void txtDescPagto_BeforePrint(object sender, EventArgs e)
     {
       if(Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;) != null)
-        txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();          
+        txtDescPagto.Text = ((FormaPagamento)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.pag.tPag&quot;)).Descricao();                            
     }
     
     private void txtDescDetPagto_BeforePrint(object sender, EventArgs e)
@@ -60,7 +60,7 @@ namespace FastReport
     private void Destinatario_BeforePrint(object sender, EventArgs e)
     {    
       TrataCamposDestinatario();
-      dbDestinatario.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Normal);
+      dbDestinatario.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);
     }
     
     private void TrataCamposDestinatario(){
@@ -360,7 +360,7 @@ namespace FastReport
 
     private void dbQrCodeNormal_BeforePrint(object sender, EventArgs e)
     {
-      dbQrCodeNormal.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Normal);
+      dbQrCodeNormal.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);
     }
 
     private void dbProtocolo_BeforePrint(object sender, EventArgs e)
@@ -370,7 +370,7 @@ namespace FastReport
 
     private void dbNumeroSerieDh_BeforePrint(object sender, EventArgs e)
     {
-      dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Normal);      
+      dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);      
     }
   }
 }</ScriptText>
@@ -547,14 +547,15 @@ namespace FastReport
                 <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pICMS" DataType="System.Decimal"/>
-                  <Column Name="vICMS" DataType="System.Decimal"/>
-                  <Column Name="pFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="pFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="vFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="vFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="vBCSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pST" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vICMSSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="pFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="vFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -581,9 +582,6 @@ namespace FastReport
               <Column Name="PIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PIS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoPIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.PISBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTPIS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pPIS" DataType="System.Decimal"/>
-                  <Column Name="vPIS" DataType="System.Decimal"/>
                 </Column>
               </Column>
               <Column Name="PISST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISST, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -596,9 +594,6 @@ namespace FastReport
               <Column Name="COFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoCOFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.COFINSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTCOFINS, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pCOFINS" DataType="System.Decimal"/>
-                  <Column Name="vCOFINS" DataType="System.Decimal"/>
                 </Column>
               </Column>
               <Column Name="COFINSST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSST, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -983,7 +978,7 @@ namespace FastReport
       <TextObject Name="Memo1" Top="44.34" Width="264.6" Height="11.34" Text="CHAVE DE ACESSO" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="memChaveNfe" Top="57.14" Width="264.6" Height="15.12" BeforePrintEvent="memChaveNfe_BeforePrint" Text="[Substring([NFCe.NFe.infNFe.Id],3)]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtDescVia" Left="0.38" Width="264.6" Height="15.12" BeforePrintEvent="txtDhEmissao_BeforePrint" Text="[CopyName#]" Padding="2, 1, 2, 1" HorzAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-      <TextObject Name="txtUrl" Top="29.35" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" Text="http://www.hom.nfe.se.gov.br/portal" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+      <TextObject Name="txtUrl" Top="29.35" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" Text="http://www.nfce.se.gov.br/portal" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
     <DataBand Name="dbDestinatario" Top="675.84" Width="264.6" Height="68.03" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
       <TextObject Name="txtConsumidor" Top="1.78" Width="264.6" Height="16.25" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
@@ -992,7 +987,7 @@ namespace FastReport
     </DataBand>
     <DataBand Name="dbQrCodeNormal" Top="746.37" Width="264.6" Height="170.36" BeforePrintEvent="dbQrCodeNormal_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
       <TextObject Name="Memo4" Top="2.26" Width="264.6" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
-      <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?chNFe=28180407703290000189650010000023581000000016&amp;nVersao=100&amp;tpAmb=2&amp;cDest=99999999000191&amp;dhEmi=323031382d30342d31365431323a32353a34362d30333a3030&amp;vNF=64.49&amp;vICMS=7.53&amp;digVal=667775367747736666415a3563697a534e4a4c6b676639677079633d&amp;cIdToken=000003&amp;cHashQRCode=0fb16b4ea5cab053b074f2ab388cca6b6560f9a3" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
+      <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://www.nfce.se.gov.br/portal/consultarNFCe.jsp?chNFe=28170809348713000115650020000825871000825333&amp;nVersao=100&amp;tpAmb=1&amp;cDest=81107110572&amp;dhEmi=323031372d30382d32395431373a32363a32302d30333a3030&amp;vNF=41.65&amp;vICMS=1.57&amp;digVal=73546a334c67646f72555a354431436e4f546c785a5944753731773d&amp;cIdToken=000001&amp;cHashQRCode=11be5cc85a95be336a5906bc3d0eb2a5e28cc235" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
     </DataBand>
     <DataBand Name="dbQrCodeLateral" Top="919.23" Width="264.6" Height="119.07" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint">
       <TextObject Name="txtConsumidor2" Left="103.95" Width="160.65" Height="15.12" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
