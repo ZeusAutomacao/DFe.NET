@@ -138,10 +138,10 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"),
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/consultanfce.seam"),
 
-                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www5.receita.pb.gov.br/atf/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1410"),
-                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www5.receita.pb.gov.br/atf/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1410"),
-                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www6.receita.pb.gov.br/atf/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1410"),
-                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www6.receita.pb.gov.br/atf/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1410"),
+                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.receita.pb.gov.br/nfce"),
+                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.receita.pb.gov.br/nfce"),
+                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.receita.pb.gov.br/nfce"),
+                new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.receita.pb.gov.br/nfce"),
 
                 new EnderecoConsultaPublicaNfce(Estado.PE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe"),
                 new EnderecoConsultaPublicaNfce(Estado.PE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.pe.gov.br/nfce-web/entradaConsNfce"),
