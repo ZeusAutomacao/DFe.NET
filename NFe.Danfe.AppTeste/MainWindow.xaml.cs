@@ -45,7 +45,6 @@ using NFe.Danfe.Fast.NFe;
 using NFe.Utils.NFe;
 using NFe.Classes.Servicos.Consulta;
 using NFe.Danfe.Base.NFe;
-using System.Text;
 using NFe.Danfe.Base;
 
 namespace NFe.Danfe.AppTeste
@@ -114,7 +113,7 @@ namespace NFe.Danfe.AppTeste
 
         private void BtnNfceDanfe_Click(object sender, RoutedEventArgs e)
         {
-            ImprimirDanfeNfce(NfceLayoutQrCode.Normal);
+            ImprimirDanfeNfce(_configuracoes.ConfiguracaoDanfeNfce.NfceLayoutQrCode);
         }
 
         private void btnLogo_Click(object sender, RoutedEventArgs e)
@@ -208,9 +207,9 @@ namespace NFe.Danfe.AppTeste
                                     configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
                                     {
                                         Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
-                                        DuasLinhas = rdbDuasLinhas.IsChecked ?? false,
-                                        DocumentoCancelado = chbCancelado.IsChecked ?? false,
-                                        QuebrarLinhasObservacao = chbQuebrarLinhaObservacao.IsChecked ?? false,
+                                        DuasLinhas = RdbDuasLinhas.IsChecked ?? false,
+                                        DocumentoCancelado = ChbCancelado.IsChecked ?? false,
+                                        QuebrarLinhasObservacao = _configuracoes.ConfiguracaoDanfeNfe.QuebrarLinhasObservacao,
                                         ExibirResumoCanhoto = true,
                                         ResumoCanhoto = string.Empty,
                                         ChaveContingencia = string.Empty,
@@ -260,7 +259,7 @@ namespace NFe.Danfe.AppTeste
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
-                var danfe = new DanfeFrEvento(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, rdbDuasLinhas.IsChecked ?? false, chbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
+                var danfe = new DanfeFrEvento(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca, RdbDuasLinhas.IsChecked ?? false, ChbCancelado.IsChecked ?? false), "NOME DA SOFTWARE HOUSE");
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
@@ -274,11 +273,6 @@ namespace NFe.Danfe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
-        }
-
-        private void BtnNfceDanfeQRReduzido_Click(object sender, RoutedEventArgs e)
-        {
-            ImprimirDanfeNfce(NfceLayoutQrCode.Lateral);
         }
 
         private void ImprimirDanfeNfce(NfceLayoutQrCode layout)
@@ -298,7 +292,7 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
 
-                var danfe = new DanfeFrNfce(proc, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc, "", layout);
+                var danfe = new DanfeFrNfce(proc: proc, configuracaoDanfeNfce: _configuracoes.ConfiguracaoDanfeNfce, cIdToken: _configuracoes.CIdToken, csc: _configuracoes.Csc, arquivoRelatorio: string.Empty);
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
