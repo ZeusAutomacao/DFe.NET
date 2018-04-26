@@ -36,7 +36,7 @@
 
         public bool ShouldSerializevTroco()
         {
-            return vTroco.HasValue;
+            return vTroco.HasValue && vTroco > 0;
         }
     }
 }

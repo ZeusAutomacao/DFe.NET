@@ -103,6 +103,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public char? indEscala { get; set; }
 
+        public bool ShouldSerializeindEscala()
+        {
+            return indEscala.HasValue;
+        }
+
         /// <summary>
         /// i05e - CNPJ do Fabricante da Mercadoria
         /// </summary>
