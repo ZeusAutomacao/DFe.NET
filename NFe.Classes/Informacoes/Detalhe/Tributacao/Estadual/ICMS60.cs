@@ -42,6 +42,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pST;
         private decimal? _pFcpstRet;
         private decimal? _vFcpstRet;
+        private decimal? _vBcfcpst;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -88,7 +89,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool vBCFCPSTRetSpecified
         {
-            get { {return vBCFCPSTRet.HasValue;} }
+            get { { return vBCFCPSTRet.HasValue; } }
+        }
+
+        /// <summary>
+        /// N23a - Valor da Base de Cálculo do FCP retido por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vBCFCPST
+        {
+            get { return _vBcfcpst.Arredondar(2); }
+            set { _vBcfcpst = value.Arredondar(2); }
         }
 
         public decimal? pFCPSTRet
@@ -97,10 +108,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pFcpstRet = value.Arredondar(4); }
         }
 
-        public bool pFCPSTRetSpecified {
-            get {
-            return pFCPSTRet.HasValue;
-        } }
+        public bool pFCPSTRetSpecified
+        {
+            get
+            {
+                return pFCPSTRet.HasValue;
+            }
+        }
 
         public decimal? vFCPSTRet
         {
