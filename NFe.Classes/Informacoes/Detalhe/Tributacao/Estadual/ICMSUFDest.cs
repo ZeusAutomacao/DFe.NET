@@ -30,11 +30,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     public class ICMSUFDest
     {
         private decimal _vBcufDest;
-        private decimal _pFcpufDest;
+        private decimal? _pFcpufDest;
         private decimal _pIcmsufDest;
         private decimal _pIcmsInter;
         private decimal _pIcmsInterPart;
-        private decimal _vFcpufDest;
+        private decimal? _vFcpufDest;
         private decimal _vIcmsufDest;
         private decimal _vIcmsufRemet;
         private decimal? _vBcfcpufDest;
@@ -66,7 +66,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         /// NA05 - Percentual do ICMS relativo ao Fundo de Combate à Pobreza (FCP) na UF de destino
         /// </summary>
-        public decimal pFCPUFDest
+        public decimal? pFCPUFDest
         {
             get { return _pFcpufDest; }
             set
@@ -104,7 +104,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         /// NA13 - Valor do ICMS relativo ao Fundo de Combate à Pobreza(FCP) da UF de destino
         /// </summary>
-        public decimal vFCPUFDest
+        public decimal? vFCPUFDest
         {
             get { return _vFcpufDest; }
             set { _vFcpufDest = value.Arredondar(2); }
