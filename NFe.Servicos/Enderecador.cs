@@ -178,6 +178,7 @@ namespace NFe.Servicos
                 //Este endereço não possui suporte a REST, de modo que não é possível obter o endpoint reference (EPR)  do webservice. Entrar em contato com a SEFAZ AM
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeAutorizacao"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao"));
+
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeInutilizacao4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeConsulta4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.AM, ModeloDocumento.NFe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeStatusServico4"));
