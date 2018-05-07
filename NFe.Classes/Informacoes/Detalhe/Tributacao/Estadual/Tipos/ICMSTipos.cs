@@ -209,7 +209,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("9")] MdiOutros = 9,
         [XmlEnum("10")] MdiDeficienteCondutor = 10,
         [XmlEnum("11")] MdiDeficienteNaoCondutor = 11,
-        [XmlEnum("16")]MdiOlimpiadasRio2016 = 16
+        [XmlEnum("16")] MdiOlimpiadasRio2016 = 16,
+        [XmlEnum("90")] MdiSolicitadoPeloFisco = 90
     }
 
     #endregion
