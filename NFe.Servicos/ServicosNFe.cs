@@ -82,6 +82,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
+using NFe.Wsdl.Inutilizacao.SVAN;
 using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
@@ -150,9 +151,7 @@ namespace NFe.Servicos
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
 
-                    if ((_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
-                        && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
-                        && _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
+                    if (IsSVANNFe())
                     {
                         return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -205,6 +204,11 @@ namespace NFe.Servicos
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
                         return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    if (IsSVANNFe())
+                    {
+                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
 
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
@@ -260,6 +264,13 @@ namespace NFe.Servicos
             }
 
             return null;
+        }
+
+        private bool IsSVANNFe()
+        {
+            return (_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
+                   && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
+                   && _cFgServico.ModeloDocumento == ModeloDocumento.NFe;
         }
 
         /// <summary>
