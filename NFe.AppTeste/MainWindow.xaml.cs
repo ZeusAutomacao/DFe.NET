@@ -95,7 +95,7 @@ namespace NFe.AppTeste
 
         public MainWindow()
         {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; // não precisa de cadeia de certificado digital 
+            // todo ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; // não precisa de cadeia de certificado digital 
             InitializeComponent();
             CarregarConfiguracao();
             DataContext = _configuracoes;
