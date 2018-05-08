@@ -135,6 +135,9 @@
     <Compile Include="Status\NfeStatusServico4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Status\SVAN\NfeStatusServico4NFeSVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">

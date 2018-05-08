@@ -82,6 +82,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
+using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -148,6 +149,14 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
+
+                    if ((_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
+                        && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
+                        && _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
+                    {
+                        return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
                         return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
