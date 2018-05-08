@@ -104,6 +104,9 @@
     <Compile Include="Evento\RecepcaoEvento4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Evento\SVAN\RecepcaoEvento4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="INfeServico.cs" />
     <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
