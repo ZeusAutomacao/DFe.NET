@@ -207,6 +207,11 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (IsSVANNFe4())
+                    {
+                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
                         return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
 

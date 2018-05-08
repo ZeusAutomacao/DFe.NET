@@ -68,6 +68,9 @@
     <Compile Include="Autorizacao\SVAN\NFeAutorizacao4SVAN.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\SVAN\NfeRetAutorizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
