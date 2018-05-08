@@ -81,6 +81,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Wsdl.Autorizacao.SVAN;
 using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
 using NFe.Wsdl.ConsultaProtocolo.SVAN;
 using NFe.Wsdl.Evento.SVAN;
@@ -128,9 +129,9 @@ namespace NFe.Servicos
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
-            if (IsSVANNFe())
+            if (IsSVANNFe4())
             {
-
+                return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
             }
 
             if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
@@ -160,7 +161,7 @@ namespace NFe.Servicos
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
 
-                    if (IsSVANNFe())
+                    if (IsSVANNFe4())
                     {
                         return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -174,7 +175,7 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeConsultaProtocolo:
 
-                    if (IsSVANNFe())
+                    if (IsSVANNFe4())
                     {
                         return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -215,7 +216,7 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeInutilizacao:
 
-                    if (IsSVANNFe())
+                    if (IsSVANNFe4())
                     {
                         return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -240,7 +241,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                    if (IsSVANNFe())
+                    if (IsSVANNFe4())
                     {
                         return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -285,7 +286,7 @@ namespace NFe.Servicos
             return null;
         }
 
-        private bool IsSVANNFe()
+        private bool IsSVANNFe4()
         {
             return (_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
                    && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
