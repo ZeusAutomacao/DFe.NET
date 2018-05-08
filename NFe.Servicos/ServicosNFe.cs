@@ -82,6 +82,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
+using NFe.Wsdl.ConsultaProtocolo.SVAN;
 using NFe.Wsdl.Inutilizacao.SVAN;
 using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
@@ -168,6 +169,11 @@ namespace NFe.Servicos
                     if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
                     {
                         return new NfeConsulta4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    if (IsSVANNFe())
+                    {
+                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
 
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)

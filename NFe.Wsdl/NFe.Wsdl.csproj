@@ -86,6 +86,9 @@
     <Compile Include="ConsultaProtocolo\NfeConsulta4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ConsultaProtocolo\SVAN\NfeConsulta4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
       <SubType>Component</SubType>
     </Compile>
