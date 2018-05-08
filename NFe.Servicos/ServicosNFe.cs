@@ -192,6 +192,12 @@ namespace NFe.Servicos
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
+
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -200,10 +206,6 @@ namespace NFe.Servicos
                         _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
-                    }
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
-                    {
-                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
                     }
 
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
