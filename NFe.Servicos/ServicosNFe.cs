@@ -237,6 +237,11 @@ namespace NFe.Servicos
                         return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
                     }
 
+                    if (IsSVANNFe())
+                    {
+
+                    }
+
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
