@@ -78,6 +78,7 @@ namespace NFe.Danfe.Fast.NFCe
             ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
             ((TextObject)Relatorio.FindObject("txtUrl")).Text = proc.NFe.infNFeSupl.ObterUrl(proc.NFe.infNFe.ide.tpAmb, proc.NFe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlConsulta);
             ((BarcodeObject)Relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl  == null ? proc.NFe.infNFeSupl.ObterUrlQrCode(proc.NFe, cIdToken, csc) : proc.NFe.infNFeSupl.qrCode;
+            ((BarcodeObject)Relatorio.FindObject("bcoQrCodeLateral")).Text = proc.NFe.infNFeSupl == null ? proc.NFe.infNFeSupl.ObterUrlQrCode(proc.NFe, cIdToken, csc) : proc.NFe.infNFeSupl.qrCode;            
 
             //Segundo o Manual de Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2, página 9, nos casos de emissão em contingência deve ser impresso uma segunda cópia como via do estabelecimento
             Relatorio.PrintSettings.Copies = (proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal | (proc.protNFe != null && proc.protNFe.infProt != null && NfeSituacao.Autorizada(proc.protNFe.infProt.cStat))

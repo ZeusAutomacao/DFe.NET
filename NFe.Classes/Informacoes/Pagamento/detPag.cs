@@ -1,8 +1,15 @@
-﻿namespace NFe.Classes.Informacoes.Pagamento
+﻿using NFe.Classes.Informacoes.Identificacao.Tipos;
+
+namespace NFe.Classes.Informacoes.Pagamento
 {
     public class detPag
     {
         private decimal _vPag;
+
+
+        public IndicadorPagamentoDetalhePagamento? indPag { get; set; }
+
+        public bool indPagSpecified { get { return indPag.HasValue; } }
 
         /// <summary>
         /// YA02 - Forma de pagamento
