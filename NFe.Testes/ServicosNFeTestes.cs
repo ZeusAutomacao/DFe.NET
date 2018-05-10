@@ -61,7 +61,6 @@ namespace NFe.Testes
         [TestMethod]
         public void ServicosNFe_WhenNfeNFeAutorizacao_ReturnsxMotivoSuccess()
         {
-
             var servico = CreateInstance();
             var nfe = CreateObject();
 
