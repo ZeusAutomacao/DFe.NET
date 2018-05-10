@@ -37,6 +37,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -94,6 +95,7 @@ namespace NFe.AppTeste
 
         public MainWindow()
         {
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; // não precisa de cadeia de certificado digital 
             InitializeComponent();
             CarregarConfiguracao();
             DataContext = _configuracoes;
@@ -123,7 +125,6 @@ namespace NFe.AppTeste
             try
             {
                 #region Status do serviço
-
                 //Exemplo com using para chamar o método Dispose da classe.
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
                 // se usar cache você pode por um id no certificado e salvar mais de um certificado digital também na memoria com o zeus
