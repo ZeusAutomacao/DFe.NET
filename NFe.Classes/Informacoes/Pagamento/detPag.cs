@@ -9,6 +9,8 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         public IndicadorPagamentoDetalhePagamento? indPag { get; set; }
 
+        public bool indPagSpecified { get { return indPag.HasValue; } }
+
         /// <summary>
         /// YA02 - Forma de pagamento
         /// </summary>
