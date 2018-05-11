@@ -61,6 +61,7 @@ namespace NFe.Wsdl.ConsultaProtocolo
     public interface NFeConsultaProtocolo4Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeConsulta4NFResponse> nfeConsultaNFAsync(nfeConsulta4NFRequest request);
     }
 

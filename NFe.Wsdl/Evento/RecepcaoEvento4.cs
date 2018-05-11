@@ -63,6 +63,7 @@ namespace NFe.Wsdl.Evento
     {
 
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeRecepcaoEvento4Response> nfeRecepcaoEventoAsync(nfeRecepcaoEvento4Request request);
     }
 

@@ -63,6 +63,7 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
     public interface CadConsultaCadastro4Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<consultaCadastro4Response> consultaCadastroAsync(consultaCadastro4Request request);
     }
 
