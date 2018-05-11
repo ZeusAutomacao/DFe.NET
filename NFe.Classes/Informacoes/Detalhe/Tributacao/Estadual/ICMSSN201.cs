@@ -143,8 +143,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vFCPST
         {
-            get { return _vFcpst; }
-            set { _vFcpst = value; }
+            get { return _vFcpst.Arredondar(2); }
+            set { _vFcpst = value.Arredondar(2); }
         }
 
         public bool vFCPSTSpecified
