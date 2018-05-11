@@ -48,10 +48,38 @@ namespace NFe.Testes
             return new ServicosNFe(conf);
         }
 
+        public ServicosNFe CreateInstance4()
+        {
+            var conf = new ConfiguracaoServico();
+            var cert = new ConfiguracaoCertificado
+            {
+                TipoCertificado = TipoCertificado.A1Arquivo,
+                Arquivo = @"D:\Works\ProductInvoices\A1_NFE_08765239000164_cer2017.pfx",
+                Senha = "cer2017"
+            };
+
+            conf.Certificado = cert;
+            conf.tpAmb = NFeClasses.Informacoes.Identificacao.Tipos.TipoAmbiente.taHomologacao;
+            conf.cUF = DFe.Classes.Entidades.Estado.SP;
+            conf.tpEmis = NFeClasses.Informacoes.Identificacao.Tipos.TipoEmissao.teNormal;
+            conf.TimeOut = 120000;
+            conf.DiretorioSalvarXml = @"D:\Works\";
+            conf.SalvarXmlServicos = true;
+            conf.ModeloDocumento = DFe.Classes.Flags.ModeloDocumento.NFe;
+            conf.ProtocoloDeSeguranca = System.Net.SecurityProtocolType.Ssl3;
+            conf.DiretorioSchemas = @"D:\Works\Schemas\";
+            conf.VersaoNFeAutorizacao = VersaoServico.ve400;
+            conf.VersaoNfeDownloadNF = VersaoServico.ve400;
+            conf.VersaoNfeStatusServico = VersaoServico.ve400;
+            conf.VersaoNFeRetAutorizacao = VersaoServico.ve400;
+
+            return new ServicosNFe(conf);
+        }
+
         public NFeClasses.nfeProc CreateObject()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Classes.nfeProc));
-            StreamReader reader = new StreamReader("C:\\Users\\staff\\Desktop\\teste.xml");
+            StreamReader reader = new StreamReader("C:\\works\\nfe-products-api\\test\\Files\\Conversion\\35170560586534000173550020000446791806349027.xml");
             var nfe = (Classes.nfeProc)serializer.Deserialize(reader);
             reader.Close();
 
@@ -62,6 +90,22 @@ namespace NFe.Testes
         public void ServicosNFe_WhenNfeNFeAutorizacao_ReturnsxMotivoSuccess()
         {
             var servico = CreateInstance();
+            var nfe = CreateObject();
+
+            var list = new List<Classes.NFe>();
+            list.Add(nfe.NFe);
+
+            var result = servico.NFeAutorizacao(1, IndicadorSincronizacao.Sincrono, list);
+
+            Assert.IsTrue("Lote recebido com sucesso" == result.Retorno.xMotivo.ToString());
+
+
+        }
+
+        [TestMethod]
+        public void ServicosNFe_WhenNfeNFeAutorizacao4_ReturnsxMotivoSuccess()
+        {
+            var servico = CreateInstance4();
             var nfe = CreateObject();
 
             var list = new List<Classes.NFe>();

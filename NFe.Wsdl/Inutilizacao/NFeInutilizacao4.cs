@@ -9,7 +9,8 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.Inutilizacao
 {
     //[WebServiceBinding(Name = "NFeInutilizacao4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")]
-    public class NFeInutilizacao4 : /*SoapHttpClientProtocol,*/ INfeServico {
+    public class NFeInutilizacao4 : /*SoapHttpClientProtocol,*/ INfeServico
+    {
 
         public NFeInutilizacao4(string url, X509Certificate certificado, int timeOut)
         {
@@ -33,3 +34,58 @@ namespace NFe.Wsdl.Inutilizacao
         }
     }
 }
+
+
+//namespace NFe.Wsdl.Inutilizacao
+//{
+
+//    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+//    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+//    public partial class nfeInutilizacao4NFRequest
+//    {
+
+//        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
+//        public System.Xml.XmlNode nfeDadosMsg;
+
+//        public nfeInutilizacao4NFRequest()
+//        {
+//        }
+
+//        public nfeInutilizacao4NFRequest(System.Xml.XmlNode nfeDadosMsg)
+//        {
+//            this.nfeDadosMsg = nfeDadosMsg;
+//        }
+//    }
+
+//    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+//    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+//    public partial class nfeInutilizacao4NFResponse
+//    {
+
+//        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
+//        public System.Xml.XmlNode nfeResultMsg;
+
+//        public nfeInutilizacao4NFResponse()
+//        {
+//        }
+
+//        public nfeInutilizacao4NFResponse(System.Xml.XmlNode nfeResultMsg)
+//        {
+//            this.nfeResultMsg = nfeResultMsg;
+//        }
+//    }
+
+//    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", ConfigurationName = "NFeInutilizacao4Soap12")]
+//    public interface NFeInutilizacao4Soap12
+//    {
+
+//        // CODEGEN: Generating message contract since the operation nfeInutilizacaoNF is neither RPC nor document wrapped.
+//        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", ReplyAction = "*")]
+//        [System.ServiceModel.XmlSerializerFormatAttribute()]
+//        nfeInutilizacaoNFResponse nfeInutilizacaoNF(nfeInutilizacaoNFRequest request);
+
+//        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", ReplyAction = "*")]
+//        System.Threading.Tasks.Task<nfeInutilizacaoNFResponse> nfeInutilizacaoNFAsync(nfeInutilizacaoNFRequest request);
+//    }
+
+//}
