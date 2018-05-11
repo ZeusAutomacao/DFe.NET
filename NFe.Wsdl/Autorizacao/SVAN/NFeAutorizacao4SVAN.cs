@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.Autorizacao.SVAN
 {
     //[WebServiceBinding(Name = "NFeAutorizacao4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-    public class NFeAutorizacao4SVAN : /*SoapHttpClientProtocol,*/ INfeServicoAutorizacao    
+    public class NFeAutorizacao4SVAN : /*SoapHttpClientProtocol,*/ INfeServicoAutorizacao
     {
         public NFeAutorizacao4SVAN(string url, X509Certificate certificado, int timeOut)
         {
@@ -45,3 +45,4 @@ namespace NFe.Wsdl.Autorizacao.SVAN
         }
     }
 }
+

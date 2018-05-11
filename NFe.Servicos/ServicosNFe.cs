@@ -146,7 +146,6 @@ namespace NFe.Servicos
             if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
 
-            
 
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
