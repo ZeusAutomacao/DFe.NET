@@ -59,7 +59,7 @@ namespace DFe.Utils
             var chave = new StringBuilder();
 
             chave.Append(((int)ufEmitente).ToString("D2"))
-                .Append(Convert.ToDateTime(dataEmissao).ToString("yyMM"))
+                .Append(dataEmissao.DateTime.ToString("yyMM"))
                 .Append(cnpjEmitente)
                 .Append(((int)modelo).ToString("D2"))
                 .Append(serie.ToString("D3"))
