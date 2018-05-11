@@ -64,6 +64,7 @@ namespace NFe.Wsdl.Autorizacao
     public interface NFeRetAutorizacao4Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4/nfeRetAutorizacaoLote", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
         System.Threading.Tasks.Task<nfeRetAutorizacao4LoteResponse> nfeRetAutorizacaoLoteAsync(nfeRetAutorizacao4LoteRequest request);
     }
 
