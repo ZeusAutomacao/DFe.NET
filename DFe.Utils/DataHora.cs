@@ -36,6 +36,7 @@ namespace DFe.Utils
 {
     public static class DataHora
     {
+
         /// <summary>
         /// Retorna uma string no formato AAAA-MM-DD
         /// </summary>

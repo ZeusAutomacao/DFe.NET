@@ -105,11 +105,8 @@ namespace NFe.Classes.Servicos.Evento
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
-                descEvento = "Carta de Correção";
                 LimpaDadosCancelamento();
                 LimpaDadosEpec();
-                xCondUso =
-                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída.";
                 _xcorrecao = value;
             }
         }
@@ -168,7 +165,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     P23 - Data e hora
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEmi { get; set; }
+        public DateTimeOffset? dhEmi { get; set; }
 
         /// <summary>
         /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -177,7 +174,7 @@ namespace NFe.Classes.Servicos.Evento
         public string ProxyDhEmi
         {
             get { return dhEmi.ParaDataHoraStringUtc(); }
-            set { dhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>
@@ -227,7 +224,7 @@ namespace NFe.Classes.Servicos.Evento
             cOrgaoAutor = null;
             tpAutor = null;
             verAplic = null;
-            dhEmi = DateTime.MinValue;
+            dhEmi = null;
             tpNF = null;
             IE = null;
             dest = null;

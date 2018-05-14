@@ -49,6 +49,12 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")] ipOutras = 2
     }
 
+    public enum IndicadorPagamentoDetalhePagamento
+    {
+        [XmlEnum("0")] ipDetPgVista = 0,
+        [XmlEnum("1")] ipDetPgPrazo = 1,
+    }
+
     /// <summary>
     ///     Tipo do Documento Fiscal (0 - entrada; 1 - saída)
     /// </summary>

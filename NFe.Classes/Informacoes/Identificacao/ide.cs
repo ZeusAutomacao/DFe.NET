@@ -125,7 +125,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     B09 - Data e Hora de emissão do Documento Fiscal
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEmi { get; set; }
+        public DateTimeOffset dhEmi { get; set; }
 
         /// <summary>
         /// Proxy para dhEmi no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -134,14 +134,14 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxyDhEmi
         {
             get { return dhEmi.ParaDataHoraStringUtc(); }
-            set { dhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>
         ///     B10 - Data e Hora da saída ou de entrada da mercadoria / produto
         /// </summary>
         [XmlIgnore]
-        public DateTime dhSaiEnt { get; set; }
+        public DateTimeOffset? dhSaiEnt { get; set; }
 
         /// <summary>
         /// Proxy para dhSaiEnt no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -150,7 +150,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydhSaiEnt
         {
             get { return dhSaiEnt.ParaDataHoraStringUtc(); }
-            set { dhSaiEnt = DateTime.Parse(value); }
+            set { dhSaiEnt = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     </para>
         /// </summary>
         [XmlIgnore]
-        public DateTime dhCont { get; set; }
+        public DateTimeOffset dhCont { get; set; }
 
         /// <summary>
         /// Proxy para dhCont no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -229,7 +229,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydhCont
         {
             get { return dhCont.ParaDataHoraStringUtc(); }
-            set { dhCont = DateTime.Parse(value); }
+            set { dhCont = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>

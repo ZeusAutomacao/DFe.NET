@@ -142,6 +142,8 @@ namespace NFe.Classes.Informacoes.Detalhe
     }
 
     /// <summary>
+    /// Indicador de Escala Relevante:
+    /// S -  Produzido em Escala Relevante; N – Produzido em Escala NÃO Relevante.
     /// Versão 4.00
     /// </summary>
     public enum indEscala
