@@ -59,12 +59,12 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// <summary>
         /// C04 - CNPJ do Emitente
         /// </summary>
-        public ulong CNPJ { get; set; }
+        public string CNPJ { get; set; }
 
         /// <summary>
         /// C05 - CPF do Emitente
         /// </summary>
-        public ulong CPF { get; set; }
+        public string CPF { get; set; }
 
         /// <summary>
         /// C06 - Razão Social ou Nome do Emitente

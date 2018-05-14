@@ -38,7 +38,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     {
         private decimal? _vBcstRet;
         private decimal? _vIcmsstRet;
-        private decimal _pSt;
+        private decimal? _pSt;
         private decimal? _vBcfcpstRet;
         private decimal? _pFcpstRet;
         private decimal? _vFcpstRet;
@@ -62,10 +62,18 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBcstRet = value.Arredondar(2); }
         }
 
-        public decimal pST
+        /// <summary>
+        /// N26a  - Alíquota suportada pelo Consumidor Final
+        /// </summary>
+        public decimal? pST
         {
             get { return _pSt.Arredondar(4); }
             set { _pSt = value.Arredondar(4); }
+        }
+
+        public bool pSTSpecified
+        {
+            get { return _pSt.HasValue; }
         }
 
         /// <summary>
@@ -118,6 +126,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool vFCPSTRetSpecified
         {
             get { return vFCPSTRet.HasValue; }
+        }
+
+        public bool ShouldSerializepST()
+        {
+            return pST.HasValue;
         }
 
         public bool ShouldSerializevBCSTRet()

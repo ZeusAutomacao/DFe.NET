@@ -52,6 +52,9 @@ namespace NFe.Utils
         public ConfiguracaoServico()
         {
             Certificado = new ConfiguracaoCertificado();
+
+            Certificado.SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+            Certificado.DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
         }
 
         static ConfiguracaoServico()
@@ -200,6 +203,7 @@ namespace NFe.Utils
         ///     Diretório onde os xmls de envio/retorno devem ser salvos
         /// </summary>
         public string DiretorioSalvarXml { get; set; }
+        
 
         /// <summary>
         ///     Instância do Singleton de ConfiguracaoServico

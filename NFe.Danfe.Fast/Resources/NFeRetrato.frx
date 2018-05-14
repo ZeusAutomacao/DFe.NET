@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="11/13/2017 17:16:22" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="03/06/2018 16:22:46" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -37,6 +37,7 @@ namespace FastReport
     {
       var chave = Substring(((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;)), 3);
       TextChaveAcesso.Text = Regex.Replace(chave, &quot;.{4}&quot;, &quot;$0 &quot;); 
+      BarcodeChave.Text = chave;
       poEmitLogo.Image = ObterLogo();
       
       var contigenciaId = (string)Report.GetParameterValue(&quot;ContingenciaID&quot;);
@@ -124,7 +125,7 @@ namespace FastReport
           !string.IsNullOrEmpty(entregaUf);
         
         
-        var indPagto =   (IndicadorPagamento)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.indPag&quot;);
+        var indPagto =   (IndicadorPagamento?)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.indPag&quot;);
         var fatnFat = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.nFat&quot;); 
         var fatvOrig = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vOrig&quot;)) ?? 0M;
         var fatvDesc = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vDesc&quot;)) ?? 0M;
@@ -318,7 +319,7 @@ namespace FastReport
             <Column Name="cUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="cNF" DataType="System.String"/>
             <Column Name="natOp" DataType="System.String"/>
-            <Column Name="indPag" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.IndicadorPagamento, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="indPag" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Identificacao.Tipos.IndicadorPagamento, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="serie" DataType="System.Int32"/>
             <Column Name="nNF" DataType="System.Int64"/>
@@ -346,7 +347,7 @@ namespace FastReport
                 <Column Name="cUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="AAMM" DataType="System.String"/>
                 <Column Name="CNPJ" DataType="System.String"/>
-                <Column Name="mod" DataType="System.String"/>
+                <Column Name="mod" DataType="NFe.Classes.Informacoes.Identificacao.Tipos.refMod, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="serie" DataType="System.Int32"/>
                 <Column Name="nNF" DataType="System.Int32"/>
               </Column>
@@ -371,6 +372,7 @@ namespace FastReport
             <Column Name="ProxyDhEmi" DataType="System.String"/>
             <Column Name="ProxydhSaiEnt" DataType="System.String"/>
             <Column Name="ProxydhCont" DataType="System.String"/>
+            <Column Name="indPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
           </Column>
           <Column Name="emit" DataType="NFe.Classes.Informacoes.Emitente.emit, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
@@ -528,6 +530,11 @@ namespace FastReport
               </Column>
               <Column Name="nRECOPI" DataType="System.String"/>
               <Column Name="CEST" DataType="System.String"/>
+              <Column Name="indEscala" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Detalhe.indEscala, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
+              <Column Name="indEscalaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="CNPJFab" DataType="System.String"/>
+              <Column Name="cBenef" DataType="System.String"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="rastro" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Detalhe.rastro, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]" PropName="rastro"/>
             </Column>
             <Column Name="imposto" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.imposto, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
               <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -535,10 +542,14 @@ namespace FastReport
                 <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
                   <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pICMS" DataType="System.Decimal"/>
-                  <Column Name="vICMS" DataType="System.Decimal"/>
+                  <Column Name="vBCSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vICMSSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vBCFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="pFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="vFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -641,6 +652,14 @@ namespace FastReport
               <Column Name="vFCPUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFRemet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vFCPST" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vFCPSTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vFCPSTRet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vFCPSTRetSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+              <Column Name="vIPIDevol" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vIPIDevolSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             </Column>
             <Column Name="ISSQNtot" DataType="NFe.Classes.Informacoes.Total.ISSQNtot, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
               <Column Name="vServ" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -667,7 +686,7 @@ namespace FastReport
             </Column>
           </Column>
           <Column Name="transp" DataType="NFe.Classes.Informacoes.Transporte.transp, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
-            <Column Name="modFrete" DataType="NFe.Classes.Informacoes.Transporte.ModalidadeFrete, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="modFrete" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Transporte.ModalidadeFrete, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="transporta" DataType="NFe.Classes.Informacoes.Transporte.transporta, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
@@ -708,6 +727,7 @@ namespace FastReport
             </BusinessObjectDataSource>
             <Column Name="vagao" DataType="System.String"/>
             <Column Name="balsa" DataType="System.String"/>
+            <Column Name="modFreteSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
           </Column>
           <Column Name="cobr" DataType="NFe.Classes.Informacoes.Cobranca.cobr, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
             <Column Name="fat" DataType="NFe.Classes.Informacoes.Cobranca.fat, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
@@ -718,19 +738,25 @@ namespace FastReport
             </Column>
             <BusinessObjectDataSource Name="dup" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Cobranca.dup, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="nDup" DataType="System.String"/>
-              <Column Name="dVenc" DataType="System.String"/>
+              <Column Name="dVenc" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vDup" DataType="System.Decimal"/>
+              <Column Name="ProxydVenc" DataType="System.String"/>
             </BusinessObjectDataSource>
           </Column>
           <BusinessObjectDataSource Name="pag" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Pagamento.pag, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-            <Column Name="tPag" DataType="NFe.Classes.Informacoes.Pagamento.FormaPagamento, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="vPag" DataType="System.Decimal"/>
+            <Column Name="tPag" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.FormaPagamento, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="vPag" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="card" DataType="NFe.Classes.Informacoes.Pagamento.card, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
               <Column Name="tpIntegra" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.TipoIntegracaoPagamento, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="tBand" DataType="System.Nullable`1[[NFe.Classes.Informacoes.Pagamento.BandeiraCartao, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]"/>
               <Column Name="cAut" DataType="System.String"/>
             </Column>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="detPag" Enabled="false" DataType="System.Collections.Generic.List`1[[NFe.Classes.Informacoes.Pagamento.detPag, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null]]" PropName="detPag"/>
+            <Column Name="vTroco" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="vTrocoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="tPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="vPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
           </BusinessObjectDataSource>
           <Column Name="infAdic" DataType="NFe.Classes.Informacoes.Observacoes.infAdic, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
             <Column Name="infAdFisco" DataType="System.String"/>
@@ -779,6 +805,7 @@ namespace FastReport
         </Column>
         <Column Name="infNFeSupl" DataType="NFe.Classes.infNFeSupl, NFe.Classes, Version=1.0.1.456, Culture=neutral, PublicKeyToken=null">
           <Column Name="qrCode" DataType="System.String"/>
+          <Column Name="urlChave" DataType="System.String"/>
         </Column>
         <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
           <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null">
@@ -895,7 +922,7 @@ namespace FastReport
       <TextObject Name="Memo26" Left="253.23" Top="156.85" Width="253.23" Height="17.01" Text="[NFe.NFe.infNFe.emit.IEST]" Padding="5, 1, 5, 1" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo27" Left="506.46" Top="147.4" Width="238.11" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo28" Left="506.46" Top="156.85" Width="238.11" Height="17.01" Text="[FormatarCampo([NFe.NFe.infNFe.emit.CNPJ],'d')]" Padding="5, 1, 5, 1" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
-      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.27" Height="81.26" Fill.Color="White" SizeMode="StretchImage"/>
+      <PictureObject Name="poEmitLogo" Left="1.89" Top="37.8" Width="98.27" Height="81.26" Fill.Color="White" SizeMode="StretchImage" Image=""/>
       <BarcodeObject Name="BarcodeChave" Left="445.66" Top="5.67" Width="277.07" Height="37.8" AutoSize="false" Text="123456789012345678946546546579878454676546546546546556465" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.CalcCheckSum="false" Barcode.AutoEncode="true"/>
       <BarcodeObject Name="BarCodeContigencia" Left="445.66" Top="83.16" Width="277.07" Height="34.02" ShiftMode="WhenOverlapped" AutoSize="false" Text="123456789012345678946546546579878454676546546546546556465" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.CalcCheckSum="false" Barcode.AutoEncode="true"/>
     </PageHeaderBand>
@@ -947,7 +974,7 @@ namespace FastReport
     </DataBand>
     <GroupHeaderBand Name="DuplicatasHeader" Top="495.68" Width="744.66" Height="17.01" RepeatOnEveryPage="true" Condition="[NFe.NFe.infNFe.cobr.fat.nFat]">
       <TextObject Name="Memo205" Top="3.78" Width="430.87" Height="13.23" Text="DUPLICATAS" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
-      <DataBand Name="Duplicatas" Top="515.36" Width="148.91" Height="38.55" DataSource="dup" Columns.Count="5" Columns.Width="148.91">
+      <DataBand Name="Duplicatas" Top="515.36" Width="744.66" Height="38.55" DataSource="dup" Columns.Count="5" Columns.Width="148.91">
         <TextObject Name="Memo66" Top="1.13" Width="148.91" Height="36.67" Border.Lines="All" Border.Width="0.5" Text="Número&#13;&#10;Vencimento&#13;&#10;Valor" Padding="3, 1, 3, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
         <TextObject Name="Memo138" Left="56.69" Width="3.78" Height="37.8" Text=":&#13;&#10;:&#13;&#10;:" Padding="2, 1, 2, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt"/>
         <TextObject Name="Memo147" Left="60.47" Width="86.93" Height="12.47" Text="[NFe.NFe.infNFe.cobr.dup.nDup]" Padding="3, 1, 3, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>

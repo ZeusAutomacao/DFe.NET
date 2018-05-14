@@ -234,7 +234,7 @@
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
