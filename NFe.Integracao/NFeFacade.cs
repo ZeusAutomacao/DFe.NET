@@ -139,6 +139,16 @@ namespace NFe.Integracao
         private void CarregarConfiguracoes()
         {
             #region Set file config
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.certificado_arquivo))
+            {
+                ConfiguracaoServico.Instancia.Certificado.TipoCertificado = TipoCertificado.A1Arquivo;
+            }
+            else
+            {
+                ConfiguracaoServico.Instancia.Certificado.TipoCertificado = TipoCertificado.A3;
+            }
+
             ConfiguracaoServico.Instancia.Certificado.Arquivo = Properties.Settings.Default.certificado_arquivo;
             ConfiguracaoServico.Instancia.Certificado.Senha = Properties.Settings.Default.certificado_senha;
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = Properties.Settings.Default.diretorio_xml;
