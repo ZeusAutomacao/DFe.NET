@@ -1,48 +1,139 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-//using System.Web.Services;
-//using System.Web.Services.Description;
-//using System.Web.Services.Protocols;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Channels;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Autorizacao.SVAN
 {
-    //[WebServiceBinding(Name = "NFeAutorizacao4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-    public class NFeAutorizacao4SVAN : /*SoapHttpClientProtocol,*/ INfeServicoAutorizacao
+
+    public class NFeAutorizacao4SVAN : NFeAutorizacao4SoapClient, INfeServicoAutorizacao
     {
         public NFeAutorizacao4SVAN(string url, X509Certificate certificado, int timeOut)
+            : base(url)
         {
-            //SoapVersion = SoapProtocolVersion.Soap12;
-            //Url = url;
-            //Timeout = timeOut;
-            //ClientCertificates.Add(certificado);
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [Obsolete("Não utilizar na nfe 4.0")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-
-        //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        //[WebMethod(MessageName = "nfeAutorizacaoLote")]
-        [return: XmlElement("nfeAutorizacaoLoteResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeAutorizacaoLote", new object[] { nfeDadosMsg });
-            //return ((XmlNode)(results[0]));
-            return null;
+            var result = base.nfeAutorizacaoLoteAsync(nfeDadosMsg).Result;
+            return result.nfeAutorizacaoLoteResult;
         }
 
-
-        //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        //[WebMethod(MessageName = "nfeAutorizacaoLoteZIP")]
-        [return: XmlElement("nfeAutorizacaoLoteZipResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-        public XmlNode ExecuteZip([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")] string nfeDadosMsgZip)
+        public XmlNode ExecuteZip(string nfeDadosMsgZip)
         {
-            //var results = Invoke("nfeAutorizacaoLoteZIP", new object[] { nfeDadosMsgZip });
-            //return ((XmlNode)(results[0]));
-            return null;
+            var result = base.nfeAutorizacaoLoteZipAsync(nfeDadosMsgZip).Result;
+            return result.nfeAutorizacaoLoteZipResult;
+        }
+
+    }
+
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeAutorizacaoSVANLoteRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeAutorizacaoSVANLoteRequest()
+        {
+        }
+
+        public nfeAutorizacaoSVANLoteRequest(System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeDadosMsg = nfeDadosMsg;
         }
     }
-}
 
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeAutorizacaoSVANLoteResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public System.Xml.XmlNode nfeAutorizacaoLoteResult;
+
+        public nfeAutorizacaoSVANLoteResponse()
+        {
+        }
+
+        public nfeAutorizacaoSVANLoteResponse(System.Xml.XmlNode nfeAutorizacaoLoteResult)
+        {
+            this.nfeAutorizacaoLoteResult = nfeAutorizacaoLoteResult;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeAutorizacaoSVANLoteZipRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public string nfeDadosMsgZip;
+
+        public nfeAutorizacaoSVANLoteZipRequest()
+        {
+        }
+
+        public nfeAutorizacaoSVANLoteZipRequest(string nfeDadosMsgZip)
+        {
+            this.nfeDadosMsgZip = nfeDadosMsgZip;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeAutorizacaoSVANLoteZipResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public System.Xml.XmlNode nfeAutorizacaoLoteZipResult;
+
+        public nfeAutorizacaoSVANLoteZipResponse()
+        {
+        }
+
+        public nfeAutorizacaoSVANLoteZipResponse(System.Xml.XmlNode nfeAutorizacaoLoteZipResult)
+        {
+            this.nfeAutorizacaoLoteZipResult = nfeAutorizacaoLoteZipResult;
+        }
+    }
+
+    public interface NFeAutorizacao4Soap : IChannel
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        System.Threading.Tasks.Task<nfeAutorizacaoSVANLoteResponse> nfeAutorizacaoLoteAsync(nfeAutorizacaoSVANLoteRequest request);
+
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZip", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        System.Threading.Tasks.Task<nfeAutorizacaoSVANLoteZipResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacaoSVANLoteZipRequest request);
+    }
+
+    public partial class NFeAutorizacao4SoapClient : SoapBindingClient<NFeAutorizacao4Soap>
+    {
+        public NFeAutorizacao4SoapClient(string endpointAddressUri) :
+                   base(endpointAddressUri)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeAutorizacaoSVANLoteResponse> nfeAutorizacaoLoteAsync(System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeAutorizacaoSVANLoteRequest inValue = new nfeAutorizacaoSVANLoteRequest();
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeAutorizacaoLoteAsync(inValue);
+        }
+
+        public System.Threading.Tasks.Task<nfeAutorizacaoSVANLoteZipResponse> nfeAutorizacaoLoteZipAsync(string nfeDadosMsgZip)
+        {
+            nfeAutorizacaoSVANLoteZipRequest inValue = new nfeAutorizacaoSVANLoteZipRequest();
+            inValue.nfeDadosMsgZip = nfeDadosMsgZip;
+            return this.Channel.nfeAutorizacaoLoteZipAsync(inValue);
+        }
+    }
+
+
+}
