@@ -176,20 +176,22 @@ namespace NFe.Integracao
             Enum.TryParse(Properties.Settings.Default.tipo_emissao, out temiss);
             ConfiguracaoServico.Instancia.tpEmis = temiss;
             //-------------------------------------------------------------------------------
-            //Versão atual da NFe/NFCe: 3.10
-            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+
+            // Versão Atual da NFe/NFCe: 4.00
+            ConfiguracaoServico.Instancia.ProtocoloDeSeguranca = System.Net.SecurityProtocolType.Tls;
+            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve400;
             #endregion
 
         }
