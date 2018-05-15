@@ -303,6 +303,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaPublica.aspx"),
 
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.nfce.fazenda.sp.gov.br/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica", VersaoServico.ve400)
+
             };
 
             return endQrCodeNfce;
