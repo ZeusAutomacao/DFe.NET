@@ -123,6 +123,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.ba.gov.br/servicos/nfce/default.aspx"),
 
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.ba.gov.br/servicos/nfce/Modulos/Geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/Modulos/Geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"),
