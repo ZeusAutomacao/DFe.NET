@@ -101,7 +101,7 @@
                                           HorizontalAlignment="Left" VerticalAlignment="Top"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
                                 <CheckBox x:Name="ChbQuebrarLinhaObservacao" Content="Quebrar linha nas observações" Margin="10,0,0,0" 
-                                          IsChecked="{Binding ConfiguracaoDanfeNfe.QuebrarLinhasObservacao}"/>
+                                          IsChecked="{Binding ConfiguracaoDanfeNfe.QuebrarLinhasObservacao}" Height="22"/>
                             </StackPanel>
 
                         </StackPanel>
