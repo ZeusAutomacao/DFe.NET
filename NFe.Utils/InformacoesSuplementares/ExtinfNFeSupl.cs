@@ -183,6 +183,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"),
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"),
 
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"),
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/consultanfce.seam"),
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"),
