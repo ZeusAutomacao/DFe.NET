@@ -273,6 +273,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://200.174.88.103:8080/nfce/servlet/qrcode"),
                 new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://200.174.88.103:8080/nfce/servlet/wp_consulta_nfce"),
 
+                new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rr.gov.br/nfce/servlet/wp_consulta_nfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://200.174.88.103:8080/nfce/servlet/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://200.174.88.103:8080/nfce/servlet/wp_consulta_nfce", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"),
