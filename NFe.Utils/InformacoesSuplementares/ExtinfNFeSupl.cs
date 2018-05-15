@@ -94,7 +94,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm"),
 
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaznet.ac.gov.br/nfce/consulta", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm", VersaoServico.ve400),
 
