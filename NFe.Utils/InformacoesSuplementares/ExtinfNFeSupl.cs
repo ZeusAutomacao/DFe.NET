@@ -253,6 +253,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx"),
 
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefin.ro.gov.br"),
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"),
