@@ -153,6 +153,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe"),
 
+                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do"),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
