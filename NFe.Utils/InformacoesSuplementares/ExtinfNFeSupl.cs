@@ -103,6 +103,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homnfce.sefaz.am.gov.br/nfceweb/formConsulta.do"),
 
+                new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://sistemas.sefaz.am.gov.br/nfceweb/formConsulta.do", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AM, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homnfce.sefaz.am.gov.br/nfceweb/formConsulta.do", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.ap.gov.br/nfce/nfcep.php"),
                 new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.ap.gov.br/sate/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261"),
                 new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.ap.gov.br/nfcehml/nfce.php"),
