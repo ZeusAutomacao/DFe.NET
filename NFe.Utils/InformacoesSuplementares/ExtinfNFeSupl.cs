@@ -133,6 +133,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
 
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/NFCE/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/NFCE/", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214278/consumid"),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
