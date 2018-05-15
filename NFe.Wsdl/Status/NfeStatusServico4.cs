@@ -1,35 +1,85 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-//using System.Web.Services;
-//using System.Web.Services.Description;
-//using System.Web.Services.Protocols;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel.Channels;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Status
 {
-    //[WebServiceBinding(Name = "NFeStatusServico4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
-    public class NfeStatusServico4 : /*SoapHttpClientProtocol,*/ INfeServico
+
+    public class NfeStatusServico4 : NFeStatusServico4Soap12Client, INfeServico
     {
-        public NfeStatusServico4(string url, X509Certificate certificado, int timeOut)
+
+        public NfeStatusServico4(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            //SoapVersion = SoapProtocolVersion.Soap12;
-            //Url = url;
-            //Timeout = timeOut;
-            //ClientCertificates.Add(certificado);
+            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
-        [Obsolete("Não utilizar na nfe 4.0")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
-
-        //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        //[return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
-        //[WebMethod(MessageName = "nfeStatusServicoNF")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            //var results = Invoke("nfeStatusServicoNF", new object[] { nfeDadosMsg });
-            //return (XmlNode)(results[0]);
-            return null;
+            var result = base.nfeStatusServicoNFAsync(nfeDadosMsg).Result;
+            return result.nfeResultMsg;
         }
     }
+
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeStatusServico4NFRequest
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
+        public System.Xml.XmlNode nfeDadosMsg;
+
+        public nfeStatusServico4NFRequest()
+        {
+        }
+
+        public nfeStatusServico4NFRequest(System.Xml.XmlNode nfeDadosMsg)
+        {
+            this.nfeDadosMsg = nfeDadosMsg;
+        }
+    }
+
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    public partial class nfeStatusServico4NFResponse
+    {
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
+        public System.Xml.XmlNode nfeResultMsg;
+
+        public nfeStatusServico4NFResponse()
+        {
+        }
+
+        public nfeStatusServico4NFResponse(System.Xml.XmlNode nfeResultMsg)
+        {
+            this.nfeResultMsg = nfeResultMsg;
+        }
+    }
+
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", ConfigurationName = "NFeStatusServico4Soap12")]
+    public interface NFeStatusServico4Soap12 : IChannel
+    {
+        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", ReplyAction = "*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute()]
+        System.Threading.Tasks.Task<nfeStatusServico4NFResponse> nfeStatusServicoNFAsync(nfeStatusServico4NFRequest request);
+    }
+
+    public partial class NFeStatusServico4Soap12Client : SoapBindingClient<NFeStatusServico4Soap12>
+    {
+        public NFeStatusServico4Soap12Client(string endpointAddressUri) :
+                base(endpointAddressUri)
+        {
+        }
+
+        public System.Threading.Tasks.Task<nfeStatusServico4NFResponse> nfeStatusServicoNFAsync(System.Xml.XmlNode nfeDadosMsg)
+        {
+            nfeStatusServico4NFRequest inValue = new nfeStatusServico4NFRequest();
+            inValue.nfeDadosMsg = nfeDadosMsg;
+            return this.Channel.nfeStatusServicoNFAsync(inValue);
+        }
+
+    }
+
 }

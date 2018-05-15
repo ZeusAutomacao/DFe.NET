@@ -121,9 +121,6 @@
   <data name="NFCe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFCe\NFCe.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="NFCeQRReduzido" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\nfce\nfceqrreduzido.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="NFeEvento" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFe\NFeEvento.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
