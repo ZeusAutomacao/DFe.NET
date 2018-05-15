@@ -113,6 +113,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.ap.gov.br/nfcehml/nfce.php"),
                 new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.ap.gov.br/sate1/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261"),
 
+                new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.ap.gov.br/nfce/nfcep.php", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.ap.gov.br/sate/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.ap.gov.br/nfcehml/nfce.php", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.ap.gov.br/sate1/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.ba.gov.br/servicos/nfce/default.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"),
