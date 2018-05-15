@@ -51,9 +51,11 @@ namespace NFe.Integracao
         public static void Main(string[] args)
         {
             //Uncomment for debug
-            //args = new[] { "/consultarCadastro","BA","00000000000" };
-            //args = new[] { "/recibo","00000000000","","" };
-            //args = new[] {"/enviar","","",""};
+            //args = new[] { "consultarCadastro","BA","00000000000" };
+            //args = new[] { "recibo","00000000000","","" };
+            //args = new[] {"enviar","","",""};
+            //args = new[] { "help", "", "", "" };
+            args = new[] { "status", "", "", "" };
 
             try
             {
@@ -107,6 +109,11 @@ namespace NFe.Integracao
             catch
             {
                 Console.WriteLine("Um ou mais parâmetros foram informados incorretamente.");
+            }
+
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                Console.ReadKey();
             }
         }
         /// <summary>
