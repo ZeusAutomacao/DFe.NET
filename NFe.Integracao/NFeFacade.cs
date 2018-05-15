@@ -33,6 +33,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -45,6 +46,9 @@ using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.NFe;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using NFe.Danfe.Nativo.NFCe;
+using NFe.Danfe.Base.NFCe;
+using NFe.AppTeste;
 
 namespace NFe.Integracao
 {
@@ -208,6 +212,23 @@ namespace NFe.Integracao
             return !list.Any(string.IsNullOrWhiteSpace);
 
         }
+
+        /// <summary>
+        /// Imprime em um JPEG o NFC-e relacionado a um xml.
+        /// </summary>
+        /// <param name="pathXmlNFCe">Path do NFC-e a imprimir</param>
+        /// <param name="pathJpeg">Path onde gerar o jpeg</param>
+        public void ImprimirNFCe(string pathXmlNFCe, string pathJpeg, string idToken, string csc)
+        {
+            var nfe = new Classes.NFe().CarregarDeArquivoXml(pathXmlNFCe);
+            var arquivo = nfe.ObterXmlString();
+
+            var configuracaoDanfeNFCe = new ConfiguracaoDanfeNfce(Danfe.Base.NfceDetalheVendaNormal.UmaLinha, Danfe.Base.NfceDetalheVendaContigencia.UmaLinha);
+            DanfeNativoNfce impr = new DanfeNativoNfce(arquivo, configuracaoDanfeNFCe, idToken, csc);
+
+            impr.GerarJPEG(pathJpeg);
+        }
+
         /// <summary>
         /// Alterar dados de configuração
         /// </summary>
@@ -272,6 +293,7 @@ namespace NFe.Integracao
             return list;
 
         }
+
         /// <summary>
         /// Converte entrada de dados para minuscula
         /// </summary>
@@ -280,8 +302,7 @@ namespace NFe.Integracao
         private static string ConvertToLower(string str)
         {
             return string.IsNullOrWhiteSpace(str) ? "" : str.Trim().ToLower();
-        }
-        
+        }      
 
     }
 }
