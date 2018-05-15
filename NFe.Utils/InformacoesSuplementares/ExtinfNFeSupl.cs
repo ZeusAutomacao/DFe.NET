@@ -193,6 +193,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"),
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/consultanfce.seam"),
 
+                new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/nfceForm.seam", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/consultanfce.seam", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/consultanfce.seam", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.receita.pb.gov.br/nfce"),
                 new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.receita.pb.gov.br/nfce"),
                 new EnderecoConsultaPublicaNfce(Estado.PB, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.receita.pb.gov.br/nfce"),
