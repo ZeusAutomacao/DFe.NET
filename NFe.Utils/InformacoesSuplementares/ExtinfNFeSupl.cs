@@ -243,6 +243,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode"),
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta"),
 
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
+
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx"),
