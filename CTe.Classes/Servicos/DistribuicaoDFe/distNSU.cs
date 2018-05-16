@@ -32,35 +32,23 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
-
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Classes.Servicos.DistribuicaoDFe
 {
-    public class idDocAntPap
+    /// <summary>
+    /// A07 - Grupo para distribuir DF-e de interesse
+    /// </summary>
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class distNSU
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        /// <summary>
+        /// A08 - Último NSU recebido pelo ator.
+        /// Caso seja informado com zero, ou com um NSU muito antigo, a consulta retornará unicamente as informações resumidas e
+        /// documentos fiscais eletrônicos que tenham sido recepcionados pelo Ambiente Nacional nos últimos 3 meses.
+        /// </summary>
+        public string ultNSU { get; set; }
     }
 }

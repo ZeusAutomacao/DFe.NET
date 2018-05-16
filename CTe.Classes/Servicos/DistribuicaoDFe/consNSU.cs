@@ -32,35 +32,25 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+
+namespace CTe.Classes.Servicos.DistribuicaoDFe
 {
-    public class idDocAntPap
+    /// <summary>
+    /// A09 - Grupo para consultar um DF-e a partir de um NSU específico
+    /// </summary>
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class consNSU
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        /// <summary>
+        /// A10 - Número Sequencial Único. Geralmente esta consulta será utilizada quando identificado pelo interessado um NSU faltante.
+        /// O Web Service retornará o documento ou informará que o NSU não existe no Ambiente Nacional. 
+        /// Assim, esta consulta fechará a lacuna do NSU identificado como faltante.
+        /// </summary>
+        public string NSU { get; set; }
     }
 }
