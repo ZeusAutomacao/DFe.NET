@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,10 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compressao.cs" />
     <Compile Include="Consulta\ExtprocEventoCTe.cs" />
     <Compile Include="CTe\ExCteProc.cs" />
     <Compile Include="CTe\ExtCTe.cs" />
     <Compile Include="CTe\ExtEnvCte.cs" />
+    <Compile Include="DistribuicaoDFe\ExtdistDFeInt.cs" />
+    <Compile Include="DistribuicaoDFe\ExtretDistDFeInt.cs" />
     <Compile Include="Evento\ExtenvEvento.cs" />
     <Compile Include="Evento\Extevento.cs" />
     <Compile Include="Evento\ExtprocEventoCTe.cs" />

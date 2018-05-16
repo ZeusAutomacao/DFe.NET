@@ -31,36 +31,47 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.Wsdl.Configuracao;
 using System;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Services;
+using System.Web.Services.Description;
+using System.Web.Services.Protocols;
+using System.Xml;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Wsdl.DistribuicaoDFe
 {
-    public class idDocAntPap
+    
+    [WebServiceBinding(Name = "CTeDistribuicaoDFeSoap", Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe")]
+    public class CTeDistDFeInteresse : SoapHttpClientProtocol
     {
-        public tpDocAnterior tpDoc { get; set; }
-
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
+        public CTeDistDFeInteresse(WsdlConfiguracao configuracao)
         {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
+
+            SoapVersion = SoapProtocolVersion.Soap12;
+            Url = configuracao.Url;
+            Timeout = configuracao.TimeOut;
+            ClientCertificates.Add(configuracao.CertificadoDigital);
+
+            cteCabecMsg = new cteCabecMsg();
+            cteCabecMsg.versaoDados = configuracao.Versao;
+            cteCabecMsg.cUF = configuracao.CodigoIbgeEstado;
         }
+
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe")]
+        public cteCabecMsg cteCabecMsg { get; set; }
+
+        [SoapHeader("cteCabecMsg")]
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe/cteDistDFeInteresse", RequestNamespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe", ResponseNamespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Wrapped)]
+        [WebMethod(MessageName = "cteDistDFeInteresse")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe")] XmlNode cteDadosMsg)
+        {
+            var results = Invoke("cteDistDFeInteresse", new object[] { cteDadosMsg });
+            return ((XmlNode)(results[0]));
+        }
+
     }
 }

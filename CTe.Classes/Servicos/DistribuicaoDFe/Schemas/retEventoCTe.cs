@@ -32,35 +32,24 @@
 /********************************************************************************/
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
-using DFe.Utils;
 
-namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
+namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
-    public class idDocAntPap
+
+    /// <summary>
+    /// Mensagem de retorno do resultado da solicitação de registro de evento do CT-e 
+    /// </summary>
+    
+    [Serializable()]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class retEventoCTe
     {
-        public tpDocAnterior tpDoc { get; set; }
+        public retInfEvento infEvento { get; set; }
 
-        public short serie { get; set; }
-
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
-
-        public string nDoc { get; set; }
-
-        [XmlIgnore]
-        public DateTime dEmi { get; set; }
-
-        [XmlElement(ElementName = "dEmi")]
-        public string ProxydEmi
-        {
-            get { 
-                return dEmi.ParaDataString();
-            }
-            set { 
-                dEmi = Convert.ToDateTime(value); 
-            }
-        }
+        [XmlAttribute()]
+        public decimal versao { get; set; }
     }
 }
