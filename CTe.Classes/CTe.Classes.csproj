@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -211,6 +215,19 @@
     <Compile Include="Servicos\Consulta\consSitCTe.cs" />
     <Compile Include="Servicos\Consulta\procEventoCTe.cs" />
     <Compile Include="Servicos\Consulta\retConsSitCTe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\consNSU.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\distDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\distNSU.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\loteDistDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\retDistDFeInt.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\detEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\evCTeAutorizadoMDFe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\eventoCTe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\eventoInfEvento.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\MDFe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\procEventoCTe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\retEventoCTe.cs" />
+    <Compile Include="Servicos\DistribuicaoDFe\Schemas\retInfEvento.cs" />
     <Compile Include="Servicos\Evento\dest.cs" />
     <Compile Include="Servicos\Evento\detEvento.cs" />
     <Compile Include="Servicos\Evento\detEventoTipos.cs" />

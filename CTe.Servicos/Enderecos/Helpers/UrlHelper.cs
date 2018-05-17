@@ -69,7 +69,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = "https://cte.sefaz.mt.gov.br/ctews/services/CteRecepcao",
                         CteInutilizacao = "https://cte.sefaz.mt.gov.br/ctews/services/CteInutilizacao",
                         CteRecepcaoEvento = "https://cte.sefaz.mt.gov.br/ctews2/services/CteRecepcaoEvento?wsdl",
-                        CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews/services/CteConsulta"
+                        CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews/services/CteConsulta",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
                     return new UrlCTe
@@ -79,7 +80,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://producao.cte.ms.gov.br/ws/CteRecepcao",
                         CteInutilizacao = @"https://producao.cte.ms.gov.br/ws/CteInutilizacao",
                         CteRecepcaoEvento = @"https://producao.cte.ms.gov.br/ws/CteRecepcaoEvento",
-                        CteConsulta = @"https://producao.cte.ms.gov.br/ws/CteConsulta"
+                        CteConsulta = @"https://producao.cte.ms.gov.br/ws/CteConsulta",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
                     return new UrlCTe
@@ -89,7 +91,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://cte.fazenda.mg.gov.br/cte/services/CteRecepcao",
                         CteInutilizacao = @"https://cte.fazenda.mg.gov.br/cte/services/CteInutilizacao",
                         CteRecepcaoEvento = @"https://cte.fazenda.mg.gov.br/cte/services/RecepcaoEvento",
-                        CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CteConsulta"
+                        CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CteConsulta",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
                     return new UrlCTe
@@ -99,7 +102,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://cte.fazenda.pr.gov.br/cte/CteRecepcao?wsdl",
                         CteInutilizacao = @"https://cte.fazenda.pr.gov.br/cte/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://cte.fazenda.pr.gov.br/cte/CteRecepcaoEvento?wsdl",
-                        CteConsulta = @"https://cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl"
+                        CteConsulta = @"https://cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.RS:
                     return new UrlCTe
@@ -112,7 +116,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
                         CteRecepcaoEvento =
                             @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
-                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx"
+                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.SP:
                     return new UrlCTe
@@ -126,7 +131,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento =
                             @"https://nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
-                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx"
+                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AC:
                 case Estado.AL:
@@ -156,7 +162,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
                         CteRecepcaoEvento =
                             @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
-                        CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx"
+                        CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AP:
                 case Estado.PE:
@@ -168,7 +175,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteRecepcao.asmx",
                         CteInutilizacao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcaoEvento.asmx",
-                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx"
+                        CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx",
+                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 default:
                     throw new InvalidOperationException(
@@ -192,7 +200,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CteInutilizacao",
                         CteRecepcaoEvento =
                             @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CteRecepcaoEvento?wsdl",
-                        CteConsulta = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CteConsulta"
+                        CteConsulta = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CteConsulta",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
                     return new UrlCTe
@@ -202,7 +211,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://homologacao.cte.ms.gov.br/ws/CteRecepcao",
                         CteInutilizacao = @"https://homologacao.cte.ms.gov.br/ws/CteInutilizacao",
                         CteRecepcaoEvento = @"https://homologacao.cte.ms.gov.br/ws/CteRecepcaoEvento",
-                        CteConsulta = @"https://homologacao.cte.ms.gov.br/ws/CteConsulta"
+                        CteConsulta = @"https://homologacao.cte.ms.gov.br/ws/CteConsulta",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
                     return new UrlCTe
@@ -212,7 +222,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://hcte.fazenda.mg.gov.br/cte/services/CteRecepcao?wsdl",
                         CteInutilizacao = @"https://hcte.fazenda.mg.gov.br/cte/services/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://hcte.fazenda.mg.gov.br/cte/services/RecepcaoEvento?wsdl",
-                        CteConsulta = @"https://hcte.fazenda.mg.gov.br/cte/services/CteConsulta?wsdl"
+                        CteConsulta = @"https://hcte.fazenda.mg.gov.br/cte/services/CteConsulta?wsdl",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
                     return new UrlCTe
@@ -222,7 +233,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteRecepcao?wsdl",
                         CteInutilizacao = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteRecepcaoEvento?wsdl",
-                        CteConsulta = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl"
+                        CteConsulta = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.RS:
                     return new UrlCTe
@@ -235,7 +247,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             @"https://cte-homologacao.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
                         CteRecepcaoEvento =
                             @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
-                        CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx"
+                        CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.SP:
                     return new UrlCTe
@@ -249,7 +262,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento =
                             @"https://homologacao.nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
-                        CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx"
+                        CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AC:
                 case Estado.AL:
@@ -279,7 +293,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcao/CTeRecepcao.asmx",
                         CteRecepcaoEvento =
                             @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoevento/CTeRecepcaoEvento.asmx",
-                        CteRetRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteretrecepcao/CTeRetRecepcao.asmx"
+                        CteRetRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteretrecepcao/CTeRetRecepcao.asmx",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AP:
                 case Estado.PE:
@@ -291,7 +306,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcao = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcao.asmx",
                         CteInutilizacao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento = @"https://cte.sefaz.rs.gov.br/ws/CteRecepcaoEvento/CteRecepcaoEvento.asmx",
-                        CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx"
+                        CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx",
+                        CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 default:
                     throw new InvalidOperationException(
