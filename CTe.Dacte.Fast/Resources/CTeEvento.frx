@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="04/09/2018 12:52:20" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" ReportInfo.Created="07/31/2017 09:11:03" ReportInfo.Modified="02/26/2018 16:55:24" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -237,34 +237,34 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <BusinessObjectDataSource Name="cteProc" ReferenceName="cteProc" DataType="CTe.Classes.cteProc[], CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null" Enabled="true">
-      <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-      <Column Name="CTe" DataType="CTe.Classes.CTe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-        <Column Name="versao" DataType="System.Nullable`1[[CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+    <BusinessObjectDataSource Name="cteProc" ReferenceName="cteProc" DataType="CTe.Classes.cteProc[], CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null" Enabled="true">
+      <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+      <Column Name="CTe" DataType="CTe.Classes.CTe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="System.Nullable`1[[CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
         <Column Name="ProxyVersao" DataType="System.String"/>
         <Column Name="versaoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-        <Column Name="infCte" DataType="CTe.Classes.Informacoes.infCte, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-          <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infCte" DataType="CTe.Classes.Informacoes.infCte, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+          <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="ide" DataType="CTe.Classes.Informacoes.Identificacao.ide, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="ide" DataType="CTe.Classes.Informacoes.Identificacao.ide, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="cUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="cCT" DataType="System.Int32"/>
             <Column Name="ProxycCT" DataType="System.String"/>
             <Column Name="CFOP" DataType="System.Int32"/>
             <Column Name="natOp" DataType="System.String"/>
-            <Column Name="forPag" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.forPag, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="forPag" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.forPag, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="forPagSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="serie" DataType="System.Int16"/>
             <Column Name="nCT" DataType="System.Int64"/>
             <Column Name="dhEmi" DataType="System.DateTime"/>
             <Column Name="ProxydhEmi" DataType="System.String"/>
-            <Column Name="tpImp" DataType="CTe.Classes.Informacoes.Tipos.tpImp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="tpEmis" DataType="CTe.Classes.Informacoes.Tipos.tpEmis, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpImp" DataType="CTe.Classes.Informacoes.Tipos.tpImp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpEmis" DataType="CTe.Classes.Informacoes.Tipos.tpEmis, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="cDV" DataType="System.Int32"/>
             <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="tpCTe" DataType="CTe.Classes.Informacoes.Tipos.tpCTe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="procEmi" DataType="CTe.Classes.Informacoes.Tipos.procEmi, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpCTe" DataType="CTe.Classes.Informacoes.Tipos.tpCTe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="procEmi" DataType="CTe.Classes.Informacoes.Tipos.procEmi, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="verProc" DataType="System.String"/>
             <Column Name="indGlobalizado" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="indGlobalizadoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
@@ -273,8 +273,8 @@ namespace FastReport
             <Column Name="xMunEnv" DataType="System.String"/>
             <Column Name="UFEnv" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="ProxyUFEnv" DataType="System.String"/>
-            <Column Name="modal" DataType="CTe.Classes.Informacoes.Tipos.modal, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="tpServ" DataType="CTe.Classes.Informacoes.Tipos.tpServ, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="modal" DataType="CTe.Classes.Informacoes.Tipos.modal, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tpServ" DataType="CTe.Classes.Informacoes.Tipos.tpServ, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="cMunIni" DataType="System.Int64"/>
             <Column Name="xMunIni" DataType="System.String"/>
             <Column Name="UFIni" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
@@ -283,26 +283,26 @@ namespace FastReport
             <Column Name="xMunFim" DataType="System.String"/>
             <Column Name="UFFim" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="ProxyUFFim" DataType="System.String"/>
-            <BusinessObjectDataSource Name="infPercurso" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Identificacao.infPercurso, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="infPercurso" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Identificacao.infPercurso, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="UFPer" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="ProxyUFPer" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <Column Name="retira" DataType="CTe.Classes.Informacoes.Tipos.retira, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="retira" DataType="CTe.Classes.Informacoes.Tipos.retira, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="xDetRetira" DataType="System.String"/>
-            <Column Name="indIEToma" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.indIEToma, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+            <Column Name="indIEToma" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.indIEToma, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="indIETomaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-            <Column Name="tomaBase3" DataType="CTe.Classes.Informacoes.Identificacao.tomaBase3, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="tomaBase3" DataType="CTe.Classes.Informacoes.Identificacao.tomaBase3, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             </Column>
-            <Column Name="toma4" DataType="CTe.Classes.Informacoes.Identificacao.toma4, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="toma4" DataType="CTe.Classes.Informacoes.Identificacao.toma4, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="toma" DataType="CTe.Classes.Informacoes.Tipos.toma, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
               <Column Name="IE" DataType="System.String"/>
               <Column Name="xNome" DataType="System.String"/>
               <Column Name="xFant" DataType="System.String"/>
               <Column Name="fone" DataType="System.String"/>
-              <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+              <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                 <Column Name="xLgr" DataType="System.String"/>
                 <Column Name="nro" DataType="System.String"/>
                 <Column Name="xCpl" DataType="System.String"/>
@@ -322,41 +322,41 @@ namespace FastReport
             <Column Name="ProxydhCont" DataType="System.String"/>
             <Column Name="xJust" DataType="System.String"/>
           </Column>
-          <Column Name="compl" DataType="CTe.Classes.Informacoes.Complemento.compl, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="compl" DataType="CTe.Classes.Informacoes.Complemento.compl, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="xCaracAd" DataType="System.String"/>
             <Column Name="xCaracSer" DataType="System.String"/>
             <Column Name="xEmi" DataType="System.String"/>
-            <Column Name="fluxo" DataType="CTe.Classes.Informacoes.Complemento.fluxo, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="fluxo" DataType="CTe.Classes.Informacoes.Complemento.fluxo, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xOrig" DataType="System.String"/>
-              <BusinessObjectDataSource Name="pass" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.pass, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <BusinessObjectDataSource Name="pass" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.pass, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                 <Column Name="xPass" DataType="System.String"/>
               </BusinessObjectDataSource>
               <Column Name="xDest" DataType="System.String"/>
               <Column Name="xRota" DataType="System.String"/>
             </Column>
-            <Column Name="Entrega" DataType="CTe.Classes.Informacoes.Complemento.Entrega, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="comData" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comDataBase, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-              <Column Name="comHora" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comHoraBase, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Entrega" DataType="CTe.Classes.Informacoes.Complemento.Entrega, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="comData" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comDataBase, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="comHora" DataType="CTe.Classes.Informacoes.Complemento.Tipos.comHoraBase, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
             </Column>
             <Column Name="origCalc" DataType="System.String"/>
             <Column Name="destCalc" DataType="System.String"/>
             <Column Name="xObs" DataType="System.String"/>
-            <BusinessObjectDataSource Name="ObsCont" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsCont, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="ObsCont" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsCont, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="xCampo" DataType="System.String"/>
               <Column Name="xTexto" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <BusinessObjectDataSource Name="ObsFisco" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsFisco, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="ObsFisco" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Complemento.ObsFisco, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="xCampo" DataType="System.String"/>
               <Column Name="xTexto" DataType="System.String"/>
             </BusinessObjectDataSource>
           </Column>
-          <Column Name="emit" DataType="CTe.Classes.Informacoes.Emitente.emit, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="emit" DataType="CTe.Classes.Informacoes.Emitente.emit, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="IEST" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="xFant" DataType="System.String"/>
-            <Column Name="enderEmit" DataType="CTe.Classes.Informacoes.Emitente.enderEmit, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderEmit" DataType="CTe.Classes.Informacoes.Emitente.enderEmit, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -370,14 +370,14 @@ namespace FastReport
               <Column Name="fone" DataType="System.String"/>
             </Column>
           </Column>
-          <Column Name="toma" DataType="CTe.Classes.Informacoes.Identificacao.tomaCteOs, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="toma" DataType="CTe.Classes.Informacoes.Identificacao.tomaCteOs, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="xFant" DataType="System.String"/>
             <Column Name="fone" DataType="System.String"/>
-            <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderToma" DataType="CTe.Classes.Informacoes.Identificacao.enderToma, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -393,14 +393,14 @@ namespace FastReport
             </Column>
             <Column Name="email" DataType="System.String"/>
           </Column>
-          <Column Name="rem" DataType="CTe.Classes.Informacoes.Remetente.rem, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="rem" DataType="CTe.Classes.Informacoes.Remetente.rem, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="xFant" DataType="System.String"/>
             <Column Name="fone" DataType="System.String"/>
-            <Column Name="enderReme" DataType="CTe.Classes.Informacoes.Remetente.enderReme, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderReme" DataType="CTe.Classes.Informacoes.Remetente.enderReme, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -416,7 +416,7 @@ namespace FastReport
               <Column Name="xPais" DataType="System.String"/>
             </Column>
             <Column Name="email" DataType="System.String"/>
-            <Column Name="locColeta" DataType="CTe.Classes.Informacoes.Remetente.locColeta, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="locColeta" DataType="CTe.Classes.Informacoes.Remetente.locColeta, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
               <Column Name="xNome" DataType="System.String"/>
@@ -430,13 +430,13 @@ namespace FastReport
               <Column Name="ProxyUF" DataType="System.String"/>
             </Column>
           </Column>
-          <Column Name="exped" DataType="CTe.Classes.Informacoes.Expedidor.exped, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="exped" DataType="CTe.Classes.Informacoes.Expedidor.exped, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="fone" DataType="System.String"/>
-            <Column Name="enderExped" DataType="CTe.Classes.Informacoes.Expedidor.enderExped, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderExped" DataType="CTe.Classes.Informacoes.Expedidor.enderExped, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -453,13 +453,13 @@ namespace FastReport
             </Column>
             <Column Name="email" DataType="System.String"/>
           </Column>
-          <Column Name="receb" DataType="CTe.Classes.Informacoes.Recebedor.receb, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="receb" DataType="CTe.Classes.Informacoes.Recebedor.receb, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="fone" DataType="System.String"/>
-            <Column Name="enderReceb" DataType="CTe.Classes.Informacoes.Recebedor.enderReceb, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderReceb" DataType="CTe.Classes.Informacoes.Recebedor.enderReceb, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -476,14 +476,14 @@ namespace FastReport
             </Column>
             <Column Name="email" DataType="System.String"/>
           </Column>
-          <Column Name="dest" DataType="CTe.Classes.Informacoes.Destinatario.dest, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="dest" DataType="CTe.Classes.Informacoes.Destinatario.dest, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="xNome" DataType="System.String"/>
             <Column Name="fone" DataType="System.String"/>
             <Column Name="ISUF" DataType="System.String"/>
-            <Column Name="enderDest" DataType="CTe.Classes.Informacoes.Destinatario.enderDest, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="enderDest" DataType="CTe.Classes.Informacoes.Destinatario.enderDest, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xLgr" DataType="System.String"/>
               <Column Name="nro" DataType="System.String"/>
               <Column Name="xCpl" DataType="System.String"/>
@@ -499,7 +499,7 @@ namespace FastReport
               <Column Name="xPais" DataType="System.String"/>
             </Column>
             <Column Name="email" DataType="System.String"/>
-            <Column Name="locEnt" DataType="CTe.Classes.Informacoes.Destinatario.locEnt, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="locEnt" DataType="CTe.Classes.Informacoes.Destinatario.locEnt, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
               <Column Name="xNome" DataType="System.String"/>
@@ -513,24 +513,27 @@ namespace FastReport
               <Column Name="ProxyUF" DataType="System.String"/>
             </Column>
           </Column>
-          <Column Name="vPrest" DataType="CTe.Classes.Informacoes.Valores.vPrest, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="vPrest" DataType="CTe.Classes.Informacoes.Valores.vPrest, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="vTPrest" DataType="System.Decimal"/>
             <Column Name="vRec" DataType="System.Decimal"/>
-            <BusinessObjectDataSource Name="Comp" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Valores.Comp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="Comp" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.Valores.Comp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="xNome" DataType="System.String"/>
               <Column Name="vComp" DataType="System.Decimal"/>
             </BusinessObjectDataSource>
           </Column>
-          <Column Name="imp" DataType="CTe.Classes.Informacoes.Impostos.imp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-            <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-                <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="imp" DataType="CTe.Classes.Informacoes.Impostos.imp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+            <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+                <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="pICMS" DataType="System.Decimal"/>
+                <Column Name="vICMS" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="vTotTribSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="infAdFisco" DataType="System.String"/>
-            <Column Name="ICMSUFFim" DataType="CTe.Classes.Informacoes.Impostos.ICMSUFFim, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="ICMSUFFim" DataType="CTe.Classes.Informacoes.Impostos.ICMSUFFim, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="vBCUFFim" DataType="System.Decimal"/>
               <Column Name="pFCPUFFim" DataType="System.Decimal"/>
               <Column Name="pICMSUFFim" DataType="System.Decimal"/>
@@ -540,7 +543,7 @@ namespace FastReport
               <Column Name="vICMSUFFim" DataType="System.Decimal"/>
               <Column Name="vICMSUFIni" DataType="System.Decimal"/>
             </Column>
-            <Column Name="infTribFed" DataType="CTe.Classes.Informacoes.Impostos.infTribFed, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infTribFed" DataType="CTe.Classes.Informacoes.Impostos.infTribFed, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vIR" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -553,14 +556,14 @@ namespace FastReport
               <Column Name="vCSLLSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             </Column>
           </Column>
-          <Column Name="infCTeNorm" DataType="CTe.Classes.Informacoes.infCTeNormal.infCTeNorm, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-            <Column Name="infServico" DataType="CTe.Classes.Informacoes.infCTeNormal.infServico, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="infCTeNorm" DataType="CTe.Classes.Informacoes.infCTeNormal.infCTeNorm, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infServico" DataType="CTe.Classes.Informacoes.infCTeNormal.infServico, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xDescServ" DataType="System.String"/>
             </Column>
-            <Column Name="infQ" DataType="CTe.Classes.Informacoes.infCTeNormal.infQcteOs, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infQ" DataType="CTe.Classes.Informacoes.infCTeNormal.infQcteOs, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="qCarga" DataType="System.Decimal"/>
             </Column>
-            <BusinessObjectDataSource Name="infDocRef" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocRef, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="infDocRef" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocRef, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="nDoc" DataType="System.String"/>
               <Column Name="serie" DataType="System.Int16"/>
               <Column Name="subserie" DataType="System.Nullable`1[[System.Int16, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -570,21 +573,21 @@ namespace FastReport
               <Column Name="vDoc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vDocSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             </BusinessObjectDataSource>
-            <Column Name="infCarga" DataType="CTe.Classes.Informacoes.infCTeNormal.infCarga, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infCarga" DataType="CTe.Classes.Informacoes.infCTeNormal.infCarga, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="vCarga" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="proPred" DataType="System.String"/>
               <Column Name="xOutCat" DataType="System.String"/>
-              <BusinessObjectDataSource Name="infQ" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCargas.infQ, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-                <Column Name="cUnid" DataType="CTe.Classes.Informacoes.Tipos.cUnid, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+              <BusinessObjectDataSource Name="infQ" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCargas.infQ, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <Column Name="cUnid" DataType="CTe.Classes.Informacoes.Tipos.cUnid, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="tpMed" DataType="System.String"/>
                 <Column Name="qCarga" DataType="System.Decimal"/>
               </BusinessObjectDataSource>
               <Column Name="vCargaAverb" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-              <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-                <BusinessObjectDataSource Name="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+                <BusinessObjectDataSource Name="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="nRoma" DataType="System.String"/>
                   <Column Name="nPed" DataType="System.String"/>
-                  <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="serie" DataType="System.Int16"/>
                   <Column Name="nDoc" DataType="System.String"/>
                   <Column Name="dEmi" DataType="System.DateTime"/>
@@ -601,14 +604,14 @@ namespace FastReport
                   <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="ProxyddPrev" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="chave" DataType="System.String"/>
                   <Column Name="PIN" DataType="System.String"/>
                   <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="ProxyddPrev" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-                  <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+                <BusinessObjectDataSource Name="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="descOutros" DataType="System.String"/>
                   <Column Name="nDoc" DataType="System.String"/>
                   <Column Name="dEmi" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -621,15 +624,15 @@ namespace FastReport
                 <Column Name="nCont" DataType="System.String"/>
                 <Column Name="dPrev" DataType="System.String"/>
               </Column>
-              <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="vCargaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
               <Column Name="vCargaAverbSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             </Column>
-            <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <BusinessObjectDataSource Name="infNF1" Alias="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" PropName="infNF" Enabled="true">
+            <Column Name="infDoc" DataType="CTe.Classes.Informacoes.infCTeNormal.infDoc, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <BusinessObjectDataSource Name="infNF1" Alias="infNF" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNF, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" PropName="infNF" Enabled="true">
                 <Column Name="nRoma" DataType="System.String"/>
                 <Column Name="nPed" DataType="System.String"/>
-                <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="mod" DataType="CTe.Classes.Informacoes.Tipos.mod, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="serie" DataType="System.Int16"/>
                 <Column Name="nDoc" DataType="System.String"/>
                 <Column Name="dEmi" DataType="System.DateTime"/>
@@ -646,14 +649,14 @@ namespace FastReport
                 <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="ProxyddPrev" DataType="System.String"/>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="infNFe1" Alias="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" PropName="infNFe" Enabled="true">
+              <BusinessObjectDataSource Name="infNFe1" Alias="infNFe" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" PropName="infNFe" Enabled="true">
                 <Column Name="chave" DataType="System.String"/>
                 <Column Name="PIN" DataType="System.String"/>
                 <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="ProxyddPrev" DataType="System.String"/>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="infOutros1" Alias="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" PropName="infOutros" Enabled="true">
-                <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+              <BusinessObjectDataSource Name="infOutros1" Alias="infOutros" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infOutros, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" PropName="infOutros" Enabled="true">
+                <Column Name="tpDoc" DataType="CTe.Classes.Informacoes.Tipos.tpDoc, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="descOutros" DataType="System.String"/>
                 <Column Name="nDoc" DataType="System.String"/>
                 <Column Name="dEmi" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -666,31 +669,31 @@ namespace FastReport
               <Column Name="nCont" DataType="System.String"/>
               <Column Name="dPrev" DataType="System.String"/>
             </Column>
-            <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-            <BusinessObjectDataSource Name="seg" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.seg, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-              <Column Name="respSeg" DataType="CTe.Classes.Informacoes.Tipos.respSeg, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="docAnt" DataType="CTe.Classes.Informacoes.infCTeNormal.docAnt, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+            <BusinessObjectDataSource Name="seg" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.seg, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <Column Name="respSeg" DataType="CTe.Classes.Informacoes.Tipos.respSeg, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="xSeg" DataType="System.String"/>
               <Column Name="nApol" DataType="System.String"/>
               <Column Name="nAver" DataType="System.String"/>
               <Column Name="vCarga" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vCargaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             </BusinessObjectDataSource>
-            <Column Name="infModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModal, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="versaoModal" DataType="CTe.Classes.Informacoes.Tipos.versaoModal, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-              <Column Name="ContainerModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.ContainerModal, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModal, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="versaoModal" DataType="CTe.Classes.Informacoes.Tipos.versaoModal, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="ContainerModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.ContainerModal, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                 <Column Name="RNTRC" DataType="System.String"/>
                 <Column Name="dPrev" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="ProxydPrev" DataType="System.String"/>
-                <Column Name="lota" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.lota, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+                <Column Name="lota" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.lota, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
                 <Column Name="lotaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <Column Name="CIOT" DataType="System.String"/>
-                <BusinessObjectDataSource Name="valePed" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.valePed, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="valePed" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.valePed, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="CNPJForn" DataType="System.String"/>
                   <Column Name="nCompra" DataType="System.String"/>
                   <Column Name="CNPJPg" DataType="System.String"/>
                   <Column Name="vValePed" DataType="System.Decimal"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="veic" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.veic, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="veic" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.veic, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="cInt" DataType="System.String"/>
                   <Column Name="RENAVAM" DataType="System.String"/>
                   <Column Name="placa" DataType="System.String"/>
@@ -700,17 +703,17 @@ namespace FastReport
                   <Column Name="capKGSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   <Column Name="capM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="capM3Specified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="tpProp" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpProp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpProp" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpProp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
                   <Column Name="tpPropSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="tpVeic" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpVeic, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpVeic" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpVeic, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
                   <Column Name="tpVeicSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="tpRod" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpRod, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
-                  <Column Name="tpRodSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="tpCar" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpCar, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpCar" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpCar, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
                   <Column Name="tpCarSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="tpRod" DataType="System.Nullable`1[[CTe.Classes.Informacoes.Tipos.tpRod, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]"/>
+                  <Column Name="tpRodSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="ProxyUF" DataType="System.String"/>
-                  <Column Name="prop" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.prop, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+                  <Column Name="prop" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS.prop, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                     <Column Name="CPF" DataType="System.String"/>
                     <Column Name="CNPJ" DataType="System.String"/>
                     <Column Name="RNTRC" DataType="System.String"/>
@@ -720,19 +723,19 @@ namespace FastReport
                     <Column Name="IE" DataType="System.String"/>
                     <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
                     <Column Name="ProxyUF" DataType="System.String"/>
-                    <Column Name="tpProp" DataType="CTe.Classes.Informacoes.Tipos.tpPropProp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="tpProp" DataType="CTe.Classes.Informacoes.Tipos.tpPropProp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
                   </Column>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="lacRodo" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.lacRodo, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="lacRodo" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.lacRodo, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="nLacre" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="moto" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.moto, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="moto" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.moto, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                   <Column Name="xNome" DataType="System.String"/>
                   <Column Name="CPF" DataType="System.String"/>
                 </BusinessObjectDataSource>
               </Column>
             </Column>
-            <BusinessObjectDataSource Name="peri" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.peri, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="peri" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.peri, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="nONU" DataType="System.String"/>
               <Column Name="xNomeAE" DataType="System.String"/>
               <Column Name="xClaRisco" DataType="System.String"/>
@@ -741,7 +744,7 @@ namespace FastReport
               <Column Name="qVolTipo" DataType="System.String"/>
               <Column Name="pontoFulgor" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <BusinessObjectDataSource Name="veicNovos" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.veicNovos, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <BusinessObjectDataSource Name="veicNovos" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.veicNovos, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
               <Column Name="chassi" DataType="System.String"/>
               <Column Name="cCor" DataType="System.String"/>
               <Column Name="xCor" DataType="System.String"/>
@@ -749,8 +752,8 @@ namespace FastReport
               <Column Name="vUnit" DataType="System.Decimal"/>
               <Column Name="vFrete" DataType="System.Decimal"/>
             </BusinessObjectDataSource>
-            <Column Name="cobr" DataType="CTe.Classes.Informacoes.infCTeNormal.cobr, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <Column Name="fat" DataType="CTe.Classes.Informacoes.infCTeNormal.cobrancas.fat, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="cobr" DataType="CTe.Classes.Informacoes.infCTeNormal.cobr, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <Column Name="fat" DataType="CTe.Classes.Informacoes.infCTeNormal.cobrancas.fat, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                 <Column Name="nFat" DataType="System.String"/>
                 <Column Name="vOrig" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="vDesc" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -760,12 +763,12 @@ namespace FastReport
                 <Column Name="vLiqSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
               </Column>
             </Column>
-            <Column Name="infCteSub" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSub, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infCteSub" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSub, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="chCte" DataType="System.String"/>
               <Column Name="refCteAnu" DataType="System.String"/>
-              <Column Name="tomaICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaICMS, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+              <Column Name="tomaICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaICMS, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                 <Column Name="refNFe" DataType="System.String"/>
-                <Column Name="refNF" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.refNF, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+                <Column Name="refNF" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.refNF, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CNPJ" DataType="System.String"/>
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="mod" DataType="System.String"/>
@@ -781,29 +784,29 @@ namespace FastReport
               </Column>
               <Column Name="indAlteraToma" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="indAlteraTomaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-              <Column Name="tomaNaoICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaNaoICMS, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+              <Column Name="tomaNaoICMS" DataType="CTe.Classes.Informacoes.infCTeNormal.infCteSubs.tomaNaoICMS, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
                 <Column Name="refCteAnu" DataType="System.String"/>
               </Column>
             </Column>
-            <Column Name="infGlobalizado" DataType="CTe.Classes.Informacoes.infCTeNormal.infGlobalizado, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+            <Column Name="infGlobalizado" DataType="CTe.Classes.Informacoes.infCTeNormal.infGlobalizado, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="xObs" DataType="System.String"/>
             </Column>
-            <Column Name="infServVinc" DataType="CTe.Classes.Informacoes.infCTeNormal.infServVinc, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-              <BusinessObjectDataSource Name="infCTeMultimodal" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCTeMultimodal, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+            <Column Name="infServVinc" DataType="CTe.Classes.Informacoes.infCTeNormal.infServVinc, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+              <BusinessObjectDataSource Name="infCTeMultimodal" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infCTeMultimodal, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                 <Column Name="chCTeMultimodal" DataType="System.String"/>
               </BusinessObjectDataSource>
             </Column>
           </Column>
-          <Column Name="infCteComp" DataType="CTe.Classes.Informacoes.infCteComp.infCteComp, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="infCteComp" DataType="CTe.Classes.Informacoes.infCteComp.infCteComp, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="chave" DataType="System.String"/>
             <Column Name="chCTe" DataType="System.String"/>
           </Column>
-          <Column Name="infCteAnu" DataType="CTe.Classes.Informacoes.infCteAnu.infCteAnu, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="infCteAnu" DataType="CTe.Classes.Informacoes.infCteAnu.infCteAnu, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
             <Column Name="chCte" DataType="System.String"/>
             <Column Name="dEmi" DataType="System.DateTime"/>
             <Column Name="ProxydEmi" DataType="System.String"/>
           </Column>
-          <BusinessObjectDataSource Name="autXML" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.autXML, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+          <BusinessObjectDataSource Name="autXML" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.autXML, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
           </BusinessObjectDataSource>
@@ -835,9 +838,9 @@ namespace FastReport
           </Column>
         </Column>
       </Column>
-      <Column Name="protCTe" DataType="CTe.Classes.Protocolo.protCTe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-        <Column Name="infProt" DataType="CTe.Classes.Protocolo.infProt, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+      <Column Name="protCTe" DataType="CTe.Classes.Protocolo.protCTe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infProt" DataType="CTe.Classes.Protocolo.infProt, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
           <Column Name="Id" DataType="System.String"/>
           <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="verAplic" DataType="System.String"/>
@@ -876,11 +879,11 @@ namespace FastReport
         </Column>
       </Column>
     </BusinessObjectDataSource>
-    <BusinessObjectDataSource Name="procEventoCTe" ReferenceName="procEventoCTe" DataType="CTe.Classes.Servicos.Consulta.procEventoCTe[], CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null" Enabled="true">
+    <BusinessObjectDataSource Name="procEventoCTe" ReferenceName="procEventoCTe" DataType="CTe.Classes.Servicos.Consulta.procEventoCTe[], CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null" Enabled="true">
       <Column Name="versao" DataType="System.String"/>
-      <Column Name="eventoCTe" DataType="CTe.Classes.Servicos.Evento.eventoCTe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoEnv, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+      <Column Name="eventoCTe" DataType="CTe.Classes.Servicos.Evento.eventoCTe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoEnv, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
           <Column Name="Id" DataType="System.String"/>
           <Column Name="cOrgao" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
@@ -888,20 +891,14 @@ namespace FastReport
           <Column Name="chCTe" DataType="System.String"/>
           <Column Name="dhEvento" DataType="System.DateTime"/>
           <Column Name="ProxydhEvento" DataType="System.String"/>
-          <Column Name="tpEvento" DataType="CTe.Classes.Servicos.Evento.Flags.TipoEvento, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="tpEvento" DataType="CTe.Classes.Servicos.Evento.Flags.TipoEvento, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="nSeqEvento" DataType="System.Int32"/>
-          <Column Name="detEvento" DataType="CTe.Classes.Servicos.Evento.detEvento, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
-            <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="EventoContainer" DataType="CTe.Classes.Servicos.Evento.EventoContainer, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+          <Column Name="detEvento" DataType="CTe.Classes.Servicos.Evento.detEvento, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
+            <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="EventoContainer" DataType="CTe.Classes.Servicos.Evento.EventoContainer, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
               <Column Name="descEvento" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="infCorrecao" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.infCorrecao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" PropName="infCorrecao" Enabled="true">
-                <Column Name="grupoAlterado" DataType="System.String"/>
-                <Column Name="campoAlterado" DataType="System.String"/>
-                <Column Name="valorAlterado" DataType="System.String"/>
-                <Column Name="nroItemAlterado" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="nroItemAlteradoSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-              </BusinessObjectDataSource>
-              <Column Name="xCondUso" DataType="System.String"/>
+              <Column Name="nProt" DataType="System.String"/>
+              <Column Name="xJust" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
@@ -932,9 +929,9 @@ namespace FastReport
           </Column>
         </Column>
       </Column>
-      <BusinessObjectDataSource Name="retEvento" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.retEventoCTe, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null"/>
-        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoRet, CTe.Classes, Version=1.0.0.668, Culture=neutral, PublicKeyToken=null">
+      <BusinessObjectDataSource Name="retEvento" DataType="System.Collections.Generic.List`1[[CTe.Classes.Servicos.Evento.retEventoCTe, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+        <Column Name="versao" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null"/>
+        <Column Name="infEvento" DataType="CTe.Classes.Servicos.Evento.infEventoRet, CTe.Classes, Version=1.0.0.656, Culture=neutral, PublicKeyToken=null">
           <Column Name="Id" DataType="System.String"/>
           <Column Name="tpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=0.0.0.7, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="verAplic" DataType="System.String"/>
@@ -1147,7 +1144,7 @@ namespace FastReport
       <TextObject Name="Text73" Left="1" Top="427.7" Width="717.2" Height="9.45" Text="DESCRIÇÃO" HorzAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
       <LineObject Name="Line34" Left="1.38" Top="439.15" Width="716.2" Diagonal="true"/>
       <TextObject Name="Text55" Left="2" Top="440.15" Width="713.75" Height="78.6" Font="Times New Roman, 9pt"/>
-      <ChildBand Name="Child1" Top="524.42" Width="718.2" Height="474.5">
+      <ChildBand Name="Child1" Top="525.75" Width="718.2" Height="474.5">
         <LineObject Name="Line30" Left="1" Top="28.35" Width="716.2"/>
         <TextObject Name="Text75" Top="28.8" Width="717.2" Height="443.7" Font="Courier New, 8.25pt"/>
         <LineObject Name="Line35" Left="1.38" Top="14.9" Width="715.2" Diagonal="true"/>
@@ -1159,7 +1156,7 @@ namespace FastReport
         <ShapeObject Name="Shape7" Top="1.45" Width="718.2" Height="472.5"/>
       </ChildBand>
     </ReportTitleBand>
-    <PageFooterBand Name="PageFooter1" Top="1001.58" Width="718.2" Height="37.8">
+    <PageFooterBand Name="PageFooter1" Top="1004.25" Width="718.2" Height="37.8">
       <TextObject Name="Text56" Left="179.55" Width="538.65" Height="37.8" Text="Data e hora da impressão: [FormatDateTime(DateTime.Now,&quot;dd/MM/yyyy HH:mm:ss&quot;)]&#13;&#10;Página: [Page#]/[TotalPages#]&#13;&#10;Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial Narrow, 8.25pt"/>
     </PageFooterBand>
   </ReportPage>
