@@ -55,8 +55,12 @@ namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
         [XmlElement(ElementName = "dEmi")]
         public string ProxydEmi
         {
-            get { return dEmi.ParaDataString();}
-            set { dEmi = Convert.ToDateTime(value); }
+            get { 
+                return dEmi.ParaDataString();
+            }
+            set { 
+                dEmi = Convert.ToDateTime(value); 
+            }
         }
     }
 }

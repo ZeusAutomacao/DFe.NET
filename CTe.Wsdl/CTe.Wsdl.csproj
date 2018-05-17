@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +49,10 @@
   <ItemGroup>
     <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
+    <Compile Include="DistribuicaoDFe\cteCabecMsg.cs" />
+    <Compile Include="DistribuicaoDFe\CTeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Evento\CteRecepcaoEvento.cs" />
     <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
