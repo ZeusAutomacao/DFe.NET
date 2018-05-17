@@ -12,6 +12,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +50,8 @@
     <Compile Include="ConsultaProtocolo\ConsultaProtcoloServico.cs" />
     <Compile Include="ConsultaRecibo\ConsultaReciboServico.cs" />
     <Compile Include="ConsultaStatus\StatusServico.cs" />
+    <Compile Include="DistribuicaoDFe\RetornoCteDistDFeInt.cs" />
+    <Compile Include="DistribuicaoDFe\ServicoCTeDistribuicaoDFe.cs" />
     <Compile Include="Enderecos\Helpers\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlCTe.cs" />
     <Compile Include="EnviarCte\RetornoEnviarCte.cs" />
@@ -84,6 +90,7 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

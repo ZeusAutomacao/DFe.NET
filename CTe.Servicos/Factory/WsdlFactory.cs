@@ -36,6 +36,7 @@ using CTe.Classes.Ext;
 using CTe.Servicos.Enderecos.Helpers;
 using CTe.Wsdl.Configuracao;
 using CTe.Wsdl.ConsultaProtocolo;
+using CTe.Wsdl.DistribuicaoDFe;
 using CTe.Wsdl.Evento;
 using CTe.Wsdl.Inutilizacao;
 using CTe.Wsdl.Recepcao;
@@ -100,6 +101,17 @@ namespace CTe.Servicos.Factory
 
             return new CteRecepcaoEvento(configuracaoWsdl);
         }
+
+
+        public static CTeDistDFeInteresse CriaWsdlCTeDistDFeInteresse()
+        {
+            var url = UrlHelper.ObterUrlServico().CTeDistribuicaoDFe ;
+
+            var configuracaoWsdl = CriaConfiguracao(url);
+
+            return new CTeDistDFeInteresse(configuracaoWsdl);
+        }
+
 
         private static WsdlConfiguracao CriaConfiguracao(string url)
         {
