@@ -322,7 +322,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <param name="tipoUrlConsultaPublica"></param>
         /// <returns></returns>
         public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico = VersaoServico.ve310)
-        {// todo endereço qrcode
+        {
             var query = from qr in EndQrCodeNfce where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado && qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica && qr.VersaoServico == versaoServico select qr.Url;
             var listaRetorno = query as IList<string> ?? query.ToList();
             var qtdeRetorno = listaRetorno.Count();
