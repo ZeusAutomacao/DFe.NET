@@ -407,7 +407,7 @@ namespace NFe.AppTeste
                     _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 {
                     _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlConsulta);
                 }
 
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
