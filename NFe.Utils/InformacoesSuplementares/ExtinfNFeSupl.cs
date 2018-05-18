@@ -84,9 +84,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hml.sefaznet.ac.gov.br/nfce/"),
 
                 new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.sefaznet.ac.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaznet.ac.gov.br/nfce/consulta", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.hml.sefaznet.ac.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hml.sefaznet.ac.gov.br/nfce/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaznet.ac.gov.br/nfce/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hml.sefaznet.ac.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AC, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hml.sefaznet.ac.gov.br/nfce/", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm"),
@@ -94,7 +94,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm"),
 
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaznet.ac.gov.br/nfce/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.AL, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm", VersaoServico.ve400),
 
@@ -123,10 +123,10 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.ba.gov.br/servicos/nfce/default.aspx"),
 
-                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.ba.gov.br/servicos/nfce/Modulos/Geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/Modulos/Geral/NFCEC_consulta_chave_acesso.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.ba.gov.br/servicos/nfce/qrcode.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaz.ba.gov.br/nfce/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/qrcode.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.BA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hinternet.sefaz.ba.gov.br/nfce/consulta", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
@@ -134,9 +134,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce"),
 
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/NFCE/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/NFCE/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.DF, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://dec.fazenda.df.gov.br/nfce", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214278/consumid"),
@@ -144,9 +144,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao"),
 
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214278/consumid", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.GO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe"),
@@ -156,16 +156,16 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://app.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.ES, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://app.sefaz.es.gov.br/ConsultaNFCe", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do"),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultaNFe.do"),
 
-                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.sefaz.ma.gov.br/portal/consultaNFe.do", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do?method=preFilterCupom&", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.ma.gov.br/portal/consultaNFe.do", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.MA, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultaNFe.do", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode"),
@@ -174,19 +174,19 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/chavedeacesso"),
 
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.sefaz.mt.gov.br/nfce/consultanfce"),
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaz.mt.gov.br/nfce/consultanfce"),
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"),
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"),
 
-                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"),
                 new EnderecoConsultaPublicaNfce(Estado.PA, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/consultanfce.seam"),
@@ -233,9 +233,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe"),
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br/"),
 
-                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode/", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.fazenda.pr.gov.br/nfce/qrcode/", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.PR, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.fazenda.pr.gov.br", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode"),
@@ -244,19 +244,19 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta"),
 
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RJ, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.fazenda.rj.gov.br/consulta", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx"),
 
-                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://nfce.set.rn.gov.br/consultarNFCe.aspx", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://hom.nfce.set.rn.gov.br/consultarNFCe.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RN, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://hom.nfce.set.rn.gov.br/portalDFE/NFCe/ConsultaNFCe.aspx", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefin.ro.gov.br"),
@@ -266,7 +266,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefin.ro.gov.br", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefin.ro.gov.br", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RO, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.sefin.ro.gov.br/consultaAmbHomologacao.jsp", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode"),
                 new EnderecoConsultaPublicaNfce(Estado.RR, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rr.gov.br/nfce/servlet/wp_consulta_nfce"),
@@ -284,9 +284,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx"),
 
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.RS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.sefaz.rs.gov.br/NFE/NFE-NFC.aspx", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp"),
                 new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.se.gov.br/portal"),
@@ -294,9 +294,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.hom.nfe.se.gov.br/portal"),
 
                 new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.se.gov.br/portal/portalNoticias.jsp", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.hom.nfe.se.gov.br/portal/portalNoticias.jsp", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SE, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaPublica.aspx"),
@@ -304,9 +304,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaPublica.aspx"),
 
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://www.nfce.fazenda.sp.gov.br/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://www.nfce.fazenda.sp.gov.br/consulta", VersaoServico.ve400),
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica", VersaoServico.ve400)
+                new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/consulta", VersaoServico.ve400)
 
             };
 
@@ -322,7 +322,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <param name="tipoUrlConsultaPublica"></param>
         /// <returns></returns>
         public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico = VersaoServico.ve310)
-        {// todo endereço qrcode
+        {
             var query = from qr in EndQrCodeNfce where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado && qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica && qr.VersaoServico == versaoServico select qr.Url;
             var listaRetorno = query as IList<string> ?? query.ToList();
             var qtdeRetorno = listaRetorno.Count();
