@@ -48,7 +48,6 @@ using NFe.Utils.NFe;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 using NFe.Danfe.Nativo.NFCe;
 using NFe.Danfe.Base.NFCe;
-using NFe.AppTeste;
 
 namespace NFe.Integracao
 {
@@ -173,21 +172,23 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.tpEmis = temiss;
             //-------------------------------------------------------------------------------
 
-            // Versão Atual da NFe/NFCe: 4.00
+            var versaoNFe = Properties.Settings.Default.versao_NFe;
+
             ConfiguracaoServico.Instancia.ProtocoloDeSeguranca = System.Net.SecurityProtocolType.Tls;
-            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve400;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve400;
+            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = versaoNFe;
+
             #endregion
 
         }
@@ -244,7 +245,7 @@ namespace NFe.Integracao
         /// <param name="tmpemissao">Tipo de emissão 1 (Normal), 2 (FS-IA), 3 (SCAN), 4 (EPEC), 5 (FS-DA), 6 (SVC-AN), 7 (SVC-RS) ou 9 (Offline)</param>
         public static void SetConfiguracoes(string pathcertificado, string certificadosenha, string pathxml,
             string pathchema, string emitente, string modelodocumento, string salvarxmlservico, string timeout,
-            string tmpamb, string tmpemissao)
+            string tmpamb, string tmpemissao, string versaoNFe)
         {
 
             Properties.Settings.Default.salvar_xml_servicos = salvarxmlservico == "1" ? "1" : "0";
@@ -258,6 +259,7 @@ namespace NFe.Integracao
             Properties.Settings.Default.time_out = string.IsNullOrWhiteSpace(timeout) ? "5000" : timeout;
             Properties.Settings.Default.tipo_ambiente = ConvertToLower(tmpamb);
             Properties.Settings.Default.tipo_emissao = ConvertToLower(tmpemissao);
+            Properties.Settings.Default.versao_NFe = versaoNFe == "3.10" ? VersaoServico.ve310 : VersaoServico.ve400;
 
             //Salvar configurações do usuario
             Properties.Settings.Default.Save();

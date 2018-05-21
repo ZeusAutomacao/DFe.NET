@@ -56,6 +56,8 @@ namespace NFe.Integracao
             //args = new[] {"enviar","","",""};
             //args = new[] { "help", "", "", "" };
             //args = new[] { "imprimirnfce", @"C:\WiaTI\NFC-e\Exemplo.xml", @"C:\WiaTI\NFC-e\Exemplo.jpeg", "", "" };
+            //args = new[] { "configurar" };
+            //args = new[] { "status" };
 
             try
             {
@@ -196,14 +198,16 @@ namespace NFe.Integracao
             var salvarxmlservico = Console.ReadLine();
             Console.WriteLine("Tempo de espera máximo dos serviços da sefaz em milisegundos");
             var timeout = Console.ReadLine();
-            Console.WriteLine("Ambiente {1 - Producão | 2 - Homologação");
+            Console.WriteLine("Ambiente { 1 - Producão | 2 - Homologação }");
             var tmpamb = Console.ReadLine();
             Console.WriteLine("Tipo de emissão 1 (Normal) | 2 (FS-IA)| 3 (SCAN)| 4 (EPEC)| 5 (FS-DA)| 6 (SVC-AN)| 7 (SVC-RS) | 9 (Offline) ");
             var tmpemissao = Console.ReadLine();
+            Console.WriteLine("Versão da NFe { 3.10 | 4.00 } ");
+            var versaoNFe = Console.ReadLine();
 
             //Set dados
             NFeFacade.SetConfiguracoes(pathcertificado, certificadosenha, pathxml,
-                pathchema, emitente, modelodocumento, salvarxmlservico, timeout, tmpamb, tmpemissao);
+                pathchema, emitente, modelodocumento, salvarxmlservico, timeout, tmpamb, tmpemissao, versaoNFe);
 
             Console.Clear();
             Console.WriteLine("Dados configurados !");
@@ -569,7 +573,7 @@ namespace NFe.Integracao
         /// <summary>
         /// Imprime um NFC-e em um arquivo jpeg.
         /// </summary>
-        /// <param name="dadosDaImpressao">Informações da impressão no formato: pathDoArquivoXml#localOndeSalvarOJpeg</param>
+        /// <param name="dadosDaImpressao">Informações da impressão no formato: "pathDoArquivoXml#localOndeSalvarOJpeg#idToken#Csc"</param>
         private static void ImprimirNFCe(string dadosDaImpressao)
         {
             try
