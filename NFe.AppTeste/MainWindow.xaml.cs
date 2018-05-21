@@ -407,7 +407,7 @@ namespace NFe.AppTeste
                     _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 {
                     _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
+                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlConsulta);
                 }
 
                 _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
@@ -430,7 +430,7 @@ namespace NFe.AppTeste
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
