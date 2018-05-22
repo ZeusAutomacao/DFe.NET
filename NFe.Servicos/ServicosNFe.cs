@@ -1345,6 +1345,7 @@ namespace NFe.Servicos
                 if (compactarMensagem)
                 {
                     retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(envio));
+                    envio.Dispose();
                 }
                 else
                 {

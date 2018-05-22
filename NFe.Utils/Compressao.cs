@@ -83,12 +83,14 @@ namespace NFe.Utils
             {
                 using (var gs = new GZipStream(mso, CompressionMode.Compress, true))
                 {
-                    CopiarPara(msi, gs);
+                    msi.CopyTo(gs);
                 }
 
                 using (var c = new CryptoStream(mso, new ToBase64Transform(), CryptoStreamMode.Read))
                 using (var a = new StreamReader(c))
+                {
                     return a.ReadToEnd();
+                }
             }
         }
 
