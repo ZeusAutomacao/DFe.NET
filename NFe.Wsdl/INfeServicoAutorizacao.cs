@@ -6,6 +6,5 @@ namespace NFe.Wsdl
     public interface INfeServicoAutorizacao : INfeServico
     {
         XmlNode ExecuteZip(string nfeDadosMsgZip);
-        XmlNode Execute(enviNFe3 nfeDadosMsg);
     }
 }

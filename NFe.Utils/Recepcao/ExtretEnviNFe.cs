@@ -33,6 +33,8 @@
 
 using DFe.Utils;
 using NFe.Classes.Servicos.Recepcao;
+using System.IO;
+using System.Xml;
 
 namespace NFe.Utils.Recepcao
 {
@@ -48,7 +50,7 @@ namespace NFe.Utils.Recepcao
         {
             return FuncoesXml.XmlStringParaClasse<retEnviNFe>(xmlString);
         }
-
+        
         /// <summary>
         ///     Converte o objeto retEnviNFe para uma string no formato XML
         /// </summary>

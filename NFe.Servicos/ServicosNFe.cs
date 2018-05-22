@@ -82,10 +82,13 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
-using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+using NFe.Wsdl.Autorizacao.SVAN;
+using NFe.Wsdl.ConsultaProtocolo.SVAN;
+using NFe.Wsdl.Evento.SVAN;
+using NFe.Wsdl.Inutilizacao.SVAN;
+using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
+using System.Xml.Serialization;
 
 namespace NFe.Servicos
 {
@@ -146,8 +149,14 @@ namespace NFe.Servicos
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
+            if (IsSvanNFe4())
+            {
+                return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+            }
+
             if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
 
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -170,6 +179,12 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
                         return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
@@ -178,6 +193,11 @@ namespace NFe.Servicos
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
 
                     if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
                     {
@@ -206,6 +226,11 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
                         return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
 
@@ -214,6 +239,17 @@ namespace NFe.Servicos
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -223,16 +259,17 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
-                    {
-                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
-                    }
 
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    if (IsSvanNFe4())
+                    {
+                        return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
                     {
                         return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
@@ -271,6 +308,13 @@ namespace NFe.Servicos
             }
 
             return null;
+        }
+
+        private bool IsSvanNFe4()
+        {
+            return (_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
+                   && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
+                   && _cFgServico.ModeloDocumento == ModeloDocumento.NFe;
         }
 
         /// <summary>
@@ -1289,9 +1333,9 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
-            var dadosEnvio = new XmlDocument();
-            dadosEnvio.LoadXml(xmlEnvio);
+            var envio = new MemoryStream(Encoding.UTF8.GetBytes(xmlEnvio));
+
+            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, envio, cfgServico: _cFgServico);
 
             SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
@@ -1300,11 +1344,12 @@ namespace NFe.Servicos
             {
                 if (compactarMensagem)
                 {
-                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
-                    retorno = ws.ExecuteZip(xmlCompactado);
+                    retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(envio));
                 }
                 else
                 {
+                    var dadosEnvio = new XmlDocument();
+                    dadosEnvio.LoadXml(xmlEnvio);
                     retorno = ws.Execute(dadosEnvio);
                 }
             }
@@ -1314,11 +1359,11 @@ namespace NFe.Servicos
             }
 
             var retornoXmlString = retorno.OuterXml;
-            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
+            var retEnvio = FuncoesXml.XmlNodeParaClasse<retEnviNFe>(retorno);
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 
-            return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
+            return new RetornoNFeAutorizacao(xmlEnvio, retornoXmlString, retornoXmlString, retEnvio);
 
             #endregion
         }
@@ -1674,7 +1719,6 @@ namespace NFe.Servicos
         }
 
         #endregion
-
 
         #region Implementação do padrão Dispose
 
