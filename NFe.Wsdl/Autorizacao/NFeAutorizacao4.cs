@@ -1,8 +1,6 @@
-﻿using System;
+﻿using NFe.Classes.Servicos.Autorizacao;
+using System;
 using System.Security.Cryptography.X509Certificates;
-//using System.Web.Services;
-//using System.Web.Services.Description;
-//using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -33,6 +31,11 @@ namespace NFe.Wsdl.Autorizacao
             return null;
         }
 
+        public XmlNode Execute(enviNFe3 nfeDadosMsg)
+        {
+            return null;
+        }
+        
 
         //[SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         //[WebMethod(MessageName = "nfeAutorizacaoLoteZIP")]

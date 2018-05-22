@@ -61,7 +61,7 @@ namespace DFe.Utils
 
             using (var memory = new MemoryStream())
             {
-                using (TextReader tr = new StreamReader(memory, Encoding.UTF8))
+                using (var tr = new StreamReader(memory, Encoding.UTF8))
                 {
                     ser.Serialize(memory, objeto);
                     memory.Position = 0;

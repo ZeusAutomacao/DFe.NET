@@ -32,6 +32,7 @@
 /********************************************************************************/
 using System.IO;
 using System.IO.Compression;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace NFe.Utils
@@ -41,7 +42,6 @@ namespace NFe.Utils
         private static void CopiarPara(Stream src, Stream dest)
         {
             var bytes = new byte[4096];
-
             int cnt;
 
             while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
@@ -68,6 +68,27 @@ namespace NFe.Utils
                 }
 
                 return mso.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Compacta uma string para GZip
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ZipWithToBase64Transform(Stream msi)
+        {
+            msi.Position = 0;
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(mso, CompressionMode.Compress, true))
+                {
+                    CopiarPara(msi, gs);
+                }
+
+                using (var c = new CryptoStream(mso, new ToBase64Transform(), CryptoStreamMode.Read))
+                using (var a = new StreamReader(c))
+                    return a.ReadToEnd();
             }
         }
 

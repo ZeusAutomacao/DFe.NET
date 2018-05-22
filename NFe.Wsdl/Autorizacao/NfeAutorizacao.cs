@@ -31,12 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
 using System.Xml;
+using NFe.Classes.Servicos.Autorizacao;
 
 namespace NFe.Wsdl.Autorizacao
 {
@@ -51,11 +49,15 @@ namespace NFe.Wsdl.Autorizacao
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
             var result = base.nfeAutorizacaoLoteAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
             return result.nfeAutorizacaoLoteResult;
+        }
+
+        public XmlNode Execute(enviNFe3 nfeDadosMsg)
+        {
+            throw new NotImplementedException();
         }
 
         public XmlNode ExecuteZip(string nfeDadosMsgZip)
@@ -63,6 +65,22 @@ namespace NFe.Wsdl.Autorizacao
             var result = base.nfeAutorizacaoLoteZipAsync(this.nfeCabecMsg, nfeDadosMsgZip).Result;
             return result.nfeAutorizacaoLoteResult;
         }
+
+        // public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao")] XmlNode nfeDadosMsg)
+        // {
+        //     var results = Invoke("nfeAutorizacaoLote", new object[] {nfeDadosMsg});
+        //     return ((XmlNode) (results[0]));
+        // }
+
+        // [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
+        // [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao/nfeAutorizacaoLote", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        // [WebMethod(MessageName = "nfeAutorizacaoLote")]
+        // [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao")]
+        // public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")] enviNFe3 nfeDadosMsg)
+        // {
+        //     var results = Invoke("nfeAutorizacaoLote", new object[] { nfeDadosMsg });
+        //     return ((XmlNode)(results[0]));
+        // }
     }
 
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -158,7 +176,6 @@ namespace NFe.Wsdl.Autorizacao
             return ((NfeAutorizacaoSoap12)(this.Channel)).nfeAutorizacaoLoteAsync(inValue);
         }
 
-
         public System.Threading.Tasks.Task<nfeAutorizacaoLoteResponse> nfeAutorizacaoLoteZipAsync(nfeCabecMsg nfeCabecMsg, string nfeDadosMsgZip)
         {
             nfeAutorizacaoLoteZipRequest inValue = new nfeAutorizacaoLoteZipRequest();
@@ -167,5 +184,4 @@ namespace NFe.Wsdl.Autorizacao
             return ((NfeAutorizacaoSoap12)(this)).nfeAutorizacaoLoteZipAsync(inValue);
         }
     }
-
 }

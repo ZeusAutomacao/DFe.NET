@@ -80,8 +80,11 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Xml;
 using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -122,6 +125,16 @@ namespace NFe.Servicos
             var stw = new StreamWriter(dir + @"\" + nomeArquivo);
             stw.WriteLine(xmlString);
             stw.Close();
+        }
+
+        private void SalvarArquivoXml(string nomeArquivo, Stream xmlStream)
+        {
+            if (!_cFgServico.SalvarXmlServicos) return;
+            var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
+
+            xmlStream.Position = 0;
+            using (var stw = new FileStream(dir + @"\" + nomeArquivo, FileMode.Create))
+                xmlStream.CopyTo(stw);
         }
 
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
@@ -1224,6 +1237,10 @@ namespace NFe.Servicos
 
         #region Autorização
 
+        private static XmlWriterSettings xmlSettings = new XmlWriterSettings { Indent = false, OmitXmlDeclaration = true, NamespaceHandling = NamespaceHandling.OmitDuplicates, Encoding = new UTF8Encoding(false) };
+        private static XmlSerializerNamespaces ns = new XmlSerializerNamespaces(new[] { new XmlQualifiedName(string.Empty, "http://www.portalfiscal.inf.br/nfe") });
+        private static XmlSerializer enviNFe3Serializer = XmlSerializer.FromTypes(new[] { typeof(enviNFe3) })[0];
+
         /// <summary>
         ///     Envia uma ou mais NFe
         /// </summary>
@@ -1232,7 +1249,8 @@ namespace NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
+        public RetornoNFeAutorizacao NFeAutorizacao(
+            int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
             bool compactarMensagem = false)
         {
             if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
@@ -1324,6 +1342,93 @@ namespace NFe.Servicos
             #region Cria o objeto enviNFe
 
             var pedEnvio = new enviNFe3(versaoServico, idLote, indSinc, nFes);
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+            var xmlEnvio = new MemoryStream();
+
+            using (var xmlWriter = XmlWriter.Create(xmlEnvio, xmlSettings))
+            {
+                enviNFe3Serializer.Serialize(xmlWriter, pedEnvio, ns);
+            }
+
+            //if (_cFgServico.cUF == Estado.PR)
+            //    //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
+            //    xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
+
+            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            XmlNode retorno;
+            try
+            {
+                if (compactarMensagem)
+                {
+                    retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(xmlEnvio));
+                }
+                else
+                {
+                    retorno = ws.Execute(pedEnvio);
+                }
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeAutorizacao, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
+
+            var ret = string.Empty;
+
+            using (var r = new StreamReader(xmlEnvio))
+            {
+                ret = r.ReadToEnd();
+                xmlEnvio.Dispose();
+            }
+
+            return new RetornoNFeAutorizacao(ret, retornoXmlString, retornoXmlString, retEnvio);
+
+            #endregion
+        }
+
+        /// <summary>
+        ///     Envia uma ou mais NFe
+        /// </summary>
+        /// <param name="idLote">ID do Lote</param>
+        /// <param name="indSinc">Indicador de Sincronização</param>
+        /// <param name="nFes">Lista de NFes a serem enviadas</param>
+        /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
+        /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
+        public RetornoNFeAutorizacao NFeAutorizacaoComXml
+        (
+            int idLote,
+            IndicadorSincronizacao indSinc,
+            string nFes,
+            bool compactarMensagem = false
+        )
+        {
+            var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Cria o objeto enviNFe
+
+            var pedEnvio = new enviNFe3(versaoServico, idLote, indSinc, null);
 
             #endregion
 

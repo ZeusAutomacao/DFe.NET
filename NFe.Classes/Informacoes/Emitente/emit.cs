@@ -133,6 +133,5 @@ namespace NFe.Classes.Informacoes.Emitente
         ///     C21 - Código de Regime Tributário
         /// </summary>
         public CRT CRT { get; set; }
-
     }
 }

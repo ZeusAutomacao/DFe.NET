@@ -47,7 +47,7 @@ namespace NFe.Classes.Servicos.Autorizacao
             NFe = nFe;
         }
 
-        internal enviNFe3() //para serialização apenas
+        public enviNFe3() //para serialização apenas
         {
         }
 
