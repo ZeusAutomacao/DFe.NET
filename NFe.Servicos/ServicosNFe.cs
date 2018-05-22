@@ -1358,12 +1358,9 @@ namespace NFe.Servicos
                 throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeAutorizacao, ex);
             }
 
-            var retornoXmlString = retorno.OuterXml;
-            var retEnvio = FuncoesXml.XmlNodeParaClasse<retEnviNFe>(retorno);
+            SalvarArquivoXml(idLote + "-rec.xml", retorno.OuterXml);
 
-            SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
-
-            return new RetornoNFeAutorizacao(xmlEnvio, retornoXmlString, retornoXmlString, retEnvio);
+            return new RetornoNFeAutorizacao(xmlEnvio, retorno.OuterXml, retorno.OuterXml, FuncoesXml.XmlNodeParaClasse<retEnviNFe>(retorno));
 
             #endregion
         }
@@ -1409,14 +1406,16 @@ namespace NFe.Servicos
             XmlNode retorno;
             try
             {
-                if (compactarMensagem)
-                {
+                //if (compactarMensagem)
+                //{
                     retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(xmlEnvio));
-                }
-                else
-                {
-                    retorno = ws.Execute(pedEnvio);
-                }
+                //}
+                //else
+                //{
+                //    var xmlEnvioNode = new XmlDocument();
+                //    xmlEnvioNode.LoadXml(pedEnvio);
+                //    retorno = ws.Execute(xmlEnvioNode);
+                //}
             }
             catch (WebException ex)
             {
