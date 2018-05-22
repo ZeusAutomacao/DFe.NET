@@ -1344,7 +1344,10 @@ namespace NFe.Servicos
             {
                 if (compactarMensagem)
                 {
-                    retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(envio));
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                    retorno = ws.ExecuteZip(xmlCompactado);
+
+                    //retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(envio));
                     envio.Dispose();
                 }
                 else
