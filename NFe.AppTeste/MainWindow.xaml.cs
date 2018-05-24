@@ -1285,7 +1285,6 @@ namespace NFe.AppTeste
             var icmsTot = new ICMSTot
             {
                 vProd = produtos.Sum(p => p.prod.vProd),
-                vNF = produtos.Sum(p => p.prod.vProd) - produtos.Sum(p => p.prod.vDesc ?? 0),
                 vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
                 vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
             };
@@ -1321,6 +1320,8 @@ namespace NFe.AppTeste
                 //Outros Ifs aqui, caso vá usar as classes ICMS00, ICMS10 para totalizar
             }
 
+             icmsTot.vNF = Convert.ToDecimal(icmsTot.vProd - icmsTot.vDesc - icmsTot.vICMSDeson + icmsTot.vST + icmsTot.vFCPST + icmsTot.vFrete + icmsTot.vSeg + icmsTot.vOutro + icmsTot.vII + icmsTot.vIPI + icmsTot.vIPIDevol);
+
             var t = new total {ICMSTot = icmsTot};
             return t;
         }
@@ -1351,14 +1352,14 @@ namespace NFe.AppTeste
 
         protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
-            var valorParcela = Valor.Arredondar(icmsTot.vProd/2, 2);
+            var valorParcela = Valor.Arredondar(icmsTot.vNF/2, 2);
             var c = new cobr
             {
-                fat = new fat {nFat = "12345678910", vLiq = icmsTot .vProd},
+                fat = new fat {nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF},
                 dup = new List<dup>
                 {
                     new dup {nDup = "12345678", vDup = valorParcela},
-                    new dup {nDup = "987654321", vDup = icmsTot.vProd - valorParcela}
+                    new dup {nDup = "987654321", vDup = icmsTot.vNF - valorParcela}
                 }
             };
 
@@ -1367,14 +1368,14 @@ namespace NFe.AppTeste
 
         protected virtual List<pag> GetPagamento(ICMSTot icmsTot, VersaoServico versao)
         {
-            var valorPagto = Valor.Arredondar(icmsTot.vProd / 2, 2);
+            var valorPagto = Valor.Arredondar(icmsTot.vNF / 2, 2);
 
             if (versao != VersaoServico.ve400) // difernte de versão 4 retorna isso
             {
                 var p = new List<pag>
                 {
                     new pag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
-                    new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vProd - valorPagto}
+                    new pag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vNF - valorPagto}
                 };
                 return p;
             }
@@ -1390,9 +1391,8 @@ namespace NFe.AppTeste
                     detPag = new List<detPag>
                     {
                         new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vProd - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vNF - valorPagto}
                     },
-                    vTroco = 0.50m
                 }
             };
 
