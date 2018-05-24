@@ -1285,7 +1285,6 @@ namespace NFe.AppTeste
             var icmsTot = new ICMSTot
             {
                 vProd = produtos.Sum(p => p.prod.vProd),
-                vNF = produtos.Sum(p => p.prod.vProd) - produtos.Sum(p => p.prod.vDesc ?? 0),
                 vDesc = produtos.Sum(p => p.prod.vDesc ?? 0),
                 vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
             };
@@ -1320,6 +1319,9 @@ namespace NFe.AppTeste
                 }
                 //Outros Ifs aqui, caso vá usar as classes ICMS00, ICMS10 para totalizar
             }
+
+            //** Regra de validação W16-10 que rege sobre o Total da NF **//
+            icmsTot.vNF = Convert.ToDecimal(icmsTot.vProd - icmsTot.vDesc - icmsTot.vICMSDeson + icmsTot.vST + icmsTot.vFCPST + icmsTot.vFrete + icmsTot.vSeg + icmsTot.vOutro + icmsTot.vII + icmsTot.vIPI + icmsTot.vIPIDevol);
 
             var t = new total {ICMSTot = icmsTot};
             return t;
