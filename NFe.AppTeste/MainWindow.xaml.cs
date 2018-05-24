@@ -1354,7 +1354,7 @@ namespace NFe.AppTeste
             var valorParcela = Valor.Arredondar(icmsTot.vProd/2, 2);
             var c = new cobr
             {
-                fat = new fat {nFat = "12345678910", vLiq = icmsTot .vProd},
+                fat = new fat {nFat = "12345678910", vLiq = icmsTot.vProd, vOrig = icmsTot.vProd},
                 dup = new List<dup>
                 {
                     new dup {nDup = "12345678", vDup = valorParcela},
