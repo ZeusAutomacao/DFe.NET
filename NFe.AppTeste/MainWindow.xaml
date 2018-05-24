@@ -68,6 +68,11 @@
     <Grid>
         <GroupBox Header="Configurações" HorizontalAlignment="Left" Width="500" Margin="1,0,0,0">
             <StackPanel HorizontalAlignment="Left" Margin="0,10,-2,-12" Width="490" VerticalAlignment="Top">
+                <DockPanel Dock="Bottom" Height="45">
+                    <Button x:Name="BtnSalvar" Content="Salvar Configurações para arquivo" Width="203"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Height="27" Click="btnSalvar_Click" />
+                </DockPanel>
                 <TabControl VerticalAlignment="Top" Height="700">
                     <TabItem Header="Certificado">
                         <Grid Background="White">
@@ -779,11 +784,6 @@
                         </Grid>
                     </TabItem>
                 </TabControl>
-                <DockPanel Dock="Bottom" Height="45">
-                    <Button x:Name="BtnSalvar" Content="Salvar Configurações para arquivo" Width="203"
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Height="27" Click="btnSalvar_Click" />
-                </DockPanel>
             </StackPanel>
         </GroupBox>
         <TabControl Name="TabSuperior" Height="266" Margin="510,10,-0,0" VerticalAlignment="Top">
