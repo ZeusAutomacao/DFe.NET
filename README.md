@@ -25,7 +25,7 @@ A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Communit
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
 **O que a biblioteca faz:**
-
+------------------
 O projeto traz classes que extraem os XSDs da NFe. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutra exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
 Além da serialização e desserialização, o projeto também conta com os métodos de consumo dos webservices (consultar, transmitir, cancelar, inutilizar, etc.), ou seja, com a biblioteca você preenche um objeto nativo em .NET e transmite o seu DFe de forma totalmente transparente, sem se preocupar coma serialização e consumo do webserice.
@@ -42,6 +42,7 @@ danfe.Visualizar();
 ```
 
 **Como usar a ferramenta:**
+-----------
 Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com o DFe.NET
 
 Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. A linguagem utilizada é C#, logo um conhecimento basico da linguagem tende a lhe ajudar bastante, mesmo que você use apenas a dll com VB.Net ou outra linguagem compatível.
@@ -55,6 +56,7 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 - *NFe.Danfe.AppTeste:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
 
 **Impressão:**
+----------
 - A impressão de forma nativa (sem dependências de bibliotecas de terceiros está disponível somente para a *NFCe*¹.
 - O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
 
@@ -66,5 +68,5 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 
 **Suporte:**
-
+---------
 O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo skype.
