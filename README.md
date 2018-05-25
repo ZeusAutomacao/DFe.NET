@@ -25,15 +25,21 @@ A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Communit
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
 **O que a biblioteca faz:**
+
 O projeto traz classes que extraem os XSDs da NFe. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutra exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
 Além da serialização e desserialização, o projeto também conta com os métodos de consumo dos webservices (consultar, transmitir, cancelar, inutilizar, etc.), ou seja, com a biblioteca você preenche um objeto nativo em .NET e transmite o seu DFe de forma totalmente transparente, sem se preocupar coma serialização e consumo do webserice.
 
-Exemplo:
-```
-Exemplo 1 aqui
-```
+A bibliteca também conta com a impressão dos DFes suportados, onde basicamente basta fazer a desserialização (ou preencher manualmente o(s) objeto(s) do DFe em questão) e chamar seu projeto de impressão.
 
+Exemplo: 
+```cs
+var proc = new nfeProc().CarregarDeArquivoXml(Caminho_do_arquivo_XML);
+var danfe = new DanfeFrNfce(proc, new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, null/*Logomarca em byte[]*/), "00001", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
+danfe.Visualizar();
+//danfe.Imprimir();
+//danfe.ExibirDesign();
+```
 
 **Como usar a ferramenta:**
 Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com o DFe.NET
@@ -57,7 +63,6 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 >² Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
 As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes_;
 Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
-
 
 
 **Suporte:**
