@@ -26,7 +26,7 @@ Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_Genera
 
 **O que a biblioteca faz:**
 ------------------
-O projeto traz classes constuídas de forma manual que extraem a complexidade ds XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutra exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
+O projeto traz classes constuídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutra exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
 Além da serialização e desserialização, o projeto também conta com os métodos de consumo dos webservices (consultar, transmitir, cancelar, inutilizar, etc.), ou seja, com a biblioteca você preenche um objeto nativo em .NET e transmite o seu DFe de forma totalmente transparente, sem se preocupar coma serialização e consumo do webserice.
 
