@@ -825,8 +825,6 @@
                             Margin="10,160,0,0" VerticalAlignment="Top" Width="177" Click="BtnCarregaXmlEnvia_Click" />
                     <Button x:Name="BtnConsultaCadastro" Content="Consultar Cadastro" HorizontalAlignment="Left"
                             Margin="192,160,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaCadastro_Click" />
-                    <Button x:Name="BtnDownlodNfe" Content="Downlod NFe" HorizontalAlignment="Left"
-                            Margin="374,160,0,0" VerticalAlignment="Top" Width="177" Click="BtnDownlodNfe_Click" />
                     <Button x:Name="BtnAdminCsc" Content="Administrar CSC" HorizontalAlignment="Left"
                             Margin="192,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdminCsc_Click" />
                     <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick"

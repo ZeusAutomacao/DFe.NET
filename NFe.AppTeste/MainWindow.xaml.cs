@@ -1375,46 +1375,7 @@ namespace NFe.AppTeste
         }
 
         #endregion
-
-        private void BtnDownlodNfe_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Download Nfe
-
-                var cnpj = Funcoes.InpuBox(this, "Download Nfe", "CNPJ do destinatário da NFe:");
-                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
-                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
-
-                var chave = Funcoes.InpuBox(this, "Download Nfe", "Chave da NFe:");
-                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
-                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
-
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() {chave});
-
-                //Se desejar consultar mais de uma chave, use o serviço como indicado abaixo. É permitido consultar até 10 nfes de uma vez.
-                //Leia atentamente as informações do consumo deste serviço constantes no manual
-                //var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { "28150707703290000189550010000009441000029953", "28150707703290000189550010000009431000029948" });
-
-                TrataRetorno(retornoDownload);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
+        
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
