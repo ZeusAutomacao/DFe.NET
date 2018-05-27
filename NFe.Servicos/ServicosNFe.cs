@@ -1376,6 +1376,7 @@ namespace NFe.Servicos
         ///     Consulta a Situação da NFe
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
+        [Obsolete("Descontinuado pela Sefaz")]
         public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves, string nomeSaida = "")
         {
             var versaoServico = ServicoNFe.NfeDownloadNF.VersaoServicoParaString(_cFgServico.VersaoNfeDownloadNF);
