@@ -326,36 +326,6 @@ namespace NFe.AppTeste
             }
         }
 
-        private void BtnConsultarReciboLote2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Consulta Recibo de lote
-
-                var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
-                if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoRecibo = servicoNFe.NfeRetRecepcao(recibo);
-
-                TrataRetorno(retornoRecibo);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
         private void BtnCriareEnviar3_Click(object sender, RoutedEventArgs e)
         {
             try
