@@ -791,8 +791,6 @@
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
                             Margin="10,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnStatusServico_Click" />
-                    <Button x:Name="BtnCriareEnviar2" Content="Criar e Enviar 2.0" HorizontalAlignment="Left"
-                            Margin="10,35,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviar2_Click" />
                     <Button x:Name="BtnConsultaXml" Content="Consultar carregando XML" HorizontalAlignment="Left"
                             Margin="10,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaXml_Click" />
                     <Button x:Name="BtnConsultaChave" Content="Consultar pela Chave" HorizontalAlignment="Left"

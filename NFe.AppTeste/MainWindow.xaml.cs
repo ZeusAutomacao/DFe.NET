@@ -268,38 +268,6 @@ namespace NFe.AppTeste
             }
         }
 
-        private void BtnCriareEnviar2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Cria e Envia NFe
-
-                var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
-                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
-
-                var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
-                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
-
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> {_nfe});
-
-                TrataRetorno(retornoEnvio);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                //Faça o tratamento de contingência OffLine aqui.
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
         private void BtnGerarNfe2_Click(object sender, RoutedEventArgs e)
         {
             GeranNfe(_configuracoes.CfgServico.VersaoNfeRecepcao, _configuracoes.CfgServico.ModeloDocumento);
