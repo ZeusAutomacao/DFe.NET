@@ -268,11 +268,6 @@ namespace NFe.AppTeste
             }
         }
 
-        private void BtnGerarNfe2_Click(object sender, RoutedEventArgs e)
-        {
-            GeranNfe(_configuracoes.CfgServico.VersaoNfeRecepcao, _configuracoes.CfgServico.ModeloDocumento);
-        }
-
         private void GeranNfe(VersaoServico versaoServico, ModeloDocumento modelo)
         {
             try

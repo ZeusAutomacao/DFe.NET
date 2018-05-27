@@ -798,8 +798,6 @@
                     <Button x:Name="BtnInutiliza" Content="Inutilizar Numeração" HorizontalAlignment="Left"
                             Margin="192,10,0,0"
                             VerticalAlignment="Top" Width="177" Click="BtnInutiliza_Click" />
-                    <Button x:Name="BtnGerarNfe2" Content="Criar e Salvar XML 2.0" HorizontalAlignment="Left"
-                            Margin="374,35,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe2_Click" />
                     <Button x:Name="BtnCriareEnviar3" Content="Criar e Enviar 3.0 Ou 4.0" HorizontalAlignment="Left"
                             Margin="10,60,0,0" VerticalAlignment="Top" Width="177" Click="BtnCriareEnviar3_Click" />
                     <Button x:Name="BtnConsultarReciboLote3" Content="Consultar Recibo Lote 3.0 Ou 4.0"
