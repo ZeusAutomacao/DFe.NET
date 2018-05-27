@@ -268,43 +268,6 @@ namespace NFe.AppTeste
             }
         }
 
-        private void BtnCriareEnviar2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Cria e Envia NFe
-
-                var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
-                if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
-
-                var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
-                if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
-
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> {_nfe});
-
-                TrataRetorno(retornoEnvio);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                //Faça o tratamento de contingência OffLine aqui.
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
-        private void BtnGerarNfe2_Click(object sender, RoutedEventArgs e)
-        {
-            GeranNfe(_configuracoes.CfgServico.VersaoNfeRecepcao, _configuracoes.CfgServico.ModeloDocumento);
-        }
-
         private void GeranNfe(VersaoServico versaoServico, ModeloDocumento modelo)
         {
             try
@@ -350,36 +313,6 @@ namespace NFe.AppTeste
                 if (result != true) return;
                 var arquivoXml = dlg.FileName;
                 _nfe.SalvarArquivoXml(arquivoXml);
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
-
-        private void BtnConsultarReciboLote2_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Consulta Recibo de lote
-
-                var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
-                if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoRecibo = servicoNFe.NfeRetRecepcao(recibo);
-
-                TrataRetorno(retornoRecibo);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
             catch (Exception ex)
             {
@@ -1442,46 +1375,7 @@ namespace NFe.AppTeste
         }
 
         #endregion
-
-        private void BtnDownlodNfe_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Download Nfe
-
-                var cnpj = Funcoes.InpuBox(this, "Download Nfe", "CNPJ do destinatário da NFe:");
-                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
-                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
-
-                var chave = Funcoes.InpuBox(this, "Download Nfe", "Chave da NFe:");
-                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
-                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
-
-                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() {chave});
-
-                //Se desejar consultar mais de uma chave, use o serviço como indicado abaixo. É permitido consultar até 10 nfes de uma vez.
-                //Leia atentamente as informações do consumo deste serviço constantes no manual
-                //var retornoDownload = servicoNFe.NfeDownloadNf(cnpj, new List<string>() { "28150707703290000189550010000009441000029953", "28150707703290000189550010000009431000029948" });
-
-                TrataRetorno(retornoDownload);
-
-                #endregion
-            }
-            catch (ComunicacaoException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (ValidacaoSchemaException ex)
-            {
-                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
-        }
+        
 
         private void BtnArquivoCertificado_Click(object sender, RoutedEventArgs e)
         {
