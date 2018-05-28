@@ -734,8 +734,8 @@ namespace NFe.Servicos
             var detEvento = new detEvento
             {
                 versao = versaoServico,
-                descEvento = tipoEventoManifestacaoDestinatario.Descricao(),
-                xJust = justificativa
+                xJust = justificativa,
+                descEvento = tipoEventoManifestacaoDestinatario.Descricao()
             };
 
             var eventos = new List<evento>();
