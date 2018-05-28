@@ -173,7 +173,6 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
             ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
