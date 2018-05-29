@@ -81,7 +81,12 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
+using NFe.Wsdl.Autorizacao.SVAN;
+using NFe.Wsdl.ConsultaProtocolo.SVAN;
+using NFe.Wsdl.Evento.AN;
+using NFe.Wsdl.Evento.SVAN;
+using NFe.Wsdl.Inutilizacao.SVAN;
+using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -126,8 +131,15 @@ namespace NFe.Servicos
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
+            if (IsSvanNFe4())
+            {
+                return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+            }
+
             if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
+
+            
 
             if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -150,6 +162,12 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
                     }
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
                         return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
@@ -158,6 +176,11 @@ namespace NFe.Servicos
                     return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaProtocolo:
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
 
                     if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
                     {
@@ -186,6 +209,11 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
+                    if (IsSvanNFe4())
+                    {
+                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
                         return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
 
@@ -194,6 +222,17 @@ namespace NFe.Servicos
                     return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeInutilizacao:
+
+                    if (IsSvanNFe4())
+                    {
+                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
+                    {
+                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
                     {
                         return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
@@ -203,22 +242,33 @@ namespace NFe.Servicos
                     {
                         return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
                     }
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
-                    {
-                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
-                    }
 
                     return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    if (IsSvanNFe4())
+                    {
+                        return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
                     if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
                     {
                         return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
                     }
 
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                {
+                    if (_cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.ve400)
+                    {
+                        return new RecepcaoEvento4AN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+                }
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
@@ -251,6 +301,13 @@ namespace NFe.Servicos
             }
 
             return null;
+        }
+
+        private bool IsSvanNFe4()
+        {
+            return (_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
+                   && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
+                   && _cFgServico.ModeloDocumento == ModeloDocumento.NFe;
         }
 
         /// <summary>
@@ -439,7 +496,7 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado);
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
 
             #endregion
 
@@ -495,7 +552,7 @@ namespace NFe.Servicos
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
 
-            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
+            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento, _cFgServico.cUF);
 
             #region Cria o objeto wdsl para consulta
 
@@ -525,7 +582,7 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference);
             }
 
             #endregion
@@ -617,7 +674,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
@@ -667,7 +724,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
@@ -685,7 +742,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             var detEvento = new detEvento
             {
                 versao = versaoServico,
@@ -718,7 +775,7 @@ namespace NFe.Servicos
 
 
             var retorno = RecepcaoEvento(idLote, eventos,
-                ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
 
@@ -734,7 +791,7 @@ namespace NFe.Servicos
             string veraplic)
         {
             var versaoServico =
-                ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoEpec);
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
@@ -776,7 +833,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoEpec);
             return retorno;
         }
 
@@ -1331,6 +1388,7 @@ namespace NFe.Servicos
         ///     Consulta a Situação da NFe
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
+        [Obsolete("Descontinuado pela Sefaz")]
         public RetornoNfeDownload NfeDownloadNf(string cnpj, List<string> chaves, string nomeSaida = "")
         {
             var versaoServico = ServicoNFe.NfeDownloadNF.VersaoServicoParaString(_cFgServico.VersaoNfeDownloadNF);

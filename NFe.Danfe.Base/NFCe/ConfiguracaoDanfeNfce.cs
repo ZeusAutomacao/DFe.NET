@@ -33,7 +33,6 @@
 
 using System.Drawing;
 using System.Drawing.Text;
-using System.Xml.Serialization;
 using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.Properties;
 
@@ -44,7 +43,8 @@ namespace NFe.Danfe.Base.NFCe
         public ConfiguracaoDanfeNfce(NfceDetalheVendaNormal detalheVendaNormal,
             NfceDetalheVendaContigencia detalheVendaContigencia, byte[] logomarca = null,
             bool imprimeDescontoItem = false, float margemEsquerda = 4.5F, float margemDireita = 4.5F, 
-            NfceModoImpressao modoImpressao = NfceModoImpressao.MultiplasPaginas, bool documentoCancelado = false)
+            NfceModoImpressao modoImpressao = NfceModoImpressao.MultiplasPaginas,
+            bool documentoCancelado = false, NfceLayoutQrCode nfceLayoutQrCode = NfceLayoutQrCode.Abaixo)
         {
             DocumentoCancelado = documentoCancelado;
             DetalheVendaNormal = detalheVendaNormal;
@@ -54,6 +54,7 @@ namespace NFe.Danfe.Base.NFCe
             MargemEsquerda = margemEsquerda;
             MargemDireita = margemDireita;
             ModoImpressao = modoImpressao;
+            NfceLayoutQrCode = nfceLayoutQrCode;
             CarregarFontePadraoNfceNativa();
         }
 
@@ -96,6 +97,11 @@ namespace NFe.Danfe.Base.NFCe
         /// 
         /// </summary>
         public NfceModoImpressao ModoImpressao { get; set; }
+
+        /// <summary>
+        /// Determina se o QRCode do Nfce será impresso ao lado ou abaixo dos dados do consumidor 
+        /// </summary>
+        public NfceLayoutQrCode NfceLayoutQrCode { get; set; }
 
         public string FontPadraoNfceNativa { get; set; }
 
