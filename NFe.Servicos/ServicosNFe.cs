@@ -82,8 +82,8 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Wsdl.Autorizacao.SVAN;
-using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
 using NFe.Wsdl.ConsultaProtocolo.SVAN;
+using NFe.Wsdl.Evento.AN;
 using NFe.Wsdl.Evento.SVAN;
 using NFe.Wsdl.Inutilizacao.SVAN;
 using NFe.Wsdl.Status.SVAN;
@@ -245,7 +245,6 @@ namespace NFe.Servicos
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     if (IsSvanNFe4())
                     {
                         return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
@@ -257,6 +256,17 @@ namespace NFe.Servicos
                     }
 
                     return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                {
+                    if (_cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.ve400)
+                    {
+                        return new RecepcaoEvento4AN(url, _certificado, _cFgServico.TimeOut);
+                    }
+
+                    return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
+                }
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
@@ -525,7 +535,7 @@ namespace NFe.Servicos
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento)
+        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, VersaoServico versaoEvento)
         {
             var listaEventos = new List<ServicoNFe>
             {
@@ -540,7 +550,7 @@ namespace NFe.Servicos
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
 
-            var versaoServico = servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
+            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento, _cFgServico.cUF);
 
             #region Cria o objeto wdsl para consulta
 
@@ -662,7 +672,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
@@ -712,7 +722,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
@@ -763,7 +773,7 @@ namespace NFe.Servicos
 
 
             var retorno = RecepcaoEvento(idlote, eventos,
-                ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
 
@@ -779,7 +789,7 @@ namespace NFe.Servicos
             string veraplic)
         {
             var versaoServico =
-                ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoEpec);
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
@@ -821,7 +831,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoEpec);
             return retorno;
         }
 
