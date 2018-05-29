@@ -64,6 +64,14 @@ namespace NFe.Utils
                 case VersaoServico.ve310:
                     return "3.10";
                 case VersaoServico.ve400:
+                    switch (servicoNFe)
+                    {
+                        case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                        case ServicoNFe.RecepcaoEventoCancelmento:
+                        case ServicoNFe.RecepcaoEventoCartaCorrecao:
+                        case ServicoNFe.RecepcaoEventoEpec:
+                            return "1.00";
+                    }
                     return "4.00";
             }
             return "";
@@ -78,7 +86,10 @@ namespace NFe.Utils
                 return "2.00";
             }
 
-            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao)
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento 
+                || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao 
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
             {
                 return "1.00";
             }

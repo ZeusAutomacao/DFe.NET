@@ -10,7 +10,7 @@ namespace NFe.Utils.Sefaz.Servidores
             EventoCceCancelamento = VersaoServico.ve400;
             NfeConsultaDest = VersaoServico.ve100;
             NFeDistribuicaoDFe = VersaoServico.ve100;
-            ManifestacaoDestinatario = VersaoServico.ve100;
+            ManifestacaoDestinatario = VersaoServico.ve400;
             VersaoRecepcaoEventoEpec = VersaoServico.ve100;
             VersaoNfceAministracaoCSC = VersaoServico.ve100;
         }
