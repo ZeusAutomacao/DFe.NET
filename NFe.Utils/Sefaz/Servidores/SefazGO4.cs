@@ -3,7 +3,7 @@ using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Utils.Sefaz.Servidores
 {
-    public class SefazGO4 : SefazSVRS
+    public class SefazGO4 : SefazSVRS4
     {
         public SefazGO4() : base()
         {
@@ -18,6 +18,7 @@ namespace NFe.Utils.Sefaz.Servidores
             NfeAutorizacao = VersaoServico.ve400;
             NfeRetornoAutorizacao = VersaoServico.ve400;
             NfeConsultaDest = VersaoServico.ve310;
+            ManifestacaoDestinatario = VersaoServico.ve400;
         }
 
 
@@ -32,5 +33,6 @@ namespace NFe.Utils.Sefaz.Servidores
         public override VersaoServico NfeAutorizacao { get; set; }
         public override VersaoServico NfeRetornoAutorizacao { get; set; }
         public override VersaoServico NfeConsultaDest { get; set; }
+        public override VersaoServico ManifestacaoDestinatario { get; set; }
     }
 }
