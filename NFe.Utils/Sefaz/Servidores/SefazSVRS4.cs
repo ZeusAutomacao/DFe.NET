@@ -15,7 +15,7 @@ namespace NFe.Utils.Sefaz.Servidores
             NfeRetornoAutorizacao = VersaoServico.ve400;
             NfeConsultaDest = VersaoServico.ve310;
             NFeDistribuicaoDFe = VersaoServico.ve100;
-            ManifestacaoDestinatario = VersaoServico.ve100;
+            ManifestacaoDestinatario = VersaoServico.ve400;
             NfeRecepcao = VersaoServico.ve400;
             NfeRetornoRecepcao = VersaoServico.ve310;
             NfeConsultaCadastro = VersaoServico.ve400;
@@ -32,7 +32,7 @@ namespace NFe.Utils.Sefaz.Servidores
         public virtual VersaoServico NfeRetornoAutorizacao { get; set; }
         public virtual VersaoServico NfeConsultaDest { get; set; }
         public VersaoServico NFeDistribuicaoDFe { get; set; }
-        public VersaoServico ManifestacaoDestinatario { get; set; }
+        public virtual VersaoServico ManifestacaoDestinatario { get; set; }
         public VersaoServico VersaoRecepcaoEventoEpec { get; set; }
         public VersaoServico VersaoNfceAministracaoCSC { get; set; }
         public virtual VersaoServico NfeRecepcao { get; set; }
