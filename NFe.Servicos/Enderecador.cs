@@ -518,8 +518,6 @@ namespace NFe.Servicos
 
             #region MG
 
-            //MG ainda não implementou a NFCe. Rev: 09/09/2015
-
             #region Homologação
 
             foreach (var emissao in emissaoComum)
@@ -536,6 +534,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
 
+                // NF-e
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeConsulta4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4"));
@@ -543,6 +542,15 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4"));
+
+                // NFC-e
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4"));
             }
 
             #endregion
@@ -562,6 +570,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeAutorizacao"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NfeRetAutorizacao"));
 
+                // NF-e
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4"));
@@ -569,6 +578,15 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4"));
+
+                // NFC-e
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCartaCorrecao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MG, ModeloDocumento.NFCe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4"));
             }
 
             #endregion
@@ -696,7 +714,7 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRecepcao2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetRecepcao2?wsdl"));
                 endServico.AddRange(
-                    versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeInutilizacao,versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl")));
+                    versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeInutilizacao, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao2?wsdl")));
                 endServico.AddRange(
                     versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta2?wsdl")));
                 endServico.AddRange(
@@ -704,7 +722,7 @@ namespace NFe.Servicos
                 if (emissao != TipoEmissao.teEPEC)
                     foreach (var servicoNFe in eventoCceCanc)
                         endServico.AddRange(
-                            versaoDoisETres.Select(versao => new EnderecoServico(servicoNFe, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));                   
+                            versaoDoisETres.Select(versao => new EnderecoServico(servicoNFe, versao, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento?wsdl")));
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro2?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao?wsdl"));
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
