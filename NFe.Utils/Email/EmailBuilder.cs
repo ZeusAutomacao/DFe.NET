@@ -15,13 +15,13 @@ namespace NFe.Utils.Email
         public event EventHandler DepoisDeEnviarEmail;
         public event ErroAoEnviarEmail ErroAoEnviarEmail = delegate { };
         private readonly ConfiguracaoEmail _configuracaoEmail;
-        private readonly List<string> _destinatarios;
+        private readonly List<MailAddress> _destinatarios;
         private readonly List<string> _anexos;
 
         public EmailBuilder(ConfiguracaoEmail configuracaoEmail)
         {
             _configuracaoEmail = configuracaoEmail;
-            _destinatarios = new List<string>();
+            _destinatarios = new List<MailAddress>();
             _anexos = new List<string>();
         }
 
@@ -30,12 +30,12 @@ namespace NFe.Utils.Email
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public EmailBuilder AdicionarDestinatario(string email)
+        public EmailBuilder AdicionarDestinatario(string email, string nome = "")
         {
             if (!EmailValido(email))
                 throw new ArgumentException("E-mail do destinatário é inválido!");
 
-            _destinatarios.Add(email);
+            _destinatarios.Add(new MailAddress(email,nome,System.Text.Encoding.UTF8));
             return this;
         }
 
@@ -53,21 +53,31 @@ namespace NFe.Utils.Email
         /// <summary>
         /// Envia um e-mail
         /// </summary>
-        public void Enviar()
+        public void Enviar(MailMessage mensagemPredefinida = null)
         {
             Verificacao();
             
-            var mensagem = new MailMessage
+            MailMessage mensagem;
+            if (mensagemPredefinida == null)
             {
-                From = new MailAddress(_configuracaoEmail.Email),
-                Subject = _configuracaoEmail.Assunto ?? string.Empty, //Se nenhum assunto foi informado, enviar vazio
-                Body = _configuracaoEmail.Mensagem ?? string.Empty, //Se nenhuma mensagem foi informada, enviar vazio
-                IsBodyHtml = _configuracaoEmail.MensagemEmHtml 
-                
-            };
+                mensagem = new MailMessage
+                {
+                    From = new MailAddress(_configuracaoEmail.Email, _configuracaoEmail.Nome ?? string.Empty),
+                    Subject = _configuracaoEmail.Assunto ?? string.Empty, //Se nenhum assunto foi informado, enviar vazio
+                    Body = _configuracaoEmail.Mensagem ?? string.Empty, //Se nenhuma mensagem foi informada, enviar vazio
+                    IsBodyHtml = _configuracaoEmail.MensagemEmHtml
+
+                };
+            } else
+            {
+                mensagemPredefinida.From = new MailAddress(_configuracaoEmail.Email, _configuracaoEmail.Nome ?? string.Empty, System.Text.Encoding.UTF8);
+                mensagem = mensagemPredefinida;
+            }
+                        
             _destinatarios.ForEach(mensagem.To.Add);
 
-            _anexos.ForEach(a => { mensagem.Attachments.Add(new Attachment(a, MediaTypeNames.Application.Octet)); });
+
+            _anexos.ForEach(a => { mensagem.Attachments.Add(new Attachment(a, MediaTypeNames.Application.Octet));});
 
             var cliente = new SmtpClient(_configuracaoEmail.ServidorSmtp, _configuracaoEmail.Porta)
             {
