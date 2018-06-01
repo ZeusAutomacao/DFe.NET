@@ -109,5 +109,10 @@ namespace NFe.Utils.Email
         /// Se for marcado como false, a aplicação irá esperar pelo envio
         /// </summary>
         public bool Assincrono { get; set; }
+
+        /// <summary>
+        /// Nome do remetente do Email.
+        /// </summary>
+        public string Nome { get; set; }
     }
 }
