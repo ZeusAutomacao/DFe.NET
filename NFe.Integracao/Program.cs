@@ -51,9 +51,13 @@ namespace NFe.Integracao
         public static void Main(string[] args)
         {
             //Uncomment for debug
-            //args = new[] { "/consultarCadastro","BA","00000000000" };
-            //args = new[] { "/recibo","00000000000","","" };
-            //args = new[] {"/enviar","","",""};
+            //args = new[] { "consultarCadastro","BA","00000000000" };
+            //args = new[] { "recibo","00000000000","","" };
+            //args = new[] {"enviar","","",""};
+            //args = new[] { "help", "", "", "" };
+            //args = new[] { "imprimirnfce", @"C:\WiaTI\NFC-e\Exemplo.xml", @"C:\WiaTI\NFC-e\Exemplo.jpeg", "", "" };
+            //args = new[] { "configurar" };
+            //args = new[] { "status" };
 
             try
             {
@@ -99,6 +103,10 @@ namespace NFe.Integracao
                     case "exibirconfig":
                         ExibirConfig();
                         break;
+                    case "imprimirnfce":
+                        var param6 = string.Format("{0}#{1}#{2}#{3}", args[1], args[2], arg[3], arg[4]);
+                        ImprimirNFCe(param6);
+                        break;
                     default:
                         Console.Write("Comando não reconhecido ou parâmetro inválido. Digite help para acessar ajuda.");
                         break;
@@ -108,7 +116,13 @@ namespace NFe.Integracao
             {
                 Console.WriteLine("Um ou mais parâmetros foram informados incorretamente.");
             }
+
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                Console.ReadKey();
+            }
         }
+
         /// <summary>
         /// Exibe uma lista contendo dados de configuração
         /// </summary>
@@ -184,14 +198,16 @@ namespace NFe.Integracao
             var salvarxmlservico = Console.ReadLine();
             Console.WriteLine("Tempo de espera máximo dos serviços da sefaz em milisegundos");
             var timeout = Console.ReadLine();
-            Console.WriteLine("Ambiente {1 - Producão | 2 - Homologação");
+            Console.WriteLine("Ambiente { 1 - Producão | 2 - Homologação }");
             var tmpamb = Console.ReadLine();
             Console.WriteLine("Tipo de emissão 1 (Normal) | 2 (FS-IA)| 3 (SCAN)| 4 (EPEC)| 5 (FS-DA)| 6 (SVC-AN)| 7 (SVC-RS) | 9 (Offline) ");
             var tmpemissao = Console.ReadLine();
+            Console.WriteLine("Versão da NFe { 3.10 | 4.00 } ");
+            var versaoNFe = Console.ReadLine();
 
             //Set dados
             NFeFacade.SetConfiguracoes(pathcertificado, certificadosenha, pathxml,
-                pathchema, emitente, modelodocumento, salvarxmlservico, timeout, tmpamb, tmpemissao);
+                pathchema, emitente, modelodocumento, salvarxmlservico, timeout, tmpamb, tmpemissao, versaoNFe);
 
             Console.Clear();
             Console.WriteLine("Dados configurados !");
@@ -279,6 +295,7 @@ namespace NFe.Integracao
             Console.WriteLine("INUTILIZAR          - Inutiliza uma faixa de numeração");
             Console.WriteLine("CONFIGURAR          - Configurar parâmetros");
             Console.WriteLine("EXIBIRCONFIG        - Exibe configurações gerais");
+            Console.WriteLine("IMPRIMIRNFCE        - Gera um arquivo jpeg relacionado ao xml de um NFCe");
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
             Console.Write("");
             Console.WriteLine("Exemplos de uso de cada comando:");
@@ -304,6 +321,10 @@ namespace NFe.Integracao
             Console.Write("NFe.Integracao CANCELAR (6 argumentos separados por espaço em branco) ");
             Console.WriteLine("{CNPJ} {Chave de acesso} {Justificativa} {Protocolo} {Numero lote} {Sequencial do Evento} ");
             Console.WriteLine("ex: NFe.Integracao CANCELAR 00000000000 021512121512121 justificativa 00002 0222 00001");
+            Console.WriteLine("");
+            Console.Write("NFe.Integracao IMPRIMIRNFCE (4 argumentos separados por espaço em branco) ");
+            Console.WriteLine("{Path do arquivo xml} {Path onde salvar o jpeg gerado} {Id do Token} {CSC}");
+            Console.WriteLine(@"ex: NFe.Integracao CANCELAR C:\NFCe\exemplo.xml C:\NFCe\exemplo.jpeg");
             Console.WriteLine("-----------------------------------------------------------------------------------------------------------");
         }
         /// <summary>
@@ -548,6 +569,27 @@ namespace NFe.Integracao
                 Console.WriteLine(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Imprime um NFC-e em um arquivo jpeg.
+        /// </summary>
+        /// <param name="dadosDaImpressao">Informações da impressão no formato: "pathDoArquivoXml#localOndeSalvarOJpeg#idToken#Csc"</param>
+        private static void ImprimirNFCe(string dadosDaImpressao)
+        {
+            try
+            {
+                var dados = dadosDaImpressao.Split('#');
+                GetFacade().ImprimirNFCe(dados[0], dados[1], dados[2], dados[3]);
+                Console.WriteLine("Arquivo jpeg gerado com sucesso.");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Houve uma falha não esperada durante o processo de impressão.");
+                Console.WriteLine("Detalhes:");
+                Console.WriteLine(ex.Message);
+            }           
+        }
+
         /// <summary>
         ///  Consulta a situação de um determinado recibo de envio.
         /// </summary>
