@@ -62,7 +62,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// <summary>
         /// B05 - Código do status da resposta (vide item 5)
         /// </summary>
-        public byte cStat { get; set; }
+        public int cStat { get; set; }
 
         /// <summary>
         /// B06 - Descrição literal do status da resposta
