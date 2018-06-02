@@ -64,15 +64,6 @@ using NFe.Utils.Recepcao;
 using NFe.Utils.Status;
 using NFe.Utils.Validacao;
 using NFe.Wsdl;
-using NFe.Wsdl.AdmCsc;
-using NFe.Wsdl.Autorizacao;
-using NFe.Wsdl.ConsultaProtocolo;
-using NFe.Wsdl.DistribuicaoDFe;
-using NFe.Wsdl.Download;
-using NFe.Wsdl.Evento;
-using NFe.Wsdl.Inutilizacao;
-using NFe.Wsdl.Recepcao;
-using NFe.Wsdl.Status;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -81,12 +72,6 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using NFe.Wsdl.Autorizacao.SVAN;
-using NFe.Wsdl.ConsultaProtocolo.SVAN;
-using NFe.Wsdl.Evento.AN;
-using NFe.Wsdl.Evento.SVAN;
-using NFe.Wsdl.Inutilizacao.SVAN;
-using NFe.Wsdl.Status.SVAN;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -122,190 +107,17 @@ namespace NFe.Servicos
 
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
-
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
-            if (IsSvanNFe4())
-            {
-                return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-            }
-
-            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
-                return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
-
-            
-
-            if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
-                return new NfeAutorizacao3(url, _certificado, _cFgServico.TimeOut);
-
-            return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
+            return ServicoNfeFactory.CriaWsdlAutorizacao(_cFgServico, _certificado);
         }
 
         private INfeServico CriarServico(ServicoNFe servico)
         {
-            var url = Enderecador.ObterUrlServico(servico, _cFgServico);
-            switch (servico)
-            {
-                case ServicoNFe.NfeStatusServico:
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
-                    {
-                        return new NfeStatusServico3(url, _certificado, _cFgServico.TimeOut);
-                    }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
-                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
-                    {
-                        return new NfeStatusServico(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeStatusServico4NFeSVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
-                    {
-                        return new NfeStatusServico4(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    return new NfeStatusServico2(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeConsultaProtocolo:
-
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
-                    {
-                        return new NfeConsulta4(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
-                    {
-                        return new NfeConsulta3(url, _certificado, _cFgServico.TimeOut);
-                    }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve310 &
-                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
-                    {
-                        return new NfeConsulta(url, _certificado, _cFgServico.TimeOut);
-                    }
-                    return new NfeConsulta2(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeRecepcao:
-                    return new NfeRecepcao2(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeRetRecepcao:
-                    return new NfeRetRecepcao2(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NFeAutorizacao:
-                    throw new Exception(string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
-                        MethodBase.GetCurrentMethod().Name));
-
-                case ServicoNFe.NFeRetAutorizacao:
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
-                        return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
-
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNFeAutorizacao == VersaoServico.ve310)
-                        return new NfeRetAutorizacao3(url, _certificado, _cFgServico.TimeOut);
-                    return new NfeRetAutorizacao(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeInutilizacao:
-
-                    if (IsSvanNFe4())
-                    {
-                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
-                    {
-                        return new NFeInutilizacao4(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.cUF == Estado.PR & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310)
-                    {
-                        return new NfeInutilizacao3(url, _certificado, _cFgServico.TimeOut);
-                    }
-                    if (_cFgServico.cUF == Estado.BA & _cFgServico.VersaoNfeStatusServico == VersaoServico.ve310 &
-                        _cFgServico.ModeloDocumento == ModeloDocumento.NFe)
-                    {
-                        return new NfeInutilizacao(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    return new NfeInutilizacao2(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.RecepcaoEventoCancelmento:
-                case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                    if (IsSvanNFe4())
-                    {
-                        return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
-                    {
-                        return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                {
-                    if (_cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.ve400)
-                    {
-                        return new RecepcaoEvento4AN(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    return new RecepcaoEvento(url, _certificado, _cFgServico.TimeOut);
-                }
-
-                case ServicoNFe.RecepcaoEventoEpec:
-                    return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeConsultaCadastro:
-                    switch (_cFgServico.cUF)
-                    {
-                        case Estado.CE:
-                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
-                                _cFgServico.TimeOut);
-                    }
-
-
-                    if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
-                    {
-                        return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
-                    }
-
-                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
-                        _cFgServico.TimeOut);
-
-                case ServicoNFe.NfeDownloadNF:
-                    return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NfceAdministracaoCSC:
-                    return new NfceCsc(url, _certificado, _cFgServico.TimeOut);
-
-                case ServicoNFe.NFeDistribuicaoDFe:
-                    return new NfeDistDFeInteresse(url, _certificado, _cFgServico.TimeOut);
-
-            }
-
-            return null;
-        }
-
-        private bool IsSvanNFe4()
-        {
-            return (_cFgServico.cUF == Estado.PA || _cFgServico.cUF == Estado.MA)
-                   && _cFgServico.VersaoNfeStatusServico == VersaoServico.ve400
-                   && _cFgServico.ModeloDocumento == ModeloDocumento.NFe;
+            return ServicoNfeFactory.CriaWsdlOutros(servico, _cFgServico, _certificado);
         }
 
         /// <summary>
