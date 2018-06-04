@@ -263,5 +263,12 @@ namespace NFe.Utils
         {
             _instancia = null;
         }
+
+        public bool IsSvanNFe4()
+        {
+            return (cUF == Estado.PA || cUF == Estado.MA)
+                   && VersaoNfeStatusServico == VersaoServico.ve400
+                   && ModeloDocumento == ModeloDocumento.NFe;
+        }
     }
 }
