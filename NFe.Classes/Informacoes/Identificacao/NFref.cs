@@ -49,6 +49,12 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// </summary>
         public refNFP refNFP { get; set; }
 
+
+        /// <summary>
+        ///     BA19 - Chave de acesso do CT-e referenciado
+        /// </summary>
+        public string refCTe { get; set; }
+
         /// <summary>
         ///     BA20 - Informações do Cupom Fiscal referenciado
         /// </summary>

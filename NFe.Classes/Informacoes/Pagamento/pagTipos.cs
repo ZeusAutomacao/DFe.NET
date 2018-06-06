@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -71,6 +72,11 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel,
 
+        /// <summary>
+        /// Foi excluido pela NT 2016. 002 v1.50
+        /// Continuara aqui pois a mesma alguém já pode ter utilizado
+        /// Foi excluido pela NT 2016. 002 v1.50, Continua pois a mesma pode ter sido utilizada já
+        /// </summary>
         [Description("Duplicata Mercantil")] [XmlEnum("14")] fpDuplicataMercantil, // VERSÃO 4.00
 
         [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario, // VERSÃO 4.00

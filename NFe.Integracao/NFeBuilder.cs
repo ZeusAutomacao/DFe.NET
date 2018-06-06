@@ -70,8 +70,6 @@ namespace NFe.Integracao
                         _nFe = ((enviNFe3)desserializador.Deserialize(reader)).NFe;
                     }
                         break;
-                    case TipoXmlNFe.NFe:
-                        break;
                     default:
                     {
                         var desserializador = new XmlSerializer(typeof(Classes.NFe));

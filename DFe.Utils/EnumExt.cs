@@ -5,7 +5,6 @@ namespace DFe.Utils
 {
     public static class EnumExt
     {
-
         /// <summary>
         /// Função de extensão de Enums. 
         /// Obtém um atributo associado ao Enum.
@@ -21,7 +20,6 @@ namespace DFe.Utils
             return (T)attributes[0];
         }
 
-
         /// <summary>
         /// Função de extensão de Enums. 
         /// Obtém a descrição definida no atributo [Description("xx")] para o Enum
@@ -33,6 +31,5 @@ namespace DFe.Utils
             var attribute = value.ObterAtributo<DescriptionAttribute>();
             return attribute == null ? value.ToString() : attribute.Description;
         }
-
     }
 }

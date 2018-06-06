@@ -38,6 +38,7 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Utils.Sefaz;
 using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Utils
@@ -48,10 +49,15 @@ namespace NFe.Utils
         private static readonly object SyncRoot = new object();
         private string _diretorioSchemas;
         private bool _salvarXmlServicos;
+        private VersaoServico _versaoLayout;
 
         public ConfiguracaoServico()
         {
             Certificado = new ConfiguracaoCertificado();
+
+            Certificado.SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+            Certificado.DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
+            cUF = Estado.AC;
         }
 
         static ConfiguracaoServico()
@@ -87,6 +93,36 @@ namespace NFe.Utils
         ///     Tipo de documento que está sendo referenciado nos webservices
         /// </summary>
         public ModeloDocumento ModeloDocumento { get; set; }
+
+        public VersaoServico VersaoLayout
+        {
+            get { return _versaoLayout; }
+            set
+            {
+                _versaoLayout = value;
+                AtualizaVersoes(_versaoLayout);
+            }
+        }
+
+        private void AtualizaVersoes(VersaoServico versaoLayout)
+        {
+            var servidorSefaz = ServidorSefazFactory.GetServidor(cUF, versaoLayout);
+
+            VersaoRecepcaoEventoCceCancelamento = servidorSefaz.EventoCceCancelamento;
+            VersaoRecepcaoEventoEpec = servidorSefaz.VersaoRecepcaoEventoEpec;
+            VersaoRecepcaoEventoManifestacaoDestinatario = servidorSefaz.ManifestacaoDestinatario;
+            VersaoNfeRecepcao = servidorSefaz.NfeRecepcao;
+            VersaoNfeRetRecepcao = servidorSefaz.NfeRetornoRecepcao;
+            VersaoNfeConsultaCadastro = servidorSefaz.NfeConsultaCadastro;
+            VersaoNfeInutilizacao = servidorSefaz.NfeInutilizacao;
+            VersaoNfeConsultaProtocolo = servidorSefaz.NfeConsultaProtocolo;
+            VersaoNfeStatusServico = servidorSefaz.NfeStatusServico;
+            VersaoNFeAutorizacao = servidorSefaz.NfeAutorizacao;
+            VersaoNFeRetAutorizacao = servidorSefaz.NfeRetornoAutorizacao;
+            VersaoNFeDistribuicaoDFe = servidorSefaz.NFeDistribuicaoDFe;
+            VersaoNfeConsultaDest = servidorSefaz.NfeConsultaDest;
+            VersaoNfceAministracaoCSC = servidorSefaz.VersaoNfceAministracaoCSC;
+        }
 
         /// <summary>
         ///     Versão do serviço RecepcaoEvento para Carta de Correção e Cancelamento
@@ -200,6 +236,7 @@ namespace NFe.Utils
         ///     Diretório onde os xmls de envio/retorno devem ser salvos
         /// </summary>
         public string DiretorioSalvarXml { get; set; }
+        
 
         /// <summary>
         ///     Instância do Singleton de ConfiguracaoServico
@@ -225,6 +262,13 @@ namespace NFe.Utils
         public static void LimparIntancia()
         {
             _instancia = null;
+        }
+
+        public bool IsSvanNFe4()
+        {
+            return (cUF == Estado.PA || cUF == Estado.MA)
+                   && VersaoNfeStatusServico == VersaoServico.ve400
+                   && ModeloDocumento == ModeloDocumento.NFe;
         }
     }
 }

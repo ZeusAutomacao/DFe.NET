@@ -40,5 +40,6 @@ namespace CTe.Servicos.Enderecos
         public string CteRecepcaoEvento { get; set; }
         public string CteRetRecepcao { get; set; }
         public string CteStatusServico { get; set; }
+        public string CTeDistribuicaoDFe { get; set; }
     }
 }

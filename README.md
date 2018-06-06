@@ -18,63 +18,55 @@ Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
 Grupo [Telegram](https://t.me/joinchat/DyE_jQ7rF3rxTqK1Kwoqog) para discussão
 
-Biblioteca gratuita para Geração de NFe 2.0 e 3.10, NFCe 3.10 e MDF-e e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx e https://mdfe-portal.sefaz.rs.gov.br
+Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida com o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2015 Update 1.
-Está licenciada sobre a LGPL.
+A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2017. Atualmente utiliza o .NetFramework na versão 4.5.
 
-**Instruções para compilar a solução**
-- No visual studio, abra o arquivo "Zeus NFe.sln", defina o "NFe.AppTeste" como projeto de inicialização, compile e execute;
+Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
-**Projetos na Solução**
-- NFe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
-- NFe.Classes: Biblioteca com todas as classes para montagem da NFe/NFCe, de acordo com os manuais vigentes até 14/04/2015;
-- NFe.Integracao: Aplicação console que fornece acesso aos recursos do Zeus via linha de comando.
-- NFe.Servicos: Biblioteca que implementa o consumo e retorno dos serviços da NFe/NFCe;
-- NFe.Utils: Biblioteca com classes de apoio e extensão para todas as demais bibliotecas;
-- NFe.Wsdl: Biblioteca com as classes de serviço wsdl.;
-- NFe.Danfe.AppTeste: Aplicação em wpf com demonstração de uso da biblioteca;
-- NFe.Danfe.Base: Biblioteca base para todas as bibliotecas que implementam a impressão do DANFE, independente do fornecedor de relatórios utilizado;
-- NFe.Danfe.Fast: Biblioteca responsável por montar a impressão do DANFE em FastReports.
+**O que a biblioteca faz:**
+------------------
+O projeto traz classes constuídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutra exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
-**DANFE**
-- Foi implementado em 09/09/2015 a impressão do NFCe em FastReport.Net (https://www.fast-report.com/pt/product/fast-report-net/);
-- Os recursos implementados na biblioteca de impressão foram: Visualização e impressão direta, além dos recursos de exportação para pdf, xls, doc, etc. do próprio FastReport.Net;
-- A impressão segue rigorosamente o Manual de Especificacoes Tecnicas do DANFE NFC-e QRCode Versao 3.2);
-- Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
-- As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes;
-- Instale as fontes informadas no PC que for imprimir o DANFE da NFCe;
-- Impressão testada e funcionando 100% nas impressoras Bematech MP-4200, Daruma DR700 e Epson TM-81 e TM-20;
-- As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dlls e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
+Além da serialização e desserialização, o projeto também conta com os métodos de consumo dos webservices (consultar, transmitir, cancelar, inutilizar, etc.), ou seja, com a biblioteca você preenche um objeto nativo em .NET e transmite o seu DFe de forma totalmente transparente, sem se preocupar coma serialização e consumo do webserice.
 
-**Exemplo de impressão do DANFE da NFCe utilizando a biblioteca NFe.Danfe.Fast:**
+A bibliteca também conta com a impressão dos DFes suportados, onde basicamente basta fazer a desserialização (ou preencher manualmente o(s) objeto(s) do DFe em questão) e chamar seu projeto de impressão.
 
+Exemplo: 
 ```cs
 var proc = new nfeProc().CarregarDeArquivoXml(Caminho_do_arquivo_XML);
 var danfe = new DanfeFrNfce(proc, new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, null/*Logomarca em byte[]*/), "00001", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
 danfe.Visualizar();
 //danfe.Imprimir();
 //danfe.ExibirDesign();
-
 ```
 
+**Como usar a ferramenta:**
+-----------
+Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
+
+Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. A linguagem utilizada é C#, logo um conhecimento basico da linguagem pode te ajudar bastante, mesmo que você use apenas as dlls com VB.Net ou outra linguagem compatível.
+
+Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo eles (por ordem alfabética):
+- *CTe.AppTeste:* Projeto em WPF para demonstração de uso do CTe;
+- *CTe.Dacte.AppTeste:* Projeto em Winforms para demonstração de uso da impressão do CTe (necessita do FastReport.Net¹);
+- *MDFe.AppTeste:* Projeto em WPF para demonstração de uso do MDFe;
+- *MDFe.Damdfe.AppTeste:* Projeto em Winforms para demonstração de uso da impressão do MDFe (necessita do FastReport.Net¹);
+- *NFe.AppTeste:* Projeto em WPF para demonstração de uso do NFe;
+- *NFe.Danfe.AppTeste:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
+
+**Impressão:**
+----------
+- A impressão de forma nativa (sem dependências de bibliotecas de terceiros) está disponível somente para a *NFCe*¹.
+- O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
+
+>¹ As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dll, CTe.Dacte.Fast\DLLs e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
+
+>² Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
+As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes_;
+Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
+
+
 **Suporte:**
-
+---------
 O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo skype.
-
-**Telas do aplicativo NFe.AppTeste (demonstração de Uso da biblioteca):**
-
-![](http://www.zeusautomacao.com.br/imagens/git/01.png)
-![](http://www.zeusautomacao.com.br/imagens/git/02.png)
-![](http://www.zeusautomacao.com.br/imagens/git/03.png)
-![](http://www.zeusautomacao.com.br/imagens/git/04.png)
-![](http://www.zeusautomacao.com.br/imagens/git/05.png)
-
-
-**Telas do aplicativo NFe.Danfe.AppTeste (demonstração de Uso da biblioteca NFe.Danfe.Fast):**
-
-![](http://www.zeusautomacao.com.br/imagens/git/07.png)
-![](http://www.zeusautomacao.com.br/imagens/git/08.png)
-![](http://www.zeusautomacao.com.br/imagens/git/09.png)
-![](http://www.zeusautomacao.com.br/imagens/git/10.png)
-![](http://www.zeusautomacao.com.br/imagens/git/11.jpg)
