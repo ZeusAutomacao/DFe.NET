@@ -31,53 +31,21 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Text;
-using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
-using CTe.Classes.Servicos.Evento.Flags;
-using CTe.Utils.CTe;
-using CTeEletronico = CTe.Classes.CTe;
+using DFe.Utils;
 
-namespace CTe.Servicos.Eventos
+namespace CTe.Utils.Extencoes
 {
-    public class FactoryEvento
+    public static class ExtevPrestDesacordo
     {
-        //Vou manter para evitar quebra de código pois a classe e o metodo são publicos
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        /// <summary>
+        ///     Converte o objeto evento para uma string no formato XML
+        /// </summary>
+        /// <param name="eventoDesacordoOperacao"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
+        public static string ObterXmlString(this evPrestDesacordo evPrestDesacordo)
         {
-            return CriaEvento(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
-        }
-
-        public static eventoCTe CriaEvento(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
-        {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            var id = new StringBuilder("ID");
-            id.Append((int)tipoEvento);
-            id.Append(chave);
-            id.Append(sequenciaEvento.ToString("D2"));
-
-            return new eventoCTe
-            {
-                versao = configuracaoServico.VersaoLayout,
-                infEvento = new infEventoEnv
-                {
-                    tpAmb = configuracaoServico.tpAmb,
-                    CNPJ = cnpj,
-                    cOrgao = configuracaoServico.cUF,
-                    chCTe = chave,
-                    dhEvento = DateTime.Now,
-                    nSeqEvento = sequenciaEvento,
-                    tpEvento = tipoEvento,
-                    detEvento = new detEvento
-                    {
-                        versaoEvento = configuracaoServico.VersaoLayout,
-                        EventoContainer = container
-                    },
-                    Id = id.ToString()
-                }
-            };
+            return FuncoesXml.ClasseParaXmlString(evPrestDesacordo);
         }
     }
 }

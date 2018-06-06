@@ -31,53 +31,22 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Text;
-using CTe.Classes;
-using CTe.Classes.Servicos.Evento;
-using CTe.Classes.Servicos.Evento.Flags;
-using CTe.Utils.CTe;
-using CTeEletronico = CTe.Classes.CTe;
+using System.Xml.Serialization;
 
-namespace CTe.Servicos.Eventos
+namespace CTe.Classes.Servicos.Evento
 {
-    public class FactoryEvento
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
+    public class evPrestDesacordo : EventoContainer
     {
-        //Vou manter para evitar quebra de código pois a classe e o metodo são publicos
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        public evPrestDesacordo()
         {
-            return CriaEvento(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            descEvento = "Prestação do Serviço em Desacordo";
         }
 
-        public static eventoCTe CriaEvento(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
-        {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+        public string descEvento { get; set; }
 
-            var id = new StringBuilder("ID");
-            id.Append((int)tipoEvento);
-            id.Append(chave);
-            id.Append(sequenciaEvento.ToString("D2"));
+        public string indDesacordoOper { get; set; }
 
-            return new eventoCTe
-            {
-                versao = configuracaoServico.VersaoLayout,
-                infEvento = new infEventoEnv
-                {
-                    tpAmb = configuracaoServico.tpAmb,
-                    CNPJ = cnpj,
-                    cOrgao = configuracaoServico.cUF,
-                    chCTe = chave,
-                    dhEvento = DateTime.Now,
-                    nSeqEvento = sequenciaEvento,
-                    tpEvento = tipoEvento,
-                    detEvento = new detEvento
-                    {
-                        versaoEvento = configuracaoServico.VersaoLayout,
-                        EventoContainer = container
-                    },
-                    Id = id.ToString()
-                }
-            };
-        }
+        public string xObs { get; set; }
     }
 }
