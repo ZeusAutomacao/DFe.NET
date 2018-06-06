@@ -86,10 +86,6 @@ namespace NFe.Classes.Informacoes.Pagamento
         [XmlEnum("13")]
         fpValeCombustivel = 13,
 
-        [Description("Duplicata Mercantil")]
-        [XmlEnum("14")]
-        fpDuplicataMercantil = 14,
-
         [Description("Boleto Bancário")]
         [XmlEnum("15")]
         fpBoletoBancario = 15,

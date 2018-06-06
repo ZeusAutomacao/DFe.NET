@@ -1,11 +1,19 @@
-﻿namespace NFe.Classes.Informacoes.Pagamento
+﻿using NFe.Classes.Informacoes.Identificacao.Tipos;
+
+namespace NFe.Classes.Informacoes.Pagamento
 {
     public class detPag
     {
         private decimal _vPag;
 
         /// <summary>
-        ///     YA02 - Forma de pagamento
+        /// YA01b - Indicador da Forma de Pagamento
+        /// Usar somente 0 ou 1, 2 é para compatibilidade com nfe 3.10
+        /// </summary>
+        public IndicadorPagamento? indPag { get; set; }
+
+        /// <summary>
+        ///     YA02 - Meio de pagamento
         /// </summary>
         public FormaPagamento tPag { get; set; }
 
