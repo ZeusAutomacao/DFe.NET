@@ -120,7 +120,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevICMSUFDest()
         {
-            return vICMSUFDest.HasValue && vFCPUFDest.Value > 0;
+            return vICMSUFDest.HasValue && vICMSUFDest.Value > 0;
         }
 
         /// <summary>
