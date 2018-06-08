@@ -173,10 +173,10 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode"),
                 new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/chavedeacesso"),
 
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/consulta", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/consulta", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/consulta", VersaoServico.ve400),
-                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce/consulta", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "http://www.dfe.ms.gov.br/nfce/qrcode", VersaoServico.ve400),
+                new EnderecoConsultaPublicaNfce(Estado.MS, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "http://www.dfe.ms.gov.br/nfce", VersaoServico.ve400),
 
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "http://www.sefaz.mt.gov.br/nfce/consultanfce"),
                 new EnderecoConsultaPublicaNfce(Estado.MT, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "http://www.sefaz.mt.gov.br/nfce/consultanfce"),
