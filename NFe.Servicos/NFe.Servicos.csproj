@@ -61,6 +61,7 @@
     <Compile Include="Retorno\RetornoNfeRetRecepcao.cs" />
     <Compile Include="Retorno\RetornoNfeStatusServico.cs" />
     <Compile Include="ServicosNFe.cs" />
+    <Compile Include="ServicoNfeFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
