@@ -12,6 +12,11 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// </summary>
         public IndicadorPagamento? indPag { get; set; }
 
+        public bool ShouldSerializeindPag()
+        {
+            return indPag.HasValue;
+        }
+
         /// <summary>
         ///     YA02 - Meio de pagamento
         /// </summary>
