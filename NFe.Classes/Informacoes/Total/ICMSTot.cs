@@ -106,7 +106,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevFCPUFDest()
         {
-            return vFCPUFDest.HasValue && vFCPUFDest.Value > 0;
+            return _vFcpufDest.HasValue && _vFcpufDest.Value > 0;
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevICMSUFRemet()
         {
-            return vICMSUFRemet.HasValue && vFCPUFDest.Value > 0;
+            return vICMSUFDest.HasValue && vICMSUFDest.Value > 0;
         }
 
         /// <summary>
