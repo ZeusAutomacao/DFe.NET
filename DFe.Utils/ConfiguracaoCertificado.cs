@@ -33,6 +33,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
 using NFe.Utils.Annotations;
 
 namespace DFe.Utils
@@ -46,7 +47,10 @@ namespace DFe.Utils
         A1Arquivo,
 
         [Description("Certificado A3")]
-        A3
+        A3,
+
+        [Description("Instância X509Certificate2")]
+        Instancia
     }
 
     public class ConfiguracaoCertificado : INotifyPropertyChanged
@@ -54,7 +58,8 @@ namespace DFe.Utils
         private string _serial;
         private string _arquivo;
         private string _senha;
-        private TipoCertificado _tipoCertificado;
+        private X509Certificate2 _certificado;
+        private TipoCertificado _tipoCertificado;        
 
         /// <summary>
         /// Tipo de certificado a ser usado
@@ -67,6 +72,7 @@ namespace DFe.Utils
                 Serial = null;
                 Arquivo = null;
                 Senha = null;
+                Certificado = null;
                 _tipoCertificado = value;
                 OnPropertyChanged(this.ObterPropriedadeInfo(c => c.TipoCertificado).Name);
             }
@@ -124,6 +130,19 @@ namespace DFe.Utils
                 if (value == _senha) return;
                 _senha = value;
                 OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Senha).Name);
+            }
+        }
+
+        public X509Certificate2 Certificado
+        {
+            get { return _certificado; }
+            set
+            {
+                if (value != null && TipoCertificado != TipoCertificado.Instancia)
+                    throw new Exception(string.Format("Para {0} o {1} não deve ser informado!", TipoCertificado.Descricao(), this.ObterPropriedadeInfo(c => c.Certificado).Name));
+                if (_certificado == value) return;
+                _certificado = value;
+                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Certificado).Name);
             }
         }
 

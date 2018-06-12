@@ -159,6 +159,8 @@ namespace DFe.Utils.Assinatura
                     return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha);
                 case TipoCertificado.A3:
                     return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha);
+                case TipoCertificado.Instancia:
+                    return configuracaoCertificado.Certificado;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
