@@ -31,53 +31,37 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Text;
-using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
-using CTe.Utils.CTe;
-using CTeEletronico = CTe.Classes.CTe;
+using CTe.Servicos.Factory;
+using CteEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Eventos
 {
-    public class FactoryEvento
+    public class EventoDesacordo
     {
-        //Vou manter para evitar quebra de código pois a classe e o metodo são publicos
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        private readonly int _sequenciaEvento;
+        private readonly string _cnpj;
+        private readonly string _chave;
+        private readonly string _indicadorDesacordo;
+        private readonly string _observacao;
+
+        public EventoDesacordo(int sequenciaEvento, string chave, string cnpj, string indicadorDesacordo, string observacao)
         {
-            return CriaEvento(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            _chave = chave;
+            _cnpj = cnpj;
+            _sequenciaEvento = sequenciaEvento;
+            _indicadorDesacordo = indicadorDesacordo;
+            _observacao = observacao;
         }
 
-        public static eventoCTe CriaEvento(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public retEventoCTe Discordar()
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var id = new StringBuilder("ID");
-            id.Append((int)tipoEvento);
-            id.Append(chave);
-            id.Append(sequenciaEvento.ToString("D2"));
+            var retorno = new ServicoController().Executar(TipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
 
-            return new eventoCTe
-            {
-                versao = configuracaoServico.VersaoLayout,
-                infEvento = new infEventoEnv
-                {
-                    tpAmb = configuracaoServico.tpAmb,
-                    CNPJ = cnpj,
-                    cOrgao = configuracaoServico.cUF,
-                    chCTe = chave,
-                    dhEvento = DateTime.Now,
-                    nSeqEvento = sequenciaEvento,
-                    tpEvento = tipoEvento,
-                    detEvento = new detEvento
-                    {
-                        versaoEvento = configuracaoServico.VersaoLayout,
-                        EventoContainer = container
-                    },
-                    Id = id.ToString()
-                }
-            };
+            return retorno;
         }
     }
 }
