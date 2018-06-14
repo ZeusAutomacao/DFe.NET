@@ -232,6 +232,7 @@
     <Compile Include="Servicos\Evento\detEvento.cs" />
     <Compile Include="Servicos\Evento\detEventoTipos.cs" />
     <Compile Include="Servicos\Evento\envEvento.cs" />
+    <Compile Include="Servicos\Evento\evPrestDesacordo.cs" />
     <Compile Include="Servicos\Evento\evCancCTe.cs" />
     <Compile Include="Servicos\Evento\evCCeCTe.cs" />
     <Compile Include="Servicos\Evento\EventoContainer.cs" />
