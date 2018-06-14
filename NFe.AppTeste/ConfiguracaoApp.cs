@@ -50,7 +50,7 @@ namespace NFe.AppTeste
 
         public ConfiguracaoApp()
         {
-            CfgServico = ConfiguracaoServico.Instancia;
+            CfgServico = new ConfiguracaoServico();
             CfgServico.tpAmb = TipoAmbiente.taHomologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
             CfgServico.ProtocoloDeSeguranca = ServicePointManager.SecurityProtocol;
@@ -65,13 +65,13 @@ namespace NFe.AppTeste
         {
             get
             {
-                ConfiguracaoServico.Instancia.CopiarPropriedades(_cfgServico);
+                _cfgServico.CopiarPropriedades(_cfgServico);
                 return _cfgServico;
             }
             set
             {
                 _cfgServico = value;
-                ConfiguracaoServico.Instancia.CopiarPropriedades(value);
+                _cfgServico.CopiarPropriedades(value);
             }
         }
 

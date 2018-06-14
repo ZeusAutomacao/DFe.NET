@@ -121,9 +121,9 @@ namespace NFe.Utils.Validacao
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, ConfiguracaoServico configuracaoServico, bool loteNfe = true)
         {
-            var pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
+            var pathSchema = configuracaoServico.DiretorioSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);

@@ -277,7 +277,7 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+                _nfe.Assina(_configuracoes.CfgServico.Certificado.Certificado); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> { _nfe });
 
@@ -311,9 +311,9 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
                 _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
-                _nfe.Assina();
+                _nfe.Assina(_configuracoes.CfgServico.Certificado.Certificado);
                 _nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) };
-                _nfe.Valida();
+                _nfe.Valida(_configuracoes.CfgServico);
 
                 #endregion Gerar NFe
 
@@ -384,7 +384,7 @@ namespace NFe.AppTeste
 
                 _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
                     _configuracoes.CfgServico.VersaoNFeAutorizacao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+                _nfe.Assina(_configuracoes.CfgServico.Certificado.Certificado); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                                //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
                                //_nfe.infNFeSupl = new infNFeSupl() { qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc) }; //Define a URL do QR-Code.
 
@@ -742,7 +742,7 @@ namespace NFe.AppTeste
                 }
 
                 if (_nfe == null) return;
-                _nfe.Valida();
+                _nfe.Valida(_configuracoes.CfgServico);
                 Funcoes.Mensagem(string.Format("NFe número {0} validada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção",
                     MessageBoxButton.OK);
                 ExibeNfe();
@@ -764,7 +764,7 @@ namespace NFe.AppTeste
                 }
 
                 if (_nfe == null) return;
-                _nfe.Assina();
+                _nfe.Assina(_configuracoes.CfgServico.Certificado.Certificado);
                 Funcoes.Mensagem(string.Format("NFe número {0} assinada com sucesso!", _nfe.infNFe.ide.nNF), "Atenção",
                     MessageBoxButton.OK);
                 ExibeNfe();
@@ -849,7 +849,7 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 BtnImportarXml_Click(sender, e);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+                _nfe.Assina(_configuracoes.CfgServico.Certificado.Certificado); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 

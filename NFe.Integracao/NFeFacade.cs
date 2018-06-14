@@ -72,7 +72,7 @@ namespace NFe.Integracao
         /// <returns></returns>
         public RetornoNFeAutorizacao EnviarNFe(Int32 numLote, Classes.NFe nfe)
         {
-            nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+            nfe.Assina(TODO); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
             var servicoNFe = new ServicosNFe(ConfiguracaoServico.Instancia);
             return servicoNFe.NFeAutorizacao(numLote, IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { nfe });
         }

@@ -50,49 +50,41 @@ namespace NFe.Utils.Assinatura
         /// <param name="id"></param>
         /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital = null) where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
-            var certificado = certificadoDigital ?? CertificadoDigital.ObterCertificado(ConfiguracaoServico.Instancia.Certificado);
-            try
-            {
-                var documento = new XmlDocument { PreserveWhitespace = true };
-                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-                var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
-                var reference = new Reference { Uri = "#" + id };
+            var certificado = certificadoDigital;
 
-                // adicionando EnvelopedSignatureTransform a referencia
-                var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
-                reference.AddTransform(envelopedSigntature);
+            var documento = new XmlDocument { PreserveWhitespace = true };
+            documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+            var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
+            var reference = new Reference { Uri = "#" + id };
 
-                var c14Transform = new XmlDsigC14NTransform();
-                reference.AddTransform(c14Transform);
+            // adicionando EnvelopedSignatureTransform a referencia
+            var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
+            reference.AddTransform(envelopedSigntature);
 
-                docXml.AddReference(reference);
+            var c14Transform = new XmlDsigC14NTransform();
+            reference.AddTransform(c14Transform);
 
-                // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-                var keyInfo = new KeyInfo();
-                keyInfo.AddClause(new KeyInfoX509Data(certificado));
+            docXml.AddReference(reference);
 
-                docXml.KeyInfo = keyInfo;
-                docXml.ComputeSignature();
+            // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
+            var keyInfo = new KeyInfo();
+            keyInfo.AddClause(new KeyInfoX509Data(certificado));
 
-                //// recuperando a representação do XML assinado
-                var xmlDigitalSignature = docXml.GetXml();
-                var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
-                return assinatura;
-            }
-            finally
-            {
-                //Se não mantém os dados do certificado em cache e o certificado não foi passado por parâmetro(isto é, ele foi criado dentro deste método), 
-                //então libera o certificado, chamando o método reset.
-                if (!ConfiguracaoServico.Instancia.Certificado.ManterDadosEmCache & certificadoDigital == null)
-                    certificado.Reset();
-            }
-           
+            docXml.KeyInfo = keyInfo;
+            docXml.ComputeSignature();
+
+            //// recuperando a representação do XML assinado
+            var xmlDigitalSignature = docXml.GetXml();
+            var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
+            return assinatura;
+
+
         }
     }
 }
