@@ -171,7 +171,8 @@ Temporary Items
 /CTe.Dacte.Base/bin/Debug
 /CTe.Dacte.Fast/obj/Debug
 /CTe.Dacte.Fast/bin/Debug
-/.vs
+/.vs/*
 .vs/Zeus NFe/v15/.suo
 /src/.vs/ZeusDFe/v15/Server/sqlite3/db.lock
 /src/.vs/ZeusDFe/v15/Server/sqlite3/storage.ide
+/src/*
