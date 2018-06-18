@@ -87,15 +87,6 @@ namespace NFe.Classes.Informacoes.Total
         } //Nulable por conta da v2.00
 
         /// <summary>
-        /// W04h - Valor Total do FCP (Fundo de Combate à Pobreza)
-        /// </summary>
-        public decimal vFCP
-        {
-            get { return _vFCP.Arredondar(2); }
-            set { _vFCP = value.Arredondar(2); }
-        }
-
-        /// <summary>
         /// W04c - Valor total do ICMS relativo Fundo de Combate à Pobreza(FCP) da UF de destino
         /// </summary>
         public decimal? vFCPUFDest
@@ -106,7 +97,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevFCPUFDest()
         {
-            return _vFcpufDest.HasValue && _vFcpufDest.Value > 0;
+            return _vIcmsufDest.HasValue && _vIcmsufDest.Value > 0;
         }
 
         /// <summary>
@@ -134,8 +125,18 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevICMSUFRemet()
         {
-            return vICMSUFDest.HasValue && vICMSUFDest.Value > 0;
+            return _vIcmsufDest.HasValue && _vIcmsufDest.Value > 0;
         }
+
+        /// <summary>
+        /// W04h - Valor Total do FCP (Fundo de Combate à Pobreza)
+        /// </summary>
+        public decimal vFCP
+        {
+            get { return _vFCP.Arredondar(2); }
+            set { _vFCP = value.Arredondar(2); }
+        }
+
 
         /// <summary>
         ///     W05 - Base de Cálculo do ICMS ST
