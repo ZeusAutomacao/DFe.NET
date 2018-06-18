@@ -61,6 +61,8 @@ dlldata.c
 *.user
 *.userosscache
 *.sln.docstates
+*.csproj.user
+*.vspscc
 
 # NuGet Packages
 *.nupkg
