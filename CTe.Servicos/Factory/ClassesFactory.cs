@@ -134,6 +134,15 @@ namespace CTe.Servicos.Factory
             };
         }
 
+        public static evPrestDesacordo CriaEvPrestDesacordo(string indicadorDesacordo, string observacao)
+        {
+            return new evPrestDesacordo
+            {
+                indDesacordoOper = indicadorDesacordo,
+                xObs = observacao
+            };
+        }
+
         public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList)
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;

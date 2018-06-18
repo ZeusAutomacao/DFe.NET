@@ -35,6 +35,7 @@ using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Eventos.Contratos;
 using CTe.Servicos.Factory;
+using CTe.Utils.CTe;
 using CTe.Utils.Evento;
 using CteEletronico = CTe.Classes.CTe;
 
@@ -44,7 +45,12 @@ namespace CTe.Servicos.Eventos
     {
         public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
         {
-            var evento = FactoryEvento.CriaEvento(cte, tipoEvento, sequenciaEvento, container);
+            return Executar(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+        }
+                
+        public retEventoCTe Executar(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        {
+            var evento = FactoryEvento.CriaEvento(tipoEvento,sequenciaEvento,chave,cnpj,container);
             evento.Assina();
             evento.ValidarSchema();
             evento.SalvarXmlEmDisco();
