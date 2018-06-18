@@ -82,7 +82,6 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Wsdl.Autorizacao.SVAN;
-using NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs;
 using NFe.Wsdl.ConsultaProtocolo.SVAN;
 using NFe.Wsdl.Evento.SVAN;
 using NFe.Wsdl.Inutilizacao.SVAN;
