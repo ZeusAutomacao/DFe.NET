@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="04/23/2018 09:32:47" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="05/10/2018 13:24:35" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -844,7 +844,8 @@ namespace FastReport
     <Parameter Name="NfceCancelado" DataType="System.Boolean"/>
     <Parameter Name="NfceLayoutQrCode" DataType="NFe.Danfe.Base.NfceLayoutQrCode, NFe.Danfe.Base, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null" Description="Layuout do QRCode (Normal ou Lateral)"/>
     <Total Name="QtdeItens" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
-    <Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbProdutosDuasLinhas"/>
+    <Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.vPag]" Evaluator="dbPagamento"/>
+    <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
   </Dictionary>
   <ReportPage Name="PgNfce" PaperWidth="79" LeftMargin="4.5" TopMargin="0" RightMargin="4.5" BottomMargin="1" FirstPageSource="15" OtherPagesSource="15" StartPageEvent="PgNfce_StartPage">
     <ReportTitleBand Name="rtbTitulo" Width="264.6" Height="85.8" BeforePrintEvent="rtbTitulo_BeforePrint" AfterPrintEvent="rtbTitulo_AfterPrint">
@@ -956,7 +957,7 @@ namespace FastReport
       <TextObject Name="Text6" Left="154.98" Width="109.62" Height="13.23" Text="[NFCe.NFe.infNFe.pag.detPag.vPag]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <DataFooterBand Name="dbTroco" Top="479.4" Width="264.6" Height="28.35" BeforePrintEvent="dbTroco_BeforePrint">
         <TextObject Name="Text5" Left="202.23" Top="13.23" Width="62.37" Height="13.23" Text="[NFCe.NFe.infNFe.pag.vTroco]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt, style=Bold"/>
-        <TextObject Name="Text13" Width="262.71" Height="13.23" Text="(TOTAL PAGO [FormatCurrency([TotalPagamentos], 2)])" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+        <TextObject Name="Text13" Width="262.71" Height="13.23" Text="(TOTAL PAGO [FormatCurrency([TotalPagamentos]+[TotalDetPagamentos], 2)])" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
         <TextObject Name="Text47" Top="13.23" Width="196.56" Height="13.23" Text="TROCO R$:" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       </DataFooterBand>
     </DataBand>
