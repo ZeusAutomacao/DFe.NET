@@ -57,6 +57,7 @@
     <Compile Include="EnviarCte\RetornoEnviarCte.cs" />
     <Compile Include="EnviarCte\ServicoEnviarCte.cs" />
     <Compile Include="Eventos\Contratos\IServicoController.cs" />
+    <Compile Include="Eventos\EventoDesacordo.cs" />
     <Compile Include="Eventos\EventoCancelamento.cs" />
     <Compile Include="Eventos\EventoCartaCorrecao.cs" />
     <Compile Include="Eventos\FactoryEvento.cs" />
