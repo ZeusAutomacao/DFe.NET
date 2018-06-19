@@ -41,6 +41,8 @@ namespace CTe.Classes.Servicos.Evento.Flags
         Cancelamento = 110111,
         [XmlEnum("110110")]
         CartaCorrecao = 110110,
+        [XmlEnum("610110")]
+        Desacordo = 610110,
         [XmlEnum("310610")]
         MDFeAutorizado = 310610
     }
