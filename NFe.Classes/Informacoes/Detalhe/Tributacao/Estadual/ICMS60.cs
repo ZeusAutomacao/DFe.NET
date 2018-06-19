@@ -150,8 +150,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pRedBCEfet
         {
-            get { return _pRedBCEfet; }
-            set { _pRedBCEfet = value; }
+            get { return _pRedBCEfet.Arredondar(4); }
+            set { _pRedBCEfet = value.Arredondar(4); }
         }
 
         public bool ShouldSerializepRedBCEfet()
@@ -164,8 +164,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vBCEfet
         {
-            get { return _vBCEfet; }
-            set { _vBCEfet = value; }
+            get { return _vBCEfet.Arredondar(2); }
+            set { _vBCEfet = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevBCEfet()
@@ -178,8 +178,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pICMSEfet
         {
-            get { return _pICMSEfet; }
-            set { _pICMSEfet = value; }
+            get { return _pICMSEfet.Arredondar(4); }
+            set { _pICMSEfet = value.Arredondar(4); }
         }
 
         public bool ShouldSerializepICMSEfet()
@@ -192,8 +192,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? vICMSEfet
         {
-            get { return _vICMSEfet; }
-            set { _vICMSEfet = value; }
+            get { return _vICMSEfet.Arredondar(2); }
+            set { _vICMSEfet = value.Arredondar(2); }
         }
 
         public bool ShouldSerializevICMSEfet()
