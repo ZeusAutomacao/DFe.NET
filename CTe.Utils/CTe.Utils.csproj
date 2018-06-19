@@ -60,6 +60,7 @@
     <Compile Include="Extencoes\ExtconsSitCTe.cs" />
     <Compile Include="Extencoes\ExtconsStatServCte.cs" />
     <Compile Include="Extencoes\ExtevCancCTe.cs" />
+    <Compile Include="Extencoes\ExtevPrestDesacordo.cs" />
     <Compile Include="Extencoes\ExtevCCeCTe.cs" />
     <Compile Include="Extencoes\ExtinutCTe.cs" />
     <Compile Include="Extencoes\ExtConsReciCTe.cs" />
