@@ -442,6 +442,11 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
+            if(retInutNFe.infInut.cUF == 0)
+            {
+                retInutNFe.infInut.cUF = _cFgServico.cUF;
+            }
+
             return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
 
