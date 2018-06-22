@@ -147,6 +147,9 @@
     <Compile Include="Status\ExtretConsStatServ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tributacao\Estadual\ICMSGeral.cs" />
+    <Compile Include="Tributacao\Federal\IPIGeral.cs" />
+    <Compile Include="Tributacao\Federal\COFINSGeral.cs" />
+    <Compile Include="Tributacao\Federal\PISGeral.cs" />
     <Compile Include="Validacao\Validador.cs" />
   </ItemGroup>
   <ItemGroup>
