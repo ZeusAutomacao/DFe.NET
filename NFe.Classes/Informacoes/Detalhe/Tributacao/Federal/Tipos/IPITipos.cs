@@ -52,19 +52,74 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
     /// </summary>
     public enum CSTIPI
     {
+        /// <summary>
+        /// 00 - Entrada com recuperação de crédito
+        /// </summary>
         [XmlEnum("00")] ipi00,
+
+        /// <summary>
+        /// 49 - Outras entradas
+        /// </summary>
         [XmlEnum("49")] ipi49,
+
+        /// <summary>
+        /// 50 - Saída tributada
+        /// </summary>
         [XmlEnum("50")] ipi50,
+
+        /// <summary>
+        /// 99 - Outras saídas
+        /// </summary>
         [XmlEnum("99")] ipi99,
+
+        /// <summary>
+        /// 01 - Entrada tributada com alíquota zero
+        /// </summary>
         [XmlEnum("01")] ipi01,
+
+        /// <summary>
+        /// 02 - Entrada isenta
+        /// </summary>
         [XmlEnum("02")] ipi02,
+
+        /// <summary>
+        /// 03 - Entrada não-tributada
+        /// </summary>
         [XmlEnum("03")] ipi03,
+
+        /// <summary>
+        /// 04 - Entrada imune
+        /// </summary>
         [XmlEnum("04")] ipi04,
+
+        /// <summary>
+        /// 05 - Entrada com suspensão
+        /// </summary>
         [XmlEnum("05")] ipi05,
+
+        /// <summary>
+        /// 51 - Saída tributada com alíquota zero
+        /// </summary>
         [XmlEnum("51")] ipi51,
+
+        /// <summary>
+        /// 52 - Saída isenta
+        /// </summary>
         [XmlEnum("52")] ipi52,
+
+        /// <summary>
+        /// 53 - Saída não-tributada
+        /// </summary>
         [XmlEnum("53")] ipi53,
+
+        /// <summary>
+        /// 54 - Saída imune
+        /// </summary>
         [XmlEnum("54")] ipi54,
+
+        /// <summary>
+        /// 55 - Saída com suspensão
+        /// </summary>
         [XmlEnum("55")] ipi55
     }
 }
