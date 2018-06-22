@@ -7,7 +7,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NFe.Testes
+namespace NFe.Testes.Gerais
 {
     [TestClass]
     public class NFeTestes
