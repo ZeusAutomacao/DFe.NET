@@ -79,6 +79,7 @@ using DFe.Classes.Extensoes;
 using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
+using NFe.Utils.Tributacao.Federal;
 
 namespace NFe.AppTeste
 {
@@ -1067,6 +1068,8 @@ namespace NFe.AppTeste
                 imposto = new imposto
                 {
                     vTotTrib = 0.17m,
+
+                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja um exemplo no método ObterIcmsBasico()
                     ICMS = new ICMS
                     {
                         TipoICMS =
@@ -1074,7 +1077,6 @@ namespace NFe.AppTeste
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
-                    //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
 
                     //ICMSUFDest = new ICMSUFDest()
                     //{
@@ -1087,21 +1089,31 @@ namespace NFe.AppTeste
                     //    vICMSUFDest = 0,
                     //    vICMSUFRemet = 0
                     //},
-                    COFINS =
-                        new COFINS
-                        {
-                            TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}
-                        },
-                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}}
+
+                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.COFINSGeral para obter os dados básicos. Veja um exemplo no método ObterCofinsBasico()
+                    COFINS = new COFINS
+                    {
+                        TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}
+                    },
+
+                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.PISGeral para obter os dados básicos. Veja um exemplo no método ObterPisBasico()
+                    PIS = new PIS
+                    {
+                        TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}
+                    }
                 }
             };
 
             if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
+            {
+                //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.IPIGeral para obter os dados básicos. Veja um exemplo no método ObterIpiBasico()
                 det.imposto.IPI = new IPI()
                 {
                     cEnq = 999,
-                    TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
+                    TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m }
                 };
+            }
+            
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;
@@ -1189,6 +1201,50 @@ namespace NFe.AppTeste
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             return icmsGeral.ObterICMSBasico(crt);
+        }
+
+        private PISBasico ObterPisBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto PISGeral, como no exemplo abaixo.
+            var pisGeral = new PISGeral()
+            {
+                CST = CSTPIS.pis01,
+                vBC = 1.1m,
+                pPIS = 1.65m,
+                vPIS = 0.01m,
+                vAliqProd = 0
+            };
+
+            return pisGeral.ObterPISBasico();
+        }
+
+        private COFINSBasico ObterCofinsBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto COFINSGeral, como no exemplo abaixo.
+            var cofinsGeral = new COFINSGeral()
+            {
+                CST = CSTCOFINS.cofins01,
+                vBC = 1.1m,
+                pCOFINS = 1.65m,
+                vCOFINS = 0.01m,
+                vAliqProd = 0
+            };
+
+            return cofinsGeral.ObterCOFINSBasico();
+        }
+
+        private IPIBasico ObterIPIBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto IPIGeral, como no exemplo abaixo.
+            var ipiGeral = new IPIGeral()
+            {
+                CST = CSTIPI.ipi01,
+                vBC = 1.1m,
+                pIPI = 5m,
+                vIPI = 0.05m
+            };
+
+            return ipiGeral.ObterIPIBasico();
         }
 
         protected virtual ICMSBasico InformarCSOSN(Csosnicms CST)
