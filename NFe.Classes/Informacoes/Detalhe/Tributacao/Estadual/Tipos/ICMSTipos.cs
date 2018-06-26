@@ -80,19 +80,74 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum Csticms
     {
+        /// <summary>
+        /// 00 - Tributada integralmente
+        /// </summary>
         [XmlEnum("00")] Cst00,
+
+        /// <summary>
+        /// 10 - Tributada e com cobrança do ICMS por substituição tributária
+        /// </summary>
         [XmlEnum("10")] Cst10,
+
+        /// <summary>
+        /// 10 - Tributada e com cobrança do ICMS por substituição tributária
+        /// </summary>
         [XmlEnum("10")] CstPart10,
+
+        /// <summary>
+        /// 20 - Com redução de base de cálculo
+        /// </summary>
         [XmlEnum("20")] Cst20,
+
+        /// <summary>
+        /// 30 - Isenta ou não tributada e com cobrança do ICMS por substituição tributária
+        /// </summary>
         [XmlEnum("30")] Cst30,
+
+        /// <summary>
+        /// 40 - Isenta
+        /// </summary>
         [XmlEnum("40")] Cst40,
+
+        /// <summary>
+        /// 41 - Não tributada
+        /// </summary>
         [XmlEnum("41")] Cst41,
+
+        /// <summary>
+        /// 41 - Não tributada
+        /// </summary>
         [XmlEnum("41")] CstRep41,
+
+        /// <summary>
+        /// 50 - Suspensão
+        /// </summary>
         [XmlEnum("50")] Cst50,
+
+        /// <summary>
+        /// 51 - Diferimento
+        /// </summary>
         [XmlEnum("51")] Cst51,
+
+        /// <summary>
+        /// 60 - ICMS cobrado anteriormente por substituição tributária
+        /// </summary>
         [XmlEnum("60")] Cst60,
+
+        /// <summary>
+        /// 70 - Com redução de base de cálculo e cobrança do ICMS por substituição tributária
+        /// </summary>
         [XmlEnum("70")] Cst70,
+
+        /// <summary>
+        /// 90 - Outras
+        /// </summary>
         [XmlEnum("90")] Cst90,
+
+        /// <summary>
+        /// 90 - Outras
+        /// </summary>
         [XmlEnum("90")] CstPart90
     }
 
