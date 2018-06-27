@@ -218,15 +218,54 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum Csosnicms
     {
+        /// <summary>
+        /// 101 - Tributada pelo Simples Nacional com permissão de crédito
+        /// </summary>
         [XmlEnum("101")] Csosn101 = 101,
+
+        /// <summary>
+        /// 102 - Tributada pelo Simples Nacional sem permissão de crédito
+        /// </summary>
         [XmlEnum("102")] Csosn102 = 102,
+
+        /// <summary>
+        /// 103 – Isenção do ICMS  no Simples Nacional para faixa de receita bruta
+        /// </summary>
         [XmlEnum("103")] Csosn103 = 103,
+
+        /// <summary>
+        /// 201 - Tributada pelo Simples Nacional com permissão de crédito e com cobrança do ICMS por Substituição Tributária 
+        /// </summary>
         [XmlEnum("201")] Csosn201 = 201,
+
+        /// <summary>
+        /// 202 - Tributada pelo Simples Nacional sem permissão de crédito e com cobrança do ICMS por Substituição Tributária
+        /// </summary>
         [XmlEnum("202")] Csosn202 = 202,
+
+        /// <summary>
+        /// 203 -  Isenção do ICMS nos Simples Nacional para faixa de receita bruta e com cobrança do ICMS por Substituição Tributária 
+        /// </summary>
         [XmlEnum("203")] Csosn203 = 203,
+
+        /// <summary>
+        /// 300 – Imune
+        /// </summary>
         [XmlEnum("300")] Csosn300 = 300,
+
+        /// <summary>
+        /// 400 – Não tributada pelo Simples Nacional
+        /// </summary>
         [XmlEnum("400")] Csosn400 = 400,
+
+        /// <summary>
+        /// 500 – ICMS cobrado anterirmente por substituição tributária (substituído) ou por antecipação
+        /// </summary>
         [XmlEnum("500")] Csosn500 = 500,
+
+        /// <summary>
+        /// 900 - Outros
+        /// </summary>
         [XmlEnum("900")] Csosn900 = 900
     }
 
