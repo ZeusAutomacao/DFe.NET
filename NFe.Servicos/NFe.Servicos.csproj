@@ -63,6 +63,18 @@
     <Compile Include="ServicosNFe.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
+      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Name>NFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
       <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
       <Name>NFe.Utils</Name>
