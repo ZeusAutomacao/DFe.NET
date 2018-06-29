@@ -50,14 +50,49 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum OrigemMercadoria
     {
+        /// <summary>
+        /// 0-Nacional exceto as indicadas nos códigos 3, 4, 5 e 8
+        /// </summary>
         [XmlEnum("0")] OmNacional = 0,
+
+        /// <summary>
+        /// 2-Estrangeira - Adquirida no mercado interno
+        /// </summary>
         [XmlEnum("1")] OmEstrangeiraImportacaoDireta = 1,
+
+        /// <summary>
+        /// 3-Nacional, conteudo superior 40% e inferior ou igual a 70%
+        /// </summary>
         [XmlEnum("2")] OmEstrangeiraAdquiridaBrasil = 2,
+
+        /// <summary>
+        /// 3-Nacional, conteudo superior 40% e inferior ou igual a 70%
+        /// </summary>
         [XmlEnum("3")] OmNacionalConteudoImportacaoSuperior40 = 3,
+
+        /// <summary>
+        /// 4-Nacional, processos produtivos básicos
+        /// </summary>
         [XmlEnum("4")] OmNacionalProcessosBasicos = 4,
+
+        /// <summary>
+        /// 5-Nacional, conteudo inferior 40%
+        /// </summary>
         [XmlEnum("5")] OmNacionalConteudoImportacaoInferiorIgual40 = 5,
+
+        /// <summary>
+        /// 6-Estrangeira - Importação direta, com similar nacional, lista CAMEX
+        /// </summary>
         [XmlEnum("6")] OmEstrangeiraImportacaoDiretaSemSimilar = 6,
+
+        /// <summary>
+        /// 7-Estrangeira - mercado interno, sem simular,lista CAMEX
+        /// </summary>
         [XmlEnum("7")] OmEstrangeiraAdquiridaBrasilSemSimilar = 7,
+
+        /// <summary>
+        /// 8-Nacional, Conteúdo de Importação superior a 70%
+        /// </summary>
         [XmlEnum("8")] OmNacionalConteudoImportacaoSuperior70 = 8
     }
 
@@ -163,9 +198,24 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum DeterminacaoBaseIcms
     {
+        /// <summary>
+        /// 0 - Margem Valor Agregado (%)
+        /// </summary>
         [XmlEnum("0")] DbiMargemValorAgregado = 0,
+
+        /// <summary>
+        /// 1 - Pauta (valor)
+        /// </summary>
         [XmlEnum("1")] DbiPauta = 1,
+
+        /// <summary>
+        /// 2 - Preço Tabelado Máximo (valor)
+        /// </summary>
         [XmlEnum("2")] DbiPrecoTabelado = 2,
+
+        /// <summary>
+        /// 3 - Valor da Operação
+        /// </summary>
         [XmlEnum("3")] DbiValorOperacao = 3
     }
 
@@ -183,11 +233,34 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum DeterminacaoBaseIcmsSt
     {
+        /// <summary>
+        /// 0 – Preço tabelado ou máximo  sugerido
+        /// </summary>
         [XmlEnum("0")] DbisPrecoTabelado = 0,
+
+        /// <summary>
+        /// 1 - Lista Negativa (valor)
+        /// </summary>
         [XmlEnum("1")] DbisListaNegativa = 1,
+
+        /// <summary>
+        /// 2 - Lista Positiva (valor)
+        /// </summary>
         [XmlEnum("2")] DbisListaPositiva = 2,
+
+        /// <summary>
+        /// 3 - Lista Neutra (valor)
+        /// </summary>
         [XmlEnum("3")] DbisListaNeutra = 3,
+
+        /// <summary>
+        /// 4 - Margem Valor Agregado (%)
+        /// </summary>
         [XmlEnum("4")] DbisMargemValorAgregado = 4,
+
+        /// <summary>
+        /// 5 - Pauta (valor)
+        /// </summary>
         [XmlEnum("5")] DbisPauta = 5
     }
 
