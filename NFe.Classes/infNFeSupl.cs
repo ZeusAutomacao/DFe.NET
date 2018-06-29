@@ -71,6 +71,8 @@ namespace NFe.Classes
             writer.WriteStartElement("qrCode");
             writer.WriteCData(qrCode);
             writer.WriteEndElement();
+
+            writer.WriteElementString("urlChave", urlChave);
         }
     }
 }
