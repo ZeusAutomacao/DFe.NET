@@ -163,7 +163,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string cEANTrib
         {
             get { return _cEanTrib; }
-            set { _cEanTrib = value ?? string.Empty; }
+            set { _cEanTrib = value ?? "SEM GTIN"; }
         }
 
         /// <summary>
