@@ -72,7 +72,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public string cEAN
         {
             get { return _cEan; }
-            set { _cEan = value ?? string.Empty; }
+            set { _cEan = value ?? "SEM GTIN"; }
         }
 
         /// <summary>
