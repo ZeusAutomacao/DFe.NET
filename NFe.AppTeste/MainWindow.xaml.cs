@@ -1355,14 +1355,14 @@ namespace NFe.AppTeste
 
         protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
-            var valorParcela = Valor.Arredondar(icmsTot.vNF/2, 2);
+            var valorParcela = Valor.Arredondar(icmsTot.vNF / 2, 2);
             var c = new cobr
             {
-                fat = new fat {nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF },
+                fat = new fat { nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF, vDesc = 0m },
                 dup = new List<dup>
                 {
-                    new dup {nDup = "12345678", vDup = valorParcela},
-                    new dup {nDup = "987654321", vDup = icmsTot.vNF - valorParcela}
+                    new dup {nDup = "001", dVenc = DateTime.Now.AddDays(30), vDup = valorParcela},
+                    new dup {nDup = "002", dVenc = DateTime.Now.AddDays(60), vDup = icmsTot.vNF - valorParcela}
                 }
             };
 
