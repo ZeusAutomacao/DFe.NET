@@ -1069,9 +1069,12 @@ namespace NFe.AppTeste
                 {
                     vTotTrib = 0.17m,
 
-                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja um exemplo no método ObterIcmsBasico()
                     ICMS = new ICMS
                     {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do ICMS
+                        //TipoICMS = ObterIcmsBasico(crt),
+
+                        //Caso você resolva utilizar método ObterIcmsBasico(), comente esta proxima linha
                         TipoICMS =
                             crt == CRT.SimplesNacional
                                 ? InformarCSOSN(Csosnicms.Csosn102)
@@ -1090,15 +1093,21 @@ namespace NFe.AppTeste
                     //    vICMSUFRemet = 0
                     //},
 
-                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.COFINSGeral para obter os dados básicos. Veja um exemplo no método ObterCofinsBasico()
                     COFINS = new COFINS
                     {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do COFINS
+                        //TipoCOFINS = ObterCofinsBasico(),
+
+                        //Caso você resolva utilizar método ObterCofinsBasico(), comente esta proxima linha
                         TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}
                     },
-
-                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.PISGeral para obter os dados básicos. Veja um exemplo no método ObterPisBasico()
+                    
                     PIS = new PIS
                     {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do PIS
+                        //TipoPIS = ObterPisBasico(),
+
+                        //Caso você resolva utilizar método ObterPisBasico(), comente esta proxima linha
                         TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}
                     }
                 }
@@ -1106,10 +1115,14 @@ namespace NFe.AppTeste
 
             if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
             {
-                //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Federal.IPIGeral para obter os dados básicos. Veja um exemplo no método ObterIpiBasico()
                 det.imposto.IPI = new IPI()
                 {
                     cEnq = 999,
+
+                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do IPI
+                    //TipoIPI = ObterIPIBasico(),
+
+                    //Caso você resolva utilizar método ObterIPIBasico(), comente esta proxima linha
                     TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m }
                 };
             }
@@ -1193,7 +1206,7 @@ namespace NFe.AppTeste
             var icmsGeral = new ICMSGeral
             {
                 orig = OrigemMercadoria.OmNacional,
-                CST = Csticms.Cst20,
+                CST = Csticms.Cst00,
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                 vBC = 1.1m,
                 pICMS = 18,
