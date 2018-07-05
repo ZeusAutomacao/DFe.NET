@@ -76,8 +76,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pST
         {
-            get { return _pST; }
-            set { _pST = value; }
+            get { return _pST.Arredondar(4); }
+            set { _pST = value.Arredondar(4); }
         }
 
         public bool ShouldSerializepST()
