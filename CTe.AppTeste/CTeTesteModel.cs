@@ -72,7 +72,7 @@ using DFe.Utils.Assinatura;
 using dest = CTe.Classes.Informacoes.Destinatario.dest;
 using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-
+using System.Xml.Linq;
 
 namespace CTe.AppTeste
 {
@@ -777,6 +777,23 @@ namespace CTe.AppTeste
 
             var servico = new EventoCancelamento(cte, sequenciaEvento, protocolo, justificativa);
             var retorno = servico.Cancelar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void EventoDesacordoCTe()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+                       
+            var cnpj = (InputBoxTuche("CNPJ Tomador"));
+            var chave = (InputBoxTuche("Chave CTe"));
+            var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
+            var indPres = InputBoxTuche("Indicador da prestação (1)");
+            var obs = InputBoxTuche("Observação (mínimo 15 digitos)");
+
+            var servico = new EventoDesacordo(sequenciaEvento, chave, cnpj, indPres, obs);
+            var retorno = servico.Discordar();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
