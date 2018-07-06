@@ -41,8 +41,19 @@ namespace NFe.Classes.Informacoes.Emitente
     /// </summary>
     public enum CRT
     {
+        /// <summary>
+        /// 1 – Simples Nacional
+        /// </summary>
         [XmlEnum("1")] SimplesNacional = 1,
+
+        /// <summary>
+        /// 2 – Simples Nacional – excesso de sublimite de receita bruta
+        /// </summary>
         [XmlEnum("2")] SimplesNacionalExcessoSublimite = 2,
+
+        /// <summary>
+        /// 3 – Regime Normal
+        /// </summary>
         [XmlEnum("3")] RegimeNormal = 3
     }
 }
