@@ -50,14 +50,49 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum OrigemMercadoria
     {
+        /// <summary>
+        /// 0-Nacional exceto as indicadas nos códigos 3, 4, 5 e 8
+        /// </summary>
         [XmlEnum("0")] OmNacional = 0,
+
+        /// <summary>
+        /// 2-Estrangeira - Adquirida no mercado interno
+        /// </summary>
         [XmlEnum("1")] OmEstrangeiraImportacaoDireta = 1,
+
+        /// <summary>
+        /// 3-Nacional, conteudo superior 40% e inferior ou igual a 70%
+        /// </summary>
         [XmlEnum("2")] OmEstrangeiraAdquiridaBrasil = 2,
+
+        /// <summary>
+        /// 3-Nacional, conteudo superior 40% e inferior ou igual a 70%
+        /// </summary>
         [XmlEnum("3")] OmNacionalConteudoImportacaoSuperior40 = 3,
+
+        /// <summary>
+        /// 4-Nacional, processos produtivos básicos
+        /// </summary>
         [XmlEnum("4")] OmNacionalProcessosBasicos = 4,
+
+        /// <summary>
+        /// 5-Nacional, conteudo inferior 40%
+        /// </summary>
         [XmlEnum("5")] OmNacionalConteudoImportacaoInferiorIgual40 = 5,
+
+        /// <summary>
+        /// 6-Estrangeira - Importação direta, com similar nacional, lista CAMEX
+        /// </summary>
         [XmlEnum("6")] OmEstrangeiraImportacaoDiretaSemSimilar = 6,
+
+        /// <summary>
+        /// 7-Estrangeira - mercado interno, sem simular,lista CAMEX
+        /// </summary>
         [XmlEnum("7")] OmEstrangeiraAdquiridaBrasilSemSimilar = 7,
+
+        /// <summary>
+        /// 8-Nacional, Conteúdo de Importação superior a 70%
+        /// </summary>
         [XmlEnum("8")] OmNacionalConteudoImportacaoSuperior70 = 8
     }
 
@@ -163,9 +198,24 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum DeterminacaoBaseIcms
     {
+        /// <summary>
+        /// 0 - Margem Valor Agregado (%)
+        /// </summary>
         [XmlEnum("0")] DbiMargemValorAgregado = 0,
+
+        /// <summary>
+        /// 1 - Pauta (valor)
+        /// </summary>
         [XmlEnum("1")] DbiPauta = 1,
+
+        /// <summary>
+        /// 2 - Preço Tabelado Máximo (valor)
+        /// </summary>
         [XmlEnum("2")] DbiPrecoTabelado = 2,
+
+        /// <summary>
+        /// 3 - Valor da Operação
+        /// </summary>
         [XmlEnum("3")] DbiValorOperacao = 3
     }
 
@@ -183,11 +233,34 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum DeterminacaoBaseIcmsSt
     {
+        /// <summary>
+        /// 0 – Preço tabelado ou máximo  sugerido
+        /// </summary>
         [XmlEnum("0")] DbisPrecoTabelado = 0,
+
+        /// <summary>
+        /// 1 - Lista Negativa (valor)
+        /// </summary>
         [XmlEnum("1")] DbisListaNegativa = 1,
+
+        /// <summary>
+        /// 2 - Lista Positiva (valor)
+        /// </summary>
         [XmlEnum("2")] DbisListaPositiva = 2,
+
+        /// <summary>
+        /// 3 - Lista Neutra (valor)
+        /// </summary>
         [XmlEnum("3")] DbisListaNeutra = 3,
+
+        /// <summary>
+        /// 4 - Margem Valor Agregado (%)
+        /// </summary>
         [XmlEnum("4")] DbisMargemValorAgregado = 4,
+
+        /// <summary>
+        /// 5 - Pauta (valor)
+        /// </summary>
         [XmlEnum("5")] DbisPauta = 5
     }
 
@@ -218,15 +291,54 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     /// </summary>
     public enum Csosnicms
     {
+        /// <summary>
+        /// 101 - Tributada pelo Simples Nacional com permissão de crédito
+        /// </summary>
         [XmlEnum("101")] Csosn101 = 101,
+
+        /// <summary>
+        /// 102 - Tributada pelo Simples Nacional sem permissão de crédito
+        /// </summary>
         [XmlEnum("102")] Csosn102 = 102,
+
+        /// <summary>
+        /// 103 – Isenção do ICMS  no Simples Nacional para faixa de receita bruta
+        /// </summary>
         [XmlEnum("103")] Csosn103 = 103,
+
+        /// <summary>
+        /// 201 - Tributada pelo Simples Nacional com permissão de crédito e com cobrança do ICMS por Substituição Tributária 
+        /// </summary>
         [XmlEnum("201")] Csosn201 = 201,
+
+        /// <summary>
+        /// 202 - Tributada pelo Simples Nacional sem permissão de crédito e com cobrança do ICMS por Substituição Tributária
+        /// </summary>
         [XmlEnum("202")] Csosn202 = 202,
+
+        /// <summary>
+        /// 203 -  Isenção do ICMS nos Simples Nacional para faixa de receita bruta e com cobrança do ICMS por Substituição Tributária 
+        /// </summary>
         [XmlEnum("203")] Csosn203 = 203,
+
+        /// <summary>
+        /// 300 – Imune
+        /// </summary>
         [XmlEnum("300")] Csosn300 = 300,
+
+        /// <summary>
+        /// 400 – Não tributada pelo Simples Nacional
+        /// </summary>
         [XmlEnum("400")] Csosn400 = 400,
+
+        /// <summary>
+        /// 500 – ICMS cobrado anterirmente por substituição tributária (substituído) ou por antecipação
+        /// </summary>
         [XmlEnum("500")] Csosn500 = 500,
+
+        /// <summary>
+        /// 900 - Outros
+        /// </summary>
         [XmlEnum("900")] Csosn900 = 900
     }
 
