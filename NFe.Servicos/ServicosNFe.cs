@@ -94,6 +94,8 @@ namespace NFe.Servicos
 
             //Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
+            if (cFgServico.ValidaCertificado != null)
+                ServicePointManager.ServerCertificateValidationCallback += cFgServico.ValidaCertificado;
         }
 
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
@@ -343,11 +345,11 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia um evento genérico
         /// </summary>
-        /// <param name="idlote"></param>
+        /// <param name="idLote"></param>
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, VersaoServico versaoEvento)
+        private RetornoRecepcaoEvento RecepcaoEvento(long idLote, List<evento> eventos, ServicoNFe servicoEvento)
         {
             var listaEventos = new List<ServicoNFe>
             {
@@ -384,7 +386,7 @@ namespace NFe.Servicos
             var pedEvento = new envEvento
             {
                 versao = versaoServico,
-                idLote = idlote,
+                idLote = idLote,
                 evento = eventos
             };
 
@@ -404,7 +406,7 @@ namespace NFe.Servicos
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+            SalvarArquivoXml(idLote + "-ped-eve.xml", xmlEvento);
 
             XmlNode retorno;
             try
@@ -419,7 +421,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retEnvEvento = new retEnvEvento().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(idlote + "-eve.xml", retornoXmlString);
+            SalvarArquivoXml(idLote + "-eve.xml", retornoXmlString);
 
             #region Obtém um procEventoNFe de cada evento e salva em arquivo
 
@@ -452,14 +454,14 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia um evento do tipo "Cancelamento"
         /// </summary>
-        /// <param name="idlote"></param>
+        /// <param name="idLote"></param>
         /// <param name="sequenciaEvento"></param>
         /// <param name="protocoloAutorizacao"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="justificativa"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamento(long idLote, int sequenciaEvento,
             string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
             var versaoServico =
@@ -484,20 +486,20 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
         /// <summary>
         ///     Envia um evento do tipo "Carta de Correção"
         /// </summary>
-        /// <param name="idlote"></param>
+        /// <param name="idLote"></param>
         /// <param name="sequenciaEvento"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="correcao"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
+        public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(long idLote, int sequenciaEvento, string chaveNFe,
             string correcao, string cpfcnpj)
         {
             var versaoServico =
@@ -534,19 +536,19 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             return retorno;
         }
 
-        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(long idLote, int sequenciaEvento,
                     string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
                     string justificativa = null)
         {
-            return RecepcaoEventoManifestacaoDestinatario(idlote, sequenciaEvento, new[] { chaveNFe },
+            return RecepcaoEventoManifestacaoDestinatario(idLote, sequenciaEvento, new[] { chaveNFe },
                 tipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
         }
 
-        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(long idLote, int sequenciaEvento,
             string[] chavesNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
             string justificativa = null)
         {
@@ -584,7 +586,7 @@ namespace NFe.Servicos
             }
 
 
-            var retorno = RecepcaoEvento(idlote, eventos,
+            var retorno = RecepcaoEvento(idLote, eventos,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario, _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
             return retorno;
         }
@@ -592,12 +594,12 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia um evento do tipo "EPEC"
         /// </summary>
-        /// <param name="idlote"></param>
+        /// <param name="idLote"></param>
         /// <param name="sequenciaEvento"></param>
         /// <param name="nfe"></param>
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe,
+        public RetornoRecepcaoEvento RecepcaoEventoEpec(long idLote, int sequenciaEvento, Classes.NFe nfe,
             string veraplic)
         {
             var versaoServico =
@@ -605,7 +607,7 @@ namespace NFe.Servicos
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
-                        
+
             var detevento = new detEvento
             {
                 versao = versaoServico,
@@ -643,7 +645,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoEpec);
+            var retorno = RecepcaoEvento(idLote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoEpec, _cFgServico.VersaoRecepcaoEventoEpec);
             return retorno;
         }
 
@@ -863,7 +865,7 @@ namespace NFe.Servicos
         /// <param name="idLote"></param>
         /// <param name="nFes"></param>
         /// <returns>Retorna um objeto da classe RetornoNfeRecepcao com com os dados do resultado da transmissão</returns>
-        public RetornoNfeRecepcao NfeRecepcao(int idLote, List<Classes.NFe> nFes)
+        public RetornoNfeRecepcao NfeRecepcao(long idLote, List<Classes.NFe> nFes)
         {
             var versaoServico = ServicoNFe.NfeRecepcao.VersaoServicoParaString(_cFgServico.VersaoNfeRecepcao);
 
@@ -993,7 +995,7 @@ namespace NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
+        public RetornoNFeAutorizacao NFeAutorizacao(long idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
             bool compactarMensagem = false)
         {
             if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
@@ -1009,7 +1011,7 @@ namespace NFe.Servicos
             throw new InvalidOperationException("Versão inválida");
         }
 
-        private RetornoNFeAutorizacao NFeAutorizacao4(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
+        private RetornoNFeAutorizacao NFeAutorizacao4(long idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
@@ -1057,7 +1059,7 @@ namespace NFe.Servicos
             }
 
             var retornoXmlString = retorno.OuterXml;
-            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
+            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString.Replace("retConsReciNFe", "retEnviNFe"));
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 
@@ -1066,7 +1068,7 @@ namespace NFe.Servicos
             #endregion
         }
 
-        private RetornoNFeAutorizacao NFeAutorizacaoVersao310(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
+        private RetornoNFeAutorizacao NFeAutorizacaoVersao310(long idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
 
@@ -1120,7 +1122,7 @@ namespace NFe.Servicos
             }
 
             var retornoXmlString = retorno.OuterXml;
-            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString);
+            var retEnvio = new retEnviNFe().CarregarDeXmlString(retornoXmlString.Replace("retConsReciNFe", "retEnviNFe"));
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 

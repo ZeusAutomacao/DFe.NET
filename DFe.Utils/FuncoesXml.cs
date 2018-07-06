@@ -69,7 +69,11 @@ namespace DFe.Utils
                     xml.Attributes().Where(x => x.Name.LocalName.Equals("xsd") || x.Name.LocalName.Equals("xsi")).Remove();
                 }
             }
-            return XElement.Parse(xml.ToString()).ToString(SaveOptions.DisableFormatting);
+            var result = XElement.Parse(xml.ToString()).ToString(SaveOptions.DisableFormatting);
+            byte[] tempBytes;
+            tempBytes = System.Text.Encoding.GetEncoding("ISO-8859-8").GetBytes(result);
+            string asciiStr = System.Text.Encoding.UTF8.GetString(tempBytes);
+            return asciiStr;
         }
 
         /// <summary>

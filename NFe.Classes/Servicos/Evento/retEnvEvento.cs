@@ -49,7 +49,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     HR03 - Identificador de controle do Lote de envio do Evento, conforme informado na mensagem de entrada.
         /// </summary>
-        public int idLote { get; set; }
+        public long idLote { get; set; }
 
         /// <summary>
         ///     HR04 - Identificação do Ambiente: 1=Produção /2=Homologação

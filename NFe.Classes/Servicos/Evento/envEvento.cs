@@ -49,7 +49,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     Número sequencial autoincremental único para identificação do Lote. A responsabilidade de gerar e controlar é
         ///     exclusiva do autor do evento. O Web Service não faz qualquer uso deste identificador.
         /// </summary>
-        public int idLote { get; set; }
+        public long idLote { get; set; }
 
         /// <summary>
         ///     HP04 - Evento, um lote pode conter até 20 eventos

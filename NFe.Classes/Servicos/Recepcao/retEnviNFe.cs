@@ -86,7 +86,7 @@ namespace NFe.Classes.Servicos.Recepcao
         /// <summary>
         /// AR08 - Número do Recibo gerado pelo Portal da Secretaria de Fazenda Estadual
         /// </summary>
-        public int nRec { get; set; }
+        public long nRec { get; set; }
 
         /// <summary>
         /// AR10 - Tempo médio de resposta do serviço (em segundos) dos últimos 5 minutos

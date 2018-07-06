@@ -38,7 +38,7 @@ namespace NFe.Classes.Servicos.Recepcao
     [XmlRoot(ElementName = "enviNFe", Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class enviNFe2
     {
-        public enviNFe2(string versao, int idLote, List<NFe> nFe)
+        public enviNFe2(string versao, long idLote, List<NFe> nFe)
         {
             this.versao = versao;
             this.idLote = idLote;
@@ -57,8 +57,10 @@ namespace NFe.Classes.Servicos.Recepcao
 
         /// <summary>
         ///     AP03 - Identificador de controle do envio do lote.
+        ///     Número sequencial autoincremental, de controle correspondente ao identificador único do lote enviado.
+        ///     A responsabilidade de gerar e controlar esse número é exclusiva do contribuinte.
         /// </summary>
-        public int idLote { get; set; }
+        public long idLote { get; set; }
 
         /// <summary>
         ///     AP04 - Conjunto de NF-e transmitidas
