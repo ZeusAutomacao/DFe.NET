@@ -63,5 +63,7 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "qtdRat")]
         public decimal? QtdRat { get; set; }
-    }
+
+        public bool QtdRatSpecified { get { return QtdRat.HasValue; } }
+   }
 }
