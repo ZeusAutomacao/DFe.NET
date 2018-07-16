@@ -95,11 +95,13 @@ namespace NFe.Servicos
             //Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
 
-            //Não checa o certificado do servidor
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            if (_cFgServico.ValidarCertificadoDoServidor)
+                ServicePointManager.ServerCertificateValidationCallback = null;
+            else
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
 
-            //Usar comportamento 100-Continue
-            ServicePointManager.Expect100Continue = true;
+            //Usar comportamento 100-Continue para certificados A3
+            ServicePointManager.Expect100Continue = _cFgServico.Certificado.TipoCertificado == TipoCertificado.A3;
         }
 
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
