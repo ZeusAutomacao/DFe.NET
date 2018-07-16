@@ -80,7 +80,6 @@ namespace NFe.Servicos
     {
         private readonly X509Certificate2 _certificado;
         private readonly ConfiguracaoServico _cFgServico;
-        private readonly string _path;
 
         /// <summary>
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
@@ -90,8 +89,6 @@ namespace NFe.Servicos
         {
             _cFgServico = cFgServico;
             _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
-            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
             //Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
 
@@ -102,7 +99,9 @@ namespace NFe.Servicos
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
         {
             if (!_cFgServico.SalvarXmlServicos) return;
-            var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
+            var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml)
+                ? Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory)
+                : _cFgServico.DiretorioSalvarXml;
             var stw = new StreamWriter(dir + @"\" + nomeArquivo);
             stw.WriteLine(xmlString);
             stw.Close();
