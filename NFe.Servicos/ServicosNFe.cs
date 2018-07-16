@@ -95,7 +95,10 @@ namespace NFe.Servicos
             //Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
 
+            //Não checa o certificado do servidor
             ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            //Usar comportamento 100-Continue
             ServicePointManager.Expect100Continue = true;
         }
 
