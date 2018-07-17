@@ -99,9 +99,6 @@ namespace NFe.Servicos
                 ServicePointManager.ServerCertificateValidationCallback = null;
             else
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-
-            //Usar comportamento 100-Continue para certificados A3
-            ServicePointManager.Expect100Continue = _cFgServico.Certificado.TipoCertificado == TipoCertificado.A3;
         }
 
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
