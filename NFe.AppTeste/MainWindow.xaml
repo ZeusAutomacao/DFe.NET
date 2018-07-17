@@ -346,6 +346,13 @@
                                                  Margin="0,0,0,0" VerticalAlignment="Center" Width="134"
                                                  Text="{Binding CfgServico.TimeOut}" />
                                     </StackPanel>
+                                    <StackPanel>
+                                        <CheckBox Content="Validar certificado do servidor"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Top" Width="178"
+                                                  IsChecked="{Binding CfgServico.ValidarCertificadoDoServidor}"
+                                                  Margin="5,5,0,0" />
+                                    </StackPanel>
                                 </StackPanel>
                             </GroupBox>
                         </Grid>
