@@ -105,7 +105,7 @@ namespace NFe.Classes.Servicos.Evento
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
-                descEvento = "Carta de Correção";
+                descEvento = "Carta de Correcao";
                 LimpaDadosCancelamento();
                 LimpaDadosEpec();
                 xCondUso =
