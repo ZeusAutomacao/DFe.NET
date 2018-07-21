@@ -94,6 +94,11 @@ namespace NFe.Servicos
 
             //Define a versão do protocolo de segurança
             ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
+
+            if (_cFgServico.ValidarCertificadoDoServidor)
+                ServicePointManager.ServerCertificateValidationCallback = null;
+            else
+                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
         private string SalvarArquivoXml(string nomeArquivo, string xmlString)
