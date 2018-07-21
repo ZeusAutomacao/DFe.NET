@@ -42,6 +42,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pST;
         private decimal? _pFcpstRet;
         private decimal? _vFcpstRet;
+        private decimal? _pRedBCEfet;
+        private decimal? _vBCEfet;
+        private decimal? _pICMSEfet;
+        private decimal? _vICMSEfet;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -62,13 +66,23 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBcstRet = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevBCSTRet()
+        {
+            return vBCSTRet.HasValue;
+        }
+
         /// <summary>
         ///     N26a - Alíquota suportada pelo Consumidor Final
         /// </summary>
         public decimal? pST
         {
-            get { return _pST; }
-            set { _pST = value; }
+            get { return _pST.Arredondar(4); }
+            set { _pST = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepST()
+        {
+            return pST.HasValue;
         }
 
         /// <summary>
@@ -78,6 +92,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsstRet.Arredondar(2); }
             set { _vIcmsstRet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSSTRet()
+        {
+            return vICMSSTRet.HasValue;
         }
 
         /// <summary>
@@ -105,10 +124,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pFcpstRet = value.Arredondar(4); }
         }
 
-        public bool pFCPSTRetSpecified {
-            get {
-            return pFCPSTRet.HasValue;
-        } }
+        public bool pFCPSTRetSpecified
+        {
+            get { return pFCPSTRet.HasValue; }
+        }
+
 
         /// <summary>
         /// N27d - Valor do FCP retido por Substituição Tributária
@@ -125,19 +145,61 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return vFCPSTRet.HasValue; }
         }
 
-        public bool ShouldSerializevBCSTRet()
+        /// <summary>
+        ///     N34 - Percentual de redução da base de cálculo efetiva 
+        /// </summary>
+        public decimal? pRedBCEfet
         {
-            return vBCSTRet.HasValue;
+            get { return _pRedBCEfet.Arredondar(4); }
+            set { _pRedBCEfet = value.Arredondar(4); }
         }
 
-        public bool ShouldSerializepST()
+        public bool ShouldSerializepRedBCEfet()
         {
-            return pST.HasValue;
+            return pRedBCEfet.HasValue;
         }
 
-        public bool ShouldSerializevICMSSTRet()
+        /// <summary>
+        ///     N35 - Valor da base de cálculo efetiva 
+        /// </summary>
+        public decimal? vBCEfet
         {
-            return vICMSSTRet.HasValue;
+            get { return _vBCEfet.Arredondar(2); }
+            set { _vBCEfet = value.Arredondar(2); }
         }
+
+        public bool ShouldSerializevBCEfet()
+        {
+            return vBCEfet.HasValue;
+        }
+
+        /// <summary>
+        ///     N36 - Alíquota do ICMS efetiva 
+        /// </summary>
+        public decimal? pICMSEfet
+        {
+            get { return _pICMSEfet.Arredondar(4); }
+            set { _pICMSEfet = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMSEfet()
+        {
+            return pICMSEfet.HasValue;
+        }
+
+        /// <summary>
+        ///     N37 - Valor do ICMS efetivo 
+        /// </summary>
+        public decimal? vICMSEfet
+        {
+            get { return _vICMSEfet.Arredondar(2); }
+            set { _vICMSEfet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSEfet()
+        {
+            return vICMSEfet.HasValue;
+        }
+
     }
 }
