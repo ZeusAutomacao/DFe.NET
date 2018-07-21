@@ -55,5 +55,11 @@ namespace NFe.Classes.Servicos.Inutilizacao
         /// </summary>
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }
+
+        /// <summary>
+        /// Caminho do arquivo "-inu.xml" gerado pelo evento
+        /// </summary>
+        [XmlIgnore]
+        public string ArquivoXMLGerado { get; set; }
     }
 }
