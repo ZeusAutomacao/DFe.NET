@@ -316,7 +316,19 @@ namespace DFe.Utils.Assinatura
                 throw new ArgumentException("Certificado digital vencido na data => " + dataExpiracao);
             }
         }
+        
+        /// <summary>
+        /// Extensão para retornar o número de dias válidos do certificado
+        /// </summary>
+        /// <param name="x509Certificate2"></param>
+        /// <returns>Número de dias válidos</returns> 
+        public static int VerificaDiasValidade(this X509Certificate2 x509Certificate2)
+        {
+            DateTime dtExp = Convert.ToDateTime(x509Certificate2.GetExpirationDateString().Substring(0, 10));
+            TimeSpan dt = dtExp.Subtract(DateTime.Today);
 
+            return dt.Days;
+        }
 
         /// <summary>
         /// Extenção para certificado digital
