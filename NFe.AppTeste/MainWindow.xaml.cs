@@ -462,7 +462,6 @@ namespace NFe.AppTeste
                 var retornoConsulta = servicoNFe.NfeInutilizacao(_configuracoes.Emitente.CNPJ, Convert.ToInt16(ano),
                     modelo, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial),
                     Convert.ToInt32(numeroFinal), justificativa);
-                var arquivoGerado = retornoConsulta.Retorno.ArquivoXMLGerado;
 
                 TrataRetorno(retornoConsulta);
 
@@ -509,7 +508,6 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
-                var arquivoGerado = retornoCartaCorrecao.ProcEventosNFe[0].ArquivoXMLGerado;
 
                 TrataRetorno(retornoCartaCorrecao);
                 
@@ -559,8 +557,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
-                var arquivoGerado = retornoCancelamento.ProcEventosNFe[0].ArquivoXMLGerado;
-
+                
                 TrataRetorno(retornoCancelamento);
 
                 #endregion
