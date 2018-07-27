@@ -508,8 +508,9 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
-                TrataRetorno(retornoCartaCorrecao);
 
+                TrataRetorno(retornoCartaCorrecao);
+                
                 #endregion
             }
             catch (ComunicacaoException ex)
@@ -556,6 +557,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
+                
                 TrataRetorno(retornoCancelamento);
 
                 #endregion

@@ -101,13 +101,15 @@ namespace NFe.Servicos
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        private void SalvarArquivoXml(string nomeArquivo, string xmlString)
+        private string SalvarArquivoXml(string nomeArquivo, string xmlString)
         {
-            if (!_cFgServico.SalvarXmlServicos) return;
+            if (!_cFgServico.SalvarXmlServicos) return null;
             var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
-            var stw = new StreamWriter(dir + @"\" + nomeArquivo);
+            var filename = Path.Combine(dir, nomeArquivo);
+            var stw = new StreamWriter(filename);
             stw.WriteLine(xmlString);
             stw.Close();
+            return filename;
         }
 
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
@@ -817,35 +819,38 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
 
-            #region Obtém um retDistDFeInt de cada evento e salva em arquivo
+            #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
             if (retConsulta.loteDistDFeInt != null)
             {
-                for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+                foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {
-                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
-                    string chNFe = string.Empty;
+                    var conteudo = Compressao.Unzip(dFeInt.XmlNfe);
+                    var chNFe = string.Empty;
 
                     if (conteudo.StartsWith("<resNFe"))
                     {
                         var retConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
                         chNFe = retConteudo.chNFe;
+                        dFeInt.ResNFe = retConteudo;
                     }
                     else if (conteudo.StartsWith("<procEventoNFe"))
                     {
                         var procEventoNFeConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
+                        dFeInt.ProcEventoNFe = procEventoNFeConteudo;
                     }
                     else if (conteudo.StartsWith("<resEvento"))
                     {
                         var resEventoConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
+                        dFeInt.ResEvento = resEventoConteudo;
                     }
 
-                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    var schema = dFeInt.schema.Split('_');
                     if (chNFe == string.Empty)
                         chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
