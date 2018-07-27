@@ -101,13 +101,15 @@ namespace NFe.Servicos
                 ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
         }
 
-        private void SalvarArquivoXml(string nomeArquivo, string xmlString)
+        private string SalvarArquivoXml(string nomeArquivo, string xmlString)
         {
-            if (!_cFgServico.SalvarXmlServicos) return;
+            if (!_cFgServico.SalvarXmlServicos) return null;
             var dir = string.IsNullOrEmpty(_cFgServico.DiretorioSalvarXml) ? _path : _cFgServico.DiretorioSalvarXml;
-            var stw = new StreamWriter(dir + @"\" + nomeArquivo);
+            var filename = Path.Combine(dir, nomeArquivo);
+            var stw = new StreamWriter(filename);
             stw.WriteLine(xmlString);
             stw.Close();
+            return filename;
         }
 
         private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
@@ -337,7 +339,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retInutNFe = new retInutNFe().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
+            retInutNFe.ArquivoXMLGerado = SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
             return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
@@ -443,7 +445,7 @@ namespace NFe.Servicos
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
-                SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
+                procevento.ArquivoXMLGerado = SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
             }
 
             #endregion
