@@ -53,11 +53,5 @@ namespace NFe.Classes.Servicos.Consulta
         ///     YR05
         /// </summary>
         public retEvento retEvento { get; set; }
-
-        /// <summary>
-        /// Caminho do arquivo "-procEventoNFe.xml" gerado pelo evento
-        /// </summary>
-        [XmlIgnore]
-        public string ArquivoXMLGerado { get; set; }
     }
 }
