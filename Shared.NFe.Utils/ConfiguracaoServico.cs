@@ -53,10 +53,13 @@ namespace NFe.Utils
 
         public ConfiguracaoServico()
         {
-            Certificado = new ConfiguracaoCertificado();
+            Certificado =
+                new ConfiguracaoCertificado
+                {
+                    SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
+                    DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1"
+                };
 
-            Certificado.SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
-            Certificado.DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
             cUF = Estado.AC;
         }
 
@@ -236,6 +239,11 @@ namespace NFe.Utils
         ///     Diretório onde os xmls de envio/retorno devem ser salvos
         /// </summary>
         public string DiretorioSalvarXml { get; set; }
+
+        /// <summary>
+        /// Determina se o cerificado do servidor deve ser verificado
+        /// </summary>
+        public bool ValidarCertificadoDoServidor { get; set; } 
         
 
         /// <summary>

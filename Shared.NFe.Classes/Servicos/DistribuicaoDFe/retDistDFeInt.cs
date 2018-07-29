@@ -85,8 +85,10 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// </summary>
         public long maxNSU { get; set; }
 
+        /// <summary>
+        /// B10 Conjunto de informações resumidas e documentos fiscais eletrônicos de interesse da pessoa física ou empresa. 
+        /// </summary>
         [XmlArrayItem("docZip", IsNullable = false)]
         public loteDistDFeInt[] loteDistDFeInt { get; set; }
-
     }
 }
