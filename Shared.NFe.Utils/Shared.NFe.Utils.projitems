@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>e7a4800f-b2ed-4495-b847-c4bf5654e24e</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared.NFe.Utils</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AdmCsc\ExtAdmCscNFCe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AdmCsc\ExtretAdmCscNFCe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Assinatura\Assinador.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe3.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Compressao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtConsCad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtretConsCad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtconsSitNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtprocEventoNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtretConsSitNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Conversao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DistribuicaoDFe\ExtdistDFeInt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DistribuicaoDFe\ExtretDistDFeInt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Download\ExtdownloadNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Download\ExtretDownloadNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Email\ConfiguracaoEmail.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Email\EmailBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtenvEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\Extevento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtretEnvEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Excecoes\ComunicacaoException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Excecoes\FabricaComunicacaoException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Excecoes\ValidacaoSchemaException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InformacoesSuplementares\ExtinfNFeSupl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inutilizacao\ExtinutNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inutilizacao\ExtretInutNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NfeSituacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NFe\ExtNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NFe\ExtNfeProc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtconsReciNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtenviNFe2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtretConsReciNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtretEnviNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\IServidorSefaz.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAC.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAC4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAL.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAL4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAM.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAM4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAmbienteNacional.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAmbienteNacional4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazAP4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazBA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazBA4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazCE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazCE4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazDF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazDF4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazES.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazES4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazGO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazGO4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMA4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMG.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMG4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMS4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazMT4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPA.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPA4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPB.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPB4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPE4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPI4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPR.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazPR4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRJ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRJ4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRN.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRN4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRO4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRR.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRR4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazRS4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSC.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSC4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSE4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSP.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSP4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSVAN.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSVAN4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSVRS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazSVRS4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazTO.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\Servidores\SefazTO4.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Sefaz\ServidorSefazFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Status\ExtconsStatServ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Status\ExtretConsStatServ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tributacao\Estadual\ICMSGeral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tributacao\Federal\COFINSGeral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tributacao\Federal\IPIGeral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Tributacao\Federal\PISGeral.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validacao\Validador.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)NFe.Utils.cd" />
+    <None Include="$(MSBuildThisFileDirectory)NFe.Utils.licenseheader" />
+  </ItemGroup>
+</Project>
