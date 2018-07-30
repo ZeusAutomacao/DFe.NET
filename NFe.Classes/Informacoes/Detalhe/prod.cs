@@ -168,7 +168,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public decimal vUnTrib
         {
             get { return _vUnTrib; }
-            set { _vUnTrib = value.Arredondar(2); }
+            set { _vUnTrib = value.Arredondar(10); }
         }
 
         /// <summary>
