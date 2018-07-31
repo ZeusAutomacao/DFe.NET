@@ -725,13 +725,13 @@ namespace NFe.Servicos
                 endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao?wsdl"));
 
                 // 4.0
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao4"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta4"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4"));
-                endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4")));
-                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao4"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao4"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeInutilizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4?wsdl"));
+                endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4v")));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taHomologacao, emissao, Estado.MT, ModeloDocumento.NFe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao4?wsdl"));
 
                 #endregion NFe
 
