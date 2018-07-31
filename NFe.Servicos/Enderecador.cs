@@ -721,8 +721,6 @@ namespace NFe.Servicos
 
             #endregion Produção
 
-            #endregion MS
-
             #region MT
 
             //Rev: 09/09/2015
