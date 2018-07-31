@@ -178,22 +178,22 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBC()
         {
-            return vBC.HasValue;
+            return vBC.HasValue && vBC.Value > 0;
         }
 
         public bool ShouldSerializepRedBC()
         {
-            return pRedBC.HasValue;
+            return pRedBC.HasValue && pRedBC.Value > 0;
         }
 
         public bool ShouldSerializepICMS()
         {
-            return pICMS.HasValue;
+            return pICMS.HasValue && pICMS.Value > 0;
         }
 
         public bool ShouldSerializevICMS()
         {
-            return vICMS.HasValue;
+            return vICMS.HasValue && vICMS.Value > 0;
         }
 
         public bool ShouldSerializemodBCST()
@@ -203,37 +203,37 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepMVAST()
         {
-            return pMVAST.HasValue;
+            return pMVAST.HasValue && pMVAST.Value > 0;
         }
 
         public bool ShouldSerializepRedBCST()
         {
-            return pRedBCST.HasValue;
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         public bool ShouldSerializevBCST()
         {
-            return vBCST.HasValue;
+            return vBCST.HasValue && vBCST.Value > 0;
         }
 
         public bool ShouldSerializepICMSST()
         {
-            return pICMSST.HasValue;
+            return pICMSST.HasValue && pICMSST.Value > 0;
         }
 
         public bool ShouldSerializevICMSST()
         {
-            return vICMSST.HasValue;
+            return vICMSST.HasValue && vICMSST.Value > 0;
         }
 
         public bool ShouldSerializepCredSN()
         {
-            return pCredSN.HasValue;
+            return pCredSN.HasValue && pCredSN.Value > 0;
         }
 
         public bool ShouldSerializevCredICMSSN()
         {
-            return vCredICMSSN.HasValue;
+            return vCredICMSSN.HasValue && vCredICMSSN.Value > 0;
         }
 
         /// <summary>
@@ -247,7 +247,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBCFCPST()
         {
-            return vBCFCPST.HasValue;
+            return vBCFCPST.HasValue && vBCFCPST.Value > 0;
         }
 
         /// <summary>
@@ -261,7 +261,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepFCPST()
         {
-            return pFCPST.HasValue;
+            return pFCPST.HasValue && pFCPST.Value > 0;
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCPST()
         {
-            return vFCPST.HasValue;
+            return vFCPST.HasValue && vFCPST.Value > 0;
         }
     }
 }

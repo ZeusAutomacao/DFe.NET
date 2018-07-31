@@ -74,12 +74,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBCSTRet()
         {
-            return vBCSTRet.HasValue;
+            return vBCSTRet.HasValue && vBCSTRet.Value > 0;
         }
 
         public bool ShouldSerializevICMSSTRet()
         {
-            return vICMSSTRet.HasValue;
+            return vICMSSTRet.HasValue && vICMSSTRet.Value > 0;
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBCFCPST()
         {
-            return vBCFCPST.HasValue;
+            return vBCFCPST.HasValue && vBCFCPST.Value > 0;
         }
 
         /// <summary>
@@ -107,7 +107,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepFCPSTRet()
         {
-            return pFCPSTRet.HasValue;
+            return pFCPSTRet.HasValue && pFCPSTRet.Value > 0;
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCPSTRet()
         {
-            return vFCPSTRet.HasValue;
+            return vFCPSTRet.HasValue && vFCPSTRet.Value > 0;
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepST()
         {
-            return pST.HasValue;
+            return pST.HasValue && pST.Value > 0;
         }
     }
 }

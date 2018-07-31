@@ -96,7 +96,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepFCP()
         {
-            return pFCP.HasValue;
+            return pFCP.HasValue && pFCP.Value > 0;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCP()
         {
-            return vFCP.HasValue;
+            return vFCP.HasValue && vFCP.Value > 0;
         }
     }
 }

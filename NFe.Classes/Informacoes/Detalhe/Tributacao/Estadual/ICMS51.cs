@@ -133,37 +133,37 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepRedBC()
         {
-            return pRedBC.HasValue;
+            return pRedBC.HasValue && pRedBC.Value > 0;
         }
 
         public bool ShouldSerializevBC()
         {
-            return vBC.HasValue;
+            return vBC.HasValue && vBC.Value > 0;
         }
 
         public bool ShouldSerializepICMS()
         {
-            return pICMS.HasValue;
+            return pICMS.HasValue && pICMS.Value > 0;
         }
 
         public bool ShouldSerializevICMSOp()
         {
-            return vICMSOp.HasValue;
+            return vICMSOp.HasValue && vICMSOp.Value > 0;
         }
 
         public bool ShouldSerializepDif()
         {
-            return pDif.HasValue;
+            return pDif.HasValue && pDif.Value > 0;
         }
 
         public bool ShouldSerializevICMSDif()
         {
-            return vICMSDif.HasValue;
+            return vICMSDif.HasValue && vICMSDif.Value > 0;
         }
 
         public bool ShouldSerializevICMS()
         {
-            return vICMS.HasValue;
+            return vICMS.HasValue && vICMS.Value > 0;
         }
 
         /// <summary>
@@ -177,11 +177,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBCFCP()
         {
-            return vBCFCP.HasValue;
+            return vBCFCP.HasValue && vBCFCP.Value > 0;
         }
 
         /// <summary>
-        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)        /// </summary>
+        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)
+        /// </summary>
         public decimal? pFCP
         {
             get { return _pFCP.Arredondar(2); }
@@ -190,7 +191,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepFCP()
         {
-            return pFCP.HasValue;
+            return pFCP.HasValue && pFCP.Value > 0;
         }
 
         /// <summary>
@@ -204,7 +205,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCP()
         {
-            return vFCP.HasValue;
+            return vFCP.HasValue && vFCP.Value > 0;
         }
     }
 }

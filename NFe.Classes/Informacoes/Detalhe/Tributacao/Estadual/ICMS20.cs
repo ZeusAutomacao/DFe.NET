@@ -108,7 +108,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevICMSDeson()
         {
-            return vICMSDeson.HasValue;
+            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
         }
 
         /// <summary>
@@ -132,11 +132,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBCFCP()
         {
-            return vBCFCP.HasValue;
+            return vBCFCP.HasValue && vBCFCP.Value > 0;
         }
 
         /// <summary>
-        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)        /// </summary>
+        /// N17b - Percentual do ICMS relativo ao Fundo de Combate à Pobreza(FCP)
+        /// </summary>
         public decimal? pFCP
         {
             get { return _pFCP.Arredondar(2); }
@@ -145,7 +146,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepFCP()
         {
-            return pFCP.HasValue;
+            return pFCP.HasValue && pFCP.Value > 0;
         }
 
         /// <summary>
@@ -159,7 +160,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCP()
         {
-            return vFCP.HasValue;
+            return vFCP.HasValue && vFCP.Value > 0;
         }
     }
 }
