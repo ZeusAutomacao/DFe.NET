@@ -664,15 +664,37 @@ namespace NFe.Servicos
                 #region NFe
 
                 if (emissao != TipoEmissao.teEPEC)
-                    endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/RecepcaoEvento")));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRecepcao2"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetRecepcao2"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/CadConsultaCadastro2"));
-                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeInutilizacao, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2")));
-                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeConsulta2")));
-                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeStatusServico, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeStatusServico2")));
-                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao"));
-                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao"));
+                    endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve100, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/RecepcaoEvento?wsdl")));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeRecepcao, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRecepcao2?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeRetRecepcao, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetRecepcao2?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve200, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/CadConsultaCadastro2?wsdl"));
+                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeInutilizacao, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeInutilizacao2?wsdl")));
+                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeConsulta2?wsdl")));
+                endServico.AddRange(versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeStatusServico, versao, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeStatusServico2?wsdl")));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve310, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao?wsdl"));
+
+                // 4.0
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeInutilizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeStatusServico4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaCadastro, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/CadConsultaCadastro4?wsdl"));
+                endServico.AddRange(eventoCceCanc.Select(servicoNFe => new EnderecoServico(servicoNFe, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4?wsdl")));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeAutorizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeRetAutorizacao4?wsdl"));
+
+                #endregion NFe
+
+                #region NFCe
+
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeAutorizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NFeRetAutorizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeRetAutorizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.RecepcaoEventoCancelmento, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeInutilizacao4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeConsultaProtocolo, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4?wsdl"));
+                endServico.Add(new EnderecoServico(ServicoNFe.NfeStatusServico, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFCe, "https://nfce.fazenda.ms.gov.br/ws/NFeStatusServico4?wsdl"));
+
+                #endregion NFCe
 
                 // 4.0
                 endServico.Add(new EnderecoServico(ServicoNFe.NfeInutilizacao, VersaoServico.ve400, TipoAmbiente.taProducao, emissao, Estado.MS, ModeloDocumento.NFe, "https://nfe.fazenda.ms.gov.br/ws/NFeInutilizacao4"));
@@ -698,8 +720,6 @@ namespace NFe.Servicos
             }
 
             #endregion Produção
-
-            #endregion MS
 
             #region MT
 
