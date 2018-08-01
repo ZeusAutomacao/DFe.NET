@@ -47,6 +47,10 @@ namespace NFe.Utils.Validacao
             switch (servicoNFe)
             {
                 case ServicoNFe.NfeRecepcao:
+                    if (versaoServico == VersaoServico.ve400)
+                    {
+                        return loteNfe ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
+                    }
                     return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
 
                 case ServicoNFe.RecepcaoEventoCancelmento:

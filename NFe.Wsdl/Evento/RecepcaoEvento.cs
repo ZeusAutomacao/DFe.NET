@@ -39,7 +39,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Evento
 {
-    [WebServiceBinding(Name = "RecepcaoEventoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+    [System.Web.Services.WebServiceBindingAttribute(Name = "NFeRecepcaoEvento4Soap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
     public class RecepcaoEvento : SoapHttpClientProtocol, INfeServico
     {
         public RecepcaoEvento(string url, X509Certificate certificado, int timeOut)
@@ -50,17 +50,17 @@ namespace NFe.Wsdl.Evento
             ClientCertificates.Add(certificado);
         }
 
-        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
-        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         [WebMethod(MessageName = "nfeRecepcaoEvento")]
-        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
-        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")] XmlNode nfeDadosMsg)
+        [return: System.Xml.Serialization.XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", IsNullable = true)]
+        public XmlNode Execute([System.Xml.Serialization.XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")] System.Xml.XmlNode nfeDadosMsg)
         {
-            var results = Invoke("nfeRecepcaoEvento", new object[] {nfeDadosMsg});
-            return ((XmlNode) (results[0]));
+            var results = Invoke("nfeRecepcaoEvento", new object[] { nfeDadosMsg });
+            return ((XmlNode)(results[0]));
         }
     }
 }
