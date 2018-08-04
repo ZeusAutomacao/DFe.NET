@@ -1347,7 +1347,7 @@ namespace NFe.Servicos
             if (disposing)
                 if (!_cFgServico.Certificado.ManterDadosEmCache)
                     _certificado.Reset();
-            _disposed = true;
+            _disposed = disposing;
         }
 
         public void Dispose()
