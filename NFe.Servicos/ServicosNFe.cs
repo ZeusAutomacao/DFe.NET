@@ -79,17 +79,22 @@ namespace NFe.Servicos
     public sealed class ServicosNFe : IDisposable
     {
         private readonly X509Certificate2 _certificado;
+        private readonly bool _controlarCertificado;
         private readonly ConfiguracaoServico _cFgServico;
         private readonly string _path;
 
         /// <summary>
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
-        /// </summary>
+        /// </summary>t
         /// <param name="cFgServico"></param>
-        public ServicosNFe(ConfiguracaoServico cFgServico)
+        public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            _controlarCertificado = certificado == null;
+            if (_controlarCertificado)
+                _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            else
+                _certificado = certificado;
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -1355,7 +1360,7 @@ namespace NFe.Servicos
                 return;
 
             if (disposing)
-                if (!_cFgServico.Certificado.ManterDadosEmCache)
+                if (!_cFgServico.Certificado.ManterDadosEmCache && _controlarCertificado)
                     _certificado.Reset();
             _disposed = disposing;
         }
