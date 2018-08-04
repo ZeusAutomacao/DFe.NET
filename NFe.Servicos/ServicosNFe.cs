@@ -85,7 +85,7 @@ namespace NFe.Servicos
 
         /// <summary>
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
-        /// </summary>t
+        /// </summary>
         /// <param name="cFgServico"></param>
         public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
