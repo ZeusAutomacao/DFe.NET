@@ -55,7 +55,17 @@ namespace NFe.Utils.Assinatura
             if (cfgServico == null)
                 cfgServico = ConfiguracaoServico.Instancia;
 
-            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+            X509Certificate2 certificadoDigital = null;
+            try
+            {
+                certificadoDigital = CertificadoDigital.ObterCertificado(cfgServico.Certificado);
+                return ObterAssinatura<T>(objeto, id, certificadoDigital, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+            }
+            finally
+            {
+                if (!cfgServico.Certificado.ManterDadosEmCache)
+                    certificadoDigital.Reset();
+            }
         }
 
         /// <summary>
@@ -106,9 +116,11 @@ namespace NFe.Utils.Assinatura
             }
             finally
             {
+                //Marcos Gerene 04/08/2018 - o objeto certificadoDigital nunca será nulo, porque se ele for nulo nem as configs para criar ele teria.
+
                 //Se não mantém os dados do certificado em cache libera o certificado, chamando o método reset.
-                if (!manterDadosEmCache)// & certificadoDigital == null) //Antes estava dando reset num objeto que teoricamente estaria nulo, o código não fazia sentido.
-                    certificadoDigital.Reset();
+                //if (!manterDadosEmCache & certificadoDigital == null)
+                //     certificadoDigital.Reset();
             }
 
         }
