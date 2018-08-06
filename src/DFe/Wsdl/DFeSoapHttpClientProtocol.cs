@@ -8,9 +8,7 @@ namespace DFe.Wsdl
     {
         protected string Invoke(DFeSoapConfig soapConfig)
         {
-            var xmlRetorno = RequestWS.EnviaSefaz(soapConfig);
-
-            return xmlRetorno;
+            return RequestWS.EnviaSefaz(soapConfig);
         }
 
         protected virtual string GetTagConverter(string ret, string tag)
