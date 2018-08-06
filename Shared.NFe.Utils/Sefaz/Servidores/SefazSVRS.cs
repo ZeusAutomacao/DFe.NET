@@ -18,7 +18,7 @@ namespace NFe.Utils.Sefaz.Servidores
             ManifestacaoDestinatario = VersaoServico.ve100;
             NfeRecepcao = VersaoServico.ve310;
             NfeRetornoRecepcao = VersaoServico.ve310;
-            NfeConsultaCadastro = VersaoServico.ve310;
+            NfeConsultaCadastro = VersaoServico.ve100;
             VersaoRecepcaoEventoEpec = VersaoServico.ve100;
             VersaoNfceAministracaoCSC = VersaoServico.ve100;
         }

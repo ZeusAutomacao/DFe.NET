@@ -30,22 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Globalization;
-using System.Windows.Data;
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Services;
+using System.Web.Services.Description;
+using System.Web.Services.Protocols;
+using System.Xml;
+using System.Xml.Serialization;
 
-namespace NFe.AppTeste
+namespace NFe.Wsdl.ConsultaProtocolo
 {
-    public class EnumBooleanConverter : IValueConverter
+    [WebServiceBinding(Name = "NfeConsulta2Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
+    public class NfeConsultaProtocolo2 : SoapHttpClientProtocol, INfeServico
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public NfeConsultaProtocolo2(string url, X509Certificate certificado, int timeOut)
         {
-            return value.Equals(parameter);
+            SoapVersion = SoapProtocolVersion.Soap12;
+            Url = url;
+            Timeout = timeOut;
+            ClientCertificates.Add(certificado);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        [XmlAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
+        public nfeCabecMsg nfeCabecMsg { get; set; }
+
+        [SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2/nfeConsultaNF2", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [WebMethod(MessageName = "nfeConsultaNF2")]
+        [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta2")] XmlNode nfeDadosMsg)
         {
-            return ((bool) value) ? parameter : Binding.DoNothing;
+            var results = Invoke("nfeConsultaNF2", new object[] {nfeDadosMsg});
+            return ((XmlNode) (results[0]));
         }
     }
 }

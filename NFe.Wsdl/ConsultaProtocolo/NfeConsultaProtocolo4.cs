@@ -9,9 +9,9 @@ using System.Xml.Serialization;
 namespace NFe.Wsdl.ConsultaProtocolo
 {
     [WebServiceBinding(Name = "NFeConsultaProtocolo4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")]
-    public class NfeConsulta4 : SoapHttpClientProtocol, INfeServico
+    public class NfeConsultaProtocolo4 : SoapHttpClientProtocol, INfeServico
     {
-        public NfeConsulta4(string url, X509Certificate certificado, int timeOut)
+        public NfeConsultaProtocolo4(string url, X509Certificate certificado, int timeOut)
         {
             SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;

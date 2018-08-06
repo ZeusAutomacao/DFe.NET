@@ -8,7 +8,7 @@ namespace NFe.Utils.Sefaz.Servidores
         public SefazBA() : base()
         {
             EstadoReferente = Estado.BA;
-            EventoCceCancelamento = VersaoServico.ve310;
+            EventoCceCancelamento = VersaoServico.ve100;
             NfeRecepcao = VersaoServico.ve200;
             NfeRetornoRecepcao = VersaoServico.ve200;
             NfeConsultaCadastro = VersaoServico.ve310;

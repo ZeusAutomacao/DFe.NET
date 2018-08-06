@@ -60,7 +60,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConfiguracaoCsc.cs" />
-    <Compile Include="EnumParaInteger.cs" />
+    <Compile Include="Conversores\EnumParaInteger.cs" />
+    <Compile Include="Conversores\EnumParaString.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>
     </Compile>
@@ -77,8 +78,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ConfiguracaoApp.cs" />
-    <Compile Include="EnumBooleanConverter.cs" />
-    <Compile Include="EnumParaBool.cs" />
+    <Compile Include="Conversores\EnumBooleanConverter.cs" />
+    <Compile Include="Conversores\EnumParaBool.cs" />
     <Compile Include="Funcoes.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

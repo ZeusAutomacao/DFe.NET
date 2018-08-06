@@ -403,8 +403,7 @@ namespace NFe.Danfe.Nativo.NFCe
             _y += textoConsulteChave.Medida.Altura;
 
             AdicionarTexto urlConsulta = new AdicionarTexto(g,
-                _nfe.infNFeSupl.ObterUrl(_nfe.infNFe.ide.tpAmb, _nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode),
-                7);
+                string.IsNullOrEmpty(_nfe.infNFeSupl.urlChave) ? _nfe.infNFeSupl.ObterUrlConsulta(_nfe) : _nfe.infNFeSupl.urlChave, 7);
             int urlConsultaX = ((larguraLinha - urlConsulta.Medida.Largura) / 2);
             urlConsulta.Desenhar(urlConsultaX, _y);
 
