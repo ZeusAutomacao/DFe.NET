@@ -13,43 +13,36 @@
     xmlns:entidades="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
     xmlns:flags="clr-namespace:DFe.Classes.Flags;assembly=DFe.Classes"
     xmlns:utils="clr-namespace:DFe.Utils;assembly=DFe.Utils"
+    xmlns:conversores="clr-namespace:NFe.AppTeste.Conversores"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e" Height="800" Width="1094.789"
     WindowStartupLocation="CenterScreen"
     d:DataContext="{d:DesignInstance {x:Type local:ConfiguracaoApp}, IsDesignTimeCreatable=True}">
     <Window.Resources>
-        <local:EnumParaBool x:Key="EnumParaBool" />
-        <CollectionViewSource x:Key="EstadosWebService">
+        <conversores:EnumParaBool x:Key="EnumParaBool" />
+        <conversores:EnumParaString x:Key="EnumParaString" />
+        <ObjectDataProvider
+            x:Key="Estados"
+            MethodName="GetNames"
+            ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="entidades:Estado" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <CollectionViewSource Source="{StaticResource Estados}" x:Key="EstadoWebService">
             <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription />
             </CollectionViewSource.SortDescriptions>
-            <CollectionViewSource.Source>
-                <ObjectDataProvider
-                    MethodName="GetValues"
-                    ObjectType="{x:Type sys:Enum}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="entidades:Estado" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
-            </CollectionViewSource.Source>
         </CollectionViewSource>
 
-        <CollectionViewSource x:Key="EstadosEmitente">
+        <CollectionViewSource Source="{StaticResource Estados}" x:Key="EstadoEmitente">
             <!--Coleção para ordernar o Enum que poderá ser usado em combos, listboxes, etc-->
             <CollectionViewSource.SortDescriptions>
                 <scm:SortDescription />
             </CollectionViewSource.SortDescriptions>
-            <CollectionViewSource.Source>
-                <ObjectDataProvider
-                    MethodName="GetNames"
-                    ObjectType="{x:Type sys:Enum}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="entidades:Estado" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
-            </CollectionViewSource.Source>
         </CollectionViewSource>
 
         <CollectionViewSource x:Key="Crts">
@@ -282,9 +275,9 @@
                                       Width="450" Margin="10,10,0,0">
                                 <StackPanel>
                                     <Label Content="Selecione a UF de Destino:" />
-                                    <ComboBox x:Name="CmbUfDestino" IsSynchronizedWithCurrentItem="False"
-                                              ItemsSource="{Binding Source={StaticResource EstadosWebService}}"
-                                              SelectedItem="{Binding CfgServico.cUF}" />
+                                    <ComboBox x:Name="CmbUfDestino"
+                                              ItemsSource="{Binding Source={StaticResource EstadoWebService}}"
+                                              SelectedItem="{Binding CfgServico.cUF, Converter={StaticResource EnumParaString}}" />
                                     <GroupBox x:Name="GpbAmbiente" Header="Selecione o Ambiente de Destino" Height="50">
                                         <Grid x:Name="GrdAmbiente">
                                             <RadioButton x:Name="RbtAmbProducao" Content="Produção"
@@ -297,7 +290,7 @@
                                                          IsChecked="{Binding CfgServico.tpAmb, ConverterParameter={x:Static nfeclsidetipos:TipoAmbiente.taHomologacao}, Converter={StaticResource EnumParaBool}}" />
                                         </Grid>
                                     </GroupBox>
-                                    <GroupBox Header="Selecione a versão de cada serviço" Height="65">
+                                    <GroupBox Header="Selecione a versão do serviço principal" Height="65">
                                         <GroupBox.Resources>
                                             <ResourceDictionary Source="Templates/Controles.xaml" />
                                         </GroupBox.Resources>
@@ -425,7 +418,7 @@
                                 <Label Content="UF" HorizontalAlignment="Left" Margin="378,305,0,0"
                                        VerticalAlignment="Top" />
                                 <ComboBox x:Name="CmbEmitUf" Height="23" Margin="378,331,10,218"
-                                          ItemsSource="{Binding Source={StaticResource EstadosEmitente}}"
+                                          ItemsSource="{Binding Source={StaticResource EstadoEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
                             <ComboBox x:Name="CmbCrt" Height="23" Margin="10,384,10,164"

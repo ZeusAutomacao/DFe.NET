@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace NFe.AppTeste
+namespace NFe.AppTeste.Conversores
 {
     public class EnumParaInteger : IValueConverter
     {

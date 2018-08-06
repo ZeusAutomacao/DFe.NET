@@ -6,12 +6,12 @@ using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.ConsultaProtocolo.SVAN
+namespace NFe.Wsdl.ConsultaProtocolo.AN
 {
     [WebServiceBinding(Name = "NFeConsultaProtocolo4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")]
-    public class NfeConsulta4SVAN : SoapHttpClientProtocol, INfeServico
+    public class NfeConsultaProtocolo4AN : SoapHttpClientProtocol, INfeServico
     {
-        public NfeConsulta4SVAN(string url, X509Certificate certificado, int timeOut)
+        public NfeConsultaProtocolo4AN(string url, X509Certificate certificado, int timeOut)
         {
             SoapVersion = SoapProtocolVersion.Soap12;
             Url = url;
