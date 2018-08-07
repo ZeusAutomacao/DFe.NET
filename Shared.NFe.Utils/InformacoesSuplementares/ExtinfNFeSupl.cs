@@ -346,24 +346,36 @@ namespace NFe.Utils.InformacoesSuplementares
 
             const string pipe = "|";
             
-            //1º - Chave de Acesso da NFC-e 
+            //Chave de Acesso da NFC-e 
             var chave = nfe.infNFe.Id.Substring(3);
 
-            //2º - Versão do QR Code 
+            //Versão do QR Code 
             const string versaoQrCode = "2";
 
-            //3º - Identificação do Ambiente (1 – Produção, 2 – Homologação) 
+            //Identificação do Ambiente (1 – Produção, 2 – Homologação) 
             var ambiente = (int) nfe.infNFe.ide.tpAmb;
 
-            //4º - Identificador do CSC (Código de Segurança do Contribuinte no Banco de Dados da SEFAZ). Informar sem os zeros não significativos
+            //Identificador do CSC (Código de Segurança do Contribuinte no Banco de Dados da SEFAZ). Informar sem os zeros não significativos
             var idCsc = Convert.ToInt16(cIdToken);
 
-            //5º - Código Hash dos Parâmetros 
-            var dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente, pipe, idCsc);
-            var dadosSha1Online = string.Concat(dadosBase, csc);
-            var sha1Online = Conversao.ObterHexSha1DeString(dadosSha1Online);
+            string dadosBase;
 
-            return string.Concat(url, dadosBase, pipe, sha1Online);
+            if (nfe.infNFe.ide.tpEmis == TipoEmissao.teOffLine)
+            {
+                var diaEmi = nfe.infNFe.ide.dhEmi.Day.ToString("D2");
+                var valorNfce = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
+                var digVal = Conversao.ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
+                dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente, pipe, diaEmi, pipe, valorNfce, pipe, digVal, pipe, idCsc);
+            }
+            else
+            {
+                dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente, pipe, idCsc);
+            }
+
+            var dadosSha1 = string.Concat(dadosBase, csc);
+            var sh1 = Conversao.ObterHexSha1DeString(dadosSha1);
+
+            return string.Concat(url, dadosBase, pipe, sh1);
 
             #endregion
         }
