@@ -213,7 +213,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")] pcInternet = 2,
         [XmlEnum("3")] pcTeleatendimento = 3,
         [XmlEnum("4")] pcEntregaDomicilio = 4,
-        [XmlEnum("5")] pcPresencialForaEstabelecimento, // versão 4.00
+        [XmlEnum("5")] pcPresencialForaEstabelecimento = 5, // versão 4.00
         [XmlEnum("9")] pcOutros = 9
     }
 
