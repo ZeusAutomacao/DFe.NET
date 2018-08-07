@@ -38,6 +38,8 @@ namespace NFe.Classes.Informacoes.Pagamento
 {
     public class pag
     {
+        private decimal? _vTroco;
+
         public pag()
         {
             detPags = new List<detPag>();
@@ -45,5 +47,19 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         [XmlElement(ElementName = "detPag")]
         public List<detPag> detPags { get; set; }
+
+        /// <summary>
+        /// YA09 - Valor do troco
+        /// </summary>
+        public decimal? vTroco
+        {
+            get { return _vTroco.Arredondar(2); }
+            set { _vTroco = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevTroco()
+        {
+            return vTroco.HasValue && vTroco > 0;
+        }
     }
 }

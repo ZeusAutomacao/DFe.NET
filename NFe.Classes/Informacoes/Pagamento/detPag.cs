@@ -35,22 +35,5 @@ namespace NFe.Classes.Informacoes.Pagamento
         ///     YA04 - Grupo de Cartões
         /// </summary>
         public card card { get; set; }
-
-        private decimal? _vTroco;
-        private IndicadorPagamento? _indPag;
-
-        /// <summary>
-        /// YA09 - Valor do troco
-        /// </summary>
-        public decimal? vTroco
-        {
-            get { return _vTroco.Arredondar(2); }
-            set { _vTroco = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializevTroco()
-        {
-            return vTroco.HasValue && vTroco > 0;
-        }
     }
 }
