@@ -44,13 +44,14 @@ namespace NFe.Utils.InformacoesSuplementares
 {
     internal class EnderecoConsultaPublicaNfce
     {
-        public EnderecoConsultaPublicaNfce(Estado estado, TipoAmbiente tipoAmbiente, TipoUrlConsultaPublica tipoUrlConsultaPublica, string url, VersaoServico versaoServico = VersaoServico.ve310)
+        public EnderecoConsultaPublicaNfce(TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico, VersaoQrCode versaoQrCode, string url)
         {
             TipoAmbiente = tipoAmbiente;
             Estado = estado;
             TipoUrlConsultaPublica = tipoUrlConsultaPublica;
             Url = url;
             VersaoServico = versaoServico;
+            VersaoQrCode = versaoQrCode;
         }
 
         public TipoAmbiente TipoAmbiente { get; private set; }
@@ -58,6 +59,7 @@ namespace NFe.Utils.InformacoesSuplementares
         public TipoUrlConsultaPublica TipoUrlConsultaPublica { get; private set; }
         public string Url { get; private set; }
         public VersaoServico VersaoServico { get; private set; }
+        public VersaoQrCode VersaoQrCode { get; private set; }
     }
 
     internal class TupleList<T1, T2, T3> : List<Tuple<T1, T2, T3>>
@@ -85,12 +87,13 @@ namespace NFe.Utils.InformacoesSuplementares
             //Revisão das URLs segundo portal do ENCAT em 31/07/2018
             var endQrCodeNfce = new List<EnderecoConsultaPublicaNfce>();
 
-            var adicionarUrls = new Action<TipoAmbiente, TipoUrlConsultaPublica, TupleList<Estado, VersaoServico[], string>>(
-                (tipoAmbiente, tipoUrl, enderecos) =>
+            var adicionarUrls = new Action<TipoAmbiente, TipoUrlConsultaPublica, VersaoQrCode[], TupleList<Estado, VersaoServico[], string>>(
+                (tipoAmbiente, tipoUrl, versoesQrCode, enderecos) =>
                 {
                     foreach (var endereco in enderecos)
-                        foreach (var versaoServico in endereco.Item2)
-                            endQrCodeNfce.Add(new EnderecoConsultaPublicaNfce(endereco.Item1, tipoAmbiente, tipoUrl, endereco.Item3, versaoServico));
+                        foreach (var versaoQrCode in versoesQrCode)
+                            foreach (var versaoServico in endereco.Item2)
+                                endQrCodeNfce.Add(new EnderecoConsultaPublicaNfce(tipoAmbiente, endereco.Item1, tipoUrl, versaoServico, versaoQrCode, endereco.Item3));
                 });
 
             var versao3 = new[] {VersaoServico.ve310};
@@ -99,44 +102,56 @@ namespace NFe.Utils.InformacoesSuplementares
 
             #region URL por UF utilizada QR code: Ambiente de Produção
 
-            var urlsQrCodeProducao = new TupleList<Estado, VersaoServico[], string>
+            //Embora no site do ENCAT http://nfce.encat.org/desenvolvedor/qrcode/ não faça separação por versão do QR-Code, mas pela versão do layout,
+            //as urls que estavam marcadas no site para NFCe 3.1 foram colocadas aqui para o QR-Code versão 1, independente da versão do layout. A SEFAZ SRVRS está assim em 08/08/2018
+            var urlsQrCodeProducaoQrCode1E2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.AC, versao3E4, "http://www.sefaznet.ac.gov.br/nfce/qrcode?"},
                 {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"},
                 {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/nfce/nfcep.php"},
                 {Estado.AM, versao3E4, "sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
                 {Estado.BA, versao3E4, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
-                {Estado.DF, versao3, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},
-                {Estado.DF, versao4, "http://www.fazenda.df.gov.br/nfce/qrcode?"},
                 {Estado.GO, versao3E4, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MA, versao3E4, "nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
                 {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/nfceForm.seam"},
                 {Estado.PB, versao3E4, "http://www.receita.pb.gov.br/nfce"},
-                {Estado.PR, versao3, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
-                {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.PE, versao3E4, "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe"},
                 {Estado.PI, versao3E4, "http://webas.sefaz.pi.gov.br/nfceweb/consultarNFCe.jsf"},
                 {Estado.RJ, versao3E4, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode?"},
                 {Estado.RN, versao3E4, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"},
                 {Estado.RS, versao3E4, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"},
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"},
-                {Estado.RR, versao3E4, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode"},
-                {Estado.SP, versao3, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"},
+                {Estado.RR, versao3E4, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode"}
+            };
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeProducaoQrCode1E2);
+
+            var urlsQrCodeProducaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},
+                {Estado.PR, versao3E4, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
+                {Estado.SP, versao3E4, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"},
+                {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp?"},
+                {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"}
+            };
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeProducaoQrCode1);
+
+            var urlsQrCodeProducaoQrCode2 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.DF, versao4, "http://www.fazenda.df.gov.br/nfce/qrcode?"},
+                {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SP, versao4, "https://www.nfce.fazenda.sp.gov.br/qrcode"},
-                {Estado.SE, versao3, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp?"},
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
-                {Estado.TO, versao3, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"},
                 {Estado.TO, versao4, "http://www.sefaz.to.gov.br/nfce/"}
             };
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, urlsQrCodeProducao);
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
 
             #endregion
 
             #region URL por UF utilizada QR code: Ambiente de Homologação
 
-            var urlsQrCodeHomologacao = new TupleList<Estado, VersaoServico[], string>
+            var urlsQrCodeHomologacaoQrCode1E2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.AC, versao3E4, "http://www.hml.sefaznet.ac.gov.br/nfce/qrcode?"},
                 {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"},
@@ -152,8 +167,6 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
                 {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"},
                 {Estado.PB, versao3E4, "http://www.receita.pb.gov.br/nfcehom"},
-                {Estado.PR, versao3, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
-                {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.PE, versao3E4, "http://nfcehomolog.sefaz.pe.gov.br/nfce-web/consultarNFCe"},
                 {Estado.PI, versao3E4, "http://webas.sefaz.pi.gov.br/nfceweb-homologacao/consultarNFCe.jsf"},
                 {Estado.RJ, versao3E4, "http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode?"},
@@ -162,25 +175,103 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"},
                 {Estado.RR, versao3E4, "http://200.174.88.103:8080/nfce/servlet/qrcode"},
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspxhttps://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
-                {Estado.SE, versao3, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?"},
-                {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
                 {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/"}
             };
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeHomologacaoQrCode1E2);
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, urlsQrCodeHomologacao);
+            var urlsQrCodeHomologacaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.PR, versao3E4, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
+                {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?"},
+            };
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeHomologacaoQrCode1);
+
+
+            var urlsQrCodeHomologacaoQrCode2 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
+                {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
+            };
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
 
             #endregion
 
             #region URL por UF utilizada para consulta chave
 
-            //Foram utilizados somente os endereços de consulta da URL http://nfce.encat.org/consumidor/consulte-sua-nota-qr-code-versao-2-0/
-            //já que se trata apenas da URL de consulta manual pela chave. Embora o ENCAT tenha separado essas URLs em dois grupos (QrCode 1.0 e 2.0),
-            //os endereços constantes na URL acima redirecionam para os endereços listados em http://nfce.encat.org/consumidor/consulte-sua-nota-qr-code-versao-2-0/
-            //Não haverá rejeição por parte da SEFAZ já que a biblioteca enviará toda NFCe 4.0 com o QRCode versão 2, a partir dessa implementação. A NFCe 3.1 não possui campo para informação da url de acesso.
+            #region Urls de consulta para Qr Code versão 1.0
+
+            #region PRODUÇÃO
+
+            var urlsConsultaProducao1 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.AC, versao3E4, "www.sefaznet.ac.gov.br/nfce/consulta"},
+                {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm"},
+                {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/sate/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261"},
+                {Estado.AM, versao3E4, "sistemas.sefaz.am.gov.br/nfceweb/formConsulta.do"},
+                {Estado.BA, versao3E4, "nfe.sefaz.ba.gov.br/servicos/nfce/default.aspx"},
+                {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/NFCE/"},
+                {Estado.ES, versao3E4, "http://app.sefaz.es.gov.br/ConsultaNFCe"},
+                {Estado.MA, versao3E4, "http://www.nfce.sefaz.ma.gov.br/portal/consultaNFe.do?method=preFilterCupom&"},
+                {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
+                {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce"},
+                {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/consultanfce.seam"},
+                {Estado.PB, versao3E4, "www.receita.pb.gov.br/nfce"},
+                {Estado.PR, versao3E4, "http://www.fazenda.pr.gov.br"},
+                {Estado.PI, versao3E4, "http://webas.sefaz.pi.gov.br/nfceweb/consultarNFCe.jsf"},
+                {Estado.RJ, versao3E4, "www.nfce.fazenda.rj.gov.br/consulta"},
+                {Estado.RN, versao3E4, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"},
+                {Estado.RS, versao3E4, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"},
+                {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br"},
+                {Estado.RR, versao3E4, "https://www.sefaz.rr.gov.br/nfce/servlet/wp_consulta_nfce"},
+                {Estado.SP, versao3E4, "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica"},
+                {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/portal/portalNoticias.jsp"},
+                {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce/consultarNFCe.jsf"}
+            };
+
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaProducao1);
+
+            #endregion
+
+            #region HOMOLOGAÇÃO
+
+            var urlsConsultaHomologacao1 = new TupleList<Estado, VersaoServico[], string>
+            {
+                {Estado.AC, versao3E4, "http://hml.sefaznet.ac.gov.br/nfce/consulta"},
+                {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/consultaNFCe.htm"},
+                {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/sate1/seg/SEGf_AcessarFuncao.jsp?cdFuncao=FIS_1261"},
+                {Estado.AM, versao3E4, "homnfce.sefaz.am.gov.br/nfceweb/formConsulta.do"},
+                {Estado.BA, versao3E4, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/default.aspx"},
+                {Estado.CE, versao3E4, "http://nfceh.sefaz.ce.gov.br/pages/consultaNota.jsf"},
+                {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/NFCE/"},
+                {Estado.ES, versao3E4, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe"},
+                {Estado.MA, versao3E4, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
+                {Estado.MT, versao3E4, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"},
+                {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce"},
+                {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/consultanfce.seam"},
+                {Estado.PB, versao3E4, "http://www.receita.pb.gov.br/nfcehom"},
+                {Estado.PR, versao3E4, "http://www.fazenda.pr.gov.br"},
+                {Estado.PI, versao3E4, "http://webas.sefaz.pi.gov.br/nfceweb-homologacao/consultarNFCe.jsf"},
+                {Estado.RJ, versao3E4, "www.nfce.fazenda.rj.gov.br/consulta"},
+                {Estado.RN, versao3E4, "http://nfce.set.rn.gov.br/consultarNFCe.aspx"},
+                {Estado.RS, versao3E4, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"},
+                {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br"},
+                {Estado.RR, versao3E4, "http://200.174.88.103:8080/nfce/servlet/wp_consulta_nfce"},
+                {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica"},
+                {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/portalNoticias.jsp"},
+                {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/consultarNFCe.jsf"}
+            };
+
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaHomologacao1);
+
+            #endregion
+
+            #endregion
+
+            #region Urls de consulta para Qr Code versão 2.0
 
             #region HOMOLOGAÇÃO e PRODUÇÃO
 
-            var urlsConsultaHomologacaoEProducao = new TupleList<Estado, VersaoServico[], string>
+            var urlsConsultaHomologacaoEProducao2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.AC, versao3E4, "www.sefaznet.ac.gov.br/nfce/consulta"},
                 {Estado.AL, versao3E4, "www.sefaz.al.gov.br/nfce/consulta"},
@@ -205,14 +296,14 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, urlsConsultaHomologacaoEProducao);
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, urlsConsultaHomologacaoEProducao);
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new[] {VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
 
             #endregion
 
             #region PRODUÇÃO
 
-            var urlsConsultaProducao = new TupleList<Estado, VersaoServico[], string>
+            var urlsConsultaProducao2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.BA, versao3E4, "www.sefaz.ba.gov.br/nfce/consulta"},
                 {Estado.MT, versao3E4, "www.sefaz.mt.gov.br/nfce/consultanfce"},
@@ -221,13 +312,13 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, urlsConsultaProducao);
+            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaProducao2);
 
             #endregion
 
             #region HOMOLOGAÇÃO
 
-            var urlsConsultaHomologacao = new TupleList<Estado, VersaoServico[], string>
+            var urlsConsultaHomologacao2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.BA, versao3E4, "http://hinternet.sefaz.ba.gov.br/nfce/consulta"},
                 {Estado.MT, versao3E4, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"},
@@ -236,7 +327,9 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, urlsConsultaHomologacao);
+            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacao2);
+
+            #endregion
 
             #endregion
 
@@ -248,9 +341,13 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         ///     Obtém a URL para uso no DANFE da NFCe
         /// </summary>
-        public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico)
+        public static string ObterUrl(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, TipoUrlConsultaPublica tipoUrlConsultaPublica, VersaoServico versaoServico, VersaoQrCode versaoQrCode)
         {
-            var query = from qr in EndQrCodeNfce where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado && qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica && qr.VersaoServico == versaoServico select qr.Url;
+            var query = from qr in EndQrCodeNfce
+                where qr.TipoAmbiente == tipoAmbiente && qr.Estado == estado &&
+                      qr.TipoUrlConsultaPublica == tipoUrlConsultaPublica && qr.VersaoServico == versaoServico &&
+                      qr.VersaoQrCode == versaoQrCode
+                select qr.Url;
             var listaRetorno = query as IList<string> ?? query.ToList();
             var qtdeRetorno = listaRetorno.Count();
 
@@ -264,22 +361,27 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         ///     Obtém a URL de consulta pela chave
         /// </summary>
-        public static string ObterUrlConsulta(this infNFeSupl infNFeSupl, Classes.NFe nfe)
+        public static string ObterUrlConsulta(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode)
         {
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
-            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlConsulta, versaoServico);
+            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlConsulta, versaoServico, versaoQrCode);
         }
 
         /// <summary>
         ///     Obtém a URL para montagem do QR-Code
         /// </summary>
-        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc)
+        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc)
         {
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
-            return versaoServico == VersaoServico.ve400
-                ? ObterUrlQrCode2(infNFeSupl, nfe, cIdToken, csc, versaoServico)
-                : ObterUrlQrCode1(infNFeSupl, nfe, cIdToken, csc, versaoServico);
-        }
+            switch (versaoQrCode)
+            {
+                case VersaoQrCode.QrCodeVersao1:
+                    return ObterUrlQrCode1(infNFeSupl, nfe, cIdToken, csc, versaoServico);
+                case VersaoQrCode.QrCodeVersao2:
+                    return ObterUrlQrCode2(infNFeSupl, nfe, cIdToken, csc, versaoServico);
+                default:
+                    throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
+            }}
 
         /// <summary>
         /// Obtém a URL para uso no QR-Code, versão 1.0 - leiaute 3.10
@@ -321,7 +423,7 @@ namespace NFe.Utils.InformacoesSuplementares
 
             //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
             const string interrogacao = "?";
-            var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico);
+            var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico, VersaoQrCode.QrCodeVersao1);
             if (!url.EndsWith(interrogacao))
                 url += interrogacao;
             return  url + dadosBase + "&cHashQRCode=" + sha1ComCsc;
@@ -335,8 +437,7 @@ namespace NFe.Utils.InformacoesSuplementares
             #region 1ª parte
 
             const string parametro = "p=";
-            var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode,
-                versaoServico);
+            var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico, VersaoQrCode.QrCodeVersao2);
             if (!url.EndsWith(parametro))
                 url += parametro;
 
@@ -348,9 +449,6 @@ namespace NFe.Utils.InformacoesSuplementares
             
             //Chave de Acesso da NFC-e 
             var chave = nfe.infNFe.Id.Substring(3);
-
-            //Versão do QR Code 
-            const string versaoQrCode = "2";
 
             //Identificação do Ambiente (1 – Produção, 2 – Homologação) 
             var ambiente = (int) nfe.infNFe.ide.tpAmb;
@@ -365,11 +463,11 @@ namespace NFe.Utils.InformacoesSuplementares
                 var diaEmi = nfe.infNFe.ide.dhEmi.Day.ToString("D2");
                 var valorNfce = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
                 var digVal = Conversao.ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
-                dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente, pipe, diaEmi, pipe, valorNfce, pipe, digVal, pipe, idCsc);
+                dadosBase = string.Concat(chave, pipe, (int)VersaoQrCode.QrCodeVersao2, pipe, ambiente, pipe, diaEmi, pipe, valorNfce, pipe, digVal, pipe, idCsc);
             }
             else
             {
-                dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente, pipe, idCsc);
+                dadosBase = string.Concat(chave, pipe, (int)VersaoQrCode.QrCodeVersao2, pipe, ambiente, pipe, idCsc);
             }
 
             var dadosSha1 = string.Concat(dadosBase, csc);

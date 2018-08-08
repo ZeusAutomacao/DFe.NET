@@ -33,7 +33,7 @@
 
 using System.ComponentModel;
 
-namespace NFe.Classes
+namespace NFe.Utils
 {
     public enum TipoUrlConsultaPublica
     {
@@ -42,5 +42,14 @@ namespace NFe.Classes
 
         [Description("Endereço para consulta da NFCe através do QR-Code")]
         UrlQrCode
+    }
+
+    public enum VersaoQrCode
+    {
+        [Description("Versão 1.0 do QR-Code")]
+        QrCodeVersao1 = 100,
+
+        [Description("Versão 2.0 do QR-Code")]
+        QrCodeVersao2 = 2
     }
 }
