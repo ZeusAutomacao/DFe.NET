@@ -306,8 +306,8 @@ namespace NFe.AppTeste
             {
                 nfe.infNFeSupl = new infNFeSupl();
                 if (versaoServico == VersaoServico.ve400)
-                    nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe);
-                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
+                    nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
+                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
             }
             
             nfe.Valida();

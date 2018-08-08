@@ -62,6 +62,7 @@ namespace NFe.Danfe.Nativo.NFCe
         private Image _logo;
         private decimal _totalPago;
         private int _y;
+        private static ConfiguracaoDanfeNfce _configuracaoDanfeNfce;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
             decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null)
@@ -77,6 +78,7 @@ namespace NFe.Danfe.Nativo.NFCe
             _totalPago = totalPago;
             AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa(font);
             _logo = configuracaoDanfe.ObterLogo();
+            _configuracaoDanfeNfce = configuracaoDanfe;
 
             CarregarXml(xml);
         }
@@ -403,7 +405,7 @@ namespace NFe.Danfe.Nativo.NFCe
             _y += textoConsulteChave.Medida.Altura;
 
             AdicionarTexto urlConsulta = new AdicionarTexto(g,
-                string.IsNullOrEmpty(_nfe.infNFeSupl.urlChave) ? _nfe.infNFeSupl.ObterUrlConsulta(_nfe) : _nfe.infNFeSupl.urlChave, 7);
+                string.IsNullOrEmpty(_nfe.infNFeSupl.urlChave) ? _nfe.infNFeSupl.ObterUrlConsulta(_nfe, _configuracaoDanfeNfce.VersaoQrCode) : _nfe.infNFeSupl.urlChave, 7);
             int urlConsultaX = ((larguraLinha - urlConsulta.Medida.Largura) / 2);
             urlConsulta.Desenhar(urlConsultaX, _y);
 
@@ -592,9 +594,7 @@ namespace NFe.Danfe.Nativo.NFCe
         private static string ObtemUrlQrCode(NFeZeus nfce, string idToken, string csc)
         {
             string urlQrCode = nfce.infNFeSupl == null
-                ? nfce.infNFeSupl.ObterUrlQrCode(nfce,
-                    idToken,
-                    csc)
+                ? nfce.infNFeSupl.ObterUrlQrCode(nfce, _configuracaoDanfeNfce.VersaoQrCode, idToken, csc)
                 : nfce.infNFeSupl.qrCode;
             return urlQrCode;
         }

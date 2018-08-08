@@ -13,6 +13,7 @@
     xmlns:entidades="clr-namespace:DFe.Classes.Entidades;assembly=DFe.Classes"
     xmlns:flags="clr-namespace:DFe.Classes.Flags;assembly=DFe.Classes"
     xmlns:utils="clr-namespace:DFe.Utils;assembly=DFe.Utils"
+    xmlns:nfeUtils="clr-namespace:NFe.Utils;assembly=NFe.Utils"
     xmlns:conversores="clr-namespace:NFe.AppTeste.Conversores"
     mc:Ignorable="d"
     x:Class="NFe.AppTeste.MainWindow"
@@ -219,6 +220,23 @@
                                         <RadioButton Grid.Column="1" x:Name="RbtNfce" Content="NFCe"
                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
                                                      IsChecked="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}" />
+                                    </Grid>
+                                </GroupBox>
+
+                                <GroupBox Header="Selecione a versão do QR-Code para NFCe" Height="60"
+                                          Margin="0,0,10,0"
+                                          IsEnabled="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150"></ColumnDefinition>
+                                            <ColumnDefinition Width="*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton Grid.Column="0" Content="Versão 1.0"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao1}, Converter={StaticResource EnumParaBool}}" />
+                                        <RadioButton Grid.Column="1" Content="Versão 2.0"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" />
                                     </Grid>
                                 </GroupBox>
 
