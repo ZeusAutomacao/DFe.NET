@@ -224,8 +224,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeConsulta4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeStatusServico4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.AM, nfe, "https://homnfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao4");
 
@@ -274,8 +273,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/NfeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/NfeConsulta4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/NfeStatusServico4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/RecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/NfeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.AM, nfe, "https://nfe.sefaz.am.gov.br/services2/services/NfeRetAutorizacao4");
                 #endregion
@@ -332,8 +330,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeStatusServico4/NFeStatusServico4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/CadConsultaCadastro4/CadConsultaCadastro4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.BA, nfe, "https://hnfe.sefaz.ba.gov.br/webservices/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
 
@@ -366,8 +363,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeStatusServico4/NFeStatusServico4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/CadConsultaCadastro4/CadConsultaCadastro4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.BA, nfe, "https://nfe.sefaz.ba.gov.br/webservices/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
 
@@ -398,8 +394,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl");
 
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeInutilizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeConsultaProtocolo4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeStatusServico4?wsdl");
@@ -429,8 +424,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeConsultaProtocolo4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeStatusServico4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/CadConsultaCadastro4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeAutorizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRetAutorizacao4?wsdl");
             }
@@ -492,8 +486,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeAutorizacao4?wsdl");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRetAutorizacao4?wsdl");
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4?wsdl");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
+                    addServico(eventoCceCanc, versao4, hom, emissao, Estado.GO, modelo, "https://homolog.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
                 }
             }
 
@@ -523,8 +516,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeConsultaProtocolo4?wsdl");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeStatusServico4?wsdl");
                     addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/CadConsultaCadastro4?wsdl");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
+                    addServico(eventoCceCanc, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeRecepcaoEvento4?wsdl");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeAutorizacao4?wsdl");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.GO, modelo, "https://nfe.sefaz.go.gov.br/nfe/services/NFeRetAutorizacao4?wsdl");
                 }
@@ -572,8 +564,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
 
@@ -582,7 +573,6 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
                 addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
             }
@@ -608,8 +598,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
 
@@ -618,7 +607,6 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4");
                 addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
             }
@@ -646,14 +634,13 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao3, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeAutorizacao");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao3, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/homologacao/services2/NfeRetAutorizacao");
 
-                addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeInutilizacao4");
-                addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeConsultaProtocolo4");
-                addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeStatusServico4");
-                addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/CadConsultaCadastro4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeAutorizacao4");
-                addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://homologacao.nfe.ms.gov.br/ws/NFeRetAutorizacao4");
+                addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeInutilizacao4");
+                addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4");
+                addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeStatusServico4");
+                addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/CadConsultaCadastro4");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4");
+                addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeAutorizacao4");
+                addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.MS, nfe, "https://hom.nfe.sefaz.ms.gov.br/ws/NFeRetAutorizacao4");
 
                 #endregion
 
@@ -698,14 +685,13 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao3, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeAutorizacao");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao3, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/producao/services2/NfeRetAutorizacao");
 
-                addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeInutilizacao4");
-                addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeConsultaProtocolo4");
-                addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeStatusServico4");
-                addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/CadConsultaCadastro4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeAutorizacao4");
-                addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.fazenda.ms.gov.br/ws/NFeRetAutorizacao4");
+                addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeInutilizacao4");
+                addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeConsultaProtocolo4");
+                addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeStatusServico4");
+                addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/CadConsultaCadastro4");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeRecepcaoEvento4");
+                addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeAutorizacao4");
+                addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.MS, nfe, "https://nfe.sefaz.ms.gov.br/ws/NFeRetAutorizacao4");
 
                 #endregion
 
@@ -757,8 +743,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.MT, nfe, "https://homologacao.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao4");
 
@@ -806,8 +791,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeConsulta4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeStatusServico4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/CadConsultaCadastro4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/RecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeAutorizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.MT, nfe, "https://nfe.sefaz.mt.gov.br/nfews/v2/services/NfeRetAutorizacao4?wsdl");
 
@@ -870,11 +854,9 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/CadConsultaCadastro4?wsdl");
-                addServico(new[] {ServicoNFe.NfeRecepcao}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.PE, nfe, "https://nfehomolog.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4?wsdl");
 
             }
 
@@ -898,11 +880,9 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeInutilizacao4");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeConsultaProtocolo4");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeStatusServico4");
-                addServico(new[] {ServicoNFe.NfeRecepcao}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeAutorizacao4");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRetAutorizacao4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.PE, nfe, "https://nfe.sefaz.pe.gov.br/nfe-service/services/NFeRecepcaoEvento4");
 
             }
 
@@ -950,8 +930,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeConsultaProtocolo4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeStatusServico4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/CadConsultaCadastro4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeAutorizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.PR, nfe, "https://homologacao.nfe.sefa.pr.gov.br/nfe/NFeRetAutorizacao4?wsdl");
 
@@ -1006,8 +985,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeConsultaProtocolo4?wsdl");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeStatusServico4?wsdl");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/CadConsultaCadastro4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeAutorizacao4?wsdl");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.PR, nfe, "https://nfe.sefa.pr.gov.br/nfe/NFeRetAutorizacao4?wsdl");
 
@@ -1076,8 +1054,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.RS, nfe, "https://nfe-homologacao.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
 
@@ -1122,8 +1099,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                 addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, Estado.RS, nfe, "https://cad.sefazrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.RS, nfe, "https://nfe.sefazrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
 
@@ -1193,8 +1169,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nfeconsultaprotocolo4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.SP, nfe, "https://homologacao.nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
 
                 #endregion
 
@@ -1244,8 +1219,7 @@ namespace NFe.Servicos
                 addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nferetautorizacao4.asmx");
                 addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nfeconsultaprotocolo4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
-                addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.SP, nfe, "https://nfe.fazenda.sp.gov.br/ws/nferecepcaoevento4.asmx");
 
                 #endregion
 
@@ -1303,8 +1277,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeInutilizacao4/NFeInutilizacao4.asmx");
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(eventoCceCanc, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, estado, nfe, "https://hom.sefazvirtual.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
@@ -1329,8 +1302,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeInutilizacao4/NFeInutilizacao4.asmx");
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(eventoCceCanc, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, estado, nfe, "https://www.sefazvirtual.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
@@ -1365,8 +1337,7 @@ namespace NFe.Servicos
                         addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx");
                         addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                         addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
-                        addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                        addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                        addServico(eventoCceCanc, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                         addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                         addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
                     }
@@ -1430,8 +1401,7 @@ namespace NFe.Servicos
                         addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                         addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
                         addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, emissao, estado, nfe, "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx");
-                        addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                        addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                        addServico(eventoCceCanc, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                         addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                         addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
                     }
@@ -1492,8 +1462,7 @@ namespace NFe.Servicos
 
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(eventoCceCanc, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
@@ -1516,8 +1485,7 @@ namespace NFe.Servicos
 
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(eventoCceCanc, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
@@ -1548,8 +1516,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NfeInutilizacao}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/nfeinutilizacao/nfeinutilizacao4.asmx");
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                    addServico(eventoCceCanc, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, hom, TipoEmissao.teSVCRS, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
                 }
@@ -1575,8 +1542,7 @@ namespace NFe.Servicos
                     addServico(new[] {ServicoNFe.NfeConsultaProtocolo}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/NfeConsulta/NfeConsulta4.asmx");
                     addServico(new[] {ServicoNFe.NfeStatusServico}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
                     addServico(new[] {ServicoNFe.NfeConsultaCadastro}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://cad.svrs.rs.gov.br/ws/cadconsultacadastro/cadconsultacadastro4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCancelmento}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-                    addServico(new[] {ServicoNFe.RecepcaoEventoCartaCorrecao}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                    addServico(eventoCceCanc, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                     addServico(new[] {ServicoNFe.NFeAutorizacao}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                     addServico(new[] {ServicoNFe.NFeRetAutorizacao}, versao4, prod, TipoEmissao.teSVCRS, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
                 }
