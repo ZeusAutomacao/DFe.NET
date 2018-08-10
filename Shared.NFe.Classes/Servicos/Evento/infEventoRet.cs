@@ -34,8 +34,8 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Servicos.Evento
 {

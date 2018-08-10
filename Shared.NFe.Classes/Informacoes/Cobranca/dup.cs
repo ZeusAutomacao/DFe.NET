@@ -34,7 +34,6 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Utils;
-using NFe.Utils.Annotations;
 
 namespace NFe.Classes.Informacoes.Cobranca
 {

@@ -33,7 +33,7 @@
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using TipoAmbiente = DFe.Classes.Flags.TipoAmbiente;
 
 namespace NFe.Classes.Servicos.Inutilizacao
 {

@@ -2,6 +2,7 @@
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils;
+using NFe.Utils.Enderecos;
 
 namespace NFe.Servicos.Extensoes
 {

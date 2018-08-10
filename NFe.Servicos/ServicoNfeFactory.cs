@@ -7,6 +7,7 @@ using DFe.Classes.Flags;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Extensoes;
 using NFe.Utils;
+using NFe.Utils.Enderecos;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;

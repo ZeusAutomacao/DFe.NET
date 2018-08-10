@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 using NFe.Classes.Protocolo;
 
 namespace NFe.Classes.Servicos.Recepcao
