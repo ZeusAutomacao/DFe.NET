@@ -79,6 +79,7 @@ using DFe.Classes.Extensoes;
 using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
+using NFe.Utils.Tributacao.Federal;
 
 namespace NFe.AppTeste
 {
@@ -95,7 +96,6 @@ namespace NFe.AppTeste
 
         public MainWindow()
         {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; // não precisa de cadeia de certificado digital 
             InitializeComponent();
             CarregarConfiguracao();
             DataContext = _configuracoes;
@@ -508,8 +508,9 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
-                TrataRetorno(retornoCartaCorrecao);
 
+                TrataRetorno(retornoCartaCorrecao);
+                
                 #endregion
             }
             catch (ComunicacaoException ex)
@@ -556,6 +557,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
+                
                 TrataRetorno(retornoCancelamento);
 
                 #endregion
@@ -1067,14 +1069,18 @@ namespace NFe.AppTeste
                 imposto = new imposto
                 {
                     vTotTrib = 0.17m,
+
                     ICMS = new ICMS
                     {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do ICMS
+                        //TipoICMS = ObterIcmsBasico(crt),
+
+                        //Caso você resolva utilizar método ObterIcmsBasico(), comente esta proxima linha
                         TipoICMS =
                             crt == CRT.SimplesNacional
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
                     },
-                    //Se você tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a classe NFe.Utils.Tributacao.Estadual.ICMSGeral para obter os dados básicos. Veja o método ObterIcmsBasico
 
                     //ICMSUFDest = new ICMSUFDest()
                     //{
@@ -1087,21 +1093,41 @@ namespace NFe.AppTeste
                     //    vICMSUFDest = 0,
                     //    vICMSUFRemet = 0
                     //},
-                    COFINS =
-                        new COFINS
-                        {
-                            TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}
-                        },
-                    PIS = new PIS {TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}}
+
+                    COFINS = new COFINS
+                    {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do COFINS
+                        //TipoCOFINS = ObterCofinsBasico(),
+
+                        //Caso você resolva utilizar método ObterCofinsBasico(), comente esta proxima linha
+                        TipoCOFINS = new COFINSOutr {CST = CSTCOFINS.cofins99, pCOFINS = 0, vBC = 0, vCOFINS = 0}
+                    },
+                    
+                    PIS = new PIS
+                    {
+                        //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do PIS
+                        //TipoPIS = ObterPisBasico(),
+
+                        //Caso você resolva utilizar método ObterPisBasico(), comente esta proxima linha
+                        TipoPIS = new PISOutr {CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0}
+                    }
                 }
             };
 
             if (modelo == ModeloDocumento.NFe) //NFCe não aceita grupo "IPI"
+            {
                 det.imposto.IPI = new IPI()
                 {
                     cEnq = 999,
-                    TipoIPI = new IPITrib() {CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m}
+
+                    //Se você já tem os dados de toda a tributação persistida no banco em uma única tabela, utilize a linha comentada abaixo para preencher as tags do IPI
+                    //TipoIPI = ObterIPIBasico(),
+
+                    //Caso você resolva utilizar método ObterIPIBasico(), comente esta proxima linha
+                    TipoIPI = new IPITrib() { CST = CSTIPI.ipi00, pIPI = 5, vBC = 1, vIPI = 0.05m }
                 };
+            }
+            
             //det.impostoDevol = new impostoDevol() { IPI = new IPIDevolvido() { vIPIDevol = 10 }, pDevol = 100 };
 
             return det;
@@ -1181,7 +1207,7 @@ namespace NFe.AppTeste
             var icmsGeral = new ICMSGeral
             {
                 orig = OrigemMercadoria.OmNacional,
-                CST = Csticms.Cst20,
+                CST = Csticms.Cst00,
                 modBC = DeterminacaoBaseIcms.DbiValorOperacao,
                 vBC = 1.1m,
                 pICMS = 18,
@@ -1189,6 +1215,50 @@ namespace NFe.AppTeste
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
             return icmsGeral.ObterICMSBasico(crt);
+        }
+
+        private PISBasico ObterPisBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto PISGeral, como no exemplo abaixo.
+            var pisGeral = new PISGeral()
+            {
+                CST = CSTPIS.pis01,
+                vBC = 1.1m,
+                pPIS = 1.65m,
+                vPIS = 0.01m,
+                vAliqProd = 0
+            };
+
+            return pisGeral.ObterPISBasico();
+        }
+
+        private COFINSBasico ObterCofinsBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto COFINSGeral, como no exemplo abaixo.
+            var cofinsGeral = new COFINSGeral()
+            {
+                CST = CSTCOFINS.cofins01,
+                vBC = 1.1m,
+                pCOFINS = 1.65m,
+                vCOFINS = 0.01m,
+                vAliqProd = 0
+            };
+
+            return cofinsGeral.ObterCOFINSBasico();
+        }
+
+        private IPIBasico ObterIPIBasico()
+        {
+            //Leia os dados de seu banco de dados e em seguida alimente o objeto IPIGeral, como no exemplo abaixo.
+            var ipiGeral = new IPIGeral()
+            {
+                CST = CSTIPI.ipi01,
+                vBC = 1.1m,
+                pIPI = 5m,
+                vIPI = 0.05m
+            };
+
+            return ipiGeral.ObterIPIBasico();
         }
 
         protected virtual ICMSBasico InformarCSOSN(Csosnicms CST)
@@ -1286,14 +1356,14 @@ namespace NFe.AppTeste
 
         protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
-            var valorParcela = Valor.Arredondar(icmsTot.vNF/2, 2);
+            var valorParcela = Valor.Arredondar(icmsTot.vNF / 2, 2);
             var c = new cobr
             {
-                fat = new fat {nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF },
+                fat = new fat { nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF, vDesc = 0m },
                 dup = new List<dup>
                 {
-                    new dup {nDup = "12345678", vDup = valorParcela},
-                    new dup {nDup = "987654321", vDup = icmsTot.vNF - valorParcela}
+                    new dup {nDup = "001", dVenc = DateTime.Now.AddDays(30), vDup = valorParcela},
+                    new dup {nDup = "002", dVenc = DateTime.Now.AddDays(60), vDup = icmsTot.vNF - valorParcela}
                 }
             };
 
