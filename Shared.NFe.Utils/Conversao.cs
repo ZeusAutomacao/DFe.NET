@@ -39,7 +39,6 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
-using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Utils
 {
@@ -103,9 +102,9 @@ namespace NFe.Utils
         {
             switch (tpAmb)
             {
-                case TipoAmbiente.taHomologacao:
+                case TipoAmbiente.Homologacao:
                     return "Homologação";
-                case TipoAmbiente.taProducao:
+                case TipoAmbiente.Producao:
                     return "Produção";
                 default:
                     throw new ArgumentOutOfRangeException("tpAmb", tpAmb, null);

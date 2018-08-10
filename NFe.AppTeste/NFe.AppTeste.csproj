@@ -62,6 +62,7 @@
     <Compile Include="ConfiguracaoCsc.cs" />
     <Compile Include="Conversores\EnumParaInteger.cs" />
     <Compile Include="Conversores\EnumParaString.cs" />
+    <Compile Include="Conversores\InverterBooleanConverter.cs" />
     <Compile Include="InputBoxWindow.xaml.cs">
       <DependentUpon>InputBoxWindow.xaml</DependentUpon>
     </Compile>

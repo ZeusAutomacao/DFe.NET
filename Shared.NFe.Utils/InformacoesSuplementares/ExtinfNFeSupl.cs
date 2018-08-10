@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -125,7 +126,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"},
                 {Estado.RR, versao3E4, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode"}
             };
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeProducaoQrCode1E2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeProducaoQrCode1E2);
 
             var urlsQrCodeProducaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
             {
@@ -135,7 +136,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/portal/consultarNFCe.jsp?"},
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"}
             };
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeProducaoQrCode1);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeProducaoQrCode1);
 
             var urlsQrCodeProducaoQrCode2 = new TupleList<Estado, VersaoServico[], string>
             {
@@ -145,7 +146,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
                 {Estado.TO, versao4, "http://www.sefaz.to.gov.br/nfce/"}
             };
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
 
             #endregion
 
@@ -177,14 +178,14 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspxhttps://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/"}
             };
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeHomologacaoQrCode1E2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeHomologacaoQrCode1E2);
 
             var urlsQrCodeHomologacaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.PR, versao3E4, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?"},
             };
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeHomologacaoQrCode1);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeHomologacaoQrCode1);
 
 
             var urlsQrCodeHomologacaoQrCode2 = new TupleList<Estado, VersaoServico[], string>
@@ -192,7 +193,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
             };
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
 
             #endregion
 
@@ -228,7 +229,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce/consultarNFCe.jsf"}
             };
 
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaProducao1);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaProducao1);
 
             #endregion
 
@@ -261,7 +262,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/consultarNFCe.jsf"}
             };
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaHomologacao1);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaHomologacao1);
 
             #endregion
 
@@ -296,8 +297,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new[] {VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] {VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacaoEProducao2);
 
             #endregion
 
@@ -312,7 +313,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaProducao2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaProducao2);
 
             #endregion
 
@@ -327,7 +328,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacao2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new []{VersaoQrCode.QrCodeVersao2}, urlsConsultaHomologacao2);
 
             #endregion
 

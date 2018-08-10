@@ -136,22 +136,6 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     }
 
     /// <summary>
-    ///     Identificação do Ambiente
-    ///     <para>1 - Produção</para>
-    ///     <para>2 - Homologação</para>
-    /// </summary>
-    public enum TipoAmbiente
-    {
-        [XmlEnum("1")] 
-        [Description("Produção")]
-        taProducao = 1,
-        
-        [XmlEnum("2")]
-        [Description("Homologação")]
-        taHomologacao = 2
-    }
-
-    /// <summary>
     ///     Finalidade da emissão da NF-e
     ///     <para>1 - NFe normal</para>
     ///     <para>2 - NFe complementar</para>
