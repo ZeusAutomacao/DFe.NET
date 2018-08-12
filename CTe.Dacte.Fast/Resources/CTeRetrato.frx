@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/11/2018 20:28:56" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/12/2018 11:53:05" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -388,7 +388,7 @@ namespace FastReport
         {
           string texto = &quot;NF               &quot; + FormatarCampo((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.rem.CNPJ&quot;),'d')   + &quot;         &quot; +                                                         
                                               ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.infCTeNorm.infDoc.infNF.nDoc&quot;)) + &quot;-&quot;  + 
-                                              ((Int16)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.serie&quot;)).ToString();
+                                              ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.infCTeNorm.infDoc.infNF.serie&quot;));                                              
             
           if (aux)                             
             Text193.Text += texto + &quot;\n&quot;;
