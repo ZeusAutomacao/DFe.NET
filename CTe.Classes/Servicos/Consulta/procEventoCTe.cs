@@ -55,7 +55,7 @@ namespace CTe.Classes.Servicos.Consulta
         ///     YR05
         /// </summary>
         /// 
-        [XmlElement("retEvento")]
+        [XmlElement("retEventoCTe")]
         public retEventoCTe retEvento { get; set; }
     }
 }
