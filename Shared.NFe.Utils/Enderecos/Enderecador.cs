@@ -64,6 +64,15 @@ namespace NFe.Utils.Enderecos
         }
 
         /// <summary>
+        /// Lista de <see cref="Estado"/> que utilizam SVC-RS para NF-e
+        /// </summary>
+        /// <returns></returns>
+        public static List<Estado> EstadosQueUsamSvcRsParaNfe()
+        {
+            return new List<Estado> { Estado.AM, Estado.BA, Estado.CE, Estado.GO, Estado.MA, Estado.MS, Estado.MT, Estado.PA, Estado.PE, Estado.PR };
+        }
+
+        /// <summary>
         /// Lista de <see cref="Estado"/> que usam SVAN para NF-e
         /// </summary>
         /// <returns></returns>
@@ -133,7 +142,7 @@ namespace NFe.Utils.Enderecos
 
             var svcanEstados = EstadosQueUsamSvcAnParaNfe();
 
-            var svcRsEstados = new List<Estado> { Estado.AM, Estado.BA, Estado.CE, Estado.GO, Estado.MA, Estado.MS, Estado.MT, Estado.PA, Estado.PE, Estado.PI, Estado.PR };
+            var svcRsEstados = EstadosQueUsamSvcRsParaNfe();
 
             var todosOsEstados = Enum.GetValues(typeof(Estado)).Cast<Estado>().ToList();
 
@@ -1641,34 +1650,40 @@ namespace NFe.Utils.Enderecos
         ///     Obtém uma string com a mensagem de erro.
         ///     Essa função é acionada quando não é encontrada uma url para os parâmetros informados  na função ObterUrlServico.
         /// </summary>
-        /// <param name="servico"></param>
-        /// <param name="cfgServico"></param>
         /// <returns></returns>
-        private static string Erro(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        private static string Erro(ServicoNFe servico, VersaoServico versaoServico, Estado estado, TipoAmbiente tipoAmbiente, TipoEmissao tipoEmissao, ModeloDocumento modeloDocumento)
         {
-            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(servico.ObterVersaoServico(cfgServico)) + ", não disponível para a UF " + cfgServico.cUF + ", no ambiente de " + cfgServico.tpAmb.TpAmbParaString() +
-                   " para emissão tipo " + cfgServico.tpEmis.TipoEmissaoParaString() + ", documento: " + cfgServico.ModeloDocumento.ModeloDocumentoParaString() + "!";
+            return "Serviço " + servico + ", versão " + servico.VersaoServicoParaString(versaoServico) + ", não disponível para a UF " + estado + ", no ambiente de " + tipoAmbiente.TpAmbParaString() +
+                   " para emissão tipo " + tipoEmissao.TipoEmissaoParaString() + ", documento: " + modeloDocumento.ModeloDocumentoParaString() + "!";
         }
 
         /// <summary>
         ///     Obtém uma url a partir de uma lista armazenada em enderecoServico e povoada dinamicamente no create desta classe
         /// </summary>
-        /// <param name="servico"></param>
-        /// <param name="cfgServico"></param>
         /// <returns></returns>
         public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
         {
-            var definicao = from d in ListaEnderecos
-                            where d.Estado == cfgServico.cUF && d.ServicoNFe == servico && d.TipoAmbiente == cfgServico.tpAmb && d.TipoEmissao == cfgServico.tpEmis && d.VersaoServico == ObterVersaoServico(servico, cfgServico) && d.ModeloDocumento == cfgServico.ModeloDocumento
-                            select d.Url;
-            var listaRetorno = definicao as IList<string> ?? definicao.ToList();
-            var qtdeRetorno = listaRetorno.Count();
+            var versaoServico = ObterVersaoServico(servico, cfgServico);
+            if (versaoServico == null)
+                throw new Exception(string.Format("Não foi possível obter a versão do serviço {0}!", servico));
+            return ObterUrlServico(servico, versaoServico.GetValueOrDefault(), cfgServico.cUF, cfgServico.tpAmb,
+                cfgServico.ModeloDocumento, cfgServico.tpEmis);
+        }
 
-            if (qtdeRetorno == 0)
-                throw new Exception(Erro(servico, cfgServico));
-            if (qtdeRetorno > 1)
+        /// <summary>
+        ///     Obtém uma url a partir de uma lista armazenada em enderecoServico e povoada dinamicamente no create desta classe
+        /// </summary>
+        /// <returns></returns>
+        public static string ObterUrlServico(ServicoNFe servico, VersaoServico versaoServico, Estado estado, TipoAmbiente tipoAmbiente, ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
+        {
+            var urls = ObterEnderecoServicosMaisRecentes(versaoServico, estado, tipoAmbiente, modeloDocumento, tipoEmissao).Where(n => n.ServicoNFe == servico)
+                .Select(n => n.Url).ToList();
+
+            if (!urls.Any())
+                throw new Exception(Erro(servico, versaoServico, estado, tipoAmbiente, tipoEmissao, modeloDocumento));
+            if (urls.Count > 1)
                 throw new Exception("A função ObterUrlServico obteve mais de um resultado!");
-            return listaRetorno.FirstOrDefault();
+            return urls.FirstOrDefault();
         }
 
         /// <summary>
