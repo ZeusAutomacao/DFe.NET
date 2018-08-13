@@ -88,5 +88,11 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// </summary>
         [XmlIgnore]
         public resEvento ResEvento { get; set; }
+
+        /// <summary>
+        /// NF-e processada
+        /// </summary>
+        [XmlIgnore]
+        public nfeProc NfeProc { get; set; }   
     }
 }

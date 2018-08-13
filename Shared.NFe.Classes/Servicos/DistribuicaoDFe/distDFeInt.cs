@@ -34,7 +34,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 
 namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
@@ -110,7 +110,8 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         public consNSU consNSU { get; set; }
 
         /// <summary>
-        /// A11 - Grupo para consultar uma NF-e pela chave de acesso        /// </summary>
+        /// A11 - Grupo para consultar uma NF-e pela chave de acesso
+        /// </summary>
         public consChNFe consChNFe { get; set; }
     }
 }

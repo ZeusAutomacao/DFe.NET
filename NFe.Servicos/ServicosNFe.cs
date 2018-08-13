@@ -72,6 +72,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Classes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -853,6 +854,13 @@ namespace NFe.Servicos
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
                         dFeInt.ResEvento = resEventoConteudo;
+                    }
+                    else if (conteudo.StartsWith("<nfeProc"))
+                    {
+                        var resEventoConteudo =
+                            FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
+                        chNFe = resEventoConteudo.protNFe.infProt.chNFe;
+                        dFeInt.NfeProc = resEventoConteudo;
                     }
 
                     var schema = dFeInt.schema.Split('_');
