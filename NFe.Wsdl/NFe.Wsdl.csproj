@@ -47,6 +47,12 @@
     <Compile Include="AdmCsc\NfceCsc.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\AN\NFeAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\AN\NfeRetAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Autorizacao\NfeAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -71,6 +77,12 @@
     <Compile Include="Autorizacao\SVAN\NfeRetAutorizacao4SVAN.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Autorizacao\SVCAN\NFeAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\SVCAN\NfeRetAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -80,19 +92,25 @@
     <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta.cs">
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta2.cs">
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo2.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta3.cs">
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo3.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaProtocolo\NfeConsulta4.cs">
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo4.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConsultaProtocolo\SVAN\NfeConsulta4SVAN.cs">
+    <Compile Include="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\SVAN\NfeConsultaProtocolo4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\SVCAN\NfeConsultaProtocolo4SVCAN.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
@@ -102,6 +120,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\AN\RecepcaoEvento4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\AN\RecepcaoEventoManifestacaoDestinatario4AN.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\RecepcaoEPEC.cs">
@@ -114,6 +135,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\SVAN\RecepcaoEvento4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\SVCAN\RecepcaoEvento4SVCAN.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="INfeServico.cs" />
@@ -141,6 +165,9 @@
     <Compile Include="Recepcao\NfeRetRecepcao2.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Status\AN\NfeStatusServico4NFeAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Status\NfeStatusServico.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -154,6 +181,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Status\SVAN\NfeStatusServico4NFeSVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\SVCAN\NfeStatusServico4NFeSVCAN.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

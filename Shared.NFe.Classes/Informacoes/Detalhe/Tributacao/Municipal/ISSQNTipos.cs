@@ -40,8 +40,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
     /// </summary>
     public enum indIncentivo
     {
-        [XmlEnum("1")] iiSim,
-        [XmlEnum("2")] iiNao
+        [XmlEnum("1")] iiSim = 1,
+        [XmlEnum("2")] iiNao = 2
     }
 
     /// <summary>
@@ -49,12 +49,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal
     /// </summary>
     public enum IndicadorISS
     {
-        [XmlEnum("1")] iiExigivel,
-        [XmlEnum("2")] iiNaoIncidencia,
-        [XmlEnum("3")] iiIsencao,
-        [XmlEnum("4")] iiExportacao,
-        [XmlEnum("5")] iiImunidade,
-        [XmlEnum("6")] iiExigSuspDecisaoJudicial,
-        [XmlEnum("7")] iiExigSuspProcessoAdm
+        [XmlEnum("1")] iiExigivel = 1,
+        [XmlEnum("2")] iiNaoIncidencia = 2,
+        [XmlEnum("3")] iiIsencao = 3,
+        [XmlEnum("4")] iiExportacao = 4,
+        [XmlEnum("5")] iiImunidade = 5,
+        [XmlEnum("6")] iiExigSuspDecisaoJudicial = 6,
+        [XmlEnum("7")] iiExigSuspProcessoAdm = 7
     }
 }
