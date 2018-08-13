@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System;
 using DFe.Classes.Assinatura;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 
 namespace NFe.Classes.Protocolo
 {

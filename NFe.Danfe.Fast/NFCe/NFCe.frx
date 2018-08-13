@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="05/10/2018 13:24:35" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="08/13/2018 12:16:14" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +18,7 @@ using NFe.Utils;
 using DFe.Utils;
 using NFe.Classes.Informacoes.Destinatario;  
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 using NFe.Danfe.Base;
 
 
@@ -169,7 +170,7 @@ namespace FastReport
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8
       string msgHomologacao = &quot;&quot;;
       string msgContigencia = &quot;&quot;;
-      if ( ((TipoAmbiente)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpAmb&quot;)) == TipoAmbiente.taHomologacao )
+      if ( ((TipoAmbiente)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpAmb&quot;)) == TipoAmbiente.Homologacao )
         msgHomologacao = &quot;EMITIDA EM AMBIENTE DE HOMOLOGAÇÃO – SEM VALOR FISCAL&quot; + Environment.NewLine;
       if ( ((TipoEmissao)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.tpEmis&quot;)) != TipoEmissao.teNormal ) 
         msgContigencia = &quot;EMITIDA EM CONTINGÊNCIA&quot; + Environment.NewLine;      

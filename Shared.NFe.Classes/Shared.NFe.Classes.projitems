@@ -9,7 +9,6 @@
     <Import_RootNamespace>Shared.NFe.Classes</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)infNFeSupl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\autXML.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\avulsa.cs" />
