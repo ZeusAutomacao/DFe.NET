@@ -136,22 +136,6 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     }
 
     /// <summary>
-    ///     Identificação do Ambiente
-    ///     <para>1 - Produção</para>
-    ///     <para>2 - Homologação</para>
-    /// </summary>
-    public enum TipoAmbiente
-    {
-        [XmlEnum("1")] 
-        [Description("Produção")]
-        taProducao = 1,
-        
-        [XmlEnum("2")]
-        [Description("Homologação")]
-        taHomologacao = 2
-    }
-
-    /// <summary>
     ///     Finalidade da emissão da NF-e
     ///     <para>1 - NFe normal</para>
     ///     <para>2 - NFe complementar</para>
@@ -213,7 +197,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")] pcInternet = 2,
         [XmlEnum("3")] pcTeleatendimento = 3,
         [XmlEnum("4")] pcEntregaDomicilio = 4,
-        [XmlEnum("5")] pcPresencialForaEstabelecimento, // versão 4.00
+        [XmlEnum("5")] pcPresencialForaEstabelecimento = 5, // versão 4.00
         [XmlEnum("9")] pcOutros = 9
     }
 
