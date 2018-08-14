@@ -437,7 +437,7 @@ namespace NFe.Utils.InformacoesSuplementares
         {
             #region 1ª parte
 
-            const string parametro = "p=";
+            const string parametro = "?p=";
             var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico, VersaoQrCode.QrCodeVersao2);
             if (!url.EndsWith(parametro))
                 url += parametro;
