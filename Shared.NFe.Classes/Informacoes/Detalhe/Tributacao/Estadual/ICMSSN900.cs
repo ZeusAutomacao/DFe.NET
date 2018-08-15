@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
@@ -54,21 +55,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
+        [XmlElement(Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12a - Código de Situação da Operação – Simples Nacional
         /// </summary>
+        [XmlElement(Order = 2)]
         public Csosnicms CSOSN { get; set; }
 
         /// <summary>
         ///     N13 - Modalidade de determinação da BC do ICMS
         /// </summary>
+        [XmlElement(Order = 3)]
         public DeterminacaoBaseIcms? modBC { get; set; }
 
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
+        [XmlElement(Order = 4)]
         public decimal? vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -78,6 +83,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N14 - Percentual de redução da BC
         /// </summary>
+        [XmlElement(Order = 5)]
         public decimal? pRedBC
         {
             get { return _pRedBc.Arredondar(4); }
@@ -87,6 +93,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
+        [XmlElement(Order = 6)]
         public decimal? pICMS
         {
             get { return _pIcms.Arredondar(4); }
@@ -96,6 +103,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
+        [XmlElement(Order = 7)]
         public decimal? vICMS
         {
             get { return _vIcms.Arredondar(2); }
@@ -105,11 +113,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N18 - Modalidade de determinação da BC do ICMS ST
         /// </summary>
+        [XmlElement(Order = 8)]
         public DeterminacaoBaseIcmsSt? modBCST { get; set; }
 
         /// <summary>
         ///     N19 - Percentual da margem de valor Adicionado do ICMS ST
         /// </summary>
+        [XmlElement(Order = 9)]
         public decimal? pMVAST
         {
             get { return _pMvast.Arredondar(4); }
@@ -119,6 +129,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N20 - Percentual da Redução de BC do ICMS ST
         /// </summary>
+        [XmlElement(Order = 10)]
         public decimal? pRedBCST
         {
             get { return _pRedBcst.Arredondar(4); }
@@ -128,6 +139,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N21 - Valor da BC do ICMS ST
         /// </summary>
+        [XmlElement(Order = 11)]
         public decimal? vBCST
         {
             get { return _vBcst.Arredondar(2); }
@@ -137,6 +149,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N22 - Alíquota do imposto do ICMS ST
         /// </summary>
+        [XmlElement(Order = 12)]
         public decimal? pICMSST
         {
             get { return _pIcmsst.Arredondar(4); }
@@ -146,6 +159,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N23 - Valor do ICMS ST
         /// </summary>
+        [XmlElement(Order = 13)]
         public decimal? vICMSST
         {
             get { return _vIcmsst.Arredondar(2); }
@@ -156,6 +170,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N23a - Valor da Base de Cálculo do FCP retido por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 14)]
         public decimal? vBCFCPST
         {
             get { return _vBcfcpst.Arredondar(2); }
@@ -171,6 +186,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N23b - Percentual do FCP retido por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 15)]
         public decimal? pFCPST
         {
             get { return _pFcpst.Arredondar(4); }
@@ -186,6 +202,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N23d - Valor do FCP retido por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 16)]
         public decimal? vFCPST
         {
             get { return _vFcpst; }
@@ -200,6 +217,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
         /// </summary>
+        [XmlElement(Order = 17)]
         public decimal? pCredSN
         {
             get { return _pCredSn.Arredondar(4); }
@@ -209,6 +227,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N30 - Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
         /// </summary>
+        [XmlElement(Order = 18)]
         public decimal? vCredICMSSN
         {
             get { return _vCredIcmssn.Arredondar(2); }

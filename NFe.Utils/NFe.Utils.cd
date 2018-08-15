@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NFe.Utils.Assinatura.Assinador" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\Assinador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Assinatura.CertificadoDigital" Collapsed="true">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAIAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assinatura\CertificadoDigital.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Autorizacao.ExtenviNFe3" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Autorizacao\ExtenviNFe3.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Auxiliar" Collapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Auxiliar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.ConfiguracaoServico" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAAAEiAEABAEIAASDAgABACCAAAwAAAAAAAAAEIAQ=</HashCode>
+      <FileName>ConfiguracaoServico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.FuncoesXml" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAEAAAAAAAAAAAQAgAQIA=</HashCode>
+      <FileName>FuncoesXml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Gerador" Collapsed="true">
+    <Position X="5.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAEAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Gerador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Consulta.ExtconsSitNFe" Collapsed="true">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consulta\ExtconsSitNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Consulta.ExtprocEventoNFe" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consulta\ExtprocEventoNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Consulta.ExtretConsSitNFe" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consulta\ExtretConsSitNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.ConsultaCadastro.ExtConsCad" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsultaCadastro\ExtConsCad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.ConsultaCadastro.ExtretConsCad" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConsultaCadastro\ExtretConsCad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Evento.ExtenvEvento" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evento\ExtenvEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Evento.Extevento" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evento\Extevento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Evento.ExtretEnvEvento" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Evento\ExtretEnvEvento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Inutilizacao.ExtinutNFe" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inutilizacao\ExtinutNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Inutilizacao.ExtretInutNFe" Collapsed="true">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inutilizacao\ExtretInutNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.NFe.ExtNFe" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAECAAAAEAAABAAAAAAAAAAAAAAACAAAAAABAAAAAA=</HashCode>
+      <FileName>NFe\ExtNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Recepcao.ExtconsReciNFe" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Recepcao\ExtconsReciNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Recepcao.ExtenviNFe2" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Recepcao\ExtenviNFe2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Recepcao.ExtretConsReciNFe" Collapsed="true">
+    <Position X="2.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Recepcao\ExtretConsReciNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Recepcao.ExtretEnviNFe" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Recepcao\ExtretEnviNFe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Status.ExtconsStatServ" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status\ExtconsStatServ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Status.ExtretConsStatServ" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Status\ExtretConsStatServ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NFe.Utils.Validacao.Validador" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Validacao\Validador.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
