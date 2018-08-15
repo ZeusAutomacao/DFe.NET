@@ -363,7 +363,7 @@ namespace NFe.AppTeste
                 }
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -1142,7 +1142,7 @@ namespace NFe.AppTeste
             {
                 cProd = i.ToString().PadLeft(5, '0'),
                 cEAN = "7770000000012",
-                xProd = i == 1 ? "NOTA FISCAL EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL" : "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
+                xProd = i == 1 ? "NOTA FISCAL <EMITIDA> EM & AMBIENTE DE 'HOMOLOGACAO - \"SEM VALOR FISCAL\"" : "ABRACADEIRA NYLON 6.6 BRANCA 91X92 " + i,
                 NCM = "84159090",
                 CFOP = 5102,
                 uCom = "UNID",
