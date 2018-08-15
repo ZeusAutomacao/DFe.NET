@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -57,70 +56,70 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// <summary>
         /// 01-Dinheiro
         /// </summary>
-        [Description("Dinheiro")] [XmlEnum("01")] fpDinheiro,
+        [Description("Dinheiro")] [XmlEnum("01")] fpDinheiro = 01,
 
         /// <summary>
         /// 02-Cheque
         /// </summary>
-        [Description("Cheque")] [XmlEnum("02")] fpCheque,
+        [Description("Cheque")] [XmlEnum("02")] fpCheque = 02,
 
         /// <summary>
         /// 03-Cartão de Crédito
         /// </summary>
-        [Description("Cartão de Crédito")] [XmlEnum("03")] fpCartaoCredito,
+        [Description("Cartão de Crédito")] [XmlEnum("03")] fpCartaoCredito = 03,
 
         /// <summary>
         /// 04-Cartão de Débito
         /// </summary>
-        [Description("Cartão de Débito")] [XmlEnum("04")] fpCartaoDebito,
+        [Description("Cartão de Débito")] [XmlEnum("04")] fpCartaoDebito = 04,
 
         /// <summary>
         /// 05-Crédito Loja
         /// </summary>
-        [Description("Crédito Loja")] [XmlEnum("05")] fpCreditoLoja,
+        [Description("Crédito Loja")] [XmlEnum("05")] fpCreditoLoja = 05,
 
         /// <summary>
         /// 10-Vale Alimentação
         /// </summary>
-        [Description("Vale Alimentação")] [XmlEnum("10")] fpValeAlimentacao,
+        [Description("Vale Alimentação")] [XmlEnum("10")] fpValeAlimentacao = 10,
 
         /// <summary>
         /// 11-Vale Refeição
         /// </summary>
-        [Description("Vale Refeição")] [XmlEnum("11")] fpValeRefeicao,
+        [Description("Vale Refeição")] [XmlEnum("11")] fpValeRefeicao = 11,
 
         /// <summary>
         /// 12-Vale Presente
         /// </summary>
-        [Description("Vale Presente")] [XmlEnum("12")] fpValePresente,
+        [Description("Vale Presente")] [XmlEnum("12")] fpValePresente = 12,
 
         /// <summary>
         /// 13-Vale Combustível
         /// </summary>
-        [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel,
+        [Description("Vale Combustível")] [XmlEnum("13")] fpValeCombustivel = 13,
 
         /// <summary>
         /// 14-Duplicata Mercantil      
-        /// <para>Na NT2016.002 (v1.50), foi excluida esta forma de pagamento na emissão de NFC-e (modelo 65), 
+        /// <para>Na NT2016.002 (v1.50), foi excluída esta forma de pagamento na emissão de NFC-e (modelo 65), 
         /// porém para NFe (modelo 55) a SEFAZ, até o momento, ainda permite o seu uso.</para>
         /// <see langword="https://github.com/ZeusAutomacao/DFe.NET/issues/790"></see>
         /// </summary>
-        [Description("Duplicata Mercantil")] [XmlEnum("14")] fpDuplicataMercantil, // VERSÃO 4.00
+        [Description("Duplicata Mercantil")] [XmlEnum("14")] fpDuplicataMercantil = 14, // VERSÃO 4.00
 
         /// <summary>
         /// 15-Boleto Bancário
         /// </summary>
-        [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario, // VERSÃO 4.00
+        [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario = 15, // VERSÃO 4.00
 
         /// <summary>
         /// 90-Sem pagamento
         /// </summary>
-        [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento, // VERSÃO 4.00
+        [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento = 90, // VERSÃO 4.00
 
         /// <summary>
         /// 99-Outros
         /// </summary>
-        [Description("Outros")] [XmlEnum("99")] fpOutro
+        [Description("Outros")] [XmlEnum("99")] fpOutro = 99
     }
 
     /// <summary>
@@ -137,25 +136,25 @@ namespace NFe.Classes.Informacoes.Pagamento
     /// </summary>
     public enum BandeiraCartao
     {
-        [Description("Visa")] [XmlEnum("01")] bcVisa,
+        [Description("Visa")] [XmlEnum("01")] bcVisa = 01,
 
-        [Description("Mastercard")] [XmlEnum("02")] bcMasterCard,
+        [Description("Mastercard")] [XmlEnum("02")] bcMasterCard = 02,
 
-        [Description("American Express")] [XmlEnum("03")] bcAmericanExpress,
+        [Description("American Express")] [XmlEnum("03")] bcAmericanExpress = 03,
 
-        [Description("Sorocred")] [XmlEnum("04")] bcSorocred,
+        [Description("Sorocred")] [XmlEnum("04")] bcSorocred = 04,
 
-        [Description("Diners Club")] [XmlEnum("05")] bcDinersClub,
+        [Description("Diners Club")] [XmlEnum("05")] bcDinersClub = 05,
 
-        [Description("Elo")] [XmlEnum("06")] Elo,
+        [Description("Elo")] [XmlEnum("06")] Elo = 06,
 
-        [Description("Hipercard")] [XmlEnum("07")] Hipercard,
+        [Description("Hipercard")] [XmlEnum("07")] Hipercard = 07,
 
-        [Description("Aura")] [XmlEnum("08")] Aura,
+        [Description("Aura")] [XmlEnum("08")] Aura = 08,
 
-        [Description("Cabal")] [XmlEnum("09")] Cabal,
+        [Description("Cabal")] [XmlEnum("09")] Cabal = 09,
 
-        [Description("Outros")] [XmlEnum("99")] bcOutros
+        [Description("Outros")] [XmlEnum("99")] bcOutros = 99
     }
 
     /// <summary>

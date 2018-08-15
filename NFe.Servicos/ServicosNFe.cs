@@ -72,6 +72,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Classes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -79,6 +80,7 @@ namespace NFe.Servicos
     public sealed class ServicosNFe : IDisposable
     {
         private readonly X509Certificate2 _certificado;
+        private readonly bool _controlarCertificado;
         private readonly ConfiguracaoServico _cFgServico;
         private readonly string _path;
 
@@ -86,10 +88,14 @@ namespace NFe.Servicos
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
         /// </summary>
         /// <param name="cFgServico"></param>
-        public ServicosNFe(ConfiguracaoServico cFgServico)
+        public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            _controlarCertificado = certificado == null;
+            if (_controlarCertificado)
+                _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            else
+                _certificado = certificado;
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -339,7 +345,7 @@ namespace NFe.Servicos
             var retornoXmlString = retorno.OuterXml;
             var retInutNFe = new retInutNFe().CarregarDeXmlString(retornoXmlString);
 
-            retInutNFe.ArquivoXMLGerado = SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
+            SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
             return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
@@ -445,7 +451,7 @@ namespace NFe.Servicos
                 listprocEventoNFe.Add(procevento);
                 if (!_cFgServico.SalvarXmlServicos) continue;
                 var proceventoXmlString = procevento.ObterXmlString();
-                procevento.ArquivoXMLGerado = SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
+                SalvarArquivoXml(procevento.evento.infEvento.Id.Substring(2) + "-procEventoNFe.xml", proceventoXmlString);
             }
 
             #endregion
@@ -819,35 +825,45 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
 
-            #region Obtém um retDistDFeInt de cada evento e salva em arquivo
+            #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
             if (retConsulta.loteDistDFeInt != null)
             {
-                for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+                foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {
-                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
-                    string chNFe = string.Empty;
+                    var conteudo = Compressao.Unzip(dFeInt.XmlNfe);
+                    var chNFe = string.Empty;
 
                     if (conteudo.StartsWith("<resNFe"))
                     {
                         var retConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
                         chNFe = retConteudo.chNFe;
+                        dFeInt.ResNFe = retConteudo;
                     }
                     else if (conteudo.StartsWith("<procEventoNFe"))
                     {
                         var procEventoNFeConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
                         chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
+                        dFeInt.ProcEventoNFe = procEventoNFeConteudo;
                     }
                     else if (conteudo.StartsWith("<resEvento"))
                     {
                         var resEventoConteudo =
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
+                        dFeInt.ResEvento = resEventoConteudo;
+                    }
+                    else if (conteudo.StartsWith("<nfeProc"))
+                    {
+                        var resEventoConteudo =
+                            FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
+                        chNFe = resEventoConteudo.protNFe.infProt.chNFe;
+                        dFeInt.NfeProc = resEventoConteudo;
                     }
 
-                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    var schema = dFeInt.schema.Split('_');
                     if (chNFe == string.Empty)
                         chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
@@ -1352,9 +1368,9 @@ namespace NFe.Servicos
                 return;
 
             if (disposing)
-                if (!_cFgServico.Certificado.ManterDadosEmCache)
+                if (!_cFgServico.Certificado.ManterDadosEmCache && _controlarCertificado)
                     _certificado.Reset();
-            _disposed = true;
+            _disposed = disposing;
         }
 
         public void Dispose()

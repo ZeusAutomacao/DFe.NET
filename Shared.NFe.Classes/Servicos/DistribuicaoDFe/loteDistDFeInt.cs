@@ -34,6 +34,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using NFe.Classes.Servicos.DistribuicaoDFe.Schemas;
 
 namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
@@ -69,5 +70,29 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// </summary>
         [XmlText(DataType = "base64Binary")]
         public byte[] XmlNfe { get; set; }
+
+        /// <summary>
+        /// Resumo de NF-e 
+        /// </summary>
+        [XmlIgnore]
+        public resNFe ResNFe { get; set; }
+
+        /// <summary>
+        /// Eventos da NFe
+        /// </summary>
+        [XmlIgnore]
+        public procEventoNFe ProcEventoNFe { get; set; }
+
+        /// <summary>
+        /// Resumos de eventos
+        /// </summary>
+        [XmlIgnore]
+        public resEvento ResEvento { get; set; }
+
+        /// <summary>
+        /// NF-e processada
+        /// </summary>
+        [XmlIgnore]
+        public nfeProc NfeProc { get; set; }   
     }
 }
