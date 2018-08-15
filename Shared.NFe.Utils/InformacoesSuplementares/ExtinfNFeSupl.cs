@@ -437,22 +437,19 @@ namespace NFe.Utils.InformacoesSuplementares
         {
             #region 1ª parte
 
-            const string parametro = "p=";
-            var url = ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode, versaoServico, VersaoQrCode.QrCodeVersao2);
-            if (!url.EndsWith(parametro))
-                url += parametro;
+            var url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
 
             #endregion
 
             #region 2ª parte
 
             const string pipe = "|";
-            
+
             //Chave de Acesso da NFC-e 
             var chave = nfe.infNFe.Id.Substring(3);
 
             //Identificação do Ambiente (1 – Produção, 2 – Homologação) 
-            var ambiente = (int) nfe.infNFe.ide.tpAmb;
+            var ambiente = (int)nfe.infNFe.ide.tpAmb;
 
             //Identificador do CSC (Código de Segurança do Contribuinte no Banco de Dados da SEFAZ). Informar sem os zeros não significativos
             var idCsc = Convert.ToInt16(cIdToken);
@@ -479,5 +476,22 @@ namespace NFe.Utils.InformacoesSuplementares
             #endregion
         }
 
+        /// <summary>
+        /// Obtém a URL para o QR-Code versão 2.0 com o tratamento de parâmetro query no final da url
+        /// </summary>
+        /// <returns></returns>
+        public static string ObterUrlQrCode2ComParametro(this infNFeSupl infNFeSupl, TipoAmbiente tipoAmbiente, Estado estado, VersaoServico versaoServico)
+        {
+            const string interrogacao = "?";
+            const string parametro = "p=";
+
+            var url = ObterUrl(infNFeSupl, tipoAmbiente, estado, TipoUrlConsultaPublica.UrlQrCode, versaoServico, VersaoQrCode.QrCodeVersao2);
+
+            if (!url.EndsWith(interrogacao))
+                url += interrogacao;
+            if (!url.EndsWith(parametro))
+                url += parametro;
+            return url;
+        }
     }
 }
