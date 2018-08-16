@@ -19,7 +19,6 @@ namespace NFe.Testes
     [TestClass]
     public class ServicosNFeTestes
     {
-
         public ServicosNFe CreateInstance()
         {
             var conf = new ConfiguracaoServico();
@@ -99,7 +98,6 @@ namespace NFe.Testes
 
             Assert.IsTrue("Lote recebido com sucesso" == result.Retorno.xMotivo.ToString());
 
-
         }
 
         [TestMethod]
@@ -114,8 +112,6 @@ namespace NFe.Testes
             var result = servico.NFeAutorizacao(1, IndicadorSincronizacao.Sincrono, list);
 
             Assert.IsTrue("Lote recebido com sucesso" == result.Retorno.xMotivo.ToString());
-
-
         }
 
         [TestMethod]
@@ -168,7 +164,6 @@ namespace NFe.Testes
             Assert.IsTrue(esperado == message);
         }
 
-
         [TestMethod]
         public void ServicosNFe_WhenNfeDistDFeInteresseBindingOK_ReturnExceptionService()
         {
@@ -215,8 +210,5 @@ namespace NFe.Testes
 
             Assert.IsTrue("Serviço em Operação" == result.Retorno.xMotivo.ToString());
         }
-
-
-
     }
 }

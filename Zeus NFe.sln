@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Classes", "NFe.Classes\NFe.Classes.csproj", "{29CA1DA2-440D-484B-951A-CF1B2EB27984}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Classes", "NFe.Classes\NFe.Classes.csproj", "{29CA1DA2-440D-484B-951A-CF1B2EB27984}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Utils", "NFe.Utils\NFe.Utils.csproj", "{E35E7C4A-5690-4979-8B43-002975B48EAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Utils", "NFe.Utils\NFe.Utils.csproj", "{E35E7C4A-5690-4979-8B43-002975B48EAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.AppTeste", "NFe.AppTeste\NFe.AppTeste.csproj", "{BB030128-9609-46D5-941C-1F53D95157E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Servicos", "NFe.Servicos\NFe.Servicos.csproj", "{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Servicos", "NFe.Servicos\NFe.Servicos.csproj", "{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Wsdl", "NFe.Wsdl\NFe.Wsdl.csproj", "{23BA5FA7-8BD6-4AE1-9895-54F119DD15FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Integracao", "NFe.Integracao\NFe.Integracao.csproj", "{DD441D1C-1F4A-4631-AA72-015C4FA735D2}"
 EndProject
@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MDFe", "MDFe", "{08D2F8D6-1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Classes", "MDFe.Classes\MDFe.Classes.csproj", "{9794CB98-4691-4218-A127-C573C2E7FF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Classes", "DFe.Classes\DFe.Classes.csproj", "{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFe.Classes", "DFe.Classes\DFe.Classes.csproj", "{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Utils", "DFe.Utils\DFe.Utils.csproj", "{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DFe.Utils", "DFe.Utils\DFe.Utils.csproj", "{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.AppTeste", "MDFe.AppTeste\MDFe.AppTeste.csproj", "{8994DDA1-E36B-40E5-9F98-C0C75CC61971}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -73,6 +73,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{164EF13E-7F27-4BC8-92A4-A82B1696B279}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Testes", "NFe.Testes\NFe.Testes.csproj", "{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFCe.Tests", "NFCe.Tests\NFCe.Tests.csproj", "{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,6 +202,10 @@ Global
 		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -222,5 +228,9 @@ Global
 		{1D58CBBD-56A5-4A10-8DAB-F795D35150EE} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{827FA496-0F49-4E93-8CE9-2246CCD353B8} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1} = {164EF13E-7F27-4BC8-92A4-A82B1696B279}
+		{59FA409B-CFCE-4E49-AC4A-811B49D4E3E4} = {164EF13E-7F27-4BC8-92A4-A82B1696B279}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {27E96131-E015-4426-80D1-2825F0FBC58E}
 	EndGlobalSection
 EndGlobal
