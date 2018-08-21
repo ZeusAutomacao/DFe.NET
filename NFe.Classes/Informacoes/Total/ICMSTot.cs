@@ -36,7 +36,7 @@ namespace NFe.Classes.Informacoes.Total
     {
         private decimal _vBc;
         private decimal _vIcms;
-        private decimal? _vIcmsDeson;
+        private decimal _vIcmsDeson;
         private decimal _vBcst;
         private decimal _vSt;
         private decimal _vProd;
@@ -79,16 +79,11 @@ namespace NFe.Classes.Informacoes.Total
         /// <summary>
         ///     W04a - Valor Total do ICMS desonerado
         /// </summary>
-        public decimal? vICMSDeson
+        public decimal vICMSDeson
         {
             get { return _vIcmsDeson.Arredondar(2); }
             set { _vIcmsDeson = value.Arredondar(2); }
         } //Nulable por conta da v2.00
-
-        public bool ShouldSerializevICMSDeson()
-        {
-            return vICMSDeson.HasValue;
-        }
 
         /// <summary>
         /// W04c - Valor total do ICMS relativo Fundo de Combate à Pobreza(FCP) da UF de destino
