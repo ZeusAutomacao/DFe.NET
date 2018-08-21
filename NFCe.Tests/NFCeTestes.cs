@@ -2,17 +2,18 @@
 using DFe.Classes.Flags;
 using DFe.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NFe.Classes;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Utils;
 using NFe.Utils.Assinatura;
+using NFe.Utils.InformacoesSuplementares;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using NFeClasses = global::NFe.Classes;
 
@@ -34,20 +35,20 @@ namespace NFCe.Testes
             var cert = new ConfiguracaoCertificado
             {
                 TipoCertificado = TipoCertificado.A1Arquivo,
-                Arquivo = @"D:\Works\ProductInvoices\A1_NFE_08765239000164_cer2017.pfx",
-                Senha = "cer2017"
+                Arquivo = @"D:\works\nfe\certificates\CERTIFICADO MORIMO A1.pfx",
+                Senha = "morimo1458"
             };
             _conf.Certificado = cert;
             _conf.ModeloDocumento = DFe.Classes.Flags.ModeloDocumento.NFCe; //  Condition
 
-            _conf.tpAmb = NFeClasses.Informacoes.Identificacao.Tipos.TipoAmbiente.taHomologacao;
+            _conf.tpAmb = NFeClasses.Informacoes.Identificacao.Tipos.TipoAmbiente.taProducao;
             _conf.cUF = DFe.Classes.Entidades.Estado.SP;
             _conf.tpEmis = NFeClasses.Informacoes.Identificacao.Tipos.TipoEmissao.teNormal;
             _conf.TimeOut = 120000;
-            _conf.DiretorioSalvarXml = @"D:\Works\NFCE";
+            _conf.DiretorioSalvarXml = @"D:\works\nfce";
             _conf.SalvarXmlServicos = true;
             _conf.ProtocoloDeSeguranca = System.Net.SecurityProtocolType.Tls12;
-            _conf.DiretorioSchemas = @"D:\Works\nfe\nfe-products-api\schemas";
+            _conf.DiretorioSchemas = @"C:\Works\nfe\nfe-products-api\schemas";
             _conf.VersaoNFeAutorizacao = VersaoServico.ve400;
             _conf.VersaoNfeDownloadNF = VersaoServico.ve400;
             _conf.VersaoNfeStatusServico = VersaoServico.ve400;
@@ -58,7 +59,7 @@ namespace NFCe.Testes
         public NFeClasses.nfeProc CreateObject()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(NFe.Classes.nfeProc));
-            StreamReader reader = new StreamReader(@"D:\Works\NFCE\35180708765239000164550050000053271382938770-nfe.xml");
+            StreamReader reader = new StreamReader(@"C:\Users\staff\Downloads\35180708765239000164550050000053271382938770-nfe.xml");
             var nfe = (NFe.Classes.nfeProc)serializer.Deserialize(reader);
             reader.Close();
 
@@ -98,16 +99,22 @@ namespace NFCe.Testes
             nfe.infNFe.ide.dhSaiEnt = null;
 
             CriarChaveDeAcesso(nfe);
-
-            var a = new X509Certificate2(@"D:\Works\CERTIFICADO MORIMO A1.pfx", "morimo1458", X509KeyStorageFlags.Exportable);
+            var a = new X509Certificate2(@"D:\works\nfe\certificates\CERTIFICADO MORIMO A1.pfx", "morimo1458", X509KeyStorageFlags.Exportable);
             //var a = new X509Certificate2(@"D:\Works\ProductInvoices\A1_NFE_08765239000164_cer2017.pfx", "cer2017");
 
             var signature = Assinador.ObterAssinaturac<NFe.Classes.NFe>(nfe, nfe.infNFe.Id, a);
 
             nfe.Signature = signature;
 
+            nfe.infNFeSupl = new NFeClasses.infNFeSupl
+            {
+                urlChave = nfe.infNFe.Id,
+                qrCode = ExtinfNFeSupl.ObterUrlQrCode(new NFeClasses.infNFeSupl(), nfe, VersaoQrCode.QrCodeVersao1, "000001", "442e0b0a-5297-458e-9bc4-6711ffac869c")
+            };
+
+
             var issuedNfe = Assinador.SerializeToString(nfe);
-            File.WriteAllText($@"D:\Works\NFCE\Issued\test.xml", issuedNfe);
+            File.WriteAllText($@"D:\works\nfce\test123.xml", issuedNfe);
 
             var procNfe = new NFe.Classes.nfeProc
             {
