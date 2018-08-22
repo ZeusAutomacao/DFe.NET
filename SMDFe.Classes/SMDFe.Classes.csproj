@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
+    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
+  </ItemGroup>
+
+  <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
+
+  <!-- .NET Standard 2.0 referências, sinalizadores de compilação e opções de compilação -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0-preview1-25305-02" />
+  </ItemGroup>
+
+
+  <!-- .NET 4.5 referências, sinalizadores de compilação e opções de compilação -->
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
+  
+</Project>
