@@ -11,7 +11,7 @@
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e"
     WindowStartupLocation="CenterScreen"
     SizeToContent="WidthAndHeight"
-    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" Height="527.628" >
+    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" Height="540.628" >
     <Window.Resources>
         <appTeste:EnumParaBool x:Key="EnumParaBool" />
     </Window.Resources>
@@ -102,6 +102,12 @@
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.DocumentoCancelado}" />
                                 <CheckBox x:Name="ChbQuebrarLinhaObservacao" Content="Quebrar linha nas observações" Margin="10,0,0,0" 
                                           IsChecked="{Binding ConfiguracaoDanfeNfe.QuebrarLinhasObservacao}"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <CheckBox x:Name="ChbExibirTotalTributos" Content="Exibir total dos tributos"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          IsChecked="{Binding ConfiguracaoDanfeNfe.ExibirTotalTributos}" />
                             </StackPanel>
 
                             <GroupBox Header="Versão do QR-Code para NFCe" Margin="0,5,0,0">
