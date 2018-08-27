@@ -210,14 +210,15 @@ namespace NFe.Danfe.AppTeste
                                         DuasLinhas = RdbDuasLinhas.IsChecked ?? false,
                                         DocumentoCancelado = ChbCancelado.IsChecked ?? false,
                                         QuebrarLinhasObservacao = _configuracoes.ConfiguracaoDanfeNfe.QuebrarLinhasObservacao,
-                                        ExibirResumoCanhoto = true,
-                                        ResumoCanhoto = string.Empty,
-                                        ChaveContingencia = string.Empty,
-                                        ExibeCampoFatura = false,
-                                        ImprimirISSQN = false,
-                                        ImprimirDescPorc = false,
-                                        ImprimirTotalLiquido = false,
-                                        ImprimirUnidQtdeValor = ImprimirUnidQtdeValor.Comercial
+                                        ExibirResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ExibirResumoCanhoto,
+                                        ResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ResumoCanhoto,
+                                        ChaveContingencia = _configuracoes.ConfiguracaoDanfeNfe.ChaveContingencia,
+                                        ExibeCampoFatura = _configuracoes.ConfiguracaoDanfeNfe.ExibeCampoFatura,
+                                        ImprimirISSQN = _configuracoes.ConfiguracaoDanfeNfe.ImprimirISSQN,
+                                        ImprimirDescPorc = _configuracoes.ConfiguracaoDanfeNfe.ImprimirDescPorc,
+                                        ImprimirTotalLiquido = _configuracoes.ConfiguracaoDanfeNfe.ImprimirTotalLiquido,
+                                        ImprimirUnidQtdeValor = _configuracoes.ConfiguracaoDanfeNfe.ImprimirUnidQtdeValor,
+                                        ExibirTotalTributos = _configuracoes.ConfiguracaoDanfeNfe.ExibirTotalTributos
                                     },
                                     desenvolvedor: "NOME DA SOFTWARE HOUSE",
                                     arquivoRelatorio: string.Empty);
