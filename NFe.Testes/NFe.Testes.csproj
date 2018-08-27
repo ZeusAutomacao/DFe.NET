@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NFCeTestes.cs" />
     <Compile Include="NFeTestes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServicosNFeTestes.cs" />

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.2.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj" />
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
