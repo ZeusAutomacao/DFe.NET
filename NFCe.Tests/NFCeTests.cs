@@ -20,23 +20,18 @@ using NFeClasses = global::NFe.Classes;
 namespace NFCe.Testes
 {
     [TestClass]
-    public class NFCeTestes
+    public class NFCeTests
     {
         public ConfiguracaoServico _conf { get; set; }
         public ServicosNFe CreateInstance4()
         {
             _conf = new ConfiguracaoServico();
-            //var cert = new ConfiguracaoCertificado
-            //{
-            //    TipoCertificado = TipoCertificado.A1Arquivo,
-            //    Arquivo = @"D:\Works\CERTIFICADO MORIMO A1.pfx",
-            //    Senha = "morimo1458"
-            //};
+           
             var cert = new ConfiguracaoCertificado
             {
                 TipoCertificado = TipoCertificado.A1Arquivo,
-                Arquivo = @"D:\works\nfe\certificates\CERTIFICADO MORIMO A1.pfx",
-                Senha = "morimo1458"
+                Arquivo = @"certificatePath.pfx",
+                Senha = "certificatePassword"
             };
             _conf.Certificado = cert;
             _conf.ModeloDocumento = DFe.Classes.Flags.ModeloDocumento.NFCe; //  Condition
@@ -68,11 +63,8 @@ namespace NFCe.Testes
 
         public void SetValuesForMoriMo(NFe.Classes.NFe nfe)
         {
-            nfe.infNFe.emit.CNPJ = "28456297000113";
-            //nfe.infNFe.emit.xNome = "MORI MO SUSHI MOEMA LTDA EPP";
-            //nfe.infNFe.emit.xFant = "MORI MO SUSHI";
-            nfe.infNFe.emit.IE = "118425254110";
-            //nfe.infNFe.emit.IM = "ISENTO";
+            nfe.infNFe.emit.CNPJ = "cnpj";
+            nfe.infNFe.emit.IE = "ie";
         }
 
         [TestMethod]
@@ -99,8 +91,7 @@ namespace NFCe.Testes
             nfe.infNFe.ide.dhSaiEnt = null;
 
             CriarChaveDeAcesso(nfe);
-            var a = new X509Certificate2(@"D:\works\nfe\certificates\CERTIFICADO MORIMO A1.pfx", "morimo1458", X509KeyStorageFlags.Exportable);
-            //var a = new X509Certificate2(@"D:\Works\ProductInvoices\A1_NFE_08765239000164_cer2017.pfx", "cer2017");
+            var a = new X509Certificate2(@"certificatePath", "certificatePassword", X509KeyStorageFlags.Exportable);
 
             var signature = Assinador.ObterAssinaturac<NFe.Classes.NFe>(nfe, nfe.infNFe.Id, a);
 
@@ -109,7 +100,7 @@ namespace NFCe.Testes
             nfe.infNFeSupl = new NFeClasses.infNFeSupl
             {
                 urlChave = nfe.infNFe.Id,
-                qrCode = ExtinfNFeSupl.ObterUrlQrCode(new NFeClasses.infNFeSupl(), nfe, VersaoQrCode.QrCodeVersao1, "000001", "442e0b0a-5297-458e-9bc4-6711ffac869c")
+                qrCode = ExtinfNFeSupl.ObterUrlQrCode(new NFeClasses.infNFeSupl(), nfe, VersaoQrCode.QrCodeVersao1, "security-id", "security-Code")
             };
 
 
@@ -197,12 +188,5 @@ namespace NFCe.Testes
 
             return dv.ToString();
         }
-
-        //public void Create_Mdfe_Example()
-        //{
-        //    var proc = new nfeProc().CarregarDeArquivoXml(Caminho_do_arquivo_XML);
-        //    var danfe = new DanfeFrNfce(proc, new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha, null/*Logomarca em byte[]*/), "00001", "XXXXXXXXXXXXXXXXXXXXXXXXXX");
-        //    danfe.Visualizar();
-        //}
     }
 }
