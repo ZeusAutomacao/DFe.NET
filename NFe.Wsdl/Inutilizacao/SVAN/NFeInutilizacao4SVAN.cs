@@ -23,7 +23,7 @@ namespace NFe.Wsdl.Inutilizacao.SVAN
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [return: XmlElement("nfeInutilizacaoNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")]
+        [return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")]
         [WebMethod(MessageName = "nfeInutilizacaoNF")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4")] XmlNode nfeDadosMsg)
         {
