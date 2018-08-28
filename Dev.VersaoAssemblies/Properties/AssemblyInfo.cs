@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.726")]
-[assembly: AssemblyFileVersion("1.0.0.726")]
+[assembly: AssemblyVersion("1.0.0.727")]
+[assembly: AssemblyFileVersion("1.0.0.727")]
