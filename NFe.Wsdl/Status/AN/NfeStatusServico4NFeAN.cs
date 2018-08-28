@@ -23,7 +23,7 @@ namespace NFe.Wsdl.Status.AN
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
-        [return: XmlElement("nfeStatusServicoNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
+        [return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
         [WebMethod(MessageName = "nfeStatusServicoNF")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")] XmlNode nfeDadosMsg)
         {
