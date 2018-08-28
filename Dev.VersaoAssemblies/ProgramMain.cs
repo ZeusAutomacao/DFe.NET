@@ -6,13 +6,19 @@ namespace Dev.VersaoAssemblies
 {
     internal static class ProgramMain
     {
+        private static string _diretorioRoot;
+        private static string _versaoAtual;
+
         private static void Main(string[] args)
         {
             try
             {
+                CarregarDiretorioProjeto();
+                CarregarVersaoAtual();
+
                 Console.WriteLine("Olá, sou seu assitente para alteração de versão em massa");
                 Console.WriteLine("Para continuar preciso que informe qual versão deseja utilizar. Vamos la?");
-
+                Console.WriteLine("Versão atual do projeto é: " + _versaoAtual);
                 Console.Write("Então qual versão quer utilizar? (informe a versãoe aperter ENTER):");
                 var versaoString = Console.ReadLine();
 
@@ -28,17 +34,36 @@ namespace Dev.VersaoAssemblies
             }
         }
 
-        private static void FazerAlteracaoDasVersoes(string versaoString)
+        private static void CarregarVersaoAtual()
         {
-            var root = Environment.GetEnvironmentVariable("PROJETO_ZEUS_DFE") ?? string.Empty;
+            var assemblyFile = Path.Combine(_diretorioRoot, "Dev.VersaoAssemblies", "Properties", "AssemblyInfo.cs");
+            var regex = new Regex("assembly: AssemblyVersion.+\\)", RegexOptions.IgnoreCase);
 
-            if (!File.Exists(Path.Combine(root, "Zeus NFe.sln")))
+            var match = regex.Match(File.ReadAllText(assemblyFile));
+
+            if (string.IsNullOrWhiteSpace(match.Value))
+            {
+                throw new InvalidOperationException("Não foi possível verificar a versão atual do arquivo: " + assemblyFile);
+            }
+
+            _versaoAtual = match.Value.Replace("assembly: AssemblyVersion", "");
+        }
+
+        private static void CarregarDiretorioProjeto()
+        {
+            _diretorioRoot = Environment.GetEnvironmentVariable("PROJETO_ZEUS_DFE") ?? string.Empty;
+
+            if (!File.Exists(Path.Combine(_diretorioRoot, "Zeus NFe.sln")))
             {
                 throw new InvalidOperationException(
                     "Acho que você não está com a variavel de ambiente PROJETO_ZEUS_DFE configurada");
-            }
 
-            var diretorios = Directory.GetDirectories(root);
+            }
+        }
+
+        private static void FazerAlteracaoDasVersoes(string versaoString)
+        {
+            var diretorios = Directory.GetDirectories(_diretorioRoot);
 
             foreach (var diretorio in diretorios)
             {
@@ -49,7 +74,7 @@ namespace Dev.VersaoAssemblies
                     continue;
                 }
 
-                var regexValidarVersao = new Regex(@"^[0-9]\.[0-9]{1,2}\.0\.[0-9]{1,2}$");
+                var regexValidarVersao = new Regex(@"^[0-9]\.[0-9]{1,2}\.0\.[0-9]{1,4}$");
 
                 if (!regexValidarVersao.IsMatch(versaoString))
                 {
