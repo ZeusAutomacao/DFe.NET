@@ -5,12 +5,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:appTeste="clr-namespace:NFe.Danfe.AppTeste"
     xmlns:base="clr-namespace:NFe.Danfe.Base;assembly=NFe.Danfe.Base"
+    xmlns:nfeUtils="clr-namespace:NFe.Utils;assembly=NFe.Utils"
     mc:Ignorable="d"
     x:Class="NFe.Danfe.AppTeste.MainWindow"
     Title="Zeus Automação - Exemplo de uso da biblioteca de NFe/NFC-e"
     WindowStartupLocation="CenterScreen"
     SizeToContent="WidthAndHeight"
-    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" d:DesignHeight="528.628" >
+    d:DataContext="{d:DesignInstance {x:Type appTeste:ConfiguracaoApp}, IsDesignTimeCreatable=True}" Height="540.628" >
     <Window.Resources>
         <appTeste:EnumParaBool x:Key="EnumParaBool" />
     </Window.Resources>
@@ -21,48 +22,47 @@
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="0,0,10,0" RenderTransformOrigin="0.493,0.552" Height="339">
+                        <StackPanel Margin="0,0,10,0">
 
-                            <GroupBox Header="Emissão Normal - Impressão dos produtos"
-                                          Margin="0,10,0,0">
+                            <GroupBox Header="Emissão Normal - Impressão dos produtos" Margin="0,5,0,0">
                                 <Grid>
                                     <RadioButton Content="Não imprimir"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="8,13,0,0"
+                                                     Margin="8,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.NaoImprimir}, Converter={StaticResource EnumParaBool}}" />
                                     <RadioButton Content="Uma Linha"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="108,13,0,0"
+                                                     Margin="108,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
                                     <RadioButton x:Name="RdbDuasLinhas" Content="Duas Linhas"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="190,13,0,0"
+                                                     Margin="190,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
                             
-                            <GroupBox Header="Contigência - Impressão dos produtos" Margin="0,10,0,0">
+                            <GroupBox Header="Contigência - Impressão dos produtos" Margin="0,5,0,0">
                                 <Grid>
                                     <RadioButton Content="Uma Linha"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="8,13,0,0"
+                                                     Margin="8,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static base:NfceDetalheVendaContigencia.UmaLinha}, Converter={StaticResource EnumParaBool}}" />
                                     <RadioButton Content="Duas Linhas"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="108,13,0,0"
+                                                     Margin="108,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static base:NfceDetalheVendaContigencia.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
 
-                            <GroupBox Header="Posição do QRCode em relação aos dados do cliente" Margin="0,10,0,0">
+                            <GroupBox Header="Posição do QRCode em relação aos dados do cliente" Margin="0,5,0,0">
                                 <Grid>
                                     <RadioButton Content="Abaixo"
                                                  HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                 Margin="8,13,0,0"
+                                                 Margin="8,5,0,0"
                                                  IsChecked="{Binding ConfiguracaoDanfeNfce.NfceLayoutQrCode, ConverterParameter={x:Static base:NfceLayoutQrCode.Abaixo}, Converter={StaticResource EnumParaBool}}" />
                                     <RadioButton Content="Lateral"
                                                  HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                 Margin="138,13,0,0"
+                                                 Margin="138,5,0,0"
                                                  IsChecked="{Binding ConfiguracaoDanfeNfce.NfceLayoutQrCode, ConverterParameter={x:Static base:NfceLayoutQrCode.Lateral}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
@@ -72,7 +72,7 @@
                                           Margin="0,10,0,0"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeDescontoItem}" />
                           
-                            <GroupBox Header="Código de Segurança do Contribuinte" Margin="0,10,0,0">
+                            <GroupBox Header="Código de Segurança do Contribuinte para NFCe" Margin="0,10,0,0">
                                 <StackPanel>
                                     <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
                                         <Grid.ColumnDefinitions>
@@ -104,6 +104,24 @@
                                           IsChecked="{Binding ConfiguracaoDanfeNfe.QuebrarLinhasObservacao}"/>
                             </StackPanel>
 
+                            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                <CheckBox x:Name="ChbExibirTotalTributos" Content="Exibir total dos tributos"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          IsChecked="{Binding ConfiguracaoDanfeNfe.ExibirTotalTributos}" />
+                            </StackPanel>
+
+                            <GroupBox Header="Versão do QR-Code para NFCe" Margin="0,5,0,0">
+                                <Grid>
+                                    <RadioButton Content="Versão 1"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        Margin="8,5,0,0"
+                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao1}, Converter={StaticResource EnumParaBool}}" />
+                                    <RadioButton Content="Versão 2"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        Margin="138,5,0,0"
+                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" />
+                                </Grid>
+                            </GroupBox>
                         </StackPanel>
 
                         <StackPanel>
@@ -122,16 +140,15 @@
                                 </StackPanel>
                             </GroupBox>
 
-                            <GroupBox Header="Modo de impressão"
-                                          Height="60" Margin="0,10,0,0">
+                            <GroupBox Header="Modo de impressão" Margin="0,5,0,0">
                                 <Grid>
                                     <RadioButton Content="Múltiplas páginas"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="8,13,0,0"
+                                                     Margin="8,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.ModoImpressao, ConverterParameter={x:Static base:NfceModoImpressao.MultiplasPaginas}, Converter={StaticResource EnumParaBool}}" />
                                     <RadioButton Content="Única página"
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
-                                                     Margin="138,13,0,0"
+                                                     Margin="138,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.ModoImpressao, ConverterParameter={x:Static base:NfceModoImpressao.UnicaPagina}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
