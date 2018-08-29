@@ -40,11 +40,11 @@ namespace NFe.Classes.Informacoes.Transporte
     /// </summary>
     public enum ModalidadeFrete
     {
-        [XmlEnum("0")] mfContaEmitenteOumfContaRemetente, // Versão 3.1 ou 4.00 com objetivos diferentes e claro
-        [XmlEnum("1")] mfContaDestinatario,
-        [XmlEnum("2")] mfContaTerceiros,
-        [XmlEnum("3")] mfProprioContaRemente, // Versão 4.00
-        [XmlEnum("4")] mfProprioContaDestinatario, // Versão 4.00
-        [XmlEnum("9")] mfSemFrete
+        [XmlEnum("0")] mfContaEmitenteOumfContaRemetente = 0, // Versão 3.1 ou 4.00 com objetivos diferentes e claro
+        [XmlEnum("1")] mfContaDestinatario = 1,
+        [XmlEnum("2")] mfContaTerceiros = 2,
+        [XmlEnum("3")] mfProprioContaRemente = 3, // Versão 4.00
+        [XmlEnum("4")] mfProprioContaDestinatari = 4, // Versão 4.00
+        [XmlEnum("9")] mfSemFrete = 9
     }
 }
