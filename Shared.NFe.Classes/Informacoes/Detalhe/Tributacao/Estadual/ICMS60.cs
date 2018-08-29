@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
@@ -50,16 +51,19 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
+        [XmlElement(Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
+        [XmlElement(Order = 2)]
         public Csticms CST { get; set; }
 
         /// <summary>
         ///     N26 - Valor da BC do ICMS ST retido
         /// </summary>
+        [XmlElement(Order = 3)]
         public decimal? vBCSTRet
         {
             get { return _vBcstRet.Arredondar(2); }
@@ -74,6 +78,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N26a - Alíquota suportada pelo Consumidor Final
         /// </summary>
+        [XmlElement(Order = 4)]
         public decimal? pST
         {
             get { return _pST.Arredondar(4); }
@@ -88,6 +93,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
+        [XmlElement(Order = 5)]
         public decimal? vICMSSTRet
         {
             get { return _vIcmsstRet.Arredondar(2); }
@@ -103,6 +109,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N27a - Valor da Base de Cálculo do FCP retido anteriormente por ST 
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 6)]
         public decimal? vBCFCPSTRet
         {
             get { return _vBcfcpstRet.Arredondar(2); }
@@ -118,6 +125,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 7)]
         public decimal? pFCPSTRet
         {
             get { return _pFcpstRet.Arredondar(4); }
@@ -134,6 +142,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N27d - Valor do FCP retido por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 8)]
         public decimal? vFCPSTRet
         {
             get { return _vFcpstRet.Arredondar(2); }
@@ -148,6 +157,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N34 - Percentual de redução da base de cálculo efetiva 
         /// </summary>
+        [XmlElement(Order = 9)]
         public decimal? pRedBCEfet
         {
             get { return _pRedBCEfet.Arredondar(4); }
@@ -162,6 +172,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N35 - Valor da base de cálculo efetiva 
         /// </summary>
+        [XmlElement(Order = 10)]
         public decimal? vBCEfet
         {
             get { return _vBCEfet.Arredondar(2); }
@@ -176,6 +187,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N36 - Alíquota do ICMS efetiva 
         /// </summary>
+        [XmlElement(Order = 11)]
         public decimal? pICMSEfet
         {
             get { return _pICMSEfet.Arredondar(4); }
@@ -190,6 +202,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N37 - Valor do ICMS efetivo 
         /// </summary>
+        [XmlElement(Order = 12)]
         public decimal? vICMSEfet
         {
             get { return _vICMSEfet.Arredondar(2); }

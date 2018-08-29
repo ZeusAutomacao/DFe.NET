@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 
 namespace NFe.Classes.Servicos.Status
 {

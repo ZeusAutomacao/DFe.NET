@@ -44,16 +44,16 @@ namespace NFe.Classes.Informacoes.Total
     /// </summary>
     public enum RegTribISSQN
     {
-        [XmlEnum("1")] TISSMicroempresaMunicipal,
+        [XmlEnum("1")] TISSMicroempresaMunicipal = 1,
 
-        [XmlEnum("2")] RTISSEstimativa,
+        [XmlEnum("2")] RTISSEstimativa = 2,
 
-        [XmlEnum("3")] RTISSSociedadeProfissionais,
+        [XmlEnum("3")] RTISSSociedadeProfissionais = 3,
 
-        [XmlEnum("4")] RTISSCooperativa,
+        [XmlEnum("4")] RTISSCooperativa = 4,
 
-        [XmlEnum("5")] RTISSMEI,
+        [XmlEnum("5")] RTISSMEI = 5,
 
-        [XmlEnum("6")] RTISSMEEPP
+        [XmlEnum("6")] RTISSMEEPP = 6
     }
 }

@@ -32,7 +32,7 @@
 /********************************************************************************/
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
+using DFe.Classes.Flags;
 
 namespace NFe.Classes.Servicos.Download
 {

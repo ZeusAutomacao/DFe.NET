@@ -72,6 +72,7 @@ using System.Net;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
+using NFe.Classes;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -79,6 +80,7 @@ namespace NFe.Servicos
     public sealed class ServicosNFe : IDisposable
     {
         private readonly X509Certificate2 _certificado;
+        private readonly bool _controlarCertificado;
         private readonly ConfiguracaoServico _cFgServico;
         private readonly string _path;
 
@@ -86,10 +88,14 @@ namespace NFe.Servicos
         ///     Cria uma instância da Classe responsável pelos serviços relacionados à NFe
         /// </summary>
         /// <param name="cFgServico"></param>
-        public ServicosNFe(ConfiguracaoServico cFgServico)
+        public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
             _cFgServico = cFgServico;
-            _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            _controlarCertificado = certificado == null;
+            if (_controlarCertificado)
+                _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+            else
+                _certificado = certificado;
             _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
             //Define a versão do protocolo de segurança
@@ -369,7 +375,7 @@ namespace NFe.Servicos
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
 
-            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento, _cFgServico.cUF);
+            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento);
 
             #region Cria o objeto wdsl para consulta
 
@@ -471,7 +477,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -509,12 +515,17 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
-            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                xCorrecao = correcao,
+                xJust = null,
+                descEvento = "Carta de Correção",
+                xCondUso =
+                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
+            };
 
-            detEvento.descEvento = "Carta de Correção";
-            detEvento.xCondUso =
-                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída.";
 
             if (_cFgServico.cUF == Estado.MT)
             {
@@ -666,7 +677,7 @@ namespace NFe.Servicos
             string documento)
         {
             var versaoServico =
-                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro, _cFgServico.cUF);
+                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
 
             #region Cria o objeto wdsl para consulta
 
@@ -848,6 +859,13 @@ namespace NFe.Servicos
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
                         dFeInt.ResEvento = resEventoConteudo;
+                    }
+                    else if (conteudo.StartsWith("<nfeProc"))
+                    {
+                        var resEventoConteudo =
+                            FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
+                        chNFe = resEventoConteudo.protNFe.infProt.chNFe;
+                        dFeInt.NfeProc = resEventoConteudo;
                     }
 
                     var schema = dFeInt.schema.Split('_');
@@ -1355,9 +1373,9 @@ namespace NFe.Servicos
                 return;
 
             if (disposing)
-                if (!_cFgServico.Certificado.ManterDadosEmCache)
+                if (!_cFgServico.Certificado.ManterDadosEmCache && _controlarCertificado)
                     _certificado.Reset();
-            _disposed = true;
+            _disposed = disposing;
         }
 
         public void Dispose()

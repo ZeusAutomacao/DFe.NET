@@ -40,8 +40,8 @@ namespace NFe.Classes.Informacoes.Detalhe
     /// </summary>
     public enum IndicadorTotal
     {
-        [XmlEnum("0")] ValorDoItemNaoCompoeTotalNF,
-        [XmlEnum("1")] ValorDoItemCompoeTotalNF
+        [XmlEnum("0")] ValorDoItemNaoCompoeTotalNF = 0,
+        [XmlEnum("1")] ValorDoItemCompoeTotalNF = 1
     }
 
     /// <summary>
@@ -161,8 +161,8 @@ namespace NFe.Classes.Informacoes.Detalhe
     /// </summary>
     public enum CondicaoVin
     {
-        [XmlEnum("R")] Remarcado,
-        [XmlEnum("N")] Normal
+        [XmlEnum("R")] Remarcado = 'R',
+        [XmlEnum("N")] Normal = 'N'
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ namespace NFe.Classes.Informacoes.Detalhe
     /// </summary>
     public enum indEscala
     {
-        [XmlEnum("S")] S,
-        [XmlEnum("N")] N
+        [XmlEnum("S")] S = 'S',
+        [XmlEnum("N")] N = 'N'
     }
 }
