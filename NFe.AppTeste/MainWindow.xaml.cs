@@ -79,6 +79,7 @@ using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 using NFe.Utils.Tributacao.Federal;
+using System.Windows.Input;
 
 namespace NFe.AppTeste
 {
@@ -121,6 +122,8 @@ namespace NFe.AppTeste
 
         private void BtnStatusServico_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
             try
             {
                 #region Status do serviço
@@ -148,6 +151,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -209,6 +216,8 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeConsultaProtocolo(chave);
                 TrataRetorno(retornoConsulta);
@@ -227,6 +236,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -246,6 +259,8 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeConsultaProtocolo(chave);
                 TrataRetorno(retornoConsulta);
@@ -264,6 +279,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -327,6 +346,8 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
@@ -352,6 +373,10 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+            }
         }
 
         private void BtnConsultarReciboLote3_Click(object sender, RoutedEventArgs e)
@@ -362,6 +387,9 @@ namespace NFe.AppTeste
 
                 var recibo = Funcoes.InpuBox(this, "Consultar processamento de lote de NF-e", "Número do recibo:");
                 if (string.IsNullOrEmpty(recibo)) throw new Exception("O número do recibo deve ser informado!");
+
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoRecibo = servicoNFe.NFeRetAutorizacao(recibo);
 
@@ -381,6 +409,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -425,6 +457,8 @@ namespace NFe.AppTeste
                 var justificativa = Funcoes.InpuBox(this, "Inutilizar Numeração", "Justificativa");
                 if (string.IsNullOrEmpty(justificativa)) throw new Exception("A Justificativa deve ser informada!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeInutilizacao(_configuracoes.Emitente.CNPJ, Convert.ToInt16(ano),
                     modelo, Convert.ToInt16(serie), Convert.ToInt32(numeroInicial),
@@ -447,6 +481,10 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
+            }
         }
 
         private void BtnCartaCorrecao_Click(object sender, RoutedEventArgs e)
@@ -468,6 +506,8 @@ namespace NFe.AppTeste
 
                 var correcao = Funcoes.InpuBox(this, "Carta de correção", "Correção");
                 if (string.IsNullOrEmpty(correcao)) throw new Exception("A Correção deve ser informada!");
+
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
@@ -492,6 +532,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -518,6 +562,8 @@ namespace NFe.AppTeste
                 var justificativa = Funcoes.InpuBox(this, "Cancelar NFe", "Justificativa");
                 if (string.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
@@ -541,6 +587,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -566,6 +616,8 @@ namespace NFe.AppTeste
                 var numeronota = Funcoes.InpuBox(this, "Enviar EPEC", "Número da Nota:");
                 if (string.IsNullOrEmpty(numeronota)) throw new Exception("O Número da Nota deve ser informado!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao,
                     _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numeronota),
                     _configuracoes.ConfiguracaoCsc);
@@ -589,6 +641,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -753,6 +809,8 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave da NFe não foi encontrada no arquivo!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeConsultaProtocolo(chave);
                 TrataRetorno(retornoConsulta);
@@ -783,6 +841,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -835,6 +897,8 @@ namespace NFe.AppTeste
                 var documento = Funcoes.InpuBox(this, "Consultar Cadastro", "Documento(IE/CNPJ/CPF):");
                 if (string.IsNullOrEmpty(documento)) throw new Exception("O Documento(IE/CNPJ/CPF) deve ser informado!");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoConsulta = servicoNFe.NfeConsultaCadastro(uf, (ConsultaCadastroTipoDocumento) intTipoDocumento, documento);
                 TrataRetorno(retornoConsulta);
@@ -853,6 +917,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -1589,6 +1657,8 @@ namespace NFe.AppTeste
                 if ((string.IsNullOrEmpty(nsu) || int.Parse(nsu) < 0) && string.IsNullOrEmpty(chnfe))
                     throw new Exception("Último NSU ou Chave Eletrônica devem ser informados");
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.Emitente.enderEmit.UF.ToString(), cnpj, ultNSU: nsu, chNFE: chnfe);
 
@@ -1608,6 +1678,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
@@ -1646,6 +1720,8 @@ namespace NFe.AppTeste
                     if (string.IsNullOrEmpty(justificativa)) throw new Exception("A justificativa deve ser informada!");
                 }
 
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Wait;
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoNFeDistDFe = servicoNFe.RecepcaoEventoManifestacaoDestinatario(int.Parse(idlote), int.Parse(sequenciaEvento), chave, (TipoEventoManifestacaoDestinatario)int.Parse(codigoEvento), cnpj, justificativa);
 
@@ -1665,6 +1741,10 @@ namespace NFe.AppTeste
             {
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
