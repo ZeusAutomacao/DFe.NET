@@ -24,7 +24,7 @@ namespace NFe.Wsdl.ConsultaProtocolo.AN
 
         [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
         [WebMethod(MessageName = "nfeConsultaNF")]
-        [return: XmlElement("nfeConsultaNFResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")]
+        [return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4")] XmlNode nfeDadosMsg)
         {
             var results = Invoke("nfeConsultaNF", new object[] { nfeDadosMsg });
