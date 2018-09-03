@@ -33,6 +33,7 @@
 
 using System.Drawing;
 using System.Drawing.Text;
+using NFe.Classes;
 using NFe.Danfe.Base.Fontes;
 using NFe.Danfe.Base.Properties;
 
@@ -102,6 +103,11 @@ namespace NFe.Danfe.Base.NFCe
         /// Determina se o QRCode do Nfce será impresso ao lado ou abaixo dos dados do consumidor 
         /// </summary>
         public NfceLayoutQrCode NfceLayoutQrCode { get; set; }
+
+        /// <summary>
+        /// Versão do QRCode da NFCe. 1.0 ou 2.0
+        /// </summary>
+        public VersaoQrCode VersaoQrCode { get; set; }
 
         public string FontPadraoNfceNativa { get; set; }
 
