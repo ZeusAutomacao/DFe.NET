@@ -34,6 +34,7 @@
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
+using DFe.Classes.Flags;
 using FastReport;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -85,7 +86,7 @@ namespace NFe.Danfe.Fast.NFe
                                 configuracaoDanfeNfe.ResumoCanhoto;
             }
 
-            if (proc.NFe.infNFe.ide.tpAmb == TipoAmbiente.taHomologacao)
+            if (proc.NFe.infNFe.ide.tpAmb == TipoAmbiente.Homologacao)
             {
                 if (proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teSCAN ||
                     proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teEPEC ||
@@ -185,7 +186,8 @@ namespace NFe.Danfe.Fast.NFe
             Relatorio.SetParameterValue("ImprimirUnidQtdeValor", configuracaoDanfeNfe.ImprimirUnidQtdeValor);
             Relatorio.SetParameterValue("ExibeCampoFatura", configuracaoDanfeNfe.ExibeCampoFatura);
             Relatorio.SetParameterValue("Logo", configuracaoDanfeNfe.Logomarca);
-
+            Relatorio.SetParameterValue("ExibirTotalTributos", configuracaoDanfeNfe.ExibirTotalTributos);
+            
             #endregion Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
         }
 

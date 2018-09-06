@@ -48,7 +48,7 @@ namespace NFe.Classes
         public string qrCode { get; set; }
 
         /// <summary>
-        /// ZX03 - Texto com a URL de consulta por chave de acesso a ser imrpessa no DANFE NFC-e
+        /// ZX03 - Texto com a URL de consulta por chave de acesso a ser impressa no DANFE NFC-e
         /// VERSÃO 4.00
         /// </summary>
         public string urlChave { get; set; }

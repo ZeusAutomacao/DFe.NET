@@ -32,6 +32,8 @@
 /********************************************************************************/
 using System;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+using DFe.Classes.Assinatura;
 using DFe.Utils;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Assinatura;
@@ -113,7 +115,7 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="cfgServico">ConfiguracaoServico para uso na classe Assinador</param>
         /// <returns>Retorna um objeto do tipo NFe assinado</returns>
-        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null)
+        public static Classes.NFe Assina(this Classes.NFe nfe, ConfiguracaoServico cfgServico = null, X509Certificate2 _certificado = null)
         {
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
@@ -141,7 +143,11 @@ namespace NFe.Utils.NFe
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
             nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
 
-            var assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
+            Signature assinatura = null;
+            if (_certificado == null)
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
+            else
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, _certificado, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }

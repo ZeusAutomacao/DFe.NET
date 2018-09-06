@@ -37,7 +37,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
@@ -96,7 +95,6 @@ namespace NFe.AppTeste
 
         public MainWindow()
         {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; }; // não precisa de cadeia de certificado digital 
             InitializeComponent();
             CarregarConfiguracao();
             DataContext = _configuracoes;
@@ -273,34 +271,10 @@ namespace NFe.AppTeste
         {
             try
             {
-                #region Gerar NFe
-
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
-                {
-                    _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
-                }
-
-                _nfe.Assina();
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                {
-                    if (_nfe.infNFeSupl == null)
-                    {
-                        _nfe.infNFeSupl = new infNFeSupl();
-                    }
-                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                }
-
-                _nfe.Valida();
-
-                #endregion
+                _nfe = ObterNfeValidada(versaoServico, modelo, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 ExibeNfe();
 
@@ -322,6 +296,25 @@ namespace NFe.AppTeste
             }
         }
 
+        private Classes.NFe ObterNfeValidada(VersaoServico versaoServico, ModeloDocumento modelo, int numero, ConfiguracaoCsc configuracaoCsc)
+        {
+            var nfe = GetNf(numero, modelo, versaoServico);
+
+            nfe.Assina();
+
+            if (nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+            {
+                nfe.infNFeSupl = new infNFeSupl();
+                if (versaoServico == VersaoServico.ve400)
+                    nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
+                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
+            }
+            
+            nfe.Valida();
+
+            return nfe;
+        }
+
         private void BtnCriareEnviar3_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -334,34 +327,7 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao);
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
-                {
-                    _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlConsulta);
-                }
-
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                {
-                    //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                    if (_nfe.infNFeSupl == null)
-                    {
-                        _nfe.infNFeSupl = new infNFeSupl
-                        {
-                            qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc)
-                        };
-                    }
-                    else
-                    {
-                        _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                    }
-                    
-                }
+                _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
@@ -509,8 +475,9 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
-                TrataRetorno(retornoCartaCorrecao);
 
+                TrataRetorno(retornoCartaCorrecao);
+                
                 #endregion
             }
             catch (ComunicacaoException ex)
@@ -557,6 +524,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
                 var retornoCancelamento = servicoNFe.RecepcaoEventoCancelamento(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), protocolo, chave, justificativa, cpfcnpj);
+                
                 TrataRetorno(retornoCancelamento);
 
                 #endregion
@@ -598,8 +566,9 @@ namespace NFe.AppTeste
                 var numeronota = Funcoes.InpuBox(this, "Enviar EPEC", "Número da Nota:");
                 if (string.IsNullOrEmpty(numeronota)) throw new Exception("O Número da Nota deve ser informado!");
 
-                _nfe = GetNf(Convert.ToInt32(numeronota), _configuracoes.CfgServico.ModeloDocumento,
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao);
+                _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao,
+                    _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numeronota),
+                    _configuracoes.ConfiguracaoCsc);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEpec = servicoNFe.RecepcaoEventoEpec(Convert.ToInt32(idlote),
@@ -1323,7 +1292,18 @@ namespace NFe.AppTeste
             }
 
             //** Regra de validação W16-10 que rege sobre o Total da NF **//
-            icmsTot.vNF = Convert.ToDecimal(icmsTot.vProd - icmsTot.vDesc - icmsTot.vICMSDeson + icmsTot.vST + icmsTot.vFCPST + icmsTot.vFrete + icmsTot.vSeg + icmsTot.vOutro + icmsTot.vII + icmsTot.vIPI + icmsTot.vIPIDevol);
+            icmsTot.vNF = 
+                icmsTot.vProd 
+                - icmsTot.vDesc 
+                - icmsTot.vICMSDeson.GetValueOrDefault() 
+                + icmsTot.vST 
+                + icmsTot.vFCPST.GetValueOrDefault() 
+                + icmsTot.vFrete 
+                + icmsTot.vSeg 
+                + icmsTot.vOutro 
+                + icmsTot.vII 
+                + icmsTot.vIPI 
+                + icmsTot.vIPIDevol.GetValueOrDefault();
 
             var t = new total {ICMSTot = icmsTot};
             return t;
@@ -1346,7 +1326,7 @@ namespace NFe.AppTeste
         {
             var v = new vol
             {
-                esp = "teste de especia",
+                esp = "teste de espécie",
                 lacres = new List<lacres> {new lacres {nLacre = "123456"}}
             };
 
@@ -1355,7 +1335,7 @@ namespace NFe.AppTeste
 
         protected virtual cobr GetCobranca(ICMSTot icmsTot)
         {
-            var valorParcela = Valor.Arredondar(icmsTot.vNF / 2, 2);
+            var valorParcela = (icmsTot.vNF / 2).Arredondar(2);
             var c = new cobr
             {
                 fat = new fat { nFat = "12345678910", vLiq = icmsTot.vNF, vOrig = icmsTot.vNF, vDesc = 0m },
@@ -1371,7 +1351,7 @@ namespace NFe.AppTeste
 
         protected virtual List<pag> GetPagamento(ICMSTot icmsTot, VersaoServico versao)
         {
-            var valorPagto = Valor.Arredondar(icmsTot.vNF / 2, 2);
+            var valorPagto = (icmsTot.vNF / 2).Arredondar(2);
 
             if (versao != VersaoServico.ve400) // difernte de versão 4 retorna isso
             {
@@ -1393,8 +1373,8 @@ namespace NFe.AppTeste
                 {
                     detPag = new List<detPag>
                     {
-                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpDuplicataMercantil, vPag = icmsTot.vNF - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpCreditoLoja, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpCreditoLoja, vPag = icmsTot.vNF - valorPagto}
                     }                    
                 }
             };

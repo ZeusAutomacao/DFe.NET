@@ -31,13 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using DFe.Classes.Entidades;
+using System.Security.Cryptography;
+using System.Text;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
-using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
 
 namespace NFe.Utils
 {
@@ -45,6 +45,20 @@ namespace NFe.Utils
     {
         public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
+
+            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
+            {
+                return "2.00";
+            }
+
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento
+                || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
+            {
+                return "1.00";
+            }
+
             switch (versaoServico)
             {
                 case VersaoServico.ve100:
@@ -64,46 +78,18 @@ namespace NFe.Utils
                 case VersaoServico.ve310:
                     return "3.10";
                 case VersaoServico.ve400:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                        case ServicoNFe.RecepcaoEventoCancelmento:
-                        case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                        case ServicoNFe.RecepcaoEventoEpec:
-                            return "1.00";
-                    }
                     return "4.00";
             }
             return "";
-        }
-
-        // criado pois tem estado que o evento de cancelamento sempre será versão 1.00 e a webservice podera ser 2.00 ou 3.00 ou seja 
-        // na montagem do xml vai ser 1.00 e a versão do webservice vai ser diferente da montagem exemplo: MT
-        public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico, Estado? estado)
-        {
-            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
-            {
-                return "2.00";
-            }
-
-            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento 
-                || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao 
-                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
-                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
-            {
-                return "1.00";
-            }
-
-            return VersaoServicoParaString(servicoNFe, versaoServico);
         }
 
         public static string TpAmbParaString(this TipoAmbiente tpAmb)
         {
             switch (tpAmb)
             {
-                case TipoAmbiente.taHomologacao:
+                case TipoAmbiente.Homologacao:
                     return "Homologação";
-                case TipoAmbiente.taProducao:
+                case TipoAmbiente.Producao:
                     return "Produção";
                 default:
                     throw new ArgumentOutOfRangeException("tpAmb", tpAmb, null);
@@ -124,6 +110,23 @@ namespace NFe.Utils
                     return "4.00";
             }
             return null;
+        }
+
+        public static VersaoServico StringParaVersaoServico(string versaoServico)
+        {
+            switch (versaoServico)
+            {
+                case "1.00":
+                    return VersaoServico.ve100;
+                case "2.00":
+                    return VersaoServico.ve200;
+                case "3.10":
+                    return VersaoServico.ve310;
+                case "4.00":
+                    return VersaoServico.ve400;
+                default:
+                    throw new ArgumentOutOfRangeException("versaoServico", versaoServico, null);
+            }
         }
 
         public static string TipoEmissaoParaString(this TipoEmissao tipoEmissao)
@@ -203,6 +206,51 @@ namespace NFe.Utils
         public static string OrigemMercadoriaParaString(this OrigemMercadoria origemMercadoria)
         {
             return ((int)origemMercadoria).ToString();
+        }
+
+        /// <summary>
+        /// Obtém uma <see cref="string"/> SHA1, no formato hexadecimal da <see cref="string"/> passada no parâmero        
+        /// </summary>
+        public static string ObterHexSha1DeString(string s)
+        {
+            var bytes = Encoding.UTF8.GetBytes(s);
+
+            var sha1 = SHA1.Create();
+            var hashBytes = sha1.ComputeHash(bytes);
+
+            return ObterHexDeByteArray(hashBytes);
+        }
+
+        /// <summary>
+        /// Obtém uma string Hexadecimal do array de bytes passado no parâmetro
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
+        public static string ObterHexDeByteArray(byte[] bytes)
+        {
+            var sb = new StringBuilder();
+            foreach (var b in bytes)
+            {
+                var hex = b.ToString("x2");
+                sb.Append(hex);
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Obtém uma string Hexadecimal de uma string passada no parâmetro
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ObterHexDeString(string s)
+        {
+            var hex = "";
+            foreach (var c in s)
+            {
+                int tmp = c;
+                hex += string.Format("{0:x2}", Convert.ToUInt32(tmp.ToString()));
+            }
+            return hex;
         }
     }
 }
