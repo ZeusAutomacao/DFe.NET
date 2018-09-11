@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
@@ -48,15 +49,11 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+
   <ItemGroup>
     <None Include="MDFeRetrato.frx" />
     <None Include="Resources\MDFeRetrato.frx" />
+    <None Include="DamdfeFrMDFe.cs" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -71,14 +68,17 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Classes">
+      <HintPath>..\SMDFe.Classes\bin\Debug\net45\SMDFe.Classes.dll</HintPath>
+    </Reference>
     <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Damdfe.Base">
       <HintPath>..\SMDFe.Damdfe.Base\bin\Debug\net45\SMDFe.Damdfe.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="SMDFe.Classes">
+      <HintPath>..\SMDFe.Classes\bin\Debug\net45\SMDFe.Classes.dll</HintPath>
+    </Reference>
     <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="SMDFe.Damdfe.Base">
       <HintPath>..\SMDFe.Damdfe.Base\bin\Debug\netstandard2.0\SMDFe.Damdfe.Base.dll</HintPath>
     </Reference>

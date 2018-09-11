@@ -4,14 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
-  </ItemGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
@@ -37,12 +30,38 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
+  
+  
+  <ItemGroup>
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="DFe.Classes">
+      <HintPath>..\SMDFe.Utils\bin\Debug\net45\DFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="DFe.Utils">
+      <HintPath>..\SMDFe.Utils\bin\Debug\net45\DFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Utils">
+      <HintPath>..\SMDFe.Utils\bin\Debug\net45\SMDFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="DFe.Classes">
+      <HintPath>..\SMDFe.Utils\bin\Debug\netstandard2.0\DFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="DFe.Utils">
+      <HintPath>..\SMDFe.Utils\bin\Debug\netstandard2.0\DFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="SMDFe.Utils">
+      <HintPath>..\SMDFe.Utils\bin\Debug\netstandard2.0\SMDFe.Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>
   </PropertyGroup>
-  
+
 </Project>

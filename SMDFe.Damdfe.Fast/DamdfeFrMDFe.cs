@@ -74,33 +74,28 @@ namespace SMDFe.Damdfe.Fast
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }
 
+
+#if NET45
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>
         /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void Visualizar(bool modal = true)
+          public void Visualizar(bool modal = true)
         {
-#if NET45
             Relatorio.Show(modal);
-#else
-            //Arranjar uma solução
-#endif
-
         }
+
+
 
         /// <summary>
         ///  Abre a janela de visualização do design do DAMDFe
         /// Chame esse método se desja fazer alterações no design do DAMDFe em modo run-time
         /// </summary>
         /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
+
         public void ExibirDesign(bool modal = false)
         {
-#if NET45
             Relatorio.Design(modal);
-#else
-            //Arranjar uma solução
-            
-#endif
         }
 
         /// <summary>
@@ -110,15 +105,11 @@ namespace SMDFe.Damdfe.Fast
         /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
         public void Imprimir(bool exibirDialogo = true, string impressora = "")
         {
-#if NET45
             Relatorio.PrintSettings.ShowDialog = exibirDialogo;
             Relatorio.PrintSettings.Printer = impressora;
             Relatorio.Print();
-#else
-            //Arranjar uma solução
-#endif
         }
-
+#endif
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
