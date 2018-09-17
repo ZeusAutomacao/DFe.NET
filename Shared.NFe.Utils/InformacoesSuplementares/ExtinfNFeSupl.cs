@@ -286,7 +286,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.DF, versao3E4, "www.fazenda.df.gov.br/nfce/consulta"},
                 {Estado.ES, versao3E4, "www.sefaz.es.gov.br/nfce/consulta"},
                 {Estado.MA, versao3E4, "www.sefaz.ma.gov.br/nfce/consulta"},
-                {Estado.MS, versao3E4, "www.dfe.ms.gov.br/nfce/consulta"},
+                {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce"},
                 {Estado.MG, versao3E4, "www.fazenda.mg.gov.br/nfce/consulta"},
                 {Estado.PA, versao3E4, "www.sefa.pa.gov.br/nfce/consulta"},
                 {Estado.PR, versao3E4, "www.fazenda.pr.gov.br/nfce/consulta"},
