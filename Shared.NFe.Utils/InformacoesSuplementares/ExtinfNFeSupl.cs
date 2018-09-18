@@ -144,7 +144,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SP, versao4, "https://www.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
-                {Estado.TO, versao4, "http://www.sefaz.to.gov.br/nfce/"}
+                {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"}
             };
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
 
@@ -176,7 +176,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"},
                 {Estado.RR, versao3E4, "http://200.174.88.103:8080/nfce/servlet/qrcode"},
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspxhttps://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
-                {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/"}
+                {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/qrcodeNFCe"}
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeHomologacaoQrCode1E2);
 
@@ -286,7 +286,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.DF, versao3E4, "www.fazenda.df.gov.br/nfce/consulta"},
                 {Estado.ES, versao3E4, "www.sefaz.es.gov.br/nfce/consulta"},
                 {Estado.MA, versao3E4, "www.sefaz.ma.gov.br/nfce/consulta"},
-                {Estado.MS, versao3E4, "www.dfe.ms.gov.br/nfce/consulta"},
+                {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce"},
                 {Estado.MG, versao3E4, "www.fazenda.mg.gov.br/nfce/consulta"},
                 {Estado.PA, versao3E4, "www.sefa.pa.gov.br/nfce/consulta"},
                 {Estado.PR, versao3E4, "http://www.fazenda.pr.gov.br/nfce/consulta"},
