@@ -67,22 +67,19 @@
       <Version>2018.3.42-demo</Version>
     </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Classes">
-      <HintPath>..\SMDFe.Classes\bin\Debug\net45\SMDFe.Classes.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Damdfe.Base">
-      <HintPath>..\SMDFe.Damdfe.Base\bin\Debug\net45\SMDFe.Damdfe.Base.dll</HintPath>
+      <HintPath>..\SMDFe.Damdfe.Base\bin\Release\net45\SMDFe.Damdfe.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="SMDFe.Classes">
-      <HintPath>..\SMDFe.Classes\bin\Debug\net45\SMDFe.Classes.dll</HintPath>
-    </Reference>
-    <Reference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="SMDFe.Damdfe.Base">
-      <HintPath>..\SMDFe.Damdfe.Base\bin\Debug\netstandard2.0\SMDFe.Damdfe.Base.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+ 
+
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>
   </PropertyGroup>

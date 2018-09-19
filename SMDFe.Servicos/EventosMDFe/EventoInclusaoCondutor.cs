@@ -31,26 +31,20 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
+using SMDFe.Classes.Informacoes.Evento.Flags;
+using SMDFe.Classes.Retorno.MDFeEvento;
+using SMDFe.Servicos.Factory;
+using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.EventosMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class EventoInclusaoCondutor
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var incluirCodutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
-
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor);
 
             return retorno;
         }

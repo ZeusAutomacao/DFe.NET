@@ -30,29 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using SMDFe.Classes.Informacoes.Evento;
+using SMDFe.Classes.Informacoes.Evento.Flags;
+using SMDFe.Classes.Retorno.MDFeEvento;
+using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
-
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.EventosMDFe.Contratos
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public interface IServicoController
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
-        {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
-
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
-
-            return retorno;
-        }
+        MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento);
     }
 }

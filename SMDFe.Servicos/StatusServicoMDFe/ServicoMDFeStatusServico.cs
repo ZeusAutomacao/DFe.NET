@@ -31,28 +31,28 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
+using SMDFe.Classes.Extencoes;
+using SMDFe.Classes.Retorno.MDFeStatusServico;
+using SMDFe.Servicos.Factory;
 
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.StatusServicoMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class ServicoMDFeStatusServico
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetConsStatServ MDFeStatusServico()
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
+            consStatServMDFe.ValidarSchema();
+            consStatServMDFe.SalvarXmlEmDisco();
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            var webService = WsdlFactory.CriaWsdlMDFeStatusServico();
+            var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
 
-
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consStatServMDFe);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
+
         }
     }
 }

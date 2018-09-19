@@ -31,28 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
+using System;
+using DFe.Utils;
+using SMDFe.Classes.Extencoes;
+using SMDFe.Classes.Flags;
+using SMDFe.Classes.Retorno.MDFeRecepcao;
+using SMDFe.Classes.Servicos.Autorizacao;
+using SMDFe.Servicos.Factory;
+using SMDFe.Utils.Configuracoes;
+using SMDFe.Utils.Flags;
+using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.RecepcaoMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class ServicoMDFeRecepcao
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
+
+        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringSemUtc();
+                    break;
+                case VersaoServico.Versao300:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
+                    break;
+            }
 
+            enviMDFe.MDFe.Assina();
+            enviMDFe.Valida();
+            enviMDFe.SalvarXmlEmDisco();
 
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+
+            OnAntesDeEnviar(enviMDFe);
+
+            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
+        {
+            var handler = AntesDeEnviar;
+            if (handler != null) handler(this, new AntesDeEnviar(enviMdfe));
         }
     }
 }

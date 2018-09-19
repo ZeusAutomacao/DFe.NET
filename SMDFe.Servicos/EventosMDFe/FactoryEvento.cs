@@ -31,28 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
+using System;
+using SMDFe.Classes.Extencoes;
+using SMDFe.Classes.Informacoes.Evento;
+using SMDFe.Classes.Informacoes.Evento.Flags;
+using SMDFe.Utils.Configuracoes;
+using SMDFe.Utils.Flags;
+using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.EventosMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public static class FactoryEvento
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var eventoMDFe = new MDFeEventoMDFe
+            {
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                InfEvento = new MDFeInfEvento
+                {
+                    Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
+                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                    CNPJ = MDFe.CNPJEmitente(),
+                    COrgao = MDFe.UFEmitente(),
+                    ChMDFe = MDFe.Chave(),
+                    DetEvento = new MDFeDetEvento
+                    {
+                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                        EventoContainer = evento
+                    },
+                    DhEvento = DateTime.Now,
+                    NSeqEvento = sequenciaEvento,
+                    TpEvento = tipoEvento
+                }
+            };
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            eventoMDFe.Assinar();
 
-
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
-
-            return retorno;
+            return eventoMDFe;
         }
     }
 }

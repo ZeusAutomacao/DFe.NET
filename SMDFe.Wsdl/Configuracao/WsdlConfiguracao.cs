@@ -30,29 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Security.Cryptography.X509Certificates;
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
-
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Wsdl.Configuracao
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class WsdlConfiguracao
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
-        {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
-
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
-
-            return retorno;
-        }
+        public string Url { get; set; }
+        public string CodigoIbgeEstado { get; set; }
+        public string Versao { get; set; }
+        public X509Certificate2 CertificadoDigital { get; set; }
+        public int TimeOut { get; set; }
     }
 }

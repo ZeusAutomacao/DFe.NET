@@ -6,7 +6,6 @@
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
   </PropertyGroup>
 
-  <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
@@ -23,31 +22,21 @@
 
   <!-- .NET 4.5 referências, sinalizadores de compilação e opções de compilação -->
   <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
-  </ItemGroup>
-  
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>
   </PropertyGroup>
-
 </Project>

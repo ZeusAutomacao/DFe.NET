@@ -30,29 +30,35 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using SMDFe.Classes.Retorno.MDFeEvento;
+using MDFeEletronica = SMDFe.Classes.Informacoes.MDFe;
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
-
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.EventosMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class ServicoMDFeEvento
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
+            MDFeEletronica mdfe, byte sequenciaEvento, string nome,
+            string cpf)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var eventoIncluirCondutor = new EventoInclusaoCondutor();
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+        }
 
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
+        {
+            var eventoEncerramento = new EventoEncerramento();
 
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+        }
 
-            return retorno;
+        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
+            string justificativa)
+        {
+            var eventoCancelamento = new EventoCancelar();
+
+            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
         }
     }
 }

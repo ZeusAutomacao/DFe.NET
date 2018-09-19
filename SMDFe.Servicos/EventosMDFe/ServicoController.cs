@@ -31,26 +31,33 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using MDFe.Servicos.Factory;
+using SMDFe.Classes.Extencoes;
+using SMDFe.Classes.Informacoes.Evento;
+using SMDFe.Classes.Informacoes.Evento.Flags;
+using SMDFe.Classes.Retorno.MDFeEvento;
+using SMDFe.Servicos.EventosMDFe.Contratos;
+using SMDFe.Servicos.Factory;
+using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
+namespace SMDFe.Servicos.EventosMDFe
 {
-    public class ServicoMDFeConsultaNaoEncerrados
+    public class ServicoController : IServicoController
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var evento = FactoryEvento.CriaEvento(mdfe,
+                tipoEvento,
+                sequenciaEvento,
+                eventoContainer);
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+            evento.ValidarSchema();
+            evento.SalvarXmlEmDisco(mdfe.Chave());
 
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
+            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
+            retorno.SalvarXmlEmDisco(mdfe.Chave());
 
             return retorno;
         }

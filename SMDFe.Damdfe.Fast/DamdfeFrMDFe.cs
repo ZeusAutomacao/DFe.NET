@@ -36,6 +36,9 @@ using FastReport;
 using FastReport.Export.Pdf;
 using SMDFe.Damdfe.Base;
 using SMDFe.Classes.Retorno;
+#if NET45
+using System.Drawing;
+#endif
 
 namespace SMDFe.Damdfe.Fast
 {
