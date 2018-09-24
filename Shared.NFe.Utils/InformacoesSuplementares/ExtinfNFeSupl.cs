@@ -110,10 +110,10 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AC, versao3E4, "http://www.sefaznet.ac.gov.br/nfce/qrcode?"},
                 {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"},
                 {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/nfce/nfcep.php"},
-                {Estado.AM, versao3E4, "sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
+                {Estado.AM, versao3E4, "http://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
                 {Estado.BA, versao3E4, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
                 {Estado.GO, versao3E4, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
-                {Estado.MA, versao3E4, "nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
+                {Estado.MA, versao3E4, "http://nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
                 {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal/view/consultas/nfce/nfceForm.seam"},
@@ -163,7 +163,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},
                 {Estado.ES, versao3E4, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx?"},
                 {Estado.GO, versao3E4, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
-                {Estado.MA, versao3E4, "homologacao.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
+                {Estado.MA, versao3E4, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
                 {Estado.PA, versao3E4, "https://appnfc.sefa.pa.gov.br/portal-homologacao/view/consultas/nfce/nfceForm.seam"},
