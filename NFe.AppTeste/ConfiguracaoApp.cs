@@ -54,7 +54,7 @@ namespace NFe.AppTeste
             CfgServico.tpAmb = TipoAmbiente.taHomologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
             CfgServico.ProtocoloDeSeguranca = ServicePointManager.SecurityProtocol;
-            Emitente = new emit {CPF = "", CRT = CRT.SimplesNacional};
+            Emitente = new emit { CPF = "", CRT = CRT.SimplesNacional };
             EnderecoEmitente = new enderEmit();
             ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
             ConfiguracaoCsc = new ConfiguracaoCsc("000001", "");
