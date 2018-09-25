@@ -67,7 +67,18 @@ namespace SMDFe.Damdfe.Fast
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
         }
+#if NETSTANDARD2_0
+        public void Configurar(ConfiguracaoDamdfe config)
+        {
+            Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
+            Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
+            Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
+            Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
+            ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+        }
+#endif
 
+#if NET45
         public void Configurar(ConfiguracaoDamdfe config)
         {
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
@@ -77,8 +88,6 @@ namespace SMDFe.Damdfe.Fast
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }
 
-
-#if NET45
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>

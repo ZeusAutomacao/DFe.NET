@@ -75,7 +75,7 @@ namespace SMDFe.Damdfe.Base
         /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
         /// </summary>
         /// <returns></returns>
-#if NET45
+#if NETSTANDARD2_0
         public Image ObterLogo()
         {
             if (Logomarca == null)
@@ -84,7 +84,8 @@ namespace SMDFe.Damdfe.Base
             var image = Image.FromStream(ms);
             return image;
         }
-#else
+#endif
+#if NET45
         public Image ObterLogo()
         {
             if (Logomarca == null)

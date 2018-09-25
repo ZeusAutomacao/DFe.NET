@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj" />
+    <ProjectReference Include="..\SMDFe.Wsdl\SMDFe.Wsdl.csproj" />
+  </ItemGroup>
+
+</Project>
