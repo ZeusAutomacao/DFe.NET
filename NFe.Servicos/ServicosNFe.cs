@@ -1295,7 +1295,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
         public RetornoNFeAutorizacao NFeAutorizacao(
             int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
-            bool compactarMensagem = false)
+            bool compactarMensagem = true)
         {
             if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
             {
