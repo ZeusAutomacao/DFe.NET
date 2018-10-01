@@ -44,7 +44,8 @@ using NFe.Servicos;
 using NFe.Servicos.Retorno;
 using NFe.Utils;
 using NFe.Utils.NFe;
-using TipoAmbiente = NFe.Classes.Informacoes.Identificacao.Tipos.TipoAmbiente;
+using NFe.Danfe.Nativo.NFCe;
+using NFe.Danfe.Base.NFCe;
 
 namespace NFe.Integracao
 {
@@ -139,6 +140,8 @@ namespace NFe.Integracao
         private void CarregarConfiguracoes()
         {
             #region Set file config
+
+            ConfiguracaoServico.Instancia.Certificado.TipoCertificado = TipoCertificado.A1Arquivo;
             ConfiguracaoServico.Instancia.Certificado.Arquivo = Properties.Settings.Default.certificado_arquivo;
             ConfiguracaoServico.Instancia.Certificado.Senha = Properties.Settings.Default.certificado_senha;
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = Properties.Settings.Default.diretorio_xml;
@@ -166,20 +169,24 @@ namespace NFe.Integracao
             Enum.TryParse(Properties.Settings.Default.tipo_emissao, out temiss);
             ConfiguracaoServico.Instancia.tpEmis = temiss;
             //-------------------------------------------------------------------------------
-            //Versão atual da NFe/NFCe: 3.10
-            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = VersaoServico.ve310;
-            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = VersaoServico.ve310;
+
+            var versaoNFe = Properties.Settings.Default.versao_NFe;
+
+            ConfiguracaoServico.Instancia.ProtocoloDeSeguranca = System.Net.SecurityProtocolType.Tls;
+            ConfiguracaoServico.Instancia.VersaoNfceAministracaoCSC = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeAutorizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaCadastro = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaDest = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeConsultaProtocolo = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeDistribuicaoDFe = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeDownloadNF = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeInutilizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeRecepcao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNFeRetAutorizacao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeRetRecepcao = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoNfeStatusServico = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = versaoNFe;
+
             #endregion
 
         }
@@ -204,6 +211,23 @@ namespace NFe.Integracao
             return !list.Any(string.IsNullOrWhiteSpace);
 
         }
+
+        /// <summary>
+        /// Imprime em um JPEG o NFC-e relacionado a um xml.
+        /// </summary>
+        /// <param name="pathXmlNFCe">Path do NFC-e a imprimir</param>
+        /// <param name="pathJpeg">Path onde gerar o jpeg</param>
+        public void ImprimirNFCe(string pathXmlNFCe, string pathJpeg, string idToken, string csc)
+        {
+            var nfe = new Classes.NFe().CarregarDeArquivoXml(pathXmlNFCe);
+            var arquivo = nfe.ObterXmlString();
+
+            var configuracaoDanfeNFCe = new ConfiguracaoDanfeNfce(Danfe.Base.NfceDetalheVendaNormal.UmaLinha, Danfe.Base.NfceDetalheVendaContigencia.UmaLinha);
+            DanfeNativoNfce impr = new DanfeNativoNfce(arquivo, configuracaoDanfeNFCe, idToken, csc);
+
+            impr.GerarJPEG(pathJpeg);
+        }
+
         /// <summary>
         /// Alterar dados de configuração
         /// </summary>
@@ -219,7 +243,7 @@ namespace NFe.Integracao
         /// <param name="tmpemissao">Tipo de emissão 1 (Normal), 2 (FS-IA), 3 (SCAN), 4 (EPEC), 5 (FS-DA), 6 (SVC-AN), 7 (SVC-RS) ou 9 (Offline)</param>
         public static void SetConfiguracoes(string pathcertificado, string certificadosenha, string pathxml,
             string pathchema, string emitente, string modelodocumento, string salvarxmlservico, string timeout,
-            string tmpamb, string tmpemissao)
+            string tmpamb, string tmpemissao, string versaoNFe)
         {
 
             Properties.Settings.Default.salvar_xml_servicos = salvarxmlservico == "1" ? "1" : "0";
@@ -233,6 +257,7 @@ namespace NFe.Integracao
             Properties.Settings.Default.time_out = string.IsNullOrWhiteSpace(timeout) ? "5000" : timeout;
             Properties.Settings.Default.tipo_ambiente = ConvertToLower(tmpamb);
             Properties.Settings.Default.tipo_emissao = ConvertToLower(tmpemissao);
+            Properties.Settings.Default.versao_NFe = versaoNFe == "3.10" ? VersaoServico.ve310 : VersaoServico.ve400;
 
             //Salvar configurações do usuario
             Properties.Settings.Default.Save();
@@ -268,6 +293,7 @@ namespace NFe.Integracao
             return list;
 
         }
+
         /// <summary>
         /// Converte entrada de dados para minuscula
         /// </summary>
@@ -276,8 +302,7 @@ namespace NFe.Integracao
         private static string ConvertToLower(string str)
         {
             return string.IsNullOrWhiteSpace(str) ? "" : str.Trim().ToLower();
-        }
-        
+        }      
 
     }
 }

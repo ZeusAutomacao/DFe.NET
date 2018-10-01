@@ -32,5 +32,8 @@
     <Setting Name="tipo_emissao" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="versao_NFe" Type="NFe.Classes.Servicos.Tipos.VersaoServico" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

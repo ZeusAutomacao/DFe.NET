@@ -33,6 +33,7 @@
 using System;
 using System.IO;
 using System.Net;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.AppTeste.Properties;
 using NFe.Classes.Informacoes.Emitente;
@@ -51,7 +52,7 @@ namespace NFe.AppTeste
         public ConfiguracaoApp()
         {
             CfgServico = ConfiguracaoServico.Instancia;
-            CfgServico.tpAmb = TipoAmbiente.taHomologacao;
+            CfgServico.tpAmb = TipoAmbiente.Homologacao;
             CfgServico.tpEmis = TipoEmissao.teNormal;
             CfgServico.ProtocoloDeSeguranca = ServicePointManager.SecurityProtocol;
             

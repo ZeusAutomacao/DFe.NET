@@ -9,9 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DFe.Classes</RootNamespace>
     <AssemblyName>DFe.Classes</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -36,23 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assinatura\CanonicalizationMethod.cs" />
-    <Compile Include="Assinatura\DigestMethod.cs" />
-    <Compile Include="Assinatura\KeyInfo.cs" />
-    <Compile Include="Assinatura\Reference.cs" />
-    <Compile Include="Assinatura\Signature.cs" />
-    <Compile Include="Assinatura\SignatureMethod.cs" />
-    <Compile Include="Assinatura\SignedInfo.cs" />
-    <Compile Include="Assinatura\Transform.cs" />
-    <Compile Include="Assinatura\X509Data.cs" />
-    <Compile Include="Entidades\Estado.cs" />
-    <Compile Include="Extensoes\ExtEstadoUF.cs" />
-    <Compile Include="Flags\ModeloDocumento.cs" />
-    <Compile Include="Flags\TipoAmbiente.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Valor.cs" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.DFe.Classes\Shared.DFe.Classes.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

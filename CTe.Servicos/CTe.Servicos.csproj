@@ -9,8 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CTe.Servicos</RootNamespace>
     <AssemblyName>CTe.Servicos</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,11 +50,14 @@
     <Compile Include="ConsultaProtocolo\ConsultaProtcoloServico.cs" />
     <Compile Include="ConsultaRecibo\ConsultaReciboServico.cs" />
     <Compile Include="ConsultaStatus\StatusServico.cs" />
+    <Compile Include="DistribuicaoDFe\RetornoCteDistDFeInt.cs" />
+    <Compile Include="DistribuicaoDFe\ServicoCTeDistribuicaoDFe.cs" />
     <Compile Include="Enderecos\Helpers\UrlHelper.cs" />
     <Compile Include="Enderecos\UrlCTe.cs" />
     <Compile Include="EnviarCte\RetornoEnviarCte.cs" />
     <Compile Include="EnviarCte\ServicoEnviarCte.cs" />
     <Compile Include="Eventos\Contratos\IServicoController.cs" />
+    <Compile Include="Eventos\EventoDesacordo.cs" />
     <Compile Include="Eventos\EventoCancelamento.cs" />
     <Compile Include="Eventos\EventoCartaCorrecao.cs" />
     <Compile Include="Eventos\FactoryEvento.cs" />
@@ -81,6 +91,7 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

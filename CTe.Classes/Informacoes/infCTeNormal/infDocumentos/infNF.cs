@@ -45,7 +45,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
         public string nRoma { get; set; }
         public string nPed { get; set; }
         public mod mod { get; set; }
-        public short serie { get; set; }
+        public string serie { get; set; }
         public string nDoc { get; set; }
 
         [XmlIgnore]
@@ -59,9 +59,10 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
         {
             get
             {
-                    return dEmi.ParaDataString();
+                return dEmi.ParaDataString();
             }
             set { dEmi = DateTime.Parse(value); }
+
         }
 
 

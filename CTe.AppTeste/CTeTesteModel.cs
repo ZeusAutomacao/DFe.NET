@@ -62,6 +62,7 @@ using CTe.Servicos.EnviarCte;
 using CTe.Servicos.Eventos;
 using CTe.Servicos.Inutilizacao;
 using CTe.Servicos.Recepcao;
+using CTe.Servicos.DistribuicaoDFe;
 using CTe.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
@@ -71,6 +72,7 @@ using DFe.Utils.Assinatura;
 using dest = CTe.Classes.Informacoes.Destinatario.dest;
 using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using System.Xml.Linq;
 
 namespace CTe.AppTeste
 {
@@ -779,6 +781,23 @@ namespace CTe.AppTeste
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
+        public void EventoDesacordoCTe()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+                       
+            var cnpj = (InputBoxTuche("CNPJ Tomador"));
+            var chave = (InputBoxTuche("Chave CTe"));
+            var sequenciaEvento = int.Parse(InputBoxTuche("Sequencia Evento"));
+            var indPres = InputBoxTuche("Indicador da prestação (1)");
+            var obs = InputBoxTuche("Observação (mínimo 15 digitos)");
+
+            var servico = new EventoDesacordo(sequenciaEvento, chave, cnpj, indPres, obs);
+            var retorno = servico.Discordar();
+
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
         public void CartaCorrecao()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
@@ -811,7 +830,7 @@ namespace CTe.AppTeste
                     grupoAlterado = "rem",
                     valorAlterado = "14991001000"
                 }
-            }; 
+            };
 
             var servico = new EventoCartaCorrecao(cte, sequenciaEvento, correcoes);
             var retorno = servico.AdicionarCorrecoes();
@@ -832,7 +851,7 @@ namespace CTe.AppTeste
             cteEletronico.infCte.versao = config.ConfigWebService.Versao;
 
             #endregion
-            
+
             #region ide
 
             cteEletronico.infCte.ide = new ide();
@@ -955,7 +974,7 @@ namespace CTe.AppTeste
             #endregion
 
             #region vPrest
-                
+
             cteEletronico.infCte.vPrest = new vPrest();
             cteEletronico.infCte.vPrest.vTPrest = 100m;
             cteEletronico.infCte.vPrest.vRec = 100m;
@@ -1029,7 +1048,7 @@ namespace CTe.AppTeste
                 rodoviario.dPrev = DateTime.Now;
                 rodoviario.lota = lota.Nao;
             }
-            
+
 
             cteEletronico.infCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
@@ -1304,6 +1323,42 @@ namespace CTe.AppTeste
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        public void DistribuicaoDFe()
+        {
+            
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            #region CTeDistribuicaoDFe
+
+            var cnpj = InputBoxTuche("CNPJ do destinatário do CTE:");
+            if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
+            if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+
+
+            var ultNSU = InputBoxTuche("Ultimo NSU NSU ");
+            if (string.IsNullOrEmpty(ultNSU))
+                ultNSU = "0";
+
+            if (int.Parse(ultNSU) < 0) throw new Exception("ultNSU deve ser maior ou igual a 0");
+
+
+            var nsu = InputBoxTuche("NSU faltante");
+            if (string.IsNullOrEmpty(nsu))
+                nsu = "0";
+
+            if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
+
+
+            var servicoCTe = new ServicoCTeDistribuicaoDFe();
+            var retornoCTeDistDFe = servicoCTe.CTeDistDFeInteresse(config.Empresa.SiglaUf.ToString(), cnpj, ultNSU: ultNSU, nSU: nsu);
+
+            OnSucessoSync(new RetornoEEnvio(retornoCTeDistDFe.EnvioStr, retornoCTeDistDFe.RetornoStr));
+
+            #endregion
+
         }
     }
 }

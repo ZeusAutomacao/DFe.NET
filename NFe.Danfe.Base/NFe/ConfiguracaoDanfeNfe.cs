@@ -49,7 +49,7 @@ namespace NFe.Danfe.Base.NFe
             Logomarca = logomarca;
             DuasLinhas = duasLinhas;
             DocumentoCancelado = documentoCancelado;
-            QuebrarLinhasObservacao = quebrarLinhasObservacao;
+            QuebrarLinhasObservacao = quebrarLinhasObservacao;            
         }
 
         /// <summary>
@@ -69,6 +69,7 @@ namespace NFe.Danfe.Base.NFe
             ImprimirDescPorc = false;
             ImprimirTotalLiquido = false;
             ImprimirUnidQtdeValor = ImprimirUnidQtdeValor.Comercial;
+            ExibirTotalTributos = false;
         }
 
         public bool DuasLinhas { get; set; }
@@ -90,5 +91,7 @@ namespace NFe.Danfe.Base.NFe
         public bool ImprimirTotalLiquido { get; set; }
 
         public ImprimirUnidQtdeValor ImprimirUnidQtdeValor { get; set; }
+
+        public bool ExibirTotalTributos { get; set; }
     }
 }

@@ -216,8 +216,9 @@
             <TabItem Header="Exemplos">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="355*"/>
-                        <ColumnDefinition Width="379*"></ColumnDefinition>
+                        <ColumnDefinition Width="22*"/>
+                        <ColumnDefinition Width="343*"/>
+                        <ColumnDefinition Width="389*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
@@ -229,16 +230,18 @@
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <Button Click="ConsultarStatusServico">Consultar Status Serviço</Button>
-                    <Button Grid.Row="0" Grid.Column="1" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo</Button>
-                    <Button Grid.Column="0" Grid.Row="1" Click="InutilizacaoDeNumeracao_Click">Inutilizacao de Númeração</Button>
-                    <Button Grid.Column="1" Grid.Row="1" Click="ConsultaPorNumeroRecibo_Click">Consulta Por Número Recibo</Button>
-                    <Button Grid.Row="2" Grid.Column="0" Click="EventoCancelarCTe_Click">Evento Cancelar CT-e</Button>
-                    <Button Grid.Row="2" Grid.Column="1" Click="CartaCorrecao_Click">Carta Correção</Button>
-                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEnviarCTe2_Click">Criar e Enviar CT-e 2.00 Ou 3.00</Button>
-                    <Button Grid.Row="3" Grid.Column="1" Click="CriarEnviarAutomaticoCTe2_Click">Criar e Enviar/Consulta Recibo Automatico CT-e 2.00 Ou 3.00</Button>
+                    <Button Click="ConsultarStatusServico" Grid.ColumnSpan="2">Consultar Status Serviço</Button>
+                    <Button Grid.Row="0" Grid.Column="2" Click="ConsultaPorProtocolo_Click">Consulta Por Protocolo</Button>
+                    <Button Grid.Column="0" Grid.Row="1" Click="InutilizacaoDeNumeracao_Click" Grid.ColumnSpan="2">Inutilizacao de Númeração</Button>
+                    <Button Grid.Column="2" Grid.Row="1" Click="ConsultaPorNumeroRecibo_Click">Consulta Por Número Recibo</Button>
+                    <Button Grid.Row="2" Grid.Column="0" Click="EventoCancelarCTe_Click" Grid.ColumnSpan="2">Evento Cancelar CT-e</Button>
+                    <Button Grid.Row="2" Grid.Column="2" Click="CartaCorrecao_Click">Carta Correção</Button>
+                    <Button Grid.Row="3" Grid.Column="0" Click="CriarEnviarCTe2_Click" Grid.ColumnSpan="2">Criar e Enviar CT-e 2.00 Ou 3.00</Button>
+                    <Button Grid.Row="3" Grid.Column="2" Click="CriarEnviarAutomaticoCTe2_Click">Criar e Enviar/Consulta Recibo Automatico CT-e 2.00 Ou 3.00</Button>
+                    <Button Grid.Row="4" Grid.Column="2" Click="CTeDistribuicaoDFe_Click">CTeDistribuicaoDFe 1.00</Button>
+                    <Button Grid.Row="4" Grid.Column="0" Click="EventoDesacordoCTe_Click" Grid.ColumnSpan="2">Evento Desacordo CT-e</Button>
 
-                    <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
                         <TabItem Header="XmlEnvio">
                             <Grid Background="#FFE5E5E5">
                                 <WebBrowser x:Name="WebXmlEnvio" />

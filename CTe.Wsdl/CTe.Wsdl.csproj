@@ -9,8 +9,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CTe.Wsdl</RootNamespace>
     <AssemblyName>CTe.Wsdl</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -28,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -42,6 +49,10 @@
   <ItemGroup>
     <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
+    <Compile Include="DistribuicaoDFe\cteCabecMsg.cs" />
+    <Compile Include="DistribuicaoDFe\CTeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Evento\CteRecepcaoEvento.cs" />
     <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

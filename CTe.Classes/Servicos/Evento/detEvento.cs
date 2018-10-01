@@ -43,6 +43,7 @@ namespace CTe.Classes.Servicos.Evento
 
         [XmlElement("evCancCTe", typeof(evCancCTe), Namespace = "http://www.portalfiscal.inf.br/cte")]
         [XmlElement("evCCeCTe", typeof(evCCeCTe), Namespace = "http://www.portalfiscal.inf.br/cte")]
+        [XmlElement("evPrestDesacordo", typeof(evPrestDesacordo), Namespace = "http://www.portalfiscal.inf.br/cte")]
         public EventoContainer EventoContainer { get; set; }
     }
 }

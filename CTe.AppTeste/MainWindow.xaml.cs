@@ -114,6 +114,11 @@ namespace CTe.AppTeste
             _model.EventoCancelarCTe();
         }
 
+        private void EventoDesacordoCTe_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoDesacordoCTe();
+        }
+
         private void CartaCorrecao_Click(object sender, RoutedEventArgs e)
         {
             _model.CartaCorrecao();
@@ -138,5 +143,11 @@ namespace CTe.AppTeste
         {
             _model.CriarEnviarCTeConsultaReciboAutomatico2e3();
         }
+
+        private void CTeDistribuicaoDFe_Click(object sender, RoutedEventArgs e)
+        {
+            _model.DistribuicaoDFe();
+        }
+      
     }
 }

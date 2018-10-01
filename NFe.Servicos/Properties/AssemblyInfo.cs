@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -65,7 +65,7 @@ using System.Runtime.InteropServices;
 //
 // É possível especificar todos os valores ou usar o padrão de Números de Compilação e Revisão 
 // utilizando o '*' como mostrado abaixo:
-// [assembly: AssemblyVersion("1.0.*")]
+// [assembly: AssemblyVersion("1.0.0.729")]
 
-[assembly: AssemblyVersion("1.0.1.457")]
-[assembly: AssemblyFileVersion("1.0.1.457")]
+[assembly: AssemblyVersion("1.0.0.729")]
+[assembly: AssemblyFileVersion("1.0.0.729")]
