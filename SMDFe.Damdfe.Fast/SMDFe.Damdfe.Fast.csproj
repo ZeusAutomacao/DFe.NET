@@ -78,7 +78,7 @@
       <HintPath>..\SMDFe.Damdfe.Base\bin\Release\net45\SMDFe.Damdfe.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
- 
+
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>

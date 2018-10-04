@@ -64,9 +64,12 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
 #endif
+
+#if NETSTANDARD2_0
         private string soapEnvelop;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+#endif
 
         private System.Threading.SendOrPostCallback mdfeConsultaMDFOperationCompleted;
     
@@ -99,6 +102,8 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
             }
         }
 #endif
+
+#if NETSTANDARD2_0
         private void soapHead(WsdlConfiguracao confi)
         {
             soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -114,6 +119,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
                                 + "</soap12:Body>"
                           + "</soap12:Envelope>";
         }
+#endif
 
         /// <remarks/>
         public event mdfeConsultaMDFCompletedEventHandler mdfeConsultaMDFCompleted;
@@ -154,35 +160,33 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
             return ((System.Xml.XmlNode)(results[0]));
         }
 #endif
+#if NET45
         /// <remarks/>
         public void mdfeConsultaMDFAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeConsultaMDFAsync(mdfeDadosMsg, null);
         }
-    
+#endif
+#if NET45
         /// <remarks/>
         public void mdfeConsultaMDFAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
             if ((this.mdfeConsultaMDFOperationCompleted == null)) {
                 this.mdfeConsultaMDFOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeConsultaMDFOperationCompleted);
             }
-#if NET45
+
             this.InvokeAsync("mdfeConsultaMDF", new object[] {
                 mdfeDadosMsg}, this.mdfeConsultaMDFOperationCompleted, userState);
-#else
-            //Falta Implemntar e saber o que isso faz
-#endif
-        }
 
+
+        }
+#endif
+#if NET45
         private void OnmdfeConsultaMDFOperationCompleted(object arg) {
             if ((this.mdfeConsultaMDFCompleted != null)) {
-#if NET45
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.mdfeConsultaMDFCompleted(this, new mdfeConsultaMDFCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-#else
-                //Falta Implemntar e saber o que isso faz
-#endif
             }
         }
-
+#endif
 #if NET45
         /// <remarks/>
         public new void CancelAsync(object userState) {

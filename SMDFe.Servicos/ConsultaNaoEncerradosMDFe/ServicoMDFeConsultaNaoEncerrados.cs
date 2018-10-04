@@ -44,8 +44,6 @@ namespace SMDFe.Servicos.ConsultaNaoEncerradosMDFe
         public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
         {
             var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            //consMDFeNaoEnc.TpAmb = TipoAmbiente.Homologacao; // Teste -- Remover Linha depois
-            //consMDFeNaoEnc.Versao = VersaoServico.Versao100; // Teste -- Remover Linha depois
             consMDFeNaoEnc.ValidarSchema();
             consMDFeNaoEnc.SalvarXmlEmDisco();
 

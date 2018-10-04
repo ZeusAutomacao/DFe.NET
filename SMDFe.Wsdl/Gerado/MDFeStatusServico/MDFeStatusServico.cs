@@ -65,10 +65,11 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
 #endif
-
+#if NETSTANDARD2_0
         private string soapEnvelop;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+#endif
         private System.Threading.SendOrPostCallback mdfeStatusServicoMDFOperationCompleted;
     
         /// <remarks/>
@@ -100,6 +101,8 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
             }
         }
 #endif
+
+#if NETSTANDARD2_0
         private void soapHead(WsdlConfiguracao confi)
         {
             soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -115,6 +118,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
                                 + "</soap12:Body>"
                           + "</soap12:Envelope>";
         }
+#endif
 
         /// <remarks/>
         public event mdfeStatusServicoMDFCompletedEventHandler mdfeStatusServicoMDFCompleted;
@@ -155,35 +159,36 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode)(results[0]));
         }
-#endif    
+#endif
+
+#if NET45
         /// <remarks/>
         public void mdfeStatusServicoMDFAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeStatusServicoMDFAsync(mdfeDadosMsg, null);
         }
-    
+#endif
+
+#if NET45
         /// <remarks/>
         public void mdfeStatusServicoMDFAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
             if ((this.mdfeStatusServicoMDFOperationCompleted == null)) {
                 this.mdfeStatusServicoMDFOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeStatusServicoMDFOperationCompleted);
             }
-#if NET45
             this.InvokeAsync("mdfeStatusServicoMDF", new object[] {
                 mdfeDadosMsg}, this.mdfeStatusServicoMDFOperationCompleted, userState);
-#else
-            //Falta Implemntar e saber o que isso faz
-#endif
         }
 
+#endif
+
+#if NET45
         private void OnmdfeStatusServicoMDFOperationCompleted(object arg) {
             if ((this.mdfeStatusServicoMDFCompleted != null)) {
-#if NET45
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.mdfeStatusServicoMDFCompleted(this, new mdfeStatusServicoMDFCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-#else
-                //Falta Implemntar e saber o que isso faz
-#endif
             }
         }
+#endif
+
 #if NET45
         /// <remarks/>
         public new void CancelAsync(object userState) {

@@ -100,10 +100,10 @@ namespace SMDFe.Servicos.Factory
 
         public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
         {
-            //var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao).MDFeConsNaoEnc; //Remover depois
-            var versao = (MDFeConfiguracao.VersaoWebService.VersaoLayout = VersaoServico.Versao100).GetVersaoString(); //Remover depois
-            //var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
+            //var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao).MDFeConsNaoEnc; //Remover depois
+            //var versao = (MDFeConfiguracao.VersaoWebService.VersaoLayout = VersaoServico.Versao100).GetVersaoString(); //Remover depois
+            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao);
 
@@ -125,11 +125,11 @@ namespace SMDFe.Servicos.Factory
         {
             var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
             //var codigoEstado = (MDFeConfiguracao.VersaoWebService.UfEmitente = Estado.AL).GetCodigoIbgeEmString();
-            //var certificadoDigital = MDFeConfiguracao.X509Certificate2; 
+            var certificadoDigital = MDFeConfiguracao.X509Certificate2; 
 
             return new WsdlConfiguracao
             {
-                //CertificadoDigital = certificadoDigital,
+                CertificadoDigital = certificadoDigital,
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,

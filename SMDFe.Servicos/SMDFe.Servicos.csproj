@@ -5,11 +5,6 @@
     <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
   </PropertyGroup>
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
-  </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
@@ -50,10 +45,7 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
     <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
     <ProjectReference Include="..\SMDFe.Wsdl\SMDFe.Wsdl.csproj" />
   </ItemGroup>
 

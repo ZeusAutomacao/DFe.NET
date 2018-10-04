@@ -64,10 +64,12 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
 #endif
+
+#if NETSTANDARD2_0
         private string soapEnvelop;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
-
+#endif
         private System.Threading.SendOrPostCallback mdfeRetRecepcaoOperationCompleted;
     
         /// <remarks/>
@@ -99,6 +101,8 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
             }
         }
 #endif
+
+#if NETSTANDARD2_0
         private void soapHead(WsdlConfiguracao confi)
         {
             soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -114,6 +118,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
                                 + "</soap12:Body>"
                           + "</soap12:Envelope>";
         }
+#endif
 
         /// <remarks/>
         public event mdfeRetRecepcaoCompletedEventHandler mdfeRetRecepcaoCompleted;
@@ -155,40 +160,42 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
             return ((System.Xml.XmlNode)(results[0]));
         }
 #endif
+
+#if NET45
         /// <remarks/>
         public void mdfeRetRecepcaoAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeRetRecepcaoAsync(mdfeDadosMsg, null);
         }
-    
+#endif
+
+#if NET45
         /// <remarks/>
         public void mdfeRetRecepcaoAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
             if ((this.mdfeRetRecepcaoOperationCompleted == null)) {
                 this.mdfeRetRecepcaoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeRetRecepcaoOperationCompleted);
             }
-#if NET45
             this.InvokeAsync("mdfeRetRecepcao", new object[] {
                 mdfeDadosMsg}, this.mdfeRetRecepcaoOperationCompleted, userState);
-#else
-            //Falta Implemntar e saber o que isso faz
-#endif
-        }
 
+    }
+#endif
+
+#if NET45
         private void OnmdfeRetRecepcaoOperationCompleted(object arg) {
             if ((this.mdfeRetRecepcaoCompleted != null)) {
-#if NET45
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.mdfeRetRecepcaoCompleted(this, new mdfeRetRecepcaoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-#else
-                //Falta Implemntar e saber o que isso faz
-#endif
             }
         }
+#endif
+
 #if NET45
         /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
 #endif
+
     }
 #if NET45
     /// <remarks/>

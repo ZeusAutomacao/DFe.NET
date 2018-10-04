@@ -40,8 +40,6 @@
     <Reference Include="System.Configuration" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
     <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
   </ItemGroup>
   

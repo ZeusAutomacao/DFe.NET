@@ -63,9 +63,12 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
 #endif
+
+#if NETSTANDARD2_0
         private string soapEnvelop;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+#endif
 
         private System.Threading.SendOrPostCallback mdfeRecepcaoLoteOperationCompleted;
     
@@ -98,6 +101,8 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
             }
         }
 #endif
+
+#if NETSTANDARD2_0
         private void soapHead(WsdlConfiguracao confi)
         {
             soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -113,6 +118,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                                 + "</soap12:Body>"
                           + "</soap12:Envelope>";
         }
+#endif
         /// <remarks/>
         public event mdfeRecepcaoLoteCompletedEventHandler mdfeRecepcaoLoteCompleted;
 #if NET45
@@ -154,34 +160,33 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
         }
 #endif
 
+#if NET45
         /// <remarks/>
         public void mdfeRecepcaoLoteAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeRecepcaoLoteAsync(mdfeDadosMsg, null);
         }
-    
+#endif
+
+#if NET45
         /// <remarks/>
         public void mdfeRecepcaoLoteAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
             if ((this.mdfeRecepcaoLoteOperationCompleted == null)) {
                 this.mdfeRecepcaoLoteOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeRecepcaoLoteOperationCompleted);
             }
-#if NET45
             this.InvokeAsync("mdfeRecepcaoLote", new object[] {
                 mdfeDadosMsg}, this.mdfeRecepcaoLoteOperationCompleted, userState);
-#else
-            //Falta Implemntar e saber o que isso faz
-#endif
         }
+#endif
 
+#if NET45
         private void OnmdfeRecepcaoLoteOperationCompleted(object arg) {
             if ((this.mdfeRecepcaoLoteCompleted != null)) {
-#if NET45
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.mdfeRecepcaoLoteCompleted(this, new mdfeRecepcaoLoteCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-#else
-                //Falta Implemntar e saber o que isso faz
-#endif
             }
         }
+#endif
+
 #if NET45
         /// <remarks/>
         public new void CancelAsync(object userState) {

@@ -41,7 +41,11 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Net;
+using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 using SMDFe.Wsdl.Configuracao;
 
 namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
@@ -66,9 +70,13 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
 #endif
-        private string soapEnvelop;
+
+#if NETSTANDARD2_0
+        private SOAPEnvelope soapEnvelope;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+        private HttpWebRequest request;
+#endif
 
         private System.Threading.SendOrPostCallback mdfeConsNaoEncOperationCompleted;
 
@@ -77,8 +85,37 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         {
 
 #if NETSTANDARD2_0
-            this.configuracao = configuracao;
-            soapHead(configuracao);
+            try
+            {
+                this.configuracao = configuracao;
+
+                soapEnvelope = new SOAPEnvelope()
+                {
+                    head = new ResponseHead<mdfeCabecMsg>()
+                    {
+                        mdfeCabecMsg = new mdfeCabecMsg()
+                        {
+                            versaoDados = configuracao.Versao,
+                            cUF = configuracao.CodigoIbgeEstado
+                        }
+                    }
+                };
+
+                request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
+                request.Headers.Add("soapAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc");
+                request.ContentType = "text/xml;charset=utf-8";
+                request.Accept = "text/xml";
+                request.Method = "POST";
+                request.UserAgent = "Mozilla/4.0(compatible; MSIE 5.01; Windows NT 5.0)";
+                request.ClientCertificates.Add(configuracao.CertificadoDigital);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na criação da Requisição -> "+e);
+                throw;
+            }
+            
+           
 #endif
 
 #if NET45
@@ -100,26 +137,34 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
             set { this.mdfeCabecMsgValueField = value; }
         }
 #endif
-        private void soapHead(WsdlConfiguracao confi)
-        {
-            soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                          "<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi= \"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd= \"http://www.w3.org/2001/XMLSchema\">"
-                                            +"<soap12:Header>"
-                                                +$"<mdfeCabecMsg xmlns = \"{confi.Url}\">"
-                                                    +$"<cUF>{confi.CodigoIbgeEstado}</cUF>"
-                                                    +$"<versaoDados>{confi.Versao}</versaoDados>"
-                                                + "</mdfeCabecMsg>"
-                                            +"</soap12:Header>"
-                                            +"<soap12:Body>"
-                                                +"#"
-                                            +"</soap12:Body>"
-                                        +"</soap12:Envelope>";
-        }    
 
-/// <remarks/>
-    public event mdfeConsNaoEncCompletedEventHandler mdfeConsNaoEncCompleted;
+#if NETSTANDARD2_0
+        
+
+        private static void InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
+        {
+            try
+            {
+                using (Stream stream = webRequest.GetRequestStream())
+                {
+                    soapEnvelopeXml.Save(stream);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na inserção do envelope -> " + e);
+                throw;
+            }
+
+        }
+#endif
+
+
 
 #if NET45
+        /// <remarks/>
+        public event mdfeConsNaoEncCompletedEventHandler mdfeConsNaoEncCompleted;
+
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("mdfeCabecMsgValue", Direction = System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
@@ -129,15 +174,58 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                 mdfeDadosMsg});
 #endif
 #if NETSTANDARD2_0
-        [return: System.Xml.Serialization.XmlElementAttribute(Namespace ="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
-        public System.Xml.XmlNode mdfeConsNaoEnc([System.Xml.Serialization.XmlElementAttribute(Namespace ="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")] System.Xml.XmlNode mdfeDadosMsg) {
-            soapEnvelop = soapEnvelop.Replace("#", mdfeDadosMsg.OuterXml);
+        public System.Xml.XmlNode mdfeConsNaoEnc(System.Xml.XmlNode mdfeDadosMsg) {
             
-            xmlEnvelop = new XmlDocument();
-            xmlEnvelop.LoadXml(soapEnvelop);
+            try
+            {
+                soapEnvelope.body = new ResponseBody<XmlNode>()
+                {
+                    mdfeDadosMsg = mdfeDadosMsg
+                };
 
-            
+                var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
+
+
+                xmlEnvelop = new XmlDocument();
+
+                using (StreamWriter arqStream = new StreamWriter("soap.xml"))
+                {
+                    using (XmlTextWriter soapwriter = new XmlTextWriter(arqStream))
+                    {
+                        soapserializer.Serialize(soapwriter, soapEnvelope);
+                        soapwriter.Close();
+                        xmlEnvelop.Load("soap.xml");
+                    }
+                }
+            }
+            catch (XmlException e)
+            {
+                Console.WriteLine("ERRO no xml do envelope -> " + e);
+                throw;
+            }
+
+            string result;
+            InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
             object[] results = null; // Chamada da requisição
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = rd.ReadToEnd();
+                        Console.WriteLine(result);
+                    }
+                }
+                
+            }
+            catch (WebException e)
+            {
+                string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                Console.WriteLine(message);
+                throw;
+            }
+           
 #endif
             return ((System.Xml.XmlNode)(results[0]));
         }
@@ -147,15 +235,13 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
             return this.BeginInvoke("mdfeConsNaoEnc", new object[] {
                 mdfeDadosMsg}, callback, asyncState);
         }
-#endif
 
-#if NET45
         /// <remarks/>
         public System.Xml.XmlNode EndmdfeConsNaoEnc(System.IAsyncResult asyncResult) {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode)(results[0]));
         }
-#endif
+
         /// <remarks/>
         public void mdfeConsNaoEncAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeConsNaoEncAsync(mdfeDadosMsg, null);
@@ -166,33 +252,33 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
             if ((this.mdfeConsNaoEncOperationCompleted == null)) {
                 this.mdfeConsNaoEncOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeConsNaoEncOperationCompleted);
             }
-#if NET45
+
             this.InvokeAsync("mdfeConsNaoEnc", new object[] {
                 mdfeDadosMsg}, this.mdfeConsNaoEncOperationCompleted, userState);
-#else
-            //Falta Implemntar e saber o que isso faz
-#endif
+
         }
 
+        private void OnmdfeConsNaoEncOperationCompleted(object arg)
+        {
+            if ((this.mdfeConsNaoEncCompleted != null))
+            {
 
-        private void OnmdfeConsNaoEncOperationCompleted(object arg) {
-            if ((this.mdfeConsNaoEncCompleted != null)) {
-#if NET45
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.mdfeConsNaoEncCompleted(this, new mdfeConsNaoEncCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-#else
-                //Falta Implemntar e saber o que isso faz
-#endif
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs =
+                    ((System.Web.Services.Protocols.InvokeCompletedEventArgs) (arg));
+                this.mdfeConsNaoEncCompleted(this,
+                    new mdfeConsNaoEncCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled,
+                        invokeArgs.UserState));
+
             }
         }
-#if NET45
+
         /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
 #endif
 
-    }
+}
 
 #if NET45
     /// <remarks/>
@@ -242,6 +328,71 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
             }
         }
     }
+#endif
+
+#if NETSTANDARD2_0
+    [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class SOAPEnvelope
+    {
+        [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public string soapenva { get; set; }
+
+        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        public string xsi { get; set; }
+
+        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
+        public string xsd { get; set; }
+
+        [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseHead<mdfeCabecMsg> head { get; set; }
+
+        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseBody<XmlNode> body { get; set; }
+
+        [XmlNamespaceDeclarations]
+        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+        public SOAPEnvelope()
+        {
+            xmlns.Add("soap12", "http://www.w3.org/2003/05/soap-envelope");
+        }
+    }
+
+    [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseHead<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeCabecMsg { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseBody<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeDadosMsg { get; set; }
+    }
+
+    public class mdfeCabecMsg
+    {
+
+        private string _cUFField;
+        private string _versaoDadosField;
+
+        /// <remarks/>
+        public string cUF
+        {
+            get { return this._cUFField; }
+            set { this._cUFField = value; }
+        }
+
+        /// <remarks/>
+        public string versaoDados
+        {
+            get { return this._versaoDadosField; }
+            set { this._versaoDadosField = value; }
+        }
+    }
+
 #endif
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]

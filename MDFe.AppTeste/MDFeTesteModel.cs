@@ -1196,6 +1196,8 @@ namespace MDFe.AppTeste
             var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
             var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
 
+            
+
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
