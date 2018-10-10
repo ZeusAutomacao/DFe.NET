@@ -157,6 +157,7 @@
     <Compile Include="Informacoes\infCTeNormal\peri.cs" />
     <Compile Include="Informacoes\infCTeNormal\seg.cs" />
     <Compile Include="Informacoes\infCTeNormal\veicNovos.cs" />
+    <Compile Include="Informacoes\infRespTec\infRespTec.cs" />
     <Compile Include="Informacoes\Recebedor\enderReceb.cs" />
     <Compile Include="Informacoes\Recebedor\receb.cs" />
     <Compile Include="Informacoes\Remetente\enderReme.cs" />
