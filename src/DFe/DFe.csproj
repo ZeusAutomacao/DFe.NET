@@ -89,6 +89,7 @@
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfCTeNormal\infModalOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfCTeNormal\segOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfCTeNormal\veicOs.cs" />
+    <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\InfRespTec\infRespTec.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\enderTomaOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Informacoes\Tomador\tomaOs.cs" />
     <Compile Include="DocumentosEletronicos\CTe\CTeOS\Retorno\cteOSProc.cs" />
