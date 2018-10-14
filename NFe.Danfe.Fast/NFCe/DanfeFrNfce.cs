@@ -36,7 +36,6 @@ using FastReport;
 using FastReport.Barcode;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;

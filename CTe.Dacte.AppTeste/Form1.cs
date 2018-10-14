@@ -4,14 +4,8 @@ using CTe.Dacte.Base;
 using CTe.Dacte.Fast;
 using DFe.Utils;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CTe.Dacte.AppTeste
