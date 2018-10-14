@@ -40,14 +40,13 @@ namespace GraphicsPrinter
         private readonly Graphics _graphics;
         private float _pontoX;
         private float _pontoY;
-        private readonly int _tamanhoFonte;
         private readonly SolidBrush _br;
 
         public AdicionarTexto(Graphics graphics, string texto, int tamanhoFonte, SolidBrush br = null, Font font = null)
         {
             _graphics = graphics;
             Texto = texto;
-            _tamanhoFonte = tamanhoFonte;
+            TamanhoFonte = tamanhoFonte;
             _br = br;
 
             if (font != null)
@@ -57,7 +56,7 @@ namespace GraphicsPrinter
 
             if (font == null)
             {
-                Fonte = new Font(FontPadrao, _tamanhoFonte);
+                Fonte = new Font(FontPadrao, TamanhoFonte);
             }
             
             Medida = MedidasLinha.GetMedidas(this);
@@ -78,10 +77,8 @@ namespace GraphicsPrinter
         }
 
         public Medida Medida { get; private set; }
-
         public string Texto { get; private set; }
         public Font Fonte { get; private set; }
-
-        public int TamanhoFonte  {get { return _tamanhoFonte; } }
+        public int TamanhoFonte { get; }
     }
 }

@@ -32,9 +32,6 @@
 /********************************************************************************/
 
 using CTe.Wsdl.Configuracao;
-using System;
-using System.IO;
-using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
 using System.Web.Services.Protocols;
@@ -43,7 +40,7 @@ using System.Xml.Serialization;
 
 namespace CTe.Wsdl.DistribuicaoDFe
 {
-    
+
     [WebServiceBinding(Name = "CTeDistribuicaoDFeSoap", Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe")]
     public class CTeDistDFeInteresse : SoapHttpClientProtocol
     {
