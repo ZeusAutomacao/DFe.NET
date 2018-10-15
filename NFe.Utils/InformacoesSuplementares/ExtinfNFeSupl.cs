@@ -226,33 +226,35 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <returns></returns>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, string cIdToken, string csc)
         {
-            //Passo 1: Converter o valor da Data e Hora de Emissão da NFC-e (dhEmi) para HEXA;
-            var dhEmi = ObterHexDeString(nfe.infNFe.ide.ProxyDhEmi);
+            var chave = nfe.infNFe.Id.Substring(3);
+            const int versaoQrCode = 2;
+            var identificacaoAmbiente = (int)nfe.infNFe.ide.tpAmb;
 
-            //Passo 2: Converter o valor do Digest Value da NFC-e (digVal) para HEXA;
-            //Ao se efetuar a assinatura digital da NFCe emitida em contingência off-line, o campo digest value constante da XMl Signature deve obrigatoriamente ser idêntico ao encontrado quando da geração do digest value para a montagem QR Code.
-            //Ver página 18 do Manual de Padrões Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2
-            if (nfe.Signature == null)
-                throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
-            var digVal = ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
+            if (nfe.infNFe.ide.tpEmis == TipoEmissao.teNormal)
+            {
+                var url = $"{chave}|{versaoQrCode}|{identificacaoAmbiente}|{cIdToken.TrimStart('0')}";
 
-            //Na hipótese do consumidor não se identificar, não existirá o parâmetro cDest no QR Code;
-            var cDest = "";
-            if (nfe.infNFe.dest != null)
-                cDest = "&cDest=" + nfe.infNFe.dest.CPF + nfe.infNFe.dest.CNPJ + nfe.infNFe.dest.idEstrangeiro;
+                var urlHexSha1 = ObterHexSha1DeString(url);
 
-            //Passo 3: Substituir os valores (“dhEmi” e “digVal”) nos parâmetros;
-            var dadosBase = "chNFe=" + nfe.infNFe.Id.Substring(3) + "&nVersao=100&tpAmb=" + ((int)nfe.infNFe.ide.tpAmb) + cDest + "&dhEmi=" + dhEmi + "&vNF=" +
-                            nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.') + "&vICMS=" + nfe.infNFe.total.ICMSTot.vICMS.ToString("0.00").Replace(',', '.') + "&digVal=" + digVal + "&cIdToken=" + cIdToken;
+                return $"{ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode)}?p={url}|{urlHexSha1}";
+            }
+            // Contingência
+            else
+            {
+                if (nfe.Signature == null) throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
 
-            //Passo 4: Adicionar, ao final dos parâmetros, o CSC (CSC do contribuinte disponibilizado pela SEFAZ do Estado onde a empresa esta localizada):
-            var dadosParaSh1 = dadosBase + csc;
+                var diaEmissao = nfe.infNFe.ide.dhEmi.Day;
 
-            //Passo 5: Aplicar o algoritmo SHA-1 sobre todos os parâmetros concatenados. Asaída do algoritmo SHA-1 deve ser em HEXADECIMAL.
-            var sha1ComCsc = ObterHexSha1DeString(dadosParaSh1);
+                var totalDaNota = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
 
-            //Passo 6: Adicione o resultado sem o CSC e gere a imagem do QR Code: 1º parte (endereço da consulta) +2º parte (tabela 3 com indicação SIM na última coluna).
-            return ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode) + "?" + dadosBase + "&cHashQRCode=" + sha1ComCsc;
+                var digestValue = ObterHexDeString(nfe.Signature.SignedInfo.Reference.DigestValue);
+
+                var url = $"{chave}|{versaoQrCode}|{identificacaoAmbiente}|{diaEmissao}|{totalDaNota}|{digestValue}|{cIdToken.TrimStart('0')}";
+
+                var hexaUrl = ObterHexSha1DeString(url);
+
+                return $"{ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode)}?p={url}|{hexaUrl}";
+            }
         }
 
         /// <summary>
