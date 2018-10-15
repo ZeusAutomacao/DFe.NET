@@ -82,9 +82,8 @@ namespace NFe.Classes
         public void WriteXml(XmlWriter writer)
         {
             writer.WriteStartElement("qrCode");
-            writer.WriteCData(qrCode);
+            writer.WriteString(qrCode);
             writer.WriteEndElement();
-
             writer.WriteElementString("urlChave", urlChave);
         }
     }
