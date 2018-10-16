@@ -84,5 +84,7 @@ namespace CTe.Classes.Informacoes
         [XmlElement("autXML")]
         public List<autXML> autXML { get; set; }
 
+        public infRespTec.infRespTec infRespTec { get; set; }
+
     }
 }
