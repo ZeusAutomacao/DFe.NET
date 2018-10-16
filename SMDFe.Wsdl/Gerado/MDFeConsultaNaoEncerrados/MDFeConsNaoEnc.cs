@@ -44,8 +44,12 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using SMDFe.Utils.Flags;
 using SMDFe.Wsdl.Configuracao;
 
 namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
@@ -63,7 +67,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
     public partial class MDFeConsNaoEnc : System.Web.Services.Protocols.SoapHttpClientProtocol {
 #endif
 #if NETSTANDARD2_0
-        public partial class MDFeConsNaoEnc
+    public partial class MDFeConsNaoEnc
     {
 #endif
 
@@ -100,22 +104,26 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                         }
                     }
                 };
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
 
                 request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
-                request.Headers.Add("soapAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc");
-                request.ContentType = "text/xml;charset=utf-8";
-                request.Accept = "text/xml";
+                request.Headers.Add("SOAPAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc");
+                request.KeepAlive = true;
+                request.ContentType = "application/soap+xml; charset=\"UTF-8\"";
+                request.Accept = "*/*";
                 request.Method = "POST";
-                request.UserAgent = "Mozilla/4.0(compatible; MSIE 5.01; Windows NT 5.0)";
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
+                request.ProtocolVersion = HttpVersion.Version11;
+                
+
                 request.ClientCertificates.Add(configuracao.CertificadoDigital);
             }
             catch (Exception e)
             {
-                Console.WriteLine("ERRO na criação da Requisição -> "+e);
-                throw;
+                Console.WriteLine("ERRO na criação da Requisição -> " + e);
             }
-            
-           
+
+
 #endif
 
 #if NET45
@@ -139,15 +147,15 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 #endif
 
 #if NETSTANDARD2_0
-        
-
         private static void InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
         {
             try
             {
                 using (Stream stream = webRequest.GetRequestStream())
                 {
-                    soapEnvelopeXml.Save(stream);
+                    byte[] buffer = Encoding.UTF8.GetBytes(soapEnvelopeXml.OuterXml);
+                    stream.Write(buffer, 0, buffer.Length);
+                    stream.Close();
                 }
             }
             catch (Exception e)
@@ -158,8 +166,6 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 
         }
 #endif
-
-
 
 #if NET45
         /// <remarks/>
@@ -174,60 +180,75 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                 mdfeDadosMsg});
 #endif
 #if NETSTANDARD2_0
-        public System.Xml.XmlNode mdfeConsNaoEnc(System.Xml.XmlNode mdfeDadosMsg) {
-            
+        public System.Xml.XmlNode mdfeConsNaoEnc(System.Xml.XmlNode mdfeDadosMsg)
+        {
+            string result = "";
+            var xmlresult = new XmlDocument();
             try
             {
+
+                
                 soapEnvelope.body = new ResponseBody<XmlNode>()
                 {
                     mdfeDadosMsg = mdfeDadosMsg
                 };
 
                 var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
-
-
                 xmlEnvelop = new XmlDocument();
 
-                using (StreamWriter arqStream = new StreamWriter("soap.xml"))
+                using (var sww = new StreamWriter("soap.xml"))
                 {
-                    using (XmlTextWriter soapwriter = new XmlTextWriter(arqStream))
+                    using (XmlWriter writer = XmlWriter.Create(sww,
+                        new XmlWriterSettings() { Indent = false}))
                     {
-                        soapserializer.Serialize(soapwriter, soapEnvelope);
-                        soapwriter.Close();
-                        xmlEnvelop.Load("soap.xml");
+                        soapserializer.Serialize(writer, soapEnvelope);
+                        writer.Close();
+
                     }
                 }
+                xmlEnvelop.PreserveWhitespace = false;
+                xmlEnvelop.Load("soap.xml");
+
             }
             catch (XmlException e)
             {
-                Console.WriteLine("ERRO no xml do envelope -> " + e);
-                throw;
+                Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
+                
             }
 
-            string result;
             InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
-            object[] results = null; // Chamada da requisição
             try
             {
                 using (WebResponse response = request.GetResponse())
                 {
                     using (StreamReader rd = new StreamReader(response.GetResponseStream()))
-                    {
+                    { 
                         result = rd.ReadToEnd();
-                        Console.WriteLine(result);
+                        xmlresult.LoadXml(result);
+                        
                     }
                 }
-                
+
             }
             catch (WebException e)
             {
-                string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
-                Console.WriteLine(message);
-                throw;
+                if (e.Response != null)
+                {
+                    string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                    Console.WriteLine(message);
+                }
+
             }
-           
+
+            var xmlNode = xmlresult.GetElementsByTagName("retConsMDFeNaoEnc")[0];
+
 #endif
+#if NET45
             return ((System.Xml.XmlNode)(results[0]));
+#endif
+#if NETSTANDARD2_0
+            return xmlNode;
+#endif
         }
 #if NET45
         /// <remarks/>
@@ -278,7 +299,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         }
 #endif
 
-}
+    }
 
 #if NET45
     /// <remarks/>
@@ -331,23 +352,28 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 #endif
 
 #if NETSTANDARD2_0
-    [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+ /*
+ * Classes para a serialização e criação do envelope no formato SOAP 1.2
+ */
+
+    //Classe Envelope SOAP 1.2
+    [XmlType(Namespace="http://www.w3.org/2003/05/soap-envelope")]
+    [XmlRoot(ElementName = "Envelope", Namespace="http://www.w3.org/2003/05/soap-envelope")]
     public class SOAPEnvelope
     {
-        [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        [XmlAttribute(AttributeName = "soap12", Namespace="http://www.w3.org/2003/05/soap-envelope")]
         public string soapenva { get; set; }
 
-        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        [XmlAttribute(AttributeName = "xsi", Namespace="http://www.w3.org/2001/XMLSchema-instance")]
         public string xsi { get; set; }
 
-        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
+        [XmlAttribute(AttributeName = "xsd", Namespace="http://www.w3.org/2001/XMLSchema")]
         public string xsd { get; set; }
 
-        [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        [XmlElement(ElementName = "Header", Namespace="http://www.w3.org/2003/05/soap-envelope")]
         public ResponseHead<mdfeCabecMsg> head { get; set; }
 
-        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        [XmlElement(ElementName = "Body", Namespace="http://www.w3.org/2003/05/soap-envelope")]
         public ResponseBody<XmlNode> body { get; set; }
 
         [XmlNamespaceDeclarations]
@@ -358,13 +384,15 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         }
     }
 
-    [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    //Classe Header SOAP 1.2
+    [XmlRoot(ElementName = "Header", Namespace="http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseHead<T>
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        [XmlElement(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
         public T mdfeCabecMsg { get; set; }
     }
-
+    
+    //Classe Body SOAP 1.2
     [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseBody<T>
     {
@@ -372,6 +400,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         public T mdfeDadosMsg { get; set; }
     }
 
+    //Classe mdfeCabecMsg SOAP 1.2
     public class mdfeCabecMsg
     {
 
@@ -402,18 +431,22 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class mdfeConsNaoEncCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
+    public partial class mdfeConsNaoEncCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
         private object[] results;
-    
-        internal mdfeConsNaoEncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
+
+        internal mdfeConsNaoEncCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
             this.results = results;
-            }
-    
+        }
+
         /// <remarks/>
-        public System.Xml.XmlNode Result {
-            get {
+        public System.Xml.XmlNode Result
+        {
+            get
+            {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Xml.XmlNode)(this.results[0]));
             }

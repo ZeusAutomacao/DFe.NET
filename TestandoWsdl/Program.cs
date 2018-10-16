@@ -5,12 +5,12 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Xml.XPath;
+
 using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
-using DFe.Utils;
+
 using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+
 using SMDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using SMDFe.Servicos.Enderecos.Helper;
 using SMDFe.Servicos.Factory;
@@ -38,7 +38,7 @@ namespace TestandoWsdl
         public ResponseHead<mdfeCabecMsg> head { get; set; }
 
         [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public ResponseBody<XmlNode> body { get; set; }
+        public ResponseBody<CosMDFeNaoEnc> body { get; set; }
 
         [XmlNamespaceDeclarations]
         public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
@@ -62,7 +62,6 @@ namespace TestandoWsdl
         public T mdfeDadosMsg { get; set; }
     }
 
-
     public class mdfeCabecMsg
     {
 
@@ -71,7 +70,7 @@ namespace TestandoWsdl
         private string versaoDadosField;
 
         /// <remarks/>
-        
+
         public string cUF
         {
             get
@@ -85,7 +84,7 @@ namespace TestandoWsdl
         }
 
         /// <remarks/>
-        
+
         public string versaoDados
         {
             get
@@ -98,47 +97,112 @@ namespace TestandoWsdl
             }
         }
 
-       
+
+    }
+
+    public class CosMDFeNaoEnc
+    {
+        [XmlElement(ElementName = "consMDFeNaoEnc", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        public Atributes atributos { get; set; }
+    }
+
+    [XmlRoot(ElementName = "consMDFeNaoEnc", Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+    public class Atributes
+    {
+        public Atributes()
+        {
+            XServ = "CONSULTAR NÃO ENCERRADOS";
+        }
+
+        [XmlAttribute(AttributeName = "versao")]
+        public VersaoServico Versao { get; set; }
+
+        [XmlElement(ElementName = "tpAmb")]
+        public TipoAmbiente TpAmb { get; set; }
+
+        [XmlElement(ElementName = "xServ")]
+        public string XServ { get; set; }
+
+        [XmlElement(ElementName = "CNPJ")]
+        public string CNPJ { get; set; }
     }
 
     class Program
     {
-        
+
 
         static void Main(string[] args)
         {
-            var config = new ConfiguracaoDao().BuscarConfiguracao();
-            
 
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(config.Empresa.Cnpj);
-            consMDFeNaoEnc.TpAmb = TipoAmbiente.Homologacao; // Teste -- Remover Linha depois
-            consMDFeNaoEnc.Versao = VersaoServico.Versao300; // Teste -- Remover Linha depois
+            TesteWs();
+            Console.ReadKey();
 
-            
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao).MDFeConsNaoEnc; //Remover depois
-            var versao = (MDFeConfiguracao.VersaoWebService.VersaoLayout = VersaoServico.Versao300).GetVersaoString(); //Remover depois
-
-            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
+            //var config = new ConfiguracaoDao().BuscarConfiguracao();
+            //var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(config.Empresa.Cnpj);
+            //consMDFeNaoEnc.TpAmb = TipoAmbiente.Homologacao; // Teste -- Remover Linha depois
+            //consMDFeNaoEnc.Versao = VersaoServico.Versao300; // Teste -- Remover Linha depois
 
 
-
-            var ws = new MDFeConsNaoEnc(configuracaoWsdl);
-            var retornoXml = ws.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-
-            //Serializacao(consMDFeNaoEnc);
+            //Serializacao(config);
+            //SerializacaoBody(config);
         }
 
-        private static void Serializacao(MDFeCosMDFeNaoEnc consMDFeNaoEnc)
+        private static void TesteWs()
         {
-            var xmlNode = consMDFeNaoEnc.CriaRequestWs();
+            try
+            {
+                var config = new ConfiguracaoDao().BuscarConfiguracao();
+
+
+                var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(config.Empresa.Cnpj);
+                consMDFeNaoEnc.TpAmb = TipoAmbiente.Homologacao;
+                consMDFeNaoEnc.Versao = VersaoServico.Versao300;
+                consMDFeNaoEnc.ValidarSchema();
+
+
+
+                var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao)
+                    .MDFeConsNaoEnc; //Remover depois
+                var versao = VersaoServico.Versao300.GetVersaoString();
+
+
+
+                var configuracaoWsdl = CriaConfiguracao(url, versao, config);
+
+
+                var ws = new MDFeConsNaoEnc(configuracaoWsdl);
+
+
+                var retornoXml = ws.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+                
+                var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
+                
+                Console.WriteLine("Teste Aprovado");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
+        private static void Serializacao(Configuracao configuracao)
+        {
+            var con = new CosMDFeNaoEnc()
+            {
+                atributos = new Atributes()
+                {
+                    Versao = VersaoServico.Versao300,
+                    TpAmb = TipoAmbiente.Homologacao,
+                    CNPJ = configuracao.Empresa.Cnpj
+                }
+            };
 
             var mdfeca = new mdfeCabecMsg()
             {
                 cUF = "10",
-                versaoDados = "300"
+                versaoDados = VersaoServico.Versao300.GetVersaoString()
             };
-
 
             var se = new SOAPEnvelope()
             {
@@ -146,32 +210,72 @@ namespace TestandoWsdl
                 {
                     mdfeCabecMsg = mdfeca
                 },
-                body = new ResponseBody<XmlNode>()
+                body = new ResponseBody<CosMDFeNaoEnc>()
                 {
-                    mdfeDadosMsg = xmlNode
+                    mdfeDadosMsg = con
                 }
             };
-            
+
 
             var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
 
 
             var enXmlDocument = new XmlDocument();
 
-            using (StreamWriter arqStream = new StreamWriter("soap.xml"))
+            using (var sww = new StreamWriter("soap.xml"))
             {
-                using (XmlTextWriter soapwriter = new XmlTextWriter(arqStream))
+                using (XmlWriter writer = XmlWriter.Create(sww,
+                    new XmlWriterSettings() { Indent = false }))
                 {
-                    soapserializer.Serialize(soapwriter, se);
-                    soapwriter.Close();
-                    enXmlDocument.Load("soap.xml");
+                    soapserializer.Serialize(writer, se);
+                    writer.Close();
+
                 }
             }
 
-            // 
-            Console.WriteLine("SOAP soapenvelopefortest.xml generated");
+            Console.ReadKey();
+
+
         }
 
+        private static void SerializacaoBody(Configuracao configuracao)
+        {
+            var atributos = new Atributes()
+            {
+                Versao = VersaoServico.Versao300,
+                TpAmb = TipoAmbiente.Homologacao,
+                CNPJ = configuracao.Empresa.Cnpj
+            };
+
+
+            var mdfeca = new mdfeCabecMsg()
+            {
+                cUF = "10",
+                versaoDados = VersaoServico.Versao300.GetVersaoString()
+            };
+
+
+
+            var soapserializer = new XmlSerializer(typeof(Atributes));
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "http://www.portalfiscal.inf.br/mdfe");
+
+            using (var sww = new StreamWriter("soap.xml"))
+            {
+                using (XmlWriter writer = XmlWriter.Create(sww,
+                    new XmlWriterSettings() { Indent = false }))
+                {
+                    soapserializer.Serialize(writer, atributos, ns);
+                    writer.Close();
+
+                }
+            }
+
+
+            Console.ReadKey();
+
+
+        }
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao, Configuracao confi)
         {
             var codigoEstado = confi.ConfigWebService.UfEmitente.GetCodigoIbgeEmString();
@@ -206,7 +310,7 @@ namespace TestandoWsdl
                 if (cert.HasPrivateKey && cert.NotAfter > DateTime.Now && cert.NotBefore < DateTime.Now)
                 {
                     certificadObjects[i++] = cert;
-                    
+
                 }
             }
             lStore.Close();

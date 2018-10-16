@@ -39,8 +39,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.IO;
+using System.Net;
+using System.Text;
 using SMDFe.Wsdl.Configuracao;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 { // 
@@ -53,11 +59,11 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
 #if NET45
-    [System.Web.Services.WebServiceBindingAttribute(Name="MDFeConsultaSoap12", Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")]
+    [System.Web.Services.WebServiceBindingAttribute(Name = "MDFeConsultaSoap12", Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")]
     public partial class MDFeConsulta : System.Web.Services.Protocols.SoapHttpClientProtocol {
 #endif
 #if NETSTANDARD2_0
-        public partial class MDFeConsulta
+    public partial class MDFeConsulta
     {
 #endif
 
@@ -66,19 +72,58 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #endif
 
 #if NETSTANDARD2_0
-        private string soapEnvelop;
+        private SOAPEnvelope soapEnvelope;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+        private HttpWebRequest request;
 #endif
 
         private System.Threading.SendOrPostCallback mdfeConsultaMDFOperationCompleted;
-    
+
         /// <remarks/>
-        public MDFeConsulta(WsdlConfiguracao configuracao) {
+        public MDFeConsulta(WsdlConfiguracao configuracao)
+        {
+
 #if NETSTANDARD2_0
-            this.configuracao = configuracao;
-            soapHead(configuracao);
+            try
+            {
+                this.configuracao = configuracao;
+
+                soapEnvelope = new SOAPEnvelope()
+                {
+                    head = new ResponseHead<mdfeCabecMsg>()
+                    {
+                        mdfeCabecMsg = new mdfeCabecMsg()
+                        {
+                            versaoDados = configuracao.Versao,
+                            cUF = configuracao.CodigoIbgeEstado
+                        }
+                    }
+                };
+                System.Net.ServicePointManager.SecurityProtocol =
+                    System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+
+                request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
+                request.Headers.Add("SOAPAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta/mdfeConsultaMDF");
+                request.KeepAlive = true;
+                request.ContentType = "application/soap+xml; charset=\"UTF-8\"";
+                request.Accept = "*/*";
+                request.Method = "POST";
+                request.UserAgent =
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
+                request.ProtocolVersion = HttpVersion.Version11;
+
+
+                request.ClientCertificates.Add(configuracao.CertificadoDigital);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na criação da Requisição -> " + e);
+            }
+
+
 #endif
+
 #if NET45
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
             this.Url = configuracao.Url;
@@ -104,20 +149,23 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #endif
 
 #if NETSTANDARD2_0
-        private void soapHead(WsdlConfiguracao confi)
+        private static void InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
         {
-            soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                          "<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi= \"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd= \"http://www.w3.org/2001/XMLSchema\">"
-                                + "<soap12:Header>"
-                                    + $"<mdfeCabecMsg xmlns = \"{confi.Url}\">"
-                                        + $"<cUF>{confi.CodigoIbgeEstado}</cUF>"
-                                        + $"<versaoDados>{confi.Versao}</versaoDados>"
-                                    + "</mdfeCabecMsg>"
-                                + "</soap12:Header>"
-                                + "<soap12:Body>"
-                                     + "#"
-                                + "</soap12:Body>"
-                          + "</soap12:Envelope>";
+            try
+            {
+                using (Stream stream = webRequest.GetRequestStream())
+                {
+                    byte[] buffer = Encoding.UTF8.GetBytes(soapEnvelopeXml.OuterXml);
+                    stream.Write(buffer, 0, buffer.Length);
+                    stream.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na inserção do envelope -> " + e);
+                throw;
+            }
+
         }
 #endif
 
@@ -125,28 +173,88 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
         public event mdfeConsultaMDFCompletedEventHandler mdfeConsultaMDFCompleted;
 
 #if NET45
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapHeaderAttribute("mdfeCabecMsgValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta/mdfeConsultaMDF", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-        [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")]
-        public System.Xml.XmlNode mdfeConsultaMDF([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")] System.Xml.XmlNode mdfeDadosMsg) {
+/// <remarks/>
+        [System.Web.Services.Protocols.SoapHeaderAttribute("mdfeCabecMsgValue", Direction = System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta/mdfeConsultaMDF", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+        [return: System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")]
+        public System.Xml.XmlNode mdfeConsultaMDF([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")] System.Xml.XmlNode mdfeDadosMsg) {
             object[] results = this.Invoke("mdfeConsultaMDF", new object[] {
                 mdfeDadosMsg});
 #endif
 #if NETSTANDARD2_0
-        [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")]
-        public System.Xml.XmlNode mdfeConsultaMDF([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta")] System.Xml.XmlNode mdfeDadosMsg) {
-            soapEnvelop = soapEnvelop.Replace("#", mdfeDadosMsg.OuterXml);
+        public System.Xml.XmlNode mdfeConsultaMDF(System.Xml.XmlNode mdfeDadosMsg)
+        {
+            string result = "";
+            var xmlresult = new XmlDocument();
+            try
+            {
 
-            xmlEnvelop = new XmlDocument();
-            xmlEnvelop.LoadXml(soapEnvelop);
 
-            object[] results = null; // Chamada da requisição
+                soapEnvelope.body = new ResponseBody<XmlNode>()
+                {
+                    mdfeDadosMsg = mdfeDadosMsg
+                };
+
+                var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
+                xmlEnvelop = new XmlDocument();
+
+                using (var sww = new StreamWriter("soap.xml"))
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww,
+                        new XmlWriterSettings() { Indent = false }))
+                    {
+                        soapserializer.Serialize(writer, soapEnvelope);
+                        writer.Close();
+
+                    }
+                }
+
+                xmlEnvelop.PreserveWhitespace = false;
+                xmlEnvelop.Load("soap.xml");
+
+            }
+            catch (XmlException e)
+            {
+                Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
+
+            }
+
+            InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = rd.ReadToEnd();
+                        xmlresult.LoadXml(result);
+
+                    }
+                }
+
+            }
+            catch (WebException e)
+            {
+                if (e.Response != null)
+                {
+                    string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                    Console.WriteLine(message);
+                }
+
+            }
+
+            var xmlNode = xmlresult.GetElementsByTagName("retConsSitMDFe")[0];
+
 #endif
+#if NET45
             return ((System.Xml.XmlNode)(results[0]));
+#endif
+#if NETSTANDARD2_0
+            return xmlNode;
+#endif
         }
 #if NET45
-        /// <remarks/>
+/// <remarks/>
         public System.IAsyncResult BeginmdfeConsultaMDF(System.Xml.XmlNode mdfeDadosMsg, System.AsyncCallback callback, object asyncState) {
             return this.BeginInvoke("mdfeConsultaMDF", new object[] {
                 mdfeDadosMsg}, callback, asyncState);
@@ -154,23 +262,24 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #endif
 
 #if NET45
-        /// <remarks/>
+/// <remarks/>
         public System.Xml.XmlNode EndmdfeConsultaMDF(System.IAsyncResult asyncResult) {
             object[] results = this.EndInvoke(asyncResult);
             return ((System.Xml.XmlNode)(results[0]));
         }
 #endif
 #if NET45
-        /// <remarks/>
+/// <remarks/>
         public void mdfeConsultaMDFAsync(System.Xml.XmlNode mdfeDadosMsg) {
             this.mdfeConsultaMDFAsync(mdfeDadosMsg, null);
         }
 #endif
 #if NET45
-        /// <remarks/>
+/// <remarks/>
         public void mdfeConsultaMDFAsync(System.Xml.XmlNode mdfeDadosMsg, object userState) {
             if ((this.mdfeConsultaMDFOperationCompleted == null)) {
-                this.mdfeConsultaMDFOperationCompleted = new System.Threading.SendOrPostCallback(this.OnmdfeConsultaMDFOperationCompleted);
+                this.mdfeConsultaMDFOperationCompleted =
+ new System.Threading.SendOrPostCallback(this.OnmdfeConsultaMDFOperationCompleted);
             }
 
             this.InvokeAsync("mdfeConsultaMDF", new object[] {
@@ -182,13 +291,14 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #if NET45
         private void OnmdfeConsultaMDFOperationCompleted(object arg) {
             if ((this.mdfeConsultaMDFCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs =
+ ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.mdfeConsultaMDFCompleted(this, new mdfeConsultaMDFCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
 #endif
 #if NET45
-        /// <remarks/>
+/// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -243,6 +353,80 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
     }
 
 #endif
+
+#if NETSTANDARD2_0
+    /*
+     * Classes para a serialização e criação do envelope SOAP 1.2
+     */
+
+    //Classe Envelope SOAP 1.2
+    [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class SOAPEnvelope
+    {
+        [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public string soapenva { get; set; }
+
+        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        public string xsi { get; set; }
+
+        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
+        public string xsd { get; set; }
+
+        [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseHead<mdfeCabecMsg> head { get; set; }
+
+        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseBody<XmlNode> body { get; set; }
+
+        [XmlNamespaceDeclarations]
+        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+        public SOAPEnvelope()
+        {
+            xmlns.Add("soap12", "http://www.w3.org/2003/05/soap-envelope");
+        }
+    }
+
+    //Classe Header SOAP 1.2
+    [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseHead<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeCabecMsg { get; set; }
+    }
+
+    //Classe Body SOAP 1.2
+    [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseBody<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeDadosMsg { get; set; }
+    }
+
+    //Classe mdfeCabecMsg SOAP 1.2
+    public class mdfeCabecMsg
+    {
+
+        private string _cUFField;
+        private string _versaoDadosField;
+
+        /// <remarks/>
+        public string cUF
+        {
+            get { return this._cUFField; }
+            set { this._cUFField = value; }
+        }
+
+        /// <remarks/>
+        public string versaoDados
+        {
+            get { return this._versaoDadosField; }
+            set { this._versaoDadosField = value; }
+        }
+    }
+
+#endif
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     public delegate void mdfeConsultaMDFCompletedEventHandler(object sender, mdfeConsultaMDFCompletedEventArgs e);
@@ -251,21 +435,27 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaProtoloco
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class mdfeConsultaMDFCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
+    public partial class mdfeConsultaMDFCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
         private object[] results;
-    
-        internal mdfeConsultaMDFCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
+
+        internal mdfeConsultaMDFCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
             this.results = results;
-            }
-    
+        }
+
         /// <remarks/>
-        public System.Xml.XmlNode Result {
-            get {
+        public System.Xml.XmlNode Result
+        {
+            get
+            {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Xml.XmlNode)(this.results[0]));
             }
         }
     }
+
 }
+

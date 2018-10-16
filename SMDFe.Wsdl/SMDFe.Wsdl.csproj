@@ -35,6 +35,10 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
+    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
+  </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>

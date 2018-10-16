@@ -31,11 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Classes.Flags;
+
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using SMDFe.Servicos.Factory;
-using SMDFe.Utils.Flags;
+
 
 namespace SMDFe.Servicos.ConsultaProtocoloMDFe
 {
@@ -44,8 +44,6 @@ namespace SMDFe.Servicos.ConsultaProtocoloMDFe
         public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave)
         {
             var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave);
-            consSitMdfe.TpAmb = TipoAmbiente.Homologacao; // Teste -- Remover Linha depois
-            consSitMdfe.Versao = VersaoServico.Versao100; // Teste -- Remover Linha depois
             consSitMdfe.ValidarSchema();
             consSitMdfe.SalvarXmlEmDisco();
 

@@ -41,6 +41,7 @@ namespace SMDFe.Utils.Flags
         Versao100 = 100,
 
         [XmlEnum("3.00")]
-        Versao300 = 300
+        Versao300 = 300,
+
     }
 }

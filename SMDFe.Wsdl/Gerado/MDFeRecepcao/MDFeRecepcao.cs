@@ -39,8 +39,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.IO;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Xml;
+using System.Xml.Serialization;
 using SMDFe.Wsdl.Configuracao;
 
 namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
@@ -65,9 +71,10 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
 #endif
 
 #if NETSTANDARD2_0
-        private string soapEnvelop;
+        private SOAPEnvelope soapEnvelope;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
+        private HttpWebRequest request;
 #endif
 
         private System.Threading.SendOrPostCallback mdfeRecepcaoLoteOperationCompleted;
@@ -75,8 +82,41 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
         /// <remarks/>
         public MDFeRecepcao(WsdlConfiguracao configuracao) {
 #if NETSTANDARD2_0
-            this.configuracao = configuracao;
-            soapHead(configuracao);
+            try
+            {
+                this.configuracao = configuracao;
+
+                soapEnvelope = new SOAPEnvelope()
+                {
+                    head = new ResponseHead<mdfeCabecMsg>()
+                    {
+                        mdfeCabecMsg = new mdfeCabecMsg()
+                        {
+                            versaoDados = configuracao.Versao,
+                            cUF = configuracao.CodigoIbgeEstado
+                        }
+                    }
+                };
+                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+
+                request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
+                request.Headers.Add("SOAPAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao/mdfeRecepcaoLote");
+                request.KeepAlive = true;
+                request.ContentType = "application/soap+xml; charset=\"UTF-8\"";
+                request.Accept = "*/*";
+                request.Method = "POST";
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
+                request.ProtocolVersion = HttpVersion.Version11;
+
+
+                request.ClientCertificates.Add(configuracao.CertificadoDigital);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na criação da Requisição -> " + e);
+            }
+
+
 #endif
 #if NET45
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
@@ -103,22 +143,26 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
 #endif
 
 #if NETSTANDARD2_0
-        private void soapHead(WsdlConfiguracao confi)
+        private static void InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
         {
-            soapEnvelop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
-                          "<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:xsi= \"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd= \"http://www.w3.org/2001/XMLSchema\">"
-                                + "<soap12:Header>"
-                                    + $"<mdfeCabecMsg xmlns = \"{confi.Url}\">"
-                                        + $"<cUF>{confi.CodigoIbgeEstado}</cUF>"
-                                        + $"<versaoDados>{confi.Versao}</versaoDados>"
-                                    + "</mdfeCabecMsg>"
-                                + "</soap12:Header>"
-                                + "<soap12:Body>"
-                                    + "#"
-                                + "</soap12:Body>"
-                          + "</soap12:Envelope>";
+            try
+            {
+                using (Stream stream = webRequest.GetRequestStream())
+                {
+                    byte[] buffer = Encoding.UTF8.GetBytes(soapEnvelopeXml.OuterXml);
+                    stream.Write(buffer, 0, buffer.Length);
+                    stream.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERRO na inserção do envelope -> " + e);
+                throw;
+            }
+
         }
 #endif
+
         /// <remarks/>
         public event mdfeRecepcaoLoteCompletedEventHandler mdfeRecepcaoLoteCompleted;
 #if NET45
@@ -131,17 +175,75 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                 mdfeDadosMsg});
 #endif
 #if NETSTANDARD2_0
-        [return: System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
-        public System.Xml.XmlNode mdfeRecepcaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")] System.Xml.XmlNode mdfeDadosMsg) {
+        public System.Xml.XmlNode mdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg)
+        {
+            string result = "";
+            var xmlresult = new XmlDocument();
+            try
+            {
 
-            soapEnvelop = soapEnvelop.Replace("#", mdfeDadosMsg.OuterXml);
 
-            xmlEnvelop = new XmlDocument();
-            xmlEnvelop.LoadXml(soapEnvelop);
+                soapEnvelope.body = new ResponseBody<XmlNode>()
+                {
+                    mdfeDadosMsg = mdfeDadosMsg
+                };
 
-            object[] results = null; // Chamada da requisição
+                var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
+                xmlEnvelop = new XmlDocument();
+
+                using (var sww = new StreamWriter("soap.xml"))
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww,
+                        new XmlWriterSettings() { Indent = false }))
+                    {
+                        soapserializer.Serialize(writer, soapEnvelope);
+                        writer.Close();
+
+                    }
+                }
+                xmlEnvelop.PreserveWhitespace = false;
+                xmlEnvelop.Load("soap.xml");
+
+            }
+            catch (XmlException e)
+            {
+                Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
+
+            }
+
+            InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
+            try
+            {
+                using (WebResponse response = request.GetResponse())
+                {
+                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
+                    {
+                        result = rd.ReadToEnd();
+                        xmlresult.LoadXml(result);
+
+                    }
+                }
+
+            }
+            catch (WebException e)
+            {
+                if (e.Response != null)
+                {
+                    string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                    Console.WriteLine(message);
+                }
+
+            }
+
+            var xmlNode = xmlresult.GetElementsByTagName("retEnviMDFe")[0];
+
 #endif
+#if NET45
             return ((System.Xml.XmlNode)(results[0]));
+#endif
+#if NETSTANDARD2_0
+            return xmlNode;
+#endif
 
         }
 #if NET45
@@ -243,6 +345,80 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
         }
     }
 #endif
+
+#if NETSTANDARD2_0
+    /*
+    * Classes para a serialização e criação do envelope no formato SOAP 1.2
+    */
+
+    //Classe Envelope SOAP 1.2
+    [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class SOAPEnvelope
+    {
+        [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public string soapenva { get; set; }
+
+        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+        public string xsi { get; set; }
+
+        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
+        public string xsd { get; set; }
+
+        [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseHead<mdfeCabecMsg> head { get; set; }
+
+        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public ResponseBody<XmlNode> body { get; set; }
+
+        [XmlNamespaceDeclarations]
+        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+        public SOAPEnvelope()
+        {
+            xmlns.Add("soap12", "http://www.w3.org/2003/05/soap-envelope");
+        }
+    }
+
+    //Classe Header SOAP 1.2
+    [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseHead<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeCabecMsg { get; set; }
+    }
+
+    //Classe Body SOAP 1.2
+    [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public class ResponseBody<T>
+    {
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        public T mdfeDadosMsg { get; set; }
+    }
+
+    //Classe mdfeCabecMsg SOAP 1.2
+    public class mdfeCabecMsg
+    {
+
+        private string _cUFField;
+        private string _versaoDadosField;
+
+        /// <remarks/>
+        public string cUF
+        {
+            get { return this._cUFField; }
+            set { this._cUFField = value; }
+        }
+
+        /// <remarks/>
+        public string versaoDados
+        {
+            get { return this._versaoDadosField; }
+            set { this._versaoDadosField = value; }
+        }
+    }
+
+#endif
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     public delegate void mdfeRecepcaoLoteCompletedEventHandler(object sender, mdfeRecepcaoLoteCompletedEventArgs e);
