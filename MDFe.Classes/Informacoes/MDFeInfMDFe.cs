@@ -117,5 +117,8 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "infAdic")]
         public MDFeInfAdic InfAdic { get; set; }
+
+        [XmlElement(ElementName = "infRespTec")]
+        public infRespTec infRespTec { get; set; }
     }
 }
