@@ -141,6 +141,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var urlsQrCodeProducaoQrCode2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.DF, versao4, "http://www.fazenda.df.gov.br/nfce/qrcode?"},
+                {Estado.ES, versao4, "http://app.sefaz.es.gov.br/ConsultaNFCe?"},
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SP, versao4, "https://www.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
