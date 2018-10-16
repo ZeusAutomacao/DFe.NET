@@ -72,7 +72,6 @@ using DFe.Utils.Assinatura;
 using dest = CTe.Classes.Informacoes.Destinatario.dest;
 using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using System.Xml.Linq;
 
 namespace CTe.AppTeste
 {
