@@ -39,7 +39,6 @@ using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Classes.Informacoes.StatusServico;
 using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
