@@ -65,7 +65,7 @@ using System.Runtime.InteropServices;
 //
 // É possível especificar todos os valores ou usar o padrão de Números de Compilação e Revisão 
 // utilizando o '*' como mostrado abaixo:
-// [assembly: AssemblyVersion("1.0.0.730")]
+// [assembly: AssemblyVersion("1.0.0.731")]
 
-[assembly: AssemblyVersion("1.0.0.730")]
-[assembly: AssemblyFileVersion("1.0.0.730")]
+[assembly: AssemblyVersion("1.0.0.731")]
+[assembly: AssemblyFileVersion("1.0.0.731")]
