@@ -32,7 +32,6 @@
 /********************************************************************************/
 
 using System;
-using System.Dynamic;
 using System.Xml.Serialization;
 using DFe.Classes;
 using DFe.Utils;
