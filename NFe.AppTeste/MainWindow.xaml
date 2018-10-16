@@ -300,7 +300,7 @@
                                       Width="450" Margin="10,10,0,0">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                      
+
                                         <GroupBox x:Name="GpbAmbiente" Header="Ambiente de Destino" Margin="5,0,0,0">
                                             <Grid x:Name="GrdAmbiente">
                                                 <StackPanel Orientation="Horizontal">
@@ -326,10 +326,10 @@
                                                       VerticalAlignment="Center"
                                                       ItemsSource="{Binding Source={StaticResource EstadoWebService}}"
                                                       SelectedItem="{Binding CfgServico.cUF, Converter={StaticResource EnumParaString}}" />
-                                            </StackPanel>
+                                        </StackPanel>
 
                                     </StackPanel>
-                                    
+
                                     <GroupBox Header="Versão dos serviços:">
                                         <GroupBox.Resources>
                                             <ResourceDictionary Source="Templates/Controles.xaml" />
@@ -357,7 +357,7 @@
                                                 </StackPanel>
                                             </GroupBox>
                                             <GroupBox Header="Versão dos serviços:" IsEnabled="{Binding CfgServico.DefineVersaoServicosAutomaticamente, Converter={StaticResource InverterBooleanConverter}}">
-                                                
+
                                                 <StackPanel>
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
                                                         <Label Grid.Column="0" Content="RecepcaoEventoCceCancelamento" />
@@ -671,7 +671,7 @@
                                                                      IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
                                                 </StackPanel>
-                                                
+
                                             </GroupBox>
                                         </StackPanel>
 
@@ -707,7 +707,7 @@
                                         </StackPanel>
 
                                     </StackPanel>
-                              
+
 
 
                                     <StackPanel>
@@ -910,15 +910,15 @@
                             HorizontalAlignment="Left" Margin="192,35,0,0" VerticalAlignment="Top" Width="177"
                             Click="BtnConsultarReciboLote3_Click" />
                     <Button x:Name="BtnGerarNfe3" Content="Criar e Salvar XML 3.0 Ou 4.0" HorizontalAlignment="Left"
-                            Margin="374,37,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe3_Click" />
+                            Margin="374,36,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe3_Click" />
                     <Button x:Name="BtnCartaCorrecao" Content="Carta de correção" HorizontalAlignment="Left"
                             Margin="10,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCartaCorrecao_Click" />
                     <Button x:Name="BtnCancelarNFe" Content="Cancelar" HorizontalAlignment="Left"
                             Margin="192,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFe_Click" />
                     <Button x:Name="BtnEnviaEpec" Content="Enviar EPEC" HorizontalAlignment="Left"
-                            Margin="374,62,0,0" VerticalAlignment="Top" Width="177" Click="BtnEnviaEpec_Click" />
+                            Margin="374,61,0,0" VerticalAlignment="Top" Width="177" Click="BtnEnviaEpec_Click" />
                     <Button x:Name="BtnConsultaEpec" Content="Consultar EPEC" HorizontalAlignment="Left"
-                            Margin="374,87,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaEpec_Click" />
+                            Margin="374,86,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaEpec_Click" />
                     <Button x:Name="BtnImportarXml" Content="Importar XML" HorizontalAlignment="Left"
                             Margin="374,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnImportarXml_Click" />
                     <Button x:Name="BtnValida" Content="Validar" HorizontalAlignment="Left"
@@ -926,7 +926,7 @@
                     <Button x:Name="BtnAssina" Content="Assinar" HorizontalAlignment="Left"
                             Margin="10,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnAssina_Click" />
                     <Button x:Name="BtnAdicionaNfeproc" Content="Adicionar proc ao XML" HorizontalAlignment="Left"
-                            Margin="374,112,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
+                            Margin="374,111,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
                     <Button x:Name="BtnCarregaXmlEnvia" Content="Carregar XML e Enviar" HorizontalAlignment="Left"
                             Margin="10,135,0,0" VerticalAlignment="Top" Width="177" Click="BtnCarregaXmlEnvia_Click" />
                     <Button x:Name="BtnConsultaCadastro" Content="Consultar Cadastro" HorizontalAlignment="Left"
@@ -936,7 +936,7 @@
                     <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick"
                             HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="177" />
                     <Button x:Name="btn_NFeDistribuicaoDFe" Content="NFe Distribuição DFe" HorizontalAlignment="Left"
-                            Margin="374,137,0,0" VerticalAlignment="Top" Width="177" Height="20"
+                            Margin="374,136,0,0" VerticalAlignment="Top" Width="177" Height="20"
                             Click="btn_NFeDistribuicaoDFe_Click" />
                     <Button x:Name="BtnManifestacaoDestinatario" Content="Manifestação Destinatário"
                             HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="177"
