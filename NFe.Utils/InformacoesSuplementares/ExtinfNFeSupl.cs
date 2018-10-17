@@ -234,11 +234,11 @@ namespace NFe.Utils.InformacoesSuplementares
             {
                 var url = $"{chave}|{versaoQrCode}|{identificacaoAmbiente}|{cIdToken.TrimStart('0')}";
 
-                var urlHexSha1 = ObterHexSha1DeString(url);
+                var urlHexSha1 = ObterHexSha1DeString($"{chave}|{versaoQrCode}|{identificacaoAmbiente}|{cIdToken.TrimStart('0')}{csc}").ToUpper();
 
                 return $"{ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode)}?p={url}|{urlHexSha1}";
             }
-            // Contingência
+            // ContingênciaS
             else
             {
                 if (nfe.Signature == null) throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
@@ -251,7 +251,7 @@ namespace NFe.Utils.InformacoesSuplementares
 
                 var url = $"{chave}|{versaoQrCode}|{identificacaoAmbiente}|{diaEmissao}|{totalDaNota}|{digestValue}|{cIdToken.TrimStart('0')}";
 
-                var hexaUrl = ObterHexSha1DeString(url);
+                var hexaUrl = ObterHexSha1DeString($"{url}{csc}").ToUpper();
 
                 return $"{ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode)}?p={url}|{hexaUrl}";
             }
