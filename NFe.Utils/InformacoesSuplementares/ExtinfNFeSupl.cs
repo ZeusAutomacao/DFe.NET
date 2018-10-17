@@ -238,7 +238,7 @@ namespace NFe.Utils.InformacoesSuplementares
 
                 return $"{ObterUrl(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, TipoUrlConsultaPublica.UrlQrCode)}?p={url}|{urlHexSha1}";
             }
-            // ContingênciaS
+            // Contingência
             else
             {
                 if (nfe.Signature == null) throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
