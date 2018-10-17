@@ -384,7 +384,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
     [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseHead<T>
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico")]
         public T mdfeCabecMsg { get; set; }
     }
 
@@ -392,7 +392,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeStatusServico
     [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseBody<T>
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico")]
         public T mdfeDadosMsg { get; set; }
     }
 

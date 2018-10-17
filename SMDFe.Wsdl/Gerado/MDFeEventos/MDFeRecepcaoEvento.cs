@@ -344,7 +344,7 @@ public class SOAPEnvelope
 [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
 public class ResponseHead<T>
 {
-    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
     public T mdfeCabecMsg { get; set; }
 }
 
@@ -352,7 +352,7 @@ public class ResponseHead<T>
 [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
 public class ResponseBody<T>
 {
-    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
     public T mdfeDadosMsg { get; set; }
 }
 

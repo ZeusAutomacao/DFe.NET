@@ -309,8 +309,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace =
- "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao", IsNullable = false)]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao", IsNullable = false)]
     public partial class mdfeCabecMsg : System.Web.Services.Protocols.SoapHeader {
     
         private string cUFField;
@@ -351,6 +350,8 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
         }
     }
 #endif
+
+
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     public delegate void mdfeRetRecepcaoCompletedEventHandler(object sender, mdfeRetRecepcaoCompletedEventArgs e);
