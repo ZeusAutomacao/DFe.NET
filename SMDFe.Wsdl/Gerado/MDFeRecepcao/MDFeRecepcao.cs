@@ -210,7 +210,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                 Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
 
             }
-
+            /*
             InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
             try
             {
@@ -236,13 +236,13 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
             }
 
             var xmlNode = xmlresult.GetElementsByTagName("retEnviMDFe")[0];
-
+            */
 #endif
 #if NET45
             return ((System.Xml.XmlNode)(results[0]));
 #endif
 #if NETSTANDARD2_0
-            return xmlNode;
+            return null; //xmlNode;
 #endif
 
         }
@@ -383,7 +383,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
     [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseHead<T>
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
         public T mdfeCabecMsg { get; set; }
     }
 
@@ -391,7 +391,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
     [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class ResponseBody<T>
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")]
         public T mdfeDadosMsg { get; set; }
     }
 

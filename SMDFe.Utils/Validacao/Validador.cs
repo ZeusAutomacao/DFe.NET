@@ -59,6 +59,7 @@ namespace SMDFe.Utils.Validacao
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
             // Especifica o tratamento de evento para os erros de validacao
+
             cfg.ValidationEventHandler += ValidationEventHandler;
             // cria um leitor para validação
             var validator = XmlReader.Create(new StringReader(xml), cfg);

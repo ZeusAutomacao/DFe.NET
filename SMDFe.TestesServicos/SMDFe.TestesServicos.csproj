@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,11 +7,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj" />
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
     <ProjectReference Include="..\SMDFe.Wsdl\SMDFe.Wsdl.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="WindowsBase" />
     <None Update="Schemas\consMDFeNaoEncTiposBasico_v1.00.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

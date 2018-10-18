@@ -39,6 +39,8 @@ using SMDFe.Classes.Informacoes;
 using SMDFe.Utils.Configuracoes;
 using SMDFe.Utils.Flags;
 using SMDFe.Utils.Validacao;
+using System.Security.Cryptography.X509Certificates;
+
 using MDFEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Classes.Extencoes

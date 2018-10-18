@@ -1,24 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using DFe.Classes.Entidades;
-using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Flags;
 using SMDFe.Classes.Informacoes;
-using SMDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
-using SMDFe.Classes.Retorno.MDFeStatusServico;
 using SMDFe.Servicos.ConsultaNaoEncerradosMDFe;
-using SMDFe.Servicos.Enderecos.Helper;
-using SMDFe.Servicos.Factory;
 using SMDFe.Servicos.RecepcaoMDFe;
+using SMDFe.Servicos.StatusServicoMDFe;
 using SMDFe.Utils.Configuracoes;
 using SMDFe.Utils.Flags;
-using SMDFe.Wsdl.Configuracao;
-using SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
-using SMDFe.Wsdl.Gerado.MDFeStatusServico;
 using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.TestesServicos
@@ -27,76 +18,41 @@ namespace SMDFe.TestesServicos
     {
         static void Main(string[] args)
         {
-           //ConsultasNaoEnc();
-           //ConsultaStatus();
+            ConsultasNaoEnc();
+            //ConsultaStatus();
+            //CriarEnviar();
         }
 
-        private void ConsultasNaoEnc()
+        private static void ConsultasNaoEnc()
         {
             try
             {
-                
+
                 var config = new ConfiguracaoDao().BuscarConfiguracao();
 
+                CarregarConfiguracoesMDFe(config);
 
-                var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(config.Empresa.Cnpj);
-                consMDFeNaoEnc.TpAmb = TipoAmbiente.Homologacao;
-                consMDFeNaoEnc.Versao = VersaoServico.Versao300;
-                consMDFeNaoEnc.ValidarSchema();
-
+                var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
+                var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
 
 
-                var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao)
-                    .MDFeConsNaoEnc; //Remover depois
-                var versao = VersaoServico.Versao300.GetVersaoString();
-
-
-
-                var configuracaoWsdl = CriaConfiguracao(url, versao, config);
-
-
-                var ws = new MDFeConsNaoEnc(configuracaoWsdl);
-
-
-                var retornoXml = ws.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
-                var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-                
                 Console.WriteLine(retorno.RetornoXmlString);
                 Console.ReadKey();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.ReadKey();
             }
         }
 
-        private void ConsultaStatus()
+        private static void ConsultaStatus()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
 
-
-            var consMDFeStatus = ClassesFactory.CriaConsStatServMDFe();
-            consMDFeStatus.TpAmb = TipoAmbiente.Homologacao;
-            consMDFeStatus.Versao = VersaoServico.Versao300;
-            consMDFeStatus.ValidarSchema();
-
-
-
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente = TipoAmbiente.Homologacao)
-                .MDFeStatusServico; //Remover depois
-            var versao = VersaoServico.Versao300.GetVersaoString();
-
-
-
-            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
-
-            var ws = new MDFeStatusServico(configuracaoWsdl);
-
-
-            var retornoXml = ws.mdfeStatusServicoMDF(consMDFeStatus.CriaRequestWs());
-
-            var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consMDFeStatus);
+            var servicoStatusServico = new ServicoMDFeStatusServico();
+            var retorno = servicoStatusServico.MDFeStatusServico();
 
             Console.WriteLine(retorno.RetornoXmlString);
             Console.ReadKey();
@@ -104,10 +60,10 @@ namespace SMDFe.TestesServicos
 
         }
 
-        public void CriarEnviar()
+        public static void CriarEnviar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            
+            CarregarConfiguracoesMDFe(config);
             var mdfe = new MDFeEletronico();
 
             #region (ide)
@@ -333,10 +289,12 @@ namespace SMDFe.TestesServicos
             };
             #endregion
 
-            var servicoRecepcao = new ServicoMDFeRecepcao();
+
 
             // Evento executado antes do envio da mdf-e para a sefaz
             //servicoRecepcao.AntesDeEnviar += AntesEnviar;
+
+            var servicoRecepcao = new ServicoMDFeRecepcao();
 
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
@@ -351,48 +309,27 @@ namespace SMDFe.TestesServicos
             return rand.Next(11111111, 99999999);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url, string versao, Configuracao confi)
-        {
-            var codigoEstado = confi.ConfigWebService.UfEmitente.GetCodigoIbgeEmString();
-            var certificadoDigital = ObterCertificado();
 
-            return new WsdlConfiguracao
+        private static void CarregarConfiguracoesMDFe(Configuracao config)
+        {
+            var configuracaoCertificado = new ConfiguracaoCertificado
             {
-                CertificadoDigital = certificadoDigital,
-                Versao = versao,
-                CodigoIbgeEstado = codigoEstado,
-                Url = url,
-                TimeOut = 1000
+                Senha = config.CertificadoDigital.Senha,
+                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                Serial = config.CertificadoDigital.NumeroDeSerie
             };
-        }
 
-        private static X509Certificate2 ObterCertificado()
-        {
-            X509Certificate2Collection lcerts;
-            X509Store lStore = new X509Store(StoreName.My, StoreLocation.CurrentUser);
-            X509Certificate2 xcertifaCertificate2 = null;
-            Object[] certificadObjects = new object[10];
-            int i = 0;
+            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            // Abre o Store
-            lStore.Open(OpenFlags.ReadOnly);
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            // Lista os certificados
-            lcerts = lStore.Certificates;
-
-            foreach (X509Certificate2 cert in lcerts)
-            {
-                if (cert.HasPrivateKey && cert.NotAfter > DateTime.Now && cert.NotBefore < DateTime.Now)
-                {
-                    certificadObjects[i++] = cert;
-
-                }
-            }
-            lStore.Close();
-            xcertifaCertificate2 = certificadObjects[0] as X509Certificate2;
-
-            return xcertifaCertificate2;
-
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
         }
     }
 }

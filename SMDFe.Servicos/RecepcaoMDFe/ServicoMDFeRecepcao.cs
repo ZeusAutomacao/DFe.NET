@@ -65,7 +65,7 @@ namespace SMDFe.Servicos.RecepcaoMDFe
             }
 
             enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
+            enviMDFe.Valida(); 
             enviMDFe.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
