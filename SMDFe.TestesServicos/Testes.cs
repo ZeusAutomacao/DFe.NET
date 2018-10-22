@@ -6,7 +6,9 @@ using DFe.Utils;
 using SMDFe.Classes.Flags;
 using SMDFe.Classes.Informacoes;
 using SMDFe.Servicos.ConsultaNaoEncerradosMDFe;
+using SMDFe.Servicos.ConsultaProtocoloMDFe;
 using SMDFe.Servicos.RecepcaoMDFe;
+using SMDFe.Servicos.RetRecepcaoMDFe;
 using SMDFe.Servicos.StatusServicoMDFe;
 using SMDFe.Utils.Configuracoes;
 using SMDFe.Utils.Flags;
@@ -18,9 +20,12 @@ namespace SMDFe.TestesServicos
     {
         static void Main(string[] args)
         {
-            ConsultasNaoEnc();
+            //ConsultasNaoEnc();
             //ConsultaStatus();
             //CriarEnviar();
+            //ConsultaPorRecibo();
+            //ConsultaPorProtocolo();
+
         }
 
         private static void ConsultasNaoEnc()
@@ -298,9 +303,40 @@ namespace SMDFe.TestesServicos
 
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
-
+            Console.WriteLine(retornoEnvio.RetornoXmlString);
             config.ConfigWebService.Numeracao++;
+            Console.ReadKey();
             new ConfiguracaoDao().SalvarConfiguracao(config);
+        }
+
+        public static void ConsultaPorRecibo()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var recibo = "289000006323157";
+
+            var servicoRecibo = new ServicoMDFeRetRecepcao();
+            var retorno = servicoRecibo.MDFeRetRecepcao(recibo);
+
+            Console.WriteLine(retorno.RetornoXmlString);
+            Console.ReadKey();
+        }
+
+        public static void ConsultaPorProtocolo()
+        {
+            
+            var chave = "28181007703290000189587500000000021826712210";
+
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
+            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
+
+            Console.WriteLine(retorno.RetornoXmlString);
+            Console.ReadKey();
+
         }
 
         private static int GetRandom()

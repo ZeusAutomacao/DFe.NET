@@ -44,8 +44,6 @@ namespace SMDFe.Servicos.RetRecepcaoMDFe
         public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo)
         {
             var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
-            consReciMdfe.TpAmb = TipoAmbiente.Homologacao; // Teste -- Remover Linha depois
-            consReciMdfe.Versao = VersaoServico.Versao100; // Teste -- Remover Linha depois
             consReciMdfe.ValidaSchema();
             consReciMdfe.SalvarXmlEmDisco();
 

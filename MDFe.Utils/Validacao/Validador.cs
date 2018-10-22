@@ -35,6 +35,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Schema;
 using MDFe.Utils.Configuracoes;
+using Newtonsoft.Json;
 
 namespace MDFe.Utils.Validacao
 {
@@ -43,7 +44,7 @@ namespace MDFe.Utils.Validacao
         public static void Valida(string xml, string schema)
         {
             var pathSchema = MDFeConfiguracao.CaminhoSchemas;
-
+            
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
@@ -55,12 +56,16 @@ namespace MDFe.Utils.Validacao
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
             cfg.Schemas = schemas;
+            // Adiciona o XmlResolver
+            schemas.XmlResolver = new XmlUrlResolver();
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += ValidationEventHandler;
             // cria um leitor para validação
+
+            
             var validator = XmlReader.Create(new StringReader(xml), cfg);
             try
             {

@@ -210,7 +210,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                 Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
 
             }
-            /*
+            
             InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
             try
             {
@@ -236,13 +236,13 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
             }
 
             var xmlNode = xmlresult.GetElementsByTagName("retEnviMDFe")[0];
-            */
+            
 #endif
 #if NET45
             return ((System.Xml.XmlNode)(results[0]));
 #endif
 #if NETSTANDARD2_0
-            return null; //xmlNode;
+            return xmlNode;
 #endif
 
         }
