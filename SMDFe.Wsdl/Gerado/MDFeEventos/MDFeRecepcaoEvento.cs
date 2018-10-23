@@ -245,7 +245,7 @@ public partial class MDFeRecepcaoEvento
 
         }
 
-        var xmlNode = xmlresult.GetElementsByTagName("retEvento")[0];
+        var xmlNode = xmlresult.GetElementsByTagName("retEventoMDFe")[0];
 
 #endif
 #if NET45
@@ -344,7 +344,7 @@ public class SOAPEnvelope
 [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
 public class ResponseHead<T>
 {
-    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")]
     public T mdfeCabecMsg { get; set; }
 }
 
@@ -352,7 +352,7 @@ public class ResponseHead<T>
 [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
 public class ResponseBody<T>
 {
-    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento")]
     public T mdfeDadosMsg { get; set; }
 }
 

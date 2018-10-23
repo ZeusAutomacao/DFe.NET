@@ -5,8 +5,11 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using SMDFe.Classes.Flags;
 using SMDFe.Classes.Informacoes;
+using SMDFe.Classes.Retorno;
+using SMDFe.Classes.Servicos.Autorizacao;
 using SMDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using SMDFe.Servicos.ConsultaProtocoloMDFe;
+using SMDFe.Servicos.EventosMDFe;
 using SMDFe.Servicos.RecepcaoMDFe;
 using SMDFe.Servicos.RetRecepcaoMDFe;
 using SMDFe.Servicos.StatusServicoMDFe;
@@ -20,11 +23,14 @@ namespace SMDFe.TestesServicos
     {
         static void Main(string[] args)
         {
-            //ConsultasNaoEnc();
-            //ConsultaStatus();
-            //CriarEnviar();
-            //ConsultaPorRecibo();
-            //ConsultaPorProtocolo();
+            //ConsultasNaoEnc(); //Okay
+            //ConsultaStatus(); //Okay
+            //CriarEnviar(); //OKay
+            //ConsultaPorRecibo(); //Okay
+            //ConsultaPorProtocolo(); //Okay
+            EventoIncluirCondutor(); //Okay
+            //EventoEncerramento(); //Okay
+            //EventoCancelar(); //Okay
 
         }
 
@@ -339,12 +345,141 @@ namespace SMDFe.TestesServicos
 
         }
 
+        public static void EventoIncluirCondutor()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+
+            var evento = new ServicoMDFeEvento();
+
+            MDFeEletronico mdfe;
+            var caminhoXml =
+                "C://Users//Usuario//DFe.NET//DFe.NET//SMDFe.TestesServicos//bin//Debug//netcoreapp2.1//28181007703290000189587500000000061225992170-mdfe.xml";
+
+            try
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            catch
+            {
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
+            }
+
+            var nomeCondutor = "Ojuara Abacarajucaiba";
+            var  cpfCondutor = "00011122233";
+
+            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
+            Console.WriteLine(retorno.RetornoXmlString);
+            Console.ReadKey();
+
+
+        }
+
+        public static void EventoEncerramento()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            MDFeEletronico mdfe;
+            var caminhoXml =
+                "C://Users//Usuario//DFe.NET//DFe.NET//SMDFe.TestesServicos//bin//Debug//netcoreapp2.1//28181007703290000189587500000000061225992170-mdfe.xml";
+
+            try
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            catch
+            {
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
+            }
+
+            var evento = new ServicoMDFeEvento();
+
+            var protocolo = "28181007703290000189587500000000021826712210";
+
+
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo);
+            Console.WriteLine(retorno.RetornoXmlString);
+            Console.ReadKey();
+
+        }
+
+        public static void EventoCancelar()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var evento = new ServicoMDFeEvento();
+
+            MDFeEletronico mdfe;
+            var caminhoXml =
+                "C://Users//Usuario//DFe.NET//DFe.NET//SMDFe.TestesServicos//bin//Debug//netcoreapp2.1//28181007703290000189587500000000061225992170-mdfe.xml";
+
+            try
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+
+                mdfe = enviMDFe.MDFe;
+            }
+            catch
+            {
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
+            }
+
+            var protocolo = "28181007703290000189587500000000021826712210";
+
+            if (string.IsNullOrEmpty(protocolo))
+            {
+                return;
+            }
+
+            var justificativa = "Problemas na codificação";
+
+            if (string.IsNullOrEmpty(justificativa))
+            {
+                return;
+            }
+
+            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
+
+            Console.WriteLine(retorno.RetornoXmlString);
+            Console.ReadKey();
+        }
+
         private static int GetRandom()
         {
             var rand = new Random();
             return rand.Next(11111111, 99999999);
         }
-
 
         private static void CarregarConfiguracoesMDFe(Configuracao config)
         {

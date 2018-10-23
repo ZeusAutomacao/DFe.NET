@@ -72,7 +72,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
 #endif
 
 #if NETSTANDARD2_0
-        private SOAPEnvelope soapEnvelope;
+        private SOAPEnvelopeR soapEnvelope;
         private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
         private HttpWebRequest request;
@@ -87,11 +87,11 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
             {
                 this.configuracao = configuracao;
 
-                soapEnvelope = new SOAPEnvelope()
+                soapEnvelope = new SOAPEnvelopeR()
                 {
-                    head = new ResponseHead<mdfeCabecMsg>()
+                    head = new ResponseHeadR<mdfeCabecMsgR>()
                     {
-                        mdfeCabecMsg = new mdfeCabecMsg()
+                        mdfeCabecMsg = new mdfeCabecMsgR()
                         {
                             versaoDados = configuracao.Versao,
                             cUF = configuracao.CodigoIbgeEstado
@@ -182,12 +182,12 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
             var xmlresult = new XmlDocument();
             try
             {
-                soapEnvelope.body = new ResponseBody<XmlNode>()
+                soapEnvelope.body = new ResponseBodyR<XmlNode>()
                 {
                     mdfeDadosMsg = mdfeDadosMsg
                 };
 
-                var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
+                var soapserializer = new XmlSerializer(typeof(SOAPEnvelopeR));
                 xmlEnvelop = new XmlDocument();
 
                 using (var sww = new StreamWriter("soap.xml"))
@@ -351,9 +351,80 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
     }
 #endif
 
+#if NETSTANDARD2_0
+/*
+* Classes para a serialização e criação do envelope no formato SOAP 1.2
+*/
+
+//Classe Envelope SOAP 1.2
+[XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+[XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+public class SOAPEnvelopeR
+{
+    [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public string soapenva { get; set; }
+
+    [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
+    public string xsi { get; set; }
+
+    [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
+    public string xsd { get; set; }
+
+    [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public ResponseHeadR<mdfeCabecMsgR> head { get; set; }
+
+    [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+    public ResponseBodyR<XmlNode> body { get; set; }
+
+    [XmlNamespaceDeclarations]
+    public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
+    public SOAPEnvelopeR()
+    {
+        xmlns.Add("soap12", "http://www.w3.org/2003/05/soap-envelope");
+    }
+}
+
+//Classe Header SOAP 1.2
+[XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+public class ResponseHeadR<T>
+{
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
+    public T mdfeCabecMsg { get; set; }
+}
+
+//Classe Body SOAP 1.2
+[XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+public class ResponseBodyR<T>
+{
+    [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao")]
+    public T mdfeDadosMsg { get; set; }
+}
+
+//Classe mdfeCabecMsg SOAP 1.2
+public class mdfeCabecMsgR
+{
+
+    private string _cUFField;
+    private string _versaoDadosField;
 
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
+    public string cUF
+    {
+        get { return this._cUFField; }
+        set { this._cUFField = value; }
+    }
+
+    /// <remarks/>
+    public string versaoDados
+    {
+        get { return this._versaoDadosField; }
+        set { this._versaoDadosField = value; }
+    }
+}
+
+#endif
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     public delegate void mdfeRetRecepcaoCompletedEventHandler(object sender, mdfeRetRecepcaoCompletedEventArgs e);
 
     /// <remarks/>
