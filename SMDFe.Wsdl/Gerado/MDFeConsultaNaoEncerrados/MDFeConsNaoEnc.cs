@@ -50,6 +50,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using SMDFe.Utils.Flags;
+using SMDFe.Wsdl.Cabeçalho;
 using SMDFe.Wsdl.Configuracao;
 
 namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
@@ -105,14 +106,14 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                     }
                 };
                 System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
-
+                
                 request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
-                request.Headers.Add("SOAPAction", "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc");
+                request.Headers.Add(HttpHeader.ACTION, "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc/mdfeConsNaoEnc");
                 request.KeepAlive = true;
-                request.ContentType = "application/soap+xml; charset=\"UTF-8\"";
-                request.Accept = "*/*";
-                request.Method = "POST";
-                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36";
+                request.ContentType = HttpHeader.CONTETTYPE;
+                request.Accept = HttpHeader.ACCEPT;
+                request.Method = HttpHeader.METHOD;
+                request.UserAgent = HttpHeader.AGENT;
                 request.ProtocolVersion = HttpVersion.Version11;
                 
 

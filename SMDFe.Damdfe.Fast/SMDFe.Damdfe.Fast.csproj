@@ -61,10 +61,7 @@
       <Version>5.2.0-preview1-r131</Version>
     </PackageReference>
     <PackageReference Include="FastReport.Core">
-      <Version>2018.3.42-demo</Version>
-    </PackageReference>
-    <PackageReference Include="FastReport.Web">
-      <Version>2018.3.42-demo</Version>
+      <Version>2018.4.7-demo</Version>
     </PackageReference>
   </ItemGroup>
 

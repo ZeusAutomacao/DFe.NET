@@ -24,11 +24,11 @@ namespace SMDFe.TestesServicos
         static void Main(string[] args)
         {
             //ConsultasNaoEnc(); //Okay
-            //ConsultaStatus(); //Okay
+            ConsultaStatus(); //Okay
             //CriarEnviar(); //OKay
             //ConsultaPorRecibo(); //Okay
             //ConsultaPorProtocolo(); //Okay
-            EventoIncluirCondutor(); //Okay
+            //EventoIncluirCondutor(); //Okay
             //EventoEncerramento(); //Okay
             //EventoCancelar(); //Okay
 
