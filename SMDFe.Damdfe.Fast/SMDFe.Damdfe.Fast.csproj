@@ -9,6 +9,7 @@
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
+    
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
   </ItemGroup>
 
@@ -19,23 +20,12 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Data.SqlClient" Version="4.4.0-preview1-25305-02" />
+    <PackageReference Include="FastReport.OpenSource" Version="2018.4.7" />
   </ItemGroup>
 
 
   <!-- .NET 4.5 referências, sinalizadores de compilação e opções de compilação -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="FastReport, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.dll</HintPath>
-    </Reference>
-    <Reference Include="FastReport.Bars, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.Bars.dll</HintPath>
-    </Reference>
-    <Reference Include="FastReport.Editor, Version=2017.4.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Dlls\FastReport.Editor.dll</HintPath>
-    </Reference>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +37,15 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
+    <Reference Include="FastReport">
+      <HintPath>Dlls\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars">
+      <HintPath>Dlls\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor">
+      <HintPath>Dlls\FastReport.Editor.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 
@@ -60,9 +59,6 @@
     <PackageReference Include="CoreCompat.System.Drawing.v2">
       <Version>5.2.0-preview1-r131</Version>
     </PackageReference>
-    <PackageReference Include="FastReport.Core">
-      <Version>2018.4.7-demo</Version>
-    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
@@ -70,12 +66,9 @@
     <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Condition="'$(TargetFramework)' == 'net45'" Include="SMDFe.Damdfe.Base">
-      <HintPath>..\SMDFe.Damdfe.Base\bin\Release\net45\SMDFe.Damdfe.Base.dll</HintPath>
-    </Reference>
+  <ItemGroup  Condition="'$(TargetFramework)' == 'net45'" >
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
   </ItemGroup>
-
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>

@@ -33,7 +33,8 @@
 
 using System.IO;
 using FastReport;
-using FastReport.Export.Pdf;
+using FastReport.Export.Html;
+//using FastReport.Export.Pdf;
 using SMDFe.Damdfe.Base;
 using SMDFe.Classes.Retorno;
 #if NET45
@@ -87,29 +88,27 @@ namespace SMDFe.Damdfe.Fast
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }
+        
 
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>
         /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-          public void Visualizar(bool modal = true)
+        public void Visualizar(bool modal = true)
         {
             Relatorio.Show(modal);
         }
-
-
-
+        
         /// <summary>
         ///  Abre a janela de visualização do design do DAMDFe
         /// Chame esse método se desja fazer alterações no design do DAMDFe em modo run-time
         /// </summary>
         /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-
         public void ExibirDesign(bool modal = false)
         {
             Relatorio.Design(modal);
         }
-
+        
         /// <summary>
         /// Envia a impressão do DAMDFe diretamente para a impressora
         /// </summary>
@@ -117,11 +116,18 @@ namespace SMDFe.Damdfe.Fast
         /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
         public void Imprimir(bool exibirDialogo = true, string impressora = "")
         {
+
             Relatorio.PrintSettings.ShowDialog = exibirDialogo;
             Relatorio.PrintSettings.Printer = impressora;
             Relatorio.Print();
         }
+        
 #endif
+        /*
+         // A funcionalidade para exportação no formato PDF até o presente momento, data 31/10/2018, 
+         // não encontra-se disponível para o FastReport.OpenSource, caso deseje use, mude o pacote nuget
+         // para FastReport.Core
+
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -131,5 +137,17 @@ namespace SMDFe.Damdfe.Fast
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
         }
+        */
+      
+         /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o HTML do DAMDFe</param>
+        public void ExportarHTML(string arquivo)
+        {
+            Relatorio.Prepare();
+            Relatorio.Export(new HTMLExport(), arquivo);
+        }
+
     }
 }
