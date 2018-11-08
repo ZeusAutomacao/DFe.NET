@@ -114,6 +114,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMDFe.Servicos", "SMDFe.Ser
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMDFe.TestesServicos", "SMDFe.TestesServicos\SMDFe.TestesServicos.csproj", "{AD647F8A-01FC-44C1-A794-5AC27BDF637F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMDFe.Tests", "SMDFe.Tests\SMDFe.Tests.csproj", "{460B9622-FAB9-482F-8882-B1733E6D47AE}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
@@ -287,6 +289,10 @@ Global
 		{AD647F8A-01FC-44C1-A794-5AC27BDF637F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD647F8A-01FC-44C1-A794-5AC27BDF637F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD647F8A-01FC-44C1-A794-5AC27BDF637F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{460B9622-FAB9-482F-8882-B1733E6D47AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{460B9622-FAB9-482F-8882-B1733E6D47AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{460B9622-FAB9-482F-8882-B1733E6D47AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{460B9622-FAB9-482F-8882-B1733E6D47AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -335,6 +341,7 @@ Global
 		{AC8E1A36-2651-441D-9ADF-EDEF0239409A} = {26B03049-0A3C-4C36-ACC1-F8B13C95EE2E}
 		{16AC3712-E03D-4EBC-AB55-807FC9C46066} = {26B03049-0A3C-4C36-ACC1-F8B13C95EE2E}
 		{AD647F8A-01FC-44C1-A794-5AC27BDF637F} = {26B03049-0A3C-4C36-ACC1-F8B13C95EE2E}
+		{460B9622-FAB9-482F-8882-B1733E6D47AE} = {164EF13E-7F27-4BC8-92A4-A82B1696B279}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
