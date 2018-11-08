@@ -28,6 +28,20 @@ namespace NFe.Utils.Email
         }
 
         /// <summary>
+        /// Adiciona um e-mail de destinatário
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public EmailBuilder AdicionarDestinatario(string email, string nome = "")
+        {
+            if (!EmailValido(email))
+                throw new ArgumentException("E-mail do destinatário é inválido!");
+
+            _destinatarios.Add(new MailAddress(email, nome, System.Text.Encoding.UTF8));
+            return this;
+        }
+
+        /// <summary>
         /// Adiciona um e-mail de Copia
         /// </summary>
         /// <param name="email"></param>
