@@ -73,6 +73,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Classes;
+using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -319,13 +320,20 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
 
             #endregion
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlInutilizacao = pedInutilizacao.ObterXmlString();
+            var xmlInutilizacao = string.Empty;
+
+            if (_cFgServico.RemoverAcentos)
+                xmlInutilizacao = pedInutilizacao.ObterXmlString().RemoverAcentos();
+
+            if (_cFgServico.RemoverAcentos == false)
+                xmlInutilizacao = pedInutilizacao.ObterXmlString();
+
             Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
             var dadosInutilizacao = new XmlDocument();
             dadosInutilizacao.LoadXml(xmlInutilizacao);

@@ -506,6 +506,8 @@ namespace NFe.Utils
             }
         }
 
+        public bool RemoverAcentos { get; set; }
+
         /// <summary>
         ///     Limpa a instancia atual caso exista
         /// </summary>
