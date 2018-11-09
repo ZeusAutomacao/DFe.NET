@@ -78,7 +78,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Servicos.EventosMDFe
                     break;
             }
 
-            eventoMDFe.Assinar(certificadoDigital);
+            eventoMDFe.Assinar(certificadoDigital, dfeConfig);
 
             return eventoMDFe;
         }

@@ -609,7 +609,7 @@ namespace CTe.AppTeste
                 Serial = config.CertificadoDigital.NumeroDeSerie,
                 LocalArquivo = config.CertificadoDigital.CaminhoArquivo,
                 Senha = config.CertificadoDigital.Senha,
-                TipoCertificado = TipoCertificado.A1Repositorio
+                TipoCertificado = TipoCertificado.A1Arquivo
             };
 
 

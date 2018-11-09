@@ -20,7 +20,8 @@ namespace DFe.Configuracao
         public int TimeOut { get; set; }
         public bool IsEfetuarCacheCertificadoDigital { get; set; }
         public bool NaoValidarSchemasNetCore { get; set; }
-        public IProxyCacheCertificadoDigital ProxyCacheCertificadoDigital { get; set; } 
+        public IProxyCacheCertificadoDigital ProxyCacheCertificadoDigital { get; set; }
+        public bool RemoverAcentos { get; set; } = true;
 
         public abstract TipoAmbiente TipoAmbiente { get; set; }
         public abstract VersaoServico VersaoServico { get; set; }

@@ -226,7 +226,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             cte.infCte.versao = config.VersaoServico;
             cte.infCte.ide.cDV = dadosChave.DigitoVerificador;
 
-           var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, certificadoDigital);
+           var assinatura = AssinaturaDigital.Assina(cte, cte.infCte.Id, certificadoDigital, config);
 
            cte.Signature = assinatura;
         }
@@ -255,7 +255,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
             cte.InfCte.versao = config.VersaoServico;
             cte.InfCte.ide.cDV = dadosChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(cte, cte.InfCte.Id, certificadoDigital);
+            var assinatura = AssinaturaDigital.Assina(cte, cte.InfCte.Id, certificadoDigital, config);
 
             cte.Signature = assinatura;
         }
@@ -325,7 +325,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTeOS>", "<CTeOS xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 
-            request.LoadXml(xml);
+            request.LoadXml(xml); // todo remover acentos
 
             return request;
         }

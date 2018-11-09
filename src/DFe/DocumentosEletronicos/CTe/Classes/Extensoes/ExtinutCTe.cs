@@ -48,10 +48,10 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 {
     public static class ExtinutCTe
     {
-        public static void Assinar(this inutCTe inutCTe, CertificadoDigital certificadoDigital)
+        public static void Assinar(this inutCTe inutCTe, CertificadoDigital certificadoDigital, DFeConfig config)
         {
            inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                certificadoDigital);
+                certificadoDigital, config);
         }
 
 

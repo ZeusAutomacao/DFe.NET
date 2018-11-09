@@ -145,7 +145,7 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
             mdfe.InfMDFe.versao = dfeConfig.VersaoServico;
             mdfe.InfMDFe.ide.cDV = dadosChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, certificadoDigital);
+            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, certificadoDigital, dfeConfig);
 
             mdfe.Signature = assinatura;
 

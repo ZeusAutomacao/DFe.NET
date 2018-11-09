@@ -102,10 +102,10 @@ namespace DFe.DocumentosEletronicos.MDFe.Classes.Extensoes
             return FuncoesXml.ClasseParaXmlString(evento);
         }
 
-        public static void Assinar(this eventoMDFe evento, CertificadoDigital certificadoDigital)
+        public static void Assinar(this eventoMDFe evento, CertificadoDigital certificadoDigital, DFeConfig config)
         {
             evento.Signature = AssinaturaDigital.Assina(evento, evento.infEvento.Id,
-                certificadoDigital);
+                certificadoDigital, config);
         }
 
         public static void SalvarXmlEmDisco(this eventoMDFe evento, string chave, DFeConfig dfeConfig, tpEvento tipoEvento)

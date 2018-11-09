@@ -65,7 +65,7 @@ namespace DFe.DocumentosEletronicos.CTe.Servicos.EventosCTe
                     throw new ArgumentOutOfRangeException();
             }
 
-            evento.Assina(certificadoDigital);
+            evento.Assina(certificadoDigital, config);
             evento.ValidarSchema(config);
             evento.SalvarXmlEmDisco(config, tipoEvento);
 

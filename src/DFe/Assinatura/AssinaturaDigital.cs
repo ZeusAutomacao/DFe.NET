@@ -34,6 +34,7 @@
 using System;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using SignatureZeus = DFe.Assinatura.Signature;
 
@@ -41,7 +42,7 @@ namespace DFe.Assinatura
 {
     public class AssinaturaDigital
     {
-        public static SignatureZeus Assina<T>(T objeto, string id, CertificadosDigitais.CertificadoDigital configCertificado) where T : class
+        public static SignatureZeus Assina<T>(T objeto, string id, CertificadosDigitais.CertificadoDigital configCertificado, DFeConfig dFeConfig) where T : class
         {
             var certificado = configCertificado.ObterCertificadoDigital();
 
@@ -50,7 +51,13 @@ namespace DFe.Assinatura
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
             var documento = new XmlDocument { PreserveWhitespace = true };
-            documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+
+            if (dFeConfig.RemoverAcentos == false)
+                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+
+            if (dFeConfig.RemoverAcentos) // todo remover acento
+                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+
             var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
             var reference = new System.Security.Cryptography.Xml.Reference { Uri = "#" + id };
 

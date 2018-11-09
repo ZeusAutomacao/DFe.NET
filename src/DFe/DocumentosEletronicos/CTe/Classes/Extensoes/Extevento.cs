@@ -65,13 +65,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="eventoCTe"></param>
         /// <returns>Retorna um objeto do tipo evento assinado</returns>
-        public static void Assina(this eventoCTe eventoCTe, CertificadoDigital certificadoDigital)
+        public static void Assina(this eventoCTe eventoCTe, CertificadoDigital certificadoDigital, DFeConfig config)
         {
             if (eventoCTe.infEvento.Id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
 
             eventoCTe.Signature = AssinaturaDigital.Assina(eventoCTe, eventoCTe.infEvento.Id,
-                certificadoDigital);
+                certificadoDigital, config);
         }
 
         public static void ValidarSchema(this eventoCTe eventoCTe, DFeConfig config)
