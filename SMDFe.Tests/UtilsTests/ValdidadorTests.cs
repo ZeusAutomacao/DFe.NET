@@ -10,7 +10,6 @@ using SMDFe.Classes.Informacoes.RetRecepcao;
 using SMDFe.Classes.Informacoes.StatusServico;
 using SMDFe.Tests.Dao;
 using SMDFe.Tests.Entidades;
-using SMDFe.Utils.Flags;
 using SMDFe.Utils.Validacao;
 
 namespace SMDFe.Tests.UtilsTests
@@ -18,7 +17,19 @@ namespace SMDFe.Tests.UtilsTests
     [TestFixture]
     public class ValdidadorTests
     {
+        #region Variáveis
         private Configuracao _configuracao;
+        private string _schema_status;
+        private string _schema_encerradas;
+        private string _schema_recibo;
+        private string _schema_protocolo;
+        private string _schema_mdfe;
+        private string _schema_enviMdfe;
+        private string _schema_modalMdfe;
+        private string _schema_eventos;
+        private string _schema_incorreto;
+        #endregion
+
 
         #region SETUP
         [SetUp]
@@ -26,6 +37,15 @@ namespace SMDFe.Tests.UtilsTests
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
+            _schema_status = "consStatServMDFe_v3.00.xsd";
+            _schema_encerradas = "consMDFeNaoEnc_v3.00.xsd";
+            _schema_recibo = "consReciMdfe_v3.00.xsd";
+            _schema_protocolo = "consSitMdfe_v3.00.xsd";
+            _schema_mdfe = "MDFe_v3.00.xsd";
+            _schema_enviMdfe = "enviMDFe_v3.00.xsd";
+            _schema_modalMdfe = "MDFeModalRodoviario_v3.00.xsd";
+            _schema_eventos = "eventoMDFe_v3.00.xsd";
+            _schema_incorreto = "schema_falso_v3.00.xsd";
 
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
@@ -56,28 +76,46 @@ namespace SMDFe.Tests.UtilsTests
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
 
-            var schema = "consStatServMDFe_v3.00.xsd";
-
+          
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), schema);
+            Validador.Valida(xmlEnvio.XmlString(), _schema_status);
 
             //Assert
             Assert.That(true);
+        }
 
+        [Test]
+        public void Deve_Recusar_O_Xml_Por_Falta_Do_Status_Para_StatusMDFe()
+        {
 
+            //Arrange
+
+            var xmlEnvio = new MDFeConsStatServMDFe()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                XServ = null
+            };
+
+            
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_StatusMDFe()
         {
             //Arrange
-            var schema = "consStatServMDFe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_status));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -92,10 +130,11 @@ namespace SMDFe.Tests.UtilsTests
             };
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
+            var exception =
+                Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -103,13 +142,13 @@ namespace SMDFe.Tests.UtilsTests
         {
             //Arrange
             var xmlEnvio = new MDFeConsStatServMDFe();
-            var schema = "consStatServMDFe_v3.00.xsd";
+            
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<InvalidOperationException>(exception);
         }
 
         [Test]
@@ -122,13 +161,13 @@ namespace SMDFe.Tests.UtilsTests
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
 
-            var schema = "consStatServMD_v3.00.xsd";
+            
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
         }
 
 
@@ -149,10 +188,9 @@ namespace SMDFe.Tests.UtilsTests
                 CNPJ = _configuracao.Empresa.Cnpj
             };
 
-            var schema = "consMDFeNaoEnc_v3.00.xsd";
 
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), schema);
+            Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas);
 
             //Assert
             Assert.That(true);
@@ -161,16 +199,59 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Test]
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_CNPJ_Para_ConsultasNaoEncerradas()
+        {
+            //Arrange
+            var xmlEnvio = new MDFeCosMDFeNaoEnc()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                CNPJ = null
+            };
+
+
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
+
+        }
+
+        [Test]
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_Consulta_Para_ConsultasNaoEncerradas()
+        {
+            //Arrange
+            var xmlEnvio = new MDFeCosMDFeNaoEnc()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                CNPJ = _configuracao.Empresa.Cnpj,
+                XServ = null
+            };
+
+
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
+
+        }
+
+        [Test]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultasNaoEncerradas()
         {
             //Arrange
-            var schema = "consMDFeNaoEnc_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_encerradas));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -189,7 +270,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -197,13 +278,13 @@ namespace SMDFe.Tests.UtilsTests
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc();
-            var schema = "consMDFeNaoEnc_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<InvalidOperationException>(exception);
         }
 
         [Test]
@@ -217,13 +298,11 @@ namespace SMDFe.Tests.UtilsTests
                 CNPJ = _configuracao.Empresa.Cnpj
             };
 
-            var schema = "consMDFeNaoEnc_v0.00.xsd";
-
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
         }
 
 
@@ -244,28 +323,45 @@ namespace SMDFe.Tests.UtilsTests
                 NRec = "000000000000000"
             };
 
-            var schema = "consReciMdfe_v3.00.xsd";
 
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), schema);
+            Validador.Valida(xmlEnvio.XmlString(), _schema_recibo);
 
             //Assert
             Assert.That(true);
+        }
 
+        [Test]
+        public void Deve_Recusar_O_Xml_Por_Falta_Do_Recibo_Para_ConsultaPorRecibo()
+        {
 
+            //Arrange
+
+            var xmlEnvio = new MDFeConsReciMDFe()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                NRec = null
+            };
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultaPorRecibos()
         {
             //Arrange
-            var schema = "consReciMdfe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_recibo));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -284,7 +380,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -292,13 +388,13 @@ namespace SMDFe.Tests.UtilsTests
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe();
-            var schema = "consReciMdfe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<InvalidOperationException>(exception);
         }
 
         [Test]
@@ -312,13 +408,13 @@ namespace SMDFe.Tests.UtilsTests
                 NRec = "000000000000000"
             };
 
-            var schema = "consReciMdfe_v0.00.xsd";
+            
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
         }
 
         #endregion
@@ -338,10 +434,9 @@ namespace SMDFe.Tests.UtilsTests
                 ChMDFe = "00000000000000000000000000000000000000000000"
             };
 
-            var schema = "consSitMdfe_v3.00.xsd";
 
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), schema);
+            Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo);
 
             //Assert
             Assert.That(true);
@@ -350,16 +445,63 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Test]
+        public void Deve_Recusar_O_Xml_Por_Falta_Do_Protocolo_Para_Consulta_Por_Protocolo()
+        {
+
+            //Arrange
+
+            var xmlEnvio = new MDFeConsSitMDFe()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                ChMDFe = null
+            };
+
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
+
+
+        }
+
+        [Test]
+        public void Deve_Recusar_O_Xml_Por_Falta_Do_Servico_Para_Consulta_Por_Protocolo()
+        {
+
+            //Arrange
+
+            var xmlEnvio = new MDFeConsSitMDFe()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                ChMDFe = "00000000000000000000000000000000000000000000",
+                XServ = null
+            };
+
+
+            //Act
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+
+            //Assert
+            Assert.IsInstanceOf<Exception>(exception);
+
+
+        }
+
+        [Test]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_Consulta_Por_Protocolo()
         {
             //Arrange
-            var schema = "consSitMdfe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_protocolo));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -378,7 +520,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -386,13 +528,13 @@ namespace SMDFe.Tests.UtilsTests
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe();
-            var schema = "consSitMdfe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<InvalidOperationException>(exception);
         }
 
         [Test]
@@ -406,13 +548,11 @@ namespace SMDFe.Tests.UtilsTests
                 ChMDFe = "00000000000000000000000000000000000000000000"
             };
 
-            var schema = "consSitMdf_v3.00.xsd";
-
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
         }
 
         #endregion
@@ -427,11 +567,10 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            var schema = "MDFe_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_mdfe);
 
             //Assert
             Assert.That(true);
@@ -441,13 +580,13 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_MDFe()
         {
             //Arrange
-            var schema = "MDFe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_mdfe));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<Exception>(exception);
 
         }
 
@@ -464,7 +603,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -475,15 +614,14 @@ namespace SMDFe.Tests.UtilsTests
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
             mdfe.InfMDFe.Id = "";
 
-            var schema = "MDFe_v3.00.xsd";
-
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_mdfe));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
+            
         }
 
         [Test]
@@ -492,14 +630,13 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            var schema = "MDFe_v3.00.xd";
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
 
@@ -511,11 +648,10 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            var schema = "enviMDFe_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_enviMdfe);
 
             //Assert
             Assert.That(true);
@@ -526,13 +662,13 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EnviMDFe()
         {
             //Arrange
-            var schema = "enviMDFe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_enviMdfe));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -549,7 +685,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -560,15 +696,13 @@ namespace SMDFe.Tests.UtilsTests
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
             envi_mdfe.IdLote = "";
 
-            var schema = "enviMDFe_v3.00.xsd";
-
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_enviMdfe));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
@@ -577,14 +711,13 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            var schema = "enviMDFe_v3.00.d";
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
 
@@ -597,12 +730,11 @@ namespace SMDFe.Tests.UtilsTests
             var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
 
-            var schema = "MDFeModalRodoviario_v3.00.xsd";
 
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_modalMdfe);
 
             //Assert
             Assert.That(true);
@@ -614,13 +746,13 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_InfoModal()
         {
             //Arrange
-            var schema = "MDFeModalRodoviario_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_modalMdfe));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -637,7 +769,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -648,15 +780,14 @@ namespace SMDFe.Tests.UtilsTests
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
             infoModal.Modal = new MDFeRodo();
 
-            var schema = "MDFeModalRodoviario_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_modalMdfe));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
@@ -666,15 +797,14 @@ namespace SMDFe.Tests.UtilsTests
             var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
 
-            var schema = "MDFeModalRodoviario_v3.00.xd";
 
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
 
@@ -689,11 +819,10 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(1);
-            var schema = "eventoMDFe_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_eventos);
 
             //Assert
             Assert.That(true);
@@ -703,13 +832,13 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoIncluir()
         {
             //Arrange
-            var schema = "eventoMDFe_v3.00.xsd";
+
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -726,7 +855,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -739,15 +868,11 @@ namespace SMDFe.Tests.UtilsTests
 
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
-            var schema = "eventoMDFe_v3.00.xsd";
-
-            
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
@@ -756,14 +881,13 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(1);
-            var schema = "eventoMDFe_v3.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
         //<----------------------------------------------------- Evento Cancelar --------------------------------------------------------->
@@ -774,11 +898,10 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(2);
-            var schema = "eventoMDFe_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_eventos);
 
             //Assert
             Assert.That(true);
@@ -788,13 +911,13 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoCancelar()
         {
             //Arrange
-            var schema = "eventoMDFe_v3.00.xsd";
+           
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -811,7 +934,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -824,15 +947,13 @@ namespace SMDFe.Tests.UtilsTests
 
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
-            var schema = "eventoMDFe_v3.00.xsd";
-
 
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
@@ -841,14 +962,13 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(2);
-            var schema = "eventoMDFe_v3.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
 
@@ -861,11 +981,10 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(3);
-            var schema = "eventoMDFe_v3.00.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            Validador.Valida(xml, schema);
+            Validador.Valida(xml, _schema_eventos);
 
             //Assert
             Assert.That(true);
@@ -875,13 +994,12 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoEncerramento()
         {
             //Arrange
-            var schema = "eventoMDFe_v3.00.xsd";
 
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, schema));
+            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Value cannot be null"));
+            Assert.IsInstanceOf<ArgumentNullException>(exception);
 
         }
 
@@ -898,7 +1016,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
         [Test]
@@ -911,15 +1029,11 @@ namespace SMDFe.Tests.UtilsTests
 
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
-            var schema = "eventoMDFe_v3.00.xsd";
-
-
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
 
             //Arrange
-            Assert.IsTrue(exception.Message.Contains(""));
+            Assert.IsInstanceOf<Exception>(exception);
         }
 
         [Test]
@@ -928,14 +1042,13 @@ namespace SMDFe.Tests.UtilsTests
             //Arrange
             var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
             var evento = mdfeDaoFalsa.GetEvento(3);
-            var schema = "eventoMDFe_v3.xsd";
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, schema));
+            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<FileNotFoundException>(exception);
 
         }
 
@@ -951,7 +1064,7 @@ namespace SMDFe.Tests.UtilsTests
             var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(null, null));
 
             //Assert
-            Assert.IsTrue(exception.Message.Contains("Could not find"));
+            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
     }
 }

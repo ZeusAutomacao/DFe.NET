@@ -36,6 +36,7 @@ namespace SMDFe.Tests.ClassesTests
         #region Testes para a classe ExtMDFe método Assina
 
         [Test]
+        [Ignore("Em construção ainda")]
         public void Assinatura_Valida_Para_Mdfe_Com_Todos_Parametros_Validos()
         {
             //Arrange

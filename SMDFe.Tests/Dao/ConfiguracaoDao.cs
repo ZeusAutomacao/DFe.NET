@@ -1,4 +1,5 @@
 ﻿
+using System.IO;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using SMDFe.Tests.Entidades;
@@ -17,8 +18,8 @@ namespace SMDFe.Tests.Dao
                 Empresa = CarregaDadosEmpresa(),
                 ConfigWebService = CarregaConfigWebServices(),
                 CertificadoDigital = CarregaDadosCertificadoDigital(),
-                DiretorioSalvarXml = "D://Desktop",
-                IsSalvarXml = false
+                DiretorioSalvarXml = Directory.GetParent(System.Reflection.Assembly.GetExecutingAssembly().Location).FullName,
+                IsSalvarXml = true
 
             };
 
