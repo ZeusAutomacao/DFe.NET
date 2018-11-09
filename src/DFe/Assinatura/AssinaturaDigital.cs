@@ -36,6 +36,7 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using DFe.Configuracao;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
+using DFe.Ext;
 using SignatureZeus = DFe.Assinatura.Signature;
 
 namespace DFe.Assinatura
@@ -55,8 +56,8 @@ namespace DFe.Assinatura
             if (dFeConfig.RemoverAcentos == false)
                 documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
 
-            if (dFeConfig.RemoverAcentos) // todo remover acento
-                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+            if (dFeConfig.RemoverAcentos)
+                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos());
 
             var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
             var reference = new System.Security.Cryptography.Xml.Reference { Uri = "#" + id };

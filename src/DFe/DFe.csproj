@@ -139,6 +139,7 @@
     <Compile Include="DocumentosEletronicos\Wsdl\Corpo\NfeTagCorpo.cs" />
     <Compile Include="DocumentosEletronicos\Wsdl\DFeSoapConfig.cs" />
     <Compile Include="Ext\ExtObject.cs" />
+    <Compile Include="Ext\StringExt.cs" />
     <Compile Include="Ext\Valor.cs" />
     <Compile Include="DocumentosEletronicos\Flags\ModeloDocumento.cs" />
     <Compile Include="DocumentosEletronicos\Flags\TipoAmbiente.cs" />

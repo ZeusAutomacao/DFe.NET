@@ -46,6 +46,7 @@ using DFe.DocumentosEletronicos.Entidades;
 using DFe.DocumentosEletronicos.Flags;
 using DFe.DocumentosEletronicos.ManipuladorDeXml;
 using DFe.DocumentosEletronicos.ManipulaPasta;
+using DFe.Ext;
 using CteEletronica = DFe.DocumentosEletronicos.CTe.Classes.Informacoes.CTe;
 
 namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
@@ -325,7 +326,12 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTeOS>", "<CTeOS xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 
-            request.LoadXml(xml); // todo remover acentos
+
+            if (config.RemoverAcentos == false)
+                request.LoadXml(xml); 
+
+            if (config.RemoverAcentos == true)
+                request.LoadXml(xml.RemoverAcentos());
 
             return request;
         }
