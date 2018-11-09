@@ -36,6 +36,7 @@ using System.Security.Cryptography.Xml;
 using System.Xml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using Shared.DFe.Utils;
 using Signature = DFe.Classes.Assinatura.Signature;
 
 namespace NFe.Utils.Assinatura
@@ -59,7 +60,7 @@ namespace NFe.Utils.Assinatura
             try
             {
                 certificadoDigital = CertificadoDigital.ObterCertificado(cfgServico.Certificado);
-                return ObterAssinatura<T>(objeto, id, certificadoDigital, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+                return ObterAssinatura<T>(objeto, id, certificadoDigital, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference, cfgServico.RemoverAcentos);
             }
             finally
             {
@@ -76,8 +77,13 @@ namespace NFe.Utils.Assinatura
         /// <param name="id"></param>
         /// <param name="certificadoDigital">Informe o certificado digital</param>
         /// <param name="manterDadosEmCache">Validador para manter o certificado em cache</param>
+        /// <param name="signatureMethod"></param>
+        /// <param name="digestMethod"></param>
+        /// <param name="cfgServicoRemoverAcentos"></param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital, bool manterDadosEmCache = false, string signatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestMethod = "http://www.w3.org/2000/09/xmldsig#sha1") where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, X509Certificate2 certificadoDigital,
+            bool manterDadosEmCache = false, string signatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
+            string digestMethod = "http://www.w3.org/2000/09/xmldsig#sha1", bool cfgServicoRemoverAcentos = false) where T : class
         {
             var objetoLocal = objeto;
             if (id == null)
@@ -86,7 +92,13 @@ namespace NFe.Utils.Assinatura
             try
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
-                documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+
+                if (cfgServicoRemoverAcentos)
+                    documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos());
+
+                if (cfgServicoRemoverAcentos == false)
+                    documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+
                 var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
 
                 docXml.SignedInfo.SignatureMethod = signatureMethod;
