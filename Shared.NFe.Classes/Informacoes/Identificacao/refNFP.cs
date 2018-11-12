@@ -76,5 +76,14 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     BA18 - Número do Documento Fiscal
         /// </summary>
         public int nNF { get; set; }
+
+        public bool ShouldSerializeCNPJ()
+        {
+            return !string.IsNullOrEmpty(CNPJ);
+        }
+        public bool ShouldSerializeCPF()
+        {
+            return !string.IsNullOrEmpty(CPF);
+        }
     }
 }
