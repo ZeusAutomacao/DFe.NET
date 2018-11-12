@@ -80,8 +80,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         /// </summary>
         /// <param name="cte"></param>
         /// <returns>Retorna uma string no formato XML com os dados da CTe</returns>
-        public static string ObterXmlString(this CTeOS.CTeOS cte)
+        public static string ObterXmlString(this CTeOS.CTeOS cte, DFeConfig config)
         {
+            if (config.RemoverAcentos)
+                return FuncoesXml.ClasseParaXmlString(cte).RemoverAcentos();
+
             return FuncoesXml.ClasseParaXmlString(cte);
         }
 
@@ -304,7 +307,7 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             if (cte == null) throw new ArgumentNullException("cte");
 
-            var xmlValidacao = cte.ObterXmlString();
+            var xmlValidacao = cte.ObterXmlString(config);
 
             Validador.Valida(xmlValidacao, "CTeOS_v3.00.xsd", config);
 
@@ -320,18 +323,13 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             var request = new XmlDocument();
 
-            var xml = cteOs.ObterXmlString();
+            var xml = cteOs.ObterXmlString(config);
 
             if (config.EstadoUf == Estado.PR)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTeOS>", "<CTeOS xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 
-
-            if (config.RemoverAcentos == false)
-                request.LoadXml(xml); 
-
-            if (config.RemoverAcentos == true)
-                request.LoadXml(xml.RemoverAcentos());
+            request.LoadXml(xml);
 
             return request;
         }

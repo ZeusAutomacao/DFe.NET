@@ -96,5 +96,11 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
         {
             return retConsSitCTe.IsNotNull() && !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe);
         }
+
+        public static bool IsRejeicao999(this retConsSitCTe retConsSitCTe)
+        {
+            return retConsSitCTe.IsNotNull() && !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) &&
+                !IsDenegada(retConsSitCTe) && retConsSitCTe.cStat == 999;
+        }
     }
 }

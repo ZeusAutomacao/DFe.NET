@@ -67,5 +67,10 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Extensoes
         {
             return retConsSitCTe.IsNotNull() && !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe);
         }
+
+        public static bool IsRejeicao999(this retCTeOS retConsSitCTe)
+        {
+            return retConsSitCTe.IsNotNull() && !IsAutorizado(retConsSitCTe) && !IsCancelada(retConsSitCTe) && !IsDenegada(retConsSitCTe) && retConsSitCTe.cStat == 999;
+        }
     }
 }
