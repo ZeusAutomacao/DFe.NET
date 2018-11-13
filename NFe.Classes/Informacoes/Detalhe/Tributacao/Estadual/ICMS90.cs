@@ -176,7 +176,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevBC()
         {
-            return vBC.HasValue && vBC.Value > 0;
+            return vBC.HasValue;
         }
 
         public bool ShouldSerializepRedBC()
@@ -186,12 +186,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializepICMS()
         {
-            return pICMS.HasValue && pICMS.Value > 0;
+            return pICMS.HasValue;
         }
 
         public bool ShouldSerializevICMS()
         {
-            return vICMS.HasValue && vICMS.Value > 0;
+            return vICMS.HasValue;
         }
 
         public bool ShouldSerializemodBCST()
