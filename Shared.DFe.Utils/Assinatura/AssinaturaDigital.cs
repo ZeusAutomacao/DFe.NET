@@ -43,6 +43,7 @@ namespace DFe.Utils.Assinatura
     {
         public static SignatureZeus Assina<T>(T objeto, string id, X509Certificate2 certificado) where T : class
         {
+            
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");

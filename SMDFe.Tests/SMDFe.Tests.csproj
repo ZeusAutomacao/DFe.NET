@@ -18,6 +18,39 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Arquivos\envi-mdfe-teste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\evento-cancelar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\evento-encerrar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\evento-incluir.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\mdfe-teste.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-esperado-consulta-recibo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-esperado-nao-encerrados.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-esperado-protocolo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-esperado-status-servico.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-esperado-envi-mdfe.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Schemas\consMDFeNaoEncTiposBasico_v1.00.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

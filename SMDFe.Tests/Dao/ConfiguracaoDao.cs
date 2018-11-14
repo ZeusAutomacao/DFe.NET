@@ -30,16 +30,16 @@ namespace SMDFe.Tests.Dao
             var empresa = new Empresa()
             {
                 Cnpj = "00000000000000",
-                Bairro = "INEXISTENTE",
-                Cep = "00000000",
+                Bairro = "LUGAR NENHUM",
+                Cep = "49500133",
                 CodigoIbgeMunicipio = 2802908,
                 Complemento = "1 andar",
-                Email = "ficticia@gmail.com",
+                Email = "inexiste@gmail.com",
                 InscricaoEstadual = "000000000",
-                Logradouro = "RUA EXISTE EM CANTO NENHUM",
-                Nome = "FICTICIA TESTE LTDA ME",
-                NomeFantasia = "FICTICIA TESTE",
-                NomeMunicipio = "LUGAR NENHUM",
+                Logradouro = "RUA NENHUMA",
+                Nome = "INEXISTENTE LTDA ME",
+                NomeFantasia = "INEXISTENTE",
+                NomeMunicipio = "Itabaiana",
                 Numero = "000",
                 RNTRC = "000000",
                 SiglaUf = Estado.SE,
@@ -52,10 +52,10 @@ namespace SMDFe.Tests.Dao
         {
             var certificado = new ConfigCertificadoDigital()
             {
-                CaminhoArquivo = "\\DefinaCaminhoDoCertificado",
+                CaminhoArquivo = "",
                 ManterEmCache = false,
-                NumeroDeSerie = "00000000000000000000000000000000",
-                Senha = "0000"
+                NumeroDeSerie = "009a24fe",
+                Senha = ""
 
             };
             return certificado;
@@ -68,7 +68,7 @@ namespace SMDFe.Tests.Dao
                 Ambiente = TipoAmbiente.Homologacao,
                 Serie = 1,
                 VersaoLayout = VersaoServico.Versao300,
-                CaminhoSchemas = "C:\\Users\\Usuario\\DFe.NET\\DFe.NET\\SMDFe.Tests\\Schemas",
+                CaminhoSchemas = @"Schemas\",
                 Numeracao = 1,
                 TimeOut = 1000,
                 UfEmitente = Estado.SE

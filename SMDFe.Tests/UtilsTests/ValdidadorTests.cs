@@ -565,7 +565,7 @@ namespace SMDFe.Tests.UtilsTests
         {
 
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
@@ -594,7 +594,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
@@ -610,7 +610,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
             mdfe.InfMDFe.Id = "";
 
@@ -628,7 +628,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
             var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
             var xml = FuncoesXml.ClasseParaXmlString(mdfe);
 
@@ -646,7 +646,7 @@ namespace SMDFe.Tests.UtilsTests
         {
 
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
@@ -676,7 +676,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
@@ -692,7 +692,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
             envi_mdfe.IdLote = "";
 
@@ -709,7 +709,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
             var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
 
@@ -727,7 +727,7 @@ namespace SMDFe.Tests.UtilsTests
         {
 
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
 
 
@@ -760,7 +760,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
@@ -776,7 +776,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
             infoModal.Modal = new MDFeRodo();
 
@@ -794,7 +794,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
+            var envimdfeDaoFalsa = new RepositorioDaoFalso();
             var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
 
 
@@ -811,14 +811,16 @@ namespace SMDFe.Tests.UtilsTests
         #endregion
 
         #region Testes para a validação do Schema Eventos
-        //<------------------------------------------------- Evento Incluir Condutor ----------------------------------------------------->
-        [Test]
-        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EventoIncluirCondutor()
+
+        [TestCase(1)] // Incluir Condutor Evento
+        [TestCase(2)] // Cancelar Evento
+        [TestCase(3)] // Encerramento Evento
+        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Os_Eventos(int tipo)
         {
 
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(1);
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
+            var evento = mdfeDaoFalsa.GetEvento(tipo);
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act
@@ -829,7 +831,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoIncluir()
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_O_Evento()
         {
             //Arrange
 
@@ -842,12 +844,14 @@ namespace SMDFe.Tests.UtilsTests
 
         }
 
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EventoIncluir()
+        [TestCase(1)] // Incluir Condutor Evento
+        [TestCase(2)] // Cancelar Evento
+        [TestCase(3)] // Encerramento Evento
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Os_Eventos(int tipo)
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(1);
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
+            var evento = mdfeDaoFalsa.GetEvento(tipo);
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
 
@@ -858,12 +862,14 @@ namespace SMDFe.Tests.UtilsTests
             Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
         }
 
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EventoIncluir()
+        [TestCase(1)] // Incluir Condutor Evento
+        [TestCase(2)] // Cancelar Evento
+        [TestCase(3)] // Encerramento Evento
+        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Os_Eventos(int tipo)
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(1);
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
+            var evento = mdfeDaoFalsa.GetEvento(tipo);
             evento.InfEvento.ChMDFe = "";
 
             var xml = FuncoesXml.ClasseParaXmlString(evento);
@@ -875,173 +881,14 @@ namespace SMDFe.Tests.UtilsTests
             Assert.IsInstanceOf<Exception>(exception);
         }
 
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EventoIncluir()
+        [TestCase(1)] // Incluir Condutor Evento
+        [TestCase(2)] // Cancelar Evento
+        [TestCase(3)] // Encerramento Evento
+        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Os_Eventos(int tipo)
         {
             //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(1);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
-
-            //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
-        }
-        //<----------------------------------------------------- Evento Cancelar --------------------------------------------------------->
-        [Test]
-        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EventoCancelar()
-        {
-
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(2);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            Validador.Valida(xml, _schema_eventos);
-
-            //Assert
-            Assert.That(true);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoCancelar()
-        {
-            //Arrange
-           
-
-            //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
-
-            //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EventoCancelar()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(2);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-
-            //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
-
-            //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EventoCancelar()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(2);
-            evento.InfEvento.ChMDFe = "";
-
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-
-
-            //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
-
-            //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EventoCancelar()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(2);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
-
-            //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
-        }
-
-        //<---------------------------------------------------- Evento Encerramento ------------------------------------------------------>
-
-        [Test]
-        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EventoEncerramento()
-        {
-
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(3);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            Validador.Valida(xml, _schema_eventos);
-
-            //Assert
-            Assert.That(true);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EventoEncerramento()
-        {
-            //Arrange
-
-            //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
-
-            //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EventoEncerramento()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(3);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-
-            //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
-
-            //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EventoEncerramento()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(3);
-            evento.InfEvento.ChMDFe = "";
-
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
-
-            //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
-        }
-
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EventoEncerramento()
-        {
-            //Arrange
-            var mdfeDaoFalsa = new MDfeEletronicaDaoFalsa();
-            var evento = mdfeDaoFalsa.GetEvento(3);
+            var mdfeDaoFalsa = new RepositorioDaoFalso();
+            var evento = mdfeDaoFalsa.GetEvento(tipo);
             var xml = FuncoesXml.ClasseParaXmlString(evento);
 
             //Act

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Xml;
 using Castle.DynamicProxy.Generators.Emitters.SimpleAST;
 using DFe.Utils;
 using SMDFe.Classes.Informacoes.Evento;
@@ -11,7 +12,7 @@ using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Tests.Dao
 {
-    public class MDfeEletronicaDaoFalsa
+    public class RepositorioDaoFalso
     {
         private MDFeEletronico _mdFeEletronico;
         private MDFeEnviMDFe _enviMdFe;
@@ -19,7 +20,7 @@ namespace SMDFe.Tests.Dao
 
 
 
-        public MDfeEletronicaDaoFalsa()
+        public RepositorioDaoFalso()
         {
 
         }
@@ -27,7 +28,7 @@ namespace SMDFe.Tests.Dao
 
         private void CarregarMdfeArquivo()
         {
-            var caminhoXml = "mdfe-teste.xml";
+            var caminhoXml = @"Arquivos\mdfe-teste.xml";
             try
             {
                 _mdFeEletronico = MDFeEletronico.LoadXmlArquivo(caminhoXml);
@@ -42,7 +43,7 @@ namespace SMDFe.Tests.Dao
 
         private void CarregarEnviMdfeArquivo()
         {
-            var caminhoXml = "envi-mdfe-teste.xml";
+            var caminhoXml = @"Arquivos\envi-mdfe-teste.xml";
 
             try
             {
@@ -56,11 +57,8 @@ namespace SMDFe.Tests.Dao
 
         }
 
-
-        private void CarregarEnviMdfeEventoIncluir(string caminhoXml)
+        private void CarregarEnviMdfeEvento(string caminhoXml)
         {
-            
-
             try
             {
                 var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeEventoMDFe>(caminhoXml);
@@ -92,7 +90,7 @@ namespace SMDFe.Tests.Dao
             {
                 _evento = new MDFeEventoMDFe();
                 var evento = ArquivoEvento(tipoEvento);
-                CarregarEnviMdfeEventoIncluir(evento);
+                CarregarEnviMdfeEvento(evento);
             }
 
             return _evento;
@@ -104,13 +102,13 @@ namespace SMDFe.Tests.Dao
             switch (tipoEvento)
             {
                 case 1:
-                    evento = "evento-incluir.xml";
+                    evento = @"Arquivos\evento-incluir.xml";
                     break;
                 case 2:
-                    evento = "evento-cancelar.xml";
+                    evento = @"Arquivos\evento-cancelar.xml";
                     break;
                 case 3:
-                    evento = "evento-encerrar.xml";
+                    evento = @"Arquivos\evento-encerrar.xml";
                     break;
                 default:
                     throw new ArgumentException("Argumento Inválido");                    
@@ -119,6 +117,12 @@ namespace SMDFe.Tests.Dao
             return evento;
         }
 
+        public XmlDocument GetXmlEsperado(string xml)
+        {
+            var xmlSolicitado = new XmlDocument();
+            xmlSolicitado.Load(@"Arquivos\"+xml);
+            return xmlSolicitado;
+        }
 
         public MDFeEnviMDFe GetEnviMdFe()
         {

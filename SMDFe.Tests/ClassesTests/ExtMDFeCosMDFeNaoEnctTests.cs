@@ -1,21 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Xml;
-using  NUnit.Framework;
+using NUnit.Framework;
 using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes.RetRecepcao;
+using SMDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using SMDFe.Tests.Dao;
 using SMDFe.Tests.Entidades;
 
 namespace SMDFe.Tests.ClassesTests
 {
     [TestFixture]
-    public class ExtMDFeConsReciMDFeTests
+    public class ExtMDFeCosMDFeNaoEnctTests
     {
-
         private Configuracao _configuracao;
-        private string _recibo;
+        private MDFeCosMDFeNaoEnc _consultaMdFeNaoEnc;
+        private string _cnpj;
         private string _xmlEsperado;
-        private MDFeConsReciMDFe _consultaRecibo;
+
 
         #region SETUP
         [SetUp]
@@ -24,9 +26,8 @@ namespace SMDFe.Tests.ClassesTests
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
 
-
-            _recibo = "000000000000000";
-            _xmlEsperado = "xml-esperado-consulta-recibo.xml";
+            _cnpj = _configuracao.Empresa.Cnpj;
+            _xmlEsperado = "xml-esperado-nao-encerrados.xml";
 
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
             Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
@@ -42,41 +43,43 @@ namespace SMDFe.Tests.ClassesTests
         }
         #endregion
 
-        #region Testes para a classe ExtMDFeConsReciMDFe 
+        #region Testes para a classe ExtMDFeCosMDFeNaoEnct
 
         [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Com_Parametros()
+        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Com_Parametros()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = _recibo
+                CNPJ = _cnpj
             };
 
             //Act
-            var xmlGerado = _consultaRecibo.CriaRequestWs();
+            var xmlGerado = _consultaMdFeNaoEnc.CriaRequestWs();
 
 
             //Assert
             Assert.IsInstanceOf<XmlDocument>(xmlGerado);
         }
 
+
         [Test]
-        public void Testa_A_Requisicao_Recibo_Criada_Com_O_Xml_Esperado()
+        public void Testa_A_Requisicao_Nao_Encerradas_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = _recibo
+                CNPJ = _cnpj
             };
+
             var repositorioDao = new RepositorioDaoFalso();
 
             //Act
-            var xmlGerado = _consultaRecibo.CriaRequestWs();
+            var xmlGerado = _consultaMdFeNaoEnc.CriaRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
@@ -84,13 +87,13 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Parametros()
+        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Parametros()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe();
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaRecibo.CriaRequestWs());
+            var exception = Assert.Throws<InvalidOperationException>(() => _consultaMdFeNaoEnc.CriaRequestWs());
 
             //Assert
             Assert.IsInstanceOf<InvalidOperationException>(exception);
@@ -98,16 +101,16 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Versao()
+        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Versao()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
-                NRec = _recibo
+                CNPJ = _cnpj
             };
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaRecibo.CriaRequestWs());
+            var exception = Assert.Throws<InvalidOperationException>(() => _consultaMdFeNaoEnc.CriaRequestWs());
 
             //Assert
             Assert.IsInstanceOf<InvalidOperationException>(exception);
@@ -115,16 +118,16 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Ambiente()
+        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Ambiente()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = _recibo
+                CNPJ = _cnpj
             };
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaRecibo.CriaRequestWs());
+            var exception = Assert.Throws<InvalidOperationException>(() => _consultaMdFeNaoEnc.CriaRequestWs());
 
             //Assert
             Assert.IsInstanceOf<InvalidOperationException>(exception);
@@ -132,15 +135,15 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Ambiente_E_Versao()
+        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Ambiente_E_Versao()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
-                NRec = _recibo
+                CNPJ = _cnpj
             };
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaRecibo.CriaRequestWs());
+            var exception = Assert.Throws<InvalidOperationException>(() => _consultaMdFeNaoEnc.CriaRequestWs());
 
             //Assert
             Assert.IsInstanceOf<InvalidOperationException>(exception);
@@ -148,18 +151,18 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Test]
-        public void Testa_A_Funcao_Por_Recibo_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        public void Testa_A_Funcao_Nao_Encerrados_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
         {
             //Arrange
-            _consultaRecibo = new MDFeConsReciMDFe()
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = _recibo
+                CNPJ = _cnpj
             };
 
             //Act
-            _consultaRecibo.SalvarXmlEmDisco();
+            _consultaMdFeNaoEnc.SalvarXmlEmDisco();
 
             //Assert
             Assert.That(true);

@@ -1,16 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Xml;
 using NUnit.Framework;
+using SMDFe.Classes.Extencoes;
+using SMDFe.Classes.Informacoes.Evento;
 using SMDFe.Tests.Dao;
 using SMDFe.Tests.Entidades;
+
 
 namespace SMDFe.Tests.ClassesTests
 {
     [TestFixture]
-    public class ExtMDFeTests
+    public class ExtMDFeEventoMDFeTests
     {
         private Configuracao _configuracao;
+        private MDFeEventoMDFe _evento;
+        
 
         #region SETUP
         [SetUp]
@@ -33,19 +37,14 @@ namespace SMDFe.Tests.ClassesTests
         }
         #endregion
 
-        #region Testes para a classe ExtMDFe método Assina
+        #region Testes para a classe ExtMDFeEventoMDFe 
 
-        [Test]
-        [Ignore("Em construção ainda")]
-        public void Assinatura_Valida_Para_Mdfe_Com_Todos_Parametros_Validos()
-        {
-            //Arrange
+        // <------------------------------------------------- Evento Incluir Condutor --------------------------------------------->
 
-            //Act
 
-            //Assert
+        // <----------------------------------------------------- Evento Canelar -------------------------------------------------->
 
-        }
+        // <--------------------------------------------------- Evento Encerramento ----------------------------------------------->
 
         #endregion
     }
