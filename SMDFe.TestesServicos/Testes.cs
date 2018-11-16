@@ -25,12 +25,12 @@ namespace SMDFe.TestesServicos
         {
             //ConsultasNaoEnc(); //Okay
             //ConsultaStatus(); //Okay
-            CriarEnviar(); //OKay
+            //CriarEnviar(); //OKay
             //ConsultaPorRecibo(); //Okay
             //ConsultaPorProtocolo(); //Okay
             //EventoIncluirCondutor(); //Okay
             //EventoEncerramento(); //Okay
-            //EventoCancelar(); //Okay
+            EventoCancelar(); //Okay
 
         }
 

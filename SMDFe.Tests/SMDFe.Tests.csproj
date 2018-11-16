@@ -48,6 +48,15 @@
     <None Include="Arquivos\xml-esperado-envi-mdfe.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Arquivos\xml-evento-incluir-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-evento-cancelar-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Arquivos\xml-evento-encerrar-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

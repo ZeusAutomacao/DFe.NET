@@ -17,7 +17,6 @@ namespace SMDFe.Tests.ClassesTests
     {
         private Configuracao _configuracao;
         private MDFeEnviMDFe _enviMdFe;
-        private RepositorioDaoFalso _repositorioDaoFalso;
         private MDFeEletronicaFalsa _mdfe;
         private string _xmlEsperado;
 
@@ -27,7 +26,6 @@ namespace SMDFe.Tests.ClassesTests
         {
             var configuracaoDao = new ConfiguracaoDao();
 
-            _repositorioDaoFalso = new RepositorioDaoFalso();
             _configuracao = configuracaoDao.GetConfiguracao();
 
             _mdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
@@ -105,9 +103,13 @@ namespace SMDFe.Tests.ClassesTests
         public void Testa_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao_E_IDLote()
         {
             //Arrange
-            _enviMdFe = _repositorioDaoFalso.GetEnviMdFe();
-            _enviMdFe.Versao = 0;
-            _enviMdFe.IdLote = null;
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = 0,
+                MDFe = _mdfe.GetMdfe(),
+                IdLote = null
+            };
+            _enviMdFe.MDFe.Assina();
 
             //Act
             var exception = Assert.Throws<InvalidOperationException>(() => _enviMdFe.CriaXmlRequestWs());
@@ -121,8 +123,13 @@ namespace SMDFe.Tests.ClassesTests
         public void Testa_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao()
         {
             //Arrange
-            _enviMdFe = _repositorioDaoFalso.GetEnviMdFe();
-            _enviMdFe.Versao = 0;
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = 0,
+                MDFe = _mdfe.GetMdfe(),
+                IdLote = "1"
+            };
+            _enviMdFe.MDFe.Assina();
 
             //Act
             var exception = Assert.Throws<InvalidOperationException>(() => _enviMdFe.CriaXmlRequestWs());
@@ -136,7 +143,13 @@ namespace SMDFe.Tests.ClassesTests
         public void Testa_A_Funcao_Envio_Mdfe_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
         {
             //Arrange
-            _enviMdFe = _repositorioDaoFalso.GetEnviMdFe();
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe.GetMdfe(),
+                IdLote = "1"
+            };
+            _enviMdFe.MDFe.Assina();
 
             //Act
             _enviMdFe.SalvarXmlEmDisco();
