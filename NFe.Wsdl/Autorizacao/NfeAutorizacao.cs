@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -39,6 +41,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Autorizacao
 {
+    [DesignerCategory("NfeAutorizacaoSoap12")]
     [WebServiceBinding(Name = "NfeAutorizacaoSoap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao")]
     public class NfeAutorizacao : SoapHttpClientProtocol, INfeServicoAutorizacao
     {

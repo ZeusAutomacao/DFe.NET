@@ -30,6 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -39,6 +41,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Inutilizacao
 {
+    [DesignerCategory("NfeInutilizacao2Soap")]
     [WebServiceBinding(Name = "NfeInutilizacao2Soap", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2")]
     public class NfeInutilizacao2 : SoapHttpClientProtocol, INfeServico
     {
@@ -59,8 +62,8 @@ namespace NFe.Wsdl.Inutilizacao
         [return: XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2")]
         public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeInutilizacao2")] XmlNode nfeDadosMsg)
         {
-            var results = Invoke("nfeInutilizacaoNF2", new object[] {nfeDadosMsg});
-            return ((XmlNode) (results[0]));
+            var results = Invoke("nfeInutilizacaoNF2", new object[] { nfeDadosMsg });
+            return ((XmlNode)(results[0]));
         }
     }
 }

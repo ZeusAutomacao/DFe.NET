@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -40,6 +41,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.ConsultaCadastro.CE
 {
+    [DesignerCategory("CadConsultaCadastro2Soap12")]
     [WebServiceBinding(Name = "CadConsultaCadastro2Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
     public class CadConsultaCadastro2 : SoapHttpClientProtocol, INfeServico
     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -8,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 {
+    [DesignerCategory("CadConsultaCadastro4Service")]
     [WebServiceBinding(Name = "CadConsultaCadastro4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4")]
     public class CadConsultaCadastro4 : SoapHttpClientProtocol, INfeServico
     {

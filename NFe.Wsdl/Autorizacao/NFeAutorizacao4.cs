@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Description;
@@ -8,6 +9,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Autorizacao
 {
+    [DesignerCategory("NFeAutorizacao4Service")]
     [WebServiceBinding(Name = "NFeAutorizacao4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
     public class NFeAutorizacao4 : SoapHttpClientProtocol, INfeServicoAutorizacao
     {

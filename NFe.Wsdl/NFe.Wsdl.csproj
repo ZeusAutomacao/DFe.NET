@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
     <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,22 +55,22 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeAutorizacao.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeAutorizacaoSoap12</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeAutorizacao3.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeAutorizacaoSoap12</SubType>
     </Compile>
     <Compile Include="Autorizacao\NFeAutorizacao4.cs">
-      <SubType>Component</SubType>
+      <SubType>NFeAutorizacao4Service</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
-      <SubType>Component</SubType>
+      <SubType>NFeAutorizacao4Service</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeRetAutorizacaoSoap12</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao4.cs">
-      <SubType>Component</SubType>
+      <SubType>NFeRetAutorizacao4Service</SubType>
     </Compile>
     <Compile Include="Autorizacao\SVAN\NFeAutorizacao4SVAN.cs">
       <SubType>Component</SubType>
@@ -84,13 +85,13 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
-      <SubType>Component</SubType>
+      <SubType>CadConsultaCadastro2Soap12</SubType>
     </Compile>
     <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
-      <SubType>Component</SubType>
+      <SubType>CadConsultaCadastro2Soap</SubType>
     </Compile>
     <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
-      <SubType>Component</SubType>
+      <SubType>CadConsultaCadastro4Service</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo.cs">
       <SubType>Component</SubType>
@@ -114,10 +115,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
-      <SubType>Component</SubType>
+      <SubType>NFeDistribuicaoDFeSoap</SubType>
     </Compile>
     <Compile Include="Download\NfeDownloadNF.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeDownloadNFSoap</SubType>
     </Compile>
     <Compile Include="Evento\AN\RecepcaoEvento4AN.cs">
       <SubType>Component</SubType>
@@ -143,16 +144,16 @@
     <Compile Include="INfeServico.cs" />
     <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeInutilizacaoSoap</SubType>
     </Compile>
     <Compile Include="Inutilizacao\NfeInutilizacao2.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeInutilizacao2Soap</SubType>
     </Compile>
     <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeInutilizacaoSoap12</SubType>
     </Compile>
     <Compile Include="Inutilizacao\NFeInutilizacao4.cs">
-      <SubType>Component</SubType>
+      <SubType>NfeInutilizacaoSoap12</SubType>
     </Compile>
     <Compile Include="Inutilizacao\SVAN\NFeInutilizacao4SVAN.cs">
       <SubType>Component</SubType>
