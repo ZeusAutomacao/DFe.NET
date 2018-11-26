@@ -33,6 +33,7 @@
 
 using System;
 using CTe.Classes;
+using CTe.Classes.Informacoes.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 
@@ -47,12 +48,46 @@ namespace CTe.Servicos.Enderecos.Helpers
             switch (configuracaoServico.tpAmb)
             {
                 case TipoAmbiente.Homologacao:
+                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCRS)
+                    {
+                        return UrlHomologacaoSvrs();
+                    }
                     return UrlHomologacao();
                 case TipoAmbiente.Producao:
+                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCRS)
+                    {
+                        return UrlProducaoSvrs();
+                    }
                     return UrlProducao();
             }
 
             throw new InvalidOperationException("Tipo Ambiente inválido");
+        }
+
+        private static UrlCTe UrlHomologacaoSvrs()
+        {
+            return new UrlCTe
+            {
+                CteRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcao/CTeRecepcao.asmx",
+                CteRetRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteretrecepcao/CTeRetRecepcao.asmx",
+                CteInutilizacao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
+                CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/cteconsulta/CTeConsulta.asmx",
+                CteStatusServico = @"https://cte-homologacao.svrs.rs.gov.br/ws/ctestatusservico/CTeStatusServico.asmx",
+                CteRecepcaoEvento = @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcaoevento/CTeRecepcaoEvento.asmx"
+            };
+        }
+
+        private static UrlCTe UrlProducaoSvrs()
+        {
+            return new UrlCTe
+            {
+                CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
+                CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx",
+                CteInutilizacao = @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
+                CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
+                CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",
+                CteRecepcaoEvento = @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx"
+            };
         }
 
         private static UrlCTe UrlProducao()
