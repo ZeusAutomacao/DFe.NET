@@ -46,10 +46,10 @@ namespace NFe.Utils.Assinatura
         /// <summary>
         ///     Obtém a assinatura de um objeto serializável
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="objeto"></param>
-        /// <param name="id"></param>
-        /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
+        /// <typeparam name="T">Tipo do objeto a ser assinado</typeparam>
+        /// <param name="objeto">Objeto a ser assinado</param>
+        /// <param name="id">Id para URI do objeto <see cref="Signature"/></param>
+        /// <param name="cfgServico">Configuração do serviço</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
         public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico cfgServico = null) where T : class
         {
@@ -93,11 +93,9 @@ namespace NFe.Utils.Assinatura
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
 
-                if (cfgServicoRemoverAcentos)
-                    documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos());
-
-                if (cfgServicoRemoverAcentos == false)
-                    documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
+                documento.LoadXml(cfgServicoRemoverAcentos
+                    ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
+                    : FuncoesXml.ClasseParaXmlString(objetoLocal));
 
                 var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
 

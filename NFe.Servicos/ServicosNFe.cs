@@ -326,13 +326,9 @@ namespace NFe.Servicos
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlInutilizacao = string.Empty;
-
-            if (_cFgServico.RemoverAcentos)
-                xmlInutilizacao = pedInutilizacao.ObterXmlString().RemoverAcentos();
-
-            if (_cFgServico.RemoverAcentos == false)
-                xmlInutilizacao = pedInutilizacao.ObterXmlString();
+            var xmlInutilizacao = _cFgServico.RemoverAcentos
+                ? pedInutilizacao.ObterXmlString().RemoverAcentos()
+                : pedInutilizacao.ObterXmlString();
 
             Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
             var dadosInutilizacao = new XmlDocument();
@@ -367,6 +363,7 @@ namespace NFe.Servicos
         /// <param name="idlote"></param>
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
+        /// <param name="versaoEvento">Versão do serviço para o evento</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, VersaoServico versaoEvento)
         {
@@ -420,16 +417,9 @@ namespace NFe.Servicos
 
             #region Valida, Envia os dados e obtém a resposta
 
-
-
-            var xmlEvento = string.Empty;
-
-            if (_cFgServico.RemoverAcentos == false)
-                xmlEvento = pedEvento.ObterXmlString();
-
-            if (_cFgServico.RemoverAcentos) 
-                xmlEvento = pedEvento.ObterXmlString().RemoverAcentos();
-
+            var xmlEvento = _cFgServico.RemoverAcentos
+                    ? pedEvento.ObterXmlString().RemoverAcentos()
+                    : pedEvento.ObterXmlString();
 
             Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
             var dadosEvento = new XmlDocument();
@@ -1073,13 +1063,9 @@ namespace NFe.Servicos
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlEnvio = string.Empty;
-
-            if (_cFgServico.RemoverAcentos == false)
-                xmlEnvio = pedEnvio.ObterXmlString();
-
-            if (_cFgServico.RemoverAcentos)
-                xmlEnvio = pedEnvio.ObterXmlString().RemoverAcentos();
+            var xmlEnvio = _cFgServico.RemoverAcentos
+                ? pedEnvio.ObterXmlString().RemoverAcentos()
+                : pedEnvio.ObterXmlString();
 
             if (_cFgServico.cUF == Estado.PR)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
