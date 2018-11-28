@@ -257,5 +257,17 @@ namespace NFe.Utils
             }
             return hex;
         }
+        
+        public static string RemoverAcentucaoSimples(this string texto)
+        {
+            string comAcentos = "ÄÅÁÂÀÃäáâàãÉÊËÈéêëèÍÎÏÌíîïìÖÓÔÒÕöóôòõÜÚÛüúûùÇçñÑ";
+            string semAcentos = "AAAAAAaaaaaEEEEeeeeIIIIiiiiOOOOOoooooUUUuuuuCcnN";
+            
+            for (int i = 0; i < comAcentos.Length; i++)
+            {
+                texto = texto.Replace(comAcentos[i].ToString(), semAcentos[i].ToString());
+            }
+            return texto;
+        }
     }
 }
