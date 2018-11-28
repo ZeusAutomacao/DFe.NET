@@ -164,6 +164,11 @@ namespace NFe.Utils
             return null;
         }
 
+        public static int ModeloDocumentoParaInt(this ModeloDocumento modelo)
+        {
+            return (int) modelo;
+        }
+
         public static string CsticmsParaString(this Csticms csticms)
         {
             switch (csticms)
