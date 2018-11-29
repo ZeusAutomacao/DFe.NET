@@ -58,6 +58,7 @@ namespace NFe.Danfe.Base.NFCe
             NfceLayoutQrCode = nfceLayoutQrCode;
             CarregarFontePadraoNfceNativa();
             VersaoQrCode = versaoQrCode;
+            SegundaViaContingencia = true;
         }
 
         /// <summary>
@@ -111,6 +112,8 @@ namespace NFe.Danfe.Base.NFCe
         public VersaoQrCode VersaoQrCode { get; set; }
 
         public string FontPadraoNfceNativa { get; set; }
+
+        public bool SegundaViaContingencia { get; set; }
 
         public FontFamily CarregarFontePadraoNfceNativa(string font = null)
         {

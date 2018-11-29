@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace DFe.Utils
 {
@@ -30,6 +31,18 @@ namespace DFe.Utils
         {
             var attribute = value.ObterAtributo<DescriptionAttribute>();
             return attribute == null ? value.ToString() : attribute.Description;
+        }
+
+        /// <summary>
+        /// Função de extensão de Enums. 
+        /// Obtém a XmlEnum definida no atributo [XmlEnum("xx")]para o Enum
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static string XmlDescricao(this Enum value)
+        {
+            var attribute = value.ObterAtributo<XmlEnumAttribute>();
+            return attribute == null ? value.ToString() : attribute.Name.ToString();
         }
     }
 }

@@ -176,7 +176,6 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RS, versao3E4, "https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx"},
                 {Estado.RO, versao3E4, "http://www.nfce.sefin.ro.gov.br/consultanfce/consulta.jsp"},
                 {Estado.RR, versao3E4, "http://200.174.88.103:8080/nfce/servlet/qrcode"},
-                {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspxhttps://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/qrcodeNFCe"}
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new []{VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2}, urlsQrCodeHomologacaoQrCode1E2);
@@ -184,7 +183,8 @@ namespace NFe.Utils.InformacoesSuplementares
             var urlsQrCodeHomologacaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.PR, versao3E4, "http://www.dfeportal.fazenda.pr.gov.br/dfe-portal/rest/servico/consultaNFCe?"},
-                {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?"}
+                {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?"},
+                {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"}
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1 }, urlsQrCodeHomologacaoQrCode1);
 
@@ -193,6 +193,7 @@ namespace NFe.Utils.InformacoesSuplementares
             {
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
+                {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"}
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
 

@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.IO;
 using DFe.Utils;
 using NFe.Classes.Servicos.Consulta;
 
@@ -57,6 +58,12 @@ namespace NFe.Utils.Consulta
         public static procEventoNFe CarregarDeXmlString(this procEventoNFe procEventoNFe, string xmlString)
         {
             var s = FuncoesXml.ObterNodeDeStringXml(typeof(procEventoNFe).Name, xmlString);
+            return FuncoesXml.XmlStringParaClasse<procEventoNFe>(s);
+        }
+
+        public static procEventoNFe CarregardeStream(this procEventoNFe procEventoNFe, StreamReader stream)
+        {
+            var s = FuncoesXml.ObterNodeDeStream(typeof(procEventoNFe).Name, stream);
             return FuncoesXml.XmlStringParaClasse<procEventoNFe>(s);
         }
     }
