@@ -361,15 +361,5 @@ namespace DFe.Utils.Assinatura
 
             return result;
         }
-
-        /// <summary>
-        /// Obtém o array de bytes de um certificado digital
-        /// </summary>
-        /// <param name="certificado"></param>
-        /// <returns></returns>
-        public static byte[] ObterArrayDeBytes(this X509Certificate2 certificado)
-        {
-            return certificado.Export(X509ContentType.Pkcs12);
-        }
     }
 }
