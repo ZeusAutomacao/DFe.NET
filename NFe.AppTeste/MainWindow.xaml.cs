@@ -473,6 +473,9 @@ namespace NFe.AppTeste
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
+                if (string.IsNullOrEmpty(cpfcnpj))
+                    throw new Exception("O CPF ou CNPJ do emitente deve ser informado!");
+
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
 
