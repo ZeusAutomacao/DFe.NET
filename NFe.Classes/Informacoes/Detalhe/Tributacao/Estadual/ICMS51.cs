@@ -63,6 +63,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public DeterminacaoBaseIcms? modBC { get; set; }
 
+        public bool ShouldSerializemodBC()
+        {
+            return modBC.HasValue;
+        }
+
         /// <summary>
         ///     N14 - Percentual de redução da BC
         /// </summary>
@@ -70,6 +75,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pRedBc.Arredondar(4); }
             set { _pRedBc = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBC()
+        {
+            return pRedBC.HasValue && pRedBC.Value > 0;
         }
 
         /// <summary>
@@ -81,6 +91,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBc = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevBC()
+        {
+            return vBC.HasValue && vBC.Value > 0;
+        }
+
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
@@ -88,6 +103,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pIcms.Arredondar(4); }
             set { _pIcms = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMS()
+        {
+            return pICMS.HasValue && pICMS.Value > 0;
         }
 
         /// <summary>
@@ -99,6 +119,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcmsOp = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevICMSOp()
+        {
+            return vICMSOp.HasValue && vICMSOp.Value > 0;
+        }
+
         /// <summary>
         ///     N16b - Percentual do diferimento
         /// </summary>
@@ -106,6 +131,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pDif.Arredondar(2); }
             set { _pDif = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepDif()
+        {
+            return pDif.HasValue && pDif.Value > 0;
         }
 
         /// <summary>
@@ -117,6 +147,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcmsDif = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevICMSDif()
+        {
+            return vICMSDif.HasValue && vICMSDif.Value > 0;
+        }
+
         /// <summary>
         ///     N17 - Valor do ICMS
         /// </summary>
@@ -124,41 +159,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcms.Arredondar(2); }
             set { _vIcms = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializemodBC()
-        {
-            return modBC.HasValue;
-        }
-
-        public bool ShouldSerializepRedBC()
-        {
-            return pRedBC.HasValue && pRedBC.Value > 0;
-        }
-
-        public bool ShouldSerializevBC()
-        {
-            return vBC.HasValue && vBC.Value > 0;
-        }
-
-        public bool ShouldSerializepICMS()
-        {
-            return pICMS.HasValue && pICMS.Value > 0;
-        }
-
-        public bool ShouldSerializevICMSOp()
-        {
-            return vICMSOp.HasValue && vICMSOp.Value > 0;
-        }
-
-        public bool ShouldSerializepDif()
-        {
-            return pDif.HasValue && pDif.Value > 0;
-        }
-
-        public bool ShouldSerializevICMSDif()
-        {
-            return vICMSDif.HasValue && vICMSDif.Value > 0;
         }
 
         public bool ShouldSerializevICMS()

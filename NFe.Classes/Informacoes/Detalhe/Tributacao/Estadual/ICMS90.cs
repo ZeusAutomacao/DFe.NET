@@ -41,18 +41,18 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pRedBc;
         private decimal? _pIcms;
         private decimal? _vIcms;
+        private decimal? _vBCFCP;
+        private decimal? _pFCP;
+        private decimal? _vFCP;
         private decimal? _pMvast;
         private decimal? _pRedBcst;
         private decimal? _vBcst;
         private decimal? _pIcmsst;
         private decimal? _vIcmsst;
-        private decimal? _vIcmsDeson;
-        private decimal? _vBCFCP;
-        private decimal? _pFCP;
-        private decimal? _vFCP;
         private decimal? _vBCFCPST;
         private decimal? _pFCPST;
         private decimal? _vFCPST;
+        private decimal? _vIcmsDeson;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -69,6 +69,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public DeterminacaoBaseIcms? modBC { get; set; }
 
+        public bool ShouldSerializemodBC()
+        {
+            return modBC.HasValue;
+        }
+
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
@@ -76,6 +81,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vBc.Arredondar(2); }
             set { _vBc = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBC()
+        {
+            return vBC.HasValue;
         }
 
         /// <summary>
@@ -87,6 +97,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pRedBc = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepRedBC()
+        {
+            return pRedBC.HasValue && pRedBC.Value > 0;
+        }
+
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
@@ -94,6 +109,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pIcms.Arredondar(4); }
             set { _pIcms = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMS()
+        {
+            return pICMS.HasValue;
         }
 
         /// <summary>
@@ -105,133 +125,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcms = value.Arredondar(2); }
         }
 
-        /// <summary>
-        ///     N18 - Modalidade de determinação da BC do ICMS ST
-        /// </summary>
-        public DeterminacaoBaseIcmsSt? modBCST { get; set; }
-
-        /// <summary>
-        ///     N19 - Percentual da margem de valor Adicionado do ICMS ST
-        /// </summary>
-        public decimal? pMVAST
-        {
-            get { return _pMvast.Arredondar(4); }
-            set { _pMvast = value.Arredondar(4); }
-        }
-
-        /// <summary>
-        ///     N20 - Percentual da Redução de BC do ICMS ST
-        /// </summary>
-        public decimal? pRedBCST
-        {
-            get { return _pRedBcst.Arredondar(4); }
-            set { _pRedBcst = value.Arredondar(4); }
-        }
-
-        /// <summary>
-        ///     N21 - Valor da BC do ICMS ST
-        /// </summary>
-        public decimal? vBCST
-        {
-            get { return _vBcst.Arredondar(2); }
-            set { _vBcst = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N22 - Alíquota do imposto do ICMS ST
-        /// </summary>
-        public decimal? pICMSST
-        {
-            get { return _pIcmsst.Arredondar(4); }
-            set { _pIcmsst = value.Arredondar(4); }
-        }
-
-        /// <summary>
-        ///     N23 - Valor do ICMS ST
-        /// </summary>
-        public decimal? vICMSST
-        {
-            get { return _vIcmsst.Arredondar(2); }
-            set { _vIcmsst = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N27a - Valor do ICMS desonerado
-        /// </summary>
-        public decimal? vICMSDeson
-        {
-            get { return _vIcmsDeson.Arredondar(2); }
-            set { _vIcmsDeson = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N28 - Motivo da desoneração do ICMS
-        /// </summary>
-        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
-
-        public bool ShouldSerializemodBC()
-        {
-            return modBC.HasValue;
-        }
-
-        public bool ShouldSerializevBC()
-        {
-            return vBC.HasValue;
-        }
-
-        public bool ShouldSerializepRedBC()
-        {
-            return pRedBC.HasValue && pRedBC.Value > 0;
-        }
-
-        public bool ShouldSerializepICMS()
-        {
-            return pICMS.HasValue;
-        }
-
         public bool ShouldSerializevICMS()
         {
             return vICMS.HasValue;
-        }
-
-        public bool ShouldSerializemodBCST()
-        {
-            return modBCST.HasValue;
-        }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue && pMVAST.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue && pRedBCST.Value > 0;
-        }
-
-        public bool ShouldSerializevBCST()
-        {
-            return vBCST.HasValue && vBCST.Value > 0;
-        }
-
-        public bool ShouldSerializepICMSST()
-        {
-            return pICMSST.HasValue && pICMSST.Value > 0;
-        }
-
-        public bool ShouldSerializevICMSST()
-        {
-            return vICMSST.HasValue && vICMSST.Value > 0;
-        }
-
-        public bool ShouldSerializevICMSDeson()
-        {
-            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
-        }
-
-        public bool ShouldSerializemotDesICMS()
-        {
-            return motDesICMS.HasValue;
         }
 
         /// <summary>
@@ -277,6 +173,86 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
+        ///     N18 - Modalidade de determinação da BC do ICMS ST
+        /// </summary>
+        public DeterminacaoBaseIcmsSt? modBCST { get; set; }
+
+        public bool ShouldSerializemodBCST()
+        {
+            return modBCST.HasValue;
+        }
+
+        /// <summary>
+        ///     N19 - Percentual da margem de valor Adicionado do ICMS ST
+        /// </summary>
+        public decimal? pMVAST
+        {
+            get { return _pMvast.Arredondar(4); }
+            set { _pMvast = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue && pMVAST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N20 - Percentual da Redução de BC do ICMS ST
+        /// </summary>
+        public decimal? pRedBCST
+        {
+            get { return _pRedBcst.Arredondar(4); }
+            set { _pRedBcst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N21 - Valor da BC do ICMS ST
+        /// </summary>
+        public decimal? vBCST
+        {
+            get { return _vBcst.Arredondar(2); }
+            set { _vBcst = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCST()
+        {
+            return vBCST.HasValue && vBCST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N22 - Alíquota do imposto do ICMS ST
+        /// </summary>
+        public decimal? pICMSST
+        {
+            get { return _pIcmsst.Arredondar(4); }
+            set { _pIcmsst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMSST()
+        {
+            return pICMSST.HasValue && pICMSST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N23 - Valor do ICMS ST
+        /// </summary>
+        public decimal? vICMSST
+        {
+            get { return _vIcmsst.Arredondar(2); }
+            set { _vIcmsst = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSST()
+        {
+            return vICMSST.HasValue && vICMSST.Value > 0;
+        }
+
+        /// <summary>
         /// N23a - Valor da Base de Cálculo do FCP
         /// </summary>
         public decimal? vBCFCPST
@@ -316,6 +292,30 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCPST()
         {
             return vFCPST.HasValue && vFCPST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N27a - Valor do ICMS desonerado
+        /// </summary>
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
+        }
+
+        /// <summary>
+        ///     N28 - Motivo da desoneração do ICMS
+        /// </summary>
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+
+        public bool ShouldSerializemotDesICMS()
+        {
+            return motDesICMS.HasValue;
         }
     }
 }

@@ -42,10 +42,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBcst;
         private decimal _pIcmsst;
         private decimal _vIcmsst;
-        private decimal? _vIcmsDeson;
         private decimal? _vBCFCPST;
         private decimal? _pFCPST;
         private decimal? _vFCPST;
+        private decimal? _vIcmsDeson;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -71,6 +71,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pMvast = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue && pMVAST.Value > 0;
+        }
+
         /// <summary>
         ///     N20 - Percentual da Redução de BC do ICMS ST
         /// </summary>
@@ -78,6 +83,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pRedBcst.Arredondar(4); }
             set { _pRedBcst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         /// <summary>
@@ -105,40 +115,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsst.Arredondar(2); }
             set { _vIcmsst = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N27a - Valor do ICMS desonerado
-        /// </summary>
-        public decimal? vICMSDeson
-        {
-            get { return _vIcmsDeson.Arredondar(2); }
-            set { _vIcmsDeson = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N28 - Motivo da desoneração do ICMS
-        /// </summary>
-        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue && pMVAST.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue && pRedBCST.Value > 0;
-        }
-
-        public bool ShouldSerializevICMSDeson()
-        {
-            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
-        }
-
-        public bool ShouldSerializemotDesICMS()
-        {
-            return motDesICMS.HasValue;
         }
 
         /// <summary>
@@ -181,6 +157,30 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCPST()
         {
             return vFCPST.HasValue && vFCPST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N27a - Valor do ICMS desonerado
+        /// </summary>
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
+        }
+
+        /// <summary>
+        ///     N28 - Motivo da desoneração do ICMS
+        /// </summary>
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+
+        public bool ShouldSerializemotDesICMS()
+        {
+            return motDesICMS.HasValue;
         }
     }
 }

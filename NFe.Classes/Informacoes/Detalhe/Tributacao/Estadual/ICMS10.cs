@@ -40,6 +40,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
+        private decimal? _vBcfcp;
+        private decimal? _pFcp;
+        private decimal? _vFcp;
         private decimal? _pMvast;
         private decimal? _pRedBcst;
         private decimal _vBcst;
@@ -89,6 +92,48 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcms.Arredondar(2); }
             set { _vIcms = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        /// N17a - Valor da Base de Cálculo do FCP
+        /// </summary>
+        public decimal? vBCFCP
+        {
+            get { return _vBcfcp.Arredondar(2); }
+            set { _vBcfcp = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriaizevBCFCP()
+        {
+            return _vBcfcp.GetValueOrDefault() > 0;
+        }
+
+        /// <summary>
+        /// N17b - Percentual do Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? pFCP
+        {
+            get { return _pFcp.Arredondar(4); }
+            set { _pFcp = value.Arredondar(4); }
+        }
+
+        public bool ShouldSeriaizepFCP()
+        {
+            return _pFcp.GetValueOrDefault() > 0;
+        }
+
+        /// <summary>
+        /// N17c - Valor do Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? vFCP
+        {
+            get { return _vFcp.Arredondar(2); }
+            set { _vFcp = value.Arredondar(2); }
+        }
+
+        public bool ShouldSeriaizevFCP()
+        {
+            return _vFcp.GetValueOrDefault() > 0;
         }
 
         /// <summary>

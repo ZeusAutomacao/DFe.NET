@@ -38,11 +38,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
     public class ICMS60 : ICMSBasico
     {
         private decimal? _vBcstRet;
+        private decimal? _pST;
         private decimal? _vIcmsstRet;
-        private decimal? _vBCFCPST;
+        private decimal? _vBCFCPSTRet;
         private decimal? _pFCPSTRet;
         private decimal? _vFCPSTRet;
-        private decimal? _pST;
+        private decimal? _pRedBcEfet;
+        private decimal? _vBcEfet;
+        private decimal? _pIcmsEfet;
+        private decimal? _vIcmsEfet;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -63,6 +67,25 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vBcstRet = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevBCSTRet()
+        {
+            return vBCSTRet.HasValue && vBCSTRet.Value > 0;
+        }
+
+        /// <summary>
+        /// N27e - Alíquota suportada pelo Consumidor Final
+        /// </summary>
+        public decimal? pST
+        {
+            get { return _pST.Arredondar(2); }
+            set { _pST = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializepST()
+        {
+            return pST.HasValue && pST.Value > 0;
+        }
+
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
@@ -70,11 +93,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsstRet.Arredondar(2); }
             set { _vIcmsstRet = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializevBCSTRet()
-        {
-            return vBCSTRet.HasValue && vBCSTRet.Value > 0;
         }
 
         public bool ShouldSerializevICMSSTRet()
@@ -85,15 +103,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         /// N23a - Valor da Base de Cálculo do FCP retido anteriormente
         /// </summary>
-        public decimal? vBCFCPST
+        public decimal? vBCFCPSTRet
         {
-            get { return _vBCFCPST.Arredondar(2); }
-            set { _vBCFCPST = value.Arredondar(2); }
+            get { return _vBCFCPSTRet.Arredondar(2); }
+            set { _vBCFCPSTRet = value.Arredondar(2); }
         }
 
-        public bool ShouldSerializevBCFCPST()
+        public bool ShouldSerializevBCFCPSTRet()
         {
-            return vBCFCPST.HasValue && vBCFCPST.Value > 0;
+            return vBCFCPSTRet.HasValue && vBCFCPSTRet.Value > 0;
         }
 
         /// <summary>
@@ -121,21 +139,63 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool ShouldSerializevFCPSTRet()
         {
-            return vFCPSTRet.HasValue && vFCPSTRet.Value > 0;
+            return _vFCPSTRet.GetValueOrDefault() > 0;
         }
 
         /// <summary>
-        /// N27e - Alíquota suportada pelo Consumidor Final
+        /// N34 - Percentual de redução da base de cálculo efetiva
         /// </summary>
-        public decimal? pST
+        public decimal? pRedBCEfet
         {
-            get { return _pST.Arredondar(2); }
-            set { _pST = value.Arredondar(2); }
+            get { return _pRedBcEfet.Arredondar(4); }
+            set { _pRedBcEfet = value.Arredondar(4); }
         }
 
-        public bool ShouldSerializepST()
+        public bool ShouldSerializepRedBCEfet()
         {
-            return pST.HasValue && pST.Value > 0;
+            return _pRedBcEfet.GetValueOrDefault() > 0;
+        }
+
+        /// <summary>
+        /// N35 - Valor da base de cálculo efetiva
+        /// </summary>
+        public decimal? vBCEfet
+        {
+            get { return _vBcEfet.Arredondar(2); }
+            set { _vBcEfet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCEfet()
+        {
+            return vBCEfet.GetValueOrDefault() > 0;
+        }
+
+        /// <summary>
+        /// N36 - Alíquota do ICMS efetiva
+        /// </summary>
+        public decimal? pICMSEfet
+        {
+            get { return _pIcmsEfet.Arredondar(4); }
+            set { _pIcmsEfet = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMSEfet()
+        {
+            return pICMSEfet.GetValueOrDefault() > 0;
+        }
+
+        /// <summary>
+        /// N37 - Valor do ICMS efetivo
+        /// </summary>
+        public decimal? vICMSEfet
+        {
+            get { return _vIcmsEfet.Arredondar(2); }
+            set { _vIcmsEfet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSEfet()
+        {
+            return vICMSEfet.GetValueOrDefault() > 0;
         }
     }
 }

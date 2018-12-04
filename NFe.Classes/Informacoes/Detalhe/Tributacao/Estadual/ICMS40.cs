@@ -57,15 +57,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcmsDeson = value.Arredondar(2); }
         }
 
-        /// <summary>
-        ///     N28 - Motivo da desoneração do ICMS
-        /// </summary>
-        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
-
         public bool ShouldSerializevICMSDeson()
         {
             return vICMSDeson.HasValue;
         }
+
+        /// <summary>
+        ///     N28 - Motivo da desoneração do ICMS
+        /// </summary>
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
         public bool ShouldSerializemotDesICMS()
         {

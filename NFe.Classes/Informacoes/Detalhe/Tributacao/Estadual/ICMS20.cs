@@ -41,10 +41,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
-        private decimal? _vIcmsDeson;
         private decimal? _vBCFCP;
         private decimal? _pFCP;
         private decimal? _vFCP;
+        private decimal? _vIcmsDeson;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -98,30 +98,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
-        ///     N27a - Valor do ICMS desonerado
-        /// </summary>
-        public decimal? vICMSDeson
-        {
-            get { return _vIcmsDeson.Arredondar(2); }
-            set { _vIcmsDeson = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializevICMSDeson()
-        {
-            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
-        }
-
-        /// <summary>
-        ///     N28 - Motivo da desoneração do ICMS
-        /// </summary>
-        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
-
-        public bool ShouldSerializemotDesICMS()
-        {
-            return motDesICMS.HasValue;
-        }
-
-        /// <summary>
         /// N17a - Valor da Base de Cálculo do FCP
         /// </summary>
         public decimal? vBCFCP
@@ -161,6 +137,30 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCP()
         {
             return vFCP.HasValue && vFCP.Value > 0;
+        }
+
+        /// <summary>
+        ///     N27a - Valor do ICMS desonerado
+        /// </summary>
+        public decimal? vICMSDeson
+        {
+            get { return _vIcmsDeson.Arredondar(2); }
+            set { _vIcmsDeson = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSDeson()
+        {
+            return vICMSDeson.HasValue && vICMSDeson.Value > 0;
+        }
+
+        /// <summary>
+        ///     N28 - Motivo da desoneração do ICMS
+        /// </summary>
+        public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+
+        public bool ShouldSerializemotDesICMS()
+        {
+            return motDesICMS.HasValue;
         }
     }
 }
