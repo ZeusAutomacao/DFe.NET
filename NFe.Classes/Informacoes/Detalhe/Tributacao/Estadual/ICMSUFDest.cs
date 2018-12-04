@@ -3,12 +3,12 @@
     public class ICMSUFDest
     {
         private decimal _vBcufDest;
-        private decimal _vBCFCPUFDest;
-        private decimal _pFcpufDest;
+        private decimal? _vBCFCPUFDest;
+        private decimal? _pFcpufDest;
         private decimal _pIcmsufDest;
         private decimal _pIcmsInter;
         private decimal _pIcmsInterPart;
-        private decimal _vFcpufDest;
+        private decimal? _vFcpufDest;
         private decimal _vIcmsufDest;
         private decimal _vIcmsufRemet;
 
@@ -24,22 +24,29 @@
         /// <summary>
         /// NA04 - Valor da BC FCP na UF de destino
         /// </summary>
-        public decimal vBCFCPUFDest
+        public decimal? vBCFCPUFDest
         {
             get { return _vBCFCPUFDest.Arredondar(2); }
             set { _vBCFCPUFDest = value.Arredondar(2); }
         }
-        
+
+        public bool ShouldSerializevBCFCPUFDest()
+        {
+            return _vBCFCPUFDest.GetValueOrDefault() > 0;
+        }
+
         /// <summary>
         /// NA05 - Percentual do ICMS relativo ao Fundo de Combate à Pobreza (FCP) na UF de destino
         /// </summary>
-        public decimal pFCPUFDest
+        public decimal? pFCPUFDest
         {
             get { return _pFcpufDest; }
-            set
-            {
-                _pFcpufDest = value.Arredondar(4);
-            }
+            set { _pFcpufDest = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepFCPUFDest()
+        {
+            return _pFcpufDest.GetValueOrDefault() > 0;
         }
 
         /// <summary>
@@ -72,10 +79,15 @@
         /// <summary>
         /// NA13 - Valor do ICMS relativo ao Fundo de Combate à Pobreza(FCP) da UF de destino
         /// </summary>
-        public decimal vFCPUFDest
+        public decimal? vFCPUFDest
         {
             get { return _vFcpufDest; }
             set { _vFcpufDest = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevFCPUFDest()
+        {
+            return _vFcpufDest.GetValueOrDefault() > 0;
         }
 
         /// <summary>

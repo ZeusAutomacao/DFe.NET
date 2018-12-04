@@ -80,6 +80,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pRedBc = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepRedBC()
+        {
+            return pRedBC.HasValue;
+        }
+
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
@@ -112,6 +117,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pMvast = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue;
+        }
+
         /// <summary>
         ///     N20 - Percentual da Redução de BC do ICMS ST
         /// </summary>
@@ -119,6 +129,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pRedBcst.Arredondar(4); }
             set { _pRedBcst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue;
         }
 
         /// <summary>
@@ -161,20 +176,5 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         ///     N24 - UF para qual é devido o ICMS ST
         /// </summary>
         public string UFST { get; set; }
-
-        public bool ShouldSerializepRedBC()
-        {
-            return pRedBC.HasValue;
-        }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue;
-        }
     }
 }

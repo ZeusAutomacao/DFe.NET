@@ -70,6 +70,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pMvast = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue && pMVAST.Value > 0;
+        }
+
         /// <summary>
         ///     N20 - Percentual da Redução de BC do ICMS ST
         /// </summary>
@@ -77,6 +82,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pRedBcst.Arredondar(4); }
             set { _pRedBcst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         /// <summary>
@@ -104,16 +114,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsst; }
             set { _vIcmsst = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue && pMVAST.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         /// <summary>

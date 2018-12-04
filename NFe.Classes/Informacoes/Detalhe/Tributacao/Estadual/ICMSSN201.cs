@@ -42,11 +42,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBcst;
         private decimal _pIcmsst;
         private decimal _vIcmsst;
-        private decimal _pCredSn;
-        private decimal _vCredIcmssn;
         private decimal? _vBCFCPST;
         private decimal? _pFCPST;
         private decimal? _vFCPST;
+        private decimal _pCredSn;
+        private decimal _vCredIcmssn;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -72,6 +72,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pMvast = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue && pMVAST.Value > 0;
+        }
+
         /// <summary>
         ///     N20 - Percentual da Redução de BC do ICMS ST
         /// </summary>
@@ -79,6 +84,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pRedBcst.Arredondar(4); }
             set { _pRedBcst = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         /// <summary>
@@ -106,34 +116,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vIcmsst; }
             set { _vIcmsst = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
-        /// </summary>
-        public decimal pCredSN
-        {
-            get { return _pCredSn; }
-            set { _pCredSn = value.Arredondar(4); }
-        }
-
-        /// <summary>
-        ///     N30 - Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
-        /// </summary>
-        public decimal vCredICMSSN
-        {
-            get { return _vCredIcmssn; }
-            set { _vCredIcmssn = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue && pMVAST.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue && pRedBCST.Value > 0;
         }
 
         /// <summary>
@@ -176,6 +158,24 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCPST()
         {
             return vFCPST.HasValue && vFCPST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
+        /// </summary>
+        public decimal pCredSN
+        {
+            get { return _pCredSn; }
+            set { _pCredSn = value.Arredondar(4); }
+        }
+
+        /// <summary>
+        ///     N30 - Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
+        /// </summary>
+        public decimal vCredICMSSN
+        {
+            get { return _vCredIcmssn; }
+            set { _vCredIcmssn = value.Arredondar(2); }
         }
     }
 }

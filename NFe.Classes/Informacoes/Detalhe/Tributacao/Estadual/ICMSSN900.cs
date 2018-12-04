@@ -67,6 +67,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public DeterminacaoBaseIcms? modBC { get; set; }
 
+        public bool ShouldSerializemodBC()
+        {
+            return modBC.HasValue;
+        }
+
         /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
@@ -74,6 +79,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vBc.Arredondar(2); }
             set { _vBc = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBC()
+        {
+            return vBC.HasValue && vBC.Value > 0;
         }
 
         /// <summary>
@@ -85,6 +95,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pRedBc = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepRedBC()
+        {
+            return pRedBC.HasValue && pRedBC.Value > 0;
+        }
+
         /// <summary>
         ///     N16 - Alíquota do imposto
         /// </summary>
@@ -92,6 +107,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pIcms.Arredondar(4); }
             set { _pIcms = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMS()
+        {
+            return pICMS.HasValue && pICMS.Value > 0;
         }
 
         /// <summary>
@@ -103,10 +123,20 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcms = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevICMS()
+        {
+            return vICMS.HasValue && vICMS.Value > 0;
+        }
+
         /// <summary>
         ///     N18 - Modalidade de determinação da BC do ICMS ST
         /// </summary>
         public DeterminacaoBaseIcmsSt? modBCST { get; set; }
+
+        public bool ShouldSerializemodBCST()
+        {
+            return modBCST.HasValue;
+        }
 
         /// <summary>
         ///     N19 - Percentual da margem de valor Adicionado do ICMS ST
@@ -115,6 +145,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _pMvast.Arredondar(4); }
             set { _pMvast = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepMVAST()
+        {
+            return pMVAST.HasValue && pMVAST.Value > 0;
         }
 
         /// <summary>
@@ -126,6 +161,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pRedBcst = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepRedBCST()
+        {
+            return pRedBCST.HasValue && pRedBCST.Value > 0;
+        }
+
         /// <summary>
         ///     N21 - Valor da BC do ICMS ST
         /// </summary>
@@ -133,6 +173,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vBcst.Arredondar(2); }
             set { _vBcst = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCST()
+        {
+            return vBCST.HasValue && vBCST.Value > 0;
         }
 
         /// <summary>
@@ -144,6 +189,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _pIcmsst = value.Arredondar(4); }
         }
 
+        public bool ShouldSerializepICMSST()
+        {
+            return pICMSST.HasValue && pICMSST.Value > 0;
+        }
+
         /// <summary>
         ///     N23 - Valor do ICMS ST
         /// </summary>
@@ -153,87 +203,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             set { _vIcmsst = value.Arredondar(2); }
         }
 
-        /// <summary>
-        ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
-        /// </summary>
-        public decimal? pCredSN
-        {
-            get { return _pCredSn.Arredondar(4); }
-            set { _pCredSn = value.Arredondar(4); }
-        }
-
-        /// <summary>
-        ///     N30 - Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
-        /// </summary>
-        public decimal? vCredICMSSN
-        {
-            get { return _vCredIcmssn.Arredondar(2); }
-            set { _vCredIcmssn = value.Arredondar(2); }
-        }
-
-        public bool ShouldSerializemodBC()
-        {
-            return modBC.HasValue;
-        }
-
-        public bool ShouldSerializevBC()
-        {
-            return vBC.HasValue && vBC.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBC()
-        {
-            return pRedBC.HasValue && pRedBC.Value > 0;
-        }
-
-        public bool ShouldSerializepICMS()
-        {
-            return pICMS.HasValue && pICMS.Value > 0;
-        }
-
-        public bool ShouldSerializevICMS()
-        {
-            return vICMS.HasValue && vICMS.Value > 0;
-        }
-
-        public bool ShouldSerializemodBCST()
-        {
-            return modBCST.HasValue;
-        }
-
-        public bool ShouldSerializepMVAST()
-        {
-            return pMVAST.HasValue && pMVAST.Value > 0;
-        }
-
-        public bool ShouldSerializepRedBCST()
-        {
-            return pRedBCST.HasValue && pRedBCST.Value > 0;
-        }
-
-        public bool ShouldSerializevBCST()
-        {
-            return vBCST.HasValue && vBCST.Value > 0;
-        }
-
-        public bool ShouldSerializepICMSST()
-        {
-            return pICMSST.HasValue && pICMSST.Value > 0;
-        }
-
         public bool ShouldSerializevICMSST()
         {
             return vICMSST.HasValue && vICMSST.Value > 0;
-        }
-
-        public bool ShouldSerializepCredSN()
-        {
-            return pCredSN.HasValue && pCredSN.Value > 0;
-        }
-
-        public bool ShouldSerializevCredICMSSN()
-        {
-            return vCredICMSSN.HasValue && vCredICMSSN.Value > 0;
         }
 
         /// <summary>
@@ -276,6 +248,34 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializevFCPST()
         {
             return vFCPST.HasValue && vFCPST.Value > 0;
+        }
+
+        /// <summary>
+        ///     N29 - pCredSN - Alíquota aplicável de cálculo do crédito (Simples Nacional).
+        /// </summary>
+        public decimal? pCredSN
+        {
+            get { return _pCredSn.Arredondar(4); }
+            set { _pCredSn = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepCredSN()
+        {
+            return pCredSN.HasValue && pCredSN.Value > 0;
+        }
+
+        /// <summary>
+        ///     N30 - Valor crédito do ICMS que pode ser aproveitado nos termos do art. 23 da LC 123 (Simples Nacional)
+        /// </summary>
+        public decimal? vCredICMSSN
+        {
+            get { return _vCredIcmssn.Arredondar(2); }
+            set { _vCredIcmssn = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevCredICMSSN()
+        {
+            return vCredICMSSN.HasValue && vCredICMSSN.Value > 0;
         }
     }
 }
