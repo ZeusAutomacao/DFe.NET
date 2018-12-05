@@ -40,7 +40,6 @@
 using System;
 using System.IO;
 using NFe.Classes.Servicos.ConsultaCadastro;
-using NFe.Classes.Servicos.Status;
 using NFe.Integracao.Enums;
 
 namespace NFe.Integracao

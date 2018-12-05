@@ -3,10 +3,6 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
 using NFe.Utils.Tributacao.Federal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NFe.Testes.Impostos
 {

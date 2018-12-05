@@ -291,6 +291,13 @@
                                     </StackPanel>
 
                                 </StackPanel>
+
+                                <StackPanel Margin="10,10,0,0">
+                                    <CheckBox Name="CbxRemoverAcentuacao" Content="Remover acentuação"
+                                              HorizontalAlignment="Left"
+                                              VerticalAlignment="Top" Width="178"
+                                              IsChecked="{Binding CfgServico.RemoverAcentos}"/>
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </TabItem>
@@ -786,13 +793,13 @@
                                 <TextBox x:Name="TxtEmitCidade" HorizontalAlignment="Left" Height="23"
                                          Margin="77,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"
                                          Text="{Binding EnderecoEmitente.xMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="UF" HorizontalAlignment="Left" Margin="378,305,0,0"
-                                       VerticalAlignment="Top" />
-                                <ComboBox x:Name="CmbEmitUf" Height="23" Margin="378,331,10,218"
+                                <Label Content="UF" HorizontalAlignment="Left" Margin="375,305,0,0"
+                                       VerticalAlignment="Top" RenderTransformOrigin="-0.375,0.423" />
+                                <ComboBox x:Name="CmbEmitUf" Height="23" Margin="375,331,13,318"
                                           ItemsSource="{Binding Source={StaticResource EstadoEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF}" />
                             </Grid>
-                            <ComboBox x:Name="CmbCrt" Height="23" Margin="10,384,10,164"
+                            <ComboBox x:Name="CmbCrt" Height="23" Margin="10,383,10,266"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
                                       SelectedItem="{Binding Emitente.CRT}" />
                             <Label Content="CRT" HorizontalAlignment="Left" Margin="10,357,0,0"

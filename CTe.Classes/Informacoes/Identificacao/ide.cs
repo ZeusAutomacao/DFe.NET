@@ -225,7 +225,7 @@ namespace CTe.Classes.Informacoes.Identificacao
             {
                 if (dhCont == null) return null;
 
-                return dhCont.Value.ParaDataHoraString();
+                return dhCont.Value.ParaDataHoraStringUtc();
             }
             set
             {
