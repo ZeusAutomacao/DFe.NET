@@ -1,42 +1,59 @@
 ﻿using  System;
 using System.IO;
 using DFe.Utils;
-using NUnit.Framework;
+using Xunit;
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Informacoes;
 using SMDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using SMDFe.Classes.Informacoes.ConsultaProtocolo;
+using SMDFe.Classes.Informacoes.Evento;
+using SMDFe.Classes.Informacoes.Evento.CorpoEvento;
+using SMDFe.Classes.Informacoes.Evento.Flags;
 using SMDFe.Classes.Informacoes.RetRecepcao;
 using SMDFe.Classes.Informacoes.StatusServico;
+using SMDFe.Classes.Servicos.Autorizacao;
+using SMDFe.Servicos.EventosMDFe;
 using SMDFe.Tests.Dao;
 using SMDFe.Tests.Entidades;
+using SMDFe.Utils.Flags;
 using SMDFe.Utils.Validacao;
+
 
 namespace SMDFe.Tests.UtilsTests
 {
-    [TestFixture]
-    public class ValdidadorTests
+    
+    public class ValdidadorTests:IDisposable
     {
         #region Variáveis
         private Configuracao _configuracao;
-        private string _schema_status;
-        private string _schema_encerradas;
-        private string _schema_recibo;
-        private string _schema_protocolo;
-        private string _schema_mdfe;
-        private string _schema_enviMdfe;
-        private string _schema_modalMdfe;
-        private string _schema_eventos;
-        private string _schema_incorreto;
+        private readonly string _schema_status;
+        private readonly string _schema_encerradas;
+        private readonly string _schema_recibo;
+        private readonly string _schema_protocolo;
+        private readonly string _schema_mdfe;
+        private readonly string _schema_enviMdfe;
+        private readonly string _schema_modalMdfe;
+        private readonly string _schema_eventos;
+        private readonly string _schema_incorreto;
+        private MDFeEletronicaFalsa _RepositorioFalsoMdfe;
+        private MDFe _mdfe;
+        private MDFeEnviMDFe _enviMdFe;
+        private MDFeCondutorIncluir _condutor;
+        private MDFeEventoMDFe _evento;
+        private readonly string _protocolo;
+        private readonly string _justificativa;
+        private readonly string _recibo;
+        private readonly string _chaveMDFe;
+        private readonly string _lote;
+
         #endregion
 
-
         #region SETUP
-        [SetUp]
-        public void CriarConfiguração()
+        public ValdidadorTests()
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
+
             _schema_status = "consStatServMDFe_v3.00.xsd";
             _schema_encerradas = "consMDFeNaoEnc_v3.00.xsd";
             _schema_recibo = "consReciMdfe_v3.00.xsd";
@@ -46,50 +63,54 @@ namespace SMDFe.Tests.UtilsTests
             _schema_modalMdfe = "MDFeModalRodoviario_v3.00.xsd";
             _schema_eventos = "eventoMDFe_v3.00.xsd";
             _schema_incorreto = "schema_falso_v3.00.xsd";
+            _protocolo = "000000000000000";
+            _justificativa = "Erro na Matrix";
+            _recibo = "000000000000000";
+            _chaveMDFe = "00000000000000000000000000000000000000000000";
+            _lote = "1";   
 
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = _configuracao.IsSalvarXml;
+            _RepositorioFalsoMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
+            _mdfe = _RepositorioFalsoMdfe.GetMdfe();
+            _condutor = new MDFeCondutorIncluir() { CPF = "00000000000", XNome = "NINGUEM" };
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = _configuracao.ConfigWebService.VersaoLayout;
+            var configcertificado = new CertificadoDao().getConfiguracaoCertificado();
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = _configuracao.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = _configuracao.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = _configuracao.ConfigWebService.TimeOut;
+            var configuracoes = new ConfiguracaoUtilsDao(_configuracao, configcertificado);
+            configuracoes.setCongiguracoes();
+        }
 
-
+        public void Dispose()
+        {
+            _RepositorioFalsoMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
+            _mdfe = _RepositorioFalsoMdfe.GetMdfe();
+            _enviMdFe = new MDFeEnviMDFe();
         }
         #endregion
 
-
         #region Testes para a validação do Schema Status
 
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_StatusMDFe()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeConsStatServMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
-
-          
+            
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), _schema_status);
+            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_O_Xml_Por_Falta_Do_Status_Para_StatusMDFe()
         {
 
             //Arrange
-
             var xmlEnvio = new MDFeConsStatServMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
@@ -97,29 +118,28 @@ namespace SMDFe.Tests.UtilsTests
                 XServ = null
             };
 
-            
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_StatusMDFe()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_status));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_status));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_StatusMDFe()
         {
             //Arrange
@@ -131,27 +151,28 @@ namespace SMDFe.Tests.UtilsTests
 
             //Act
             var exception =
-                Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
+                Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_StatusMDFe()
         {
             //Arrange
             var xmlEnvio = new MDFeConsStatServMDFe();
             
-
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_status));
 
             //Arrange
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_StatusMDFe()
         {
             //Arrange
@@ -161,26 +182,22 @@ namespace SMDFe.Tests.UtilsTests
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
 
-            
-
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
-
 
         #endregion
 
         #region Testes para a validação do Schema Consultas Não Encerradas
 
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_ConsultasNaoEncerradas()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
@@ -188,17 +205,14 @@ namespace SMDFe.Tests.UtilsTests
                 CNPJ = _configuracao.Empresa.Cnpj
             };
 
-
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas);
+            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Assert
-            Assert.That(true);
-
-
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_CNPJ_Para_ConsultasNaoEncerradas()
         {
             //Arrange
@@ -209,17 +223,15 @@ namespace SMDFe.Tests.UtilsTests
                 CNPJ = null
             };
 
-
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_Consulta_Para_ConsultasNaoEncerradas()
         {
             //Arrange
@@ -231,31 +243,28 @@ namespace SMDFe.Tests.UtilsTests
                 XServ = null
             };
 
-
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultasNaoEncerradas()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_encerradas));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_encerradas));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_ConsultasNaoEncerradas()
         {
             //Arrange
@@ -267,27 +276,28 @@ namespace SMDFe.Tests.UtilsTests
             };
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_ConsultasNaoEncerradas()
+        [Fact]
+        public void Deve_Recusar_A_Validacao_Por_XML_Vazio_Para_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc();
 
-
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_encerradas));
 
             //Arrange
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_ConsultasNaoEncerradas()
         {
             //Arrange
@@ -299,44 +309,39 @@ namespace SMDFe.Tests.UtilsTests
             };
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
-
 
         #endregion
 
         #region Testes para a validação do Schema Consultas por Recibo
 
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_ConsultaPorRecibo()
         {
-
             //Arrange
-            
             var xmlEnvio = new MDFeConsReciMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = "000000000000000"
+                NRec = _recibo
             };
-
-
+            
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), _schema_recibo);
+            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_O_Xml_Por_Falta_Do_Recibo_Para_ConsultaPorRecibo()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeConsReciMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
@@ -345,27 +350,27 @@ namespace SMDFe.Tests.UtilsTests
             };
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultaPorRecibos()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_recibo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_recibo));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_ConsultaPorRecibo()
         {
             //Arrange
@@ -373,31 +378,32 @@ namespace SMDFe.Tests.UtilsTests
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = "000000000000000"
+                NRec = _recibo
             };
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_ConsultaPorRecibo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe();
 
-
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_recibo));
 
             //Arrange
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_ConsultaPorRecibo()
         {
             //Arrange
@@ -405,51 +411,43 @@ namespace SMDFe.Tests.UtilsTests
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                NRec = "000000000000000"
+                NRec = _recibo
             };
 
-            
-
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         #endregion
 
         #region Testes para a validação do Schema Consultas Por Protocolo
 
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Consulta_Por_Protocolo()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeConsSitMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                ChMDFe = "00000000000000000000000000000000000000000000"
+                ChMDFe = _chaveMDFe
             };
 
-
             //Act
-            Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo);
+            var result = Record.Exception(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
             //Assert
-            Assert.That(true);
-
-
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_O_Xml_Por_Falta_Do_Protocolo_Para_Consulta_Por_Protocolo()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeConsSitMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
@@ -457,55 +455,48 @@ namespace SMDFe.Tests.UtilsTests
                 ChMDFe = null
             };
 
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
-
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_O_Xml_Por_Falta_Do_Servico_Para_Consulta_Por_Protocolo()
         {
-
             //Arrange
-
             var xmlEnvio = new MDFeConsSitMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                ChMDFe = "00000000000000000000000000000000000000000000",
+                ChMDFe = _chaveMDFe,
                 XServ = null
             };
 
-
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
-
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_Consulta_Por_Protocolo()
         {
             //Arrange
-
-
+            
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_protocolo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_protocolo));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Consulta_Por_Protocolo()
         {
             //Arrange
@@ -513,31 +504,32 @@ namespace SMDFe.Tests.UtilsTests
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                ChMDFe = "00000000000000000000000000000000000000000000"
+                ChMDFe = _chaveMDFe
             };
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Consulta_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe();
-
-
+            
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_protocolo));
 
-            //Arrange
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Consulta_Por_Protocolo()
         {
             //Arrange
@@ -545,14 +537,15 @@ namespace SMDFe.Tests.UtilsTests
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
-                ChMDFe = "00000000000000000000000000000000000000000000"
+                ChMDFe = _chaveMDFe
             };
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xmlEnvio.XmlString(), _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         #endregion
@@ -560,358 +553,575 @@ namespace SMDFe.Tests.UtilsTests
         #region Testes para a validação dos Schemas MDFe
 
         // <--------------------------------------------- MDFe testes --------------------------------------------->
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_MDFe()
         {
-
             //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            var xml = FuncoesXml.ClasseParaXmlString(mdfe);
+            _mdfe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
             //Act
-            Validador.Valida(xml, _schema_mdfe);
+            var result = Record.Exception(() =>Validador.Valida(xml, _schema_mdfe));
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_MDFe()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_mdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_mdfe));
 
             //Assert
-            Assert.IsInstanceOf<Exception>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            var xml = FuncoesXml.ClasseParaXmlString(mdfe);
-
-
+            _mdfe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
+            
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            mdfe.InfMDFe.Id = "";
+            _mdfe.Assina();
+            _mdfe.InfMDFe.Id = "";
 
-            var xml = FuncoesXml.ClasseParaXmlString(mdfe);
+            var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_mdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_mdfe));
 
             //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
-            
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_MDFe()
         {
             //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var mdfe = mdfeDaoFalsa.GetMdFeEletronica();
-            var xml = FuncoesXml.ClasseParaXmlString(mdfe);
+            _mdfe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         // <--------------------------------------------- EnviMDFe testes --------------------------------------------->
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EnviMDFe()
         {
-
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe,
+                IdLote = _lote
+            };
+
+            _enviMdFe.MDFe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_enviMdFe);
 
             //Act
-            Validador.Valida(xml, _schema_enviMdfe);
+            var result = Record.Exception(() => Validador.Valida(xml, _schema_enviMdfe));
 
             //Assert
-            Assert.That(true);
-
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EnviMDFe()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_enviMdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_enviMdfe));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe,
+                IdLote = _lote
+            };
 
-
+            _enviMdFe.MDFe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_enviMdFe);
+            
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            envi_mdfe.IdLote = "";
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe,
+                IdLote = null
+            };
 
-            var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
+            _mdfe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_enviMdFe);
 
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_enviMdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_enviMdfe));
 
             //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EnviMDFe()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var envi_mdfe = envimdfeDaoFalsa.GetEnviMdFe();
-            var xml = FuncoesXml.ClasseParaXmlString(envi_mdfe);
+            _enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe,
+                IdLote = _lote
+            };
+
+            _enviMdFe.MDFe.Assina();
+            var xml = FuncoesXml.ClasseParaXmlString(_enviMdFe);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         // <--------------------------------------------- InfoModal testes --------------------------------------------->
-        [Test]
+        [Fact]
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_InfoModal()
         {
-
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
-
-
+            _mdfe.Assina();
+            var infoModal = _mdfe.InfMDFe.InfModal;
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
             //Act
-            Validador.Valida(xml, _schema_modalMdfe);
+            var result = Record.Exception(() => Validador.Valida(xml, _schema_modalMdfe));
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
 
         }
 
-
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_InfoModal()
         {
             //Arrange
 
-
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_modalMdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_modalMdfe));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
+            var infoModal = _mdfe.InfMDFe.InfModal;
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
+            var infoModal = _mdfe.InfMDFe.InfModal;
             infoModal.Modal = new MDFeRodo();
 
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
-
-
+            
             //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_modalMdfe));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_modalMdfe));
 
             //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_InfoModal()
         {
             //Arrange
-            var envimdfeDaoFalsa = new RepositorioDaoFalso();
-            var infoModal = envimdfeDaoFalsa.GetEnviMdFe().MDFe.InfMDFe.InfModal;
-
-
+            var infoModal = _mdfe.InfMDFe.InfModal;
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
 
             //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
 
             //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         #endregion
 
         #region Testes para a validação do Schema Eventos
 
-        [TestCase(1)] // Incluir Condutor Evento
-        [TestCase(2)] // Cancelar Evento
-        [TestCase(3)] // Encerramento Evento
-        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Os_Eventos(int tipo)
+        //<<================================================ Incluir Condutor Evento ==============================================>>
+
+        [Fact] 
+        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Incluir_Condutor()
+        {
+            //Arrange
+            var condutor = new MDFeEvIncCondutorMDFe()
+            {
+                Condutor = _condutor
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+            
+            //Act
+            var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
+
+            //Assert
+            Assert.Null(result);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Incluir_Condutor()
+        {
+            //Arrange
+            var condutor = new MDFeEvIncCondutorMDFe()
+            {
+                Condutor = _condutor
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Incluir_Evento()
+        {
+            //Arrange
+            var condutor = new MDFeEvIncCondutorMDFe()
+            {
+                Condutor = _condutor
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+            _evento.InfEvento.Id = null;
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_eventos));
+
+            //Arrange
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Incluir_Condutor()
+        {
+            //Arrange
+            var condutor = new MDFeEvIncCondutorMDFe()
+            {
+                Condutor = _condutor
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+
+        }
+
+        //<<================================================ Encerrar Evento ==============================================>>
+
+        [Fact] 
+        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Encerrar_Evento()
         {
 
             //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var evento = mdfeDaoFalsa.GetEvento(tipo);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = _mdfe.UFEmitente(),
+                DtEnc = new DateTime(2018, 11, 16),
+                CMun = _mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = _protocolo
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
 
             //Act
-            Validador.Valida(xml, _schema_eventos);
+            var result = Record.Exception(() =>Validador.Valida(xml, _schema_eventos));
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
-        [Test]
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Encerrar_Eventos()
+        {
+            //Arrange
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = _mdfe.UFEmitente(),
+                DtEnc = new DateTime(2018, 11, 16),
+                CMun = _mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = _protocolo
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Encerrar_Eventos()
+        {
+            //Arrange
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = _mdfe.UFEmitente(),
+                DtEnc = new DateTime(2018, 11, 16),
+                CMun = _mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = _protocolo
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
+            _evento.InfEvento.Id = null;
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_eventos));
+
+            //Arrange
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Encerrar_Eventos()
+        {
+            //Arrange
+            //Arrange
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = _mdfe.UFEmitente(),
+                DtEnc = new DateTime(2018, 11, 16),
+                CMun = _mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = _protocolo
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+
+        }
+
+        //<<================================================ Cancelar Evento ==============================================>>
+
+        [Fact] 
+        public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Cancelar_Evento()
+        {
+            //Arrange
+            var cancelamento = new MDFeEvCancMDFe()
+            {
+                NProt = _protocolo,
+                XJust = _justificativa
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var result = Record.Exception(() => Validador.Valida(xml, _schema_eventos));
+
+            //Assert
+            Assert.Null(result);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Cancelar_Evento()
+        {
+            //Arrange
+            var cancelamento = new MDFeEvCancMDFe()
+            {
+                NProt = _protocolo,
+                XJust = _justificativa
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, null));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact]
+        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Cancelar_Evento()
+        {
+            //Arrange
+            var cancelamento = new MDFeEvCancMDFe()
+            {
+                NProt = _protocolo,
+                XJust = _justificativa
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            _evento.InfEvento.Id = null;
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_eventos));
+
+            //Arrange
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact] 
+        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Cancelar_Evento()
+        {
+            //Arrange
+            var cancelamento = new MDFeEvCancMDFe()
+            {
+                NProt = _protocolo,
+                XJust = _justificativa
+            };
+
+            _mdfe.Assina();
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            var xml = FuncoesXml.ClasseParaXmlString(_evento);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(xml, _schema_incorreto));
+
+            //Assert
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
+
+        }
+
+        //<<=========================================== Teste para Eventos de forma geral =======================================>>
+
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_O_Evento()
         {
             //Arrange
-
-
+            
             //Act
-            var exception = Assert.Throws<ArgumentNullException>(() => Validador.Valida(null, _schema_eventos));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, _schema_eventos));
 
             //Assert
-            Assert.IsInstanceOf<ArgumentNullException>(exception);
-
-        }
-
-        [TestCase(1)] // Incluir Condutor Evento
-        [TestCase(2)] // Cancelar Evento
-        [TestCase(3)] // Encerramento Evento
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Os_Eventos(int tipo)
-        {
-            //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var evento = mdfeDaoFalsa.GetEvento(tipo);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-
-            //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(xml, null));
-
-            //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
-        }
-
-        [TestCase(1)] // Incluir Condutor Evento
-        [TestCase(2)] // Cancelar Evento
-        [TestCase(3)] // Encerramento Evento
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Os_Eventos(int tipo)
-        {
-            //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var evento = mdfeDaoFalsa.GetEvento(tipo);
-            evento.InfEvento.ChMDFe = "";
-
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            var exception = Assert.Throws<Exception>(() => Validador.Valida(xml, _schema_eventos));
-
-            //Arrange
-            Assert.IsInstanceOf<Exception>(exception);
-        }
-
-        [TestCase(1)] // Incluir Condutor Evento
-        [TestCase(2)] // Cancelar Evento
-        [TestCase(3)] // Encerramento Evento
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Os_Eventos(int tipo)
-        {
-            //Arrange
-            var mdfeDaoFalsa = new RepositorioDaoFalso();
-            var evento = mdfeDaoFalsa.GetEvento(tipo);
-            var xml = FuncoesXml.ClasseParaXmlString(evento);
-
-            //Act
-            var exception = Assert.Throws<FileNotFoundException>(() => Validador.Valida(xml, _schema_incorreto));
-
-            //Assert
-            Assert.IsInstanceOf<FileNotFoundException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         #endregion
 
+        #region Testes para a Validação de forma geral
 
-        [Test]
+        [Fact]
         public void Deve_Recusar_A_Validacao_Por_Falta_Dos_Parametros()
         {
             //Arrange
 
             //Act
-            var exception = Assert.Throws<DirectoryNotFoundException>(() => Validador.Valida(null, null));
+            var exception = Assert.ThrowsAny<Exception>(() => Validador.Valida(null, null));
 
             //Assert
-            Assert.IsInstanceOf<DirectoryNotFoundException>(exception);
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
+
+        #endregion
+
     }
 }

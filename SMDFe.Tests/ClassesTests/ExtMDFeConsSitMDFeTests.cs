@@ -1,7 +1,7 @@
 ﻿
 using System;
 using System.Xml;
-using NUnit.Framework;
+using Xunit;
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Informacoes.ConsultaProtocolo;
 using SMDFe.Tests.Dao;
@@ -9,17 +9,18 @@ using SMDFe.Tests.Entidades;
 
 namespace SMDFe.Tests.ClassesTests
 {
-    [TestFixture]
-    public class ExtMDFeConsSitMDFeTests
+    
+    public class ExtMDFeConsSitMDFeTests: IDisposable
     {
+        #region Variáveis
         private Configuracao _configuracao;
         private MDFeConsSitMDFe _consultaProtocolo;
-        private string _protocolo;
-        private string _xmlesperado;
+        private readonly string _protocolo;
+        private readonly string _xmlesperado;
+        #endregion
 
         #region SETUP
-        [SetUp]
-        public void CriarConfiguração()
+        public ExtMDFeConsSitMDFeTests()
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
@@ -27,24 +28,20 @@ namespace SMDFe.Tests.ClassesTests
             _protocolo = "00000000000000000000000000000000000000000000";
             _xmlesperado = "xml-esperado-protocolo.xml";
 
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = _configuracao.IsSalvarXml;
+            var configuracoes = new ConfiguracaoUtilsDao(_configuracao);
+            configuracoes.setCongiguracoes();
+        }
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = _configuracao.ConfigWebService.VersaoLayout;
-
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = _configuracao.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = _configuracao.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = _configuracao.ConfigWebService.TimeOut;
-
-
+        public void Dispose()
+        {
+            _consultaProtocolo = new MDFeConsSitMDFe();
         }
         #endregion
 
         #region Testes para a classe ExtMDFeConsSitMDFe 
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Com_Parametros()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Com_Parametros()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
@@ -57,13 +54,13 @@ namespace SMDFe.Tests.ClassesTests
             //Act
             var xmlGerado = _consultaProtocolo.CriaRequestWs();
 
-
             //Assert
-            Assert.IsInstanceOf<XmlDocument>(xmlGerado);
+            Assert.NotNull(xmlGerado);
+            Assert.IsType<XmlDocument>(xmlGerado);
         }
 
-        [Test]
-        public void Testa_A_Requisicao_Protocolo_Criada_Com_O_Xml_Esperado()
+        [Fact]
+        public void Deve_Testar_A_Requisicao_Protocolo_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
@@ -80,25 +77,27 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlesperado);
 
             //Assert
-            Assert.AreEqual(xmlEsperado.InnerXml, xmlGerado.InnerXml);
+            Assert.NotNull(xmlGerado);
+            Assert.NotNull(xmlEsperado);
+            Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Parametros()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Parametros()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaProtocolo.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaProtocolo.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Versao()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Versao()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
@@ -106,16 +105,17 @@ namespace SMDFe.Tests.ClassesTests
                 TpAmb = _configuracao.ConfigWebService.Ambiente,
                 ChMDFe = _protocolo
             };
+
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaProtocolo.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaProtocolo.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Ambiente()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Protocolo_Sem_Ambiente()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
@@ -123,32 +123,34 @@ namespace SMDFe.Tests.ClassesTests
                 Versao = _configuracao.ConfigWebService.VersaoLayout,
                 ChMDFe = _protocolo
             };
+
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaProtocolo.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaProtocolo.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Ambiente_E_Versao()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Recibo_Sem_Ambiente_E_Versao()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
             {
                 ChMDFe = _protocolo
             };
+
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaProtocolo.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaProtocolo.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Funcao_Por_Protocolo_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        [Fact]
+        public void Deve_Testar_A_Funcao_Por_Protocolo_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
         {
             //Arrange
             _consultaProtocolo = new MDFeConsSitMDFe()
@@ -159,10 +161,10 @@ namespace SMDFe.Tests.ClassesTests
             };
 
             //Act
-            _consultaProtocolo.SalvarXmlEmDisco();
+            var result = Record.Exception(() => _consultaProtocolo.SalvarXmlEmDisco());
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
         #endregion

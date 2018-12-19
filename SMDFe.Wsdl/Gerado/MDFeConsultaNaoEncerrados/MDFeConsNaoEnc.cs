@@ -74,6 +74,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 
 #if NET45
         private mdfeCabecMsg mdfeCabecMsgValueField;
+        private System.Threading.SendOrPostCallback mdfeConsNaoEncOperationCompleted;
 #endif
 
 #if NETSTANDARD2_0
@@ -83,7 +84,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
         private HttpWebRequest request;
 #endif
 
-        private System.Threading.SendOrPostCallback mdfeConsNaoEncOperationCompleted;
+        
 
         /// <remarks/>
         public MDFeConsNaoEnc(WsdlConfiguracao configuracao)

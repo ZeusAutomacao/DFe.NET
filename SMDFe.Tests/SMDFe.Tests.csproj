@@ -1,62 +1,98 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netcoreapp2.0;net452</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.10.0" />
-    <PackageReference Include="NUnit" Version="3.11.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.11.0" />
+    <None Include="Resources\xml-esperado-consulta-recibo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\proc.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-esperado-nao-encerrados.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-esperado-protocolo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-esperado-status-servico.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-esperado-envi-mdfe.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-evento-incluir-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-evento-cancelar-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\xml-evento-encerrar-esperado.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\certificado.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
+    <PackageReference Include="Moq" Version="4.10.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+    <PackageReference Include="xunit.core" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.console" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
     <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
+    <ProjectReference Include="..\SMDFe.Damdfe.Fast\SMDFe.Damdfe.Fast.csproj" />
     <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj" />
     <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Arquivos\envi-mdfe-teste.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\evento-cancelar.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\evento-encerrar.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\evento-incluir.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\mdfe-teste.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-esperado-consulta-recibo.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-esperado-nao-encerrados.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-esperado-protocolo.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-esperado-status-servico.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-esperado-envi-mdfe.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-evento-incluir-esperado.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-evento-cancelar-esperado.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Arquivos\xml-evento-encerrar-esperado.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -285,6 +321,63 @@
     <None Update="Schemas\xmldsig-core-schema_v1.01.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="xunit.runner.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+    <PackageReference Include="xunit">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.analyzers">
+      <Version>0.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.core">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.console">
+      <Version>2.4.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <Version>2.4.1</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <Reference Include="DFe.Classes">
+      <HintPath>..\DFe.Utils\bin\Debug\DFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="DFe.Utils">
+      <HintPath>..\DFe.Utils\bin\Debug\DFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Classes">
+      <HintPath>..\SMDFe.Damdfe.Fast\bin\Debug\net45\SMDFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Damdfe.Base">
+      <HintPath>..\SMDFe.Damdfe.Fast\bin\Debug\net45\SMDFe.Damdfe.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Damdfe.Fast">
+      <HintPath>..\SMDFe.Damdfe.Fast\bin\Debug\net45\SMDFe.Damdfe.Fast.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Servicos">
+      <HintPath>..\SMDFe.Servicos\bin\Debug\net45\SMDFe.Servicos.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Utils">
+      <HintPath>..\SMDFe.Damdfe.Fast\bin\Debug\net45\SMDFe.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="SMDFe.Wsdl">
+      <HintPath>..\SMDFe.Wsdl\bin\Debug\net45\SMDFe.Wsdl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.XML" />
+    <None Include="Dlls\FastReport.Bars.dll" />
+    <None Include="Dlls\FastReport.dll" />
+    <None Include="Dlls\FastReport.Editor.dll" />
+    <None Include="Dlls\netstandard.dll" />
   </ItemGroup>
 
 </Project>

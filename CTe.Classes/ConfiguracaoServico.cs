@@ -34,6 +34,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using CTe.Classes.Informacoes.Tipos;
 using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -51,6 +52,7 @@ namespace CTe.Classes
         private ConfiguracaoServico()
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
+            TipoEmissao = tpEmis.teNormal;
         }
 
         /// <summary>
@@ -155,6 +157,8 @@ namespace CTe.Classes
                 return _instancia;
             }
         }
+
+        public tpEmis TipoEmissao { get; set; }
 
         public bool NaoSalvarXml()
         {

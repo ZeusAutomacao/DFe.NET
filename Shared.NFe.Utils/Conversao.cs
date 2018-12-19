@@ -33,7 +33,6 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
@@ -46,6 +45,20 @@ namespace NFe.Utils
     {
         public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
+
+            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
+            {
+                return "2.00";
+            }
+
+            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento
+                || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
+            {
+                return "1.00";
+            }
+
             switch (versaoServico)
             {
                 case VersaoServico.ve100:
@@ -65,37 +78,9 @@ namespace NFe.Utils
                 case VersaoServico.ve310:
                     return "3.10";
                 case VersaoServico.ve400:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                        case ServicoNFe.RecepcaoEventoCancelmento:
-                        case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                        case ServicoNFe.RecepcaoEventoEpec:
-                            return "1.00";
-                    }
                     return "4.00";
             }
             return "";
-        }
-
-        // criado pois tem estado que o evento de cancelamento sempre será versão 1.00 e a webservice podera ser 2.00 ou 3.00 ou seja 
-        // na montagem do xml vai ser 1.00 e a versão do webservice vai ser diferente da montagem exemplo: MT
-        public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico, Estado? estado)
-        {
-            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
-            {
-                return "2.00";
-            }
-
-            if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento 
-                || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao 
-                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
-                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
-            {
-                return "1.00";
-            }
-
-            return VersaoServicoParaString(servicoNFe, versaoServico);
         }
 
         public static string TpAmbParaString(this TipoAmbiente tpAmb)
@@ -177,6 +162,11 @@ namespace NFe.Utils
                     return "MDF-e";
             }
             return null;
+        }
+
+        public static int ModeloDocumentoParaInt(this ModeloDocumento modelo)
+        {
+            return (int) modelo;
         }
 
         public static string CsticmsParaString(this Csticms csticms)

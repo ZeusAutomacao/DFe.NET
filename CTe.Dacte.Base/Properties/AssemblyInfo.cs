@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
@@ -10,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CTe.Dacte.Base")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright ©  2017-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,6 +30,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.725")]
-[assembly: AssemblyFileVersion("1.0.0.725")]
+// [assembly: AssemblyVersion("1.0.0.733")]
+[assembly: AssemblyVersion("1.0.0.733")]
+[assembly: AssemblyFileVersion("1.0.0.733")]

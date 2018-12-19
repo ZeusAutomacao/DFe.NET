@@ -73,6 +73,7 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using NFe.Classes;
+using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
@@ -319,13 +320,16 @@ namespace NFe.Servicos
                 pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
             pedInutilizacao.infInut.Id = "ID" + numId;
 
-            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
 
             #endregion
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlInutilizacao = pedInutilizacao.ObterXmlString();
+            var xmlInutilizacao = _cFgServico.RemoverAcentos
+                ? pedInutilizacao.ObterXmlString().RemoverAcentos()
+                : pedInutilizacao.ObterXmlString();
+
             Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
             var dadosInutilizacao = new XmlDocument();
             dadosInutilizacao.LoadXml(xmlInutilizacao);
@@ -359,6 +363,7 @@ namespace NFe.Servicos
         /// <param name="idlote"></param>
         /// <param name="eventos"></param>
         /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
+        /// <param name="versaoEvento">Versão do serviço para o evento</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, VersaoServico versaoEvento)
         {
@@ -375,7 +380,7 @@ namespace NFe.Servicos
                     string.Format("Serviço {0} é inválido para o método {1}!\nServiços válidos: \n • {2}", servicoEvento,
                         MethodBase.GetCurrentMethod().Name, string.Join("\n • ", listaEventos.ToArray())));
 
-            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento, _cFgServico.cUF);
+            var versaoServico = servicoEvento.VersaoServicoParaString(versaoEvento);
 
             #region Cria o objeto wdsl para consulta
 
@@ -405,14 +410,17 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
             }
 
             #endregion
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlEvento = pedEvento.ObterXmlString();
+            var xmlEvento = _cFgServico.RemoverAcentos
+                    ? pedEvento.ObterXmlString().RemoverAcentos()
+                    : pedEvento.ObterXmlString();
+
             Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
@@ -477,7 +485,7 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
             var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
             var infEvento = new infEventoEnv
             {
@@ -515,14 +523,19 @@ namespace NFe.Servicos
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
-            var detEvento = new detEvento { versao = versaoServico, xCorrecao = correcao, xJust = null };
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                xCorrecao = correcao,
+                xJust = null,
+                descEvento = "Carta de Correção",
+                xCondUso =
+                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
+            };
 
-            detEvento.descEvento = "Carta de Correção";
-            detEvento.xCondUso =
-                    "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída.";
 
-            if (_cFgServico.cUF == Estado.MT)
+            if (_cFgServico.cUF == Estado.MT || _cFgServico.RemoverAcentos)
             {
                 detEvento.xCondUso =
                     "A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.";
@@ -672,7 +685,7 @@ namespace NFe.Servicos
             string documento)
         {
             var versaoServico =
-                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro, _cFgServico.cUF);
+                ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro);
 
             #region Cria o objeto wdsl para consulta
 
@@ -1050,7 +1063,10 @@ namespace NFe.Servicos
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlEnvio = pedEnvio.ObterXmlString();
+            var xmlEnvio = _cFgServico.RemoverAcentos
+                ? pedEnvio.ObterXmlString().RemoverAcentos()
+                : pedEnvio.ObterXmlString();
+
             if (_cFgServico.cUF == Estado.PR)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");

@@ -34,22 +34,14 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
-using System.Net;
 using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.DistribuicaoDFe;
-using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.Factory;
-using CTe.Wsdl.DistribuicaoDFe;
 using CTe.Utils.DistribuicaoDFe;
 using CTe.Utils;
-using CTe.Utils.Validacao;
 using DFe.Utils;
 
 
