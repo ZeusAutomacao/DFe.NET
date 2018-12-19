@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-using NUnit.Framework;
+using  Xunit;
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Informacoes.StatusServico;
 using SMDFe.Tests.Dao;
@@ -8,38 +8,35 @@ using SMDFe.Tests.Entidades;
 
 namespace SMDFe.Tests.ClassesTests
 {
-    [TestFixture]
-    public class ExtMDFeConsStatServMDFeTests
+    public class ExtMDFeConsStatServMDFeTests: IDisposable
     {
+        #region Variáveis
         private Configuracao _configuracao;
         private MDFeConsStatServMDFe _consultaStatus;
-        private string _xmlEsperado;
+        private readonly string _xmlEsperado;
+        #endregion
 
         #region SETUP
-        [SetUp]
-        public void CriarConfiguração()
+        public ExtMDFeConsStatServMDFeTests()
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
             _xmlEsperado = "xml-esperado-status-servico.xml";
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.IsSalvarXml = _configuracao.IsSalvarXml;
+            var configuracoes = new ConfiguracaoUtilsDao(_configuracao);
+            configuracoes.setCongiguracoes();
+        }
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = _configuracao.ConfigWebService.VersaoLayout;
-
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = _configuracao.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = _configuracao.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = _configuracao.ConfigWebService.TimeOut;
-
+        public void Dispose()
+        {
+            _consultaStatus = new MDFeConsStatServMDFe();
         }
         #endregion
 
         #region Testes para a classe ExtMDFeConsStatServMDFe
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Com_Parametros()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Com_Parametros()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -51,13 +48,13 @@ namespace SMDFe.Tests.ClassesTests
             //Act
             var xmlGerado = _consultaStatus.CriaRequestWs();
 
-
             //Assert
-            Assert.IsInstanceOf<XmlDocument>(xmlGerado);
+            Assert.NotNull(xmlGerado);
+            Assert.IsType<XmlDocument>(xmlGerado);
         }
 
-        [Test]
-        public void Testa_A_Requisicao_Status_Criada_Com_O_Xml_Esperado()
+        [Fact]
+        public void Deve_Testar_A_Requisicao_Status_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -73,58 +70,62 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
-            Assert.AreEqual(xmlEsperado.InnerXml, xmlGerado.InnerXml);
+            Assert.NotNull(xmlEsperado);
+            Assert.NotNull(xmlGerado);
+            Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Parametros()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Parametros()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaStatus.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaStatus.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Versao()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Versao()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
             {
                 TpAmb = _configuracao.ConfigWebService.Ambiente
             };
+
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaStatus.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaStatus.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Ambiente()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Ambiente()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
             {
                 Versao = _configuracao.ConfigWebService.VersaoLayout
             };
+
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaStatus.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaStatus.CriaRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Funcao_Por_Status_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        [Fact]
+        public void Deve_Testar_A_Funcao_Por_Status_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -134,10 +135,10 @@ namespace SMDFe.Tests.ClassesTests
             };
 
             //Act
-            _consultaStatus.SalvarXmlEmDisco();
+            var result = Record.Exception(() =>_consultaStatus.SalvarXmlEmDisco());
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
         #endregion

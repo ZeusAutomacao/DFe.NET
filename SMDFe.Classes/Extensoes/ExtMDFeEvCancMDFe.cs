@@ -41,19 +41,17 @@ namespace SMDFe.Classes.Extencoes
 {
     public static class ExtMDFeEvCancMDFe
     {
-        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe, MDFeConfiguracao cfgMdfe = null)
+        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var xmlCancelamento = evCancMDFe.XmlString();
 
-            switch (config.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd", config);
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd", config);
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd");
                     break;
             }
         }

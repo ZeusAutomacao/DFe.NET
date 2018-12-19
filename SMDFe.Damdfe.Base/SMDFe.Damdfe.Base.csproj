@@ -1,47 +1,53 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.0.0-rc2-24027" />
   </ItemGroup>
 
 
-  <!-- .NET Standard 2.0 referências, sinalizadores de compilação e opções de compilação -->
+  <!-- Sinalizadores de compilação e opções de compilação -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
     <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.0-preview1-25305-02" />
-  </ItemGroup>
 
-
-  <!-- .NET 4.5 referências, sinalizadores de compilação e opções de compilação -->
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Configuration" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="CoreCompat.System.Drawing.v2">
-      <Version>5.2.0-preview1-r131</Version>
-    </PackageReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>
   </PropertyGroup>
 
+  <!-- .NET 4.5 / .NET Standard referências -->
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net45'">
+
+    <PackageReference Include="CoreCompat.System.Drawing.v2">
+      <Version>5.2.0-preview1-r131</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dlls\netstandard.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
 
 </Project>

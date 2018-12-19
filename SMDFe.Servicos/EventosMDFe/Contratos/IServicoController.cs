@@ -33,13 +33,12 @@
 using SMDFe.Classes.Informacoes.Evento;
 using SMDFe.Classes.Informacoes.Evento.Flags;
 using SMDFe.Classes.Retorno.MDFeEvento;
-using SMDFe.Utils.Configuracoes;
 using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Servicos.EventosMDFe.Contratos
 {
     public interface IServicoController
     {
-        MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null);
+        MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento);
     }
 }

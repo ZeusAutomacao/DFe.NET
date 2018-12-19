@@ -45,20 +45,8 @@ namespace SMDFe.Classes.Informacoes.Evento
     [Serializable]
     public class MDFeInfEvento
     {
-        /// <summary>
-        /// Construtor para serialização
-        /// </summary>
-        private MDFeInfEvento()
-        {
-        }
-
-        public MDFeInfEvento(VersaoServico? versaoServico = null)
-        {
-            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
-        }
-
         [XmlIgnore]
-        private readonly VersaoServico _versaoServico;
+        private readonly VersaoServico _versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout;
 
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }

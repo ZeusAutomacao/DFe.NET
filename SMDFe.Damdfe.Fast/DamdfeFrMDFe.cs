@@ -31,15 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+
+using System.Drawing;
 using System.IO;
 using FastReport;
 using FastReport.Export.Html;
-//using FastReport.Export.Pdf;
 using SMDFe.Damdfe.Base;
 using SMDFe.Classes.Retorno;
-#if NET45
-using System.Drawing;
-#endif
 
 namespace SMDFe.Damdfe.Fast
 {
@@ -68,28 +66,28 @@ namespace SMDFe.Damdfe.Fast
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
         }
-#if NETSTANDARD2_0
+
         public void Configurar(ConfiguracaoDamdfe config)
         {
+
+            Relatorio.SetParameterValue("NewLine", System.Environment.NewLine);
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
-            ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
-        }
+#if NETSTANDARD2_0
+            ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
 #endif
+#if NET45
+            ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+#endif
+            ((ReportPage)Relatorio.FindObject("Page1")).LeftMargin = config.MargemEsquerda;
+            ((ReportPage)Relatorio.FindObject("Page1")).RightMargin = config.MargemDireita;
+            ((ReportPage)Relatorio.FindObject("Page1")).TopMargin = config.MargemSuperior;
+            ((ReportPage)Relatorio.FindObject("Page1")).BottomMargin = config.MargemInferior;
+        }
 
 #if NET45
-        public void Configurar(ConfiguracaoDamdfe config)
-        {
-            Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
-            Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
-            Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
-            Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
-            ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
-        }
-        
-
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>
@@ -138,15 +136,28 @@ namespace SMDFe.Damdfe.Fast
             Relatorio.Export(new PDFExport(), arquivo);
         }
         */
-      
-         /// <summary>
+
+        /// <summary>
         /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o HTML do DAMDFe</param>
         public void ExportarHTML(string arquivo)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new HTMLExport(), arquivo);
+
+            var html = new HTMLExport
+            {
+                EmbedPictures = true,
+                SinglePage = true,
+                SubFolder = false,
+                Layers = true,
+                Navigator = false,
+                Pictures = true,
+                EnableMargins = true
+            };
+
+            Relatorio.Export(html, arquivo);
+           
         }
 
     }

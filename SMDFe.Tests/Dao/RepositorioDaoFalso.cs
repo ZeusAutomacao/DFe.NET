@@ -34,7 +34,7 @@ namespace SMDFe.Tests.Dao
         public XmlDocument GetXmlEsperado(string xml)
         {
             var xmlSolicitado = new XmlDocument();
-            xmlSolicitado.Load(@"Arquivos\"+xml);
+            xmlSolicitado.Load(@"Resources\" + xml);
             return xmlSolicitado;
         }
 

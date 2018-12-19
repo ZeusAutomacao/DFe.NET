@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using SMDFe.TestesServicos.Entidades;
 
 
 namespace SMDFe.TestesServicos
@@ -17,11 +16,11 @@ namespace SMDFe.TestesServicos
             _caminhoAplicacao = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
-        public void SalvarConfiguracao(ConfiguracaoMdfe configuracao)
+        public void SalvarConfiguracao(Configuracao configuracao)
         {
             using (var stream = new StreamWriter(_caminhoAplicacao + @"\" + _nomeArquivoXml))
             {
-                var xmlSerializer = new XmlSerializer(typeof(ConfiguracaoMdfe));
+                var xmlSerializer = new XmlSerializer(typeof(Configuracao));
 
                 xmlSerializer.Serialize(XmlWriter.Create(stream), configuracao);
 
@@ -29,19 +28,19 @@ namespace SMDFe.TestesServicos
             }
         }
 
-        public ConfiguracaoMdfe BuscarConfiguracao()
+        public Configuracao BuscarConfiguracao()
         {
             if (!File.Exists(_caminhoAplicacao + @"\" + _nomeArquivoXml)) return null;
 
-            ConfiguracaoMdfe configuracao;
+            Configuracao configuracao;
 
             using (var reader = new StreamReader(_caminhoAplicacao + @"\" + _nomeArquivoXml))
             {
-                var xmlSerializer = new XmlSerializer(typeof(ConfiguracaoMdfe));
+                var xmlSerializer = new XmlSerializer(typeof(Configuracao));
 
                 var objeto = xmlSerializer.Deserialize(XmlReader.Create(reader));
 
-                configuracao = objeto as ConfiguracaoMdfe;
+                configuracao = objeto as Configuracao;
             }
 
             return configuracao;

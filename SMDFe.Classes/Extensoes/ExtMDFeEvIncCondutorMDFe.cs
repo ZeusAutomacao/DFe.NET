@@ -41,19 +41,17 @@ namespace SMDFe.Classes.Extencoes
 {
     public static class ExtMDFeEvIncCondutorMDFe
     {
-        public static void ValidaSchema(this MDFeEvIncCondutorMDFe evIncCondutorMDFe, MDFeConfiguracao cfgMdfe = null)
+        public static void ValidaSchema(this MDFeEvIncCondutorMDFe evIncCondutorMDFe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
 
-            switch (config.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd", config);
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v3.00.xsd", config);
+                    Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v3.00.xsd");
                     break;
             }
         }

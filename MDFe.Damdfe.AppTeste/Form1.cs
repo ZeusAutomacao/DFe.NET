@@ -89,7 +89,11 @@ namespace MDFe.Damdfe.AppTeste
         {
             var damdfe = GetReport();
             if (damdfe != null)
+            {
                 damdfe.Imprimir(true);
+            }
+                
+
         }
 
         private void button5_Click(object sender, EventArgs e)

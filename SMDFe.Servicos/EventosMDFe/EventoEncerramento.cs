@@ -34,20 +34,17 @@
 using SMDFe.Classes.Informacoes.Evento.Flags;
 using SMDFe.Classes.Retorno.MDFeEvento;
 using SMDFe.Servicos.Factory;
-using SMDFe.Utils.Configuracoes;
 using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Servicos.EventosMDFe
 {
     public class EventoEncerramento
     {
-        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
+        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var encerramento = ClassesFactory.CriaEvEncMDFe(mdfe, protocolo);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento, config);
+            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
 
             return retorno;
         }

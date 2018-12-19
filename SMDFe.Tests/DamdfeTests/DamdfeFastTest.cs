@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using DFe.Utils;
-using NUnit.Framework;
+using Xunit;
 using SMDFe.Classes.Retorno;
 using SMDFe.Damdfe.Base;
 using SMDFe.Damdfe.Fast;
@@ -10,24 +9,25 @@ using SMDFe.Tests.Dao;
 using SMDFe.Tests.Entidades;
 
 
+
 namespace SMDFe.Tests.DamdfeTests
 {
-    [TestFixture]
-    public class DamdfeFastTest
+    
+    public class DamdfeFastTest : IDisposable
     {
         #region Variáveis
 
         private MDFeProcMDFe _mdfeProc;
-        private ConfiguracaoDamdfe _confiDamdfe;
-        private string _nomeArquivo;
-        private Configuracao _configuracao;
-        private RepositorioDaoFalso _repositorioDao;
+        private readonly ConfiguracaoDamdfe _confiDamdfe;
+        private readonly string _nomeArquivo;
+        private readonly Configuracao _configuracao;
+        private readonly RepositorioDaoFalso _repositorioDao;
         #endregion
 
         #region Setup
 
-        [SetUp]
-        public void CriarConfiguração()
+     
+        public DamdfeFastTest()
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
@@ -44,49 +44,80 @@ namespace SMDFe.Tests.DamdfeTests
 
             _nomeArquivo = "";
 
-            var configuracaoCertificado = new ConfiguracaoCertificado
-            {
-                Senha = _configuracao.CertificadoDigital.Senha,
-                Arquivo = _configuracao.CertificadoDigital.CaminhoArquivo,
-                ManterDadosEmCache = _configuracao.CertificadoDigital.ManterEmCache,
-                Serial = _configuracao.CertificadoDigital.NumeroDeSerie
-            };
+        }
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.IsSalvarXml = _configuracao.IsSalvarXml;
-
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = _configuracao.ConfigWebService.VersaoLayout;
-
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = _configuracao.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = _configuracao.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = _configuracao.ConfigWebService.TimeOut;
-
+        public void Dispose()
+        {
+            _mdfeProc = new MDFeProcMDFe();
         }
 
         #endregion
 
-        #region Testes para a Classe DamdfeFast
+#region Testes para a Classe DamdfeFast
 
-        [Test]
-        public void Testa_A_Leitura_Com_Fast_Report()
+
+        [Fact]
+        public void Deve_Testar_A_Criacao_Com_Fast_Report()
         {
             //Arrange
-            var xml = _repositorioDao.GetXmlEsperado("xml-mdfe-proc.xml");
+            var xml = _repositorioDao.GetXmlEsperado("proc.xml");
             _mdfeProc = FuncoesXml.XmlStringParaClasse<MDFeProcMDFe>(xml.InnerXml);
 
+            //Act
             var rpt = new DamdfeFrMDFe(proc: _mdfeProc,
                 config: _confiDamdfe,
                 arquivoRelatorio: _nomeArquivo);
 
-            //Act
-
-
             //Assert
+            Assert.NotNull(rpt);
         }
 
-        #endregion
+        [Fact]
+        public void Deve_Testar_A_Funcao_Exporta_Html()
+        {
+            //Arrange
+            var xml = _repositorioDao.GetXmlEsperado("proc.xml");
+            _mdfeProc = FuncoesXml.XmlStringParaClasse<MDFeProcMDFe>(xml.InnerXml);
 
+            var rpt = new DamdfeFrMDFe(proc: _mdfeProc,
+                config: _confiDamdfe,
+                arquivoRelatorio: null);
+
+            //Act
+            var exception = Record.Exception(() => rpt.ExportarHTML("teste.html"));
+
+            //Assert
+            Assert.Null(exception);
+        }
+
+        [Fact]
+        public void Deve_Testar_A_Criacao_Do_Relatorio_Com_Configuracao_Nula()
+        {
+            //Arrange
+            var xml = _repositorioDao.GetXmlEsperado("proc.xml");
+            _mdfeProc = FuncoesXml.XmlStringParaClasse<MDFeProcMDFe>(xml.InnerXml);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => new DamdfeFrMDFe(_mdfeProc, null, null));
+
+            //Assert
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+        [Fact]
+        public void Deve_Testar_A_Criacao_Do_Relatorio_Com_Arquivo_Inexistente()
+        {
+            //Arrange
+            var xml = _repositorioDao.GetXmlEsperado("proc.xml");
+            _mdfeProc = FuncoesXml.XmlStringParaClasse<MDFeProcMDFe>(xml.InnerXml);
+
+            //Act
+            var exception = Assert.ThrowsAny<Exception>(() => new DamdfeFrMDFe(_mdfeProc, _confiDamdfe, "inexiste.frx"));
+
+            //Assert
+            Assert.IsAssignableFrom<Exception>(exception);
+        }
+
+#endregion
     }
 }

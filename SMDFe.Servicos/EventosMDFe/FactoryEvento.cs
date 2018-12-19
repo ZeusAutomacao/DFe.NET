@@ -43,23 +43,21 @@ namespace SMDFe.Servicos.EventosMDFe
 {
     public static class FactoryEvento
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento, MDFeConfiguracao cfgMdfe = null)
+        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
-            var eventoMdfe = new MDFeEventoMDFe
+            var eventoMDFe = new MDFeEventoMDFe
             {
-                Versao = config.VersaoWebService.VersaoLayout,
-                InfEvento = new MDFeInfEvento(config.VersaoWebService.VersaoLayout)
+                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                InfEvento = new MDFeInfEvento
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = config.VersaoWebService.TipoAmbiente,
+                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                     CNPJ = MDFe.CNPJEmitente(),
                     COrgao = MDFe.UFEmitente(),
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
                     {
-                        VersaoServico = config.VersaoWebService.VersaoLayout,
+                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                         EventoContainer = evento
                     },
                     DhEvento = DateTime.Now,
@@ -68,9 +66,9 @@ namespace SMDFe.Servicos.EventosMDFe
                 }
             };
 
-            eventoMdfe.Assinar(config);
+            eventoMDFe.Assinar();
 
-            return eventoMdfe;
+            return eventoMDFe;
         }
     }
 }

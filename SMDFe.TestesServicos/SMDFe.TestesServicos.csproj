@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
+    <ProjectReference Include="..\SMDFe.Damdfe.Fast\SMDFe.Damdfe.Fast.csproj" />
     <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj" />
     <ProjectReference Include="..\SMDFe.Wsdl\SMDFe.Wsdl.csproj" />
   </ItemGroup>

@@ -45,7 +45,6 @@ using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using SMDFe.Wsdl.Cabeçalho;
@@ -193,14 +192,19 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                 var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
                 xmlEnvelop = new XmlDocument();
 
-                var ms = new MemoryStream();
-                soapserializer.Serialize(ms, soapEnvelope);
-                ms.Position = 0;
+                using (var sww = new StreamWriter("soap.xml"))
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww,
+                        new XmlWriterSettings() { Indent = false }))
+                    {
+                        soapserializer.Serialize(writer, soapEnvelope);
+                        writer.Close();
 
-                var reader = new StreamReader(ms).ReadToEnd();
-
+                    }
+                }
                 xmlEnvelop.PreserveWhitespace = false;
-                xmlEnvelop.LoadXml(reader);
+                xmlEnvelop.Load("soap.xml");
+
             }
             catch (XmlException e)
             {
@@ -217,6 +221,7 @@ namespace SMDFe.Wsdl.Gerado.MDFeRecepcao
                     {
                         result = rd.ReadToEnd();
                         xmlresult.LoadXml(result);
+
                     }
                 }
 

@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Xml;
 using DFe.Utils;
-using NUnit.Framework;
+using Xunit;
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Servicos.Autorizacao;
 using SMDFe.Tests.Dao;
@@ -12,17 +10,20 @@ using SMDFe.Utils.Flags;
 
 namespace SMDFe.Tests.ClassesTests
 {
-    [TestFixture]
-    public class ExtMDFeEnviMDFeTests
+    
+    public class ExtMDFeEnviMDFeTests: IDisposable
     {
+        #region Variáveis
         private Configuracao _configuracao;
-        private MDFeEnviMDFe _enviMdFe;
         private MDFeEletronicaFalsa _mdfe;
-        private string _xmlEsperado;
+        private readonly string _xmlEsperado;
+        private readonly string _lote;
+        private readonly string _valueKey;
+        #endregion
 
         #region SETUP
-        [SetUp]
-        public void CriarConfiguração()
+        
+        public ExtMDFeEnviMDFeTests()
         {
             var configuracaoDao = new ConfiguracaoDao();
 
@@ -30,132 +31,128 @@ namespace SMDFe.Tests.ClassesTests
 
             _mdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
             _xmlEsperado = "xml-esperado-envi-mdfe.xml";
+            _lote = "1";
+            _valueKey = "TESTE";
 
-            var configuracaoCertificado = new ConfiguracaoCertificado
-            {
-                Senha = _configuracao.CertificadoDigital.Senha,
-                Arquivo = _configuracao.CertificadoDigital.CaminhoArquivo,
-                ManterDadosEmCache = _configuracao.CertificadoDigital.ManterEmCache,
-                Serial = _configuracao.CertificadoDigital.NumeroDeSerie
-            };
+            var configcertificado = new CertificadoDao().getConfiguracaoCertificado();
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSchemas = _configuracao.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.CaminhoSalvarXml = _configuracao.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.IsSalvarXml = _configuracao.IsSalvarXml;
+            var configuracoes = new ConfiguracaoUtilsDao(_configuracao, configcertificado);
+            configuracoes.setCongiguracoes();
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = _configuracao.ConfigWebService.VersaoLayout;
+        }
 
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = _configuracao.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = _configuracao.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = _configuracao.ConfigWebService.TimeOut;
-
-
+        public void Dispose()
+        {
+            _mdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
         }
         #endregion
 
         #region Testes para a classe ExtMDFeEnviMDFe 
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Com_Parametros()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Com_Parametros()
         {
             //Arrange
-            _enviMdFe = new MDFeEnviMDFe()
+            var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
                 MDFe = _mdfe.GetMdfe(),
-                IdLote = "1"
+                IdLote = _lote
             };
-            _enviMdFe.MDFe.Assina();
 
             //Act
-            var xmlGerado = _enviMdFe.CriaXmlRequestWs();
-
-
+            var xmlGerado = enviMdFe.CriaXmlRequestWs();
+            
             //Assert
-            Assert.IsInstanceOf<XmlDocument>(xmlGerado);
+            Assert.NotNull(xmlGerado);
+            Assert.IsType<XmlDocument>(xmlGerado);
         }
 
-        [Test]
-        public void Testa_A_Requisicao_De_Envio_MDFe_Criada_Com_O_Xml_Esperado()
+        [Fact]
+        public void Deve_Testar_A_Requisicao_De_Envio_MDFe_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
-            _enviMdFe = new MDFeEnviMDFe()
+            var mdfe = _mdfe.GetMdfe();
+            mdfe.Assina();
+            mdfe.Signature.SignatureValue = _valueKey;
+            mdfe.Signature.SignedInfo.Reference.DigestValue = _valueKey;
+            mdfe.Signature.KeyInfo.X509Data.X509Certificate = _valueKey;
+
+            var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
-                MDFe = _mdfe.GetMdfe(),
-                IdLote = "1"
+                MDFe = mdfe,
+                IdLote = _lote
             };
-            _enviMdFe.MDFe.Assina();
             
-
             var repositorioDao = new RepositorioDaoFalso();
 
             //Act
-            var xmlGerado = _enviMdFe.CriaXmlRequestWs();
+            var xmlGerado = enviMdFe.CriaXmlRequestWs();
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
-            Assert.AreEqual(xmlEsperado.InnerXml, xmlGerado.InnerXml);
+            Assert.NotNull(xmlEsperado);
+            Assert.NotNull(xmlGerado);
+            Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao_E_IDLote()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao_E_IDLote()
         {
             //Arrange
-            _enviMdFe = new MDFeEnviMDFe()
+            var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = 0,
                 MDFe = _mdfe.GetMdfe(),
                 IdLote = null
             };
-            _enviMdFe.MDFe.Assina();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _enviMdFe.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaXmlRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao()
+        [Fact]
+        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao()
         {
             //Arrange
-            _enviMdFe = new MDFeEnviMDFe()
+            var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = 0,
                 MDFe = _mdfe.GetMdfe(),
-                IdLote = "1"
+                IdLote = _lote
             };
-            _enviMdFe.MDFe.Assina();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _enviMdFe.CriaXmlRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => enviMdFe.CriaXmlRequestWs());
 
             //Assert
-            Assert.IsInstanceOf<InvalidOperationException>(exception);
-
+            Assert.NotNull(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
-        [Test]
-        public void Testa_A_Funcao_Envio_Mdfe_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        [Fact]
+        public void Deve_Testar_A_Funcao_Envio_Mdfe_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
         {
             //Arrange
-            _enviMdFe = new MDFeEnviMDFe()
+            var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,
                 MDFe = _mdfe.GetMdfe(),
-                IdLote = "1"
+                IdLote = _lote
             };
-            _enviMdFe.MDFe.Assina();
+
+            enviMdFe.MDFe.Assina();
 
             //Act
-            _enviMdFe.SalvarXmlEmDisco();
+            var result = Record.Exception(() => enviMdFe.SalvarXmlEmDisco());
 
             //Assert
-            Assert.That(true);
+            Assert.Null(result);
         }
 
         #endregion

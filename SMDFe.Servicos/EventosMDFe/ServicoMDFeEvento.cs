@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using SMDFe.Classes.Retorno.MDFeEvento;
-using SMDFe.Utils.Configuracoes;
 using MDFeEletronica = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Servicos.EventosMDFe
@@ -40,32 +39,26 @@ namespace SMDFe.Servicos.EventosMDFe
     {
         public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
             MDFeEletronica mdfe, byte sequenciaEvento, string nome,
-            string cpf, MDFeConfiguracao cfgMdfe = null)
+            string cpf)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var eventoIncluirCondutor = new EventoInclusaoCondutor();
 
-            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf, config);
+            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var eventoEncerramento = new EventoEncerramento();
 
-            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo, config);
+            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
         }
 
         public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string justificativa, MDFeConfiguracao cfgMdfe = null)
+            string justificativa)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var eventoCancelamento = new EventoCancelar();
 
-            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa, config);
+            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
         }
     }
 }

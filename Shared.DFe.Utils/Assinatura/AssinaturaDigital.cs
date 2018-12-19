@@ -75,7 +75,7 @@ namespace DFe.Utils.Assinatura
             docXml.KeyInfo = keyInfo;
             docXml.ComputeSignature();
 
-            docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA1Url;
+            docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigSHA1Url;
 
             //// recuperando a representacao do XML assinado
             var xmlDigitalSignature = docXml.GetXml();

@@ -430,6 +430,18 @@
       <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
       <Name>MDFe.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj">
+      <Project>{71a408e4-299c-4a71-ad98-92354588bfdd}</Project>
+      <Name>SMDFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj">
+      <Project>{16ac3712-e03d-4ebc-ab55-807fc9c46066}</Project>
+      <Name>SMDFe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj">
+      <Project>{8d357ec0-9082-4b4e-82d8-ae65ac655eb8}</Project>
+      <Name>SMDFe.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -46,23 +46,11 @@ namespace SMDFe.Classes.Informacoes
     [Serializable]
     public class MDFeIde
     {
-        /// <summary>
-        /// Construtor para serialização
-        /// </summary>
-        private MDFeIde()
+        public MDFeIde()
         {
-        }
-
-        public MDFeIde(VersaoServico? versaoServico = null)
-        {
-            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
-
             InfMunCarrega = new List<MDFeInfMunCarrega>();
             InfPercurso = new List<MDFeInfPercurso>();
         }
-
-        [XmlIgnore]
-        private readonly VersaoServico _versaoServico;
 
         /// <summary>
         /// 2 - Código da UF do emitente do MDF-e. 
@@ -152,7 +140,7 @@ namespace SMDFe.Classes.Informacoes
         {
             get
             {
-                switch (_versaoServico)
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();

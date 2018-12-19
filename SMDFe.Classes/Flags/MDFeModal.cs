@@ -30,8 +30,6 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
-using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace SMDFe.Classes.Flags
@@ -39,16 +37,12 @@ namespace SMDFe.Classes.Flags
     public enum MDFeModal
     {
         [XmlEnum("1")]
-        [Description("Rodoviário")]
         Rodoviario = 1,
         [XmlEnum("2")]
-        [Description("Aéreo")]
         Aereo = 2,
         [XmlEnum("3")]
-        [Description("Aquaviário")]
         Aquaviario = 3,
         [XmlEnum("4")]
-        [Description("Ferroviário")]
-        Ferroviario = 4
+        Ferroviari = 4
     }
 }

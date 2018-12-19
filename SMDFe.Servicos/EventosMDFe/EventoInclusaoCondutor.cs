@@ -34,20 +34,17 @@
 using SMDFe.Classes.Informacoes.Evento.Flags;
 using SMDFe.Classes.Retorno.MDFeEvento;
 using SMDFe.Servicos.Factory;
-using SMDFe.Utils.Configuracoes;
 using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Servicos.EventosMDFe
 {
     public class EventoInclusaoCondutor
     {
-        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeEletronico mdfe, byte sequenciaEvento, string nome, string cpf, MDFeConfiguracao cfgMdfe = null)
+        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(MDFeEletronico mdfe, byte sequenciaEvento, string nome, string cpf)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             var incluirCodutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor, config);
+            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, incluirCodutor, MDFeTipoEvento.InclusaoDeCondutor);
 
             return retorno;
         }

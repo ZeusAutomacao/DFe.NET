@@ -40,82 +40,81 @@ using SMDFe.Utils.Configuracoes;
 using SMDFe.Utils.Flags;
 using SMDFe.Utils.Validacao;
 using System.Security.Cryptography.X509Certificates;
-using NFe.Utils.Assinatura;
+
 using MDFEletronico = SMDFe.Classes.Informacoes.MDFe;
 
 namespace SMDFe.Classes.Extencoes
 {
     public static class ExtMDFe
     {
-        public static MDFEletronico Valida(this MDFEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
+        public static MDFEletronico Valida(this MDFEletronico mdfe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             if (mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
             var xmlMdfe = FuncoesXml.ClasseParaXmlString(mdfe);
 
-            switch (config.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlMdfe, "MDFe_v1.00.xsd", config);
+                    Validador.Valida(xmlMdfe, "MDFe_v1.00.xsd");
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlMdfe, "MDFe_v3.00.xsd", config);
+                    Validador.Valida(xmlMdfe, "MDFe_v3.00.xsd");
                     break;
             }
 
             var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType();
             var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
 
+
             if (tipoModal == typeof (MDFeRodo))
             {
-                switch (config.VersaoWebService.VersaoLayout)
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v1.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v3.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v3.00.xsd");
                         break;
                 }
             }
 
             if (tipoModal == typeof (MDFeAereo))
             {
-                switch (config.VersaoWebService.VersaoLayout)
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalAereo_v1.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalAereo_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalAereo_v3.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalAereo_v3.00.xsd");
                         break;
                 }
             }
 
             if (tipoModal == typeof (MDFeAquav))
             {
-                switch (config.VersaoWebService.VersaoLayout)
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v1.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v3.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v3.00.xsd");
                         break;
                 }
             }
 
             if (tipoModal == typeof (MDFeFerrov))
             {
-                switch (config.VersaoWebService.VersaoLayout)
+                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v1.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v3.00.xsd", config);
+                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v3.00.xsd");
                         break;
                 }
             }
@@ -123,11 +122,9 @@ namespace SMDFe.Classes.Extencoes
             return mdfe;
         }
 
-        public static MDFEletronico Assina(this MDFEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
+        public static MDFEletronico Assina(this MDFEletronico mdfe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
-            if (mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
+            if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
             var modeloDocumentoFiscal = mdfe.InfMDFe.Ide.Mod;
             var tipoEmissao = (int) mdfe.InfMDFe.Ide.TpEmis;
@@ -141,10 +138,10 @@ namespace SMDFe.Classes.Extencoes
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
-            mdfe.InfMDFe.Versao = config.VersaoWebService.VersaoLayout;
+            mdfe.InfMDFe.Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 
-            var assinatura = Assinador.ObterAssinatura(mdfe, mdfe.InfMDFe.Id, config.X509Certificate2);
+            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
 
             mdfe.Signature = assinatura;
 
@@ -156,14 +153,12 @@ namespace SMDFe.Classes.Extencoes
             return FuncoesXml.ClasseParaXmlString(mdfe);
         }
 
-        public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null, MDFeConfiguracao cfgMdfe = null)
+        public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
-            if (config.NaoSalvarXml()) return;
+            if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
-                nomeArquivo = config.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
+                nomeArquivo = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
 
             FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
         }

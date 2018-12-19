@@ -191,14 +191,20 @@ namespace SMDFe.Wsdl.Gerado.MDFeRetRecepcao
                 var soapserializer = new XmlSerializer(typeof(SOAPEnvelopeR));
                 xmlEnvelop = new XmlDocument();
 
-                var ms = new MemoryStream();
-                soapserializer.Serialize(ms, soapEnvelope);
-                ms.Position = 0;
+                using (var sww = new StreamWriter("soap.xml"))
+                {
+                    using (XmlWriter writer = XmlWriter.Create(sww,
+                        new XmlWriterSettings() {Indent = false}))
+                    {
+                        soapserializer.Serialize(writer, soapEnvelope);
+                        writer.Close();
 
-                var reader = new StreamReader(ms).ReadToEnd();
+                    }
+                }
 
                 xmlEnvelop.PreserveWhitespace = false;
-                xmlEnvelop.LoadXml(reader);
+                xmlEnvelop.Load("soap.xml");
+
             }
             catch (XmlException e)
             {

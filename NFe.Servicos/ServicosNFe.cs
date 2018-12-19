@@ -351,7 +351,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
-            return new RetornoNfeInutilizacao(xmlInutilizacao, retInutNFe.ObterXmlString(),
+            return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
 
             #endregion
@@ -464,7 +464,7 @@ namespace NFe.Servicos
 
             #endregion
 
-            return new RetornoRecepcaoEvento(xmlEvento, retEnvEvento.ObterXmlString(), retornoXmlString,
+            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString,
                 retEnvEvento, listprocEventoNFe);
 
             #endregion
@@ -534,9 +534,13 @@ namespace NFe.Servicos
                     "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
             };
 
+
             if (_cFgServico.cUF == Estado.MT || _cFgServico.RemoverAcentos)
+            {
                 detEvento.xCondUso =
                     "A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.";
+                detEvento.descEvento = "Carta de Correcao";
+            }
 
             var infEvento = new infEventoEnv
             {
@@ -1096,7 +1100,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 
-            return new RetornoNFeAutorizacao(xmlEnvio, retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
+            return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
 
             #endregion
         }
