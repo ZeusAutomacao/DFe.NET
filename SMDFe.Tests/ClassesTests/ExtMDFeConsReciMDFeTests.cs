@@ -8,7 +8,6 @@ using SMDFe.Tests.Entidades;
 
 namespace SMDFe.Tests.ClassesTests
 {
-
     public class ExtMDFeConsReciMDFeTests: IDisposable
     {
         #region Variáveis
