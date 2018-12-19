@@ -125,11 +125,11 @@ namespace SMDFe.Tests.ClassesTests
             };
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _consultaMdFeNaoEnc.CriaRequestWs());
+            var exception = Assert.ThrowsAny<Exception>(() => _consultaMdFeNaoEnc.CriaRequestWs());
 
             //Assert
             Assert.NotNull(exception);
-            Assert.IsType<InvalidOperationException>(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         [Fact]

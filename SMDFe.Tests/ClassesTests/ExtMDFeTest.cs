@@ -59,11 +59,11 @@ namespace SMDFe.Tests.ClassesTests
             _mdfe = new MDFe();
 
             //Act
-            var exception = Assert.Throws<InvalidOperationException>(() => _mdfe.Assina());
+            var exception = Assert.ThrowsAny<Exception>(() => _mdfe.Assina());
 
             //Assert
             Assert.NotNull(exception);
-            Assert.IsType<InvalidOperationException>(exception);
+            Assert.IsAssignableFrom<Exception>(exception);
         }
 
         [Fact]
