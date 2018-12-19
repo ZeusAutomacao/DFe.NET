@@ -39,6 +39,7 @@ using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using NFe.Utils.Assinatura;
 
 namespace MDFe.Classes.Extencoes
 {
@@ -98,7 +99,7 @@ namespace MDFe.Classes.Extencoes
 
         public static void Assinar(this MDFeEventoMDFe evento)
         {
-            evento.Signature = AssinaturaDigital.Assina(evento, evento.InfEvento.Id,
+            evento.Signature = Assinador.ObterAssinatura(evento, evento.InfEvento.Id,
                 MDFeConfiguracao.X509Certificate2);
         }
 

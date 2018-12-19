@@ -34,22 +34,19 @@
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Retorno.MDFeStatusServico;
 using SMDFe.Servicos.Factory;
+using SMDFe.Utils.Configuracoes;
 
 namespace SMDFe.Servicos.StatusServicoMDFe
 {
     public class ServicoMDFeStatusServico
     {
-        public MDFeRetConsStatServ MDFeStatusServico()
+        public MDFeRetConsStatServ MDFeStatusServico(MDFeConfiguracao cfgMdfe = null)
         {
-            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
-            consStatServMDFe.ValidarSchema();
-            consStatServMDFe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeStatusServico();
+            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe(cfgMdfe);
+            consStatServMDFe.ValidarSchema(cfgMdfe);
+            var webService = WsdlFactory.CriaWsdlMDFeStatusServico(cfgMdfe);
             var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
-
             var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consStatServMDFe);
-            retorno.SalvarXmlEmDisco();
 
             return retorno;
 

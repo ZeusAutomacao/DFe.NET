@@ -35,24 +35,19 @@
 using SMDFe.Classes.Extencoes;
 using SMDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using SMDFe.Servicos.Factory;
-
+using SMDFe.Utils.Configuracoes;
 
 namespace SMDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class ServicoMDFeConsultaNaoEncerrados
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj, MDFeConfiguracao cfgMdfe = null)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
-            
+            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj, cfgMdfe);
+            consMDFeNaoEnc.ValidarSchema(cfgMdfe);
+            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(cfgMdfe);
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
 
             return retorno;
         }

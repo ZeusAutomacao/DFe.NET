@@ -84,7 +84,6 @@
     <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
     <Compile Include="Informacoes\infCIOT.cs" />
     <Compile Include="Informacoes\infContratante.cs" />
-    <Compile Include="Informacoes\infRespTec.cs" />
     <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
     <Compile Include="Informacoes\MDFeAereo.cs" />
@@ -153,6 +152,10 @@
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
       <Project>{9C0678EB-78F2-49C6-91BF-38148FC37FBB}</Project>
       <Name>MDFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
+      <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
+      <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

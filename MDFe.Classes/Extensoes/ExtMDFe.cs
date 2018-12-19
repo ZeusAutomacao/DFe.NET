@@ -39,6 +39,7 @@ using MDFe.Classes.Informacoes;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using NFe.Utils.Assinatura;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Classes.Extencoes
@@ -139,7 +140,7 @@ namespace MDFe.Classes.Extencoes
             mdfe.InfMDFe.Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 
-            var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
+            var assinatura = Assinador.ObterAssinatura(mdfe, mdfe.InfMDFe.Id, MDFeConfiguracao.X509Certificate2);
 
             mdfe.Signature = assinatura;
 

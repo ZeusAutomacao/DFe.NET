@@ -39,11 +39,13 @@ namespace SMDFe.Classes.Extencoes
 {
     public static class ExtMDFeRetConsReciMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetConsReciMDFe consReciMdFe)
+        public static void SalvarXmlEmDisco(this MDFeRetConsReciMDFe consReciMdFe, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
+
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = caminhoXml + @"\" + consReciMdFe.NRec + "-pro-rec.xml";
 
