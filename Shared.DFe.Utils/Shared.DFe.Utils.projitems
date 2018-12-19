@@ -18,6 +18,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)EnumExt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FuncoesXml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Reflexao.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StringExtencoes.cs" />
   </ItemGroup>
 </Project>

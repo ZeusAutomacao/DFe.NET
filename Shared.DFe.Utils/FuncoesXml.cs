@@ -46,6 +46,7 @@ namespace DFe.Utils
 
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static readonly Hashtable CacheSerializers = new Hashtable();
+        private static readonly object SyncRoot = new object();
 
         /// <summary>
         ///     Serializa a classe passada para uma string no form
@@ -224,16 +225,15 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-            if (CacheSerializers.Contains(chave))
+            lock (SyncRoot)
             {
-                return (XmlSerializer)CacheSerializers[chave];
+                if (CacheSerializers.Contains(chave))
+                    return (XmlSerializer)CacheSerializers[chave];
+
+                var ser = XmlSerializer.FromTypes(new[] { type })[0];
+                CacheSerializers.Add(chave, ser);
+                return ser;
             }
-
-
-            var ser = XmlSerializer.FromTypes(new[] { type })[0];
-            CacheSerializers.Add(chave, ser);
-
-            return ser;
         }
     }
 }

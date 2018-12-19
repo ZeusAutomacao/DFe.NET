@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    
+  </PropertyGroup>
+
+  <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
+  <ItemGroup>
+    
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
+
+  <!-- .NET Standard 2.0 referências, sinalizadores de compilação e opções de compilação -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Data.SqlClient" Version="4.4.0-preview1-25305-02" />
+    <PackageReference Include="FastReport.OpenSource" Version="2018.4.7" />
+  </ItemGroup>
+
+
+  <!-- .NET 4.5 referências, sinalizadores de compilação e opções de compilação -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="FastReport">
+      <HintPath>Dlls\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars">
+      <HintPath>Dlls\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor">
+      <HintPath>Dlls\FastReport.Editor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="MDFeRetrato.frx" />
+    <None Include="Resources\MDFeRetrato.frx" />
+    <None Include="DamdfeFrMDFe.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="CoreCompat.System.Drawing.v2">
+      <Version>5.2.0-preview1-r131</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj" />
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup  Condition="'$(TargetFramework)' == 'net45'" >
+    <ProjectReference Include="..\SMDFe.Damdfe.Base\SMDFe.Damdfe.Base.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+
+</Project>
