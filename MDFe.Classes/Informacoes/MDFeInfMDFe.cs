@@ -33,6 +33,7 @@
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using CTe.Classes.Informacoes.infRespTec;
 using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes

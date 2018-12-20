@@ -206,7 +206,7 @@ namespace SMDFe.TestesServicos
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -234,7 +234,7 @@ namespace SMDFe.TestesServicos
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -317,7 +317,7 @@ namespace SMDFe.TestesServicos
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -333,7 +333,7 @@ namespace SMDFe.TestesServicos
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -565,16 +565,16 @@ namespace SMDFe.TestesServicos
 
             //};
 
-            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.Instancia.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.Instancia.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.Instancia.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
         }
     }
 }

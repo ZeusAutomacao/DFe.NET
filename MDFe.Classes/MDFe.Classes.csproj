@@ -141,6 +141,10 @@
     <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
+      <Project>{C86E3921-F0B8-4BFE-9EF1-0E9084326B13}</Project>
+      <Name>CTe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>

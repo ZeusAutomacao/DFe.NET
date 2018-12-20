@@ -1,5 +1,6 @@
 ﻿
 using System.IO;
+using System.Reflection;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using SMDFe.Tests.Entidades;
@@ -68,7 +69,7 @@ namespace SMDFe.Tests.Dao
                 Ambiente = TipoAmbiente.Homologacao,
                 Serie = 1,
                 VersaoLayout = VersaoServico.Versao300,
-                CaminhoSchemas = @"Schemas\",
+                CaminhoSchemas = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Schemas",
                 Numeracao = 1,
                 TimeOut = 1000,
                 UfEmitente = Estado.SE

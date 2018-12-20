@@ -93,7 +93,7 @@ namespace SMDFe.Tests.ClassesTests
             var geradorMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
             _mdfe = geradorMdfe.GetMdfe();
 
-            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = null;
+            Utils.Configuracoes.MDFeConfiguracao.Instancia.ConfiguracaoCertificado = null;
 
             //Act
             var exception = Assert.ThrowsAny<Exception>(() => _mdfe.Assina());
