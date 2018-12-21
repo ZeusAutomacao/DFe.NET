@@ -12,7 +12,7 @@
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
 
