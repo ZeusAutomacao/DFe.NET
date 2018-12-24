@@ -1,25 +1,23 @@
-﻿using  System;
-using System.IO;
+﻿using System;
 using DFe.Utils;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento.Flags;
+using MDFe.Classes.Informacoes.RetRecepcao;
+using MDFe.Classes.Informacoes.StatusServico;
+using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Servicos.EventosMDFe;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
 using Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes;
-using SMDFe.Classes.Informacoes.ConsultaNaoEncerrados;
-using SMDFe.Classes.Informacoes.ConsultaProtocolo;
-using SMDFe.Classes.Informacoes.Evento;
-using SMDFe.Classes.Informacoes.Evento.CorpoEvento;
-using SMDFe.Classes.Informacoes.Evento.Flags;
-using SMDFe.Classes.Informacoes.RetRecepcao;
-using SMDFe.Classes.Informacoes.StatusServico;
-using SMDFe.Classes.Servicos.Autorizacao;
-using SMDFe.Servicos.EventosMDFe;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
-using SMDFe.Utils.Flags;
-using SMDFe.Utils.Validacao;
 
-
-namespace SMDFe.Tests.UtilsTests
+namespace MDFe.Tests.UtilsTests
 {
     
     public class ValdidadorTests:IDisposable
@@ -36,7 +34,7 @@ namespace SMDFe.Tests.UtilsTests
         private readonly string _schema_eventos;
         private readonly string _schema_incorreto;
         private MDFeEletronicaFalsa _RepositorioFalsoMdfe;
-        private MDFe _mdfe;
+        private Classes.Informacoes.MDFe _mdfe;
         private MDFeEnviMDFe _enviMdFe;
         private MDFeCondutorIncluir _condutor;
         private MDFeEventoMDFe _evento;
@@ -107,7 +105,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_O_Xml_Por_Falta_Do_Status_Para_StatusMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Status_Para_Requisicao_StatusMDFe()
         {
 
             //Arrange
@@ -127,7 +125,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_StatusMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_Requisicao_StatusMDFe()
         {
             //Arrange
 
@@ -140,7 +138,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_StatusMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Requisicao_StatusMDFe()
         {
             //Arrange
             var xmlEnvio = new MDFeConsStatServMDFe()
@@ -159,7 +157,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_StatusMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Requisicao_StatusMDFe()
         {
             //Arrange
             var xmlEnvio = new MDFeConsStatServMDFe();
@@ -173,7 +171,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_StatusMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_StatusMDFe()
         {
             //Arrange
             var xmlEnvio = new MDFeConsStatServMDFe()
@@ -213,7 +211,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_CNPJ_Para_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_CNPJ_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
@@ -232,7 +230,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Campo_Consulta_Para_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Campo_Consulta_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
@@ -252,7 +250,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
 
@@ -265,7 +263,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
@@ -284,7 +282,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Vazio_Para_ConsultasNaoEncerradas()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Vazio_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc();
@@ -298,7 +296,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_ConsultasNaoEncerradas()
+        public void DDeve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_ConsultasNaoEncerradas()
         {
             //Arrange
             var xmlEnvio = new MDFeCosMDFeNaoEnc()
@@ -339,7 +337,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_O_Xml_Por_Falta_Do_Recibo_Para_ConsultaPorRecibo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Recibo_Para_Requisicao_ConsultaPorRecibo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe()
@@ -358,7 +356,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_ConsultaPorRecibos()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_Requisicao_ConsultaPorRecibos()
         {
             //Arrange
 
@@ -371,7 +369,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_ConsultaPorRecibo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Requisicao_ConsultaPorRecibo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe()
@@ -390,7 +388,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_ConsultaPorRecibo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Requisicao_ConsultaPorRecibo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe();
@@ -404,7 +402,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_ConsultaPorRecibo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_ConsultaPorRecibo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsReciMDFe()
@@ -445,7 +443,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_O_Xml_Por_Falta_Do_Protocolo_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Protocolo_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe()
@@ -464,7 +462,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_O_Xml_Por_Falta_Do_Servico_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Servico_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe()
@@ -484,7 +482,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             
@@ -497,7 +495,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe()
@@ -516,7 +514,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe();
@@ -530,7 +528,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Consulta_Por_Protocolo()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Requisicao_Por_Protocolo()
         {
             //Arrange
             var xmlEnvio = new MDFeConsSitMDFe()
@@ -557,6 +555,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_MDFe()
         {
             //Arrange
+            if(_mdfe != null) Dispose();
             _mdfe.Assina();
             var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
@@ -568,7 +567,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_MDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_MDFe()
         {
             //Arrange
 
@@ -581,9 +580,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_MDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_MDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _mdfe.Assina();
             var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
             
@@ -596,9 +596,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_MDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_MDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _mdfe.Assina();
             _mdfe.InfMDFe.Id = "";
 
@@ -613,9 +614,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_MDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_MDFe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             _mdfe.Assina();
             var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
@@ -650,7 +652,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_EnviMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_EnviMDFe()
         {
             //Arrange
 
@@ -663,7 +665,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_EnviMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_EnviMDFe()
         {
             //Arrange
             _enviMdFe = new MDFeEnviMDFe()
@@ -685,7 +687,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_EnviMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_EnviMDFe()
         {
             //Arrange
             _enviMdFe = new MDFeEnviMDFe()
@@ -707,7 +709,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_EnviMDFe()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_EnviMDFe()
         {
             //Arrange
             _enviMdFe = new MDFeEnviMDFe()
@@ -733,6 +735,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_InfoModal()
         {
             //Arrange
+            if(_mdfe != null) Dispose();
             _mdfe.Assina();
             var infoModal = _mdfe.InfMDFe.InfModal;
             var xml = FuncoesXml.ClasseParaXmlString(infoModal);
@@ -746,7 +749,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_InfoModal()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_InfoModal()
         {
             //Arrange
 
@@ -759,7 +762,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_InfoModal()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_InfoModal()
         {
             //Arrange
             var infoModal = _mdfe.InfMDFe.InfModal;
@@ -775,7 +778,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_InfoModal()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_InfoModal()
         {
             //Arrange
             var infoModal = _mdfe.InfMDFe.InfModal;
@@ -792,7 +795,7 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_InfoModal()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_InfoModal()
         {
             //Arrange
             var infoModal = _mdfe.InfMDFe.InfModal;
@@ -816,6 +819,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Incluir_Condutor()
         {
             //Arrange
+            if(_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -833,9 +837,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Incluir_Condutor()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Incluir_Condutor()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -854,9 +859,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Incluir_Evento()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Incluir_Evento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -876,9 +882,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Incluir_Condutor()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Incluir_Condutor()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -904,6 +911,7 @@ namespace SMDFe.Tests.UtilsTests
         {
 
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -924,9 +932,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Encerrar_Eventos()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Encerrar_Eventos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -948,9 +957,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Encerrar_Eventos()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Encerrar_Eventos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -973,10 +983,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Encerrar_Eventos()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Encerrar_Eventos()
         {
             //Arrange
-            //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -1004,6 +1014,7 @@ namespace SMDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Cancelar_Evento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
@@ -1022,9 +1033,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Schema_Para_Cancelar_Evento()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Schema_Para_Cancelar_Evento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
@@ -1044,9 +1056,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_XML_Incorreto_Para_Cancelar_Evento()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_XML_Incorreto_Para_Cancelar_Evento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
@@ -1067,9 +1080,10 @@ namespace SMDFe.Tests.UtilsTests
         }
 
         [Fact] 
-        public void Deve_Recusar_A_Validacao_Por_Schema_Incorreto_Para_Cancelar_Evento()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Schema_Incorreto_Para_Cancelar_Evento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
@@ -1092,7 +1106,7 @@ namespace SMDFe.Tests.UtilsTests
         //<<=========================================== Teste para Eventos de forma geral =======================================>>
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Do_Xml_Para_O_Evento()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Do_Xml_Para_O_Evento()
         {
             //Arrange
             
@@ -1109,7 +1123,7 @@ namespace SMDFe.Tests.UtilsTests
         #region Testes para a Validação de forma geral
 
         [Fact]
-        public void Deve_Recusar_A_Validacao_Por_Falta_Dos_Parametros()
+        public void Deve_Gerar_Uma_Excecao_Na_Validacao_Por_Falta_Dos_Parametros()
         {
             //Arrange
 

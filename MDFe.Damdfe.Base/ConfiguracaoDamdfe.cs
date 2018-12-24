@@ -31,8 +31,18 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+#if NETSTANDARD2_0
 using System.Drawing;
 using System.IO;
+
+#endif
+#if NET45
+using System;
+using System.Drawing;
+using System.IO;
+
+#endif
+
 
 namespace MDFe.Damdfe.Base
 {
@@ -40,10 +50,14 @@ namespace MDFe.Damdfe.Base
     {
         public ConfiguracaoDamdfe()
         {
-            this.Logomarca = null;
-            this.DocumentoCancelado = false;
-            this.DocumentoEncerrado = false;
-            this.QuebrarLinhasObservacao = false;
+            Logomarca = null;
+            DocumentoCancelado = false;
+            DocumentoEncerrado = false;
+            QuebrarLinhasObservacao = false;
+            MargemDireita = 6;
+            MargemEsquerda = 6;
+            MargemSuperior = 8;
+            MargemInferior = 8;
         }
 
         /// <summary>
@@ -72,9 +86,29 @@ namespace MDFe.Damdfe.Base
         public bool QuebrarLinhasObservacao { get; set; }
 
         /// <summary>
+        /// Margem direita da página em MM
+        /// </summary>
+        public float MargemDireita { get; set; }
+
+        /// <summary>
+        /// Margem esquerda da página em MM
+        /// </summary>
+        public float MargemEsquerda { get; set; }
+
+        /// <summary>
+        /// Margem superior da página em MM
+        /// </summary>
+        public float MargemSuperior { get; set; }
+
+        /// <summary>
+        /// Margem inferior da página em MM
+        /// </summary>
+        public float MargemInferior { get; set; }
+        /// <summary>
         /// Retorna um objeto do tipo Image a partir da logo armazenada na propriedade Logomarca 
         /// </summary>
         /// <returns></returns>
+
         public Image ObterLogo()
         {
             if (Logomarca == null)
@@ -83,5 +117,19 @@ namespace MDFe.Damdfe.Base
             var image = Image.FromStream(ms);
             return image;
         }
+
+        /// <summary>
+        /// Retorna um objeto do tipo MemoryStream a partir da logo armazenada na propriedade Logomarca 
+        /// </summary>
+        /// <returns></returns>
+        public MemoryStream ObterLogoMemory()
+        {
+            if (Logomarca == null)
+                return new MemoryStream();
+            var ms = new MemoryStream(Logomarca);
+            
+            return ms;
+        }
+
     }
 }

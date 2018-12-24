@@ -91,17 +91,17 @@ namespace NFe.Utils.Assinatura
 
             try
             {
-                var documento = new XmlDocument { PreserveWhitespace = true };
+                var documento = new XmlDocument {PreserveWhitespace = true};
 
                 documento.LoadXml(cfgServicoRemoverAcentos
                     ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
                     : FuncoesXml.ClasseParaXmlString(objetoLocal));
 
-                var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
+                var docXml = new SignedXml(documento) {SigningKey = certificadoDigital.PrivateKey};
 
                 docXml.SignedInfo.SignatureMethod = signatureMethod;
 
-                var reference = new Reference { Uri = "#" + id, DigestMethod = digestMethod};
+                var reference = new Reference {Uri = "#" + id, DigestMethod = digestMethod};
 
                 // adicionando EnvelopedSignatureTransform a referencia
                 var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
@@ -123,6 +123,11 @@ namespace NFe.Utils.Assinatura
                 var xmlDigitalSignature = docXml.GetXml();
                 var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
                 return assinatura;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+                throw;
             }
             finally
             {

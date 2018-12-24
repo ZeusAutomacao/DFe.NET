@@ -1,14 +1,11 @@
-﻿
-using System;
-using DFe.Utils;
-using  Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes;
-using SMDFe.Servicos.Factory;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
+﻿using System;
+using MDFe.Classes.Extensoes;
+using MDFe.Servicos.Factory;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
+using Xunit;
 
-namespace SMDFe.Tests.ServicosTests
+namespace MDFe.Tests.ServicosTests
 {
 
     public class ClassesFactoryTests : IDisposable
@@ -16,7 +13,7 @@ namespace SMDFe.Tests.ServicosTests
         #region Variáveis
         private Configuracao _configuracao;
         private MDFeEletronicaFalsa _RepositorioFalsoMdfe;
-        private MDFe _mdfe;
+        private Classes.Informacoes.MDFe _mdfe;
         private readonly string _mensagemNaoEnce;
         private readonly string _mensagemConsulta;
         private readonly string _mensagemCancelamento;
@@ -58,7 +55,7 @@ namespace SMDFe.Tests.ServicosTests
 
         public void Dispose()
         {
-            _mdfe = new MDFe();
+            _RepositorioFalsoMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
             _mdfe = _RepositorioFalsoMdfe.GetMdfe();
         }
 
@@ -67,7 +64,20 @@ namespace SMDFe.Tests.ServicosTests
         #region Testes para a classe ClassesFactory
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriarConsMDFeNaoEnc()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriarConsMDFeNaoEnc_Nao_Nula()
+        {
+            //Arrange
+            var cnpj = _configuracao.Empresa.Cnpj;
+
+            //Act
+            var consultaNaoEncerrados = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
+
+            //Assert
+            Assert.NotNull(consultaNaoEncerrados);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriarConsMDFeNaoEnc()
         {
             //Arrange
             var cnpj = _configuracao.Empresa.Cnpj;
@@ -78,7 +88,6 @@ namespace SMDFe.Tests.ServicosTests
             var consultaNaoEncerrados = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
 
             //Assert
-            Assert.NotNull(consultaNaoEncerrados);
             Assert.Equal(ambiente, consultaNaoEncerrados.TpAmb);
             Assert.Equal(versao, consultaNaoEncerrados.Versao);
             Assert.Equal(cnpj, consultaNaoEncerrados.CNPJ);
@@ -86,7 +95,20 @@ namespace SMDFe.Tests.ServicosTests
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriarConsSitMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriarConsSitMDFe_Nao_Nula()
+        {
+            //Arrange
+            var chave = _mdfe.InfMDFe.Id;
+
+            //Act
+            var consulta = ClassesFactory.CriarConsSitMDFe(chave);
+
+            //Assert
+            Assert.NotNull(consulta);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriarConsSitMDFe()
         {
             //Arrange
             var ambiente = _configuracao.ConfigWebService.Ambiente;
@@ -97,7 +119,6 @@ namespace SMDFe.Tests.ServicosTests
             var consulta = ClassesFactory.CriarConsSitMDFe(chave);
 
             //Assert
-            Assert.NotNull(consulta);
             Assert.Equal(ambiente, consulta.TpAmb);
             Assert.Equal(versao, consulta.Versao);
             Assert.Equal(chave, consulta.ChMDFe);
@@ -105,7 +126,7 @@ namespace SMDFe.Tests.ServicosTests
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaEvCancMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriaEvCancMDFe_Nao_Nula()
         {
             //Arrange
 
@@ -114,13 +135,36 @@ namespace SMDFe.Tests.ServicosTests
 
             //Assert
             Assert.NotNull(cancelamento);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriaEvCancMDFe()
+        {
+            //Arrange
+
+            //Act
+            var cancelamento = ClassesFactory.CriaEvCancMDFe(_protocolo, _justificativa);
+
+            //Assert
             Assert.Equal(_protocolo, cancelamento.NProt);
             Assert.Equal(_justificativa, cancelamento.XJust);
             Assert.Equal(_mensagemCancelamento, cancelamento.DescEvento);
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaEvEncMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_Pelo_Metodo_CriaEvEncMDFe_Nao_Nula()
+        {
+            //Arrange
+
+            //Act
+            var encerramento = ClassesFactory.CriaEvEncMDFe(_mdfe, _protocolo);
+
+            //Assert
+            Assert.NotNull(encerramento);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaEvEncMDFe()
         {
             //Arrange
             var cuf = _mdfe.UFEmitente();
@@ -130,7 +174,6 @@ namespace SMDFe.Tests.ServicosTests
             var encerramento = ClassesFactory.CriaEvEncMDFe(_mdfe, _protocolo);
 
             //Assert
-            Assert.NotNull(encerramento);
             Assert.Equal(cuf, encerramento.CUF);
             Assert.Equal(cmun, encerramento.CMun);
             Assert.Equal(_protocolo, encerramento.NProt);
@@ -138,7 +181,7 @@ namespace SMDFe.Tests.ServicosTests
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaEvIncCondutorMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriaEvIncCondutorMDFe_Nao_Nula()
         {
             //Arrange
             var nome = "NINGUEM";
@@ -149,13 +192,38 @@ namespace SMDFe.Tests.ServicosTests
 
             //Assert
             Assert.NotNull(incluirCondutor);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriaEvIncCondutorMDFe()
+        {
+            //Arrange
+            var nome = "NINGUEM";
+            var cpf = "00000000000";
+
+            //Act
+            var incluirCondutor = ClassesFactory.CriaEvIncCondutorMDFe(nome, cpf);
+
+            //Assert
             Assert.Equal(nome, incluirCondutor.Condutor.XNome);
             Assert.Equal(cpf, incluirCondutor.Condutor.CPF);
             Assert.Equal(_mensagemIncluirCondutor, incluirCondutor.DescEvento);
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaEnviMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriaEnviMDFe_Nao_Nula()
+        {
+            //Arrange
+
+            //Act
+            var enviMdfe = ClassesFactory.CriaEnviMDFe(_lote, _mdfe);
+
+            //Assert
+            Assert.NotNull(enviMdfe);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriaEnviMDFe()
         {
             //Arrange
             var versao = _configuracao.ConfigWebService.VersaoLayout;
@@ -164,14 +232,25 @@ namespace SMDFe.Tests.ServicosTests
             var enviMdfe = ClassesFactory.CriaEnviMDFe(_lote, _mdfe);
 
             //Assert
-            Assert.NotNull(enviMdfe);
             Assert.Equal(versao, enviMdfe.Versao);
             Assert.Equal(_mdfe, enviMdfe.MDFe);
             Assert.Equal(_lote.ToString(), enviMdfe.IdLote);
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaConsReciMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriaConsReciMDFe_Nao_Nula()
+        {
+            //Arrange
+
+            //Act
+            var consultaRecibo = ClassesFactory.CriaConsReciMDFe(_protocolo);
+
+            //Assert
+            Assert.NotNull(consultaRecibo);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriaConsReciMDFe()
         {
             //Arrange
             var ambiente = _configuracao.ConfigWebService.Ambiente;
@@ -181,14 +260,25 @@ namespace SMDFe.Tests.ServicosTests
             var consultaRecibo = ClassesFactory.CriaConsReciMDFe(_protocolo);
 
             //Assert
-            Assert.NotNull(consultaRecibo);
             Assert.Equal(ambiente, consultaRecibo.TpAmb);
             Assert.Equal(versao, consultaRecibo.Versao);
             Assert.Equal(_protocolo, consultaRecibo.NRec);
         }
 
         [Fact]
-        public void Deve_Testar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_Pelo_Metodo_CriaConsStatServMDFe()
+        public void Deve_Criar_Uma_Requisicao_Da_Consulta_CriaConsStatServMDFe_Nao_Nula()
+        {
+            //Arrange
+
+            //Act
+            var consultaStatus = ClassesFactory.CriaConsStatServMDFe();
+
+            //Assert
+            Assert.NotNull(consultaStatus);
+        }
+
+        [Fact]
+        public void Deve_Verificar_Os_Parametros_Passados_Na_Criacao_Da_Consulta_CriaConsStatServMDFe()
         {
             //Arrange
             var ambiente = _configuracao.ConfigWebService.Ambiente;
@@ -198,7 +288,6 @@ namespace SMDFe.Tests.ServicosTests
             var consultaStatus = ClassesFactory.CriaConsStatServMDFe();
 
             //Assert
-            Assert.NotNull(consultaStatus);
             Assert.Equal(ambiente, consultaStatus.TpAmb);
             Assert.Equal(versao, consultaStatus.Versao);
             Assert.Equal(_mensagemStatus, consultaStatus.XServ);

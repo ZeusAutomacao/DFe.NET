@@ -1,7 +1,7 @@
 ﻿using System;
 using DFe.Classes.Entidades;
 
-namespace SMDFe.Tests.Entidades
+namespace MDFe.Tests.Entidades
 {
     [Serializable]
     public class Empresa

@@ -1,16 +1,13 @@
 ﻿using System;
-using System.IO;
 using DFe.Utils;
+using MDFe.Classes.Retorno;
+using MDFe.Damdfe.Base;
+using MDFe.Damdfe.Fast;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
 using Xunit;
-using SMDFe.Classes.Retorno;
-using SMDFe.Damdfe.Base;
-using SMDFe.Damdfe.Fast;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
 
-
-
-namespace SMDFe.Tests.DamdfeTests
+namespace MDFe.Tests.DamdfeTests
 {
     
     public class DamdfeFastTest : IDisposable
@@ -57,7 +54,7 @@ namespace SMDFe.Tests.DamdfeTests
 
 
         [Fact]
-        public void Deve_Testar_A_Criacao_Com_Fast_Report()
+        public void Deve_Criar_Um_Relatorio_Com_Fast_Report()
         {
             //Arrange
             var xml = _repositorioDao.GetXmlEsperado("proc.xml");
@@ -73,7 +70,7 @@ namespace SMDFe.Tests.DamdfeTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Funcao_Exporta_Html()
+        public void Deve_Exportar_Relatorio_Para_Html()
         {
             //Arrange
             var xml = _repositorioDao.GetXmlEsperado("proc.xml");
@@ -91,7 +88,7 @@ namespace SMDFe.Tests.DamdfeTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_Do_Relatorio_Com_Configuracao_Nula()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_Do_Relatorio_Com_Configuracao_Nula()
         {
             //Arrange
             var xml = _repositorioDao.GetXmlEsperado("proc.xml");
@@ -105,7 +102,7 @@ namespace SMDFe.Tests.DamdfeTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_Do_Relatorio_Com_Arquivo_Inexistente()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_Do_Relatorio_Com_Arquivo_Inexistente()
         {
             //Arrange
             var xml = _repositorioDao.GetXmlEsperado("proc.xml");

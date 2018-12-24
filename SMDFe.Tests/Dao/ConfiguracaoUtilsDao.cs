@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using DFe.Utils;
-using SMDFe.Tests.Entidades;
+using MDFe.Tests.Entidades;
 
-namespace SMDFe.Tests.Dao
+namespace MDFe.Tests.Dao
 {
     public class ConfiguracaoUtilsDao
     {

@@ -1,12 +1,12 @@
-﻿
+﻿using System;
 using System.IO;
 using System.Reflection;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using SMDFe.Tests.Entidades;
-using SMDFe.Utils.Flags;
+using MDFe.Tests.Entidades;
+using MDFe.Utils.Flags;
 
-namespace SMDFe.Tests.Dao
+namespace MDFe.Tests.Dao
 {
     public class ConfiguracaoDao
     {
@@ -69,7 +69,7 @@ namespace SMDFe.Tests.Dao
                 Ambiente = TipoAmbiente.Homologacao,
                 Serie = 1,
                 VersaoLayout = VersaoServico.Versao300,
-                CaminhoSchemas = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Schemas",
+                CaminhoSchemas = AppDomain.CurrentDomain.BaseDirectory + @"\Schemas",
                 Numeracao = 1,
                 TimeOut = 1000,
                 UfEmitente = Estado.SE

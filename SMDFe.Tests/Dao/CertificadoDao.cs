@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using DFe.Utils;
 
-namespace SMDFe.Tests.Dao
+namespace MDFe.Tests.Dao
 {
     public class CertificadoDao
     {

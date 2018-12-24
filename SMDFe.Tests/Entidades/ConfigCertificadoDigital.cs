@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SMDFe.Tests.Entidades
+namespace MDFe.Tests.Entidades
 {
     [Serializable]
     public class ConfigCertificadoDigital

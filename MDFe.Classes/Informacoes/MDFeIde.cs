@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -46,11 +47,23 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeIde
     {
-        public MDFeIde()
+        /// <summary>
+        /// Construtor para serialização
+        /// </summary>
+        private MDFeIde()
         {
+        }
+
+        public MDFeIde(VersaoServico? versaoServico = null)
+        {
+            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
+
             InfMunCarrega = new List<MDFeInfMunCarrega>();
             InfPercurso = new List<MDFeInfPercurso>();
         }
+
+        [XmlIgnore]
+        private readonly VersaoServico _versaoServico;
 
         /// <summary>
         /// 2 - Código da UF do emitente do MDF-e. 
@@ -140,7 +153,7 @@ namespace MDFe.Classes.Informacoes
         {
             get
             {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                switch (_versaoServico)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();

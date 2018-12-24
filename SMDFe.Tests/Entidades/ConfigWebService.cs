@@ -1,9 +1,9 @@
 using System;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using SMDFe.Utils.Flags;
+using MDFe.Utils.Flags;
 
-namespace SMDFe.Tests.Entidades
+namespace MDFe.Tests.Entidades
 {
     [Serializable]
     public class ConfigWebService

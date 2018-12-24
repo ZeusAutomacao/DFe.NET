@@ -31,85 +31,105 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+
 using DFe.Classes.Extensoes;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
 using MDFe.Wsdl.Configuracao;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
+using MDFe.Wsdl.Gerado.MDFeEventos;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
 using MDFe.Wsdl.Gerado.MDFeRetRecepcao;
 using MDFe.Wsdl.Gerado.MDFeStatusServico;
+
 
 namespace MDFe.Servicos.Factory
 {
     public static class WsdlFactory
     {
-        public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc()
+
+        public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
+            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
+
 
             var ws = new MDFeConsNaoEnc(configuracaoWsdl);
+
             return ws;
         }
 
-        public static MDFeConsulta CriaWsdlMDFeConsulta()
+        public static MDFeConsulta CriaWsdlMDFeConsulta(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsulta;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeConsulta;
+            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
             return new MDFeConsulta(configuracaoWsdl);
         }
 
-        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento()
+        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
+            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
             return new MDFeRecepcaoEvento(configuracaoWsdl);
         }
 
-        public static MDFeRecepcao CriaWsdlMDFeRecepcao()
+        public static MDFeRecepcao CriaWsdlMDFeRecepcao(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcao;
-            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versaoServico);
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRecepcao;
+            var versaoServico = config.VersaoWebService.VersaoLayout.GetVersaoString();
 
-            return new MDFeRecepcao(configuracaoWsdl); ;
+            var configuracaoWsdl = CriaConfiguracao(url, versaoServico, config);
+
+            return new MDFeRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
+        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
+            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
             return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
+        public static MDFeStatusServico CriaWsdlMDFeStatusServico(MDFeConfiguracao cfgMdfe = null)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeStatusServico;
+            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+
+            var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
             return new MDFeStatusServico(configuracaoWsdl);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
+        private static WsdlConfiguracao CriaConfiguracao(string url, string versao, MDFeConfiguracao cfgMdfe = null)
         {
-            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
-            var certificadoDigital = MDFeConfiguracao.X509Certificate2;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            var codigoEstado = config.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
+            
+            var certificadoDigital = config.X509Certificate2; 
 
             return new WsdlConfiguracao
             {
@@ -117,7 +137,7 @@ namespace MDFe.Servicos.Factory
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = MDFeConfiguracao.VersaoWebService.TimeOut
+                TimeOut = config.VersaoWebService.TimeOut
             };
         }
     }

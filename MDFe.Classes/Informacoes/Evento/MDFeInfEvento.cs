@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
@@ -45,8 +46,20 @@ namespace MDFe.Classes.Informacoes.Evento
     [Serializable]
     public class MDFeInfEvento
     {
+        /// <summary>
+        /// Construtor para serialização
+        /// </summary>
+        private MDFeInfEvento()
+        {
+        }
+
+        public MDFeInfEvento(VersaoServico? versaoServico = null)
+        {
+            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
+        }
+
         [XmlIgnore]
-        private readonly VersaoServico _versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout;
+        private readonly VersaoServico _versaoServico;
 
         [XmlAttribute(AttributeName = "Id")]
         public string Id { get; set; }

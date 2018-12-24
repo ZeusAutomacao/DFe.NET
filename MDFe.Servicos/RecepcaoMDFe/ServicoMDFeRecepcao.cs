@@ -33,7 +33,7 @@
 
 using System;
 using DFe.Utils;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Classes.Servicos.Autorizacao;
@@ -48,11 +48,13 @@ namespace MDFe.Servicos.RecepcaoMDFe
     {
         public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, config);
+
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
@@ -64,18 +66,16 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina();
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
+            enviMDFe.MDFe.Assina(config);
+            enviMDFe.Valida(config); 
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);
 
             OnAntesDeEnviar(enviMDFe);
 
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
-            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml?.OuterXml, enviMDFe);
 
             return retorno;
         }

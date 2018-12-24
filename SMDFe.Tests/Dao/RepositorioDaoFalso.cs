@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 using System.Xml;
 using DFe.Utils;
-using SMDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento;
 
-namespace SMDFe.Tests.Dao
+namespace MDFe.Tests.Dao
 {
     public class RepositorioDaoFalso
     {
@@ -36,7 +35,7 @@ namespace SMDFe.Tests.Dao
         public XmlDocument GetXmlEsperado(string xml)
         {
             var xmlSolicitado = new XmlDocument();
-            xmlSolicitado.Load(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\Resources\" + xml);
+            xmlSolicitado.Load(AppDomain.CurrentDomain.BaseDirectory + @"\Resources\" + xml);
             return xmlSolicitado;
         }
     }

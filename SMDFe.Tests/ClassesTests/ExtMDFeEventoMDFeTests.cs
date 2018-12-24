@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Xml;
-using DFe.Utils;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento.Flags;
+using MDFe.Servicos.EventosMDFe;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
 using Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes;
-using SMDFe.Classes.Informacoes.Evento;
-using SMDFe.Classes.Informacoes.Evento.CorpoEvento;
-using SMDFe.Classes.Informacoes.Evento.Flags;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
-using SMDFe.Servicos.EventosMDFe;
-using SMDFe.Utils.Flags;
 
-namespace SMDFe.Tests.ClassesTests
+namespace MDFe.Tests.ClassesTests
 {
    
     public class ExtMDFeEventoMDFeTests: IDisposable
@@ -21,7 +18,7 @@ namespace SMDFe.Tests.ClassesTests
         private Configuracao _configuracao;
         private MDFeEventoMDFe _evento;
         private MDFeEletronicaFalsa _RepositorioFalsoMdfe;
-        private MDFe _mdfe;
+        private Classes.Informacoes.MDFe _mdfe;
         private readonly string _xmlEsperadoIncluir;
         private readonly string _xmlEsperadoCancelar;
         private readonly string _xmlEsperadoEncerrar;
@@ -70,7 +67,7 @@ namespace SMDFe.Tests.ClassesTests
 
         // <------------------------------------------------- Evento Incluir Condutor --------------------------------------------->
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_incluir_Condutor_Com_Parametros_Validos()
+        public void Deve_Criar_Uma_Requisicao_Evento_incluir_Condutor_Com_Parametros_Validos()
         {
             //Arrange
             var condutor = new MDFeEvIncCondutorMDFe()
@@ -86,24 +83,44 @@ namespace SMDFe.Tests.ClassesTests
             var xmlGerado = evento.CriaXmlRequestWs();
 
             //Assert
-            Assert.NotNull(xmlGerado);
             Assert.IsType<XmlDocument>(xmlGerado);
         }
 
         [Fact]
-        public void Deve_Testar_A_Requisicao_Evento_Incluir_Condutor_Com_O_Xml_esperado()
+        public void Deve_Criar_Uma_Requisicao_Evento_incluir_Condutor_Nao_Nula()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
+            var condutor = new MDFeEvIncCondutorMDFe()
+            {
+                Condutor = _condutor
+            };
+
+            _mdfe.Assina();
+
+            var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+
+            //Act
+            var xmlGerado = evento.CriaXmlRequestWs();
+
+            //Assert
+            Assert.NotNull(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Validar_A_Requisicao_Evento_Incluir_Condutor_Com_O_Xml_esperado()
+        {
+            //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
             };
 
             var repositorioDao = new RepositorioDaoFalso();
-            var mdfe = _RepositorioFalsoMdfe.GetMdfe();
-            mdfe.Assina();
+            _mdfe.Assina();
 
-            var evento = FactoryEvento.CriaEvento(mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
+            var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, condutor);
             evento.InfEvento.DhEvento = new DateTime(2018, 11, 14, 11, 47, 37, 03);
             evento.Signature.SignedInfo.Reference.DigestValue = _valueKey;
             evento.Signature.SignatureValue = _valueKey;
@@ -114,15 +131,14 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoIncluir);
 
             //Assert
-            Assert.NotNull(xmlEsperado);
-            Assert.NotNull(xmlGerado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_incluir_Condutor_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Evento_incluir_Condutor_Sem_Versao()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -142,8 +158,10 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_O_Metodo_Salvar_Requisicao_Evento_incluir_Condutor()
+        public void Deve_Salvar_Xml_Localmente_Para_Requisicao_Evento_incluir_Condutor()
         {
+            //Arrange
+            if (_mdfe != null) Dispose();
             var condutor = new MDFeEvIncCondutorMDFe()
             {
                 Condutor = _condutor
@@ -162,32 +180,54 @@ namespace SMDFe.Tests.ClassesTests
 
         // <----------------------------------------------------- Evento Cancelar ------------------------------------------------->
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_Cancelar_Com_Parametros_Validos()
+        public void Deve_Criar_Uma_Requisicao_Evento_Cancelar_Com_Parametros_Validos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
                 XJust = _justificativa
             };
 
-            var mdfe = _mdfe;
-            mdfe.Assina();
+            _mdfe.Assina();
 
-            var evento = FactoryEvento.CriaEvento(mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+
+            //Act
+            var xmlGerado = evento.CriaXmlRequestWs();
+
+            //Assert
+            Assert.IsType<XmlDocument>(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Criar_Uma_Requisicao_Evento_Cancelar_Nao_Nula()
+        {
+            //Arrange
+            if (_mdfe != null) Dispose();
+            var cancelamento = new MDFeEvCancMDFe()
+            {
+                NProt = _protocolo,
+                XJust = _justificativa
+            };
+
+            _mdfe.Assina();
+
+            var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
 
             //Act
             var xmlGerado = evento.CriaXmlRequestWs();
 
             //Assert
             Assert.NotNull(xmlGerado);
-            Assert.IsType<XmlDocument>(xmlGerado);
         }
 
         [Fact]
-        public void Deve_Testar_A_Requisicao_Evento_Cancelar_Com_O_Xml_esperado()
+        public void Deve_Validar_A_Requisicao_Evento_Cancelar_Com_O_Xml_esperado()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
@@ -208,25 +248,23 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoCancelar);
 
             //Assert
-            Assert.NotNull(xmlEsperado);
-            Assert.NotNull(xmlGerado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_Cancelar_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Evento_Cancelar_Sem_Versao()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
                 XJust = _justificativa
             };
 
-            var mdfe = _mdfe;
-            mdfe.Assina();
+            _mdfe.Assina();
 
-            _evento = FactoryEvento.CriaEvento(mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, cancelamento);
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.InclusaoDeCondutor, 1, cancelamento);
             _evento.Versao = 0;
 
             //Act
@@ -238,22 +276,22 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_O_Metodo_Salvar_Requisicao_Evento_Cancelar()
+        public void Deve_Salvar_Xml_Localmente_Para_Requisicao_Evento_Cancelar()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var cancelamento = new MDFeEvCancMDFe()
             {
                 NProt = _protocolo,
                 XJust = _justificativa
             };
 
-            var mdfe = _mdfe;
-            mdfe.Assina();
+            _mdfe.Assina();
 
-            var evento = FactoryEvento.CriaEvento(mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
+            var evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Cancelamento, 1, cancelamento);
 
             //Act
-            var exception = Record.Exception(() => evento.SalvarXmlEmDisco(mdfe.Chave() + "2"));
+            var exception = Record.Exception(() => evento.SalvarXmlEmDisco(_mdfe.Chave() + "2"));
 
             //Assert
             Assert.Null(exception);
@@ -261,9 +299,10 @@ namespace SMDFe.Tests.ClassesTests
 
         // <--------------------------------------------------- Evento Encerramento ----------------------------------------------->
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_Encerrar_Com_Parametros_Validos()
+        public void Deve_Criar_Uma_Requisicao_Evento_Encerrar_Com_Parametros_Validos()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -279,14 +318,37 @@ namespace SMDFe.Tests.ClassesTests
             var xmlGerado = _evento.CriaXmlRequestWs();
 
             //Assert
-            Assert.NotNull(xmlGerado);
             Assert.IsType<XmlDocument>(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Criar_Uma_Requisicao_Evento_Encerrar_Nao_Nula()
+        {
+            //Arrange
+            if (_mdfe != null) Dispose();
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = _mdfe.UFEmitente(),
+                DtEnc = new DateTime(2018, 11, 16),
+                CMun = _mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = _protocolo
+            };
+
+            _mdfe.Assina();
+
+            _evento = FactoryEvento.CriaEvento(_mdfe, MDFeTipoEvento.Encerramento, 1, encerramento);
+            //Act
+            var xmlGerado = _evento.CriaXmlRequestWs();
+
+            //Assert
+            Assert.NotNull(xmlGerado);
         }
 
         [Fact]
         public void Deve_Testar_A_Requisicao_Evento_Encerrar_Com_O_Xml_esperado()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -310,15 +372,14 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperadoEncerrar);
 
             //Assert
-            Assert.NotNull(xmlGerado);
-            Assert.NotNull(xmlEsperado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_Encerrar_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Evento_Encerrar_Sem_Versao()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -341,9 +402,10 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_O_Metodo_Salvar_Requisicao_Evento_Encerramento()
+        public void Deve_Salvar_Xml_Localmente_Para_Requisicao_Evento_Encerramento()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe
             {
                 CUF = _mdfe.UFEmitente(),
@@ -366,7 +428,7 @@ namespace SMDFe.Tests.ClassesTests
         // <----------------------------------------------------------------------------------------------------------------------->
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Evento_Sem_Parametros()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Evento_Sem_Parametros()
         {
             //Arrange
             var evento = new MDFeEventoMDFe();

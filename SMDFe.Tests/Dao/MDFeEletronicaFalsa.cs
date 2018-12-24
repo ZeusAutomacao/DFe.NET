@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using SMDFe.Classes.Flags;
-using SMDFe.Classes.Informacoes;
-using SMDFe.Tests.Entidades;
-using SMDFe.Utils.Flags;
-using MDFeEletronico = SMDFe.Classes.Informacoes.MDFe;
+using MDFe.Classes.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Tests.Entidades;
+using MDFe.Utils.Flags;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
-namespace SMDFe.Tests.Dao
+namespace MDFe.Tests.Dao
 {
     public class MDFeEletronicaFalsa
     {

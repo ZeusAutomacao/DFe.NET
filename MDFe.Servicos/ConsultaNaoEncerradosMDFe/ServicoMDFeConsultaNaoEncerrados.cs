@@ -31,26 +31,23 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
+
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class ServicoMDFeConsultaNaoEncerrados
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj, MDFeConfiguracao cfgMdfe = null)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
+            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj, cfgMdfe);
+            consMDFeNaoEnc.ValidarSchema(cfgMdfe);
+            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(cfgMdfe);
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-
-
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
 
             return retorno;
         }

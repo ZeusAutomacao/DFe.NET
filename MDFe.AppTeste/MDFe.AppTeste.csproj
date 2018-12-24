@@ -419,28 +419,28 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
+      <Project>{311e734e-84b1-4fce-b806-61147cefbc51}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">
+      <Project>{20f6078a-0afd-4b51-9f7c-fda54dfbb369}</Project>
+      <Name>MDFe.Damdfe.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj">
+      <Project>{9ed85901-d4a7-48fa-b4bf-3e807dc74d53}</Project>
+      <Name>MDFe.Damdfe.Fast</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
+      <Project>{5e612cab-f599-4b8e-9029-cf5b234e6e8e}</Project>
       <Name>MDFe.Servicos</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
+      <Project>{705dde5d-461e-419c-b57e-be9f9dadb3c8}</Project>
       <Name>MDFe.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Classes\SMDFe.Classes.csproj">
-      <Project>{71a408e4-299c-4a71-ad98-92354588bfdd}</Project>
-      <Name>SMDFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Servicos\SMDFe.Servicos.csproj">
-      <Project>{16ac3712-e03d-4ebc-ab55-807fc9c46066}</Project>
-      <Name>SMDFe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SMDFe.Utils\SMDFe.Utils.csproj">
-      <Project>{8d357ec0-9082-4b4e-82d8-ae65ac655eb8}</Project>
-      <Name>SMDFe.Utils</Name>
+    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
+      <Project>{99c7e199-38a5-40b0-ac48-b5fa25e63430}</Project>
+      <Name>MDFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

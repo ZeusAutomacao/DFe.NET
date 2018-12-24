@@ -1,12 +1,10 @@
 ﻿using System;
-using DFe.Utils;
+using MDFe.Classes.Extensoes;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
 using Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
 
-namespace SMDFe.Tests.ClassesTests
+namespace MDFe.Tests.ClassesTests
 {
     
     public class ExtMDFeTest: IDisposable
@@ -14,7 +12,8 @@ namespace SMDFe.Tests.ClassesTests
         #region Variáveis
 
         private Configuracao _configuracao;
-        private MDFe _mdfe;
+        private Classes.Informacoes.MDFe _mdfe;
+        private MDFeEletronicaFalsa _RepositorioFalsoMdfe;
 
         #endregion
 
@@ -23,6 +22,9 @@ namespace SMDFe.Tests.ClassesTests
         {
             var configuracaoDao = new ConfiguracaoDao();
             _configuracao = configuracaoDao.GetConfiguracao();
+            _RepositorioFalsoMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
+
+            _mdfe = _RepositorioFalsoMdfe.GetMdfe();
 
             var configcertificado = new CertificadoDao().getConfiguracaoCertificado();
             
@@ -32,31 +34,31 @@ namespace SMDFe.Tests.ClassesTests
 
         public void Dispose()
         {
-            _mdfe = new MDFe();
+            _RepositorioFalsoMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
+            _mdfe = _RepositorioFalsoMdfe.GetMdfe();
         }
         #endregion
 
         #region Testes para a Classe ExtMDFe
 
         [Fact]
-        public void Deve_Testar_A_Assinatura_MDFe_Com_Parametros_Validos()
+        public void Deve_Criar_Assinatura_MDFe_Com_Parametros_Validos()
         {
             //Arrange
-            var geradorMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
-            var mdfe = geradorMdfe.GetMdfe();
+            if (_mdfe != null) Dispose();
 
             //Act
-            mdfe.Assina();
+            _mdfe.Assina();
 
             //Assert
-            Assert.NotNull(mdfe.Signature);
+            Assert.NotNull(_mdfe.Signature);
         }
 
         [Fact]
-        public void Deve_Testar_A_Assinatura_MDFe_Nula()
+        public void Deve_Gerar_Uma_Excecao_Para_Assinatura_De_MDFe_Nula()
         {
             //Arrange
-            _mdfe = new MDFe();
+            _mdfe = new Classes.Informacoes.MDFe();
 
             //Act
             var exception = Assert.ThrowsAny<Exception>(() => _mdfe.Assina());
@@ -67,11 +69,10 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Assinatura_Com_Alguns_Parametros_Invalidos()
+        public void Deve_Gerar_Uma_Excecao_Para_Assinatura_Com_Alguns_Parametros_Invalidos()
         {
             //Arrange
-            var geradorMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
-            _mdfe = geradorMdfe.GetMdfe();
+            if (_mdfe != null) Dispose();
 
             _mdfe.InfMDFe.Ide.Mod = 0;
             _mdfe.InfMDFe.Ide.TpEmis = 0;
@@ -87,11 +88,10 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Recusar_A_Assinatura_Por_Falta_do_Certificado_Digital()
+        public void Deve_Gerar_Uma_Excecao_Para_Assinatura_Por_Falta_do_Certificado_Digital()
         {
             //Arrange
-            var geradorMdfe = new MDFeEletronicaFalsa(_configuracao.Empresa);
-            _mdfe = geradorMdfe.GetMdfe();
+            if (_mdfe != null) Dispose();
 
             Utils.Configuracoes.MDFeConfiguracao.Instancia.ConfiguracaoCertificado = null;
 

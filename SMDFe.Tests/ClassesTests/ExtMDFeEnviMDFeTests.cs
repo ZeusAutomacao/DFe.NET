@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Xml;
-using DFe.Utils;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Servicos.Autorizacao;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
+using MDFe.Utils.Flags;
 using Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Servicos.Autorizacao;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
-using SMDFe.Utils.Flags;
 
-namespace SMDFe.Tests.ClassesTests
+namespace MDFe.Tests.ClassesTests
 {
     
     public class ExtMDFeEnviMDFeTests: IDisposable
@@ -50,7 +49,7 @@ namespace SMDFe.Tests.ClassesTests
         #region Testes para a classe ExtMDFeEnviMDFe 
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Com_Parametros()
+        public void Deve_Criar_Uma_Requisicao_Para_Envio_Mdfe_Com_Parametros_Validos()
         {
             //Arrange
             var enviMdFe = new MDFeEnviMDFe()
@@ -69,9 +68,28 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Requisicao_De_Envio_MDFe_Criada_Com_O_Xml_Esperado()
+        public void Deve_Criar_Uma_Requisicao_Para_Envio_Mdfe_Nao_Nula()
         {
             //Arrange
+            var enviMdFe = new MDFeEnviMDFe()
+            {
+                Versao = VersaoServico.Versao300,
+                MDFe = _mdfe.GetMdfe(),
+                IdLote = _lote
+            };
+
+            //Act
+            var xmlGerado = enviMdFe.CriaXmlRequestWs();
+
+            //Assert
+            Assert.NotNull(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Validar_A_Requisicao_De_Envio_MDFe_Criada_Com_O_Xml_Esperado()
+        {
+            //Arrange
+            if(_mdfe != null) Dispose();
             var mdfe = _mdfe.GetMdfe();
             mdfe.Assina();
             mdfe.Signature.SignatureValue = _valueKey;
@@ -92,13 +110,11 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
-            Assert.NotNull(xmlEsperado);
-            Assert.NotNull(xmlGerado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao_E_IDLote()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Envio_Mdfe_Sem_Versao_E_IDLote()
         {
             //Arrange
             var enviMdFe = new MDFeEnviMDFe()
@@ -117,7 +133,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Envio_Mdfe_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Envio_Mdfe_Sem_Versao()
         {
             //Arrange
             var enviMdFe = new MDFeEnviMDFe()
@@ -136,9 +152,10 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Funcao_Envio_Mdfe_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        public void Deve_Salvar_Xml_Localmente_Para_Envio_Mdfe()
         {
             //Arrange
+            if (_mdfe != null) Dispose();
             var enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,

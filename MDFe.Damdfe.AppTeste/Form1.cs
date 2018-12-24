@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-
 using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Fast;
 using MDFe.Damdfe.Base;

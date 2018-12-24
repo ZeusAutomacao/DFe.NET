@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Xml;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
 using Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes.ConsultaNaoEncerrados;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
 
-namespace SMDFe.Tests.ClassesTests
+namespace MDFe.Tests.ClassesTests
 {
     
     public class ExtMDFeCosMDFeNaoEnctTests : IDisposable
@@ -41,7 +41,7 @@ namespace SMDFe.Tests.ClassesTests
         #region Testes para a classe ExtMDFeCosMDFeNaoEnct
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Com_Parametros()
+        public void Deve_Criar_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Com_Parametros_Validos()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
@@ -55,12 +55,30 @@ namespace SMDFe.Tests.ClassesTests
             var xmlGerado = _consultaMdFeNaoEnc.CriaRequestWs();
             
             //Assert
-            Assert.NotNull(xmlGerado);
             Assert.IsType<XmlDocument>(xmlGerado);
         }
-        
+
+
         [Fact]
-        public void Deve_Testar_A_Requisicao_Nao_Encerradas_Criada_Com_O_Xml_Esperado()
+        public void Deve_Criar_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Nao_Nula()
+        {
+            //Arrange
+            _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout,
+                CNPJ = _cnpj
+            };
+
+            //Act
+            var xmlGerado = _consultaMdFeNaoEnc.CriaRequestWs();
+
+            //Assert
+            Assert.NotNull(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Validar_Requisicao_Nao_Encerradas_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
@@ -77,13 +95,11 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
-            Assert.NotNull(xmlEsperado);
-            Assert.NotNull(xmlGerado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Parametros()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Nao_Encerrados_Sem_Parametros()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc();
@@ -97,7 +113,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Nao_Encerrados_Sem_Versao()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
@@ -115,7 +131,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Ambiente()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Nao_Encerrados_Sem_Ambiente()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
@@ -133,7 +149,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Nao_Encerrados_Sem_Ambiente_E_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Nao_Encerrados_Sem_Ambiente_E_Versao()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()
@@ -150,7 +166,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Funcao_Nao_Encerrados_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        public void Deve_Salvar_Xml_Localmente_Para_Consulta_Nao_Encerrados()
         {
             //Arrange
             _consultaMdFeNaoEnc = new MDFeCosMDFeNaoEnc()

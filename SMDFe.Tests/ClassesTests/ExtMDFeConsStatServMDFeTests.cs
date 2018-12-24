@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Xml;
-using  Xunit;
-using SMDFe.Classes.Extencoes;
-using SMDFe.Classes.Informacoes.StatusServico;
-using SMDFe.Tests.Dao;
-using SMDFe.Tests.Entidades;
+using MDFe.Classes.Extensoes;
+using MDFe.Classes.Informacoes.StatusServico;
+using MDFe.Tests.Dao;
+using MDFe.Tests.Entidades;
+using Xunit;
 
-namespace SMDFe.Tests.ClassesTests
+namespace MDFe.Tests.ClassesTests
 {
     public class ExtMDFeConsStatServMDFeTests: IDisposable
     {
@@ -36,7 +36,24 @@ namespace SMDFe.Tests.ClassesTests
         #region Testes para a classe ExtMDFeConsStatServMDFe
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Com_Parametros()
+        public void Deve_Criar_Uma_Requisicao_Para_Consulta_Por_Status_Com_Parametros_Validos()
+        {
+            //Arrange
+            _consultaStatus = new MDFeConsStatServMDFe()
+            {
+                TpAmb = _configuracao.ConfigWebService.Ambiente,
+                Versao = _configuracao.ConfigWebService.VersaoLayout
+            };
+
+            //Act
+            var xmlGerado = _consultaStatus.CriaRequestWs();
+
+            //Assert
+            Assert.IsType<XmlDocument>(xmlGerado);
+        }
+
+        [Fact]
+        public void Deve_Criar_Uma_Requisicao_Para_Consulta_Por_Status_Nao_Nula()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -50,11 +67,10 @@ namespace SMDFe.Tests.ClassesTests
 
             //Assert
             Assert.NotNull(xmlGerado);
-            Assert.IsType<XmlDocument>(xmlGerado);
         }
 
         [Fact]
-        public void Deve_Testar_A_Requisicao_Status_Criada_Com_O_Xml_Esperado()
+        public void Deve_Validar_A_Requisicao_Status_Criada_Com_O_Xml_Esperado()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -70,14 +86,12 @@ namespace SMDFe.Tests.ClassesTests
             var xmlEsperado = repositorioDao.GetXmlEsperado(_xmlEsperado);
 
             //Assert
-            Assert.NotNull(xmlEsperado);
-            Assert.NotNull(xmlGerado);
             Assert.Equal(xmlEsperado.InnerXml, xmlGerado.InnerXml);
         }
 
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Parametros()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Por_Status_Sem_Parametros()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe();
@@ -91,7 +105,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Versao()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Por_Status_Sem_Versao()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -108,7 +122,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Criacao_De_Uma_Requisicao_Para_Consulta_Por_Status_Sem_Ambiente()
+        public void Deve_Gerar_Uma_Excecao_Para_Criacao_De_Consulta_Por_Status_Sem_Ambiente()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
@@ -125,7 +139,7 @@ namespace SMDFe.Tests.ClassesTests
         }
 
         [Fact]
-        public void Deve_Testar_A_Funcao_Por_Status_Para_Salvar_Xml_Localmente_Com_Parametros_Validos()
+        public void Deve_Salvar_Xml_Localmente_Para_Consulta_Por_Status()
         {
             //Arrange
             _consultaStatus = new MDFeConsStatServMDFe()
