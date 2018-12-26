@@ -64,12 +64,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
     <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj" />
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj" />
-    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj" />
     <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj" />
     
   </ItemGroup>
@@ -80,6 +77,11 @@
 
   <ItemGroup>
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj" />
   </ItemGroup>
 
   
