@@ -7,7 +7,7 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.0'">
     <DefineConstants>NETCORE</DefineConstants>
   </PropertyGroup>
-
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -64,10 +64,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
     <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj" />
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj" />
     <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj" />
+    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
+    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj" />
     
   </ItemGroup>
 
@@ -78,13 +81,6 @@
   <ItemGroup>
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
-    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj" />
-  </ItemGroup>
-
-  
 
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
