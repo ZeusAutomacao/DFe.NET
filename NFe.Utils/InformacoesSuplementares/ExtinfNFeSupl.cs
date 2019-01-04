@@ -190,6 +190,12 @@ namespace NFe.Utils.InformacoesSuplementares
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx"),
                 new EnderecoConsultaPublicaNfce(Estado.SP, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaPublica.aspx"),
 
+                //Atualização do WebServices da NFC-e de MG publicado no dia 18/12/2018
+                new EnderecoConsultaPublicaNfce(Estado.MG, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlQrCode, "https://nfce.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml"),
+                new EnderecoConsultaPublicaNfce(Estado.MG, TipoAmbiente.taProducao, TipoUrlConsultaPublica.UrlConsulta, "https://nfce.fazenda.mg.gov.br/portalnfce/sistema/consultaarg.xhtml"),
+                new EnderecoConsultaPublicaNfce(Estado.MG, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlQrCode, "https://hnfce.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml"),
+                new EnderecoConsultaPublicaNfce(Estado.MG, TipoAmbiente.taHomologacao, TipoUrlConsultaPublica.UrlConsulta, "https://hnfce.fazenda.mg.gov.br/portalnfce/sistema/consultaarg.xhtml"),
+                
             };
 
             return endQrCodeNfce;
