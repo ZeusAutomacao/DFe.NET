@@ -269,7 +269,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/consultarNFCe.jsf"},
                 {Estado.GO, versao3E4, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao?" },
                 {Estado.PE, versao4, "http://nfcehomolog.sefaz.pe.gov.br/nfce-web/consultarNFCe" },
-                {Estado.MG, versao3E4, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeConsultaProtocolo4" },
+                {Estado.MG, versao3E4, "http://hnfce.fazenda.mg.gov.br/portalnfce/sistema/consultaarg.xhtml" },
             };
 
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaHomologacao1);
@@ -303,7 +303,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RO, versao3E4, "www.sefin.ro.gov.br/nfce/consulta"},
                 {Estado.RR, versao3E4, "www.sefaz.rr.gov.br/nfce/consulta"},
                 {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"},
-                {Estado.MG, versao3E4, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeConsultaProtocolo4"},
+                {Estado.MG, versao3E4, "http://nfce.fazenda.mg.gov.br/portalnfce/sistema/consultaarg.xhtml"},
             };
 
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacaoEProducao2);
