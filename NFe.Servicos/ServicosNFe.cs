@@ -313,7 +313,7 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano.ToString("D2"),
                 pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
                 pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
