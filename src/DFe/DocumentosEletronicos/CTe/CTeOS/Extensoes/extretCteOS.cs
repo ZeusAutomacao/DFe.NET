@@ -60,7 +60,9 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Extensoes
 
         public static bool IsDenegada(this retCTeOS retConsSitCTe)
         {
-            return retConsSitCTe.IsNotNull() && retConsSitCTe.protCTe.IsNotNull() && retConsSitCTe.protCTe.infProt.cStat == (int)StatusAutorizacao.Denegada; // manual cte 3.00 página 89
+            return retConsSitCTe.IsNotNull() && retConsSitCTe.protCTe.IsNotNull() && (retConsSitCTe.protCTe.infProt.cStat == (int)StatusAutorizacao.Denegada
+                                                                                      || retConsSitCTe.protCTe.infProt.cStat == (int)StatusAutorizacao.Denegado205
+                                                                                      || retConsSitCTe.protCTe.infProt.cStat == (int)StatusAutorizacao.DenegadoEmitente); // manual cte 3.00 página 89
         }
 
         public static bool IsRejeicao(this retCTeOS retConsSitCTe)

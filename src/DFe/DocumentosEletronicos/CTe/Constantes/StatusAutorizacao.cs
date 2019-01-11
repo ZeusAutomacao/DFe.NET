@@ -4,6 +4,8 @@
     {
         Autorizado = 100,
         Cancelada = 101,
-        Denegada = 110
+        Denegada = 110,
+        DenegadoEmitente = 301,
+        Denegado205 = 205
     }
 }

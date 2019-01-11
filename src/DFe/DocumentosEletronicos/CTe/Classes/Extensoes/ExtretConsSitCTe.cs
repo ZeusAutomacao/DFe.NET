@@ -89,7 +89,9 @@ namespace DFe.DocumentosEletronicos.CTe.Classes.Extensoes
 
         public static bool IsDenegada(this retConsSitCTe retConsSitCTe)
         {
-            return retConsSitCTe.IsNotNull() && retConsSitCTe.cStat == (int)StatusAutorizacao.Denegada; // manual cte 3.00 página 89
+            return retConsSitCTe.IsNotNull() && (retConsSitCTe.cStat == (int)StatusAutorizacao.Denegada ||
+                                                 retConsSitCTe.cStat == (int)StatusAutorizacao.Denegado205 ||
+                                                 retConsSitCTe.cStat == (int)StatusAutorizacao.DenegadoEmitente); // manual cte 3.00 página 89
         }
 
         public static bool IsRejeicao(this retConsSitCTe retConsSitCTe)
