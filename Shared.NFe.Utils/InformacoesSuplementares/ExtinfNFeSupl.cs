@@ -267,7 +267,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/NFCeConsultaPublica"},
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/portal/portalNoticias.jsp"},
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/consultarNFCe.jsf"},
-                {Estado.GO, versao3E4, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao?" },
+                {Estado.GO, versao4, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao?" },
                 {Estado.PE, versao4, "http://nfcehomolog.sefaz.pe.gov.br/nfce-web/consultarNFCe" },
                 {Estado.MG, versao3E4, "http://hnfce.fazenda.mg.gov.br/portalnfce"}
             };
