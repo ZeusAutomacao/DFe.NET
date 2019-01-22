@@ -72,7 +72,6 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
 
 #if NETSTANDARD2_0
         private SOAPEnvelope soapEnvelope;
-        private XmlDocument xmlEnvelop;
         private WsdlConfiguracao configuracao;
         private HttpWebRequest request;
 #endif
@@ -161,6 +160,28 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
             }
 
         }
+
+        private static XmlDocument SerealizeDocument(SOAPEnvelope soapEnvelope)
+        {
+            var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
+            var memoryStream = new MemoryStream();
+            var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+
+            soapserializer.Serialize(xmlTextWriter, soapEnvelope);
+            xmlTextWriter.Formatting = Formatting.None;
+            var xmlDocument = new XmlDocument();
+
+            var output = Encoding.UTF8.GetString(memoryStream.ToArray());
+            var _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            if (output.StartsWith(_byteOrderMarkUtf8))
+            {
+                output = output.Remove(0, _byteOrderMarkUtf8.Length);
+            }
+
+            xmlDocument.LoadXml(output);
+
+            return xmlDocument;
+        }
 #endif
 
         /// <remarks/>
@@ -179,31 +200,14 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
         {
             string result = "";
             var xmlresult = new XmlDocument();
+            var xmlEnvelop = new XmlDocument();
             try
             {
-
-
                 soapEnvelope.body = new ResponseBody<XmlNode>()
                 {
                     mdfeDadosMsg = mdfeDadosMsg
                 };
-
-                var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
-                xmlEnvelop = new XmlDocument();
-
-                using (var sww = new StreamWriter("soap.xml"))
-                {
-                    using (XmlWriter writer = XmlWriter.Create(sww,
-                        new XmlWriterSettings() { Indent = false }))
-                    {
-                        soapserializer.Serialize(writer, soapEnvelope);
-                        writer.Close();
-
-                    }
-                }
-                xmlEnvelop.PreserveWhitespace = false;
-                xmlEnvelop.Load("soap.xml");
-
+                xmlEnvelop = SerealizeDocument(soapEnvelope);
             }
             catch (XmlException e)
             {
