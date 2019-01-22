@@ -46,6 +46,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using MDFe.Utils.Soap;
 using MDFe.Wsdl.Cabeçalho;
 using MDFe.Wsdl.Configuracao;
 
@@ -147,49 +148,6 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
         }
 #endif
 
-#if NETSTANDARD2_0
-        private static void InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
-        {
-            try
-            {
-                using (Stream stream = webRequest.GetRequestStream())
-                {
-                    byte[] buffer = Encoding.UTF8.GetBytes(soapEnvelopeXml.OuterXml);
-                    stream.Write(buffer, 0, buffer.Length);
-                    stream.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERRO na inserção do envelope -> " + e);
-                throw;
-            }
-
-        }
-
-        private static XmlDocument SerealizeDocument(SOAPEnvelope soapEnvelope)
-        {
-            var soapserializer = new XmlSerializer(typeof(SOAPEnvelope));
-            var memoryStream = new MemoryStream();
-            var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-
-            soapserializer.Serialize(xmlTextWriter, soapEnvelope);
-            xmlTextWriter.Formatting = Formatting.None;
-            var xmlDocument = new XmlDocument();
-
-            var output = Encoding.UTF8.GetString(memoryStream.ToArray());
-            var _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
-            if (output.StartsWith(_byteOrderMarkUtf8))
-            {
-                output = output.Remove(0, _byteOrderMarkUtf8.Length);
-            }
-
-            xmlDocument.LoadXml(output);
-
-            return xmlDocument;
-        }
-#endif
-
         /// <remarks/>
         public event mdfeConsultaMDFCompletedEventHandler mdfeConsultaMDFCompleted;
 
@@ -205,7 +163,8 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 #if NETSTANDARD2_0
         public System.Xml.XmlNode mdfeConsultaMDF(System.Xml.XmlNode mdfeDadosMsg)
         {
-            string result = "";
+            var result = "";
+            var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
             var xmlEnvelop = new XmlDocument();
             try
@@ -214,7 +173,8 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
                 {
                     mdfeDadosMsg = mdfeDadosMsg
                 };
-                xmlEnvelop = SerealizeDocument(soapEnvelope);
+
+                xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
             }
             catch (XmlException e)
             {
@@ -222,7 +182,8 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 
             }
 
-            InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
+            request = soapUtils.InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
+
             try
             {
                 using (WebResponse response = request.GetResponse())
