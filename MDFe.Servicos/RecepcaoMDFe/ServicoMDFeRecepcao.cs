@@ -66,7 +66,8 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina(config);
+            if (enviMDFe.MDFe?.InfMDFe?.Id == null)
+                enviMDFe.MDFe.Assina(config);
             enviMDFe.Valida(config); 
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);

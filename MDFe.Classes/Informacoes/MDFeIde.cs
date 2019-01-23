@@ -52,6 +52,7 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         private MDFeIde()
         {
+            _versaoServico = VersaoServico.Versao300;
         }
 
         public MDFeIde(VersaoServico? versaoServico = null)
@@ -146,7 +147,7 @@ namespace MDFe.Classes.Informacoes
         public DateTime DhEmi { get; set; }
 
         /// <summary>
-        /// Proxy para dhEmi
+        /// Proxy para dhEmi 
         /// </summary>
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi

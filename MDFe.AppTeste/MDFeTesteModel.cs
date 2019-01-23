@@ -1288,7 +1288,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo);
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, mdfe.UFEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

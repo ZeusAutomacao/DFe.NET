@@ -157,7 +157,7 @@ namespace MDFe.Tests.ServicosTests
             //Arrange
 
             //Act
-            var encerramento = ClassesFactory.CriaEvEncMDFe(_mdfe, _protocolo);
+            var encerramento = ClassesFactory.CriaEvEncMDFe(_mdfe.UFEmitente(), _mdfe.CodigoIbgeMunicipioEmitente(), _protocolo);
 
             //Assert
             Assert.NotNull(encerramento);
@@ -171,7 +171,7 @@ namespace MDFe.Tests.ServicosTests
             var cmun = _mdfe.CodigoIbgeMunicipioEmitente();
 
             //Act
-            var encerramento = ClassesFactory.CriaEvEncMDFe(_mdfe, _protocolo);
+            var encerramento = ClassesFactory.CriaEvEncMDFe(cuf, cmun, _protocolo);
 
             //Assert
             Assert.Equal(cuf, encerramento.CUF);

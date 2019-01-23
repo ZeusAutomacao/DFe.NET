@@ -43,7 +43,7 @@ namespace MDFe.Classes.Informacoes
     {
         public MDFeInfModal()
         {
-            VersaoModal = MDFeVersaoModal.Versao100;
+            VersaoModal = MDFeVersaoModal.Versao300;
         }
 
         /// <summary>

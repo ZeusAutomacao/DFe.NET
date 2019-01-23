@@ -47,7 +47,7 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
             consMDFeNaoEnc.ValidarSchema(cfgMdfe);
             var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(cfgMdfe);
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
-            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
+            var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml?.OuterXml, consMDFeNaoEnc);
 
             return retorno;
         }

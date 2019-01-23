@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using DFe.Classes.Entidades;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
@@ -88,14 +89,14 @@ namespace MDFe.Servicos.Factory
             return cancelamento;
         }
 
-        public static MDFeEvEncMDFe CriaEvEncMDFe(MDFeEletronico mdfe, string protocolo)
+        public static MDFeEvEncMDFe CriaEvEncMDFe(Estado cUF, long cMun, string protocolo)
         {
             var encerramento = new MDFeEvEncMDFe
             {
-                CUF = mdfe.UFEmitente(),
+                CUF = cUF,
                 DtEnc = DateTime.Now,
                 DescEvento = "Encerramento",
-                CMun = mdfe.CodigoIbgeMunicipioEmitente(),
+                CMun = cMun,
                 NProt = protocolo
             };
 
