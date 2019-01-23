@@ -33,22 +33,13 @@ namespace MDFe.Utils.Soap
 
         public HttpWebRequest InsertSoapEnvelopeIntoWebRequest(XmlDocument soapEnvelopeXml, HttpWebRequest webRequest)
         {
-            try
-            {
                 using (Stream stream = webRequest.GetRequestStream())
                 {
                     byte[] buffer = Encoding.UTF8.GetBytes(soapEnvelopeXml.OuterXml);
                     stream.Write(buffer, 0, buffer.Length);
                     stream.Close();
                 }
-
                 return webRequest;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERRO na inserção do envelope -> " + e);
-                throw;
-            }
         }
     }
 }

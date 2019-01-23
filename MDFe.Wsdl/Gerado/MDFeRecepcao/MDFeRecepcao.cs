@@ -43,7 +43,6 @@
 using System;
 using System.IO;
 using System.Net;
-using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using MDFe.Utils.Soap;
@@ -76,46 +75,40 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
         private WsdlConfiguracao configuracao;
         private HttpWebRequest request;
 #endif
-
+#if NET45
         private System.Threading.SendOrPostCallback mdfeRecepcaoLoteOperationCompleted;
-    
+#endif   
         /// <remarks/>
-        public MDFeRecepcao(WsdlConfiguracao configuracao) {
+        public MDFeRecepcao(WsdlConfiguracao configuracao)
+        {
 #if NETSTANDARD2_0
-            try
-            {
-                this.configuracao = configuracao;
+            if (configuracao == null)
+                throw new ArgumentNullException();
 
-                soapEnvelope = new SOAPEnvelope()
+            this.configuracao = configuracao;
+            soapEnvelope = new SOAPEnvelope()
+            {
+                head = new ResponseHead<mdfeCabecMsg>()
                 {
-                    head = new ResponseHead<mdfeCabecMsg>()
+                    mdfeCabecMsg = new mdfeCabecMsg()
                     {
-                        mdfeCabecMsg = new mdfeCabecMsg()
-                        {
-                            versaoDados = configuracao.Versao,
-                            cUF = configuracao.CodigoIbgeEstado
-                        }
+                        versaoDados = configuracao.Versao,
+                        cUF = configuracao.CodigoIbgeEstado
                     }
-                };
-                System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+                }
+            };
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
 
-                request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
-                request.Headers.Add(HttpHeader.ACTION, "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao/mdfeRecepcaoLote");
-                request.KeepAlive = true;
-                request.ContentType = HttpHeader.CONTETTYPE;
-                request.Accept = HttpHeader.ACCEPT;
-                request.Method = HttpHeader.METHOD;
-                request.UserAgent = HttpHeader.AGENT;
-                request.ProtocolVersion = HttpVersion.Version11;
+            request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
+            request.Headers.Add(HttpHeader.ACTION, "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao/mdfeRecepcaoLote");
+            request.KeepAlive = true;
+            request.ContentType = HttpHeader.CONTETTYPE;
+            request.Accept = HttpHeader.ACCEPT;
+            request.Method = HttpHeader.METHOD;
+            request.UserAgent = HttpHeader.AGENT;
+            request.ProtocolVersion = HttpVersion.Version11;
 
-
-                request.ClientCertificates.Add(configuracao.CertificadoDigital);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERRO na criação da Requisição -> " + e);
-            }
-
+            request.ClientCertificates.Add(configuracao.CertificadoDigital);
 
 #endif
 #if NET45
@@ -140,11 +133,10 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
                 this.mdfeCabecMsgValueField = value;
             }
         }
-#endif
 
         /// <remarks/>
         public event mdfeRecepcaoLoteCompletedEventHandler mdfeRecepcaoLoteCompleted;
-#if NET45
+
         /// <remarks/>
         [System.Web.Services.Protocols.SoapHeaderAttribute("mdfeCabecMsgValue", Direction=System.Web.Services.Protocols.SoapHeaderDirection.InOut)]
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao/mdfeRecepcaoLote", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
@@ -152,6 +144,8 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
         public System.Xml.XmlNode mdfeRecepcaoLote([System.Xml.Serialization.XmlElementAttribute(Namespace="http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao")] System.Xml.XmlNode mdfeDadosMsg) {
             object[] results = this.Invoke("mdfeRecepcaoLote", new object[] {
                 mdfeDadosMsg});
+            return ((System.Xml.XmlNode)(results[0]));
+        }
 #endif
 #if NETSTANDARD2_0
         public System.Xml.XmlNode mdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg)
@@ -160,57 +154,28 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
             var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
             var xmlEnvelop = new XmlDocument();
-            try
+
+            soapEnvelope.body = new ResponseBody<XmlNode>()
             {
-                soapEnvelope.body = new ResponseBody<XmlNode>()
-                {
-                    mdfeDadosMsg = mdfeDadosMsg
-                };
+                mdfeDadosMsg = mdfeDadosMsg
+            };
 
-                xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
-            }
-            catch (XmlException e)
-            {
-                Console.WriteLine("ERRO no xml do envelope -> " + e.Message);
-
-            }
-
+            xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
             request = soapUtils.InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
 
-            try
+            using (WebResponse response = request.GetResponse())
             {
-                using (WebResponse response = request.GetResponse())
+                using (StreamReader rd = new StreamReader(response.GetResponseStream()))
                 {
-                    using (StreamReader rd = new StreamReader(response.GetResponseStream()))
-                    {
-                        result = rd.ReadToEnd();
-                        xmlresult.LoadXml(result);
-
-                    }
+                    result = rd.ReadToEnd();
+                    xmlresult.LoadXml(result);
                 }
-
-            }
-            catch (WebException e)
-            {
-                if (e.Response != null)
-                {
-                    string message = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
-                    Console.WriteLine(message);
-                }
-
             }
 
-            var xmlNode = xmlresult.GetElementsByTagName("retEnviMDFe")[0];
-            
-#endif
-#if NET45
-            return ((System.Xml.XmlNode)(results[0]));
-#endif
-#if NETSTANDARD2_0
-            return xmlNode;
-#endif
-
+            return ((System.Xml.XmlNode)xmlresult.GetElementsByTagName("retEnviMDFe")[0]);
         }
+
+#endif
 #if NET45
         /// <remarks/>
         public System.IAsyncResult BeginmdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg, System.AsyncCallback callback, object asyncState) {
@@ -383,7 +348,7 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
     }
 
 #endif
-
+#if NET45
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     public delegate void mdfeRecepcaoLoteCompletedEventHandler(object sender, mdfeRecepcaoLoteCompletedEventArgs e);
@@ -392,21 +357,26 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
     [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class mdfeRecepcaoLoteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-    
+    public partial class mdfeRecepcaoLoteCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
+    {
+
         private object[] results;
-    
-        internal mdfeRecepcaoLoteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-            base(exception, cancelled, userState) {
+
+        internal mdfeRecepcaoLoteCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
+            base(exception, cancelled, userState)
+        {
             this.results = results;
-            }
-    
+        }
+
         /// <remarks/>
-        public System.Xml.XmlNode Result {
-            get {
+        public System.Xml.XmlNode Result
+        {
+            get
+            {
                 this.RaiseExceptionIfNecessary();
                 return ((System.Xml.XmlNode)(this.results[0]));
             }
         }
     }
+#endif
 }
