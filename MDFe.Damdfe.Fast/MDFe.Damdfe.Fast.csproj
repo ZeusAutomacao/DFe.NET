@@ -7,7 +7,8 @@
     <ApplicationIcon />
     <Win32Resource />
     <DependsOnSystemRuntime>true</DependsOnSystemRuntime> 
-    <_HasReferenceToSystemRuntime>true</_HasReferenceToSystemRuntime>
+    <_HasReferenceToSystemRuntime>true</_HasReferenceToSystemRuntime> 
+    <AssemblyName>MDFe.Damdfe.Fast</AssemblyName>
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->

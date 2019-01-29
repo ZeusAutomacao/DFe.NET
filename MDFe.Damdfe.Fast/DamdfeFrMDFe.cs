@@ -38,6 +38,7 @@ using FastReport;
 using FastReport.Export.Html;
 using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Base;
+using System.Collections.Generic;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -53,7 +54,7 @@ namespace MDFe.Damdfe.Fast
                 Relatorio.Load(arquivoRelatorio);
             else
                 Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
-            Configurar(config);            
+            Configurar(config);
         }
 
         public DamdfeFrMDFe()
@@ -63,8 +64,8 @@ namespace MDFe.Damdfe.Fast
 
         public void RegisterData(MDFeProcMDFe proc)
         {
-            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
-            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
+            Relatorio.RegisterData(new[] {proc}, "MDFeProcMDFe", 20);
+            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;
         }
 
         public void Configurar(ConfiguracaoDamdfe config)
@@ -81,17 +82,17 @@ namespace MDFe.Damdfe.Fast
 #if NET45
             ((PictureObject) Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
 #endif
-            ((ReportPage)Relatorio.FindObject("Page1")).LeftMargin = config.MargemEsquerda;
-            ((ReportPage)Relatorio.FindObject("Page1")).RightMargin = config.MargemDireita;
-            ((ReportPage)Relatorio.FindObject("Page1")).TopMargin = config.MargemSuperior;
-            ((ReportPage)Relatorio.FindObject("Page1")).BottomMargin = config.MargemInferior;
+            ((ReportPage) Relatorio.FindObject("Page1")).LeftMargin = config.MargemEsquerda;
+            ((ReportPage) Relatorio.FindObject("Page1")).RightMargin = config.MargemDireita;
+            ((ReportPage) Relatorio.FindObject("Page1")).TopMargin = config.MargemSuperior;
+            ((ReportPage) Relatorio.FindObject("Page1")).BottomMargin = config.MargemInferior;
         }
 
 #if NET45
-        /// <summary>
-        /// Abre a janela de visualização do DAMDFe
-        /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
+/// <summary>
+/// Abre a janela de visualização do DAMDFe
+/// </summary>
+/// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
         public void Visualizar(bool modal = true)
         {
             Relatorio.Show(modal);
@@ -140,6 +141,30 @@ namespace MDFe.Damdfe.Fast
         /// <summary>
         /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>
+        public List<Stream> ObterHTML()
+        {
+            Relatorio.Prepare();
+
+            using (var html = new HTMLExport())
+            {
+                html.EmbedPictures = true;
+                html.SinglePage = true;
+                html.SubFolder = false;
+                html.Layers = true;
+                html.Navigator = false;
+                html.Pictures = true;
+                html.EnableMargins = true;
+                html.SaveStreams = true;
+
+                Relatorio.Export(html, (Stream) null);
+
+                return html.GeneratedStreams;
+            }
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o HTML do DAMDFe</param>
         public void ExportarHTML(string arquivo)
         {
@@ -155,10 +180,6 @@ namespace MDFe.Damdfe.Fast
                 Pictures = true,
                 EnableMargins = true
             };
-
-            Relatorio.Export(html, arquivo);
-           
         }
-
     }
 }
