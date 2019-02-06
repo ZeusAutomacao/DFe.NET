@@ -97,7 +97,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevFCPUFDest()
         {
-            return _vIcmsufDest.HasValue && _vIcmsufDest.Value > 0;
+            return _vIcmsufDest.HasValue;
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevICMSUFDest()
         {
-            return vICMSUFDest.HasValue && vICMSUFDest.Value > 0;
+            return vICMSUFDest.HasValue;
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace NFe.Classes.Informacoes.Total
 
         public bool ShouldSerializevICMSUFRemet()
         {
-            return _vIcmsufDest.HasValue && _vIcmsufDest.Value > 0;
+            return _vIcmsufDest.HasValue;
         }
 
         /// <summary>
