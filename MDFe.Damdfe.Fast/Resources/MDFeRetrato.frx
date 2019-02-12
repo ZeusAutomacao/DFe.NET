@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="12/20/2018 12:10:19" ReportInfo.CreatorVersion="2018.4.10.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="02/11/2019 15:09:47" ReportInfo.CreatorVersion="2019.1.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Data;
+using System.Text.RegularExpressions;
 
 using FastReport;
 using FastReport.Data;
@@ -24,6 +25,29 @@ namespace FastReport
 {
   public class ReportScript
   {
+    private string InsertStrings(string s, int insertEvery, char insert)
+    {
+      char[] ins = s.ToCharArray();
+      int length = s.Length + (s.Length / insertEvery);
+      if (ins.Length % insertEvery == 0)
+      {
+        length--;
+      }
+      var outs = new char[length];
+      long di = 0;
+      long si = 0;
+      while (si &lt; s.Length - insertEvery)
+      {
+        Array.Copy(ins, si, outs, di, insertEvery);
+        si += insertEvery;
+        di += insertEvery;
+        outs[di] = insert;
+        di ++;
+      }
+      Array.Copy(ins, si, outs, di, ins.Length - si);
+      return new string(outs);
+    } 
+    
     private string FormatarCampo(long valor, char format)
     {
       return FormatarCampo(valor.ToString(), format);
@@ -57,22 +81,22 @@ namespace FastReport
       return valor;
     }
     
-    private void txtChaveMDFe_BeforePrint(object sender, EventArgs e)
-    {
-      var chave = Substring( ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Id&quot;)) , 3);
-      if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
-      {
-        var chaveFormatada = &quot;&quot;;
-        for (int i = 0; i &lt; chave.Length; i += 4)  
-          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
-        txtChaveMDFe.Text = chaveFormatada;      
-      }                
-    }   
+//    private void txtChaveMDFe_BeforePrint(object sender, EventArgs e)
+//    {
+//      var chave = Substring( ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Id&quot;)) , 3);
+//      if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
+//      {
+//        var chaveFormatada = &quot;&quot;;
+//        for (int i = 0; i &lt; chave.Length; i += 4)  
+//          chaveFormatada = chaveFormatada + chave.Substring(i, 4) + &quot; &quot;;       
+//        txtChaveMDFe.Text = chaveFormatada;      
+//      }                
+//    }   
     
     
     private int? qtdeCTe = 0;
     private int? qtdeNFe = 0;
-    private int? qtdeMDFe = 0;
+//    private int? qtdeMDFe = 0;
 
     private void PageHeader1_BeforePrint(object sender, EventArgs e)
     { 
@@ -80,8 +104,9 @@ namespace FastReport
       
       //Veiculos e Reboques
       txtPlaca.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Placa&quot;));
+      txtRenavam.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.RENAVAM&quot;));
       
-      txtRntrc.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Prop.RNTRC&quot;));      
+      txtRntrc.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfMogdal.Modal.VeicTracao.Prop.RNTRC&quot;));      
       if ( string.IsNullOrEmpty(txtRntrc.Text) )
       {
         if (versao300)
@@ -130,39 +155,39 @@ namespace FastReport
       }
       
       //Seguros
-      if (versao300)
-      {   
-        var seguros = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg&quot;);
-        seguros.Init();
-        while (seguros.HasMoreRows)
-        {
-          string seguradora = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfSeg.XSeg&quot;);
-          if (seguradora.Length &gt; 30)
-            seguradora = seguradora.Substring(0,30);
-          
-          string apolice = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.NApol&quot;);
-          if (apolice.Length &gt; 20)
-            apolice = apolice.Substring(0,20);
-
-          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + ((String)Report.GetParameterValue(&quot;NewLine&quot;));            
-          txtSeguroSeguradora.Text += seguradora + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-          txtSeguroApolice.Text += apolice + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-          
-          seguros.Next();
-        }
-        
-        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante&quot;);
-        contratantes.Init();
-        while (contratantes.HasMoreRows)
-        {
-          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;)) ? 
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CPF&quot;)) :
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;));
-          
-          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
-          contratantes.Next();
-        }        
-      }      
+//      if (versao300)
+//      {   
+//        var seguros = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg&quot;);
+//        seguros.Init();
+//        while (seguros.HasMoreRows)
+//        {
+//          string seguradora = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfSeg.XSeg&quot;);
+//          if (seguradora.Length &gt; 30)
+//            seguradora = seguradora.Substring(0,30);
+//          
+//          string apolice = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.NApol&quot;);
+//          if (apolice.Length &gt; 20)
+//            apolice = apolice.Substring(0,20);
+//
+//          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + ((String)Report.GetParameterValue(&quot;NewLine&quot;));            
+//          txtSeguroSeguradora.Text += seguradora + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+//          txtSeguroApolice.Text += apolice + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+//          
+//          seguros.Next();
+//        }
+//        
+//        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante&quot;);
+//        contratantes.Init();
+//        while (contratantes.HasMoreRows)
+//        {
+//          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;)) ? 
+//                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CPF&quot;)) :
+//                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;));
+//          
+//          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
+//          contratantes.Next();
+//        }        
+//      }      
       
       //Totais
       qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
@@ -173,15 +198,11 @@ namespace FastReport
       qtdeNFe = qtdeNFe ?? 0;
       Text39.Text = qtdeNFe.ToString();
       
-      qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
-      qtdeMDFe = qtdeMDFe ?? 0;
-      Text40.Text = qtdeMDFe.ToString();
+//      qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
+//      qtdeMDFe = qtdeMDFe ?? 0;
+//      Text40.Text = qtdeMDFe.ToString();
       
-      Subreport1.Visible = qtdeCTe &gt; 0;      
-      Subreport2.Visible = qtdeNFe &gt; 0; 
-      Subreport3.Visible = qtdeMDFe &gt; 0;
-      
-      Child1.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
+      Text60.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
       Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
       Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
       
@@ -513,153 +534,104 @@ namespace FastReport
     <Parameter Name="NewLine" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261">
-    <PageHeaderBand Name="PageHeader1" Width="748.44" Height="411.9" BeforePrintEvent="PageHeader1_BeforePrint">
-      <ShapeObject Name="Shape1" Width="746.55" Height="200.34"/>
-      <LineObject Name="Line1" Left="368.55" Top="1.45" Height="197.45"/>
-      <LineObject Name="Line3" Left="368.55" Top="41.58" Width="376"/>
-      <LineObject Name="Line4" Left="368.55" Top="124.74" Width="376"/>
-      <LineObject Name="Line6" Top="170.1" Width="745.55"/>
-      <BarcodeObject Name="BarcodeChave" Left="397.9" Top="68.15" Width="321.32" Height="47.25" AutoSize="false" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <TextObject Name="Text1" Left="379" Top="51.25" Width="94.5" Height="11.9" Text="Controle do Fisco" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <TextObject Name="Text2" Left="375" Top="129.3" Width="94.5" Height="11.9" Text="Chave de Acesso" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <TextObject Name="txtChaveMDFe" Left="370.8" Top="146.2" Width="372" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" HorzAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <TextObject Name="Text3" Left="375" Top="9.45" Width="100.5" Height="20.9" Text="DAMDFE" Font="Times New Roman, 14.25pt, style=Bold"/>
-      <TextObject Name="Text4" Left="505.95" Top="15.45" Width="226.8" Height="10.9" Text="Documento Auxiliar de Manifesto de Documentos Fiscais" Font="Times New Roman, 6.75pt"/>
-      <PictureObject Name="poEmitLogo" Left="5.45" Top="37.7" Width="114.73" Height="96.72"/>
-      <TextObject Name="Text5" Left="4" Top="5.45" Width="351.65" Height="29.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <TextObject Name="Text6" Left="122.4" Top="37.25" Width="243.7" Height="122.85" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]&#13;&#10;INSCRIÇÃO ESTADUAL: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;TELEFONE: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Fone],'f')]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Email]" Font="Times New Roman, 8.25pt"/>
-      <LineObject Name="Line5" Left="34.02" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text7" Left="-0.76" Top="170.1" Width="38.8" Height="10.45" Text="MODELO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text8" Left="2.45" Top="181.55" Width="29.35" Height="15.9" Text="58" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <LineObject Name="Line7" Left="64.48" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text9" Left="31.8" Top="171.1" Width="35.8" Height="10.45" Text="SÉRIE" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text10" Left="35.25" Top="181.55" Width="27.35" Height="15.9" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <LineObject Name="Line8" Left="136.3" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text11" Left="66.15" Top="171.1" Width="68.15" Height="10.45" Text="NÚMERO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text12" Left="63.6" Top="181.55" Width="74.15" Height="15.9" Text="[Format(&quot;{0:000'.'000'.'000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.NMDF] )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <LineObject Name="Line9" Left="170.32" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text13" Left="133.85" Top="170.99" Width="39.8" Height="10.45" Text="FOLHA" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text14" Left="138.3" Top="181.44" Width="30.35" Height="15.9" Text="[Page#]/[TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <LineObject Name="Line10" Left="272.16" Top="170.1" Width="47.25"/>
-      <LineObject Name="Line11" Left="330.86" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text15" Left="172.1" Top="170.99" Width="118.4" Height="10.45" Text="EMISSÃO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text16" Left="172.1" Top="181.44" Width="118.4" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" Format="Date" Format.Format="dd/MM/yyyy HH:mm:ss" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <LineObject Name="Line13" Left="292.95" Top="170.1" Height="29.35"/>
-      <TextObject Name="Text17" Left="292.95" Top="170.99" Width="37.8" Height="10.45" Text="UF Carga" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text18" Left="294.95" Top="181.44" Width="34.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text19" Left="329.75" Top="170.99" Width="39.35" Height="10.45" Text="UF Descar." HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text20" Left="331.75" Top="181.44" Width="34.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text21" Left="374" Top="171" Width="175.55" Height="10" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Font="Times New Roman, 6pt, style=Bold"/>
-      <TextObject Name="Text22" Left="374.1" Top="183.55" Width="368.55" Height="11.9" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <ShapeObject Name="Shape2" Top="201.23" Width="746.55" Height="207.9"/>
-      <LineObject Name="Line14" Top="220.13" Width="745.55"/>
-      <LineObject Name="Line15" Left="312.74" Top="202.23" Height="205.9" Border.Width="2"/>
-      <TextObject Name="Text23" Left="3.7" Top="204.9" Width="306.95" Height="11.9" Text="Veículo de tração e Reboque" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <TextObject Name="Text24" Left="316.3" Top="204.9" Width="426.35" Height="11.9" Text="Condutor" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <LineObject Name="Line16" Left="132.3" Top="220.35" Height="67.7"/>
-      <LineObject Name="Line17" Left="1" Top="288.95" Width="744.55"/>
-      <LineObject Name="Line18" Top="303.95" Width="745"/>
-      <TextObject Name="Text25" Left="2" Top="289.93" Width="309.95" Height="11.9" Text="Vale Pedágio" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <LineObject Name="Line19" Top="235.25" Width="745.55"/>
-      <LineObject Name="Line20" Left="94.5" Top="304.4" Height="103.4"/>
-      <LineObject Name="Line21" Top="319.3" Width="745.55"/>
-      <LineObject Name="Line22" Left="189.45" Top="304.4" Height="103.4"/>
-      <TextObject Name="Text26" Left="2.45" Top="221.35" Width="127.3" Height="11.9" Text="Placa" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text27" Left="135.3" Top="221.26" Width="175.55" Height="11.9" Text="RNTRC" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text28" Left="1" Top="305.4" Width="95.5" Height="11.9" Text="Responsável CNPJ" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text29" Left="94.5" Top="305.4" Width="95.5" Height="11.9" Text="Fornecedor CNPJ" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text30" Left="189" Top="305.4" Width="123.85" Height="11.9" Text="N. Comprovante" Font="Times New Roman, 8.25pt"/>
-      <LineObject Name="Line23" Left="442.7" Top="220.35" Height="68.7"/>
-      <TextObject Name="Text31" Left="317.3" Top="221.26" Width="123.3" Height="11.9" Text="CPF" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text32" Left="446.15" Top="221.26" Width="297.4" Height="11.9" Text="Nome" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="txtPlaca" Left="2.45" Top="235.25" Width="127.5" Height="52.8" Font="Times New Roman, 9pt"/>
-      <TextObject Name="txtRntrc" Left="133.75" Top="235.25" Width="177.75" Height="52.8" Font="Times New Roman, 9pt"/>
-      <TextObject Name="txtCpf" Left="316.3" Top="235.25" Width="124.5" Height="51.8" Font="Times New Roman, 9pt"/>
-      <TextObject Name="txtNome" Left="444.15" Top="235.25" Width="298.6" Height="51.8" Font="Times New Roman, 9pt"/>
-      <TextObject Name="txtCnpjResp" Left="2" Top="320.3" Width="90.7" Height="86.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="txtCnpjFornec" Left="95.5" Top="320.3" Width="92.7" Height="86.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="txtNumComprovante" Left="191" Top="320.3" Width="121.05" Height="86.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="Text62" Left="407.8" Top="289.95" Width="335.85" Height="11.9" Text="Seguro" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <TextObject Name="Text63" Left="407.35" Top="305.4" Width="81.05" Height="11.9" Text="Responsável" Font="Times New Roman, 8.25pt"/>
-      <LineObject Name="Line32" Left="493.4" Top="304.4" Height="103.4"/>
-      <LineObject Name="Line33" Left="646.05" Top="304.38" Height="103.4"/>
-      <TextObject Name="Text64" Left="494.85" Top="305.4" Width="150.2" Height="11.9" Text="Seguradora" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text65" Left="647.6" Top="305.4" Width="95.5" Height="11.9" Text="Apólice" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="txtSeguroResponsavel" Left="407.8" Top="320.3" Width="89.15" Height="87.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="txtSeguroSeguradora" Left="494.85" Top="320.3" Width="150.4" Height="87.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="txtSeguroApolice" Left="647.6" Top="320.3" Width="96.7" Height="87.15" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="Text66" Left="314.85" Top="289.95" Width="88.7" Height="11.9" Text="Contratante(s)" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-      <LineObject Name="Line34" Left="405.35" Top="288.95" Height="118.85" Border.Width="2"/>
-      <TextObject Name="Text67" Left="314.85" Top="305.4" Width="88.05" Height="11.9" Text="CNPJs" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="txtContratantes" Left="313.85" Top="320.3" Width="89.7" Height="87.15" Font="Times New Roman, 6.75pt"/>
-      <ChildBand Name="Child1" Top="415.9" Width="748.44" Height="27.35" Visible="false">
-        <TextObject Name="Text60" Left="242.25" Top="6" Width="235.25" Height="16.25" Fill.Color="Gray" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Times New Roman, 11.25pt, style=Bold" TextFill.Color="White"/>
-        <ChildBand Name="Child2" Top="447.25" Width="748.44" Height="92.4">
-          <ShapeObject Name="Shape3" Top="3.45" Width="746.55" Height="49.25"/>
-          <TextObject Name="Text42" Left="0.45" Top="64.6" Width="745.2" Height="19.35" Text="RELAÇÃO DOS DOCUMENTOS FISCAIS ELETRÔNICOS" HorzAlign="Center" Font="Times New Roman, 14.25pt, style=Bold, Underline"/>
-          <TextObject Name="Text38" Left="2" Top="34.8" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text39" Left="200.45" Top="34.8" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="0" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text40" Left="398.9" Top="34.78" Width="195.1" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text41" Left="597.35" Top="34.8" Width="146.85" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="3" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text34" Left="1.9" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade CT-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <LineObject Name="Line24" Left="1" Top="19.35" Width="744.55"/>
-          <TextObject Name="Text35" Left="200.45" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade NF-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text36" Left="398.9" Top="20.9" Width="195.1" Height="11.9" Text="Quantidade MDF-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text37" Left="597.35" Top="20.9" Width="146.85" Height="11.9" Text="Peso Total (KG)" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <TextObject Name="Text33" Left="2" Top="5.45" Width="741.65" Height="11.9" Text="MODAL RODOVIÁRIO DE CARGA" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
-          <LineObject Name="Line26" Left="198.45" Top="18.9" Height="32.8"/>
-          <LineObject Name="Line27" Left="396.9" Top="18.9" Height="32.8"/>
-          <LineObject Name="Line28" Left="595.35" Top="18.9" Height="32.8"/>
-        </ChildBand>
+    <PageHeaderBand Name="PageHeader1" Width="748.44" Height="472.5" BeforePrintEvent="PageHeader1_BeforePrint">
+      <ShapeObject Name="Shape6" Top="217.35" Width="756" Height="28.35"/>
+      <ShapeObject Name="Shape5" Width="756" Height="207.9"/>
+      <PictureObject Name="poEmitLogo" Left="28.35" Top="18.9" Width="114.73" Height="96.72" Image=""/>
+      <TextObject Name="Text119" Left="179.55" Top="18.9" Width="569" Height="29.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 16pt, style=Bold"/>
+      <TextObject Name="Text120" Left="179.55" Top="56.7" Width="565" Height="141.75" Text="CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;Razão Social: [MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]&#13;&#10;Logradouro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr] Nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro]&#13;&#10;Complemento: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;Bairro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;UF: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]  Muncípio: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]  CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]" Font="Times New Roman, 13pt"/>
+      <TextObject Name="Text121" Left="9.45" Top="217.35" Width="109.95" Height="30.35" Text="DAMDFE" VertAlign="Center" Font="Times New Roman, 15pt, style=Bold"/>
+      <TextObject Name="Text122" Left="122.85" Top="217.62" Width="585.9" Height="29.8" Text="Documento Auxiliar de Manifesto de Documentos Fiscais" VertAlign="Center" Font="Times New Roman, 13pt"/>
+      <ShapeObject Name="Shape9" Top="255.15" Width="756" Height="83.16"/>
+      <BarcodeObject Name="Barcode1" Left="184.26" Top="283.5" Width="387.47" Height="47.25" Fill.Color="White" AutoSize="false" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text123" Left="326.02" Top="260.82" Width="103.95" Height="11.9" Text="Controle do Fisco" Font="Times New Roman, 9pt, style=Bold"/>
+      <ShapeObject Name="Shape10" Top="340.2" Width="756" Height="37.8"/>
+      <TextObject Name="Text124" Left="4.2" Top="345.87" Width="132.3" Height="11.9" Text="CHAVE DE ACESSO" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="txtChaveMDFe" Left="36.08" Top="353.43" Width="683.85" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[InsertStrings(Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4), 4, ' ')]" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <ShapeObject Name="Shape11" Top="378" Width="756" Height="37.8"/>
+      <TextObject Name="Text127" Left="19" Top="391.23" Width="689.85" Height="16.25" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text128" Left="4.2" Top="383.67" Width="207.9" Height="11.9" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Font="Times New Roman, 9pt, style=Bold"/>
+      <ShapeObject Name="Shape12" Top="425.25" Width="75.6" Height="37.8"/>
+      <TextObject Name="Text129" Left="4.16" Top="429.03" Width="56.7" Height="11.9" Text="Modelo" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text130" Left="23.12" Top="444.15" Width="29.35" Height="15.9" Text="58" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape13" Left="75.6" Top="425.25" Width="75.6" Height="37.8"/>
+      <TextObject Name="Text131" Left="79.76" Top="429.03" Width="56.7" Height="11.9" Text="Série" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text132" Left="98.72" Top="444.15" Width="29.35" Height="15.9" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape14" Left="151.2" Top="425.25" Width="113.4" Height="37.8"/>
+      <TextObject Name="Text133" Left="155.36" Top="429.03" Width="56.7" Height="11.9" Text="Número" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text134" Left="169.6" Top="444.15" Width="76.6" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.NMDF]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape15" Left="264.6" Top="425.25" Width="75.6" Height="37.8"/>
+      <TextObject Name="Text135" Left="268.76" Top="429.03" Width="56.7" Height="11.9" Text="Folha" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text136" Left="287.72" Top="444.15" Width="29.35" Height="15.9" Text="[Page#]/[TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape16" Left="340.2" Top="425.25" Width="160.65" Height="37.8"/>
+      <TextObject Name="Text137" Left="344.36" Top="429.03" Width="128.52" Height="11.9" Text="Data e Hora de Emissão" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text138" Left="358.6" Top="444.15" Width="123.85" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape17" Left="500.85" Top="425.25" Width="122.85" Height="37.8"/>
+      <TextObject Name="Text139" Left="505.01" Top="429.03" Width="113.4" Height="11.9" Text="UF de Carregamento" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text140" Left="547.6" Top="444.15" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ShapeObject Name="Shape18" Left="623.7" Top="425.25" Width="132.3" Height="37.8"/>
+      <TextObject Name="Text141" Left="627.86" Top="429.03" Width="132.3" Height="11.9" Text="UF de Descarregamento" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text142" Left="675.17" Top="444.15" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+      <ChildBand Name="Child4" Top="476.5" Width="748.44" Height="340.2">
+        <ShapeObject Name="Shape7" Width="756" Height="18.9"/>
+        <TextObject Name="Text143" Left="291.06" Top="1.89" Width="173.88" Height="18.9" Text="Modal Rodoviário de Carga" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+        <ShapeObject Name="Shape19" Top="19.84" Width="189" Height="37.8"/>
+        <TextObject Name="Text144" Left="4.16" Top="23.44" Width="94.5" Height="11.9" Text="Quantidade CT-e" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text38" Left="79.82" Top="38.56" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape20" Left="189" Top="19.84" Width="189" Height="37.8"/>
+        <TextObject Name="Text146" Left="193.16" Top="23.44" Width="94.5" Height="11.9" Text="Quantidade NF-e" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text39" Left="268.83" Top="38.56" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape21" Left="378" Top="19.84" Width="189" Height="37.8"/>
+        <TextObject Name="Text148" Left="382.16" Top="23.44" Width="94.5" Height="11.9" Text="Peso Total (Kg)" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text41" Left="438.92" Top="38.56" Width="67.15" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape22" Left="567" Top="19.84" Width="189" Height="37.8"/>
+        <ShapeObject Name="Shape23" Top="57.7" Width="302.4" Height="18.9"/>
+        <TextObject Name="Text150" Left="4.16" Top="61.2" Width="47.25" Height="11.9" Text="Veículo" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape24" Left="302.4" Top="57.7" Width="453.6" Height="18.9"/>
+        <TextObject Name="Text151" Left="306.56" Top="61.2" Width="56.7" Height="11.9" Text="Condutor" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape25" Top="76.6" Width="151.2" Height="18.9"/>
+        <TextObject Name="Text152" Left="4.16" Top="80.1" Width="47.25" Height="11.9" Text="Placa" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape26" Left="151.2" Top="76.6" Width="151.2" Height="18.9"/>
+        <TextObject Name="Text153" Left="155.36" Top="80.1" Width="56.7" Height="11.9" Text="RNTRC" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape27" Top="95.5" Width="151.2" Height="37.8"/>
+        <ShapeObject Name="Shape28" Left="151.2" Top="95.5" Width="151.2" Height="94.5"/>
+        <ShapeObject Name="Shape29" Top="133.3" Width="151.2" Height="18.9"/>
+        <TextObject Name="Text154" Left="4.16" Top="136.8" Width="75.6" Height="11.9" Text="RENAVAM" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape30" Top="152.2" Width="151.2" Height="37.8"/>
+        <TextObject Name="txtPlaca" Left="4.16" Top="99.28" Width="147.04" Height="34.02" Font="Times New Roman, 9pt"/>
+        <TextObject Name="txtRenavam" Left="4.16" Top="155.98" Width="147.04" Height="34.02" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape31" Left="302.4" Top="76.6" Width="132.3" Height="18.9"/>
+        <TextObject Name="Text155" Left="306.56" Top="80.1" Width="47.25" Height="11.9" Text="CPF" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape32" Left="434.7" Top="76.6" Width="321.3" Height="18.9"/>
+        <TextObject Name="Text156" Left="438.86" Top="80.1" Width="47.25" Height="11.9" Text="Nome" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape33" Top="190" Width="302.4" Height="18.9"/>
+        <TextObject Name="Text157" Left="4.16" Top="193.5" Width="75.6" Height="11.9" Text="Vale Pedágio" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape34" Top="208.9" Width="100.55" Height="113.4"/>
+        <TextObject Name="txtCnpjResp" Left="4.16" Top="224.13" Width="96.39" Height="98.28" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text159" Left="2" Top="210.79" Width="103.95" Height="11.9" Text="Responsável CNPJ" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape35" Left="100.95" Top="208.9" Width="100.55" Height="113.4"/>
+        <TextObject Name="txtCnpjFornec" Left="105.11" Top="224.13" Width="96.39" Height="98.28" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text161" Left="102.95" Top="210.79" Width="103.95" Height="11.9" Text="Fornecedor CNPJ" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape36" Left="201.9" Top="208.9" Width="100.55" Height="113.4"/>
+        <TextObject Name="txtNumComprovante" Left="206.06" Top="224.13" Width="96.39" Height="98.28" Font="Times New Roman, 9pt"/>
+        <TextObject Name="Text163" Left="203.9" Top="210.79" Width="103.95" Height="11.9" Text="Nº Comprovante" Font="Times New Roman, 9pt"/>
+        <TextObject Name="txtRntrc" Left="155.36" Top="99.28" Width="147.04" Height="90.72" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape37" Left="302.4" Top="95.5" Width="132.3" Height="226.8"/>
+        <TextObject Name="txtCpf" Left="306.56" Top="99.28" Width="128.14" Height="223.02" Font="Times New Roman, 9pt"/>
+        <ShapeObject Name="Shape38" Left="434.7" Top="95.5" Width="321.3" Height="226.8"/>
+        <TextObject Name="txtNome" Left="438.86" Top="99.28" Width="317.14" Height="223.02" Font="Times New Roman, 9pt"/>
       </ChildBand>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="543.65" Width="748.44" Height="32.35" DataSource="BusinessObjectDataSource9">
-      <TextObject Name="Text43" Left="28.35" Top="1" Width="678.95" Height="17.9" Border.Lines="All" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <SubreportObject Name="Subreport1" Top="20.35" Width="742.1" Height="10.45" ReportPage="Page2"/>
-      <SubreportObject Name="Subreport2" Top="20.35" Width="742.01" Height="10.58" ReportPage="Page3"/>
-      <SubreportObject Name="Subreport3" Top="20.35" Width="742.01" Height="10.45" ReportPage="Page4"/>
-    </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="580" Width="748.44" Height="97.5">
-      <TextObject Name="Text61" Left="4.45" Top="4.45" Width="738.55" Height="88.5" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
-      <ShapeObject Name="Shape4" Top="1" Width="746.55" Height="96.5"/>
-      <TextObject Name="Text56" Left="3" Top="4.45" Width="63.5" Height="14.45" Text="Observação" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text57" Left="4" Top="20.9" Width="739.3" Height="61.25" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text58" Left="5" Top="85.05" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
-      <TextObject Name="Text59" Left="444.05" Top="85.05" Width="299.75" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+    <PageFooterBand Name="PageFooter2" Top="820.7" Width="748.44" Height="217.35">
+      <ShapeObject Name="Shape8" Width="756" Height="200.45"/>
+      <TextObject Name="Text117" Top="207.9" Width="302.4" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text118" Left="453.6" Top="207.9" Width="302.4" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text57" Left="4" Top="20.9" Width="739.3" Height="174.65" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text164" Left="4.16" Top="3.78" Width="75.6" Height="11.9" Text="Observação" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text60" Left="137.52" Top="35.4" Width="480.95" Height="129.65" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 36pt, style=Bold" TextFill.Color="Red"/>
     </PageFooterBand>
-  </ReportPage>
-  <ReportPage Name="Page2" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
-    <DataBand Name="Data2" Top="71.8" Width="368.55" Height="18.9" DataSource="InfCTe" Columns.Count="2">
-      <TextObject Name="Text44" Left="1" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <DataHeaderBand Name="DataHeader1" Top="20" Width="737.1" Height="31.8">
-        <TextObject Name="Text45" Width="736.65" Height="14.9" Text="Conhecimento de Transporte Eletrônico" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
-        <TextObject Name="Text46" Top="16.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <TextObject Name="Text47" Left="367.55" Top="16.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <LineObject Name="Line2" Left="31.9" Top="30.45" Width="670.95"/>
-      </DataHeaderBand>
-    </DataBand>
-  </ReportPage>
-  <ReportPage Name="Page3" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
-    <DataBand Name="Data3" Top="74.35" Width="368.55" Height="18.9" DataSource="InfNFe" Columns.Count="2">
-      <LineObject Name="Line29" Left="-9450" Top="-9450" Height="37.8"/>
-      <TextObject Name="Text51" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <DataHeaderBand Name="DataHeader2" Top="20" Width="737.1" Height="34.35">
-        <TextObject Name="Text48" Top="1" Width="736.65" Height="14.9" Text="Nota Fiscal Eletrônica" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
-        <TextObject Name="Text49" Top="17.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <TextObject Name="Text50" Left="367.55" Top="17.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <LineObject Name="Line30" Left="31.9" Top="32.45" Width="670.95"/>
-      </DataHeaderBand>
-    </DataBand>
-  </ReportPage>
-  <ReportPage Name="Page4" PaperWidth="195" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261">
-    <DataBand Name="Data4" Top="36.8" Width="737.1" Height="18.9" DataSource="InfMdFeTransps" Columns.Count="2">
-      <TextObject Name="Text55" Width="366.55" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <DataHeaderBand Name="DataHeader3" Width="737.1" Height="32.8">
-        <TextObject Name="Text52" Width="736.65" Height="14.9" Text="Manifesto Eletrônico de Documentos Fiscais" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Underline"/>
-        <TextObject Name="Text53" Top="16.35" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <TextObject Name="Text54" Left="367.55" Top="16.25" Width="366.1" Height="12.9" Text="Chave de Acesso" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-        <LineObject Name="Line31" Left="31.9" Top="31.45" Width="670.95"/>
-      </DataHeaderBand>
-    </DataBand>
+    <OverlayBand Name="Overlay1" Top="1042.05" Width="748.44" Height="1096.2">
+      <TextObject Name="Text61" Top="151.2" Width="756" Height="765.45" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Angle="270" Font="Arial Black, 30pt, style=Bold" TextFill.Color="DarkGray"/>
+    </OverlayBand>
   </ReportPage>
 </Report>

@@ -64,7 +64,6 @@
 
   <!-- Referências aos arquivos -->
   <ItemGroup>
-    <None Include="MDFeRetrato.frx" />
     <None Include="DamdfeFrMDFe.cs" />
   </ItemGroup>
   <ItemGroup>
