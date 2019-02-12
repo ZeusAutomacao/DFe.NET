@@ -20,7 +20,7 @@
 <!-- PL_006p - 29/10/2012 -  restabelecidas as restrições para qVol  -->
 <!-- PL_006q - 20/11/2012 -  Origem mercadoria de acordo com NT 2012/005 -->
 <!-- PL_006r - 23/04/2013 -  Redução qtde. máxima ocorrências NFref; inclusão do elemento vTotTrib (NT 2013/003) -->
-<!-- PL_006s - 01/08/2013 - Inclusão de campos de controle Resolução 13: FCI (NT 2013/006) -->
+<!-- PL_006s - 01/10/2013 - Inclusão de campos de controle Resolução 13: FCI (NT 2013/006) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v1.03.xsd"/>
@@ -93,8 +93,7 @@
 										<xs:annotation>
 											<xs:documentation>Série do Documento Fiscal
 série normal 0-889
-Avulsa Fisco 890-899
-SCAN 900-999</xs:documentation>
+Avulsa Fisco 890-899</xs:documentation>
 										</xs:annotation>
 									</xs:element>
 									<xs:element name="nNF" type="TNF">
@@ -335,7 +334,6 @@ Preencher com "2B", quando se tratar de Cupom Fiscal emitido por máquina regist
 											<xs:documentation>Forma de emissão da NF-e
 1 - Normal;
 2 - Contingência FS
-3 - Contingência SCAN
 4 - Contingência DPEC
 5 - Contingência FSDA
 6 - Contingência SVC - AN
@@ -764,7 +762,7 @@ Formato ”CFOP9999”.</xs:documentation>
 													<xs:simpleType>
 														<xs:restriction base="xs:string">
 															<xs:whiteSpace value="preserve"/>
-															<xs:pattern value="[0-9]{2}|[0-9]{8}"/>
+															<xs:pattern value="[0-9]{2}|[0][1-9][0-9]{6}|[1-9][0-9]{7}"/>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
@@ -1005,7 +1003,7 @@ Formato ”CFOP9999”.</xs:documentation>
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
-												<xs:element name="nFCI" type="TGuid" minOccurs="0">
+												<xs:element name="nFCI" type="TGuid" minOccurs="0">												
 													<xs:annotation>
 														<xs:documentation>Número de controle da FCI - Ficha de Conteúdo de Importação.</xs:documentation>
 													</xs:annotation>
@@ -6404,7 +6402,7 @@ básicos; 5-Nacional, conteudo inferior 40%; 6-Estrangeira - Importação direta
 			<xs:enumeration value="5"/>
 			<xs:enumeration value="6"/>
 			<xs:enumeration value="7"/>
-			<xs:enumeration value="8"/>
+			<xs:enumeration value="8"/>			
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TFinNFe">
