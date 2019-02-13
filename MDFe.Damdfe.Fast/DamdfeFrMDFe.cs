@@ -141,7 +141,7 @@ namespace MDFe.Damdfe.Fast
         /// <summary>
         /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>
-        public List<Stream> ObterHTML()
+        public Stream ObterHTML()
         {
             Relatorio.Prepare();
 
@@ -155,10 +155,12 @@ namespace MDFe.Damdfe.Fast
                 html.Pictures = true;
                 html.EnableMargins = true;
                 html.SaveStreams = true;
+                html.Wysiwyg = true;
 
-                Relatorio.Export(html, (Stream) null);
+                var stream = new MemoryStream();
+                Relatorio.Export(html, stream);
 
-                return html.GeneratedStreams;
+                return stream;
             }
         }
 
