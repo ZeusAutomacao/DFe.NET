@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.fazenda.pr.gov.br/sefaws" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposBasico_v1.00.xsd" />
+	<xs:include schemaLocation="leiauteProtLivroCombustivel_v1.00.xsd" />
+	<xs:complexType name="LMCAutorizacaoRetorno">
+		<xs:annotation>
+			<xs:documentation>Tipo de retorno de autorizacao de um LMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="livroCombustivelRetorno">
+				<xs:annotation>
+					<xs:documentation>Informacoes da validacao do LMC</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="protLivroCombustivel" type="TProtLivroCombustivel">
+							<xs:annotation>
+								<xs:documentation>Protocolo de autorizacao ou rejeicao do LMC</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

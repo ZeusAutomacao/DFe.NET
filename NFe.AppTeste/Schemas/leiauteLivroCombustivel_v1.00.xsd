@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns="http://www.fazenda.pr.gov.br/sefaws" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd" />
+	<xs:include schemaLocation="tiposBasico_v1.00.xsd" />
+	<xs:include schemaLocation="lmcComum_v1.00.xsd" />
+
+	<xs:complexType name="livroCombustivel">
+		<xs:annotation>
+			<xs:documentation>Livro de Movimentacao de Combustivel</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infLivroCombustivel">
+				<xs:annotation>
+					<xs:documentation>Informacoes de um LMC diario incluindo as movimentacoes</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificacao do Ambiente: 1 - Producao | 2 - Homologacao</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cNumerico">
+							<xs:annotation>
+								<xs:documentation>Codigo numerico definido pelo emitente</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve" />
+									<xs:pattern value="[0-9]{5}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="cDV">
+							<xs:annotation>
+								<xs:documentation>Digito Verificador da Chave de Acesso do LMC</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve" />
+									<xs:pattern value="[0-9]{1}" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="emit">
+							<xs:annotation>
+								<xs:documentation>Identificacao do emitente</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="IE" type="TIe">
+										<xs:annotation>
+											<xs:documentation>Inscricao Estadual do emitente</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="CNPJ" type="TCnpj">
+										<xs:annotation>
+											<xs:documentation>CNPJ do emitente das Notas Fiscais relativas aos recebimentos do dia</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="xNome">
+										<xs:annotation>
+											<xs:documentation>Razao social ou nome do emitente</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="55" />
+												<xs:minLength value="2" />
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="movimento">
+							<xs:annotation>
+								<xs:documentation>Movimentacao</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="infMovimento" minOccurs="1" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>Informacoes da movimentacao do periodo indicado no movimento</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="volEstoqueAbertura" type="TDec_0803">
+													<xs:annotation>
+														<xs:documentation>Volume do estoque de abertura</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="volumeRecebido" minOccurs="0" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>Volume descarregado no tanque referente ao recebimento</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="CNPJ" type="TCnpj">
+																<xs:annotation>
+																	<xs:documentation>Numero do CNPJ do emitente</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="nNF" type="TNF">
+																<xs:annotation>
+																	<xs:documentation>Numero do Documento Fiscal relativas aos recebimentos do dia</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="dNF" type="TData">
+																<xs:annotation>
+																	<xs:documentation>Data de emissao do Documento Fiscal relativas aos recebimentos do dia (AAAA-MM-DD)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="volVolume" type="TDec_0803">
+																<xs:annotation>
+																	<xs:documentation>Volume recebido</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="xTanque">
+																<xs:annotation>
+																	<xs:documentation>Referencia do nome ou numero do tanque</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="TString">
+																		<xs:maxLength value="5" />
+																		<xs:minLength value="1" />
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="volumeVendido" minOccurs="1" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>Volume descarregado no tanque referente ao recebimento</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="xTanque">
+																<xs:annotation>
+																	<xs:documentation>Refenrecia do nome do tanque em que foi efetuado a descarga do combustivel referente ao recebimento</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="TString">
+																		<xs:maxLength value="5" />
+																		<xs:minLength value="1" />
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:element name="nrBico">
+																<xs:annotation>
+																	<xs:documentation>Numero do bico (ou da bomba quando essa tiver apenas um bico de abastecimento) a que se refere a venda</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:whiteSpace value="preserve"/>
+																		<xs:pattern value="[0-9]{1,3}"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:element name="volFechamento" type="TDec_0803">
+																<xs:annotation>
+																	<xs:documentation>Volume registrado no encerrante de fechamento do dia</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="volAbertura" type="TDec_0803">
+																<xs:annotation>
+																	<xs:documentation>Volume registrado no encerrante de abertura do dia</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="volAfericoes" type="TDec_0803">
+																<xs:annotation>
+																	<xs:documentation>Afericoes realizadas no dia</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="volEstoqueFechamento" type="TDec_0803">
+													<xs:annotation>
+														<xs:documentation>Estoque fisico de fechamento dos tanques no dia</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="valVendasDiaBomba" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor total de vendas do combustivel no dia</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="valAcumuladoMes" type="TDec_1302">
+													<xs:annotation>
+														<xs:documentation>Valor acumulado das vendas do combustivel no mes</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="observacoes">
+													<xs:annotation>
+														<xs:documentation>Justificativas para eventuais inconsistencias e outras informacoes relevantes</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TStringVazia">
+															<xs:maxLength value="500" />
+															<xs:minLength value="0" />
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+											<xs:attribute name="nrProduto" type="TNRProduto" use="required">
+												<xs:annotation>
+													<xs:documentation>Numero de referencia do combustivel</xs:documentation>
+												</xs:annotation>
+											</xs:attribute>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+								<xs:attribute name="dEmissao" type="TData" use="required">
+									<xs:annotation>
+										<xs:documentation>Data de emissao do LMC (AAAA-MM-DD)</xs:documentation>
+									</xs:annotation>
+								</xs:attribute>
+							</xs:complexType>
+							<xs:unique name="pk_nrProduto">
+								<xs:selector xpath="./*" />
+								<xs:field xpath="@nrProduto" />
+							</xs:unique>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="versao" type="TVerLMC" use="required">
+						<xs:annotation>
+							<xs:documentation>Versao do leiaute (v1.00)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Id" type="TLMCId" use="required">
+						<xs:annotation>
+							<xs:documentation>validacao do Id (chave acesso)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
