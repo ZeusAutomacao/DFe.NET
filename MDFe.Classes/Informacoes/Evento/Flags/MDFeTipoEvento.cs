@@ -43,6 +43,8 @@ namespace MDFe.Classes.Informacoes.Evento.Flags
         [XmlEnum("110114")]
         InclusaoDeCondutor = 110114,
         [XmlEnum("310620")]
-        RegistroDePassagem = 310620
+        RegistroDePassagem = 310620,
+        [XmlEnum("510620")]
+        RegistroDePassagemAutomatico = 510620
     }
 }
