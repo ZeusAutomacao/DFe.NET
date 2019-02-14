@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.IO;
 using FastReport;
 using FastReport.Export.Pdf;
 using NFe.Danfe.Base;
@@ -80,6 +81,13 @@ namespace NFe.Danfe.Fast
         {
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
+        }
+
+        public void ExportarPdf(Stream outputStream)
+        {
+            Relatorio.Prepare();
+            Relatorio.Export(new PDFExport(), outputStream);
+            outputStream.Position = 0;
         }
     }
 }
