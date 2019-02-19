@@ -19,7 +19,7 @@ DFe.NET
 =================
 Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
 
-Grupo [Telegram](https://t.me/joinchat/DyE_jQ7rF3rxTqK1Kwoqog) para discussão
+Grupo Telegram, solicitar URL via SKYPE => robertoalves18@hotmail.com
 
 Grupo [Discord](https://discord.gg/n7QkAGF) para discussão
 
