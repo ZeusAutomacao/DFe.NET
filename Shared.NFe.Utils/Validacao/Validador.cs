@@ -123,7 +123,7 @@ namespace NFe.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
+            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, loteNfe));
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
