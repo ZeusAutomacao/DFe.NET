@@ -130,9 +130,9 @@ namespace NFe.Utils.Validacao
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
-			schemas.XmlResolver = new XmlUrlResolver();
+            schemas.XmlResolver = new XmlUrlResolver();
 
-			cfg.Schemas = schemas;
+            cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
