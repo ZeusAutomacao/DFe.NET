@@ -243,7 +243,7 @@ namespace NFe.Utils.InformacoesSuplementares
             {
                 if (nfe.Signature == null) throw new Exception("Não é possível obter a URL do QR-Code de uma NFCe não assinada!");
 
-                var diaEmissao = nfe.infNFe.ide.dhEmi.Day;
+                var diaEmissao = nfe.infNFe.ide.dhEmi.Day.ToString().PadLeft(2, '0');
 
                 var totalDaNota = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
 
