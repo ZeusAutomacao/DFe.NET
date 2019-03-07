@@ -108,7 +108,7 @@ namespace NFe.Danfe.Nativo.NFCe
             GerarNfCe(e.Graphics);
         }
 
-        public void GerarJPEG(string filename)
+        public void GerarImagem(string filename, ImageFormat format)
         {
 
             // Feito esse de cima para poder pegar o tamanho real da mesma desenhando
@@ -119,18 +119,28 @@ namespace NFe.Danfe.Nativo.NFCe
                     g.Clear(Color.White);
                     GerarNfCe(g);
                 }
-            }
 
-            // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
-            using (Bitmap bmpFinal = new Bitmap(300, _y))
-            {
-                using (Graphics g = Graphics.FromImage(bmpFinal))
+                // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
+                using (Bitmap bmpFinal = new Bitmap(300, _y))
                 {
-                    g.Clear(Color.White);
-                    GerarNfCe(g);
-                    bmpFinal.Save(filename, ImageFormat.Jpeg);
+                    using (Graphics g = Graphics.FromImage(bmpFinal))
+                    {
+                        g.Clear(Color.White);
+                        g.DrawImage(bmp, 0, 0);
+                        bmpFinal.Save(filename, format);
+                    }
                 }
             }
+        }
+
+        public void GerarJPEG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Jpeg);
+        }
+
+        public void GerarJPG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Png);
         }
 
         private void GerarNfCe(Graphics graphics)
