@@ -37,7 +37,6 @@ namespace DFe.DocumentosEletronicos.Wsdl.Corpo
                 case Estado.TO:
                 case Estado.AN:
                 case Estado.EX:
-                    return "nfeDadosMsg";
                 case Estado.GO:
                     return compactar ? "nfeDadosMsgZip" : "nfeDadosMsg";
                 default:

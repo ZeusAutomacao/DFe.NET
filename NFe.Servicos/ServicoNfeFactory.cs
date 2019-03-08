@@ -66,7 +66,7 @@ namespace NFe.Servicos
                     Certificado = certificado,
                     TimeOut = cfg.TimeOut
                 };
-                return new NFeAutorizacao4Nativo(soapConfig); 
+                return new NFeAutorizacao4(soapConfig); 
             }
 
             if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.ve310)
