@@ -40,6 +40,7 @@ using DFe.Utils;
 using MDFe.Classes.Flags;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes
 {
