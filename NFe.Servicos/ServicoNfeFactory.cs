@@ -4,6 +4,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web.Services.Protocols;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.DocumentosEletronicos.Wsdl;
+using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
+using DFe.DocumentosEletronicos.Wsdl.Corpo;
+using DFe.Wsdl;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Extensoes;
 using NFe.Utils;
@@ -28,6 +32,7 @@ using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
 using NFe.Wsdl.Status.SVAN;
 using NFe.Wsdl.Status.SVCAN;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Servicos
 {
@@ -39,7 +44,7 @@ namespace NFe.Servicos
         /// <param name="cfg">Configuração do serviço</param>
         /// <param name="certificado">Certificado</param>
         /// <returns></returns>
-        public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado)
+        public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado, bool compactarMensagem)
         {
             var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
 
@@ -50,12 +55,41 @@ namespace NFe.Servicos
                 return new NFeAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
 
             if (cfg.VersaoNFeAutorizacao == VersaoServico.ve400)
-                return new NFeAutorizacao4(url, certificado, cfg.TimeOut);
+            {
+                DFeSoapConfig soapConfig = new DFeSoapConfig
+                {
+                    DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo()),
+                    DFeCabecalho = new DFeCabecalho(cfg.cUF, ConverteVersaoLayout(cfg.VersaoNFeAutorizacao), new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4"),
+                    Metodo = compactarMensagem ? "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP"
+                        : "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",
+                    Url = url,
+                    Certificado = certificado,
+                    TimeOut = cfg.TimeOut
+                };
+                return new NFeAutorizacao4Nativo(soapConfig); 
+            }
 
             if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.ve310)
                 return new NfeAutorizacao3(url, certificado, cfg.TimeOut);
 
             return new NfeAutorizacao(url, certificado, cfg.TimeOut);
+        }
+
+        private static DFe.Classes.Flags.VersaoServico ConverteVersaoLayout(VersaoServico cfgVersaoNFeAutorizacao)
+        {
+            switch (cfgVersaoNFeAutorizacao)
+            {
+                case VersaoServico.ve100:
+                    return DFe.Classes.Flags.VersaoServico.Versao100;
+                case VersaoServico.ve200:
+                    return DFe.Classes.Flags.VersaoServico.Versao200;
+                case VersaoServico.ve310:
+                    return DFe.Classes.Flags.VersaoServico.Versao310;
+                case VersaoServico.ve400:
+                    return DFe.Classes.Flags.VersaoServico.Versao400;
+                default:
+                    throw new ArgumentOutOfRangeException("cfgVersaoNFeAutorizacao", cfgVersaoNFeAutorizacao, null);
+            }
         }
 
         /// <summary>
