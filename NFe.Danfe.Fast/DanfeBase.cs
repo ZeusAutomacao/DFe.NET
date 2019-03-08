@@ -40,7 +40,7 @@ namespace NFe.Danfe.Fast
 {
     public class DanfeBase: IDanfe
     {
-        protected Report Relatorio;
+        public Report Relatorio { get; protected set; }
 
         /// <summary>
         /// Abre a janela de visualização do DANFE da NFCe
