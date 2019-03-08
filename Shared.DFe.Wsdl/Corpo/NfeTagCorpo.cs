@@ -5,15 +5,26 @@ namespace DFe.DocumentosEletronicos.Wsdl.Corpo
 {
     public class NfeTagCorpo : ITagCorpo
     {
+        private readonly string _parametroEntrada;
+
+        public NfeTagCorpo(string parametroEntrada)
+        {
+            _parametroEntrada = parametroEntrada;
+        }
+
         public string GetTagCorpo(DFeCorpo dfeCorpo)
         {
             StringBuilder env = new StringBuilder();
 
-            env.Append("<nfeDadosMsg xmlns=\"");
+            env.Append("<");
+            env.Append(_parametroEntrada);
+            env.Append(" xmlns=\"");
             env.Append(dfeCorpo.NamespaceBody);
             env.Append("\">");
             env.Append(dfeCorpo.GetXml());
-            env.Append("</nfeDadosMsg>");
+            env.Append("</");
+            env.Append(_parametroEntrada);
+            env.Append(">");
 
             return env.ToString();
         }

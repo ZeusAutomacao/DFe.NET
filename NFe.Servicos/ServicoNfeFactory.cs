@@ -58,7 +58,7 @@ namespace NFe.Servicos
             {
                 DFeSoapConfig soapConfig = new DFeSoapConfig
                 {
-                    DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo()),
+                    DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo(cfg.cUF.GetParametroDeEntradaWsdl(compactarMensagem))),
                     DFeCabecalho = new DFeCabecalho(cfg.cUF, ConverteVersaoLayout(cfg.VersaoNFeAutorizacao), new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4"),
                     Metodo = compactarMensagem ? "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP"
                         : "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",

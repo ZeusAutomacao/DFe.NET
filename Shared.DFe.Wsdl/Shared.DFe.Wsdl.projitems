@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\ITagCabecalho.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\NfeTagCabecalho.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\TagCabecalhoVazia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Corpo\ExtTagCorpoParametroEntrada.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Corpo\ITagCorpo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Corpo\NfeTagCorpo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DFeCabecalho.cs" />
