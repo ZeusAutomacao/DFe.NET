@@ -188,9 +188,10 @@ namespace NFe.Danfe.Nativo.NFCe
             int iniX = x;
 
             CriaHeaderColuna("CÓDIGO", g, iniX, _y);
-            iniX += 50;
+            iniX += 75;
 
             AdicionarTexto colunaDescricaoHeader = CriaHeaderColuna("DESCRIÇÃO", g, iniX, _y);
+            iniX -= 25;
             _y += colunaDescricaoHeader.Medida.Altura;
 
             CriaHeaderColuna("QTDE", g, iniX, _y);
@@ -220,9 +221,9 @@ namespace NFe.Danfe.Nativo.NFCe
                 codigo.Desenhar(x, _y);
 
                 AdicionarTexto nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
-                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(227), nome.Medida.Largura);
+                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(202), nome.Medida.Largura);
                 nome = quebraNome.DesenharComQuebras(g);
-                nome.Desenhar(x + 50, _y);
+                nome.Desenhar(x + 75, _y);
                 _y += nome.Medida.Altura;
 
                 AdicionarTexto quantidade = new AdicionarTexto(g, detalhe.prod.qCom.ToString("N3"), 7);
