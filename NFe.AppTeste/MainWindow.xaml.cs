@@ -79,6 +79,7 @@ using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 using NFe.Utils.Tributacao.Federal;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.AppTeste
 {

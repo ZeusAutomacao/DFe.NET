@@ -46,6 +46,7 @@ using NFe.Utils;
 using NFe.Utils.NFe;
 using NFe.Danfe.Nativo.NFCe;
 using NFe.Danfe.Base.NFCe;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Integracao
 {

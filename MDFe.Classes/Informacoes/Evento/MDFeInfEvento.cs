@@ -38,7 +38,7 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes.Evento
 {
