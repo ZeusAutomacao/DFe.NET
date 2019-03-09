@@ -72,7 +72,7 @@
       <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFeWsdl\DFe.Wsdl.csproj">
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
       <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
       <Name>DFe.Wsdl</Name>
     </ProjectReference>

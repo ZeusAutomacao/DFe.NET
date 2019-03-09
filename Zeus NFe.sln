@@ -102,9 +102,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_devTools", "_devTools", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.VersaoAssemblies", "Dev.VersaoAssemblies\Dev.VersaoAssemblies.csproj", "{35429D4D-65DF-47F5-93BE-BFBF35FBBF3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Wsdl", "DFeWsdl\DFe.Wsdl.csproj", "{DBEE88E7-6003-436E-9810-9ACC662F5851}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.DFe.Wsdl", "Shared.DFe.Wsdl\Shared.DFe.Wsdl.shproj", "{8A90A3F4-D280-4B2B-B4FF-0DC110411BB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Wsdl", "DFe.Wsdl\DFe.Wsdl.csproj", "{DBEE88E7-6003-436E-9810-9ACC662F5851}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

@@ -190,7 +190,7 @@
       <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DFeWsdl\DFe.Wsdl.csproj">
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
       <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
       <Name>DFe.Wsdl</Name>
     </ProjectReference>
