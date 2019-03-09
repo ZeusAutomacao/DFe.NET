@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Xml;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using NFe.Utils;
@@ -27,7 +28,16 @@ namespace DFe.Wsdl
 
         public string GetXml()
         {
-            return XmlZip == false ? Xml.LastChild.OuterXml : Convert.ToBase64String(Compressao.Zip(Xml.LastChild.OuterXml));
+            var xmlDelcaration = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+
+            var xmlEnvio = XmlZip == false ? Xml.LastChild.OuterXml : CompactarXml(xmlDelcaration);
+
+            return xmlEnvio;
+        }
+
+        private string CompactarXml(string xmlDelcaration)
+        {
+            return Convert.ToBase64String(Compressao.Zip(new StringBuilder(xmlDelcaration).Append(Xml.LastChild.OuterXml).ToString()));
         }
     }
 }
