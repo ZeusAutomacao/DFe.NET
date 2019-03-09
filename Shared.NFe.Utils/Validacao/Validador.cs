@@ -123,13 +123,15 @@ namespace NFe.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
+            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, loteNfe));
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
+            schemas.XmlResolver = new XmlUrlResolver();
+
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
