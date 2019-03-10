@@ -57,6 +57,9 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DanfeBase.cs" />
     <Compile Include="NFCe\DanfeFrNfce.cs" />
     <Compile Include="NFe\DanfeFrEvento.cs" />

@@ -38,6 +38,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
     <Compile Include="Extensoes\ExtMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />

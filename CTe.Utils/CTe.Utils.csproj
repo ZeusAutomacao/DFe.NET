@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Compressao.cs" />
     <Compile Include="Consulta\ExtprocEventoCTe.cs" />
     <Compile Include="CTe\ExCteProc.cs" />

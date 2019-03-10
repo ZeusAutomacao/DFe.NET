@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />

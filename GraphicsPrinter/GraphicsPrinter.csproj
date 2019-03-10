@@ -49,6 +49,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AdicionarImagem.cs" />
     <Compile Include="AdicionarTexto.cs" />
     <Compile Include="ComprimentoMaximo.cs" />

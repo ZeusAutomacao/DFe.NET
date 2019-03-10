@@ -59,6 +59,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ConfiguracaoCsc.cs" />
     <Compile Include="Conversores\EnumParaInteger.cs" />
     <Compile Include="Conversores\EnumParaString.cs" />

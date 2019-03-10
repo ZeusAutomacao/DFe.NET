@@ -54,6 +54,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dev.VersaoAssemblies\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Gerais\NFeTestes.cs" />
     <Compile Include="Impostos\COFINSGeral__Teste.cs" />
     <Compile Include="Impostos\ICMSGeral_Teste.cs" />

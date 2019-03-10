@@ -43,7 +43,6 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("NFe.AppTeste")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -71,18 +70,3 @@ using System.Windows;
     //(usado se algum recurso não é encontrado na página, 
     // app, ou qualquer outro dicionário de recursos de tema específico)
     )]
-
-
-// Informações de Versão para um assembly consistem nos quatro valores a seguir:
-//
-//      Versão Principal
-//      Versão Secundária 
-//      Número da Versão
-//      Revisão
-//
-// É possível especificar todos os valores ou usar o padrão de Números de Compilação e Revisão 
-// utilizando o '*' como mostrado abaixo:
-// [assembly: AssemblyVersion("1.0.0.736")]
-
-[assembly: AssemblyVersion("1.0.0.736")]
-[assembly: AssemblyFileVersion("1.0.0.736")]
