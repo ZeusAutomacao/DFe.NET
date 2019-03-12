@@ -6,6 +6,11 @@ namespace Shared.NFe.Utils.InfRespTec
 {
     public static class GerarHashCSRT
     {
+        public static string HashCSRT(string csrt, global::NFe.Classes.NFe nfe, Encoding encoding = null)
+        {
+            return HashCSRT(csrt, nfe.infNFe.Id.Substring(0, 3), encoding);
+        }
+
         public static string HashCSRT(string csrt, string chave, Encoding encoding = null)
         {
             if (encoding == null)
