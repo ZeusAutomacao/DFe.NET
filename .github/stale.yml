@@ -1,0 +1,18 @@
+# Number of days of inactivity before an issue becomes stale
+daysUntilStale: 90
+# Number of days of inactivity before a stale issue is closed
+daysUntilClose: 21
+# Issues with these labels will never be considered stale
+exemptLabels:
+  - improve
+  - epic
+  - Aceitando contribuições
+# Label to use when marking an issue as stale
+staleLabel: waiting feedbac
+# Comment to post when marking an issue as stale. Set to `false` to disable
+markComment: >
+  Essa Issue foi marcada automáticamente como obsoleta, devido a um longo periodo de inatividade.
+  Se nenhuma interação ocorrer nos próximos dias, ela será encerrada. Agradecemos a sua contribuição, 
+  esse processo é apenas para manter o repositório mais organizado. 
+# Comment to post when closing a stale issue. Set to `false` to disable
+closeComment: false
