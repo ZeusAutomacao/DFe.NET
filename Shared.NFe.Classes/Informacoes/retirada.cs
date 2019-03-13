@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes
 {
@@ -76,6 +77,8 @@ namespace NFe.Classes.Informacoes
             }
         }
 
+        public string xNome { get; set; }
+
         /// <summary>
         ///     F03 - Logradouro
         /// </summary>
@@ -111,5 +114,30 @@ namespace NFe.Classes.Informacoes
         ///     F09 - Sigla da UF, informar EX para operações com o exterior.
         /// </summary>
         public string UF { get; set; }
+
+        [XmlIgnore]
+        public long CEP { get; set; }
+
+        [XmlElement(ElementName = "CEP")]
+        public string ProxyCEP
+        {
+            get
+            {
+                return CEP.ToString("D8");
+            }
+            set { CEP = long.Parse(value); }
+        }
+
+        public int? cPais { get; set; }
+
+        public bool cPaisSpecified { get { return cPais.HasValue; } }
+
+        public string xPais { get; set; }
+
+        public string fone { get; set; }
+
+        public string email { get; set; }
+
+        public string IE { get; set; }
     }
 }
