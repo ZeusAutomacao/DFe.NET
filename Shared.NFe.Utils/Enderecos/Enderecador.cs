@@ -592,7 +592,7 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeStatusServico4");
                 addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeRecepcaoEvento4");
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeAutorizacao4");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfce/services/NFeRetAutorizacao4");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeRetAutorizacao4");
             }
 
             #endregion
