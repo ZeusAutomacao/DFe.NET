@@ -22,7 +22,7 @@ namespace Shared.NFe.Utils.InfRespTec
 
             var hash = Hash(csrtChave, encoding);
 
-            var hashCSRT = Convert.ToBase64String(encoding.GetBytes(hash));
+            var hashCSRT = Convert.ToBase64String(encoding.GetBytes(hash)).Substring(0, 28);
 
             return hashCSRT;
         }
