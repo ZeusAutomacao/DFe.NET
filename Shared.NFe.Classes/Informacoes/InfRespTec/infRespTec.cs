@@ -13,13 +13,26 @@ namespace Shared.NFe.Classes.Informacoes.InfRespTec
         public string fone { get; set; }
 
         [XmlIgnore]
-        public int idCSRT { get; set; }
+        public int? idCSRT { get; set; }
 
         [XmlElement(ElementName = "idCSRT")]
         public string ProxyidCSRT
         {
-            get { return idCSRT.ToString("D2"); }
-            set { idCSRT = int.Parse(value); }
+            get
+            {
+                if (idCSRT == null) return null;
+
+                return idCSRT.Value.ToString("D2");
+            }
+            set
+            {
+                if (value == null)
+                {
+                    idCSRT = null;
+                    return;
+                }
+                idCSRT = int.Parse(value);
+            }
         }
 
         public string hashCSRT { get; set; }
