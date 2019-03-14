@@ -20,27 +20,17 @@ namespace Shared.NFe.Utils.InfRespTec
 
             var csrtChave = new StringBuilder(csrt).Append(chave).ToString();
 
-            var hash = Hash(csrtChave, encoding);
+            var data = encoding.GetBytes(csrtChave);
 
-            var hashCSRT = Convert.ToBase64String(encoding.GetBytes(hash)).Substring(0, 28);
+            string chaveBase64;
 
-            return hashCSRT;
-        }
-
-        private static string Hash(string input, Encoding encoding)
-        {
-            using (SHA1Managed sha1 = new SHA1Managed())
+            using (SHA1CryptoServiceProvider cryptoTransformSha1 = new SHA1CryptoServiceProvider())
             {
-                var hash = sha1.ComputeHash(encoding.GetBytes(input));
-
-                var sb = new StringBuilder(hash.Length * 2);
-                foreach (var b in hash)
-                {
-                    sb.Append(b.ToString("x2"));
-                }
-
-                return sb.ToString(0, 20);
+                var hash = cryptoTransformSha1.ComputeHash(data);
+                chaveBase64 = Convert.ToBase64String(hash);
             }
+
+            return chaveBase64;
         }
     }
 }
