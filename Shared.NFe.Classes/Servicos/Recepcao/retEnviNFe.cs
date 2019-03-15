@@ -79,7 +79,11 @@ namespace NFe.Classes.Servicos.Recepcao
             }
             set
             {
-                cUF = int.TryParse(value, out int ufint) ? (Estado?)ufint : null;
+                int ufInt;
+
+                var tentaParser = int.TryParse(value, out ufInt);
+
+                cUF = tentaParser ? (Estado?)ufInt : null;
             }
         }
 

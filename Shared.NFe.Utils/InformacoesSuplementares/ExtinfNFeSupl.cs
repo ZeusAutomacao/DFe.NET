@@ -40,6 +40,7 @@ using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.InformacoesSuplementares
 {
