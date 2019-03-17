@@ -42,5 +42,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals
         public string NroRegEstadual { get; set; }
 
         public veic veic { get; set; }
+
+        public infFretamento infFretamento { get; set; }
     }
 }
