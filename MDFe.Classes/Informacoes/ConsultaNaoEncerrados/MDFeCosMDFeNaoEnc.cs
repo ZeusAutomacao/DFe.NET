@@ -58,5 +58,7 @@ namespace MDFe.Classes.Informacoes.ConsultaNaoEncerrados
 
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
+
+        public string CPF { get; set; }
     }
 }
