@@ -46,7 +46,8 @@ namespace MDFe.Servicos.RecepcaoMDFe
 {
     public class ServicoMDFeRecepcao
     {
-        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
+        public event EventHandler<AntesDeEnviar> AntesDeEnviar;
+        public event EventHandler<string> GerouChave; 
 
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
@@ -64,7 +65,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina();
+            enviMDFe.MDFe.Assina(GerouChave, this);
             enviMDFe.Valida();
             enviMDFe.SalvarXmlEmDisco();
 
