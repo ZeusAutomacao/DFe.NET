@@ -60,7 +60,7 @@ namespace NFe.Utils.Assinatura
 
             var documento = new XmlDocument { PreserveWhitespace = true };
             documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
-            var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
+            var docXml = new SignedXml(documento) { SigningKey = certificado.GetRSAPrivateKey() };
             var reference = new Reference { Uri = "#" + id };
 
             // adicionando EnvelopedSignatureTransform a referencia
@@ -70,6 +70,8 @@ namespace NFe.Utils.Assinatura
             var c14Transform = new XmlDsigC14NTransform();
             reference.AddTransform(c14Transform);
 
+            reference.DigestMethod = SignedXml.XmlDsigSHA1Url;
+
             docXml.AddReference(reference);
 
             // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
@@ -77,14 +79,16 @@ namespace NFe.Utils.Assinatura
             keyInfo.AddClause(new KeyInfoX509Data(certificado));
 
             docXml.KeyInfo = keyInfo;
+
+            docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigRSASHA1Url;
+
             docXml.ComputeSignature();
 
             //// recuperando a representação do XML assinado
             var xmlDigitalSignature = docXml.GetXml();
             var assinatura = FuncoesXml.XmlStringParaClasse<Signature>(xmlDigitalSignature.OuterXml);
+
             return assinatura;
-
-
         }
     }
 }
