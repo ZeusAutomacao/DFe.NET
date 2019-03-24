@@ -51,6 +51,8 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
 
+        public string CPF { get; set; }
+
         /// <summary>
         /// 2 - Inscrição Estadual do emitemte
         /// </summary>

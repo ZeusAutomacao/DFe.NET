@@ -102,14 +102,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_devTools", "_devTools", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.VersaoAssemblies", "Dev.VersaoAssemblies\Dev.VersaoAssemblies.csproj", "{35429D4D-65DF-47F5-93BE-BFBF35FBBF3B}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.DFe.Wsdl", "Shared.DFe.Wsdl\Shared.DFe.Wsdl.shproj", "{8A90A3F4-D280-4B2B-B4FF-0DC110411BB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DFe.Wsdl", "DFe.Wsdl\DFe.Wsdl.csproj", "{DBEE88E7-6003-436E-9810-9ACC662F5851}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{3108968d-d505-4365-966f-bbe3cbf63c35}*SharedItemsImports = 13
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{57631341-c61b-49c6-a6ed-317ec42b1581}*SharedItemsImports = 13
+		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{8a90a3f4-d280-4b2b-b4ff-0dc110411bb6}*SharedItemsImports = 13
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9984ec15-18e1-4a87-b4db-18ac913dc4e8}*SharedItemsImports = 4
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
+		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{dbee88e7-6003-436e-9810-9acc662f5851}*SharedItemsImports = 4
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{e1888e9e-0273-40cb-a569-2ad023907140}*SharedItemsImports = 13
 		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{e35e7c4a-5690-4979-8b43-002975b48eaa}*SharedItemsImports = 4
 		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{e7a4800f-b2ed-4495-b847-c4bf5654e24e}*SharedItemsImports = 13
@@ -385,6 +391,14 @@ Global
 		{35429D4D-65DF-47F5-93BE-BFBF35FBBF3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{35429D4D-65DF-47F5-93BE-BFBF35FBBF3B}.Release|x86.ActiveCfg = Release|x86
 		{35429D4D-65DF-47F5-93BE-BFBF35FBBF3B}.Release|x86.Build.0 = Release|x86
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Debug|x86.Build.0 = Debug|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Release|x86.ActiveCfg = Release|Any CPU
+		{DBEE88E7-6003-436E-9810-9ACC662F5851}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

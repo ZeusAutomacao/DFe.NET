@@ -20,8 +20,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Assinatura\X509Data.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entidades\Estado.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtEstadoUF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtVersaoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\ModeloDocumento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\TipoAmbiente.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\VersaoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Valor.cs" />
   </ItemGroup>
 </Project>

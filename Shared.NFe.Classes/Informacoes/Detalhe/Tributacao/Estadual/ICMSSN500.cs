@@ -47,6 +47,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _vBCEfet;
         private decimal? _pICMSEfet;
         private decimal? _vICMSEfet;
+        private decimal? _vIcmsSubstituto;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -90,10 +91,22 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _pSt.HasValue; }
         }
 
+        [XmlElement(Order = 5)]
+        public decimal? vICMSSubstituto
+        {
+            get { return _vIcmsSubstituto.Arredondar(2); }
+            set { _vIcmsSubstituto = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSSubstituto()
+        {
+            return _vIcmsSubstituto.HasValue;
+        }
+
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 6)]
         public decimal? vICMSSTRet
         {
             get { return _vIcmsstRet.Arredondar(2); }
@@ -109,7 +122,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N27a - Valor da Base de Cálculo do FCP 
         /// Versão 4.00
         /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 7)]
         public decimal? vBCFCPSTRet
         {
             get { return _vBcfcpstRet.Arredondar(2); }
@@ -124,7 +137,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
         /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 8)]
         public decimal? pFCPSTRet
         {
             get { return _pFcpstRet.Arredondar(4); }
@@ -139,7 +152,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         /// N27d - Valor do FCP retido anteriormente por Substituição Tributária
         /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 9)]
         public decimal? vFCPSTRet
         {
             get { return _vFcpstRet.Arredondar(2); }
@@ -154,7 +167,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N34 - Percentual de redução da base de cálculo efetiva 
         /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 10)]
         public decimal? pRedBCEfet
         {
             get { return _pRedBCEfet.Arredondar(4); }
@@ -169,7 +182,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N35 - Valor da base de cálculo efetiva 
         /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 11)]
         public decimal? vBCEfet
         {
             get { return _vBCEfet.Arredondar(2); }
@@ -184,7 +197,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N36 - Alíquota do ICMS efetiva 
         /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 12)]
         public decimal? pICMSEfet
         {
             get { return _pICMSEfet.Arredondar(4); }
@@ -199,7 +212,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N37 - Valor do ICMS efetivo 
         /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 13)]
         public decimal? vICMSEfet
         {
             get { return _vICMSEfet.Arredondar(2); }

@@ -42,6 +42,7 @@ using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
+using Shared.NFe.Classes.Informacoes.InfRespTec;
 
 namespace NFe.Classes.Informacoes
 {
@@ -150,5 +151,7 @@ namespace NFe.Classes.Informacoes
         ///     ZC01 - Grupo Cana
         /// </summary>
         public cana cana { get; set; }
+
+        public infRespTec infRespTec { get; set; }
     }
 }
