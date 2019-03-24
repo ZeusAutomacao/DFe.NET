@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes.RetRecepcao
 {

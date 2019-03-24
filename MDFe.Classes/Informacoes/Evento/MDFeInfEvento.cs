@@ -38,7 +38,7 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes.Evento
 {
@@ -69,6 +69,8 @@ namespace MDFe.Classes.Informacoes.Evento
 
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
+
+        public string CPF { get; set; }
 
         [XmlElement(ElementName = "chMDFe")]
         public string ChMDFe { get; set; }

@@ -6,6 +6,7 @@ using NFe.Classes;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.InformacoesSuplementares;
 using Xunit;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.Testes
 {
