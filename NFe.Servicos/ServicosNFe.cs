@@ -1199,6 +1199,53 @@ namespace NFe.Servicos
             #endregion
         }
 
+        /// <summary>
+        /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
+        /// </summary>
+        /// <param name="pedDistDFeInt">Detalhes do pedido de notas</param>
+        /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(distDFeInt pedDistDFeInt)
+        {
+            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = pedDistDFeInt.ObterXmlString().Replace("<distDFeInt", "<distDFeInt versao=\"1.01\"");
+            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            XmlNode retorno;
+            try
+            {
+                retorno = ws.Execute(dadosConsulta);
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeDistribuicaoDFe, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
+
+            #endregion
+
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+        }
+
         #region Recepção
 
         /// <summary>
