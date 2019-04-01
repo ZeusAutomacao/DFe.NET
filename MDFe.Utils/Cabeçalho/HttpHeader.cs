@@ -1,11 +1,11 @@
-﻿namespace MDFe.Wsdl.Cabeçalho
+﻿namespace MDFe.Utils.Cabeçalho
 {
     public static class HttpHeader
     {
         #region Constantes
 
         private static string _action = "SOAPAction";
-        private static string _contettype = "application/soap+xml; charset=\"UTF-8\"";
+        private static string _contettype = "application/soap+xml";
         private static string _accept = "*/*";
         private static string _method = "POST";
         private static string _agent =

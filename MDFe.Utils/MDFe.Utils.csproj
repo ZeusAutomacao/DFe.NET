@@ -13,6 +13,7 @@
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
   </ItemGroup>
 
   <!-- .NET Standard 2.0 referências, sinalizadores de compilação e opções de compilação -->

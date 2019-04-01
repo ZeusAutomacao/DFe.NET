@@ -41,13 +41,11 @@
 /********************************************************************************/
 
 using System;
-using System.IO;
-using System.Net;
 using System.Xml;
 using System.Xml.Serialization;
 using MDFe.Utils.Soap;
-using MDFe.Wsdl.Cabeçalho;
 using MDFe.Wsdl.Configuracao;
+using static MDFe.Utils.Enums.Enums;
 
 namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 { // 
@@ -74,7 +72,6 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 #if NETSTANDARD2_0
         private SOAPEnvelope soapEnvelope;
         private WsdlConfiguracao configuracao;
-        private HttpWebRequest request;
 #endif
         private System.Threading.SendOrPostCallback mdfeStatusServicoMDFOperationCompleted;
 
@@ -99,17 +96,6 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
                 }
             };
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
-
-            request = (HttpWebRequest)WebRequest.Create(configuracao.Url);
-            request.Headers.Add(HttpHeader.ACTION, "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico/mdfeStatusServicoMDF");
-            request.KeepAlive = true;
-            request.ContentType = HttpHeader.CONTETTYPE;
-            request.Accept = HttpHeader.ACCEPT;
-            request.Method = HttpHeader.METHOD;
-            request.UserAgent = HttpHeader.AGENT;
-            request.ProtocolVersion = HttpVersion.Version11;
-
-            request.ClientCertificates.Add(configuracao.CertificadoDigital);
 #endif
 #if NET45
             this.SoapVersion = System.Web.Services.Protocols.SoapProtocolVersion.Soap12;
@@ -152,7 +138,6 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 #if NETSTANDARD2_0
         public System.Xml.XmlNode mdfeStatusServicoMDF(System.Xml.XmlNode mdfeDadosMsg)
         {
-            var result = "";
             var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
             var xmlEnvelop = new XmlDocument();
@@ -163,16 +148,8 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
             };
 
             xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
-            request = soapUtils.InsertSoapEnvelopeIntoWebRequest(xmlEnvelop, request);
-
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader rd = new StreamReader(response.GetResponseStream()))
-                {
-                    result = rd.ReadToEnd();
-                    xmlresult.LoadXml(result);
-                }
-            }
+            var tes = soapUtils.MdfeEncHttpClient(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeStatusServico);
+            xmlresult.LoadXml(tes.Result);
 
             return ((System.Xml.XmlNode) xmlresult.GetElementsByTagName("retConsStatServMDFe")[0]);
         }
