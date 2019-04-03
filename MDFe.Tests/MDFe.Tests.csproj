@@ -376,7 +376,7 @@
     <None Include="Dlls\FastReport.Bars.dll" />
     <None Include="Dlls\FastReport.dll" />
     <None Include="Dlls\FastReport.Editor.dll" />
-    <None Include="Dlls\netstandard.dll" />
+    <Reference Include="netstandard" />
   </ItemGroup>
 
 </Project>
