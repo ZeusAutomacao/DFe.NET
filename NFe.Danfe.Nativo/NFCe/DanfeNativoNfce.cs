@@ -108,7 +108,7 @@ namespace NFe.Danfe.Nativo.NFCe
             GerarNfCe(e.Graphics);
         }
 
-        public void GerarJPEG(string filename)
+        public void GerarImagem(string filename, ImageFormat format)
         {
 
             // Feito esse de cima para poder pegar o tamanho real da mesma desenhando
@@ -119,18 +119,28 @@ namespace NFe.Danfe.Nativo.NFCe
                     g.Clear(Color.White);
                     GerarNfCe(g);
                 }
-            }
 
-            // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
-            using (Bitmap bmpFinal = new Bitmap(300, _y))
-            {
-                using (Graphics g = Graphics.FromImage(bmpFinal))
+                // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
+                using (Bitmap bmpFinal = new Bitmap(300, _y))
                 {
-                    g.Clear(Color.White);
-                    GerarNfCe(g);
-                    bmpFinal.Save(filename, ImageFormat.Jpeg);
+                    using (Graphics g = Graphics.FromImage(bmpFinal))
+                    {
+                        g.Clear(Color.White);
+                        g.DrawImage(bmp, 0, 0);
+                        bmpFinal.Save(filename, format);
+                    }
                 }
             }
+        }
+
+        public void GerarJPEG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Jpeg);
+        }
+
+        public void GerarJPG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Png);
         }
 
         private void GerarNfCe(Graphics graphics)
@@ -188,9 +198,10 @@ namespace NFe.Danfe.Nativo.NFCe
             int iniX = x;
 
             CriaHeaderColuna("CÓDIGO", g, iniX, _y);
-            iniX += 50;
+            iniX += 75;
 
             AdicionarTexto colunaDescricaoHeader = CriaHeaderColuna("DESCRIÇÃO", g, iniX, _y);
+            iniX -= 25;
             _y += colunaDescricaoHeader.Medida.Altura;
 
             CriaHeaderColuna("QTDE", g, iniX, _y);
@@ -220,9 +231,9 @@ namespace NFe.Danfe.Nativo.NFCe
                 codigo.Desenhar(x, _y);
 
                 AdicionarTexto nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
-                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(227), nome.Medida.Largura);
+                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(202), nome.Medida.Largura);
                 nome = quebraNome.DesenharComQuebras(g);
-                nome.Desenhar(x + 50, _y);
+                nome.Desenhar(x + 75, _y);
                 _y += nome.Medida.Altura;
 
                 AdicionarTexto quantidade = new AdicionarTexto(g, detalhe.prod.qCom.ToString("N3"), 7);

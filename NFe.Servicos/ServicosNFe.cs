@@ -75,6 +75,7 @@ using System.Xml;
 using NFe.Classes;
 using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Servicos
 {
@@ -119,14 +120,14 @@ namespace NFe.Servicos
             return filename;
         }
 
-        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
+        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico, bool compactarMensagem)
         {
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
-            return ServicoNfeFactory.CriaWsdlAutorizacao(_cFgServico, _certificado);
+            return ServicoNfeFactory.CriaWsdlAutorizacao(_cFgServico, _certificado, compactarMensagem);
         }
 
         private INfeServico CriarServico(ServicoNFe servico)
@@ -313,7 +314,7 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano.ToString("D2"),
                 pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
                 pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
@@ -1047,7 +1048,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, compactarMensagem);
 
             #endregion
 
@@ -1107,7 +1108,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, compactarMensagem);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {

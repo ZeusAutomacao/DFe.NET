@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.IO;
+
 namespace NFe.Danfe.Base
 {
     public interface IDanfe
@@ -47,5 +49,7 @@ namespace NFe.Danfe.Base
         /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
         void ExportarPdf(string arquivo);
+
+        void ExportarPdf(Stream outputStream);
     }
 }
