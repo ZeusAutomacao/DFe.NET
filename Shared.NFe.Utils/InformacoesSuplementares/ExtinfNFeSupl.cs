@@ -310,7 +310,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var urlsConsultaProducao2 = new TupleList<Estado, VersaoServico[], string>
             {
                 {Estado.BA, versao3E4, "www.sefaz.ba.gov.br/nfce/consulta"},
-                {Estado.MT, versao3E4, "www.sefaz.mt.gov.br/nfce/consultanfce"},
+                {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.PB, versao3E4, "www.receita.pb.gov.br/nfce/consulta"},
                 {Estado.SP, versao3E4, "https://www.nfce.fazenda.sp.gov.br/consulta"},
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"},
