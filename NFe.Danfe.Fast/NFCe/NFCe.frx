@@ -104,7 +104,7 @@ namespace FastReport
         dbProdutosUmaLinha.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.UmaLinha;
       
       //Mostrar/Ocultar desconto concedido no item
-      txtProdutoUmaLinhaValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnTrib]&quot;;
+      txtProdutoUmaLinhaValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoUmaLinhaValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosUmaLinha.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosUmaLinha.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
@@ -132,7 +132,7 @@ namespace FastReport
         dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas;  
       
       //Mostrar/Ocultar desconto concedido no item
-      txtProdutoDuasLinhasValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnTrib]&quot;;
+      txtProdutoDuasLinhasValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoDuasLinhasValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosDuasLinhas.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosDuasLinhas.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
@@ -883,7 +883,7 @@ namespace FastReport
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoUmaLinhaValorTotal" Left="209.79" Top="1" Width="53.3" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemUmaLinha" Top="267.14" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text41" Left="-0.06" Top="1.13" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
@@ -913,7 +913,7 @@ namespace FastReport
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoDuasLinhasValorTotal" Left="190.89" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemDuasLinhas" Top="344.57" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text38" Left="-0.04" Top="1.27" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
