@@ -41,6 +41,7 @@ using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao;
 using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
+using NFe.Classes.Informacoes.ResponsavelTecnico;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 
@@ -151,5 +152,10 @@ namespace NFe.Classes.Informacoes
         ///     ZC01 - Grupo Cana
         /// </summary>
         public cana cana { get; set; }
+
+        /// <summary>
+        /// ZD01 - Informações do Responsável Técnico pela emissão do DFe
+        /// </summary>
+        public infRespTec infRespTec { get; set; }
     }
 }
