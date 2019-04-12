@@ -83,6 +83,10 @@ namespace NFe.Classes.Protocolo
         /// </summary>
         public string xMotivo { get; set; }
 
+        public int? cMsg { get; set; }
+
+        public string xMsg { get; set; }
+
         /// <summary>
         ///     PR13 - Assinatura XML do grupo identificado pelo atributo “Id”
         ///     A decisão de assinar a mensagem fica a critério da UF interessada.

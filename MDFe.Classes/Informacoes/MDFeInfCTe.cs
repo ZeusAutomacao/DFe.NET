@@ -71,5 +71,7 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "peri")]
         public List<MDFePeri> Peri { get; set; }
+
+        public infEntregaParcial infEntregaParcial { get; set; }
     }
 }

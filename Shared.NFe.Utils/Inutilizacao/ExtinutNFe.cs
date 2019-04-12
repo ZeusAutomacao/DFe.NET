@@ -67,13 +67,13 @@ namespace NFe.Utils.Inutilizacao
         /// <param name="inutNFe"></param>
         /// <param name="certificadoDigital">Informe o certificado digital, se já possuir esse em cache, evitando novo acesso ao certificado</param>
         /// <returns>Retorna um objeto do tipo inutNFe assinado</returns>
-        public static inutNFe Assina(this inutNFe inutNFe, X509Certificate2 certificadoDigital, string signatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1")
+        public static inutNFe Assina(this inutNFe inutNFe, X509Certificate2 certificadoDigital, string signatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1", string digestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1", bool removerAcentos = false)
         {
             var inutNFeLocal = inutNFe;
             if (inutNFeLocal.infInut.Id == null)
                 throw new Exception("Não é possível assinar um onjeto inutNFe sem sua respectiva Id!");
 
-            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id, certificadoDigital, false, signatureMethodSignedXml, digestMethodReference);
+            var assinatura = Assinador.ObterAssinatura(inutNFeLocal, inutNFeLocal.infInut.Id, certificadoDigital, false, signatureMethodSignedXml, digestMethodReference, removerAcentos);
             inutNFeLocal.Signature = assinatura;
             return inutNFeLocal;
         }

@@ -120,7 +120,7 @@ namespace MDFe.Classes.Extencoes
             return mdfe;
         }
 
-        public static MDFEletronico Assina(this MDFEletronico mdfe)
+        public static MDFEletronico Assina(this MDFEletronico mdfe, EventHandler<string> eventHandlerChaveMdfe = null, object quemInvocouEventoChaveMDFe = null)
         {
             if(mdfe == null) throw new ArgumentException("Erro de assinatura, MDFe esta null");
 
@@ -136,6 +136,10 @@ namespace MDFe.Classes.Extencoes
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
+
+            if (eventHandlerChaveMdfe != null)
+                eventHandlerChaveMdfe.Invoke(quemInvocouEventoChaveMDFe, dadosChave.Chave);
+
             mdfe.InfMDFe.Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 

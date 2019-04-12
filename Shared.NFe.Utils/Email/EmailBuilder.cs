@@ -16,12 +16,14 @@ namespace NFe.Utils.Email
         public event ErroAoEnviarEmail ErroAoEnviarEmail = delegate { };
         private readonly ConfiguracaoEmail _configuracaoEmail;
         private readonly List<MailAddress> _destinatarios;
+        private readonly List<MailAddress> _copia;
         private readonly List<string> _anexos;
 
         public EmailBuilder(ConfiguracaoEmail configuracaoEmail)
         {
             _configuracaoEmail = configuracaoEmail;
             _destinatarios = new List<MailAddress>();
+            _copia = new List<MailAddress>();
             _anexos = new List<string>();
         }
 
@@ -35,9 +37,29 @@ namespace NFe.Utils.Email
             if (!EmailValido(email))
                 throw new ArgumentException("E-mail do destinatário é inválido!");
 
-            _destinatarios.Add(new MailAddress(email,nome,System.Text.Encoding.UTF8));
+            _destinatarios.Add(new MailAddress(email, nome, System.Text.Encoding.UTF8));
             return this;
         }
+
+        /// <summary>
+        /// Adiciona um e-mail de Copia
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public EmailBuilder AdicionarCopia(string email, string nome = "")
+        {
+            if (!EmailValido(email))
+                throw new ArgumentException("E-mail de copia é inválido!");
+
+            _copia.Add(new MailAddress(email,nome,System.Text.Encoding.UTF8));
+            return this;
+        }
+        
+                /// <summary>
+        /// Adiciona um e-mail de destinatário
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
 
         /// <summary>
         /// Adiciona um anexo. Informar o path do arquivo a ser anexado.
@@ -75,7 +97,9 @@ namespace NFe.Utils.Email
             }
                         
             _destinatarios.ForEach(mensagem.To.Add);
-
+            
+            if(_copia.Count>0)
+                _copia.ForEach(mensagem.CC.Add);
 
             _anexos.ForEach(a => { mensagem.Attachments.Add(new Attachment(a, MediaTypeNames.Application.Octet));});
 

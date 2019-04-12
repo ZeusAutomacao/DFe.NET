@@ -31,11 +31,10 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Web.Services.Protocols;
-using DFe.Classes.Entidades;
 
 namespace CTe.Wsdl.DistribuicaoDFe
 {
-   
+
     public class cteCabecMsg : SoapHeader
     {
         private string cUFField;

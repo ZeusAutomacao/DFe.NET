@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Excecoes\FabricaComunicacaoException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Excecoes\ValidacaoSchemaException.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InformacoesSuplementares\ExtinfNFeSupl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InfRespTec\GerarHashCSRT.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inutilizacao\ExtinutNFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inutilizacao\ExtretInutNFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NfeSituacao.cs" />

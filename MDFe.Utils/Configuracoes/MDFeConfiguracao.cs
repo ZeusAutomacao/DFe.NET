@@ -38,6 +38,7 @@ using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Utils.Flags;
 using System;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Utils.Configuracoes
 {
