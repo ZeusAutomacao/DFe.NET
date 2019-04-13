@@ -346,8 +346,8 @@ namespace NFe.Danfe.Nativo.NFCe
             valorTotalTexto.Desenhar(qtdValorTotalX, _y);
             _y += textoValorTotal.Medida.Altura;
 
-            decimal totalDesconto = det.Sum(prod => prod.prod.vDesc) ?? 0.0m;
-            decimal totalOutras = det.Sum(prod => prod.prod.vOutro) ?? 0.0m;
+            decimal totalDesconto = _nfe.infNFe.total.ICMSTot.vDesc;
+            decimal totalOutras = _nfe.infNFe.total.ICMSTot.vOutro;
             decimal valorTotalAPagar = valorTotal + totalOutras - totalDesconto;
 
             if (totalDesconto > 0)
