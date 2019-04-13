@@ -359,7 +359,19 @@ namespace NFe.Danfe.Nativo.NFCe
                 int valorDescontoX = (larguraLinhaMargemDireita - valorDesconto.Medida.Largura);
                 valorDesconto.Desenhar(valorDescontoX, _y);
                 _y += textoDesconto.Medida.Altura;
+            }
+            if (totalOutras > 0)
+            {
+                AdicionarTexto textoOutras = new AdicionarTexto(g, "Acréscimo R$", 7);
+                textoOutras.Desenhar(x, _y);
 
+                AdicionarTexto valorAcrescimo = new AdicionarTexto(g, totalOutras.ToString("N2"), 7);
+                int valorAcrescimoX = (larguraLinhaMargemDireita - valorAcrescimo.Medida.Largura);
+                valorAcrescimo.Desenhar(valorAcrescimoX, _y);
+                _y += textoOutras.Medida.Altura;
+            }
+            if (totalDesconto > 0 || totalOutras > 0)
+            {
                 AdicionarTexto textoValorAPagar = new AdicionarTexto(g, "Valor a Pagar R$", 7);
                 textoValorAPagar.Desenhar(x, _y);
 
@@ -439,7 +451,7 @@ namespace NFe.Danfe.Nativo.NFCe
             var consumidor = new AdicionarTexto(g, mensagemConsumidor, 9);
             var quebraLinhaConsumidor = new DefineQuebraDeLinha(
                 consumidor,
-                new ComprimentoMaximo(larguraLinhaMargemDireita), 
+                new ComprimentoMaximo(larguraLinhaMargemDireita),
                 consumidor.Medida.Largura);
 
             consumidor = quebraLinhaConsumidor.DesenharComQuebras(g);
@@ -549,7 +561,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
         private string EnderecoEmitente()
         {
-            var enderEmit = _nfe.infNFe.emit.enderEmit; 
+            var enderEmit = _nfe.infNFe.emit.enderEmit;
             var foneEmit = string.Empty;
 
             if (enderEmit.fone != null)
