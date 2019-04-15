@@ -79,6 +79,7 @@ using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 using NFe.Utils.Tributacao.Federal;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.AppTeste
 {
@@ -330,7 +331,7 @@ namespace NFe.AppTeste
                 _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, true/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
@@ -473,6 +474,9 @@ namespace NFe.AppTeste
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
+                if (string.IsNullOrEmpty(cpfcnpj))
+                    throw new Exception("O CPF ou CNPJ do emitente deve ser informado!");
+
                 var retornoCartaCorrecao = servicoNFe.RecepcaoEventoCartaCorrecao(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), chave, correcao, cpfcnpj);
 

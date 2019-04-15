@@ -33,7 +33,6 @@
 
 using System;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes.Tipos;
 using DFe.Classes;
 using DFe.Utils;
 

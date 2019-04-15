@@ -34,7 +34,6 @@
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
-using CteEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Eventos
 {

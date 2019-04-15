@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns="http://www.fazenda.pr.gov.br/sefaws"
+	targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposBasico_v1.00.xsd" />
+	<xs:include schemaLocation="lmcComum_v1.00.xsd" />
+
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
+	<xs:complexType name="TProtLivroCombustivel">
+		<xs:annotation>
+			<xs:documentation>Protocolo de autorizacao do LMC</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infProt" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Informacoes de um LMC diario incluindo as movimentacoes</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificacao do Ambiente: 1 - Producao | 2 - Homologacao</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dhRecbto" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Data e hora do recebimento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cStat" type="TStat">
+							<xs:annotation>
+								<xs:documentation>Codigo do status da mensagem enviada</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="xMotivo" type="TMotivo">
+							<xs:annotation>
+								<xs:documentation>Descricao literal do status do servico solicitado</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CNPJ" type="TCnpj">
+							<xs:annotation>
+								<xs:documentation>Numero do CNPJ do emitente</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nProt" type="TProt" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Numero do Protocolo de Status do LMC</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="digVal" type="ds:DigestValueType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Digest Value processado. Utilizado para conferir a integridade do documento original</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Id" type="TLMCId" use="required">
+			<xs:annotation>
+				<xs:documentation>Validacao do Id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="versao" type="TVerLMC" use="required">
+			<xs:annotation>
+				<xs:documentation>Versao do leiaute do protocolo</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>
