@@ -35,7 +35,6 @@ using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.Evento;
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 
 namespace MDFe.Classes.Retorno.MDFeEvento
 {

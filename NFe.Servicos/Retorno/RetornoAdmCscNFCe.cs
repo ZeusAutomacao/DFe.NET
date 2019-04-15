@@ -31,10 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NFe.Classes.Servicos.AdmCsc;
 
 namespace NFe.Servicos.Retorno

@@ -104,7 +104,7 @@ namespace FastReport
         dbProdutosUmaLinha.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.UmaLinha;
       
       //Mostrar/Ocultar desconto concedido no item
-      txtProdutoUmaLinhaValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnTrib]&quot;;
+      txtProdutoUmaLinhaValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoUmaLinhaValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosUmaLinha.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosUmaLinha.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
@@ -132,7 +132,7 @@ namespace FastReport
         dbProdutosDuasLinhas.Visible = ((NfceDetalheVendaContigencia)((Int32)Report.GetParameterValue(&quot;NfceDetalheVendaContigencia&quot;))) == NfceDetalheVendaContigencia.DuasLinhas;  
       
       //Mostrar/Ocultar desconto concedido no item
-      txtProdutoDuasLinhasValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnTrib]&quot;;
+      txtProdutoDuasLinhasValorUnit.Text = &quot;[NFCe.NFe.infNFe.det.prod.vUnCom]&quot;;
       txtProdutoDuasLinhasValorTotal.Text = &quot;[NFCe.NFe.infNFe.det.prod.vProd]&quot;;
       dbProdutosDuasLinhas.Border.Lines = BorderLines.Bottom;
       var imprimeDesconto = dbProdutosDuasLinhas.Visible &amp; ((Boolean)Report.GetParameterValue(&quot;NfceImprimeDescontoItem&quot;)) &amp;
@@ -883,7 +883,7 @@ namespace FastReport
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoUmaLinhaValorTotal" Left="209.79" Top="1" Width="53.3" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemUmaLinha" Top="267.14" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text41" Left="-0.06" Top="1.13" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
@@ -913,7 +913,7 @@ namespace FastReport
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnTrib]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <TextObject Name="txtProdutoDuasLinhasValorTotal" Left="190.89" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemDuasLinhas" Top="344.57" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text38" Left="-0.04" Top="1.27" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
@@ -991,7 +991,7 @@ namespace FastReport
       <TextObject Name="Memo4" Top="2.26" Width="264.6" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://www.nfce.se.gov.br/portal/consultarNFCe.jsp?chNFe=28170809348713000115650020000825871000825333&amp;nVersao=100&amp;tpAmb=1&amp;cDest=81107110572&amp;dhEmi=323031372d30382d32395431373a32363a32302d30333a3030&amp;vNF=41.65&amp;vICMS=1.57&amp;digVal=73546a334c67646f72555a354431436e4f546c785a5944753731773d&amp;cIdToken=000001&amp;cHashQRCode=11be5cc85a95be336a5906bc3d0eb2a5e28cc235" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
     </DataBand>
-    <DataBand Name="dbQrCodeLateral" Top="919.23" Width="264.6" Height="119.07" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint">
+    <DataBand Name="dbQrCodeLateral" Top="919.23" Width="264.6" Height="119.07" CanGrow="true" CanShrink="true" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint" CanBreak="true">
       <TextObject Name="txtConsumidor2" Left="103.95" Width="160.65" Height="15.12" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text49" Width="100.17" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" VertAlign="Bottom" Font="Ubuntu Condensed, 6pt"/>
       <BarcodeObject Name="bcoQrCodeLateral" Top="17.1" Width="94.5" Height="94.5" AutoSize="false" Text="http://www.hom.nfe.se.gov.br/portal/consultarNFCe.jsp?chNFe=28170107703290000189650010000013761000000351&amp;nVersao=100&amp;tpAmb=2&amp;cDest=99999999000191&amp;dhEmi=323031372d30312d30395431353a35333a35312d30333a3030&amp;vNF=7.65&amp;vICMS=1.38&amp;digVal=6b31414c6745487445686c634558754c7846504d446530774339513d&amp;cIdToken=000003&amp;cHashQRCode=78068664e1b2862a078564332508ea6f964cb93c" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>

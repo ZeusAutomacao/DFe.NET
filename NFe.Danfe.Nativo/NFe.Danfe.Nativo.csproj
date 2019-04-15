@@ -59,6 +59,10 @@
       <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GraphicsPrinter\GraphicsPrinter.csproj">
       <Project>{3067efcc-91de-48ea-8f7e-e0d95216c6dc}</Project>
       <Name>GraphicsPrinter</Name>

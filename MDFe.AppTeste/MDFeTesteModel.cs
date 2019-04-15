@@ -56,6 +56,7 @@ using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.AppTeste
 {

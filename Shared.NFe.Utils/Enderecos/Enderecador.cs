@@ -38,6 +38,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.Enderecos
 {
@@ -550,12 +551,13 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.MG, nfe, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
 
                 // NFC-e
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4");
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
-                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
+                //18/12/2018 - http://www.sped.fazenda.mg.gov.br/spedmg/nfce/web-services/
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeStatusServico4");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeInutilizacao4");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeConsultaProtocolo4");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeRecepcaoEvento4");
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeAutorizacao4");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.MG, nfce, "https://hnfce.fazenda.mg.gov.br/nfce/services/NFeRetAutorizacao4");
             }
 
             #endregion
@@ -584,12 +586,13 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
 
                 // NFC-e
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeInutilizacao4");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeConsultaProtocolo4");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeStatusServico4");
-                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRecepcaoEvento4");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeAutorizacao4");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
+                 //18/12/2018 - http://www.sped.fazenda.mg.gov.br/spedmg/nfce/web-services/
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeInutilizacao4");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeConsultaProtocolo4");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeStatusServico4");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeRecepcaoEvento4");
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeAutorizacao4");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeRetAutorizacao4");
             }
 
             #endregion

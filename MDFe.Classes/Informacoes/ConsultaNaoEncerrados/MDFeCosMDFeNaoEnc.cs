@@ -33,7 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes.ConsultaNaoEncerrados
 {
@@ -58,5 +58,7 @@ namespace MDFe.Classes.Informacoes.ConsultaNaoEncerrados
 
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
+
+        public string CPF { get; set; }
     }
 }

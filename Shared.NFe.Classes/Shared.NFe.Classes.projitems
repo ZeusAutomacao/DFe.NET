@@ -98,6 +98,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Identificacao\refNFP.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Identificacao\Tipos\ideTipos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infNFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Informacoes\InfRespTec\infRespTec.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Observacoes\infAdic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Observacoes\obsCont.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Observacoes\obsFisco.cs" />

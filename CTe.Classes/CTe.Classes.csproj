@@ -146,7 +146,9 @@
     <Compile Include="Informacoes\infCTeNormal\infModals\multimodal.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodo.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodoOS.cs" />
+    <Compile Include="Informacoes\infCTeNormal\infModals\rodoviarioOS\infFretamento.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodoviarioOS\prop.cs" />
+    <Compile Include="Informacoes\infCTeNormal\infModals\rodoviarioOS\tpFretamento.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodoviarioOS\veic.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodoviario\emiOcc.cs" />
     <Compile Include="Informacoes\infCTeNormal\infModals\rodoviario\occ.cs" />
@@ -157,6 +159,7 @@
     <Compile Include="Informacoes\infCTeNormal\peri.cs" />
     <Compile Include="Informacoes\infCTeNormal\seg.cs" />
     <Compile Include="Informacoes\infCTeNormal\veicNovos.cs" />
+    <Compile Include="Informacoes\infRespTec\infRespTec.cs" />
     <Compile Include="Informacoes\Recebedor\enderReceb.cs" />
     <Compile Include="Informacoes\Recebedor\receb.cs" />
     <Compile Include="Informacoes\Remetente\enderReme.cs" />

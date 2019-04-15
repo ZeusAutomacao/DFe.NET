@@ -67,6 +67,7 @@ namespace CTe.Servicos.Recepcao
 
             foreach (var cte in enviCte.CTe)
             {
+                cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
                 cte.Assina();
                 cte.ValidaSchema();
                 cte.SalvarXmlEmDisco();

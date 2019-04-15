@@ -38,7 +38,7 @@ using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado
 {

@@ -38,6 +38,7 @@ using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
+using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils
 {
@@ -162,6 +163,11 @@ namespace NFe.Utils
                     return "MDF-e";
             }
             return null;
+        }
+
+        public static int ModeloDocumentoParaInt(this ModeloDocumento modelo)
+        {
+            return (int) modelo;
         }
 
         public static string CsticmsParaString(this Csticms csticms)

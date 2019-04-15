@@ -71,7 +71,7 @@ namespace DFe.Utils.Assinatura
         {
             if (!File.Exists(arquivo))
             {
-                throw new Exception(String.Format("Certificado digital {0} não encontrado!", arquivo));
+                throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
             }
 
             var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
@@ -82,7 +82,7 @@ namespace DFe.Utils.Assinatura
         /// <summary>
         /// Obtém um certificado a partir do arquivo e da senha passados nos parâmetros
         /// </summary>
-        /// <param name="arquivo">Arquivo do certificado digital</param>
+        /// <param name="arrayBytes">Array de bytes do certificado digital</param>
         /// <param name="senha">Senha do certificado digital</param>
         /// <returns></returns>
         private static X509Certificate2 ObterDoArrayBytes(byte[] arrayBytes, string senha)
@@ -227,7 +227,7 @@ namespace DFe.Utils.Assinatura
             if (!string.IsNullOrEmpty(configuracaoCertificado.CacheId) && CacheCertificado.ContainsKey(configuracaoCertificado.CacheId))
                 return CacheCertificado[configuracaoCertificado.CacheId];
 
-            X509Certificate2 certificado = ObterDadosCertificado(configuracaoCertificado);
+            var certificado = ObterDadosCertificado(configuracaoCertificado);
 
             var keyCertificado = string.IsNullOrEmpty(configuracaoCertificado.CacheId)
                 ? certificado.SerialNumber
@@ -239,7 +239,6 @@ namespace DFe.Utils.Assinatura
 
             return CacheCertificado[keyCertificado];
         }
-
 
         public static void ClearCache()
         {

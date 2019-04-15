@@ -72,6 +72,10 @@
       <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
+      <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
+      <Name>DFe.Wsdl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
       <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
       <Name>NFe.Classes</Name>

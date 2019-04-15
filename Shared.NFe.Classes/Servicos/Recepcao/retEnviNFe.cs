@@ -33,6 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using NFe.Classes.Protocolo;
 
@@ -68,10 +69,29 @@ namespace NFe.Classes.Servicos.Recepcao
         /// </summary>
         public string xMotivo { get; set; }
 
+        // Proxy devido a issue: https://github.com/ZeusAutomacao/DFe.NET/issues/927
+        [XmlElement("cUF")]
+        public string ProxycUF
+        {
+            get
+            {
+                return cUF.HasValue ? cUF.Value.GetCodigoIbgeEmString() : null;
+            }
+            set
+            {
+                int ufInt;
+
+                var tentaParser = int.TryParse(value, out ufInt);
+
+                cUF = tentaParser ? (Estado?)ufInt : null;
+            }
+        }
+
         /// <summary>
         ///     AR06a - Código da UF que atendeu a solicitação.
         /// </summary>
-        public Estado cUF { get; set; }
+        [XmlIgnore]
+        public Estado? cUF { get; set; }
 
         /// <summary>
         ///     AR06b - Data e Hora do Recebimento Formato = AAAA-MM-DDTHH:MM:SS Preenchido com data e hora do recebimento do lote.

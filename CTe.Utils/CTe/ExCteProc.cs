@@ -32,7 +32,6 @@
 /********************************************************************************/
 
 using CTe.Classes;
-using CTe.Utils.CTe;
 using DFe.Utils;
 using cteProc = CTe.Classes.cteProc;
 
