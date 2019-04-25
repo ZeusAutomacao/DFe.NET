@@ -145,9 +145,9 @@ namespace NFe.Integracao.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::NFe.Classes.Servicos.Tipos.VersaoServico versao_NFe {
+        public global::DFe.Classes.Flags.VersaoServico versao_NFe {
             get {
-                return ((global::NFe.Classes.Servicos.Tipos.VersaoServico)(this["versao_NFe"]));
+                return ((global::DFe.Classes.Flags.VersaoServico)(this["versao_NFe"]));
             }
             set {
                 this["versao_NFe"] = value;
