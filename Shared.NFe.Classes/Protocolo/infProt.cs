@@ -94,7 +94,7 @@ namespace NFe.Classes.Protocolo
             }
             set
             {
-                if (value == null)
+                if (string.IsNullOrEmpty(value))
                 {
                     cMsg = null;
                     return;
