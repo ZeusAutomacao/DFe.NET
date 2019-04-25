@@ -75,7 +75,6 @@ using System.Xml;
 using NFe.Classes;
 using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Servicos
 {
@@ -147,7 +146,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
-            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -212,7 +211,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
 
-            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -284,7 +283,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeInutilizacao);
 
-            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -387,7 +386,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(servicoEvento);
 
-            if (_cFgServico.VersaoRecepcaoEventoCceCancelamento != VersaoServico.ve400)
+            if (_cFgServico.VersaoRecepcaoEventoCceCancelamento != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -688,7 +687,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 
-            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -1029,12 +1028,12 @@ namespace NFe.Servicos
         public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
             bool compactarMensagem = false)
         {
-            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.Versao400)
             {
                 return NFeAutorizacaoVersao310(idLote, indSinc, nFes, compactarMensagem);
             }
 
-            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.Versao400)
             {
                 return NFeAutorizacao4(idLote, indSinc, nFes, compactarMensagem);
             }
@@ -1178,7 +1177,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
 
-            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {

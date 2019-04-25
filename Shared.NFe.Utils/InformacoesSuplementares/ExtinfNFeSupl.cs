@@ -39,8 +39,6 @@ using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Servicos.Tipos;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.InformacoesSuplementares
 {
@@ -98,9 +96,9 @@ namespace NFe.Utils.InformacoesSuplementares
                                 endQrCodeNfce.Add(new EnderecoConsultaPublicaNfce(tipoAmbiente, endereco.Item1, tipoUrl, versaoServico, versaoQrCode, endereco.Item3));
                 });
 
-            var versao3 = new[] { VersaoServico.ve310 };
-            var versao4 = new[] { VersaoServico.ve400 };
-            var versao3E4 = new[] { VersaoServico.ve310, VersaoServico.ve400 };
+            var versao3 = new[] { VersaoServico.Versao310 };
+            var versao4 = new[] { VersaoServico.Versao400 };
+            var versao3E4 = new[] { VersaoServico.Versao310, VersaoServico.Versao400 };
 
             #region URL por UF utilizada QR code: Ambiente de Produção
 
