@@ -38,7 +38,6 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.Enderecos
 {
@@ -105,15 +104,15 @@ namespace NFe.Utils.Enderecos
 
             var emissaoComum = new List<TipoEmissao> { TipoEmissao.teNormal, TipoEmissao.teEPEC, TipoEmissao.teFSIA, TipoEmissao.teFSDA, TipoEmissao.teOffLine };
 
-            var versao1 = new[] { VersaoServico.ve100 };
+            var versao1 = new[] { VersaoServico.Versao100 };
 
-            var versao2 = new[] { VersaoServico.ve200 };
+            var versao2 = new[] { VersaoServico.Versao200 };
 
-            var versao3 = new[] { VersaoServico.ve310 };
+            var versao3 = new[] { VersaoServico.Versao310 };
 
-            var versao4 = new[] { VersaoServico.ve400 };
+            var versao4 = new[] { VersaoServico.Versao400 };
 
-            var versao2E3 = new[] { VersaoServico.ve200, VersaoServico.ve310 };
+            var versao2E3 = new[] { VersaoServico.Versao200, VersaoServico.Versao310 };
 
             var svanEstados = EstadosQueUsamSvanParaNfe();
 
@@ -1692,7 +1691,7 @@ namespace NFe.Utils.Enderecos
         /// <summary>
         /// Obtém os serviços mais recentes
         /// </summary>
-        /// <param name="versaoLimite">Versão limite para o serviço. Ex: informe <see cref="VersaoServico.ve310"/> para obter todos os serviços mais recentes até a versão 3.10</param>
+        /// <param name="versaoLimite">Versão limite para o serviço. Ex: informe <see cref="DFe.Classes.Flags.VersaoServico.Versao310"/> para obter todos os serviços mais recentes até a versão 3.10</param>
         /// <param name="uf">UF do serviço da NFe</param>
         /// <param name="tipoAmbiente">Tipo de ambiente (produção ou homologação)</param>
         /// <param name="modeloDocumento">Modelo do documento. Ex: NFe, NFCe.</param>
