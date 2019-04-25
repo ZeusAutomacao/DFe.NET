@@ -41,6 +41,7 @@
 /********************************************************************************/
 
 using System;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using MDFe.Utils.Soap;
@@ -91,7 +92,7 @@ namespace MDFe.Wsdl.Gerado.MDFeEventos
         /// </summary>
         /// <param name="mdfeDadosMsg"></param>
         /// <returns>XmlNode</returns>
-        public System.Xml.XmlNode mdfeRecepcaoEvento(System.Xml.XmlNode mdfeDadosMsg)
+        public async Task<System.Xml.XmlNode> mdfeRecepcaoEvento(System.Xml.XmlNode mdfeDadosMsg)
         {
             var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
@@ -103,8 +104,8 @@ namespace MDFe.Wsdl.Gerado.MDFeEventos
             };
 
             xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
-            var tes = soapUtils.SendRequest(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeRecepcaoEvento);
-            xmlresult.LoadXml(tes.Result);
+            var tes = await soapUtils.SendRequest(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeRecepcaoEvento);
+            xmlresult.LoadXml(tes);
 
             return ((System.Xml.XmlNode)xmlresult.GetElementsByTagName("retEventoMDFe")[0]);
         }

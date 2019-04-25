@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Threading.Tasks;
 using DFe.Utils;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
@@ -48,7 +49,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
     {
         public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetEnviMDFe> MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
@@ -74,7 +75,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             OnAntesDeEnviar(enviMDFe);
 
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+            var retornoXml = await webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml?.OuterXml, enviMDFe);
 

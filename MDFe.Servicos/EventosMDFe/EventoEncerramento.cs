@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Threading.Tasks;
 using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
@@ -42,13 +43,13 @@ namespace MDFe.Servicos.EventosMDFe
 {
     public class EventoEncerramento
     {
-        public MDFeRetEventoMDFe MDFeEventoEncerramento(MDFeEletronico mdfe, Estado cUF, long cMun, byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetEventoMDFe> MDFeEventoEncerramento(MDFeEletronico mdfe, Estado cUF, long cMun, byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var encerramento = ClassesFactory.CriaEvEncMDFe(cUF, cMun, protocolo);
 
-            var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento, config);
+            var retorno = await new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento, config);
 
             return retorno;
         }

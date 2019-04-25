@@ -41,6 +41,7 @@
 /********************************************************************************/
 
 using System;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using MDFe.Utils.Soap;
@@ -91,7 +92,7 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
         /// </summary>
         /// <param name="mdfeDadosMsg"></param>
         /// <returns>XmlNode</returns>
-        public System.Xml.XmlNode mdfeConsultaMDF(System.Xml.XmlNode mdfeDadosMsg)
+        public async Task<System.Xml.XmlNode> mdfeConsultaMDF(System.Xml.XmlNode mdfeDadosMsg)
         {
             var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
@@ -104,8 +105,8 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaProtoloco
 
             xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
 
-            var tes = soapUtils.SendRequest(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeConsulta);
-            xmlresult.LoadXml(tes.Result);
+            var tes = await soapUtils.SendRequest(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeConsulta);
+            xmlresult.LoadXml(tes);
 
             return ((System.Xml.XmlNode)xmlresult.GetElementsByTagName("retConsSitMDFe")[0]);
         }

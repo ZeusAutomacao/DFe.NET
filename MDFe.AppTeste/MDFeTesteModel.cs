@@ -33,6 +33,7 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -549,7 +550,7 @@ namespace MDFe.AppTeste
             }
         }
 
-        public void CriarEnviar()
+        public async Task CriarEnviar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -783,7 +784,7 @@ namespace MDFe.AppTeste
             // Evento executado antes do envio da mdf-e para a sefaz
             //servicoRecepcao.AntesDeEnviar += AntesEnviar;
 
-            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
+            var retornoEnvio = await servicoRecepcao.MDFeRecepcao(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -1053,7 +1054,7 @@ namespace MDFe.AppTeste
             DiretorioSalvarXml = dlg.SelectedPath;
         }
 
-        public void ConsultaPorRecibo()
+        public async Task ConsultaPorRecibo()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1067,12 +1068,12 @@ namespace MDFe.AppTeste
             }
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
-            var retorno = servicoRecibo.MDFeRetRecepcao(recibo);
+            var retorno = await servicoRecibo.MDFeRetRecepcao(recibo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void ConsultaPorProtocolo()
+        public async Task ConsultaPorProtocolo()
         {
             var porChave = MessageBoxConfirmTuche("Sim = Por chave\nNão = Por arquivo xml");
             var chave = string.Empty;
@@ -1098,7 +1099,7 @@ namespace MDFe.AppTeste
             CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
-            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
+            var retorno = await servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -1176,32 +1177,30 @@ namespace MDFe.AppTeste
             MessageBox.Show(mensagem, @"MDF-e", MessageBoxButtons.OK, icon);
         }
 
-        public void ConsultaStatusServico()
+        public async Task ConsultaStatusServico()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
             var servicoStatusServico = new ServicoMDFeStatusServico();
-            var retorno = servicoStatusServico.MDFeStatusServico();
+            var retorno = await servicoStatusServico.MDFeStatusServico();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
 
         }
 
-        public void ConsultaNaoEncerrados()
+        public async Task ConsultaNaoEncerrados()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
-            var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
-
-            
+            var retorno = await servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoIncluirCondutor()
+        public async Task EventoIncluirCondutor()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1246,12 +1245,12 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
+            var retorno = await evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoEncerramento()
+        public async Task EventoEncerramento()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1288,12 +1287,12 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, mdfe.UFEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
+            var retorno = await evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, mdfe.UFEmitente(), mdfe.CodigoIbgeMunicipioEmitente(), 1, protocolo);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
 
-        public void EventoCancelar()
+        public async Task EventoCancelar()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
@@ -1338,7 +1337,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
+            var retorno = await evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }

@@ -41,6 +41,7 @@
 /********************************************************************************/
 
 using System;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using MDFe.Utils.Soap;
@@ -92,7 +93,7 @@ namespace MDFe.Wsdl.Gerado.MDFeRecepcao
         /// </summary>
         /// <param name="mdfeDadosMsg"></param>
         /// <returns>XmlNode</returns>
-        public System.Xml.XmlNode mdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg)
+        public async Task<System.Xml.XmlNode> mdfeRecepcaoLote(System.Xml.XmlNode mdfeDadosMsg)
         {
             var soapUtils = new SoapUtils();
             var xmlresult = new XmlDocument();
