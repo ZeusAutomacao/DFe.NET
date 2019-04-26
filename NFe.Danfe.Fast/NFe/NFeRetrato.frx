@@ -53,7 +53,9 @@ namespace FastReport
         case 0: Memo92.Text = &quot;0 - CIF&quot;; break;
         case 1: Memo92.Text = &quot;1 - FOB&quot;; break;
         case 2: Memo92.Text = &quot;2 - Terceiros&quot;; break;
-        case 3: Memo92.Text = &quot;9 - Sem Frete&quot;; break;
+	case 3: Memo92.Text = &quot;3 - Próprio Remetente&quot;; break;
+	case 4: Memo92.Text = &quot;4 - Próprio Destinatário&quot;; break;
+        case 9: Memo92.Text = &quot;9 - Sem Frete&quot;; break;
       } 
       
       var vol = Report.GetDataSource(&quot;NFe.NFe.infNFe.transp.vol&quot;);
