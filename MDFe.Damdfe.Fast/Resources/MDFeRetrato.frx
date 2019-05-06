@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="02/11/2019 15:09:47" ReportInfo.CreatorVersion="2019.1.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="05/06/2019 10:50:11" ReportInfo.CreatorVersion="2019.2.7.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -204,10 +204,14 @@ namespace FastReport
       
       Text60.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
       Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
-      Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
       
       if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
         Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));
+    }
+    
+    private void Text61_BeforePrint(object sender, EventArgs e)
+    {
+      Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
     }
 
   }
@@ -533,11 +537,11 @@ namespace FastReport
     <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean"/>
     <Parameter Name="NewLine" DataType="System.String"/>
   </Dictionary>
-  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261">
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
     <PageHeaderBand Name="PageHeader1" Width="748.44" Height="472.5" BeforePrintEvent="PageHeader1_BeforePrint">
       <ShapeObject Name="Shape6" Top="217.35" Width="756" Height="28.35"/>
       <ShapeObject Name="Shape5" Width="756" Height="207.9"/>
-      <PictureObject Name="poEmitLogo" Left="28.35" Top="18.9" Width="114.73" Height="96.72" Image=""/>
+      <PictureObject Name="poEmitLogo" Left="28.35" Top="18.9" Width="114.73" Height="96.72"/>
       <TextObject Name="Text119" Left="179.55" Top="18.9" Width="569" Height="29.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 16pt, style=Bold"/>
       <TextObject Name="Text120" Left="179.55" Top="56.7" Width="565" Height="141.75" Text="CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;Razão Social: [MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]&#13;&#10;Logradouro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr] Nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro]&#13;&#10;Complemento: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;Bairro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;UF: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]  Muncípio: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]  CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]" Font="Times New Roman, 13pt"/>
       <TextObject Name="Text121" Left="9.45" Top="217.35" Width="109.95" Height="30.35" Text="DAMDFE" VertAlign="Center" Font="Times New Roman, 15pt, style=Bold"/>
@@ -631,7 +635,7 @@ namespace FastReport
       <TextObject Name="Text60" Left="137.52" Top="35.4" Width="480.95" Height="129.65" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 36pt, style=Bold" TextFill.Color="Red"/>
     </PageFooterBand>
     <OverlayBand Name="Overlay1" Top="1042.05" Width="748.44" Height="1096.2">
-      <TextObject Name="Text61" Top="151.2" Width="756" Height="765.45" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Angle="270" Font="Arial Black, 30pt, style=Bold" TextFill.Color="DarkGray"/>
+      <TextObject Name="Text61" Top="151.2" Width="756" Height="765.45" BeforePrintEvent="Text61_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Angle="270" Font="Arial Black, 30pt, style=Bold" TextFill.Color="DarkGray"/>
     </OverlayBand>
   </ReportPage>
 </Report>
