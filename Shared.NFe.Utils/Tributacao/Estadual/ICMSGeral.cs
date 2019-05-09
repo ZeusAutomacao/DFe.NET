@@ -344,5 +344,10 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do FCP retido por Substituição Tributária
         /// </summary>
         public decimal? vFCPSTRet { get; set; }
+		
+		/// <summary>
+        ///     Valor do ICMS próprio do Substituto (tag: vICMSSubstituto)
+        /// </summary>
+        public decimal? vICMSSubstituto { get; set; }
     }
 }
