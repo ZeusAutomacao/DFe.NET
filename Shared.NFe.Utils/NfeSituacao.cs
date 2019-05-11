@@ -26,7 +26,7 @@
 
         public static bool Inutilizada(int cStat)
         {
-            return cStat == 102
+            return InutilizacaoHomologada(cStat)
                 || cStat == 206 /*Rejeição: NF-e já está inutilizada na Base de dados da SEFAZ*/
                 || cStat == 256 /*Número da faixa já inutilizado*/
                 || cStat == 563 /*Rejeição: Já existe pedido de Inutilização com a mesma faixa de inutilização*/;
@@ -41,5 +41,9 @@
         public static bool LoteRecebido(int cStat) => cStat == 103;
 
         public static bool LoteProcessado(int cStat) => cStat == 104;
+
+        public static bool EventoVinculado(int cStat) => cStat == 135;
+       
+        public static bool InutilizacaoHomologada(int cStat) => cStat == 102;
     }
 }

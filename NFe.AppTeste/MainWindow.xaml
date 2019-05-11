@@ -2,7 +2,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:NFe.AppTeste"
-    xmlns:nfeclservicostipos="clr-namespace:NFe.Classes.Servicos.Tipos;assembly=NFe.Classes"
+    xmlns:nfeclservicostipos="clr-namespace:DFe.Classes.Flags;assembly=DFe.Classes"
     xmlns:nfeclsidetipos="clr-namespace:NFe.Classes.Informacoes.Identificacao.Tipos;assembly=NFe.Classes"
     xmlns:nfceemit="clr-namespace:NFe.Classes.Informacoes.Emitente;assembly=NFe.Classes"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
@@ -355,12 +355,12 @@
                                                                  GroupName="VersaoLayout"
                                                                  Content="3.10"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.VersaoLayout, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                                 IsChecked="{Binding CfgServico.VersaoLayout, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                     <RadioButton Grid.Column="4"
                                                                  GroupName="VersaoLayout"
                                                                  Content="4.00"
                                                                  VerticalAlignment="Center"
-                                                                 IsChecked="{Binding CfgServico.VersaoLayout, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                 IsChecked="{Binding CfgServico.VersaoLayout, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                 </StackPanel>
                                             </GroupBox>
                                             <GroupBox Header="Versão dos serviços:" IsEnabled="{Binding CfgServico.DefineVersaoServicosAutomaticamente, Converter={StaticResource InverterBooleanConverter}}">
@@ -372,22 +372,22 @@
                                                              GroupName="RecepcaoEventoCceCancelamento"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2"
                                                              GroupName="RecepcaoEventoCceCancelamento"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3"
                                                              GroupName="RecepcaoEventoCceCancelamento"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4"
                                                              GroupName="RecepcaoEventoCceCancelamento"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoCceCancelamento, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -395,19 +395,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="RecepcaoEventoEpec"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="RecepcaoEventoEpec"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="RecepcaoEventoEpec"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="RecepcaoEventoEpec"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoRecepcaoEventoEpec, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -417,21 +417,21 @@
                                                              GroupName="RecepcaoEventoManifestacaoDestinatario"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2"
                                                              GroupName="RecepcaoEventoManifestacaoDestinatario"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3"
                                                              GroupName="RecepcaoEventoManifestacaoDestinatario"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="RecepcaoEventoManifestacaoDestinatario"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoRecepcaoEventoManifestacaoDestinatario, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -439,19 +439,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeRecepcao"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeRecepcao"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeRecepcao"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NfeRecepcao"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNfeRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -459,19 +459,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeRetRecepcao"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeRetRecepcao"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeRetRecepcao"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NfeRetRecepcao"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNfeRetRecepcao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -479,21 +479,21 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeConsultaCadastro"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeConsultaCadastro"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeConsultaCadastro"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}"
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}"
                                                              Grid.ColumnSpan="2" />
 
                                                         <RadioButton Grid.Column="4" GroupName="NfeConsultaCadastro"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaCadastro, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -501,20 +501,20 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeInutilizacao"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeInutilizacao"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeInutilizacao"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
 
                                                         <RadioButton Grid.Column="4" GroupName="NfeInutilizacao"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeInutilizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -522,20 +522,20 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeConsultaProtocolo"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeConsultaProtocolo"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeConsultaProtocolo"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}"
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}"
                                                              Grid.ColumnSpan="2" />
                                                         <RadioButton Grid.Column="4" GroupName="NfeConsultaProtocolo"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaProtocolo, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -543,39 +543,39 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeStatusServico"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeStatusServico"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeStatusServico"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
 
                                                         <RadioButton Grid.Column="4" GroupName="NfeStatusServico"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeStatusServico, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
                                                         <Label Grid.Column="0" Content="NFeAutorizacao" />
                                                         <RadioButton Grid.Column="1" GroupName="NFeAutorizacao"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NFeAutorizacao"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NFeAutorizacao"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NFeAutorizacao"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -583,19 +583,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NFeRetAutorizacao"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NFeRetAutorizacao"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NFeRetAutorizacao"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NFeRetAutorizacao"
                                                              Content="4.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeRetAutorizacao, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -603,19 +603,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NFeDistribuicaoDFe"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NFeDistribuicaoDFe"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NFeDistribuicaoDFe"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NFeDistribuicaoDFe"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNFeDistribuicaoDFe, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -623,19 +623,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeConsultaDest"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeConsultaDest"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeConsultaDest"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NfeConsultaDest"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNfeConsultaDest, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -643,19 +643,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="NfeDownloadNF"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="NfeDownloadNF"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="NfeDownloadNF"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="NfeDownloadNF"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNfeDownloadNF, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
 
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
@@ -663,19 +663,19 @@
                                                         <RadioButton Grid.Column="1" GroupName="admCscNFCe"
                                                              Content="1.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve100}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao100}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="2" GroupName="admCscNFCe"
                                                              Content="2.0"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve200}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao200}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="3" GroupName="admCscNFCe"
                                                              Content="3.1"
                                                              VerticalAlignment="Center"
-                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve310}, Converter={StaticResource EnumParaBool}}" />
+                                                             IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao310}, Converter={StaticResource EnumParaBool}}" />
                                                         <RadioButton Grid.Column="4" GroupName="admCscNFCe"
                                                                      Content="4.0"
                                                                      VerticalAlignment="Center"
-                                                                     IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.ve400}, Converter={StaticResource EnumParaBool}}" />
+                                                                     IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
                                                 </StackPanel>
                                                 
