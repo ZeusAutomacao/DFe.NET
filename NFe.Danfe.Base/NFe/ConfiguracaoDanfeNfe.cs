@@ -69,6 +69,8 @@ namespace NFe.Danfe.Base.NFe
             ImprimirTotalLiquido = false;
             ImprimirUnidQtdeValor = ImprimirUnidQtdeValor.Comercial;
             ExibirTotalTributos = false;
+            DecimaisValorUnitario = 2;
+            DecimaisQuantidadeItem = 2;
         }
 
         public bool DuasLinhas { get; set; }
@@ -92,5 +94,7 @@ namespace NFe.Danfe.Base.NFe
         public ImprimirUnidQtdeValor ImprimirUnidQtdeValor { get; set; }
 
         public bool ExibirTotalTributos { get; set; }
+        public int DecimaisValorUnitario { get; set; }
+        public int DecimaisQuantidadeItem { get; set; }
     }
 }

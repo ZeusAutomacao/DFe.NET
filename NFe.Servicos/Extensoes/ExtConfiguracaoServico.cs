@@ -1,9 +1,7 @@
 ﻿using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using NFe.Classes.Servicos.Tipos;
 using NFe.Utils;
 using NFe.Utils.Enderecos;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Servicos.Extensoes
 {
@@ -16,7 +14,7 @@ namespace NFe.Servicos.Extensoes
         public static bool UsaSvanNFe4(this ConfiguracaoServico cfgServico, VersaoServico versaoServico)
         {
             return Enderecador.EstadosQueUsamSvanParaNfe().Contains(cfgServico.cUF)
-                   && versaoServico == VersaoServico.ve400
+                   && versaoServico == VersaoServico.Versao400
                    && cfgServico.ModeloDocumento == ModeloDocumento.NFe;
         }
 
@@ -30,7 +28,7 @@ namespace NFe.Servicos.Extensoes
             return Enderecador.EstadosQueUsamSvcAnParaNfe().Contains(cfgServico.cUF)
                    && cfgServico.tpEmis == TipoEmissao.teSVCAN
                    && cfgServico.ModeloDocumento == ModeloDocumento.NFe
-                   && versaoServico == VersaoServico.ve400
+                   && versaoServico == VersaoServico.Versao400
                     ;
         }
     }
