@@ -121,14 +121,6 @@ namespace NFe.Classes.Servicos.Tipos
         NfceAdministracaoCSC
     }
 
-    public enum VersaoServico
-    {
-        [XmlEnum("1.00")] ve100,
-        [XmlEnum("2.00")] ve200,
-        [XmlEnum("3.10")] ve310,
-        [XmlEnum("4.00")] ve400,
-    }
-
     /// <summary>
     ///     Indicador de Sincronização:
     ///     <para>0 = Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo</para>
