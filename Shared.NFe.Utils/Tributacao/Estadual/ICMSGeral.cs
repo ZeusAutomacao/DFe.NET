@@ -247,6 +247,11 @@ namespace NFe.Utils.Tributacao.Estadual
         public decimal? vBCSTRet { get; set; }
 
         /// <summary>
+        ///     Valor do ICMS ST  Substituto
+        /// </summary>
+        public decimal? vICMSSubstituto { get; set; }
+        
+        /// <summary>
         ///     Valor do ICMS ST retido
         /// </summary>
         public decimal? vICMSSTRet { get; set; }
