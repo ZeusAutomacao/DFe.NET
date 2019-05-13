@@ -9,6 +9,7 @@
     <Import_RootNamespace>Shared.CTe.Wsdl</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Recepcao\CteRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RetRecepcao\CteRetRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Status\CTeStatusServico.cs" />
