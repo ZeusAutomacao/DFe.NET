@@ -36,12 +36,14 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.DistribuicaoDFe;
 using CTe.Servicos.Factory;
 using CTe.Utils.DistribuicaoDFe;
 using CTe.Utils;
+using CTe.Wsdl.DistribuicaoDFe;
 using DFe.Utils;
 
 
@@ -59,52 +61,9 @@ namespace CTe.Servicos.DistribuicaoDFe
         /// <returns>Retorna um objeto da classe CTeDistDFeInteresse com os documentos de interesse do CNPJ/CPF pesquisado</returns>
         public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0")
         {
-            var versaoServico = ConfiguracaoServico.Instancia.VersaoLayout;
-
-            #region Cria o objeto wdsl para consulta
-
-            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse();
-
-            #endregion
-
-            #region Cria o objeto distCTeInt
-
-            var pedDistDFeInt = new distDFeInt
-            {
-                versao = "1.00",
-                tpAmb = ConfiguracaoServico.Instancia.tpAmb,
-                cUFAutor = ConfiguracaoServico.Instancia.cUF
-            };
-
-            if (documento.Length == 11)
-                pedDistDFeInt.CPF = documento;
-            if (documento.Length > 11)
-                pedDistDFeInt.CNPJ = documento;
-
-
-            pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
-
-            if (!nSU.Equals("0"))
-            {
-                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
-                pedDistDFeInt.distNSU = null;
-            }
-
-            #endregion
-
-            #region Valida, Envia os dados e obtém a resposta
-
-
-            pedDistDFeInt.ValidaSchema();
-
-            var xmlConsulta = pedDistDFeInt.ObterXmlString();
-
-            var dadosConsulta = new XmlDocument();
-            dadosConsulta.LoadXml(xmlConsulta);
-
-            string path = DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml";
-
-            SalvarArquivoXml(path, xmlConsulta);
+            distDFeInt pedDistDFeInt;
+            XmlDocument dadosConsulta;
+            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta);
 
             XmlNode retorno = ws.Execute(dadosConsulta);
 
@@ -145,8 +104,102 @@ namespace CTe.Servicos.DistribuicaoDFe
             #endregion
 
             return new RetornoCteDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+        }
+
+        public async Task<RetornoCteDistDFeInt> CTeDistDFeInteresseAsync(string ufAutor, string documento, string ultNSU = "0", string nSU = "0")
+        {
+            distDFeInt pedDistDFeInt;
+            XmlDocument dadosConsulta;
+            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta);
+
+            XmlNode retorno = await ws.ExecuteAsync(dadosConsulta);
+
+            var retornoXmlString = retorno.OuterXml;
+
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
+
+            #region Obtém um retDistDFeInt de cada evento e salva em arquivo
+
+            if (retConsulta.loteDistDFeInt != null)
+            {
+                for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
+                {
+                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
+                    string chCTe = string.Empty;
+
+                    if (conteudo.StartsWith("<cteProc"))
+                    {
+                        var retConteudo = FuncoesXml.XmlStringParaClasse<CTe.Classes.cteProc>(conteudo);
+                        chCTe = retConteudo.protCTe.infProt.chCTe;
+                    }
+                    else if (conteudo.StartsWith("<procEventoCTe"))
+                    {
+                        var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoCTe>(conteudo);
+                        chCTe = procEventoNFeConteudo.eventoCTe.infEvento.chCTe;
+                    }
+
+                    string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
+                    if (chCTe == string.Empty)
+                        chCTe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
+
+                    SalvarArquivoXml(chCTe + "-" + schema[0] + ".xml", conteudo);
+                }
+            }
 
             #endregion
+
+            return new RetornoCteDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+        }
+
+        private CTeDistDFeInteresse InicializaCTeDistDFeInteresse(string documento, string ultNSU, string nSU,
+            out distDFeInt pedDistDFeInt, out XmlDocument dadosConsulta)
+        {
+            var versaoServico = ConfiguracaoServico.Instancia.VersaoLayout;
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse();
+
+            #endregion
+
+            #region Cria o objeto distCTeInt
+
+            pedDistDFeInt = new distDFeInt
+            {
+                versao = "1.00",
+                tpAmb = ConfiguracaoServico.Instancia.tpAmb,
+                cUFAutor = ConfiguracaoServico.Instancia.cUF
+            };
+
+            if (documento.Length == 11)
+                pedDistDFeInt.CPF = documento;
+            if (documento.Length > 11)
+                pedDistDFeInt.CNPJ = documento;
+
+
+            pedDistDFeInt.distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')};
+
+            if (!nSU.Equals("0"))
+            {
+                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
+                pedDistDFeInt.distNSU = null;
+            }
+
+            #endregion
+
+            pedDistDFeInt.ValidaSchema();
+
+            var xmlConsulta = pedDistDFeInt.ObterXmlString();
+
+            dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+            string path = DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml";
+
+            SalvarArquivoXml(path, xmlConsulta);
+            return ws;
         }
 
         private void SalvarArquivoXml(string nomeArquivo, string xmlString)
