@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusDFe                                                  */
-/* Biblioteca C# para auxiliar no desenvolvimento das demais bibliotecas DFe    */
-/*                                                                              */
+/* Projeto: Biblioteca ZeusNFe                                                  */
+/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
+/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,57 +30,52 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.Cryptography.Xml;
+using System.IO;
+using System.Reflection;
 using System.Xml;
-using Shared.DFe.Utils;
-using SignatureZeus = DFe.Classes.Assinatura.Signature;
+using System.Xml.Serialization;
+using CTe.AppTeste.Entidades;
 
-namespace DFe.Utils.Assinatura
+namespace CTe.AppTeste.Dao
 {
-    public class AssinaturaDigital
+    public class ConfiguracaoDao
     {
-        public static SignatureZeus Assina<T>(T objeto, string id, X509Certificate2 certificado,
-            string signatureMethod = "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
-            string digestMethod = "http://www.w3.org/2000/09/xmldsig#sha1",
-            bool cfgServicoRemoverAcentos = false) where T : class
+        private readonly string _caminhoAplicacao;
+        private string _nomeArquivoXml = "Configuracao.xml";
+
+        public ConfiguracaoDao()
         {
-            var objetoLocal = objeto;
-            if (id == null)
-                throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
+            _caminhoAplicacao = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        }
 
-            var documento = new XmlDocument {PreserveWhitespace = true};
+        public void SalvarConfiguracao(Configuracao configuracao)
+        {
+            using (var stream = new StreamWriter(_caminhoAplicacao + @"\" + _nomeArquivoXml))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(Configuracao));
 
-            documento.LoadXml(cfgServicoRemoverAcentos
-                ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
-                : FuncoesXml.ClasseParaXmlString(objetoLocal));
+                xmlSerializer.Serialize(XmlWriter.Create(stream), configuracao);
 
-            var docXml = new SignedXml(documento) {SigningKey = certificado.PrivateKey};
+                stream.Flush();
+            }
+        }
 
-            docXml.SignedInfo.SignatureMethod = signatureMethod;
-            var reference = new Reference {Uri = "#" + id, DigestMethod = digestMethod};
+        public Configuracao BuscarConfiguracao()
+        {
+            if (!File.Exists(_caminhoAplicacao + @"\" + _nomeArquivoXml)) return null;
 
-            // adicionando EnvelopedSignatureTransform a referencia
-            var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
-            reference.AddTransform(envelopedSigntature);
+            Configuracao configuracao;
 
-            var c14Transform = new XmlDsigC14NTransform();
-            reference.AddTransform(c14Transform);
+            using (var reader = new StreamReader(_caminhoAplicacao + @"\" + _nomeArquivoXml))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(Configuracao));
 
-            docXml.AddReference(reference);
+                var objeto = xmlSerializer.Deserialize(XmlReader.Create(reader));
 
-            // carrega o certificado em KeyInfoX509Data para adicionar a KeyInfo
-            var keyInfo = new KeyInfo();
-            keyInfo.AddClause(new KeyInfoX509Data(certificado));
+                configuracao = objeto as Configuracao;
+            }
 
-            docXml.KeyInfo = keyInfo;
-            docXml.ComputeSignature();
-
-            //// recuperando a representacao do XML assinado
-            var xmlDigitalSignature = docXml.GetXml();
-            var assinatura = FuncoesXml.XmlStringParaClasse<Classes.Assinatura.Signature>(xmlDigitalSignature.OuterXml);
-            return assinatura;
+            return configuracao;
         }
     }
 }
