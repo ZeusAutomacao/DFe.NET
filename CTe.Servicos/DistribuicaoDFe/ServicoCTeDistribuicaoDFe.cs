@@ -45,6 +45,7 @@ using CTe.Utils.DistribuicaoDFe;
 using CTe.Utils;
 using CTe.Wsdl.DistribuicaoDFe;
 using DFe.Utils;
+using Compressao = DFe.Utils.Compressao;
 
 
 namespace CTe.Servicos.DistribuicaoDFe

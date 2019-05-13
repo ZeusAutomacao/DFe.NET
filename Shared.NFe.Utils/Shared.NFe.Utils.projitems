@@ -14,7 +14,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Assinatura\Assinador.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe4.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Compressao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtConsCad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtretConsCad.cs" />
