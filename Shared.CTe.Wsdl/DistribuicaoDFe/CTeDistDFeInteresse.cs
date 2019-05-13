@@ -25,18 +25,7 @@ namespace CTe.Wsdl.DistribuicaoDFe
                 throw new ArgumentNullException();
 
             this.configuracao = configuracao;
-            soapEnvelope = new SoapEnvelope
-            {
-                head = new ResponseHead<cteCabecMsg>
-                {
-                    cteCabecMsg = new cteCabecMsg
-                    {
-                        versaoDados = configuracao.Versao,
-                        cUF = configuracao.CodigoIbgeEstado
-                    }
-                }
-            };
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            soapEnvelope = new SoapEnvelope();
         }
 
         /// <summary>
@@ -53,7 +42,7 @@ namespace CTe.Wsdl.DistribuicaoDFe
                     cteDadosMsg = cteDadosMsg
                 }
             };
-            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeDistribuicaoDFe, "cteDistDFeInteresse");
+            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeDistribuicaoDFe, "retDistDFeInt");
         }
 
         public async Task<XmlNode> ExecuteAsync(XmlNode cteDadosMsg)
@@ -65,7 +54,7 @@ namespace CTe.Wsdl.DistribuicaoDFe
                     cteDadosMsg = cteDadosMsg
                 }
             };
-            return await RequestBuilderAndSender.ExecuteAsync(soapEnvelope, configuracao, TipoEvento.CTeDistribuicaoDFe, "cteDistDFeInteresse");
+            return await RequestBuilderAndSender.ExecuteAsync(soapEnvelope, configuracao, TipoEvento.CTeDistribuicaoDFe, "retDistDFeInt");
         }
     }
 
