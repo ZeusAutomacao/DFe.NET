@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Windows.Forms;
 using CTe.AppTeste.Dao;
 using CTe.AppTeste.Entidades;
@@ -95,6 +96,11 @@ namespace CTe.AppTeste
 
     public class CTeTesteModel : ViewModel
     {
+        public CTeTesteModel()
+        {
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+        }
+
         public event EventHandler<RetornoEEnvio> SucessoSync;
 
 

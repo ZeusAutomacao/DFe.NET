@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Threading.Tasks;
+using CTe.Classes.Servicos;
 using CTe.Classes.Servicos.Status;
 using CTe.Servicos.Factory;
 using CTe.Utils.Extencoes;
@@ -47,6 +49,21 @@ namespace CTe.Servicos.ConsultaStatus
 
             var webService = WsdlFactory.CriaWsdlCteStatusServico();
             var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
+
+            var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
+            retorno.SalvarXmlEmDisco();
+
+            return retorno;
+        }
+
+        public async Task<retConsStatServCte> ConsultaStatusAsync()
+        {
+            var consStatServCte = ClassesFactory.CriaConsStatServCte();
+            consStatServCte.ValidarSchema();
+            consStatServCte.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlCteStatusServico();
+            var retornoXml = await webService.cteStatusServicoCTAsync(consStatServCte.CriaRequestWs());
 
             var retorno = retConsStatServCte.LoadXml(retornoXml.OuterXml, consStatServCte);
             retorno.SalvarXmlEmDisco();

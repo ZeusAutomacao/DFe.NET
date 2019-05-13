@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="DistribuicaoDFe\cteCabecMsg.cs" />
     <Compile Include="DistribuicaoDFe\CTeDistDFeInteresse.cs">
@@ -58,15 +57,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recepcao\CteRecepcao.cs" />
     <Compile Include="RetRecepcao\CteRetRecepcao.cs" />
-    <Compile Include="Status\CteStatusServico.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
+      <Project>{dbee88e7-6003-436e-9810-9acc662f5851}</Project>
+      <Name>DFe.Wsdl</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

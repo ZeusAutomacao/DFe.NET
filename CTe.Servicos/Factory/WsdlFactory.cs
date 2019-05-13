@@ -34,7 +34,6 @@
 using CTe.Classes;
 using CTe.Classes.Ext;
 using CTe.Servicos.Enderecos.Helpers;
-using CTe.Wsdl.Configuracao;
 using CTe.Wsdl.ConsultaProtocolo;
 using CTe.Wsdl.DistribuicaoDFe;
 using CTe.Wsdl.Evento;
@@ -43,6 +42,7 @@ using CTe.Wsdl.Recepcao;
 using CTe.Wsdl.RetRecepcao;
 using CTe.Wsdl.Status;
 using DFe.Classes.Extensoes;
+using DFe.DocumentosEletronicos.Common;
 
 namespace CTe.Servicos.Factory
 {
