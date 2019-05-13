@@ -46,32 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compressao.cs" />
-    <Compile Include="Consulta\ExtprocEventoCTe.cs" />
-    <Compile Include="CTe\ExCteProc.cs" />
-    <Compile Include="CTe\ExtCTe.cs" />
-    <Compile Include="CTe\ExtEnvCte.cs" />
-    <Compile Include="DistribuicaoDFe\ExtdistDFeInt.cs" />
-    <Compile Include="DistribuicaoDFe\ExtretDistDFeInt.cs" />
-    <Compile Include="Evento\ExtenvEvento.cs" />
-    <Compile Include="Evento\Extevento.cs" />
-    <Compile Include="Evento\ExtprocEventoCTe.cs" />
-    <Compile Include="Evento\ExtretEnvEvento.cs" />
-    <Compile Include="Extencoes\ExtconsSitCTe.cs" />
-    <Compile Include="Extencoes\ExtconsStatServCte.cs" />
-    <Compile Include="Extencoes\ExtevCancCTe.cs" />
-    <Compile Include="Extencoes\ExtevPrestDesacordo.cs" />
-    <Compile Include="Extencoes\ExtevCCeCTe.cs" />
-    <Compile Include="Extencoes\ExtinutCTe.cs" />
-    <Compile Include="Extencoes\ExtConsReciCTe.cs" />
-    <Compile Include="Extencoes\ExtretConsSitCTe.cs" />
-    <Compile Include="Extencoes\ExtretConsStatServCte.cs" />
-    <Compile Include="Inutilizacao\ExtretInutCTe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recepcao\ExtconsReciCTe.cs" />
-    <Compile Include="Recepcao\ExtretEnviCTe.cs" />
-    <Compile Include="Extencoes\ExtretConsStatServ.cs" />
-    <Compile Include="Validacao\Validador.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
@@ -88,6 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.CTe.Utils\Shared.CTe.Utils.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
