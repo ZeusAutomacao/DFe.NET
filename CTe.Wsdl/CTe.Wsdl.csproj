@@ -55,7 +55,6 @@
     <Compile Include="Evento\CteRecepcaoEvento.cs" />
     <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Recepcao\CteRecepcao.cs" />
     <Compile Include="RetRecepcao\CteRetRecepcao.cs" />
   </ItemGroup>
   <ItemGroup>
