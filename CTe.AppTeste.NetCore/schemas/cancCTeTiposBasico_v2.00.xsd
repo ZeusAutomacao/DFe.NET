@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v2.00.xsd"/>
+	<xs:complexType name="TCancCTe">
+		<xs:annotation>
+			<xs:documentation>Tipo Pedido de Cancelamento de CT-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infCanc">
+				<xs:annotation>
+					<xs:documentation>Dados do Pedido de Cancelamentode Conhecimento de Transporte Eletrônico</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="xServ" type="TServ" fixed="CANCELAR">
+							<xs:annotation>
+								<xs:documentation>Serviço Solicitado</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chCTe" type="TChNFe">
+							<xs:annotation>
+								<xs:documentation>Chaves de acesso compostas por Código da UF + AAMM da emissão + CNPJ do Emitente + Modelo, Série e Número do CT-e+ Código Numérico + DV.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nProt" type="TProt">
+							<xs:annotation>
+								<xs:documentation>Número do Protocolo de Status do CT-e. 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual 2 – Receita Federal - SCAN, 3 - SEFAZ Virtual RFB ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="xJust" type="TJust">
+							<xs:annotation>
+								<xs:documentation>Justificativa do cancelamento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Id" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:ID">
+								<xs:pattern value="ID[0-9]{44}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerCancCTe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetCancCTe">
+		<xs:annotation>
+			<xs:documentation>Tipo retorno Pedido de Cancelamento CT-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infCanc">
+				<xs:annotation>
+					<xs:documentation>Dados do Resultado do Pedido de Cancelamento do Conhecimento de Transporte Eletrônico</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cUF" type="TCodUfIBGE">
+							<xs:annotation>
+								<xs:documentation>Identificação da UF</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="verAplic" type="TVerAplic">
+							<xs:annotation>
+								<xs:documentation>Versão do Aplicativo que processou o pedido de cancelamento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cStat" type="TStat">
+							<xs:annotation>
+								<xs:documentation>Código do status da mensagem enviada.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="xMotivo" type="TMotivo">
+							<xs:annotation>
+								<xs:documentation>Descrição literal do status do serviço solicitado.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chCTe" type="TChNFe" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Chaves de acesso do CT-e, compostas por: UF do emitente, AAMM da emissão do CT-e, CNPJ do emitente, modelo, série e número do CT-e e código numérico + DV.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dhRecbto" type="xs:dateTime" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Data e hora de recebimento, no formato AAAA-MM-DDTHH:MM:SS. Deve ser preenchida com data e hora da gravação no Banco em caso de Confirmação.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nProt" type="TProt" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Número do Protocolo de homologação do cancelamento: 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual, 3 - SEFAZ Virtual RS, 5 - SEFAZ Virtual SP ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Id" type="xs:ID" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerCancCTe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TProcCancCTe">
+		<xs:annotation>
+			<xs:documentation>Tipo Pedido de Cancelamento de CT-e processado</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cancCTe" type="TCancCTe"/>
+			<xs:element name="retCancCTe" type="TRetCancCTe"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerCancCTe" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="TVerCancCTe">
+		<xs:annotation>
+			<xs:documentation> Tipo Versão de cancela CT-e - 1.04</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="1\.04"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
