@@ -483,7 +483,7 @@ namespace MDFe.AppTeste
 
         public void ObterSerialCertificado()
         {
-            NumeroDeSerie = CertificadoDigital.ListareObterDoRepositorio().SerialNumber;
+            NumeroDeSerie = CertificadoDigitalUtils.ListareObterDoRepositorio().SerialNumber;
         }
 
         public void ObterCertificadoArquivo()
