@@ -31,12 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Wsdl.Configuracao;
 using System.Web.Services;
 using System.Web.Services.Description;
 using System.Web.Services.Protocols;
 using System.Xml;
 using System.Xml.Serialization;
+using DFe.DocumentosEletronicos.Common;
 
 namespace CTe.Wsdl.DistribuicaoDFe
 {
