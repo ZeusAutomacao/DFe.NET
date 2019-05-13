@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Threading.Tasks;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Eventos.Contratos;
@@ -47,7 +48,12 @@ namespace CTe.Servicos.Eventos
         {
             return Executar(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
         }
-                
+
+        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
+        {
+            return await ExecutarAsync(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+        }
+
         public retEventoCTe Executar(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
         {
             var evento = FactoryEvento.CriaEvento(tipoEvento,sequenciaEvento,chave,cnpj,container);
@@ -57,6 +63,22 @@ namespace CTe.Servicos.Eventos
 
             var webService = WsdlFactory.CriaWsdlCteEvento();
             var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
+
+            var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
+            retorno.SalvarXmlEmDisco();
+
+            return retorno;
+        }
+
+        public async Task<retEventoCTe> ExecutarAsync(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        {
+            var evento = FactoryEvento.CriaEvento(tipoEvento,sequenciaEvento,chave,cnpj,container);
+            evento.Assina();
+            evento.ValidarSchema();
+            evento.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlCteEvento();
+            var retornoXml = await webService.cteRecepcaoEventoAsync(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
             retorno.SalvarXmlEmDisco();

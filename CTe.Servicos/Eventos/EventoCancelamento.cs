@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Threading.Tasks;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
@@ -58,6 +59,15 @@ namespace CTe.Servicos.Eventos
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
             var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+
+            return retorno;
+        }
+
+        public async Task<retEventoCTe> CancelarAsync()
+        {
+            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
+
+            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
 
             return retorno;
         }
