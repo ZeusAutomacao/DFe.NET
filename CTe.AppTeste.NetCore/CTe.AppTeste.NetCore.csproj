@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="obj\Debug\netcoreapp2.1\CTe.AppTeste.NetCore.AssemblyInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="obj\CTe.AppTeste.NetCore.csproj.nuget.dgspec.json" />
     <Content Include="obj\project.assets.json" />
   </ItemGroup>
