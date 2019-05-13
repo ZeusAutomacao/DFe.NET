@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Threading.Tasks;
 using CTe.Classes.Servicos.Inutilizacao;
 using CTe.Servicos.Factory;
 using CTe.Utils.Extencoes;
@@ -83,6 +84,22 @@ namespace CTe.Servicos.Inutilizacao
 
             var webService = WsdlFactory.CriaWsdlCteInutilizacao();
             var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
+
+            var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
+            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2));
+
+            return retorno;
+        }
+
+        public async Task<retInutCTe> InutilizarAsync()
+        {
+            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza);
+            inutCte.Assinar();
+            inutCte.ValidarShcema();
+            inutCte.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlCteInutilizacao();
+            var retornoXml = await webService.cteInutilizacaoCTAsync(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
             retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2));
