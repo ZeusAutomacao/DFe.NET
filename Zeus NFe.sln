@@ -120,8 +120,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.CTe.Classes", "Share
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Classes.Standard", "CTe.Classes.Standard\CTe.Classes.Standard.csproj", "{46314F7C-49D9-4165-B3CF-15741AA14CF1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Utils.Standard", "CTe.Utils.Standard\CTe.Utils.Standard.csproj", "{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.CTe.Utils", "Shared.CTe.Utils\Shared.CTe.Utils.shproj", "{D4EA4E8B-C0C9-4460-90E6-8CCCFC28B005}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{21a894ec-b79e-4936-bff3-abead2e5c44f}*SharedItemsImports = 4
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{3108968d-d505-4365-966f-bbe3cbf63c35}*SharedItemsImports = 13
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
@@ -131,6 +136,7 @@ Global
 		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{9cc914f9-4c3e-43bb-a34b-a12ae4923548}*SharedItemsImports = 4
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}*SharedItemsImports = 4
+		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{d4ea4e8b-c0c9-4460-90e6-8cccfc28b005}*SharedItemsImports = 13
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{da95f515-5eed-4a7e-b711-f3b499629df5}*SharedItemsImports = 13
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{dbee88e7-6003-436e-9810-9acc662f5851}*SharedItemsImports = 4
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{e1888e9e-0273-40cb-a569-2ad023907140}*SharedItemsImports = 13
@@ -457,6 +463,14 @@ Global
 		{46314F7C-49D9-4165-B3CF-15741AA14CF1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{46314F7C-49D9-4165-B3CF-15741AA14CF1}.Release|x86.ActiveCfg = Release|Any CPU
 		{46314F7C-49D9-4165-B3CF-15741AA14CF1}.Release|x86.Build.0 = Release|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Debug|x86.Build.0 = Debug|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Release|x86.ActiveCfg = Release|Any CPU
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -503,6 +517,8 @@ Global
 		{F22F5C86-F71F-4E67-BBB7-7F0E837282DD} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{DA95F515-5EED-4A7E-B711-F3B499629DF5} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 		{46314F7C-49D9-4165-B3CF-15741AA14CF1} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
+		{E06B0D39-2BA8-4AC8-9B58-4C3F0E73128C} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
+		{D4EA4E8B-C0C9-4460-90E6-8CCCFC28B005} = {FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
