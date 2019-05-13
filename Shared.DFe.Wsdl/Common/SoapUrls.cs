@@ -12,7 +12,7 @@ namespace DFe.DocumentosEletronicos.Soap
                 case TipoEvento.CTeConsulta:
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteConsulta";
                 case TipoEvento.CTeDistribuicaoDFe:
-                    return "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe";
+                    return "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe/cteDistDFeInteresse";
                 case TipoEvento.CTeRecepcaoEvento:
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoEvento";
                 case TipoEvento.CTeInutilizacao:
