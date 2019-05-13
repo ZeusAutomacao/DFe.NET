@@ -50,6 +50,8 @@ namespace DFe.Classes.Flags
         [XmlEnum("67")]
         CTeOS = 67,
         [XmlEnum("59")]
-        CFe = 59
+        CFe = 59,
+        [XmlEnum("110111")]
+        NFeCancelado = 110111
     }
 }
