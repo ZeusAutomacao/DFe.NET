@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
 using CTe.Servicos.Factory;
@@ -48,6 +49,38 @@ namespace CTe.Servicos.Recepcao
         public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
 
         public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
+        {
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList);
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+
+            OnAntesDeEnviar(enviCte);
+
+            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
+
+            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+            retorno.SalvarXmlEmDisco();
+
+            return retorno;
+        }
+
+        public async Task<retEnviCte> CTeRecepcaoAsync(int lote, List<CTeEletronico> cteEletronicosList)
+        {
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList);
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+
+            OnAntesDeEnviar(enviCte);
+
+            var retornoXml = await webService.cteRecepcaoLoteAsync(enviCte.CriaRequestWs());
+
+            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
+            retorno.SalvarXmlEmDisco();
+
+            return retorno;
+        }
+
+        private static enviCTe PreparaEnvioCTe(int lote, List<CTeEletronico> cteEletronicosList)
         {
             var instanciaConfiguracao = ConfiguracaoServico.Instancia;
 
@@ -75,17 +108,7 @@ namespace CTe.Servicos.Recepcao
 
             enviCte.ValidaSchema();
             enviCte.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlCteRecepcao();
-
-            OnAntesDeEnviar(enviCte);
-
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
-
-            var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
+            return enviCte;
         }
 
         protected virtual void OnAntesDeEnviar(enviCTe enviCTe)
