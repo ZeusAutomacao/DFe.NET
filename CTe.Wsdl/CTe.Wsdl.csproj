@@ -52,7 +52,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Evento\CteRecepcaoEvento.cs" />
-    <Compile Include="Inutilizacao\CteInutilizacao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,9 +64,7 @@
       <Name>DFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ConsultaProtocolo\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
