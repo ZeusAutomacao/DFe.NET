@@ -47,7 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsultaProtocolo\CteConsulta.cs" />
     <Compile Include="DistribuicaoDFe\cteCabecMsg.cs" />
     <Compile Include="DistribuicaoDFe\CTeDistDFeInteresse.cs">
       <SubType>Component</SubType>
@@ -66,7 +65,9 @@
       <Name>DFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ConsultaProtocolo\" />
+  </ItemGroup>
   <Import Project="..\Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
