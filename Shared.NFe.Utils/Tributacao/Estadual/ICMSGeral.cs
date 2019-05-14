@@ -245,11 +245,6 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor da BC do ICMS ST retido
         /// </summary>
         public decimal? vBCSTRet { get; set; }
-
-        /// <summary>
-        ///     Valor do ICMS ST  Substituto
-        /// </summary>
-        public decimal? vICMSSubstituto { get; set; }
         
         /// <summary>
         ///     Valor do ICMS ST retido
