@@ -40,9 +40,9 @@ namespace CTe.Servicos.Eventos.Contratos
 {
     public interface IServicoController
     {
-        retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento evento);
+        retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento evento);
 
         Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container,
-            TipoEvento tipoEvento);
+            CTeTipoEvento cTeTipoEvento);
     }
 }

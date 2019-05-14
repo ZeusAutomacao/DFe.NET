@@ -31,59 +31,19 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Threading.Tasks;
-using CTe.Classes.Servicos.Evento;
-using CTe.Classes.Servicos.Evento.Flags;
-using CTe.Servicos.Eventos.Contratos;
-using CTe.Servicos.Factory;
-using CTe.Utils.CTe;
-using CTe.Utils.Evento;
-using CteEletronico = CTe.Classes.CTe;
+using System.Xml.Serialization;
 
-namespace CTe.Servicos.Eventos
+namespace CTe.Classes.Servicos.Evento.Flags
 {
-    public class ServicoController : IServicoController
+    public enum CTeTipoEvento
     {
-        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
-        {
-            return Executar(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
-        }
-
-        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
-        {
-            return await ExecutarAsync(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
-        }
-
-        public retEventoCTe Executar(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
-        {
-            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
-            evento.Assina();
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlCteEvento();
-            var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
-
-            var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
-        }
-
-        public async Task<retEventoCTe> ExecutarAsync(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
-        {
-            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
-            evento.Assina();
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlCteEvento();
-            var retornoXml = await webService.cteRecepcaoEventoAsync(evento.CriaXmlRequestWs());
-
-            var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco();
-
-            return retorno;
-        }
+        [XmlEnum("110111")]
+        Cancelamento = 110111,
+        [XmlEnum("110110")]
+        CartaCorrecao = 110110,
+        [XmlEnum("610110")]
+        Desacordo = 610110,
+        [XmlEnum("310610")]
+        MDFeAutorizado = 310610
     }
 }

@@ -65,7 +65,7 @@ namespace NFe.Servicos
                     Certificado = certificado,
                     TimeOut = cfg.TimeOut
                 };
-                return new NFeAutorizacao4(soapConfig); 
+                return new NFeAutorizacao4(soapConfig);
             }
 
             if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
@@ -196,14 +196,16 @@ namespace NFe.Servicos
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                {
-                    if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
-                        return new RecepcaoEventoManifestacaoDestinatario4AN(url, certificado, cfg.TimeOut);
+                    {
+                        if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
+                            return new RecepcaoEventoManifestacaoDestinatario4AN(url, certificado, cfg.TimeOut);
 
-                    return new RecepcaoEvento(url, certificado, cfg.TimeOut);
-                }
+                        return new RecepcaoEvento(url, certificado, cfg.TimeOut);
+                    }
 
                 case ServicoNFe.RecepcaoEventoEpec:
+                    if (cfg.VersaoRecepcaoEventoEpec == VersaoServico.Versao400)
+                        return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
                     return new RecepcaoEPEC(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.NfeConsultaCadastro:

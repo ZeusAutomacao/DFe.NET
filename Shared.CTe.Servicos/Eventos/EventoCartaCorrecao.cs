@@ -58,7 +58,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao);
 
             return retorno;
         }
@@ -67,7 +67,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, TipoEvento.CartaCorrecao);
+            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao);
 
             return retorno;
         }

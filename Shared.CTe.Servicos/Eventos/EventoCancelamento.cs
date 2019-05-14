@@ -58,7 +58,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento);
 
             return retorno;
         }
@@ -67,7 +67,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, TipoEvento.Cancelamento);
+            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento);
 
             return retorno;
         }

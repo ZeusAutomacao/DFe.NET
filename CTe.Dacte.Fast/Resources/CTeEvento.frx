@@ -80,11 +80,11 @@ namespace FastReport
         
     private void ReportTitle1_BeforePrint(object sender, EventArgs e)
     {
-      Text1.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? &quot;CANCELAMENTO&quot; : &quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
-      Text2.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? 
+      Text1.Text = ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Cancelamento) ? &quot;CANCELAMENTO&quot; : &quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
+      Text2.Text = ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Cancelamento) ? 
         &quot;Não possui valor fiscal, simples representação do cancelamento indicado abaixo.&quot; : 
         &quot;Não possui valor fiscal, simples representação da CC-e indicada abaixo.&quot;;     
-      Text3.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? 
+      Text3.Text = ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Cancelamento) ? 
         &quot;CONSULTE A AUTENTICIDADE DO CANCELAMENTO NO SITE DA SEFAZ AUTORIZADORA.&quot; : 
         &quot;CONSULTE A AUTENTICIDADE DA CARTA DE CORREÇÃO ELETRÔNICA NO SITE DA SEFAZ AUTORIZADORA&quot;;
             
@@ -174,16 +174,16 @@ namespace FastReport
       Text51.Text = Convert.ToInt32((Estado)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.cOrgao&quot;)).ToString();
       Text67.Text = ((TipoAmbiente)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpAmb&quot;) == TipoAmbiente.Homologacao) ? &quot;HOMOLOGAÇÃO - SEM VALOR FISCAL&quot; : &quot;PRODUÇÃO - COM VALOR FISCAL&quot;;
       Text64.Text = ((String)Report.GetColumnValue(&quot;procEventoCTe.retEvento.infEvento.nProt&quot;)) + &quot;   &quot; + FormatDateTime((Nullable&lt;DateTime&gt;)Report.GetColumnValue(&quot;procEventoCTe.retEvento.infEvento.dhRegEvento&quot;) ?? DateTime.MinValue, @&quot;dd/MM/yyyy HH:mm:ss&quot;);
-      Text70.Text = Convert.ToInt32((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;)).ToString();
-      Text73.Text = ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento) ? &quot;DESCRIÇÃO&quot; : &quot;CONDIÇÕES DE USO&quot;;
+      Text70.Text = Convert.ToInt32((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;)).ToString();
+      Text73.Text = ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Cancelamento) ? &quot;DESCRIÇÃO&quot; : &quot;CONDIÇÕES DE USO&quot;;
       
-      if ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.Cancelamento)
+      if ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Cancelamento)
         Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xJust]&quot;;
       else
         Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xCondUso]&quot;;
        
-      Child1.Visible = (TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.CartaCorrecao;
-      if ((TipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == TipoEvento.CartaCorrecao)
+      Child1.Visible = (CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.CartaCorrecao;
+      if ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.CartaCorrecao)
       {
         var ds = Report.GetDataSource(&quot;procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.infCorrecao&quot;);
         ds.Init();        
@@ -892,7 +892,7 @@ namespace FastReport
           <Column Name="chCTe" DataType="System.String"/>
           <Column Name="dhEvento" DataType="System.DateTime"/>
           <Column Name="ProxydhEvento" DataType="System.String"/>
-          <Column Name="tpEvento" DataType="CTe.Classes.Servicos.Evento.Flags.TipoEvento, CTe.Classes, Version=1.0.0.724, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="tpEvento" DataType="CTe.Classes.Servicos.Evento.Flags.CTeTipoEvento, CTe.Classes, Version=1.0.0.724, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="nSeqEvento" DataType="System.Int32"/>
           <Column Name="detEvento" DataType="CTe.Classes.Servicos.Evento.detEvento, CTe.Classes, Version=1.0.0.724, Culture=neutral, PublicKeyToken=null">
             <Column Name="versaoEvento" DataType="CTe.Classes.Servicos.Tipos.versao, CTe.Classes, Version=1.0.0.724, Culture=neutral, PublicKeyToken=null"/>

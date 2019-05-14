@@ -30,20 +30,37 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
+using System;
+using System.Security.Cryptography.X509Certificates;
+using System.Web.Services;
+using System.Web.Services.Description;
+using System.Web.Services.Protocols;
+using System.Xml;
 using System.Xml.Serialization;
 
-namespace CTe.Classes.Servicos.Evento.Flags
+namespace NFe.Wsdl.Evento.AN
 {
-    public enum TipoEvento
+    [WebServiceBinding(Name = "NFeRecepcaoEvento4Soap12", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
+    public class RecepcaoEvento4ANSVBase : SoapHttpClientProtocol, INfeServico
     {
-        [XmlEnum("110111")]
-        Cancelamento = 110111,
-        [XmlEnum("110110")]
-        CartaCorrecao = 110110,
-        [XmlEnum("610110")]
-        Desacordo = 610110,
-        [XmlEnum("310610")]
-        MDFeAutorizado = 310610
+        public RecepcaoEvento4ANSVBase(string url, X509Certificate certificado, int timeOut)
+        {
+            SoapVersion = SoapProtocolVersion.Soap12;
+            Url = url;
+            Timeout = timeOut;
+            ClientCertificates.Add(certificado);
+        }
+
+        [Obsolete("Não utilizar na nfe 4.0")]
+        public nfeCabecMsg nfeCabecMsg { get; set; }
+
+        [SoapDocumentMethod("http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", Use = SoapBindingUse.Literal, ParameterStyle = SoapParameterStyle.Bare)]
+        [WebMethod(MessageName = "nfeRecepcaoEvento")]
+        [return: XmlElement("nfeResultMsg", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
+        public XmlNode Execute([XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")] XmlNode nfeDadosMsg)
+        {
+            var results = Invoke("nfeRecepcaoEvento", new object[] { nfeDadosMsg });
+            return ((XmlNode)(results[0]));
+        }
     }
 }
