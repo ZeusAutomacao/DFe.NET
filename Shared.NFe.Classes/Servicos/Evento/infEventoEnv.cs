@@ -35,6 +35,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
+using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Classes.Servicos.Evento
 {
@@ -120,7 +121,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     HP14 - Código do evento
         /// </summary>
-        public int tpEvento { get; set; }
+        public NFeTipoEvento tpEvento { get; set; }
 
         /// <summary>
         ///     HP15 - Sequencial do evento para o mesmo tipo de evento.

@@ -101,7 +101,7 @@ namespace CTe.Classes.Servicos.Evento
         /// <summary>
         ///     HP14 - Código do evento
         /// </summary>
-        public TipoEvento tpEvento { get; set; }
+        public CTeTipoEvento tpEvento { get; set; }
 
         /// <summary>
         ///     HP15 - Sequencial do evento para o mesmo tipo de evento.

@@ -120,6 +120,9 @@
     <Compile Include="Evento\AN\RecepcaoEvento4AN.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Evento\AN\RecepcaoEvento4ANSVBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Evento\AN\RecepcaoEventoManifestacaoDestinatario4AN.cs">
       <SubType>Component</SubType>
     </Compile>

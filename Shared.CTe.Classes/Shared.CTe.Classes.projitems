@@ -201,7 +201,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\EventoContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\eventoCTe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\evPrestDesacordo.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\Flags\TipoEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\Flags\CTeTipoEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\infEventoEnv.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\infEventoRet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\retEnvEvento.cs" />
@@ -218,6 +218,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\RetornoBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Status\consStatServ.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Status\retConsStatServ.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Servicos\Tipos\ServicosTipos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Servicos\Tipos\CTeServicosTipos.cs" />
   </ItemGroup>
 </Project>
