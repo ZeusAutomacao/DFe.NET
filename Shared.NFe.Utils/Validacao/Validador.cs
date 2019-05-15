@@ -32,9 +32,12 @@
 /********************************************************************************/
 using System;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
 using DFe.Classes.Flags;
+using DFe.Utils;
+using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Excecoes;
 
@@ -42,14 +45,19 @@ namespace NFe.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, bool loteNfe = true)
+        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true)
         {
             switch (servicoNFe)
             {
                 case ServicoNFe.NfeRecepcao:
                     return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
                 case ServicoNFe.RecepcaoEventoCancelmento:
-                    return "envEventoCancNFe_v1.00.xsd";
+                    var strEvento = FuncoesXml.ObterNodeDeStringXml(nameof(envEvento), stringXml);
+                    var evento = FuncoesXml.XmlStringParaClasse<envEvento>(strEvento);
+                    return evento.evento.FirstOrDefault()?.infEvento?.tpEvento ==
+                           NFeTipoEvento.TeNfeCancelamentoSubstituicao
+                        ? "envEventoCancSubst_v1.00.xsd"
+                        : "envEventoCancNFe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                     return "envCCe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoEpec:
@@ -124,7 +132,7 @@ namespace NFe.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, loteNfe));
+            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, stringXml, loteNfe));
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };

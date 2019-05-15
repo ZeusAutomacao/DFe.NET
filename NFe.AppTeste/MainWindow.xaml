@@ -307,7 +307,7 @@
                                       Width="450" Margin="10,10,0,0">
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                      
+
                                         <GroupBox x:Name="GpbAmbiente" Header="Ambiente de Destino" Margin="5,0,0,0">
                                             <Grid x:Name="GrdAmbiente">
                                                 <StackPanel Orientation="Horizontal">
@@ -333,10 +333,10 @@
                                                       VerticalAlignment="Center"
                                                       ItemsSource="{Binding Source={StaticResource EstadoWebService}}"
                                                       SelectedItem="{Binding CfgServico.cUF, Converter={StaticResource EnumParaString}}" />
-                                            </StackPanel>
+                                        </StackPanel>
 
                                     </StackPanel>
-                                    
+
                                     <GroupBox Header="Versão dos serviços:">
                                         <GroupBox.Resources>
                                             <ResourceDictionary Source="Templates/Controles.xaml" />
@@ -364,7 +364,7 @@
                                                 </StackPanel>
                                             </GroupBox>
                                             <GroupBox Header="Versão dos serviços:" IsEnabled="{Binding CfgServico.DefineVersaoServicosAutomaticamente, Converter={StaticResource InverterBooleanConverter}}">
-                                                
+
                                                 <StackPanel>
                                                     <ItemsControl Style="{StaticResource GridVersaoServico}">
                                                         <Label Grid.Column="0" Content="RecepcaoEventoCceCancelamento" />
@@ -678,7 +678,7 @@
                                                                      IsChecked="{Binding CfgServico.VersaoNfceAministracaoCSC, ConverterParameter={x:Static nfeclservicostipos:VersaoServico.Versao400}, Converter={StaticResource EnumParaBool}}" />
                                                     </ItemsControl>
                                                 </StackPanel>
-                                                
+
                                             </GroupBox>
                                         </StackPanel>
 
@@ -714,7 +714,7 @@
                                         </StackPanel>
 
                                     </StackPanel>
-                              
+
 
 
                                     <StackPanel>
@@ -797,7 +797,7 @@
                                        VerticalAlignment="Top" RenderTransformOrigin="-0.375,0.423" />
                                 <ComboBox x:Name="CmbEmitUf" Height="23" Margin="375,331,13,318"
                                           ItemsSource="{Binding Source={StaticResource EstadoEmitente}}"
-                                          SelectedItem="{Binding EnderecoEmitente.UF}" />
+                                          SelectedItem="{Binding EnderecoEmitente.UF, Converter={StaticResource EnumParaString}}" />
                             </Grid>
                             <ComboBox x:Name="CmbCrt" Height="23" Margin="10,383,10,266"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
@@ -919,21 +919,21 @@
                     <Button x:Name="BtnGerarNfe3" Content="Criar e Salvar XML 3.0 Ou 4.0" HorizontalAlignment="Left"
                             Margin="374,37,0,0" VerticalAlignment="Top" Width="177" Click="BtnGerarNfe3_Click" />
                     <Button x:Name="BtnCartaCorrecao" Content="Carta de correção" HorizontalAlignment="Left"
-                            Margin="10,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCartaCorrecao_Click" />
+                            Margin="10,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnCartaCorrecao_Click" />
                     <Button x:Name="BtnCancelarNFe" Content="Cancelar" HorizontalAlignment="Left"
                             Margin="192,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFe_Click" />
                     <Button x:Name="BtnEnviaEpec" Content="Enviar EPEC" HorizontalAlignment="Left"
                             Margin="374,62,0,0" VerticalAlignment="Top" Width="177" Click="BtnEnviaEpec_Click" />
                     <Button x:Name="BtnConsultaEpec" Content="Consultar EPEC" HorizontalAlignment="Left"
-                            Margin="374,87,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaEpec_Click" />
+                            Margin="10,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaEpec_Click" />
                     <Button x:Name="BtnImportarXml" Content="Importar XML" HorizontalAlignment="Left"
                             Margin="374,10,0,0" VerticalAlignment="Top" Width="177" Click="BtnImportarXml_Click" />
                     <Button x:Name="BtnValida" Content="Validar" HorizontalAlignment="Left"
-                            Margin="192,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnValida_Click" />
+                            Margin="374,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnValida_Click" />
                     <Button x:Name="BtnAssina" Content="Assinar" HorizontalAlignment="Left"
-                            Margin="10,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnAssina_Click" />
+                            Margin="192,110,0,0" VerticalAlignment="Top" Width="177" Click="BtnAssina_Click" />
                     <Button x:Name="BtnAdicionaNfeproc" Content="Adicionar proc ao XML" HorizontalAlignment="Left"
-                            Margin="374,112,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
+                            Margin="374,135,0,0" VerticalAlignment="Top" Width="177" Click="BtnAdicionaNfeproc_Click" />
                     <Button x:Name="BtnCarregaXmlEnvia" Content="Carregar XML e Enviar" HorizontalAlignment="Left"
                             Margin="10,135,0,0" VerticalAlignment="Top" Width="177" Click="BtnCarregaXmlEnvia_Click" />
                     <Button x:Name="BtnConsultaCadastro" Content="Consultar Cadastro" HorizontalAlignment="Left"
@@ -943,7 +943,7 @@
                     <Button x:Name="BtnEnviaEmail" Content="Enviar Email" Click="ButtonBase_OnClick"
                             HorizontalAlignment="Left" Margin="10,160,0,0" VerticalAlignment="Top" Width="177" />
                     <Button x:Name="btn_NFeDistribuicaoDFe" Content="NFe Distribuição DFe" HorizontalAlignment="Left"
-                            Margin="374,137,0,0" VerticalAlignment="Top" Width="177" Height="20"
+                            Margin="374,160,0,0" VerticalAlignment="Top" Width="177" Height="20"
                             Click="btn_NFeDistribuicaoDFe_Click" />
                     <Button x:Name="BtnManifestacaoDestinatario" Content="Manifestação Destinatário"
                             HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="177"
@@ -951,6 +951,8 @@
                     <Button x:Name="BtnCupom" Content="DANFE NFC-e nativo" HorizontalAlignment="Left"
                             Margin="192,185,0,0" VerticalAlignment="Top" Width="177" Height="20" Click="BtnCupom_Click"
                             RenderTransformOrigin="0.551,2.396" />
+                    <Button x:Name="BtnCancelarNFeSubstituicao" Content="Cancelar por substituição" HorizontalAlignment="Left"
+                        Margin="374,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFeSubstituicao_OnClick" />
                 </Grid>
             </TabItem>
 

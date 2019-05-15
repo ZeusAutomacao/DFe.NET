@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>d4ea4e8b-c0c9-4460-90e6-8cccfc28b005</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared.CTe.Utils</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Compressao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtprocEventoCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTe\ExCteProc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTe\ExtCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTe\ExtEnvCte.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DistribuicaoDFe\ExtdistDFeInt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DistribuicaoDFe\ExtretDistDFeInt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtenvEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\Extevento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtprocEventoCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtretEnvEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtConsReciCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtconsSitCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtconsStatServCte.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtevCancCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtevCCeCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtevPrestDesacordo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtinutCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtretConsSitCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtretConsStatServ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extencoes\ExtretConsStatServCte.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inutilizacao\ExtretInutCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtconsReciCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Recepcao\ExtretEnviCTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Validacao\Validador.cs" />
+  </ItemGroup>
+</Project>
