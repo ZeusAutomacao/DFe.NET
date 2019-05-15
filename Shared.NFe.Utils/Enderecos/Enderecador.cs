@@ -1700,7 +1700,7 @@ namespace NFe.Utils.Enderecos
             ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
         {
 
-            var enderecoServicos = from end in Enderecador.ListaEnderecos
+            var enderecoServicos = from end in ListaEnderecos
                                    where end.Estado == uf && end.TipoAmbiente == tipoAmbiente && end.ModeloDocumento == modeloDocumento &&
                                          end.TipoEmissao == tipoEmissao && end.VersaoServico <= versaoLimite
                                    group end by end.ServicoNFe
