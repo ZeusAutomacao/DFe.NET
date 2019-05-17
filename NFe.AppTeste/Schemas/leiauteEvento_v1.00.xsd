@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/nfe" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v1.03.xsd"/>
@@ -332,6 +332,9 @@
 			<xs:pattern value="1\.00"/>
 		</xs:restriction>
 	</xs:simpleType>
+
+<!-- Comentado pelo fato da definição já constar no tiposBasico_v1.03.xsd
+
 	<xs:simpleType name="TCOrgaoIBGE">
 		<xs:annotation>
 			<xs:documentation>Tipo Código de orgão (UF da tabela do IBGE + 90 RFB)</xs:documentation>
@@ -370,4 +373,7 @@
 			<xs:enumeration value="92"/>
 		</xs:restriction>
 	</xs:simpleType>
+
+-->
+
 </xs:schema>

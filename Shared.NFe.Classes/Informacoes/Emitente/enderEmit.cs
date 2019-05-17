@@ -33,6 +33,8 @@
 
 using System;
 using System.Linq;
+using System.Xml.Serialization;
+using DFe.Classes.Entidades;
 
 namespace NFe.Classes.Informacoes.Emitente
 {
@@ -74,7 +76,15 @@ namespace NFe.Classes.Informacoes.Emitente
         /// <summary>
         ///     C12 - Sigla da UF, informar EX para operações com o exterior.
         /// </summary>
-        public string UF { get; set; }
+        [XmlIgnore]
+        public Estado UF { get; set; }
+
+        [XmlElement(ElementName = "UF")]
+        public string ProxyUF
+        {
+            get { return Enum.GetName(typeof(Estado), UF); }
+            set { UF = (Estado)Enum.Parse(typeof(Estado), value); }
+        }
 
         /// <summary>
         ///     C13 - Código do CEP
