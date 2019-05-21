@@ -140,6 +140,9 @@ namespace NFe.Classes.Servicos.Tipos
     /// </summary>
     public enum TipoEventoManifestacaoDestinatario
     {
+        [Description("Todos")]
+        Todos = 0,
+
         [Description("Confirmacao da Operacao")]
         TeMdConfirmacaoDaOperacao = 210200,
 
@@ -150,6 +153,12 @@ namespace NFe.Classes.Servicos.Tipos
         TeMdDesconhecimentoDaOperacao = 210220,
 
         [Description("Operacao nao Realizada")]
-        TeMdOperacaoNaoRealizada = 210240
+        TeMdOperacaoNaoRealizada = 210240,
+
+        [Description("Sem Manifestacao")]
+        SemManifestacao = 999999,
+
+        [Description("Manifestada")]
+        Manifestada = 999998
     }
 }
