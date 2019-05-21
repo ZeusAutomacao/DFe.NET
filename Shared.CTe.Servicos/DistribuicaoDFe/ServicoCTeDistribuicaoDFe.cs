@@ -62,6 +62,7 @@ namespace CTe.Servicos.DistribuicaoDFe
         /// <returns>Retorna um objeto da classe CTeDistDFeInteresse com os documentos de interesse do CNPJ/CPF pesquisado</returns>
         public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0")
         {
+            var versaoServico = ConfiguracaoServico.Instancia;
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
             var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta);
@@ -76,7 +77,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
-            if (retConsulta.loteDistDFeInt != null)
+            if (retConsulta.loteDistDFeInt != null && versaoServico.UnZip)
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
