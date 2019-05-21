@@ -45,7 +45,6 @@ namespace DFe.Utils
 	{
 
 		// https://github.com/ZeusAutomacao/DFe.NET/issues/610
-		private static readonly object _lock = new object();
 		private static volatile Hashtable _cacheSerializers = new Hashtable();
 
 		/// <summary>
@@ -225,18 +224,17 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-			lock (_lock)
+			if (_cacheSerializers.Contains(chave))
 			{
-				if (_cacheSerializers.Contains(chave))
-				{
-					return (XmlSerializer)_cacheSerializers[chave];
-				}
-
-				var ser = XmlSerializer.FromTypes(new[] { type })[0];
-				_cacheSerializers.Add(chave, ser);
-
-				return ser;
+				return (XmlSerializer)_cacheSerializers[chave];
 			}
-        }
-    }
+
+
+
+			var ser = XmlSerializer.FromTypes(new[] { type })[0];
+			_cacheSerializers.Add(chave, ser);
+
+			return ser;
+		}
+	}
 }
