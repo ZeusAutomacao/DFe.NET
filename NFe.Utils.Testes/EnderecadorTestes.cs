@@ -6,7 +6,6 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Enderecos;
 using Xunit;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils.Testes
 {
@@ -16,7 +15,7 @@ namespace NFe.Utils.Testes
         [ClassData(typeof(EstadosData))]
         public void DeveCadaUfTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
-            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.ve400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teNormal);
+            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.Versao400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teNormal);
             Assert.Equal(1, lista.Count(n => n.ServicoNFe == servicoAutorizacao));
         }
 
@@ -24,7 +23,7 @@ namespace NFe.Utils.Testes
         [ClassData(typeof(SvcAnData))]
         public void DeveUfSvcAnTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
-            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.ve400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teSVCAN);
+            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.Versao400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teSVCAN);
             Assert.Equal(1, lista.Count(n => n.ServicoNFe == servicoAutorizacao));
         }
 
@@ -32,14 +31,14 @@ namespace NFe.Utils.Testes
         [ClassData(typeof(SvcRsData))]
         public void DeveUfSvcRsTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
-            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.ve400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teSVCRS);
+            var lista = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoServico.Versao400, uf, tipoAmbiente, ModeloDocumento.NFe, TipoEmissao.teSVCRS);
             Assert.Equal(1, lista.Count(n => n.ServicoNFe == servicoAutorizacao));
         }
 
         [Fact]
         public void DeveUrlAmEstarCorretaParaNFeAutorizacaoVersao4()
         {
-            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, Estado.AM,
+            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.Versao400, Estado.AM,
                 TipoAmbiente.Producao, ModeloDocumento.NFe, TipoEmissao.teNormal);
             Assert.Equal("https://nfe.sefaz.am.gov.br/services2/services/NfeAutorizacao4", url);
         }
@@ -47,7 +46,7 @@ namespace NFe.Utils.Testes
         [Fact]
         public void DeveUrlBaEstarCorretaParaNFeAutorizacaoVersao4()
         {
-            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, Estado.BA,
+            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.Versao400, Estado.BA,
                 TipoAmbiente.Producao, ModeloDocumento.NFe, TipoEmissao.teNormal);
             Assert.Equal("https://nfe.sefaz.ba.gov.br/webservices/NFeAutorizacao4/NFeAutorizacao4.asmx", url);
         }
@@ -55,7 +54,7 @@ namespace NFe.Utils.Testes
         [Fact]
         public void DeveUrlSpEstarCorretaParaNFeAutorizacaoVersao4()
         {
-            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.ve400, Estado.SP,
+            var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, VersaoServico.Versao400, Estado.SP,
                 TipoAmbiente.Producao, ModeloDocumento.NFe, TipoEmissao.teNormal);
             Assert.Equal("https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx", url);
         }

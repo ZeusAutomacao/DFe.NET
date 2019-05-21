@@ -27,7 +27,8 @@
 					<xs:documentation>Serviço Solicitado</xs:documentation>
 				</xs:annotation>
 				<xs:simpleType>
-					<xs:restriction base="TServ">
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="preserve"/>
 						<xs:enumeration value="CONSULTAR NFE DEST"/>
 					</xs:restriction>
 				</xs:simpleType>
@@ -75,7 +76,7 @@
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
 						<xs:whiteSpace value="preserve"/>
-						<xs:pattern value="[0-9]{0,15}"/>
+						<xs:pattern value="[0-9]{1,15}"/>
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:element>
@@ -336,7 +337,7 @@
 										<xs:annotation>
 											<xs:documentation>Data e hora de processamento de autorização, no formato AAAA-MM-DDTHH:MM:SS.</xs:documentation>
 										</xs:annotation>
-									</xs:element>									
+									</xs:element>
 									<xs:element name="cSitNFe">
 										<xs:annotation>
 											<xs:documentation>Situação da NF-e
@@ -459,7 +460,7 @@
 										<xs:annotation>
 											<xs:documentation>Data e hora de processamento de autorização, no formato AAAA-MM-DDTHH:MM:SS.</xs:documentation>
 										</xs:annotation>
-									</xs:element>									
+									</xs:element>
 								</xs:sequence>
 								<xs:attribute name="NSU" type="TNSU" use="required"/>
 							</xs:complexType>

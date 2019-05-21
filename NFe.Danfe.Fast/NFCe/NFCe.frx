@@ -20,6 +20,7 @@ using NFe.Classes.Informacoes.Destinatario;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using DFe.Classes.Flags;
 using NFe.Danfe.Base;
+using DFe.Classes.Entidades;
 
 
 namespace FastReport

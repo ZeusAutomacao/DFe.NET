@@ -52,102 +52,27 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public string descEvento { get; set; }
 
-        #region Cancelamento
-
-        private string _nprot;
-
-        /// <summary>
-        ///     HP20 - Informar o número do Protocolo de Autorização da NF-e a ser Cancelada.
-        /// </summary>
-        public string nProt
-        {
-            get { return _nprot; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                descEvento = "Cancelamento";
-                LimpaDadosCartaCorrecao();
-                LimpaDadosEpec();
-                _nprot = value;
-            }
-        }
-
-        private string _xjust;
-
-        /// <summary>
-        ///     HP21 - Informar a justificativa do cancelamento
-        /// </summary>
-        public string xJust
-        {
-            get { return _xjust; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                descEvento = "Cancelamento";
-                LimpaDadosCartaCorrecao();
-                LimpaDadosEpec();
-                _xjust = value;
-            }
-        }
-
-        #endregion
-
         #region Carta de Correção
-
-        private string _xcorrecao;
 
         /// <summary>
         ///     HP20 - Correção a ser considerada, texto livre. A correção mais recente substitui as anteriores.
         /// </summary>
-        public string xCorrecao
-        {
-            get { return _xcorrecao; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                LimpaDadosCancelamento();
-                LimpaDadosEpec();
-                _xcorrecao = value;
-            }
-        }
-
-        private string _xconduso;
+        public string xCorrecao { get; set; }
 
         /// <summary>
         ///     HP20a - Condições de uso da Carta de Correção
         /// </summary>
-        public string xCondUso
-        {
-            get { return _xconduso; }
-            set
-            {
-                if (string.IsNullOrEmpty(value)) return;
-                _xconduso = value;
-            }
-        }
+        public string xCondUso { get; set; }
 
         #endregion
 
         #region EPEC
 
-        private Estado? _cOrgaoAutor;
-
         /// <summary>
         ///     P20 - Código do Órgão do Autor do Evento.
         ///     Nota: Informar o código da UF do Emitente para este evento.
         /// </summary>
-        public Estado? cOrgaoAutor
-        {
-            get { return _cOrgaoAutor; }
-            set
-            {
-                if (value == null) return;
-                descEvento = "EPEC";
-                LimpaDadosCancelamento();
-                LimpaDadosCartaCorrecao();
-                _cOrgaoAutor = value;
-            }
-        }
+        public Estado? cOrgaoAutor { get; set; }
 
         /// <summary>
         ///     P21 - Informar "1=Empresa Emitente" para este evento.
@@ -207,31 +132,28 @@ namespace NFe.Classes.Servicos.Evento
             return tpNF.HasValue;
         }
 
-        private void LimpaDadosCancelamento()
-        {
-            nProt = "";
-            xJust = "";
-        }
+        #endregion
 
-        private void LimpaDadosCartaCorrecao()
-        {
-            xCorrecao = "";
-            xCondUso = "";
-        }
+        #region Cancelamento
 
-        private void LimpaDadosEpec()
-        {
-            cOrgaoAutor = null;
-            tpAutor = null;
-            verAplic = null;
-            dhEmi = null;
-            tpNF = null;
-            IE = null;
-            dest = null;
-            //vNF = null;
-            //vICMS = null;
-            //vST = null;
-        }
+        /// <summary>
+        ///     HP20 - Informar o número do Protocolo de Autorização da NF-e a ser Cancelada.
+        /// </summary>
+        public string nProt { get; set; }
+
+        /// <summary>
+        ///     HP21 - Informar a justificativa do cancelamento
+        /// </summary>
+        public string xJust { get; set; }
+
+        #endregion
+
+        #region Cancelamento por substituição
+
+        /// <summary>
+        /// P31 - Chave de acesso da NF-e substituta da NF-e a ser cancelada
+        /// </summary>
+        public string chNFeRef { get; set; }
 
         #endregion
     }
