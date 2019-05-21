@@ -33,7 +33,6 @@
 
 using System;
 using System.ComponentModel;
-using NFe.Utils.Annotations;
 
 namespace DFe.Utils
 {
@@ -52,7 +51,7 @@ namespace DFe.Utils
         A1ByteArray = 3
     }
 
-    public class ConfiguracaoCertificado : INotifyPropertyChanged
+    public class ConfiguracaoCertificado
     {
         private string _serial;
         private string _arquivo;
@@ -74,7 +73,6 @@ namespace DFe.Utils
                 Senha = null;
                 ArrayBytesArquivo = null;
                 _tipoCertificado = value;
-                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.TipoCertificado).Name);
             }
         }
 
@@ -93,7 +91,6 @@ namespace DFe.Utils
                 _serial = value;
                 if (!string.IsNullOrEmpty(value))
                     Arquivo = null;
-                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Serial).Name);
             }
         }
 
@@ -107,7 +104,6 @@ namespace DFe.Utils
             {
                 if (value == _arrayBytesArquivo) return;
                 _arrayBytesArquivo = value;
-                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.ArrayBytesArquivo).Name);
             }
         }
 
@@ -126,7 +122,6 @@ namespace DFe.Utils
                 _arquivo = value;
                 if (!string.IsNullOrEmpty(value))
                     Serial = null;
-                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Arquivo).Name);
             }
         }
 
@@ -144,7 +139,6 @@ namespace DFe.Utils
                     throw new Exception(string.Format("Para {0} o {1} não deve ser informada!", TipoCertificado.Descricao(), this.ObterPropriedadeInfo(c => c.Senha).Name));
                 if (value == _senha) return;
                 _senha = value;
-                OnPropertyChanged(this.ObterPropriedadeInfo(c => c.Senha).Name);
             }
         }
 
@@ -158,7 +152,6 @@ namespace DFe.Utils
             {
                 if (value == _cacheId) return;
                 _cacheId = value;
-                OnPropertyChanged("CacheId");
             }
         }
 
@@ -180,14 +173,5 @@ namespace DFe.Utils
         ///     URI para DigestMethod na Classe Reference para auxiliar para a assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#sha1)
         /// </summary>
         public string DigestMethodReference { get; set; }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

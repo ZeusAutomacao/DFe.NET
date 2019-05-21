@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes.Standard\CTe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Shared.CTe.Utils\Shared.CTe.Utils.projitems" Label="Shared" />
+
+</Project>
