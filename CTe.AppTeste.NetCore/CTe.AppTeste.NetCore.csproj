@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="obj\CTe.AppTeste.NetCore.csproj.nuget.dgspec.json" />
+    <Content Include="obj\project.assets.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="obj\CTe.AppTeste.NetCore.csproj.nuget.cache" />
+    <None Include="obj\CTe.AppTeste.NetCore.csproj.nuget.g.props" />
+    <None Include="obj\CTe.AppTeste.NetCore.csproj.nuget.g.targets" />
+    <None Include="obj\Debug\netcoreapp2.1\CTe.AppTeste.NetCore.AssemblyInfoInputs.cache" />
+    <None Include="obj\Debug\netcoreapp2.1\CTe.AppTeste.NetCore.assets.cache" />
+    <None Include="obj\Debug\netcoreapp2.1\CTe.AppTeste.NetCore.csproj.CoreCompileInputs.cache" />
+    <None Include="obj\Debug\netcoreapp2.1\CTe.AppTeste.NetCore.csprojAssemblyReference.cache" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes.Standard\CTe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\CTe.Servicos.Standard\CTe.Servicos.Standard.csproj" />
+    <ProjectReference Include="..\CTe.Utils.Standard\CTe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
+  </ItemGroup>
+
+</Project>
