@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.IO;
 using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.RetRecepcao;
@@ -76,7 +77,7 @@ namespace MDFe.Classes.Extencoes
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + consReciMDFe.NRec + "-ped-rec.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, consReciMDFe.NRec + "-ped-rec.xml");
 
             FuncoesXml.ClasseParaArquivoXml(consReciMDFe, arquivoSalvar);
         }

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using CTe.Classes;
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.Tipos;
@@ -230,7 +231,7 @@ namespace CTe.Utils.CTe
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + cte.Chave() + "-cte.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, cte.Chave() + "-cte.xml");
 
             FuncoesXml.ClasseParaArquivoXml(cte, arquivoSalvar);
         }

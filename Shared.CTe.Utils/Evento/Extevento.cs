@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
@@ -166,7 +167,7 @@ namespace CTe.Utils.Evento
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + eventoCTe.infEvento.chCTe + "-ped-eve.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, eventoCTe.infEvento.chCTe + "-ped-eve.xml");
 
             FuncoesXml.ClasseParaArquivoXml(eventoCTe, arquivoSalvar);
         }
