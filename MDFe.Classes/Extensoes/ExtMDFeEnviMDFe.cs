@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Servicos.Autorizacao;
@@ -83,7 +84,7 @@ namespace MDFe.Classes.Extencoes
 
             var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + enviMDFe.MDFe.Chave() + "-completo-mdfe.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, enviMDFe.MDFe.Chave() + "-completo-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
 
