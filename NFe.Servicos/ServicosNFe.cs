@@ -408,9 +408,9 @@ namespace NFe.Servicos
 
             foreach (var evento in eventos)
             {
-                evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
+                evento.infEvento.Id = "ID" + ((int)evento.infEvento.tpEvento) + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference, _cFgServico.RemoverAcentos);
             }
 
             #endregion
@@ -473,27 +473,56 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia um evento do tipo "Cancelamento"
         /// </summary>
-        /// <param name="idlote"></param>
-        /// <param name="sequenciaEvento"></param>
-        /// <param name="protocoloAutorizacao"></param>
-        /// <param name="chaveNFe"></param>
-        /// <param name="justificativa"></param>
-        /// <param name="cpfcnpj"></param>
-        /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
+        /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
             string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
+            return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamento, idlote, sequenciaEvento,
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj);
+        }
+
+        /// <summary>
+        ///     Envia um evento do tipo "Cancelamento por substituição"
+        /// </summary>
+        /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamentoPorSubstituicao(int idlote, int sequenciaEvento,
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, Estado ufAutor, string versaoAplicativo, string chaveNfeSubstituta)
+        {
+            return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamentoSubstituicao, idlote, sequenciaEvento,
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, ufAutor, TipoAutor.taEmpresaEmitente, versaoAplicativo, chaveNfeSubstituta);
+        }
+
+        private RetornoRecepcaoEvento RecepcaoEventoCancelamento(NFeTipoEvento tipoEventoCancelamento, int idlote,
+            int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
+            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null)
+        {
+            if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoCancelamento))
+                throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
+                    string.Join(", ",
+                        NFeTipoEventoUtils.NFeTipoEventoCancelamento.Select(n => n.Descricao()))));
+
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoCceCancelamento);
-            var detEvento = new detEvento { nProt = protocoloAutorizacao, versao = versaoServico, xJust = justificativa };
+
+            var detEvento = new detEvento
+            {
+                nProt = protocoloAutorizacao,
+                versao = versaoServico,
+                xJust = justificativa,
+                descEvento = tipoEventoCancelamento.Descricao(),
+                cOrgaoAutor = ufAutor,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo,
+                chNFeRef = chaveNfeSubstituta
+            };
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now,
-                tpEvento = 110111,
+                tpEvento = tipoEventoCancelamento,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -512,12 +541,7 @@ namespace NFe.Servicos
         /// <summary>
         ///     Envia um evento do tipo "Carta de Correção"
         /// </summary>
-        /// <param name="idlote"></param>
-        /// <param name="sequenciaEvento"></param>
-        /// <param name="chaveNFe"></param>
-        /// <param name="correcao"></param>
-        /// <param name="cpfcnpj"></param>
-        /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
+        /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
             string correcao, string cpfcnpj)
         {
@@ -529,7 +553,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 xCorrecao = correcao,
                 xJust = null,
-                descEvento = "Carta de Correção",
+                descEvento = NFeTipoEvento.TeNfeCartaCorrecao.Descricao(),
                 xCondUso =
                     "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
             };
@@ -544,7 +568,7 @@ namespace NFe.Servicos
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = DateTime.Now,
-                tpEvento = 110110,
+                tpEvento = NFeTipoEvento.TeNfeCartaCorrecao,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -561,17 +585,22 @@ namespace NFe.Servicos
         }
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
-                    string chaveNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+                    string chaveNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
                     string justificativa = null)
         {
             return RecepcaoEventoManifestacaoDestinatario(idlote, sequenciaEvento, new[] { chaveNFe },
-                tipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
+                nFeTipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
         }
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
-            string[] chavesNFe, TipoEventoManifestacaoDestinatario tipoEventoManifestacaoDestinatario, string cpfcnpj,
+            string[] chavesNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
             string justificativa = null)
         {
+            if (!NFeTipoEventoUtils.NFeTipoEventoManifestacaoDestinatario.Contains(nFeTipoEventoManifestacaoDestinatario))
+                throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
+                    string.Join(", ",
+                        NFeTipoEventoUtils.NFeTipoEventoManifestacaoDestinatario.Select(n => n.Descricao()))));
+
             var versaoServico =
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario.VersaoServicoParaString(
                     _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario);
@@ -579,7 +608,7 @@ namespace NFe.Servicos
             {
                 versao = versaoServico,
                 xJust = justificativa,
-                descEvento = tipoEventoManifestacaoDestinatario.Descricao()
+                descEvento = nFeTipoEventoManifestacaoDestinatario.Descricao()
             };
 
             var eventos = new List<evento>();
@@ -592,7 +621,7 @@ namespace NFe.Servicos
                     tpAmb = _cFgServico.tpAmb,
                     chNFe = chaveNFe,
                     dhEvento = DateTime.Now,
-                    tpEvento = (int)tipoEventoManifestacaoDestinatario,
+                    tpEvento = nFeTipoEventoManifestacaoDestinatario,
                     nSeqEvento = sequenciaEvento,
                     verEvento = versaoServico,
                     detEvento = detEvento
@@ -627,13 +656,14 @@ namespace NFe.Servicos
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
-                        
+
             var detevento = new detEvento
             {
                 versao = versaoServico,
                 cOrgaoAutor = nfe.infNFe.ide.cUF,
                 tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = veraplic,
+                descEvento = NFeTipoEvento.TeNfceEpec.Descricao(),
                 dhEmi = nfe.infNFe.ide.dhEmi,
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
@@ -657,7 +687,7 @@ namespace NFe.Servicos
                 CPF = nfe.infNFe.emit.CPF,
                 chNFe = nfe.infNFe.Id.Substring(3),
                 dhEvento = DateTime.Now,
-                tpEvento = 110140,
+                tpEvento = NFeTipoEvento.TeNfceEpec,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detevento

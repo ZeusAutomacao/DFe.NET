@@ -44,19 +44,19 @@ namespace CTe.Servicos.Eventos
 {
     public class ServicoController : IServicoController
     {
-        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
+        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
         {
-            return Executar(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return Executar(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
         }
 
-        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, TipoEvento tipoEvento)
+        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
         {
-            return await ExecutarAsync(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return await ExecutarAsync(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
         }
 
-        public retEventoCTe Executar(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public retEventoCTe Executar(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
         {
-            var evento = FactoryEvento.CriaEvento(tipoEvento,sequenciaEvento,chave,cnpj,container);
+            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
             evento.Assina();
             evento.ValidarSchema();
             evento.SalvarXmlEmDisco();
@@ -70,9 +70,9 @@ namespace CTe.Servicos.Eventos
             return retorno;
         }
 
-        public async Task<retEventoCTe> ExecutarAsync(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public async Task<retEventoCTe> ExecutarAsync(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
         {
-            var evento = FactoryEvento.CriaEvento(tipoEvento,sequenciaEvento,chave,cnpj,container);
+            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
             evento.Assina();
             evento.ValidarSchema();
             evento.SalvarXmlEmDisco();

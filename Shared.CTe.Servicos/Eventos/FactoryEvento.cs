@@ -44,17 +44,17 @@ namespace CTe.Servicos.Eventos
     public class FactoryEvento
     {
         //Vou manter para evitar quebra de código pois a classe e o metodo são publicos
-        public static eventoCTe CriaEvento(CTeEletronico cte, TipoEvento tipoEvento, int sequenciaEvento, EventoContainer container)
+        public static eventoCTe CriaEvento(CTeEletronico cte, CTeTipoEvento cTeTipoEvento, int sequenciaEvento, EventoContainer container)
         {
-            return CriaEvento(tipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return CriaEvento(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
         }
 
-        public static eventoCTe CriaEvento(TipoEvento tipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public static eventoCTe CriaEvento(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
         {
             var configuracaoServico = ConfiguracaoServico.Instancia;
 
             var id = new StringBuilder("ID");
-            id.Append((int)tipoEvento);
+            id.Append((int)cTeTipoEvento);
             id.Append(chave);
             id.Append(sequenciaEvento.ToString("D2"));
 
@@ -69,7 +69,7 @@ namespace CTe.Servicos.Eventos
                     chCTe = chave,
                     dhEvento = DateTime.Now,
                     nSeqEvento = sequenciaEvento,
-                    tpEvento = tipoEvento,
+                    tpEvento = cTeTipoEvento,
                     detEvento = new detEvento
                     {
                         versaoEvento = configuracaoServico.VersaoLayout,

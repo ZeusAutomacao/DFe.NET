@@ -59,7 +59,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = new ServicoController().Executar(TipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
+            var retorno = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
 
             return retorno;
         }
@@ -68,7 +68,7 @@ namespace CTe.Servicos.Eventos
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = await new ServicoController().ExecutarAsync(TipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
+            var retorno = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
 
             return retorno;
         }

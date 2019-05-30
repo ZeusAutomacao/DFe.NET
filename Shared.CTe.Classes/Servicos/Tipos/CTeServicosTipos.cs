@@ -34,9 +34,9 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Servicos.Tipos
+namespace CTe.Classes.Servicos.Tipos
 {
-    public enum ServicoNFe
+    public enum ServicoCTe
     {
         /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Cancelamento da NF-e
@@ -61,64 +61,97 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 2.0
         /// </summary>
-        NfeRecepcao,
+        CteRecepcao,
 
         /// <summary>
         ///     serviço destinado a retornar o resultado do processamento do lote de NF-e versão 2.0
         /// </summary>
-        NfeRetRecepcao,
+        CteRetRecepcao,
 
         /// <summary>
         ///     Serviço para consultar o cadastro de contribuintes do ICMS da unidade federada
         /// </summary>
-        NfeConsultaCadastro,
+        CteConsultaCadastro,
 
         /// <summary>
         ///     serviço destinado ao atendimento de solicitações de inutilização de numeração
         /// </summary>
-        NfeInutilizacao,
+        CteInutilizacao,
 
         /// <summary>
         ///     serviço destinado ao atendimento de solicitações de consulta da situação atual da NF-e
         ///     na Base de Dados do Portal da Secretaria de Fazenda Estadual
         /// </summary>
-        NfeConsultaProtocolo,
+        CteConsultaProtocolo,
 
         /// <summary>
         ///     serviço destinado à consulta do status do serviço prestado pelo Portal da Secretaria de Fazenda Estadual
         /// </summary>
-        NfeStatusServico,
+        CteStatusServico,
 
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 3.10
         /// </summary>
-        NFeAutorizacao,
+        CteAutorizacao,
 
         /// <summary>
         ///     serviço destinado a retornar o resultado do processamento do lote de NF-e versão 3.10
         /// </summary>
-        NFeRetAutorizacao,
+        CteRetAutorizacao,
 
         /// <summary>
         ///     Distribui documentos e informações de interesse do ator da NF-e
         /// </summary>
-        NFeDistribuicaoDFe,
+        CteDistribuicaoDFe,
 
         /// <summary>
         ///     “Serviço de Consulta da Relação de Documentos Destinados” para um determinado CNPJ
         ///     de destinatário informado na NF-e.
         /// </summary>
-        NfeConsultaDest,
+        CteConsultaDest,
 
         /// <summary>
         ///     Serviço destinado ao atendimento de solicitações de download de Notas Fiscais Eletrônicas por seus destinatários
         /// </summary>
-        NfeDownloadNF,
+        CteDownloadNF
+    }
 
-        /// <summary>
-        ///     Serviço destinado a administração do CSC.
-        /// </summary>
-        NfceAdministracaoCSC
+    /// <summary>
+    ///     Usado para discriminar o tipo de evento, pois o serviço de cancelamento e carta de correção devem usar a url
+    ///     designada para UF da empresa, já o serviço EPEC usa a url do ambiente nacional
+    /// </summary>
+    public enum TipoRecepcaoEvento
+    {
+        Nenhum,
+        Cancelamento,
+        CartaCorrecao,
+        Epec,
+        ManifestacaoDestinatario
+    }
+
+    public enum TipoManifestacao
+    {
+        [Description("Confirmacao da Operacao")]
+        [XmlEnum("Confirmacao da Operacao")]
+        e210200,
+
+        [Description("Ciencia da Operacao")]
+        [XmlEnum("Ciencia da Operacao")]
+        e210210,
+
+        [Description("Desconhecimento da Operacao")]
+        [XmlEnum("Desconhecimento da Operacao")]
+        e210220,
+
+        [Description("Operacao nao Realizada")]
+        [XmlEnum("Operacao nao Realizada")]
+        e210240
+    }
+
+    public enum versao
+    {
+        [XmlEnum("2.00")] ve200,
+        [XmlEnum("3.00")] ve300
     }
 
     /// <summary>
@@ -133,32 +166,5 @@ namespace NFe.Classes.Servicos.Tipos
     {
         [XmlEnum("0")] Assincrono = 0,
         [XmlEnum("1")] Sincrono = 1
-    }
-
-    /// <summary>
-    /// Tipo do evento de manifestação do destinatário.
-    /// </summary>
-    public enum TipoEventoManifestacaoDestinatario
-    {
-        [Description("Todos")]
-        Todos = 0,
-
-        [Description("Confirmacao da Operacao")]
-        TeMdConfirmacaoDaOperacao = 210200,
-
-        [Description("Ciencia da Operacao")]
-        TeMdCienciaDaEmissao = 210210,
-
-        [Description("Desconhecimento da Operacao")]
-        TeMdDesconhecimentoDaOperacao = 210220,
-
-        [Description("Operacao nao Realizada")]
-        TeMdOperacaoNaoRealizada = 210240,
-
-        [Description("Sem Manifestacao")]
-        SemManifestacao = 999999,
-
-        [Description("Manifestada")]
-        Manifestada = 999998
     }
 }

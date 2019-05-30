@@ -31,12 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace CTe.Classes.Servicos.Tipos
+namespace NFe.Classes.Servicos.Tipos
 {
-    public enum ServicoCTe
+    public enum ServicoNFe
     {
         /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Cancelamento da NF-e
@@ -61,97 +62,64 @@ namespace CTe.Classes.Servicos.Tipos
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 2.0
         /// </summary>
-        CteRecepcao,
+        NfeRecepcao,
 
         /// <summary>
         ///     serviço destinado a retornar o resultado do processamento do lote de NF-e versão 2.0
         /// </summary>
-        CteRetRecepcao,
+        NfeRetRecepcao,
 
         /// <summary>
         ///     Serviço para consultar o cadastro de contribuintes do ICMS da unidade federada
         /// </summary>
-        CteConsultaCadastro,
+        NfeConsultaCadastro,
 
         /// <summary>
         ///     serviço destinado ao atendimento de solicitações de inutilização de numeração
         /// </summary>
-        CteInutilizacao,
+        NfeInutilizacao,
 
         /// <summary>
         ///     serviço destinado ao atendimento de solicitações de consulta da situação atual da NF-e
         ///     na Base de Dados do Portal da Secretaria de Fazenda Estadual
         /// </summary>
-        CteConsultaProtocolo,
+        NfeConsultaProtocolo,
 
         /// <summary>
         ///     serviço destinado à consulta do status do serviço prestado pelo Portal da Secretaria de Fazenda Estadual
         /// </summary>
-        CteStatusServico,
+        NfeStatusServico,
 
         /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 3.10
         /// </summary>
-        CteAutorizacao,
+        NFeAutorizacao,
 
         /// <summary>
         ///     serviço destinado a retornar o resultado do processamento do lote de NF-e versão 3.10
         /// </summary>
-        CteRetAutorizacao,
+        NFeRetAutorizacao,
 
         /// <summary>
         ///     Distribui documentos e informações de interesse do ator da NF-e
         /// </summary>
-        CteDistribuicaoDFe,
+        NFeDistribuicaoDFe,
 
         /// <summary>
         ///     “Serviço de Consulta da Relação de Documentos Destinados” para um determinado CNPJ
         ///     de destinatário informado na NF-e.
         /// </summary>
-        CteConsultaDest,
+        NfeConsultaDest,
 
         /// <summary>
         ///     Serviço destinado ao atendimento de solicitações de download de Notas Fiscais Eletrônicas por seus destinatários
         /// </summary>
-        CteDownloadNF
-    }
+        NfeDownloadNF,
 
-    /// <summary>
-    ///     Usado para discriminar o tipo de evento, pois o serviço de cancelamento e carta de correção devem usar a url
-    ///     designada para UF da empresa, já o serviço EPEC usa a url do ambiente nacional
-    /// </summary>
-    public enum TipoRecepcaoEvento
-    {
-        Nenhum,
-        Cancelamento,
-        CartaCorrecao,
-        Epec,
-        ManifestacaoDestinatario
-    }
-
-    public enum TipoManifestacao
-    {
-        [Description("Confirmacao da Operacao")]
-        [XmlEnum("Confirmacao da Operacao")]
-        e210200,
-
-        [Description("Ciencia da Operacao")]
-        [XmlEnum("Ciencia da Operacao")]
-        e210210,
-
-        [Description("Desconhecimento da Operacao")]
-        [XmlEnum("Desconhecimento da Operacao")]
-        e210220,
-
-        [Description("Operacao nao Realizada")]
-        [XmlEnum("Operacao nao Realizada")]
-        e210240
-    }
-
-    public enum versao
-    {
-        [XmlEnum("2.00")] ve200,
-        [XmlEnum("3.00")] ve300
+        /// <summary>
+        ///     Serviço destinado a administração do CSC.
+        /// </summary>
+        NfceAdministracaoCSC
     }
 
     /// <summary>
@@ -168,21 +136,70 @@ namespace CTe.Classes.Servicos.Tipos
         [XmlEnum("1")] Sincrono = 1
     }
 
-    /// <summary>
-    /// Tipo do evento de manifestação do destinatário.
-    /// </summary>
-    public enum TipoEventoManifestacaoDestinatario
+    public enum NFeTipoEvento
     {
+        [Description("Todos")]
+        Todos = 0,
+
+        [Description("Carta de Correção")]
+        [XmlEnum("110110")]
+        TeNfeCartaCorrecao = 110110,
+
+        [Description("EPEC")]
+        [XmlEnum("110140")]
+        TeNfceEpec = 110140,
+
+        [Description("Cancelamento")]
+        [XmlEnum("110111")]
+        TeNfeCancelamento = 110111,
+
+        [Description("Cancelamento por substituicao")]
+        [XmlEnum("110112")]
+        TeNfeCancelamentoSubstituicao = 110112,
+        
         [Description("Confirmacao da Operacao")]
+        [XmlEnum("210200")]
         TeMdConfirmacaoDaOperacao = 210200,
 
         [Description("Ciencia da Operacao")]
-        TeMdCienciaDaOperacao = 210210,
+        [XmlEnum("210210")]
+        TeMdCienciaDaEmissao = 210210,
 
         [Description("Desconhecimento da Operacao")]
+        [XmlEnum("210220")]
         TeMdDesconhecimentoDaOperacao = 210220,
 
         [Description("Operacao nao Realizada")]
-        TeMdOperacaoNaoRealizada = 210240
+        [XmlEnum("210240")]
+        TeMdOperacaoNaoRealizada = 210240,
+
+        [Description("Sem Manifestacao")]
+        SemManifestacao = 999999,
+
+        [Description("Manifestada")]
+        Manifestada = 999998
+    }
+
+    /// <summary>
+    /// Classe com métodos para tratamento do enum <see cref="NFeTipoEvento"/>
+    /// </summary>
+    public class NFeTipoEventoUtils
+    {
+        /// <summary>
+        /// Devolve a lista de enums do tipo <see cref="NFeTipoEvento"/> que são utilizados para manifestação do destinatário/>
+        /// </summary>
+        public static ISet<NFeTipoEvento> NFeTipoEventoManifestacaoDestinatario = new HashSet<NFeTipoEvento>()
+        {
+            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaEmissao,
+            NFeTipoEvento.TeMdDesconhecimentoDaOperacao, NFeTipoEvento.TeMdOperacaoNaoRealizada
+        };
+
+        /// <summary>
+        /// Devolve a lista de enums do tipo <see cref="NFeTipoEvento"/> que são utilizados para cancelamento/>
+        /// </summary>
+        public static ISet<NFeTipoEvento> NFeTipoEventoCancelamento = new HashSet<NFeTipoEvento>()
+        {
+            NFeTipoEvento.TeNfeCancelamento, NFeTipoEvento.TeNfeCancelamentoSubstituicao
+        };
     }
 }
