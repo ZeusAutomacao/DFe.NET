@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.IO;
 using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.Status;
@@ -78,8 +79,8 @@ namespace CTe.Utils.Extencoes
             if (instanciaServico.NaoSalvarXml()) return;
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = caminhoXml + @"\" + DateTime.Now.ParaDataHoraString() + "-ped-sta.xml";
+            
+            var arquivoSalvar = Path.Combine(caminhoXml,  DateTime.Now.ParaDataHoraString() + "-ped-sta.xml");
 
             FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
         }

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
@@ -81,7 +82,7 @@ namespace CTe.Utils.CTe
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = caminhoXml + @"\" + enviCte.idLote + "-env-lot.xml";
+            var arquivoSalvar = Path.Combine(caminhoXml, enviCte.idLote + "-env-lot.xml");
 
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
         }
