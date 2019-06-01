@@ -135,6 +135,12 @@ namespace NFe.Utils.NFe
             var estado = nfeLocal.infNFe.ide.cUF;
             var dataEHoraEmissao = nfeLocal.infNFe.ide.dhEmi;
             var cnpj = nfeLocal.infNFe.emit.CNPJ;
+
+            if (cnpj == null)
+            {
+                cnpj = nfeLocal.infNFe.emit.CPF.PadLeft(14, '0');
+            }
+
             var numeroDocumento = nfeLocal.infNFe.ide.nNF;
             var serie = nfeLocal.infNFe.ide.serie;
 
