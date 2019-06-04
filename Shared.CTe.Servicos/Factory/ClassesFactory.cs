@@ -49,37 +49,37 @@ namespace CTe.Servicos.Factory
 {
     public class ClassesFactory
     {
-        public static consStatServCte CriaConsStatServCte()
+        public static consStatServCte CriaConsStatServCte(ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             return new consStatServCte
             {
-                versao = configuracaoServico.VersaoLayout,
-                tpAmb = configuracaoServico.tpAmb
+                versao = configServico.VersaoLayout,
+                tpAmb = configServico.tpAmb
             };
         }
 
-        public static consSitCTe CriarconsSitCTe(string chave)
+        public static consSitCTe CriarconsSitCTe(string chave, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             return new consSitCTe
             {
-                tpAmb = configuracaoServico.tpAmb,
-                versao = configuracaoServico.VersaoLayout,
+                tpAmb = configServico.tpAmb,
+                versao = configServico.VersaoLayout,
                 chCTe = chave
             };
         }
 
-        public static inutCTe CriaInutCTe(ConfigInutiliza configInutiliza)
+        public static inutCTe CriaInutCTe(ConfigInutiliza configInutiliza, ConfiguracaoServico configuracaoServico = null)
         {
             if (configInutiliza == null) throw new ArgumentNullException("Preciso de uma configuração de inutilização");
 
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             var id = new StringBuilder("ID");
-            id.Append(configuracaoServico.cUF.GetCodigoIbgeEmString());
+            id.Append(configServico.cUF.GetCodigoIbgeEmString());
             id.Append(configInutiliza.Cnpj);
             id.Append((byte) configInutiliza.ModeloDocumento);
             id.Append(configInutiliza.Serie.ToString("D3"));
@@ -88,12 +88,12 @@ namespace CTe.Servicos.Factory
 
             return new inutCTe
             {
-                versao = configuracaoServico.VersaoLayout,
+                versao = configServico.VersaoLayout,
                 infInut = new infInutEnv
                 {
                     Id = id.ToString(),
-                    tpAmb = configuracaoServico.tpAmb,
-                    cUF = configuracaoServico.cUF,
+                    tpAmb = configServico.tpAmb,
+                    cUF = configServico.cUF,
                     CNPJ = configInutiliza.Cnpj,
                     ano = configInutiliza.Ano,
                     nCTIni = configInutiliza.NumeroInicial,
@@ -105,14 +105,14 @@ namespace CTe.Servicos.Factory
             };
         }
 
-        public static consReciCTe CriaConsReciCTe(string recibo)
+        public static consReciCTe CriaConsReciCTe(string recibo, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             return new consReciCTe
             {
-                tpAmb = configuracaoServico.tpAmb,
-                versao = configuracaoServico.VersaoLayout,
+                tpAmb = configServico.tpAmb,
+                versao = configServico.VersaoLayout,
                 nRec = recibo
             };
         }
@@ -143,11 +143,11 @@ namespace CTe.Servicos.Factory
             };
         }
 
-        public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList)
+        public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
-            return new enviCTe(configuracaoServico.VersaoLayout, lote, cteEletronicoList);
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            
+            return new enviCTe(configServico.VersaoLayout, lote, cteEletronicoList);
         }
     }
 }

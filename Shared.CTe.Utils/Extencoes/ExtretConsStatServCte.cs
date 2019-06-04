@@ -40,9 +40,9 @@ namespace CTe.Utils.Extencoes
 {
     public static class ExtretConsStatServCte
     {
-        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte)
+        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

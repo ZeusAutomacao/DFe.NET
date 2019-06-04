@@ -43,9 +43,17 @@ namespace CTe.Classes.Servicos.Evento
 {
     public class infEventoEnv
     {
+        public infEventoEnv(ConfiguracaoServico configuracaoServico = null)
+        {
+            _configuracaoServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+        }
+
+        public infEventoEnv()
+        {
+        }
 
         [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
+        private ConfiguracaoServico _configuracaoServico;
 
         /// <summary>
         ///     HP07 - Grupo de informações do registro do Evento
@@ -84,6 +92,8 @@ namespace CTe.Classes.Servicos.Evento
         {
             get
             {
+                if (_configuracaoServico == null)
+                    _configuracaoServico = ConfiguracaoServico.Instancia;
                 switch (_configuracaoServico.VersaoLayout)
                 {
                     case versao.ve200:
