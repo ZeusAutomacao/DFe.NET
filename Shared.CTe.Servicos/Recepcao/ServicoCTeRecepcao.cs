@@ -48,43 +48,43 @@ namespace CTe.Servicos.Recepcao
     {
         public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
 
-        public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList)
+        public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList, ConfiguracaoServico configuracaoServico = null)
         {
-            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList);
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+            var webService = WsdlFactory.CriaWsdlCteRecepcao(configuracaoServico);
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs());
+            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(configuracaoServico));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retEnviCte> CTeRecepcaoAsync(int lote, List<CTeEletronico> cteEletronicosList)
+        public async Task<retEnviCte> CTeRecepcaoAsync(int lote, List<CTeEletronico> cteEletronicosList, ConfiguracaoServico configuracaoServico = null)
         {
-            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList);
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcao();
+            var webService = WsdlFactory.CriaWsdlCteRecepcao(configuracaoServico);
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = await webService.cteRecepcaoLoteAsync(enviCte.CriaRequestWs());
+            var retornoXml = await webService.cteRecepcaoLoteAsync(enviCte.CriaRequestWs(configuracaoServico));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }
 
-        private static enviCTe PreparaEnvioCTe(int lote, List<CTeEletronico> cteEletronicosList)
+        private static enviCTe PreparaEnvioCTe(int lote, List<CTeEletronico> cteEletronicosList, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaConfiguracao = ConfiguracaoServico.Instancia;
+            var instanciaConfiguracao = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList);
+            var enviCte = ClassesFactory.CriaEnviCTe(lote, cteEletronicosList, instanciaConfiguracao);
 
             if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao)
             {
@@ -101,13 +101,13 @@ namespace CTe.Servicos.Recepcao
             foreach (var cte in enviCte.CTe)
             {
                 cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
-                cte.Assina();
-                cte.ValidaSchema();
-                cte.SalvarXmlEmDisco();
+                cte.Assina(instanciaConfiguracao);
+                cte.ValidaSchema(instanciaConfiguracao);
+                cte.SalvarXmlEmDisco(instanciaConfiguracao);
             }
 
-            enviCte.ValidaSchema();
-            enviCte.SalvarXmlEmDisco();
+            enviCte.ValidaSchema(instanciaConfiguracao);
+            enviCte.SalvarXmlEmDisco(instanciaConfiguracao);
             return enviCte;
         }
 

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Eventos.Contratos;
@@ -44,44 +45,44 @@ namespace CTe.Servicos.Eventos
 {
     public class ServicoController : IServicoController
     {
-        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
+        public retEventoCTe Executar(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento, ConfiguracaoServico configuracaoServico = null)
         {
-            return Executar(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return Executar(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container, configuracaoServico);
         }
 
-        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento)
+        public async Task<retEventoCTe> ExecutarAsync(CteEletronico cte, int sequenciaEvento, EventoContainer container, CTeTipoEvento cTeTipoEvento, ConfiguracaoServico configuracaoServico = null)
         {
-            return await ExecutarAsync(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return await ExecutarAsync(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container, configuracaoServico);
         }
 
-        public retEventoCTe Executar(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public retEventoCTe Executar(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container, ConfiguracaoServico configuracaoServico = null)
         {
-            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
-            evento.Assina();
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco();
+            var evento = FactoryEvento.CriaEvento(cTeTipoEvento, sequenciaEvento, chave, cnpj, container, configuracaoServico);
+            evento.Assina(configuracaoServico);
+            evento.ValidarSchema(configuracaoServico);
+            evento.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteEvento();
+            var webService = WsdlFactory.CriaWsdlCteEvento(configuracaoServico);
             var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retEventoCTe> ExecutarAsync(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public async Task<retEventoCTe> ExecutarAsync(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container, ConfiguracaoServico configuracaoServico = null)
         {
-            var evento = FactoryEvento.CriaEvento(cTeTipoEvento,sequenciaEvento,chave,cnpj,container);
-            evento.Assina();
-            evento.ValidarSchema();
-            evento.SalvarXmlEmDisco();
+            var evento = FactoryEvento.CriaEvento(cTeTipoEvento, sequenciaEvento, chave, cnpj, container, configuracaoServico);
+            evento.Assina(configuracaoServico);
+            evento.ValidarSchema(configuracaoServico);
+            evento.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteEvento();
+            var webService = WsdlFactory.CriaWsdlCteEvento(configuracaoServico);
             var retornoXml = await webService.cteRecepcaoEventoAsync(evento.CriaXmlRequestWs());
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }
