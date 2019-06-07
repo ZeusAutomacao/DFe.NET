@@ -62,9 +62,9 @@ namespace CTe.Utils.Inutilizacao
         }
 
         
-        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome)
+        public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

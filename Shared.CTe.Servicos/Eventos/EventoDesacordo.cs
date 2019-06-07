@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
@@ -55,20 +56,20 @@ namespace CTe.Servicos.Eventos
             _observacao = observacao;
         }
 
-        public retEventoCTe Discordar()
+        public retEventoCTe Discordar(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
+            var retorno = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retEventoCTe> DiscordarAsync()
+        public async Task<retEventoCTe> DiscordarAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar);
+            var retorno = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
 
             return retorno;
         }
