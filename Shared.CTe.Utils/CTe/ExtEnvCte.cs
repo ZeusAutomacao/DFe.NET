@@ -45,17 +45,17 @@ namespace CTe.Utils.CTe
 {
     public static class ExtEnvCte
     {
-        public static void ValidaSchema(this enviCTe enviCTe)
+        public static void ValidaSchema(this enviCTe enviCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var xmlValidacao = enviCTe.ObterXmlString();
 
             switch (enviCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd");
+                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd", configuracaoServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", configuracaoServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -74,9 +74,9 @@ namespace CTe.Utils.CTe
             return FuncoesXml.ClasseParaXmlString(pedEnvio);
         }
 
-        public static void SalvarXmlEmDisco(this enviCTe enviCte)
+        public static void SalvarXmlEmDisco(this enviCTe enviCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 
@@ -87,13 +87,15 @@ namespace CTe.Utils.CTe
             FuncoesXml.ClasseParaArquivoXml(enviCte, arquivoSalvar);
         }
 
-        public static XmlDocument CriaRequestWs(this enviCTe enviCTe)
+        public static XmlDocument CriaRequestWs(this enviCTe enviCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var request = new XmlDocument();
 
             var xml = enviCTe.ObterXmlString();
+            
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            if (ConfiguracaoServico.Instancia.cUF == Estado.PR)
+            if (instanciaServico.cUF == Estado.PR)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 

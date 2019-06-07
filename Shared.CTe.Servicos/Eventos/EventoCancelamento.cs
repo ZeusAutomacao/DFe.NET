@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
@@ -54,20 +55,20 @@ namespace CTe.Servicos.Eventos
             _justificativa = justificativa;
         }
 
-        public retEventoCTe Cancelar()
+        public retEventoCTe Cancelar(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento);
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento, configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retEventoCTe> CancelarAsync()
+        public async Task<retEventoCTe> CancelarAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento);
+            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento, configuracaoServico);
 
             return retorno;
         }

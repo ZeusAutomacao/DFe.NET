@@ -44,12 +44,12 @@ namespace CTe.Utils.Extencoes
 {
     public static class ExtinutCTe
     {
-        public static void Assinar(this inutCTe inutCTe)
+        public static void Assinar(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                configuracaoServico.X509Certificate2);
+                configServico.X509Certificate2);
         }
 
 
@@ -63,7 +63,7 @@ namespace CTe.Utils.Extencoes
             return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
         }
 
-        public static void ValidarShcema(this inutCTe inutCTe)
+        public static void ValidarShcema(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
         {
 
             var xmlValidacao = inutCTe.ObterXmlString();
@@ -71,10 +71,10 @@ namespace CTe.Utils.Extencoes
             switch (inutCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd");
+                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", configuracaoServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", configuracaoServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -83,9 +83,9 @@ namespace CTe.Utils.Extencoes
             }
         }
 
-        public static void SalvarXmlEmDisco(this inutCTe inutCTe)
+        public static void SalvarXmlEmDisco(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

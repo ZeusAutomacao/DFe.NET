@@ -41,9 +41,9 @@ namespace CTe.Utils.Validacao
 {
     public static class Validador
     {
-        public static void Valida(string xml, string schema)
+        public static void Valida(string xml, string schema, ConfiguracaoServico configuracaoServico = null)
         {
-            var servicoInstancia = ConfiguracaoServico.Instancia;
+            var servicoInstancia = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             var pathSchema = servicoInstancia.DiretorioSchemas;
 

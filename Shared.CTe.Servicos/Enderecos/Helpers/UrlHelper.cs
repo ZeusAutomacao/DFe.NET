@@ -41,36 +41,36 @@ namespace CTe.Servicos.Enderecos.Helpers
 {
     public class UrlHelper
     {
-        public static UrlCTe ObterUrlServico()
+        public static UrlCTe ObterUrlServico(ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            switch (configuracaoServico.tpAmb)
+            switch (configServico.tpAmb)
             {
                 case TipoAmbiente.Homologacao:
-                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCRS)
+                    if (configServico.TipoEmissao == tpEmis.teSVCRS)
                     {
                         return UrlHomologacaoSvrs();
                     }
 
-                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCSP)
+                    if (configServico.TipoEmissao == tpEmis.teSVCSP)
                     {
                         return UrlHomologacaoSvcsp();
                     }
 
-                    return UrlHomologacao();
+                    return UrlHomologacao(configServico);
                 case TipoAmbiente.Producao:
-                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCRS)
+                    if (configServico.TipoEmissao == tpEmis.teSVCRS)
                     {
                         return UrlProducaoSvrs();
                     }
 
-                    if (configuracaoServico.TipoEmissao == tpEmis.teSVCSP)
+                    if (configServico.TipoEmissao == tpEmis.teSVCSP)
                     {
                         return UrlProducaoSvcsp();
                     }
 
-                    return UrlProducao();
+                    return UrlProducao(configServico);
             }
 
             throw new InvalidOperationException("Tipo Ambiente inválido");
@@ -126,10 +126,8 @@ namespace CTe.Servicos.Enderecos.Helpers
             };
         }
 
-        private static UrlCTe UrlProducao()
+        private static UrlCTe UrlProducao(ConfiguracaoServico configuracaoServico)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             switch (configuracaoServico.cUF)
             {
                 case Estado.MT:
@@ -256,10 +254,8 @@ namespace CTe.Servicos.Enderecos.Helpers
 
         }
 
-        private static UrlCTe UrlHomologacao()
+        private static UrlCTe UrlHomologacao(ConfiguracaoServico configuracaoServico)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
-
             switch (configuracaoServico.cUF)
             {
                 case Estado.MT:

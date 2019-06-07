@@ -83,11 +83,11 @@ namespace CTe.Utils.CTe
             FuncoesXml.ClasseParaArquivoXml(cteProc, arquivoXml);
         }
 
-        public static void SalvarXmlEmDisco(this cteProc cteProc)
+        public static void SalvarXmlEmDisco(this cteProc cteProc, ConfiguracaoServico configuracaoServico = null)
         {
             if (cteProc == null) return;
 
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

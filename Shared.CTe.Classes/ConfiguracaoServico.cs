@@ -49,7 +49,7 @@ namespace CTe.Classes
         private static readonly object SyncRoot = new object();
         private string _diretorioSchemas;
 
-        private ConfiguracaoServico()
+        public ConfiguracaoServico()
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;

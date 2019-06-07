@@ -11,11 +11,13 @@ namespace CTe.Servicos.EnviarCte
 {
     public class ServicoEnviarCte
     {
-        public RetornoEnviarCte Enviar(int lote, Classes.CTe cte)
+        public RetornoEnviarCte Enviar(int lote, Classes.CTe cte, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            
             ServicoCTeRecepcao servicoRecepcao = new ServicoCTeRecepcao();
 
-            retEnviCte retEnviCte = servicoRecepcao.CTeRecepcao(lote, new List<Classes.CTe> {cte});
+            retEnviCte retEnviCte = servicoRecepcao.CTeRecepcao(lote, new List<Classes.CTe> {cte}, configServico);
 
             if (retEnviCte.cStat != 103)
             {
@@ -24,7 +26,7 @@ namespace CTe.Servicos.EnviarCte
 
             ConsultaReciboServico servicoConsultaRecibo = new ConsultaReciboServico(retEnviCte.infRec.nRec);
 
-            retConsReciCTe retConsReciCTe = servicoConsultaRecibo.Consultar();
+            retConsReciCTe retConsReciCTe = servicoConsultaRecibo.Consultar(configServico);
 
 
             cteProc cteProc = null;
@@ -39,21 +41,22 @@ namespace CTe.Servicos.EnviarCte
                 cteProc = new cteProc
                 {
                     CTe = cte,
-                    versao = ConfiguracaoServico.Instancia.VersaoLayout,
+                    versao = configServico.VersaoLayout,
                     protCTe = retConsReciCTe.protCTe[0]
                 };
             }
 
-            cteProc.SalvarXmlEmDisco();
+            cteProc.SalvarXmlEmDisco(configServico);
 
             return new RetornoEnviarCte(retEnviCte, retConsReciCTe, cteProc);
         }
 
-        public async Task<RetornoEnviarCte> EnviarAsync(int lote, Classes.CTe cte)
+        public async Task<RetornoEnviarCte> EnviarAsync(int lote, Classes.CTe cte, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             ServicoCTeRecepcao servicoRecepcao = new ServicoCTeRecepcao();
 
-            retEnviCte retEnviCte = await servicoRecepcao.CTeRecepcaoAsync(lote, new List<Classes.CTe> { cte });
+            retEnviCte retEnviCte = await servicoRecepcao.CTeRecepcaoAsync(lote, new List<Classes.CTe> { cte }, configServico);
 
             if (retEnviCte.cStat != 103)
             {
@@ -62,7 +65,7 @@ namespace CTe.Servicos.EnviarCte
 
             ConsultaReciboServico servicoConsultaRecibo = new ConsultaReciboServico(retEnviCte.infRec.nRec);
 
-            retConsReciCTe retConsReciCTe = await servicoConsultaRecibo.ConsultarAsync();
+            retConsReciCTe retConsReciCTe = await servicoConsultaRecibo.ConsultarAsync(configServico);
 
 
             cteProc cteProc = null;
@@ -77,12 +80,12 @@ namespace CTe.Servicos.EnviarCte
                 cteProc = new cteProc
                 {
                     CTe = cte,
-                    versao = ConfiguracaoServico.Instancia.VersaoLayout,
+                    versao = configServico.VersaoLayout,
                     protCTe = retConsReciCTe.protCTe[0]
                 };
             }
 
-            cteProc.SalvarXmlEmDisco();
+            cteProc.SalvarXmlEmDisco(configServico);
 
             return new RetornoEnviarCte(retEnviCte, retConsReciCTe, cteProc);
         }

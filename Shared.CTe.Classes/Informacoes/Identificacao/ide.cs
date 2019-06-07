@@ -45,8 +45,19 @@ namespace CTe.Classes.Informacoes.Identificacao
 {
     public class ide
     {
-        [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
+
+        public ide(ConfiguracaoServico configuracaoServico = null)
+        {
+            _configuracaoServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+        }
+        
+        public ide()
+        {
+            
+        }
+
+        [XmlIgnore] 
+        private ConfiguracaoServico _configuracaoServico;
 
         /// <summary>
         ///     B02 - Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.
@@ -95,6 +106,8 @@ namespace CTe.Classes.Informacoes.Identificacao
         {
             get
             {
+                if (_configuracaoServico == null)
+                    _configuracaoServico = ConfiguracaoServico.Instancia;
                 switch (_configuracaoServico.VersaoLayout)
                 {
                     case versao.ve200:
