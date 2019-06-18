@@ -5,8 +5,8 @@ using DFe.Classes.Flags;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Tests.Entidades;
-using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Tests.Dao
 {

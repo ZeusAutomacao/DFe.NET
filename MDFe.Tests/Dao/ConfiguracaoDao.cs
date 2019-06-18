@@ -4,7 +4,7 @@ using System.Reflection;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using MDFe.Tests.Entidades;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Tests.Dao
 {

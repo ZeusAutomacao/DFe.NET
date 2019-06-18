@@ -38,7 +38,6 @@ using FastReport;
 using FastReport.Export.Html;
 using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Base;
-using System.Collections.Generic;
 
 namespace MDFe.Damdfe.Fast
 {

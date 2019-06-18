@@ -119,14 +119,14 @@ namespace NFe.Servicos
             return filename;
         }
 
-        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico)
+        private INfeServicoAutorizacao CriarServicoAutorizacao(ServicoNFe servico, bool compactarMensagem)
         {
             if (servico != ServicoNFe.NFeAutorizacao)
                 throw new Exception(
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
-            return ServicoNfeFactory.CriaWsdlAutorizacao(_cFgServico, _certificado);
+            return ServicoNfeFactory.CriaWsdlAutorizacao(_cFgServico, _certificado, compactarMensagem);
         }
 
         private INfeServico CriarServico(ServicoNFe servico)
@@ -146,7 +146,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeStatusServico);
 
-            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -211,7 +211,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
 
-            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -283,7 +283,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeInutilizacao);
 
-            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -313,7 +313,7 @@ namespace NFe.Servicos
                 }
             };
 
-            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano.ToString("D2"),
                 pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
                 pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
                 pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
@@ -351,7 +351,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(numId + "-inu.xml", retornoXmlString);
 
-            return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
+            return new RetornoNfeInutilizacao(xmlInutilizacao, retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
 
             #endregion
@@ -386,7 +386,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(servicoEvento);
 
-            if (_cFgServico.VersaoRecepcaoEventoCceCancelamento != VersaoServico.ve400)
+            if (_cFgServico.VersaoRecepcaoEventoCceCancelamento != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -464,7 +464,7 @@ namespace NFe.Servicos
 
             #endregion
 
-            return new RetornoRecepcaoEvento(pedEvento.ObterXmlString(), retEnvEvento.ObterXmlString(), retornoXmlString,
+            return new RetornoRecepcaoEvento(xmlEvento, retEnvEvento.ObterXmlString(), retornoXmlString,
                 retEnvEvento, listprocEventoNFe);
 
             #endregion
@@ -534,13 +534,9 @@ namespace NFe.Servicos
                     "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
             };
 
-
             if (_cFgServico.cUF == Estado.MT || _cFgServico.RemoverAcentos)
-            {
                 detEvento.xCondUso =
                     "A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.";
-                detEvento.descEvento = "Carta de Correcao";
-            }
 
             var infEvento = new infEventoEnv
             {
@@ -691,7 +687,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 
-            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.ve400)
+            if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {
@@ -1032,12 +1028,12 @@ namespace NFe.Servicos
         public RetornoNFeAutorizacao NFeAutorizacao(int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
             bool compactarMensagem = false)
         {
-            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.Versao400)
             {
                 return NFeAutorizacaoVersao310(idLote, indSinc, nFes, compactarMensagem);
             }
 
-            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.Versao400)
             {
                 return NFeAutorizacao4(idLote, indSinc, nFes, compactarMensagem);
             }
@@ -1051,7 +1047,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, compactarMensagem);
 
             #endregion
 
@@ -1100,7 +1096,7 @@ namespace NFe.Servicos
 
             SalvarArquivoXml(idLote + "-rec.xml", retornoXmlString);
 
-            return new RetornoNFeAutorizacao(pedEnvio.ObterXmlString(), retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
+            return new RetornoNFeAutorizacao(xmlEnvio, retEnvio.ObterXmlString(), retornoXmlString, retEnvio);
 
             #endregion
         }
@@ -1111,7 +1107,7 @@ namespace NFe.Servicos
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao);
+            var ws = CriarServicoAutorizacao(ServicoNFe.NFeAutorizacao, compactarMensagem);
 
             ws.nfeCabecMsg = new nfeCabecMsg
             {
@@ -1181,7 +1177,7 @@ namespace NFe.Servicos
 
             var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
 
-            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.ve400)
+            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.Versao400)
             {
                 ws.nfeCabecMsg = new nfeCabecMsg
                 {

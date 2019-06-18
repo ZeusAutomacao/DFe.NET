@@ -9,6 +9,7 @@
     <DependsOnSystemRuntime>true</DependsOnSystemRuntime> 
     <_HasReferenceToSystemRuntime>true</_HasReferenceToSystemRuntime> 
     <AssemblyName>MDFe.Damdfe.Fast</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->

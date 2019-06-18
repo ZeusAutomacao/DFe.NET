@@ -43,10 +43,13 @@
 using System;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
-using MDFe.Utils.Soap;
+using DFe.Classes.Entidades;
 using MDFe.Wsdl.Configuracao;
-using static MDFe.Utils.Enums.Enums;
+using SOAP.Handler.Body;
+using SOAP.Handler.Configuracao;
+using SOAP.Handler.Head;
+using SOAP.Handler.Requisicao;
+using static SOAP.Handler.Enums.Enums;
 
 namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 {
@@ -57,13 +60,13 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
     public partial class MDFeConsNaoEnc
     {
         //Envelope SOAP para envio
-        private SOAPEnvelope soapEnvelope;
+        private SoapConfig soapConfig;
 
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao configuracao;
 
         /// <summary>
-        /// Cria o cabeçalho do envelope a ser enviado e atribui as configurações do WSDL.
+        /// Atribui as configurações do WSDL.
         /// </summary>
         /// <param name="configuracao"></param>
         public MDFeConsNaoEnc(WsdlConfiguracao configuracao)
@@ -72,115 +75,46 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                 throw new ArgumentNullException();
 
             this.configuracao = configuracao;
-            soapEnvelope = new SOAPEnvelope()
-            {
-                head = new ResponseHead<mdfeCabecMsg>()
-                {
-                    mdfeCabecMsg = new mdfeCabecMsg()
-                    {
-                        versaoDados = configuracao.Versao,
-                        cUF = configuracao.CodigoIbgeEstado
-                    }
-                }
-            };
-
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
         }
 
         /// <summary>
-        /// Encapsula os dados da requisição no envelope por meio da serialização das partes e realiza a requisção ao Web Service.
+        /// Encapsula os dados da requisição no envelope e realiza a requisição ao Web Service.
         /// </summary>
         /// <param name="mdfeDadosMsg"></param>
         /// <returns>XmlNode</returns>
         public async Task<System.Xml.XmlNode> mdfeConsNaoEnc(System.Xml.XmlNode mdfeDadosMsg)
         {
-            var soapUtils = new SoapUtils();
-            var xmlresult = new XmlDocument();
-            var xmlEnvelop = new XmlDocument();
+            var resposta = string.Empty;
+            var xmlResult = new XmlDocument();
 
-            soapEnvelope.body = new ResponseBody<XmlNode>()
+            var retorno = new SoapHttpClient();
+
+            var estado = (Estado)Enum.Parse(typeof(Estado), configuracao.CodigoIbgeEstado);
+            var versaoServico = (VersaoServico)Enum.Parse(typeof(VersaoServico), configuracao.Versao);
+
+            var tagcorpo = new TagCorpo(estado.GetParametroDeEntradaWsdl(false, TipoRequisicao.MDFe));
+
+            soapConfig = new SoapConfig
             {
-                mdfeDadosMsg = mdfeDadosMsg
+                Cabecalho = new Cabecalho(estado, versaoServico,
+                    new TagCabecalho(), "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc",
+                    TipoRequisicao.MDFe),
+                Corpo = new Corpo("http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc", tagcorpo),
+                Certificado = configuracao.CertificadoDigital,
+                TimeOut = configuracao.TimeOut,
+                Url = configuracao.Url
             };
 
-            xmlEnvelop = soapUtils.SerealizeDocument(soapEnvelope);
-            var tes = await soapUtils.SendRequest(xmlEnvelop, configuracao.CertificadoDigital, configuracao.Url, Tipo.MDFeConsNaoEnc);
-            xmlresult.LoadXml(tes);
+            soapConfig.Corpo.Xml = mdfeDadosMsg;
 
-            return ((System.Xml.XmlNode)xmlresult.GetElementsByTagName("retConsMDFeNaoEnc")[0]);
+            resposta = await retorno.Invoke(soapConfig);
+
+            xmlResult.LoadXml(resposta);
+
+            return ((System.Xml.XmlNode)xmlResult.GetElementsByTagName("retConsMDFeNaoEnc")[0]);
         }
     }
 
-    /// <summary>
-    /// Classe base para a serealização no formato do envelope SOAP.
-    /// </summary>
-    [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class SOAPEnvelope
-    {
-        [XmlAttribute(AttributeName = "soap12", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public string soapenva { get; set; }
 
-        [XmlAttribute(AttributeName = "xsi", Namespace = "http://www.w3.org/2001/XMLSchema-instance")]
-        public string xsi { get; set; }
-
-        [XmlAttribute(AttributeName = "xsd", Namespace = "http://www.w3.org/2001/XMLSchema")]
-        public string xsd { get; set; }
-
-        [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public ResponseHead<mdfeCabecMsg> head { get; set; }
-
-        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public ResponseBody<XmlNode> body { get; set; }
-
-        [XmlNamespaceDeclarations]
-        public XmlSerializerNamespaces xmlns = new XmlSerializerNamespaces();
-        public SOAPEnvelope()
-        {
-            xmlns.Add("soap12", "http://www.w3.org/2003/05/soap-envelope");
-        }
-    }
-
-    /// <summary>
-    /// Classe para o cabeçalho do Envelope SOAP
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [XmlRoot(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class ResponseHead<T>
-    {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
-        public T mdfeCabecMsg { get; set; }
-    }
-
-    /// <summary>
-    /// Classe para o corpo do Envelope SOAP
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [XmlRoot(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class ResponseBody<T>
-    {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc")]
-        public T mdfeDadosMsg { get; set; }
-    }
-
-    /// <summary>
-    /// Classe para os campos contidos no cabeçalho do Envelope SOAP
-    /// </summary>
-    public class mdfeCabecMsg
-    {
-        private string _cUFField;
-        private string _versaoDadosField;
-
-        public string cUF
-        {
-            get { return this._cUFField; }
-            set { this._cUFField = value; }
-        }
-
-        public string versaoDados
-        {
-            get { return this._versaoDadosField; }
-            set { this._versaoDadosField = value; }
-        }
-    }
 }

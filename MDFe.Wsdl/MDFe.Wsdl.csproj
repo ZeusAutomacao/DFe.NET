@@ -3,6 +3,8 @@
   <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
@@ -44,6 +46,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj" />
+    <ProjectReference Include="..\SOAP.Handler\SOAP.Handler.csproj" />
   </ItemGroup>
 
   <!-- Referências dos projetos -->
