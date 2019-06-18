@@ -185,6 +185,22 @@ namespace MDFe.Classes.Extencoes
             return cnpj;
         }
 
+        public static string CPFEmitente(this MDFEletronico mdfe)
+        {
+            var cpf = mdfe.InfMDFe.Emit.CPF;
+
+            return cpf;
+        }
+
+        public static string CNPJouCPFEmitente(this MDFEletronico mdfe)
+        {
+            var cnpj = CNPJEmitente(mdfe);
+
+            if (cnpj != null) return cnpj;
+
+            return CPFEmitente(mdfe).PadLeft(14, '0');
+        }
+
         public static Estado UFEmitente(this MDFEletronico mdfe)
         {
             var estadoUf = mdfe.InfMDFe.Emit.EnderEmit.UF;
