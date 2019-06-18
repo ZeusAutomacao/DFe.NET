@@ -134,6 +134,12 @@ namespace MDFe.Classes.Extencoes
             var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
             int serie = mdfe.InfMDFe.Ide.Serie;
 
+
+            if (cnpj == null)
+            {
+                cnpj = mdfe.InfMDFe.Emit.CPF.PadLeft(14, '0');
+            }
+
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
