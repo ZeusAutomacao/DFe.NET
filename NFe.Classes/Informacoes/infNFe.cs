@@ -38,6 +38,7 @@ using NFe.Classes.Informacoes.Destinatario;
 using NFe.Classes.Informacoes.Detalhe;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao;
+using NFe.Classes.Informacoes.InfRespTec;
 using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
@@ -150,5 +151,10 @@ namespace NFe.Classes.Informacoes
         ///     ZC01 - Grupo Cana
         /// </summary>
         public cana cana { get; set; }
+        
+        /// <summary>
+        /// Telefone do responsável
+        /// </summary>
+        public infRespTec infRespTec { get; set; }
     }
 }

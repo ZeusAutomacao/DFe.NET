@@ -2,15 +2,18 @@
 
 namespace NFe.Classes.Informacoes.InfRespTec
 {
+    /// <summary>
+    /// Informação do responsável técnico pela emissão de nota fiscal
+    /// </summary>
     public class infRespTec
     {
-        public string CNPJ { get; set; }
+        public long CNPJ { get; set; }
 
         public string xContato { get; set; }
 
         public string email { get; set; }
 
-        public string fone { get; set; }
+        public long fone { get; set; }
 
         [XmlIgnore]
         public int? idCSRT { get; set; }
