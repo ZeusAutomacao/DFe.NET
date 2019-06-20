@@ -49,7 +49,7 @@ namespace NFe.Utils
         {
             if (versaoServico == VersaoServico.ve100 && servicoNFe == ServicoNFe.NFeDistribuicaoDFe)
                 return "1.01";
-            else if (versaoServico == VersaoServico.ve100)
+            else if (versaoServico == VersaoServico.ve100 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario)
                 return "1.00";
             else if (versaoServico == VersaoServico.ve200 && servicoNFe == ServicoNFe.NfeConsultaProtocolo)
                 return "2.01";
