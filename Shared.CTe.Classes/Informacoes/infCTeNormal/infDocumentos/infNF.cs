@@ -109,6 +109,8 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             get { return _nPeso.Arredondar(3); }
             set { _nPeso = value.Arredondar(3); }
         }
+        
+        public bool nPesoSpecified { get { return _nPeso.HasValue; } }
 
         public string PIN { get; set; }
 
