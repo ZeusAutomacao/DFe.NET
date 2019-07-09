@@ -138,9 +138,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Utils.Standard", "NFe.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Wsdl.Standard", "NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj", "{D4F45208-4A4B-43C0-8640-F338C1DA9699}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Wsdl", "Shared.NFe.Wsdl\Shared.NFe.Wsdl.shproj", "{148E0E11-3FE5-4BF7-A64F-B919A0A8D9BA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{21a894ec-b79e-4936-bff3-abead2e5c44f}*SharedItemsImports = 4
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}*SharedItemsImports = 4
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{3108968d-d505-4365-966f-bbe3cbf63c35}*SharedItemsImports = 13
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
@@ -152,6 +156,7 @@ Global
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{ab5f2a04-a1cf-4d42-8b26-38ebebc8319b}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}*SharedItemsImports = 4
+		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}*SharedItemsImports = 4
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{d4ea4e8b-c0c9-4460-90e6-8cccfc28b005}*SharedItemsImports = 13
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{da95f515-5eed-4a7e-b711-f3b499629df5}*SharedItemsImports = 13
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{dbee88e7-6003-436e-9810-9acc662f5851}*SharedItemsImports = 4
@@ -590,6 +595,7 @@ Global
 		{9DC6C14C-FB0E-4B49-9D85-5D41991884FF} = {F981A8AC-E660-492B-8BF3-CBF70B66E392}
 		{2CEA538F-D827-4FA2-BA16-3E9E08D8E9A1} = {F981A8AC-E660-492B-8BF3-CBF70B66E392}
 		{D4F45208-4A4B-43C0-8640-F338C1DA9699} = {F981A8AC-E660-492B-8BF3-CBF70B66E392}
+		{148E0E11-3FE5-4BF7-A64F-B919A0A8D9BA} = {A802BD59-CC36-4CB1-95B1-64CD72E1DC0C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
