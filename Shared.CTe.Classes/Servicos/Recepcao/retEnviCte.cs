@@ -77,7 +77,15 @@ namespace CTe.Classes.Servicos.Recepcao
         /// <summary>
         ///     AR06b - Data e Hora do Recebimento Formato = AAAA-MM-DDTHH:MM:SS Preenchido com data e hora do recebimento do lote.
         /// </summary>
-        public DateTime dhRecbto { get; set; }
+        [XmlIgnore]
+        public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxydhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
 
         /// <summary>
         ///     AR07 - Dados do Recibo do Lote (Só é gerado se o Lote for aceito)

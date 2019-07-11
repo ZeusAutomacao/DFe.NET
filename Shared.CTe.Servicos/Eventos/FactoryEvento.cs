@@ -67,7 +67,7 @@ namespace CTe.Servicos.Eventos
                     CNPJ = cnpj,
                     cOrgao = configServico.cUF,
                     chCTe = chave,
-                    dhEvento = DateTime.Now,
+                    dhEvento = DateTimeOffset.Now,
                     nSeqEvento = sequenciaEvento,
                     tpEvento = cTeTipoEvento,
                     detEvento = new detEvento
