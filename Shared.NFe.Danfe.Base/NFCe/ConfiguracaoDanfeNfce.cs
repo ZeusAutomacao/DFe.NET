@@ -34,8 +34,12 @@
 using System.Drawing;
 using System.Drawing.Text;
 using NFe.Danfe.Base.Fontes;
-using NFe.Danfe.Base.Properties;
 using NFe.Utils;
+#if Core
+using NFe.Danfe.Base.Standard.Properties;
+#else
+using NFe.Danfe.Base.Properties;
+#endif
 
 namespace NFe.Danfe.Base.NFCe
 {
