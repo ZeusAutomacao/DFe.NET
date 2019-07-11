@@ -99,7 +99,7 @@ namespace CTe.Classes.Informacoes.Identificacao
         /// Versão 2.0  AAAA-MM-DDTHH:MM:DD
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEmi { get; set; }
+        public DateTimeOffset dhEmi { get; set; }
 
         [XmlElement(ElementName = "dhEmi")]
         public string ProxydhEmi
@@ -118,7 +118,7 @@ namespace CTe.Classes.Informacoes.Identificacao
                         throw new InvalidOperationException("Versão Inválida para CT-e");
                 }
             }
-            set { dhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTimeOffset.Parse(value); }
         }
 
         public tpImp tpImp { get; set; }
