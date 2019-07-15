@@ -146,7 +146,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{F367DB
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Danfe.Base", "Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.shproj", "{7BC87AF1-49FC-4822-ADDF-6B9B461B0ADC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Fast.Standard", "NFe.Danfe.Fast.Standard\NFe.Danfe.Fast.Standard.csproj", "{637870E1-DF27-43CD-B771-3685E3D0BE01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.Fast.Standard", "NFe.Danfe.Fast.Standard\NFe.Danfe.Fast.Standard.csproj", "{637870E1-DF27-43CD-B771-3685E3D0BE01}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Danfe.Fast", "Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.shproj", "{5794AB8A-FF29-4F55-ABC2-9AAFE333BD27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.AppTeste.NetCore", "NFe.Danfe.AppTeste.NetCore\NFe.Danfe.AppTeste.NetCore.csproj", "{0999204F-594C-4996-88A2-93D015EBDE33}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -157,6 +161,7 @@ Global
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{3108968d-d505-4365-966f-bbe3cbf63c35}*SharedItemsImports = 13
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{57631341-c61b-49c6-a6ed-317ec42b1581}*SharedItemsImports = 13
+		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{5794ab8a-ff29-4f55-abc2-9aafe333bd27}*SharedItemsImports = 13
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{63227402-2b1e-4bc7-a6df-362129923cf6}*SharedItemsImports = 4
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{7bc87af1-49fc-4822-addf-6b9b461b0adc}*SharedItemsImports = 13
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{80c6093c-47d5-41a1-9fa0-e218e82fa666}*SharedItemsImports = 4
@@ -165,6 +170,7 @@ Global
 		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{9cc914f9-4c3e-43bb-a34b-a12ae4923548}*SharedItemsImports = 4
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{ab5f2a04-a1cf-4d42-8b26-38ebebc8319b}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
+		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}*SharedItemsImports = 4
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}*SharedItemsImports = 4
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}*SharedItemsImports = 4
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{d4ea4e8b-c0c9-4460-90e6-8cccfc28b005}*SharedItemsImports = 13
@@ -566,6 +572,14 @@ Global
 		{637870E1-DF27-43CD-B771-3685E3D0BE01}.Release|Any CPU.Build.0 = Release|Any CPU
 		{637870E1-DF27-43CD-B771-3685E3D0BE01}.Release|x86.ActiveCfg = Release|Any CPU
 		{637870E1-DF27-43CD-B771-3685E3D0BE01}.Release|x86.Build.0 = Release|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Debug|x86.Build.0 = Debug|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Release|x86.ActiveCfg = Release|Any CPU
+		{0999204F-594C-4996-88A2-93D015EBDE33}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -626,6 +640,8 @@ Global
 		{F367DB7F-2170-48C6-9966-D6F9DF1808DB} = {003B008B-F388-4FB5-A081-12C0FBA84B57}
 		{7BC87AF1-49FC-4822-ADDF-6B9B461B0ADC} = {F367DB7F-2170-48C6-9966-D6F9DF1808DB}
 		{637870E1-DF27-43CD-B771-3685E3D0BE01} = {003B008B-F388-4FB5-A081-12C0FBA84B57}
+		{5794AB8A-FF29-4F55-ABC2-9AAFE333BD27} = {F367DB7F-2170-48C6-9966-D6F9DF1808DB}
+		{0999204F-594C-4996-88A2-93D015EBDE33} = {3AC1A3D4-91D0-471A-AF9C-5EF8442F3F27}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}

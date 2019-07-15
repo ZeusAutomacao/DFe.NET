@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Danfe.Fast.Standard\NFe.Danfe.Fast.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+  </ItemGroup>
+
+</Project>
