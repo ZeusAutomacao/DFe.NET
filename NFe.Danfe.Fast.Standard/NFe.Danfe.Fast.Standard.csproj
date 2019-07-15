@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastReport.OpenSource" Version="2019.3.0" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Danfe.Base.Standard\NFe.Danfe.Base.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+  </ItemGroup>
+  
+</Project>
