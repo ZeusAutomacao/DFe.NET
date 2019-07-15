@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,8 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
-using FastReport;
 using NFe.Classes;
 using NFe.Danfe.Base.NFe;
 
@@ -52,17 +50,7 @@ namespace NFe.Danfe.Fast.NFe
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
         public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "")
         {
-            #region Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
-
-            Relatorio = new Report();
-            Relatorio.Load(new MemoryStream(Properties.Resources.NFeEvento));
-            Relatorio.RegisterData(new[] { proc }, "NFe", 20);
-            Relatorio.RegisterData(new[] { procEventoNFe }, "procEventoNFe", 20);
-            Relatorio.GetDataSource("NFe").Enabled = true;
-            Relatorio.GetDataSource("procEventoNFe").Enabled = true;
-            Relatorio.SetParameterValue("desenvolvedor", desenvolvedor);
-
-            #endregion
+            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, Properties.Resources.NFeEvento, desenvolvedor);
         }
     }
 }

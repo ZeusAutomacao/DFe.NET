@@ -31,63 +31,40 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
-using FastReport;
-using FastReport.Export.Pdf;
-using NFe.Danfe.Base;
+using NFe.Classes;
+using NFe.Danfe.Base.NFCe;
 
-namespace NFe.Danfe.Fast
+namespace NFe.Danfe.Fast.Standard.NFCe
 {
-    public class DanfeBase: IDanfe
+    /// <summary>
+    /// Classe responsável pela impressão do DANFE da NFCe em Fast Reports
+    /// </summary>
+    public class DanfeFrNfce : DanfeBase
     {
-        public Report Relatorio { get; protected set; }
-
         /// <summary>
-        /// Abre a janela de visualização do DANFE da NFCe
+        /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports
         /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void Visualizar(bool modal = true)
+        /// <param name="proc">Objeto do tipo nfeProc</param>
+        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
+        /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
+        /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
+        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
+        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "")
         {
-            Relatorio.Show(modal);
+            Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, Standard.Properties.Resources.NFCe, arquivoRelatorio);
         }
 
         /// <summary>
-        ///  Abre a janela de visualização do design do DANFE da NFCe.
-        /// Chame esse método se desja fazer alterações no design do DANFE em modo run-time
+        /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports.
+        /// Use esse construtor apenas para impressão em contingência, já que neste modo ainda não é possível obter o grupo protNFe 
         /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void ExibirDesign(bool modal = false)
+        /// <param name="nfe">Objeto do tipo NFe</param>
+        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
+        /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
+        /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
+        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc) :
+            this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce, cIdToken, csc, string.Empty)
         {
-            Relatorio.Design(modal);
-        }
-
-        /// <summary>
-        /// Envia a impressão do DANFE da NFCe diretamente para a impressora
-        /// </summary>
-        /// <param name="exibirDialogo">Se true exibe o diálogo Imprimindo...</param>
-        /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
-        public void Imprimir(bool exibirDialogo = true, string impressora = "")
-        {
-            Relatorio.PrintSettings.ShowDialog = exibirDialogo;
-            Relatorio.PrintSettings.Printer = impressora;
-            Relatorio.Print();
-        }
-
-        /// <summary>
-        /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
-        /// </summary>
-        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
-        public void ExportarPdf(string arquivo)
-        {
-            Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), arquivo);
-        }
-
-        public void ExportarPdf(Stream outputStream)
-        {
-            Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), outputStream);
-            outputStream.Position = 0;
         }
     }
 }

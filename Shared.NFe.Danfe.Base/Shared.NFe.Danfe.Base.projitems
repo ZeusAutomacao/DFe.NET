@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enumns.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Fontes\Fonte.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDanfe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDanfeBasico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NFCe\ConfiguracaoDanfeNfce.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NFe\ConfiguracaoDanfeNfe.cs" />
   </ItemGroup>
