@@ -12,7 +12,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace NFe.Danfe.Fast
+namespace Shared.DFe.Danfe.Fast
 {
     public static class DanfeSharedHelper
     {
