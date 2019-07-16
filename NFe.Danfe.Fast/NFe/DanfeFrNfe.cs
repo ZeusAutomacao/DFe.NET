@@ -33,6 +33,7 @@
 
 using NFe.Classes;
 using NFe.Danfe.Base.NFe;
+using Shared.DFe.Danfe.Fast;
 
 namespace NFe.Danfe.Fast.NFe
 {

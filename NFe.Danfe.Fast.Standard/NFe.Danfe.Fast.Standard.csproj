@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
     <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
     <ProjectReference Include="..\NFe.Danfe.Base.Standard\NFe.Danfe.Base.Standard.csproj" />
     <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
@@ -37,6 +36,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
   <Import Project="..\Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems" Label="Shared" />

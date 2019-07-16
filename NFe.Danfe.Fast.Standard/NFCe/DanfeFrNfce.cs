@@ -33,6 +33,7 @@
 
 using NFe.Classes;
 using NFe.Danfe.Base.NFCe;
+using System;
 
 namespace NFe.Danfe.Fast.Standard.NFCe
 {
@@ -51,7 +52,9 @@ namespace NFe.Danfe.Fast.Standard.NFCe
         /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
         public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "")
         {
-            Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, Standard.Properties.Resources.NFCe, arquivoRelatorio);
+            //Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, Standard.Properties.Resources.NFCe, arquivoRelatorio);
+            //A implementacao comentada acima esta funcionado, o relatório ainda não foi testado completamente mas é possivel sua conversão futuramente.
+            throw new NotImplementedException("NFCE ainda não implementado para .netstandard ou .netcore, apenas disponivel em .net framwork. Crie uma issue no nosso github para mais informações: https://github.com/ZeusAutomacao/DFe.NET");
         }
 
         /// <summary>
