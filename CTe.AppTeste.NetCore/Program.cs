@@ -445,7 +445,7 @@ namespace CTe.AppTeste.NetCore
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
-            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.dhEmi = DateTimeOffset.Now;
             cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
             cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
             cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
@@ -693,7 +693,7 @@ namespace CTe.AppTeste.NetCore
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
-            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.dhEmi = DateTimeOffset.Now;
             cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
             cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
             cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
@@ -876,7 +876,7 @@ namespace CTe.AppTeste.NetCore
 
             var servico = new ServicoEnviarCte();
 
-            var retorno = await servico.EnviarAsync(Convert.ToInt32(numeroLote), cteEletronico);//, configuracaoServico);
+            var retorno = await servico.EnviarAsync(Convert.ToInt32(numeroLote), cteEletronico, configuracaoServico);
 
             var xmlRetorno = string.Empty;
 
