@@ -48,79 +48,79 @@ namespace CTe.Servicos.Factory
 {
     public class WsdlFactory
     {
-        public static CteStatusServico CriaWsdlCteStatusServico()
+        public static CteStatusServico CriaWsdlCteStatusServico(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteStatusServico;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteStatusServico;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteStatusServico(configuracaoWsdl);
         }
 
-        public static CteConsulta CriaWsdlConsultaProtocolo()
+        public static CteConsulta CriaWsdlConsultaProtocolo(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteConsulta;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteConsulta;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteConsulta(configuracaoWsdl);
         }
 
-        public static CteInutilizacao CriaWsdlCteInutilizacao()
+        public static CteInutilizacao CriaWsdlCteInutilizacao(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteInutilizacao;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteInutilizacao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteInutilizacao(configuracaoWsdl);
         }
 
-        public static CteRetRecepcao CriaWsdlCteRetRecepcao()
+        public static CteRetRecepcao CriaWsdlCteRetRecepcao(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteRetRecepcao;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteRetRecepcao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteRetRecepcao(configuracaoWsdl);
         }
 
-        public static CteRecepcao CriaWsdlCteRecepcao()
+        public static CteRecepcao CriaWsdlCteRecepcao(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteRecepcao;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteRecepcao;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteRecepcao(configuracaoWsdl);
         }
 
-        public static CteRecepcaoEvento CriaWsdlCteEvento()
+        public static CteRecepcaoEvento CriaWsdlCteEvento(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CteRecepcaoEvento;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteRecepcaoEvento;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteRecepcaoEvento(configuracaoWsdl);
         }
 
 
-        public static CTeDistDFeInteresse CriaWsdlCTeDistDFeInteresse()
+        public static CTeDistDFeInteresse CriaWsdlCTeDistDFeInteresse(ConfiguracaoServico configuracaoServico = null)
         {
-            var url = UrlHelper.ObterUrlServico().CTeDistribuicaoDFe ;
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CTeDistribuicaoDFe;
 
-            var configuracaoWsdl = CriaConfiguracao(url);
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CTeDistDFeInteresse(configuracaoWsdl);
         }
 
 
-        private static WsdlConfiguracao CriaConfiguracao(string url)
+        private static WsdlConfiguracao CriaConfiguracao(string url, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var codigoEstado = configuracaoServico.cUF.GetCodigoIbgeEmString();
-            var certificadoDigital = configuracaoServico.X509Certificate2;
-            var versaoEmString = configuracaoServico.VersaoLayout.GetString();
-            var timeOut = configuracaoServico.TimeOut;
+            var codigoEstado = configServico.cUF.GetCodigoIbgeEmString();
+            var certificadoDigital = configServico.X509Certificate2;
+            var versaoEmString = configServico.VersaoLayout.GetString();
+            var timeOut = configServico.TimeOut;
 
             return new WsdlConfiguracao
             {

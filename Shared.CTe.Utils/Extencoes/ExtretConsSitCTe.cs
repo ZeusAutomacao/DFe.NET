@@ -61,13 +61,13 @@ namespace CTe.Utils.Extencoes
             return FuncoesXml.ClasseParaXmlString(retConsSitCTe);
         }
 
-        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave)
+        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            if (configuracaoServico.NaoSalvarXml()) return;
+            if (configServico.NaoSalvarXml()) return;
 
-            var caminhoXml = configuracaoServico.DiretorioSalvarXml;
+            var caminhoXml = configServico.DiretorioSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, chave + "-sit.xml");
 

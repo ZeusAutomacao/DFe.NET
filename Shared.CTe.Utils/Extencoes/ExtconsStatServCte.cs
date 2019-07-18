@@ -43,17 +43,17 @@ namespace CTe.Utils.Extencoes
 {
     public static class ExtconsStatServCte
     {
-        public static void ValidarSchema(this consStatServCte consStatServCte)
+        public static void ValidarSchema(this consStatServCte consStatServCte, ConfiguracaoServico configuracaoServico = null)
         {
             var xmlValidacao = consStatServCte.ObterXmlString();
 
             switch (consStatServCte.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", configuracaoServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", configuracaoServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -72,9 +72,9 @@ namespace CTe.Utils.Extencoes
             return FuncoesXml.ClasseParaXmlString(pedStatus);
         }
 
-        public static void SalvarXmlEmDisco(this consStatServCte statuServCte)
+        public static void SalvarXmlEmDisco(this consStatServCte statuServCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

@@ -75,11 +75,27 @@ namespace CTe.Classes.Servicos.Status
         /// </summary>
         public Estado cUF { get; set; }
 
-        public DateTime dhRecbto { get; set; }
+        [XmlIgnore]
+        public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxydhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
 
         public int tMed { get; set; }
 
+        [XmlIgnore]
         public DateTime dhRetorno { get; set; }
+
+        [XmlElement(ElementName = "dhRetorno")]
+        public string ProxydhRetorno
+        {
+            get { return dhRetorno.ParaDataHoraString(); }
+            set { dhRetorno = DateTime.Parse(value); }
+        }
 
         public string xObs { get; set; }
 
