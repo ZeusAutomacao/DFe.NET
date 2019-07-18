@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao.Retorno;
 using CTe.Servicos.Factory;
 using CTe.Utils.Extencoes;
@@ -47,32 +48,32 @@ namespace CTe.Servicos.ConsultaRecibo
             _recibo = recibo;
         }
 
-        public retConsReciCTe Consultar()
+        public retConsReciCTe Consultar(ConfiguracaoServico configuracaoServico = null)
         {
-            var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo);
-            consReciCTe.ValidarSchema();
-            consReciCTe.SalvarXmlEmDisco();
+            var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo, configuracaoServico);
+            consReciCTe.ValidarSchema(configuracaoServico);
+            consReciCTe.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteRetRecepcao();
+            var webService = WsdlFactory.CriaWsdlCteRetRecepcao(configuracaoServico);
             var retornoXml = webService.cteRetRecepcao(consReciCTe.CriaRequestWs());
 
             var retorno = retConsReciCTe.LoadXml(retornoXml.OuterXml, consReciCTe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retConsReciCTe> ConsultarAsync()
+        public async Task<retConsReciCTe> ConsultarAsync(ConfiguracaoServico configuracaoServico = null)
         {
-            var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo);
-            consReciCTe.ValidarSchema();
-            consReciCTe.SalvarXmlEmDisco();
+            var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo, configuracaoServico);
+            consReciCTe.ValidarSchema(configuracaoServico);
+            consReciCTe.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteRetRecepcao();
+            var webService = WsdlFactory.CriaWsdlCteRetRecepcao(configuracaoServico);
             var retornoXml = await webService.cteRetRecepcaoAsync(consReciCTe.CriaRequestWs());
 
             var retorno = retConsReciCTe.LoadXml(retornoXml.OuterXml, consReciCTe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(configuracaoServico);
 
             return retorno;
         }

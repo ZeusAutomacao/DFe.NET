@@ -34,6 +34,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using DFe.Utils;
 
 namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
 {
@@ -63,8 +64,16 @@ namespace CTe.Classes.Servicos.DistribuicaoDFe.Schemas
         public string CNPJDest { get; set; }
 
         public string emailDest { get; set; }
+        
+        [XmlIgnore]
+        public DateTimeOffset dhRegEvento { get; set; }
 
-        public DateTime dhRegEvento { get; set; }
+        [XmlElement(ElementName = "dhRegEvento")]
+        public string ProxydhRegEvento
+        {
+            get { return dhRegEvento.ParaDataHoraStringUtc(); }
+            set { dhRegEvento = DateTimeOffset.Parse(value); }
+        }
 
         public string nProt { get; set; }
     }

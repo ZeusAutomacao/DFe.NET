@@ -43,9 +43,17 @@ namespace CTe.Classes.Servicos.Evento
 {
     public class infEventoEnv
     {
+        public infEventoEnv(ConfiguracaoServico configuracaoServico = null)
+        {
+            _configuracaoServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+        }
+
+        public infEventoEnv()
+        {
+        }
 
         [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
+        private ConfiguracaoServico _configuracaoServico;
 
         /// <summary>
         ///     HP07 - Grupo de informações do registro do Evento
@@ -77,13 +85,15 @@ namespace CTe.Classes.Servicos.Evento
         ///     HP13 - Data e hora do evento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEvento { get; set; }
+        public DateTimeOffset dhEvento { get; set; }
 
         [XmlElement(ElementName = "dhEvento")]
         public string ProxydhEvento
         {
             get
             {
+                if (_configuracaoServico == null)
+                    _configuracaoServico = ConfiguracaoServico.Instancia;
                 switch (_configuracaoServico.VersaoLayout)
                 {
                     case versao.ve200:
@@ -95,7 +105,7 @@ namespace CTe.Classes.Servicos.Evento
                 }
             }
 
-            set { dhEvento = Convert.ToDateTime(value); }
+            set { dhEvento = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>

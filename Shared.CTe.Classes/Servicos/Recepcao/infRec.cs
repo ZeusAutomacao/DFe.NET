@@ -30,6 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.Xml.Serialization;
+using DFe.Utils;
+
 namespace CTe.Classes.Servicos.Recepcao
 {
     public class infRec
@@ -45,5 +50,15 @@ namespace CTe.Classes.Servicos.Recepcao
         ///     segundos para cima.
         /// </summary>
         public int tMed { get; set; }
+        
+        [XmlIgnore]
+        public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxydhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
     }
 }

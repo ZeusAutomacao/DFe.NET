@@ -45,8 +45,19 @@ namespace CTe.Classes.Informacoes.Identificacao
 {
     public class ide
     {
-        [XmlIgnore]
-        private readonly ConfiguracaoServico _configuracaoServico = ConfiguracaoServico.Instancia;
+
+        public ide(ConfiguracaoServico configuracaoServico = null)
+        {
+            _configuracaoServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+        }
+        
+        public ide()
+        {
+            
+        }
+
+        [XmlIgnore] 
+        private ConfiguracaoServico _configuracaoServico;
 
         /// <summary>
         ///     B02 - Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.
@@ -88,13 +99,15 @@ namespace CTe.Classes.Informacoes.Identificacao
         /// Versão 2.0  AAAA-MM-DDTHH:MM:DD
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEmi { get; set; }
+        public DateTimeOffset dhEmi { get; set; }
 
         [XmlElement(ElementName = "dhEmi")]
         public string ProxydhEmi
         {
             get
             {
+                if (_configuracaoServico == null)
+                    _configuracaoServico = ConfiguracaoServico.Instancia;
                 switch (_configuracaoServico.VersaoLayout)
                 {
                     case versao.ve200:
@@ -105,7 +118,7 @@ namespace CTe.Classes.Informacoes.Identificacao
                         throw new InvalidOperationException("Versão Inválida para CT-e");
                 }
             }
-            set { dhEmi = DateTime.Parse(value); }
+            set { dhEmi = DateTimeOffset.Parse(value); }
         }
 
         public tpImp tpImp { get; set; }

@@ -142,9 +142,11 @@ namespace CTe.AppTeste.NetCore
         {
             var configuracaoCertificado = new ConfiguracaoCertificado
             {
-                Arquivo = config.CertificadoDigital.CaminhoArquivo,
-                ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
-                Serial = config.CertificadoDigital.NumeroDeSerie
+                TipoCertificado = TipoCertificado.A1ByteArray,
+                ArrayBytesArquivo = GetArrayBytesCertificado(),
+                //ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
+                //Serial = config.CertificadoDigital.NumeroDeSerie
+                Senha = config.CertificadoDigital.Senha
             };
 
 
@@ -158,13 +160,36 @@ namespace CTe.AppTeste.NetCore
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
         }
 
+        private static ConfiguracaoServico MontarConfiguracoes(Configuracao config)
+        {
+            return new ConfiguracaoServico
+            {
+                ConfiguracaoCertificado =
+                {
+                    TipoCertificado = TipoCertificado.A1ByteArray,
+                    ArrayBytesArquivo = GetArrayBytesCertificado(),
+                    //Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                    Senha = config.CertificadoDigital.Senha
+                },
+                TimeOut = config.ConfigWebService.TimeOut,
+                cUF = config.ConfigWebService.UfEmitente,
+                tpAmb = config.ConfigWebService.Ambiente,
+                VersaoLayout = config.ConfigWebService.Versao,
+                DiretorioSchemas = config.ConfigWebService.CaminhoSchemas,
+                IsSalvarXml = config.IsSalvarXml,
+                DiretorioSalvarXml = config.DiretorioSalvarXml
+            };
+        }
+
         private static async Task ConsultarStatusServico2()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            
+            var configuracaoServico = MontarConfiguracoes(config);
 
             var statusServico = new StatusServico();
-            var retorno = await statusServico.ConsultaStatusAsync();
+            var retorno = await statusServico.ConsultaStatusAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -215,10 +240,11 @@ namespace CTe.AppTeste.NetCore
 
 
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             var servicoConsultaProtocolo = new ConsultaProtcoloServico();
-            var retorno = await servicoConsultaProtocolo.ConsultaProtocoloAsync(chave);
+            var retorno = await servicoConsultaProtocolo.ConsultaProtocoloAsync(chave, configuracaoServico);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -265,7 +291,8 @@ namespace CTe.AppTeste.NetCore
         private static async Task InutilizacaoDeNumeracao()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             var numeroInicial = int.Parse(RequisitarInput("Númeração Inicial"));
             var numeroFinal = int.Parse(RequisitarInput("Númeração Final"));
@@ -282,7 +309,7 @@ namespace CTe.AppTeste.NetCore
             );
 
             var statusServico = new InutilizacaoServico(configInutilizar);
-            var retorno = await statusServico.InutilizarAsync();
+            var retorno = await statusServico.InutilizarAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -290,12 +317,13 @@ namespace CTe.AppTeste.NetCore
         private static async Task ConsultaPorNumeroRecibo()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             var numeroRecibo = RequisitarInput("Número Recibo");
 
             var consultaReciboServico = new ConsultaReciboServico(numeroRecibo);
-            var retorno = await consultaReciboServico.ConsultarAsync();
+            var retorno = await consultaReciboServico.ConsultarAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -303,8 +331,9 @@ namespace CTe.AppTeste.NetCore
         private static async Task EventoCancelarCTe()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
-
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
+            
             var caminho = BuscarArquivoXml();
 
             // aqui estou fazendo um load no lote de ct-e
@@ -318,7 +347,7 @@ namespace CTe.AppTeste.NetCore
             var justificativa = RequisitarInput("Justificativa mínimo 15 digitos vlw");
 
             var servico = new EventoCancelamento(cte, sequenciaEvento, protocolo, justificativa);
-            var retorno = await servico.CancelarAsync();
+            var retorno = await servico.CancelarAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -326,8 +355,9 @@ namespace CTe.AppTeste.NetCore
         private static async Task EventoDesacordoCTe()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
-
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
+            
             var cnpj = RequisitarInput("CNPJ Tomador");
             var chave = RequisitarInput("Chave CTe");
             var sequenciaEvento = int.Parse(RequisitarInput("Sequencia Evento"));
@@ -335,7 +365,7 @@ namespace CTe.AppTeste.NetCore
             var obs = RequisitarInput("Observação (mínimo 15 digitos)");
 
             var servico = new EventoDesacordo(sequenciaEvento, chave, cnpj, indPres, obs);
-            var retorno = await servico.DiscordarAsync();
+            var retorno = await servico.DiscordarAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -343,7 +373,8 @@ namespace CTe.AppTeste.NetCore
         private static async Task CartaCorrecao()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             var caminho = BuscarArquivoXml();
 
@@ -375,7 +406,7 @@ namespace CTe.AppTeste.NetCore
             };
 
             var servico = new EventoCartaCorrecao(cte, sequenciaEvento, correcoes);
-            var retorno = await servico.AdicionarCorrecoesAsync();
+            var retorno = await servico.AdicionarCorrecoesAsync(configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -383,7 +414,8 @@ namespace CTe.AppTeste.NetCore
         private static async Task CriarEnviarCTe2e3()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             #region infCte
             
@@ -392,7 +424,7 @@ namespace CTe.AppTeste.NetCore
                 infCte = new infCte
                 {
                     versao = config.ConfigWebService.Versao,
-                    ide = new ide
+                    ide = new ide(configuracaoServico)
                     {
                         cUF = config.Empresa.SiglaUf,
                         cCT = GetRandom(),
@@ -413,7 +445,7 @@ namespace CTe.AppTeste.NetCore
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
-            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.dhEmi = DateTimeOffset.Now;
             cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
             cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
             cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
@@ -610,7 +642,7 @@ namespace CTe.AppTeste.NetCore
             // servicoRecepcao.AntesDeEnviar += AntesEnviarLoteCte;
 
             var retornoEnvio =
-                await servicoRecepcao.CTeRecepcaoAsync(int.Parse(numeroLote), new List<CteEletronico> {cteEletronico});
+                await servicoRecepcao.CTeRecepcaoAsync(int.Parse(numeroLote), new List<CteEletronico> {cteEletronico}, configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -633,7 +665,8 @@ namespace CTe.AppTeste.NetCore
         private static async Task CriarEnviarCTeConsultaReciboAutomatico2e3()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             #region infCte
             
@@ -642,7 +675,7 @@ namespace CTe.AppTeste.NetCore
                 infCte = new infCte
                 {
                     versao = config.ConfigWebService.Versao,
-                    ide = new ide
+                    ide = new ide(configuracaoServico)
                     {
                         cUF = config.Empresa.SiglaUf,
                         cCT = GetRandom(),
@@ -660,7 +693,7 @@ namespace CTe.AppTeste.NetCore
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
-            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.dhEmi = DateTimeOffset.Now;
             cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
             cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
             cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
@@ -843,7 +876,7 @@ namespace CTe.AppTeste.NetCore
 
             var servico = new ServicoEnviarCte();
 
-            var retorno = await servico.EnviarAsync(Convert.ToInt32(numeroLote), cteEletronico);
+            var retorno = await servico.EnviarAsync(Convert.ToInt32(numeroLote), cteEletronico, configuracaoServico);
 
             var xmlRetorno = string.Empty;
 
@@ -862,7 +895,8 @@ namespace CTe.AppTeste.NetCore
         private static async Task DistribuicaoDFe()
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
-            CarregarConfiguracoes(config);
+            //CarregarConfiguracoes(config);
+            var configuracaoServico = MontarConfiguracoes(config);
 
             #region CTeDistribuicaoDFe
 
@@ -887,7 +921,7 @@ namespace CTe.AppTeste.NetCore
 
             var servicoCTe = new ServicoCTeDistribuicaoDFe();
             var retornoCTeDistDFe =
-                await servicoCTe.CTeDistDFeInteresseAsync(config.Empresa.SiglaUf.ToString(), cnpj, ultNSU, nsu);
+                await servicoCTe.CTeDistDFeInteresseAsync(config.Empresa.SiglaUf.ToString(), cnpj, ultNSU, nsu, configuracaoServico);
 
             OnSucessoSync(new RetornoEEnvio(retornoCTeDistDFe.EnvioStr, retornoCTeDistDFe.RetornoStr));
 
@@ -906,6 +940,14 @@ namespace CTe.AppTeste.NetCore
                 // Handle and throw if fatal exception here; don't just ignore them
                 return xml;
             }
+        }
+
+        private static byte[] GetArrayBytesCertificado()
+        {
+            throw new  Exception("Coloque aqui a string do seu certificado, ou modifique " +
+                                 "o tipo de certificado nas configurações desta classe.");
+            return Convert.FromBase64String(
+                "String do Certificado em base64");
         }
     }
 }

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
 using CTe.Servicos.Factory;
 using CTe.Utils.Extencoes;
@@ -40,32 +41,32 @@ namespace CTe.Servicos.ConsultaProtocolo
 {
     public class ConsultaProtcoloServico
     {
-        public retConsSitCTe ConsultaProtocolo(string chave)
+        public retConsSitCTe ConsultaProtocolo(string chave, ConfiguracaoServico configuracaoServico = null)
         {
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave);
-            consSitCTe.ValidarSchema();
-            consSitCTe.SalvarXmlEmDisco();
+            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configuracaoServico);
+            consSitCTe.ValidarSchema(configuracaoServico);
+            consSitCTe.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlConsultaProtocolo();
+            var webService = WsdlFactory.CriaWsdlConsultaProtocolo(configuracaoServico);
             var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
 
             var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave);
+            retorno.SalvarXmlEmDisco(chave, configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retConsSitCTe> ConsultaProtocoloAsync(string chave)
+        public async Task<retConsSitCTe> ConsultaProtocoloAsync(string chave, ConfiguracaoServico configuracaoServico = null)
         {
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave);
-            consSitCTe.ValidarSchema();
-            consSitCTe.SalvarXmlEmDisco();
+            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configuracaoServico);
+            consSitCTe.ValidarSchema(configuracaoServico);
+            consSitCTe.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlConsultaProtocolo();
+            var webService = WsdlFactory.CriaWsdlConsultaProtocolo(configuracaoServico);
             var retornoXml = await webService.cteConsultaCTAsync(consSitCTe.CriaRequestWs());
 
             var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave);
+            retorno.SalvarXmlEmDisco(chave, configuracaoServico);
 
             return retorno;
         }
