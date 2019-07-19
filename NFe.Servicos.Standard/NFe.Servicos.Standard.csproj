@@ -4,8 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <Import Project="..\Shared.NFe.Servicos\Shared.NFe.Servicos.projitems" Label="Shared" />
-
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
     <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
@@ -13,6 +11,10 @@
     <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
     <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
     <ProjectReference Include="..\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DaniloBreda\" />
   </ItemGroup>
 
 </Project>
