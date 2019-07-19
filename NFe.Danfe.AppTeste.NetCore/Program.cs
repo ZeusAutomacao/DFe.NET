@@ -7,6 +7,7 @@ using NFe.Danfe.Fast.Standard.NFe;
 using NFe.Utils.NFe;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace NFe.Danfe.AppTeste.NetCore
@@ -14,14 +15,18 @@ namespace NFe.Danfe.AppTeste.NetCore
     internal class Program
     {
         #region Console
+        private const string ArquivoConfiguracao = @"\configuracao.xml";
+        private static ConfiguracaoConsole _configuracoes;
 
         private static void Main(string[] args)
         {
-            //ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             Console.WriteLine("Bem vindo aos teste de Danfe no projeto NF-e com suporte ao NetStandard 2.0!");
             Console.WriteLine("Este exemplo necessita do arquivo Configuração.xml já criado.");
             Console.WriteLine("Caso necessite criar, utilize o app 'NFe.Danfe.AppTeste'. e clique em 'Salvar Configuração para Arquivo'");
             Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp2.2 deste projeto.\n");
+
+            //inicializa configuracoes bases (podem ser carregadas novas aqui posteriormente com a opção 99)
+            _configuracoes = new ConfiguracaoConsole();
 
             Menu();
         }
@@ -41,6 +46,7 @@ namespace NFe.Danfe.AppTeste.NetCore
                     Console.WriteLine("4  - Gerar Danfe(Evento) PDF");
                     Console.WriteLine("5  - Gerar Danfe(Evento) HTML");
                     Console.WriteLine("6  - Gerar Danfe(Evento) Image PNG");
+                    Console.WriteLine($"99 - Carrega Configuracoes do arquivo {ArquivoConfiguracao}");
 
                     string option = Console.ReadLine();
                     Console.WriteLine();
@@ -69,6 +75,9 @@ namespace NFe.Danfe.AppTeste.NetCore
                         case 6:
                             await GerarDanfeEventoPng();
                             break;
+                        case 99:
+                            await CarregarConfiguracao();
+                            break;
                     }
                 }
                 catch (Exception e)
@@ -81,17 +90,35 @@ namespace NFe.Danfe.AppTeste.NetCore
             }
         }
 
+        private static async Task CarregarConfiguracao()
+        {
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            try
+            {
+                _configuracoes = !File.Exists(path + ArquivoConfiguracao)
+                                ? new ConfiguracaoConsole()
+                                : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoConsole>(path + ArquivoConfiguracao);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         #endregion
+
+
 
         #region NFe
 
         private static async Task GerarDanfePdf()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
 
             //busca arquivo xml
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -105,20 +132,16 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static async Task GerarDanfeHtml()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
 
             //busca arquivo xml
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -132,20 +155,16 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static async Task GerarDanfePng()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
 
             //busca arquivo xml
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -159,16 +178,12 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static DanfeFrNfe GeraClasseDanfeFrNFe(string xml)
         {
-            ConfiguracaoDanfeNfe configuracaoDanfeNfe = new ConfiguracaoDanfeNfe();
+            var configuracaoDanfeNfe = _configuracoes.ConfiguracaoDanfeNfe;
             try
             {
                 #region Carrega um XML com nfeProc para a variável
@@ -222,14 +237,14 @@ namespace NFe.Danfe.AppTeste.NetCore
         private static async Task GerarDanfeEventoPdf()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
             Console.Clear();
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             Console.WriteLine(@"Digite o caminho do evento .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
             caminho = Console.ReadLine();
             Console.Clear();
-            var xmlEvento = Funcoes.BuscarArquivoXml(caminho);
+            string xmlEvento = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -243,24 +258,20 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static async Task GerarDanfeEventoHtml()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
             Console.Clear();
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             Console.WriteLine(@"Digite o caminho do evento .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
             caminho = Console.ReadLine();
             Console.Clear();
-            var xmlEvento = Funcoes.BuscarArquivoXml(caminho);
+            string xmlEvento = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -274,24 +285,20 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static async Task GerarDanfeEventoPng()
         {
             Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
-            var caminho = Console.ReadLine();
+            string caminho = Console.ReadLine();
             Console.Clear();
-            var xml = Funcoes.BuscarArquivoXml(caminho);
+            string xml = Funcoes.BuscarArquivoXml(caminho);
 
             Console.WriteLine(@"Digite o caminho do evento .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
             caminho = Console.ReadLine();
             Console.Clear();
-            var xmlEvento = Funcoes.BuscarArquivoXml(caminho);
+            string xmlEvento = Funcoes.BuscarArquivoXml(caminho);
 
             using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
             {
@@ -305,24 +312,22 @@ namespace NFe.Danfe.AppTeste.NetCore
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
             }
         }
 
         private static DanfeFrEvento GeraClasseDanfeFrEvento(string xml, string xmlEvento)
         {
-            ConfiguracaoDanfeNfe configuracaoDanfeNfe = new ConfiguracaoDanfeNfe();
+            var configuracaoDanfeNfe = _configuracoes.ConfiguracaoDanfeNfe;
 
             var proc = new nfeProc().CarregarDeXmlString(xml);
             if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
+            {
                 throw new Exception("O XML informado não é um NFe!");
+            }
 
             var procEvento = FuncoesXml.XmlStringParaClasse<procEventoNFe>(xmlEvento);
 
-            var danfe = new DanfeFrEvento(proc: proc, procEventoNFe: procEvento, configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
+            DanfeFrEvento danfe = new DanfeFrEvento(proc: proc, procEventoNFe: procEvento, configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
             {
                 Logomarca = configuracaoDanfeNfe.Logomarca,
                 DuasLinhas = false,
