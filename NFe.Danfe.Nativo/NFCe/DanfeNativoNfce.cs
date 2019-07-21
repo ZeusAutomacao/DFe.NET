@@ -55,6 +55,7 @@ namespace NFe.Danfe.Nativo.NFCe
 {
     public class DanfeNativoNfce
     {
+        private static bool _viaEstabelecimento;
         private string _cIdToken;
         private string _csc;
         private NFeZeus _nfe;
@@ -66,17 +67,18 @@ namespace NFe.Danfe.Nativo.NFCe
         private static ConfiguracaoDanfeNfce _configuracaoDanfeNfce;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
-            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null)
+            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null, bool viaEstabelecimento = false)
         {
             Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, totalPago, font);
         }
 
-        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null)
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null, bool viaEstabelecimento = false)
         {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
             _totalPago = totalPago;
+            _viaEstabelecimento = viaEstabelecimento;
             AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa(font);
             _logo = configuracaoDanfe.ObterLogo();
             _configuracaoDanfeNfce = configuracaoDanfe;
@@ -633,7 +635,10 @@ namespace NFe.Danfe.Nativo.NFCe
             mensagem.Append(" ");
             mensagem.Append(nfce.infNFe.ide.dhEmi.ToString("G"));
             mensagem.Append(" - ");
-            mensagem.Append("Via consumidor");
+            if (_viaEstabelecimento)
+                mensagem.Append("Via estabelecimento");
+            else
+                mensagem.Append("Via consumidor");
 
             return mensagem.ToString();
         }
