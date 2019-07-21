@@ -1191,7 +1191,7 @@ namespace FastReport
       <LineObject Name="Line16" Left="602.8" Top="73.05" Height="27.35"/>
       <TextObject Name="Text23" Left="314.85" Top="87.5" Width="285.5" Height="11.45" Text="Documento Auxiliar do Conhecimento de Transporte Eletrônico" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
       <TextObject Name="Text25" Left="314.3" Top="214.8" Width="152.2" Height="9.45" Text="PROTOCOLO DE AUTORIZAÇÃO DE USO" Font="Times New Roman, 5.25pt"/>
-      <TextObject Name="Text26" Left="317.3" Top="223.8" Width="415.8" Height="11.9" Text="[cteProc.protCTe.infProt.nProt]  -  [FormatDateTime([cteProc.protCTe.infProt.dhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text26" Left="317.3" Top="223.8" Width="415.8" Height="11.9" Text="[cteProc.protCTe.infProt.nProt]  -  [FormatDateTime([cteProc.protCTe.infProt.dhRecbto].DateTime,&quot;dd/MM/yyyy HH:mm:ss&quot;)]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
       <LineObject Name="Line17" Left="351.65" Top="100.95" Height="21.9"/>
       <TextObject Name="Text27" Left="314.36" Top="101.95" Width="37.8" Height="7.45" Text="MODELO" HorzAlign="Center" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text28" Left="315.56" Top="109.33" Width="33.25" Height="12.9" Text="57" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
