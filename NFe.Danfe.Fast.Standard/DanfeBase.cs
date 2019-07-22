@@ -31,16 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
 using FastReport;
 using FastReport.Export.Html;
 using FastReport.Export.Image;
 using FastReport.Export.PdfSimple;
 using Shared.NFe.Danfe.Base;
+using System.IO;
 
 namespace NFe.Danfe.Fast.Standard
 {
-    public class DanfeBase: IDanfeBasico
+    public class DanfeBase : IDanfeBasico
     {
         public Report Relatorio { get; protected set; }
 
@@ -58,10 +58,20 @@ namespace NFe.Danfe.Fast.Standard
                 {
                     throw ex;
                 }
-                finally
-                {
-                    stream.Dispose();
-                }
+            }
+        }
+
+        public void ExportarPdf(Stream outputStream)
+        {
+            try
+            {
+                Relatorio.Prepare();
+                Relatorio.Export(new PDFSimpleExport(), outputStream);
+                outputStream.Position = 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -72,23 +82,39 @@ namespace NFe.Danfe.Fast.Standard
                 try
                 {
                     Relatorio.Prepare();
-                    
-                    HTMLExport html = new HTMLExport();
-                    html.SinglePage = true; // Single page report
-                    html.Navigator = false; // Top navigation bar
-                    html.EmbedPictures = true; // Embeds images into a document
+                    HTMLExport html = new HTMLExport
+                    {
+                        SinglePage = true, // Single page report
+                        Navigator = false, // Top navigation bar
+                        EmbedPictures = true // Embeds images into a document
+                    };
                     Relatorio.Export(html, stream);
-
                     return stream.ToArray();
                 }
                 catch (System.Exception ex)
                 {
                     throw ex;
                 }
-                finally
+            }
+        }
+
+        public void ExportarHtml(Stream outputStream)
+        {
+            try
+            {
+                Relatorio.Prepare();
+                HTMLExport html = new HTMLExport
                 {
-                    stream.Dispose();
-                }
+                    SinglePage = true, // Single page report
+                    Navigator = false, // Top navigation bar
+                    EmbedPictures = true // Embeds images into a document
+                };
+                Relatorio.Export(html, outputStream);
+                outputStream.Position = 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -99,11 +125,11 @@ namespace NFe.Danfe.Fast.Standard
                 try
                 {
                     Relatorio.Prepare();
-                    // Export report to PDF
-                    ImageExport png = new ImageExport();
-                    png.ImageFormat = ImageExportFormat.Png;
-                    png.SeparateFiles = false;
-
+                    ImageExport png = new ImageExport
+                    {
+                        ImageFormat = ImageExportFormat.Png,
+                        SeparateFiles = false
+                    };
                     Relatorio.Export(png, stream);
                     return stream.ToArray();
                 }
@@ -111,10 +137,25 @@ namespace NFe.Danfe.Fast.Standard
                 {
                     throw ex;
                 }
-                finally
+            }
+        }
+
+        public void ExportarPng(Stream outputStream)
+        {
+            try
+            {
+                Relatorio.Prepare();
+                ImageExport png = new ImageExport
                 {
-                    stream.Dispose();
-                }
+                    ImageFormat = ImageExportFormat.Png,
+                    SeparateFiles = false
+                };
+                Relatorio.Export(png, outputStream);
+                outputStream.Position = 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
             }
         }
     }
