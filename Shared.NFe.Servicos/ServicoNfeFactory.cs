@@ -44,7 +44,7 @@ namespace NFe.Servicos
         /// <returns></returns>
         public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado, bool compactarMensagem)
         {
-            string url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
+            /*string url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
 
             if (cfg.UsaSvanNFe4(cfg.VersaoNFeAutorizacao))
             {
@@ -76,7 +76,8 @@ namespace NFe.Servicos
                 return new NfeAutorizacao3(url, certificado, cfg.TimeOut);
             }
 
-            return new NfeAutorizacao(url, certificado, cfg.TimeOut);
+            return new NfeAutorizacao(url, certificado, cfg.TimeOut);*/
+            return null;
         }
 
         private static DFe.Classes.Flags.VersaoServico ConverteVersaoLayout(VersaoServico cfgVersaoNFeAutorizacao)
@@ -110,7 +111,7 @@ namespace NFe.Servicos
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
-                    if (cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
+                    /*if (cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
                     {
                         return new NfeStatusServico4NFeSVAN(url, certificado, cfg.TimeOut);
                     }
@@ -128,16 +129,16 @@ namespace NFe.Servicos
                     if (cfg.cUF == Estado.BA & cfg.VersaoNfeStatusServico == VersaoServico.Versao310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeStatusServico(url, certificado, cfg.TimeOut);
-                    }
+                    }*/
 
                     if (cfg.VersaoNfeStatusServico == VersaoServico.Versao400)
                     {
                         return new NfeStatusServico4(url, certificado, cfg.TimeOut);
                     }
+                    return null;
+                    //return new NfeStatusServico2(url, certificado, cfg.TimeOut);
 
-                    return new NfeStatusServico2(url, certificado, cfg.TimeOut);
-
-                case ServicoNFe.NfeConsultaProtocolo:
+                /*case ServicoNFe.NfeConsultaProtocolo:
                     if (cfg.UsaSvanNFe4(cfg.VersaoNfeConsultaProtocolo))
                     {
                         return new NfeConsultaProtocolo4SVAN(url, certificado, cfg.TimeOut);
@@ -284,7 +285,7 @@ namespace NFe.Servicos
                     return new NfceCsc(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.NFeDistribuicaoDFe:
-                    return new NfeDistDFeInteresse(url, certificado, cfg.TimeOut);
+                    return new NfeDistDFeInteresse(url, certificado, cfg.TimeOut);*/
             }
 
             return null;
