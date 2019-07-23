@@ -1,4 +1,4 @@
-﻿using DFe.Classes.Flags;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -8,11 +8,11 @@ using System.Net;
 
 namespace NFe.AppTeste.NetCore
 {
-    public class ConfiguracaoConsole
+    public class ConfiguracaoApp
     {
         private ConfiguracaoServico _cfgServico;
 
-        public ConfiguracaoConsole()
+        public ConfiguracaoApp()
         {
             CfgServico = ConfiguracaoServico.Instancia;
             CfgServico.tpAmb = TipoAmbiente.Homologacao;

@@ -15,7 +15,7 @@ namespace NFe.AppTeste.NetCore
     {
         #region Console
         private const string ArquivoConfiguracao = @"\configuracao.xml";
-        private static ConfiguracaoConsole _configuracoes;
+        private static ConfiguracaoApp _configuracoes;
 
         private static void Main(string[] args)
         {
@@ -25,7 +25,7 @@ namespace NFe.AppTeste.NetCore
             Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp2.2 deste projeto.\n");
 
             //inicializa configuracoes bases (podem ser carregadas novas aqui posteriormente com a opção 99)
-            _configuracoes = new ConfiguracaoConsole();
+            _configuracoes = new ConfiguracaoApp();
 
             Menu();
         }
@@ -80,8 +80,8 @@ namespace NFe.AppTeste.NetCore
             try
             {
                 _configuracoes = !File.Exists(path + ArquivoConfiguracao)
-                                ? new ConfiguracaoConsole()
-                                : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoConsole>(path + ArquivoConfiguracao);
+                                ? new ConfiguracaoApp()
+                                : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoApp>(path + ArquivoConfiguracao);
             }
             catch (Exception ex)
             {
