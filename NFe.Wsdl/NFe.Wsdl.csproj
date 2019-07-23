@@ -44,7 +44,147 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdmCsc\NfceCsc.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\AN\NFeAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\AN\NfeRetAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NfeAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NfeAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NFeAutorizacao4.cs" />
+    <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\NfeRetAutorizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\SVAN\NFeAutorizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\SVAN\NfeRetAutorizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\SVCAN\NFeAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Autorizacao\SVCAN\NfeRetAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\SVAN\NfeConsultaProtocolo4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConsultaProtocolo\SVCAN\NfeConsultaProtocolo4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DistribuicaoDFe\NfeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Download\NfeDownloadNF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\AN\RecepcaoEvento4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\AN\RecepcaoEvento4ANSVBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\AN\RecepcaoEventoManifestacaoDestinatario4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\RecepcaoEPEC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\RecepcaoEvento.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\RecepcaoEvento4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\SVAN\RecepcaoEvento4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Evento\SVCAN\RecepcaoEvento4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\NfeInutilizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\NfeInutilizacao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\NfeInutilizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\NFeInutilizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inutilizacao\SVAN\NFeInutilizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="nfeCabecMsg.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recepcao\NfeRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Recepcao\NfeRetRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\AN\NfeStatusServico4NFeAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\NfeStatusServico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\NfeStatusServico2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\NfeStatusServico3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\NfeStatusServico4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\SVAN\NfeStatusServico4NFeSVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Status\SVCAN\NfeStatusServico4NFeSVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">

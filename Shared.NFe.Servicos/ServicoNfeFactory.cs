@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
-using System.Web.Services.Protocols;
+//using System.Web.Services.Protocols;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.DocumentosEletronicos.Wsdl;
