@@ -16,15 +16,11 @@ namespace NFe.Wsdl.Status
 
         public NfeStatusServico4(string url, X509Certificate certificado, int timeOut)
         {
-            this.configuracao = new WsdlConfiguracao()
+            configuracao = new WsdlConfiguracao()
             {
-                 Url = url,
-                 CertificadoDigital = new X509Certificate2(certificado),
-                 TimeOut = timeOut
-            };
-
-            soapEnvelope = new SoapEnvelope()
-            {
+                Url = url,
+                CertificadoDigital = new X509Certificate2(certificado),
+                TimeOut = timeOut
             };
         }
 
@@ -33,11 +29,19 @@ namespace NFe.Wsdl.Status
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
+            soapEnvelope = new SoapEnvelope()
+            {
+            };
+
             soapEnvelope.body = new ResponseBody<XmlNode>
             {
-                 nfeDadosMsg = nfeDadosMsg
+                nfeDadosMsg = nfeDadosMsg
             };
-            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, "nfeResultMsg", actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF");
+
+            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao,
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF",
+                responseElementName: "nfeResultMsg"
+                ).FirstChild;
         }
     }
 
