@@ -1,11 +1,12 @@
 ﻿using DFe.DocumentosEletronicos.Common;
+using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.Status
+namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 {
-    public class NfeStatusServico2 : INfeServico
+    public class CadConsultaCadastro4 : INfeServico
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -13,7 +14,7 @@ namespace NFe.Wsdl.Status
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao configuracao;
 
-        public NfeStatusServico2(string url, X509Certificate certificado, int timeOut)
+        public CadConsultaCadastro4(string url, X509Certificate certificado, int timeOut)
         {
             configuracao = new WsdlConfiguracao()
             {
@@ -23,16 +24,13 @@ namespace NFe.Wsdl.Status
             };
         }
 
+        [Obsolete("Não utilizar na nfe 4.0")]
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            soapEnvelope = new SoapEnvelope
+            soapEnvelope = new SoapEnvelope()
             {
-                head = new ResponseHead<nfeCabecMsg>
-                {
-                    nfeCabecMsg = nfeCabecMsg
-                }
             };
 
             soapEnvelope.body = new ResponseBody<XmlNode>
@@ -41,8 +39,9 @@ namespace NFe.Wsdl.Status
             };
 
             return RequestBuilderAndSender.Execute(soapEnvelope, configuracao,
-                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2/nfeStatusServicoNF2",
-                responseElementName: "nfeStatusServicoNF2Result").FirstChild;
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro",
+                responseElementName: "nfeResultMsg"
+                ).FirstChild;
         }
 
         /// <summary>
@@ -51,20 +50,8 @@ namespace NFe.Wsdl.Status
         [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
         public class SoapEnvelope : CommonSoapEnvelope
         {
-            [XmlElement(ElementName = "Header", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-            public ResponseHead<nfeCabecMsg> head { get; set; }
-
             [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
             public ResponseBody<XmlNode> body { get; set; }
-        }
-
-        /// <summary>
-        /// Classe para o cabeçalho do Envelope SOAP
-        /// </summary>
-        public class ResponseHead<T> : CommonResponseHead
-        {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2")]
-            public T nfeCabecMsg { get; set; }
         }
 
         /// <summary>
@@ -72,7 +59,7 @@ namespace NFe.Wsdl.Status
         /// </summary>
         public class ResponseBody<T> : CommonResponseBody
         {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2")]
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4")]
             public T nfeDadosMsg { get; set; }
         }
     }
