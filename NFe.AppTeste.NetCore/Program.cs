@@ -53,6 +53,7 @@ namespace NFe.AppTeste.NetCore
                         case 0:
                             return;
                         case 1:
+                            await FuncaoStatusServico();
                             return;
                         case 98:
                             await CarregaDadosCertificado();
