@@ -12,6 +12,18 @@
     <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AdmCsc\" />
+    <Folder Include="Autorizacao\" />
+    <Folder Include="ConsultaCadastro\" />
+    <Folder Include="ConsultaProtocolo\" />
+    <Folder Include="DistribuicaoDFe\" />
+    <Folder Include="Download\" />
+    <Folder Include="Evento\" />
+    <Folder Include="Inutilizacao\" />
+    <Folder Include="Recepcao\" />
+  </ItemGroup>
+
   <Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />
 
 </Project>

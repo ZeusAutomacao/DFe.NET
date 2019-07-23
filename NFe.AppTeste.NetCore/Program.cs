@@ -117,7 +117,6 @@ namespace NFe.AppTeste.NetCore
 
         #endregion
 
-
         #region Funcoes
 
         
@@ -150,7 +149,7 @@ namespace NFe.AppTeste.NetCore
 
         #endregion
 
-        #region Funcoes
+        #region Funcoes Auxiliares
 
         private static void OnSucessoSync(RetornoNfeStatusServico e)
         {
