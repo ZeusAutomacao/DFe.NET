@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+Ôªøusing System.Threading.Tasks;
 using System.Xml;
 using DFe.DocumentosEletronicos.Soap;
 
@@ -7,7 +7,7 @@ namespace DFe.DocumentosEletronicos.Common
     public static class RequestBuilderAndSender{
         
         /// <summary>
-        /// Executa o carregamento, execuÁ„o do soap e retorno do resultado
+        /// Executa o carregamento, execu√ß√£o do soap e retorno do resultado
         /// </summary>
         /// <typeparam name="TCommonSoapEnvelope"></typeparam>
         /// <param name="soapEnvelope"></param>
@@ -32,7 +32,7 @@ namespace DFe.DocumentosEletronicos.Common
         }
 
         /// <summary>
-        /// Executa o carregamento, execuÁ„o do soap e retorno do resultado
+        /// Executa o carregamento, execu√ß√£o do soap e retorno do resultado
         /// </summary>
         /// <typeparam name="TCommonSoapEnvelope"></typeparam>
         /// <param name="soapEnvelope"></param>
@@ -58,13 +58,13 @@ namespace DFe.DocumentosEletronicos.Common
         }
 
         /// <summary>
-        /// Executa o carregamento, execuÁ„o do soap e retorno do resultado
+        /// Executa o carregamento, execu√ß√£o do soap e retorno do resultado
         /// </summary>
         /// <typeparam name="TCommonSoapEnvelope"></typeparam>
         /// <param name="soapEnvelope"></param>
         /// <param name="configuration"></param>
         /// <param name="responseElementName"></param>
-        /// <param name="actionUrn">Qual È a action (urn) a ser executada, N√O È a url do server do sefaz! A url esta dentro da configuraÁ„o(configuration)</param>
+        /// <param name="actionUrn">Qual √© a action (urn) a ser executada, N√ÉO √© a url do server do sefaz! A url esta dentro da configura√ß√£o(configuration)</param>
         /// <returns></returns>
         public static XmlNode Execute<TCommonSoapEnvelope>(TCommonSoapEnvelope soapEnvelope,
             WsdlConfiguracao configuration, string responseElementName, string actionUrn) where TCommonSoapEnvelope : CommonSoapEnvelope

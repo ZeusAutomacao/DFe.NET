@@ -1,4 +1,4 @@
-using DFe.DocumentosEletronicos.Common;
+﻿using DFe.DocumentosEletronicos.Common;
 using DFe.Http.Ext;
 using System;
 using System.IO;
