@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,8 +13,6 @@
     <ProjectReference Include="..\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DaniloBreda\" />
-  </ItemGroup>
+  <Import Project="..\Shared.NFe.Servicos\Shared.NFe.Servicos.projitems" Label="Shared" />
 
 </Project>
