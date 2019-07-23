@@ -29,8 +29,8 @@ using NFe.Wsdl.Inutilizacao;
 using NFe.Wsdl.Inutilizacao.SVAN;
 using NFe.Wsdl.Recepcao;*/
 using NFe.Wsdl.Status;
-/*using NFe.Wsdl.Status.SVAN;
-using NFe.Wsdl.Status.SVCAN;*/
+using NFe.Wsdl.Status.SVAN;
+using NFe.Wsdl.Status.SVCAN;
 
 namespace NFe.Servicos
 {
@@ -111,7 +111,8 @@ namespace NFe.Servicos
             switch (servico)
             {
                 case ServicoNFe.NfeStatusServico:
-                    /*if (cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
+
+                    if (cfg.UsaSvanNFe4(cfg.VersaoNfeStatusServico))
                     {
                         return new NfeStatusServico4NFeSVAN(url, certificado, cfg.TimeOut);
                     }
@@ -120,7 +121,7 @@ namespace NFe.Servicos
                     {
                         return new NfeStatusServico4NFeSVCAN(url, certificado, cfg.TimeOut);
                     }
-
+                    
                     if (cfg.cUF == Estado.PR & cfg.VersaoNfeStatusServico == VersaoServico.Versao310)
                     {
                         return new NfeStatusServico3(url, certificado, cfg.TimeOut);
@@ -129,14 +130,14 @@ namespace NFe.Servicos
                     if (cfg.cUF == Estado.BA & cfg.VersaoNfeStatusServico == VersaoServico.Versao310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
                     {
                         return new NfeStatusServico(url, certificado, cfg.TimeOut);
-                    }*/
+                    }
 
                     if (cfg.VersaoNfeStatusServico == VersaoServico.Versao400)
                     {
                         return new NfeStatusServico4(url, certificado, cfg.TimeOut);
                     }
-                    return null;
-                    //return new NfeStatusServico2(url, certificado, cfg.TimeOut);
+
+                    return new NfeStatusServico2(url, certificado, cfg.TimeOut);
 
                 /*case ServicoNFe.NfeConsultaProtocolo:
                     if (cfg.UsaSvanNFe4(cfg.VersaoNfeConsultaProtocolo))

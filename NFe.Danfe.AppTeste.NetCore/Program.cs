@@ -24,6 +24,7 @@ namespace NFe.Danfe.AppTeste.NetCore
             Console.WriteLine("Este exemplo necessita do arquivo Configuração.xml já criado.");
             Console.WriteLine("Caso necessite criar, utilize o app 'NFe.Danfe.AppTeste'. e clique em 'Salvar Configuração para Arquivo'");
             Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp2.2 deste projeto.\n");
+            Console.ReadKey();
 
             //inicializa configuracoes bases (podem ser carregadas novas aqui posteriormente com a opção 99)
             _configuracoes = new ConfiguracaoConsole();

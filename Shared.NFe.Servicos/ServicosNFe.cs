@@ -204,8 +204,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaProtocolo com os dados da Situação da NFe</returns>
         public RetornoNfeConsultaProtocolo NfeConsultaProtocolo(string chave)
         {
-            var versaoServico =
-                ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
+            var versaoServico = ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
 
             #region Cria o objeto wdsl para consulta
 

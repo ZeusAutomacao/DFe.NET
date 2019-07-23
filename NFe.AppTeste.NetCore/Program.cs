@@ -23,6 +23,7 @@ namespace NFe.AppTeste.NetCore
             Console.WriteLine("Este exemplo necessita do arquivo Configuração.xml já criado.");
             Console.WriteLine("Caso necessite criar, utilize o app 'NFe.AppTeste'. e clique em 'Salvar Configuração para Arquivo'");
             Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp2.2 deste projeto.\n");
+            Console.ReadKey();
 
             //inicializa configuracoes bases (podem ser carregadas novas aqui posteriormente com a opção 99)
             _configuracoes = new ConfiguracaoApp();
@@ -39,7 +40,7 @@ namespace NFe.AppTeste.NetCore
                     Console.Clear();
                     Console.WriteLine("Escolha uma das opções abaixo:");
                     Console.WriteLine("0  - Sair");
-                    Console.WriteLine("1  - opcao de teste");
+                    Console.WriteLine("1  - Consulta Status");
                     Console.WriteLine($"98 - Carrega certificado (.pfx) A1");
                     Console.WriteLine($"99 - Carrega Configuracoes do arquivo {ArquivoConfiguracao}");
 
@@ -54,7 +55,7 @@ namespace NFe.AppTeste.NetCore
                             return;
                         case 1:
                             await FuncaoStatusServico();
-                            return;
+                            break;
                         case 98:
                             await CarregaDadosCertificado();
                             break;
@@ -172,6 +173,7 @@ namespace NFe.AppTeste.NetCore
                 Console.WriteLine("Xml Retorno Completo:");
                 Console.WriteLine(FormatXml(e.RetornoCompletoStr) + "\n");
             }
+            Console.ReadKey();
         }
 
         private static string FormatXml(string xml)
