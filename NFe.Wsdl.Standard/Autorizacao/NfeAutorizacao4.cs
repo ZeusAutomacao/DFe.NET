@@ -1,6 +1,7 @@
-﻿using DFe.DocumentosEletronicos.Common;
-using DFe.DocumentosEletronicos.Wsdl;
+﻿using DFe.Classes.Entidades;
+using DFe.DocumentosEletronicos.Common;
 using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -8,30 +9,61 @@ namespace NFe.Wsdl.Autorizacao
 {
     public class NFeAutorizacao4 : INfeServicoAutorizacao
     {
-        //Envelope SOAP para envio
+        //Envelope SOAP para 
         private SoapEnvelope soapEnvelope;
+        private SoapEnvelopeZip soapEnvelopeZip;
 
         //Configurações do WSDL para estabelecimento da comunicação
-        private DFeSoapConfig SoapConfig { get; set; }
+        private WsdlConfiguracao configuracao;
 
-        public NFeAutorizacao4(DFeSoapConfig soapConfig)
+        public NFeAutorizacao4(string url, X509Certificate certificado, int timeOut, bool compactarMensagem, DFe.Classes.Flags.VersaoServico versaoNfeAutorizacao, Estado estado)
         {
-            throw new NotImplementedException();
-            SoapConfig = soapConfig;
+            configuracao = new WsdlConfiguracao()
+            {
+                Url = url,
+                CertificadoDigital = new X509Certificate2(certificado),
+                TimeOut = timeOut
+            };
         }
 
-
-        public nfeCabecMsg nfeCabecMsg { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        [Obsolete("Não utilizar na nfe 4.0. Não tem necessidade mais a partir da nf-e 4.0 o mesmo sera ignorado")]
+        public nfeCabecMsg nfeCabecMsg { get; set; }
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            throw new NotImplementedException();
+            soapEnvelope = new SoapEnvelope()
+            {
+            };
+
+            soapEnvelope.body = new ResponseBody<XmlNode>
+            {
+                nfeDadosMsg = nfeDadosMsg
+            };
+
+            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao,
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",
+                responseElementName: "nfeResultMsg"
+                ).FirstChild;
         }
 
         public XmlNode ExecuteZip(string nfeDadosMsgZip)
         {
-            throw new NotImplementedException();
+            soapEnvelopeZip = new SoapEnvelopeZip()
+            {
+            };
+
+            soapEnvelopeZip.body = new ResponseBodyZip
+            {
+                nfeDadosMsgZip = nfeDadosMsgZip
+            };
+
+            return RequestBuilderAndSender.Execute(soapEnvelopeZip, configuracao,
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP",
+                responseElementName: "nfeResultMsg"
+                ).FirstChild;
         }
+
+        #region Envelope
 
         /// <summary>
         /// Classe base para a serealização no formato do envelope SOAP.
@@ -48,8 +80,33 @@ namespace NFe.Wsdl.Autorizacao
         /// </summary>
         public class ResponseBody<T> : CommonResponseBody
         {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
             public T nfeDadosMsg { get; set; }
         }
+
+        #endregion
+
+        #region Envelope ZIP
+
+        /// <summary>
+        /// Classe base para a serealização no formato do envelope SOAP | zip
+        /// </summary>
+        [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public class SoapEnvelopeZip : CommonSoapEnvelope
+        {
+            [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+            public ResponseBodyZip body { get; set; }
+        }
+
+        /// <summary>
+        /// Classe para o corpo do Envelope SOAP | zip
+        /// </summary>
+        public class ResponseBodyZip : CommonResponseBody
+        {
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
+            public string nfeDadosMsgZip { get; set; }
+        }
+
+        #endregion
     }
 }

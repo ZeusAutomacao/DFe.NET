@@ -58,17 +58,7 @@ namespace NFe.Servicos
 
             if (cfg.VersaoNFeAutorizacao == VersaoServico.Versao400)
             {
-                DFeSoapConfig soapConfig = new DFeSoapConfig
-                {
-                    DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo(cfg.cUF.GetParametroDeEntradaWsdl(compactarMensagem))),
-                    DFeCabecalho = new DFeCabecalho(cfg.cUF, ConverteVersaoLayout(cfg.VersaoNFeAutorizacao), new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4"),
-                    Metodo = compactarMensagem ? "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP"
-                        : "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",
-                    Url = url,
-                    Certificado = certificado,
-                    TimeOut = cfg.TimeOut
-                };
-                return new NFeAutorizacao4(soapConfig);
+                return new NFeAutorizacao4(url, certificado, cfg.TimeOut, compactarMensagem, ConverteVersaoLayout(cfg.VersaoNFeAutorizacao), cfg.cUF);
             }
 
             if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
