@@ -14,8 +14,6 @@
 
   <ItemGroup>
     <Folder Include="AdmCsc\" />
-    <Folder Include="Autorizacao\" />
-    <Folder Include="ConsultaCadastro\" />
     <Folder Include="ConsultaProtocolo\" />
     <Folder Include="DistribuicaoDFe\" />
     <Folder Include="Download\" />

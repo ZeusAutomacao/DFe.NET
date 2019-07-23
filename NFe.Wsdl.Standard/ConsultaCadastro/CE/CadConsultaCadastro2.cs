@@ -3,9 +3,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace NFe.Wsdl.Status
+namespace NFe.Wsdl.ConsultaCadastro.CE
 {
-    public class NfeStatusServico2 : INfeServico
+
+    public class CadConsultaCadastro2 : INfeServico
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -13,7 +14,7 @@ namespace NFe.Wsdl.Status
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao configuracao;
 
-        public NfeStatusServico2(string url, X509Certificate certificado, int timeOut)
+        public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut)
         {
             configuracao = new WsdlConfiguracao()
             {
@@ -41,8 +42,8 @@ namespace NFe.Wsdl.Status
             };
 
             return RequestBuilderAndSender.Execute(soapEnvelope, configuracao,
-                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2/nfeStatusServicoNF2",
-                responseElementName: "nfeStatusServicoNF2Result").FirstChild;
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2",
+                responseElementName: "cadConsultaCadastro2Result").FirstChild;
         }
 
         /// <summary>
@@ -63,7 +64,7 @@ namespace NFe.Wsdl.Status
         /// </summary>
         public class ResponseHead<T> : CommonResponseHead
         {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2")]
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
             public T nfeCabecMsg { get; set; }
         }
 
@@ -72,7 +73,7 @@ namespace NFe.Wsdl.Status
         /// </summary>
         public class ResponseBody<T> : CommonResponseBody
         {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico2")]
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
             public T nfeDadosMsg { get; set; }
         }
     }

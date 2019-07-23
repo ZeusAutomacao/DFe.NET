@@ -12,22 +12,22 @@ using NFe.Servicos.Extensoes;
 using NFe.Utils;
 using NFe.Utils.Enderecos;
 using NFe.Wsdl;
-/*using NFe.Wsdl.AdmCsc;
+//using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.Autorizacao.SVAN;
 using NFe.Wsdl.Autorizacao.SVCAN;
-using NFe.Wsdl.ConsultaProtocolo;
-using NFe.Wsdl.ConsultaProtocolo.SVAN;
-using NFe.Wsdl.ConsultaProtocolo.SVCAN;
-using NFe.Wsdl.DistribuicaoDFe;
-using NFe.Wsdl.Download;
-using NFe.Wsdl.Evento;
-using NFe.Wsdl.Evento.AN;
-using NFe.Wsdl.Evento.SVAN;
-using NFe.Wsdl.Evento.SVCAN;
-using NFe.Wsdl.Inutilizacao;
-using NFe.Wsdl.Inutilizacao.SVAN;
-using NFe.Wsdl.Recepcao;*/
+//using NFe.Wsdl.ConsultaProtocolo;
+//using NFe.Wsdl.ConsultaProtocolo.SVAN;
+//using NFe.Wsdl.ConsultaProtocolo.SVCAN;
+//using NFe.Wsdl.DistribuicaoDFe;
+//using NFe.Wsdl.Download;
+//using NFe.Wsdl.Evento;
+//using NFe.Wsdl.Evento.AN;
+//using NFe.Wsdl.Evento.SVAN;
+//using NFe.Wsdl.Evento.SVCAN;
+//using NFe.Wsdl.Inutilizacao;
+//using NFe.Wsdl.Inutilizacao.SVAN;
+//using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
 using NFe.Wsdl.Status.SVAN;
 using NFe.Wsdl.Status.SVCAN;
@@ -44,7 +44,7 @@ namespace NFe.Servicos
         /// <returns></returns>
         public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado, bool compactarMensagem)
         {
-            /*string url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
+            string url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
 
             if (cfg.UsaSvanNFe4(cfg.VersaoNFeAutorizacao))
             {
@@ -76,8 +76,7 @@ namespace NFe.Servicos
                 return new NfeAutorizacao3(url, certificado, cfg.TimeOut);
             }
 
-            return new NfeAutorizacao(url, certificado, cfg.TimeOut);*/
-            return null;
+            return new NfeAutorizacao(url, certificado, cfg.TimeOut);
         }
 
         private static DFe.Classes.Flags.VersaoServico ConverteVersaoLayout(VersaoServico cfgVersaoNFeAutorizacao)
@@ -261,24 +260,23 @@ namespace NFe.Servicos
                     }
 
                     return new RecepcaoEPEC(url, certificado, cfg.TimeOut);
-
+                    */
                 case ServicoNFe.NfeConsultaCadastro:
-                    switch (cfg.cUF)
+                    
+                    if(cfg.cUF == Estado.CE)
                     {
-                        case Estado.CE:
-                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, certificado,
-                                cfg.TimeOut);
+                        return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, certificado, cfg.TimeOut);
                     }
-
 
                     if (cfg.VersaoNfeConsultaCadastro == VersaoServico.Versao400)
                     {
                         return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, certificado, cfg.TimeOut);
                     }
+                    return null;
 
-                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, certificado,
-                        cfg.TimeOut);
+                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, certificado, cfg.TimeOut);
 
+                    /*
                 case ServicoNFe.NfeDownloadNF:
                     return new NfeDownloadNF(url, certificado, cfg.TimeOut);
 
