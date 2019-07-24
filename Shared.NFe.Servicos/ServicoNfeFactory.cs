@@ -16,9 +16,9 @@ using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.Autorizacao.SVAN;
 using NFe.Wsdl.Autorizacao.SVCAN;
-//using NFe.Wsdl.ConsultaProtocolo;
-//using NFe.Wsdl.ConsultaProtocolo.SVAN;
-//using NFe.Wsdl.ConsultaProtocolo.SVCAN;
+using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.ConsultaProtocolo.SVAN;
+using NFe.Wsdl.ConsultaProtocolo.SVCAN;
 //using NFe.Wsdl.DistribuicaoDFe;
 //using NFe.Wsdl.Download;
 //using NFe.Wsdl.Evento;
@@ -128,7 +128,7 @@ namespace NFe.Servicos
 
                     return new NfeStatusServico2(url, certificado, cfg.TimeOut);
 
-                /*case ServicoNFe.NfeConsultaProtocolo:
+                case ServicoNFe.NfeConsultaProtocolo:
                     if (cfg.UsaSvanNFe4(cfg.VersaoNfeConsultaProtocolo))
                     {
                         return new NfeConsultaProtocolo4SVAN(url, certificado, cfg.TimeOut);
@@ -157,6 +157,7 @@ namespace NFe.Servicos
 
                     return new NfeConsultaProtocolo2(url, certificado, cfg.TimeOut);
 
+                 /*
                 case ServicoNFe.NfeRecepcao:
                     return new NfeRecepcao2(url, certificado, cfg.TimeOut);
 
@@ -264,7 +265,6 @@ namespace NFe.Servicos
                     }
 
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, certificado, cfg.TimeOut);
-
                     /*
                 case ServicoNFe.NfeDownloadNF:
                     return new NfeDownloadNF(url, certificado, cfg.TimeOut);
