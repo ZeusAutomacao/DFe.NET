@@ -43,24 +43,24 @@ namespace NFe.Wsdl.Autorizacao.AN
                 responseElementName: "nfeResultMsg"
                 ).FirstChild;
         }
-    }
 
-    /// <summary>
-    /// Classe base para a serealização no formato do envelope SOAP.
-    /// </summary>
-    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class SoapEnvelope : CommonSoapEnvelope
-    {
-        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public ResponseBody<XmlNode> body { get; set; }
-    }
+        /// <summary>
+        /// Classe base para a serealização no formato do envelope SOAP.
+        /// </summary>
+        [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public class SoapEnvelope : CommonSoapEnvelope
+        {
+            [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+            public ResponseBody<XmlNode> body { get; set; }
+        }
 
-    /// <summary>
-    /// Classe para o corpo do Envelope SOAP
-    /// </summary>
-    public class ResponseBody<T> : CommonResponseBody
-    {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4")]
-        public T nfeDadosMsg { get; set; }
+        /// <summary>
+        /// Classe para o corpo do Envelope SOAP
+        /// </summary>
+        public class ResponseBody<T> : CommonResponseBody
+        {
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4")]
+            public T nfeDadosMsg { get; set; }
+        }
     }
 }
