@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AdmCsc\" />
     <Folder Include="ConsultaProtocolo\" />
     <Folder Include="DistribuicaoDFe\" />
     <Folder Include="Download\" />
