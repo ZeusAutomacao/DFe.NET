@@ -162,30 +162,30 @@ namespace NFe.Servicos
                 case ServicoNFe.NFeAutorizacao:
                     throw new Exception(string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
-                /*
-           case ServicoNFe.NFeRetAutorizacao:
-               if (cfg.UsaSvanNFe4(cfg.VersaoNFeRetAutorizacao))
-               {
-                   return new NfeRetAutorizacao4SVAN(url, certificado, cfg.TimeOut);
-               }
 
-               if (cfg.UsaSvcanNFe4(cfg.VersaoNFeRetAutorizacao))
-               {
-                   return new NfeRetAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
-               }
+                case ServicoNFe.NFeRetAutorizacao:
+                    if (cfg.UsaSvanNFe4(cfg.VersaoNFeRetAutorizacao))
+                    {
+                        return new NfeRetAutorizacao4SVAN(url, certificado, cfg.TimeOut);
+                    }
 
-               if (cfg.VersaoNFeRetAutorizacao == VersaoServico.Versao400)
-               {
-                   return new NfeRetAutorizacao4(url, certificado, cfg.TimeOut);
-               }
+                    if (cfg.UsaSvcanNFe4(cfg.VersaoNFeRetAutorizacao))
+                    {
+                        return new NfeRetAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
+                    }
 
-               if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
-               {
-                   return new NfeRetAutorizacao3(url, certificado, cfg.TimeOut);
-               }
+                    if (cfg.VersaoNFeRetAutorizacao == VersaoServico.Versao400)
+                    {
+                        return new NfeRetAutorizacao4(url, certificado, cfg.TimeOut);
+                    }
 
-               return new NfeRetAutorizacao(url, certificado, cfg.TimeOut);
-               */
+                    if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
+                    {
+                        return new NfeRetAutorizacao3(url, certificado, cfg.TimeOut);
+                    }
+
+                    return new NfeRetAutorizacao(url, certificado, cfg.TimeOut);
+
                 case ServicoNFe.NfeInutilizacao:
                     if (cfg.UsaSvanNFe4(cfg.VersaoNfeInutilizacao))
                     {
