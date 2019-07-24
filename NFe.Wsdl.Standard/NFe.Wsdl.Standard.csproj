@@ -12,11 +12,6 @@
     <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Inutilizacao\" />
-    <Folder Include="Recepcao\" />
-  </ItemGroup>
-
   <Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />
 
 </Project>
