@@ -14,10 +14,10 @@ using NFe.Wsdl.ConsultaProtocolo.SVAN;
 using NFe.Wsdl.ConsultaProtocolo.SVCAN;
 using NFe.Wsdl.DistribuicaoDFe;
 using NFe.Wsdl.Download;
-//using NFe.Wsdl.Evento;
-//using NFe.Wsdl.Evento.AN;
-//using NFe.Wsdl.Evento.SVAN;
-//using NFe.Wsdl.Evento.SVCAN;
+using NFe.Wsdl.Evento;
+using NFe.Wsdl.Evento.AN;
+using NFe.Wsdl.Evento.SVAN;
+using NFe.Wsdl.Evento.SVCAN;
 //using NFe.Wsdl.Inutilizacao;
 //using NFe.Wsdl.Inutilizacao.SVAN;
 //using NFe.Wsdl.Recepcao;
@@ -209,44 +209,44 @@ namespace NFe.Servicos
                    }
 
                    return new NfeInutilizacao2(url, certificado, cfg.TimeOut);
-
-               case ServicoNFe.RecepcaoEventoCancelmento:
-               case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                   if (cfg.UsaSvanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
-                   {
-                       return new RecepcaoEvento4SVAN(url, certificado, cfg.TimeOut);
-                   }
-
-                   if (cfg.UsaSvcanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
-                   {
-                       return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
-                   }
-
-                   if (cfg.VersaoRecepcaoEventoCceCancelamento == VersaoServico.Versao400)
-                   {
-                       return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
-                   }
-
-                   return new RecepcaoEvento(url, certificado, cfg.TimeOut);
-
-               case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                   {
-                       if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
-                       {
-                           return new RecepcaoEventoManifestacaoDestinatario4AN(url, certificado, cfg.TimeOut);
-                       }
-
-                       return new RecepcaoEvento(url, certificado, cfg.TimeOut);
-                   }
-
-               case ServicoNFe.RecepcaoEventoEpec:
-                   if (cfg.VersaoRecepcaoEventoEpec == VersaoServico.Versao400)
-                   {
-                       return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
-                   }
-
-                   return new RecepcaoEPEC(url, certificado, cfg.TimeOut);
                    */
+                case ServicoNFe.RecepcaoEventoCancelmento:
+                case ServicoNFe.RecepcaoEventoCartaCorrecao:
+                    if (cfg.UsaSvanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
+                    {
+                        return new RecepcaoEvento4SVAN(url, certificado, cfg.TimeOut);
+                    }
+
+                    if (cfg.UsaSvcanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
+                    {
+                        return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
+                    }
+
+                    if (cfg.VersaoRecepcaoEventoCceCancelamento == VersaoServico.Versao400)
+                    {
+                        return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
+                    }
+
+                    return new RecepcaoEvento(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    {
+                        if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
+                        {
+                            return new RecepcaoEventoManifestacaoDestinatario4AN(url, certificado, cfg.TimeOut);
+                        }
+
+                        return new RecepcaoEvento(url, certificado, cfg.TimeOut);
+                    }
+
+                case ServicoNFe.RecepcaoEventoEpec:
+                    if (cfg.VersaoRecepcaoEventoEpec == VersaoServico.Versao400)
+                    {
+                        return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
+                    }
+
+                    return new RecepcaoEPEC(url, certificado, cfg.TimeOut);
+
                 case ServicoNFe.NfeConsultaCadastro:
 
                     if (cfg.cUF == Estado.CE)
