@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
+	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
+	<xs:complexType name="TEvento">
+		<xs:annotation>
+			<xs:documentation>Tipo Evento</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infEvento">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+							<xs:annotation>
+								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 90 para identificar SUFRAMA</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CNPJ" type="TCnpj">
+							<xs:annotation>
+								<xs:documentation>CNPJ do emissor do evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chCTe" type="TChNFe">
+							<xs:annotation>
+								<xs:documentation>Chave de Acesso do CT-e vinculado ao evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dhEvento" type="TDateTimeUTC">
+							<xs:annotation>
+								<xs:documentation>Data e Hora do Evento, formato UTC (AAAA-MM-DDThh:mm:ssTZD)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tpEvento">
+							<xs:annotation>
+								<xs:documentation>Tipo do Evento</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[0-9]{6}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="nSeqEvento">
+							<xs:annotation>
+								<xs:documentation>Seqüencial do evento para o mesmo tipo de evento.  Para maioria dos eventos será 1, nos casos em que possa existir mais de um evento o autor do evento deve numerar de forma seqüencial.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[1-9][0-9]|0?[1-9]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="detEvento">
+							<xs:annotation>
+								<xs:documentation>Detalhamento do evento específico</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:any processContents="skip">
+										<xs:annotation>
+											<xs:documentation>XML do evento
+Insira neste local o XML específico do tipo de evento (cancelamento, encerramento, registro de passagem).  </xs:documentation>
+										</xs:annotation>
+									</xs:any>
+								</xs:sequence>
+								<xs:attribute name="versaoEvento" use="required">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:whiteSpace value="preserve"/>
+											<xs:pattern value="3\.(0[0-9]|[1-9][0-9])"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Id" use="required">
+						<xs:annotation>
+							<xs:documentation>Identificador da TAG a ser assinada, a regra de formação do Id é:
+“ID” + tpEvento +  chave do CT-e + nSeqEvento</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:ID">
+								<xs:pattern value="ID[0-9]{52}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerEvento" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetEvento">
+		<xs:annotation>
+			<xs:documentation>Tipo retorno do Evento</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infEvento">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="verAplic" type="TVerAplic">
+							<xs:annotation>
+								<xs:documentation>Versão do Aplicativo que recebeu o Evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cOrgao" type="TCOrgaoIBGE">
+							<xs:annotation>
+								<xs:documentation>Código do órgão de recepção do Evento. Utilizar a Tabela do IBGE extendida, utilizar 90 para identificar SUFRAMA</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cStat" type="TStat">
+							<xs:annotation>
+								<xs:documentation>Código do status da registro do Evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="xMotivo" type="TMotivo">
+							<xs:annotation>
+								<xs:documentation>Descrição literal do status do registro do Evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chCTe" type="TChNFe" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Chave de Acesso CT-e vinculado</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tpEvento" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Tipo do Evento vinculado</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[0-9]{6}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="xEvento" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Descrição do Evento</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:minLength value="4"/>
+									<xs:maxLength value="60"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="nSeqEvento" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Seqüencial do evento</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[1-9][0-9]|0?[1-9]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="dhRegEvento" type="TDateTimeUTC" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Data e Hora de do recebimento do evento ou do registro do evento formato AAAA-MM-DDThh:mm:ssTZD</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nProt" type="TProt" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Número do protocolo de registro do evento</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Id" use="optional">
+						<xs:simpleType>
+							<xs:restriction base="xs:ID">
+								<xs:pattern value="ID[0-9]{15}"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="versao" use="required">
+			<xs:simpleType>
+				<xs:restriction base="TVerEvento"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TProcEvento">
+		<xs:annotation>
+			<xs:documentation>Tipo procEvento</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="eventoCTe" type="TEvento"/>
+			<xs:element name="retEventoCTe" type="TRetEvento"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerEvento" use="required"/>
+		<xs:attribute name="ipTransmissor" type="TIPv4" use="optional"/>
+	</xs:complexType>
+	<xs:simpleType name="TVerEvento">
+		<xs:annotation>
+			<xs:documentation>Tipo Versão do Evento</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="3\.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TModTransp">
+		<xs:annotation>
+			<xs:documentation> Tipo Modal transporte</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="01"/>
+			<xs:enumeration value="02"/>
+			<xs:enumeration value="03"/>
+			<xs:enumeration value="04"/>
+			<xs:enumeration value="05"/>
+			<xs:enumeration value="06"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TNSU">
+		<xs:annotation>
+			<xs:documentation> Tipo número sequencial único do AN</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[0-9]{15}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TPlaca">
+		<xs:annotation>
+			<xs:documentation>Tipo Placa </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="[A-Z]{2,3}[0-9]{4}|[A-Z]{3,4}[0-9]{3}"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

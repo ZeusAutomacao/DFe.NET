@@ -43,7 +43,6 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Annotations;
 using NFe.Utils.Enderecos;
-using VersaoServico = NFe.Classes.Servicos.Tipos.VersaoServico;
 
 namespace NFe.Utils
 {
@@ -208,7 +207,7 @@ namespace NFe.Utils
                 Enderecador.ObterEnderecoServicosMaisRecentes(VersaoLayout, cUF, tpAmb, ModeloDocumento, tpEmis);
 
             var obterVersao = new Func<ServicoNFe, VersaoServico>(servico =>
-                enderecosMaisecentes.Where(n => n.ServicoNFe == servico).Select(n => n.VersaoServico).FirstOrDefault());
+                enderecosMaisecentes.Where(n => n.ServicoNFe == servico).Select(n => n.VersaoServico).DefaultIfEmpty(VersaoServico.Versao100).FirstOrDefault());
 
 
             if (enderecosMaisecentes.Any())

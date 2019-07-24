@@ -12,6 +12,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\ITagCabecalho.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\NfeTagCabecalho.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Cabecalho\TagCabecalhoVazia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\CommonResponseBody.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\CommonResponseHead.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\CommonSOAPEnvelope.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\cteCabecMsg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\RequestBuilderAndSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SoapUrls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SoapUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\TipoEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\WsdlConfiguracao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Corpo\ExtTagCorpoParametroEntrada.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Corpo\ITagCorpo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Corpo\NfeTagCorpo.cs" />

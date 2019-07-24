@@ -2,7 +2,7 @@
 using System.Text;
 using System.Xml;
 using DFe.DocumentosEletronicos.Wsdl.Corpo;
-using NFe.Utils;
+using DFe.Utils;
 
 namespace DFe.Wsdl
 {

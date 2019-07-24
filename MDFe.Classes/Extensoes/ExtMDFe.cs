@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
@@ -133,6 +134,12 @@ namespace MDFe.Classes.Extencoes
             var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
             int serie = mdfe.InfMDFe.Ide.Serie;
 
+
+            if (cnpj == null)
+            {
+                cnpj = mdfe.InfMDFe.Emit.CPF.PadLeft(14, '0');
+            }
+
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
@@ -160,7 +167,7 @@ namespace MDFe.Classes.Extencoes
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
-                nomeArquivo = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
+                nomeArquivo = Path.Combine(MDFeConfiguracao.CaminhoSalvarXml, mdfe.Chave() + "-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
         }
@@ -176,6 +183,22 @@ namespace MDFe.Classes.Extencoes
             var cnpj = mdfe.InfMDFe.Emit.CNPJ;
 
             return cnpj;
+        }
+
+        public static string CPFEmitente(this MDFEletronico mdfe)
+        {
+            var cpf = mdfe.InfMDFe.Emit.CPF;
+
+            return cpf;
+        }
+
+        public static string CNPJouCPFEmitente(this MDFEletronico mdfe)
+        {
+            var cnpj = CNPJEmitente(mdfe);
+
+            if (cnpj != null) return cnpj;
+
+            return CPFEmitente(mdfe).PadLeft(14, '0');
         }
 
         public static Estado UFEmitente(this MDFEletronico mdfe)
