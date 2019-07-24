@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ConsultaProtocolo\" />
     <Folder Include="DistribuicaoDFe\" />
     <Folder Include="Download\" />
     <Folder Include="Evento\" />
