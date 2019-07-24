@@ -13,8 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DistribuicaoDFe\" />
-    <Folder Include="Download\" />
     <Folder Include="Evento\" />
     <Folder Include="Inutilizacao\" />
     <Folder Include="Recepcao\" />
