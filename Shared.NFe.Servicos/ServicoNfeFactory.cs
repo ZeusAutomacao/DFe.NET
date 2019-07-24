@@ -12,7 +12,7 @@ using NFe.Servicos.Extensoes;
 using NFe.Utils;
 using NFe.Utils.Enderecos;
 using NFe.Wsdl;
-//using NFe.Wsdl.AdmCsc;
+using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
 using NFe.Wsdl.Autorizacao.SVAN;
 using NFe.Wsdl.Autorizacao.SVCAN;
@@ -262,17 +262,16 @@ namespace NFe.Servicos
                     {
                         return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, certificado, cfg.TimeOut);
                     }
-                    return null;
 
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, certificado, cfg.TimeOut);
 
                     /*
                 case ServicoNFe.NfeDownloadNF:
                     return new NfeDownloadNF(url, certificado, cfg.TimeOut);
-
+                    */
                 case ServicoNFe.NfceAdministracaoCSC:
                     return new NfceCsc(url, certificado, cfg.TimeOut);
-
+                    /*
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return new NfeDistDFeInteresse(url, certificado, cfg.TimeOut);*/
             }
