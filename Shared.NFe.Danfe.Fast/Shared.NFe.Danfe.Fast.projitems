@@ -11,15 +11,4 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)DanfeSharedHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Resources\NFCe.frx">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\NFeEvento.frx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="$(MSBuildThisFileDirectory)Resources\NFeRetrato.frx">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
 </Project>
