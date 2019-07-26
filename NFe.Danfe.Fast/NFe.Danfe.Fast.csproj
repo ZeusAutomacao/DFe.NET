@@ -97,9 +97,9 @@
     <None Include="NFCe\NFCe.frx" />
     <None Include="NFe\NFeEvento.frx" />
     <None Include="NFe\NFeRetrato.frx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\NFCe.frx" />
+    <None Include="Resources\NFeEvento.frx" />
+    <None Include="Resources\NFeRetrato.frx" />
   </ItemGroup>
   <Import Project="..\Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

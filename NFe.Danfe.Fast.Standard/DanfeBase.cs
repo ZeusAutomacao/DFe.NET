@@ -37,7 +37,6 @@ using FastReport.Export.Image;
 using FastReport.Export.PdfSimple;
 using Shared.NFe.Danfe.Base;
 using System.IO;
-using System.Linq;
 
 namespace NFe.Danfe.Fast.Standard
 {
@@ -51,7 +50,6 @@ namespace NFe.Danfe.Fast.Standard
             {
                 try
                 {
-                    Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                     Relatorio.Prepare();
                     Relatorio.Export(new PDFSimpleExport(), stream);
                     return stream.ToArray();
@@ -67,7 +65,6 @@ namespace NFe.Danfe.Fast.Standard
         {
             try
             {
-                Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                 Relatorio.Prepare();
                 Relatorio.Export(new PDFSimpleExport(), outputStream);
                 outputStream.Position = 0;
@@ -84,7 +81,6 @@ namespace NFe.Danfe.Fast.Standard
             {
                 try
                 {
-                    Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                     Relatorio.Prepare();
                     HTMLExport html = new HTMLExport
                     {
@@ -106,7 +102,6 @@ namespace NFe.Danfe.Fast.Standard
         {
             try
             {
-                Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                 Relatorio.Prepare();
                 HTMLExport html = new HTMLExport
                 {
@@ -129,7 +124,6 @@ namespace NFe.Danfe.Fast.Standard
             {
                 try
                 {
-                    Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                     Relatorio.Prepare();
                     ImageExport png = new ImageExport
                     {
@@ -150,7 +144,6 @@ namespace NFe.Danfe.Fast.Standard
         {
             try
             {
-                Relatorio.ReferencedAssemblies = ArrumaReferencedAssembliesCore(Relatorio.ReferencedAssemblies);
                 Relatorio.Prepare();
                 ImageExport png = new ImageExport
                 {
@@ -164,49 +157,6 @@ namespace NFe.Danfe.Fast.Standard
             {
                 throw ex;
             }
-        }
-
-        /// <summary>
-        /// Foi criado esse conversor de assemblys para que os relatorios antigos (.net framework) sejam os mesmos dos novos, apenas substituindo e adicionado Assemblies necessarios do .net core
-        /// </summary>
-        /// <param name="referencedAssemblies"></param>
-        /// <returns></returns>
-        private string[] ArrumaReferencedAssembliesCore(string[] referencedAssemblies)
-        {
-            for (int i = 0; i < referencedAssemblies.Length; i++)
-            {
-                var item = referencedAssemblies[i];
-
-                if (item.StartsWith("NFe") && !item.Contains("Shared"))
-                {
-                    item = item.Replace(".dll", ".Standard.dll");
-                }
-                //outras regras podem ser adicionadas aqui
-
-                referencedAssemblies[i] = item;
-            }
-
-            var listReferencedAssemblies = referencedAssemblies.ToList();
-
-            if (!listReferencedAssemblies.Contains("System.Core.dll"))
-                listReferencedAssemblies.Add("System.Core.dll");
-
-            if (!listReferencedAssemblies.Contains("System.Linq.dll"))
-                listReferencedAssemblies.Add("System.Linq.dll");
-
-            if (!listReferencedAssemblies.Contains("System.Runtime.dll"))
-                listReferencedAssemblies.Add("System.Runtime.dll");
-
-            if (!listReferencedAssemblies.Contains("System.Runtime.Extensions.dll"))
-                listReferencedAssemblies.Add("System.Runtime.Extensions.dll");
-            
-            //regex:
-            if (!listReferencedAssemblies.Contains("System.Runtime.Serialization.dll"))
-                listReferencedAssemblies.Add("System.Runtime.Serialization.dll");
-            if (!listReferencedAssemblies.Contains("System.Text.RegularExpressions.dll"))
-                listReferencedAssemblies.Add("System.Text.RegularExpressions.dll");            
-
-            return listReferencedAssemblies.ToArray();
         }
     }
 }
