@@ -25,7 +25,7 @@ Grupo [Discord](https://discord.gg/n7QkAGF) para discussão
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015 e 2017. Atualmente utiliza o .NetFramework na versão 4.5.
+A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015, 2017 e 2019. Atualmente utiliza o .NetFramework na versão 4.5.
 
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
@@ -65,13 +65,23 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 - A impressão de forma nativa (sem dependências de bibliotecas de terceiros) está disponível somente para a *NFCe*¹.
 - O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
 
->¹ As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dll, CTe.Dacte.Fast\DLLs e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
+>¹ As dlls do FastReport.Net disponibilizadas na biblioteca são da versão de demonstração³ do mesmo. A versão de demonstração coloca uma marca d'água "DEMO VERSION" na impressão do relatório. Se você possui licença FastReport.Net, substitua as dlls do FastReport.Net nos projetos NFe.Danfe.Fast\Dll, CTe.Dacte.Fast\DLLs e MDFe.Damdfe.Fast\Dlls pelas dlls de sua versão licenciada, antes de compilar sua aplicação para distribuição.
 
 >² Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
 As fontes estão anexadas ao projeto em NFe.Impressao\NFCe\Fontes_;
 Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
+>³ Atualmente existe um esforço da comunidade para migrar o projeto para o .NetStandard (https://github.com/ZeusAutomacao/DFe.NET/issues/1001). Entre as mudanças, esta adicionar suporte ao Fast Reports Open Source (https://github.com/FastReports/FastReport). A principal limitação do FastReports nessa versão é não ter acesso à direct print, o que pode ser ruim para NFCe, mas pode ser facilmente contornado para os outros documentos, comentem na issue ideias e opiniões, e se possíve, colaborem com o branch.
+
 
 **Suporte:**
 ---------
 O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo skype.
+
+**Colaborando:**
+---------
+Mantenha seu projeto atualizado para evitar issues desnecessárias, reporte bugs e soluções para problemas comuns, compartilhe suas ideias de melhorias, se tiver condições ajude enviando um pull request ou responda issues de outros colegas.
+
+Ao enviar um PR explique brevemente o que foi alterado e o motivo. Teste amplamente as alterações antes de submeter, não remova funcionalidades ou mude regras de métodos já existentes sem aviso prévio e com tempo para adaptações.
+
+Colabore, a bibloteca é open source e seu sucesso depende unicamente de sua comunidade.
