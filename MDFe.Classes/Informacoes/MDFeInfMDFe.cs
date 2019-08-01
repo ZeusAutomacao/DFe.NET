@@ -120,5 +120,8 @@ namespace MDFe.Classes.Informacoes
 
         [XmlElement(ElementName = "infRespTec")]
         public infRespTec infRespTec { get; set; }
+
+        [XmlElement(ElementName = "infMDFeSupl")]
+        public infMDFeSupl infMDFeSupl { get; set; }
     }
 }
