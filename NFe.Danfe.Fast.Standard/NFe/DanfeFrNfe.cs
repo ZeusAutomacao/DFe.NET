@@ -48,9 +48,22 @@ namespace NFe.Danfe.Fast.Standard.NFe
         /// <param name="proc">Objeto do tipo nfeProc</param>
         /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
+        /// <param name="arquivoRelatorio">Caminho do arquivo frx</param>
         public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
         {
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, Properties.Resources.NFeRetrato, desenvolvedor, arquivoRelatorio);
+            byte[] retrato = null;
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                try
+                {
+                    retrato = Properties.Resources.NFeRetrato;
+                }
+                catch (System.Exception ex)
+                {
+                    throw new System.Exception("Não foi possivel o carregamento do Resource NFeRetrato, utilize o parametro arquivoRelatorio e passe o caminho manualmente.", ex);
+                }
+            }
+            this.Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, retrato, desenvolvedor, arquivoRelatorio);
         }
 
         /// <summary>
