@@ -232,7 +232,7 @@ namespace MDFe.Classes.Extencoes
             if (encoding == null) 
                 encoding = Encoding.UTF8;
 
-            var qrCode = new StringBuilder(@"http://dfe-portal.svrs.rs.gov.br/mdfe/QRCode");
+            var qrCode = new StringBuilder(@"https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode");
             qrCode.Append("?");
             qrCode.Append("chMDFe=").Append(mdfe.Chave());
             qrCode.Append("&");
