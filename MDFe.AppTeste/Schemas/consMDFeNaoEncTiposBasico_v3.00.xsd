@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
@@ -19,11 +20,24 @@
 					<xs:documentation>Serviço Solicitado</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="CNPJ" type="TCnpj">
+			<xs:choice>
 				<xs:annotation>
-					<xs:documentation>CNPJ do Emitente do MDF-e</xs:documentation>
+					<xs:documentation>Identificação do emitente</xs:documentation>
 				</xs:annotation>
-			</xs:element>
+				<xs:element name="CNPJ" type="TCnpj">
+					<xs:annotation>
+						<xs:documentation>CNPJ do emitente do MDF-e</xs:documentation>
+						<xs:documentation>Informar zeros não significativos</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="CPF" type="TCpf">
+					<xs:annotation>
+						<xs:documentation>CPF do emitente do MDF-e</xs:documentation>
+						<xs:documentation>Informar zeros não significativos
+Usar com serie específica 920-969 para emitente pessoa física com inscrição estadual</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
 		</xs:sequence>
 		<xs:attribute name="versao" use="required">
 			<xs:simpleType>

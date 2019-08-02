@@ -779,6 +779,17 @@ namespace MDFe.AppTeste
             };
             #endregion
 
+            #region dados responsavel tecnico 
+
+            mdfe.InfMDFe.infRespTec = new infRespTec
+            {
+                CNPJ = "",
+                email = "",
+                fone = "",
+                xContato = ""
+            };
+            #endregion  
+
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
             // Evento executado antes do envio da mdf-e para a sefaz
