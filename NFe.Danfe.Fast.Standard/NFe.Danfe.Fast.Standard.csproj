@@ -37,16 +37,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="NFe\NFeEvento.frx" Pack="true">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="NFe\NFeRetrato.frx" Pack="true">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
+  
   <Import Project="..\Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems" Label="Shared" />
   
 </Project>
