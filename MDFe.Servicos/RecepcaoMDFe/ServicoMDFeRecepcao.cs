@@ -66,7 +66,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
             }
 
             enviMDFe.MDFe.Assina(GerouChave, this);
-            enviMDFe.MDFe.infMDFeSupl = enviMDFe.MDFe.QrCode(MDFeConfiguracao.X509Certificate2);
+            
             enviMDFe.Valida();
             enviMDFe.SalvarXmlEmDisco();
 
