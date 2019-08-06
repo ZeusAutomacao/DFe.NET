@@ -76,6 +76,14 @@ namespace CTe.Classes.Informacoes.Impostos
             set { _pIcmsInterPart = value.Arredondar(2); }
         }
 
+        public bool pICMSInterPartSpecified
+        {
+            get
+            {
+                return this._pIcmsInterPart.HasValue;
+            }
+        }
+
         public decimal vFCPUFFim
         {
             get { return _vFcpufFim.Arredondar(2); }
