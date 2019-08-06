@@ -55,6 +55,7 @@ namespace NFe.Danfe.Nativo.NFCe
 {
     public class DanfeNativoNfce
     {
+        private static bool _viaEstabelecimento;
         private string _cIdToken;
         private string _csc;
         private NFeZeus _nfe;
@@ -66,17 +67,18 @@ namespace NFe.Danfe.Nativo.NFCe
         private static ConfiguracaoDanfeNfce _configuracaoDanfeNfce;
 
         public DanfeNativoNfce(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc,
-            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null)
+            decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null, bool viaEstabelecimento = false)
         {
             Inicializa(xml, configuracaoDanfe, cIdToken, csc, troco, totalPago, font);
         }
 
-        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null)
+        private void Inicializa(string xml, ConfiguracaoDanfeNfce configuracaoDanfe, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null, bool viaEstabelecimento = false)
         {
             _cIdToken = cIdToken;
             _csc = csc;
             _troco = troco;
             _totalPago = totalPago;
+            _viaEstabelecimento = viaEstabelecimento;
             AdicionarTexto.FontPadrao = configuracaoDanfe.CarregarFontePadraoNfceNativa(font);
             _logo = configuracaoDanfe.ObterLogo();
             _configuracaoDanfeNfce = configuracaoDanfe;
@@ -346,8 +348,8 @@ namespace NFe.Danfe.Nativo.NFCe
             valorTotalTexto.Desenhar(qtdValorTotalX, _y);
             _y += textoValorTotal.Medida.Altura;
 
-            decimal totalDesconto = det.Sum(prod => prod.prod.vDesc) ?? 0.0m;
-            decimal totalOutras = det.Sum(prod => prod.prod.vOutro) ?? 0.0m;
+            decimal totalDesconto = _nfe.infNFe.total.ICMSTot.vDesc;
+            decimal totalOutras = _nfe.infNFe.total.ICMSTot.vOutro;
             decimal valorTotalAPagar = valorTotal + totalOutras - totalDesconto;
 
             if (totalDesconto > 0)
@@ -359,7 +361,19 @@ namespace NFe.Danfe.Nativo.NFCe
                 int valorDescontoX = (larguraLinhaMargemDireita - valorDesconto.Medida.Largura);
                 valorDesconto.Desenhar(valorDescontoX, _y);
                 _y += textoDesconto.Medida.Altura;
+            }
+            if (totalOutras > 0)
+            {
+                AdicionarTexto textoOutras = new AdicionarTexto(g, "Acréscimo R$", 7);
+                textoOutras.Desenhar(x, _y);
 
+                AdicionarTexto valorAcrescimo = new AdicionarTexto(g, totalOutras.ToString("N2"), 7);
+                int valorAcrescimoX = (larguraLinhaMargemDireita - valorAcrescimo.Medida.Largura);
+                valorAcrescimo.Desenhar(valorAcrescimoX, _y);
+                _y += textoOutras.Medida.Altura;
+            }
+            if (totalDesconto > 0 || totalOutras > 0)
+            {
                 AdicionarTexto textoValorAPagar = new AdicionarTexto(g, "Valor a Pagar R$", 7);
                 textoValorAPagar.Desenhar(x, _y);
 
@@ -439,7 +453,7 @@ namespace NFe.Danfe.Nativo.NFCe
             var consumidor = new AdicionarTexto(g, mensagemConsumidor, 9);
             var quebraLinhaConsumidor = new DefineQuebraDeLinha(
                 consumidor,
-                new ComprimentoMaximo(larguraLinhaMargemDireita), 
+                new ComprimentoMaximo(larguraLinhaMargemDireita),
                 consumidor.Medida.Largura);
 
             consumidor = quebraLinhaConsumidor.DesenharComQuebras(g);
@@ -549,7 +563,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
         private string EnderecoEmitente()
         {
-            var enderEmit = _nfe.infNFe.emit.enderEmit; 
+            var enderEmit = _nfe.infNFe.emit.enderEmit;
             var foneEmit = string.Empty;
 
             if (enderEmit.fone != null)
@@ -621,7 +635,10 @@ namespace NFe.Danfe.Nativo.NFCe
             mensagem.Append(" ");
             mensagem.Append(nfce.infNFe.ide.dhEmi.ToString("G"));
             mensagem.Append(" - ");
-            mensagem.Append("Via consumidor");
+            if (_viaEstabelecimento)
+                mensagem.Append("Via estabelecimento");
+            else
+                mensagem.Append("Via consumidor");
 
             return mensagem.ToString();
         }

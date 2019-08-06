@@ -245,7 +245,7 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor da BC do ICMS ST retido
         /// </summary>
         public decimal? vBCSTRet { get; set; }
-
+        
         /// <summary>
         ///     Valor do ICMS ST retido
         /// </summary>
@@ -344,5 +344,10 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do FCP retido por Substituição Tributária
         /// </summary>
         public decimal? vFCPSTRet { get; set; }
+		
+		/// <summary>
+        ///     Valor do ICMS próprio do Substituto (tag: vICMSSubstituto)
+        /// </summary>
+        public decimal? vICMSSubstituto { get; set; }
     }
 }

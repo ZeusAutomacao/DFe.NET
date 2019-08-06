@@ -66,6 +66,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
             }
 
             enviMDFe.MDFe.Assina(GerouChave, this);
+            
             enviMDFe.Valida();
             enviMDFe.SalvarXmlEmDisco();
 

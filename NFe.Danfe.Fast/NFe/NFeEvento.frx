@@ -17,6 +17,7 @@ using NFe.Classes;
 using NFe.Utils;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using NFe.Classes.Servicos.Tipos;
 
 namespace FastReport
 {

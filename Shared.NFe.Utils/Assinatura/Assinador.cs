@@ -49,12 +49,11 @@ namespace NFe.Utils.Assinatura
         /// <typeparam name="T">Tipo do objeto a ser assinado</typeparam>
         /// <param name="objeto">Objeto a ser assinado</param>
         /// <param name="id">Id para URI do objeto <see cref="Signature"/></param>
-        /// <param name="cfgServico">Configuração do serviço</param>
+        /// <param name="configuracaoServico">Configuração do serviço</param>
         /// <returns>Retorna um objeto do tipo Classes.Assinatura.Signature, contendo a assinatura do objeto passado como parâmetro</returns>
-        public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico cfgServico = null) where T : class
+        public static Signature ObterAssinatura<T>(T objeto, string id, ConfiguracaoServico configuracaoServico = null) where T : class
         {
-            if (cfgServico == null)
-                cfgServico = ConfiguracaoServico.Instancia;
+            var cfgServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             X509Certificate2 certificadoDigital = null;
             try

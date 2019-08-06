@@ -52,7 +52,7 @@ namespace DFe.Utils.Assinatura
         /// </summary>
         /// <param name="openFlags"></param>
         /// <returns></returns>
-        private static X509Store ObterX509Store(OpenFlags openFlags)
+        public static X509Store ObterX509Store(OpenFlags openFlags)
         {
             var store = new X509Store(StoreName.My, StoreLocation.LocalMachine);
             store.Open(openFlags);
@@ -190,27 +190,6 @@ namespace DFe.Utils.Assinatura
         }
 
         #endregion
-
-        /// <summary>
-        /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado
-        /// </summary>
-        /// <returns></returns>
-        public static X509Certificate2 ListareObterDoRepositorio()
-        {
-            var store = ObterX509Store(OpenFlags.OpenExistingOnly | OpenFlags.ReadOnly);
-            var collection = store.Certificates;
-            var fcollection = collection.Find(X509FindType.FindByTimeValid, DateTime.Now, true);
-            var scollection = X509Certificate2UI.SelectFromCollection(fcollection, "Certificados válidos:", "Selecione o certificado que deseja usar",
-                X509SelectionFlag.SingleSelection);
-
-            if (scollection.Count == 0)
-            {
-                throw new Exception("Nenhum certificado foi selecionado!");
-            }
-
-            store.Close();
-            return scollection[0];
-        }
 
         /// <summary>
         /// Obtém um objeto contendo o certificado digital
