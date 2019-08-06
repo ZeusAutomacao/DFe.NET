@@ -221,12 +221,12 @@ namespace NFe.Danfe.AppTeste
                                         ExibirTotalTributos = _configuracoes.ConfiguracaoDanfeNfe.ExibirTotalTributos
                                     },
                                     desenvolvedor: "NOME DA SOFTWARE HOUSE",
-                                    arquivoRelatorio: string.Empty);
+                                    arquivoRelatorio: @"C:\Program Files (x86)\Begin ERP\Arquivos\Frx\NFePaisagem.frx" );
 
-                danfe.Visualizar();
+               // danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
-                //danfe.ExportarPdf(@"d:\teste.pdf");
+                danfe.ExportarPdf(@"C:\Program Files (x86)\Begin ERP\Arquivos\PDF\NF-e\01611823000116\2019\4\15\teste.pdf");
 
                 #endregion
 

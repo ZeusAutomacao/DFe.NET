@@ -1707,8 +1707,8 @@ namespace NFe.AppTeste
 
 
 
-                //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
-                impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
+                impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
+                //impr.GerarJPEG(fileDialog.FileName.Replace(".jpeg", "") + ".jpeg");
 
             }
             catch (Exception ex)
