@@ -1,6 +1,6 @@
 ﻿namespace CTe.Classes.Informacoes
 {
-    public class infCteSupl
+    public class infCTeSupl
     {
         public string qrCodCTe { get; set; }
     }
