@@ -792,25 +792,12 @@ namespace MDFe.AppTeste
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
-            // Evento executado antes do envio da mdf-e para a sefaz
-            // antes de enviar vc adiciona o QRCODE 
-            servicoRecepcao.AntesDeEnviar += AntesEnviar;
-
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
-        }
-
-        private void AntesEnviar(object sender, AntesDeEnviar e)
-        {
-            if (e.enviMdFe.Versao == VersaoServico.Versao300)
-            {
-                MessageBoxTuche("Qr code adicionado aqui hehehe");
-                e.enviMdFe.MDFe.infMDFeSupl = e.enviMdFe.MDFe.QrCode(MDFeConfiguracao.X509Certificate2);
-            }
         }
 
         private static int GetRandom()
