@@ -34,6 +34,7 @@ using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
+using DFe.Classes.Flags;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Excecoes;
 
@@ -58,39 +59,39 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "inutNFe_v2.00.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "inutNFe_v3.10.xsd";
-                        case VersaoServico.ve400:
+                        case VersaoServico.Versao400:
                             return "inutNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeConsultaProtocolo:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "consSitNFe_v2.01.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "consSitNFe_v3.10.xsd";
-                        case VersaoServico.ve400:
+                        case VersaoServico.Versao400:
                             return "consSitNFe_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NfeStatusServico:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
+                        case VersaoServico.Versao200:
                             return "consStatServ_v2.00.xsd";
-                        case VersaoServico.ve310:
+                        case VersaoServico.Versao310:
                             return "consStatServ_v3.10.xsd";
-                        case VersaoServico.ve400:
+                        case VersaoServico.Versao400:
                             return "consStatServ_v4.00.xsd";
                     }
                     break;
                 case ServicoNFe.NFeAutorizacao:
 
-                    if (versaoServico != VersaoServico.ve400)
+                    if (versaoServico != VersaoServico.Versao400)
                     {
                         return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
                     }
@@ -123,13 +124,15 @@ namespace NFe.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
+            var arquivoSchema = Path.Combine(pathSchema, ObterArquivoSchema(servicoNFe, versaoServico, loteNfe));
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
+            schemas.XmlResolver = new XmlUrlResolver();
+
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 

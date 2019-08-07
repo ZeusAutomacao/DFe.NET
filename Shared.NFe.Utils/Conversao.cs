@@ -46,7 +46,7 @@ namespace NFe.Utils
         public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
 
-            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
+            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.Versao100)
             {
                 return "2.00";
             }
@@ -61,23 +61,23 @@ namespace NFe.Utils
 
             switch (versaoServico)
             {
-                case VersaoServico.ve100:
+                case VersaoServico.Versao100:
                     switch (servicoNFe)
                     {
                         case ServicoNFe.NFeDistribuicaoDFe:
                             return "1.01";
                     }
                     return "1.00";
-                case VersaoServico.ve200:
+                case VersaoServico.Versao200:
                     switch (servicoNFe)
                     {
                         case ServicoNFe.NfeConsultaProtocolo:
                             return "2.01";
                     }
                     return "2.00";
-                case VersaoServico.ve310:
+                case VersaoServico.Versao310:
                     return "3.10";
-                case VersaoServico.ve400:
+                case VersaoServico.Versao400:
                     return "4.00";
             }
             return "";
@@ -100,13 +100,13 @@ namespace NFe.Utils
         {
             switch (versao)
             {
-                case VersaoServico.ve100:
+                case VersaoServico.Versao100:
                     return "1.00";
-                case VersaoServico.ve200:
+                case VersaoServico.Versao200:
                     return "2.00";
-                case VersaoServico.ve310:
+                case VersaoServico.Versao310:
                     return "3.10";
-                case VersaoServico.ve400:
+                case VersaoServico.Versao400:
                     return "4.00";
             }
             return null;
@@ -117,13 +117,13 @@ namespace NFe.Utils
             switch (versaoServico)
             {
                 case "1.00":
-                    return VersaoServico.ve100;
+                    return VersaoServico.Versao100;
                 case "2.00":
-                    return VersaoServico.ve200;
+                    return VersaoServico.Versao200;
                 case "3.10":
-                    return VersaoServico.ve310;
+                    return VersaoServico.Versao310;
                 case "4.00":
-                    return VersaoServico.ve400;
+                    return VersaoServico.Versao400;
                 default:
                     throw new ArgumentOutOfRangeException("versaoServico", versaoServico, null);
             }

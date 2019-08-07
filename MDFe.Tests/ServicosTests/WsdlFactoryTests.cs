@@ -2,7 +2,7 @@
 using MDFe.Tests.Dao;
 using MDFe.Tests.Entidades;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
-using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
+using MDFe.Wsdl.Gerado.MDFeConsultaProtocolo;
 using MDFe.Wsdl.Gerado.MDFeEventos;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
 using MDFe.Wsdl.Gerado.MDFeRetRecepcao;

@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 
+using System.Threading.Tasks;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using MDFe.Servicos.Factory;
@@ -41,12 +42,13 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class ServicoMDFeConsultaNaoEncerrados
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetConsMDFeNao> MDFeConsultaNaoEncerrados(string cnpj, MDFeConfiguracao cfgMdfe = null)
         {
             var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj, cfgMdfe);
             consMDFeNaoEnc.ValidarSchema(cfgMdfe);
             var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(cfgMdfe);
-            var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
+
+            var retornoXml =  await webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml?.OuterXml, consMDFeNaoEnc);
 
             return retorno;

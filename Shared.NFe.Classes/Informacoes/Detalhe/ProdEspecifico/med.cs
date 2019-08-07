@@ -48,6 +48,8 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// </summary>
         public string cProdANVISA { get; set; }
 
+        public string xMotivoIsencao { get; set; }
+
         /// <summary>
         ///     K02 - Número do Lote de medicamentos ou de matérias-primas farmacêuticas
         /// VERSÃO 3.00

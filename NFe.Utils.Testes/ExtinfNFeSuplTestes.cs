@@ -3,7 +3,6 @@ using System.Linq;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using NFe.Classes;
-using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.InformacoesSuplementares;
 using Xunit;
 
@@ -16,7 +15,7 @@ namespace NFe.Utils.Testes
         public void UrlQrCode2DeveTerminarComQueryPararametro(Estado estado, TipoAmbiente tipoAmbiente)
         {
            var infNFeSupl = new infNFeSupl();
-            var url = infNFeSupl.ObterUrlQrCode2ComParametro(tipoAmbiente, estado, VersaoServico.ve400);
+            var url = infNFeSupl.ObterUrlQrCode2ComParametro(tipoAmbiente, estado, VersaoServico.Versao400);
             Assert.EndsWith("?p=", url);
         }
     }

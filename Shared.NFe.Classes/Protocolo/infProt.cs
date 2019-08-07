@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Flags;
 
@@ -82,6 +83,30 @@ namespace NFe.Classes.Protocolo
         ///     PR12 - Descrição literal do status da resposta.
         /// </summary>
         public string xMotivo { get; set; }
+
+        [XmlElement(ElementName = "cMsg")]
+        public string ProxyccMsg
+        {
+            get
+            {
+                if (cMsg == null) return null;
+                return cMsg.Value.ToString();
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    cMsg = null;
+                    return;
+                }
+                cMsg = int.Parse(value);
+            }
+        }
+
+        [XmlIgnore]
+        public int? cMsg { get; set; }
+
+        public string xMsg { get; set; }
 
         /// <summary>
         ///     PR13 - Assinatura XML do grupo identificado pelo atributo “Id”

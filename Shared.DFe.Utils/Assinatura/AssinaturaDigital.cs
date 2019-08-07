@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -43,7 +42,6 @@ namespace DFe.Utils.Assinatura
     {
         public static SignatureZeus Assina<T>(T objeto, string id, X509Certificate2 certificado) where T : class
         {
-            
             var objetoLocal = objeto;
             if (id == null)
                 throw new Exception("Não é possível assinar um objeto evento sem sua respectiva Id!");
@@ -51,20 +49,14 @@ namespace DFe.Utils.Assinatura
             var documento = new XmlDocument { PreserveWhitespace = true };
             documento.LoadXml(FuncoesXml.ClasseParaXmlString(objetoLocal));
             var docXml = new SignedXml(documento) { SigningKey = certificado.PrivateKey };
-           
-            
             var reference = new Reference { Uri = "#" + id };
-            
-            
+
             // adicionando EnvelopedSignatureTransform a referencia
             var envelopedSigntature = new XmlDsigEnvelopedSignatureTransform();
             reference.AddTransform(envelopedSigntature);
 
             var c14Transform = new XmlDsigC14NTransform();
             reference.AddTransform(c14Transform);
-
-            reference.DigestMethod = SignedXml.XmlDsigSHA1Url;
-
 
             docXml.AddReference(reference);
 
@@ -74,8 +66,6 @@ namespace DFe.Utils.Assinatura
 
             docXml.KeyInfo = keyInfo;
             docXml.ComputeSignature();
-
-            docXml.SignedInfo.SignatureMethod = SignedXml.XmlDsigSHA1Url;
 
             //// recuperando a representacao do XML assinado
             var xmlDigitalSignature = docXml.GetXml();

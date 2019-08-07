@@ -8,7 +8,6 @@ using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Status.AN
 {
-
     [WebServiceBinding(Name = "NFeStatusServico4Service", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4")]
     public class NfeStatusServico4NFeAN : SoapHttpClientProtocol, INfeServico
     {

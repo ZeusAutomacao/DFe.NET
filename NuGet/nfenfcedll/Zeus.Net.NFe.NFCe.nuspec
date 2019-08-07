@@ -22,5 +22,6 @@
         <file src="..\..\NFe.Servicos\bin\Release\NFe.Servicos.dll" target="lib\net40\NFe.Servicos.dll" />
         <file src="..\..\NFe.Utils\bin\Release\NFe.Utils.dll" target="lib\net40\NFe.Utils.dll" />
         <file src="..\..\NFe.Wsdl\bin\Release\NFe.Wsdl.dll" target="lib\net40\NFe.Wsdl.dll" />
+        <file src="..\..\DFe.Wsdl\bin\Release\DFe.Wsdl.dll" target="lib\net40\DFe.Wsdl.dll" />
     </files>
 </package>

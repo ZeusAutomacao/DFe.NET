@@ -65,7 +65,6 @@ using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
-using NFe.Utils;
 using NFe.Utils.Email;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
@@ -76,6 +75,7 @@ using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
 using DFe.Classes.Extensoes;
 using NFe.Danfe.Nativo.NFCe;
+using NFe.Utils;
 using NFe.Utils.Excecoes;
 using NFeZeus = NFe.Classes.NFe;
 using NFe.Utils.Tributacao.Federal;
@@ -305,7 +305,7 @@ namespace NFe.AppTeste
             if (nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
             {
                 nfe.infNFeSupl = new infNFeSupl();
-                if (versaoServico == VersaoServico.ve400)
+                if (versaoServico == VersaoServico.Versao400)
                     nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
                 nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
             }
@@ -885,12 +885,12 @@ namespace NFe.AppTeste
 
             infNFe.total = GetTotal(versao, infNFe.det);
 
-            if (infNFe.ide.mod == ModeloDocumento.NFe & (versao == VersaoServico.ve310 || versao == VersaoServico.ve400)) 
+            if (infNFe.ide.mod == ModeloDocumento.NFe & (versao == VersaoServico.Versao310 || versao == VersaoServico.Versao400)) 
                 infNFe.cobr = GetCobranca(infNFe.total.ICMSTot); //V3.00 e 4.00 Somente
-            if (infNFe.ide.mod == ModeloDocumento.NFCe || (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.ve400))
+            if (infNFe.ide.mod == ModeloDocumento.NFCe || (infNFe.ide.mod == ModeloDocumento.NFe & versao == VersaoServico.Versao400))
                 infNFe.pag = GetPagamento(infNFe.total.ICMSTot, versao); //NFCe Somente  
 
-            if (infNFe.ide.mod == ModeloDocumento.NFCe & versao != VersaoServico.ve400) 
+            if (infNFe.ide.mod == ModeloDocumento.NFCe & versao != VersaoServico.Versao400) 
                 infNFe.infAdic = new infAdic() {infCpl = "Troco: 10,00"}; //Susgestão para impressão do troco em NFCe
 
             return infNFe;
@@ -925,7 +925,7 @@ namespace NFe.AppTeste
 
             #region V2.00
 
-            if (versao == VersaoServico.ve200)
+            if (versao == VersaoServico.Versao200)
             {
                 ide.dEmi = DateTime.Today; //Mude aqui para enviar a nfe vinculada ao EPEC, V2.00
                 ide.dSaiEnt = DateTime.Today;
@@ -935,9 +935,9 @@ namespace NFe.AppTeste
 
             #region V3.00
 
-            if (versao == VersaoServico.ve200) return ide;
+            if (versao == VersaoServico.Versao200) return ide;
 
-            if (versao == VersaoServico.ve310)
+            if (versao == VersaoServico.Versao310)
             {
                 ide.indPag = IndicadorPagamento.ipVista;
             }
@@ -1005,9 +1005,9 @@ namespace NFe.AppTeste
                 dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
             }
 
-            //if (versao == VersaoServico.ve200)
+            //if (versao == VersaoServico.Versao200)
             //    dest.IE = "ISENTO";
-            if (versao == VersaoServico.ve200) return dest;
+            if (versao == VersaoServico.Versao200) return dest;
 
             dest.indIEDest = indIEDest.NaoContribuinte; //NFCe: Tem que ser não contribuinte V3.00 Somente
             dest.email = "teste@gmail.com"; //V3.00 Somente
@@ -1050,7 +1050,7 @@ namespace NFe.AppTeste
                         TipoICMS =
                             crt == CRT.SimplesNacional
                                 ? InformarCSOSN(Csosnicms.Csosn102)
-                                : InformarICMS(Csticms.Cst00, VersaoServico.ve310)
+                                : InformarICMS(Csticms.Cst00, VersaoServico.Versao310)
                     },
 
                     //ICMSUFDest = new ICMSUFDest()
@@ -1149,7 +1149,7 @@ namespace NFe.AppTeste
                 vICMS = 0.20m,
                 motDesICMS = MotivoDesoneracaoIcms.MdiTaxi
             };
-            if (versao == VersaoServico.ve310)
+            if (versao == VersaoServico.Versao310)
                 icms20.vICMSDeson = 0.10m; //V3.00 ou maior Somente
 
             switch (CST)
@@ -1263,10 +1263,10 @@ namespace NFe.AppTeste
                 vTotTrib = produtos.Sum(p => p.imposto.vTotTrib ?? 0),
             };
 
-            if (versao == VersaoServico.ve310 || versao == VersaoServico.ve400)
+            if (versao == VersaoServico.Versao310 || versao == VersaoServico.Versao400)
                 icmsTot.vICMSDeson = 0;
 
-            if (versao == VersaoServico.ve400)
+            if (versao == VersaoServico.Versao400)
             {
                 icmsTot.vFCPUFDest = 0;
                 icmsTot.vICMSUFDest = 0;
@@ -1356,7 +1356,7 @@ namespace NFe.AppTeste
         {
             var valorPagto = (icmsTot.vNF / 2).Arredondar(2);
 
-            if (versao != VersaoServico.ve400) // difernte de versão 4 retorna isso
+            if (versao != VersaoServico.Versao400) // difernte de versão 4 retorna isso
             {
                 var p = new List<pag>
                 {

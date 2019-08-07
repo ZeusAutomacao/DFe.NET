@@ -108,7 +108,7 @@ namespace NFe.Danfe.Nativo.NFCe
             GerarNfCe(e.Graphics);
         }
 
-        public void GerarJPEG(string filename)
+        public void GerarImagem(string filename, ImageFormat format)
         {
 
             // Feito esse de cima para poder pegar o tamanho real da mesma desenhando
@@ -119,18 +119,28 @@ namespace NFe.Danfe.Nativo.NFCe
                     g.Clear(Color.White);
                     GerarNfCe(g);
                 }
-            }
 
-            // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
-            using (Bitmap bmpFinal = new Bitmap(300, _y))
-            {
-                using (Graphics g = Graphics.FromImage(bmpFinal))
+                // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
+                using (Bitmap bmpFinal = new Bitmap(300, _y))
                 {
-                    g.Clear(Color.White);
-                    GerarNfCe(g);
-                    bmpFinal.Save(filename, ImageFormat.Jpeg);
+                    using (Graphics g = Graphics.FromImage(bmpFinal))
+                    {
+                        g.Clear(Color.White);
+                        g.DrawImage(bmp, 0, 0);
+                        bmpFinal.Save(filename, format);
+                    }
                 }
             }
+        }
+
+        public void GerarJPEG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Jpeg);
+        }
+
+        public void GerarJPG(string filename)
+        {
+            GerarImagem(filename, ImageFormat.Png);
         }
 
         private void GerarNfCe(Graphics graphics)
@@ -188,9 +198,10 @@ namespace NFe.Danfe.Nativo.NFCe
             int iniX = x;
 
             CriaHeaderColuna("CÓDIGO", g, iniX, _y);
-            iniX += 50;
+            iniX += 75;
 
             AdicionarTexto colunaDescricaoHeader = CriaHeaderColuna("DESCRIÇÃO", g, iniX, _y);
+            iniX -= 25;
             _y += colunaDescricaoHeader.Medida.Altura;
 
             CriaHeaderColuna("QTDE", g, iniX, _y);
@@ -220,9 +231,9 @@ namespace NFe.Danfe.Nativo.NFCe
                 codigo.Desenhar(x, _y);
 
                 AdicionarTexto nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
-                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(227), nome.Medida.Largura);
+                DefineQuebraDeLinha quebraNome = new DefineQuebraDeLinha(nome, new ComprimentoMaximo(202), nome.Medida.Largura);
                 nome = quebraNome.DesenharComQuebras(g);
-                nome.Desenhar(x + 50, _y);
+                nome.Desenhar(x + 75, _y);
                 _y += nome.Medida.Altura;
 
                 AdicionarTexto quantidade = new AdicionarTexto(g, detalhe.prod.qCom.ToString("N3"), 7);
@@ -335,8 +346,8 @@ namespace NFe.Danfe.Nativo.NFCe
             valorTotalTexto.Desenhar(qtdValorTotalX, _y);
             _y += textoValorTotal.Medida.Altura;
 
-            decimal totalDesconto = det.Sum(prod => prod.prod.vDesc) ?? 0.0m;
-            decimal totalOutras = det.Sum(prod => prod.prod.vOutro) ?? 0.0m;
+            decimal totalDesconto = _nfe.infNFe.total.ICMSTot.vDesc;
+            decimal totalOutras = _nfe.infNFe.total.ICMSTot.vOutro;
             decimal valorTotalAPagar = valorTotal + totalOutras - totalDesconto;
 
             if (totalDesconto > 0)
@@ -348,7 +359,19 @@ namespace NFe.Danfe.Nativo.NFCe
                 int valorDescontoX = (larguraLinhaMargemDireita - valorDesconto.Medida.Largura);
                 valorDesconto.Desenhar(valorDescontoX, _y);
                 _y += textoDesconto.Medida.Altura;
+            }
+            if (totalOutras > 0)
+            {
+                AdicionarTexto textoOutras = new AdicionarTexto(g, "Acréscimo R$", 7);
+                textoOutras.Desenhar(x, _y);
 
+                AdicionarTexto valorAcrescimo = new AdicionarTexto(g, totalOutras.ToString("N2"), 7);
+                int valorAcrescimoX = (larguraLinhaMargemDireita - valorAcrescimo.Medida.Largura);
+                valorAcrescimo.Desenhar(valorAcrescimoX, _y);
+                _y += textoOutras.Medida.Altura;
+            }
+            if (totalDesconto > 0 || totalOutras > 0)
+            {
                 AdicionarTexto textoValorAPagar = new AdicionarTexto(g, "Valor a Pagar R$", 7);
                 textoValorAPagar.Desenhar(x, _y);
 
@@ -428,7 +451,7 @@ namespace NFe.Danfe.Nativo.NFCe
             var consumidor = new AdicionarTexto(g, mensagemConsumidor, 9);
             var quebraLinhaConsumidor = new DefineQuebraDeLinha(
                 consumidor,
-                new ComprimentoMaximo(larguraLinhaMargemDireita), 
+                new ComprimentoMaximo(larguraLinhaMargemDireita),
                 consumidor.Medida.Largura);
 
             consumidor = quebraLinhaConsumidor.DesenharComQuebras(g);
@@ -538,7 +561,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
         private string EnderecoEmitente()
         {
-            var enderEmit = _nfe.infNFe.emit.enderEmit; 
+            var enderEmit = _nfe.infNFe.emit.enderEmit;
             var foneEmit = string.Empty;
 
             if (enderEmit.fone != null)

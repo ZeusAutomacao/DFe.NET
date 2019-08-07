@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 
+using System.Threading.Tasks;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using MDFe.Servicos.Factory;
@@ -41,13 +42,13 @@ namespace MDFe.Servicos.ConsultaProtocoloMDFe
 {
     public class ServicoMDFeConsultaProtocolo
     {
-        public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetConsSitMDFe> MDFeConsultaProtocolo(string chave, MDFeConfiguracao cfgMdfe = null)
         {
             var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave, cfgMdfe);
             consSitMdfe.ValidarSchema(cfgMdfe);
 
             var webService = WsdlFactory.CriaWsdlMDFeConsulta(cfgMdfe);
-            var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
+            var retornoXml = await webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
 
             var retorno = MDFeRetConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
 

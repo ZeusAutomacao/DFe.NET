@@ -38,7 +38,7 @@ using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
 using MDFe.Wsdl.Configuracao;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
-using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
+using MDFe.Wsdl.Gerado.MDFeConsultaProtocolo;
 using MDFe.Wsdl.Gerado.MDFeEventos;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
 using MDFe.Wsdl.Gerado.MDFeRetRecepcao;
@@ -55,7 +55,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
-            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versao = config.VersaoWebService.VersaoLayout.ToString();
             var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
 
@@ -69,7 +69,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeConsulta;
-            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versao = config.VersaoWebService.VersaoLayout.ToString();
             var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
             return new MDFeConsulta(configuracaoWsdl);
@@ -80,7 +80,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
-            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versao = config.VersaoWebService.VersaoLayout.ToString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
@@ -92,7 +92,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRecepcao;
-            var versaoServico = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versaoServico = config.VersaoWebService.VersaoLayout.ToString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versaoServico, config);
 
@@ -104,7 +104,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
-            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versao = config.VersaoWebService.VersaoLayout.ToString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 
@@ -116,7 +116,7 @@ namespace MDFe.Servicos.Factory
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var url = UrlHelper.ObterUrlServico(config.VersaoWebService.TipoAmbiente).MDFeStatusServico;
-            var versao = config.VersaoWebService.VersaoLayout.GetVersaoString();
+            var versao = config.VersaoWebService.VersaoLayout.ToString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao, config);
 

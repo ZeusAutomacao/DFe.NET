@@ -257,7 +257,7 @@ namespace NFe.Integracao
             Properties.Settings.Default.time_out = string.IsNullOrWhiteSpace(timeout) ? "5000" : timeout;
             Properties.Settings.Default.tipo_ambiente = ConvertToLower(tmpamb);
             Properties.Settings.Default.tipo_emissao = ConvertToLower(tmpemissao);
-            Properties.Settings.Default.versao_NFe = versaoNFe == "3.10" ? VersaoServico.ve310 : VersaoServico.ve400;
+            Properties.Settings.Default.versao_NFe = versaoNFe == "3.10" ? VersaoServico.Versao310 : VersaoServico.Versao400;
 
             //Salvar configurações do usuario
             Properties.Settings.Default.Save();

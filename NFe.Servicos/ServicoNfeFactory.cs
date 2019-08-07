@@ -4,6 +4,10 @@ using System.Security.Cryptography.X509Certificates;
 using System.Web.Services.Protocols;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.DocumentosEletronicos.Wsdl;
+using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
+using DFe.DocumentosEletronicos.Wsdl.Corpo;
+using DFe.Wsdl;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Extensoes;
 using NFe.Utils;
@@ -39,7 +43,7 @@ namespace NFe.Servicos
         /// <param name="cfg">Configuração do serviço</param>
         /// <param name="certificado">Certificado</param>
         /// <returns></returns>
-        public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado)
+        public static INfeServicoAutorizacao CriaWsdlAutorizacao(ConfiguracaoServico cfg, X509Certificate2 certificado, bool compactarMensagem)
         {
             var url = Enderecador.ObterUrlServico(ServicoNFe.NFeAutorizacao, cfg);
 
@@ -49,13 +53,42 @@ namespace NFe.Servicos
             if (cfg.UsaSvcanNFe4(cfg.VersaoNFeAutorizacao))
                 return new NFeAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
 
-            if (cfg.VersaoNFeAutorizacao == VersaoServico.ve400)
-                return new NFeAutorizacao4(url, certificado, cfg.TimeOut);
+            if (cfg.VersaoNFeAutorizacao == VersaoServico.Versao400)
+            {
+                DFeSoapConfig soapConfig = new DFeSoapConfig
+                {
+                    DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo(cfg.cUF.GetParametroDeEntradaWsdl(compactarMensagem))),
+                    DFeCabecalho = new DFeCabecalho(cfg.cUF, ConverteVersaoLayout(cfg.VersaoNFeAutorizacao), new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4"),
+                    Metodo = compactarMensagem ? "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP"
+                        : "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",
+                    Url = url,
+                    Certificado = certificado,
+                    TimeOut = cfg.TimeOut
+                };
+                return new NFeAutorizacao4(soapConfig); 
+            }
 
-            if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.ve310)
+            if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
                 return new NfeAutorizacao3(url, certificado, cfg.TimeOut);
 
             return new NfeAutorizacao(url, certificado, cfg.TimeOut);
+        }
+
+        private static DFe.Classes.Flags.VersaoServico ConverteVersaoLayout(VersaoServico cfgVersaoNFeAutorizacao)
+        {
+            switch (cfgVersaoNFeAutorizacao)
+            {
+                case VersaoServico.Versao100:
+                    return DFe.Classes.Flags.VersaoServico.Versao100;
+                case VersaoServico.Versao200:
+                    return DFe.Classes.Flags.VersaoServico.Versao200;
+                case VersaoServico.Versao310:
+                    return DFe.Classes.Flags.VersaoServico.Versao310;
+                case VersaoServico.Versao400:
+                    return DFe.Classes.Flags.VersaoServico.Versao400;
+                default:
+                    throw new ArgumentOutOfRangeException("cfgVersaoNFeAutorizacao", cfgVersaoNFeAutorizacao, null);
+            }
         }
 
         /// <summary>
@@ -78,13 +111,13 @@ namespace NFe.Servicos
                     if (cfg.UsaSvcanNFe4(cfg.VersaoNfeStatusServico))
                         return new NfeStatusServico4NFeSVCAN(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeStatusServico == VersaoServico.ve310)
+                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeStatusServico == VersaoServico.Versao310)
                         return new NfeStatusServico3(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeStatusServico == VersaoServico.ve310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
+                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeStatusServico == VersaoServico.Versao310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
                         return new NfeStatusServico(url, certificado, cfg.TimeOut);
 
-                    if (cfg.VersaoNfeStatusServico == VersaoServico.ve400)
+                    if (cfg.VersaoNfeStatusServico == VersaoServico.Versao400)
                         return new NfeStatusServico4(url, certificado, cfg.TimeOut);
 
                     return new NfeStatusServico2(url, certificado, cfg.TimeOut);
@@ -96,13 +129,13 @@ namespace NFe.Servicos
                     if (cfg.UsaSvcanNFe4(cfg.VersaoNfeConsultaProtocolo))
                         return new NfeConsultaProtocolo4SVCAN(url, certificado, cfg.TimeOut);
 
-                    if (cfg.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
+                    if (cfg.VersaoNfeConsultaProtocolo == VersaoServico.Versao400)
                         return new NfeConsultaProtocolo4(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeConsultaProtocolo == VersaoServico.ve310)
+                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeConsultaProtocolo == VersaoServico.Versao310)
                         return new NfeConsultaProtocolo3(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeConsultaProtocolo == VersaoServico.ve310 &
+                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeConsultaProtocolo == VersaoServico.Versao310 &
                         cfg.ModeloDocumento == ModeloDocumento.NFe)
                         return new NfeConsultaProtocolo(url, certificado, cfg.TimeOut);
 
@@ -125,10 +158,10 @@ namespace NFe.Servicos
                     if (cfg.UsaSvcanNFe4(cfg.VersaoNFeRetAutorizacao))
                         return new NfeRetAutorizacao4SVCAN(url, certificado, cfg.TimeOut);
 
-                    if (cfg.VersaoNFeRetAutorizacao == VersaoServico.ve400)
+                    if (cfg.VersaoNFeRetAutorizacao == VersaoServico.Versao400)
                         return new NfeRetAutorizacao4(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.ve310)
+                    if (cfg.cUF == Estado.PR & cfg.VersaoNFeAutorizacao == VersaoServico.Versao310)
                         return new NfeRetAutorizacao3(url, certificado, cfg.TimeOut);
 
                     return new NfeRetAutorizacao(url, certificado, cfg.TimeOut);
@@ -138,13 +171,13 @@ namespace NFe.Servicos
                     if (cfg.UsaSvanNFe4(cfg.VersaoNfeInutilizacao))
                         return new NFeInutilizacao4SVAN(url, certificado, cfg.TimeOut);
 
-                    if (cfg.VersaoNfeInutilizacao == VersaoServico.ve400)
+                    if (cfg.VersaoNfeInutilizacao == VersaoServico.Versao400)
                         return new NFeInutilizacao4(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeInutilizacao == VersaoServico.ve310)
+                    if (cfg.cUF == Estado.PR & cfg.VersaoNfeInutilizacao == VersaoServico.Versao310)
                         return new NfeInutilizacao3(url, certificado, cfg.TimeOut);
 
-                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeInutilizacao == VersaoServico.ve310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
+                    if (cfg.cUF == Estado.BA & cfg.VersaoNfeInutilizacao == VersaoServico.Versao310 & cfg.ModeloDocumento == ModeloDocumento.NFe)
                         return new NfeInutilizacao(url, certificado, cfg.TimeOut);
 
                     return new NfeInutilizacao2(url, certificado, cfg.TimeOut);
@@ -157,14 +190,14 @@ namespace NFe.Servicos
                     if (cfg.UsaSvcanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
                         return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
 
-                    if (cfg.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400)
+                    if (cfg.VersaoRecepcaoEventoCceCancelamento == VersaoServico.Versao400)
                         return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
 
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                 {
-                    if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.ve400)
+                    if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
                         return new RecepcaoEventoManifestacaoDestinatario4AN(url, certificado, cfg.TimeOut);
 
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
@@ -182,7 +215,7 @@ namespace NFe.Servicos
                     }
 
 
-                    if (cfg.VersaoNfeConsultaCadastro == VersaoServico.ve400)
+                    if (cfg.VersaoNfeConsultaCadastro == VersaoServico.Versao400)
                         return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro4(url, certificado, cfg.TimeOut);
 
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, certificado,

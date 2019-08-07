@@ -1,7 +1,7 @@
 using System;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using MDFe.Utils.Flags;
+using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.AppTeste.Entidades
 {

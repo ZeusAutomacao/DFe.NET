@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Threading.Tasks;
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.Flags;
@@ -44,7 +45,7 @@ namespace MDFe.Servicos.EventosMDFe
 {
     public class ServicoController : IServicoController
     {
-        public MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetEventoMDFe> Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
@@ -57,7 +58,7 @@ namespace MDFe.Servicos.EventosMDFe
             evento.ValidarSchema(config);
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento(config);
-            var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
+            var retornoXml = await webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
 
