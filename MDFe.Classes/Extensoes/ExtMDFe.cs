@@ -138,6 +138,9 @@ namespace MDFe.Classes.Extensoes
 
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
+            mdfe.InfMDFeSupl = new MdfeInfMDFeSupl();
+            mdfe.InfMDFeSupl.QrCodMDFe = MdfeInfMDFeSupl.GerarQrCode(dadosChave.Chave, mdfe.InfMDFe.Ide.TpAmb);
+
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
             mdfe.InfMDFe.Versao = config.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;

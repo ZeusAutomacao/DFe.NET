@@ -72,6 +72,7 @@ namespace MDFe.Damdfe.Fast
         {
 
             Relatorio.SetParameterValue("NewLine", Environment.NewLine);
+            Relatorio.SetParameterValue("Tabulation", "\t");
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);

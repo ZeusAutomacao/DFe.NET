@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="05/06/2019 10:50:11" ReportInfo.CreatorVersion="2019.2.7.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="08/07/2019 09:23:17" ReportInfo.CreatorVersion="2019.2.7.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -119,7 +119,16 @@ namespace FastReport
       veic.Init();
       while (veic.HasMoreRows)
       {
-        txtPlaca.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;)) + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));        
+        if(txtPlaca.Text.Contains((String)Report.GetParameterValue(&quot;NewLine&quot;)) &amp;&amp; txtPlaca.Text.Contains((String)Report.GetParameterValue(&quot;Tabulation&quot;))){
+          txtPlaca.Text += ((String)Report.GetParameterValue(&quot;Tabulation&quot;)) + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));
+        }
+        else if(txtPlaca.Text.Contains((String)Report.GetParameterValue(&quot;Tabulation&quot;)) &amp;&amp; !txtPlaca.Text.Contains((String)Report.GetParameterValue(&quot;NewLine&quot;))){
+          txtPlaca.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;)) + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));
+        }
+        else{
+          txtPlaca.Text += ((String)Report.GetParameterValue(&quot;Tabulation&quot;)) + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));
+        }
+        
         string rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Prop.RNTRC&quot;));
         if ( string.IsNullOrEmpty(rntrc) )
           rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.RNTRC&quot;));
@@ -542,8 +551,8 @@ namespace FastReport
       <ShapeObject Name="Shape6" Top="217.35" Width="756" Height="28.35"/>
       <ShapeObject Name="Shape5" Width="756" Height="207.9"/>
       <PictureObject Name="poEmitLogo" Left="28.35" Top="18.9" Width="114.73" Height="96.72"/>
-      <TextObject Name="Text119" Left="179.55" Top="18.9" Width="569" Height="29.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 16pt, style=Bold"/>
-      <TextObject Name="Text120" Left="179.55" Top="56.7" Width="565" Height="141.75" Text="CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;Razão Social: [MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]&#13;&#10;Logradouro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr] Nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro]&#13;&#10;Complemento: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;Bairro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;UF: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]  Muncípio: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]  CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]" Font="Times New Roman, 13pt"/>
+      <TextObject Name="Text119" Left="179.55" Top="11.34" Width="569" Height="47.25" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 16pt, style=Bold"/>
+      <TextObject Name="Text120" Left="179.55" Top="66.15" Width="565" Height="141.75" Text="CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE]&#13;&#10;Razão Social: [MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]&#13;&#10;Logradouro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr] Nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro]&#13;&#10;Complemento: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;Bairro: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;UF: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF]  Muncípio: [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]  CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]" Font="Times New Roman, 13pt"/>
       <TextObject Name="Text121" Left="9.45" Top="217.35" Width="109.95" Height="30.35" Text="DAMDFE" VertAlign="Center" Font="Times New Roman, 15pt, style=Bold"/>
       <TextObject Name="Text122" Left="122.85" Top="217.62" Width="585.9" Height="29.8" Text="Documento Auxiliar de Manifesto de Documentos Fiscais" VertAlign="Center" Font="Times New Roman, 13pt"/>
       <ShapeObject Name="Shape9" Top="255.15" Width="756" Height="83.16"/>

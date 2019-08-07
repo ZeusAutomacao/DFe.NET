@@ -12,7 +12,7 @@
 
   <!-- Sinalizadores de compilação e opções de compilação -->
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
-    <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
@@ -63,6 +63,12 @@
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
     <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
+  
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
 
