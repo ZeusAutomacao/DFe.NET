@@ -67,7 +67,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             enviMDFe.MDFe.Assina(GerouChave, this);
 
-            if (MDFeConfiguracao.IsAdicionaQrCode)
+            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
             }
