@@ -121,6 +121,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\peri.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\seg.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\veicNovos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCteSupl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infRespTec\infRespTec.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Recebedor\enderReceb.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Recebedor\receb.cs" />
