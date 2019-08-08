@@ -1,4 +1,8 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections.Generic;
+using System.Xml.Serialization;
+using CTe.Classes.Informacoes;
+using CTe.Classes.Informacoes.infCteAnu;
+using CTe.Classes.Informacoes.infCteComp;
 using CTe.Classes.Informacoes.infRespTec;
 using DFe.Classes.Flags;
 using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
@@ -39,6 +43,12 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes
 
         [XmlElement(ElementName = "infCTeNorm")]
         public infCTeNormOs infCTeNorm { get; set; }
+
+        public infCteComp infCteComp { get; set; }
+
+        public infCteAnu infCteAnu { get; set; }
+
+        public List<autXML> autXml { get; set; }
 
         [XmlElement(ElementName = "infRespTec")]
         public infRespTec infRespTec { get; set; }
