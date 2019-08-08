@@ -16,14 +16,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Emitente\emitOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Identificacao\ideOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Impostos\impOs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Impostos\infTribFed.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\infCteOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infCTeNormOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infCteSubOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infDocRef.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infModalOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infQOs.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\rodoOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\segOs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\veicOs.cs" />
