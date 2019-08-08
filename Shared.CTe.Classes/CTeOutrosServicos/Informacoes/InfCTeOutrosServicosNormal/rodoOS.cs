@@ -33,6 +33,7 @@
 
 using System.Xml.Serialization;
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
+using CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 {
@@ -44,5 +45,7 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 
         [XmlElement(ElementName = "veic")]
         public veicOs veic { get; set; }
+
+        public infFretamento infFretamento { get; set; }
     }
 }

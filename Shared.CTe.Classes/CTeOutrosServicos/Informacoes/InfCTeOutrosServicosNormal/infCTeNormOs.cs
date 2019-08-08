@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
-using CTe.Classes.Informacoes;
-using CTe.Classes.Informacoes.infCteAnu;
-using CTe.Classes.Informacoes.infCteComp;
 using CTe.Classes.Informacoes.infCTeNormal;
 
 namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
@@ -22,11 +19,5 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
 
         [XmlElement("infCteSub")]
         public infCteSubOs infCteSub { get; set; }
-
-        public infCteComp infCteComp { get; set; }
-
-        public infCteAnu infCteAnu { get; set; }
-
-        public List<autXML> autXml { get; set; }
     }
 }

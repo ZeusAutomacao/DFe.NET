@@ -42,7 +42,6 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao
 
         /// <summary>
         /// Versão 3.0  AAAA-MM-DDTHH:MM:DD TZD
-        /// Versão 2.0  AAAA-MM-DDTHH:MM:DD
         /// </summary>
         [XmlIgnore]
         public DateTime dhEmi { get; set; }
@@ -50,8 +49,8 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao
         [XmlElement(ElementName = "dhEmi")]
         public string ProxydhEmi
         {
-            get;
-            set;
+            get { return this.dhEmi.ParaDataHoraStringUtc(); }
+            set { this.dhEmi = DateTime.Parse(value); }
         }
 
         public tpImp tpImp { get; set; }
