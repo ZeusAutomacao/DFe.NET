@@ -44,14 +44,14 @@ namespace CTe.Servicos.Eventos
     public class FactoryEvento
     {
         //Vou manter para evitar quebra de código pois a classe e o metodo são publicos
-        public static eventoCTe CriaEvento(CTeEletronico cte, CTeTipoEvento cTeTipoEvento, int sequenciaEvento, EventoContainer container)
+        public static eventoCTe CriaEvento(CTeEletronico cte, CTeTipoEvento cTeTipoEvento, int sequenciaEvento, EventoContainer container, ConfiguracaoServico configuracaoServico = null)
         {
-            return CriaEvento(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container);
+            return CriaEvento(cTeTipoEvento, sequenciaEvento, cte.Chave(), cte.infCte.emit.CNPJ, container, configuracaoServico);
         }
 
-        public static eventoCTe CriaEvento(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container)
+        public static eventoCTe CriaEvento(CTeTipoEvento cTeTipoEvento, int sequenciaEvento, string chave, string cnpj, EventoContainer container, ConfiguracaoServico configuracaoServico = null)
         {
-            var configuracaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             var id = new StringBuilder("ID");
             id.Append((int)cTeTipoEvento);
@@ -60,19 +60,19 @@ namespace CTe.Servicos.Eventos
 
             return new eventoCTe
             {
-                versao = configuracaoServico.VersaoLayout,
-                infEvento = new infEventoEnv
+                versao = configServico.VersaoLayout,
+                infEvento = new infEventoEnv(configServico)
                 {
-                    tpAmb = configuracaoServico.tpAmb,
+                    tpAmb = configServico.tpAmb,
                     CNPJ = cnpj,
-                    cOrgao = configuracaoServico.cUF,
+                    cOrgao = configServico.cUF,
                     chCTe = chave,
-                    dhEvento = DateTime.Now,
+                    dhEvento = DateTimeOffset.Now,
                     nSeqEvento = sequenciaEvento,
                     tpEvento = cTeTipoEvento,
                     detEvento = new detEvento
                     {
-                        versaoEvento = configuracaoServico.VersaoLayout,
+                        versaoEvento = configServico.VersaoLayout,
                         EventoContainer = container
                     },
                     Id = id.ToString()

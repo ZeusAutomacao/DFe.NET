@@ -44,17 +44,17 @@ namespace CTe.Utils.Extencoes
     public static class ExtconsSitCTe
     {
 
-        public static void ValidarSchema(this consSitCTe consSitCTe)
+        public static void ValidarSchema(this consSitCTe consSitCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var xmlValidacao = consSitCTe.ObterXmlString();
 
             switch (consSitCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd");
+                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd", configuracaoServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", configuracaoServico);
                     break;
                 default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
                                                         "a versão está inválida, somente é permitido " +
@@ -72,9 +72,9 @@ namespace CTe.Utils.Extencoes
             return FuncoesXml.ClasseParaXmlString(pedConsulta);
         }
 
-        public static void SalvarXmlEmDisco(this consSitCTe statuServCte)
+        public static void SalvarXmlEmDisco(this consSitCTe statuServCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

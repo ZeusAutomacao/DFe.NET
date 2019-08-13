@@ -33,6 +33,7 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
@@ -54,20 +55,20 @@ namespace CTe.Servicos.Eventos
             _infCorrecaos = infCorrecaos;
         }
 
-        public retEventoCTe AdicionarCorrecoes()
+        public retEventoCTe AdicionarCorrecoes(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao);
+            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
 
             return retorno;
         }
 
-        public async Task<retEventoCTe> AdicionarCorrecoesAsync()
+        public async Task<retEventoCTe> AdicionarCorrecoesAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao);
+            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
 
             return retorno;
         }

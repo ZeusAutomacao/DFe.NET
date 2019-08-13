@@ -59,13 +59,14 @@ namespace CTe.Servicos.DistribuicaoDFe
         /// <param name="documento">CNPJ/CPF do interessado no DF-e</param>
         /// <param name="ultNSU">Último NSU recebido pelo Interessado</param>
         /// <param name="nSU">Número Sequencial Único</param>
+        /// <param name="configuracaoServico"></param>
         /// <returns>Retorna um objeto da classe CTeDistDFeInteresse com os documentos de interesse do CNPJ/CPF pesquisado</returns>
-        public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0")
+        public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", ConfiguracaoServico configuracaoServico = null)
         {
-            var versaoServico = ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
-            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta);
+            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta, configServico);
 
             XmlNode retorno = ws.Execute(dadosConsulta);
 
@@ -73,11 +74,11 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString, configServico);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
-            if (retConsulta.loteDistDFeInt != null && versaoServico.UnZip)
+            if (retConsulta.loteDistDFeInt != null && configServico.UnZip)
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
@@ -99,7 +100,7 @@ namespace CTe.Servicos.DistribuicaoDFe
                     if (chCTe == string.Empty)
                         chCTe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
-                    SalvarArquivoXml(chCTe + "-" + schema[0] + ".xml", conteudo);
+                    SalvarArquivoXml(chCTe + "-" + schema[0] + ".xml", conteudo, configServico);
                 }
             }
 
@@ -108,11 +109,12 @@ namespace CTe.Servicos.DistribuicaoDFe
             return new RetornoCteDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
         }
 
-        public async Task<RetornoCteDistDFeInt> CTeDistDFeInteresseAsync(string ufAutor, string documento, string ultNSU = "0", string nSU = "0")
+        public async Task<RetornoCteDistDFeInt> CTeDistDFeInteresseAsync(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
-            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta);
+            var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta, configServico);
 
             XmlNode retorno = await ws.ExecuteAsync(dadosConsulta);
 
@@ -120,7 +122,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
-            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString, configServico);
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
@@ -146,7 +148,7 @@ namespace CTe.Servicos.DistribuicaoDFe
                     if (chCTe == string.Empty)
                         chCTe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
-                    SalvarArquivoXml(chCTe + "-" + schema[0] + ".xml", conteudo);
+                    SalvarArquivoXml(chCTe + "-" + schema[0] + ".xml", conteudo, configServico);
                 }
             }
 
@@ -156,13 +158,13 @@ namespace CTe.Servicos.DistribuicaoDFe
         }
 
         private CTeDistDFeInteresse InicializaCTeDistDFeInteresse(string documento, string ultNSU, string nSU,
-            out distDFeInt pedDistDFeInt, out XmlDocument dadosConsulta)
+            out distDFeInt pedDistDFeInt, out XmlDocument dadosConsulta, ConfiguracaoServico configuracaoServico)
         {
-            var versaoServico = ConfiguracaoServico.Instancia.VersaoLayout;
+            var versaoServico = configuracaoServico.VersaoLayout;
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse();
+            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse(configuracaoServico);
 
             #endregion
 
@@ -171,8 +173,8 @@ namespace CTe.Servicos.DistribuicaoDFe
             pedDistDFeInt = new distDFeInt
             {
                 versao = "1.00",
-                tpAmb = ConfiguracaoServico.Instancia.tpAmb,
-                cUFAutor = ConfiguracaoServico.Instancia.cUF
+                tpAmb = configuracaoServico.tpAmb,
+                cUFAutor = configuracaoServico.cUF
             };
 
             if (documento.Length == 11)
@@ -191,7 +193,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #endregion
 
-            pedDistDFeInt.ValidaSchema();
+            pedDistDFeInt.ValidaSchema(configuracaoServico);
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
 
@@ -200,16 +202,16 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             string path = DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml";
 
-            SalvarArquivoXml(path, xmlConsulta);
+            SalvarArquivoXml(path, xmlConsulta, configuracaoServico);
             return ws;
         }
 
-        private void SalvarArquivoXml(string nomeArquivo, string xmlString)
+        private void SalvarArquivoXml(string nomeArquivo, string xmlString, ConfiguracaoServico configuracaoServico)
         {
-            if (!ConfiguracaoServico.Instancia.IsSalvarXml) return;
+            if (!configuracaoServico.IsSalvarXml) return;
             string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            var dir = string.IsNullOrEmpty(ConfiguracaoServico.Instancia.DiretorioSalvarXml) ? path : ConfiguracaoServico.Instancia.DiretorioSalvarXml;
+            var dir = string.IsNullOrEmpty(configuracaoServico.DiretorioSalvarXml) ? path : configuracaoServico.DiretorioSalvarXml;
             var stw = new StreamWriter(dir + @"\" + nomeArquivo);
             stw.WriteLine(xmlString);
             stw.Close();

@@ -61,9 +61,9 @@ namespace CTe.Utils.Recepcao
             return FuncoesXml.ClasseParaXmlString(retEnviCte);
         }
 
-        public static void SalvarXmlEmDisco(this retEnviCte retEnviCte)
+        public static void SalvarXmlEmDisco(this retEnviCte retEnviCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 

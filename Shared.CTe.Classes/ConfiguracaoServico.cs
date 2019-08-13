@@ -50,7 +50,7 @@ namespace CTe.Classes
         private string _diretorioSchemas;
         private bool _unZip = true;
 
-        private ConfiguracaoServico()
+        public ConfiguracaoServico()
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;

@@ -51,7 +51,7 @@ namespace MDFe.Servicos.EventosMDFe
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
                     TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    CNPJ = MDFe.CNPJEmitente(),
+                    CNPJ = MDFe.CNPJouCPFEmitente(),
                     COrgao = MDFe.UFEmitente(),
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento

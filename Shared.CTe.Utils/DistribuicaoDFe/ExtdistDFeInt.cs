@@ -52,18 +52,18 @@ namespace CTe.Utils.DistribuicaoDFe
             return FuncoesXml.ClasseParaXmlString(pedDistDFeInt);
         }
 
-        public static void ValidaSchema(this distDFeInt pedDistDFeInt)
+        public static void ValidaSchema(this distDFeInt pedDistDFeInt, ConfiguracaoServico configuracaoServico = null)
         {
             var xmlValidacao = pedDistDFeInt.ObterXmlString();
             
 
             if (pedDistDFeInt.versao.Equals("1.00"))
             {
-                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.00.xsd");
+                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.00.xsd", configuracaoServico);
             }
             else if (pedDistDFeInt.versao.Equals("1.10"))
             {
-                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.10.xsd");
+                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.10.xsd", configuracaoServico);
             }
             else
             {
@@ -74,9 +74,9 @@ namespace CTe.Utils.DistribuicaoDFe
         }
 
 
-        public static void SalvarXmlEmDisco(this distDFeInt pedDistDFeInt, string arquivoSalvar)
+        public static void SalvarXmlEmDisco(this distDFeInt pedDistDFeInt, string arquivoSalvar, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 
