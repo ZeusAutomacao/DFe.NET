@@ -41,7 +41,7 @@ namespace CTe.Classes.Informacoes.Impostos
         private decimal _pFcpufFim;
         private decimal _pIcmsufFim;
         private decimal _pIcmsInter;
-        private decimal _pIcmsInterPart;
+        private decimal? _pIcmsInterPart;
         private decimal _vFcpufFim;
         private decimal _vIcmsufFim;
         private decimal _vIcmsufIni;
@@ -70,10 +70,18 @@ namespace CTe.Classes.Informacoes.Impostos
             set { _pIcmsInter = value.Arredondar(2); }
         }
 
-        public decimal pICMSInterPart
+        public decimal? pICMSInterPart
         {
             get { return _pIcmsInterPart.Arredondar(2); }
             set { _pIcmsInterPart = value.Arredondar(2); }
+        }
+
+        public bool pICMSInterPartSpecified
+        {
+            get
+            {
+                return this._pIcmsInterPart.HasValue;
+            }
         }
 
         public decimal vFCPUFFim

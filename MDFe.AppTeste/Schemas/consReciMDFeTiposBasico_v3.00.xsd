@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Administrador (.) -->
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
@@ -28,12 +28,12 @@
 						</xs:element>
 						<xs:element name="chMDFe" type="TChMDFe">
 							<xs:annotation>
-								<xs:documentation>Chaves de acesso do MDF-e, compostas por: UF do emitente, AAMM da emissão do MDFe, CNPJ do emitente, modelo, série, número do MDF-e, Forma de Emissão e código numérico+DV.</xs:documentation>
+								<xs:documentation>Chaves de acesso do MDF-e, </xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="dhRecbto">
 							<xs:annotation>
-								<xs:documentation>Data e hora de processamento, no formato AAAA-MM-DDTHH:MM:SS TZD. Deve ser preenchida com data e hora da gravação no Banco em caso de Confirmação. Em caso de Rejeição, com data e hora do recebimento do Arquivo de MDF-e enviado.</xs:documentation>
+								<xs:documentation>Data e hora de processamento, no formato AAAA-MM-DDTHH:MM:SS TZD. </xs:documentation>
 							</xs:annotation>
 							<xs:simpleType>
 								<xs:restriction base="TDateTimeUTC"/>
@@ -41,12 +41,12 @@
 						</xs:element>
 						<xs:element name="nProt" type="TProt" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Número do Protocolo de Status do MDF-e. 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual,  7 - Sefaz Nacional ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+								<xs:documentation>Número do Protocolo de Status do MDF-e.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="digVal" type="ds:DigestValueType" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Digest Value do MDF-e processado. Utilizado para conferir a integridade do CT-e original.</xs:documentation>
+								<xs:documentation>Digest Value do MDF-e processado. Utilizado para conferir a integridade do MDF-e original.</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="cStat">
@@ -64,6 +64,28 @@
 						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="Id" type="xs:ID" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="infFisco" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Mensagem do Fisco</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="cMsg">
+							<xs:annotation>
+								<xs:documentation>Código do status da mensagem do fisco</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TStat"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="xMsg" type="TMotivo">
+							<xs:annotation>
+								<xs:documentation>Mensagem do Fisco</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			<xs:element ref="ds:Signature" minOccurs="0"/>

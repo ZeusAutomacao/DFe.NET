@@ -85,6 +85,7 @@
     <Compile Include="Informacoes\infCIOT.cs" />
     <Compile Include="Informacoes\infContratante.cs" />
     <Compile Include="Informacoes\infEntregaParcial.cs" />
+    <Compile Include="Informacoes\infMDFeSupl.cs" />
     <Compile Include="Informacoes\infRespTec.cs" />
     <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
