@@ -11,6 +11,27 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CTe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Constantes\StatusAutorizacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\CTeOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Extensoes\extretCteOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Complemento\complOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Emitente\emitOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Identificacao\ideOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Impostos\impOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\infCteOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infCTeNormOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infCteSubOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infDocRef.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infModalOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\infQOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\rodoOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\segOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\InfCTeOutrosServicosNormal\veicOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Tomador\enderTomaOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Tomador\tomaOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Informacoes\Valores\vPrestOs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Retorno\cteOSProc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CTeOutrosServicos\Retorno\retCTeOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)cteProc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Ext\extversao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\autXML.cs" />
@@ -121,6 +142,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\peri.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\seg.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCTeNormal\veicNovos.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infCteSupl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\infRespTec\infRespTec.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Recebedor\enderReceb.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Recebedor\receb.cs" />
