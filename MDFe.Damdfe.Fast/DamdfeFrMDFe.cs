@@ -114,5 +114,16 @@ namespace MDFe.Damdfe.Fast
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
         }
+
+        /// <summary>
+        /// Converte o DAMDFe para PDF e copia para o stream
+        /// </summary>
+        /// <param name="outputStream">Variável do tipo Stream para output</param>
+        public void ExportarPdf(Stream outputStream)
+        {
+            Relatorio.Prepare();
+            Relatorio.Export(new PDFExport(), outputStream);
+            outputStream.Position = 0;
+        }
     }
 }

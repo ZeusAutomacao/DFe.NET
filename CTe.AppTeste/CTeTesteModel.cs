@@ -42,13 +42,13 @@ using CTe.Classes;
 using CTe.Classes.Informacoes;
 using CTe.Classes.Informacoes.Destinatario;
 using CTe.Classes.Informacoes.Emitente;
-using CTe.Classes.Informacoes.infCTeNormal;
-using CTe.Classes.Informacoes.infCTeNormal.infCargas;
-using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.Identificacao;
 using CTe.Classes.Informacoes.Impostos;
 using CTe.Classes.Informacoes.Impostos.ICMS;
 using CTe.Classes.Informacoes.Impostos.Tributacao;
+using CTe.Classes.Informacoes.infCTeNormal;
+using CTe.Classes.Informacoes.infCTeNormal.infCargas;
+using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.Remetente;
 using CTe.Classes.Informacoes.Tipos;
 using CTe.Classes.Informacoes.Valores;
@@ -59,20 +59,30 @@ using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.ConsultaProtocolo;
 using CTe.Servicos.ConsultaRecibo;
 using CTe.Servicos.ConsultaStatus;
+using CTe.Servicos.DistribuicaoDFe;
 using CTe.Servicos.EnviarCte;
 using CTe.Servicos.Eventos;
 using CTe.Servicos.Inutilizacao;
 using CTe.Servicos.Recepcao;
-using CTe.Servicos.DistribuicaoDFe;
 using CTe.Utils.CTe;
-using CteEletronico = CTe.Classes.CTe;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
+using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
+using DFe.DocumentosEletronicos.CTe.CTeOS;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
+using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador;
 using DFe.Utils;
-using DFe.Utils.Assinatura;
+using CteEletronico = CTe.Classes.CTe;
 using dest = CTe.Classes.Informacoes.Destinatario.dest;
 using infNFe = CTe.Classes.Informacoes.infCTeNormal.infDocumentos.infNFe;
+using infServico = CTe.Classes.Informacoes.infCTeNormal.infServico;
+using infTribFed = CTe.Classes.Informacoes.Impostos.infTribFed;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using rodoOS = CTe.Classes.Informacoes.infCTeNormal.infModals.rodoOS;
 
 namespace CTe.AppTeste
 {
@@ -872,7 +882,7 @@ namespace CTe.AppTeste
             cteEletronico.infCte.ide.mod = ModeloDocumento.CTe;
             cteEletronico.infCte.ide.serie = config.ConfigWebService.Serie;
             cteEletronico.infCte.ide.nCT = config.ConfigWebService.Numeracao;
-            cteEletronico.infCte.ide.dhEmi = DateTime.Now;
+            cteEletronico.infCte.ide.dhEmi = DateTimeOffset.Now;
             cteEletronico.infCte.ide.tpImp = tpImp.Retrado;
             cteEletronico.infCte.ide.tpEmis = tpEmis.teNormal;
             cteEletronico.infCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
@@ -1364,6 +1374,141 @@ namespace CTe.AppTeste
 
             #endregion
 
+        }
+
+        public void EmitirCteOs()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoes(config);
+
+            var cteOS = new CTeOS();
+
+            cteOS.InfCte = new infCteOS();
+
+
+            #region ide
+            cteOS.InfCte.ide = new ideOs();
+            cteOS.InfCte.ide.cUF = config.Empresa.SiglaUf;
+            cteOS.InfCte.ide.cCT = GetRandom();
+            cteOS.InfCte.ide.CFOP = 5357;
+            cteOS.InfCte.ide.natOp = "TRANSPORTE DE PASSAGEIROS";
+            cteOS.InfCte.ide.mod = ModeloDocumento.CTeOS;
+            cteOS.InfCte.ide.serie = config.ConfigWebService.Serie;
+            cteOS.InfCte.ide.nCT = config.ConfigWebService.Numeracao;
+            cteOS.InfCte.ide.dhEmi = DateTime.Now;
+            cteOS.InfCte.ide.tpImp = tpImp.Retrado;
+            cteOS.InfCte.ide.tpEmis = tpEmis.teNormal;
+            cteOS.InfCte.ide.tpAmb = config.ConfigWebService.Ambiente; // o serviço adicionara automaticamente isso para você
+            cteOS.InfCte.ide.tpCTe = tpCTe.Normal;
+            cteOS.InfCte.ide.procEmi = procEmi.AplicativoContribuinte;
+            cteOS.InfCte.ide.verProc = "0.0.0.1";
+            cteOS.InfCte.ide.cMunEnv = config.Empresa.CodigoIbgeMunicipio;
+            cteOS.InfCte.ide.xMunEnv = config.Empresa.NomeMunicipio;
+            cteOS.InfCte.ide.UFEnv = config.Empresa.SiglaUf;
+            cteOS.InfCte.ide.modal = modal.rodoviario;
+            cteOS.InfCte.ide.tpServ = tpServ.transportePessoas;
+            cteOS.InfCte.ide.indIEToma = indIEToma.ContribuinteIcms; // todo verificar se esta ok
+            cteOS.InfCte.ide.cMunIni = config.Empresa.CodigoIbgeMunicipio;
+            cteOS.InfCte.ide.xMunIni = config.Empresa.NomeMunicipio;
+            cteOS.InfCte.ide.UFIni = config.Empresa.SiglaUf;
+            cteOS.InfCte.ide.cMunFim = config.Empresa.CodigoIbgeMunicipio;
+            cteOS.InfCte.ide.xMunFim = config.Empresa.NomeMunicipio;
+            cteOS.InfCte.ide.UFFim = config.Empresa.SiglaUf;
+
+            #endregion
+
+            #region emit
+
+            cteOS.InfCte.emit = new emitOs();
+            cteOS.InfCte.emit.CNPJ = config.Empresa.Cnpj;
+            cteOS.InfCte.emit.IE = config.Empresa.InscricaoEstadual;
+            cteOS.InfCte.emit.xNome = config.Empresa.Nome;
+            cteOS.InfCte.emit.xFant = config.Empresa.NomeFantasia;
+
+            cteOS.InfCte.emit.enderEmit = new enderEmit();
+            cteOS.InfCte.emit.enderEmit.xLgr = config.Empresa.Logradouro;
+            cteOS.InfCte.emit.enderEmit.nro = config.Empresa.Numero;
+            cteOS.InfCte.emit.enderEmit.xCpl = config.Empresa.Complemento;
+            cteOS.InfCte.emit.enderEmit.xBairro = config.Empresa.Bairro;
+            cteOS.InfCte.emit.enderEmit.cMun = config.Empresa.CodigoIbgeMunicipio;
+            cteOS.InfCte.emit.enderEmit.xMun = config.Empresa.NomeMunicipio;
+            cteOS.InfCte.emit.enderEmit.CEP = long.Parse(config.Empresa.Cep);
+            cteOS.InfCte.emit.enderEmit.UF = config.Empresa.SiglaUf;
+            cteOS.InfCte.emit.enderEmit.fone = config.Empresa.Telefone;
+
+            #endregion
+
+            #region toma
+
+            cteOS.InfCte.toma = new tomaOs();
+            cteOS.InfCte.toma.CNPJ = "21025760000123";
+            cteOS.InfCte.toma.IE = "106459384";
+            cteOS.InfCte.toma.xNome = "agil4 tecnologia ltda me";
+            cteOS.InfCte.toma.xFant = "SISTEMA FUSION!";
+            cteOS.InfCte.toma.fone = "64981081602";
+            cteOS.InfCte.toma.enderToma = new enderTomaOs();
+            cteOS.InfCte.toma.enderToma.xLgr = "avenida alguma coisa beltra";
+            cteOS.InfCte.toma.enderToma.nro = "222";
+            cteOS.InfCte.toma.enderToma.xCpl = "jandaia-go!";
+            cteOS.InfCte.toma.enderToma.xBairro = "cidade pequena";
+            cteOS.InfCte.toma.enderToma.cMun = 5211701;
+            cteOS.InfCte.toma.enderToma.xMun = "jandaia!";
+            cteOS.InfCte.toma.enderToma.CEP = 75950000;
+            cteOS.InfCte.toma.enderToma.UF = Estado.GO;
+
+            #endregion
+
+            #region vPrest
+
+            cteOS.InfCte.vPrest = new vPrestOs();
+            cteOS.InfCte.vPrest.vTPrest = 100m;
+            cteOS.InfCte.vPrest.vRec = 100m;
+
+            #endregion
+
+            #region imp
+
+            cteOS.InfCte.imp = new impOs();
+            cteOS.InfCte.imp.ICMS = new ICMS();
+
+            var icmsSimplesNacional = new ICMSSN();
+
+            cteOS.InfCte.imp.ICMS.TipoICMS = icmsSimplesNacional;
+            icmsSimplesNacional.CST = CST.ICMS90;
+
+            cteOS.InfCte.imp.infTribFed = new infTribFed();
+            cteOS.InfCte.imp.infTribFed.vINSS = 20.00m;
+
+            #endregion
+
+            #region infCTeNorm
+
+            cteOS.InfCte.infCTeNorm = new infCTeNormOs();
+
+            cteOS.InfCte.infCTeNorm.infServico = new infServico();
+            cteOS.InfCte.infCTeNorm.infServico.xDescServ = "framework gratis!";
+
+            cteOS.InfCte.infCTeNorm.seg = new List<segOs>();
+
+            cteOS.InfCte.infCTeNorm.seg.Add(new segOs
+            {
+                respSeg = respSeg.EmitenteDoCTe
+            });
+
+
+
+            cteOS.InfCte.infCTeNorm.infModal = new infModalOs();
+
+            cteOS.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+
+            var rodoviario = new rodoOS();
+
+            rodoviario.TAF = "888888888888";
+            //rodoviario.NroRegEstadual = "23632667367";
+
+
+            cteOS.InfCte.infCTeNorm.infModal.ContainerModal = rodoviario;
+            #endregion
         }
     }
 }

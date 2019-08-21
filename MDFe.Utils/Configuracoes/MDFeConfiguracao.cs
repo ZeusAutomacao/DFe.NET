@@ -36,7 +36,6 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using MDFe.Utils.Flags;
 using System;
 using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
@@ -56,6 +55,7 @@ namespace MDFe.Utils.Configuracoes
         public static bool IsSalvarXml { get; set; }
         public static string CaminhoSchemas { get; set; }
         public static string CaminhoSalvarXml { get; set; }
+        public static bool IsAdicionaQrCode { get; set; }
 
         public static MDFeVersaoWebService VersaoWebService
         {

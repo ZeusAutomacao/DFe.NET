@@ -36,6 +36,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace CTe.Classes.Servicos.Evento
 {
@@ -95,7 +96,15 @@ namespace CTe.Classes.Servicos.Evento
         ///     HR25 - Data e hora de registro do evento no formato AAAA-MM-DDTHH:MM:SSTZD (formato UTC, onde TZD é +HH:MM ou
         ///     –HH:MM), se o evento for rejeitado informar a data e hora de recebimento do evento.
         /// </summary>
-        public DateTime? dhRegEvento { get; set; }
+        [XmlIgnore]
+        public DateTimeOffset? dhRegEvento { get; set; }
+
+        [XmlElement(ElementName = "dhRegEvento")]
+        public string ProxydhRegEvento
+        {
+            get { return dhRegEvento.ParaDataHoraStringUtc(); }
+            set { dhRegEvento = DateTimeOffset.Parse(value); }
+        }
 
         /// <summary>
         ///     HR26 - Número do Protocolo da NF-e

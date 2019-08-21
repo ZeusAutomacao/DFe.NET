@@ -61,9 +61,9 @@ namespace CTe.Utils.Evento
             return FuncoesXml.ClasseParaXmlString(retEnvEvento);
         }
 
-        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte)
+        public static void SalvarXmlEmDisco(this retEventoCTe retEnviCte, ConfiguracaoServico configuracaoServico = null)
         {
-            var instanciaServico = ConfiguracaoServico.Instancia;
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.NaoSalvarXml()) return;
 
