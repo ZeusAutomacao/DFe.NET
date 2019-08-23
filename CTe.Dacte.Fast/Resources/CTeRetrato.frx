@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/23/2019 08:46:19" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/23/2019 08:52:53" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -786,6 +786,9 @@ namespace FastReport
             <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null">
               <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null">
                 <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="vBC" DataType="System.Decimal"/>
+                <Column Name="pICMS" DataType="System.Decimal"/>
+                <Column Name="vICMS" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -1185,14 +1188,14 @@ namespace FastReport
       <TextObject Name="Text17" Left="158.65" Top="214.35" Width="125.74" Height="9.45" Text="FORMA DE PAGAMENTO" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text18" Left="2" Top="74.6" Width="281.5" Height="26.35" Text="[cteProc.CTe.infCte.emit.xNome]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Text19" Left="96.5" Top="100.95" Width="187.44" Height="77.6" Text="[cteProc.CTe.infCte.emit.enderEmit.xLgr], [cteProc.CTe.infCte.emit.enderEmit.nro] [cteProc.CTe.infCte.emit.enderEmit.xCpl]&#13;&#10;[cteProc.CTe.infCte.emit.enderEmit.xBairro]&#13;&#10;CEP: [FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.CEP] ,'c')] - [cteProc.CTe.infCte.emit.enderEmit.xMun] - [cteProc.CTe.infCte.emit.enderEmit.ProxyUF]&#13;&#10;CNPJ: [FormatarCampo([cteProc.CTe.infCte.emit.CNPJ],'d')]&#13;&#10;INSCRIÇÃO ESTADUAL: [cteProc.CTe.infCte.emit.IE]&#13;&#10;TELEFONE: [FormatarCampo([cteProc.CTe.infCte.emit.enderEmit.fone],'f')]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6.75pt"/>
-      <PictureObject Name="poEmitLogo" Left="2" Top="100.95" Width="92.38" Height="77.82"/>
+      <PictureObject Name="poEmitLogo" Left="2" Top="100.95" Width="92.38" Height="77.82" Image=""/>
       <LineObject Name="Line11" Left="284.5" Top="100.95" Width="451.71"/>
       <LineObject Name="Line12" Left="285.28" Top="123.3" Width="450.6"/>
       <LineObject Name="Line13" Left="287.28" Top="157.65" Width="312.85"/>
       <LineObject Name="Line14" Left="313.74" Top="185" Width="287.28"/>
       <LineObject Name="Line15" Left="313.74" Top="213.48" Width="287.17"/>
-      <BarcodeObject Name="BarcodeChave" Left="287.61" Top="125.3" Width="309.42" Height="29.35" AutoSize="false" Text="[Substring( [cteProc.CTe.infCte.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <TextObject Name="txtChaveMDFe" Left="287.15" Top="167.1" Width="313.41" Height="15.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[FormatarChave([cteProc.CTe.infCte.Id])]" HorzAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <BarcodeObject Name="BarcodeChave" Left="300.06" Top="126.3" Width="290.52" Height="27.35" AutoSize="false" Text="[Substring( [cteProc.CTe.infCte.Id], 3)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="txtChaveMDFe" Left="285.15" Top="167.1" Width="316.41" Height="15.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[FormatarChave([cteProc.CTe.infCte.Id])]" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Text20" Left="286.95" Top="187" Width="312.96" Height="26.35" Text="Consulta de autencidade no portal nacional do CT-e, no site da Sefaz&#13;&#10;Autorizadora, ou em http://www.cte.fazenda.gov.br/portal" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 7pt, style=Bold"/>
       <TextObject Name="Text21" Left="286.5" Top="159.1" Width="152.2" Height="9.45" Text="CHAVE DE ACESSO" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text22" Left="286.95" Top="74.6" Width="313.51" Height="11.45" Text="DACTE" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
