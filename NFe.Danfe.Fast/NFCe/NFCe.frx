@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="08/13/2018 12:16:14" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="08/02/2019 22:19:52" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -845,6 +845,7 @@ namespace FastReport
     <Parameter Name="NfceModoImpressao" DataType="NFe.Danfe.Base.NfceModoImpressao, NFe.Danfe.Base, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null"/>
     <Parameter Name="NfceCancelado" DataType="System.Boolean"/>
     <Parameter Name="NfceLayoutQrCode" DataType="NFe.Danfe.Base.NfceLayoutQrCode, NFe.Danfe.Base, Version=1.0.1.417, Culture=neutral, PublicKeyToken=null" Description="Layuout do QRCode (Normal ou Lateral)"/>
+    <Parameter Name="TextoRodape" DataType="System.String"/>
     <Total Name="QtdeItens" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
     <Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.vPag]" Evaluator="dbPagamento"/>
     <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
@@ -1002,6 +1003,9 @@ namespace FastReport
     </DataBand>
     <DataBand Name="dbProtocolo" Top="1040.8" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
       <TextObject Name="txtProtocoloAutorizacao" Width="264.6" Height="27.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+    </DataBand>
+    <DataBand Name="dbTextoRodape" Top="1088.45" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
+      <TextObject Name="Text19" Width="264.6" Height="18.9" Border.Lines="Top" CanGrow="true" CanShrink="true" Text="[TextoRodape]" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
   </ReportPage>
 </Report>
