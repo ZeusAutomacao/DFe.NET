@@ -78,7 +78,7 @@ namespace NFe.Utils.Enderecos
         /// <returns></returns>
         public static List<Estado> EstadosQueUsamSvanParaNfe()
         {
-            return new List<Estado> { Estado.MA, Estado.PA };
+            return new List<Estado> { Estado.MA };
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace NFe.Utils.Enderecos
                 Estado.DF,
                 Estado.ES,
                 Estado.MA, //Somente NFCe. MA usa o SVAN para NFe. Rev: 09/09/2015
-                Estado.PA, //Somente NFCe. PA usa o SVAN para NFe. Rev: 09/09/2015
+                Estado.PA, //https://github.com/ZeusAutomacao/DFe.NET/issues/1025
                 Estado.PB,
                 Estado.PE, //Somente NFCe. PE tem endereços próprios para NFe. Rev: 01/12/2017
                 Estado.PI,
@@ -805,7 +805,7 @@ namespace NFe.Utils.Enderecos
 
             #region PA
 
-            //PA usa SVAN para NFe e SRVS para NFCe. Rev: 09/09/2015
+            //PA usa SVRS para NFe e NFCe. Rev: 28/08/2019
 
             #endregion
 

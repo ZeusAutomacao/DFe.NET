@@ -148,6 +148,10 @@ namespace CTe.AppTeste
         {
             _model.DistribuicaoDFe();
         }
-      
+
+        private void EmitirCteOs_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EmitirCteOs();
+        }
     }
 }

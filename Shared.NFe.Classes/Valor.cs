@@ -21,7 +21,7 @@ namespace NFe.Classes
         public static decimal ArredondarParaBaixo(this decimal valor, int casasDecimais)
         {
             var divisor = (decimal)Math.Pow(10, casasDecimais);
-            var dividendo = (int)Math.Truncate(divisor * valor);
+            var dividendo = (long)Math.Truncate(divisor * valor);
             return dividendo / divisor;
         }
     }
