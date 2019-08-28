@@ -1,9 +1,12 @@
-﻿using System;
-using System.Xml;
+﻿using DFe.Classes.Entidades;
 using DFe.DocumentosEletronicos.Wsdl;
+using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
+using DFe.DocumentosEletronicos.Wsdl.Corpo;
 using DFe.Utils;
 using DFe.Wsdl;
-using NFe.Utils;
+using System;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml;
 
 namespace NFe.Wsdl.Autorizacao
 {
@@ -11,9 +14,18 @@ namespace NFe.Wsdl.Autorizacao
     {
         private DFeSoapConfig SoapConfig { get; set; }
 
-        public NFeAutorizacao4(DFeSoapConfig soapConfig)
+        public NFeAutorizacao4(string url, X509Certificate certificado, int timeOut, bool compactarMensagem, DFe.Classes.Flags.VersaoServico versaoNfeAutorizacao, Estado estado)
         {
-            SoapConfig = soapConfig;
+            SoapConfig = new DFeSoapConfig
+            {
+                DFeCorpo = new DFeCorpo("http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", new NfeTagCorpo(estado.GetParametroDeEntradaWsdl(compactarMensagem))),
+                DFeCabecalho = new DFeCabecalho(estado, versaoNfeAutorizacao, new TagCabecalhoVazia(), "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4"),
+                Metodo = compactarMensagem ? "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZIP"
+                        : "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote",
+                Url = url,
+                Certificado = new X509Certificate2(certificado),
+                TimeOut = timeOut
+            };
         }
 
         [Obsolete("Não tem necessidade mais a partir da nf-e 4.0 o mesmo sera ignorado")]
@@ -23,11 +35,11 @@ namespace NFe.Wsdl.Autorizacao
         {
             SoapConfig.DFeCorpo.Xml = nfeDadosMsg;
 
-            var ret = Invoke(soapConfig: SoapConfig);
+            string ret = Invoke(soapConfig: SoapConfig);
 
-            var xmlTag = GetTagConverter(ret, "retEnviNFe");
+            string xmlTag = GetTagConverter(ret, "retEnviNFe");
 
-            var documento = new XmlDocument();
+            XmlDocument documento = new XmlDocument();
             documento.LoadXml(xmlTag);
 
             return documento.DocumentElement;
@@ -35,19 +47,19 @@ namespace NFe.Wsdl.Autorizacao
 
         public XmlNode ExecuteZip(string nfeDadosMsgZip)
         {
-            var xml = Compressao.Unzip(Convert.FromBase64String(nfeDadosMsgZip));
+            string xml = Compressao.Unzip(Convert.FromBase64String(nfeDadosMsgZip));
 
-            var dadosEnvio = new XmlDocument();
+            XmlDocument dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xml);
 
             SoapConfig.DFeCorpo.Xml = dadosEnvio;
             SoapConfig.DFeCorpo.XmlZip = true;
 
-            var ret = Invoke(soapConfig: SoapConfig);
+            string ret = Invoke(soapConfig: SoapConfig);
 
-            var xmlTag = GetTagConverter(ret, "retEnviNFe");
+            string xmlTag = GetTagConverter(ret, "retEnviNFe");
 
-            var documento = new XmlDocument();
+            XmlDocument documento = new XmlDocument();
             documento.LoadXml(xmlTag);
 
             return documento.DocumentElement;
