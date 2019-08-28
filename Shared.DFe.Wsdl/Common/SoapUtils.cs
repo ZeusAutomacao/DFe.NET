@@ -1,13 +1,13 @@
+﻿using DFe.DocumentosEletronicos.Common;
+using DFe.Http.Ext;
 using System;
 using System.IO;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Net;
-using DFe.DocumentosEletronicos.Common;
-using DFe.Http.Ext;
 
 namespace DFe.DocumentosEletronicos.Soap
 {
@@ -26,21 +26,21 @@ namespace DFe.DocumentosEletronicos.Soap
         public XmlDocument SerealizeDocument<T>(T soapEnvelope)
         {
             // instancia do objeto responsável pela serialização
-            var soapserializer = new XmlSerializer(typeof(T));
+            XmlSerializer soapserializer = new XmlSerializer(typeof(T));
 
             // Armazena os dados em memória para manipulação
-            var memoryStream = new MemoryStream();
-            var xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
-            
+            MemoryStream memoryStream = new MemoryStream();
+            XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
+
             //Serializa o objeto de acordo com o formato
             soapserializer.Serialize(xmlTextWriter, soapEnvelope);
             xmlTextWriter.Formatting = Formatting.None;
 
-            var xmlDocument = new XmlDocument();
-            
+            XmlDocument xmlDocument = new XmlDocument();
+
             //Remove o caractere especial BOM (byte order mark)
-            var output = Encoding.UTF8.GetString(memoryStream.ToArray());
-            var _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+            string output = Encoding.UTF8.GetString(memoryStream.ToArray());
+            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
             if (output.StartsWith(_byteOrderMarkUtf8))
             {
                 output = output.Remove(0, _byteOrderMarkUtf8.Length);
@@ -61,51 +61,75 @@ namespace DFe.DocumentosEletronicos.Soap
         /// <param name="timeOut"></param>
         /// <param name="tipoEvento"></param>
         /// <returns></returns>
-        public async Task<string> SendRequestAsync(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento tipoEvento)
+        public async Task<string> SendRequestAsync(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            var xmlSoap = xmlEnvelop.InnerXml;
-            var httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
-            
+            //verifica se pelo menos uma das 2 propriedades obrigatorias estão definidas
+            if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
+            {
+                throw new ArgumentNullException("Pelo menos uma das propriedades tipoEvento ou actionUrl devem ser definidos para executar a action na requisição soap");
+            }
+
+            //caso o tipoevento esteja definido, pega a url do evento
+            if (tipoEvento.HasValue)
+            {
+                actionUrn = new SoapUrls().GetSoapUrl(tipoEvento.Value);
+            }
+
+            string xmlSoap = xmlEnvelop.InnerXml;
+            HttpWebRequest httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
+
             httpWr.Timeout = timeOut == 0 ? 2000 : timeOut;
             httpWr.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
             httpWr.ClientCertificates.Add(certificadoDigital);
-            httpWr.ComposeContentType("application/soap+xml", Encoding.UTF8, new SoapUrls().GetSoapUrl(tipoEvento));
+            httpWr.ComposeContentType("application/soap+xml", Encoding.UTF8, actionUrn);
             httpWr.Method = "POST";
-            
-            var streamWriter = new StreamWriter(httpWr.GetRequestStream());
-            
+
+            StreamWriter streamWriter = new StreamWriter(httpWr.GetRequestStream());
+
             streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
             streamWriter.Close();
 
             var webResponse = httpWr.GetResponse();
             var respStream = webResponse.GetResponseStream();
-            var streamReader = new StreamReader(respStream);
+            StreamReader streamReader = new StreamReader(respStream);
 
-            var xmlRetorno = streamReader.ReadToEnd();
+            string xmlRetorno = streamReader.ReadToEnd();
             return await Task.FromResult(xmlRetorno);
         }
 
-        public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento tipoEvento)
+        public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            var xmlSoap = xmlEnvelop.InnerXml;
-            var httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
+            //verifica se pelo menos uma das 2 propriedades obrigatorias estão definidas
+            if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
+            {
+                throw new ArgumentNullException("Pelo menos uma das propriedades tipoEvento ou actionUrl devem ser definidos para executar a action na requisição soap");
+            }
+
+            //caso o tipoevento esteja definido, pega a url do evento
+            if (tipoEvento.HasValue)
+            {
+                actionUrn = new SoapUrls().GetSoapUrl(tipoEvento.Value);
+            }
+
+            string xmlSoap = xmlEnvelop.InnerXml;
+            HttpWebRequest httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
 
             httpWr.Timeout = timeOut == 0 ? 2000 : timeOut;
             httpWr.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
             httpWr.ClientCertificates.Add(certificadoDigital);
-            httpWr.ComposeContentType("application/soap+xml", Encoding.UTF8, new SoapUrls().GetSoapUrl(tipoEvento));
+            httpWr.ComposeContentType("application/soap+xml", Encoding.UTF8, actionUrn);
             httpWr.Method = "POST";
 
-            var streamWriter = new StreamWriter(httpWr.GetRequestStream());
+            StreamWriter streamWriter = new StreamWriter(httpWr.GetRequestStream());
 
             streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
             streamWriter.Close();
 
             var webResponse = httpWr.GetResponse();
             var respStream = webResponse.GetResponseStream();
-            var streamReader = new StreamReader(respStream);
+            StreamReader streamReader = new StreamReader(respStream);
 
-            var xmlRetorno = streamReader.ReadToEnd();
+            string xmlRetorno = streamReader.ReadToEnd();
             return xmlRetorno;
         }
     }
