@@ -1,5 +1,6 @@
 ﻿using DFe.Classes.Flags;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 using DFe.Utils.Standard;
 using NFe.Classes;
 using NFe.Classes.Informacoes;
@@ -69,6 +70,9 @@ namespace NFe.AppTeste.NetCore
                     Console.WriteLine("1  - Consulta Status");
                     Console.WriteLine("2  - Consulta Cadastro Contribuinte");
                     Console.WriteLine("3  - Envia Nfe (assincrono)");
+                    Console.WriteLine("4  - Listar NSU"); //Util para mostrar as notas emitida contra o CNPJ da empresa
+                    Console.WriteLine("5  - Manifestar ciência da operação");
+                    Console.WriteLine("6  - Download NFe"); 
                     Console.WriteLine($"98 - Carrega certificado (.pfx) A1");
                     Console.WriteLine($"99 - Carrega Configuracoes do arquivo {ArquivoConfiguracao}");
 
@@ -89,6 +93,15 @@ namespace NFe.AppTeste.NetCore
                             break;
                         case 3:
                             await FuncaoEnviaNfeAssincrono();
+                            break;
+                        case 4:
+                            await CarregarNSUs();
+                            break;
+                        case 5:
+                            await ManifestarCienciaOperacao();
+                            break;
+                        case 6:
+                            await DownloadXml();
                             break;
                         case 98:
                             await CarregaDadosCertificado();
@@ -154,7 +167,6 @@ namespace NFe.AppTeste.NetCore
         #endregion
 
         #region Funcoes
-
 
         private static async Task FuncaoStatusServico()
         {
@@ -308,6 +320,139 @@ namespace NFe.AppTeste.NetCore
             }
         }
 
+        private static async Task CarregarNSUs()
+        {
+            try
+            {
+                Console.WriteLine("Informe o ultimo número de NSU que você tem. Se não tiver, informe 0 (zero):");
+                string ultimoNsu = Console.ReadLine();
+
+                Console.WriteLine("Informe a UF do autor");
+                string uf = Console.ReadLine();
+
+                do
+                {
+                    RetornoNfeDistDFeInt retornoNFeDistDFe = null;
+                    using (var _certificado = CertificadoDigital.ObterCertificado(_configuracoes.CfgServico.Certificado))
+                    using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico, _certificado))
+                        retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(ufAutor: _configuracoes.Emitente.enderEmit.UF.ToString(),
+                                                                           documento: _configuracoes.Emitente.CNPJ,
+                                                                           ultNSU: ultimoNsu.ToString());
+
+                    var lote = retornoNFeDistDFe.Retorno.loteDistDFeInt;
+                    if (lote == null || !lote.Any())
+                        break;
+
+                    Console.WriteLine($"{"NSU".PadRight(44, ' ')} | Xml");
+
+                    foreach (var item in lote)
+                    {
+                        string linha = string.Empty;
+
+                        string xmlStr = string.Empty;
+
+                        if (item.XmlNfe != null)
+                        {
+                            xmlStr = Compressao.Unzip(item.XmlNfe);
+
+                            Console.WriteLine($"{item.NSU.ToString().PadRight(44, ' ')} | {xmlStr}");
+                        }
+                    }
+
+                    await Task.Delay(2000); //https://github.com/ZeusAutomacao/DFe.NET/issues/568#issuecomment-339862458
+
+                } while (true);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static async Task ManifestarCienciaOperacao()
+        {
+            try
+            {
+                Console.WriteLine("Informe a chave da NFe para download:");
+                string chave = Console.ReadLine();
+
+                using (var _certificado = CertificadoDigital.ObterCertificado(_configuracoes.CfgServico.Certificado))
+                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico, _certificado))
+                {
+                    var retornoManifestacao = servicoNFe.RecepcaoEventoManifestacaoDestinatario(idlote: 1,
+                                                                                            sequenciaEvento: 1,
+                                                                                            chavesNFe: new string[] { chave },
+                                                                                            nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaEmissao,
+                                                                                            cpfcnpj: _configuracoes.Emitente.CNPJ,
+                                                                                            justificativa: null);
+
+                    Console.WriteLine($"Retorno da manifestação: {retornoManifestacao.RetornoStr}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static async Task DownloadXml()
+        {
+            try
+            {
+                Console.WriteLine("Informe a chave da NFe para download:");
+                string chave = Console.ReadLine();
+
+                Console.WriteLine("Deseja manifestar a NFe? (S/N)");
+                bool manifestar = string.Equals(Console.ReadLine().Trim().ToLower(), "s");
+
+
+                using (var _certificado = CertificadoDigital.ObterCertificado(_configuracoes.CfgServico.Certificado))
+                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico, _certificado))
+                {
+                    if (manifestar)
+                    {
+                        try
+                        {
+                            var retornoManifestacao = servicoNFe.RecepcaoEventoManifestacaoDestinatario(idlote: 1,
+                                                                                                    sequenciaEvento: 1,
+                                                                                                    chavesNFe: new string[] { chave },
+                                                                                                    nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaEmissao,
+                                                                                                    cpfcnpj: _configuracoes.Emitente.CNPJ,
+                                                                                                    justificativa: null);
+
+                            Console.WriteLine($"Retorno da manifestação: {retornoManifestacao.RetornoStr}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Manifestação: {ex.Message}");
+                        }
+                    }
+
+                    var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(ufAutor: _configuracoes.Emitente.enderEmit.UF.ToString(), documento: _configuracoes.Emitente.CNPJ, chNFE: chave);
+                    if (retornoNFeDistDFe.Retorno.loteDistDFeInt == null)
+                    {
+                        await Task.Delay(2000); //https://github.com/ZeusAutomacao/DFe.NET/issues/568#issuecomment-339862458
+
+                        retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(ufAutor: _configuracoes.Emitente.enderEmit.UF.ToString(), documento: _configuracoes.Emitente.CNPJ, chNFE: chave);
+
+                        if (retornoNFeDistDFe.Retorno.loteDistDFeInt == null)
+                            throw new Exception(retornoNFeDistDFe.Retorno.xMotivo);
+                    }
+
+                    if ((retornoNFeDistDFe.Retorno.loteDistDFeInt.Count()) > 0)
+                    {
+                        var xmlBytes = retornoNFeDistDFe.Retorno.loteDistDFeInt[0].XmlNfe;
+                        string xmlStr = Compressao.Unzip(xmlBytes);
+
+                        Console.WriteLine($"Xml: {xmlStr}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
         #endregion
 
