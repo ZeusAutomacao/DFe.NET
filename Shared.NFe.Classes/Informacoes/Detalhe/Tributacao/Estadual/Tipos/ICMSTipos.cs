@@ -262,12 +262,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// <summary>
         /// 5 - Pauta (valor)
         /// </summary>
-        [XmlEnum("5")] DbisPauta = 5
+        [XmlEnum("5")] DbisPauta = 5,
         
         /// <summary>
         /// 6 - Valor da Operação
         /// </summary>
-         [XmlEnum("6")] DbisValordaOperacao = 6
+        [XmlEnum("6")] DbisValordaOperacao = 6
     }
 
     #endregion
