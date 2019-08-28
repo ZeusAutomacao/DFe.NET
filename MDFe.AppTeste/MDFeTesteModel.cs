@@ -779,10 +779,18 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            var servicoRecepcao = new ServicoMDFeRecepcao();
+            #region dados responsavel tecnico 
 
-            // Evento executado antes do envio da mdf-e para a sefaz
-            //servicoRecepcao.AntesDeEnviar += AntesEnviar;
+            mdfe.InfMDFe.infRespTec = new infRespTec
+            {
+                CNPJ = "",
+                email = "",
+                fone = "",
+                xContato = ""
+            };
+            #endregion  
+
+            var servicoRecepcao = new ServicoMDFeRecepcao();
 
             var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
 
@@ -790,11 +798,6 @@ namespace MDFe.AppTeste
 
             config.ConfigWebService.Numeracao++;
             new ConfiguracaoDao().SalvarConfiguracao(config);
-        }
-
-        private void AntesEnviar(object sender, AntesDeEnviar e)
-        {
-            MessageBoxTuche(e.enviMdFe.MDFe.Chave());
         }
 
         private static int GetRandom()
