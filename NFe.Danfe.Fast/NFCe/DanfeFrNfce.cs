@@ -64,6 +64,7 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
         /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
         /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
+        /// <param name="textoRodape">Texto para ser impresso no final do documento</param>
         public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string textoRodape = "") :
             this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce, cIdToken, csc, arquivoRelatorio: string.Empty, textoRodape: textoRodape)
         {
