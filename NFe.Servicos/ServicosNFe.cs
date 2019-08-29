@@ -871,6 +871,8 @@ namespace NFe.Servicos
                 foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {
                     var conteudo = Compressao.Unzip(dFeInt.XmlNfe);
+                    conteudo = conteudo.Trim('\r', '\n');
+
                     var chNFe = string.Empty;
 
                     if (conteudo.StartsWith("<resNFe"))
