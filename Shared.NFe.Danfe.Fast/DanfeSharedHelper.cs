@@ -16,7 +16,7 @@ namespace Shared.DFe.Danfe.Fast
 {
     public static class DanfeSharedHelper
     {
-        public static Report GenerateDanfeNfceReport(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, byte[] frx, string arquivoRelatorio)
+        public static Report GenerateDanfeNfceReport(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, byte[] frx, string arquivoRelatorio, string textoRodape = "")
         {
             //Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
@@ -38,6 +38,7 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);
+            relatorio.SetParameterValue("TextoRodape", textoRodape);
             ((ReportPage)relatorio.FindObject("PgNfce")).LeftMargin = configuracaoDanfeNfce.MargemEsquerda;
             ((ReportPage)relatorio.FindObject("PgNfce")).RightMargin = configuracaoDanfeNfce.MargemDireita;
 
