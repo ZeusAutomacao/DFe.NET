@@ -3,7 +3,7 @@
 namespace DFe.DocumentosEletronicos.Common
 {
     /// <summary>
-    /// Classe base para a serealização no formato do envelope SOAP.
+    /// Classe base para a serialização no formato do envelope SOAP.
     /// </summary>
     [XmlType(Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class CommonSoapEnvelope
