@@ -66,7 +66,7 @@ namespace NFe.Wsdl.Autorizacao
         #region Envelope
 
         /// <summary>
-        /// Classe base para a serealização no formato do envelope SOAP.
+        /// Classe base para a serialização no formato do envelope SOAP.
         /// </summary>
         [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
         public class SoapEnvelope : CommonSoapEnvelope
@@ -89,7 +89,7 @@ namespace NFe.Wsdl.Autorizacao
         #region Envelope ZIP
 
         /// <summary>
-        /// Classe base para a serealização no formato do envelope SOAP | zip
+        /// Classe base para a serialização no formato do envelope SOAP | zip
         /// </summary>
         [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
         public class SoapEnvelopeZip : CommonSoapEnvelope
