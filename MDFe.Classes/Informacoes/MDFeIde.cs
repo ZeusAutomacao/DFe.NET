@@ -240,6 +240,23 @@ namespace MDFe.Classes.Informacoes
         /// Proxy para dhIniViagem
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
-        public string ProxyDhIniViagem { get; set; }
+        public string ProxyDhIniViagem
+        {
+            get
+            {
+                switch (_versaoServico)
+                {
+                    case VersaoServico.Versao100:
+                        return DhIniViagem.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhIniViagem.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para MDF-e");
+                }
+
+            }
+            set { DhIniViagem = DateTime.Parse(value); }
+        }
+
     }
 }
