@@ -33,7 +33,7 @@
 
 using CTe.Classes.Informacoes.Emitente;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente
+namespace CTe.CTeOSDocumento.CTe.Classes.Informacoes.Emitente
 {
     public class emitOs
     {

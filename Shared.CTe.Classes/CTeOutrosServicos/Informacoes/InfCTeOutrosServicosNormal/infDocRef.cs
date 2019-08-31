@@ -36,7 +36,7 @@ using System.Xml.Serialization;
 using DFe.Classes;
 using DFe.Utils;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class infDocRef
     {
