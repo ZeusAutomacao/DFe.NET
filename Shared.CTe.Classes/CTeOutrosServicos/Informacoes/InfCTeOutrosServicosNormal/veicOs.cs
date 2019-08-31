@@ -3,7 +3,7 @@ using CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class veicOs
     {

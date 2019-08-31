@@ -3,7 +3,7 @@ using System.Xml.Serialization;
 using CTe.Classes.Protocolo;
 using DFe.Classes.Flags;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Retorno
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Retorno
 {
     [Serializable]
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte",
@@ -13,7 +13,7 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Retorno
         [XmlAttribute]
         public VersaoServico versao { get; set; }
 
-        public CTeOS CTeOS { get; set; }
+        public global::CTe.CTeOSClasses.CTeOS CTeOS { get; set; }
 
         public protCTe protCTe { get; set; }
     }

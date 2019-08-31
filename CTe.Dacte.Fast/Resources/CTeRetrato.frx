@@ -821,7 +821,7 @@ namespace FastReport
           <Column Name="infCTeNorm" DataType="CTe.Classes.Informacoes.infCTeNormal.infCTeNorm, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null">
             <Column Name="infServico" DataType="CTe.Classes.Informacoes.infCTeNormal.infServico, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null">
               <Column Name="xDescServ" DataType="System.String"/>
-              <Column Name="infQ" Enabled="false" DataType="DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal.infQOs, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="infQ" Enabled="false" DataType="CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal.infQOs, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null"/>
             </Column>
             <Column Name="infQ" DataType="CTe.Classes.Informacoes.infCTeNormal.infQcteOs, CTe.Classes, Version=1.0.0.756, Culture=neutral, PublicKeyToken=null">
               <Column Name="qCarga" DataType="System.Decimal"/>

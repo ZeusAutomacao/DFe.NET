@@ -1,6 +1,6 @@
 ﻿using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.Wsdl.Corpo
+namespace CTe.CTeOSDocumento.Wsdl.Corpo
 {
     public interface ITagCorpo
     {

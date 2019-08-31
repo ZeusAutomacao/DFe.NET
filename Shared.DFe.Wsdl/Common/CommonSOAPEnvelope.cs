@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace DFe.DocumentosEletronicos.Common
+namespace CTe.CTeOSDocumento.Common
 {
     /// <summary>
     /// Classe base para a serealização no formato do envelope SOAP.

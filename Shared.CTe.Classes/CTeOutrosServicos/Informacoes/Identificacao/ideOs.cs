@@ -8,7 +8,7 @@ using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Identificacao
 {
     public class ideOs
     {

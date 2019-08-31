@@ -1,6 +1,6 @@
 ﻿using CTe.Classes.Informacoes.Tipos;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class segOs
     {

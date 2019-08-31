@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using CTe.Classes.Informacoes.infCTeNormal;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class infCTeNormOs
     {

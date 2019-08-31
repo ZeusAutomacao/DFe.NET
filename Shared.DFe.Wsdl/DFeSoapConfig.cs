@@ -1,9 +1,9 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Xml;
-using DFe.DocumentosEletronicos.Wsdl.Corpo;
+using CTe.CTeOSDocumento.Wsdl.Corpo;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.Wsdl
+namespace CTe.CTeOSDocumento.Wsdl
 {
     public class DFeSoapConfig
     {
