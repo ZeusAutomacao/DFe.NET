@@ -47,12 +47,11 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         [XmlAttribute()]
         public decimal versao { get; set; }
 
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public infNFe NFe { get; set; }
 
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe")]
         public protNFe protNFe { get; set; }
 
     }
-
-    
-    
 }
