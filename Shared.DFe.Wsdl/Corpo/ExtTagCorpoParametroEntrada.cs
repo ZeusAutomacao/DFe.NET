@@ -1,7 +1,7 @@
 ﻿using System;
 using DFe.Classes.Entidades;
 
-namespace DFe.DocumentosEletronicos.Wsdl.Corpo
+namespace CTe.CTeOSDocumento.Wsdl.Corpo
 {
     public static class ExtTagCorpoParametroEntrada
     {
