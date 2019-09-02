@@ -1147,6 +1147,11 @@ namespace NFe.Servicos
         public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento,
             string documento)
         {
+            if(_cFgServico.cUF == Estado.MG)
+            {
+                _cFgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
+            }
+
             var versaoServico =
                 ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro, _cFgServico.cUF);
 
