@@ -153,7 +153,7 @@ namespace NFe.Classes.Informacoes
         public cana cana { get; set; }
         
         /// <summary>
-        /// Telefone do responsável
+        /// Dados do Responsável Técnico
         /// </summary>
         public infRespTec infRespTec { get; set; }
     }
