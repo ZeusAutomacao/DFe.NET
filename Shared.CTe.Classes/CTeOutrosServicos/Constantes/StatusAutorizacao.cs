@@ -1,4 +1,4 @@
-﻿namespace DFe.DocumentosEletronicos.CTe.Constantes
+﻿namespace CTe.CTeOSDocumento.CTe.Constantes
 {
     public enum StatusAutorizacao
     {
