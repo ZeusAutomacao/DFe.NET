@@ -35,7 +35,7 @@ using System.Xml.Serialization;
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviarioOS;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class rodoOS : ContainerModal
     {

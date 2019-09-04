@@ -2,11 +2,11 @@
 using System.IO;
 using System.Text;
 using CTe.Classes;
-using DFe.DocumentosEletronicos.CTe.Constantes;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao;
+using CTe.CTeOSDocumento.CTe.Constantes;
+using CTe.CTeOSDocumento.CTe.CTeOS.Servicos.Autorizacao;
 using DFe.Utils;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Extensoes
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Extensoes
 {
     public static class extretCteOS
     {

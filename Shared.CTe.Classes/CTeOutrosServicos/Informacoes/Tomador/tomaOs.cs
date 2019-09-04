@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Tomador
 {
     public class tomaOs
     {

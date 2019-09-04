@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.Common;
+using CTe.CTeOSDocumento.Common;
 
 namespace CTe.Wsdl.DistribuicaoDFe
 {
