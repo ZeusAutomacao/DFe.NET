@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 
-namespace DFe.DocumentosEletronicos.Common
+namespace CTe.CTeOSDocumento.Common
 {
     public class WsdlConfiguracao
     {

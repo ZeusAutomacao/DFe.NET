@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using CTe.Classes.Informacoes.Complemento;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Complemento
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Complemento
 {
     public class complOs
     {

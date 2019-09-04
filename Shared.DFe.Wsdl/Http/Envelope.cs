@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using DFe.DocumentosEletronicos.Wsdl;
+using CTe.CTeOSDocumento.Wsdl;
 
 namespace DFe.Http
 {
