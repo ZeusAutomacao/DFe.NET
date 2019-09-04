@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal;
 
 namespace CTe.Classes.Informacoes.infCTeNormal
 {

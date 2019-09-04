@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.Wsdl.Corpo
+namespace CTe.CTeOSDocumento.Wsdl.Corpo
 {
     public class NfeTagCorpo : ITagCorpo
     {

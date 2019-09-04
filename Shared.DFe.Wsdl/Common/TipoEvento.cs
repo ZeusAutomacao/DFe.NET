@@ -1,4 +1,4 @@
-﻿namespace DFe.DocumentosEletronicos.Common
+﻿namespace CTe.CTeOSDocumento.Common
 {
     public enum TipoEvento
     {
