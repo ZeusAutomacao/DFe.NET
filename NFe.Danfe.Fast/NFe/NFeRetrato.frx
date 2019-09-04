@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="09/02/2019 14:07:29" ReportInfo.CreatorVersion="2017.4.3.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="09/03/2019 13:51:42" ReportInfo.CreatorVersion="2017.4.3.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -678,15 +678,7 @@ namespace FastReport
               <Column Name="ICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.ICMS, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoICMS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.ICMSBasico, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                   <Column Name="orig" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.OrigemMercadoria, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csticms, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="modBC" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.DeterminacaoBaseIcms, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pICMS" DataType="System.Decimal"/>
-                  <Column Name="vICMS" DataType="System.Decimal"/>
-                  <Column Name="pFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="pFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                  <Column Name="vFCP" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                  <Column Name="vFCPSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <Column Name="CSOSN" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos.Csosnicms, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
                 </Column>
               </Column>
               <Column Name="IPI" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.IPI, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
@@ -714,9 +706,11 @@ namespace FastReport
               <Column Name="PIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PIS, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoPIS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.PISBasico, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTPIS, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pPIS" DataType="System.Decimal"/>
-                  <Column Name="vPIS" DataType="System.Decimal"/>
+                  <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vPIS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 </Column>
               </Column>
               <Column Name="PISST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.PISST, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
@@ -729,9 +723,11 @@ namespace FastReport
               <Column Name="COFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINS, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                 <Column Name="TipoCOFINS" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.COFINSBasico, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos.CSTCOFINS, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="vBC" DataType="System.Decimal"/>
-                  <Column Name="pCOFINS" DataType="System.Decimal"/>
-                  <Column Name="vCOFINS" DataType="System.Decimal"/>
+                  <Column Name="vBC" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="pCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vCOFINS" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="qBCProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="vAliqProd" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 </Column>
               </Column>
               <Column Name="COFINSST" DataType="NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.COFINSST, NFe.Classes, Version=1.0.0.757, Culture=neutral, PublicKeyToken=null">
@@ -1045,7 +1041,7 @@ namespace FastReport
       <LineObject Name="Line1" Top="73.81" Width="744.57" Border.Style="Dot" Border.Width="0.5"/>
       <TextObject Name="Memo17" Left="642.52" Width="102.05" Height="68.03" Border.Lines="All" Border.Width="0.5" Text="NF-e&#13;&#10;Nº [Format(&quot;{0:000,000,000}&quot;,[NFe.NFe.infNFe.ide.nNF])]&#13;&#10;Série [Format(&quot;{0:000}&quot;, [NFe.NFe.infNFe.ide.serie])]" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="Emitente" Top="80.97" Width="744.66" Height="173.86" BeforePrintEvent="Emitente_BeforePrint">
+    <PageHeaderBand Name="Emitente" Top="81.66" Width="744.66" Height="173.86" BeforePrintEvent="Emitente_BeforePrint">
       <TextObject Name="Memo12" Left="310.34" Top="16.9" Width="113.4" Height="26.46" CanShrink="true" Text="Documento Auxiliar da &#13;&#10;Nota Fiscal Eletrônica" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo9" Left="309.92" Width="113.39" Height="120.94" Border.Lines="All" Border.Width="0.5" Text="DANFE" Padding="2, 2, 2, 2" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Memo15" Left="313.72" Top="41.9" Width="75.59" Height="32.13" Text="0 - ENTRADA&#13;&#10;1 - SAÍDA" Padding="2, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 8pt"/>
@@ -1071,7 +1067,7 @@ namespace FastReport
       <BarcodeObject Name="BarcodeChave" Left="445.66" Top="5.67" Width="277.07" Height="37.8" AutoSize="false" Text="123456789012345678946546546579878454676546546546546556465" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.CalcCheckSum="false" Barcode.AutoEncode="true"/>
       <BarcodeObject Name="BarCodeContigencia" Left="445.66" Top="83.16" Width="277.07" Height="34.02" ShiftMode="WhenOverlapped" AutoSize="false" Text="123456789012345678946546546579878454676546546546546556465" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.CalcCheckSum="false" Barcode.AutoEncode="true"/>
     </PageHeaderBand>
-    <DataBand Name="Destinatario" Top="256.43" Width="744.66" Height="96.27">
+    <DataBand Name="Destinatario" Top="257.8" Width="744.66" Height="96.27">
       <TextObject Name="Memo29" Top="16.9" Width="468.66" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="NOME / RAZÃO SOCIAL" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo30" Top="26.35" Width="464.88" Height="17.01" Text="[NFe.NFe.infNFe.dest.xNome]" Padding="5, 1, 5, 1" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo31" Left="631.18" Top="16.9" Width="113.39" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="DATA DA EMISSÃO" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
@@ -1098,7 +1094,7 @@ namespace FastReport
       <TextObject Name="Memo52" Left="498.9" Top="79.26" Width="132.28" Height="17.01" Text="[NFe.NFe.infNFe.dest.IE]" Padding="5, 1, 5, 1" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo53" Top="3.78" Width="430.87" Height="13.23" Text="DESTINATÁRIO / REMETENTE" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="LocalRetirada" Top="354.3" Width="744.66" Height="100.06">
+    <DataBand Name="LocalRetirada" Top="356.36" Width="744.66" Height="100.06">
       <TextObject Name="Memo11" Left="633.15" Top="28.35" Width="103.94" Height="17.01" Text="[FormatarCampo(ToString(IIf([NFe.NFe.infNFe.retirada.IE] == &quot;&quot; || [NFe.NFe.infNFe.retirada.IE] == null, [NFe.NFe.infNFe.retirada.IE], [NFe.NFe.infNFe.retirada.IE])), 'd')]&#13;&#10;" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo18" Left="-0.01" Top="54.7" Width="376.03" Height="17.01" Text="[NFe.NFe.infNFe.retirada.xLgr], [NFe.NFe.infNFe.retirada.nro] [NFe.NFe.infNFe.retirada.xCpl]" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo185" Top="3.78" Width="430.87" Height="13.23" Text="LOCAL RETIRADA" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
@@ -1119,7 +1115,7 @@ namespace FastReport
       <TextObject Name="Text188" Left="604.65" Top="81.27" Width="20.79" Height="17.01" Text="[NFe.NFe.infNFe.retirada.UF]" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text189" Left="631.26" Top="81.27" Width="115.29" Height="17.01" Text="[FormatarCampo(ToString(IIf([NFe.NFe.infNFe.retirada.Fone] == &quot;&quot; || [NFe.NFe.infNFe.retirada.Fone] == null, [NFe.NFe.infNFe.retirada.Fone], [NFe.NFe.infNFe.retirada.Fone])), 'f')]&#13;&#10;" Padding="5, 1, 5, 1" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="LocalEntrega" Top="455.96" Width="744.66" Height="100.06">
+    <DataBand Name="LocalEntrega" Top="458.7" Width="744.66" Height="100.06">
       <TextObject Name="Text190" Left="633.15" Top="28.35" Width="103.94" Height="17.01" Text="[FormatarCampo(ToString(IIf([NFe.NFe.infNFe.entrega.IE] == &quot;&quot; || [NFe.NFe.infNFe.entrega.IE] == null, [NFe.NFe.infNFe.entrega.IE], [NFe.NFe.infNFe.entrega.IE])), 'd')]&#13;&#10;" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text191" Left="-0.01" Top="54.7" Width="376.03" Height="17.01" Text="[NFe.NFe.infNFe.entrega.xLgr], [NFe.NFe.infNFe.entrega.nro] [NFe.NFe.infNFe.entrega.xCpl]" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text192" Top="3.78" Width="430.87" Height="13.23" Text="LOCAL ENTREGA" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
@@ -1140,14 +1136,14 @@ namespace FastReport
       <TextObject Name="Text207" Left="604.8" Top="81.27" Width="20.79" Height="17.01" Text="[NFe.NFe.infNFe.entrega.UF]" Padding="2, 2, 2, 2" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text208" Left="631.26" Top="81.27" Width="115.29" Height="17.01" Text="[FormatarCampo(ToString(IIf([NFe.NFe.infNFe.entrega.Fone] == &quot;&quot; || [NFe.NFe.infNFe.entrega.Fone] == null, [NFe.NFe.infNFe.entrega.Fone], [NFe.NFe.infNFe.entrega.Fone])), 'f')]&#13;&#10;" Padding="5, 1, 5, 1" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="Fatura" Top="557.62" Width="744.66" Height="43.46">
+    <DataBand Name="Fatura" Top="561.05" Width="744.66" Height="43.46">
       <TextObject Name="Memo146" Top="17.01" Width="744.57" Height="20.79" Border.Lines="All" Border.Width="0.5" Text="DADOS DA FATURA" Padding="3, 0, 3, 0" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo190" Top="3.78" Width="430.87" Height="13.23" Text="FATURA" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
       <TextObject Name="MemoFatura" Left="128.5" Top="17.01" Width="616.06" Height="20.79" Border.Lines="All" Border.Width="0.5" Text="  Número:   [NFe.NFe.infNFe.cobr.fat.nFat]    -   Valor Original: [FormatCurrency([NFe.NFe.infNFe.cobr.fat.vOrig])]    -   Valor Desconto:  [FormatCurrency([NFe.NFe.infNFe.cobr.fat.vDesc])]    -   ValorLíquido: [FormatCurrency([NFe.NFe.infNFe.cobr.fat.vLiq])]" Padding="3, 0, 3, 0" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <GroupHeaderBand Name="DuplicatasHeader" Top="602.68" Width="744.66" Height="17.01" RepeatOnEveryPage="true" Condition="[NFe.NFe.infNFe.cobr.fat.nFat]">
+    <GroupHeaderBand Name="DuplicatasHeader" Top="606.79" Width="744.66" Height="17.01" RepeatOnEveryPage="true" Condition="[NFe.NFe.infNFe.cobr.fat.nFat]">
       <TextObject Name="Memo205" Top="3.78" Width="430.87" Height="13.23" Text="DUPLICATAS" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
-      <DataBand Name="Duplicatas" Top="621.29" Width="148.91" Height="38.55" DataSource="dup" Columns.Count="5" Columns.Width="148.91">
+      <DataBand Name="Duplicatas" Top="626.09" Width="148.91" Height="38.55" DataSource="dup" Columns.Count="5" Columns.Width="148.91">
         <TextObject Name="Memo66" Top="1.13" Width="148.91" Height="36.67" Border.Lines="All" Border.Width="0.5" Text="Número&#13;&#10;Vencimento&#13;&#10;Valor" Padding="3, 1, 3, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
         <TextObject Name="Memo138" Left="56.69" Width="3.78" Height="37.8" Text=":&#13;&#10;:&#13;&#10;:" Padding="2, 1, 2, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 6pt"/>
         <TextObject Name="Memo147" Left="60.47" Width="86.93" Height="12.47" Text="[NFe.NFe.infNFe.cobr.dup.nDup]" Padding="3, 1, 3, 1" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8pt"/>
@@ -1158,7 +1154,7 @@ namespace FastReport
         </Sort>
       </DataBand>
     </GroupHeaderBand>
-    <DataBand Name="Imposto" Top="661.44" Width="744.66" Height="70.03" BeforePrintEvent="Imposto_BeforePrint">
+    <DataBand Name="Imposto" Top="666.93" Width="744.66" Height="70.03" BeforePrintEvent="Imposto_BeforePrint">
       <TextObject Name="QuadroPIS" Left="490.27" Top="17.01" Width="106.97" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR DO PIS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="QuadroVTOTTRIB" Left="497.85" Top="16.9" Width="99.52" Height="26.46" Visible="false" Border.Lines="All" Border.Width="0.5" Text="Total dos Tributos (Fonte: IBPT)" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo58" Top="3.78" Width="430.87" Height="13.23" Text="CÁLCULO DO IMPOSTO" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
@@ -1189,7 +1185,7 @@ namespace FastReport
       <TextObject Name="Text170" Left="0.38" Top="25.33" Width="114.53" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vBC]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="txtIbptValor" Left="499.85" Top="25.35" Width="96.22" Height="17.01" Visible="false" Text="[NFe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="TransportadorVolumes" Top="733.07" Width="744.66" Height="96.38">
+    <DataBand Name="TransportadorVolumes" Top="739.24" Width="744.66" Height="96.38">
       <TextObject Name="Memo82" Top="3.78" Width="430.87" Height="13.23" Text="TRANSPORTADOR / VOLUMES TRANSPORTADOS" Padding="0, 1, 0, 1" Font="Times New Roman, 7pt, style=Bold"/>
       <TextObject Name="Memo83" Left="636.09" Top="17.01" Width="108.47" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CNPJ / CPF" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo84" Left="636.09" Top="26.46" Width="108.47" Height="17.01" Text="[FormatarCampo(ToString(IIf([NFe.NFe.infNFe.transp.transporta.CPF] == &quot;&quot; || [NFe.NFe.infNFe.transp.transporta.CPF] == null, [NFe.NFe.infNFe.transp.transporta.CNPJ], [NFe.NFe.infNFe.transp.transporta.CPF])), 'd')]" Padding="5, 1, 5, 1" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
@@ -1224,7 +1220,7 @@ namespace FastReport
       <TextObject Name="Memo113" Left="636.22" Top="69.92" Width="108.35" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PESO LÍQUIDO" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo114" Left="636.22" Top="79.37" Width="108.35" Height="17.01" Text="[NFe.NFe.infNFe.transp.vol.pesoL]" Padding="5, 1, 5, 1" HideValue="0" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <GroupHeaderBand Name="DadosProdutosHeader" Top="831.05" Width="744.66" Height="41.2" RepeatOnEveryPage="true" Condition="[NFe.NFe.infNFe.Id]" SortOrder="None">
+    <GroupHeaderBand Name="DadosProdutosHeader" Top="837.91" Width="744.66" Height="41.2" RepeatOnEveryPage="true" Condition="[NFe.NFe.infNFe.Id]" SortOrder="None">
       <TextObject Name="Memo115" Top="3.78" Width="430.87" Height="13.23" Text="DADOS DOS PRODUTOS / SERVIÇOS" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
       <TextObject Name="Memo116" Top="18.34" Width="60.47" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="CÓDIGO&#13;&#10;PRODUTO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo117" Left="60.47" Top="18.34" Width="222.99" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="DESCRIÇÃO DO PRODUTO / SERVIÇO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
@@ -1242,7 +1238,7 @@ namespace FastReport
       <TextObject Name="Memo129" Left="702.99" Top="29.68" Width="20.79" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo130" Left="723.78" Top="29.68" Width="20.79" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="IPI" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo189" Left="702.99" Top="18.34" Width="41.57" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ALÍQ. %" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-      <DataBand Name="DadosProdutos" Top="873.85" Width="744.66" Height="11.34" CanGrow="true" CanShrink="true" BeforePrintEvent="DadosProdutos_BeforePrint" Guides="0" DataSource="det">
+      <DataBand Name="DadosProdutos" Top="881.39" Width="744.66" Height="11.34" CanGrow="true" CanShrink="true" BeforePrintEvent="DadosProdutos_BeforePrint" Guides="0" DataSource="det">
         <TableObject Name="prodTable" Width="744.66" Height="11.34">
           <TableColumn Name="prodCodigo" Width="60.48"/>
           <TableColumn Name="prodNome" Width="223.02"/>
@@ -1278,24 +1274,26 @@ namespace FastReport
           </TableRow>
         </TableObject>
       </DataBand>
-      <GroupFooterBand Name="DadosProdutosFooter" Top="886.79" Width="744.66" BeforePrintEvent="DadosProdutosFooter_BeforePrint"/>
+      <GroupFooterBand Name="DadosProdutosFooter" Top="895.02" Width="744.66" BeforePrintEvent="DadosProdutosFooter_BeforePrint"/>
     </GroupHeaderBand>
-    <DataBand Name="ItemEspace" Top="888.39" Width="744.66" Height="11.34"/>
-    <DataBand Name="DadosISSQN" Top="901.33" Width="744.66" Height="9.45" CanGrow="true" CanShrink="true">
+    <DataBand Name="ItemEspace" Top="897.3" Width="744.66" Height="11.34"/>
+    <DataBand Name="DadosISSQN" Top="910.93" Width="744.66" Height="9.45" CanGrow="true" CanShrink="true">
       <SubreportObject Name="Subreport1" Width="746.55" Height="9.45" ReportPage="PageISSQN"/>
     </DataBand>
-    <PageFooterBand Name="DadosAdicionais" Top="912.38" Width="744.66" Height="137.97" PrintOn="FirstPage">
-      <TextObject Name="Text155" Top="21.8" Width="470.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text156" Left="470.5" Top="21.8" Width="274.06" Height="111.51" Border.Lines="All" Border.Width="0.5" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="TextInfAdicionais" Left="1.45" Top="35.25" Width="468.5" Height="95.95" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text37" Left="472.5" Top="35.25" Width="264.6" Height="95.95" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text157" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-      <ChildBand Name="PageFooter" Top="1051.95" Width="744.66" Height="14.12" Guides="0">
-        <TextObject Name="memDataHora" Top="0.89" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([Date], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
-        <TextObject Name="memSistema" Left="453.54" Top="0.89" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+    <DataBand Name="DadosAdicionais" Top="938.18" Width="744.66" Height="112.52" CanGrow="true" CanShrink="true" CanBreak="true">
+      <TextObject Name="TextInfAdicionais" Left="1.45" Top="14.46" Width="468.5" Height="95.95" CanGrow="true" CanShrink="true" GrowToBottom="true" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text155" Top="1.01" Width="470.06" Height="111.51" Border.Lines="All" Border.Width="0.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text156" Left="470.5" Top="1.01" Width="274.06" Height="111.51" Border.Lines="All" Border.Width="0.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+      <TextObject Name="Text37" Left="472.5" Top="14.46" Width="264.6" Height="95.95" CanGrow="true" CanShrink="true" GrowToBottom="true" Font="Times New Roman, 8pt"/>
+      <ChildBand Name="PageFooter" Top="1052.99" Width="744.66" Height="13.23">
+        <TextObject Name="memDataHora" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([Date], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+        <TextObject Name="memSistema" Left="453.54" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       </ChildBand>
-    </PageFooterBand>
-    <OverlayBand Name="MarcaDagua" Top="1067.67" Width="744.66" Height="1122.52">
+      <DataHeaderBand Name="DataHeader1" Top="922.67" Width="744.66" Height="13.23">
+        <TextObject Name="Text157" Left="1.89" Top="1.89" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+      </DataHeaderBand>
+    </DataBand>
+    <OverlayBand Name="MarcaDagua" Top="1068.5" Width="744.66" Height="1122.52">
       <TextObject Name="memWatermark" Width="744.57" Height="1122.52" Text="[Mensagem]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 50pt, style=Bold" TextFill.Color="216, 216, 216"/>
     </OverlayBand>
   </ReportPage>
