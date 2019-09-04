@@ -1,6 +1,6 @@
 ﻿using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using DFe.DocumentosEletronicos.Wsdl.Cabecalho;
+using CTe.CTeOSDocumento.Wsdl.Cabecalho;
 
 namespace DFe.Wsdl
 {

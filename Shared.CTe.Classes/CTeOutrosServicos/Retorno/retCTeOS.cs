@@ -5,7 +5,7 @@ using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Servicos.Autorizacao
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class retCTeOS : RetornoBase
@@ -54,14 +54,14 @@ namespace DFe.DocumentosEletronicos.CTe.CTeOS.Servicos.Autorizacao
             return retorno;
         }
 
-        public static retCTeOS LoadXml(string xml, CTeOS cteOS)
+        public static retCTeOS LoadXml(string xml, CTeOSClasses.CTeOS cteOS)
         {
             var retorno = LoadXml(xml);
             retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(cteOS);
             return retorno;
         }
 
-        public void LoadXml(CTeOS cteOS)
+        public void LoadXml(CTeOSClasses.CTeOS cteOS)
         {
             EnvioXmlString = FuncoesXml.ClasseParaXmlString(cteOS);
         }
