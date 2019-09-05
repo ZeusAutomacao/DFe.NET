@@ -1,5 +1,9 @@
 ﻿using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using CTe.CTeOSDocumento.Wsdl;
+using CTe.CTeOSDocumento.Wsdl.Cabecalho;
+using CTe.CTeOSDocumento.Wsdl.Corpo;
+using DFe.Wsdl;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Extensoes;
 using NFe.Utils;

@@ -8,8 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Net;
+using CTe.CTeOSDocumento.Common;
+using DFe.Http.Ext;
 
-namespace DFe.DocumentosEletronicos.Soap
+namespace CTe.CTeOSDocumento.Soap
 {
     /// <summary>
     /// Classe utilitária resposável pela serialização das classes em um envelope do tipo

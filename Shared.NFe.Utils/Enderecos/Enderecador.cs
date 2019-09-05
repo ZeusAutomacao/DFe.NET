@@ -1297,7 +1297,7 @@ namespace NFe.Utils.Enderecos
 
             #region SVRS
 
-            //Rev: 09/09/2015
+            //Rev: 02/09/2019
 
             #region Homologação
 
@@ -1307,7 +1307,7 @@ namespace NFe.Utils.Enderecos
                 {
                     #region NFe
 
-                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
+                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
                     {
                         if (emissao != TipoEmissao.teEPEC)
                             addServico(eventoCceCanc, versao1, hom, emissao, estado, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx");
@@ -1343,7 +1343,6 @@ namespace NFe.Utils.Enderecos
                     addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, estado, nfce, "https://nfce-homologacao.svrs.rs.gov.br/ws/NfeStatusServico/NfeStatusServico4.asmx");
                     addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, estado, nfce, "https://nfce-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
 
-
                     #endregion
                 }
             }
@@ -1369,8 +1368,8 @@ namespace NFe.Utils.Enderecos
                 {
                     #region NFe
 
-                    //Rev: 09/09/2015
-                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
+                    //Rev: 02/09/2019
+                    if (estado != Estado.BA & estado != Estado.MA & estado != Estado.PE) //Esses estados usam SVRS somente para NFCe, possuindo endereços próprios para NFe.
                     {
                         if (emissao != TipoEmissao.teEPEC)
                             addServico(eventoCceCanc, versao1, prod, emissao, estado, nfe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento.asmx");
