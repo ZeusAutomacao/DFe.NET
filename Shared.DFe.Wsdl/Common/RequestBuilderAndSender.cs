@@ -1,5 +1,4 @@
-﻿using DFe.DocumentosEletronicos.Soap;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Xml;
 using CTe.CTeOSDocumento.Soap;
 

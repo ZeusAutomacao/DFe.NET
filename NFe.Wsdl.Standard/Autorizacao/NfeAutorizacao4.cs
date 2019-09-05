@@ -1,5 +1,5 @@
-﻿using DFe.Classes.Entidades;
-using DFe.DocumentosEletronicos.Common;
+﻿using CTe.CTeOSDocumento.Common;
+using DFe.Classes.Entidades;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;

@@ -1,4 +1,4 @@
-﻿using DFe.DocumentosEletronicos.Common;
+﻿using CTe.CTeOSDocumento.Common;
 using DFe.Http.Ext;
 using System;
 using System.IO;
@@ -8,9 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Net;
-using CTe.CTeOSDocumento.Common;
-using DFe.Http.Ext;
 
 namespace CTe.CTeOSDocumento.Soap
 {
