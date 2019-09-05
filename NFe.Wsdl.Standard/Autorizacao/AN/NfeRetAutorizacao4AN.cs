@@ -1,4 +1,4 @@
-﻿using DFe.DocumentosEletronicos.Common;
+﻿using CTe.CTeOSDocumento.Common;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml;
