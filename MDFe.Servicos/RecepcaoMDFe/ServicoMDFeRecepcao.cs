@@ -55,18 +55,6 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, config);
 
-            //switch (config.VersaoWebService.VersaoLayout)
-            //{
-            //    case VersaoServico.Versao100:
-            //        mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
-            //        mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.HasValue ? mdfe.InfMDFe.Ide.DhIniViagem.Value.ParaDataHoraStringSemUtc() : "";
-            //        break;
-            //    case VersaoServico.Versao300:
-            //        mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
-            //        mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.HasValue ? mdfe.InfMDFe.Ide.DhIniViagem.Value.ParaDataHoraStringUtc() : null;
-            //        break;
-            //}
-
             if (enviMDFe.MDFe?.InfMDFe?.Id == null)
                 enviMDFe.MDFe.Assina(config);
             enviMDFe.Valida(config); 

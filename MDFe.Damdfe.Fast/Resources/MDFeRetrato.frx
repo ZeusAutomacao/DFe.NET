@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="08/30/2019 15:50:09" ReportInfo.CreatorVersion="2019.3.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="09/04/2019 11:46:29" ReportInfo.CreatorVersion="2019.3.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ using FastReport.Table;
 using FastReport.Utils;
 
 using DFe.Classes.Flags;
+using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Flags;
 using MDFe.Utils.Flags;
@@ -46,7 +47,13 @@ namespace FastReport
       }
       Array.Copy(ins, si, outs, di, ins.Length - si);
       return new string(outs);
-    } 
+    }
+    
+    private string ObterSiglaDeUFDoCodigo(string codigoUF)
+    { 
+      Estado estado = (Estado)System.Enum.Parse(typeof(Estado), codigoUF);
+      return estado.ToString();
+    }
     
     private string FormatarCampo(long valor, char format)
     {
@@ -97,69 +104,6 @@ namespace FastReport
     private int? qtdeCTe = 0;
     private int? qtdeNFe = 0;
 //    private int? qtdeMDFe = 0;
-
-    private void PageHeader1_BeforePrint(object sender, EventArgs e)
-    { 
-      bool versao300 = (MDFe.Utils.Flags.VersaoServico)Report.GetColumnValue(&quot;MDFeProcMDFe.Versao&quot;) == MDFe.Utils.Flags.VersaoServico.Versao300;
-        
-      Text121.HtmlTags = true;
-      Text165.HtmlTags = true;
-      Text120.HtmlTags = true;
-      
-      //Seguros
-//      if (versao300)
-//      {   
-//        var seguros = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg&quot;);
-//        seguros.Init();
-//        while (seguros.HasMoreRows)
-//        {
-//          string seguradora = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfSeg.XSeg&quot;);
-//          if (seguradora.Length &gt; 30)
-//            seguradora = seguradora.Substring(0,30);
-//          
-//          string apolice = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.NApol&quot;);
-//          if (apolice.Length &gt; 20)
-//            apolice = apolice.Substring(0,20);
-//
-//          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + ((String)Report.GetParameterValue(&quot;NewLine&quot;));            
-//          txtSeguroSeguradora.Text += seguradora + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-//          txtSeguroApolice.Text += apolice + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-//          
-//          seguros.Next();
-//        }
-//        
-//        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante&quot;);
-//        contratantes.Init();
-//        while (contratantes.HasMoreRows)
-//        {
-//          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;)) ? 
-//                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CPF&quot;)) :
-//                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;));
-//          
-//          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
-//          contratantes.Next();
-//        }        
-//      }      
-      
-      //Totais
-      qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
-      qtdeCTe = qtdeCTe ?? 0;
-      Text38.Text = qtdeCTe.ToString();
-      
-      qtdeNFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe&quot;));
-      qtdeNFe = qtdeNFe ?? 0;
-      Text39.Text = qtdeNFe.ToString();
-      
-//      qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
-//      qtdeMDFe = qtdeMDFe ?? 0;
-//      Text40.Text = qtdeMDFe.ToString();
-      
-      ChildStatusDocumento.Visible = ((Boolean)Report.GetParameterValue(&quot;DocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
-      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
-      
-      if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
-        Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));
-    }
     
     private void Text61_BeforePrint(object sender, EventArgs e)
     {
@@ -219,6 +163,72 @@ namespace FastReport
         Table1.PrintColumns();
         vales.Next();
       }
+    }
+
+    private void Data1_BeforePrint(object sender, EventArgs e)
+    {
+      bool versao300 = (MDFe.Utils.Flags.VersaoServico)Report.GetColumnValue(&quot;MDFeProcMDFe.Versao&quot;) == MDFe.Utils.Flags.VersaoServico.Versao300;
+        
+      Text121.HtmlTags = true;
+      Text165.HtmlTags = true;
+      Text120.HtmlTags = true;
+      
+      //Seguros
+      //      if (versao300)
+      //      {   
+      //        var seguros = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg&quot;);
+      //        seguros.Init();
+      //        while (seguros.HasMoreRows)
+      //        {
+      //          string seguradora = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfSeg.XSeg&quot;);
+      //          if (seguradora.Length &gt; 30)
+      //            seguradora = seguradora.Substring(0,30);
+      //          
+      //          string apolice = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.NApol&quot;);
+      //          if (apolice.Length &gt; 20)
+      //            apolice = apolice.Substring(0,20);
+      //
+      //          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + ((String)Report.GetParameterValue(&quot;NewLine&quot;));            
+      //          txtSeguroSeguradora.Text += seguradora + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+      //          txtSeguroApolice.Text += apolice + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+      //          
+      //          seguros.Next();
+      //        }
+      //        
+      //        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante&quot;);
+      //        contratantes.Init();
+      //        while (contratantes.HasMoreRows)
+      //        {
+      //          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;)) ? 
+      //                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CPF&quot;)) :
+      //                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;));
+      //          
+      //          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
+      //          contratantes.Next();
+      //        }        
+      //      }      
+      
+      //Totais
+      qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
+      qtdeCTe = qtdeCTe ?? 0;
+      Text38.Text = qtdeCTe.ToString();
+      
+      qtdeNFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe&quot;));
+      qtdeNFe = qtdeNFe ?? 0;
+      Text39.Text = qtdeNFe.ToString();
+      
+      //      qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
+      //      qtdeMDFe = qtdeMDFe ?? 0;
+      //      Text40.Text = qtdeMDFe.ToString();
+      
+      Subreport1.Visible = qtdeCTe &gt; 0;      
+      Subreport2.Visible = qtdeNFe &gt; 0;
+      
+      TextSituacaoDocumento.Visible = ((Boolean)Report.GetParameterValue(&quot;DocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;));
+      TextSituacaoDocumento.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
+      
+      if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
+        Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));
     }
   }
 }
@@ -547,17 +557,26 @@ namespace FastReport
     <Parameter Name="NewLine" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
-    <PageHeaderBand Name="PageHeader1" Width="748.44" Height="444.15" BeforePrintEvent="PageHeader1_BeforePrint">
-      <TextObject Name="Text120" Left="113.4" Top="35.91" Width="517.75" Height="132.3" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]-[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF] CEP [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;&lt;b&gt;CNPJ:&lt;/b&gt; [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  &lt;b&gt;IE:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] &lt;b&gt;RNTRC:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]" Font="Times New Roman, 9.75pt"/>
+    <DataBand Name="Data1" Width="748.44" Height="444.15" CanGrow="true" BeforePrintEvent="Data1_BeforePrint">
+      <TextObject Name="Text120" Left="113.4" Top="45.36" Width="517.75" Height="132.3" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]-[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF] CEP [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;&lt;b&gt;CNPJ:&lt;/b&gt; [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  &lt;b&gt;IE:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] &lt;b&gt;RNTRC:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]" Font="Times New Roman, 9.75pt"/>
+      <PictureObject Name="Picture9" Left="226.8" Top="207.9" Width="103.95" Height="37.8" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAcQAAAD2CAIAAADH+GBaAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAAz1JREFUeF7t1EENACAMADH8W4VMAyJ2zybV0HPfALAkU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAtTcfk6M0NoOMOxwAAAAASUVORK5CYII="/>
+      <PictureObject Name="Picture8" Left="117.18" Top="207.9" Width="103.95" Height="37.8" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAcQAAAD2CAIAAADH+GBaAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAAz1JREFUeF7t1EENACAMADH8W4VMAyJ2zybV0HPfALAkU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAtTcfk6M0NoOMOxwAAAAASUVORK5CYII="/>
+      <PictureObject Name="Picture7" Left="8.32" Top="207.9" Width="103.95" Height="37.8" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAcQAAAD2CAIAAADH+GBaAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvQAADr0BR/uQrQAAAz1JREFUeF7t1EENACAMADH8W4VMAyJ2zybV0HPfALAkU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAtTcfk6M0NoOMOxwAAAAASUVORK5CYII="/>
+      <TextObject Name="Text39" Left="120.96" Top="226.8" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text41" Left="230.58" Top="227.56" Width="67.15" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <TextObject Name="Text38" Left="11.34" Top="226.8" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
+      <BarcodeObject Name="Barcode1" Left="360.99" Top="207.9" Width="387.47" Height="66.15" Fill.Color="White" AutoSize="false" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
+      <TextObject Name="Text144" Left="11.34" Top="211.68" Width="94.5" Height="11.9" Text="Qtd. CTe" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text146" Left="120.96" Top="211.68" Width="94.5" Height="11.9" Text="Qtd. NFe" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text148" Left="230.58" Top="212.44" Width="94.5" Height="11.9" Text="Peso total (Kg)" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text143" Left="7.56" Top="179.55" Width="287.28" Height="28.35" Text="Modelo Rodoviário de Carga" Padding="0, 0, 2, 0" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text123" Left="361" Top="179.55" Width="179.55" Height="21.35" Text="CONTROLE DO FISCO" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
       <PictureObject Name="Picture6" Left="7.56" Top="122.85" Width="160.65" Height="39.69" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAABfsAAAFRCAIAAABMt+CPAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAACNZJREFUeF7t2EENADAIALH5VzUpyOCJj0uTquj7swAAAACUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAAC0zB5cba/dOfDSewAAAABJRU5ErkJggg=="/>
       <PictureObject Name="Picture5" Left="376.11" Top="122.85" Width="85.05" Height="39.69" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAb0AAAFRCAIAAABvyuTqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAABDxJREFUeF7t1DERACAMADH8q0JKZXTEAr/nLhpy7iwA/7wJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EKGYfNrDEuobTpmAAAAAASUVORK5CYII="/>
       <PictureObject Name="Picture4" Left="226.8" Top="122.85" Width="141.75" Height="39.69" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAABfsAAAFRCAIAAABMt+CPAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAACNZJREFUeF7t2EENADAIALH5VzUpyOCJj0uTquj7swAAAACUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAADUGB8AAACAGuMDAAAAUGN8AAAAAGqMDwAAAECN8QEAAACoMT4AAAAANcYHAAAAoMb4AAAAANQYHwAAAIAa4wMAAABQY3wAAAAAaowPAAAAQI3xAQAAAKgxPgAAAAA1xgcAAACgxvgAAAAA1BgfAAAAgBrjAwAAAFBjfAAAAABqjA8AAABAjfEBAAAAqDE+AAAAADXGBwAAAKDG+AAAAAC0zB5cba/dOfDSewAAAABJRU5ErkJggg=="/>
       <PictureObject Name="Picture3" Left="175.77" Top="122.85" Width="44.23" Height="39.69" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAb0AAAFRCAIAAABvyuTqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAABDxJREFUeF7t1DERACAMADH8q0JKZXTEAr/nLhpy7iwA/7wJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EKGYfNrDEuobTpmAAAAAASUVORK5CYII="/>
       <PictureObject Name="Picture1" Left="468.72" Top="122.85" Width="85.05" Height="39.69" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAb0AAAFRCAIAAABvyuTqAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAABDxJREFUeF7t1DERACAMADH8q0JKZXTEAr/nLhpy7iwA/7wJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EaLwJ0HgToPEmQONNgMabAI03ARpvAjTeBGi8CdB4E6DxJkDjTYDGmwCNNwEabwI03gRovAnQeBOg8SZA402AxpsAjTcBGm8CNN4EKGYfNrDEuobTpmAAAAAASUVORK5CYII="/>
-      <PictureObject Name="poEmitLogo" Left="28.35" Top="9.45" Width="76.93" Height="77.82" Visible="false" Image=""/>
-      <TextObject Name="Text119" Left="113.4" Top="9.45" Width="569" Height="28.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text121" Left="7.56" Top="85.05" Width="752.55" Height="30.35" Text="&lt;b&gt;DAMDFE&lt;/b&gt; - Documento Auxiliar de Manifesto Eletrônico de Documentos Fiscais" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 12pt"/>
-      <BarcodeObject Name="QrCodMDFe" Left="623.7" Top="7.56" Width="128.52" Height="128.52" AutoSize="false" Text="[MDFeProcMDFe.MDFe.InfMDFeSupl.QrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
       <TextObject Name="Text129" Left="11.34" Top="126.63" Width="47.25" Height="11.9" Text="Modelo" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text131" Left="70.31" Top="126.63" Width="37.8" Height="11.9" Text="Série" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text133" Left="117.56" Top="126.63" Width="56.7" Height="11.9" Text="Número" Font="Times New Roman, 9pt"/>
@@ -565,43 +584,24 @@ namespace FastReport
       <TextObject Name="Text137" Left="230.58" Top="126.63" Width="128.52" Height="11.9" Text="Data e hora de Emissão" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text139" Left="379.89" Top="126.63" Width="66.15" Height="11.9" Text="UF Carreg." Font="Times New Roman, 9pt"/>
       <TextObject Name="Text141" Left="472.5" Top="126.63" Width="85.05" Height="11.9" Text="UF Descarreg." Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text130" Left="11.34" Top="141.75" Width="29.35" Height="15.9" Text="58" VertAlign="Center" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text132" Left="70.31" Top="141.75" Width="29.35" Height="15.9" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" VertAlign="Center" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text134" Left="117.56" Top="141.75" Width="76.6" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.NMDF]" VertAlign="Center" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text136" Left="179.55" Top="141.75" Width="29.35" Height="15.9" Text="[Page#]/[TotalPages#]" VertAlign="Center" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text138" Left="230.58" Top="141.75" Width="123.85" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text140" Left="379.89" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text142" Left="472.5" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <ShapeObject Name="Shape40" Left="226.8" Top="207.9" Width="103.95" Height="37.8" Border.Color="235, 236, 238" Fill.Color="235, 236, 238"/>
-      <ShapeObject Name="Shape39" Left="117.18" Top="207.9" Width="103.95" Height="37.8" Border.Color="235, 236, 238" Fill.Color="235, 236, 238"/>
-      <ShapeObject Name="Shape19" Left="8.32" Top="207.9" Width="103.95" Height="37.8" Border.Color="235, 236, 238" Fill.Color="235, 236, 238"/>
-      <TextObject Name="Text151" Left="360.99" Top="363.6" Width="66.15" Height="11.9" Text="Condutor" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <TextObject Name="Text39" Left="120.96" Top="226.8" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text41" Left="230.58" Top="227.56" Width="67.15" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text144" Left="11.34" Top="211.68" Width="94.5" Height="11.9" Text="Qtd. CTe" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text146" Left="120.96" Top="211.68" Width="94.5" Height="11.9" Text="Qtd. NFe" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text148" Left="230.58" Top="212.44" Width="94.5" Height="11.9" Text="Peso total (Kg)" Font="Times New Roman, 9pt"/>
-      <TextObject Name="Text143" Left="7.56" Top="179.55" Width="287.28" Height="28.35" Text="Modelo Rodoviário de Carga" Padding="0, 0, 2, 0" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text130" Left="11.34" Top="141.75" Width="29.35" Height="15.9" Text="58" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text132" Left="70.31" Top="141.75" Width="29.35" Height="15.9" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text134" Left="117.56" Top="141.75" Width="76.6" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.NMDF]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text136" Left="179.55" Top="141.75" Width="29.35" Height="15.9" Text="[Page#]/[TotalPages#]" VertAlign="Bottom" Font="Times New Roman, 10pt"/>
+      <TextObject Name="Text138" Left="230.58" Top="141.75" Width="123.85" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" VertAlign="Bottom" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text140" Left="379.89" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" VertAlign="Bottom" Font="Times New Roman, 10pt, style=Bold"/>
+      <TextObject Name="Text142" Left="472.5" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" VertAlign="Bottom" Font="Times New Roman, 10pt, style=Bold"/>
+      <BarcodeObject Name="QrCodMDFe" Left="623.7" Top="17.01" Width="128.52" Height="128.52" AutoSize="false" Text="[MDFeProcMDFe.MDFe.InfMDFeSupl.QrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
+      <PictureObject Name="poEmitLogo" Left="28.35" Top="9.45" Width="76.93" Height="77.82" Visible="false" Image=""/>
+      <TextObject Name="Text119" Left="113.4" Top="9.45" Width="569" Height="28.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text127" Left="7.56" Top="306.18" Width="425.25" Height="16.25" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss K&quot;)]" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
       <TextObject Name="Text128" Left="7.56" Top="289.17" Width="207.9" Height="11.9" Text="Protocolo de autorização" Padding="0, 0, 2, 0" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="txtChaveMDFe" Left="360.99" Top="306.18" Width="409.8" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[InsertStrings(Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4), 4, ' ')]" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
       <TextObject Name="Text124" Left="360.99" Top="289.17" Width="132.3" Height="11.9" Text="Chave de Acesso" Padding="0, 0, 2, 0" Font="Times New Roman, 9pt, style=Bold"/>
-      <BarcodeObject Name="Barcode1" Left="360.99" Top="207.9" Width="387.47" Height="66.15" Fill.Color="White" AutoSize="false" Text="[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
-      <TextObject Name="Text123" Left="361" Top="179.55" Width="179.55" Height="21.35" Text="CONTROLE DO FISCO" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
       <TextObject Name="Text165" Left="360.99" Top="326.97" Width="390.9" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="Consulte em &lt;b&gt;https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta&lt;/b&gt;" Padding="0, 0, 2, 0" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text166" Left="7.56" Top="363.6" Width="66.15" Height="11.9" Text="Veículos" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <TextObject Name="Text155" Left="360.99" Top="382.5" Width="47.25" Height="11.9" Text="CPF" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
-      <TextObject Name="Text156" Left="469.1" Top="382.5" Width="47.25" Height="11.9" Text="Nome" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text167" Left="7.56" Top="382.5" Width="47.25" Height="11.9" Text="Placa" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text168" Left="108.11" Top="382.5" Width="47.25" Height="11.9" Text="RNTRC" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
-      <TableObject Name="TableCondutor" Left="360.99" Top="396.9" Width="387.45" Height="18.9" ManualBuildEvent="TableCondutor_ManualBuild">
-        <TableColumn Name="Column1" Width="108.66"/>
-        <TableColumn Name="Column2" Width="278.79"/>
-        <TableRow Name="Row1">
-          <TableCell Name="Cell1" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF], 'd')]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
-          <TableCell Name="Cell2" Border.Lines="Top" Border.LeftLine.Color="Transparent" Border.LeftLine.Width="0" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="Transparent" Border.RightLine.Width="0" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
-        </TableRow>
-      </TableObject>
       <TableObject Name="TableVeiculos" Left="7.56" Top="396.9" Width="321.3" Height="37.8" ManualBuildEvent="TableVeiculos_ManualBuild">
         <TableColumn Name="Column3" Width="99.2"/>
         <TableColumn Name="Column4" Width="222.1"/>
@@ -614,14 +614,26 @@ namespace FastReport
           <TableCell Name="CellRNTRCReboque" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
         </TableRow>
       </TableObject>
-      <LineObject Name="Line7" Left="360.99" Top="396.52" Width="387.45" Border.Color="201, 201, 201" Diagonal="true"/>
-      <TextObject Name="Text38" Left="11.34" Top="226.8" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe]" VertAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <LineObject Name="Line2" Left="7.56" Top="396.52" Width="321.3" Border.Color="201, 201, 201" Diagonal="true"/>
-      <ChildBand Name="Child1" Top="446.82" Width="748.44" Height="80.51">
-        <TextObject Name="Text176" Left="7.56" Top="28.35" Width="85.05" Height="11.9" Text="Vale Pedágio" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <TextObject Name="Text155" Left="360.99" Top="382.5" Width="47.25" Height="11.9" Text="CPF" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text156" Left="469.1" Top="382.5" Width="47.25" Height="11.9" Text="Nome" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
+      <TextObject Name="Text151" Left="360.99" Top="363.6" Width="66.15" Height="11.9" Text="Condutor" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <TableObject Name="TableCondutor" Left="360.99" Top="396.9" Width="387.45" Height="18.9" ManualBuildEvent="TableCondutor_ManualBuild">
+        <TableColumn Name="Column1" Width="108.66"/>
+        <TableColumn Name="Column2" Width="278.79"/>
+        <TableRow Name="Row1">
+          <TableCell Name="Cell1" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF], 'd')]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Border.Lines="Top" Border.LeftLine.Color="Transparent" Border.LeftLine.Width="0" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="Transparent" Border.RightLine.Width="0" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <LineObject Name="Line7" Left="360.99" Top="396.52" Width="387.45" Border.Color="201, 201, 201" Diagonal="true"/>
+      <LineObject Name="Line1" Left="-9450" Top="-9450" Diagonal="true"/>
+      <ChildBand Name="Child5" Top="446.24" Width="748.44" Height="80.51" CanGrow="true">
+        <LineObject Name="Line4" Left="7.56" Top="61.24" Width="321.3" Border.Color="201, 201, 201" Diagonal="true"/>
         <TextObject Name="Text177" Left="7.56" Top="47.25" Width="85.05" Height="11.9" Text="Responsável CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
         <TextObject Name="Text178" Left="115.29" Top="47.25" Width="83.16" Height="11.9" Text="Fornecedor CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
         <TextObject Name="Text179" Left="221.51" Top="47.25" Width="75.6" Height="11.9" Text="Nº Comprovante" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
+        <TextObject Name="Text176" Left="7.56" Top="28.35" Width="85.05" Height="11.9" Text="Vale Pedágio" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
         <TableObject Name="Table1" Left="7.56" Top="61.61" Width="321.3" Height="18.9" ManualBuildEvent="Table1_ManualBuild">
           <TableColumn Name="Column5" Width="107.1"/>
           <TableColumn Name="Column6" Width="107.1"/>
@@ -632,38 +644,44 @@ namespace FastReport
             <TableCell Name="Cell8" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
           </TableRow>
         </TableObject>
-        <LineObject Name="Line4" Left="7.56" Top="61.24" Width="321.3" Border.Color="201, 201, 201" Diagonal="true"/>
-        <ChildBand Name="Child2" Top="529.99" Width="748.44" Height="69.57" CanGrow="true">
+        <ChildBand Name="Child6" Top="528.85" Width="748.44" Height="69.57" CanGrow="true">
           <TextObject Name="Text164" Left="7.56" Top="28.35" Width="85.05" Height="11.9" Text="Observações" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
           <TextObject Name="Text57" Left="7.56" Top="46.12" Width="739.3" Height="23.45" CanGrow="true" Text="Informações adicionais de interesse do Fisco: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfAdFisco]&#13;&#10;Informações complementares de interesse do Contribuinte: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="0, 0, 2, 0" Font="Times New Roman, 8pt"/>
           <LineObject Name="Line6" Left="7.56" Top="43.5" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
-          <ChildBand Name="Child3" Top="602.23" Width="748.44" Height="52.92" Visible="false">
-            <TextObject Name="Text181" Left="7.56" Top="28.35" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-            <LineObject Name="Line8" Left="7.56" Top="43.47" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
-          </ChildBand>
         </ChildBand>
       </ChildBand>
-    </PageHeaderBand>
-    <DataBand Name="Data1" Top="657.82" Width="748.44" Height="29.48" Visible="false" DataSource="BusinessObjectDataSource9">
-      <TextObject Name="Text43" Left="7.56" Width="707.3" Height="17.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <SubreportObject Name="Subreport1" Left="7.56" Top="18.9" Width="737.1" Height="10.58" ReportPage="Page2"/>
     </DataBand>
-    <ColumnFooterBand Name="ChildStatusDocumento" Top="689.96" Width="748.44" Height="54.05">
-      <TextObject Name="Text60" Left="6.17" Top="9.45" Width="736.1" Height="44.6" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 36pt, style=Bold" TextFill.Color="Red"/>
-    </ColumnFooterBand>
-    <PageFooterBand Name="PageFooter2" Top="746.68" Width="748.44" Height="18.45">
-      <TextObject Name="Text117" Width="302.4" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
-      <TextObject Name="Text118" Left="444.15" Width="302.4" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="600.51" Width="748.44" Height="43.47" RepeatOnEveryPage="true" Condition="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]">
+      <LineObject Name="Line8" Left="7.56" Top="41.58" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
+      <TextObject Name="Text181" Left="7.56" Top="28.35" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
+      <DataBand Name="Data5" Top="646.07" Width="748.44" Height="53.68" CanGrow="true" DataSource="BusinessObjectDataSource9">
+        <SubreportObject Name="Subreport2" Left="17.01" Top="23.44" Width="302.4" Height="29.48" ReportPage="Page3"/>
+        <TextObject Name="Text184" Left="7.56" Top="9.45" Width="359.1" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga]/[ObterSiglaDeUFDoCodigo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga].Substring(0,2))] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+        <SubreportObject Name="Subreport1" Left="7.56" Top="23.44" Width="359.1" Height="30.24" ReportPage="Page2"/>
+      </DataBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter2" Top="701.85" Width="748.44" Height="56.7">
+      <TextObject Name="Text117" Top="47.63" Width="302.4" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
+      <TextObject Name="Text118" Left="444.15" Top="47.63" Width="302.4" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+      <TextObject Name="TextSituacaoDocumento" Left="6.17" Width="736.1" Height="44.6" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="Red"/>
     </PageFooterBand>
-    <OverlayBand Name="Overlay1" Top="767.8" Width="748.44" Height="1096.2">
-      <TextObject Name="Text61" Left="5.67" Top="774.9" Width="737.1" Height="274.05" BeforePrintEvent="Text61_BeforePrint" Text="MDF-e EMITIDO EM  AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="Silver"/>
+    <OverlayBand Name="Overlay1" Top="760.64" Width="748.44" Height="1096.2">
+      <TextObject Name="Text61" Left="5.67" Top="812.7" Width="737.1" Height="274.05" BeforePrintEvent="Text61_BeforePrint" Text="MDF-e EMITIDO EM  AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="WhiteSmoke"/>
     </OverlayBand>
   </ReportPage>
-  <ReportPage Name="Page2" Watermark.Font="Arial, 60pt">
-    <DataBand Name="Data2" Top="21.57" Width="718.2" Height="18.9" DataSource="InfCTe">
-      <TextObject Name="Text44" Width="357.1" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <DataHeaderBand Name="DataHeader1" Width="718.2" Height="18.9">
-        <TextObject Name="Text180" Top="3.5" Width="236.25" Height="11.9" Text="Conhecimento de Transporte Eletrônico" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
+  <ReportPage Name="Page2" PaperWidth="80" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
+    <DataBand Name="Data2" Top="15.32" Width="302.4" Height="11.72" DataSource="InfCTe" Columns.Count="1">
+      <TextObject Name="Text44" Width="298.62" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+      <DataHeaderBand Name="DataHeader1" Width="302.4" Height="13.23">
+        <TextObject Name="Text180" Width="236.25" Height="11.9" Text="Conhecimento de Transporte Eletrônico" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page3" Visible="false" PaperWidth="80" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
+    <DataBand Name="Data3" Top="15.32" Width="302.4" Height="11.72" DataSource="InfNFe">
+      <TextObject Name="Text183" Width="298.62" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
+      <DataHeaderBand Name="DataHeader2" Width="302.4" Height="13.23">
+        <TextObject Name="Text182" Width="236.25" Height="11.9" Text="Nota Fiscal Eletrônica" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
       </DataHeaderBand>
     </DataBand>
   </ReportPage>

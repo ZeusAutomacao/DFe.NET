@@ -63,7 +63,7 @@ namespace MDFe.Damdfe.Fast
 
         public void RegisterData(MDFeProcMDFe proc)
         {
-            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
+            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 30);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;
         }
 
@@ -143,12 +143,13 @@ namespace MDFe.Damdfe.Fast
         /// </summary>
         public Stream ObterHTML()
         {
+            Relatorio.DoublePass = true;
             Relatorio.Prepare();
 
             using (var html = new HTMLExport())
             {
                 html.EmbedPictures = true;
-                html.SinglePage = true;
+                html.SinglePage = false;
                 html.SubFolder = false;
                 html.Layers = true;
                 html.Navigator = false;
@@ -175,7 +176,9 @@ namespace MDFe.Damdfe.Fast
             var html = new HTMLExport
             {
                 EmbedPictures = true,
-                SinglePage = true,
+                SinglePage = false,
+                EnableVectorObjects = true,
+                Wysiwyg = true,
                 SubFolder = false,
                 Layers = true,
                 Navigator = false,
