@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using DFe.DocumentosEletronicos.Wsdl;
+using CTe.CTeOSDocumento.Wsdl;
 using DFe.Http.Ext;
 
 namespace DFe.Http

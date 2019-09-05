@@ -1,4 +1,4 @@
-﻿namespace DFe.DocumentosEletronicos.Common
+namespace CTe.CTeOSDocumento.Common
 {
     /// <summary>
     /// Classe para os campos contidos no cabeçalho do Envelope SOAP

@@ -67,6 +67,7 @@ namespace NFe.Utils.Testes
             var todosOsEstados = Enum.GetValues(typeof(Estado)).Cast<Estado>().ToList();
             todosOsEstados.Remove(Estado.AN);
             todosOsEstados.Remove(Estado.EX);
+            todosOsEstados.Remove(Estado.PA);
 
             var tiposAmbiente = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
             var servicosAutorizacao = new[] {ServicoNFe.NFeAutorizacao, ServicoNFe.NFeRetAutorizacao};

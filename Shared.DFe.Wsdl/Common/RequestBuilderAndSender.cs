@@ -1,8 +1,9 @@
 ﻿using DFe.DocumentosEletronicos.Soap;
 using System.Threading.Tasks;
 using System.Xml;
+using CTe.CTeOSDocumento.Soap;
 
-namespace DFe.DocumentosEletronicos.Common
+namespace CTe.CTeOSDocumento.Common
 {
     public static class RequestBuilderAndSender
     {

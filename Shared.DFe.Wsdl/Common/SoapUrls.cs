@@ -1,7 +1,7 @@
 ﻿using System;
-using DFe.DocumentosEletronicos.Common;
+using CTe.CTeOSDocumento.Common;
 
-namespace DFe.DocumentosEletronicos.Soap
+namespace CTe.CTeOSDocumento.Soap
 {
     public class SoapUrls
     {

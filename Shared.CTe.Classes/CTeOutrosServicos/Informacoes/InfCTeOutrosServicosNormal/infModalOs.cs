@@ -2,7 +2,7 @@
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.Tipos;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal
 {
     public class infModalOs
     {

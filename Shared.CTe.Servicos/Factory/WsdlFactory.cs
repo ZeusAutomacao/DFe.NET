@@ -42,7 +42,7 @@ using CTe.Wsdl.Recepcao;
 using CTe.Wsdl.RetRecepcao;
 using CTe.Wsdl.Status;
 using DFe.Classes.Extensoes;
-using DFe.DocumentosEletronicos.Common;
+using CTe.CTeOSDocumento.Common;
 
 namespace CTe.Servicos.Factory
 {
