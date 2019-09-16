@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>7bc87af1-49fc-4822-addf-6b9b461b0adc</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared.NFe.Danfe.Base</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoDanfe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enumns.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Fontes\Fonte.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDanfe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IDanfeBasico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NFCe\ConfiguracaoDanfeNfce.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NFe\ConfiguracaoDanfeNfe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="$(MSBuildThisFileDirectory)Fontes\LeiaMe.txt" />
+    <Resource Include="$(MSBuildThisFileDirectory)Fontes\OpenSans-CondBold.ttf" />
+    <Resource Include="$(MSBuildThisFileDirectory)Fontes\OpenSans-CondLight.ttf" />
+    <Resource Include="$(MSBuildThisFileDirectory)Fontes\OpenSans-CondLightItalic.ttf" />
+    <Resource Include="$(MSBuildThisFileDirectory)Fontes\UbuntuCondensed-Regular.ttf" />
+  </ItemGroup>
+</Project>

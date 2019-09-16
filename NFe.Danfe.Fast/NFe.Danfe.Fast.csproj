@@ -69,14 +69,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="NFCe\NFCe.frx" />
-    <None Include="NFe\NFeEvento.frx" />
-    <None Include="NFe\NFeRetrato.frx" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +93,12 @@
       <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="NFCe\NFCe.frx" />
+    <None Include="NFe\NFeEvento.frx" />
+    <None Include="NFe\NFeRetrato.frx" />
+  </ItemGroup>
+  <Import Project="..\Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
