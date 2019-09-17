@@ -45,15 +45,26 @@ namespace MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj)
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf)
         {
+            var documentoUnico = cnpjCpf;
+
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                CNPJ = cnpj,
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
+
+            if (documentoUnico.Length == 11)
+            {
+                consMDFeNaoEnc.CPF = cnpjCpf;
+            }
+
+            if (documentoUnico.Length == 14)
+            {
+                consMDFeNaoEnc.CNPJ = cnpjCpf;
+            }
 
             return consMDFeNaoEnc;
         }
