@@ -42,7 +42,7 @@ namespace MDFe.Servicos.EventosMDFe
 {
     public class EventoInclusaoDFe
     {
-        public MDFeRetEventoMDFe MDFeEventoInclusaoDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo,
+        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo,
             string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
         {
             var inclusao = ClassesFactory.CriaEvIncDFeMDFe(protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
