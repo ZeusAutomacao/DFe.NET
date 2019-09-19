@@ -31,93 +31,23 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using DFe.Utils;
-using DFe.Utils.Assinatura;
-using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
-using MDFe.Utils.Validacao;
-using System.IO;
-using System.Xml;
+using MDFe.Classes.Informacoes.Evento.Flags;
+using MDFe.Classes.Retorno.MDFeEvento;
+using MDFe.Servicos.Factory;
+using System.Collections.Generic;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Servicos.EventosMDFe
 {
-    public static class ExtMDFeEventoMDFe
+    public class EventoInclusaoDFe
     {
-        public static void ValidarSchema(this MDFeEventoMDFe evento)
+        public MDFeRetEventoMDFe MDFeEventoInclusaoDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo,
+            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
         {
-            var xmlValido = evento.XmlString();
+            var inclusao = ClassesFactory.CriaEvIncDFeMDFe(protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    Validador.Valida(xmlValido, "eventoMDFe_v1.00.xsd");
-                    break;
-                case VersaoServico.Versao300:
-                    Validador.Valida(xmlValido, "eventoMDFe_v3.00.xsd");
-                    break;
-            }
-
-            var tipoEvento = evento.InfEvento.DetEvento.EventoContainer.GetType();
-
-            if (tipoEvento == typeof(MDFeEvCancMDFe))
-            {
-                var objetoXml = (MDFeEvCancMDFe)evento.InfEvento.DetEvento.EventoContainer;
-                objetoXml.ValidaSchema();
-            }
-
-            if (tipoEvento == typeof(MDFeEvEncMDFe))
-            {
-                var objetoXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                objetoXml.ValidaSchema();
-            }
-
-            if (tipoEvento == typeof(MDFeEvIncCondutorMDFe))
-            {
-                var objetoXml = (MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                objetoXml.ValidaSchema();
-            }
-
-            if (tipoEvento == typeof(MDFeEvIncDFeMDFe))
-            {
-                var objetoXml = (MDFeEvIncDFeMDFe)evento.InfEvento.DetEvento.EventoContainer;
-
-                objetoXml.ValidaSchema();
-            }
+            return new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.InclusaoDFe);
         }
-
-        public static XmlDocument CriaXmlRequestWs(this MDFeEventoMDFe evento)
-        {
-            var xmlRequest = new XmlDocument();
-            xmlRequest.LoadXml(evento.XmlString());
-
-            return xmlRequest;
-        }
-
-        public static string XmlString(this MDFeEventoMDFe evento)
-        {
-            return FuncoesXml.ClasseParaXmlString(evento);
-        }
-
-        public static void Assinar(this MDFeEventoMDFe evento)
-        {
-            evento.Signature = AssinaturaDigital.Assina(evento, evento.InfEvento.Id,
-                MDFeConfiguracao.X509Certificate2);
-        }
-
-        public static void SalvarXmlEmDisco(this MDFeEventoMDFe evento, string chave)
-        {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
-
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, chave + "-ped-eve.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(evento, arquivoSalvar);
-        }
-
     }
 }
