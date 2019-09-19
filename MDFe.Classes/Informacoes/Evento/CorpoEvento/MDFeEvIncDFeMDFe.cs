@@ -30,23 +30,46 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
-namespace MDFe.Classes.Informacoes.Evento.Flags
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
-    public enum MDFeTipoEvento
+    [Serializable]
+    [XmlRoot(ElementName = "evIncDFeMDFe")]
+    public class MDFeEvIncDFeMDFe : MDFeEventoContainer
     {
-        [XmlEnum("110111")]
-        Cancelamento = 110111,
-        [XmlEnum("110112")]
-        Encerramento = 110112,
-        [XmlEnum("110114")]
-        InclusaoDeCondutor = 110114,
-        [XmlEnum("110115")]
-        InclusaoDFe = 110115,
-        [XmlEnum("310620")]
-        RegistroDePassagem = 310620,
-        [XmlEnum("510620")]
-        RegistroDePassagemAutomatico = 510620
+        public MDFeEvIncDFeMDFe()
+        {
+            DescEvento = "Inclusao DF-e";
+        }
+
+        [XmlElement(ElementName = "descEvento")]
+        public string DescEvento { get; set; }
+
+        [XmlElement(ElementName = "nProt")]
+        public string NProt { get; set; }
+
+        [XmlElement(ElementName = "cMunCarrega")]
+        public string CMunCarrega { get; set; }
+
+        [XmlElement(ElementName = "xMunCarrega")]
+        public string XMunCarrega { get; set; }
+
+        [XmlElement(ElementName = "infDoc")]
+        public IList<MDFeInfDocInc> InfDoc { get; set; }
+    }
+
+    public class MDFeInfDocInc
+    {
+        [XmlElement(ElementName = "cMunDescarga")]
+        public string CMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "xMunDescarga")]
+        public string XMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "chNFe")]
+        public string ChNFe { get; set; }
     }
 }
