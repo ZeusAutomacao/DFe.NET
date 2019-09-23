@@ -59,11 +59,11 @@ namespace CTe.Utils.DistribuicaoDFe
 
             if (pedDistDFeInt.versao.Equals("1.00"))
             {
-                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.00.xsd", configuracaoServico);
+                Validador.Valida(xmlValidacao, "distDFeInt_v1.00.xsd", configuracaoServico);
             }
             else if (pedDistDFeInt.versao.Equals("1.10"))
             {
-                Validador.Valida(xmlValidacao, "retDistDFeInt_v1.10.xsd", configuracaoServico);
+                Validador.Valida(xmlValidacao, "distDFeInt_v1.10.xsd", configuracaoServico);
             }
             else
             {
