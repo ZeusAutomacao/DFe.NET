@@ -51,7 +51,11 @@ namespace CTe.Classes.Informacoes.Identificacao
 
         public string xMun { get; set; }
 
-        public long CEP { get; set; }
+        [XmlIgnore]
+        public long? CEP { get; set; }
+
+        [XmlElement(ElementName = "CEP")]
+        public string ProxyCEP { get { return CEP != null ? CEP.Value.ToString("D8") : null; } set { CEP = long.Parse(value); } }
 
         [XmlIgnore]
         public Estado UF { get; set; }
