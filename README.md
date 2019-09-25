@@ -17,11 +17,11 @@
 
 DFe.NET
 =================
-Grupo Skype,solicitar URL via SKYPE => robertoalves18@hotmail.com
+Grupo Skype,solicitar para add via SKYPE => robertoalves18@hotmail.com
 
 Grupo Telegram, solicitar URL via SKYPE => robertoalves18@hotmail.com
 
-Grupo Wpp, solicitar URL via SKYPE => robertoalves18@hotmail.com
+Grupo Wpp, para add via SKYPE => robertoalves18@hotmail.com
 
 Grupo [Discord](https://discord.gg/n7QkAGF) para discussão
 
