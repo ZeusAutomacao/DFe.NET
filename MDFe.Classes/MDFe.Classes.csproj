@@ -48,6 +48,7 @@
     <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvIncDFeMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
     <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvEncMDFe.cs" />
+    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncDFeMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Informacoes\Evento\Flags\MDFeTipoEvento.cs" />
     <Compile Include="Informacoes\Evento\MDFeDetEvento.cs" />
