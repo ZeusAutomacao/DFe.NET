@@ -17,11 +17,6 @@
 
 DFe.NET
 =================
-Grupo [Skype](https://join.skype.com/CJbtNPlvbycL) para discussão
-
-Grupo Telegram, solicitar URL via SKYPE => robertoalves18@hotmail.com
-
-Grupo [Discord](https://discord.gg/n7QkAGF) para discussão
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 

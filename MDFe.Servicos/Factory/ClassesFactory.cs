@@ -30,7 +30,6 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
@@ -39,6 +38,8 @@ using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Classes.Informacoes.StatusServico;
 using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
+using System;
+using System.Collections.Generic;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
@@ -67,6 +68,17 @@ namespace MDFe.Servicos.Factory
             }
 
             return consMDFeNaoEnc;
+        }
+
+        public static MDFeEvIncDFeMDFe CriaEvIncDFeMDFe(string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
+        {
+            return new MDFeEvIncDFeMDFe
+            {
+                NProt = protocolo,
+                CMunCarrega = codigoMunicipioCarregamento,
+                XMunCarrega = nomeMunicipioCarregamento,
+                InfDoc = informacoesDocumentos
+            };
         }
 
         public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
@@ -132,7 +144,7 @@ namespace MDFe.Servicos.Factory
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
-        };
+            };
 
             return enviMdfe;
         }
@@ -156,7 +168,7 @@ namespace MDFe.Servicos.Factory
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
-            }; 
+            };
         }
     }
 }
