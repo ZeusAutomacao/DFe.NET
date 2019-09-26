@@ -30,46 +30,46 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using MDFe.Classes.Retorno.MDFeEvento;
+using System;
 using System.Collections.Generic;
-using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
+using System.Xml.Serialization;
 
-namespace MDFe.Servicos.EventosMDFe
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
-    public class ServicoMDFeEvento
+    [Serializable]
+    [XmlRoot(ElementName = "evIncDFeMDFe")]
+    public class MDFeEvIncDFeMDFe : MDFeEventoContainer
     {
-        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
-            MDFeEletronica mdfe, byte sequenciaEvento, string nome,
-            string cpf)
+        public MDFeEvIncDFeMDFe()
         {
-            var eventoIncluirCondutor = new EventoInclusaoCondutor();
-
-            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+            DescEvento = "Inclusao DF-e";
         }
 
-        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(
-            MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
-        {
-            var eventoIncluirDFe = new EventoInclusaoDFe();
+        [XmlElement(ElementName = "descEvento")]
+        public string DescEvento { get; set; }
 
-            return eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
-        }
+        [XmlElement(ElementName = "nProt")]
+        public string NProt { get; set; }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
-        {
-            var eventoEncerramento = new EventoEncerramento();
+        [XmlElement(ElementName = "cMunCarrega")]
+        public string CMunCarrega { get; set; }
 
-            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
-        }
+        [XmlElement(ElementName = "xMunCarrega")]
+        public string XMunCarrega { get; set; }
 
-        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string justificativa)
-        {
-            var eventoCancelamento = new EventoCancelar();
+        [XmlElement(ElementName = "infDoc")]
+        public IList<MDFeInfDocInc> InfDoc { get; set; }
+    }
 
-            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
-        }
+    public class MDFeInfDocInc
+    {
+        [XmlElement(ElementName = "cMunDescarga")]
+        public string CMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "xMunDescarga")]
+        public string XMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "chNFe")]
+        public string ChNFe { get; set; }
     }
 }
