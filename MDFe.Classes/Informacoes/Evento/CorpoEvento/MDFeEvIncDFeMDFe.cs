@@ -30,51 +30,46 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
 using System;
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Informacoes.Evento;
-using MDFe.Classes.Informacoes.Evento.Flags;
-using MDFe.Utils.Configuracoes;
-using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace MDFe.Servicos.EventosMDFe
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
-    public static class FactoryEvento
+    [Serializable]
+    [XmlRoot(ElementName = "evIncDFeMDFe")]
+    public class MDFeEvIncDFeMDFe : MDFeEventoContainer
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public MDFeEvIncDFeMDFe()
         {
-            var eventoMDFe = new MDFeEventoMDFe
-            {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                InfEvento = new MDFeInfEvento
-                {
-                    Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    COrgao = MDFe.UFEmitente(),
-                    ChMDFe = MDFe.Chave(),
-                    DetEvento = new MDFeDetEvento
-                    {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                        EventoContainer = evento
-                    },
-                    DhEvento = DateTime.Now,
-                    NSeqEvento = sequenciaEvento,
-                    TpEvento = tipoEvento
-                }
-            };
-
-            eventoMDFe.InfEvento.CNPJ = MDFe.CNPJEmitente();
-
-            var cpfEmitente = MDFe.CPFEmitente();
-            if (cpfEmitente != null)
-            {
-                eventoMDFe.InfEvento.CPF = cpfEmitente.PadLeft(14, '0');
-            }
-
-            eventoMDFe.Assinar();
-
-            return eventoMDFe;
+            DescEvento = "Inclusao DF-e";
         }
+
+        [XmlElement(ElementName = "descEvento")]
+        public string DescEvento { get; set; }
+
+        [XmlElement(ElementName = "nProt")]
+        public string NProt { get; set; }
+
+        [XmlElement(ElementName = "cMunCarrega")]
+        public string CMunCarrega { get; set; }
+
+        [XmlElement(ElementName = "xMunCarrega")]
+        public string XMunCarrega { get; set; }
+
+        [XmlElement(ElementName = "infDoc")]
+        public IList<MDFeInfDocInc> InfDoc { get; set; }
+    }
+
+    public class MDFeInfDocInc
+    {
+        [XmlElement(ElementName = "cMunDescarga")]
+        public string CMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "xMunDescarga")]
+        public string XMunDescarga { get; set; }
+
+        [XmlElement(ElementName = "chNFe")]
+        public string ChNFe { get; set; }
     }
 }

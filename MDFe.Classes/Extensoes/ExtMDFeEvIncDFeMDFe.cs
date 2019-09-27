@@ -31,50 +31,31 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Informacoes.Evento;
-using MDFe.Classes.Informacoes.Evento.Flags;
+using DFe.Utils;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
-using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
+using MDFe.Utils.Flags;
+using MDFe.Utils.Validacao;
 
-namespace MDFe.Servicos.EventosMDFe
+namespace MDFe.Classes.Extencoes
 {
-    public static class FactoryEvento
+    public static class ExtMDFeEvIncDFeMDFe
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public static void ValidaSchema(this MDFeEvIncDFeMDFe evIncDFeMDFe)
         {
-            var eventoMDFe = new MDFeEventoMDFe
-            {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                InfEvento = new MDFeInfEvento
-                {
-                    Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    COrgao = MDFe.UFEmitente(),
-                    ChMDFe = MDFe.Chave(),
-                    DetEvento = new MDFeDetEvento
-                    {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                        EventoContainer = evento
-                    },
-                    DhEvento = DateTime.Now,
-                    NSeqEvento = sequenciaEvento,
-                    TpEvento = tipoEvento
-                }
-            };
+            var xmlIncluirDFe = evIncDFeMDFe.XmlString();
 
-            eventoMDFe.InfEvento.CNPJ = MDFe.CNPJEmitente();
-
-            var cpfEmitente = MDFe.CPFEmitente();
-            if (cpfEmitente != null)
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
-                eventoMDFe.InfEvento.CPF = cpfEmitente.PadLeft(14, '0');
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd");
+                    break;
             }
+        }
 
-            eventoMDFe.Assinar();
-
-            return eventoMDFe;
+        public static string XmlString(this MDFeEvIncDFeMDFe evIncDFeMDFe)
+        {
+            return FuncoesXml.ClasseParaXmlString(evIncDFeMDFe);
         }
     }
 }

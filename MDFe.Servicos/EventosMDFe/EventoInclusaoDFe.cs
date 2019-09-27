@@ -31,50 +31,23 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Informacoes.Evento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Informacoes.Evento.Flags;
-using MDFe.Utils.Configuracoes;
+using MDFe.Classes.Retorno.MDFeEvento;
+using MDFe.Servicos.Factory;
+using System.Collections.Generic;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {
-    public static class FactoryEvento
+    public class EventoInclusaoDFe
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo,
+            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
         {
-            var eventoMDFe = new MDFeEventoMDFe
-            {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                InfEvento = new MDFeInfEvento
-                {
-                    Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    COrgao = MDFe.UFEmitente(),
-                    ChMDFe = MDFe.Chave(),
-                    DetEvento = new MDFeDetEvento
-                    {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                        EventoContainer = evento
-                    },
-                    DhEvento = DateTime.Now,
-                    NSeqEvento = sequenciaEvento,
-                    TpEvento = tipoEvento
-                }
-            };
+            var inclusao = ClassesFactory.CriaEvIncDFeMDFe(protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
 
-            eventoMDFe.InfEvento.CNPJ = MDFe.CNPJEmitente();
-
-            var cpfEmitente = MDFe.CPFEmitente();
-            if (cpfEmitente != null)
-            {
-                eventoMDFe.InfEvento.CPF = cpfEmitente.PadLeft(14, '0');
-            }
-
-            eventoMDFe.Assinar();
-
-            return eventoMDFe;
+            return new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.InclusaoDFe);
         }
     }
 }
