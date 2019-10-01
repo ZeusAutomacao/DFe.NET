@@ -64,7 +64,7 @@ namespace NFe.Utils.Assinatura
             finally
             {
                 if (!cfgServico.Certificado.ManterDadosEmCache)
-                    certificadoDigital.Reset();
+                    certificadoDigital?.Reset();
             }
         }
 
