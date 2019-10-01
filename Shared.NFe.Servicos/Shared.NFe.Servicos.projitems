@@ -8,4 +8,22 @@
   <PropertyGroup Label="Configuration">
     <Import_RootNamespace>Shared.NFe.Servicos</Import_RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtConfiguracaoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoAdmCscNFCe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoBasico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoConsulta.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNFeAutorizacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeConsultaCadastro.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeDistDFeInt.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeDownload.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeInutilizacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeRecepcao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNFeRetAutorizacao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeRetRecepcao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoNfeStatusServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoRecepcaoEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServicoNfeFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServicosNFe.cs" />
+  </ItemGroup>
 </Project>

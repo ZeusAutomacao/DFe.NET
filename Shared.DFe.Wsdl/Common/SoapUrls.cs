@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using CTe.CTeOSDocumento.Common;
 
 namespace CTe.CTeOSDocumento.Soap

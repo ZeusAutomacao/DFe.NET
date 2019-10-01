@@ -63,7 +63,7 @@ namespace CTe.Wsdl.ConsultaProtocolo
     }
 
     /// <summary>
-    /// Classe base para a serealização no formato do envelope SOAP.
+    /// Classe base para a serialização no formato do envelope SOAP.
     /// </summary>
     [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class SoapEnvelope : CommonSoapEnvelope
