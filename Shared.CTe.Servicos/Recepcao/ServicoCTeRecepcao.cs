@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
@@ -102,6 +103,7 @@ namespace CTe.Servicos.Recepcao
             {
                 cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
                 cte.Assina(instanciaConfiguracao);
+                cte.infCTeSupl = cte.QrCode(instanciaConfiguracao.X509Certificate2, Encoding.UTF8, instanciaConfiguracao.IsAdicionaQrCode);
                 cte.ValidaSchema(instanciaConfiguracao);
                 cte.SalvarXmlEmDisco(instanciaConfiguracao);
             }
