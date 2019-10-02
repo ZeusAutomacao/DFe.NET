@@ -447,7 +447,55 @@ namespace NFe.Servicos
         }
 
         /// <summary>
-        ///     Inutiliza uma faixa de números
+        ///     Inutiliza uma faixa de números já assinado
+        /// </summary>
+        /// <param name="xmlInutilizacao">xml de inutilização</param>
+        /// <returns>Retorna um objeto da classe RetornoNfeInutilizacao com o retorno do serviço NfeInutilizacao</returns>
+        public RetornoNfeInutilizacao Inutilizacao(string xmlInutilizacao)
+        {
+            var versaoServico = ServicoNFe.NfeInutilizacao.VersaoServicoParaString(_cFgServico.VersaoNfeInutilizacao);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NfeInutilizacao);
+
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+            {
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+            }
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
+            var dadosInutilizacao = new XmlDocument();
+            dadosInutilizacao.LoadXml(xmlInutilizacao);
+
+            XmlNode retorno;
+            try
+            {
+                retorno = ws.Execute(dadosInutilizacao);
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeInutilizacao, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retInutNFe = new retInutNFe().CarregarDeXmlString(retornoXmlString);
+
+            return new RetornoNfeInutilizacao(xmlInutilizacao, retInutNFe.ObterXmlString(), retornoXmlString, retInutNFe);
+
+            #endregion
+        }
+
+        /// <summary>
+        ///     Inutiliza uma faixa de números e assina
         /// </summary>
         /// <param name="cnpj"></param>
         /// <param name="ano"></param>
@@ -688,7 +736,7 @@ namespace NFe.Servicos
             {
                 evento.infEvento.Id = "ID" + evento.infEvento.tpEvento + evento.infEvento.chNFe +
                                       evento.infEvento.nSeqEvento.ToString().PadLeft(2, '0');
-                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,_cFgServico.Certificado.DigestMethodReference);
+                evento.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml, _cFgServico.Certificado.DigestMethodReference);
             }
 
             #endregion
@@ -901,7 +949,7 @@ namespace NFe.Servicos
 
             if (string.IsNullOrEmpty(nfe.infNFe.Id))
                 nfe.Assina().Valida();
-                        
+
             var detevento = new detEvento
             {
                 versao = versaoServico,
@@ -1151,6 +1199,53 @@ namespace NFe.Servicos
             #endregion
         }
 
+        /// <summary>
+        /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
+        /// </summary>
+        /// <param name="pedDistDFeInt">Detalhes do pedido de notas</param>
+        /// <returns>Retorna um objeto da classe RetornoNfeDistDFeInt com os documentos de interesse do CNPJ/CPF pesquisado</returns>
+        public RetornoNfeDistDFeInt NfeDistDFeInteresse(distDFeInt pedDistDFeInt)
+        {
+            var versaoServico = ServicoNFe.NFeDistribuicaoDFe.VersaoServicoParaString(_cFgServico.VersaoNFeDistribuicaoDFe);
+
+            #region Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NFeDistribuicaoDFe);
+            ws.nfeCabecMsg = new nfeCabecMsg
+            {
+                cUF = _cFgServico.cUF,
+                versaoDados = versaoServico
+            };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = pedDistDFeInt.ObterXmlString().Replace("<distDFeInt", "<distDFeInt versao=\"1.01\"");
+            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            XmlNode retorno;
+            try
+            {
+                retorno = ws.Execute(dadosConsulta);
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NFeDistribuicaoDFe, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
+
+            #endregion
+
+            return new RetornoNfeDistDFeInt(pedDistDFeInt.ObterXmlString(), retConsulta.ObterXmlString(), retornoXmlString, retConsulta);
+        }
+
         #region Recepção
 
         /// <summary>
@@ -1295,7 +1390,7 @@ namespace NFe.Servicos
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
         public RetornoNFeAutorizacao NFeAutorizacao(
             int idLote, IndicadorSincronizacao indSinc, List<Classes.NFe> nFes,
-            bool compactarMensagem = false)
+            bool compactarMensagem = true)
         {
             if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
             {
@@ -1412,7 +1507,7 @@ namespace NFe.Servicos
             {
                 //if (compactarMensagem)
                 //{
-                    retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(xmlEnvio));
+                retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(xmlEnvio));
                 //}
                 //else
                 //{

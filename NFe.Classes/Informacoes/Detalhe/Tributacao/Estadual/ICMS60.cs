@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
@@ -42,48 +43,86 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pST;
         private decimal? _pFcpstRet;
         private decimal? _vFcpstRet;
+        private decimal? _pRedBCEfet;
+        private decimal? _vBCEfet;
+        private decimal? _pICMSEfet;
+        private decimal? _vICMSEfet;
+        private decimal? _vIcmsSubstituto;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
+        [XmlElement(Order = 1)]
         public OrigemMercadoria orig { get; set; }
 
         /// <summary>
         ///     N12- Situação Tributária
         /// </summary>
+        [XmlElement(Order = 2)]
         public Csticms CST { get; set; }
 
         /// <summary>
         ///     N26 - Valor da BC do ICMS ST retido
         /// </summary>
+        [XmlElement(Order = 3)]
         public decimal? vBCSTRet
         {
             get { return _vBcstRet.Arredondar(2); }
             set { _vBcstRet = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevBCSTRet()
+        {
+            return vBCSTRet.HasValue;
+        }
+
         /// <summary>
         ///     N26a - Alíquota suportada pelo Consumidor Final
         /// </summary>
+        [XmlElement(Order = 4)]
         public decimal? pST
         {
-            get { return _pST; }
-            set { _pST = value; }
+            get { return _pST.Arredondar(4); }
+            set { _pST = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepST()
+        {
+            return pST.HasValue;
+        }
+
+        [XmlElement(Order = 5)]
+        public decimal? vICMSSubstituto
+        {
+            get { return _vIcmsSubstituto.Arredondar(2); }
+            set { _vIcmsSubstituto = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSSubstituto()
+        {
+            return _vIcmsSubstituto.HasValue;
         }
 
         /// <summary>
         ///     N27 - Valor do ICMS ST retido
         /// </summary>
+        [XmlElement(Order = 6)]
         public decimal? vICMSSTRet
         {
             get { return _vIcmsstRet.Arredondar(2); }
             set { _vIcmsstRet = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevICMSSTRet()
+        {
+            return vICMSSTRet.HasValue;
+        }
+
         /// <summary>
         /// N27a - Valor da Base de Cálculo do FCP retido anteriormente por ST 
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 7)]
         public decimal? vBCFCPSTRet
         {
             get { return _vBcfcpstRet.Arredondar(2); }
@@ -95,6 +134,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { { return vBCFCPSTRet.HasValue; } }
         }
 
+        /// <summary>
+        /// N27b - Percentual do FCP retido anteriormente por Substituição Tributária
+        /// Versão 4.00
+        /// </summary>
+        [XmlElement(Order = 8)]
         public decimal? pFCPSTRet
         {
             get { return _pFcpstRet.Arredondar(4); }
@@ -103,16 +147,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool pFCPSTRetSpecified
         {
-            get
-            {
-                return pFCPSTRet.HasValue;
-            }
+            get { return pFCPSTRet.HasValue; }
         }
+
 
         /// <summary>
         /// N27d - Valor do FCP retido por Substituição Tributária
         /// Versão 4.00
         /// </summary>
+        [XmlElement(Order = 9)]
         public decimal? vFCPSTRet
         {
             get { return _vFcpstRet.Arredondar(2); }
@@ -124,19 +167,64 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return vFCPSTRet.HasValue; }
         }
 
-        public bool ShouldSerializevBCSTRet()
+        /// <summary>
+        ///     N34 - Percentual de redução da base de cálculo efetiva 
+        /// </summary>
+        [XmlElement(Order = 10)]
+        public decimal? pRedBCEfet
         {
-            return vBCSTRet.HasValue;
+            get { return _pRedBCEfet.Arredondar(4); }
+            set { _pRedBCEfet = value.Arredondar(4); }
         }
 
-        public bool ShouldSerializepST()
+        public bool ShouldSerializepRedBCEfet()
         {
-            return pST.HasValue;
+            return pRedBCEfet.HasValue;
         }
 
-        public bool ShouldSerializevICMSSTRet()
+        /// <summary>
+        ///     N35 - Valor da base de cálculo efetiva 
+        /// </summary>
+        [XmlElement(Order = 11)]
+        public decimal? vBCEfet
         {
-            return vICMSSTRet.HasValue;
+            get { return _vBCEfet.Arredondar(2); }
+            set { _vBCEfet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevBCEfet()
+        {
+            return vBCEfet.HasValue;
+        }
+
+        /// <summary>
+        ///     N36 - Alíquota do ICMS efetiva 
+        /// </summary>
+        [XmlElement(Order = 12)]
+        public decimal? pICMSEfet
+        {
+            get { return _pICMSEfet.Arredondar(4); }
+            set { _pICMSEfet = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializepICMSEfet()
+        {
+            return pICMSEfet.HasValue;
+        }
+
+        /// <summary>
+        ///     N37 - Valor do ICMS efetivo 
+        /// </summary>
+        [XmlElement(Order = 13)]
+        public decimal? vICMSEfet
+        {
+            get { return _vICMSEfet.Arredondar(2); }
+            set { _vICMSEfet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSEfet()
+        {
+            return vICMSEfet.HasValue;
         }
     }
 }

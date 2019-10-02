@@ -59,7 +59,17 @@ namespace NFe.Utils.Assinatura
             if (cfgServico == null)
                 cfgServico = ConfiguracaoServico.Instancia;
 
-            return ObterAssinatura<T>(objeto, id, CertificadoDigital.ObterCertificado(cfgServico.Certificado), cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+            X509Certificate2 certificadoDigital = null;
+            try
+            {
+                certificadoDigital = CertificadoDigital.ObterCertificado(cfgServico.Certificado);
+                return ObterAssinatura<T>(objeto, id, certificadoDigital, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+            }
+            finally
+            {
+                if (!cfgServico.Certificado.ManterDadosEmCache)
+                    certificadoDigital.Reset();
+            }
         }
 
         /// <summary>
@@ -220,7 +230,7 @@ namespace NFe.Utils.Assinatura
                 // recuperando a representação do XML assinado
                 return docXml.Signature;
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
                 return null;
             }

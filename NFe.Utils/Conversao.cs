@@ -47,27 +47,21 @@ namespace NFe.Utils
     {
         public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico)
         {
-            switch (versaoServico)
-            {
-                case VersaoServico.ve100:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.NFeDistribuicaoDFe:
-                            return "1.01";
-                    }
-                    return "1.00";
-                case VersaoServico.ve200:
-                    switch (servicoNFe)
-                    {
-                        case ServicoNFe.NfeConsultaProtocolo:
-                            return "2.01";
-                    }
-                    return "2.00";
-                case VersaoServico.ve310:
-                    return "3.10";
-                case VersaoServico.ve400:
-                    return "4.00";
-            }
+            if (versaoServico == VersaoServico.ve100 && servicoNFe == ServicoNFe.NFeDistribuicaoDFe)
+                return "1.01";
+            else if (versaoServico == VersaoServico.ve100 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario)
+                return "1.00";
+            else if (versaoServico == VersaoServico.ve200 && servicoNFe == ServicoNFe.NfeConsultaProtocolo)
+                return "2.01";
+            else if (versaoServico == VersaoServico.ve200)
+                return "2.00";
+            else if (versaoServico == VersaoServico.ve310)
+                return "3.10";
+            else if (versaoServico == VersaoServico.ve400 && servicoNFe == ServicoNFe.RecepcaoEventoCancelmento)
+                return "1.00";
+            else if (versaoServico == VersaoServico.ve400)
+                return "4.00";
+
             return "";
         }
 
@@ -136,7 +130,7 @@ namespace NFe.Utils
 
         public static string TipoEmissaoParaString(this TipoEmissao tipoEmissao)
         {
-            var s = Enum.GetName(typeof (TipoEmissao), tipoEmissao);
+            var s = Enum.GetName(typeof(TipoEmissao), tipoEmissao);
             return s != null ? s.Substring(2) : "";
         }
 
@@ -205,7 +199,7 @@ namespace NFe.Utils
 
         public static string CsosnicmsParaString(this Csosnicms csosnicms)
         {
-            return ((int) csosnicms).ToString();
+            return ((int)csosnicms).ToString();
         }
 
         public static string OrigemMercadoriaParaString(this OrigemMercadoria origemMercadoria)

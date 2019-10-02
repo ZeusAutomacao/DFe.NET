@@ -280,10 +280,12 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento, _configuracoes.CfgServico.VersaoNfeRecepcao);
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
+                _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
+
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NfeRecepcao(Convert.ToInt32(lote), new List<Classes.NFe> {_nfe});
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
+                //Para consumir o serviço de forma síncrona, use a linha abaixo:
+                //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
                 TrataRetorno(retornoEnvio);
 
@@ -298,6 +300,11 @@ namespace NFe.AppTeste
             {
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
         }
 
         private void BtnGerarNfe2_Click(object sender, RoutedEventArgs e)
@@ -309,34 +316,10 @@ namespace NFe.AppTeste
         {
             try
             {
-                #region Gerar NFe
-
                 var numero = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Número da Nota:");
                 if (string.IsNullOrEmpty(numero)) throw new Exception("O Número deve ser informado!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), modelo, versaoServico);
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
-                {
-                    _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
-                }
-
-                _nfe.Assina();
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                {
-                    if (_nfe.infNFeSupl == null)
-                    {
-                        _nfe.infNFeSupl = new infNFeSupl();
-                    }
-                    _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                }
-
-                _nfe.Valida();
-
-                #endregion
+                _nfe = ObterNfeValidada(versaoServico, modelo, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 ExibeNfe();
 
@@ -356,6 +339,25 @@ namespace NFe.AppTeste
                 if (!string.IsNullOrEmpty(ex.Message))
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
+        }
+
+        private Classes.NFe ObterNfeValidada(VersaoServico versaoServico, ModeloDocumento modelo, int numero, ConfiguracaoCsc configuracaoCsc)
+        {
+            var nfe = GetNf(numero, modelo, versaoServico);
+
+            nfe.Assina();
+
+            if (nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
+            {
+                nfe.infNFeSupl = new infNFeSupl();
+                if (versaoServico == VersaoServico.ve400)
+                    nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
+                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
+            }
+
+            nfe.Valida();
+
+            return nfe;
         }
 
         private void BtnConsultarReciboLote2_Click(object sender, RoutedEventArgs e)
@@ -400,37 +402,10 @@ namespace NFe.AppTeste
                 var lote = Funcoes.InpuBox(this, "Criar e Enviar NFe", "Id do Lote:");
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
-                _nfe = GetNf(Convert.ToInt32(numero), _configuracoes.CfgServico.ModeloDocumento,
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao);
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe &&
-                    _configuracoes.CfgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
-                {
-                    _nfe.infNFeSupl = new infNFeSupl();
-                    _nfe.infNFeSupl.urlChave = _nfe.infNFeSupl.ObterUrl(_configuracoes.CfgServico.tpAmb, _configuracoes.CfgServico.cUF, TipoUrlConsultaPublica.UrlQrCode);
-                }
-
-                _nfe.Assina(); //não precisa validar aqui, pois o lote será validado em ServicosNFe.NFeAutorizacao
-
-                if (_nfe.infNFe.ide.mod == ModeloDocumento.NFCe)
-                {
-                    //A URL do QR-Code deve ser gerada em um objeto nfe já assinado, pois na URL vai o DigestValue que é gerado por ocasião da assinatura
-                    if (_nfe.infNFeSupl == null)
-                    {
-                        _nfe.infNFeSupl = new infNFeSupl
-                        {
-                            qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc)
-                        };
-                    }
-                    else
-                    {
-                        _nfe.infNFeSupl.qrCode = _nfe.infNFeSupl.ObterUrlQrCode(_nfe, _configuracoes.ConfiguracaoCsc.CIdToken, _configuracoes.ConfiguracaoCsc.Csc);
-                    }
-                    
-                }
+                _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> {_nfe}, false/*Envia a mensagem compactada para a SEFAZ*/);
+                var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Assincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
                 //var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, true/*Envia a mensagem compactada para a SEFAZ*/);
 
