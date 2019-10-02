@@ -230,7 +230,7 @@ namespace CTe.Utils.CTe
         }
 
         public static infCTeSupl QrCode(this CteEletronica cte, X509Certificate2 certificadoDigital,
-            Encoding encoding, bool isAdicionaQrCode)
+            Encoding encoding, bool isAdicionaQrCode, string url)
         {
             if (isAdicionaQrCode == false) return null;
 
@@ -239,7 +239,7 @@ namespace CTe.Utils.CTe
 
             var chave = cte.infCte.Id.Substring(3, 44);
 
-            var qrCode = new StringBuilder(@"http://dfe-portal.svrs.rs.gov.br/cte/QRCode");
+            var qrCode = new StringBuilder(url);
             qrCode.Append("?");
             qrCode.Append("chCTe=").Append(chave);
             qrCode.Append("&");

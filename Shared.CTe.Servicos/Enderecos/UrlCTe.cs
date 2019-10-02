@@ -41,5 +41,6 @@ namespace CTe.Servicos.Enderecos
         public string CteRetRecepcao { get; set; }
         public string CteStatusServico { get; set; }
         public string CTeDistribuicaoDFe { get; set; }
+        public string QrCode { get; set; }
     }
 }
