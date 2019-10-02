@@ -53,6 +53,7 @@ namespace CTe.Classes
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;
+            IsAdicionaQrCode = true;
         }
 
         /// <summary>
@@ -115,6 +116,8 @@ namespace CTe.Classes
         ///     Versão do layout
         /// </summary>
         public versao VersaoLayout { get; set; }
+
+        public bool IsAdicionaQrCode { get; set; }
 
         /// <summary>
         ///     Diretório onde estão aramazenados os schemas para validação
