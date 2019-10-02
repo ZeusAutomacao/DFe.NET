@@ -53,7 +53,6 @@ namespace CTe.Classes
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;
-            IsAdicionaQrCode = true;
         }
 
         /// <summary>

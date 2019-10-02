@@ -103,7 +103,7 @@ namespace CTe.Servicos.Recepcao
             {
                 cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
                 cte.Assina(instanciaConfiguracao);
-                cte.QrCode(instanciaConfiguracao.X509Certificate2, Encoding.UTF8, instanciaConfiguracao.IsAdicionaQrCode);
+                cte.infCTeSupl = cte.QrCode(instanciaConfiguracao.X509Certificate2, Encoding.UTF8, instanciaConfiguracao.IsAdicionaQrCode);
                 cte.ValidaSchema(instanciaConfiguracao);
                 cte.SalvarXmlEmDisco(instanciaConfiguracao);
             }
