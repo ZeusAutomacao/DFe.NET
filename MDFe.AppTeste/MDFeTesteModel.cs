@@ -31,21 +31,18 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
-using DFe.Utils.Assinatura;
-using MDFe.Classes.Flags;
-using MDFe.Classes.Informacoes;
-using MDFe.Classes.Retorno;
-using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
 using MDFe.Classes.Extencoes;
+using MDFe.Classes.Flags;
+using MDFe.Classes.Informacoes;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Retorno;
+using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.ConsultaNaoEncerradosMDFe;
 using MDFe.Servicos.ConsultaProtocoloMDFe;
 using MDFe.Servicos.EventosMDFe;
@@ -53,7 +50,9 @@ using MDFe.Servicos.RecepcaoMDFe;
 using MDFe.Servicos.RetRecepcaoMDFe;
 using MDFe.Servicos.StatusServicoMDFe;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using VersaoServico = MDFe.Utils.Flags.VersaoServico;
@@ -69,13 +68,13 @@ namespace MDFe.AppTeste
         }
 
         public string Envio { get; set; }
-        public string Retorno { get; set; }    
+        public string Retorno { get; set; }
     }
 
 
     public class MDFeTesteModel : ViewModel
     {
-        public event EventHandler<RetornoEEnvio> SucessoSync; 
+        public event EventHandler<RetornoEEnvio> SucessoSync;
 
         private string _cnpj;
         private string _inscricaoEstadual;
@@ -305,7 +304,7 @@ namespace MDFe.AppTeste
             get { return _manterCertificadoEmCache; }
             set
             {
-                _manterCertificadoEmCache = value; 
+                _manterCertificadoEmCache = value;
                 OnPropertyChanged("ManterCertificadoEmCache");
             }
         }
@@ -432,7 +431,8 @@ namespace MDFe.AppTeste
         public void SalvarConfiguracoesXml()
         {
             var configuracaoDao = new ConfiguracaoDao();
-            var configuracaoAppTeste = new Configuracao {
+            var configuracaoAppTeste = new Configuracao
+            {
                 Empresa =
                     {
                         Cnpj = Cnpj,
@@ -673,14 +673,14 @@ namespace MDFe.AppTeste
                     },
 
                     VeicTracao = new MDFeVeicTracao
-                        {
-                            Placa = "KKK9888",
-                            RENAVAM = "888888888",
-                            UF = Estado.GO,
-                            Tara = 222,
-                            CapM3 = 222,
-                            CapKG = 22,
-                            Condutor = new List<MDFeCondutor>
+                    {
+                        Placa = "KKK9888",
+                        RENAVAM = "888888888",
+                        UF = Estado.GO,
+                        Tara = 222,
+                        CapM3 = 222,
+                        CapKG = 22,
+                        Condutor = new List<MDFeCondutor>
                         {
                             new MDFeCondutor
                             {
@@ -688,9 +688,9 @@ namespace MDFe.AppTeste
                                 XNome = "Ricardão"
                             }
                         },
-                            TpRod = MDFeTpRod.Outros,
-                            TpCar = MDFeTpCar.NaoAplicavel
-                        },
+                        TpRod = MDFeTpRod.Outros,
+                        TpCar = MDFeTpCar.NaoAplicavel
+                    },
 
                     lacRodo = new List<MDFeLacre>
                     {
@@ -1141,18 +1141,18 @@ namespace MDFe.AppTeste
         public string BuscarArquivoXmlMDFe()
         {
             var janelaArquivo = new OpenFileDialog
-                {
-                    Filter = "XML(*.xml)|*.xml"
-                };
+            {
+                Filter = "XML(*.xml)|*.xml"
+            };
 
-                if (janelaArquivo.ShowDialog() == true)
-                {
-                    var caminhoXml = janelaArquivo.FileName;
+            if (janelaArquivo.ShowDialog() == true)
+            {
+                var caminhoXml = janelaArquivo.FileName;
 
-                    if (caminhoXml == null) return string.Empty;
+                if (caminhoXml == null) return string.Empty;
 
-                    return caminhoXml;
-                }
+                return caminhoXml;
+            }
             return string.Empty;
         }
 
@@ -1160,8 +1160,8 @@ namespace MDFe.AppTeste
         {
             var inputBox = new InputBoxWindow
             {
-                TxtValor = {Text = string.Empty},
-                TxtDescricao = {Text = titulo}
+                TxtValor = { Text = string.Empty },
+                TxtDescricao = { Text = titulo }
             };
             inputBox.ShowDialog();
 
@@ -1207,7 +1207,7 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            
+
 
             var evento = new ServicoMDFeEvento();
 
@@ -1372,6 +1372,75 @@ namespace MDFe.AppTeste
             if (SucessoSync == null) return;
 
             SucessoSync.Invoke(this, e);
+        }
+
+        public void EventoIncluirDFe()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var evento = new ServicoMDFeEvento();
+            MDFeEletronico mdfe;
+            var caminhoXml = BuscarArquivoXmlMDFe();
+            try
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+                mdfe = enviMDFe.MDFe;
+            }
+            catch
+            {
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
+            }
+            var protocolo = InputBoxTuche("Protocolo");
+            var codigoMunicipioCarregamento = InputBoxTuche("Código do Município de Carregamento");
+            var nomeMunicipioCarregamento = InputBoxTuche("Nome do Município de Carregamento");
+            var cmunDescarga = InputBoxTuche("Código do Município de Descarga");
+            var xmunDescarga = InputBoxTuche("Nome do Município de Descarga");
+            var chNFe = InputBoxTuche("Chave da NFe");
+            if (string.IsNullOrEmpty(codigoMunicipioCarregamento))
+            {
+                MessageBoxTuche("Código do Município de Carregamento não pode ser vazio ou nulo");
+                return;
+            }
+            if (string.IsNullOrEmpty(nomeMunicipioCarregamento))
+            {
+                MessageBoxTuche("Nome do Município de Carregamento não pode ser vazio ou nulo");
+                return;
+            }
+            if (string.IsNullOrEmpty(cmunDescarga))
+            {
+                MessageBoxTuche("Nome do Município de Descarga não pode ser vazio ou nulo");
+                return;
+            }
+            if (string.IsNullOrEmpty(xmunDescarga))
+            {
+                MessageBoxTuche("Nome do Município de Descarga não pode ser vazio ou nulo");
+                return;
+            }
+            if (string.IsNullOrEmpty(chNFe))
+            {
+                MessageBoxTuche("Chave NFe não pode ser vazio ou nulo");
+                return;
+            }
+            var informacoesDocumentos = new List<MDFeInfDocInc>
+            {
+                new MDFeInfDocInc
+                {
+                    CMunDescarga = cmunDescarga,
+                    XMunDescarga = xmunDescarga,
+                    ChNFe = chNFe
+                }
+            };
+            var retorno = evento.MDFeEventoIncluirDFe(mdfe, 1, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
+            OnSucessoSync(new RetornoEEnvio(retorno));
         }
     }
 }

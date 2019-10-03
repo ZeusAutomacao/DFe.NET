@@ -58,7 +58,7 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
         public string XMunCarrega { get; set; }
 
         [XmlElement(ElementName = "infDoc")]
-        public IList<MDFeInfDocInc> InfDoc { get; set; }
+        public List<MDFeInfDocInc> InfDoc { get; set; }
     }
 
     public class MDFeInfDocInc
