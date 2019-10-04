@@ -229,9 +229,9 @@ namespace MDFe.Classes.Informacoes
         public string ProxyDhIniViagem { get; set; }
 
         [XmlElement(ElementName = "indCanalVerde")]
-        public int IndCanalVerde { get; set; }
+        public string IndCanalVerde { get; set; }
 
         [XmlElement(ElementName = "indCarregaPosterior")]
-        public int IndCarregaPosterior { get; set; }
+        public string IndCarregaPosterior { get; set; }
     }
 }
