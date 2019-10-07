@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="cteTiposBasico_v3.00.xsd"/>
 	<xs:element name="aquav">
@@ -88,8 +89,8 @@
 				</xs:element>
 				<xs:element name="detCont" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation>Grupo de informações de detalhamento dos conteiners
-(Somente para Redespacho Intermediario e serviço vinculado)</xs:documentation>
+						<xs:documentation>Grupo de informações de detalhamento dos conteiners 
+(Somente para Redespacho Intermediário e Serviço Vinculado a Multimodal)</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
@@ -184,6 +185,21 @@
 							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
+				</xs:element>
+				<xs:element name="tpNav" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Tipo de Navegação</xs:documentation>
+						<xs:documentation>Preencher com: 
+						0 - Interior;
+						1 - Cabotagem</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
 				</xs:element>
 			</xs:sequence>
 		</xs:complexType>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
 	<xs:include schemaLocation="cteTiposBasico_v3.00.xsd"/>
@@ -32,14 +33,13 @@
 					<xs:element name="TAF" type="TTermoAutFreta">
 						<xs:annotation>
 							<xs:documentation>Termo de Autorização de Fretamento – TAF</xs:documentation>
-							<xs:documentation>de acordo com a Resolução ANTT nº 4.777/2015</xs:documentation>
+							<xs:documentation>Registro obrigatório do emitente do CT-e OS junto à ANTT, de acordo com a Resolução ANTT nº 4.777/2015</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="NroRegEstadual" type="TNroRegEstadual">
 						<xs:annotation>
 							<xs:documentation>Número do Registro Estadual </xs:documentation>
-							<xs:documentation>Registro obrigatório do emitente do CT-e junto à ANTT para exercer a atividade de transportador rodoviário de cargas por conta de terceiros e mediante remuneração.
-						</xs:documentation>
+							<xs:documentation>Registro obrigatório do emitente do CT-e OS junto à Agência Reguladora  Estadual.					</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:choice>
@@ -99,8 +99,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do CT-e OS</
 											<xs:element name="NroRegEstadual" type="TNroRegEstadual">
 												<xs:annotation>
 													<xs:documentation>Número do Registro Estadual </xs:documentation>
-													<xs:documentation>Registro obrigatório do emitente do CT-e junto à ANTT para exercer a atividade de transportador rodoviário de cargas por conta de terceiros e mediante remuneração.
-						</xs:documentation>
+													<xs:documentation>Registro obrigatório do emitente do CT-e OS junto à Agência Reguladora  Estadual						</xs:documentation>
 												</xs:annotation>
 											</xs:element>
 										</xs:choice>
@@ -154,6 +153,35 @@ Só preenchido quando o veículo não pertencer à empresa emitente do CT-e OS</
 								<xs:annotation>
 									<xs:documentation>UF em que veículo está licenciado</xs:documentation>
 									<xs:documentation>Sigla da UF de licenciamento do veículo.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="infFretamento" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Dados do fretamento (apenas para Transporte de Pessoas)</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="tpFretamento">
+								<xs:annotation>
+									<xs:documentation>Tipo Fretamento</xs:documentation>
+									<xs:documentation>Preencher com:
+ 1 - Eventual 2 - Continuo								</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dhViagem" type="TDateTimeUTC" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Data e hora da viagem (Apenas para fretamento eventual)</xs:documentation>
+									<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
