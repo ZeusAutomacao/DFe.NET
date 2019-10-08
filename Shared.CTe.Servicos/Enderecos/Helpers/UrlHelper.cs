@@ -210,7 +210,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcaoEvento =
                             @"https://nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
                         CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AC:
