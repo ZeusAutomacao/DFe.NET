@@ -80,7 +80,7 @@ namespace NFe.Classes.Servicos.Download
         /// <summary>
         /// JR07 - Data e Hora da mensagem de resposta
         /// </summary>
-        public DateTime dhResp { get; set; }
+        public DateTime? dhResp { get; set; }
 
         /// <summary>
         /// JR08 - Conjunto de informações da NF-e

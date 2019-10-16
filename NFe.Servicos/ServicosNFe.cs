@@ -80,6 +80,10 @@ namespace NFe.Servicos
 {
     public sealed class ServicosNFe : IDisposable
     {
+        public bool HasError;
+        public Exception Exception;
+        public string Xml;
+
         private readonly X509Certificate2 _certificado;
         private readonly bool _controlarCertificado;
         private readonly ConfiguracaoServico _cFgServico;
@@ -873,42 +877,51 @@ namespace NFe.Servicos
                     var conteudo = Compressao.Unzip(dFeInt.XmlNfe);
                     conteudo = conteudo.Trim('\r', '\n');
 
-                    var chNFe = string.Empty;
+                    try
+                    {
+                        var chNFe = string.Empty;
 
-                    if (conteudo.StartsWith("<resNFe"))
-                    {
-                        var retConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
-                        chNFe = retConteudo.chNFe;
-                        dFeInt.ResNFe = retConteudo;
-                    }
-                    else if (conteudo.StartsWith("<procEventoNFe"))
-                    {
-                        var procEventoNFeConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
-                        chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
-                        dFeInt.ProcEventoNFe = procEventoNFeConteudo;
-                    }
-                    else if (conteudo.StartsWith("<resEvento"))
-                    {
-                        var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
-                        chNFe = resEventoConteudo.chNFe;
-                        dFeInt.ResEvento = resEventoConteudo;
-                    }
-                    else if (conteudo.StartsWith("<nfeProc"))
-                    {
-                        var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
-                        chNFe = resEventoConteudo.protNFe.infProt.chNFe;
-                        dFeInt.NfeProc = resEventoConteudo;
-                    }
+                        if (conteudo.StartsWith("<resNFe"))
+                        {
+                            var retConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                            chNFe = retConteudo.chNFe;
+                            dFeInt.ResNFe = retConteudo;
+                        }
+                        else if (conteudo.StartsWith("<procEventoNFe"))
+                        {
+                            var procEventoNFeConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
+                            chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
+                            dFeInt.ProcEventoNFe = procEventoNFeConteudo;
+                        }
+                        else if (conteudo.StartsWith("<resEvento"))
+                        {
+                            var resEventoConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
+                            chNFe = resEventoConteudo.chNFe;
+                            dFeInt.ResEvento = resEventoConteudo;
+                        }
+                        else if (conteudo.StartsWith("<nfeProc"))
+                        {
+                            var resEventoConteudo =
+                                FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
+                            chNFe = resEventoConteudo.protNFe.infProt.chNFe;
+                            dFeInt.NfeProc = resEventoConteudo;
+                        }
 
-                    var schema = dFeInt.schema.Split('_');
-                    if (chNFe == string.Empty)
-                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
+                        var schema = dFeInt.schema.Split('_');
+                        if (chNFe == string.Empty)
+                            chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
 
-                    SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
+                        SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.HasError = true;
+                        this.Xml = conteudo;
+                        this.Exception = ex;
+                    }
                 }
             }
 
