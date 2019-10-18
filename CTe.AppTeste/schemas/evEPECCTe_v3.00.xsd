@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
 	<xs:element name="evEPECCTe">
@@ -27,6 +28,11 @@
 				<xs:element name="vICMS" type="TDec_1302">
 					<xs:annotation>
 						<xs:documentation>Valor do ICMS</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vICMSST" type="TDec_1302" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Valor do ICMS ST</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 				<xs:element name="vTPrest" type="TDec_1302">
@@ -138,6 +144,15 @@ Informar os zeros não significativos.</xs:documentation>
 							<xs:length value="1"/>
 							<xs:enumeration value="0"/>
 						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dhEmi">
+					<xs:annotation>
+						<xs:documentation>Data e hora de emissão do CT-e</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
 					</xs:simpleType>
 				</xs:element>
 			</xs:sequence>

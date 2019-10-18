@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared.NFe.Wsdl</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)INfeServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)INfeServicoAutorizacao.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)NFe.Wsdl.cd" />
+    <None Include="$(MSBuildThisFileDirectory)NFe.Wsdl.licenseheader" />
+  </ItemGroup>
+</Project>

@@ -39,9 +39,9 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class ServicoMDFeConsultaNaoEncerrados
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpj)
+        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpjCpf)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpj);
+            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpjCpf);
             consMDFeNaoEnc.ValidarSchema();
             consMDFeNaoEnc.SalvarXmlEmDisco();
 
@@ -49,7 +49,7 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
 
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpj);
+            retorno.SalvarXmlEmDisco(cnpjCpf);
 
             return retorno;
         }
