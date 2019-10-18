@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
 	<xs:element name="aereo">
@@ -60,22 +61,37 @@
 								<xs:annotation>
 									<xs:documentation>Informações de manuseio</xs:documentation>
 									<xs:documentation>01 - certificado do expedidor para embarque de animal vivo;
+
 02 - artigo perigoso conforme Declaração do Expedidor anexa;
+
 03 - somente em aeronave cargueira; 
+
 04 - artigo perigoso - declaração do expedidor não requerida; 
+
 05 - artigo perigoso em quantidade isenta;
+
 06 - gelo seco para refrigeração (especificar no campo observações a quantidade); 
-07 - não restrito (especificar a Disposição Especial no campo observações); 
+
+07 - não restrito (especificar a Disposição Especial no campo observações);
+
 08 - artigo perigoso em carga consolidada (especificar a quantidade no campo observações)
-; 09 - autorização da autoridade governamental anexa (especificar no campo observações); 
+;
+09 - autorização da autoridade governamental anexa (especificar no campo observações); 
+
 10 – baterias de íons de lítio em conformidade com a Seção II da PI965 – CAO
-; 11 - baterias de íons de lítio em conformidade com a Seção II da PI966
-; 12 - baterias de íons de lítio em conformidade com a Seção II da PI967
-; 13 – baterias de metal lítio em conformidade com a Seção II da PI968 — CAO; 
+; 
+11 - baterias de íons de lítio em conformidade com a Seção II da PI966
+; 
+12 - baterias de íons de lítio em conformidade com a Seção II da PI967
+; 
+13 – baterias de metal lítio em conformidade com a Seção II da PI968 — CAO; 
+
 14 - baterias de metal lítio em conformidade com a Seção II da PI969; 
+
 15 - baterias de metal lítio em conformidade com a Seção II da PI970
-; 99 - outro (especificar no campo observações)
-</xs:documentation>
+; 
+99 - outro (especificar no campo observações)
+.</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">

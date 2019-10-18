@@ -2,10 +2,10 @@
 using CTe.Classes.Informacoes;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes;
 using DFe.Utils;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS
+namespace CTe.CTeOSClasses
 {
     [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/cte")]
     public class CTeOS
