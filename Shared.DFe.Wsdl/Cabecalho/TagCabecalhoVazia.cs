@@ -1,6 +1,6 @@
 ﻿using DFe.Wsdl;
 
-namespace DFe.DocumentosEletronicos.Wsdl.Cabecalho
+namespace CTe.CTeOSDocumento.Wsdl.Cabecalho
 {
     public class TagCabecalhoVazia : ITagCabecalho
     {

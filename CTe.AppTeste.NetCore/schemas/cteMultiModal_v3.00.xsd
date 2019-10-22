@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
+	<xs:include schemaLocation="cteTiposBasico_v3.00.xsd"/>
+	<xs:element name="multimodal">
+		<xs:annotation>
+			<xs:documentation>Informações do Multimodal</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="COTM">
+					<xs:annotation>
+						<xs:documentation>Número do Certificado do Operador de Transporte Multimodal</xs:documentation>
+						<xs:documentation/>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:minLength value="1"/>
+							<xs:maxLength value="20"/>
+							<xs:pattern value="[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="indNegociavel">
+					<xs:annotation>
+						<xs:documentation>Indicador Negociável
+Preencher com: 0 - Não Negociável; 1 - Negociável</xs:documentation>
+						<xs:documentation/>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="0"/>
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="seg" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Informações de Seguro do Multimodal</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="infSeg">
+								<xs:annotation>
+									<xs:documentation>Informações da seguradora</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="xSeg">
+											<xs:annotation>
+												<xs:documentation>Nome da Seguradora</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="30"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="CNPJ" type="TCnpjOpc">
+											<xs:annotation>
+												<xs:documentation>Número do CNPJ da seguradora</xs:documentation>
+												<xs:documentation>Obrigatório apenas se responsável pelo seguro for (2) responsável pela contratação do transporte - pessoa jurídica</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="nApol">
+								<xs:annotation>
+									<xs:documentation>Número da Apólice</xs:documentation>
+									<xs:documentation>Obrigatório pela lei 11.442/07 (RCTRC)</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="nAver">
+								<xs:annotation>
+									<xs:documentation>Número da Averbação</xs:documentation>
+									<xs:documentation>Não é obrigatório, pois muitas averbações ocorrem aapós a emissão do CT, mensalmente, por exemplo.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
+	<xs:element name="aereo">
+		<xs:annotation>
+			<xs:documentation>Informações do modal Aéreo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nMinu" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número da Minuta</xs:documentation>
+						<xs:documentation>Documento que precede o CT-e, assinado pelo expedidor, espécie de pedido de serviço</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{9}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nOCA" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número Operacional do Conhecimento Aéreo</xs:documentation>
+						<xs:documentation>Representa o número de controle comumente utilizado pelo conhecimento aéreo composto por uma sequência numérica de onze dígitos. Os três primeiros dígitos representam um código que os operadores de transporte aéreo associados à IATA possuem. Em seguida um número de série de sete dígitos determinados pelo operador de transporte aéreo. Para finalizar, um dígito verificador, que é um sistema de módulo sete imponderado o qual divide o número de série do conhecimento aéreo por sete e usa o resto como dígito de verificação. </xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{11}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dPrevAereo" type="TData">
+					<xs:annotation>
+						<xs:documentation>Data prevista da entrega</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="natCarga">
+					<xs:annotation>
+						<xs:documentation>Natureza da carga</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="xDime" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Dimensão</xs:documentation>
+									<xs:documentation>Formato:1234X1234X1234 (cm). Esse campo deve sempre que possível ser preenchido. Entretanto, quando for impossível o preenchimento das dimensões, fica obrigatório o preenchimento da cubagem em metro cúbico do leiaute do CT-e da estrutura genérica (infQ).
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="5"/>
+										<xs:maxLength value="14"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cInfManu" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Informações de manuseio</xs:documentation>
+									<xs:documentation>01 - certificado do expedidor para embarque de animal vivo;
+02 - artigo perigoso conforme Declaração do Expedidor anexa;
+03 - somente em aeronave cargueira; 
+04 - artigo perigoso - declaração do expedidor não requerida; 
+05 - artigo perigoso em quantidade isenta;
+06 - gelo seco para refrigeração (especificar no campo observações a quantidade); 
+07 - não restrito (especificar a Disposição Especial no campo observações); 
+08 - artigo perigoso em carga consolidada (especificar a quantidade no campo observações)
+; 09 - autorização da autoridade governamental anexa (especificar no campo observações); 
+10 – baterias de íons de lítio em conformidade com a Seção II da PI965 – CAO
+; 11 - baterias de íons de lítio em conformidade com a Seção II da PI966
+; 12 - baterias de íons de lítio em conformidade com a Seção II da PI967
+; 13 – baterias de metal lítio em conformidade com a Seção II da PI968 — CAO; 
+14 - baterias de metal lítio em conformidade com a Seção II da PI969; 
+15 - baterias de metal lítio em conformidade com a Seção II da PI970
+; 99 - outro (especificar no campo observações)
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="01"/>
+										<xs:enumeration value="02"/>
+										<xs:enumeration value="03"/>
+										<xs:enumeration value="04"/>
+										<xs:enumeration value="05"/>
+										<xs:enumeration value="06"/>
+										<xs:enumeration value="07"/>
+										<xs:enumeration value="08"/>
+										<xs:enumeration value="09"/>
+										<xs:enumeration value="10"/>
+										<xs:enumeration value="11"/>
+										<xs:enumeration value="12"/>
+										<xs:enumeration value="13"/>
+										<xs:enumeration value="14"/>
+										<xs:enumeration value="15"/>
+										<xs:enumeration value="99"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="tarifa">
+					<xs:annotation>
+						<xs:documentation>Informações de tarifa</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CL">
+								<xs:annotation>
+									<xs:documentation>Classe</xs:documentation>
+									<xs:documentation>Preencher com:
+									M - Tarifa Mínima;
+									G - Tarifa Geral;
+									E - Tarifa Específica</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:length value="1"/>
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="M"/>
+										<xs:pattern value="G"/>
+										<xs:pattern value="E"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="cTar" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Código da Tarifa</xs:documentation>
+									<xs:documentation>Deverão ser incluídos os códigos de três dígitos, correspondentes à tarifa.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="vTar" type="TDec_1302">
+								<xs:annotation>
+									<xs:documentation>Valor da Tarifa</xs:documentation>
+									<xs:documentation>Valor da tarifa por kg quando for o caso.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="peri" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Preenchido quando for  transporte de produtos classificados pela ONU como perigosos.</xs:documentation>
+						<xs:documentation>O preenchimento desses campos não desobriga a empresa aérea de emitir os demais documentos que constam na legislação vigente.</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nONU">
+								<xs:annotation>
+									<xs:documentation>Número ONU/UN</xs:documentation>
+									<xs:documentation>Ver a legislação de transporte de produtos perigosos aplicadas ao modal  </xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="[0-9]{4}|ND"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="qTotEmb">
+								<xs:annotation>
+									<xs:documentation>Quantidade total de volumes contendo artigos perigosos</xs:documentation>
+									<xs:documentation>Preencher com o número de volumes (unidades) de artigos perigosos, ou seja, cada embalagem devidamente marcada e etiquetada (por ex.: número de caixas, de tambores, de bombonas, dentre outros). Não deve ser preenchido com o número de ULD, pallets ou containers.</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="infTotAP">
+								<xs:annotation>
+									<xs:documentation>Grupo de informações das quantidades totais de artigos perigosos</xs:documentation>
+									<xs:documentation>Preencher conforme a legislação de transporte de produtos perigosos aplicada ao modal</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="qTotProd" type="TDec_1104">
+											<xs:annotation>
+												<xs:documentation>Quantidade total de artigos perigosos</xs:documentation>
+												<xs:documentation>15 posições, sendo 11 inteiras e 4 decimais. 
+Deve indicar a quantidade total do artigo perigoso, tendo como base a unidade referenciada na Tabela 3-1 do Doc 9284, por exemplo: litros; quilogramas; quilograma bruto etc. O preenchimento não deve, entretanto, incluir a unidade de medida. No caso de transporte de material radioativo, deve-se indicar o somatório dos Índices de Transporte (TI). Não indicar a quantidade do artigo perigoso por embalagem.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="uniAP">
+											<xs:annotation>
+												<xs:documentation>Unidade de medida</xs:documentation>
+												<xs:documentation>1 – KG; 
+2 – KG G (quilograma bruto);
+3 – LITROS;
+4 – TI (índice de transporte para radioativos); 5- Unidades (apenas para artigos perigosos medidos em unidades que não se enquadram nos itens acima. Exemplo: baterias, celulares, equipamentos, veículos, dentre outros)</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:minLength value="1"/>
+													<xs:maxLength value="1"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+													<xs:enumeration value="3"/>
+													<xs:enumeration value="4"/>
+													<xs:enumeration value="5"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -32,9 +32,14 @@
 /********************************************************************************/
 
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
+using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
@@ -133,6 +138,12 @@ namespace MDFe.Classes.Extencoes
             var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
             int serie = mdfe.InfMDFe.Ide.Serie;
 
+
+            if (cnpj == null)
+            {
+                cnpj = mdfe.InfMDFe.Emit.CPF.PadLeft(14, '0');
+            }
+
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             mdfe.InfMDFe.Id = "MDFe" + dadosChave.Chave;
@@ -160,7 +171,7 @@ namespace MDFe.Classes.Extencoes
             if (MDFeConfiguracao.NaoSalvarXml()) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
-                nomeArquivo = MDFeConfiguracao.CaminhoSalvarXml + @"\" + mdfe.Chave() + "-mdfe.xml";
+                nomeArquivo = Path.Combine(MDFeConfiguracao.CaminhoSalvarXml, mdfe.Chave() + "-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(mdfe, nomeArquivo);
         }
@@ -171,11 +182,34 @@ namespace MDFe.Classes.Extencoes
             return chave;
         }
 
+        public static int AmbienteSefazInt(this MDFEletronico mdfe)
+        {
+            var ambiente = mdfe.InfMDFe.Ide.TpAmb;
+
+            return (int) ambiente;
+        }
+
         public static string CNPJEmitente(this MDFEletronico mdfe)
         {
             var cnpj = mdfe.InfMDFe.Emit.CNPJ;
 
             return cnpj;
+        }
+
+        public static string CPFEmitente(this MDFEletronico mdfe)
+        {
+            var cpf = mdfe.InfMDFe.Emit.CPF;
+
+            return cpf;
+        }
+
+        public static string CNPJouCPFEmitente(this MDFEletronico mdfe)
+        {
+            var cnpj = CNPJEmitente(mdfe);
+
+            if (cnpj != null) return cnpj;
+
+            return CPFEmitente(mdfe).PadLeft(14, '0');
         }
 
         public static Estado UFEmitente(this MDFEletronico mdfe)
@@ -190,6 +224,52 @@ namespace MDFe.Classes.Extencoes
             var codigo = mdfe.InfMDFe.Emit.EnderEmit.CMun;
 
             return codigo;
+        }
+
+        public static infMDFeSupl QrCode(this MDFEletronico mdfe, X509Certificate2 certificadoDigital,
+            Encoding encoding = null)
+        {
+            if (encoding == null) 
+                encoding = Encoding.UTF8;
+
+            var qrCode = new StringBuilder(@"https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode");
+            qrCode.Append("?");
+            qrCode.Append("chMDFe=").Append(mdfe.Chave());
+            qrCode.Append("&");
+            qrCode.Append("tpAmb=").Append(mdfe.AmbienteSefazInt());
+
+            switch (mdfe.InfMDFe.Ide.TpEmis)
+            {
+                case MDFeTipoEmissao.Contingencia:
+                    var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(mdfe.Chave())));
+                    qrCode.Append("&sign=");
+                    qrCode.Append(assinatura);
+                    break;
+            }
+
+            return new infMDFeSupl
+            {
+                qrCodMDFe = qrCode.ToString()
+            };
+        }
+
+        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
+
+        {
+            RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)certificado.PrivateKey;
+
+            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
+
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] hash = null;
+
+            hash = sha1.ComputeHash(Value);
+
+            rsaF.SetHashAlgorithm("SHA1");
+
+            return rsaF.CreateSignature(hash);
+
         }
     }
 }

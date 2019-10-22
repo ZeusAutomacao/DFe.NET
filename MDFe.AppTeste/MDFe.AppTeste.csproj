@@ -229,6 +229,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\evInclusaoDFeMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\leiauteDistMDFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -384,6 +388,9 @@
     <None Include="Schemas\retMDFeConsultaDFe_v3.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retMDFe_v3.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\tiposDistDFe_v1.00.xsd">
       <SubType>Designer</SubType>
