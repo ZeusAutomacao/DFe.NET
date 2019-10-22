@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Linq;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
@@ -11,7 +11,7 @@ namespace NFe.Utils.Testes
 {
     public class EnderecadorTestes
     {
-        [Theory(DisplayName = "NFe -> Normal -> Autorização -> 4.0")]
+        [Theory(DisplayName = "NFe -> Normal -> AutorizaÃ§Ã£o -> 4.0")]
         [ClassData(typeof(EstadosData))]
         public void DeveCadaUfTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
@@ -19,7 +19,7 @@ namespace NFe.Utils.Testes
             Assert.Equal(1, lista.Count(n => n.ServicoNFe == servicoAutorizacao));
         }
 
-        [Theory(DisplayName = "NFe -> SVC-AN -> Autorização -> 4.0")]
+        [Theory(DisplayName = "NFe -> SVC-AN -> AutorizaÃ§Ã£o -> 4.0")]
         [ClassData(typeof(SvcAnData))]
         public void DeveUfSvcAnTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
@@ -27,7 +27,7 @@ namespace NFe.Utils.Testes
             Assert.Equal(1, lista.Count(n => n.ServicoNFe == servicoAutorizacao));
         }
 
-        [Theory(DisplayName = "NFe -> SVC-RS -> Autorização -> 4.0")]
+        [Theory(DisplayName = "NFe -> SVC-RS -> AutorizaÃ§Ã£o -> 4.0")]
         [ClassData(typeof(SvcRsData))]
         public void DeveUfSvcRsTerServicoDeAutorizacaoParaNFe4(Estado uf, TipoAmbiente tipoAmbiente, ServicoNFe servicoAutorizacao)
         {
@@ -67,6 +67,7 @@ namespace NFe.Utils.Testes
             var todosOsEstados = Enum.GetValues(typeof(Estado)).Cast<Estado>().ToList();
             todosOsEstados.Remove(Estado.AN);
             todosOsEstados.Remove(Estado.EX);
+            todosOsEstados.Remove(Estado.PA);
 
             var tiposAmbiente = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
             var servicosAutorizacao = new[] {ServicoNFe.NFeAutorizacao, ServicoNFe.NFeRetAutorizacao};

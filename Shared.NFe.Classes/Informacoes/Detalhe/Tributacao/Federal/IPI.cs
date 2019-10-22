@@ -62,7 +62,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O06 - Código de Enquadramento Legal do IPI
         /// </summary>
+        [XmlIgnore]
         public int cEnq { get; set; }
+
+        [XmlElement(ElementName = "cEnq")]
+        public string ProxycEnq
+        {
+            get { return cEnq.ToString("D3"); }
+            set { cEnq = int.Parse(value); }
+        }
 
         /// <summary>
         ///     O07 (IPITrib) - Grupo do CST 00, 49, 50 e 99
