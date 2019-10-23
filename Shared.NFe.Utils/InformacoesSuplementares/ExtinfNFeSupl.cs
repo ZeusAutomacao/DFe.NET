@@ -386,6 +386,14 @@ namespace NFe.Utils.InformacoesSuplementares
         /// </summary>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc)
         {
+            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
+
+            if (string.IsNullOrEmpty(cIdToken))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
+
+            if (string.IsNullOrEmpty(csc))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("CSC"));
+
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
             switch (versaoQrCode)
             {

@@ -45,7 +45,11 @@ namespace Shared.DFe.Danfe.Fast
             //alteracao necessaria para .netstandard, o código abaixo utiliza um método onde não é compativel para .netstandard:
             //de : //((PictureObject)relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
             //para:
+#if Standard
             ((PictureObject)relatorio.FindObject("poEmitLogo")).SetImageData(configuracaoDanfeNfce.Logomarca);
+#else
+            ((PictureObject)relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
+#endif
 
             ((TextObject)relatorio.FindObject("txtUrl")).Text = string.IsNullOrEmpty(proc.NFe.infNFeSupl.urlChave) ? proc.NFe.infNFeSupl.ObterUrlConsulta(proc.NFe, configuracaoDanfeNfce.VersaoQrCode) : proc.NFe.infNFeSupl.urlChave;
             ((BarcodeObject)relatorio.FindObject("bcoQrCode")).Text = proc.NFe.infNFeSupl == null ? proc.NFe.infNFeSupl.ObterUrlQrCode(proc.NFe, configuracaoDanfeNfce.VersaoQrCode, cIdToken, csc) : proc.NFe.infNFeSupl.qrCode;
