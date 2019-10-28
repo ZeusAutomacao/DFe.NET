@@ -16,7 +16,7 @@ namespace NFe.Wsdl.Status
         public nfeCabecMsg nfeCabecMsg { get; set; }
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeStatusServicoNFAsync(nfeDadosMsg).Result;
+            var result = base.nfeStatusServicoNFAsync(nfeDadosMsg).GetAwaiter().GetResult();
             return result.nfeResultMsg;
         }
     }

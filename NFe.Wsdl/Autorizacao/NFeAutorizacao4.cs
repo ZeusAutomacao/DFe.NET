@@ -17,13 +17,13 @@ namespace NFe.Wsdl.Autorizacao
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeAutorizacaoLoteAsync(nfeDadosMsg).Result;
+            var result = base.nfeAutorizacaoLoteAsync(nfeDadosMsg).GetAwaiter().GetResult();
             return result.nfeResultMsg;
         }
 
         public XmlNode ExecuteZip(string nfeDadosMsgZip)
         {
-            var result = base.nfeAutorizacaoLoteZipAsync(nfeDadosMsgZip).Result;
+            var result = base.nfeAutorizacaoLoteZipAsync(nfeDadosMsgZip).GetAwaiter().GetResult();
             return result.nfeResultMsg;
         }
     }
