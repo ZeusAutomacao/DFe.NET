@@ -125,15 +125,44 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>3 - Lista Neutra (valor);</para>
     ///     <para>4 - Margem Valor Agregado (%);</para>
     ///     <para>5 - Pauta (valor);</para>
+    ///     <para>6 - Valor da Operação;</para>
     /// </summary>
     public enum DeterminacaoBaseIcmsSt
     {
+        /// <summary>
+        /// 0 – Preço tabelado ou máximo  sugerido
+        /// </summary>
         [XmlEnum("0")] DbisPrecoTabelado = 0,
+
+        /// <summary>
+        /// 1 - Lista Negativa (valor)
+        /// </summary>
         [XmlEnum("1")] DbisListaNegativa = 1,
+
+        /// <summary>
+        /// 2 - Lista Positiva (valor)
+        /// </summary>
         [XmlEnum("2")] DbisListaPositiva = 2,
+
+        /// <summary>
+        /// 3 - Lista Neutra (valor)
+        /// </summary>
         [XmlEnum("3")] DbisListaNeutra = 3,
+
+        /// <summary>
+        /// 4 - Margem Valor Agregado (%)
+        /// </summary>
         [XmlEnum("4")] DbisMargemValorAgregado = 4,
-        [XmlEnum("5")] DbisPauta = 5
+
+        /// <summary>
+        /// 5 - Pauta (valor)
+        /// </summary>
+        [XmlEnum("5")] DbisPauta = 5,
+
+        /// <summary>
+        /// 6 - Valor da Operação
+        /// </summary>
+        [XmlEnum("6")] DbisValordaOperacao = 6
     }
 
     #endregion
