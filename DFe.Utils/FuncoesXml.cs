@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace DFe.Utils
     {
 
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
-        private static readonly Hashtable CacheSerializers = new Hashtable();
+        private static readonly ConcurrentDictionary<string, XmlSerializer> CacheSerializers = new ConcurrentDictionary<string, XmlSerializer>();
 
         /// <summary>
         ///     Serializa a classe passada para uma string no form
@@ -59,6 +60,8 @@ namespace DFe.Utils
             XElement xml;
             var keyNomeClasseEmUso = typeof(T).Name;
             var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
+
+            //var ser = XmlSerializer.FromTypes(new[] { typeof(T) })[0];
 
             using (var memory = new MemoryStream())
             {
@@ -258,16 +261,18 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-            if (CacheSerializers.Contains(chave))
-            {
-                return (XmlSerializer)CacheSerializers[chave];
-            }
+            return CacheSerializers.GetOrAdd(chave, _ => XmlSerializer.FromTypes(new[] { type })[0]);
+
+            //if ()
+            //{
+            //    return (XmlSerializer)CacheSerializers[chave];
+            //}
 
 
-            var ser = XmlSerializer.FromTypes(new[] { type })[0];
-            CacheSerializers.Add(chave, ser);
+            //var ser = XmlSerializer.FromTypes(new[] { type })[0];
+            //CacheSerializers.Add(chave, ser);
 
-            return ser;
+            //return ser;
         }
     }
 }
