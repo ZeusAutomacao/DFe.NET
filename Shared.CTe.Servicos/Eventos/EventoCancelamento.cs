@@ -36,6 +36,7 @@ using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
+using CTe.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Eventos
@@ -46,7 +47,10 @@ namespace CTe.Servicos.Eventos
         private readonly int _sequenciaEvento;
         private readonly string _numeroProtocolo;
         private readonly string _justificativa;
-
+       
+        public eventoCTe EventoEnviado { get; private set; }
+        public retEventoCTe RetornoSefaz { get; private set; }
+        
         public EventoCancelamento(CteEletronico cte, int sequenciaEvento, string numeroProtocolo, string justificativa)
         {
             _cte = cte;
@@ -57,20 +61,22 @@ namespace CTe.Servicos.Eventos
 
         public retEventoCTe Cancelar(ConfiguracaoServico configuracaoServico = null)
         {
-            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
+            var evento = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Cancelamento, _sequenciaEvento, _cte.Chave(), _cte.infCte.emit.CNPJ, evento, configuracaoServico);
+            RetornoSefaz = new ServicoController().Executar(_cte, _sequenciaEvento, evento, CTeTipoEvento.Cancelamento, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
 
         public async Task<retEventoCTe> CancelarAsync(ConfiguracaoServico configuracaoServico = null)
         {
-            var eventoCancelar = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
+            var evento = ClassesFactory.CriaEvCancCTe(_justificativa, _numeroProtocolo);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCancelar, CTeTipoEvento.Cancelamento, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Cancelamento, _sequenciaEvento, _cte.Chave(), _cte.infCte.emit.CNPJ, evento, configuracaoServico);
+            RetornoSefaz = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, evento, CTeTipoEvento.Cancelamento, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
     }
 }
