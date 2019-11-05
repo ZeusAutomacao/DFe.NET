@@ -47,6 +47,9 @@ namespace CTe.Servicos.Eventos
         private readonly string _indicadorDesacordo;
         private readonly string _observacao;
 
+        public eventoCTe EventoEnviado { get; private set; }
+        public retEventoCTe RetornoSefaz { get; private set; }
+
         public EventoDesacordo(int sequenciaEvento, string chave, string cnpj, string indicadorDesacordo, string observacao)
         {
             _chave = chave;
@@ -60,18 +63,20 @@ namespace CTe.Servicos.Eventos
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
+            RetornoSefaz = new ServicoController().Executar(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
 
         public async Task<retEventoCTe> DiscordarAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoDiscordar = ClassesFactory.CriaEvPrestDesacordo(_indicadorDesacordo, _observacao);
 
-            var retorno = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
+            RetornoSefaz = await new ServicoController().ExecutarAsync(CTeTipoEvento.Desacordo, _sequenciaEvento, _chave, _cnpj, eventoDiscordar, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
     }
 }
