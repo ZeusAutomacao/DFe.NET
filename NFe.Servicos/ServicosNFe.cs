@@ -514,6 +514,10 @@ namespace NFe.Servicos
             {
                 throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeStatusServico, ex);
             }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             var retornoXmlString = retorno.OuterXml;
             var retConsStatServ = new retConsStatServ().CarregarDeXmlString(retornoXmlString);
