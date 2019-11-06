@@ -2,7 +2,7 @@
 using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Tomador
 {
     public class enderTomaOs
     {

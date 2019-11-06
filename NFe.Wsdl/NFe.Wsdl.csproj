@@ -60,10 +60,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Autorizacao\NFeAutorizacao4.cs" />
-    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
+    <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Autorizacao\NfeRetAutorizacao.cs">
+    <Compile Include="Autorizacao\NfeRetAutorizacao3.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Autorizacao\NfeRetAutorizacao4.cs">
@@ -90,6 +90,9 @@
     <Compile Include="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -100,9 +103,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\NfeConsultaProtocolo4.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConsultaProtocolo\SVAN\NfeConsultaProtocolo4SVAN.cs">
@@ -141,8 +141,6 @@
     <Compile Include="Evento\SVCAN\RecepcaoEvento4SVCAN.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="INfeServico.cs" />
-    <Compile Include="INfeServicoAutorizacao.cs" />
     <Compile Include="Inutilizacao\NfeInutilizacao.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -190,7 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
@@ -206,11 +204,8 @@
       <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="NFe.Wsdl.cd" />
-    <None Include="NFe.Wsdl.licenseheader" />
-  </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
