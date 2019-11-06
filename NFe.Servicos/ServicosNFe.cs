@@ -81,8 +81,8 @@ namespace NFe.Servicos
     public sealed class ServicosNFe : IDisposable
     {
         public bool HasError;
+        public string Error;
         public Exception Exception;
-        public string Xml;
 
         private readonly X509Certificate2 _certificado;
         private readonly bool _controlarCertificado;
@@ -95,21 +95,30 @@ namespace NFe.Servicos
         /// <param name="cFgServico"></param>
         public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
-            _cFgServico = cFgServico;
-            _controlarCertificado = certificado == null;
-            if (_controlarCertificado)
-                _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
-            else
-                _certificado = certificado;
-            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            try
+            {
+                _cFgServico = cFgServico;
+                _controlarCertificado = certificado == null;
+                if (_controlarCertificado)
+                    _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+                else
+                    _certificado = certificado;
+                _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            //Define a versão do protocolo de segurança
-            ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
+                //Define a versão do protocolo de segurança
+                ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
 
-            if (_cFgServico.ValidarCertificadoDoServidor)
-                ServicePointManager.ServerCertificateValidationCallback = null;
-            else
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                if (_cFgServico.ValidarCertificadoDoServidor)
+                    ServicePointManager.ServerCertificateValidationCallback = null;
+                else
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            }
+            catch (Exception ex)
+            {
+                this.HasError = true;
+                this.Error = ex.ToString();
+                this.Exception = ex;
+            }
         }
 
         private string SalvarArquivoXml(string nomeArquivo, string xmlString)
@@ -919,7 +928,7 @@ namespace NFe.Servicos
                     catch (Exception ex)
                     {
                         this.HasError = true;
-                        this.Xml = conteudo;
+                        this.Error = conteudo;
                         this.Exception = ex;
                     }
                 }
