@@ -433,7 +433,9 @@ namespace NFe.Servicos
                     ? pedEvento.ObterXmlString().RemoverAcentos()
                     : pedEvento.ObterXmlString();
 
-            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+            if (_cFgServico.cUF != Estado.AC)
+                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
