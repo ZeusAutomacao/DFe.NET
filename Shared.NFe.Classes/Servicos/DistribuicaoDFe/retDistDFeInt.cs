@@ -72,7 +72,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe
         /// <summary>
         /// B07 - Data e hora da mensagem de Resposta
         /// </summary>
-        public DateTime dhResp { get; set; }
+        public DateTime? dhResp { get; set; }
 
         /// <summary>
         /// B08 - Último NSU pesquisado no Ambiente Nacional. Se for o caso, o solicitante pode continuar a consulta a partir 

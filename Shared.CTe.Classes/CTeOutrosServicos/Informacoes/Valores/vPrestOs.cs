@@ -36,7 +36,7 @@ using System.Xml.Serialization;
 using CTe.Classes.Informacoes.Complemento;
 using DFe.Classes;
 
-namespace DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores
+namespace CTe.CTeOSDocumento.CTe.Classes.Informacoes.Valores
 {
     public class vPrestOs
     {

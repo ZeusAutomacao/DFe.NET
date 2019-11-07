@@ -43,7 +43,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infModals.rodoviario
         public bool serieSpecified {
             get { return !string.IsNullOrEmpty(serie); }
         }
-
+        
         public int nOcc { get; set; }
 
         [XmlIgnore]

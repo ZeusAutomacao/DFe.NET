@@ -101,7 +101,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydEmi
         {
             get { return dEmi.ParaDataString(); }
-            set { dEmi = DateTime.Parse(value); }
+            set
+            {
+                if (value != null)
+                    dEmi = DateTime.Parse(value);
+            }
         }
 
         /// <summary>
@@ -117,7 +121,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydSaiEnt
         {
             get { return dSaiEnt.ParaDataString(); }
-            set { dSaiEnt = DateTime.Parse(value); }
+            set
+            {
+                if (value != null)
+                    dSaiEnt = DateTime.Parse(value);
+            }
         }
 
         /// <summary>
@@ -133,7 +141,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxyDhEmi
         {
             get { return dhEmi.ParaDataHoraStringUtc(); }
-            set { dhEmi = DateTimeOffset.Parse(value); }
+            set
+            {
+                if (value != null)
+                    dhEmi = DateTimeOffset.Parse(value);
+            }
         }
 
         /// <summary>
@@ -149,7 +161,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydhSaiEnt
         {
             get { return dhSaiEnt.ParaDataHoraStringUtc(); }
-            set { dhSaiEnt = DateTimeOffset.Parse(value); }
+            set
+            {
+                if (value != null)
+                    dhSaiEnt = DateTimeOffset.Parse(value);
+            }
         }
 
         /// <summary>
@@ -228,7 +244,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public string ProxydhCont
         {
             get { return dhCont.ParaDataHoraStringUtc(); }
-            set { dhCont = DateTimeOffset.Parse(value); }
+            set
+            {
+                if (value != null)
+                    dhCont = DateTimeOffset.Parse(value);
+            }
         }
 
         /// <summary>

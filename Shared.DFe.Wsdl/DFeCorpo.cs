@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Xml;
-using DFe.DocumentosEletronicos.Wsdl.Corpo;
+using CTe.CTeOSDocumento.Wsdl.Corpo;
 using DFe.Utils;
 
 namespace DFe.Wsdl

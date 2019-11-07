@@ -3,7 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using DFe.DocumentosEletronicos.Common;
+using CTe.CTeOSDocumento.Common;
 
 namespace CTe.Wsdl.RetRecepcao
 {
@@ -64,7 +64,7 @@ namespace CTe.Wsdl.RetRecepcao
     }
 
     /// <summary>
-    /// Classe base para a serealização no formato do envelope SOAP.
+    /// Classe base para a serialização no formato do envelope SOAP.
     /// </summary>
     [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
     public class SoapEnvelope : CommonSoapEnvelope

@@ -5,15 +5,15 @@ using CTe.Classes.Informacoes.infCteAnu;
 using CTe.Classes.Informacoes.infCteComp;
 using CTe.Classes.Informacoes.infRespTec;
 using DFe.Classes.Flags;
-using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Emitente;
-using DFe.DocumentosEletronicos.CTe.Classes.Informacoes.Valores;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Complemento;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Identificacao;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.InfCTeNormal;
-using DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Tomador;
+using CTe.CTeOSDocumento.CTe.Classes.Informacoes.Emitente;
+using CTe.CTeOSDocumento.CTe.Classes.Informacoes.Valores;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Complemento;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Identificacao;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Impostos;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal;
+using CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.Tomador;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes
+namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes
 {
     public class infCteOS
     {
