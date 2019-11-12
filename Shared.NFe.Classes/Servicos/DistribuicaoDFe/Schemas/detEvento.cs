@@ -44,6 +44,8 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
     {
         public string descEvento { get; set; }
 
+        public string xCorrecao { get; set; }
+
         public string nProt { get; set; }
 
         public string xJust { get; set; }
