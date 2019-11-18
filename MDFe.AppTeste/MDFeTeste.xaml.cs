@@ -144,5 +144,10 @@ namespace MDFe.AppTeste
         {
             _model.EventoCancelar();
         }
+
+        private void EventoIncluirDFe_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoIncluirDFe();
+        }
     }
 }
