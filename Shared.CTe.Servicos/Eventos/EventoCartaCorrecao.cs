@@ -37,6 +37,7 @@ using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
 using CTe.Servicos.Factory;
+using CTe.Utils.CTe;
 using CteEletronico = CTe.Classes.CTe;
 
 namespace CTe.Servicos.Eventos
@@ -46,6 +47,9 @@ namespace CTe.Servicos.Eventos
         private readonly CteEletronico _cte;
         private readonly int _sequenciaEvento;
         private readonly List<infCorrecao> _infCorrecaos;
+
+        public eventoCTe EventoEnviado { get; private set; }
+        public retEventoCTe RetornoSefaz { get; private set; }
 
         public EventoCartaCorrecao(CteEletronico cte, int sequenciaEvento,
             List<infCorrecao> infCorrecaos)
@@ -59,18 +63,20 @@ namespace CTe.Servicos.Eventos
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.CartaCorrecao, _sequenciaEvento, _cte.Chave(), _cte.infCte.emit.CNPJ, eventoCorrecao, configuracaoServico);
+            RetornoSefaz = new ServicoController().Executar(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
 
         public async Task<retEventoCTe> AdicionarCorrecoesAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var eventoCorrecao = ClassesFactory.CriaEvCCeCTe(_infCorrecaos);
 
-            var retorno = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
+            EventoEnviado = FactoryEvento.CriaEvento(CTeTipoEvento.CartaCorrecao, _sequenciaEvento, _cte.Chave(), _cte.infCte.emit.CNPJ, eventoCorrecao, configuracaoServico);
+            RetornoSefaz = await new ServicoController().ExecutarAsync(_cte, _sequenciaEvento, eventoCorrecao, CTeTipoEvento.CartaCorrecao, configuracaoServico);
 
-            return retorno;
+            return RetornoSefaz;
         }
     }
 }
