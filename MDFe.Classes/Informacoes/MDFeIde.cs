@@ -30,16 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Flags;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes
@@ -228,5 +227,11 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
         public string ProxyDhIniViagem { get; set; }
+
+        [XmlElement(ElementName = "indCanalVerde")]
+        public string IndCanalVerde { get; set; }
+
+        [XmlElement(ElementName = "indCarregaPosterior")]
+        public string IndCarregaPosterior { get; set; }
     }
 }
