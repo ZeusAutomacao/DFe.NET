@@ -149,7 +149,7 @@ namespace NFe.Utils.NFe
             var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao.LocalDateTime, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
-            nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
+            nfeLocal.infNFe.ide.cDV = Convert.ToInt32(dadosChave.DigitoVerificador);
 
             Signature assinatura = null;
             if (_certificado == null)
