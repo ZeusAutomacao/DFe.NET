@@ -166,12 +166,12 @@ namespace DFe.Utils
         /// <summary>
         ///     Algoritmo de Assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#rsa-sha1)
         /// </summary>
-        public string SignatureMethodSignedXml { get; set; }
+        public string SignatureMethodSignedXml { get; set; } = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
 
 
         /// <summary>
         ///     URI para DigestMethod na Classe Reference para auxiliar para a assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#sha1)
         /// </summary>
-        public string DigestMethodReference { get; set; }
+        public string DigestMethodReference { get; set; } = "http://www.w3.org/2000/09/xmldsig#sha1";
     }
 }

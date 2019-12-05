@@ -1,5 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using NFe.Wsdl.Autorizacao.AN;
+﻿using NFe.Wsdl.Autorizacao.AN;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NFe.Wsdl.Autorizacao.SVAN
 {
