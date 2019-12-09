@@ -11,9 +11,22 @@ namespace DFeFacadeZeus
             using (ServicosNFe servicosNFe = new ServicosNFe(dfeBase.ObterConfiguracao()))
             {
                 var retorno = servicosNFe.NfeStatusServico();
-            }
 
-            return null;
+                return new ConsultaStatusRetorno(
+                        retorno.Retorno.versao,
+                        (DFeAmbiente) retorno.Retorno.tpAmb,
+                        retorno.Retorno.verAplic,
+                        retorno.Retorno.cStat.ToString(),
+                        retorno.Retorno.xMotivo,
+                        (DFeEstado) retorno.Retorno.cUF,
+                        retorno.Retorno.dhRecbto, retorno.Retorno.dhRetorno, 
+                        retorno.Retorno.xObs,
+                        retorno.Retorno.tMed,
+                        retorno.EnvioStr,
+                        retorno.RetornoCompletoStr,
+                        retorno
+                    );
+            }
         }
     }
 }

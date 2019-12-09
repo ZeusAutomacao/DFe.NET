@@ -11,11 +11,12 @@ namespace DFeFacadeBase
         string Motivo { get; }
         DFeEstado Uf { get; }
         DateTimeOffset DataRecebimento { get; }
-        DateTimeOffset DataRetorno { get; }
+        DateTimeOffset? DataRetorno { get; }
         string Observacao { get; }
         string TempoMedio { get; }
 
         string XmlEnvio { get; }
         string XmlRetorno { get; }
+        object ObjetoOriginal { get; }
     }
 }

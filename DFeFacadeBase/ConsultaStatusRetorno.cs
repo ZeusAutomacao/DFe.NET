@@ -4,7 +4,7 @@ namespace DFeFacadeBase
 {
     public class ConsultaStatusRetorno : IConsultaStatusRetorno
     {
-        public ConsultaStatusRetorno(string versao, DFeAmbiente ambiente, string versaoAplicacao, string status, string motivo, DFeEstado uf, DateTimeOffset dataRecebimento, DateTimeOffset dataRetorno, string observacao, string tempoMedio, string xmlEnvio, string xmlRetorno)
+        public ConsultaStatusRetorno(string versao, DFeAmbiente ambiente, string versaoAplicacao, string status, string motivo, DFeEstado uf, DateTimeOffset dataRecebimento, DateTimeOffset? dataRetorno, string observacao, string tempoMedio, string xmlEnvio, string xmlRetorno, object objetoOriginal)
         {
             Versao = versao;
             Ambiente = ambiente;
@@ -18,6 +18,7 @@ namespace DFeFacadeBase
             TempoMedio = tempoMedio;
             XmlEnvio = xmlEnvio;
             XmlRetorno = xmlRetorno;
+            ObjetoOriginal = objetoOriginal;
         }
 
         public string Versao { get; }
@@ -27,10 +28,11 @@ namespace DFeFacadeBase
         public string Motivo { get; }
         public DFeEstado Uf { get; }
         public DateTimeOffset DataRecebimento { get; }
-        public DateTimeOffset DataRetorno { get; }
+        public DateTimeOffset? DataRetorno { get; }
         public string Observacao { get; }
         public string TempoMedio { get; }
         public string XmlEnvio { get; }
         public string XmlRetorno { get; }
+        public object ObjetoOriginal { get; }
     }
 }
