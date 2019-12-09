@@ -48,6 +48,7 @@
     <Compile Include="CertificadoDigitalException.cs" />
     <Compile Include="DFeBase.cs" />
     <Compile Include="DFeEstado.cs" />
+    <Compile Include="DFTipoEvento.cs" />
     <Compile Include="ICertificadoDigital.cs" />
     <Compile Include="IConsultaStatusRetorno.cs" />
     <Compile Include="IWSFacade.cs" />
