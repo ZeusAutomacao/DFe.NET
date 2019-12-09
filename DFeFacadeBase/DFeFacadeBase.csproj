@@ -46,6 +46,7 @@
     <Compile Include="CertificadoDigitalA1Repositorio.cs" />
     <Compile Include="CertificadoDigitalA3.cs" />
     <Compile Include="CertificadoDigitalException.cs" />
+    <Compile Include="ConsultaStatusRetorno.cs" />
     <Compile Include="DFeAmbiente.cs" />
     <Compile Include="DFeBase.cs" />
     <Compile Include="DFeEstado.cs" />
