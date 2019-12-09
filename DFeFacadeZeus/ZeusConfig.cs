@@ -9,6 +9,11 @@ namespace DFeFacadeZeus
             return DFeEstado.GO;
         }
 
+        public override DFeAmbiente ObterAmbiente()
+        {
+            return DFeAmbiente.Homologacao;
+        }
+
         public override ICertificadoDigital ConfiguracaoCertificadoDigital()
         {
             return new CertificadoDigitalA1(
