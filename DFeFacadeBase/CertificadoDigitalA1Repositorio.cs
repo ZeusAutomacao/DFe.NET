@@ -1,6 +1,6 @@
 ﻿namespace DFeFacadeBase
 {
-    public class CertificadoDigitalA1Repositorio
+    public class CertificadoDigitalA1Repositorio : ICertificadoDigital
     {
         public string Serial { get; }
 

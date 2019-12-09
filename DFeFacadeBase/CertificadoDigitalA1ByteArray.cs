@@ -1,6 +1,6 @@
 ﻿namespace DFeFacadeBase
 {
-    public class CertificadoDigitalA1ByteArray
+    public class CertificadoDigitalA1ByteArray : ICertificadoDigital
     {
         public byte[] CertificadoBytes { get; }
         public string Senha { get; }
