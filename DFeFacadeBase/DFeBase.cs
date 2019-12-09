@@ -1,9 +1,10 @@
 ﻿namespace DFeFacadeBase
 {
-    public abstract class DFeBase
+    public interface DFeBase<T>
     {
-        public abstract DFeEstado ObterEstado();
-        public abstract DFeAmbiente ObterAmbiente();
-        public abstract ICertificadoDigital ConfiguracaoCertificadoDigital();
+        DFeEstado ObterEstado();
+        DFeAmbiente ObterAmbiente();
+        ICertificadoDigital ConfiguracaoCertificadoDigital();
+        T GetConfiguracao();
     }
 }

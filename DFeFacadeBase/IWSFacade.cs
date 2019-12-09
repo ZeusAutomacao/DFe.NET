@@ -1,6 +1,6 @@
 ﻿namespace DFeFacadeBase
 {
-    public interface IWSFacade : IWStatusServico
+    public interface IWSFacade<T> : IWStatusServico<T>
     {
         /*void EnviaLote();
         void CorrigeNota(string chaveAcesso, string textoCorrecao, int sequencialEvento);

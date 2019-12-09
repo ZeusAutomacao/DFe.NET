@@ -9,6 +9,11 @@
         {
             CertificadoBytes = certificadoBytes;
             Senha = senha;
+            TipoCertificado = DFeTipoCertificado.A1Byte;
         }
+
+        public DFeTipoCertificado TipoCertificado { get; }
+        public bool ManterEmCache { get; set; }
+        public string CacheId { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace DFeFacadeBase
 {
-    public interface IWStatusServico
+    public interface IWStatusServico<T>
     {
-        IConsultaStatusRetorno ConsultaStatus();
+        IConsultaStatusRetorno ConsultaStatus(DFeBase<T> dfeBase);
     }
 }

@@ -9,6 +9,11 @@
         {
             Serial = serial;
             Senha = senha;
+            TipoCertificado = DFeTipoCertificado.A3;
         }
+
+        public DFeTipoCertificado TipoCertificado { get; }
+        public bool ManterEmCache { get; set; }
+        public string CacheId { get; set; }
     }
 }

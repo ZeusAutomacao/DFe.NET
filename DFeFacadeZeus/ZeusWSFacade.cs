@@ -2,9 +2,9 @@
 
 namespace DFeFacadeZeus
 {
-    public class ZeusWSFacade : IWSFacade
+    public class ZeusWSFacade<T> : IWSFacade<T>
     {
-        public IConsultaStatusRetorno ConsultaStatus()
+        public IConsultaStatusRetorno ConsultaStatus(DFeBase<T> dfeBase)
         {
             throw new System.NotImplementedException();
         }
