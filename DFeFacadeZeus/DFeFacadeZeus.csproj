@@ -47,6 +47,10 @@
     <Compile Include="ZeusWSFacadeStatusServico.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
       <Name>DFe.Utils</Name>
@@ -54,6 +58,10 @@
     <ProjectReference Include="..\DFeFacadeBase\DFeFacadeBase.csproj">
       <Project>{5DB8C27B-BEEC-479B-91DB-C79572D273E3}</Project>
       <Name>DFeFacadeBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
+      <Project>{29CA1DA2-440D-484B-951A-CF1B2EB27984}</Project>
+      <Name>NFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
       <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>

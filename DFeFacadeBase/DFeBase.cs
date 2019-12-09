@@ -4,6 +4,9 @@
     {
         DFeEstado ObterEstado();
         DFeAmbiente ObterAmbiente();
+        DFeModeloDocumento ObterModeloDocumento();
+        DFeTipoEmissao ObterTipoEmissao();
+        int ObterTimeOut();
         ICertificadoDigital ConfiguracaoCertificadoDigital();
         T GetConfiguracao();
     }

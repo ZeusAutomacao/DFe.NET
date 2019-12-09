@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Net;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 using DFe.Utils;
 using DFeFacadeBase;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Utils;
 
 namespace DFeFacadeZeus
@@ -17,13 +21,29 @@ namespace DFeFacadeZeus
             return DFeAmbiente.Homologacao;
         }
 
+        public DFeModeloDocumento ObterModeloDocumento()
+        {
+            return DFeModeloDocumento.NFe;
+        }
+
+        public DFeTipoEmissao ObterTipoEmissao()
+        {
+            return DFeTipoEmissao.Normal;
+        }
+
+        public int ObterTimeOut()
+        {
+            return 30000;
+        }
+
         public ICertificadoDigital ConfiguracaoCertificadoDigital()
         {
             return new CertificadoDigitalA1(
                 @"C:\Users\rober\OneDrive\Roberto\Documentos\Certificados\AGIL4 TECNOLOGIA LTDA VENC 16-10-2019.pfx"
                 ,"agil4@321")
             {
-                ManterEmCache = true
+                ManterEmCache = true,
+                CacheId = "1"
             };
         }
 
@@ -31,8 +51,46 @@ namespace DFeFacadeZeus
         {
             return new ConfiguracaoServico
             {
-                Certificado = ObterConfiguracaoCertificado()
+                Certificado = ObterConfiguracaoCertificado(),
+                DefineVersaoServicosAutomaticamente = true,
+                ModeloDocumento = ResolveModeloDocumento(),
+                ProtocoloDeSeguranca = SecurityProtocolType.Tls12,
+                TimeOut = ObterTimeOut(),
+                ValidarCertificadoDoServidor = false,
+                RemoverAcentos = true,
+                VersaoLayout = VersaoServico.Versao400,
+                cUF = ResolveEstadoUf(),
+                tpAmb = ResolveTipoAmbiente(),
+                tpEmis = ResolveTipoEmissao()
             };
+        }
+
+        private TipoEmissao ResolveTipoEmissao()
+        {
+            return (TipoEmissao) ObterTipoEmissao();
+        }
+
+        private TipoAmbiente ResolveTipoAmbiente()
+        {
+            return (TipoAmbiente) ObterAmbiente();
+        }
+
+        private Estado ResolveEstadoUf()
+        {
+            return (Estado) ObterEstado();
+        }
+
+        private ModeloDocumento ResolveModeloDocumento()
+        {
+            switch (ObterModeloDocumento())
+            {
+                case DFeModeloDocumento.NFe:
+                    return ModeloDocumento.NFe;
+                case DFeModeloDocumento.NFCe:
+                    return ModeloDocumento.NFCe;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private ConfiguracaoCertificado ObterConfiguracaoCertificado()

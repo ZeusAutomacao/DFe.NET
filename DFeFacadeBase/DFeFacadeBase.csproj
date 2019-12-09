@@ -49,7 +49,9 @@
     <Compile Include="DFeAmbiente.cs" />
     <Compile Include="DFeBase.cs" />
     <Compile Include="DFeEstado.cs" />
+    <Compile Include="DFeModeloDocumento.cs" />
     <Compile Include="DFeTipoCertificado.cs" />
+    <Compile Include="DFeTipoEmissao.cs" />
     <Compile Include="DFTipoEvento.cs" />
     <Compile Include="ICertificadoDigital.cs" />
     <Compile Include="IConsultaStatusRetorno.cs" />
