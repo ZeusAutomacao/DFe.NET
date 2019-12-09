@@ -51,6 +51,7 @@
     <Compile Include="DFTipoEvento.cs" />
     <Compile Include="ICertificadoDigital.cs" />
     <Compile Include="IConsultaStatusRetorno.cs" />
+    <Compile Include="IWStatusServico.cs" />
     <Compile Include="IWSFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

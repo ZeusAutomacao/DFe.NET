@@ -1,8 +1,7 @@
 ﻿namespace DFeFacadeBase
 {
-    public interface IWSFacade
+    public interface IWSFacade : IWStatusServico
     {
-        IConsultaStatusRetorno ConsultaStatus();
         void EnviaLote();
         void CorrigeNota(string chaveAcesso, string textoCorrecao, int sequencialEvento);
         void CancelaNota(string chaveAcesso, string protocoloNota, string motivoCancelamento);
