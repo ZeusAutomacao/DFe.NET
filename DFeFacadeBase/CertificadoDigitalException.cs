@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NFeFacade
+namespace DFeFacadeBase
 {
     public class CertificadoDigitalException : InvalidOperationException
     {

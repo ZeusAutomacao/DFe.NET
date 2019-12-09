@@ -1,9 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace NFeFacade
+﻿namespace DFeFacadeBase
 {
     public interface ICertificadoDigital
     {
-        X509Certificate2 ObterCertificado();
     }
 }
