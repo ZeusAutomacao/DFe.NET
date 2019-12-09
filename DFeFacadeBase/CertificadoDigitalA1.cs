@@ -9,7 +9,7 @@
         {
             LocalArquivoPrfx = localArquivoPfx;
             Senha = senha;
-            TipoCertificado = DFeTipoCertificado.A1;
+            TipoCertificado = DFeTipoCertificado.A1Arquivo;
         }
 
         public DFeTipoCertificado TipoCertificado { get; }

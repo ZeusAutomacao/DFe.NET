@@ -9,7 +9,7 @@
         {
             CertificadoBytes = certificadoBytes;
             Senha = senha;
-            TipoCertificado = DFeTipoCertificado.A1Byte;
+            TipoCertificado = DFeTipoCertificado.A1ByteArray;
         }
 
         public DFeTipoCertificado TipoCertificado { get; }

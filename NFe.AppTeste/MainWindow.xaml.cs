@@ -71,6 +71,7 @@ using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
 using System.Windows.Media.Imaging;
+using DFeFacadeZeus;
 using NFe.Danfe.Nativo.NFCe;
 using NFe.Utils;
 using NFe.Utils.Excecoes;
@@ -128,11 +129,13 @@ namespace NFe.AppTeste
                 //Usar dessa forma, especialmente, quando for usar certificado A3 com a senha salva.
                 // se usar cache você pode por um id no certificado e salvar mais de um certificado digital também na memoria com o zeus
                 //_configuracoes.CfgServico.Certificado.CacheId = "1";
-                using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
+                /*using (var servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
                     var retornoStatus = servicoNFe.NfeStatusServico();
                     TrataRetorno(retornoStatus);
-                }
+                }*/
+
+                var consultaStatusRetorno = new ZeusWSFacade().ConsultaStatus(new ZeusConfig());
 
                 #endregion
             }

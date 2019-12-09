@@ -2,9 +2,9 @@
 {
     public enum DFeTipoCertificado
     {
-        A1,
-        A1Repositorio,
-        A1Byte,
-        A3
+        A1Repositorio = 0,
+        A1Arquivo = 1,
+        A3 = 2,
+        A1ByteArray = 3
     }
 }

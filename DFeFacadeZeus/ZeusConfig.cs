@@ -153,21 +153,9 @@ namespace DFeFacadeZeus
 
         private TipoCertificado ResolveTipoCertificado()
         {
-            var certificadoFacade = ObterConfiguracaoCertificado();
+            var certificadoFacade = ConfiguracaoCertificadoDigital();
 
-            switch (certificadoFacade.TipoCertificado)
-            {
-                case TipoCertificado.A1Repositorio:
-                    return TipoCertificado.A1Repositorio;
-                case TipoCertificado.A1Arquivo:
-                    return TipoCertificado.A1Arquivo;
-                case TipoCertificado.A3:
-                    return TipoCertificado.A3;
-                case TipoCertificado.A1ByteArray:
-                    return TipoCertificado.A1ByteArray;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            return (TipoCertificado) certificadoFacade.TipoCertificado;
         }
     }
 }
