@@ -47,7 +47,7 @@ namespace DFeFacadeZeus
             };
         }
 
-        public ConfiguracaoServico GetConfiguracao()
+        public ConfiguracaoServico ObterConfiguracao()
         {
             return new ConfiguracaoServico
             {

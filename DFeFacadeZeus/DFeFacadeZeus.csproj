@@ -63,6 +63,10 @@
       <Project>{29CA1DA2-440D-484B-951A-CF1B2EB27984}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
+      <Project>{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}</Project>
+      <Name>NFe.Servicos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
       <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
       <Name>NFe.Utils</Name>

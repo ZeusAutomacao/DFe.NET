@@ -1,12 +1,19 @@
 ﻿using DFeFacadeBase;
+using NFe.Servicos;
+using NFe.Utils;
 
 namespace DFeFacadeZeus
 {
-    public class ZeusWSFacade<T> : IWSFacade<T>
+    public class ZeusWSFacade : IWSFacade<ConfiguracaoServico>
     {
-        public IConsultaStatusRetorno ConsultaStatus(DFeBase<T> dfeBase)
+        public IConsultaStatusRetorno ConsultaStatus(DFeBase<ConfiguracaoServico> dfeBase)
         {
-            throw new System.NotImplementedException();
+            using (ServicosNFe servicosNFe = new ServicosNFe(dfeBase.ObterConfiguracao()))
+            {
+                var retorno = servicosNFe.NfeStatusServico();
+            }
+
+            return null;
         }
     }
 }

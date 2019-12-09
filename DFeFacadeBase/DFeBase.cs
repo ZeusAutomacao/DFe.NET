@@ -8,6 +8,6 @@
         DFeTipoEmissao ObterTipoEmissao();
         int ObterTimeOut();
         ICertificadoDigital ConfiguracaoCertificadoDigital();
-        T GetConfiguracao();
+        T ObterConfiguracao();
     }
 }
