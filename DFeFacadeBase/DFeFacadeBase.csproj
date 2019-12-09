@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E42932CF-DCDC-4609-98A0-6790C0F0C3CB}</ProjectGuid>
+    <ProjectGuid>{5DB8C27B-BEEC-479B-91DB-C79572D273E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NFeFacade</RootNamespace>
-    <AssemblyName>NFeFacade</AssemblyName>
+    <RootNamespace>DFeFacadeBase</RootNamespace>
+    <AssemblyName>DFeFacadeBase</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,17 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NFeConfig.cs" />
+    <Compile Include="DFeBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
       <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
       <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFeFacadeBase\DFeFacadeBase.csproj">
-      <Project>{5DB8C27B-BEEC-479B-91DB-C79572D273E3}</Project>
-      <Name>DFeFacadeBase</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
