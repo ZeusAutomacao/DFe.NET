@@ -1,3 +1,5 @@
+Biblioteca em C# para geração de NFe
+
 Grupo Skype,solicitar para add via SKYPE => robertoalves18@hotmail.com
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
