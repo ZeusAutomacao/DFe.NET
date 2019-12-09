@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificadoDigitalA1.cs" />
+    <Compile Include="CertificadoDigitalA1ByteArray.cs" />
+    <Compile Include="CertificadoDigitalA1Repositorio.cs" />
+    <Compile Include="CertificadoDigitalA3.cs" />
+    <Compile Include="CertificadoDigitalException.cs" />
+    <Compile Include="ICertificadoDigital.cs" />
     <Compile Include="NFeConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
