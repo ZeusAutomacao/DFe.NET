@@ -1,13 +1,12 @@
-﻿using DFe.Classes.Entidades;
-using DFeFacadeBase;
+﻿using DFeFacadeBase;
 
 namespace NFeFacade
 {
     public class NFeConfig : DFeBase
     {
-        public override Estado ObterEstado()
+        public override DFeEstado ObterEstado()
         {
-            return Estado.GO;
+            throw new System.NotImplementedException();
         }
     }
 }

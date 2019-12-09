@@ -1,9 +1,7 @@
-﻿using DFe.Classes.Entidades;
-
-namespace DFeFacadeBase
+﻿namespace DFeFacadeBase
 {
     public abstract class DFeBase
     {
-        public abstract Estado ObterEstado();
+        public abstract DFeEstado ObterEstado();
     }
 }

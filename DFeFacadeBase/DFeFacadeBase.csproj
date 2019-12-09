@@ -41,14 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificadoDigitalA1.cs" />
+    <Compile Include="CertificadoDigitalA1ByteArray.cs" />
+    <Compile Include="CertificadoDigitalA1Repositorio.cs" />
+    <Compile Include="CertificadoDigitalA3.cs" />
+    <Compile Include="CertificadoDigitalException.cs" />
     <Compile Include="DFeBase.cs" />
+    <Compile Include="DFeEstado.cs" />
+    <Compile Include="ICertificadoDigital.cs" />
+    <Compile Include="IConsultaStatusRetorno.cs" />
+    <Compile Include="IWSFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
