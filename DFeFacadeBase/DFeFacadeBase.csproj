@@ -41,6 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\NotasFiscaisEletronicas\IBuilderNotaFiscalEletronica.cs" />
+    <Compile Include="Builder\NotasFiscaisEletronicas\Identificacao\IdentificacaoNFe.cs" />
+    <Compile Include="Builder\NotasFiscaisEletronicas\Identificacao\IdicadorPagamentoNFe.cs" />
+    <Compile Include="Builder\NotasFiscaisEletronicas\Identificacao\TipoOperacaoNFe.cs" />
     <Compile Include="CertificadoDigitalA1.cs" />
     <Compile Include="CertificadoDigitalA1ByteArray.cs" />
     <Compile Include="CertificadoDigitalA1Repositorio.cs" />
@@ -60,5 +64,6 @@
     <Compile Include="IWSFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
