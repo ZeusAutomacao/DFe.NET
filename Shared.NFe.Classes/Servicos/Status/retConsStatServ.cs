@@ -73,11 +73,11 @@ namespace NFe.Classes.Servicos.Status
         /// </summary>
         public Estado cUF { get; set; }
 
-        public DateTimeOffset dhRecbto { get; set; }
+        public DateTime dhRecbto { get; set; }
 
         public string tMed { get; set; }
 
-        public DateTimeOffset? dhRetorno { get; set; }
+        public DateTime? dhRetorno { get; set; }
 
         public string xObs { get; set; }
     }
