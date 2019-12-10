@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builder\NotasFiscaisEletronicas\BuilderLoteNFe.cs" />
     <Compile Include="Builder\NotasFiscaisEletronicas\IBuilderNotaFiscalEletronica.cs" />
     <Compile Include="Builder\NotasFiscaisEletronicas\Identificacao\IdentificacaoNFe.cs" />
     <Compile Include="Builder\NotasFiscaisEletronicas\Identificacao\IdicadorPagamentoNFe.cs" />

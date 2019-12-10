@@ -1,4 +1,5 @@
 ﻿using DFeFacadeBase;
+using DFeFacadeBase.Builder.NotasFiscaisEletronicas;
 using NFe.Utils;
 
 namespace DFeFacadeZeus
@@ -15,6 +16,11 @@ namespace DFeFacadeZeus
         public IConsultaStatusRetorno ConsultaStatus(DFeBase<ConfiguracaoServico> dfeBase)
         {
             return _wStatusServico.ConsultaStatus(dfeBase);
+        }
+
+        public void EnviaLote(DFeBase<ConfiguracaoServico> dfeBase, BuilderLoteNFe builderLoteNFe)
+        {
+
         }
     }
 }
