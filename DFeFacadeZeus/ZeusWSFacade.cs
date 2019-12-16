@@ -20,7 +20,7 @@ namespace DFeFacadeZeus
 
         public void EnviaLote(DFeBase<ConfiguracaoServico> dfeBase, BuilderLoteNFe builderLoteNFe)
         {
-
+            //builderLoteNFe.AdicionarNotaFiscal()
         }
     }
 }
