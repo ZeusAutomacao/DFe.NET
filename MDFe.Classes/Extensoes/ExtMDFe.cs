@@ -132,7 +132,7 @@ namespace MDFe.Classes.Extensoes
             var codigoNumerico = mdfe.InfMDFe.Ide.CMDF;
             var estado = mdfe.InfMDFe.Ide.CUF;
             var dataEHoraEmissao = mdfe.InfMDFe.Ide.DhEmi;
-            var cnpj = mdfe.InfMDFe.Emit.CNPJ;
+            var cnpj = mdfe.InfMDFe.Emit.CNPJ != null ? mdfe.InfMDFe.Emit.CNPJ : mdfe.InfMDFe.Emit.CPF;
             var numeroDocumento = mdfe.InfMDFe.Ide.NMDF;
             int serie = mdfe.InfMDFe.Ide.Serie;
 
@@ -180,6 +180,13 @@ namespace MDFe.Classes.Extensoes
             var cnpj = mdfe.InfMDFe.Emit.CNPJ;
 
             return cnpj;
+        }
+
+        public static string CPFEmitente(this MDFEletronico mdfe)
+        {
+            var cpf = mdfe.InfMDFe.Emit.CPF;
+
+            return cpf;
         }
 
         public static Estado UFEmitente(this MDFEletronico mdfe)

@@ -83,6 +83,9 @@ namespace MDFe.Classes.Informacoes.Evento
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
 
+        [XmlElement(ElementName = "CPF")]
+        public string CPF { get; set; }
+
         [XmlElement(ElementName = "chMDFe")]
         public string ChMDFe { get; set; }
 

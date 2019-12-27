@@ -32,10 +32,7 @@
   <!-- .NET 4.5 / .NET Standard referências -->
   <ItemGroup Condition=" '$(TargetFramework)' != 'net45'">
     <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179" />
-    <PackageReference Include="CoreCompat.System.Drawing.v2">
-      <Version>5.2.0-preview1-r131</Version>
-    </PackageReference>
-    <PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
+    <PackageReference Include="FastReport.OpenSource" Version="2019.4.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">

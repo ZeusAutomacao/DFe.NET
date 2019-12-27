@@ -58,6 +58,11 @@ namespace DFe.Utils
         {
             var chave = new StringBuilder();
 
+            if(cnpjEmitente.Length < 14)
+            {
+                cnpjEmitente = cnpjEmitente.PadLeft(14, '0');
+            }
+
             chave.Append(((int)ufEmitente).ToString("D2"))
                 .Append(Convert.ToDateTime(dataEmissao).ToString("yyMM"))
                 .Append(cnpjEmitente)
