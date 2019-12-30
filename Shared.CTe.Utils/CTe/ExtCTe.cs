@@ -245,7 +245,10 @@ namespace CTe.Utils.CTe
             qrCode.Append("&");
             qrCode.Append("tpAmb=").Append((int)cte.infCte.ide.tpAmb);
 
-            if (cte.infCte.ide.tpEmis != tpEmis.teNormal)
+            if (cte.infCte.ide.tpEmis != tpEmis.teNormal 
+                && cte.infCte.ide.tpEmis != tpEmis.teSVCRS
+                && cte.infCte.ide.tpEmis != tpEmis.teSVCSP
+                )
             {
                 var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(chave)));
                 qrCode.Append("&sign=");

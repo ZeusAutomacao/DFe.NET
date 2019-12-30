@@ -901,23 +901,23 @@ namespace FastReport
       <TextObject Name="Text33" Left="102.06" Top="1.13" Width="47.25" Height="11.34" Text="Qtd Un" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text34" Left="160.08" Top="1.13" Width="37.8" Height="11.34" Text="Vl Unit" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text35" Left="209.66" Top="1.13" Width="52.92" Height="11.34" Text="Valor Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
-      <TextObject Name="Text36" Left="151.09" Top="1.13" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-      <TextObject Name="Text37" Left="200.34" Top="1.13" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt"/>
+      <TextObject Name="Text36" Left="151.09" Top="1.13" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+      <TextObject Name="Text37" Left="200.34" Top="1.13" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt"/>
       <DataBand Name="dbProdutosUmaLinha" Top="252.32" Width="264.6" Height="15.12" Visible="false" Border.Lines="Bottom" BeforePrintEvent="dbProdutosUmaLinha_BeforePrint" AfterPrintEvent="dbProdutosUmaLinha_AfterPrint" DataSource="det">
-        <TextObject Name="Text26" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="Text27" Left="39.69" Top="1" Width="60.48" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 13), 0, 12)]" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="Text28" Left="102.06" Top="1" Width="47.25" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold">
+        <TextObject Name="Text26" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="Text27" Left="39.69" Top="1" Width="60.48" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 13), 0, 12)]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="Text28" Left="102.06" Top="1" Width="47.25" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold">
           <Formats>
             <GeneralFormat/>
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="txtProdutoUmaLinhaValorTotal" Left="209.79" Top="1" Width="53.3" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoUmaLinhaValorUnit" Left="159.89" Top="1" Width="37.8" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoUmaLinhaValorTotal" Left="209.79" Top="1" Width="53.3" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemUmaLinha" Top="270.64" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text41" Left="-0.06" Top="1.13" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
-          <TextObject Name="Text42" Left="53.26" Top="1.13" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-          <TextObject Name="txtProdutoUmaLinhaSubTotal" Left="191.25" Top="1.51" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+          <TextObject Name="Text42" Left="53.26" Top="1.13" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+          <TextObject Name="txtProdutoUmaLinhaSubTotal" Left="191.25" Top="1.51" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         </ChildBand>
         <Sort>
           <Sort Expression="[NFCe.NFe.infNFe.det.nItem]"/>
@@ -931,23 +931,23 @@ namespace FastReport
       <TextObject Name="Text9" Top="13.91" Width="92.61" Height="11.34" Text="Qtde Un" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text10" Left="107.16" Top="13.34" Width="71.82" Height="11.34" Text="Valor Unitário" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
       <TextObject Name="Text11" Left="190.76" Top="13.34" Width="71.82" Height="11.34" Text="Valor Total" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
-      <TextObject Name="Text23" Left="96.39" Top="13.99" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-      <TextObject Name="Text24" Left="181.44" Top="13.99" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+      <TextObject Name="Text23" Left="96.39" Top="13.99" Width="7.56" Height="11.34" Text="x" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+      <TextObject Name="Text24" Left="181.44" Top="13.99" Width="7.56" Height="11.34" Text="=" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
       <DataBand Name="dbProdutosDuasLinhas" Top="320.51" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.25" BeforePrintEvent="dbProdutosDuasLinhas_BeforePrint" AfterPrintEvent="dbProdutosDuasLinhas_AfterPrint" DataSource="det">
-        <TextObject Name="Text1" Top="1" Width="49.14" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="Text2" Left="51.79" Top="1" Width="210.55" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 49), 0, 48)]" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="Text3" Top="12.72" Width="92.61" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold">
+        <TextObject Name="Text1" Top="1" Width="49.14" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.cProd]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="Text2" Left="51.79" Top="1" Width="210.55" Height="13.23" Text="[Substring(PadRight([NFCe.NFe.infNFe.det.prod.xProd], 49), 0, 48)]" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="Text3" Top="12.72" Width="92.61" Height="13.23" Text="[Format(&quot;{0:#,##0.####}&quot;, [NFCe.NFe.infNFe.det.prod.qCom])] [NFCe.NFe.infNFe.det.prod.uCom]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold">
           <Formats>
             <NumberFormat UseLocale="false" DecimalDigits="3" DecimalSeparator="," GroupSeparator="." NegativePattern="1"/>
             <GeneralFormat/>
           </Formats>
         </TextObject>
-        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-        <TextObject Name="txtProdutoDuasLinhasValorTotal" Left="190.89" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoDuasLinhasValorUnit" Left="106.97" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vUnCom]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="4" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+        <TextObject Name="txtProdutoDuasLinhasValorTotal" Left="190.89" Top="12.72" Width="71.82" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vProd]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         <ChildBand Name="cbDescontoItemDuasLinhas" Top="350.17" Width="264.6" Height="15.12" Border.Lines="Bottom">
           <TextObject Name="Text38" Left="-0.04" Top="1.27" Width="48.31" Height="13.23" Text="Desconto:" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed, 8pt, style=Bold"/>
-          <TextObject Name="Text39" Left="53.28" Top="1.27" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-          <TextObject Name="txtProdutoDuasLinhaSubTotal" Left="191.27" Top="1.27" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+          <TextObject Name="Text39" Left="53.28" Top="1.27" Width="62.36" Height="13.23" Text="[NFCe.NFe.infNFe.det.prod.vDesc]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
+          <TextObject Name="txtProdutoDuasLinhaSubTotal" Left="191.27" Top="1.27" Width="71.82" Height="13.23" Text="[ [NFCe.NFe.infNFe.det.prod.vProd] - [NFCe.NFe.infNFe.det.prod.vDesc] ]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Open Sans Condensed Light, 8pt, style=Bold"/>
         </ChildBand>
         <Sort>
           <Sort Expression="[NFCe.NFe.infNFe.det.nItem]"/>
