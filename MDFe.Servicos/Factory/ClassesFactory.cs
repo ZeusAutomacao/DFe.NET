@@ -47,13 +47,14 @@ namespace MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpj, MDFeConfiguracao cfgMdfe = null)
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string documento, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                CNPJ = cnpj,
+                CNPJ = documento.Length == 14 ? documento : null,
+                CPF = documento.Length == 11 ? documento : null,
                 TpAmb = config.VersaoWebService.TipoAmbiente,
                 Versao = config.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
