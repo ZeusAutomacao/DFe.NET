@@ -75,7 +75,7 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
                 throw new ArgumentNullException();
 
             this.configuracao = configuracao;
-            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls11 | System.Net.SecurityProtocolType.Tls12;
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
         }
 
         /// <summary>
