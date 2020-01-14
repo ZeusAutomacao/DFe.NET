@@ -4,6 +4,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
