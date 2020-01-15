@@ -30,15 +30,16 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.Classes.Flags;
 using MDFe.Utils.Configuracoes;
-using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Classes.Informacoes
@@ -46,11 +47,24 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeIde
     {
-        public MDFeIde()
+        /// <summary>
+        /// Construtor para serialização
+        /// </summary>
+        private MDFeIde()
         {
+            _versaoServico = VersaoServico.Versao300;
+        }
+
+        public MDFeIde(VersaoServico? versaoServico = null)
+        {
+            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
+
             InfMunCarrega = new List<MDFeInfMunCarrega>();
             InfPercurso = new List<MDFeInfPercurso>();
         }
+
+        [XmlIgnore]
+        private readonly VersaoServico _versaoServico;
 
         /// <summary>
         /// 2 - Código da UF do emitente do MDF-e. 
@@ -133,14 +147,14 @@ namespace MDFe.Classes.Informacoes
         public DateTime DhEmi { get; set; }
 
         /// <summary>
-        /// Proxy para dhEmi
+        /// Proxy para dhEmi 
         /// </summary>
         [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhEmi
         {
             get
             {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                switch (_versaoServico)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();
@@ -226,11 +240,33 @@ namespace MDFe.Classes.Informacoes
         /// Proxy para dhIniViagem
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
-        public string ProxyDhIniViagem { get; set; }
+        public string ProxyDhIniViagem
+        {
+            get
+            {
+                switch (_versaoServico)
+                {
+                    case VersaoServico.Versao100:
+                        return DhIniViagem.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhIniViagem.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para MDF-e");
+                }
 
+            }
+            set { DhIniViagem = DateTime.Parse(value); }
+        }
+        /// <summary>
+        /// Indicador de participação do Canal Verde.
+        /// </summary>
         [XmlElement(ElementName = "indCanalVerde")]
         public string IndCanalVerde { get; set; }
 
+        /// <summary>
+        /// Indicador de MDF-e com inclusão da Carga posterior
+        /// a emissão por evento de inclusão de DF-e.
+        /// </summary>
         [XmlElement(ElementName = "indCarregaPosterior")]
         public string IndCarregaPosterior { get; set; }
     }

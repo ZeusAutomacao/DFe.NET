@@ -2,7 +2,7 @@
 
 namespace MDFe.Classes.Informacoes
 {
-    public class infRespTec
+    public class MDFeInfRespTec
     {
         public string CNPJ { get; set; }
         public string xContato { get; set; }

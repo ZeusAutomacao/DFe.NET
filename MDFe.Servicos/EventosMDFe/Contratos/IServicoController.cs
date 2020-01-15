@@ -30,15 +30,18 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Threading.Tasks;
 using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
+using MDFe.Utils.Configuracoes;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe.Contratos
 {
     public interface IServicoController
     {
-        MDFeRetEventoMDFe Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento);
+         Task<MDFeRetEventoMDFe> Executar(MDFeEletronico mdfe, byte sequenciaEvento, MDFeEventoContainer eventoContainer, MDFeTipoEvento tipoEvento, MDFeConfiguracao cfgMdfe = null);
     }
 }

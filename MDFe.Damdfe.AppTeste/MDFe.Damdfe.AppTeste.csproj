@@ -88,15 +88,15 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794CB98-4691-4218-A127-C573C2E7FF83}</Project>
+      <Project>{311E734E-84B1-4FCE-B806-61147CEFBC51}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">
-      <Project>{2419900B-1E90-4181-9338-3E84237C3B00}</Project>
+      <Project>{20F6078A-0AFD-4B51-9F7C-FDA54DFBB369}</Project>
       <Name>MDFe.Damdfe.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj">
-      <Project>{730D4787-C8CF-4FA1-B9F5-DC814DBEAB7A}</Project>
+      <Project>{9ED85901-D4A7-48FA-B4BF-3E807DC74D53}</Project>
       <Name>MDFe.Damdfe.Fast</Name>
     </ProjectReference>
   </ItemGroup>

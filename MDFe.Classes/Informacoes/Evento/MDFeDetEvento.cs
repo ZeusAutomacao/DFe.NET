@@ -30,10 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
-using MDFe.Utils.Flags;
+
 using System;
 using System.Xml.Serialization;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes.Evento
 {

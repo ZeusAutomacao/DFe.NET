@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
@@ -64,18 +65,21 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "tara")]
         public int? Tara { get; set; }
+        public bool ShouldSerializeTara() => Tara != null;
 
         /// <summary>
         /// 2 - Capacidade em KG 
         /// </summary>
         [XmlElement(ElementName = "capKG")]
         public int? CapKG { get; set; }
+        public bool ShouldSerializeCapKG() => CapKG != null;
 
         /// <summary>
         /// 2 - Capacidade em M3 
         /// </summary>
         [XmlElement(ElementName = "capM3")]
         public int? CapM3 { get; set; }
+        public bool ShouldSerializeCapM3() => CapM3 != null;
 
         /// <summary>
         /// 2 - Proprietários do Veículo. Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e

@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
@@ -51,6 +52,10 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
 
+        /// <summary>
+        /// 2 - CPF do emitente 
+        /// </summary>
+        [XmlElement(ElementName = "CPF")]
         public string CPF { get; set; }
 
         /// <summary>

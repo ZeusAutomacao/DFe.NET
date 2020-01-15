@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-
 using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Fast;
 using MDFe.Damdfe.Base;
@@ -89,7 +87,11 @@ namespace MDFe.Damdfe.AppTeste
         {
             var damdfe = GetReport();
             if (damdfe != null)
+            {
                 damdfe.Imprimir(true);
+            }
+                
+
         }
 
         private void button5_Click(object sender, EventArgs e)

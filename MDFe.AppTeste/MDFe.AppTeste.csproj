@@ -39,15 +39,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="netstandard" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -418,7 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
@@ -426,19 +431,22 @@
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
+      <Project>{311e734e-84b1-4fce-b806-61147cefbc51}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
+      <Project>{5e612cab-f599-4b8e-9029-cf5b234e6e8e}</Project>
       <Name>MDFe.Servicos</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
+      <Project>{705dde5d-461e-419c-b57e-be9f9dadb3c8}</Project>
       <Name>MDFe.Utils</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
+      <Project>{99c7e199-38a5-40b0-ac48-b5fa25e63430}</Project>
+      <Name>MDFe.Wsdl</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

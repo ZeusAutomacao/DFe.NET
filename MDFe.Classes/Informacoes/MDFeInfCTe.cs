@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Collections.Generic;
 using System.Xml.Serialization;
 
@@ -72,6 +73,11 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "peri")]
         public List<MDFePeri> Peri { get; set; }
 
-        public infEntregaParcial infEntregaParcial { get; set; }
+        /// <summary>
+        /// Grupo de informações da Entrega Parcial (Corte de Voo).
+        /// MDF-e 3.0
+        /// </summary>
+        [XmlElement(ElementName = "infEntregaParcial")]
+        public infEntregaParcial InfEntregaParcial { get; set; }
     }
 }

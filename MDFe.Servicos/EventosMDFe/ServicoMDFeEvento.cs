@@ -30,46 +30,58 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Retorno.MDFeEvento;
-using System.Collections.Generic;
+using MDFe.Utils.Configuracoes;
 using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {
     public class ServicoMDFeEvento
     {
-        public MDFeRetEventoMDFe MDFeEventoIncluirCondutor(
+        public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirCondutor(
             MDFeEletronica mdfe, byte sequenciaEvento, string nome,
-            string cpf)
+            string cpf, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var eventoIncluirCondutor = new EventoInclusaoCondutor();
 
-            return eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf);
+            return await eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf, config);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoIncluirDFe(
-            MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos)
+        public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirDFe(
+            MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, 
+            List<MDFeInfDocInc> informacoesDocumentos)
         {
             var eventoIncluirDFe = new EventoInclusaoDFe();
 
-            return eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
+            return await eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento,
+                nomeMunicipioCarregamento, informacoesDocumentos);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo)
+        public async Task<MDFeRetEventoMDFe> MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, Estado cUF, long cMun, 
+            byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var eventoEncerramento = new EventoEncerramento();
 
-            return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+            return await eventoEncerramento.MDFeEventoEncerramento(mdfe, cUF, cMun, sequenciaEvento, protocolo, config);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string justificativa)
+        public async Task<MDFeRetEventoMDFe> MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
+            string justificativa, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var eventoCancelamento = new EventoCancelar();
 
-            return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+            return await eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa, config);
         }
     }
 }

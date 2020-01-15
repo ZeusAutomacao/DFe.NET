@@ -32,57 +32,38 @@
 /********************************************************************************/
 
 using System;
-using DFe.Utils;
-using MDFe.Classes.Extencoes;
-using MDFe.Classes.Flags;
+using System.Threading.Tasks;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
-using MDFe.Utils.Flags;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.RecepcaoMDFe
 {
     public class ServicoMDFeRecepcao
     {
-        public event EventHandler<AntesDeEnviar> AntesDeEnviar;
-        public event EventHandler<string> GerouChave; 
+        public event EventHandler<AntesDeEnviar> AntesDeEnviar; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        public async Task<MDFeRetEnviMDFe> MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
-                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringSemUtc();
-                    break;
-                case VersaoServico.Versao300:
-                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
-                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
-                    break;
-            }
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, config);
 
-            enviMDFe.MDFe.Assina(GerouChave, this);
+            if (enviMDFe.MDFe?.InfMDFe?.Id == null)
+                enviMDFe.MDFe.Assina(config);
 
-            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
-            {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
-            }
+            enviMDFe.Valida(config); 
 
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);
 
             OnAntesDeEnviar(enviMDFe);
 
-            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+            var retornoXml = await webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
-            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml?.OuterXml, enviMDFe);
 
             return retorno;
         }

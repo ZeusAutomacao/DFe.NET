@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -118,7 +119,11 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "infAdic")]
         public MDFeInfAdic InfAdic { get; set; }
 
+        /// <summary>
+        /// Informações do Responsável Técnico
+        /// pela emissão do DF-e.
+        /// </summary>
         [XmlElement(ElementName = "infRespTec")]
-        public infRespTec infRespTec { get; set; }
+        public MDFeInfRespTec InfRespTec { get; set; }
     }
 }

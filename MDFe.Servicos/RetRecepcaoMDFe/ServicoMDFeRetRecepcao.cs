@@ -31,25 +31,23 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using MDFe.Classes.Extencoes;
+using System.Threading.Tasks;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeRetRecepcao;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.RetRecepcaoMDFe
 {
     public class ServicoMDFeRetRecepcao
     {
-        public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo)
+        public async Task<MDFeRetConsReciMDFe> MDFeRetRecepcao(string numeroRecibo, MDFeConfiguracao cfgMdfe = null)
         {
-            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
-            consReciMdfe.ValidaSchema();
-            consReciMdfe.SalvarXmlEmDisco();
-
-            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao();
-            var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
-
+            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo, cfgMdfe);
+            consReciMdfe.ValidaSchema(cfgMdfe);
+            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(cfgMdfe);
+            var retornoXml = await webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
             var retorno = MDFeRetConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
-            retorno.SalvarXmlEmDisco();
 
             return retorno;
         }

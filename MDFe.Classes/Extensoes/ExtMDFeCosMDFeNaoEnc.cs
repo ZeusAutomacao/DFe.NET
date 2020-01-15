@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
 using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
@@ -39,7 +38,7 @@ using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeCosMDFeNaoEnc
     {
@@ -48,17 +47,19 @@ namespace MDFe.Classes.Extencoes
             return FuncoesXml.ClasseParaXmlString(consMDFeNaoEnc);
         }
 
-        public static void ValidarSchema(this MDFeCosMDFeNaoEnc consMdFeNaoEnc)
+        public static void ValidarSchema(this MDFeCosMDFeNaoEnc consMdFeNaoEnc, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var xmlValidacao = consMdFeNaoEnc.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd", config);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v3.00.xsd", config);
                     break;
             }
         }
@@ -71,13 +72,15 @@ namespace MDFe.Classes.Extencoes
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
+        public static void SalvarXmlEmDisco(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
 
-            var arquivoSalvar = Path.Combine(caminhoXml, cosMdFeNaoEnc.CNPJ + "-ped-sit.xml");
+            var caminhoXml = config.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\" + cosMdFeNaoEnc.CNPJ + "-ped-sit.xml";
 
             FuncoesXml.ClasseParaArquivoXml(cosMdFeNaoEnc, arquivoSalvar);
         }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-sofwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
+	<xs:element name="aereo">
+		<xs:annotation>
+			<xs:documentation>Informações do modal Aéreo</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="nac">
+					<xs:annotation>
+						<xs:documentation>Marca da Nacionalidade da aeronave</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:minLength value="1"/>
+							<xs:maxLength value="4"/>
+							<xs:pattern value="[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="matr">
+					<xs:annotation>
+						<xs:documentation>Marca de Matrícula da aeronave</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:minLength value="1"/>
+							<xs:maxLength value="6"/>
+							<xs:pattern value="[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nVoo">
+					<xs:annotation>
+						<xs:documentation>Número do Voo</xs:documentation>
+						<xs:documentation>Formato = AB1234, sendo AB a designação da empresa e 1234 o número do voo. Quando não for possível incluir as marcas de nacionalidade e matrícula sem hífen.
+</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="5"/>
+							<xs:maxLength value="9"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="cAerEmb">
+					<xs:annotation>
+						<xs:documentation>Aeródromo de Embarque</xs:documentation>
+						<xs:documentation>O código de três letras IATA do aeroporto de partida deverá ser incluído como primeira anotação. Quando não for possível, utilizar a sigla OACI.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="3"/>
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="cAerDes">
+					<xs:annotation>
+						<xs:documentation>Aeródromo de Destino</xs:documentation>
+						<xs:documentation>O código de três letras IATA do aeroporto de destino deverá ser incluído como primeira anotação. Quando não for possível, utilizar a sigla OACI.</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="3"/>
+							<xs:maxLength value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dVoo" type="TData">
+					<xs:annotation>
+						<xs:documentation>Data do Voo</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

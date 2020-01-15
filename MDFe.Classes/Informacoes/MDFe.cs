@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
@@ -51,7 +52,7 @@ namespace MDFe.Classes.Informacoes
         public MDFeInfMDFe InfMDFe { get; set; }
 
         [XmlElement(ElementName = "infMDFeSupl")]
-        public infMDFeSupl infMDFeSupl { get; set; }
+        public MdfeInfMDFeSupl InfMDFeSupl { get; set; }
 
         [XmlElement(ElementName = "Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
         public Signature Signature { get; set; }

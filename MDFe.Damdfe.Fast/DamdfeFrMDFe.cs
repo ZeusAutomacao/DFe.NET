@@ -31,11 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+
 using System.IO;
+using System;
 using FastReport;
-using FastReport.Export.Pdf;
-using MDFe.Damdfe.Base;
+using FastReport.Export.Html;
 using MDFe.Classes.Retorno;
+using MDFe.Damdfe.Base;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -51,7 +53,7 @@ namespace MDFe.Damdfe.Fast
                 Relatorio.Load(arquivoRelatorio);
             else
                 Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
-            Configurar(config);            
+            Configurar(config);
         }
 
         public DamdfeFrMDFe()
@@ -61,19 +63,32 @@ namespace MDFe.Damdfe.Fast
 
         public void RegisterData(MDFeProcMDFe proc)
         {
-            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
-            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
+            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 30);
+            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;
         }
 
         public void Configurar(ConfiguracaoDamdfe config)
         {
-            Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
+
+            Relatorio.SetParameterValue("NewLine", Environment.NewLine);
+            Relatorio.SetParameterValue("Tabulation", "\t");
+            Relatorio.SetParameterValue("DocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
+#if NETSTANDARD2_0
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+#endif
+#if NET45
+            ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+#endif
+            ((ReportPage)Relatorio.FindObject("Page1")).LeftMargin = config.MargemEsquerda;
+            ((ReportPage)Relatorio.FindObject("Page1")).RightMargin = config.MargemDireita;
+            ((ReportPage)Relatorio.FindObject("Page1")).TopMargin = config.MargemSuperior;
+            ((ReportPage)Relatorio.FindObject("Page1")).BottomMargin = config.MargemInferior;
         }
 
+#if NET45
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>
@@ -100,10 +115,17 @@ namespace MDFe.Damdfe.Fast
         /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
         public void Imprimir(bool exibirDialogo = true, string impressora = "")
         {
+
             Relatorio.PrintSettings.ShowDialog = exibirDialogo;
             Relatorio.PrintSettings.Printer = impressora;
             Relatorio.Print();
         }
+
+#endif
+        /*
+         // A funcionalidade para exportação no formato PDF até o presente momento, data 31/10/2018, 
+         // não encontra-se disponível para o FastReport.OpenSource, caso deseje, mude o pacote nuget
+         // para FastReport.Core
 
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
@@ -114,16 +136,57 @@ namespace MDFe.Damdfe.Fast
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
         }
+        */
 
         /// <summary>
-        /// Converte o DAMDFe para PDF e copia para o stream
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>
-        /// <param name="outputStream">Variável do tipo Stream para output</param>
-        public void ExportarPdf(Stream outputStream)
+        public Stream ObterHTML()
+        {
+            Relatorio.DoublePass = true;
+            Relatorio.Prepare();
+
+            using (var html = new HTMLExport())
+            {
+                html.EmbedPictures = true;
+                html.SinglePage = false;
+                html.SubFolder = false;
+                html.Layers = true;
+                html.Navigator = false;
+                html.Pictures = true;
+                html.EnableMargins = true;
+                html.SaveStreams = true;
+                html.Wysiwyg = true;
+
+                var stream = new MemoryStream();
+                Relatorio.Export(html, stream);
+
+                return stream;
+            }
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o HTML do DAMDFe</param>
+        public void ExportarHTML(string arquivo)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), outputStream);
-            outputStream.Position = 0;
+
+            var html = new HTMLExport
+            {
+                EmbedPictures = true,
+                SinglePage = true,
+                EnableVectorObjects = true,
+                Wysiwyg = true,
+                SubFolder = false,
+                Layers = true,
+                Navigator = false,
+                Pictures = true,
+                EnableMargins = true
+            };
+
+            Relatorio.Export(html, arquivo);
         }
     }
 }

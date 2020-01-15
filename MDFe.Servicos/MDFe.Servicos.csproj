@@ -1,93 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Definição das versões compátiveis Standard 2.0 e .net 4.5 -->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9587937A-A826-4785-9D1E-3A9F4A622B7C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MDFe.Servicos</RootNamespace>
-    <AssemblyName>MDFe.Servicos</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
+
+  <!-- Referências comuns do pacote NuGet que afetam todos os projetos-->
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
+
+  <!-- Sinalizadores de compilação e opções de compilação -->
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0'">
+    <DefineConstants>TRACE;DEBUG;NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45'">
+    <DefineConstants>NET45;NETFULL</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <!-- .NET 4.5 / .NET Standard referências -->
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net45'">
+    <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="netstandard" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="ConsultaNaoEncerradosMDFe\ServicoMDFeConsultaNaoEncerrados.cs" />
-    <Compile Include="ConsultaProtocoloMDFe\ServicoMDFeConsultaProtocolo.cs" />
-    <Compile Include="Enderecos\Helper\UrlHelper.cs" />
-    <Compile Include="Enderecos\UrlMDFe.cs" />
-    <Compile Include="EventosMDFe\Contratos\IServicoController.cs" />
-    <Compile Include="EventosMDFe\EventoCancelar.cs" />
-    <Compile Include="EventosMDFe\EventoInclusaoDFe.cs" />
-    <Compile Include="EventosMDFe\EventoEncerramento.cs" />
-    <Compile Include="EventosMDFe\EventoInclusaoCondutor.cs" />
-    <Compile Include="EventosMDFe\FactoryEvento.cs" />
-    <Compile Include="EventosMDFe\ServicoController.cs" />
-    <Compile Include="EventosMDFe\ServicoMDFeEvento.cs" />
-    <Compile Include="Factory\ClassesFactory.cs" />
-    <Compile Include="Factory\WsdlFactory.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecepcaoMDFe\AntesDeEnviar.cs" />
-    <Compile Include="RecepcaoMDFe\ServicoMDFeRecepcao.cs" />
-    <Compile Include="RetRecepcaoMDFe\ServicoMDFeRetRecepcao.cs" />
-    <Compile Include="StatusServicoMDFe\ServicoMDFeStatusServico.cs" />
+    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
+    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
-      <Name>MDFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
-      <Name>MDFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
-      <Project>{81b3bc65-a499-4e19-8ab4-09c6d874c540}</Project>
-      <Name>MDFe.Wsdl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <!-- Referências dos projetos -->
 </Project>

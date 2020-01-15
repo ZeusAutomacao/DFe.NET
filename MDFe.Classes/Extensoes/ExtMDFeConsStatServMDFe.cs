@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
 using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.StatusServico;
@@ -39,21 +38,23 @@ using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeConsStatServMDFe
     {
-        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe)
+        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var xmlValidacao = consStatServMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd", config);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consStatServMDFe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v3.00.xsd", config);
                     break;
             }
         }
@@ -71,13 +72,15 @@ namespace MDFe.Classes.Extencoes
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe)
+        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
 
-            var arquivoSalvar = Path.Combine(caminhoXml, "-pedido-status-servico.xml");
+            var caminhoXml = config.CaminhoSalvarXml;
+
+            var arquivoSalvar = caminhoXml + @"\-pedido-status-servico.xml";
 
             FuncoesXml.ClasseParaArquivoXml(consStatServMdFe, arquivoSalvar);
         }
