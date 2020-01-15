@@ -70,7 +70,7 @@ namespace MDFe.Servicos.Factory
             return consMDFeNaoEnc;
         }
 
-        public static MDFeEvIncDFeMDFe CriaEvIncDFeMDFe(string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
+        public static MDFeEvIncDFeMDFe CriaEvIncDFeMDFe(string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos)
         {
             return new MDFeEvIncDFeMDFe
             {

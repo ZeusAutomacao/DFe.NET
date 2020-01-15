@@ -386,6 +386,14 @@ namespace NFe.Utils.InformacoesSuplementares
         /// </summary>
         public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc)
         {
+            Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
+
+            if (string.IsNullOrEmpty(cIdToken))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("token"));
+
+            if (string.IsNullOrEmpty(csc))
+                throw new ArgumentNullException(nameof(cIdToken), msgErro("CSC"));
+
             var versaoServico = Conversao.StringParaVersaoServico(nfe.infNFe.versao);
             switch (versaoQrCode)
             {
@@ -466,7 +474,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var ambiente = (int)nfe.infNFe.ide.tpAmb;
 
             //Identificador do CSC (Código de Segurança do Contribuinte no Banco de Dados da SEFAZ). Informar sem os zeros não significativos
-            var idCsc = Convert.ToInt16(cIdToken);
+            var idCsc = Convert.ToInt32(cIdToken);
 
             string dadosBase;
 

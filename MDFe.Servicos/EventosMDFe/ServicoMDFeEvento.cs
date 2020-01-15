@@ -50,7 +50,7 @@ namespace MDFe.Servicos.EventosMDFe
 
         public MDFeRetEventoMDFe MDFeEventoIncluirDFe(
             MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, IList<MDFeInfDocInc> informacoesDocumentos)
+            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos)
         {
             var eventoIncluirDFe = new EventoInclusaoDFe();
 
