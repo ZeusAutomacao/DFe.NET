@@ -143,7 +143,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = "https://cte.sefaz.mt.gov.br/ctews/services/CteInutilizacao",
                         CteRecepcaoEvento = "https://cte.sefaz.mt.gov.br/ctews2/services/CteRecepcaoEvento?wsdl",
                         CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews/services/CteConsulta",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://www.sefaz.mt.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
@@ -155,7 +155,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://producao.cte.ms.gov.br/ws/CteInutilizacao",
                         CteRecepcaoEvento = @"https://producao.cte.ms.gov.br/ws/CteRecepcaoEvento",
                         CteConsulta = @"https://producao.cte.ms.gov.br/ws/CteConsulta",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"http://www.dfe.ms.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
@@ -167,7 +167,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://cte.fazenda.mg.gov.br/cte/services/CteInutilizacao",
                         CteRecepcaoEvento = @"https://cte.fazenda.mg.gov.br/cte/services/RecepcaoEvento",
                         CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CteConsulta",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
@@ -179,7 +179,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://cte.fazenda.pr.gov.br/cte/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://cte.fazenda.pr.gov.br/cte/CteRecepcaoEvento?wsdl",
                         CteConsulta = @"https://cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"http://www.fazenda.pr.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.RS:
@@ -256,7 +256,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcaoEvento.asmx",
                         CteConsulta = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 default:
@@ -280,7 +280,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteRecepcaoEvento =
                             @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CteRecepcaoEvento?wsdl",
                         CteConsulta = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CteConsulta",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://homologacao.sefaz.mt.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
@@ -292,7 +292,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://homologacao.cte.ms.gov.br/ws/CteInutilizacao",
                         CteRecepcaoEvento = @"https://homologacao.cte.ms.gov.br/ws/CteRecepcaoEvento",
                         CteConsulta = @"https://homologacao.cte.ms.gov.br/ws/CteConsulta",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"http://www.dfe.ms.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
@@ -304,7 +304,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://hcte.fazenda.mg.gov.br/cte/services/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://hcte.fazenda.mg.gov.br/cte/services/RecepcaoEvento?wsdl",
                         CteConsulta = @"https://hcte.fazenda.mg.gov.br/cte/services/CteConsulta?wsdl",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://hcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
@@ -316,7 +316,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteInutilizacao?wsdl",
                         CteRecepcaoEvento = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteRecepcaoEvento?wsdl",
                         CteConsulta = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteConsulta?wsdl",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"http://www.fazenda.pr.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.RS:
@@ -337,17 +337,13 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.SP:
                     return new UrlCTe
                     {
-                        CteStatusServico =
-                            @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteStatusServico.asmx",
-                        CteRetRecepcao =
-                            @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteRetRecepcao.asmx",
+                        CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteStatusServico.asmx",
+                        CteRetRecepcao = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteRetRecepcao.asmx",
                         CteRecepcao = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteRecepcao.asmx",
-                        CteInutilizacao =
-                            @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
-                        CteRecepcaoEvento =
-                            @"https://homologacao.nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
+                        CteInutilizacao = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
+                        CteRecepcaoEvento = @"https://homologacao.nfe.fazenda.sp.gov.br/cteweb/services/cteRecepcaoEvento.asmx",
                         CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteConsulta.asmx",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.AC:
@@ -393,7 +389,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteInutilizacao.asmx",
                         CteRecepcaoEvento = @"https://cte.sefaz.rs.gov.br/ws/CteRecepcaoEvento/CteRecepcaoEvento.asmx",
                         CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteConsulta.asmx",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
+                        QrCode = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode",
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 default:
