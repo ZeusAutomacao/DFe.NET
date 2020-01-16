@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="01/15/2020 10:40:12" ReportInfo.CreatorVersion="2017.4.3.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="01/16/2020 10:04:12" ReportInfo.CreatorVersion="2017.4.3.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -410,13 +410,6 @@ namespace FastReport
         Memo80.Width = Memo79.Width;
         Memo80.Left = Memo79.Left;
       }     
-    }
-    
-
-    private void txtDezenasNotaPremiadaMS_BeforePrint(object sender, EventArgs e)
-    {
-      if((int)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.cUF&quot;) != 50)
-        txtDezenasNotaPremiadaMS.Text = &quot;&quot;;
     }
   }
 }     </ScriptText>
@@ -1295,7 +1288,7 @@ namespace FastReport
       <TextObject Name="Text155" Top="1.01" Width="470.06" Height="111.51" Border.Lines="All" Border.Width="0.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
       <TextObject Name="Text156" Left="470.5" Top="1.01" Width="274.06" Height="111.51" Border.Lines="All" Border.Width="0.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
       <TextObject Name="Text37" Left="472.5" Top="23.91" Width="264.6" Height="86.5" CanGrow="true" CanShrink="true" GrowToBottom="true" Font="Times New Roman, 8pt"/>
-      <TextObject Name="txtDezenasNotaPremiadaMS" Left="472.5" Top="13.45" Width="264.6" Height="9.45" BeforePrintEvent="txtDezenasNotaPremiadaMS_BeforePrint" Text="Dezenas: [NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 6pt"/>
+      <TextObject Name="txtDezenasNotaPremiadaMS" Left="472.5" Top="13.45" Width="264.6" Height="9.45" BeforePrintEvent="txtDezenasNotaPremiadaMS_BeforePrint" Text="[NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 6pt"/>
       <ChildBand Name="PageFooter" Top="1041.33" Width="744.66" Height="13.23">
         <TextObject Name="memDataHora" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([Date], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
         <TextObject Name="memSistema" Left="453.54" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>

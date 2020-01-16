@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="01/15/2020 10:33:39" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.dll&#13;&#10;DFe.Utils.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;DFe.Classes.dll" DoublePass="true" ReportInfo.Created="09/01/2015 11:27:10" ReportInfo.Modified="01/16/2020 10:01:10" ReportInfo.CreatorVersion="2017.4.3.0" PrintSettings.CopyNames="Via Consumidor&#13;&#10;Via Consumidor&#13;&#10;Via do Estabelecimento">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -373,12 +373,6 @@ namespace FastReport
     private void dbNumeroSerieDh_BeforePrint(object sender, EventArgs e)
     {
       dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);      
-    }
-
-    private void txtDezenasNotaPremiadaMS_BeforePrint(object sender, EventArgs e)
-    {
-      if((Estado)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.ide.cUF&quot;) != Estado.MS)
-        txtDezenasNotaPremiadaMS.Text = &quot;&quot;;
     }
   }
 }</ScriptText>
@@ -906,7 +900,7 @@ namespace FastReport
     </ColumnHeaderBand>
     <GroupHeaderBand Name="ghbProdutosUmaLinha" Top="230.33" Width="264.6" Height="13.99" Visible="false" BeforePrintEvent="ghbProdutosUmaLinha_BeforePrint" AfterPrintEvent="ghbProdutosUmaLinha_AfterPrint" Condition="[NFCe.protNFe.infProt.chNFe]">
       <ShapeObject Name="Shape2" Width="264.6" Height="13.99" Border.Width="0" Fill.Color="WhiteSmoke"/>
-      <TextObject Name="Text31" Top="1.13" Width="37.8" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
+      <TextObject Name="Text31" Top="1.13" Width="47.25" Height="11.34" Text="Código" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
       <TextObject Name="Text32" Left="39.58" Top="1.13" Width="60.48" Height="11.34" Text="Descrição" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
       <TextObject Name="Text33" Left="102.06" Top="1.13" Width="47.25" Height="11.34" Text="Qtd Un" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
       <TextObject Name="Text34" Left="160.08" Top="1.13" Width="37.8" Height="11.34" Text="Vl Unit" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
@@ -1021,17 +1015,17 @@ namespace FastReport
       <TextObject Name="txtDescVia" Left="0.38" Width="264.6" Height="15.12" BeforePrintEvent="txtDhEmissao_BeforePrint" Text="[CopyName#]" Padding="2, 1, 2, 1" HorzAlign="Center" WordWrap="false" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
       <TextObject Name="txtUrl" Top="29.35" Width="264.6" Height="13.23" CanGrow="true" CanShrink="true" Text="www.fazenda.rj.gov.br/nfce/consulta" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
     </DataBand>
-    <DataBand Name="dbDestinatario" Top="657.84" Width="264.6" Height="77.48" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
+    <DataBand Name="dbDestinatario" Top="657.84" Width="264.6" Height="87.05" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" BeforePrintEvent="Destinatario_BeforePrint" AfterPrintEvent="dbDestinatario_AfterPrint">
       <TextObject Name="txtConsumidor" Top="1.78" Width="264.6" Height="16.25" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
-      <TextObject Name="txtDestNome" Top="20.41" Width="264.6" Height="17.01" CanGrow="true" CanShrink="true" Text="[NFCe.NFe.infNFe.dest.xNome]" Padding="5, 1, 5, 1" AutoShrink="FontSize" HorzAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
-      <TextObject Name="txtDestEndereco" Top="39.69" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="5, 1, 5, 1" AutoShrink="FontSize" HorzAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
-      <TextObject Name="txtDezenasNotaPremiadaMS" Top="58.15" Width="264.6" Height="18.9" BeforePrintEvent="txtDezenasNotaPremiadaMS_BeforePrint" Text="Dezenas: [NFCe.protNFe.infProt.xMsg]" HorzAlign="Center" VertAlign="Bottom" Font="Microsoft Sans Serif, 8pt"/>
+      <TextObject Name="txtDestNome" Top="20.41" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" Text="[NFCe.NFe.infNFe.dest.xNome]" Padding="5, 1, 5, 1" AutoShrink="FontWidth" HorzAlign="Center" Font="Microsoft Sans Serif, 8pt" Clip="false"/>
+      <TextObject Name="txtDestEndereco" Top="49.69" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="5, 1, 5, 1" AutoShrink="FontSize" HorzAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
+      <TextObject Name="txtDezenasNotaPremiadaMS" Top="68.15" Width="264.6" Height="18.9" BeforePrintEvent="txtDezenasNotaPremiadaMS_BeforePrint" Text="[NFCe.protNFe.infProt.xMsg]" HorzAlign="Center" VertAlign="Bottom" Font="Microsoft Sans Serif, 8pt"/>
     </DataBand>
-    <DataBand Name="dbQrCodeNormal" Top="736.92" Width="264.6" Height="170.36" BeforePrintEvent="dbQrCodeNormal_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
+    <DataBand Name="dbQrCodeNormal" Top="746.49" Width="264.6" Height="170.36" BeforePrintEvent="dbQrCodeNormal_BeforePrint" AfterPrintEvent="dbQrCode_AfterPrint">
       <TextObject Name="Memo4" Top="2.26" Width="264.6" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
       <BarcodeObject Name="bcoQrCode" Left="56.8" Top="18.1" Width="151.2" Height="151.2" AutoSize="false" Text="http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode?p=33191211146466000116650730000002031101102903|2|2|2|c21f2e6e38b3dc421f358ec831db118c98bd44e3" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
     </DataBand>
-    <DataBand Name="dbQrCodeLateral" Top="908.88" Width="264.6" Height="119.07" CanGrow="true" CanShrink="true" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint">
+    <DataBand Name="dbQrCodeLateral" Top="918.45" Width="264.6" Height="119.07" CanGrow="true" CanShrink="true" BeforePrintEvent="dbQrCodeLateral_BeforePrint" AfterPrintEvent="dbQrCodeLateral_AfterPrint">
       <TextObject Name="txtConsumidor2" Left="103.95" Width="160.65" Height="15.12" Text="CONSUMIDOR" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Bottom" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
       <TextObject Name="Text49" Width="100.17" Height="15.12" Text="Consulta via leitor de QR Code" Padding="2, 1, 2, 1" VertAlign="Bottom" Font="Microsoft Sans Serif, 6pt"/>
       <BarcodeObject Name="bcoQrCodeLateral" Top="17.1" Width="94.5" Height="94.5" AutoSize="false" Text="http://www4.fazenda.rj.gov.br/consultaNFCe/QRCode?p=33191211146466000116650730000002031101102903|2|2|2|c21f2e6e38b3dc421f358ec831db118c98bd44e3" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
@@ -1039,10 +1033,10 @@ namespace FastReport
       <TextObject Name="txtDestEndereco2" Left="94.5" Top="30.35" Width="170.1" Height="45.36" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="1, 1, 2, 1" Font="Microsoft Sans Serif, 7pt"/>
       <TextObject Name="txtDhEmissao2" Left="94.5" Top="78.05" Width="170.1" Height="26.46" CanGrow="true" CanShrink="true" Text="Número: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.nNF] ), 9, '0')] Série: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.serie] ), 3, '0')]&#13;&#10;Emissão: [Substring(ToString( [NFCe.NFe.infNFe.ide.dhEmi]), 0, 19)]" Padding="1, 1, 2, 1" Font="Microsoft Sans Serif, 8pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dbProtocolo" Top="1029.55" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
+    <DataBand Name="dbProtocolo" Top="1039.12" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
       <TextObject Name="txtProtocoloAutorizacao" Width="264.6" Height="27.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Microsoft Sans Serif, 8pt"/>
     </DataBand>
-    <DataBand Name="dbTextoRodape" Top="1059.5" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbTextoRodape" Top="1069.07" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
       <TextObject Name="Text19" Width="264.6" Height="18.9" Border.Lines="Top" CanGrow="true" CanShrink="true" Text="[TextoRodape]" Font="Microsoft Sans Serif, 8pt"/>
     </DataBand>
   </ReportPage>
