@@ -43,6 +43,7 @@ namespace NFe.Classes.Protocolo
         /// <summary>
         ///     PR04 - Identificador da TAG a ser assinada, somente precisa ser informado se a UF assinar a resposta.
         /// </summary>
+        [XmlAttribute]
         public string Id { get; set; }
 
         /// <summary>
