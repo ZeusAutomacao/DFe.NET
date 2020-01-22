@@ -78,7 +78,7 @@ namespace MDFe.Classes.Retorno.MDFeRetRecepcao
         }
 
         [XmlElement(ElementName = "protMDFe")]
-        public MDFeProtMDFe ProtMdFe { get; set; }
+        public MDFeProtMDFe ProtMDFe { get; set; }
 
         public static MDFeRetConsReciMDFe LoadXml(string xml)
         {
