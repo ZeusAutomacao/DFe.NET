@@ -23,14 +23,14 @@ namespace DFe.Http
             httpWR.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
                 
             httpWR.ClientCertificates.Add(soapConfig.Certificado);
-
+            
             httpWR.ComposeContentType("application/soap+xml", Encoding.UTF8, soapConfig.Metodo);
 
             httpWR.Method = "POST";
 
             Stream reqStream = httpWR.GetRequestStream();
             StreamWriter streamWriter = new StreamWriter(reqStream);
-            streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
+            streamWriter.Write(xmlSoap);
             streamWriter.Close();
 
             WebResponse webResponse = httpWR.GetResponse();
