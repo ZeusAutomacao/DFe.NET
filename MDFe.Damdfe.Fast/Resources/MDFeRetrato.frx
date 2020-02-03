@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="01/06/2020 15:41:51" ReportInfo.CreatorVersion="2019.3.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="01/31/2020 10:52:28" ReportInfo.CreatorVersion="2020.1.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -229,6 +229,17 @@ namespace FastReport
       
       if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
         Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));
+      
+      bool contigencia = (MDFe.Classes.Flags.MDFeTipoEmissao)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpEmis&quot;) == MDFe.Classes.Flags.MDFeTipoEmissao.Contingencia;
+      if(contigencia){
+        Text127.HtmlTags = true;
+        Picture10.Visible = true;
+        String date = Format(&quot;{0:dd/MM/yyyy hh:mm}&quot;, (DateTime)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi&quot;));
+        Text127.Text = &quot;&lt;b&gt;EMISSÃO EM CONTINGÊNCIA&lt;/b&gt;. Obrigatória a autorização em 168 horas após esta emissão (&quot;+ date +&quot;)&quot;;
+        Text127.Printable = true;
+      }else{
+        Picture10.Visible = false;
+      }
     }
   }
 }
@@ -558,6 +569,7 @@ namespace FastReport
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
     <DataBand Name="Data1" Width="748.44" Height="444.15" CanGrow="true" BeforePrintEvent="Data1_BeforePrint">
+      <PictureObject Name="Picture10" Left="7.56" Top="302.4" Width="321.3" Height="38.56" Border.ShadowColor="Transparent" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAeAAAADmCAYAAAAN+lY8AAAABGdBTUEAALGPC/xhBQAAA5lJREFUeF7tyLENwDAAw7D8/3SaA7S6EwVw0XldAOB3OQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTANjKCQBs5QQAtnICAFs5AYCtnADAVk4AYCsnALCVEwDYygkAbOUEALZyAgBbOQGArZwAwFZOAGArJwCwlRMA2MoJAGzlBAC2cgIAWzkBgK2cAMBWTgBgKycAsJUTAJg59wNr4KnkHveMUwAAAABJRU5ErkJggg=="/>
       <TextObject Name="Text120" Left="113.4" Top="45.36" Width="517.75" Height="132.3" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], nº [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun]-[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF] CEP [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;&lt;b&gt;CNPJ:&lt;/b&gt; [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')]  &lt;b&gt;IE:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] &lt;b&gt;RNTRC:&lt;/b&gt; [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]" Font="Times New Roman, 9.75pt"/>
       <PictureObject Name="Picture9" Left="226.8" Top="207.9" Width="103.95" Height="37.8" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAcQAAAD2CAIAAADH+GBaAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAAz1JREFUeF7t1EENACAMADH8W4VMAyJ2zybV0HPfALAkU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAtTcfk6M0NoOMOxwAAAAASUVORK5CYII="/>
       <PictureObject Name="Picture8" Left="117.18" Top="207.9" Width="103.95" Height="37.8" SizeMode="StretchImage" Image="iVBORw0KGgoAAAANSUhEUgAAAcQAAAD2CAIAAADH+GBaAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOvAAADrwBlbxySQAAAz1JREFUeF7t1EENACAMADH8W4VMAyJ2zybV0HPfALAkU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAgEwBAjIFCMgUICBTgIBMAQIyBQjIFCAgU4CATAECMgUIyBQgIFOAtTcfk6M0NoOMOxwAAAAASUVORK5CYII="/>
@@ -594,7 +606,11 @@ namespace FastReport
       <BarcodeObject Name="QrCodMDFe" Left="623.7" Top="17.01" Width="128.52" Height="128.52" AutoSize="false" Text="[MDFeProcMDFe.MDFe.InfMDFeSupl.QrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
       <PictureObject Name="poEmitLogo" Left="28.35" Top="9.45" Width="76.93" Height="77.82" Visible="false"/>
       <TextObject Name="Text119" Left="113.4" Top="9.45" Width="569" Height="28.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
-      <TextObject Name="Text127" Left="7.56" Top="306.18" Width="425.25" Height="16.25" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss K&quot;)]" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
+      <TextObject Name="Text127" Left="11.34" Top="306.18" Width="311.85" Height="34.02" Border.ShadowColor="Transparent" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss K&quot;)]" Font="Times New Roman, 9.75pt" ParagraphFormat.LineSpacing="3.78">
+        <Highlight>
+          <Condition Expression="[MDFeProcMDFe.MDFe.InfMDFe.Ide.TpEmis] == MDFe.Classes.Flags.MDFeTipoEmissao.Contingencia" Fill.Color="Black" TextFill.Color="White" Font="Arial, 10pt"/>
+        </Highlight>
+      </TextObject>
       <TextObject Name="Text128" Left="7.56" Top="289.17" Width="207.9" Height="11.9" Text="Protocolo de autorização" Padding="0, 0, 2, 0" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="txtChaveMDFe" Left="360.99" Top="306.18" Width="409.8" Height="16.35" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="[InsertStrings(Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4), 4, ' ')]" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
       <TextObject Name="Text124" Left="360.99" Top="289.17" Width="132.3" Height="11.9" Text="Chave de Acesso" Padding="0, 0, 2, 0" Font="Times New Roman, 9pt, style=Bold"/>
@@ -628,7 +644,7 @@ namespace FastReport
       </TableObject>
       <LineObject Name="Line7" Left="360.99" Top="396.52" Width="387.45" Border.Color="201, 201, 201" Diagonal="true"/>
       <LineObject Name="Line1" Left="-9450" Top="-9450" Diagonal="true"/>
-      <ChildBand Name="Child5" Top="446.24" Width="748.44" Height="80.51" CanGrow="true">
+      <ChildBand Name="Child5" Top="448.15" Width="748.44" Height="80.51" CanGrow="true">
         <LineObject Name="Line4" Left="7.56" Top="61.24" Width="321.3" Border.Color="201, 201, 201" Diagonal="true"/>
         <TextObject Name="Text177" Left="7.56" Top="47.25" Width="85.05" Height="11.9" Text="Responsável CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
         <TextObject Name="Text178" Left="115.29" Top="47.25" Width="83.16" Height="11.9" Text="Fornecedor CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
@@ -644,28 +660,28 @@ namespace FastReport
             <TableCell Name="Cell8" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
           </TableRow>
         </TableObject>
-        <ChildBand Name="Child6" Top="528.85" Width="748.44" Height="69.57" CanGrow="true">
+        <ChildBand Name="Child6" Top="532.66" Width="748.44" Height="69.57" CanGrow="true">
           <TextObject Name="Text164" Left="7.56" Top="28.35" Width="85.05" Height="11.9" Text="Observações" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
           <TextObject Name="Text57" Left="7.56" Top="46.12" Width="739.3" Height="23.45" CanGrow="true" Text="Informações adicionais de interesse do Fisco: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfAdFisco]&#13;&#10;Informações complementares de interesse do Contribuinte: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="0, 0, 2, 0" Font="Times New Roman, 8pt"/>
           <LineObject Name="Line6" Left="7.56" Top="43.5" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
         </ChildBand>
       </ChildBand>
     </DataBand>
-    <GroupHeaderBand Name="GroupHeader1" Top="600.51" Width="748.44" Height="43.47" RepeatOnEveryPage="true" Condition="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]">
+    <GroupHeaderBand Name="GroupHeader1" Top="606.23" Width="748.44" Height="43.47" RepeatOnEveryPage="true" Condition="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]">
       <LineObject Name="Line8" Left="7.56" Top="41.58" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
       <TextObject Name="Text181" Left="7.56" Top="28.35" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <DataBand Name="Data5" Top="646.07" Width="748.44" Height="53.68" CanGrow="true" DataSource="BusinessObjectDataSource9">
+      <DataBand Name="Data5" Top="653.7" Width="748.44" Height="53.68" CanGrow="true" DataSource="BusinessObjectDataSource9">
         <SubreportObject Name="Subreport2" Left="17.01" Top="23.44" Width="302.4" Height="29.48" ReportPage="Page3"/>
         <TextObject Name="Text184" Left="7.56" Top="9.45" Width="359.1" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga]/[ObterSiglaDeUFDoCodigo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga].Substring(0,2))] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
         <SubreportObject Name="Subreport1" Left="7.56" Top="23.44" Width="359.1" Height="30.24" ReportPage="Page2"/>
       </DataBand>
     </GroupHeaderBand>
-    <PageFooterBand Name="PageFooter2" Top="701.85" Width="748.44" Height="56.7">
+    <PageFooterBand Name="PageFooter2" Top="711.38" Width="748.44" Height="56.7">
       <TextObject Name="Text117" Top="47.63" Width="302.4" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
       <TextObject Name="Text118" Left="444.15" Top="47.63" Width="302.4" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       <TextObject Name="TextSituacaoDocumento" Left="6.17" Width="736.1" Height="44.6" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="Red"/>
     </PageFooterBand>
-    <OverlayBand Name="Overlay1" Top="760.64" Width="748.44" Height="1096.2">
+    <OverlayBand Name="Overlay1" Top="772.08" Width="748.44" Height="1096.2">
       <TextObject Name="Text61" Left="5.67" Top="812.7" Width="737.1" Height="274.05" BeforePrintEvent="Text61_BeforePrint" Text="MDF-e EMITIDO EM  AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="WhiteSmoke"/>
     </OverlayBand>
   </ReportPage>

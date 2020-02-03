@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Text;
 using DFe.Classes.Flags;
 using System.Xml.Serialization;
 
@@ -46,7 +47,8 @@ namespace MDFe.Classes.Informacoes
 
         public static string GerarQrCode(string chave, TipoAmbiente tipoAmbiente)
         {
-            return "https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode?chMDFe=" + chave + "&tpAmb=" + (int)tipoAmbiente; 
+            var qrCode = new StringBuilder(@"https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode");
+            return qrCode.Append("?").Append("chMDFe=").Append(chave).Append("&").Append("tpAmb=").Append((int)tipoAmbiente).ToString();
         }
     }
 }
