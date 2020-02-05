@@ -1511,5 +1511,19 @@ namespace CTe.AppTeste
             cteOS.InfCte.infCTeNorm.infModal.ContainerModal = rodoviario;
             #endregion
         }
+
+        public void LoadXmlCTe(string xml)
+        {
+            try
+            {
+                var proc = cteProc.LoadXmlArquivo(xml);
+
+                MessageBoxTuche("Load feito com sucesso");
+            }
+            catch (Exception e)
+            {
+                MessageBoxTuche(e.Message);
+            }
+        }
     }
 }
