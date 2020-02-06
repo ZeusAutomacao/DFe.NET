@@ -23,7 +23,7 @@ namespace NFe.Danfe.AppTeste.NetCore
             Console.WriteLine("Bem vindo aos teste de Danfe no projeto NF-e com suporte ao NetStandard 2.0!");
             Console.WriteLine("Este exemplo necessita do arquivo Configuração.xml já criado.");
             Console.WriteLine("Caso necessite criar, utilize o app 'NFe.Danfe.AppTeste'. e clique em 'Salvar Configuração para Arquivo'");
-            Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp2.2 deste projeto.\n");
+            Console.WriteLine("Em seguida copie o 'configuração.xml' para a pasta bin\\Debug\\netcoreapp3.1 deste projeto.\n");
             Console.ReadKey();
 
             //inicializa configuracoes bases (podem ser carregadas novas aqui posteriormente com a opção 99)
@@ -108,8 +108,6 @@ namespace NFe.Danfe.AppTeste.NetCore
         }
 
         #endregion
-
-
 
         #region NFe
 
