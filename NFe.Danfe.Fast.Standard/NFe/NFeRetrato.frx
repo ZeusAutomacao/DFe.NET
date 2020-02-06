@@ -1036,7 +1036,7 @@
     <Parameter Name="ExibirTotalTributos" DataType="System.Boolean"/>
     <Parameter Name="DecimaisValorUnitario" DataType="System.Int32"/>
     <Parameter Name="DecimaisQuantidadeItem" DataType="System.Int32"/>
-    <Parameter Name="DataHoraImpressao" DateType="System.DateTimeOffset"/>
+    <Parameter Name="DataHoraImpressao" DateType="System.DateTime"/>
   </Dictionary>
   <ReportPage Name="Page1" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7">
     <ReportTitleBand Name="Canhoto" Width="744.66" Height="79.37">
