@@ -102,6 +102,6 @@ namespace NFe.Danfe.Base.NFe
 
         public int DecimaisQuantidadeItem { get; set; }
 
-        public DateTimeOffset? DataHoraImpressao { get; set; }
+        public DateTime? DataHoraImpressao { get; set; }
     }
 }
