@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
 using MDFe.Servicos.Factory;
@@ -45,6 +46,15 @@ namespace MDFe.Servicos.EventosMDFe
             var encerramento = ClassesFactory.CriaEvEncMDFe(mdfe, protocolo);
 
             var retorno = new ServicoController().Executar(mdfe, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
+
+            return retorno;
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoEncerramento(Estado estadoEncerramento, long codigoMunicipioEncerramento, byte sequenciaEvento, string protocolo)
+        {
+            var encerramento = ClassesFactory.CriaEvEncMDFe(estadoEncerramento, codigoMunicipioEncerramento, protocolo);
+
+            var retorno = new ServicoController().Executar(null, sequenciaEvento, encerramento, MDFeTipoEvento.Encerramento);
 
             return retorno;
         }

@@ -33,6 +33,7 @@
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Retorno.MDFeEvento;
 using System.Collections.Generic;
+using DFe.Classes.Entidades;
 using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
@@ -62,6 +63,13 @@ namespace MDFe.Servicos.EventosMDFe
             var eventoEncerramento = new EventoEncerramento();
 
             return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(Estado estadoEncerramento, long codigoMunicipioEncerramento, byte sequenciaEvento, string protocolo)
+        {
+            var eventoEncerramento = new EventoEncerramento();
+
+            return eventoEncerramento.MDFeEventoEncerramento(estadoEncerramento, codigoMunicipioEncerramento, sequenciaEvento, protocolo);
         }
 
         public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
