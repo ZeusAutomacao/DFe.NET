@@ -46,7 +46,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 
         public byte tpAmb { get; set; }
 
-        public decimal verAplic { get; set; }
+        public string verAplic { get; set; }
 
         [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
