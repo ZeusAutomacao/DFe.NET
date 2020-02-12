@@ -51,12 +51,7 @@ namespace MDFe.Servicos.EventosMDFe
                 eventoContainer);
 
 
-            string chave = evento.InfEvento.Id;
-
-            if (mdfe != null)
-            {
-                chave = mdfe.Chave();
-            }
+            string chave = mdfe.Chave();
 
             evento.ValidarSchema();
             evento.SalvarXmlEmDisco(chave);
