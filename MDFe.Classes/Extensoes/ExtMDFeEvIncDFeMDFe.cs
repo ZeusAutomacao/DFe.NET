@@ -50,7 +50,7 @@ namespace MDFe.Classes.Extensoes
             switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd");
+                    Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd", config);
                     break;
             }
         }

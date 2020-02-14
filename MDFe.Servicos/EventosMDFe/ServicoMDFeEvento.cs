@@ -56,12 +56,13 @@ namespace MDFe.Servicos.EventosMDFe
 
         public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirDFe(
             MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, 
-            List<MDFeInfDocInc> informacoesDocumentos)
+            List<MDFeInfDocInc> informacoesDocumentos, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var eventoIncluirDFe = new EventoInclusaoDFe();
 
             return await eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento,
-                nomeMunicipioCarregamento, informacoesDocumentos);
+                nomeMunicipioCarregamento, informacoesDocumentos, config);
         }
 
         public async Task<MDFeRetEventoMDFe> MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, Estado cUF, long cMun, 

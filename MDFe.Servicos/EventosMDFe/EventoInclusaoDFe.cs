@@ -37,6 +37,7 @@ using MDFe.Classes.Retorno.MDFeEvento;
 using MDFe.Servicos.Factory;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MDFe.Utils.Configuracoes;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
@@ -44,12 +45,13 @@ namespace MDFe.Servicos.EventosMDFe
     public class EventoInclusaoDFe
     {
         public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo,
-            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos)
+            string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var inclusao = ClassesFactory.CriaEvIncDFeMDFe(protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
 
             var retorno =
-                await new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.InclusaoDFe);
+                await new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.InclusaoDFe, config);
 
             return retorno;
         }
