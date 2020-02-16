@@ -40,6 +40,7 @@ using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
 using System;
 using System.Collections.Generic;
+using DFe.Classes.Entidades;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
@@ -114,6 +115,20 @@ namespace MDFe.Servicos.Factory
                 DtEnc = DateTime.Now,
                 DescEvento = "Encerramento",
                 CMun = mdfe.CodigoIbgeMunicipioEmitente(),
+                NProt = protocolo
+            };
+
+            return encerramento;
+        }
+
+        public static MDFeEvEncMDFe CriaEvEncMDFe(Estado estadoEncerramento, long codigoMunicipioEncerramento, string protocolo)
+        {
+            var encerramento = new MDFeEvEncMDFe
+            {
+                CUF = estadoEncerramento,
+                DtEnc = DateTime.Now,
+                DescEvento = "Encerramento",
+                CMun = codigoMunicipioEncerramento,
                 NProt = protocolo
             };
 
