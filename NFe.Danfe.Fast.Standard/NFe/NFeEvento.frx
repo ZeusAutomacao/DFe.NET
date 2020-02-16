@@ -1,106 +1,107 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.Standard.dll&#13;&#10;NFe.Utils.Standard.dll&#13;&#10;DFe.Classes.Standard.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="08/15/2018 13:57:20" ReportInfo.CreatorVersion="2017.4.1.0">
-  <ScriptText>using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Data;
-using FastReport;
-using FastReport.Data;
-using FastReport.Dialog;
-using FastReport.Barcode;
-using FastReport.Table;
-using FastReport.Utils;
-using NFe.Classes;
-using NFe.Utils;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using NFe.Classes.Servicos.Tipos;
+  <ScriptText>
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Windows.Forms;
+    using System.Drawing;
+    using System.Data;
+    using FastReport;
+    using FastReport.Data;
+    using FastReport.Dialog;
+    using FastReport.Barcode;
+    using FastReport.Table;
+    using FastReport.Utils;
+    using NFe.Classes;
+    using NFe.Utils;
+    using DFe.Classes.Entidades;
+    using DFe.Classes.Flags;
+    using NFe.Classes.Servicos.Tipos;
 
-namespace FastReport
-{
-  public class ReportScript
-  {
+    namespace FastReport
+    {
+    public class ReportScript
+    {
     private string FormatarCampo(string valor, char format)
     {
-      switch (format)
-      {
-        case 'c':  //CEP
-          if (valor.Length == 8)
-            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);          
-          break;
-        case 'f':  //Telefone /celular         
-          if (valor.Length == 10)
-            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
-          else if (valor.Length == 11)
-            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);          
-          break;
-        case 'd': //cpf / cnpj
-          if (valor.Length == 11)
-            valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
-          else if (valor.Length == 14)
-            valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
-          break;   
-        case 'p':
-          if (valor.Length == 7)
-            valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
-          break;
-      }                               
-      return valor;
+    switch (format)
+    {
+    case 'c':  //CEP
+    if (valor.Length == 8)
+    valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);
+    break;
+    case 'f':  //Telefone /celular
+    if (valor.Length == 10)
+    valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
+    else if (valor.Length == 11)
+    valor = &quot;(&quot; +valor.Substring(0,2) + &quot;)&quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);
+    break;
+    case 'd': //cpf / cnpj
+    if (valor.Length == 11)
+    valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
+    else if (valor.Length == 14)
+    valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
+    break;
+    case 'p':
+    if (valor.Length == 7)
+    valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
+    break;
     }
-    
+    return valor;
+    }
+
 
     private void Memo47_BeforePrint(object sender, EventArgs e)
     {
-      Memo47.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.serie&quot;).ToString().PadLeft(3,'0');
-      Memo48.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.nNF&quot;).ToString().PadLeft(9,'0');
-      Memo49.Text = DateTime.Parse(Report.
-        GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Month.ToString().PadLeft(2, '0')+&quot;/&quot;+
-        DateTime.Parse(Report.
-        GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Year.ToString().PadLeft(4, '0');
-      try { 
-        Memo53.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.dhEvento&quot;).ToString()).ToString();
-      } catch{
-        Memo53.Text=&quot;&quot;;
-      }
-      if (Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpEvento&quot;).ToString() == &quot;110111&quot;)
-      {
-        Memo40.Text=&quot;CANCELAMENTO DE NF-e&quot;;
-        BandCondicoesUso.Visible=false;
-      }
-      else
-      {
-        Memo40.Text=&quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
-        BandCondicoesUso.Visible=true;
-      }
-      try { 
-        Memo60.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.retEvento.infEvento.dhRegEvento&quot;).ToString()).ToString();
-      } catch{
-        Memo60.Text=&quot;&quot;;
-      }
-      Memo68.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;)).ToString(),'f');
-      Memo77.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.dest.enderDest.fone&quot;)).ToString(),'f');
-      Memo52.Text = ((TipoAmbiente)Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpAmb&quot;)).TpAmbParaString();
+    Memo47.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.serie&quot;).ToString().PadLeft(3,'0');
+    Memo48.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.nNF&quot;).ToString().PadLeft(9,'0');
+    Memo49.Text = DateTime.Parse(Report.
+    GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Month.ToString().PadLeft(2, '0')+&quot;/&quot;+
+    DateTime.Parse(Report.
+    GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Year.ToString().PadLeft(4, '0');
+    try {
+    Memo53.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.dhEvento&quot;).ToString()).ToString();
+    } catch{
+    Memo53.Text=&quot;&quot;;
+    }
+    if (Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpEvento&quot;).ToString() == &quot;110111&quot;)
+    {
+    Memo40.Text=&quot;CANCELAMENTO DE NF-e&quot;;
+    BandCondicoesUso.Visible=false;
+    }
+    else
+    {
+    Memo40.Text=&quot;CARTA DE CORREÇÃO ELETRÔNICA&quot;;
+    BandCondicoesUso.Visible=true;
+    }
+    try {
+    Memo60.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.retEvento.infEvento.dhRegEvento&quot;).ToString()).ToString();
+    } catch{
+    Memo60.Text=&quot;&quot;;
+    }
+    Memo68.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;)).ToString(),'f');
+    Memo77.Text = FormatarCampo(((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.dest.enderDest.fone&quot;)).ToString(),'f');
+    Memo52.Text = ((TipoAmbiente)Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpAmb&quot;)).TpAmbParaString();
     }
 
     private void memJustificativaCorrecao_BeforePrint(object sender, EventArgs e)
     {
-//      if (Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpEvento&quot;).ToString() == &quot;110111&quot;)
-//        
-//      TITULO_CONTEXTO := 'JUSTIFICATIVA';  
-//      TEXTO_EVENTO := &lt;Eventos.&quot;xJust&quot;&gt;;  
-//      end            
-//      else
-//      begin              
-//      TITULO_CONTEXTO := 'CORREÇÃO';
-//      TEXTO_EVENTO := &lt;Eventos.&quot;xCorrecao&quot;&gt;;    
-//      end;
+    //      if (Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.tpEvento&quot;).ToString() == &quot;110111&quot;)
+    //
+    //      TITULO_CONTEXTO := 'JUSTIFICATIVA';
+    //      TEXTO_EVENTO := &lt;Eventos.&quot;xJust&quot;&gt;;
+    //      end
+    //      else
+    //      begin
+    //      TITULO_CONTEXTO := 'CORREÇÃO';
+    //      TEXTO_EVENTO := &lt;Eventos.&quot;xCorrecao&quot;&gt;;
+    //      end;
     }
-  }
-}
-</ScriptText>
+    }
+    }
+  </ScriptText>
   <Dictionary>
     <BusinessObjectDataSource Name="NFe" ReferenceName="NFe" DataType="NFe.Classes.nfeProc[], NFe.Classes, Version=1.0.0.724, Culture=neutral, PublicKeyToken=null" Enabled="true">
       <Column Name="versao" DataType="System.String"/>
