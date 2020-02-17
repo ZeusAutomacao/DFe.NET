@@ -65,11 +65,11 @@ namespace MDFe.Servicos.EventosMDFe
             return eventoEncerramento.MDFeEventoEncerramento(mdfe, sequenciaEvento, protocolo);
         }
 
-        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(Estado estadoEncerramento, long codigoMunicipioEncerramento, byte sequenciaEvento, string protocolo)
+        public MDFeRetEventoMDFe MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, Estado estadoEncerramento, long codigoMunicipioEncerramento, byte sequenciaEvento, string protocolo)
         {
             var eventoEncerramento = new EventoEncerramento();
 
-            return eventoEncerramento.MDFeEventoEncerramento(estadoEncerramento, codigoMunicipioEncerramento, sequenciaEvento, protocolo);
+            return eventoEncerramento.MDFeEventoEncerramento(mdfe, estadoEncerramento, codigoMunicipioEncerramento, sequenciaEvento, protocolo);
         }
 
         public MDFeRetEventoMDFe MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
