@@ -144,6 +144,7 @@ namespace MDFe.Damdfe.Fast
         public Stream ObterHTML()
         {
             Relatorio.DoublePass = true;
+            Relatorio.SmoothGraphics = false;
             Relatorio.Prepare();
 
             using (var html = new HTMLExport())
