@@ -59,7 +59,7 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", ConfigurationName = "CadConsultaCadastro4Soap12")]
+    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", ConfigurationName = "CadConsultaCadastro4Soap12", SessionMode =System.ServiceModel.SessionMode.Allowed)]
     public interface CadConsultaCadastro4Soap12 : IChannel
     {
         [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro", ReplyAction = "*")]
