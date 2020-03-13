@@ -76,6 +76,7 @@
     <Compile Include="Informacoes\Comp.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
+    <Compile Include="Informacoes\Evento\CorpoEvento\evPagtoMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvEncMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncDFeMDFe.cs" />
