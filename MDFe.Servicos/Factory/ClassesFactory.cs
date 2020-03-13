@@ -41,6 +41,7 @@ using MDFe.Utils.Configuracoes;
 using System;
 using System.Collections.Generic;
 using DFe.Classes.Entidades;
+using MDFe.Classes.Informacoes;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
@@ -183,6 +184,16 @@ namespace MDFe.Servicos.Factory
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
+            };
+        }
+
+        public static evPagtoOperMDFe CriaEvPagtoOperMDFe(string protocolo, infViagens infViagens, List<infPag> infPagamentos)
+        {
+            return new evPagtoOperMDFe
+            {
+                infViagens = infViagens,
+                nProt = protocolo,
+                infPag = infPagamentos
             };
         }
     }
