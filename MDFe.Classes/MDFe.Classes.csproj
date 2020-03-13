@@ -73,6 +73,7 @@
     <Compile Include="Flags\MDFeVersaoModal.cs" />
     <Compile Include="Flags\tpNav.cs" />
     <Compile Include="Flags\tpUnidTranspVazia.cs" />
+    <Compile Include="Informacoes\Comp.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
     <Compile Include="Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
     <Compile Include="Informacoes\tpCarga.cs" />
+    <Compile Include="Informacoes\tpComp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
     <Compile Include="Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
