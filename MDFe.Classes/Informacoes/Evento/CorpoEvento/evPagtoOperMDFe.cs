@@ -8,7 +8,7 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
     {
         public evPagtoOperMDFe()
         {
-            descEvento = "Pagamento Operação MDF-e";
+            descEvento = "Pagamento Operacao MDF-e";
         }
 
         public string descEvento { get; set; }
