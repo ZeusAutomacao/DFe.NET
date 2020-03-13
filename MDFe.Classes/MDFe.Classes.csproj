@@ -94,6 +94,7 @@
     <Compile Include="Informacoes\infLotacao.cs" />
     <Compile Include="Informacoes\infMDFeSupl.cs" />
     <Compile Include="Informacoes\infPag.cs" />
+    <Compile Include="Informacoes\infPrazo.cs" />
     <Compile Include="Informacoes\infRespTec.cs" />
     <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
