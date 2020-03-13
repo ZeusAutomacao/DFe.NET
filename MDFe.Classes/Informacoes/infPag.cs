@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Serialization;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -12,7 +11,9 @@ namespace MDFe.Classes.Informacoes
         public string CNPJ { get; set; }
         public string idEstrangeiro { get; set; }
 
-        [XmlElement("Comp")]
         public List<Comp> Comp { get; set; }
+
+        public decimal vContrato { get; set; }
+        public indPag indPag { get; set; }
     }
 }
