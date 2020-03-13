@@ -128,8 +128,10 @@
     <Compile Include="Informacoes\MDFeValePed.cs" />
     <Compile Include="Informacoes\MDFeVeicReboque.cs" />
     <Compile Include="Informacoes\MDFeVeicTracao.cs" />
+    <Compile Include="Informacoes\prodPred.cs" />
     <Compile Include="Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
     <Compile Include="Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
+    <Compile Include="Informacoes\tpCarga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
     <Compile Include="Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
