@@ -9,22 +9,30 @@ namespace MDFe.Classes.Informacoes
         public string CEP { get; set; }
 
         [XmlIgnore]
-        public decimal latitude { get; set; }
+        public decimal? latitude { get; set; }
 
         [XmlElement("latitude")]
         public string latitudeProxy
         {
-            get { return latitude.ToString(); }
+            get
+            {
+                if (latitude == null) return null;
+                return latitude.ToString();
+            }
             set { latitude = decimal.Parse(value); }
         }
 
         [XmlIgnore]
-        public decimal Longitude { get; set; }
+        public decimal? Longitude { get; set; }
 
         [XmlElement("Longitude")]
         public string LongitudeProxy
         {
-            get { return Longitude.ToString(); }
+            get
+            {
+                if (Longitude == null) return null;
+                return Longitude.ToString();
+            }
             set { Longitude = decimal.Parse(value); }
         }
     }
