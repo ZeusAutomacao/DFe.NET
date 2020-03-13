@@ -17,5 +17,7 @@ namespace MDFe.Classes.Informacoes
         public indPag indPag { get; set; }
 
         public List<infPrazo> infPrazo { get; set; }
+
+        public infBanc infBanc { get; set; }
     }
 }
