@@ -15,5 +15,7 @@ namespace MDFe.Classes.Informacoes
 
         public decimal vContrato { get; set; }
         public indPag indPag { get; set; }
+
+        public List<infPrazo> infPrazo { get; set; }
     }
 }
