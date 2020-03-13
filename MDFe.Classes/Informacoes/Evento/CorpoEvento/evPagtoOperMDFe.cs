@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
-    public class evPagtoMDFe : MDFeEventoContainer
+    public class evPagtoOperMDFe : MDFeEventoContainer
     {
-        public evPagtoMDFe()
+        public evPagtoOperMDFe()
         {
             descEvento = "Pagamento Operação MDF-e";
         }
