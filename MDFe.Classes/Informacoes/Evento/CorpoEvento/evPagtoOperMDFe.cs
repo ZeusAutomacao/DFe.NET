@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
@@ -17,6 +18,7 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 
         public infViagens infViagens { get; set; }
 
+        [XmlElement(ElementName = "infPag")]
         public List<infPag> infPag { get; set; }
     }
 
