@@ -97,6 +97,7 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "infContratante")]
         public List<infContratante> infContratante { get; set; }
 
+        [XmlElement(ElementName = "infPag")]
         public List<infPag> infPag { get; set; }
     }
 }
