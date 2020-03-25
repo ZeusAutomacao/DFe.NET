@@ -367,6 +367,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>9 – outros. (v2.0)</para>
     ///     <para>10 – Deficiente Condutor (Convênio ICMS 38/12). (v3.1)</para>
     ///     <para>11 – Deficiente não Condutor (Convênio ICMS 38/12). (v3.1)</para>
+    ///     <para>12 – Fomento agropecuário</para>
     ///     <para>16 - Olimpíadas Rio 2016</para>
     /// </summary>
     public enum MotivoDesoneracaoIcms
@@ -382,6 +383,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("9")] MdiOutros = 9,
         [XmlEnum("10")] MdiDeficienteCondutor = 10,
         [XmlEnum("11")] MdiDeficienteNaoCondutor = 11,
+        [XmlEnum("12")] MdiFomentoAgropecuario = 12,
         [XmlEnum("16")] MdiOlimpiadasRio2016 = 16,
         [XmlEnum("90")] MdiSolicitadoPeloFisco = 90
     }
