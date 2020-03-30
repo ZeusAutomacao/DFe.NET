@@ -30,23 +30,54 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Observacoes
 {
     /// <summary>
-    ///     <para>0=SEFAZ;</para>
-    ///     <para>1=Justiça Federal;</para>
-    ///     <para>2=Justiça Estadual;</para>
-    ///     <para>3=Secex/RFB;</para>
-    ///     <para>9=Outros</para>
+    ///     Indicador da origem do processo
+    ///     <para>0 - SEFAZ;</para>
+    ///     <para>1 - Justiça Federal;</para>
+    ///     <para>2 - Justiça Estadual;</para>
+    ///     <para>3 - Secex/RFB;</para>
+    ///     <para>9 - Outros</para>
     /// </summary>
     public enum IndicadorProcesso
     {
-        [XmlEnum("0")] ipSEFAZ = 0,
-        [XmlEnum("1")] ipJusticaFederal = 1,
-        [XmlEnum("2")] ipJusticaEstadual = 2,
-        [XmlEnum("3")] ipSecexRFB = 3,
-        [XmlEnum("9")] ipOutros = 9
+        /// <summary>
+        /// 0 - SEFAZ
+        /// </summary>
+        [Description("SEFAZ")]
+        [XmlEnum("0")]
+        ipSEFAZ = 0,
+
+        /// <summary>
+        /// 1 - Justiça Federal
+        /// </summary>
+        [Description("Justiça Federal")]
+        [XmlEnum("1")]
+        ipJusticaFederal = 1,
+
+        /// <summary>
+        /// 2 - Justiça Estadual
+        /// </summary>
+        [Description("Justiça Estadual")]
+        [XmlEnum("2")]
+        ipJusticaEstadual = 2,
+
+        /// <summary>
+        /// 3 - Secex/RFB
+        /// </summary>
+        [Description("Secex/RFB")]
+        [XmlEnum("3")]
+        ipSecexRFB = 3,
+
+        /// <summary>
+        /// 9 - Outros
+        /// </summary>
+        [Description("Outros")]
+        [XmlEnum("9")]
+        ipOutros = 9
     }
 }
