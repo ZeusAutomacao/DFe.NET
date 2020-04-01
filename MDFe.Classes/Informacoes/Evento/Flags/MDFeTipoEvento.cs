@@ -48,6 +48,10 @@ namespace MDFe.Classes.Informacoes.Evento.Flags
         [XmlEnum("310620")]
         RegistroDePassagem = 310620,
         [XmlEnum("510620")]
-        RegistroDePassagemAutomatico = 510620
+        RegistroDePassagemAutomatico = 510620,
+        [XmlEnum("110116")]
+        PagamentoOperacaoMDFe = 110116,
+        [XmlEnum("310112")]
+        EncerramentoFisco = 310112
     }
 }
