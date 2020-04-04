@@ -124,49 +124,92 @@ namespace NFe.Classes.Servicos.Tipos
 
     /// <summary>
     ///     Indicador de Sincronização:
-    ///     <para>0 = Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo</para>
-    ///     <para>
-    ///         1 = Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta
-    ///         futura);
-    ///     </para>
+    ///     <para>0 - Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo</para>
+    ///     <para>1 - Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura);</para>
     /// </summary>
     public enum IndicadorSincronizacao
     {
-        [XmlEnum("0")] Assincrono = 0,
-        [XmlEnum("1")] Sincrono = 1
+        /// <summary>
+        /// 0 - Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo
+        /// </summary>
+        [Description("Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo")]
+        [XmlEnum("0")]
+        Assincrono = 0,
+
+        /// <summary>
+        /// 1 - Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura)
+        /// </summary>
+        [Description("Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura)")]
+        [XmlEnum("1")]
+        Sincrono = 1
     }
 
+    /// <summary>
+    ///     Código do Tipo do Evento.
+    ///     110110 - Carta de Correção
+    ///     110140 - EPEC
+    ///     110111 - Cancelamento
+    ///     110112 - Cancelamento por substituição
+    ///     210200 – Confirmação da Operação
+    ///     210210 – Ciência da Emissão
+    ///     210220 – Desconhecimento da Operação
+    ///     210240 – Operação não Realizada
+    /// </summary>
     public enum NFeTipoEvento
     {
+        /// <summary>
+        /// 110110 - Carta de Correção
+        /// </summary>
         [Description("Carta de Correção")]
         [XmlEnum("110110")]
         TeNfeCartaCorrecao = 110110,
 
+        /// <summary>
+        /// 110140 - EPEC
+        /// </summary>
         [Description("EPEC")]
         [XmlEnum("110140")]
         TeNfceEpec = 110140,
 
+        /// <summary>
+        /// 110111 - Cancelamento
+        /// </summary>
         [Description("Cancelamento")]
         [XmlEnum("110111")]
         TeNfeCancelamento = 110111,
 
-        [Description("Cancelamento por substituicao")]
+        /// <summary>
+        /// 110112 - Cancelamento por substituição
+        /// </summary>
+        [Description("Cancelamento por substituição")]
         [XmlEnum("110112")]
         TeNfeCancelamentoSubstituicao = 110112,
 
-        [Description("Confirmacao da Operacao")]
+        /// <summary>
+        /// 210200 – Confirmação da Operação
+        /// </summary>
+        [Description("Confirmação da Operação")]
         [XmlEnum("210200")]
         TeMdConfirmacaoDaOperacao = 210200,
 
-        [Description("Ciencia da Operacao")]
+        /// <summary>
+        /// 210210 – Ciência da Emissão
+        /// </summary>
+        [Description("Ciência da Emissão")]
         [XmlEnum("210210")]
         TeMdCienciaDaEmissao = 210210,
 
-        [Description("Desconhecimento da Operacao")]
+        /// <summary>
+        /// 210220 – Desconhecimento da Operação
+        /// </summary>
+        [Description("Desconhecimento da Operação")]
         [XmlEnum("210220")]
         TeMdDesconhecimentoDaOperacao = 210220,
 
-        [Description("Operacao nao Realizada")]
+        /// <summary>
+        /// 210240 – Operação não Realizada
+        /// </summary>
+        [Description("Operação nao Realizada")]
         [XmlEnum("210240")]
         TeMdOperacaoNaoRealizada = 210240
     }
