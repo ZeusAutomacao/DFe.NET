@@ -40,7 +40,10 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
 {
     public class infNFe
     {
+        [XmlElement(Order = 1)]
         public string chave { get; set; }
+
+        [XmlElement(Order = 2)]
         public string PIN { get; set; }
 
         [XmlIgnore]
@@ -49,7 +52,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
         /// <summary>
         /// Proxy para dPrev no formato AAAA-MM-DD
         /// </summary>
-        [XmlElement(ElementName = "dPrev")]
+        [XmlElement(ElementName = "dPrev", Order = 3)]
         public string ProxyddPrev
         {
             get
@@ -63,10 +66,11 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             set { dPrev = DateTime.Parse(value); }
         }
 
-        [XmlElement("infUnidTransp")]
+        
+        [XmlElement("infUnidTransp", Order = 5)]
         public List<infUnidTransp> infUnidTransp;
 
-        [XmlElement("infUnidCarga")]
+        [XmlElement("infUnidCarga", Order = 4)]
         public List<infUnidCarga> infUnidCarga;
     }
 }
