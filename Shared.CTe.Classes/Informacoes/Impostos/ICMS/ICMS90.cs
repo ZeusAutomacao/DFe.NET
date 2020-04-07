@@ -44,18 +44,19 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
             CST = CST.ICMS90;
         }
 
-        private decimal _pRedBc;
+        private decimal? _pRedBc;
         private decimal _vBc;
         private decimal _pIcms;
         private decimal _vIcms;
         private decimal _vCred;
         public CST CST { get; set; }
 
-        public decimal pRedBC
+        public decimal? pRedBC
         {
-            get { return _pRedBc.Arredondar(2); }
-            set { _pRedBc = value.Arredondar(2); }
+            get { return _pRedBc?.Arredondar(2); }
+            set { _pRedBc = value?.Arredondar(2); }
         }
+        public bool pRedBCSpecified { get { return pRedBC.HasValue; } }
 
         public decimal vBC
         {
