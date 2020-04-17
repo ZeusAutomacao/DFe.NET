@@ -1034,6 +1034,7 @@ namespace FastReport
     <Parameter Name="ExibirTotalTributos" DataType="System.Boolean"/>
     <Parameter Name="DecimaisValorUnitario" DataType="System.Int32"/>
     <Parameter Name="DecimaisQuantidadeItem" DataType="System.Int32"/>
+    <Parameter Name="DataHoraImpressao" DateType="System.DateTime"/>
   </Dictionary>
   <ReportPage Name="Page1" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7">
     <ReportTitleBand Name="Canhoto" Width="744.66" Height="79.37">
@@ -1289,7 +1290,7 @@ namespace FastReport
       <TextObject Name="Text37" Left="472.5" Top="26.91" Width="270.05" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[NFe.protNFe.infProt.cMsg] [NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text157" Left="1.89" Top="1.89" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
       <ChildBand Name="Child1" Top="991.2" Width="744.66" Height="16.9" PrintOn="FirstPage">
-        <TextObject Name="memDataHora" Top="2" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([Date], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+        <TextObject Name="memDataHora" Top="2" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([DataHoraImpressao], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
         <TextObject Name="memSistema" Left="453.54" Top="2" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       </ChildBand>
     </PageFooterBand>

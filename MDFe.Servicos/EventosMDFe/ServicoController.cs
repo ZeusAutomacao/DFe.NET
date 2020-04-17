@@ -50,14 +50,17 @@ namespace MDFe.Servicos.EventosMDFe
                 sequenciaEvento,
                 eventoContainer);
 
+
+            string chave = mdfe.Chave();
+
             evento.ValidarSchema();
-            evento.SalvarXmlEmDisco(mdfe.Chave());
+            evento.SalvarXmlEmDisco(chave);
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoEvento();
             var retornoXml = webService.mdfeRecepcaoEvento(evento.CriaXmlRequestWs());
 
             var retorno = MDFeRetEventoMDFe.LoadXml(retornoXml.OuterXml, evento);
-            retorno.SalvarXmlEmDisco(mdfe.Chave());
+            retorno.SalvarXmlEmDisco(chave);
 
             return retorno;
         }
