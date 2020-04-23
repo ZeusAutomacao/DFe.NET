@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\MDFeModalContainer.cs" />
+    <Compile Include="Extensoes\ExtevPagtoOperMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeConsSitMDFe.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="Extensoes\ExtMDFeEvIncDFeMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
     <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
@@ -72,20 +74,30 @@
     <Compile Include="Flags\MDFeVersaoModal.cs" />
     <Compile Include="Flags\tpNav.cs" />
     <Compile Include="Flags\tpUnidTranspVazia.cs" />
+    <Compile Include="Informacoes\Comp.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
+    <Compile Include="Informacoes\Evento\CorpoEvento\evPagtoOperMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvEncMDFe.cs" />
+    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncDFeMDFe.cs" />
     <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncCondutorMDFe.cs" />
     <Compile Include="Informacoes\Evento\Flags\MDFeTipoEvento.cs" />
     <Compile Include="Informacoes\Evento\MDFeDetEvento.cs" />
     <Compile Include="Informacoes\Evento\MDFeEventoContainer.cs" />
     <Compile Include="Informacoes\Evento\MDFeEventoMDFe.cs" />
     <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
+    <Compile Include="Informacoes\indPag.cs" />
+    <Compile Include="Informacoes\infBanc.cs" />
     <Compile Include="Informacoes\infCIOT.cs" />
     <Compile Include="Informacoes\infContratante.cs" />
     <Compile Include="Informacoes\infEntregaParcial.cs" />
+    <Compile Include="Informacoes\infLocalCarrega.cs" />
+    <Compile Include="Informacoes\infLocalDescarrega.cs" />
+    <Compile Include="Informacoes\infLotacao.cs" />
     <Compile Include="Informacoes\infMDFeSupl.cs" />
+    <Compile Include="Informacoes\infPag.cs" />
+    <Compile Include="Informacoes\infPrazo.cs" />
     <Compile Include="Informacoes\infRespTec.cs" />
     <Compile Include="Informacoes\infUnidTranspVazia.cs" />
     <Compile Include="Informacoes\MDFe.cs" />
@@ -126,8 +138,11 @@
     <Compile Include="Informacoes\MDFeValePed.cs" />
     <Compile Include="Informacoes\MDFeVeicReboque.cs" />
     <Compile Include="Informacoes\MDFeVeicTracao.cs" />
+    <Compile Include="Informacoes\prodPred.cs" />
     <Compile Include="Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
     <Compile Include="Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
+    <Compile Include="Informacoes\tpCarga.cs" />
+    <Compile Include="Informacoes\tpComp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
     <Compile Include="Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />

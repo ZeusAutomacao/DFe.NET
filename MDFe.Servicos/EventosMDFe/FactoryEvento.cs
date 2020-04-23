@@ -51,7 +51,6 @@ namespace MDFe.Servicos.EventosMDFe
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
                     TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                    CNPJ = MDFe.CNPJouCPFEmitente(),
                     COrgao = MDFe.UFEmitente(),
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
@@ -64,6 +63,14 @@ namespace MDFe.Servicos.EventosMDFe
                     TpEvento = tipoEvento
                 }
             };
+
+            eventoMDFe.InfEvento.CNPJ = MDFe.CNPJEmitente();
+
+            var cpfEmitente = MDFe.CPFEmitente();
+            if (cpfEmitente != null)
+            {
+                eventoMDFe.InfEvento.CPF = cpfEmitente;
+            }
 
             eventoMDFe.Assinar();
 

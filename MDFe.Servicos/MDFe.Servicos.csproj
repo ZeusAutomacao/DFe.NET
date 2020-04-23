@@ -45,8 +45,10 @@
     <Compile Include="Enderecos\UrlMDFe.cs" />
     <Compile Include="EventosMDFe\Contratos\IServicoController.cs" />
     <Compile Include="EventosMDFe\EventoCancelar.cs" />
+    <Compile Include="EventosMDFe\EventoInclusaoDFe.cs" />
     <Compile Include="EventosMDFe\EventoEncerramento.cs" />
     <Compile Include="EventosMDFe\EventoInclusaoCondutor.cs" />
+    <Compile Include="EventosMDFe\EventoPagamentoOperacao.cs" />
     <Compile Include="EventosMDFe\FactoryEvento.cs" />
     <Compile Include="EventosMDFe\ServicoController.cs" />
     <Compile Include="EventosMDFe\ServicoMDFeEvento.cs" />

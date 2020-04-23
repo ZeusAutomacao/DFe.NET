@@ -43,14 +43,23 @@ namespace NFe.Classes.Informacoes.Destinatario
     /// </summary>
     public enum indIEDest
     {
+        /// <summary>
+        /// 1 – Contribuinte ICMS
+        /// </summary>
         [Description("Contribuinte ICMS")]
         [XmlEnum("1")]
         ContribuinteICMS = 1,
 
+        /// <summary>
+        /// 2 – Contribuinte isento de inscrição
+        /// </summary>
         [Description("Contribuinte isento de inscrição")]
         [XmlEnum("2")]
         Isento = 2,
 
+        /// <summary>
+        /// 9 – Não Contribuinte
+        /// </summary>
         [Description("Não Contribuinte")]
         [XmlEnum("9")]
         NaoContribuinte = 9

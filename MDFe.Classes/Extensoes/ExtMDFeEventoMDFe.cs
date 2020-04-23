@@ -31,8 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
-using System.Xml;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using MDFe.Classes.Informacoes.Evento;
@@ -40,6 +38,8 @@ using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using System.IO;
+using System.Xml;
 
 namespace MDFe.Classes.Extencoes
 {
@@ -61,27 +61,39 @@ namespace MDFe.Classes.Extencoes
 
             var tipoEvento = evento.InfEvento.DetEvento.EventoContainer.GetType();
 
-            if (tipoEvento == typeof (MDFeEvCancMDFe))
+            if (tipoEvento == typeof(MDFeEvCancMDFe))
             {
-                var objetoXml = (MDFeEvCancMDFe) evento.InfEvento.DetEvento.EventoContainer;
+                var objetoXml = (MDFeEvCancMDFe)evento.InfEvento.DetEvento.EventoContainer;
                 objetoXml.ValidaSchema();
             }
 
-            if (tipoEvento == typeof (MDFeEvEncMDFe))
+            if (tipoEvento == typeof(MDFeEvEncMDFe))
             {
                 var objetoXml = (MDFeEvEncMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
                 objetoXml.ValidaSchema();
             }
 
-            if (tipoEvento == typeof (MDFeEvIncCondutorMDFe))
+            if (tipoEvento == typeof(MDFeEvIncCondutorMDFe))
             {
                 var objetoXml = (MDFeEvIncCondutorMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
                 objetoXml.ValidaSchema();
             }
 
+            if (tipoEvento == typeof(MDFeEvIncDFeMDFe))
+            {
+                var objetoXml = (MDFeEvIncDFeMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
+                objetoXml.ValidaSchema();
+            }
+
+            if (tipoEvento == typeof(evPagtoOperMDFe))
+            {
+                var objetoXml = (evPagtoOperMDFe)evento.InfEvento.DetEvento.EventoContainer;
+
+                objetoXml.ValidaSchema();
+            }
         }
 
         public static XmlDocument CriaXmlRequestWs(this MDFeEventoMDFe evento)

@@ -34,6 +34,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Windows;
+using Microsoft.Win32;
 
 namespace CTe.AppTeste
 {
@@ -148,6 +149,31 @@ namespace CTe.AppTeste
         {
             _model.DistribuicaoDFe();
         }
-      
+
+        private void EmitirCteOs_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EmitirCteOs();
+        }
+
+        private void LoadXmlCte_Click(object sender, RoutedEventArgs e)
+        {
+            string xml = string.Empty;
+
+            var janelaArquivo = new OpenFileDialog
+            {
+                Filter = "Xml (*.xml)|*.xml"
+            };
+            if (janelaArquivo.ShowDialog() == true)
+            {
+                xml = janelaArquivo.FileName;
+            }
+
+            if (string.IsNullOrWhiteSpace(xml))
+            {
+                MessageBox.Show("Selecione um xml");
+            }
+
+            _model.LoadXmlCTe(xml);
+        }
     }
 }

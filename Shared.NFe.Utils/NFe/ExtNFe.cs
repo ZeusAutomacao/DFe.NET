@@ -120,6 +120,8 @@ namespace NFe.Utils.NFe
             var nfeLocal = nfe;
             if (nfeLocal == null) throw new ArgumentNullException("nfe");
 
+            var config = cfgServico ?? ConfiguracaoServico.Instancia;
+
             #region Define cNF
 
             var tamanhocNf = 9;
@@ -144,16 +146,16 @@ namespace NFe.Utils.NFe
             var numeroDocumento = nfeLocal.infNFe.ide.nNF;
             var serie = nfeLocal.infNFe.ide.serie;
 
-            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao.LocalDateTime, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
+            var dadosChave = ChaveFiscal.ObterChave(estado, dataEHoraEmissao, cnpj, modeloDocumentoFiscal, serie, numeroDocumento, tipoEmissao, codigoNumerico);
 
             nfeLocal.infNFe.Id = "NFe" + dadosChave.Chave;
-            nfeLocal.infNFe.ide.cDV = Convert.ToInt16(dadosChave.DigitoVerificador);
+            nfeLocal.infNFe.ide.cDV = Convert.ToInt32(dadosChave.DigitoVerificador);
 
             Signature assinatura = null;
             if (_certificado == null)
-                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, cfgServico);
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, config);
             else
-                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, _certificado, cfgServico.Certificado.ManterDadosEmCache, cfgServico.Certificado.SignatureMethodSignedXml, cfgServico.Certificado.DigestMethodReference);
+                assinatura = Assinador.ObterAssinatura(nfeLocal, nfeLocal.infNFe.Id, _certificado, config.Certificado.ManterDadosEmCache, config.Certificado.SignatureMethodSignedXml, config.Certificado.DigestMethodReference, config.RemoverAcentos);
             nfeLocal.Signature = assinatura;
             return nfeLocal;
         }

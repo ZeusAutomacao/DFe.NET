@@ -30,48 +30,62 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Transporte
 {
     /// <summary>
-    /// Versão 3.10
-    /// Versão 4.00
+    ///     Modalidade do frete
+    ///     <para>0 - Contratação do Frete por conta do Remetente (CIF);</para>
+    ///     <para>1 - Contratação do Frete por conta do Destinatário(FOB);</para>
+    ///     <para>2 - Contratação do Frete por conta de Terceiros;</para>
+    ///     <para>3 - Transporte Próprio por conta do Remetente;</para>
+    ///     <para>4 - Transporte Próprio por conta do Destinatário;</para>
+    ///     <para>9 - Sem Ocorrência de Transporte.</para>
     /// </summary>
     public enum ModalidadeFrete
     {
         /// <summary>
-        /// <para>0=Por conta do emitente [NFe 3.10]</para>
-        /// <para>0=Contratação do Frete por conta do Remetente (CIF) [NFe 4.00]</para>
+        /// 0 - Contratação do Frete por conta do Remetente (CIF)
         /// </summary>
-        [XmlEnum("0")] mfContaEmitenteOumfContaRemetente = 0, // Versão 3.1 ou 4.00 com objetivos diferentes e claro
+        [Description("Contratação do Frete por conta do Remetente (CIF)")]
+        [XmlEnum("0")]
+        mfContaEmitenteOumfContaRemetente = 0,
 
         /// <summary>
-        /// <para>1=Por conta do destinatário/remetente [NFe 3.10]</para>
-        /// <para>1=Contratação do Frete por conta do Destinatário (FOB) [NFe 4.00]</para>
+        /// 1 - Contratação do Frete por conta do Destinatário(FOB)
         /// </summary>
-        [XmlEnum("1")] mfContaDestinatario = 1,
+        [Description("Contratação do Frete por conta do Destinatário(FOB)")]
+        [XmlEnum("1")]
+        mfContaDestinatario = 1,
 
         /// <summary>
-        /// <para>2=Por conta de terceiros [NFe 3.10]</para>
-        /// <para>2=Contratação do Frete por conta de Terceiros [NFe 4.00]</para>
+        /// 2 - Contratação do Frete por conta de Terceiros
         /// </summary>
-        [XmlEnum("2")] mfContaTerceiros = 2,
+        [Description("Contratação do Frete por conta de Terceiros")]
+        [XmlEnum("2")]
+        mfContaTerceiros = 2,
 
         /// <summary>
-        /// 3=Transporte Próprio por conta do Remetente [NFe 4.00]
+        /// 3 - Transporte Próprio por conta do Remetente
         /// </summary>
-        [XmlEnum("3")] mfProprioContaRemente = 3, // Versão 4.00
+        [Description("Transporte Próprio por conta do Remetente")]
+        [XmlEnum("3")]
+        mfProprioContaRemente = 3,
 
         /// <summary>
-        /// 4=Transporte Próprio por conta do Destinatário [NFe 4.00]
+        /// 4 - Transporte Próprio por conta do Destinatário
         /// </summary>
-        [XmlEnum("4")] mfProprioContaDestinatario = 4, // Versão 4.00
+        [Description("Transporte Próprio por conta do Destinatário")]
+        [XmlEnum("4")]
+        mfProprioContaDestinatario = 4,
 
         /// <summary>
-        /// <para>9=Sem frete [NFe 3.10]</para>
-        /// <para>9=Sem Ocorrência de Transporte [NFe 4.00]</para>
+        /// 9 - Sem Ocorrência de Transporte
         /// </summary>
-        [XmlEnum("9")] mfSemFrete = 9
+        [Description("Sem Ocorrência de Transporte")]
+        [XmlEnum("9")]
+        mfSemFrete = 9
     }
 }

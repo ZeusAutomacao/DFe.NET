@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;Standard</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;Standard</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Wsdl.Standard\DFe.Wsdl.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" />
+  </ItemGroup>
+
+  <Import Project="..\Shared.NFe.Servicos\Shared.NFe.Servicos.projitems" Label="Shared" />
+
+</Project>

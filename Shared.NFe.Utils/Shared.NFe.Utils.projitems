@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AdmCsc\ExtAdmCscNFCe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)AdmCsc\ExtretAdmCscNFCe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Annotations.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Assinatura\Assinador.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe4.cs" />

@@ -33,7 +33,11 @@
 
 using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using CTe.Classes;
+using CTe.Classes.Informacoes;
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
 using CTe.Classes.Informacoes.Tipos;
 using CTe.Classes.Servicos.Tipos;
@@ -223,6 +227,55 @@ namespace CTe.Utils.CTe
         {
             var chave = cte.infCte.Id.Substring(3, 44);
             return chave;
+        }
+
+        public static infCTeSupl QrCode(this CteEletronica cte, X509Certificate2 certificadoDigital,
+            Encoding encoding, bool isAdicionaQrCode, string url)
+        {
+            if (isAdicionaQrCode == false) return null;
+
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            var chave = cte.infCte.Id.Substring(3, 44);
+
+            var qrCode = new StringBuilder(url);
+            qrCode.Append("?");
+            qrCode.Append("chCTe=").Append(chave);
+            qrCode.Append("&");
+            qrCode.Append("tpAmb=").Append((int)cte.infCte.ide.tpAmb);
+
+            if (cte.infCte.ide.tpEmis != tpEmis.teNormal 
+                && cte.infCte.ide.tpEmis != tpEmis.teSVCRS
+                && cte.infCte.ide.tpEmis != tpEmis.teSVCSP
+                )
+            {
+                var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(chave)));
+                qrCode.Append("&sign=");
+                qrCode.Append(assinatura);
+            }
+
+            return new infCTeSupl
+            {
+                qrCodCTe = qrCode.ToString()
+            };
+        }
+
+        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificadoDigital, byte[] Value)
+        {
+            RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)certificadoDigital.PrivateKey;
+
+            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
+
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] hash = null;
+
+            hash = sha1.ComputeHash(Value);
+
+            rsaF.SetHashAlgorithm("SHA1");
+
+            return rsaF.CreateSignature(hash);
         }
 
         public static void SalvarXmlEmDisco(this CteEletronica cte, ConfiguracaoServico configuracaoServico = null)

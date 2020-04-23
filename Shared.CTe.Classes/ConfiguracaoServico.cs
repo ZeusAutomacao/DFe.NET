@@ -116,6 +116,8 @@ namespace CTe.Classes
         /// </summary>
         public versao VersaoLayout { get; set; }
 
+        public bool IsAdicionaQrCode { get; set; }
+
         /// <summary>
         ///     Diretório onde estão aramazenados os schemas para validação
         /// </summary>
