@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Mime;
@@ -165,11 +164,10 @@ namespace NFe.Utils.Email
         /// <returns></returns>
         public static bool EmailValido(string email)
         {
-            var rg = new Regex(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9_]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$");
+            var rg = new Regex(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$");
 
             return rg.IsMatch(email);
         }
-
 
         private void OnAntesDeEnviarEmail()
         {
