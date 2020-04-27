@@ -89,5 +89,12 @@ namespace NFe.Danfe.Fast
             Relatorio.Export(new PDFExport(), outputStream);
             outputStream.Position = 0;
         }
+
+        /// <summary>
+        /// Obtem o objeto Report para ser acoplado em outras aplicações
+        /// </summary>
+        public Report GetReport() {
+            return Relatorio;
+        }
     }
 }

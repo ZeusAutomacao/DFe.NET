@@ -65,6 +65,13 @@ namespace MDFe.Damdfe.Fast
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
         }
 
+        /// <summary>
+        /// Obtem o objeto Report para ser acoplado em outras aplicações
+        /// </summary>
+        public Report GetReport() {
+            return Relatorio;
+        }
+
         public void Configurar(ConfiguracaoDamdfe config)
         {
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
