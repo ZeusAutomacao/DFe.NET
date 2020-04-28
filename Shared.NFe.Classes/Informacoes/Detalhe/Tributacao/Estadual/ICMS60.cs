@@ -131,7 +131,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 
         public bool vBCFCPSTRetSpecified
         {
-            get { {return vBCFCPSTRet.HasValue;} }
+            get { { return vBCFCPSTRet.HasValue; } }
         }
 
         /// <summary>

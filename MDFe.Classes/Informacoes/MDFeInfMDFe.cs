@@ -94,6 +94,9 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "seg")]
         public List<MDFeSeg> Seg { get; set; }
 
+        [XmlElement(ElementName = "prodPred")]
+        public prodPred prodPred { get; set; }
+
         /// <summary>
         /// 1 - Totalizadores da carga transportada e seus documentos fiscais
         /// </summary>

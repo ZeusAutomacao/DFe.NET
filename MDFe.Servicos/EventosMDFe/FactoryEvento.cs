@@ -69,7 +69,7 @@ namespace MDFe.Servicos.EventosMDFe
             var cpfEmitente = MDFe.CPFEmitente();
             if (cpfEmitente != null)
             {
-                eventoMDFe.InfEvento.CPF = cpfEmitente.PadLeft(14, '0');
+                eventoMDFe.InfEvento.CPF = cpfEmitente;
             }
 
             eventoMDFe.Assinar();
