@@ -67,6 +67,14 @@ namespace CTe.Dacte.Fast
             Relatorio.GetDataSource("procEventoCTe").Enabled = true;
         }
 
+        /// <summary>
+        /// Obtem o objeto Report para ser acoplado em outras aplicações
+        /// </summary>
+        public Report GetReport() {
+            return Relatorio;
+        }
+
+
         public void Configurar(string desenvolvedor = "")
         {
             Relatorio.SetParameterValue("Desenvolvedor", desenvolvedor);
