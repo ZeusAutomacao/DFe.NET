@@ -119,10 +119,12 @@ namespace CTe.Dacte.Fast
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
-        public void ExportarPdf(string arquivo)
-        {
+        /// <param name="progress">Padrão True. Mostra a barra de progresso de geração do PDF. </param>
+        public void ExportarPdf(string arquivo, bool progress = true) {
+            FastReport.Utils.Config.ReportSettings.ShowProgress = progress;
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), arquivo);
+            var varPDFExport = new PDFExport() { ShowProgress = progress };
+            Relatorio.Export(varPDFExport, arquivo);
         }
     }
 }

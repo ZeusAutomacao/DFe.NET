@@ -48,8 +48,9 @@ namespace NFe.Danfe.Base
         /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
         /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DANFE</param>
-        void ExportarPdf(string arquivo);
+        /// <param name="progress">Padrão True. Mostra a barra de progresso de geração do PDF. </param>
+        void ExportarPdf(string arquivo, bool progress = true);
 
-        void ExportarPdf(Stream outputStream);
+        void ExportarPdf(Stream outputStream, bool progress = true);
     }
 }
