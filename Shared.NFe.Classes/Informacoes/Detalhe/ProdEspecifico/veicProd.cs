@@ -41,6 +41,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J02 - Tipo da operação
         /// </summary>
+        
         public TipoOperacao tpOp { get; set; }
 
         /// <summary>
@@ -104,11 +105,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J13 - Capacidade Máxima de Tração
         /// </summary>
-        public decimal CMT
-        {
-            get { return _cmt; }
-            set { _cmt = value.Arredondar(4); }
-        }
+        public string CMT { get; set; }
 
         /// <summary>
         ///     J14 - Distância entre eixos
