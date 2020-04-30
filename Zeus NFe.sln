@@ -150,7 +150,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.Fast.Standard", "
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Danfe.Fast", "Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.shproj", "{5794AB8A-FF29-4F55-ABC2-9AAFE333BD27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.AppTeste.NetCore", "NFe.Danfe.AppTeste.NetCore\NFe.Danfe.AppTeste.NetCore.csproj", "{0999204F-594C-4996-88A2-93D015EBDE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.AppTeste.NetCore", "NFe.Danfe.AppTeste.NetCore\NFe.Danfe.AppTeste.NetCore.csproj", "{0999204F-594C-4996-88A2-93D015EBDE33}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -158,28 +158,41 @@ Global
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{21a894ec-b79e-4936-bff3-abead2e5c44f}*SharedItemsImports = 4
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}*SharedItemsImports = 4
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
+		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{2cea538f-d827-4fa2-ba16-3e9e08d8e9a1}*SharedItemsImports = 5
+		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{2ea17efc-7e97-47c3-90c7-3cad286d61ac}*SharedItemsImports = 5
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{3108968d-d505-4365-966f-bbe3cbf63c35}*SharedItemsImports = 13
+		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{46314f7c-49d9-4165-b3cf-15741aa14cf1}*SharedItemsImports = 5
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
+		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{4dfca6f0-9892-42db-a0ae-c833b6071a15}*SharedItemsImports = 5
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{57631341-c61b-49c6-a6ed-317ec42b1581}*SharedItemsImports = 13
 		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{5794ab8a-ff29-4f55-abc2-9aafe333bd27}*SharedItemsImports = 13
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{63227402-2b1e-4bc7-a6df-362129923cf6}*SharedItemsImports = 4
+		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{637870e1-df27-43cd-b771-3685e3d0be01}*SharedItemsImports = 5
+		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{71c6a4f1-1df7-4558-a4cf-53699434c6ac}*SharedItemsImports = 5
+		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{744d38a4-773e-4ea3-9dab-30394ad65678}*SharedItemsImports = 5
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{7bc87af1-49fc-4822-addf-6b9b461b0adc}*SharedItemsImports = 13
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{80c6093c-47d5-41a1-9fa0-e218e82fa666}*SharedItemsImports = 4
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{8a90a3f4-d280-4b2b-b4ff-0dc110411bb6}*SharedItemsImports = 13
+		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{8d5ca088-ef4b-42f5-86e3-52cb6083c9ef}*SharedItemsImports = 5
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9984ec15-18e1-4a87-b4db-18ac913dc4e8}*SharedItemsImports = 4
+		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9a3d6d38-3579-472f-b406-4723c9a72e08}*SharedItemsImports = 5
 		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{9cc914f9-4c3e-43bb-a34b-a12ae4923548}*SharedItemsImports = 4
+		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{9dc6c14c-fb0e-4b49-9d85-5d41991884ff}*SharedItemsImports = 5
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{ab5f2a04-a1cf-4d42-8b26-38ebebc8319b}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
 		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}*SharedItemsImports = 4
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}*SharedItemsImports = 4
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}*SharedItemsImports = 4
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{d4ea4e8b-c0c9-4460-90e6-8cccfc28b005}*SharedItemsImports = 13
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{d4f45208-4a4b-43c0-8640-f338c1da9699}*SharedItemsImports = 5
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{da95f515-5eed-4a7e-b711-f3b499629df5}*SharedItemsImports = 13
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{dbee88e7-6003-436e-9810-9acc662f5851}*SharedItemsImports = 4
+		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{e06b0d39-2ba8-4ac8-9b58-4c3f0e73128c}*SharedItemsImports = 5
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{e1888e9e-0273-40cb-a569-2ad023907140}*SharedItemsImports = 13
 		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{e35e7c4a-5690-4979-8b43-002975b48eaa}*SharedItemsImports = 4
 		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{e7a4800f-b2ed-4495-b847-c4bf5654e24e}*SharedItemsImports = 13
 		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{eda9f90e-7e03-4869-b341-e56071f70e06}*SharedItemsImports = 13
+		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{f22f5c86-f71f-4e67-bbb7-7f0e837282dd}*SharedItemsImports = 5
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
