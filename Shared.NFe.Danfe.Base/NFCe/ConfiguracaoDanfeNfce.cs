@@ -68,7 +68,7 @@ namespace NFe.Danfe.Base.NFCe
         /// <summary>
         /// Construtor sem parâmetros para serialização
         /// </summary>
-        private ConfiguracaoDanfeNfce()
+        public ConfiguracaoDanfeNfce()
         {
             DocumentoCancelado = false;
         }
