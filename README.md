@@ -77,7 +77,7 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 **Impressão (.NetCore/.NetStandard):**
 ----------
-- Não existe suporte até o momento para impressão de NFCe.
+- Não existe suporte até o momento para impressão de NFCe (utilize a opção ESC/POS em https://github.com/marcosgerene/Gerene.DFe.EscPos).
 - A impressão da NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport), sendo ele instalado automatico ao utilizar o pacote nuget do Zeus.
 - A impressão requer que o arquivo .frx seja indicado, ou seja, ao publicar os binarios de seu projeto os arquivos .frx devem estar juntos e passado o caminho do arquivo para que seja gerado a impressão.
 - Até o momento não é suportado a impressão direta na impressora. As saídas suportadas são Stream ou Byte[], sendo elas em PDF, HTML e PNG.
