@@ -212,6 +212,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         Cst60,
 
         /// <summary>
+        /// 60 - ICMS cobrado anteriormente por substituição tributária
+        /// </summary>
+        [XmlEnum("60")] CstRep60,
+
+        /// <summary>
         /// 70 - Com redução de base de cálculo e cobrança do ICMS por substituição tributária
         /// </summary>
         [Description("Com redução de base de cálculo e cobrança do ICMS por substituição tributária")]
