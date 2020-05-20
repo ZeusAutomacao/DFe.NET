@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shared.DFe.Utils;
+using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -30,7 +31,7 @@ namespace DFe.Utils
         public static string Descricao(this Enum value)
         {
             var attribute = value.ObterAtributo<DescriptionAttribute>();
-            return attribute == null ? value.ToString() : attribute.Description;
+            return attribute == null ? value.ToString() : attribute.Description.RemoverAcentos(); //Corrigindo #37ccd86e
         }
 
         /// <summary>
