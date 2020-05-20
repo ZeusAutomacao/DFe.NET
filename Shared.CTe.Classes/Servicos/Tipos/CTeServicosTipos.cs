@@ -129,85 +129,42 @@ namespace CTe.Classes.Servicos.Tipos
         ManifestacaoDestinatario
     }
 
-    /// <summary>
-    ///     Manifestação
-    ///     <para>210200 - Confirmação da Operação;</para>
-    ///     <para>210210 - Ciência da Operação;</para>
-    ///     <para>210220 - Desconhecimento da Operação;</para>
-    ///     <para>210240 - Operação não Realizada</para>
-    /// </summary>
     public enum TipoManifestacao
     {
-        /// <summary>
-        /// 210200 - Confirmação da Operação
-        /// </summary>
-        [Description("Confirmação da Operação")]
+        [Description("Confirmacao da Operacao")]
         [XmlEnum("Confirmacao da Operacao")]
         e210200,
 
-        /// <summary>
-        /// 210210 - Ciência da Operação
-        /// </summary>
-        [Description("Ciência da Operação")]
+        [Description("Ciencia da Operacao")]
         [XmlEnum("Ciencia da Operacao")]
         e210210,
 
-        /// <summary>
-        /// 210220 - Desconhecimento da Operação
-        /// </summary>
-        [Description("Desconhecimento da Operação")]
+        [Description("Desconhecimento da Operacao")]
         [XmlEnum("Desconhecimento da Operacao")]
         e210220,
 
-        /// <summary>
-        /// 210240 - Operação não Realizada
-        /// </summary>
-        [Description("Operação não Realizada")]
+        [Description("Operacao nao Realizada")]
         [XmlEnum("Operacao nao Realizada")]
         e210240
     }
 
-    /// <summary>
-    ///     Versão do leiaute
-    ///     <para>2.00 - Versão 2.00;</para>
-    ///     <para>3.00 - Versão 3.00/3.00a</para>
-    /// </summary>
     public enum versao
     {
-        /// <summary>
-        /// 2.00 - Versão 2.00
-        /// </summary>
-        [Description("Versão 2.00")]
-        [XmlEnum("2.00")]
-        ve200,
-
-        /// <summary>
-        /// 3.00 - Versão 3.00/3.00a
-        /// </summary>
-        [Description("Versão 3.00/3.00a")]
-        [XmlEnum("3.00")]
-        ve300
+        [XmlEnum("2.00")] ve200,
+        [XmlEnum("3.00")] ve300
     }
 
     /// <summary>
     ///     Indicador de Sincronização:
-    ///     <para>0 - Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo</para>
-    ///     <para>1 - Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura);</para>
+    ///     <para>0 = Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo</para>
+    ///     <para>
+    ///         1 = Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta
+    ///         futura);
+    ///     </para>
     /// </summary>
     public enum IndicadorSincronizacao
     {
-        /// <summary>
-        /// 0 - Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo
-        /// </summary>
-        [Description("Assíncrono. A resposta deve ser obtida consultando o serviço NFeRetAutorizacao, com o nº do recibo")]
-        [XmlEnum("0")]
-        Assincrono = 0,
-
-        /// <summary>
-        /// 1 - Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura)
-        /// </summary>
-        [Description("Síncrono. Empresa solicita processamento síncrono do Lote de NF-e (sem a geração de Recibo para consulta futura)")]
-        [XmlEnum("1")]
-        Sincrono = 1
+        [XmlEnum("0")] Assincrono = 0,
+        [XmlEnum("1")] Sincrono = 1
     }
 }
