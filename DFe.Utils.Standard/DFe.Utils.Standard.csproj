@@ -8,7 +8,7 @@
   <Import Project="..\Shared.DFe.Utils\Shared.DFe.Utils.projitems" Label="Shared" />
 
   <ItemGroup>
-    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.5.0" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>

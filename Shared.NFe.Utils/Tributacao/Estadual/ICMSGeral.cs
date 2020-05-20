@@ -125,6 +125,7 @@ namespace NFe.Utils.Tributacao.Estadual
                             icmsBasico = new ICMS40();
                             break;
                         case Csticms.CstRep41:
+                        case Csticms.CstRep60:
                             icmsBasico = new ICMSST();
                             break;
                         case Csticms.Cst51:
