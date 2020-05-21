@@ -181,35 +181,35 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         /// 110112 - Cancelamento por substituição
         /// </summary>
-        [Description("Cancelamento por substituição")]
+        [Description("Cancelamento por substituicao")]
         [XmlEnum("110112")]
         TeNfeCancelamentoSubstituicao = 110112,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
         /// </summary>
-        [Description("Confirmação da Operação")]
+        [Description("Confirmacao da Operacao")]
         [XmlEnum("210200")]
         TeMdConfirmacaoDaOperacao = 210200,
 
         /// <summary>
-        /// 210210 – Ciência da Emissão
+        /// 210210 – Ciência da Operação
         /// </summary>
-        [Description("Ciência da Emissão")]
+        [Description("Ciencia da Operacao")]
         [XmlEnum("210210")]
-        TeMdCienciaDaEmissao = 210210,
+        TeMdCienciaDaOperacao = 210210,
 
         /// <summary>
         /// 210220 – Desconhecimento da Operação
         /// </summary>
-        [Description("Desconhecimento da Operação")]
+        [Description("Desconhecimento da Operacao")]
         [XmlEnum("210220")]
         TeMdDesconhecimentoDaOperacao = 210220,
 
         /// <summary>
         /// 210240 – Operação não Realizada
         /// </summary>
-        [Description("Operação nao Realizada")]
+        [Description("Operacao nao Realizada")]
         [XmlEnum("210240")]
         TeMdOperacaoNaoRealizada = 210240
     }
@@ -224,7 +224,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         public static ISet<NFeTipoEvento> NFeTipoEventoManifestacaoDestinatario = new HashSet<NFeTipoEvento>()
         {
-            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaEmissao,
+            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaOperacao,
             NFeTipoEvento.TeMdDesconhecimentoDaOperacao, NFeTipoEvento.TeMdOperacaoNaoRealizada
         };
 

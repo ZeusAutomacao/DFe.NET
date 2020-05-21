@@ -104,10 +104,13 @@ namespace DFe.Utils.Standard
         /// <returns></returns>
         private static string ArrumaCaminho(string caminho)
         {
-            caminho = caminho.Replace(@"/", @"\");
             caminho = caminho.Replace(@"\\", @"\");
+            caminho = caminho.Replace(@"//", @"/");
             caminho = caminho.Replace("\"", ""); //remove "
             caminho = caminho.Replace("\'", ""); //remove '
+            caminho = caminho.Replace(@"/", Path.DirectorySeparatorChar.ToString());
+            caminho = caminho.Replace(@"\", Path.DirectorySeparatorChar.ToString());
+
             return caminho;
         }
     }
