@@ -1,4 +1,8 @@
-﻿/********************************************************************************/
+﻿using MDFe.Classes.Flags;
+using System;
+using System.Xml.Serialization;
+
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusMDFe                                                 */
 /* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
 /* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
@@ -31,77 +35,50 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.Collections.Generic;
-using System.Xml.Serialization;
-using MDFe.Classes.Contratos;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeRodo : MDFeModalContainer
+    public class MDFeProdPred
     {
-        [XmlElement(ElementName = "infANTT")]
-        public MDFeInfANTT infANTT { get; set; }
+        public MDFeProdPred()
+        {
+            InfLotacao = new MDFeInfLotacao();
+        }
 
         /// <summary>
-        /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
+        /// 1 - Tipo da Carga.
+        /// Conforme Rosulação ANTT
         /// </summary>
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
+        [XmlElement(ElementName = "tpCarga")]
+        public MDFeTpCarga TpCarga { get; set; }
 
         /// <summary>
-        /// 1 - Código Identificador da Operação de Transporte
+        /// 1 - Descrição do produto predominante.
         /// </summary>
-        [XmlElement(ElementName = "CIOT")]
-        public string CIOT { get; set; }
+        [XmlElement(ElementName = "xProd")]
+        public string XProd { get; set; }
 
         /// <summary>
-        /// 1 - Dados do Veículo com a Tração
+        /// 1- GTIN (Global Trade Item Number) do
+        /// produto, antigo código EAN ou código de
+        /// barras.
         /// </summary>
-        [XmlElement(ElementName = "veicTracao")]
-        public MDFeVeicTracao VeicTracao { get; set; }
+        [XmlElement(ElementName = "cEAN")]
+        public string CEan { get; set; }
 
         /// <summary>
-        /// 1 - Dados dos reboques
+        /// 1 - Código NCM
         /// </summary>
-        [XmlElement(ElementName = "veicReboque")]
-        public List<MDFeVeicReboque> VeicReboque { get; set; }
+        [XmlElement(ElementName = "NCM")]
+        public string Ncm { get; set; }
 
         /// <summary>
-        /// 1 - Informações de Vale Pedágio
+        /// 1 - Informações da carga lotação. 
+        /// 2 - Informar somente quando MDF-e for de carga
+        /// lotação
         /// </summary>
-        [XmlElement(ElementName = "valePed")]
-        public MDFeValePed ValePed { get; set; }
-
-        /// <summary>
-        /// 1 - Código de Agendamento no porto 
-        /// </summary>
-        [XmlElement(ElementName = "codAgPorto")]
-        public string CodAgPorto { get; set; }
-
-        [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
-    }
-
-    [Serializable]
-    public class MDFeInfANTT
-    {
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
-
-        [XmlElement(ElementName = "infCIOT")]
-        public List<infCIOT> infCIOT { get; set; }
-
-        public MDFeValePed valePed { get; set; }
-
-        [XmlElement(ElementName = "infContratante")]
-        public List<infContratante> infContratante { get; set; }
-
-        /// <summary>
-        /// 1 - Informações do Pagamento do Frete.
-        /// </summary>
-        [XmlElement(ElementName = "infPag")]
-        public List<MDFeInfPag> InfPag { get; set; }
+        [XmlElement(ElementName = "infLotacao")]
+        public MDFeInfLotacao InfLotacao { get; set; }
     }
 }

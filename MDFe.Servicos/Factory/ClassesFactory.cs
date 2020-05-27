@@ -34,6 +34,7 @@
 using System;
 using System.Collections.Generic;
 using DFe.Classes.Entidades;
+using MDFe.Classes.Informacoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
@@ -72,6 +73,17 @@ namespace MDFe.Servicos.Factory
                 CMunCarrega = codigoMunicipioCarregamento,
                 XMunCarrega = nomeMunicipioCarregamento,
                 InfDoc = informacoesDocumentos
+            };
+        }
+
+        public static MDFeEvPagtoMDFe CriaEvPagtoMDFe(string protocolo, MDFeInfPag informacoesPagamento, 
+            MDFeInfViagens informacoesViagens)
+        {
+            return new MDFeEvPagtoMDFe
+            {
+              NProt = protocolo,
+              InfPag = informacoesPagamento,
+              InfViagens = informacoesViagens
             };
         }
 

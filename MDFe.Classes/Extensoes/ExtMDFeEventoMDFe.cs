@@ -88,6 +88,13 @@ namespace MDFe.Classes.Extensoes
 
                 objetoXml.ValidaSchema(config);
             }
+
+            if (tipoEvento == typeof(MDFeEvPagtoMDFe))
+            {
+                var objetoXml = (MDFeEvPagtoMDFe)evento.InfEvento.DetEvento.EventoContainer;
+
+                objetoXml.ValidaSchema(config);
+            }
         }
 
         public static XmlDocument CriaXmlRequestWs(this MDFeEventoMDFe evento)

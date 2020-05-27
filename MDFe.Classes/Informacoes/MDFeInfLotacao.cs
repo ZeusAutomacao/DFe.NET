@@ -32,76 +32,32 @@
 /********************************************************************************/
 
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Classes.Contratos;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeRodo : MDFeModalContainer
+    public class MDFeInfLotacao
     {
-        [XmlElement(ElementName = "infANTT")]
-        public MDFeInfANTT infANTT { get; set; }
+        public MDFeInfLotacao()
+        {
+            InfLocalCarrega = new MDFeInfLocalCarrega();
+            InfLocalDescarrega = new MDFeInfLocalDescarrega();
+        }
 
         /// <summary>
-        /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
+        /// 1 - Informações da localização do
+        /// carregamento do MDF-e de carga lotação
         /// </summary>
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
+        [XmlElement(ElementName = "infLocalCarrega")]
+        public MDFeInfLocalCarrega InfLocalCarrega { get; set; }
 
         /// <summary>
-        /// 1 - Código Identificador da Operação de Transporte
+        /// 1 - Informações da localização do
+        /// descarregamento do MDF-e de carga
+        /// lotação
         /// </summary>
-        [XmlElement(ElementName = "CIOT")]
-        public string CIOT { get; set; }
-
-        /// <summary>
-        /// 1 - Dados do Veículo com a Tração
-        /// </summary>
-        [XmlElement(ElementName = "veicTracao")]
-        public MDFeVeicTracao VeicTracao { get; set; }
-
-        /// <summary>
-        /// 1 - Dados dos reboques
-        /// </summary>
-        [XmlElement(ElementName = "veicReboque")]
-        public List<MDFeVeicReboque> VeicReboque { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Vale Pedágio
-        /// </summary>
-        [XmlElement(ElementName = "valePed")]
-        public MDFeValePed ValePed { get; set; }
-
-        /// <summary>
-        /// 1 - Código de Agendamento no porto 
-        /// </summary>
-        [XmlElement(ElementName = "codAgPorto")]
-        public string CodAgPorto { get; set; }
-
-        [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
-    }
-
-    [Serializable]
-    public class MDFeInfANTT
-    {
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
-
-        [XmlElement(ElementName = "infCIOT")]
-        public List<infCIOT> infCIOT { get; set; }
-
-        public MDFeValePed valePed { get; set; }
-
-        [XmlElement(ElementName = "infContratante")]
-        public List<infContratante> infContratante { get; set; }
-
-        /// <summary>
-        /// 1 - Informações do Pagamento do Frete.
-        /// </summary>
-        [XmlElement(ElementName = "infPag")]
-        public List<MDFeInfPag> InfPag { get; set; }
+        [XmlElement(ElementName = "infLocalDescarrega")]
+        public MDFeInfLocalDescarrega InfLocalDescarrega { get; set; }
     }
 }
