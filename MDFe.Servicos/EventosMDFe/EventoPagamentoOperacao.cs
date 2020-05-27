@@ -31,70 +31,28 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes;
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
+using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
-using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
+using System.Threading.Tasks;
+using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
 {
-    public class ServicoMDFeEvento
+    public class EventoPagamentoOperacao
     {
-        public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirCondutor(
-            MDFeEletronica mdfe, byte sequenciaEvento, string nome,
-            string cpf, MDFeConfiguracao cfgMdfe = null)
+        public async Task<MDFeRetEventoMDFe> MDFeEventoPagamentoOperacaoMDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, 
+            MDFeInfPag informacoesPagamento, MDFeInfViagens informacoesViagens, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var inclusao = ClassesFactory.CriaEvPagtoMDFe(protocolo, informacoesPagamento, informacoesViagens);
 
-            var eventoIncluirCondutor = new EventoInclusaoCondutor();
+            var retorno =
+                await new ServicoController().Executar(mdfe, sequenciaEvento, inclusao, MDFeTipoEvento.PagamentoOperacaoMDFe, config);
 
-            return await eventoIncluirCondutor.MDFeEventoIncluirCondutor(mdfe, sequenciaEvento, nome, cpf, config);
-        }
-
-        public async Task<MDFeRetEventoMDFe> MDFeEventoIncluirDFe(
-            MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, 
-            List<MDFeInfDocInc> informacoesDocumentos, MDFeConfiguracao cfgMdfe = null)
-        {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-            var eventoIncluirDFe = new EventoInclusaoDFe();
-
-            return await eventoIncluirDFe.MDFeEventoIncluirDFe(mdfe, sequenciaEvento, protocolo, codigoMunicipioCarregamento,
-                nomeMunicipioCarregamento, informacoesDocumentos, config);
-        }
-
-        public async Task<MDFeRetEventoMDFe> MDFeEventoOperacaoPagamentoMDFe(MDFeEletronica mdfe,
-          byte sequenciaEvento, string protocolo, MDFeInfPag informacoesPagamento, MDFeInfViagens informacoesViagens, 
-          MDFeConfiguracao cfgMdfe = null)
-        {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-            var eventoOperacaoPagamento = new EventoPagamentoOperacao();
-
-            return await eventoOperacaoPagamento.MDFeEventoPagamentoOperacaoMDFe(mdfe, sequenciaEvento, protocolo, 
-                informacoesPagamento, informacoesViagens, config);
-        }
-
-        public async Task<MDFeRetEventoMDFe> MDFeEventoEncerramentoMDFeEventoEncerramento(MDFeEletronica mdfe, Estado cUF, long cMun, 
-            byte sequenciaEvento, string protocolo, MDFeConfiguracao cfgMdfe = null)
-        {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
-            var eventoEncerramento = new EventoEncerramento();
-
-            return await eventoEncerramento.MDFeEventoEncerramento(mdfe, cUF, cMun, sequenciaEvento, protocolo, config);
-        }
-
-        public async Task<MDFeRetEventoMDFe> MDFeEventoCancelar(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo,
-            string justificativa, MDFeConfiguracao cfgMdfe = null)
-        {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
-            var eventoCancelamento = new EventoCancelar();
-
-            return await eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa, config);
+            return retorno;
         }
     }
 }

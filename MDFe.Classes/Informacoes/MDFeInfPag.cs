@@ -31,107 +31,75 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using MDFe.Classes.Flags;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeInfMDFe
+    public class MDFeInfPag
     {
-        public MDFeInfMDFe()
+        public MDFeInfPag()
         {
-            Ide = new MDFeIde();
-            Emit = new MDFeEmit();
-            InfModal = new MDFeInfModal();
-            InfDoc = new MDFeInfDoc();
-            Tot = new MDFeTot();
-            ProdPred = new MDFeProdPred();
-            Versao = VersaoServico.Versao100;
+            InfPrazo = new MDFeInfPrazo();
+            InfBanc = new MDFeInfBanc();
         }
-        /// <summary>
-        /// 1 - Versão do leiaute 
-        /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico Versao { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        /// 1 - Nome do responsável pelo pagamento.
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string Id { get; set; }
+        [XmlElement(ElementName = "xNome")]
+        public string XNome { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 1 - Número do CPF do responsável pelo pagamento.
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public MDFeIde Ide { get; set; }
+        [XmlElement(ElementName = "CPF")]
+        public string CPF { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
+        /// 1 - Número do CNPJ do responsável pelo pagamento.
         /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public MDFeEmit Emit { get; set; }
+        [XmlElement(ElementName = "CNPJ")]
+        public string CNPJ { get; set; }
 
         /// <summary>
-        /// 1 - Informações do modal
+        /// 1 - Componentes do Pagamento do Frete.
         /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public MDFeInfModal InfModal { get; set; }
+        [XmlElement(ElementName = "idEstrangeiro")]
+        public string IdEstrngeiro { get; set; }
 
         /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
+        /// 1 - Componentes do pagamento do frete.
         /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public MDFeInfDoc InfDoc { get; set; }
+        [XmlElement(ElementName = "Comp")]
+        public List<MDFeComp> Comp { get; set; }
 
         /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
+        /// 1 - Valor total do Contrato.
         /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<MDFeSeg> Seg { get; set; }
+        [XmlElement(ElementName = "vContrato")]
+        public double VContrato { get; set; }
 
         /// <summary>
-        /// 1 - Grupo de informações do Produto
-        /// predominante da carga do MDF-e
+        /// 1 - Indicador da forma de pagamento.
         /// </summary>
-        [XmlElement(ElementName = "prodPred")]
-        public MDFeProdPred ProdPred { get; set; }
+        [XmlElement(ElementName = "indPag")]
+        public MDFeIndPag IndPag { get; set; }
 
         /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
+        /// 1 - Informações do pagamento a prazo.
+        /// 2 - Informar somente se indPag for à Prazo.
         /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public MDFeTot Tot { get; set; }
+        [XmlElement(ElementName = "infPrazo")]
+        public MDFeInfPrazo InfPrazo { get; set; }
 
         /// <summary>
-        /// 1 - Lacres do MDF-e
+        /// 1 - Informações Bancárias.
         /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<MDFeLacre> Lacres { get; set; }
-
-        /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
-        /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<MDFeAutXML> AutXml { get; set; }
-
-        /// <summary>
-        /// 1 - Informações Adicionais
-        /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public MDFeInfAdic InfAdic { get; set; }
-
-        /// <summary>
-        /// Informações do Responsável Técnico
-        /// pela emissão do DF-e.
-        /// </summary>
-        [XmlElement(ElementName = "infRespTec")]
-        public MDFeInfRespTec InfRespTec { get; set; }
+        [XmlElement(ElementName = "infBanc")]
+        public MDFeInfBanc InfBanc { get; set; }
     }
 }
