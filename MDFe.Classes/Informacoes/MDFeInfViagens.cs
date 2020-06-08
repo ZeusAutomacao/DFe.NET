@@ -44,13 +44,13 @@ namespace MDFe.Classes.Informacoes
         /// com o pagamento do frete.
         /// </summary>
         [XmlElement(ElementName = "qtdViagens")]
-        public int QtdViagens { get; set; }
+        public string QtdViagens { get; set; }
 
         /// <summary>
         /// 1 - Número de referência da viagem do MDF-e
         /// referenciado.
         /// </summary>
         [XmlElement(ElementName = "nroViagem")]
-        public int NroViagem { get; set; }
+        public string NroViagem { get; set; }
     }
 }
