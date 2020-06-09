@@ -36,6 +36,7 @@ using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
 using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
@@ -44,7 +45,7 @@ namespace MDFe.Servicos.EventosMDFe
     public class EventoPagamentoOperacao
     {
         public async Task<MDFeRetEventoMDFe> MDFeEventoPagamentoOperacaoMDFe(MDFeEletronico mdfe, byte sequenciaEvento, string protocolo, 
-            MDFeInfPag informacoesPagamento, MDFeInfViagens informacoesViagens, MDFeConfiguracao cfgMdfe = null)
+            List<MDFeInfPag> informacoesPagamento, MDFeInfViagens informacoesViagens, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var inclusao = ClassesFactory.CriaEvPagtoMDFe(protocolo, informacoesPagamento, informacoesViagens);

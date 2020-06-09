@@ -67,7 +67,7 @@ namespace MDFe.Servicos.EventosMDFe
         }
 
         public async Task<MDFeRetEventoMDFe> MDFeEventoOperacaoPagamentoMDFe(MDFeEletronica mdfe,
-          byte sequenciaEvento, string protocolo, MDFeInfPag informacoesPagamento, MDFeInfViagens informacoesViagens, 
+          byte sequenciaEvento, string protocolo, List<MDFeInfPag> informacoesPagamento, MDFeInfViagens informacoesViagens, 
           MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;

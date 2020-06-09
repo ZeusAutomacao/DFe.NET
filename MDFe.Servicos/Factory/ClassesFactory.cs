@@ -76,7 +76,7 @@ namespace MDFe.Servicos.Factory
             };
         }
 
-        public static MDFeEvPagtoMDFe CriaEvPagtoMDFe(string protocolo, MDFeInfPag informacoesPagamento, 
+        public static MDFeEvPagtoMDFe CriaEvPagtoMDFe(string protocolo, List<MDFeInfPag> informacoesPagamento, 
             MDFeInfViagens informacoesViagens)
         {
             return new MDFeEvPagtoMDFe

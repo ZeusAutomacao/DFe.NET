@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
@@ -44,7 +45,7 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
         {
             DescEvento = "Pagamento Operacao MDF-e";
             InfViagens = new MDFeInfViagens();
-            InfPag = new MDFeInfPag();
+            InfPag = new List<MDFeInfPag>();
         }
 
         /// <summary>
@@ -70,6 +71,6 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
         /// 1 - Grupo de Informações dos pgto do MDF-e
         /// </summary>
         [XmlElement(ElementName = "infPag")]
-        public MDFeInfPag InfPag { get; set; }
+        public List<MDFeInfPag> InfPag { get; set; }
     }
 }
