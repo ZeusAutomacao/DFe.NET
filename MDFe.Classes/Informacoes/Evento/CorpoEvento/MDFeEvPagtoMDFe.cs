@@ -44,7 +44,6 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
         public MDFeEvPagtoMDFe()
         {
             DescEvento = "Pagamento Operacao MDF-e";
-            InfViagens = new MDFeInfViagens();
             InfPag = new List<MDFeInfPag>();
         }
 
