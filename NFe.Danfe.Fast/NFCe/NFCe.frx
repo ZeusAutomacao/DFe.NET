@@ -888,7 +888,7 @@ namespace FastReport
     <Parameter Name="NfceCancelado" DataType="System.Boolean"/>
     <Parameter Name="NfceLayoutQrCode" DataType="NFe.Danfe.Base.NfceLayoutQrCode, NFe.Danfe.Base, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null" Description="Layuout do QRCode (Normal ou Lateral)"/>
     <Parameter Name="TextoRodape" DataType="System.String"/>
-    <Total Name="QtdeItens" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
+    <Total Name="QtdeItens" TotalType="Count" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
     <Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.vPag]" Evaluator="dbPagamento"/>
     <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
   </Dictionary>
