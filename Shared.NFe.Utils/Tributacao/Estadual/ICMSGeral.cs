@@ -125,6 +125,7 @@ namespace NFe.Utils.Tributacao.Estadual
                             icmsBasico = new ICMS40();
                             break;
                         case Csticms.CstRep41:
+                        case Csticms.CstRep60:
                             icmsBasico = new ICMSST();
                             break;
                         case Csticms.Cst51:
@@ -349,5 +350,28 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do ICMS próprio do Substituto (tag: vICMSSubstituto)
         /// </summary>
         public decimal? vICMSSubstituto { get; set; }
+
+        #region Icms Efetivo
+        /// <summary>
+        ///     Percentual de redução da base de cálculo efetiva 
+        /// </summary>
+        public decimal? pRedBCEfet { get; set; }
+
+        /// <summary>
+        ///     Valor da base de cálculo efetiva 
+        /// </summary>
+        public decimal? vBCEfet { get; set; }
+
+        /// <summary>
+        ///     Alíquota do ICMS efetiva 
+        /// </summary>
+        public decimal? pICMSEfet { get; set; }
+
+        /// <summary>
+        ///     Valor do ICMS efetivo 
+        /// </summary>
+        public decimal? vICMSEfet { get; set; }
+        #endregion
+
     }
 }
