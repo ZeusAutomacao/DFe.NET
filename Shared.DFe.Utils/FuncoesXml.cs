@@ -46,6 +46,8 @@ namespace DFe.Utils
 
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static readonly Hashtable CacheSerializers = new Hashtable();
+        //https://github.com/ZeusAutomacao/DFe.NET/issues/1142
+        private static readonly object cacheLock = new object();
 
         /// <summary>
         ///     Serializa a classe passada para uma string no form
@@ -84,7 +86,7 @@ namespace DFe.Utils
             var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
 
             using (var sr = new StringReader(input))
-                return (T) ser.Deserialize(sr);
+                return (T)ser.Deserialize(sr);
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace DFe.Utils
             var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
-                return (T) serializador.Deserialize(stream);
+                return (T)serializador.Deserialize(stream);
             }
             finally
             {
@@ -193,8 +195,8 @@ namespace DFe.Utils
         {
             var xmlDoc = XDocument.Load(arquivoXml);
             var xmlString = (from d in xmlDoc.Descendants()
-                where d.Name.LocalName == nomeDoNode
-                select d).FirstOrDefault();
+                             where d.Name.LocalName == nomeDoNode
+                             select d).FirstOrDefault();
 
             if (xmlString == null)
                 throw new Exception(String.Format("Nenhum objeto {0} encontrado no arquivo {1}!", nomeDoNode, arquivoXml));
@@ -213,8 +215,8 @@ namespace DFe.Utils
             var s = stringXml;
             var xmlDoc = XDocument.Parse(s);
             var xmlString = (from d in xmlDoc.Descendants()
-                where d.Name.LocalName == nomeDoNode
-                select d).FirstOrDefault();
+                             where d.Name.LocalName == nomeDoNode
+                             select d).FirstOrDefault();
 
             if (xmlString == null)
                 throw new Exception(String.Format("Nenhum objeto {0} encontrado no xml!", nomeDoNode));
@@ -224,16 +226,19 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-            if (CacheSerializers.Contains(chave))
+            //https://github.com/ZeusAutomacao/DFe.NET/issues/1142 //adicionado lock por alguns erros informados na issue
+            lock (cacheLock)
             {
-                return (XmlSerializer)CacheSerializers[chave];
+                if (CacheSerializers.Contains(chave))
+                {
+                    return (XmlSerializer)CacheSerializers[chave];
+                }
+
+                var ser = XmlSerializer.FromTypes(new[] { type })[0];
+                CacheSerializers.Add(chave, ser);
+
+                return ser;
             }
-
-
-            var ser = XmlSerializer.FromTypes(new[] { type })[0];
-            CacheSerializers.Add(chave, ser);
-
-            return ser;
         }
     }
 }
