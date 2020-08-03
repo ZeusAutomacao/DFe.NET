@@ -46,8 +46,6 @@ namespace DFe.Utils
 
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static readonly Hashtable CacheSerializers = new Hashtable();
-        //https://github.com/ZeusAutomacao/DFe.NET/issues/1142
-        private static readonly object cacheLock = new object();
 
         /// <summary>
         ///     Serializa a classe passada para uma string no form
@@ -226,19 +224,15 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-            //https://github.com/ZeusAutomacao/DFe.NET/issues/1142 //adicionado lock por alguns erros informados na issue
-            lock (cacheLock)
+            if (CacheSerializers.Contains(chave))
             {
-                if (CacheSerializers.Contains(chave))
-                {
-                    return (XmlSerializer)CacheSerializers[chave];
-                }
-
-                var ser = XmlSerializer.FromTypes(new[] { type })[0];
-                CacheSerializers.Add(chave, ser);
-
-                return ser;
+                return (XmlSerializer)CacheSerializers[chave];
             }
+
+            var ser = XmlSerializer.FromTypes(new[] { type })[0];
+            CacheSerializers.Add(chave, ser);
+
+            return ser;
         }
     }
 }
