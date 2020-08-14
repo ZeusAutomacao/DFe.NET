@@ -34,6 +34,7 @@ using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Retorno.MDFeEvento;
 using System.Collections.Generic;
 using DFe.Classes.Entidades;
+using MDFe.Classes.Informacoes;
 using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
@@ -78,6 +79,15 @@ namespace MDFe.Servicos.EventosMDFe
             var eventoCancelamento = new EventoCancelar();
 
             return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoPagamentoOperacaoTransporte(MDFeEletronica mdfe, byte sequenciaEvneto,
+            string protocolo, infViagens infViagens, List<infPag> infPagamentos)
+        {
+            var eventoPagamentoOperacao = new EventoPagamentoOperacao();
+
+            return eventoPagamentoOperacao.MDFeEventoPagamentoOperacao(mdfe, sequenciaEvneto, protocolo,
+                infViagens, infPagamentos);
         }
     }
 }
