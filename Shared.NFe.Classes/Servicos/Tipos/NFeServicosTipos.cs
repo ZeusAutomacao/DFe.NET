@@ -211,7 +211,14 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         [Description("Operacao nao Realizada")]
         [XmlEnum("210240")]
-        TeMdOperacaoNaoRealizada = 210240
+        TeMdOperacaoNaoRealizada = 210240,
+
+        /// <summary>
+        /// 790700 – Averbação para Exportação
+        /// </summary>
+        [Description("Averbação para Exportação")]
+        [XmlEnum("790700")]
+        TeMdAverbacaoparaExportacao = 790700
     }
 
     /// <summary>
