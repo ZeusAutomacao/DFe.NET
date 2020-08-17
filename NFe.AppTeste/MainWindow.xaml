@@ -953,6 +953,8 @@
                             RenderTransformOrigin="0.551,2.396" />
                     <Button x:Name="BtnCancelarNFeSubstituicao" Content="Cancelar por substituição" HorizontalAlignment="Left"
                         Margin="374,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFeSubstituicao_OnClick" />
+                    <Button x:Name="BtnConsultaRecibo" Content="Consultar Recibo" HorizontalAlignment="Left"
+                        Margin="375,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaRecibo_Click" />
                 </Grid>
             </TabItem>
 
