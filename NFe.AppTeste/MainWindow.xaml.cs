@@ -230,6 +230,36 @@ namespace NFe.AppTeste
             }
         }
 
+        private void BtnConsultaRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Consulta Situação NFe
+
+                var recibo = Funcoes.InpuBox(this, "Consultar Recibo", "Número do recibo:");
+                if (string.IsNullOrEmpty(recibo)) throw new Exception("O recibo deve ser informado!");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoConsulta = servicoNFe.NFeRetAutorizacao(recibo);
+                TrataRetorno(retornoConsulta);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -1797,5 +1827,7 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+
+        
     }
 }
