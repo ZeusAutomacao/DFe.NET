@@ -3,7 +3,10 @@
 namespace MDFe.Classes.Flags
 {
     public enum MDFeTpCarga
-    {   [XmlEnum("01")]
+    {
+        [XmlEnum("0")]
+        Indefinido = 0,
+        [XmlEnum("01")]
         GranelSolido = 1,
         [XmlEnum("02")]
         GranelLiquido = 2,
