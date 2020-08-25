@@ -57,7 +57,7 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="infPag" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="infPag" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Informações do Pagamento do Frete</xs:documentation>
 					</xs:annotation>
@@ -122,7 +122,6 @@
 													<xs:enumeration value="01"/>
 													<xs:enumeration value="02"/>
 													<xs:enumeration value="03"/>
-													<xs:enumeration value="04"/>
 													<xs:enumeration value="99"/>
 												</xs:restriction>
 											</xs:simpleType>
@@ -151,7 +150,7 @@
 									<xs:documentation>Valor Total do Contrato</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="indPag" minOccurs="0">
+							<xs:element name="indPag">
 								<xs:annotation>
 									<xs:documentation>Indicador da Forma de Pagamento:0-Pagamento à Vista;1-Pagamento à Prazo;</xs:documentation>
 								</xs:annotation>

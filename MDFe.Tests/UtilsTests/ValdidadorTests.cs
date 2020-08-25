@@ -556,6 +556,7 @@ namespace MDFe.Tests.UtilsTests
         {
             //Arrange
             if(_mdfe != null) Dispose();
+            _mdfe.InfMDFe.ProdPred = null;
             _mdfe.Assina();
             var xml = FuncoesXml.ClasseParaXmlString(_mdfe);
 
@@ -634,6 +635,7 @@ namespace MDFe.Tests.UtilsTests
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_EnviMDFe()
         {
             //Arrange
+            _mdfe.InfMDFe.ProdPred = null;
             _enviMdFe = new MDFeEnviMDFe()
             {
                 Versao = VersaoServico.Versao300,

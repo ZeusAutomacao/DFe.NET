@@ -93,6 +93,7 @@ namespace MDFe.Tests.ClassesTests
             var mdfe = _mdfe.GetMdfe();
             mdfe.Assina();
             mdfe.Signature.SignatureValue = _valueKey;
+            mdfe.InfMDFe.ProdPred = null;
             mdfe.Signature.SignedInfo.Reference.DigestValue = _valueKey;
             mdfe.Signature.KeyInfo.X509Data.X509Certificate = _valueKey;
 
