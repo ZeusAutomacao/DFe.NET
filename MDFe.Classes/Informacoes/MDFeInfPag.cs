@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using MDFe.Classes.Flags;
+using DFe.Classes;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -76,11 +77,18 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "Comp")]
         public List<MDFeComp> Comp { get; set; }
 
+        [XmlIgnore]
+        private decimal _vContrato { get; set; }
+
         /// <summary>
         /// 1 - Valor total do Contrato.
         /// </summary>
         [XmlElement(ElementName = "vContrato")]
-        public double VContrato { get; set; }
+        public decimal VContrato 
+        {
+            get { return _vContrato.Arredondar(2); }
+            set { _vContrato = value.Arredondar(2); }
+        }
 
         /// <summary>
         /// 1 - Indicador da forma de pagamento.

@@ -66,7 +66,7 @@ namespace MDFe.Servicos.EventosMDFe
                 nomeMunicipioCarregamento, informacoesDocumentos, config);
         }
 
-        public async Task<MDFeRetEventoMDFe> MDFeEventoOperacaoPagamentoMDFe(MDFeEletronica mdfe,
+        public async Task<MDFeRetEventoMDFe> MDFeEventoPagamentoOperacaoTransporte(MDFeEletronica mdfe,
           byte sequenciaEvento, string protocolo, List<MDFeInfPag> informacoesPagamento, MDFeInfViagens informacoesViagens, 
           MDFeConfiguracao cfgMdfe = null)
         {

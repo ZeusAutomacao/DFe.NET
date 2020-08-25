@@ -1,13 +1,15 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-//[assembly: AssemblyTitle("MDFe")]
+[assembly: AssemblyTitle("MDFe.Damdfe.Fast")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("MDFe.Damdfe.Fast")]
+[assembly: AssemblyCopyright("Copyright ©  2017-2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -28,6 +30,6 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.0.762")]
-//[assembly: AssemblyVersion("1.0.0.762")]
-//[assembly: AssemblyFileVersion("1.0.0.762")]
+// [assembly: AssemblyVersion("1.0.0.770")]
+[assembly: AssemblyVersion("1.0.0.770")]
+[assembly: AssemblyFileVersion("1.0.0.770")]

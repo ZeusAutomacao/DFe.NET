@@ -159,7 +159,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AC, versao3E4, "http://www.hml.sefaznet.ac.gov.br/nfce/qrcode?"},
                 {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"},
                 {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/nfcehml/nfce.php"},
-                {Estado.AM, versao3E4, "https://homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
+                {Estado.AM, versao3E4, "https://sistemas.sefaz.am.gov.br/nfceweb-hom/consultarNFCe.jsp?"},
                 {Estado.BA, versao3E4, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
                 {Estado.CE, versao3E4, "http://nfceh.sefaz.ce.gov.br/pages/ShowNFCe.html"},
                 {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},

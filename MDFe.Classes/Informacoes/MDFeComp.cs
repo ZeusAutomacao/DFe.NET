@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Classes;
 using MDFe.Classes.Flags;
 using System;
 using System.Xml.Serialization;
@@ -46,11 +47,18 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "tpComp")]
         public MDFeTpComp TpComp { get; set; }
 
+        [XmlIgnore]
+        private decimal _vComp { get; set; }
+
         /// <summary>
         /// 1 - Valor do Componente.
         /// </summary>
         [XmlElement(ElementName = "vComp")]
-        public double VComp { get; set; }
+        public decimal VComp
+        {
+            get => _vComp.Arredondar(2);
+            set { _vComp = value.Arredondar(2); }
+        }
 
         /// <summary>
         /// 1 - Descrição do Componente tipo Outros.

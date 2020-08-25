@@ -47,16 +47,38 @@ namespace MDFe.Classes.Informacoes
 
         /// <summary>
         /// 1- Latitude do ponto geográfico onde foi
-        /// descarregado o MDF-e.
+        /// carregado o MDF-e.
         /// </summary>
         [XmlElement(ElementName = "latitude")]
-        public string Latitude { get; set; }
+        public string Latitude
+        {
+            get
+            {
+                if (_latitude == null) return null;
+                return _latitude.ToString();
+            }
+            set { _latitude = decimal.Parse(value); }
+        }
 
         /// <summary>
         /// 1 - Longitude do ponto geográfico onde foi
-        /// descarregado o MDF-e.
+        /// carregado o MDF-e.
         /// </summary>
         [XmlElement(ElementName = "longitude")]
-        public string Longitude { get; set; }
+        public string Longitude
+        {
+            get
+            {
+                if (_longitude == null) return null;
+                return _longitude.ToString();
+            }
+            set { _longitude = decimal.Parse(value); }
+        }
+
+        [XmlIgnore]
+        private decimal? _latitude { get; set; }
+
+        [XmlIgnore]
+        private decimal? _longitude { get; set; }
     }
 }

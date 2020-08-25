@@ -33,6 +33,7 @@
 
 using System;
 using System.Xml.Serialization;
+using DFe.Classes;
 using DFe.Utils;
 
 namespace MDFe.Classes.Informacoes
@@ -40,11 +41,18 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeInfPrazo
     {
+        [XmlIgnore]
+        private short _nParcela { get; set; }
+
         /// <summary>
         /// 1 - Número da parcela.
         /// </summary>
         [XmlElement(ElementName = "nParcela")]
-        public string NParcela { get; set; }
+        public string NParcela 
+        {
+            get { return _nParcela.ToString("D3"); }
+            set { _nParcela = short.Parse(value); }
+        }
 
         /// <summary>
         /// 1 - Data de Vencimento da parcela.
@@ -62,10 +70,17 @@ namespace MDFe.Classes.Informacoes
             set { DVenc = DateTime.Parse(value); }
         }
 
+        [XmlIgnore]
+        private decimal _vParcela { get; set; }
+
         /// <summary>
         /// 1 - Valor da parcela.
         /// </summary>
         [XmlElement(ElementName = "vParcela")]
-        public double VParcela { get; set; }
+        public decimal VParcela 
+        {
+            get { return _vParcela.Arredondar(2); }
+            set { _vParcela = value.Arredondar(2); }
+        }
     }
 }

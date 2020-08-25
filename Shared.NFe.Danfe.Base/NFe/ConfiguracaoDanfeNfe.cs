@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 
+using System;
+
 namespace NFe.Danfe.Base.NFe
 {
     public enum ImprimirUnidQtdeValor
@@ -71,6 +73,7 @@ namespace NFe.Danfe.Base.NFe
             ExibirTotalTributos = false;
             DecimaisValorUnitario = 2;
             DecimaisQuantidadeItem = 2;
+            DataHoraImpressao = null;
         }
 
         public bool DuasLinhas { get; set; }
@@ -94,7 +97,11 @@ namespace NFe.Danfe.Base.NFe
         public ImprimirUnidQtdeValor ImprimirUnidQtdeValor { get; set; }
 
         public bool ExibirTotalTributos { get; set; }
+
         public int DecimaisValorUnitario { get; set; }
+
         public int DecimaisQuantidadeItem { get; set; }
+
+        public DateTime? DataHoraImpressao { get; set; }
     }
 }

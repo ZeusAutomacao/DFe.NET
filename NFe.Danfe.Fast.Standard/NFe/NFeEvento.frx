@@ -1,6 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;NFe.Classes.Standard.dll&#13;&#10;NFe.Utils.Standard.dll&#13;&#10;DFe.Classes.Standard.dll" ReportInfo.Created="12/16/2016 10:44:33" ReportInfo.Modified="08/15/2018 13:57:20" ReportInfo.CreatorVersion="2017.4.1.0">
-  <ScriptText>using System;
+  <ScriptText>
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
