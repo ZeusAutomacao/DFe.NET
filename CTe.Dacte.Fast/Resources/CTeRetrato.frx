@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/26/2020 16:03:40" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;CTe.Classes.dll&#13;&#10;DFe.Classes.dll" StartReportEvent="_StartReport" ReportInfo.Created="07/09/2017 18:15:37" ReportInfo.Modified="08/26/2020 16:22:30" ReportInfo.CreatorVersion="2017.4.1.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +24,7 @@ using CTe.Classes.Informacoes.Impostos.ICMS.Tipos;
 using CTe.Classes.Informacoes.Identificacao;
 
 using CTe.Classes.Informacoes.infCTeNormal.infModals;
+using CTe.Classes.Informacoes.infCTeNormal.infModals.aereos;
 
 using DFe.Classes.Flags;
 
@@ -101,6 +102,9 @@ namespace FastReport
       dataBandRodoviario.Visible = _tpCTe == tpCTe.Normal &amp;&amp; _modal == modal.rodoviario;
       dataBandAereo.Visible = _tpCTe == tpCTe.Normal &amp;&amp; _modal == modal.aereo;
       childDatabandFooter.Visible = !string.IsNullOrEmpty((String)Report.GetParameterValue(&quot;Desenvolvedor&quot;));
+      
+      dataProdutosPerigososHeader.Visible = false;
+      dataProdutosPerigosos.Visible = false;
       
       var veiculosNovos = Report.GetDataSource(&quot;cteProc.CTe.infCte.infCTeNorm.veicNovos&quot;);
       veiculosNovos.Init();        
@@ -530,7 +534,26 @@ namespace FastReport
                                                                                                                       
       Text247.Text = _aereo.tarifa.CL.ToString();
       Text248.Text = _aereo.tarifa.cTar;
-      Text249.Text = _aereo.tarifa.vTar.ToString(&quot;C2&quot;);      
+      Text249.Text = _aereo.tarifa.vTar.ToString(&quot;C2&quot;);  
+      
+      dataProdutosPerigososHeader.Visible = _aereo.peri != null &amp;&amp; _aereo.peri.Count &gt; 0;
+      dataProdutosPerigosos.Visible = _aereo.peri != null &amp;&amp; _aereo.peri.Count &gt; 0;
+    }
+
+    private void dataProdutosPerigosos_BeforePrint(object sender, EventArgs e)
+    {    
+      if (!dataProdutosPerigosos.Visible)                                                    
+        return;
+      
+      var _peri = (aereoPeri)Report.GetColumnValue(&quot;cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.peri&quot;);
+      
+      if (_peri == null)
+        return;
+      
+      Text256.Text = _peri.nONU;
+      Text257.Text = _peri.qTotEmb;
+      Text258.Text = _peri.infTotAP.qTotProd.ToString(&quot;N4&quot;);
+      Text259.Text = _peri.infTotAP.uniAP.ToString();
     }
     
   }
@@ -833,9 +856,6 @@ namespace FastReport
             <Column Name="ICMS" DataType="CTe.Classes.Informacoes.Impostos.Tributacao.ICMS, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="TipoICMS" DataType="CTe.Classes.Informacoes.Impostos.ICMS.Tipos.ICMSBasico, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="CST" DataType="CTe.Classes.Informacoes.Tipos.CST, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
-                <Column Name="vBC" DataType="System.Decimal"/>
-                <Column Name="pICMS" DataType="System.Decimal"/>
-                <Column Name="vICMS" DataType="System.Decimal"/>
               </Column>
             </Column>
             <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -993,34 +1013,9 @@ namespace FastReport
             <Column Name="infModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModal, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="versaoModal" DataType="CTe.Classes.Informacoes.Tipos.versaoModal, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="ContainerModal" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.ContainerModal, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
-                <Column Name="nMinu" DataType="System.String"/>
-                <Column Name="nOCA" DataType="System.String"/>
-                <Column Name="dPrevAereo" DataType="System.DateTime"/>
-                <Column Name="ProxydPrevAereo" DataType="System.String"/>
-                <Column Name="xLAgEmi" DataType="System.String"/>
-                <Column Name="IdT" DataType="System.String"/>
-                <Column Name="natCarga" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.aereos.natCarga, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
-                  <Column Name="xDime" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="cInfManu" DataType="System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" Enabled="true">
-                    <Column Name="Length" DataType="System.Int32"/>
-                  </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="cIMP" DataType="System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" Enabled="true">
-                    <Column Name="Length" DataType="System.Int32"/>
-                  </BusinessObjectDataSource>
-                </Column>
-                <Column Name="tarifa" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.aereos.tarifa, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
-                  <Column Name="CL" DataType="CTe.Classes.Informacoes.Tipos.CL, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
-                  <Column Name="cTar" DataType="System.String"/>
-                  <Column Name="vTar" DataType="System.Decimal"/>
-                </Column>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="peri" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.infModals.aereos.aereoPeri, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="peri" Enabled="true">
-                  <Column Name="nONU" DataType="System.String"/>
-                  <Column Name="qTotEmb" DataType="System.String"/>
-                  <Column Name="infTotAP" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.infTotAP, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
-                    <Column Name="qTotProd" DataType="System.Decimal"/>
-                    <Column Name="uniAP" DataType="CTe.Classes.Informacoes.Tipos.uniAP, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
-                  </Column>
-                </BusinessObjectDataSource>
+                <Column Name="COTM" DataType="System.String"/>
+                <Column Name="indNegociavel" DataType="CTe.Classes.Informacoes.Tipos.indNegociavel, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="seg" Enabled="false" DataType="CTe.Classes.Informacoes.infCTeNormal.infModals.segMultiModal, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
               </Column>
             </Column>
             <BusinessObjectDataSource Name="peri" DataType="System.Collections.Generic.List`1[[CTe.Classes.Informacoes.infCTeNormal.peri, CTe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
@@ -1355,12 +1350,12 @@ namespace FastReport
       <TextObject Name="Text217" Left="363.55" Top="109.4" Width="72.05" Height="12.9" Text="[cteProc.CTe.infCte.ide.nCT]" Format="Custom" Format.Format="000,000,000" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
       <LineObject Name="Line67" Left="437.7" Top="100.95" Height="21.9"/>
     </PageHeaderBand>
-    <DataBand Name="dataBandCTeComplementoAnulacao" Top="482.73" Width="737.1" Height="28.35">
+    <DataBand Name="dataBandCTeComplementoAnulacao" Top="483.24" Width="737.1" Height="28.35">
       <ShapeObject Name="Shape6" Width="737.1" Height="24.35"/>
       <TextObject Name="Text174" Left="3.45" Top="3.45" Width="125.85" Height="16.9" Text="Chave original:" Font="Arial, 11.25pt, style=Bold"/>
       <TextObject Name="Text211" Left="130.85" Top="3.4" Width="604.35" Height="16.9" Text="0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0000   emissão: 00/00/0000" Font="Arial, 11.25pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dataBandDadosCarga" Top="512.86" Width="737.1" Height="90.05">
+    <DataBand Name="dataBandDadosCarga" Top="513.87" Width="737.1" Height="90.05">
       <ShapeObject Name="Shape4" Top="-0.55" Width="737.1" Height="85.6"/>
       <TextObject Name="Text142" Left="407.35" Top="67.6" Width="108.5" Height="14.45" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text143" Left="517.75" Top="66.6" Width="106.5" Height="14.45" Text="[cteProc.CTe.infCte.infCTeNorm.seg.nApol]" Font="Times New Roman, 8.25pt"/>
@@ -1404,7 +1399,7 @@ namespace FastReport
       <TextObject Name="Text133" Left="248.15" Top="1.45" Width="242.25" Height="8.45" Text="OUTRAS CARACTERISTICAS DA CARGA" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text135" Left="492.85" Top="1.45" Width="242.25" Height="8.45" Text="VALOR TOTAL DA MERCADORIA" Font="Times New Roman, 5.25pt"/>
     </DataBand>
-    <DataBand Name="dataBandValor" Top="604.68" Width="737.1" Height="65.6">
+    <DataBand Name="dataBandValor" Top="606.21" Width="737.1" Height="65.6">
       <ShapeObject Name="Shape5" Top="0.45" Width="737.1" Height="61.15"/>
       <TextObject Name="Text210" Left="1" Top="2.45" Width="735.1" Height="11.45" Text="COMPONENTES DO VALOR DA PRESTAÇÃO DE SERVIÇO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       <LineObject Name="Line42" Left="1" Top="13.9" Width="734.55"/>
@@ -1423,7 +1418,7 @@ namespace FastReport
       <TextObject Name="Text204" Left="233.25" Top="28.25" Width="228.8" Height="30.8" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text172" Left="464.05" Top="45.7" Width="270.6" Height="13.45" Text="[FormatCurrency([cteProc.CTe.infCte.vPrest.vRec],2)]" HorzAlign="Right" Font="Times New Roman, 8.25pt"/>
     </DataBand>
-    <DataBand Name="dataBandImpostos" Top="672.06" Width="737.1" Height="52.7">
+    <DataBand Name="dataBandImpostos" Top="674.09" Width="737.1" Height="52.7">
       <ShapeObject Name="Shape7" Top="0.45" Width="737.1" Height="47.25"/>
       <TextObject Name="Text161" Left="1" Top="2.45" Width="735.1" Height="11.45" Text="INFORMAÇÕES RELATIVAS AO IMPOSTO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       <LineObject Name="Line43" Left="1" Top="14.9" Width="734.55"/>
@@ -1442,15 +1437,15 @@ namespace FastReport
       <TextObject Name="Text192" Left="397.9" Top="16.33" Width="77.15" Height="8.45" Text="% RED BC CALC" Font="Times New Roman, 5.25pt"/>
       <LineObject Name="Line60" Left="476.95" Top="14.35" Height="32.35"/>
     </DataBand>
-    <DataBand Name="dataBandDocumentosOriginarios" Top="726.54" Width="737.1" Height="206.8" CanGrow="true" CanShrink="true">
+    <DataBand Name="dataBandDocumentosOriginarios" Top="729.08" Width="737.1" Height="206.8" CanGrow="true" CanShrink="true">
       <TextObject Name="Text198" Left="0.89" Top="14.35" Width="366.88" Height="9.45" Border.Lines="Left, Right" Text="TP DOC                    CPF/CNPJ EMITENTE                 SÉRIE/NRO. DOCUMENTO" Font="Microsoft Sans Serif, 6.75pt"/>
       <TextObject Name="Text206" Left="368.55" Top="14.35" Width="366.88" Height="9.45" Border.Lines="Right" Text="TP DOC                    CPF/CNPJ EMITENTE                 SÉRIE/NRO. DOCUMENTO" Font="Microsoft Sans Serif, 6.75pt"/>
       <TextObject Name="Text193" Left="0.89" Top="23.9" Width="366.88" Height="182.1" Border.Lines="Left, Right, Bottom" CanGrow="true" CanShrink="true" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Padding="2, 4, 2, 0" Font="Courier New, 6pt, style=Bold"/>
       <TextObject Name="Text205" Left="368.55" Top="23.9" Width="366.88" Height="182.1" Border.Lines="Right, Bottom" CanGrow="true" CanShrink="true" Text="NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0001&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0002&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0003&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0004&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0005&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0006&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0007&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0008&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0009&#13;&#10;NF-e 000000000   0000 0000 0000 0000 0000 0000 0000 0000 0000 0000 0010" Padding="2, 4, 2, 0" Font="Courier New, 6pt, style=Bold"/>
       <TextObject Name="Text162" Left="1" Top="2.45" Width="734.1" Height="11.45" Border.Lines="All" Text="DOCUMENTOS ORIGINÁRIO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
-      <ChildBand Name="Child1" Top="935.12" Width="737.1" Height="13.45"/>
+      <ChildBand Name="Child1" Top="938.16" Width="737.1" Height="13.45"/>
     </DataBand>
-    <DataBand Name="dataBandObservacao" Top="950.34" Width="737.1" Height="82.05" CanGrow="true" CanShrink="true" CanBreak="true">
+    <DataBand Name="dataBandObservacao" Top="953.9" Width="737.1" Height="82.05" CanGrow="true" CanShrink="true" CanBreak="true">
       <ShapeObject Name="Shape9" Width="737.1" Height="82.05" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <TextObject Name="Text168" Left="4" Top="15.45" Width="727.65" Height="65.15" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[cteProc.CTe.infCte.compl.xObs]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text186" Left="-9.45" Top="26.9" Width="765.45" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="DOCUMENTO EMITIDO EM AMBIENTE DE HOMOLOGAÇÃO, SEM VALOR FISCAL" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
@@ -1458,7 +1453,7 @@ namespace FastReport
       <LineObject Name="Line45" Left="1" Top="13" Width="734.55" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <TextObject Name="Text185" Top="45.25" Width="737.1" Height="24.35" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Times New Roman, 18pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dataBandRodoviario" Top="1034.17" Width="737.1" Height="51.7" BeforePrintEvent="dataBandRodoviario_BeforePrint">
+    <DataBand Name="dataBandRodoviario" Top="1038.24" Width="737.1" Height="51.7" BeforePrintEvent="dataBandRodoviario_BeforePrint">
       <ShapeObject Name="Shape10" Top="0.45" Width="737.1" Height="47.25"/>
       <TextObject Name="Text181" Left="2.45" Top="27.8" Width="83.6" Height="14.45" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text182" Left="86.05" Top="27.8" Width="83.6" Height="14.45" Font="Times New Roman, 8.25pt"/>
@@ -1476,7 +1471,7 @@ namespace FastReport
       <TextObject Name="Text180" Left="209.9" Top="15.35" Width="109.95" Height="8.45" Text="DATA PREVISTA DE ENTREGA" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text167" Left="1" Top="1.9" Width="735.1" Height="11.45" Text="DADOS ESPECÍFICOS DO MODAL RODOVIÁRIO - CARGA FRACIONADA" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
     </DataBand>
-    <DataBand Name="dataBandAereo" Top="1087.65" Width="737.1" Height="83.6" BeforePrintEvent="dataBandAereo_BeforePrint">
+    <DataBand Name="dataBandAereo" Top="1092.22" Width="737.1" Height="83.6" BeforePrintEvent="dataBandAereo_BeforePrint">
       <ShapeObject Name="Shape14" Top="2" Width="737.1" Height="77.6"/>
       <TextObject Name="Text230" Left="1.45" Top="29.35" Width="96.6" Height="14.45" WordWrap="false" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text231" Left="358.1" Top="29.35" Width="92.05" Height="14.45" WordWrap="false" Font="Times New Roman, 8.25pt"/>
@@ -1505,12 +1500,12 @@ namespace FastReport
       <TextObject Name="Text249" Left="139.75" Top="61.7" Width="82.15" Height="14.45" WordWrap="false" Font="Times New Roman, 8.25pt"/>
       <LineObject Name="Line80" Left="223.8" Top="47.25" Height="30.8"/>
       <TextObject Name="Text250" Left="226.8" Top="48.25" Width="506.85" Height="28.35" Text="ESTE CONHECIMENTO DE TRANSPORTE ATENDE À LEGISLAÇÃO DE TRANSPORTE AÉREO EM VIGOR" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5.25pt"/>
-      <DataBand Name="Data1" Top="1204.16" Width="737.1" Height="13.45" DataSource="BusinessObjectDataSource7">
-        <TextObject Name="Text256" Width="111.4" Height="13.45" Border.Lines="Left, Right, Bottom" Border.BottomLine.Style="Dot" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.peri.nONU]" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
-        <TextObject Name="Text257" Left="111.4" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.peri.qTotEmb]" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
-        <TextObject Name="Text258" Left="195.45" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.peri.infTotAP.qTotProd]" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
-        <TextObject Name="Text259" Left="278.5" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Text="[cteProc.CTe.infCte.infCTeNorm.infModal.ContainerModal.peri.infTotAP.uniAP]" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
-        <DataHeaderBand Name="DataHeader1" Top="1173.03" Width="737.1" Height="29.35">
+      <DataBand Name="dataProdutosPerigosos" Top="1209.74" Width="737.1" Height="13.45" BeforePrintEvent="dataProdutosPerigosos_BeforePrint">
+        <TextObject Name="Text256" Width="111.4" Height="13.45" Border.Lines="Left, Right, Bottom" Border.BottomLine.Style="Dot" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
+        <TextObject Name="Text257" Left="111.4" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
+        <TextObject Name="Text258" Left="195.45" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
+        <TextObject Name="Text259" Left="278.5" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Border.BottomLine.Style="Dot" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
+        <DataHeaderBand Name="dataProdutosPerigososHeader" Top="1178.11" Width="737.1" Height="29.35">
           <TextObject Name="Text251" Top="1" Width="361.75" Height="13.45" Border.Lines="All" Text="PRODUTOS PERIGOSOS" Padding="2, 2, 2, 0" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
           <TextObject Name="Text252" Top="14.9" Width="111.4" Height="13.45" Border.Lines="Left, Right, Bottom" Text="NÚMERO ONU" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
           <TextObject Name="Text253" Left="111.4" Top="14.9" Width="83.05" Height="13.45" Border.Lines="Right, Bottom" Text="VOLUMES" Padding="2, 2, 2, 0" HorzAlign="Center" WordWrap="false" Font="Times New Roman, 6.75pt"/>
@@ -1519,7 +1514,7 @@ namespace FastReport
         </DataHeaderBand>
       </DataBand>
     </DataBand>
-    <DataBand Name="DadosVeiculosNovos" Top="1236.28" Width="737.1" Height="32.13" CanGrow="true" CanShrink="true" DataSource="veicNovos">
+    <DataBand Name="DadosVeiculosNovos" Top="1242.88" Width="737.1" Height="32.13" CanGrow="true" CanShrink="true" DataSource="veicNovos">
       <LineObject Name="Line69" Left="187.11" Top="1.22" Height="29.91"/>
       <LineObject Name="Line70" Left="430.92" Top="1.13" Height="29.91"/>
       <LineObject Name="Line71" Left="512.19" Top="1.22" Height="29.91"/>
@@ -1535,12 +1530,12 @@ namespace FastReport
       <ShapeObject Name="Shape13" Width="737.1" Height="32.13"/>
       <TextObject Name="Text229" Left="623.7" Top="13.23" Width="111.95" Height="14.45" Text="[cteProc.CTe.infCte.infCTeNorm.veicNovos.vFrete]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text221" Left="512.19" Top="14.12" Width="111.95" Height="14.45" CanGrow="true" Text="[cteProc.CTe.infCte.infCTeNorm.veicNovos.vUnit]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" Font="Times New Roman, 8.25pt"/>
-      <DataHeaderBand Name="CabecalhoVeiculoNovo" Top="1219.38" Width="737.1" Height="15.12">
+      <DataHeaderBand Name="CabecalhoVeiculoNovo" Top="1225.48" Width="737.1" Height="15.12">
         <TextObject Name="Text227" Left="1" Top="1.45" Width="735.1" Height="11.45" Text="INFORMAÇÕES SOBRE OS VEÍCULOS NOVOS TRANSPORTADOS" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
         <ShapeObject Name="Shape12" Width="737.1" Height="15.12"/>
       </DataHeaderBand>
     </DataBand>
-    <PageFooterBand Name="dataBandFooter" Top="1270.19" Width="737.1" Height="57.7">
+    <PageFooterBand Name="dataBandFooter" Top="1277.3" Width="737.1" Height="57.7">
       <ShapeObject Name="Shape11" Width="737.1" Height="56.7"/>
       <LineObject Name="Line46" Left="1" Top="14.45" Width="734.55"/>
       <TextObject Name="Text173" Left="1" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt"/>
@@ -1550,7 +1545,7 @@ namespace FastReport
       <TextObject Name="Text165" Left="1" Top="2" Width="442.15" Height="11.45" Text="USO EXCLUSIVO DO EMISSOR DO CTE" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       <LineObject Name="Line47" Left="444.15" Top="1" Height="54.7"/>
       <TextObject Name="Text166" Left="444.15" Top="2" Width="290.95" Height="11.45" Text="RESERVADO AO FISCO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
-      <ChildBand Name="childDatabandFooter" Top="1329.67" Width="737.1" Height="11.9">
+      <ChildBand Name="childDatabandFooter" Top="1337.29" Width="737.1" Height="11.9">
         <TextObject Name="Text164" Left="311.85" Width="423.25" Height="11.45" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6.75pt"/>
       </ChildBand>
     </PageFooterBand>
