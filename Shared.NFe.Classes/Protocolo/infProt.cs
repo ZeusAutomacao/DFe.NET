@@ -34,6 +34,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace NFe.Classes.Protocolo
 {
@@ -62,7 +63,15 @@ namespace NFe.Classes.Protocolo
         /// <summary>
         ///     PR08 - Data e hora de recebimento
         /// </summary>
+        [XmlIgnore]
         public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxyDhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
 
         /// <summary>
         ///     PR09 - Número do Protocolo da NF-e

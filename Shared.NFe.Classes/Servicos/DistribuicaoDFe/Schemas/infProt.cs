@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Utils;
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
@@ -51,7 +52,15 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
 
+        [XmlIgnore]
         public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxyDhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
 
         public ulong nProt { get; set; }
 
