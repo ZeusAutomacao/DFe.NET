@@ -62,7 +62,7 @@ namespace NFe.Classes.Protocolo
         /// <summary>
         ///     PR08 - Data e hora de recebimento
         /// </summary>
-        public DateTime dhRecbto { get; set; }
+        public DateTimeOffset dhRecbto { get; set; }
 
         /// <summary>
         ///     PR09 - Número do Protocolo da NF-e
