@@ -51,7 +51,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         [XmlElement(DataType = "integer")]
         public string chNFe { get; set; }
 
-        public System.DateTime dhRecbto { get; set; }
+        public DateTimeOffset dhRecbto { get; set; }
 
         public ulong nProt { get; set; }
 
