@@ -197,6 +197,7 @@ namespace FastReport
       else if ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.Desacordo)
         Text55.Text = &quot;[procEventoCTe.eventoCTe.infEvento.detEvento.EventoContainer.xObs]&quot;;               
       
+
       Child1.Visible = (CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.CartaCorrecao;
       if ((CTeTipoEvento)Report.GetColumnValue(&quot;procEventoCTe.eventoCTe.infEvento.tpEvento&quot;) == CTeTipoEvento.CartaCorrecao)
       {
