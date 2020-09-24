@@ -148,58 +148,63 @@ namespace FastReport
           
           case IndicadorPagamento.ipOutras:
             Memo146.Text = &quot;OUTROS&quot;;
-            break;
-        }        
-      }
-      
-      string infAdicionais = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infCpl&quot;) + Environment.NewLine + (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infAdFisco&quot;);
-      
-      if((bool)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
-      {  
-        infAdicionais = infAdicionais.Replace(&quot;;&quot;, Environment.NewLine);
-      }
-      
-      TextInfAdicionais.Text = infAdicionais;      
-      //memContInfAdicionais.Text = string.Empty;
-      
-      //string[] lines = infAdicionais.Split(new string[]{ Environment.NewLine, &quot;\n&quot; }, StringSplitOptions.None);
-      //pgContDadosAdicionais.Visible = lines.Length &gt; LINHAS_DADOS_ADICIONAIS; 
-      
-      //if(pgContDadosAdicionais.Visible)
-      //{
-      //  TextInfAdicionais.Text = string.Join(Environment.NewLine, lines.Take(LINHAS_DADOS_ADICIONAIS-1).ToArray());      
-      //  memContInfAdicionais.Text = string.Join(Environment.NewLine, lines.Skip(LINHAS_DADOS_ADICIONAIS-1).ToArray());
-      //}
-    } 
+	  break;
+	  }
+	  }
 
-    private void DadosProdutos_BeforePrint(object sender, EventArgs e)
-    {  
-      var icmsBasico = (ICMSBasico)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS&quot;);
-      var ipiBasico = (IPIBasico)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.IPI.TipoIPI&quot;);
-      var orig = icmsBasico.GetIcmsOrig();
-      
-      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional)
-      {      
-        prodOriginCell.Text = orig.OrigemMercadoriaParaString()+icmsBasico.GetIcmsCsosn().CsosnicmsParaString();
-      }
-      else
-      {
-        prodOriginCell.Text = orig.OrigemMercadoriaParaString() + icmsBasico.GetIcmsCst().CsticmsParaString();
-      }
-      
-      prodBcCell.Text = FormatNumber(icmsBasico.GetIcmsBcValue(), 2);
-      prodICMSCell.Text = FormatNumber(icmsBasico.GetIcmsValue(), 2);
-      prodAlqICMSCell.Text = FormatNumber(icmsBasico.GetIcmsPercent(),2);
-      
-      
-      if(ipiBasico != null)
-      {
-        prodIPICell.Text = FormatNumber(ipiBasico.GetIpiValue(),2);
-        prodAlqIPICell.Text = FormatNumber(ipiBasico.GetIpiPercent(),2);
-      }
-      else
-      {
-        prodIPICell.Text = &quot;0,00&quot;;
+	  string infAdicionais = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infCpl&quot;) + Environment.NewLine + (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infAdFisco&quot;);
+
+	  infAdicionais = infAdicionais.Replace(&quot;[&quot;,&quot;[\&quot;[&quot;).Replace(&quot;]&quot;,&quot;]\&quot;]&quot;);
+
+	  if((bool)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
+	  {
+	    infAdicionais = infAdicionais.Replace(&quot;;&quot;, Environment.NewLine);
+	  }
+
+	  TextInfAdicionais.Text = infAdicionais;
+	  //memContInfAdicionais.Text = string.Empty;
+
+	  //string[] lines = infAdicionais.Split(new string[]{ Environment.NewLine, &quot;\n&quot; }, StringSplitOptions.None);
+	  //pgContDadosAdicionais.Visible = lines.Length &gt; LINHAS_DADOS_ADICIONAIS;
+
+	  //if(pgContDadosAdicionais.Visible)
+	  //{
+	  //  TextInfAdicionais.Text = string.Join(Environment.NewLine, lines.Take(LINHAS_DADOS_ADICIONAIS-1).ToArray());
+	  //  memContInfAdicionais.Text = string.Join(Environment.NewLine, lines.Skip(LINHAS_DADOS_ADICIONAIS-1).ToArray());
+	  //}
+	  }
+
+	  private void DadosProdutos_BeforePrint(object sender, EventArgs e)
+	  {
+	  var icmsBasico = (ICMSBasico)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.ICMS.TipoICMS&quot;);
+	  var ipiBasico = (IPIBasico)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.imposto.IPI.TipoIPI&quot;);
+
+	  if (icmsBasico != null)
+	  {
+	      var orig = icmsBasico.GetIcmsOrig();
+	      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional)
+	      {
+	        prodOriginCell.Text = orig.OrigemMercadoriaParaString()+icmsBasico.GetIcmsCsosn().CsosnicmsParaString();
+	      }
+	      else
+	      {
+	        prodOriginCell.Text = orig.OrigemMercadoriaParaString() + icmsBasico.GetIcmsCst().CsticmsParaString();
+	      }
+
+	      prodBcCell.Text = FormatNumber(icmsBasico.GetIcmsBcValue(), 2);
+	      prodICMSCell.Text = FormatNumber(icmsBasico.GetIcmsValue(), 2);
+	      prodAlqICMSCell.Text = FormatNumber(icmsBasico.GetIcmsPercent(),2);
+	  }
+
+
+	  if(ipiBasico != null)
+	  {
+	    prodIPICell.Text = FormatNumber(ipiBasico.GetIpiValue(),2);
+	    prodAlqIPICell.Text = FormatNumber(ipiBasico.GetIpiPercent(),2);
+	  }
+	  else
+	  {
+	    prodIPICell.Text = &quot;0,00&quot;;
         prodAlqIPICell.Text = &quot;0,00&quot;;
       }
       
