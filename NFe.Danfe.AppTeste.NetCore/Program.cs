@@ -48,6 +48,7 @@ namespace NFe.Danfe.AppTeste.NetCore
                     Console.WriteLine("4  - Gerar Danfe(Evento) PDF");
                     Console.WriteLine("5  - Gerar Danfe(Evento) HTML");
                     Console.WriteLine("6  - Gerar Danfe(Evento) Image PNG");
+                    Console.WriteLine($"98 - Carrega logo especifica para configuração");
                     Console.WriteLine($"99 - Carrega Configuracoes do arquivo {ArquivoConfiguracao}");
 
                     string option = Console.ReadLine();
@@ -77,6 +78,9 @@ namespace NFe.Danfe.AppTeste.NetCore
                         case 6:
                             await GerarDanfeEventoPng();
                             break;
+                        case 98:
+                            await CarregarLogoConfiguracao();
+                            break;
                         case 99:
                             await CarregarConfiguracao();
                             break;
@@ -102,6 +106,24 @@ namespace NFe.Danfe.AppTeste.NetCore
                 _configuracoes = !File.Exists(path + ArquivoConfiguracao)
                                 ? new ConfiguracaoConsole()
                                 : FuncoesXml.ArquivoXmlParaClasse<ConfiguracaoConsole>(path + ArquivoConfiguracao);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private static async Task CarregarLogoConfiguracao()
+        {
+            Console.WriteLine(@"Digite o caminho da logo (ex: C:\arquivos\logo.png):");
+            string path = Console.ReadLine();
+
+            try
+
+            {
+                _configuracoes.ConfiguracaoDanfeNfe.Logomarca = !File.Exists(path)
+                                ? null
+                                : File.ReadAllBytes(path);
             }
             catch (Exception ex)
             {
