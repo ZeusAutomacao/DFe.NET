@@ -30,7 +30,8 @@ using NFe.Danfe.Base.NFe;
 namespace FastReport
 {        
   public class ReportScript
-  {    
+  {
+  
     private void Emitente_BeforePrint(object sender, EventArgs e)
     {
       var chave = Substring(((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;)), 3);
@@ -298,19 +299,16 @@ namespace FastReport
     public Image ObterLogo()
     {
       byte[] logomarca = Report.GetParameterValue(&quot;Logo&quot;) as byte[];
-      
-      if (logomarca == null) return null;
-      
-      using(var ms = new MemoryStream(logomarca))
-      {
-        var image = Image.FromStream(ms);
-        return image;
-      }
-    }       
+      if(logomarca == null)
+        return null;
+      Stream imageStream = new MemoryStream(logomarca); //precisa ficar aberto senao causa erro gdi+ #Zeus Issue 1119, acesse a issue para mais detalhes.
+      var image = Image.FromStream(imageStream);
+      return image;
+    }
 
     private void Imposto_BeforePrint(object sender, EventArgs e)
     {
-      bool exibirIbpt = ((Boolean?)Report.GetParameterValue(&quot;ExibirTotalTributos&quot;)) ?? false;
+    bool exibirIbpt = ((Boolean?)Report.GetParameterValue(&quot;ExibirTotalTributos&quot;)) ?? false;
       
       QuadroVTOTTRIB.Visible = exibirIbpt;
       txtIbptValor.Visible = exibirIbpt;
