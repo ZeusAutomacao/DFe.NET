@@ -28,5 +28,10 @@ namespace CTe.Classes
         {
             return FuncoesXml.ArquivoXmlParaClasse<cteProc>(caminhoArquivoXml);
         }
+
+        public static string ClasseParaXmlString(cteProc cteProc)
+        {
+            return FuncoesXml.ClasseParaXmlString(cteProc);
+        }
     }
 }
