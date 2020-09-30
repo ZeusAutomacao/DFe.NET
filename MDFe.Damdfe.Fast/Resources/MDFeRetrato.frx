@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="02/16/2020 18:22:54" ReportInfo.CreatorVersion="2017.4.1.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="09/30/2020 10:51:23" ReportInfo.CreatorVersion="2017.4.3.0">
   <ScriptText>using System;
 using System;
 using System.Collections;
@@ -146,6 +146,26 @@ namespace FastReport
         vale.Next();
       }
       
+      if (versao300) 
+      {
+        txtCnpjResp.Text = &quot;&quot;;
+        txtCnpjFornec.Text = &quot;&quot;;
+        txtNumComprovante.Text = &quot;&quot;;      
+        var valePed = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp&quot;); 
+        valePed.Init();
+        while (valePed.HasMoreRows)
+        {
+          
+          var cnpj = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CNPJPg&quot;));
+          var cpf = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CPFPg&quot;));
+          
+          txtCnpjResp.Text += FormatarCampo(cpf != null &amp;&amp; cpf != string.Empty ? cpf : cnpj, 'd') + Environment.NewLine;
+          txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CNPJForn&quot;)), 'd') + Environment.NewLine;
+          txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.NCompra&quot;)) + Environment.NewLine;
+          valePed.Next();
+        }
+      }
+      
       //Seguros
       if (versao300)
       {   
@@ -206,40 +226,40 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <BusinessObjectDataSource Name="MDFeProcMDFe" ReferenceName="MDFeProcMDFe" DataType="MDFe.Classes.Retorno.MDFeProcMDFe[], MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null" Enabled="true">
-      <Column Name="Versao" DataType="MDFe.Utils.Flags.VersaoServico, MDFe.Utils, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-      <Column Name="MDFe" DataType="MDFe.Classes.Informacoes.MDFe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-        <Column Name="InfMDFe" DataType="MDFe.Classes.Informacoes.MDFeInfMDFe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-          <Column Name="Versao" DataType="MDFe.Utils.Flags.VersaoServico, MDFe.Utils, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+    <BusinessObjectDataSource Name="MDFeProcMDFe" ReferenceName="MDFeProcMDFe" DataType="MDFe.Classes.Retorno.MDFeProcMDFe[], MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null" Enabled="true">
+      <Column Name="Versao" DataType="MDFe.Utils.Flags.VersaoServico, MDFe.Utils, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+      <Column Name="MDFe" DataType="MDFe.Classes.Informacoes.MDFe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+        <Column Name="InfMDFe" DataType="MDFe.Classes.Informacoes.MDFeInfMDFe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Versao" DataType="MDFe.Utils.Flags.VersaoServico, MDFe.Utils, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="Ide" DataType="MDFe.Classes.Informacoes.MDFeIde, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <Column Name="CUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="TpEmit" DataType="MDFe.Classes.Flags.MDFeTipoEmitente, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="TpTransp" DataType="System.Nullable`1[[MDFe.Classes.Flags.MDFeTpTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]"/>
+          <Column Name="Ide" DataType="MDFe.Classes.Informacoes.MDFeIde, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CUF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpEmit" DataType="MDFe.Classes.Flags.MDFeTipoEmitente, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpTransp" DataType="System.Nullable`1[[MDFe.Classes.Flags.MDFeTpTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]"/>
             <Column Name="TpTranspSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-            <Column Name="Mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Mod" DataType="DFe.Classes.Flags.ModeloDocumento, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="Serie" DataType="System.Int16"/>
             <Column Name="NMDF" DataType="System.Int64"/>
             <Column Name="CMDF" DataType="System.Int32"/>
             <Column Name="ProxyCMDF" DataType="System.String"/>
             <Column Name="CDV" DataType="System.Byte"/>
-            <Column Name="Modal" DataType="MDFe.Classes.Flags.MDFeModal, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Modal" DataType="MDFe.Classes.Flags.MDFeModal, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="DhEmi" DataType="System.DateTime"/>
             <Column Name="ProxyDhEmi" DataType="System.String"/>
-            <Column Name="TpEmis" DataType="MDFe.Classes.Flags.MDFeTipoEmissao, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="ProcEmi" DataType="MDFe.Classes.Flags.MDFeIdentificacaoProcessoEmissao, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="TpEmis" DataType="MDFe.Classes.Flags.MDFeTipoEmissao, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="ProcEmi" DataType="MDFe.Classes.Flags.MDFeIdentificacaoProcessoEmissao, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="VerProc" DataType="System.String"/>
-            <Column Name="UFIni" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="UFIni" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="ProxyUFIni" DataType="System.String"/>
-            <Column Name="UFFim" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="UFFim" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="ProxyUFFim" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="InfMunCarrega" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunCarrega, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunCarrega" Enabled="true">
+            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="InfMunCarrega" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunCarrega, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunCarrega" Enabled="true">
               <Column Name="CMunCarrega" DataType="System.String"/>
               <Column Name="XMunCarrega" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="InfPercurso" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfPercurso, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfPercurso" Enabled="true">
-              <Column Name="UFPer" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="InfPercurso" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfPercurso, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfPercurso" Enabled="true">
+              <Column Name="UFPer" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="ProxyUFPer" DataType="System.String"/>
             </BusinessObjectDataSource>
             <Column Name="DhIniViagem" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -247,13 +267,13 @@ namespace FastReport
             <Column Name="IndCanalVerde" DataType="System.String"/>
             <Column Name="IndCarregaPosterior" DataType="System.String"/>
           </Column>
-          <Column Name="Emit" DataType="MDFe.Classes.Informacoes.MDFeEmit, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Emit" DataType="MDFe.Classes.Informacoes.MDFeEmit, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="XNome" DataType="System.String"/>
             <Column Name="XFant" DataType="System.String"/>
-            <Column Name="EnderEmit" DataType="MDFe.Classes.Informacoes.MDFeEnderEmit, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+            <Column Name="EnderEmit" DataType="MDFe.Classes.Informacoes.MDFeEnderEmit, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="XLgr" DataType="System.String"/>
               <Column Name="Nro" DataType="System.String"/>
               <Column Name="XCpl" DataType="System.String"/>
@@ -262,79 +282,119 @@ namespace FastReport
               <Column Name="XMun" DataType="System.String"/>
               <Column Name="CEP" DataType="System.Int64"/>
               <Column Name="ProxyCEP" DataType="System.String"/>
-              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+              <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="ProxyUF" DataType="System.String"/>
               <Column Name="Fone" DataType="System.String"/>
               <Column Name="Email" DataType="System.String"/>
             </Column>
           </Column>
-          <Column Name="InfModal" DataType="MDFe.Classes.Informacoes.MDFeInfModal, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <Column Name="VersaoModal" DataType="MDFe.Classes.Flags.MDFeVersaoModal, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-            <Column Name="Modal" DataType="MDFe.Classes.Contratos.MDFeModalContainer, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-              <Column Name="infANTT" DataType="MDFe.Classes.Informacoes.MDFeInfANTT, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="InfModal" DataType="MDFe.Classes.Informacoes.MDFeInfModal, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="VersaoModal" DataType="MDFe.Classes.Flags.MDFeVersaoModal, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="Modal" DataType="MDFe.Classes.Contratos.MDFeModalContainer, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+              <Column Name="infANTT" DataType="MDFe.Classes.Informacoes.MDFeInfANTT, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="RNTRC" DataType="System.String"/>
-                <Column Name="valePed" DataType="MDFe.Classes.Informacoes.MDFeValePed, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-                  <BusinessObjectDataSource Name="BusinessObjectDataSource25" Alias="Disp" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeDisp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Disp"/>
-                </Column>
-                <BusinessObjectDataSource Name="infContratante" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infContratante, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource24" Alias="infCIOT" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infCIOT, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="infCIOT" Enabled="true">
+                  <Column Name="CIOT" DataType="System.String"/>
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource24" Alias="infCIOT" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infCIOT, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="infCIOT"/>
+                <Column Name="valePed" DataType="MDFe.Classes.Informacoes.MDFeValePed, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+                  <BusinessObjectDataSource Name="BusinessObjectDataSource25" Alias="Disp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeDisp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Disp" Enabled="true">
+                    <Column Name="CNPJForn" DataType="System.String"/>
+                    <Column Name="CNPJPg" DataType="System.String"/>
+                    <Column Name="CPFPg" DataType="System.String"/>
+                    <Column Name="NCompra" DataType="System.String"/>
+                    <Column Name="vValePed" DataType="System.Decimal"/>
+                  </BusinessObjectDataSource>
+                </Column>
+                <BusinessObjectDataSource Name="infContratante" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infContratante, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="xNome" DataType="System.String"/>
+                  <Column Name="CPF" DataType="System.String"/>
+                  <Column Name="CNPJ" DataType="System.String"/>
+                  <Column Name="idEstrangeiro" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource32" Alias="infPag" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infPag, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="infPag" Enabled="true">
+                  <Column Name="xNome" DataType="System.String"/>
+                  <Column Name="CPF" DataType="System.String"/>
+                  <Column Name="CNPJ" DataType="System.String"/>
+                  <Column Name="idEstrangeiro" DataType="System.String"/>
+                  <BusinessObjectDataSource Name="Comp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.Comp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <Column Name="tpComp" DataType="MDFe.Classes.Informacoes.tpComp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                    <Column Name="vComp" DataType="System.Decimal"/>
+                    <Column Name="vCompProxy" DataType="System.Decimal"/>
+                    <Column Name="xComp" DataType="System.String"/>
+                  </BusinessObjectDataSource>
+                  <Column Name="vContrato" DataType="System.Decimal"/>
+                  <Column Name="vContratoProxy" DataType="System.Decimal"/>
+                  <Column Name="indPag" DataType="MDFe.Classes.Informacoes.indPag, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                  <BusinessObjectDataSource Name="infPrazo" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.infPrazo, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <Column Name="nParcela" DataType="System.Int16"/>
+                    <Column Name="nParcelaProxy" DataType="System.String"/>
+                    <Column Name="dVenc" DataType="System.DateTime"/>
+                    <Column Name="dVencProxy" DataType="System.String"/>
+                    <Column Name="vParcela" DataType="System.Decimal"/>
+                    <Column Name="vParcelaProxy" DataType="System.Decimal"/>
+                  </BusinessObjectDataSource>
+                  <Column Name="infBanc" DataType="MDFe.Classes.Informacoes.infBanc, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+                    <Column Name="codBanco" DataType="System.String"/>
+                    <Column Name="codAgencia" DataType="System.String"/>
+                    <Column Name="CNPJIPEF" DataType="System.String"/>
+                  </Column>
+                </BusinessObjectDataSource>
               </Column>
               <Column Name="RNTRC" DataType="System.String"/>
               <Column Name="CIOT" DataType="System.String"/>
-              <Column Name="VeicTracao" DataType="MDFe.Classes.Informacoes.MDFeVeicTracao, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+              <Column Name="VeicTracao" DataType="MDFe.Classes.Informacoes.MDFeVeicTracao, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
                 <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
                   <Column Name="RNTRC" DataType="System.String"/>
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="IE" DataType="System.String"/>
-                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="ProxyUF" DataType="System.String"/>
-                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                 </Column>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="Condutor" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeCondutor, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Condutor" Enabled="true">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="Condutor" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeCondutor, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Condutor" Enabled="true">
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="CPF" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <Column Name="TpRod" DataType="MDFe.Classes.Flags.MDFeTpRod, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="TpRod" DataType="MDFe.Classes.Flags.MDFeTpRod, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="ProxyUF" DataType="System.String"/>
                 <Column Name="CapKGSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <Column Name="CapM3Specified" DataType="System.Boolean" BindableControl="CheckBox"/>
               </Column>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="VeicReboque" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeVeicReboque, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="VeicReboque" Enabled="true">
+              <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="VeicReboque" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeVeicReboque, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="VeicReboque" Enabled="true">
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
                 <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+                <Column Name="Prop" DataType="MDFe.Classes.Informacoes.MDFeProp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
                   <Column Name="RNTRC" DataType="System.String"/>
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="IE" DataType="System.String"/>
-                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="ProxyUF" DataType="System.String"/>
-                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <Column Name="MDFeTpProp" DataType="MDFe.Classes.Flags.MDFeTpProp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                 </Column>
-                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="TpCar" DataType="MDFe.Classes.Flags.MDFeTpCar, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                <Column Name="UF" DataType="DFe.Classes.Entidades.Estado, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                 <Column Name="ProxyUF" DataType="System.String"/>
               </BusinessObjectDataSource>
-              <Column Name="ValePed" DataType="MDFe.Classes.Informacoes.MDFeValePed, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-                <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="Disp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeDisp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Disp" Enabled="true">
+              <Column Name="ValePed" DataType="MDFe.Classes.Informacoes.MDFeValePed, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="Disp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeDisp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Disp" Enabled="true">
                   <Column Name="CNPJForn" DataType="System.String"/>
                   <Column Name="CNPJPg" DataType="System.String"/>
                   <Column Name="CPFPg" DataType="System.String"/>
@@ -343,28 +403,28 @@ namespace FastReport
                 </BusinessObjectDataSource>
               </Column>
               <Column Name="CodAgPorto" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource26" Alias="lacRodo" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacre, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="lacRodo"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource33" Alias="lacRodo" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacre, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="lacRodo"/>
             </Column>
           </Column>
-          <Column Name="InfDoc" DataType="MDFe.Classes.Informacoes.MDFeInfDoc, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="InfMunDescarga" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunDescarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunDescarga" Enabled="true">
+          <Column Name="InfDoc" DataType="MDFe.Classes.Informacoes.MDFeInfDoc, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="InfMunDescarga" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMunDescarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfMunDescarga" Enabled="true">
               <Column Name="CMunDescarga" DataType="System.String"/>
               <Column Name="XMunDescarga" DataType="System.String"/>
-              <BusinessObjectDataSource Name="InfCTe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfCTe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <BusinessObjectDataSource Name="InfCTe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfCTe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                 <Column Name="ChCTe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
                 <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                <BusinessObjectDataSource Name="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
                     <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -373,24 +433,24 @@ namespace FastReport
                   <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <Column Name="infEntregaParcial" Enabled="false" DataType="MDFe.Classes.Informacoes.infEntregaParcial, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource27" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
+                <Column Name="infEntregaParcial" Enabled="false" DataType="MDFe.Classes.Informacoes.infEntregaParcial, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource34" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="InfNFe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfNFe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <BusinessObjectDataSource Name="InfNFe" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfNFe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                 <Column Name="ChNFe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
                 <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidTransps" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidTransps" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps1" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps1" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas1" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas1" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
                     <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -399,22 +459,22 @@ namespace FastReport
                   <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource28" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource35" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="InfMdFeTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMDFeTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+              <BusinessObjectDataSource Name="InfMdFeTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfMDFeTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
                 <Column Name="ChMDFe" DataType="System.String"/>
                 <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                <BusinessObjectDataSource Name="InfUnidTransp" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="MDFe.Classes.Flags.MDFeTpUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps2" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps2" Alias="LacUnidTransps" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidTransp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidTransps" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas2" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas2" Alias="InfUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeInfUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="MDFe.Classes.Flags.MDFeTpUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacUnidCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
                     <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -423,17 +483,17 @@ namespace FastReport
                   <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource29" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource36" Alias="Peri" Enabled="false" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFePeri, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Peri"/>
               </BusinessObjectDataSource>
             </BusinessObjectDataSource>
           </Column>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource16" Alias="Seg" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeSeg, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Seg" Enabled="true">
-            <Column Name="InfResp" DataType="MDFe.Classes.Informacoes.MDFeInfResp, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-              <Column Name="RespSeg" DataType="MDFe.Classes.Flags.MDFeRespSeg, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+          <BusinessObjectDataSource Name="BusinessObjectDataSource16" Alias="Seg" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeSeg, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Seg" Enabled="true">
+            <Column Name="InfResp" DataType="MDFe.Classes.Informacoes.MDFeInfResp, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+              <Column Name="RespSeg" DataType="MDFe.Classes.Flags.MDFeRespSeg, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
             </Column>
-            <Column Name="InfSeg" DataType="MDFe.Classes.Informacoes.MDFeInfSeg, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+            <Column Name="InfSeg" DataType="MDFe.Classes.Informacoes.MDFeInfSeg, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="XSeg" DataType="System.String"/>
               <Column Name="CNPJ" DataType="System.String"/>
             </Column>
@@ -442,63 +502,94 @@ namespace FastReport
               <Column Name="Length" DataType="System.Int32"/>
             </BusinessObjectDataSource>
           </BusinessObjectDataSource>
-          <Column Name="Tot" DataType="MDFe.Classes.Informacoes.MDFeTot, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="prodPred" DataType="MDFe.Classes.Informacoes.prodPred, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="tpCarga" DataType="MDFe.Classes.Informacoes.tpCarga, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="xProd" DataType="System.String"/>
+            <Column Name="cEAN" DataType="System.String"/>
+            <Column Name="NCM" DataType="System.String"/>
+            <Column Name="infLotacao" DataType="MDFe.Classes.Informacoes.infLotacao, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+              <Column Name="infLocalCarrega" DataType="MDFe.Classes.Informacoes.infLocalCarrega, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+                <Column Name="CEP" DataType="System.String"/>
+                <Column Name="latitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="latitudeProxy" DataType="System.String"/>
+                <Column Name="Longitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="LongitudeProxy" DataType="System.String"/>
+              </Column>
+              <Column Name="infLocalDescarrega" DataType="MDFe.Classes.Informacoes.infLocalDescarrega, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+                <Column Name="CEP" DataType="System.String"/>
+                <Column Name="latitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="latitudeProxy" DataType="System.String"/>
+                <Column Name="Longitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="LongitudeProxy" DataType="System.String"/>
+              </Column>
+            </Column>
+          </Column>
+          <Column Name="Tot" DataType="MDFe.Classes.Informacoes.MDFeTot, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
             <Column Name="QCTe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="QNFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="QMDFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
             <Column Name="vCarga" DataType="System.Decimal"/>
-            <Column Name="CUnid" DataType="MDFe.Classes.Flags.MDFeCUnid, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+            <Column Name="CUnid" DataType="MDFe.Classes.Flags.MDFeCUnid, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
             <Column Name="QCarga" DataType="System.Decimal"/>
             <Column Name="QCTeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="QNFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="QMDFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
           </Column>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="Lacres" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacre, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Lacres" Enabled="true">
+          <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="Lacres" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeLacre, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Lacres" Enabled="true">
             <Column Name="NLacre" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="AutXml" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeAutXML, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="AutXml" Enabled="true">
+          <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="AutXml" DataType="System.Collections.Generic.List`1[[MDFe.Classes.Informacoes.MDFeAutXML, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="AutXml" Enabled="true">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <Column Name="InfAdic" DataType="MDFe.Classes.Informacoes.MDFeInfAdic, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="InfAdic" DataType="MDFe.Classes.Informacoes.MDFeInfAdic, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
             <Column Name="InfAdFisco" DataType="System.String"/>
             <Column Name="InfCpl" DataType="System.String"/>
           </Column>
-          <Column Name="infRespTec" Enabled="false" DataType="MDFe.Classes.Informacoes.infRespTec, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="infRespTec" DataType="MDFe.Classes.Informacoes.infRespTec, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CNPJ" DataType="System.String"/>
+            <Column Name="xContato" DataType="System.String"/>
+            <Column Name="email" DataType="System.String"/>
+            <Column Name="fone" DataType="System.String"/>
+            <Column Name="idCSRT" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="idCSRTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+            <Column Name="ProxyidCSRT" DataType="System.String"/>
+            <Column Name="hashCSRT" DataType="System.String"/>
+          </Column>
         </Column>
-        <Column Name="infMDFeSupl" DataType="MDFe.Classes.Informacoes.infMDFeSupl, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+        <Column Name="infMDFeSupl" DataType="MDFe.Classes.Informacoes.infMDFeSupl, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
           <Column Name="qrCodMDFe" DataType="System.String"/>
         </Column>
-        <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-          <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+        <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+          <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+            <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="URI" DataType="System.String"/>
-              <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+              <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
               <Column Name="DigestValue" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource30" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource37" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
             </Column>
           </Column>
           <Column Name="SignatureValue" DataType="System.String"/>
-          <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
               <Column Name="X509Certificate" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
       </Column>
-      <Column Name="ProtMDFe" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeProtMDFe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+      <Column Name="ProtMDFe" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeProtMDFe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
         <Column Name="Versao" DataType="System.String"/>
-        <Column Name="InfProt" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeInfProtMDFe, MDFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+        <Column Name="InfProt" DataType="MDFe.Classes.Retorno.MDFeRetRecepcao.MDFeInfProtMDFe, MDFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null"/>
+          <Column Name="TpAmb" DataType="DFe.Classes.Flags.TipoAmbiente, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null"/>
           <Column Name="VerAplic" DataType="System.String"/>
           <Column Name="ChMDFe" DataType="System.String"/>
           <Column Name="DhRecbto" DataType="System.DateTime"/>
@@ -506,26 +597,26 @@ namespace FastReport
           <Column Name="DigVal" DataType="System.String"/>
           <Column Name="CStat" DataType="System.Int16"/>
           <Column Name="XMotivo" DataType="System.String"/>
-          <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-            <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-              <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+          <Column Name="Signature" DataType="DFe.Classes.Assinatura.Signature, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+            <Column Name="SignedInfo" DataType="DFe.Classes.Assinatura.SignedInfo, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+              <Column Name="CanonicalizationMethod" DataType="DFe.Classes.Assinatura.CanonicalizationMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+              <Column Name="SignatureMethod" DataType="DFe.Classes.Assinatura.SignatureMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+              <Column Name="Reference" DataType="DFe.Classes.Assinatura.Reference, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="URI" DataType="System.String"/>
-                <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+                <Column Name="DigestMethod" DataType="DFe.Classes.Assinatura.DigestMethod, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                   <Column Name="Algorithm" DataType="System.String"/>
                 </Column>
                 <Column Name="DigestValue" DataType="System.String"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource31" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource38" Alias="Transforms" Enabled="false" DataType="System.Collections.Generic.List`1[[DFe.Classes.Assinatura.Transform, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null]]" PropName="Transforms"/>
               </Column>
             </Column>
             <Column Name="SignatureValue" DataType="System.String"/>
-            <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
-              <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null">
+            <Column Name="KeyInfo" DataType="DFe.Classes.Assinatura.KeyInfo, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
+              <Column Name="X509Data" DataType="DFe.Classes.Assinatura.X509Data, DFe.Classes, Version=1.0.0.770, Culture=neutral, PublicKeyToken=null">
                 <Column Name="X509Certificate" DataType="System.String"/>
               </Column>
             </Column>
@@ -569,10 +660,10 @@ namespace FastReport
       <TextObject Name="Text79" Left="451.6" Top="63.7" Width="117.4" Height="10.45" Text="DATA E HORA DE EMISSÃO" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5.25pt"/>
       <TextObject Name="Text80" Left="382" Top="170.86" Width="108.4" Height="8.89" Text="Protocolo de Autorização de Uso" Font="Times New Roman, 6pt, style=Bold"/>
     </PageHeaderBand>
-    <DataBand Name="DataDocumentoCancelado" Top="209.01" Width="748.44" Height="28.35">
+    <DataBand Name="DataDocumentoCancelado" Top="206.79" Width="748.44" Height="28.35">
       <TextObject Name="Text60" Top="4.56" Width="747.1" Height="16.25" Fill.Color="Gray" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Times New Roman, 11.25pt, style=Bold" TextFill.Color="White"/>
     </DataBand>
-    <DataBand Name="DataModalRodoviario" Top="241.36" Width="748.44" Height="276.26">
+    <DataBand Name="DataModalRodoviario" Top="236.92" Width="748.44" Height="276.26">
       <ShapeObject Name="Shape3" Top="215.01" Width="746.55" Height="58.7"/>
       <TextObject Name="Text40" Left="285.5" Top="255.79" Width="138.35" Height="11.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe]" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
       <TextObject Name="Text34" Left="1.9" Top="241.91" Width="138.4" Height="11.9" Text="Quantidade CT-e" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
@@ -601,7 +692,7 @@ namespace FastReport
       <LineObject Name="Line22" Left="189.45" Top="103.17" Height="103.4"/>
       <TextObject Name="Text26" Left="2.45" Top="20.12" Width="127.3" Height="11.9" Text="Placa" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text27" Left="135.3" Top="20.03" Width="175.55" Height="11.9" Text="RNTRC" Font="Times New Roman, 8.25pt"/>
-      <TextObject Name="Text28" Left="1" Top="104.17" Width="95.5" Height="11.9" Text="Responsável CNPJ" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text28" Left="1" Top="104.17" Width="95.5" Height="11.9" Text="Resp. CPF/CNPJ" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text29" Left="94.5" Top="104.17" Width="95.5" Height="11.9" Text="Fornecedor CNPJ" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text30" Left="189" Top="104.17" Width="123.85" Height="11.9" Text="N. Comprovante" Font="Times New Roman, 8.25pt"/>
       <LineObject Name="Line23" Left="442.7" Top="19.12" Height="68.7"/>
@@ -632,29 +723,29 @@ namespace FastReport
       <TextObject Name="Text23" Left="3.7" Top="3.67" Width="306.95" Height="11.9" Text="Veículo de tração e Reboque" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
       <TextObject Name="Text24" Left="316.3" Top="3.67" Width="426.35" Height="11.9" Text="Condutor" HorzAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="Data5" Top="521.62" Width="748.44" Height="39.8">
+    <DataBand Name="Data5" Top="514.95" Width="748.44" Height="39.8">
       <TextObject Name="Text42" Top="10.35" Width="745.2" Height="24.35" Text="RELAÇÃO DOS DOCUMENTOS FISCAIS ELETRÔNICOS" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 11pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="Data1" Top="565.42" Width="748.44" Height="27.38" DataSource="BusinessObjectDataSource9">
+    <DataBand Name="Data1" Top="556.53" Width="748.44" Height="27.38" DataSource="BusinessObjectDataSource9">
       <TextObject Name="Text81" Top="2" Width="745.2" Height="24.35" Border.Lines="All" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
-      <DataBand Name="Data7" Top="596.8" Width="372.71" Height="20.35" Border.Lines="Left, Right, Bottom" DataSource="InfNFe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data7" Top="585.69" Width="372.71" Height="20.35" Border.Lines="Left, Right, Bottom" DataSource="InfNFe" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text82" Left="1" Width="370.55" Height="18.9" Text="NF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8.25pt"/>
-        <DataFooterBand Name="DataFooter1" Top="621.15" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter1" Top="607.82" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data6" Top="644.05" Width="372.71" Height="24.35" Border.Lines="Left, Right, Bottom" DataSource="InfCTe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data6" Top="628.49" Width="372.71" Height="24.35" Border.Lines="Left, Right, Bottom" DataSource="InfCTe" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text10" Left="1" Top="3.45" Width="370.55" Height="18.9" Text="CT-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe], 'z')]" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8.25pt"/>
-        <DataFooterBand Name="DataFooter2" Top="672.4" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter2" Top="654.62" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data8" Top="695.3" Width="372.71" Height="20.35" Border.Lines="Left, Right, Bottom" DataSource="InfMdFeTransps" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data8" Top="675.3" Width="372.71" Height="20.35" Border.Lines="Left, Right, Bottom" DataSource="InfMdFeTransps" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text83" Left="1" Width="370.55" Height="18.9" Text="MDF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Times New Roman, 8.25pt"/>
-        <DataFooterBand Name="DataFooter3" Top="719.65" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter3" Top="697.43" Width="748.44" Height="18.9"/>
       </DataBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="742.55" Width="748.44" Height="96.5" CanGrow="true">
+    <PageFooterBand Name="PageFooter1" Top="718.11" Width="748.44" Height="96.5" CanGrow="true">
       <TextObject Name="Text61" Left="4.45" Top="3.45" Width="738.55" Height="88.5" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
       <TextObject Name="Text57" Left="1" Top="1" Width="745.75" Height="92.6" Border.Lines="All" CanGrow="true" Text="&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="2, 4, 2, 2" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text56" Left="3" Top="3.45" Width="63.5" Height="14.45" Text="Observação" Font="Times New Roman, 8.25pt"/>
-      <ChildBand Name="Child1" Top="843.05" Width="748.44" Height="12.45">
+      <ChildBand Name="Child1" Top="816.38" Width="748.44" Height="12.45">
         <TextObject Name="Text58" Left="1" Top="3" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
         <TextObject Name="Text59" Left="437.05" Top="3" Width="309.2" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       </ChildBand>
