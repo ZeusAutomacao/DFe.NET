@@ -42,6 +42,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using System.Web.Services;
 using System.Web.Services.Protocols;
@@ -75,6 +76,13 @@ public partial class MDFeRecepcaoEvento : System.Web.Services.Protocols.SoapHttp
         };
         this.ClientCertificates.Add(configuracao.CertificadoDigital);
         this.Timeout = configuracao.TimeOut;
+        if (configuracao.Proxy != null && configuracao.Proxy != "")
+        {
+            this.Proxy = new WebProxy()
+            {
+                Address = new Uri(configuracao.Proxy)
+            };
+        }
     }
     
     public mdfeCabecMsg mdfeCabecMsgValue {

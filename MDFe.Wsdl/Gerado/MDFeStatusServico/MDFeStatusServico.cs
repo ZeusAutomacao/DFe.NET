@@ -39,6 +39,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using MDFe.Wsdl.Configuracao;
 
@@ -70,6 +72,13 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
             };
             this.ClientCertificates.Add(configuracao.CertificadoDigital);
             this.Timeout = configuracao.TimeOut;
+            if (configuracao.Proxy != null && configuracao.Proxy != "")
+            {
+                this.Proxy = new WebProxy()
+                {
+                    Address = new Uri(configuracao.Proxy)
+                };
+            }
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {

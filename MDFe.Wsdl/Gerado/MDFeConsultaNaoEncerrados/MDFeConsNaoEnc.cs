@@ -40,6 +40,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using MDFe.Wsdl.Configuracao;
+using System;
+using System.Net;
 
 namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 { // 
@@ -69,6 +71,13 @@ namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
             };
             this.ClientCertificates.Add(configuracao.CertificadoDigital);
             Timeout = configuracao.TimeOut;
+            if (configuracao.Proxy != null && configuracao.Proxy != "")
+            {
+                this.Proxy = new WebProxy()
+                {
+                    Address = new Uri(configuracao.Proxy)
+                };
+            }
         }
     
         public mdfeCabecMsg mdfeCabecMsgValue {

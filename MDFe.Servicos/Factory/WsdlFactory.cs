@@ -117,7 +117,8 @@ namespace MDFe.Servicos.Factory
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = MDFeConfiguracao.VersaoWebService.TimeOut
+                TimeOut = MDFeConfiguracao.VersaoWebService.TimeOut,
+                Proxy = MDFeConfiguracao.VersaoWebService.Proxy
             };
         }
     }

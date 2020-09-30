@@ -119,5 +119,6 @@ namespace MDFe.Utils.Configuracoes
         public Estado UfEmitente { get; set; }
         public TipoAmbiente TipoAmbiente { get; set; }
         public VersaoServico VersaoLayout { get; set; }
+        public string Proxy { get; set; }
     }
 }

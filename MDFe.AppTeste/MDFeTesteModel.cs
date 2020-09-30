@@ -1365,6 +1365,7 @@ namespace MDFe.AppTeste
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
             Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.Proxy = "";
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)

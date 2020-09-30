@@ -41,5 +41,6 @@ namespace MDFe.Wsdl.Configuracao
         public string Versao { get; set; }
         public X509Certificate2 CertificadoDigital { get; set; }
         public int TimeOut { get; set; }
+        public string Proxy { get; set; }
     }
 }
