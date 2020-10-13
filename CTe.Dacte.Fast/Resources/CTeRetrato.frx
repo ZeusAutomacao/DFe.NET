@@ -374,6 +374,16 @@ namespace FastReport
           Text196.Text = FormatCurrency(icms90.vICMS ,2);
           Text197.Text = FormatNumber(icms90.pRedBC ,2) + &quot;%&quot;;  
         }
+        else if (icms is ICMSOutraUF)
+        {
+          Text188.Text = &quot;90 - ICMS Outra UF&quot;;
+        
+          ICMSOutraUF icmsOutraUf = icms as ICMSOutraUF;
+          Text194.Text = FormatCurrency(icmsOutraUf.vBCOutraUF ,2);
+          Text195.Text = FormatNumber(icmsOutraUf.pICMSOutraUF ,2) + &quot;%&quot;;
+          Text196.Text = FormatCurrency(icmsOutraUf.vICMSOutraUF ,2);
+          Text197.Text = icmsOutraUf.pRedBCOutraUFSpecified ? FormatNumber(icmsOutraUf.pRedBCOutraUF ,2) + &quot;%&quot; : "";  
+        }
       }
       #endregion
           
