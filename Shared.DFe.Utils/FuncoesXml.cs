@@ -224,15 +224,27 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
+            //codigo performatico pois na maioria das vezes já vai estar no cache.
+            //https://github.com/ZeusAutomacao/DFe.NET/issues/1146
             if (CacheSerializers.Contains(chave))
             {
                 return (XmlSerializer)CacheSerializers[chave];
             }
 
-            var ser = XmlSerializer.FromTypes(new[] { type })[0];
-            CacheSerializers.Add(chave, ser);
+            //lock por conta de ambientes de alta concorrência (lock no type pois se for type diferente pode ser outro lock separado que não vai prejudicar)
+            //https://github.com/ZeusAutomacao/DFe.NET/issues/1146
+            lock (type)
+            {
+                if (CacheSerializers.Contains(chave))
+                {
+                    return (XmlSerializer)CacheSerializers[chave];
+                }
 
-            return ser;
+                var ser = XmlSerializer.FromTypes(new[] { type })[0];
+                CacheSerializers.Add(chave, ser);
+
+                return ser;
+            }
         }
     }
 }
