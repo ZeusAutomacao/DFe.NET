@@ -66,7 +66,7 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
 
         public string digVal { get; set; }
 
-        public byte cStat { get; set; }
+        public int cStat { get; set; }
 
         public string xMotivo { get; set; }
 
