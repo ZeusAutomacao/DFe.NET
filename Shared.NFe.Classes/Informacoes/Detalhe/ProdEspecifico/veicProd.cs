@@ -73,7 +73,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J09 - Peso Bruto
         /// </summary>
-        public decimal pesoB { get; set; }
+        public string pesoB { get; set; }
 
         /// <summary>
         ///     J10 - Serial (série)
