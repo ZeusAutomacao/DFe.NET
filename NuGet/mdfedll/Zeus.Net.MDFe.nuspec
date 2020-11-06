@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Zeus.Net.MDFe</id>
-        <version>1.0.0</version>
-        <title>Zeus MDFe (x86/x64)</title>
-        <authors>Zeus</authors>
-        <owners>Zeus</owners>
-        <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
+        <id>HabilTecnologia.Zeus.Net.MDFe</id>
+        <version>0.0.1.10491</version>
+        <title>Habil Tecnologia Zeus NF-e e NFC-e (x86/x64)</title>
+        <authors>HabilTecnologia</authors>
+        <owners>HabilTecnologia</owners>
+        <projectUrl>https://github.com/HabilTecnologia/DFe.NET</projectUrl>
         <iconUrl>https://avatars0.githubusercontent.com/u/32456879?s=200&amp;v=4</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Biblioteca para geração de MDF-e.</description>
-        <releaseNotes>Trocado namespace das classes</releaseNotes>
+        <description>Biblioteca para geração de MDF-e. Fork do projeto https://github.com/ZeusAutomacao/DFe.NET modificado para a Habil Tecnologia</description>
+        <releaseNotes/>
         <copyright>zeus</copyright>
         <language>pt-BR</language>
         <tags>df-e dfe mdfe mdf-e</tags>
@@ -22,5 +22,14 @@
         <file src="..\..\MDFe.Servicos\bin\Release\MDFe.Servicos.dll" target="lib\net40\MDFe.Servicos.dll" />
         <file src="..\..\MDFe.Utils\bin\Release\MDFe.Utils.dll" target="lib\net40\MDFe.Utils.dll" />
         <file src="..\..\MDFe.Wsdl\bin\Release\MDFe.Wsdl.dll" target="lib\net40\MDFe.Wsdl.dll" />
+
+       <!--PDB Files For Debug-->
+      <file src="..\..\DFe.Classes\bin\Release\DFe.Classes.pdb" target="lib\net40\DFe.Classes.pdb" />
+      <file src="..\..\DFe.Utils\bin\Release\DFe.Utils.pdb" target="lib\net40\DFe.Utils.pdb" />
+      <file src="..\..\MDFe.Classes\bin\Release\MDFe.Classes.pdb" target="lib\net40\MDFe.Classes.pdb" />
+      <file src="..\..\MDFe.Servicos\bin\Release\MDFe.Servicos.pdb" target="lib\net40\MDFe.Servicos.pdb" />
+      <file src="..\..\MDFe.Utils\bin\Release\MDFe.Utils.pdb" target="lib\net40\MDFe.Utils.pdb" />
+      <file src="..\..\MDFe.Wsdl\bin\Release\MDFe.Wsdl.pdb" target="lib\net40\MDFe.Wsdl.pdb" />
+
     </files>
 </package>
