@@ -270,7 +270,7 @@ namespace NFe.Servicos
                         return new RecepcaoEvento4SVAN(url, _certificado, _cFgServico.TimeOut);
                     }
 
-                    if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400 && versaoServico == "4.00")
+                    if (_cFgServico.VersaoRecepcaoEventoCceCancelamento == VersaoServico.ve400/* && versaoServico == "4.00"*/)
                     {
                         return new RecepcaoEvento4(url, _certificado, _cFgServico.TimeOut);
                     }
@@ -425,12 +425,12 @@ namespace NFe.Servicos
                     return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaCadastro:
-                    switch (_cFgServico.cUF)
-                    {
-                        case Estado.CE:
-                            return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
-                                _cFgServico.TimeOut);
-                    }
+                    //        switch (_cFgServico.cUF)
+                    //        {
+                    //            //case Estado.MT:
+                    //            //    return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
+                    //            //        _cFgServico.TimeOut);
+                    //}
 
 
                     if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
@@ -1151,7 +1151,7 @@ namespace NFe.Servicos
         public RetornoNfeConsultaCadastro NfeConsultaCadastro(string uf, ConsultaCadastroTipoDocumento tipoDocumento,
             string documento)
         {
-            if(_cFgServico.cUF == Estado.MG)
+            if (_cFgServico.cUF == Estado.MG)
             {
                 _cFgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
             }
@@ -1175,7 +1175,6 @@ namespace NFe.Servicos
             #endregion
 
             #region Cria o objeto ConsCad
-
             var pedConsulta = new ConsCad
             {
                 versao = versaoServico,
@@ -1337,7 +1336,7 @@ namespace NFe.Servicos
                             FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
                         chNFe = resEventoConteudo.chNFe;
                     }
-                    else if(conteudo.StartsWith("<nfeProc"))
+                    else if (conteudo.StartsWith("<nfeProc"))
                     {
                         chNFe = retConsulta.loteDistDFeInt[i].NSU.ToString();
                     }
