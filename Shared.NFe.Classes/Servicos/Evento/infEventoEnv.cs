@@ -106,7 +106,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     HP13 - Data e hora do evento
         /// </summary>
         [XmlIgnore]
-        public DateTime dhEvento { get; set; }
+        public DateTimeOffset dhEvento { get; set; }
 
         /// <summary>
         /// Proxy para dhEvento no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
@@ -115,7 +115,7 @@ namespace NFe.Classes.Servicos.Evento
         public string ProxydhEvento
         {
             get { return dhEvento.ParaDataHoraStringUtc(); }
-            set { dhEvento = DateTime.Parse(value); }
+            set { dhEvento = DateTimeOffset.Parse(value); }
         }
 
         /// <summary>
