@@ -447,7 +447,7 @@ namespace FastReport
         }
         
         if (!aux){
-           Text205.Text += Text205.Text + &quot;\n&quot;;
+           Text205.Text += &quot;\n&quot;;
         }
         
       }
