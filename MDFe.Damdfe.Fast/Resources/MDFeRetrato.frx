@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="10/21/2020 11:09:17" ReportInfo.CreatorVersion="2020.1.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="11/24/2020 14:53:07" ReportInfo.CreatorVersion="2020.1.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -234,7 +234,7 @@ namespace FastReport
       if(contigencia){
         Text127.HtmlTags = true;
         Picture10.Visible = true;
-        String date = Format(&quot;{0:dd/MM/yyyy hh:mm}&quot;, (DateTime)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi&quot;));
+        String date = Format(&quot;{0:dd/MM/yyyy HH:MM}&quot;, (DateTime)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi&quot;));
         Text127.Text = &quot;&lt;b&gt;EMISSÃO EM CONTINGÊNCIA&lt;/b&gt;. Obrigatória a autorização em 168 horas após esta emissão (&quot;+ date +&quot;)&quot;;
         Text127.Printable = true;
       }else{
