@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="11/24/2020 14:53:07" ReportInfo.CreatorVersion="2020.1.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="11/26/2020 15:20:01" ReportInfo.CreatorVersion="2020.1.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,6 +53,10 @@ namespace FastReport
     { 
       Estado estado = (Estado)System.Enum.Parse(typeof(Estado), codigoUF);
       return estado.ToString();
+    }
+    
+    private string ObtemTipo(int tipo){
+      return tipo == 1 ? &quot;NFe - &quot; : &quot;CTe - &quot;; 
     }
     
     private string FormatarCampo(long valor, char format)
@@ -151,7 +155,46 @@ namespace FastReport
         reboques.Next();
       }
       
-    }     
+    }
+    
+    private void TableInfoNfe_ManualBuild(object sender, EventArgs e){
+      DataSourceBase nfes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe&quot;);
+      nfes.Init();
+      
+      while(nfes.HasMoreRows){
+        TableInfoNfe.PrintRow(0);
+        TableInfoNfe.PrintColumns();
+        nfes.Next();
+      }
+    }
+    
+    private void TableInfoCte_ManualBuild(object sender, EventArgs e){
+      DataSourceBase ctes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe&quot;);
+      ctes.Init();
+      
+      while(ctes.HasMoreRows){
+        TableInfoCte.PrintRow(0);
+        TableInfoCte.PrintColumns();
+        ctes.Next();
+      }
+    }
+    
+    private void TableInfoVisible(){
+      qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
+      qtdeCTe = qtdeCTe ?? 0;
+      
+      qtdeNFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe&quot;));
+      qtdeNFe = qtdeNFe ?? 0;
+      
+      if(qtdeNFe &lt;= 0){
+        TableInfoNfe.Visible = false;
+        TableInfoCte.Left = 0;
+      }
+      
+      if(qtdeCTe &lt;= 0){
+        TableInfoCte.Visible = false;
+      }
+    }
 
     private void Table1_ManualBuild(object sender, EventArgs e)
     {
@@ -237,6 +280,17 @@ namespace FastReport
         String date = Format(&quot;{0:dd/MM/yyyy HH:MM}&quot;, (DateTime)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi&quot;));
         Text127.Text = &quot;&lt;b&gt;EMISSÃO EM CONTINGÊNCIA&lt;/b&gt;. Obrigatória a autorização em 168 horas após esta emissão (&quot;+ date +&quot;)&quot;;
         Text127.Printable = true;
+        
+        ChildInfoCarga.Visible = true;
+        ChildInfoCarga.Printable = true;
+        SubreportInfo.Visible = true;
+        GroupHeader1.Visible = false;
+        Text184.Visible = false;
+        Subreport1.Visible = false;
+        Subreport2.Visible = false;
+        
+        TableInfoVisible();
+        
       }else{
         Picture10.Visible = false;
       }
@@ -604,7 +658,7 @@ namespace FastReport
       <TextObject Name="Text140" Left="379.89" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFIni]" VertAlign="Bottom" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Text142" Left="472.5" Top="141.75" Width="29.35" Height="15.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.ProxyUFFim]" VertAlign="Bottom" Font="Times New Roman, 10pt, style=Bold"/>
       <BarcodeObject Name="QrCodMDFe" Left="623.7" Top="17.01" Width="128.52" Height="128.52" AutoSize="false" Text="[MDFeProcMDFe.MDFe.InfMDFeSupl.QrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
-      <PictureObject Name="poEmitLogo" Left="28.35" Top="9.45" Width="76.93" Height="77.82" Visible="false"/>
+      <PictureObject Name="poEmitLogo" Left="28.35" Top="9.45" Width="76.93" Height="77.82" Visible="false" Image=""/>
       <TextObject Name="Text119" Left="113.4" Top="9.45" Width="569" Height="28.35" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text127" Left="11.34" Top="306.18" Width="311.85" Height="34.02" Border.ShadowColor="Transparent" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss K&quot;)]" Font="Times New Roman, 9.75pt" ParagraphFormat.LineSpacing="3.78">
         <Highlight>
@@ -634,9 +688,9 @@ namespace FastReport
       <TextObject Name="Text155" Left="360.99" Top="382.5" Width="47.25" Height="11.9" Text="CPF" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text156" Left="469.1" Top="382.5" Width="47.25" Height="11.9" Text="Nome" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt"/>
       <TextObject Name="Text151" Left="360.99" Top="363.6" Width="66.15" Height="11.9" Text="Condutor" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <TableObject Name="TableCondutor" Left="360.99" Top="396.9" Width="387.45" Height="18.9" ManualBuildEvent="TableCondutor_ManualBuild">
+      <TableObject Name="TableCondutor" Left="360.99" Top="396.9" Width="623.7" Height="18.9" ManualBuildEvent="TableCondutor_ManualBuild">
         <TableColumn Name="Column1" Width="108.66"/>
-        <TableColumn Name="Column2" Width="278.79"/>
+        <TableColumn Name="Column2" Width="515.04"/>
         <TableRow Name="Row1">
           <TableCell Name="Cell1" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF], 'd')]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
           <TableCell Name="Cell2" Border.Lines="Top" Border.LeftLine.Color="Transparent" Border.LeftLine.Width="0" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="Transparent" Border.RightLine.Width="0" Border.BottomLine.Color="201, 201, 201" Border.BottomLine.Style="Dash" Border.BottomLine.Width="0" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome]" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
@@ -644,7 +698,7 @@ namespace FastReport
       </TableObject>
       <LineObject Name="Line7" Left="360.99" Top="396.52" Width="387.45" Border.Color="201, 201, 201" Diagonal="true"/>
       <LineObject Name="Line1" Left="-9450" Top="-9450" Diagonal="true"/>
-      <ChildBand Name="Child5" Top="447.35" Width="748.44" Height="80.51" CanGrow="true">
+      <ChildBand Name="Child5" Top="446.73" Width="748.44" Height="108.86" CanGrow="true">
         <LineObject Name="Line4" Left="7.56" Top="61.24" Width="321.3" Border.Color="201, 201, 201" Diagonal="true"/>
         <TextObject Name="Text177" Left="7.56" Top="47.25" Width="85.05" Height="11.9" Text="Responsável CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
         <TextObject Name="Text178" Left="115.29" Top="47.25" Width="83.16" Height="11.9" Text="Fornecedor CNPJ" Padding="0, 0, 2, 0" Font="Times New Roman, 6.75pt, style=Bold"/>
@@ -660,33 +714,36 @@ namespace FastReport
             <TableCell Name="Cell8" Border.Lines="Top" Border.LeftLine.Color="201, 201, 201" Border.TopLine.Color="201, 201, 201" Border.TopLine.Style="Dash" Border.RightLine.Color="201, 201, 201" Border.BottomLine.Color="201, 201, 201" Padding="0, 1, 2, 1" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
           </TableRow>
         </TableObject>
-        <ChildBand Name="Child6" Top="531.06" Width="748.44" Height="69.57" CanGrow="true">
-          <TextObject Name="Text164" Left="7.56" Top="28.35" Width="85.05" Height="11.9" Text="Observações" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
-          <TextObject Name="Text57" Left="7.56" Top="46.12" Width="739.3" Height="23.45" CanGrow="true" Text="Informações adicionais de interesse do Fisco: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfAdFisco]&#13;&#10;Informações complementares de interesse do Contribuinte: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="0, 0, 2, 0" Font="Times New Roman, 8pt"/>
-          <LineObject Name="Line6" Left="7.56" Top="43.5" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
+        <ChildBand Name="ChildInfoCarga" Printable="false" Top="558.17" Width="748.44" Height="47.25" Visible="false" CanGrow="true">
+          <SubreportObject Name="SubreportInfo" Left="9.45" Width="94.5" Height="18.9" ReportPage="Page4"/>
+          <ChildBand Name="Child1" Top="608" Width="748.44" Height="79.02">
+            <TextObject Name="Text164" Left="9.45" Top="28.35" Width="85.05" Height="11.9" Text="Observações" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt, style=Bold"/>
+            <TextObject Name="Text57" Left="9.45" Top="46.12" Width="739.3" Height="23.45" CanGrow="true" Text="Informações adicionais de interesse do Fisco: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfAdFisco]&#13;&#10;Informações complementares de interesse do Contribuinte: [MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="0, 0, 2, 0" Font="Times New Roman, 8pt"/>
+            <LineObject Name="Line6" Left="9.45" Top="43.5" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
+          </ChildBand>
         </ChildBand>
       </ChildBand>
     </DataBand>
-    <GroupHeaderBand Name="GroupHeader1" Top="603.83" Width="748.44" Height="43.47" RepeatOnEveryPage="true" Condition="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]">
+    <GroupHeaderBand Name="GroupHeader1" Top="689.6" Width="748.44" Height="43.47" RepeatOnEveryPage="true" Condition="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]">
       <LineObject Name="Line8" Left="7.56" Top="41.58" Width="737.1" Border.Color="201, 201, 201" Diagonal="true"/>
       <TextObject Name="Text181" Left="7.56" Top="28.35" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
-      <DataBand Name="Data5" Top="650.5" Width="748.44" Height="53.68" CanGrow="true" DataSource="BusinessObjectDataSource9">
+      <DataBand Name="Data5" Top="735.65" Width="748.44" Height="53.68" CanGrow="true" DataSource="BusinessObjectDataSource9">
         <SubreportObject Name="Subreport2" Left="17.01" Top="23.44" Width="302.4" Height="29.48" ReportPage="Page3"/>
         <TextObject Name="Text184" Left="7.56" Top="9.45" Width="359.1" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga]/[ObterSiglaDeUFDoCodigo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga].Substring(0,2))] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
         <SubreportObject Name="Subreport1" Left="7.56" Top="23.44" Width="359.1" Height="30.24" ReportPage="Page2"/>
       </DataBand>
     </GroupHeaderBand>
-    <PageFooterBand Name="PageFooter2" Top="707.38" Width="748.44" Height="56.7">
+    <PageFooterBand Name="PageFooter2" Top="791.91" Width="748.44" Height="56.7">
       <TextObject Name="Text117" Top="47.63" Width="302.4" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Times New Roman, 6pt"/>
       <TextObject Name="Text118" Left="444.15" Top="47.63" Width="302.4" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Times New Roman, 6pt"/>
       <TextObject Name="TextSituacaoDocumento" Left="6.17" Width="736.1" Height="44.6" Text="DOCUMENTO CANCELADO" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="Red"/>
     </PageFooterBand>
-    <OverlayBand Name="Overlay1" Top="767.28" Width="748.44" Height="1096.2">
+    <OverlayBand Name="Overlay1" Top="851.19" Width="748.44" Height="1096.2">
       <TextObject Name="Text61" Left="5.67" Top="812.7" Width="737.1" Height="274.05" BeforePrintEvent="Text61_BeforePrint" Text="MDF-e EMITIDO EM  AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 26pt, style=Bold" TextFill.Color="WhiteSmoke"/>
     </OverlayBand>
   </ReportPage>
   <ReportPage Name="Page2" PaperWidth="80" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
-    <DataBand Name="Data2" Top="15.32" Width="302.4" Height="11.72" DataSource="InfCTe" Columns.Count="1">
+    <DataBand Name="Data2" Top="15.81" Width="302.4" Height="11.72" DataSource="InfCTe" Columns.Count="1">
       <TextObject Name="Text44" Width="298.62" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
       <DataHeaderBand Name="DataHeader1" Width="302.4" Height="13.23">
         <TextObject Name="Text180" Width="236.25" Height="11.9" Text="Conhecimento de Transporte Eletrônico" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
@@ -694,10 +751,30 @@ namespace FastReport
     </DataBand>
   </ReportPage>
   <ReportPage Name="Page3" Visible="false" PaperWidth="80" LeftMargin="0" TopMargin="0" RightMargin="0" BottomMargin="0" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
-    <DataBand Name="Data3" Top="15.32" Width="302.4" Height="11.72" DataSource="InfNFe">
+    <DataBand Name="Data3" Top="15.81" Width="302.4" Height="11.72" DataSource="InfNFe">
       <TextObject Name="Text183" Width="298.62" Height="11.72" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe]" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt"/>
       <DataHeaderBand Name="DataHeader2" Width="302.4" Height="13.23">
         <TextObject Name="Text182" Width="236.25" Height="11.9" Text="Nota Fiscal Eletrônica" Padding="0, 0, 2, 0" Font="Times New Roman, 9.75pt"/>
+      </DataHeaderBand>
+    </DataBand>
+  </ReportPage>
+  <ReportPage Name="Page4" PaperHeight="600" TopMargin="0" Guides="718.2,236.25" Watermark.Font="Arial, 60pt">
+    <DataBand Name="Data4" Top="13.92" Width="718.2" Height="56.7" DataSource="BusinessObjectDataSource9">
+      <TableObject Name="TableInfoNfe" Top="18.9" Width="321.3" Height="18.9" Border.Lines="Top, Bottom" Border.Style="Dash">
+        <TableColumn Name="Column8" Width="321.3"/>
+        <TableRow Name="Row5">
+          <TableCell Name="CellInfoDoc" Text="[ObtemTipo(1)][MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe]" Font="Times New Roman, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text1" Width="311.85" Height="18.9" Text="Informações dos documentos fiscais vinculados ao manifesto" Padding="0, 0, 2, 2" VertAlign="Center" Font="Times New Roman, 6.75pt, style=Bold"/>
+      <TableObject Name="TableInfoCte" Left="340.2" Top="18.9" Width="321.3" Height="18.9" Border.Lines="Top, Bottom" Border.Style="Dash">
+        <TableColumn Name="Column9" Width="321.3"/>
+        <TableRow Name="Row6">
+          <TableCell Name="Cell9" Text="[ObtemTipo(2)][MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe]" Font="Times New Roman, 8pt"/>
+        </TableRow>
+      </TableObject>
+      <DataHeaderBand Name="DataHeader3" Width="718.2" Height="11.34">
+        <TextObject Name="Text188" Width="226.8" Height="9.45" Text="Informações da Composição da Carga" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
       </DataHeaderBand>
     </DataBand>
   </ReportPage>
