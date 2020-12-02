@@ -474,10 +474,10 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
-            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamento, idlote, sequenciaEvento,
-                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj);
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, dhEvento: dhEvento);
         }
 
         /// <summary>
@@ -485,15 +485,15 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamentoPorSubstituicao(int idlote, int sequenciaEvento,
-            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, Estado ufAutor, string versaoAplicativo, string chaveNfeSubstituta)
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, Estado ufAutor, string versaoAplicativo, string chaveNfeSubstituta, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamentoSubstituicao, idlote, sequenciaEvento,
-                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, ufAutor, TipoAutor.taEmpresaEmitente, versaoAplicativo, chaveNfeSubstituta);
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, ufAutor, TipoAutor.taEmpresaEmitente, versaoAplicativo, chaveNfeSubstituta, dhEvento: dhEvento);
         }
 
         private RetornoRecepcaoEvento RecepcaoEventoCancelamento(NFeTipoEvento tipoEventoCancelamento, int idlote,
             int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
-            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null)
+            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null, DateTimeOffset? dhEvento = null)
         {
             if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoCancelamento))
                 throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
@@ -520,7 +520,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = tipoEventoCancelamento,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -542,7 +542,7 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
-            string correcao, string cpfcnpj)
+            string correcao, string cpfcnpj, DateTimeOffset? dhEvento = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
@@ -567,7 +567,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = NFeTipoEvento.TeNfeCartaCorrecao,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -586,15 +586,15 @@ namespace NFe.Servicos
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
                     string chaveNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
-                    string justificativa = null)
+                    string justificativa = null, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoManifestacaoDestinatario(idlote, sequenciaEvento, new[] { chaveNFe },
-                nFeTipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
+                nFeTipoEventoManifestacaoDestinatario, cpfcnpj, justificativa, dhEvento: dhEvento);
         }
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
             string[] chavesNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
-            string justificativa = null)
+            string justificativa = null, DateTimeOffset? dhEvento = null)
         {
             if (!NFeTipoEventoUtils.NFeTipoEventoManifestacaoDestinatario.Contains(nFeTipoEventoManifestacaoDestinatario))
                 throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
@@ -620,7 +620,7 @@ namespace NFe.Servicos
                     //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                     tpAmb = _cFgServico.tpAmb,
                     chNFe = chaveNFe,
-                    dhEvento = DateTime.Now,
+                    dhEvento = dhEvento ?? DateTime.Now,
                     tpEvento = nFeTipoEventoManifestacaoDestinatario,
                     nSeqEvento = sequenciaEvento,
                     verEvento = versaoServico,
@@ -649,7 +649,7 @@ namespace NFe.Servicos
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe,
-            string veraplic)
+            string veraplic, DateTimeOffset? dhEvento = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoEpec);
@@ -686,7 +686,7 @@ namespace NFe.Servicos
                 CNPJ = nfe.infNFe.emit.CNPJ,
                 CPF = nfe.infNFe.emit.CPF,
                 chNFe = nfe.infNFe.Id.Substring(3),
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = NFeTipoEvento.TeNfceEpec,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
