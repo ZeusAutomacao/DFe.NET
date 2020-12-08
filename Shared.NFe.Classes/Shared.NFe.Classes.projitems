@@ -170,6 +170,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\evento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\infEventoEnv.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\infEventoRet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\itensAverbados.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\retEnvEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Evento\retEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Inutilizacao\infInutEnv.cs" />
