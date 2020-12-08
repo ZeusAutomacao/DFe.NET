@@ -176,7 +176,7 @@
                                 </StackPanel>
                             </GroupBox>
 
-                            <CheckBox Content="Imprimir telefone do emitente"
+                            <CheckBox Content="Imprimir telefone do emitente no DANFE NFCe"
                                           HorizontalAlignment="Left" VerticalAlignment="Top"
                                           Margin="0,10,0,0"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeFoneEmitente}" />
