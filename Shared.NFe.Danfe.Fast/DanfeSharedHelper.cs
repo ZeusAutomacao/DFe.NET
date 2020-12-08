@@ -42,7 +42,7 @@ namespace Shared.DFe.Danfe.Fast
                 foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
             else if (foneEmitente.Length == 11)
                 foneEmitente = string.Format("{0:(00)00000-0000}", Convert.ToInt64(foneEmitente));
-            relatorio.SetParameterValue("FoneEmitente", foneEmitente);
+            relatorio.SetParameterValue("NfceFoneEmitente", foneEmitente);
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);
