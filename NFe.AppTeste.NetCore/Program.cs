@@ -382,7 +382,7 @@ namespace NFe.AppTeste.NetCore
                     var retornoManifestacao = servicoNFe.RecepcaoEventoManifestacaoDestinatario(idlote: 1,
                                                                                             sequenciaEvento: 1,
                                                                                             chavesNFe: new string[] { chave },
-                                                                                            nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaEmissao,
+                                                                                            nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaOperacao,
                                                                                             cpfcnpj: _configuracoes.Emitente.CNPJ,
                                                                                             justificativa: null);
 
@@ -416,7 +416,7 @@ namespace NFe.AppTeste.NetCore
                             var retornoManifestacao = servicoNFe.RecepcaoEventoManifestacaoDestinatario(idlote: 1,
                                                                                                     sequenciaEvento: 1,
                                                                                                     chavesNFe: new string[] { chave },
-                                                                                                    nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaEmissao,
+                                                                                                    nFeTipoEventoManifestacaoDestinatario: NFeTipoEvento.TeMdCienciaDaOperacao,
                                                                                                     cpfcnpj: _configuracoes.Emitente.CNPJ,
                                                                                                     justificativa: null);
 

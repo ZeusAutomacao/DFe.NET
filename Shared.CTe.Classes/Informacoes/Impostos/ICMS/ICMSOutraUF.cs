@@ -44,17 +44,19 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
             CST = CST.ICMS90;
         }
 
-        private decimal _pRedBcOutraUf;
+        private decimal? _pRedBcOutraUf;
         private decimal _vBcOutraUf;
         private decimal _pIcmsOutraUf;
         private decimal _vIcmsOutraUf;
         public CST CST { get; set; }
 
-        public decimal pRedBCOutraUF
+        public decimal? pRedBCOutraUF
         {
             get { return _pRedBcOutraUf.Arredondar(2); }
             set { _pRedBcOutraUf = value.Arredondar(2); }
         }
+
+        public bool pRedBCOutraUFSpecified { get { return pRedBCOutraUF.HasValue; } }
 
         public decimal vBCOutraUF
         {

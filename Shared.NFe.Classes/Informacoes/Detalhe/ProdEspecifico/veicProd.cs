@@ -34,13 +34,10 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
     public class veicProd : ProdutoEspecifico
     {
-        private decimal _pesoL;
-        private decimal _pesoB;
-        private decimal _cmt;
-
         /// <summary>
         ///     J02 - Tipo da operação
         /// </summary>
+        
         public TipoOperacao tpOp { get; set; }
 
         /// <summary>
@@ -71,20 +68,12 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J08 - Peso Líquido
         /// </summary>
-        public decimal pesoL
-        {
-            get { return _pesoL; }
-            set { _pesoL = value.Arredondar(3); }
-        }
+        public string pesoL { get; set; }
 
         /// <summary>
         ///     J09 - Peso Bruto
         /// </summary>
-        public decimal pesoB
-        {
-            get { return _pesoB; }
-            set { _pesoB = value.Arredondar(3); }
-        }
+        public string pesoB { get; set; }
 
         /// <summary>
         ///     J10 - Serial (série)
@@ -104,11 +93,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J13 - Capacidade Máxima de Tração
         /// </summary>
-        public decimal CMT
-        {
-            get { return _cmt; }
-            set { _cmt = value.Arredondar(4); }
-        }
+        public string CMT { get; set; }
 
         /// <summary>
         ///     J14 - Distância entre eixos

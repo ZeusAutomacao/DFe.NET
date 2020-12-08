@@ -36,6 +36,7 @@ using FastReport;
 using FastReport.Export.Pdf;
 using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
+using System;
 
 namespace CTe.Dacte.Fast
 {
@@ -123,6 +124,46 @@ namespace CTe.Dacte.Fast
         {
             Relatorio.Prepare();
             Relatorio.Export(new PDFExport(), arquivo);
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para PDF e copia para o stream
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
+        public void ExportarPdf(Stream outputStream)
+        {
+            Relatorio.Prepare();
+            Relatorio.Export(new PDFExport(), outputStream);
+            outputStream.Position = 0;
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
+        /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>
+        public void ExportarPdf(string arquivo, FastReport.Export.ExportBase exportBase)
+        {
+            if (exportBase == null)
+                throw new NullReferenceException("exportBase deve ter um objeto instanciado, tente 'new PDFExport()'");
+
+            Relatorio.Prepare();
+            Relatorio.Export(exportBase, arquivo);
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para PDF e copia para o stream
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
+        /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>
+        public void ExportarPdf(Stream outputStream, FastReport.Export.ExportBase exportBase)
+        {
+            if (exportBase == null)
+                throw new NullReferenceException("exportBase deve ter um objeto instanciado, tente 'new PDFExport()'");
+
+            Relatorio.Prepare();
+            Relatorio.Export(exportBase, outputStream);
+            outputStream.Position = 0;
         }
     }
 }

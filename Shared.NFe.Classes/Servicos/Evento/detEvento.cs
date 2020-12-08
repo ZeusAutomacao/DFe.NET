@@ -31,10 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
 {
@@ -156,5 +158,16 @@ namespace NFe.Classes.Servicos.Evento
         public string chNFeRef { get; set; }
 
         #endregion
+
+        #region Averbação para Exportação
+        [XmlElement("itensAverbados")]
+        public List<itensAverbados> ItensAverbados { get; set; }
+
+        public bool ShouldSerializeItensAverbados()
+        {
+            return ItensAverbados != null;
+        }
+        #endregion
+
     }
 }
