@@ -35,6 +35,14 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
+            relatorio.SetParameterValue("NfceImprimeFoneEmitente", configuracaoDanfeNfce.ImprimeFoneEmitente);
+
+            var foneEmitente = proc.NFe.infNFe.emit.enderEmit.fone?.ToString();
+            if (foneEmitente.Length == 10)
+                foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
+            else if (foneEmitente.Length == 11)
+                foneEmitente = string.Format("{0:(00)00000-0000}", Convert.ToInt64(foneEmitente));
+            relatorio.SetParameterValue("FoneEmitente", foneEmitente);
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);

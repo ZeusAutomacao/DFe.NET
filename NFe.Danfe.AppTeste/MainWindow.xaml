@@ -175,6 +175,11 @@
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
+
+                            <CheckBox Content="Imprimir telefone do emitente"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          Margin="0,10,0,0"
+                                          IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeFoneEmitente}" />
                         </StackPanel>
 
                     </StackPanel>
