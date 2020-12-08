@@ -374,6 +374,33 @@ namespace FastReport
     {
       dbNumeroSerieDh.Visible = ((NfceLayoutQrCode) Report.GetParameterValue(&quot;NfceLayoutQrCode&quot;) == NfceLayoutQrCode.Abaixo);      
     }
+
+    private void Child1_BeforePrint(object sender, EventArgs e)
+    {
+      Child1.Visible = ((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.emit.enderEmit.fone&quot;)) != null;
+    }
+
+    private void Text21_BeforePrint(object sender, EventArgs e)
+    {
+      var telefone = ((Nullable&lt;Int64&gt;)Report.GetColumnValue(&quot;NFCe.NFe.infNFe.emit.enderEmit.fone&quot;)).ToString();
+      if(string.IsNullOrEmpty(telefone)) return;
+      
+      var tamanhoTelefone = Length(telefone);
+      if(tamanhoTelefone == 0) return;
+      
+      var numeroFormatado = string.Empty;
+      switch (tamanhoTelefone)
+      {
+        case 10:
+          numeroFormatado = string.Format(&quot;{0:(00) 0000-0000}&quot;, long.Parse(telefone));
+          break;
+        case 11:
+          numeroFormatado = string.Format(&quot;{0:(00) 0 0000-0000}&quot;, long.Parse(telefone));
+          break;
+      }
+			
+      Text21.Text += numeroFormatado; 
+    }
   }
 }</ScriptText>
   <Dictionary>
@@ -881,15 +908,24 @@ namespace FastReport
     <ReportTitleBand Name="rtbTitulo" Width="264.6" Height="85.8" BeforePrintEvent="rtbTitulo_BeforePrint" AfterPrintEvent="rtbTitulo_AfterPrint">
       <PictureObject Name="poEmitLogo" Top="3.78" Width="264.6" Height="79.38"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="phbEmitente" Top="89" Width="264.6" Height="122.83" CanGrow="true" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
-      <TextObject Name="Memo9" Top="77.21" Width="264.6" Height="28.35" ShiftMode="WhenOverlapped" Text="DANFE NFC-e - Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9pt, style=Bold"/>
-      <TextObject Name="Memo37" Top="104.43" Width="264.6" Height="15.12" ShiftMode="WhenOverlapped" Text="Não permite aproveitamento de crédito do ICMS" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+    <PageHeaderBand Name="phbEmitente" Top="87.12" Width="264.6" Height="76.08" CanGrow="true" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
       <TextObject Name="Memo2" Top="20.38" Width="264.6" Height="13.23" CanGrow="true" ShiftMode="WhenOverlapped" Text="[NFCe.NFe.infNFe.emit.xNome]" Padding="2, 1, 2, 1" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text12" Top="4.26" Width="264.6" Height="13.23" CanGrow="true" ShiftMode="WhenOverlapped" Text="[NFCe.NFe.infNFe.emit.xFant]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtEmitCnpj" Top="34.5" Width="108.27" Height="13.23" ShiftMode="WhenOverlapped" BeforePrintEvent="txtEmitCnpj_BeforePrint" Text="CNPJ: [NFCe.NFe.infNFe.emit.CNPJ]" Padding="2, 1, 2, 1" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text14" Left="189" Top="34.39" Width="75.6" Height="13.23" ShiftMode="WhenOverlapped" Text="IE: [NFCe.NFe.infNFe.emit.IE]" Padding="2, 1, 2, 1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-      <TextObject Name="Text15" Top="49.62" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" ShiftMode="WhenOverlapped" Text="End.: [NFCe.NFe.infNFe.emit.enderEmit.xLgr], [NFCe.NFe.infNFe.emit.enderEmit.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.emit.enderEmit.xBairro] - [NFCe.NFe.infNFe.emit.enderEmit.xMun]/[NFCe.NFe.infNFe.emit.enderEmit.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFCe.NFe.infNFe.emit.enderEmit.CEP] ) )]" Padding="2, 1, 2, 1" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+      <TextObject Name="Text15" Top="49.62" Width="264.6" Height="26.46" CanGrow="true" CanShrink="true" ShiftMode="WhenOverlapped" Text="End.: [NFCe.NFe.infNFe.emit.enderEmit.xLgr], [NFCe.NFe.infNFe.emit.enderEmit.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.emit.enderEmit.xBairro] - [NFCe.NFe.infNFe.emit.enderEmit.xMun]/[NFCe.NFe.infNFe.emit.enderEmit.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFCe.NFe.infNFe.emit.enderEmit.CEP] ) )]" Padding="2, 1, 2, 1" WordWrap="false" Font="Ubuntu Condensed, 8pt">
+        <Highlight>
+          <Condition Expression="[NFCe.NFe.infNFe.emit.enderEmit.fone] == null" Border.Lines="Bottom" ApplyBorder="true" ApplyTextFill="false"/>
+        </Highlight>
+      </TextObject>
       <TextObject Name="txtEmitIm" Left="111.4" Top="34.39" Width="73.71" Height="13.23" ShiftMode="WhenOverlapped" Text="[IIf([NFCe.NFe.infNFe.emit.IM] != &quot;&quot;, &quot;IM: &quot; + [NFCe.NFe.infNFe.emit.IM], &quot;&quot;)]" Padding="2, 1, 2, 1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+      <ChildBand Name="Child1" Top="164.51" Width="264.6" Height="18.9" BeforePrintEvent="Child1_BeforePrint">
+        <TextObject Name="Text21" Width="264.6" Height="18.9" Border.Lines="Bottom" BeforePrintEvent="Text21_BeforePrint" Text="Fone: " Padding="2, 1, 2, 1" Format="Custom" Format.Format="(00) 00000-00" Font="Ubuntu Condensed, 8pt"/>
+        <ChildBand Name="Child3" Top="184.73" Width="264.6" Height="43.47">
+          <TextObject Name="Memo37" Top="28.35" Width="264.6" Height="15.12" ShiftMode="WhenOverlapped" Text="Não permite aproveitamento de crédito do ICMS" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+          <TextObject Name="Memo9" Width="264.6" Height="28.35" ShiftMode="WhenOverlapped" Text="DANFE NFC-e - Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9pt, style=Bold"/>
+        </ChildBand>
+      </ChildBand>
     </PageHeaderBand>
     <ColumnHeaderBand Name="phbCancelado" Top="215.03" Width="264.6" Height="16.9">
       <TextObject Name="lblCancelado" Top="1" Width="264.6" Height="15.12" Fill.Color="Gray" ShiftMode="WhenOverlapped" Text="DOCUMENTO CANCELADO" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 9.749999pt, style=Bold" TextFill.Color="White"/>
