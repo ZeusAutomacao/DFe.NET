@@ -38,9 +38,9 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("NfceImprimeFoneEmitente", configuracaoDanfeNfce.ImprimeFoneEmitente);
 
             var foneEmitente = proc.NFe.infNFe.emit.enderEmit.fone?.ToString();
-            if (foneEmitente.Length == 10)
+            if (foneEmitente?.Length == 10)
                 foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
-            else if (foneEmitente.Length == 11)
+            else if (foneEmitente?.Length == 11)
                 foneEmitente = string.Format("{0:(00)00000-0000}", Convert.ToInt64(foneEmitente));
             relatorio.SetParameterValue("NfceFoneEmitente", foneEmitente);
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
