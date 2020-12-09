@@ -1008,11 +1008,7 @@ namespace FastReport
         <TextObject Name="Text47" Top="13.23" Width="196.56" Height="13.23" Text="TROCO R$:" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       </DataFooterBand>
     </DataBand>
-    <DataBand Name="dbTributos" Top="520.75" Width="264.6" Height="28.35" Border.Lines="Top" Border.Width="0.5" AfterPrintEvent="dbTributos_AfterPrint">
-      <TextObject Name="Memo23" Left="192.87" Width="71.81" Height="28.35" Text="[NFCe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="2, 2, 2, 2" Format="Number" Format.UseLocale="true" HorzAlign="Right" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-      <TextObject Name="Memo17" Width="190.87" Height="28.35" Text="Informação dos Tributos Totais Incidentes (Lei Federal 12.741 /2012)" Padding="2, 2, 2, 2" Font="Ubuntu Condensed, 8pt"/>
-    </DataBand>
-    <DataBand Name="dbObservacao" Top="552.3" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbObservacao_AfterPrint">
+    <DataBand Name="dbObservacao" Top="492.49" Width="264.6" Height="18.9" Border.Lines="Top" Border.Width="0.5" CanGrow="true" CanShrink="true" AfterPrintEvent="dbObservacao_AfterPrint">
       <TextObject Name="txtObs" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true" BeforePrintEvent="txtObs_BeforePrint" Text="[NFCe.NFe.infNFe.infAdic.infCpl]" Padding="2, 2, 2, 2" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
     <DataBand Name="dbInfoFiscal" Top="574.4" Width="264.6" Height="15.12" CanGrow="true" CanShrink="true" AfterPrintEvent="dbInfoFiscal_AfterPrint">
@@ -1048,10 +1044,13 @@ namespace FastReport
       <TextObject Name="txtDestEndereco2" Left="94.5" Top="30.35" Width="170.1" Height="45.36" CanGrow="true" CanShrink="true" Text="End.: [NFCe.NFe.infNFe.dest.enderDest.xLgr], [NFCe.NFe.infNFe.dest.enderDest.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.dest.enderDest.xBairro] - [NFCe.NFe.infNFe.dest.enderDest.xMun]/[NFCe.NFe.infNFe.dest.enderDest.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( PadLeft([NFCe.NFe.infNFe.dest.enderDest.CEP], 8,'0') ) )]" Padding="1, 1, 2, 1" Font="Ubuntu Condensed, 7pt"/>
       <TextObject Name="txtDhEmissao2" Left="94.5" Top="78.05" Width="170.1" Height="26.46" CanGrow="true" CanShrink="true" Text="Número: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.nNF] ), 9, '0')] Série: [PadLeft(ToString( [NFCe.NFe.infNFe.ide.serie] ), 3, '0')]&#13;&#10;Emissão: [Substring(ToString( [NFCe.NFe.infNFe.ide.dhEmi]), 0, 19)]" Padding="1, 1, 2, 1" Font="Ubuntu Condensed, 8pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="dbProtocolo" Top="1078" Width="264.6" Height="28.35" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
-      <TextObject Name="txtProtocoloAutorizacao" Width="264.6" Height="27.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+    <DataBand Name="dbTributos" Top="1003.11" Width="264.6" Height="18.9" Border.Lines="Top, Bottom" Border.Width="0.5" CanGrow="true" AfterPrintEvent="dbTributos_AfterPrint">
+      <TextObject Name="Memo17" Width="266.47" Height="18.9" CanGrow="true" Text="Tributos Totais Incidentes (Lei Federal 12.741 /2012): R$ [NFCe.NFe.infNFe.total.ICMSTot.vTotTrib]" Padding="2, 1, 2, 1" HorzAlign="Center" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
-    <DataBand Name="dbTextoRodape" Top="1109.55" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
+    <DataBand Name="dbProtocolo" Top="1023.33" Width="264.6" Height="30.24" BeforePrintEvent="dbProtocolo_BeforePrint" AfterPrintEvent="dbProtocolo_AfterPrint">
+      <TextObject Name="txtProtocoloAutorizacao" Top="1.89" Width="264.6" Height="27.14" Text="Protocolo de Autorização&#13;&#10;[NFCe.protNFe.infProt.nProt] [NFCe.protNFe.infProt.dhRecbto]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt"/>
+    </DataBand>
+    <DataBand Name="dbTextoRodape" Top="1054.88" Width="264.6" Height="18.9" CanGrow="true" CanShrink="true">
       <TextObject Name="Text19" Width="264.6" Height="18.9" Border.Lines="Top" CanGrow="true" CanShrink="true" Text="[TextoRodape]" Font="Ubuntu Condensed, 8pt"/>
     </DataBand>
   </ReportPage>
