@@ -104,11 +104,12 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         ///     J13 - Capacidade Máxima de Tração
         /// </summary>
-        public decimal CMT
-        {
-            get { return _cmt; }
-            set { _cmt = value.Arredondar(4); }
-        }
+        public string CMT { get; set; }
+        //public decimal CMT
+        //{
+        //    get { return _cmt; }
+        //    set { _cmt = value.Arredondar(4); }
+        //}
 
         /// <summary>
         ///     J14 - Distância entre eixos
