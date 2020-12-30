@@ -39,6 +39,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NFe.Classes, Version=1.0.0.756, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\NFe.Classes\bin\Debug\NFe.Classes.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
@@ -56,10 +60,6 @@
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
       <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
       <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29CA1DA2-440D-484B-951A-CF1B2EB27984}</Project>
-      <Name>NFe.Classes</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Shared.NFe.Utils\Shared.NFe.Utils.projitems" Label="Shared" />

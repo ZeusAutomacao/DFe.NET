@@ -141,7 +141,7 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Todos")]
         Todos = 0,
 
-        [Description("Carta de Correção")]
+        [Description("Carta de Correcao")]
         [XmlEnum("110110")]
         TeNfeCartaCorrecao = 110110,
 
