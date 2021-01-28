@@ -16,7 +16,7 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeConsultaNFAsync(nfeDadosMsg).Result;
+            var result = base.nfeConsultaNFAsync(nfeDadosMsg).GetAwaiter().GetResult();
             return result.nfeResultMsg;
         }
     }

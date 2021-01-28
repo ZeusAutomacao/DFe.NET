@@ -22,7 +22,7 @@
 /*                                                                              */
 /*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
 /* com esta biblioteca; se não, escreva para a Free Software Foundation, Inc.,  */
-/* no endereço 59 Temple Street, Suite 330, Boston, MA 02111-1307 USA.          */
+/* no endereço 59 Temple Street, Suite 330, Boston  q, MA 02111-1307 USA.          */
 /* Você também pode obter uma copia da licença em:                              */
 /* http://www.opensource.org/licenses/lgpl-license.php                          */
 /*                                                                              */
@@ -40,7 +40,8 @@ namespace NFe.Classes.Servicos.ConsultaCadastro
     public enum SituacaoContribuinte
     {
         [XmlEnum("0")] NaoHabilitado = 0,
-        [XmlEnum("1")] Habilitado = 1
+        [XmlEnum("1")] Habilitado = 1,
+        [XmlEnum("9")] DesconhecidoBaixado = 9
     }
 
     /// <summary>
