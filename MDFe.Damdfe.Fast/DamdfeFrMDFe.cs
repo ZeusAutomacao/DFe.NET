@@ -36,6 +36,7 @@ using System.IO;
 using System;
 using FastReport;
 using FastReport.Export.Html;
+using FastReport.Export.PdfSimple;
 using MDFe.Classes.Retorno;
 using MDFe.Damdfe.Base;
 
@@ -165,7 +166,31 @@ namespace MDFe.Damdfe.Fast
                 return stream;
             }
         }
+#if NETSTANDARD2_0
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        public Stream ExportarPdf()
+        {
+            Relatorio.DoublePass = true;
+            Relatorio.SmoothGraphics = false;
+            FastReport.Utils.Config.WebMode = true;
+            Relatorio.Prepare();
 
+            var pdfExport = new PDFSimpleExport();
+
+            var stream = new MemoryStream();
+            Relatorio.Report.Export(pdfExport, stream);
+            //pdfExport.Export(Relatorio, stream);
+            Relatorio.Dispose();
+            pdfExport.Dispose();
+
+            stream.Position = 0;
+
+            return stream;
+
+        }
+#endif
         /// <summary>
         /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>

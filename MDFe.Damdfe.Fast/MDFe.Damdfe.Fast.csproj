@@ -32,7 +32,7 @@
   <!-- .NET 4.5 / .NET Standard referências -->
   <ItemGroup Condition=" '$(TargetFramework)' != 'net45'">
     <PackageReference Include="Microsoft.Build.Framework" Version="15.7.179" />
-    <PackageReference Include="FastReport.OpenSource" Version="2019.4.0" />
+    <PackageReference Include="FastReport.OpenSource" Version="2021.1.7" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
@@ -67,6 +67,9 @@
     <None Include="DamdfeFrMDFe.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2021.1.7" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
   </ItemGroup>
@@ -84,6 +87,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="Microsoft.CodeAnalysis.Common">
+      <Version>3.2.0</Version>
+    </PackageReference>
   </ItemGroup>
 
 </Project>
