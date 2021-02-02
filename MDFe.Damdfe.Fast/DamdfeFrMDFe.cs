@@ -170,7 +170,7 @@ namespace MDFe.Damdfe.Fast
         /// <summary>
         /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
         /// </summary>
-        public Stream ExportarPdf()
+        public MemoryStream ExportarPdf()
         {
             Relatorio.DoublePass = true;
             Relatorio.SmoothGraphics = false;
