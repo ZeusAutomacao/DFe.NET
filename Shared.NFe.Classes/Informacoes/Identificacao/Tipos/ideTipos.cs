@@ -426,6 +426,28 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     }
 
     /// <summary>
+    ///     Indicador de intermediador/marketplace
+    ///     <para>0 - Operação sem intermediador (em site ou plataforma própria)</para>
+    ///     <para>1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)</para>
+    /// </summary>
+    public enum IndicadorIntermediador
+    {
+        /// <summary>
+        /// 0 - Operação sem intermediador (em site ou plataforma própria)
+        /// </summary>
+        [Description("Operação sem intermediador (em site ou plataforma própria)")]
+        [XmlEnum("0")]
+        iiSemIntermediador = 0,
+
+        /// <summary>
+        ///  1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)
+        /// </summary>
+        [Description("Operação em site ou plataforma de terceiros (intermediadores / marketplace)")]
+        [XmlEnum("0")]
+        iiSitePlataformaTerceiros = 1
+    }
+
+    /// <summary>
     ///     Indicador do tipo de Operação do CSC
     ///     <para>1 - Consulta CSC Ativos;</para>
     ///     <para>2 - Solicita novo CSC;</para>
