@@ -13,7 +13,7 @@ namespace NFe.Wsdl
 
             base(
                  new CustomBinding(new TextMessageEncodingBindingElement(MessageVersion.CreateVersion(EnvelopeVersion.Soap12, AddressingVersion.None), Encoding.UTF8),
-                     new HttpsTransportBindingElement { RequireClientCertificate = true }),
+                     new HttpsTransportBindingElement { RequireClientCertificate = true, MaxReceivedMessageSize = 1000000 }),
                  new EndpointAddress(endpointAddressUri)
                  )
         {

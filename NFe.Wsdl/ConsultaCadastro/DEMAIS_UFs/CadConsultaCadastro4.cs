@@ -17,7 +17,7 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.consultaCadastroAsync(nfeDadosMsg).Result;
+            var result = base.consultaCadastroAsync(nfeDadosMsg).GetAwaiter().GetResult();
             return result.nfeResultMsg;
         }
     }
