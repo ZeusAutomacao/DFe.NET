@@ -66,13 +66,18 @@ using NFe.Utils.Validacao;
 using NFe.Wsdl;
 using NFe.Wsdl.AdmCsc;
 using NFe.Wsdl.Autorizacao;
+using NFe.Wsdl.Autorizacao.SVAN;
 using NFe.Wsdl.ConsultaProtocolo;
+using NFe.Wsdl.ConsultaProtocolo.SVAN;
 using NFe.Wsdl.DistribuicaoDFe;
 using NFe.Wsdl.Download;
 using NFe.Wsdl.Evento;
+using NFe.Wsdl.Evento.SVAN;
 using NFe.Wsdl.Inutilizacao;
+using NFe.Wsdl.Inutilizacao.SVAN;
 using NFe.Wsdl.Recepcao;
 using NFe.Wsdl.Status;
+using NFe.Wsdl.Status.SVAN;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -82,13 +87,8 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
-using NFe.Wsdl.Autorizacao.SVAN;
-using NFe.Wsdl.ConsultaProtocolo.SVAN;
-using NFe.Wsdl.Evento.SVAN;
-using NFe.Wsdl.Inutilizacao.SVAN;
-using NFe.Wsdl.Status.SVAN;
-using FuncoesXml = DFe.Utils.FuncoesXml;
 using System.Xml.Serialization;
+using FuncoesXml = DFe.Utils.FuncoesXml;
 
 namespace NFe.Servicos
 {
@@ -1374,11 +1374,13 @@ namespace NFe.Servicos
                 versaoDados = versaoServico
             };
 
+            pedDistDFeInt.versao = versaoServico;
+
             #endregion
 
             #region Valida, Envia os dados e obtém a resposta
 
-            var xmlConsulta = pedDistDFeInt.ObterXmlString().Replace("<distDFeInt", "<distDFeInt versao=\"1.01\"");
+            var xmlConsulta = pedDistDFeInt.ObterXmlString();
             Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
