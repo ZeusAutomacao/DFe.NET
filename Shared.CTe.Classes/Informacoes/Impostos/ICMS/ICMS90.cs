@@ -53,8 +53,8 @@ namespace CTe.Classes.Informacoes.Impostos.ICMS
 
         public decimal? pRedBC
         {
-            get { return _pRedBc?.Arredondar(2); }
-            set { _pRedBc = value?.Arredondar(2); }
+            get { return _pRedBc.Arredondar(2); }
+            set { _pRedBc = value.Arredondar(2); }
         }
         public bool pRedBCSpecified { get { return pRedBC.HasValue; } }
 
