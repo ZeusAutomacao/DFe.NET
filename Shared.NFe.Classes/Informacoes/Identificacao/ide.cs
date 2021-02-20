@@ -207,6 +207,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// </summary>
         public IndicadorIntermediador? indIntermed { get; set; }
 
+        public bool indIntermedSpecified
+        {
+            get { return indIntermed.HasValue; }
+        }
+
         /// <summary>
         ///     B26 - Processo de emissão utilizado com a seguinte codificação:
         /// </summary>
