@@ -888,6 +888,8 @@ namespace FastReport
     <Parameter Name="NfceCancelado" DataType="System.Boolean"/>
     <Parameter Name="NfceLayoutQrCode" DataType="NFe.Danfe.Base.NfceLayoutQrCode, NFe.Danfe.Base, Version=1.0.0.763, Culture=neutral, PublicKeyToken=null" Description="Layuout do QRCode (Normal ou Lateral)"/>
     <Parameter Name="TextoRodape" DataType="System.String"/>
+    <Parameter Name="NfceImprimeFoneEmitente" DataType="System.Boolean"/>
+    <Parameter Name="NfceFoneEmitente" DataType="System.String"/>
     <Total Name="QtdeItens" TotalType="Count" Expression="[NFCe.NFe.infNFe.det.prod.qCom]" Evaluator="dbProdutosDuasLinhas"/>
     <Total Name="TotalPagamentos" Expression="[NFCe.NFe.infNFe.pag.vPag]" Evaluator="dbPagamento"/>
     <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
@@ -903,7 +905,7 @@ namespace FastReport
       <TextObject Name="Text12" Top="4.26" Width="264.6" Height="13.23" CanGrow="true" ShiftMode="WhenOverlapped" Text="[NFCe.NFe.infNFe.emit.xFant]" Padding="2, 1, 2, 1" HorzAlign="Center" VertAlign="Center" Font="Ubuntu Condensed, 8pt, style=Bold"/>
       <TextObject Name="txtEmitCnpj" Top="34.5" Width="108.27" Height="13.23" ShiftMode="WhenOverlapped" BeforePrintEvent="txtEmitCnpj_BeforePrint" Text="CNPJ: [NFCe.NFe.infNFe.emit.CNPJ]" Padding="2, 1, 2, 1" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="Text14" Left="189" Top="34.39" Width="75.6" Height="13.23" ShiftMode="WhenOverlapped" Text="IE: [NFCe.NFe.infNFe.emit.IE]" Padding="2, 1, 2, 1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
-      <TextObject Name="Text15" Top="49.62" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" ShiftMode="WhenOverlapped" Text="End.: [NFCe.NFe.infNFe.emit.enderEmit.xLgr], [NFCe.NFe.infNFe.emit.enderEmit.nro]&#13;&#10;Bairro: [NFCe.NFe.infNFe.emit.enderEmit.xBairro] - [NFCe.NFe.infNFe.emit.enderEmit.xMun]/[NFCe.NFe.infNFe.emit.enderEmit.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFCe.NFe.infNFe.emit.enderEmit.CEP] ) )]" Padding="2, 1, 2, 1" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
+      <TextObject Name="Text15" Top="49.62" Width="264.6" Height="26.46" Border.Lines="Bottom" Border.Width="0.5" CanGrow="true" CanShrink="true" ShiftMode="WhenOverlapped" Text="End.: [NFCe.NFe.infNFe.emit.enderEmit.xLgr], [NFCe.NFe.infNFe.emit.enderEmit.nro], Bairro: [NFCe.NFe.infNFe.emit.enderEmit.xBairro] - [NFCe.NFe.infNFe.emit.enderEmit.xMun]/[NFCe.NFe.infNFe.emit.enderEmit.UF] - [Format(&quot;{0:00000-000}&quot;, ToInt32( [NFCe.NFe.infNFe.emit.enderEmit.CEP] ) )][IIf([NfceImprimeFoneEmitente] &amp; Length([NfceFoneEmitente]) &gt; 0, &quot;, Fone: &quot; + [NfceFoneEmitente], &quot;&quot;)]" Padding="2, 1, 2, 1" Font="Ubuntu Condensed, 8pt"/>
       <TextObject Name="txtEmitIm" Left="111.4" Top="34.39" Width="73.71" Height="13.23" ShiftMode="WhenOverlapped" Text="[IIf([NFCe.NFe.infNFe.emit.IM] != &quot;&quot;, &quot;IM: &quot; + [NFCe.NFe.infNFe.emit.IM], &quot;&quot;)]" Padding="2, 1, 2, 1" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Ubuntu Condensed, 8pt"/>
     </PageHeaderBand>
     <ColumnHeaderBand Name="phbCancelado" Top="215.03" Width="264.6" Height="16.9">

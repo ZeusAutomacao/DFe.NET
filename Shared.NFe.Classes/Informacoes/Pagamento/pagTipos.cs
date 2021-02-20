@@ -49,6 +49,10 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>13 - Vale Combustível</para>
     ///     <para>14 - Duplicata Mercantil (versão 4.00)</para>
     ///     <para>15 - Boleto Bancário (versão 4.00)</para>
+    ///     <para>16 - Depósito Bancário (versão 4.00)</para>
+    ///     <para>17 - Pagamento Instantâneo (PIX) (versão 4.00)</para>
+    ///     <para>18 - Transferência bancária, Carteira Digital (versão 4.00)</para>
+    ///     <para>19 - Programa de fidelidade, Cashback, Crédito Virtual (versão 4.00)</para>
     ///     <para>90 - Sem pagamento (versão 4.00)</para>
     ///     <para>99 - Outros</para>
     /// </summary>
@@ -132,6 +136,31 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// </summary>
         [Description("Boleto Bancário")]
         [XmlEnum("15")] fpBoletoBancario = 15,
+        
+        /// <summary>
+        /// 16 - Depósito Bancário
+        /// </summary>
+        [Description("=Depósito Bancário")]
+        [XmlEnum("16")] fpDepositoBancario= 16,
+        
+        /// <summary>
+        /// 17 - Pagamento Instantâneo (PIX)
+        /// </summary>
+        [Description("Pagamento Instantâneo (PIX)")]
+        [XmlEnum("17")] fpPagamentoInstantaneoPIX = 17,
+        
+         /// <summary>
+        /// 18 - Transferência bancária, Carteira Digital
+        /// </summary>
+        [Description("Transferência bancária, Carteira Digital")]
+        [XmlEnum("18")] fpTransferenciabancaria = 18,
+        
+         /// <summary>
+        /// 19 - Programa de fidelidade, Cashback, Crédito Virtual
+        /// </summary>
+        [Description("Programa de fidelidade, Cashback, Crédito Virtual")]
+        [XmlEnum("19")] fpProgramadefidelidade = 19,
+        
 
         /// <summary>
         /// 90 - Sem pagamento
