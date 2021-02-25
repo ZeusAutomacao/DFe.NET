@@ -39,6 +39,7 @@ using NFe.Classes.Informacoes.Detalhe;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao;
 using NFe.Classes.Informacoes.InfRespTec;
+using NFe.Classes.Informacoes.Intermediador;
 using NFe.Classes.Informacoes.Observacoes;
 using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
@@ -156,5 +157,10 @@ namespace NFe.Classes.Informacoes
         /// Dados do Responsável Técnico
         /// </summary>
         public infRespTec infRespTec { get; set; }
+
+        /// <summary>
+        ///     YB01 - Grupo de Informações do Intermediador da Transação 
+        /// </summary>
+        public infIntermed infIntermed { get; set; }
     }
 }

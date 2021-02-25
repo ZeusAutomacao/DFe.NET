@@ -243,6 +243,16 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement("NFref")]
         public List<NFref> NFref { get; set; }
 
+        /// <summary>
+        ///     B25c - Indicador de intermediador/marketplace
+        /// </summary>
+        public IndicadorIntermediador? indIntermed { get; set; }
+
+        public bool indIntermedSpecified
+        {
+            get { return indIntermed.HasValue; }
+        }
+
         public bool ShouldSerializeidDest()
         {
             return idDest.HasValue;

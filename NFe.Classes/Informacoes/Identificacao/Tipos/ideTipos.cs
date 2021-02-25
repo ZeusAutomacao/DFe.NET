@@ -241,4 +241,26 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("02")]
         modelo2 = 2 // Versão 4.00
     }
+
+    /// <summary>
+    ///     Indicador de intermediador/marketplace
+    ///     <para>0 - Operação sem intermediador (em site ou plataforma própria)</para>
+    ///     <para>1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)</para>
+    /// </summary>
+    public enum IndicadorIntermediador
+    {
+        /// <summary>
+        /// 0 - Operação sem intermediador (em site ou plataforma própria)
+        /// </summary>
+        [Description("Operação sem intermediador (em site ou plataforma própria)")]
+        [XmlEnum("0")]
+        iiSemIntermediador = 0,
+
+        /// <summary>
+        ///  1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)
+        /// </summary>
+        [Description("Operação em site ou plataforma de terceiros (intermediadores / marketplace)")]
+        [XmlEnum("0")]
+        iiSitePlataformaTerceiros = 1
+    }
 }
