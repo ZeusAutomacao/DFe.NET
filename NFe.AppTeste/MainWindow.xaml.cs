@@ -930,8 +930,6 @@ namespace NFe.AppTeste
 
         protected virtual ide GetIdentificacao(int numero, ModeloDocumento modelo, VersaoServico versao)
         {
-            var estado = Estado.SE;
-
             var ide = new ide
             {
                 cUF = _configuracoes.EnderecoEmitente.UF,
@@ -946,7 +944,8 @@ namespace NFe.AppTeste
                 cNF = "1234",
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
-                verProc = "3.000"
+                verProc = "3.000",
+                indIntermed = IndicadorIntermediador.iiSemIntermediador
             };
 
             if (ide.tpEmis != TipoEmissao.teNormal)

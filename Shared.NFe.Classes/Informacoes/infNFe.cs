@@ -43,6 +43,7 @@ using NFe.Classes.Informacoes.Pagamento;
 using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using Shared.NFe.Classes.Informacoes.InfRespTec;
+using Shared.NFe.Classes.Informacoes.Intermediador;
 
 namespace NFe.Classes.Informacoes
 {
@@ -131,6 +132,11 @@ namespace NFe.Classes.Informacoes
         /// </summary>
         [XmlElement("pag")]
         public List<pag> pag { get; set; }
+
+        /// <summary>
+        ///     YB01 - Grupo de Informações do Intermediador da Transação 
+        /// </summary>
+        public infIntermed infIntermed { get; set; }
 
         /// <summary>
         ///     Z01 - Grupo de Informações Adicionais
