@@ -443,7 +443,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         ///  1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)
         /// </summary>
         [Description("Operação em site ou plataforma de terceiros (intermediadores / marketplace)")]
-        [XmlEnum("0")]
+        [XmlEnum("1")]
         iiSitePlataformaTerceiros = 1
     }
 
