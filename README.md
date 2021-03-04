@@ -86,7 +86,7 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 Para a geração de impressão no Linux, alguns detalhes devem ser compreendidos...
 
-Foi necessário a instalação da biblioteca **libgdiplux** 
+Foi necessário a instalação da biblioteca **libgdiplus** 
 
 - (Exemplo abaixo para Ubuntu 18.x)
 	
