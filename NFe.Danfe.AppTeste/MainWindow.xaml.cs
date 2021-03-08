@@ -30,6 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using DFe.Classes.Flags;
+using DFe.Utils;
+using NFe.Classes;
+using NFe.Classes.Servicos.Consulta;
+using NFe.Danfe.Base;
+using NFe.Danfe.Base.NFe;
+using NFe.Danfe.Fast.NFCe;
+using NFe.Danfe.Fast.NFe;
+using NFe.Utils.NFe;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -37,15 +46,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Imaging;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using NFe.Danfe.Fast.NFCe;
-using NFe.Classes;
-using NFe.Danfe.Fast.NFe;
-using NFe.Utils.NFe;
-using NFe.Classes.Servicos.Consulta;
-using NFe.Danfe.Base.NFe;
-using NFe.Danfe.Base;
 
 namespace NFe.Danfe.AppTeste
 {
@@ -136,39 +136,6 @@ namespace NFe.Danfe.AppTeste
         {
             LogoEmitente.Source = null;
             _configuracoes.ConfiguracaoDanfeNfce.Logomarca = null;
-        }
-
-        private void BtnNfceDanfeOff_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                #region Carrega um XML com nfeProc para a variável
-
-                var arquivoXml = Funcoes.BuscarArquivoXml();
-                if (string.IsNullOrEmpty(arquivoXml))
-                    return;
-                var nfe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml);
-                if (nfe.infNFe.ide.mod != ModeloDocumento.NFCe)
-                    throw new Exception("O XML informado não é um NFCe!");
-
-                #endregion
-
-                #region Abre a visualização do relatório para impressão
-
-                var danfe = new DanfeFrNfce(nfe, _configuracoes.ConfiguracaoDanfeNfce, _configuracoes.CIdToken, _configuracoes.Csc);
-                danfe.Visualizar();
-                //danfe.Imprimir();
-                //danfe.ExibirDesign();
-                //danfe.ExportarPdf(@"d:\teste.pdf");
-
-                #endregion
-
-            }
-            catch (Exception ex)
-            {
-                if (!string.IsNullOrEmpty(ex.Message))
-                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
-            }
         }
 
         private void BtnNfeDanfeA4_Click(object sender, RoutedEventArgs e)
@@ -280,20 +247,32 @@ namespace NFe.Danfe.AppTeste
         {
             try
             {
-                #region Carrega um XML com nfeProc para a variável
+                #region Carrega um XML para a variável
 
                 var arquivoXml = Funcoes.BuscarArquivoXml();
                 if (string.IsNullOrEmpty(arquivoXml))
                     return;
-                var proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
-                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
+
+                nfeProc nfeProc;
+
+                try // Tenta carregar NFeProc
+                {
+                    nfeProc = FuncoesXml.ArquivoXmlParaClasse<nfeProc>(arquivoXml);
+                }
+                catch (Exception)  // Carrega NFCe sem protocolo
+                {
+                    NFe.Classes.NFe nfeContingenciaSemProc = FuncoesXml.ArquivoXmlParaClasse<NFe.Classes.NFe>(arquivoXml);
+                    nfeProc = new nfeProc() { NFe = nfeContingenciaSemProc };
+                }
+
+                if (nfeProc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
                     throw new Exception("O XML informado não é um NFCe!");
 
                 #endregion
 
                 #region Abre a visualização do relatório para impressão
 
-                var danfe = new DanfeFrNfce(proc: proc, configuracaoDanfeNfce: _configuracoes.ConfiguracaoDanfeNfce, cIdToken: _configuracoes.CIdToken, csc: _configuracoes.Csc, arquivoRelatorio: string.Empty);
+                var danfe = new DanfeFrNfce(proc: nfeProc, configuracaoDanfeNfce: _configuracoes.ConfiguracaoDanfeNfce, cIdToken: _configuracoes.CIdToken, csc: _configuracoes.Csc, arquivoRelatorio: string.Empty);
                 danfe.Visualizar();
                 //danfe.Imprimir();
                 //danfe.ExibirDesign();
