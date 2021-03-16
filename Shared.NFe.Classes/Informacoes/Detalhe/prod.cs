@@ -47,7 +47,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         }
 
         private string _nRecopi;
-        private ProdutoEspecifico _produtoEspecifico;
+        private List<ProdutoEspecifico> _produtoEspecifico;
         private decimal _qcom;
         private decimal _qtrib;
         private decimal _vprod;
@@ -282,7 +282,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         [XmlElement("med", typeof(med))]
         [XmlElement("arma", typeof(arma))]
         [XmlElement("comb", typeof(comb))]
-        public ProdutoEspecifico ProdutoEspecifico
+        public List<ProdutoEspecifico> ProdutoEspecifico
         {
             get { return _produtoEspecifico; }
             set
