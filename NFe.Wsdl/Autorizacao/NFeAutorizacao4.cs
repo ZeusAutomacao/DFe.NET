@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.Autorizacao
@@ -87,8 +88,11 @@ namespace NFe.Wsdl.Autorizacao
     public partial class nfeAutorizacao4LoteZipResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
         public System.Xml.XmlNode nfeResultMsg;
+
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
+        public System.Xml.XmlNode nfeResultMsgZip;
 
         public nfeAutorizacao4LoteZipResponse()
         {
@@ -97,6 +101,7 @@ namespace NFe.Wsdl.Autorizacao
         public nfeAutorizacao4LoteZipResponse(System.Xml.XmlNode nfeResultMsg)
         {
             this.nfeResultMsg = nfeResultMsg;
+            this.nfeResultMsgZip = nfeResultMsg;
         }
     }
 
@@ -131,7 +136,12 @@ namespace NFe.Wsdl.Autorizacao
         {
             nfeAutorizacao4LoteZipRequest inValue = new nfeAutorizacao4LoteZipRequest();
             inValue.nfeDadosMsgZip = nfeDadosMsgZip;
-            return this.Channel.nfeAutorizacaoLoteZipAsync(inValue);
+            var result = this.Channel.nfeAutorizacaoLoteZipAsync(inValue).GetAwaiter().GetResult();
+
+            if (result.nfeResultMsg == null)
+                result.nfeResultMsg = result.nfeResultMsgZip;
+
+            return Task.FromResult(result);
         }
     }
 }
