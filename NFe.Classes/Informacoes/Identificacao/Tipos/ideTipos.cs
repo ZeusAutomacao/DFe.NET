@@ -142,10 +142,10 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
     /// </summary>
     public enum TipoAmbiente
     {
-        [XmlEnum("1")] 
+        [XmlEnum("1")]
         [Description("Produção")]
         taProducao = 1,
-        
+
         [XmlEnum("2")]
         [Description("Homologação")]
         taHomologacao = 2
@@ -260,7 +260,7 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         ///  1 - Operação em site ou plataforma de terceiros (intermediadores / marketplace)
         /// </summary>
         [Description("Operação em site ou plataforma de terceiros (intermediadores / marketplace)")]
-        [XmlEnum("0")]
+        [XmlEnum("1")]
         iiSitePlataformaTerceiros = 1
     }
 }

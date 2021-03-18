@@ -134,6 +134,11 @@ namespace NFe.Classes.Informacoes
         public List<pag> pag { get; set; }
 
         /// <summary>
+        ///     YB01 - Grupo de Informações do Intermediador da Transação 
+        /// </summary>
+        public infIntermed infIntermed { get; set; }
+
+        /// <summary>
         ///     Z01 - Grupo de Informações Adicionais
         /// </summary>
         public infAdic infAdic { get; set; }
@@ -157,10 +162,5 @@ namespace NFe.Classes.Informacoes
         /// Dados do Responsável Técnico
         /// </summary>
         public infRespTec infRespTec { get; set; }
-
-        /// <summary>
-        ///     YB01 - Grupo de Informações do Intermediador da Transação 
-        /// </summary>
-        public infIntermed infIntermed { get; set; }
     }
 }
