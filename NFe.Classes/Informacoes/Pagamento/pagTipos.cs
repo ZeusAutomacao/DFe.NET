@@ -81,6 +81,26 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario, // VERSÃO 4.00
 
+        /// <summary>
+        /// 16 - Depósito Bancário
+        /// </summary>
+        [Description("Depósito Bancário")] [XmlEnum("16")] fpDepositoBancario = 16,
+
+        /// <summary>
+        /// 17 - Pagamento Instantâneo (PIX)
+        /// </summary>
+        [Description("Pagamento Instantâneo (PIX)")] [XmlEnum("17")] fpPagamentoInstantaneoPIX = 17,
+
+        /// <summary>
+        /// 18 - Transferência bancária, Carteira Digital
+        /// </summary>
+        [Description("Transferência bancária, Carteira Digital")] [XmlEnum("18")] fpTransferenciabancaria = 18,
+
+        /// <summary>
+        /// 19 - Programa de fidelidade, Cashback, Crédito Virtual
+        /// </summary>
+        [Description("Programa de fidelidade, Cashback, Crédito Virtual")] [XmlEnum("19")] fpProgramadefidelidade = 19,
+
         [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento, // VERSÃO 4.00
 
         [Description("Outros")] [XmlEnum("99")] fpOutro
