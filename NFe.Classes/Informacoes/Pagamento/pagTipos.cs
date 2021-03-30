@@ -81,6 +81,10 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario, // VERSÃO 4.00
 
+        [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento, // VERSÃO 4.00
+
+        [Description("Outros")] [XmlEnum("99")] fpOutro,
+
         /// <summary>
         /// 16 - Depósito Bancário
         /// </summary>
@@ -100,10 +104,6 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// 19 - Programa de fidelidade, Cashback, Crédito Virtual
         /// </summary>
         [Description("Programa de fidelidade, Cashback, Crédito Virtual")] [XmlEnum("19")] fpProgramadefidelidade = 19,
-
-        [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento, // VERSÃO 4.00
-
-        [Description("Outros")] [XmlEnum("99")] fpOutro
     }
 
     /// <summary>
