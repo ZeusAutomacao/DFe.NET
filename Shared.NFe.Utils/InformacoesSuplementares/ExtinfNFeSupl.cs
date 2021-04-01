@@ -146,7 +146,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SP, versao4, "https://www.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
-                {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"}
+                {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"},
+                {Estado.SC, versao4, "https://sat.sef.sc.gov.br/nfce/consulta"}
             };
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
 
@@ -195,7 +196,8 @@ namespace NFe.Utils.InformacoesSuplementares
             {
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
-                {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"}
+                {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
+                {Estado.SC, versao4, "https://hom.sat.sef.sc.gov.br/nfce/consulta"},
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
 
@@ -320,7 +322,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "www.sefaz.go.gov.br/nfce/consulta"},
                 {Estado.MG, versao3E4, "http://nfce.fazenda.mg.gov.br/portalnfce"},
-                {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"}
+                {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"},
+                {Estado.SC, versao3E4, "https://sat.sef.sc.gov.br/nfce/consulta" }
             };
 
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaProducao2);
@@ -338,7 +341,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MG, versao3E4, "http://hnfce.fazenda.mg.gov.br/portalnfce"},
-                {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/consulta.jsf" }
+                {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/consulta.jsf" },
+                {Estado.SC, versao3E4, "https://hom.sat.sef.sc.gov.br/nfce/consulta" }
             };
 
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacao2);
