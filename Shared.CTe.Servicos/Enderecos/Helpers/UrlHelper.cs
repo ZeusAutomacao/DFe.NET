@@ -125,7 +125,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                 CteInutilizacao = @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
                 CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CTeConsulta.asmx",
                 CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CTeStatusServico.asmx",
-                QrCode = @"http://dfe-portal.svrs.rs.gov.br/cte/QRCode",
+                QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
                 CteRecepcaoEvento = @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/CTeRecepcaoEvento.asmx"
             };
         }
