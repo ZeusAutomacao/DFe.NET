@@ -76,6 +76,21 @@ namespace CTe.Servicos.Enderecos.Helpers
             throw new InvalidOperationException("Tipo Ambiente inválido");
         }
 
+        public static string ObterUrlQrCode(ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            switch (configServico.tpAmb)
+            {
+                case TipoAmbiente.Homologacao:
+                    return UrlHomologacao(configServico).QrCode;
+                case TipoAmbiente.Producao:
+                    return UrlProducao(configServico).QrCode;
+            }
+
+            throw new InvalidOperationException("Tipo Ambiente inválido");
+        }
+
         private static UrlCTe UrlProducaoSvcsp()
         {
             return new UrlCTe
