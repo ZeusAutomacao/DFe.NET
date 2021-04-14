@@ -93,6 +93,8 @@ namespace CTe.CTeOSDocumento.Soap
             var respStream = webResponse.GetResponseStream();
             StreamReader streamReader = new StreamReader(respStream);
 
+            streamReader.BaseStream.ReadTimeout = httpWr.Timeout;
+
             string xmlRetorno = streamReader.ReadToEnd();
             return await Task.FromResult(xmlRetorno);
         }
@@ -128,6 +130,8 @@ namespace CTe.CTeOSDocumento.Soap
             var webResponse = httpWr.GetResponse();
             var respStream = webResponse.GetResponseStream();
             StreamReader streamReader = new StreamReader(respStream);
+
+            streamReader.BaseStream.ReadTimeout = httpWr.Timeout;
 
             string xmlRetorno = streamReader.ReadToEnd();
             return xmlRetorno;
