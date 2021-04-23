@@ -363,6 +363,7 @@ namespace NFe.Utils.Enderecos
 
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
                 if (emissao != TipoEmissao.teEPEC)
                     addServico(eventoCceCanc, versao1, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl");
                 addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl");
@@ -381,6 +382,19 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeStatusServico4?wsdl");
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeAutorizacao4?wsdl");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRetAutorizacao4?wsdl");
+
+                #endregion
+
+                #region NFCe
+
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4.asmx");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4.asmx");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4.asmx");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4.asmx");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4.asmx");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4.asmx");
+
+                #endregion
             }
 
             #endregion
@@ -389,6 +403,8 @@ namespace NFe.Utils.Enderecos
 
             foreach (var emissao in emissaoComum)
             {
+
+                #region NFe
                 if (emissao != TipoEmissao.teEPEC)
                     addServico(eventoCceCanc, versao1, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl");
                 addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl");
@@ -408,6 +424,20 @@ namespace NFe.Utils.Enderecos
                 addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeAutorizacao4?wsdl");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRetAutorizacao4?wsdl");
+
+                #endregion
+
+                #region NFCe
+
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4.asmx");
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4.asmx");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4.asmx");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4.asmx");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4.asmx");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4.asmx");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4.asmx");
+
+                #endregion
             }
 
             #endregion
