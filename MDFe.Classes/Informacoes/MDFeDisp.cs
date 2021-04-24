@@ -66,5 +66,11 @@ namespace MDFe.Classes.Informacoes
             get { return _vValePed.Arredondar(2); }
             set { _vValePed = value.Arredondar(2); }
         }
+        
+        /// <summary>
+        /// Tipo do Vale Pedágio
+        /// </summary>
+        [XmlElement(ElementName = "tpValePed")]
+        public string TpValePed { get; set; }
     }
 }
