@@ -111,9 +111,43 @@ namespace FastReport
       CabecalhoVeiculoNovo.Visible = veiculosNovos.HasMoreRows;
       DadosVeiculosNovos.Visible = veiculosNovos.HasMoreRows;
     }
+    
+    private string GetModalName(modal procModal)
+    {
+      string name = &quot;Rodoviário&quot;;
+
+      switch (procModal)
+      {
+          case modal.aereo:
+              name = &quot;Aéreo&quot;;
+              break;
+          case modal.aquaviario:
+              name = &quot;Aquaviário&quot;;
+              break;
+          case modal.ferroviario:
+              name = &quot;Ferroviário&quot;;
+              break;
+          case modal.dutoviario:
+              name = &quot;Dutoviário&quot;;
+              break;
+          case modal.multimodal:
+              name = &quot;Multimodal&quot;;
+              break;
+      }
+
+      return name.ToUpper();
+    }
 
     private void PageHeader1_BeforePrint(object sender, EventArgs e)
     {
+      #region Definindo o nome do Modal
+      var _modal = (modal)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.modal&quot;);
+      var nomeModal = GetModalName(_modal);
+      if (!Text24.Text.Contains(nomeModal)) {
+        Text24.Text = Text24.Text + nomeModal;
+      }
+      #endregion
+      
       #region Banda inicial sempre deve aparecer!
       switch(Convert.ToInt32((tpCTe)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tpCTe&quot;)))
       {
@@ -1194,7 +1228,7 @@ namespace FastReport
     <PageHeaderBand Name="PageHeader1" Width="737.1" Height="480.95" BeforePrintEvent="PageHeader1_BeforePrint">
       <BarcodeObject Name="Barcode1" Left="601.58" Top="122.52" Width="133.96" Height="118.51" AutoSize="false" Text="[cteProc.CTe.infCTeSupl.qrCodCTe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
       <ShapeObject Name="Shape2" Top="71.6" Width="737.1" Height="170.1"/>
-      <TextObject Name="Text24" Left="603.91" Top="74.05" Width="130.96" Height="25.9" Text="MODAL&#13;&#10;RODOVIÁRIO" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
+      <TextObject Name="Text24" Left="603.91" Top="74.05" Width="130.96" Height="25.9" Text="MODAL&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8.25pt, style=Bold"/>
       <ShapeObject Name="Shape1" Width="737.1" Height="66.93"/>
       <LineObject Name="Line1" Left="1" Top="13.9" Width="735.1"/>
       <TextObject Name="Text1" Top="2" Width="736.1" Height="10.9" Text="DECLARO QUE RECEBI OS VOLUMES DESTE CONHECIMENTO EM PERFEITO ESTADO PELO QUE DOU POR CUMPRIDO O PRESENTE CONTRATO DE TRANSPORTE" HorzAlign="Center" Font="Times New Roman, 6pt"/>
