@@ -44,5 +44,11 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "disp")]
         public List<MDFeDisp> Disp { get; set; }
+        
+        /// <summary>
+        /// Categoria de Combinação Veicular
+        /// </summary>
+        [XmlElement(ElementName = "categCombVeic")]
+        public string CategCombVeic { get; set; }
     }
 }
