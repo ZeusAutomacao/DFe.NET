@@ -161,7 +161,7 @@ namespace NFe.Utils.Validacao
                 {
                 }
             }
-            catch (XmlException err)
+            catch
             {
             }
             finally
