@@ -33,6 +33,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml;
 using System.Xml.Schema;
 using DFe.Classes.Flags;
@@ -127,8 +128,12 @@ namespace NFe.Utils.Validacao
             Valida(servicoNFe, versaoServico, stringXml, loteNfe, pathSchema);
         }
 
+        private static StringBuilder Falhas { get; set; }
+
         public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, string pathSchema = null)
         {
+            Falhas = new StringBuilder();
+
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
@@ -158,19 +163,19 @@ namespace NFe.Utils.Validacao
             }
             catch (XmlException err)
             {
-                // Um erro ocorre se o documento XML inclui caracteres ilegais
-                // ou tags que não estão aninhadas corretamente
-                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message);
             }
             finally
             {
                 validator.Close();
             }
+
+            if (Falhas.Length > 0)
+                throw new Exception($"Ocorreu o seguinte erro durante a validação XML: {Environment.NewLine}{Falhas}");
         }
 
         internal static void ValidationEventHandler(object sender, ValidationEventArgs args)
         {
-            throw new ValidacaoSchemaException(args.Message);
+            Falhas.AppendLine($"[{args.Severity}] - {args.Message} {args.Exception?.Message} na linha {args.Exception.LineNumber} posição {args.Exception.LinePosition} em {args.Exception.SourceUri}".ToString());
         }
     }
 }

@@ -420,11 +420,11 @@ namespace NFe.Servicos
                     ? pedEvento.ObterXmlString().RemoverAcentos()
                     : pedEvento.ObterXmlString();
 
+            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+
             Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
-
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
             XmlNode retorno;
             try
