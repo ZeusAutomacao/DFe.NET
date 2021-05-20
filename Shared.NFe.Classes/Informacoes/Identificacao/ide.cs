@@ -203,6 +203,16 @@ namespace NFe.Classes.Informacoes.Identificacao
         public PresencaComprador? indPres { get; set; } //Nulable por conta da v2.00
 
         /// <summary>
+        ///     B25c - Indicador de intermediador/marketplace
+        /// </summary>
+        public IndicadorIntermediador? indIntermed { get; set; }
+
+        public bool indIntermedSpecified
+        {
+            get { return indIntermed.HasValue; }
+        }
+
+        /// <summary>
         ///     B26 - Processo de emissão utilizado com a seguinte codificação:
         /// </summary>
         public ProcessoEmissao procEmi { get; set; }

@@ -60,6 +60,12 @@ namespace DFe.Utils
         private string _cacheId;
         private byte[] _arrayBytesArquivo;
 
+        public ConfiguracaoCertificado()
+        {
+            SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+            DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1";
+        }
+
         /// <summary>
         /// Tipo de certificado a ser usado
         /// </summary>
@@ -166,12 +172,12 @@ namespace DFe.Utils
         /// <summary>
         ///     Algoritmo de Assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#rsa-sha1)
         /// </summary>
-        public string SignatureMethodSignedXml { get; set; } = "http://www.w3.org/2000/09/xmldsig#rsa-sha1";
+        public string SignatureMethodSignedXml { get; set; }
 
 
         /// <summary>
         ///     URI para DigestMethod na Classe Reference para auxiliar para a assinatura (Padrao: http://www.w3.org/2000/09/xmldsig#sha1)
         /// </summary>
-        public string DigestMethodReference { get; set; } = "http://www.w3.org/2000/09/xmldsig#sha1";
+        public string DigestMethodReference { get; set; }
     }
 }

@@ -40,7 +40,7 @@
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
-                            
+
                             <GroupBox Header="Contigência - Impressão dos produtos" Margin="0,5,0,0">
                                 <Grid>
                                     <RadioButton Content="Uma Linha"
@@ -71,7 +71,7 @@
                                           HorizontalAlignment="Left" VerticalAlignment="Top"
                                           Margin="0,10,0,0"
                                           IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeDescontoItem}" />
-                          
+
                             <GroupBox Header="Código de Segurança do Contribuinte para NFCe" Margin="0,10,0,0">
                                 <StackPanel>
                                     <Grid Margin="0,10,0,0" HorizontalAlignment="Stretch">
@@ -152,7 +152,7 @@
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.ModoImpressao, ConverterParameter={x:Static base:NfceModoImpressao.UnicaPagina}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
-                            
+
                             <GroupBox Header="LogoMarca" VerticalAlignment="Top"
                                       Margin="0,10,0,0">
                                 <StackPanel Margin="0,0,0,12">
@@ -175,6 +175,11 @@
                                     </StackPanel>
                                 </StackPanel>
                             </GroupBox>
+
+                            <CheckBox Content="Imprimir telefone do emitente no DANFE NFCe"
+                                          HorizontalAlignment="Left" VerticalAlignment="Top"
+                                          Margin="0,10,0,0"
+                                          IsChecked="{Binding ConfiguracaoDanfeNfce.ImprimeFoneEmitente}" />
                         </StackPanel>
 
                     </StackPanel>
@@ -193,16 +198,13 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Margin="5,10" Click="BtnNfeDanfeA4_Click" />
-                        <Button Name="BtnNfceDanfe" Content="DANFE NFCe" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
-                        <Button Name="BtnNfceDanfeOff" Content="DANFE NFCe Cont. Offline" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfeOff_Click" Margin="5,10,5,0" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                                VerticalAlignment="Top" Width="177" Margin="5,10,5,0" Click="BtnNfeDanfeA4_Click" />
                         <Button x:Name="BtnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left" 
-                            VerticalAlignment="Top" Width="176" Margin="5,0" Click="btnEventoNFe_Click" />
+                            VerticalAlignment="Top" Width="176" Margin="5,10,5,0" Click="btnEventoNFe_Click" />
+                        <Button x:Name="BtnNfceDanfe" Content="DANFE NFCe" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal"/>
                 </StackPanel>
             </GroupBox>
         </StackPanel>

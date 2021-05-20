@@ -23,6 +23,7 @@ namespace Shared.DFe.Danfe.Fast
             Report relatorio = new Report();
             relatorio.RegisterData(new[] { proc }, "NFCe", 20);
             relatorio.GetDataSource("NFCe").Enabled = true;
+            
             if (string.IsNullOrEmpty(arquivoRelatorio))
             {
                 relatorio.Load(new MemoryStream(frx));
@@ -35,6 +36,21 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
+            relatorio.SetParameterValue("NfceImprimeFoneEmitente", configuracaoDanfeNfce.ImprimeFoneEmitente);
+
+            string foneEmitente = null;
+
+            if (proc.NFe.infNFe.emit.enderEmit.fone != null)
+            {
+                foneEmitente = proc.NFe.infNFe.emit.enderEmit.fone.ToString();
+            }
+            
+            if (foneEmitente != null && foneEmitente.Length == 10)
+                foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
+            else if (foneEmitente != null && foneEmitente.Length == 11)
+                foneEmitente = string.Format("{0:(00)00000-0000}", Convert.ToInt64(foneEmitente));
+            
+            relatorio.SetParameterValue("NfceFoneEmitente", foneEmitente);
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);
