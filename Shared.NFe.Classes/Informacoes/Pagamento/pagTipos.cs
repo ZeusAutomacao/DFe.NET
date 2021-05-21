@@ -112,6 +112,16 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("Boleto Bancário")] [XmlEnum("15")] fpBoletoBancario = 15, // VERSÃO 4.00
 
         /// <summary>
+        /// 16-Deposito Bancário
+        /// </summary>
+        [Description("Boleto Bancário")] [XmlEnum("16")] fpDepositoBancario = 16, // VERSÃO 4.01
+
+        /// <summary>
+        /// 17-Deposito Bancário
+        /// </summary>
+        [Description("Pagamento Instantaneo")] [XmlEnum("17")] fpPagamentoInstantaneo = 17, // VERSÃO 4.01
+
+        /// <summary>
         /// 90-Sem pagamento
         /// </summary>
         [Description("Sem pagamento")] [XmlEnum("90")] fpSemPagamento = 90, // VERSÃO 4.00
