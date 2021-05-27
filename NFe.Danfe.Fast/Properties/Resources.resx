@@ -127,4 +127,7 @@
   <data name="NFeRetrato" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\NFe\NFeRetrato.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="NFeSimplificado" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\NFe\NFeSimplificado.frx;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
