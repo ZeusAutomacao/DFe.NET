@@ -287,6 +287,73 @@ namespace NFe.Danfe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+
+        private void BtnNFeSimplificado_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+
+                var arquivoXml = Funcoes.BuscarArquivoXml();
+                if (string.IsNullOrEmpty(arquivoXml))
+                    return;
+
+                nfeProc proc = null;
+
+                try
+                {
+                    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+                }
+                catch //Carregar NFe ainda não transmitida à sefaz, como uma pré-visualização.
+                {
+                    proc = new nfeProc() { NFe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml), protNFe = new Classes.Protocolo.protNFe() };
+                }
+
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFe)
+                    throw new Exception("O XML informado não é um NFe!");
+
+                /*
+                //Carregar atravez de um stream....                   
+                var stream = new StreamReader(arquivoXml, Encoding.GetEncoding("ISO-8859-1"));
+                var proc = new nfeProc().CarregardeStream(stream);               
+                */
+                #endregion
+
+                #region Abre a visualização do relatório para impressão
+                var danfe = new DanfeFrSimplificado(proc: proc,
+                                    configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
+                                    {
+                                        Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
+                                        DuasLinhas = RdbDuasLinhas.IsChecked ?? false,
+                                        DocumentoCancelado = ChbCancelado.IsChecked ?? false,
+                                        QuebrarLinhasObservacao = _configuracoes.ConfiguracaoDanfeNfe.QuebrarLinhasObservacao,
+                                        ExibirResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ExibirResumoCanhoto,
+                                        ResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ResumoCanhoto,
+                                        ChaveContingencia = _configuracoes.ConfiguracaoDanfeNfe.ChaveContingencia,
+                                        ExibeCampoFatura = _configuracoes.ConfiguracaoDanfeNfe.ExibeCampoFatura,
+                                        ImprimirISSQN = _configuracoes.ConfiguracaoDanfeNfe.ImprimirISSQN,
+                                        ImprimirDescPorc = _configuracoes.ConfiguracaoDanfeNfe.ImprimirDescPorc,
+                                        ImprimirTotalLiquido = _configuracoes.ConfiguracaoDanfeNfe.ImprimirTotalLiquido,
+                                        ImprimirUnidQtdeValor = _configuracoes.ConfiguracaoDanfeNfe.ImprimirUnidQtdeValor,
+                                        ExibirTotalTributos = _configuracoes.ConfiguracaoDanfeNfe.ExibirTotalTributos
+                                    },
+                                    desenvolvedor: "NOME DA SOFTWARE HOUSE",
+                                    arquivoRelatorio: string.Empty);
+
+                //danfe.Visualizar();
+                //danfe.Imprimir();
+                danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"d:\teste.pdf");
+
+                #endregion
+
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
     }
 
 }
