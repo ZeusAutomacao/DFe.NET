@@ -36,9 +36,9 @@ using DFe.Classes.Extensoes;
 using MDFe.Classes.Extencoes;
 using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
-using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
 using MDFe.Wsdl.Gerado.MDFeStatusServico;
+using MDFe.Wsdl.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.MDFeRecepcao;
 using MDFe.Wsdl.MDFeRetRecepcao;
 

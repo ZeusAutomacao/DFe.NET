@@ -12,6 +12,7 @@
 
         MDFeStatusServico,
         MDFeRecepcao,
-        MDFeRetRecepcao
+        MDFeRetRecepcao,
+        MDFeNaoEncerrado
     }
 }
