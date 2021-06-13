@@ -7,7 +7,7 @@ using CTe.CTeOSDocumento.Common;
 
 namespace MDFe.Wsdl.MDFeRetRecepcao
 {
-    public class MDFeRetRecepcaoCore
+    public class MDFeRetRecepcao
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -15,7 +15,7 @@ namespace MDFe.Wsdl.MDFeRetRecepcao
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao WsdlConfiguracao;
 
-        public MDFeRetRecepcaoCore(WsdlConfiguracao configuracao)
+        public MDFeRetRecepcao(WsdlConfiguracao configuracao)
         {
             if (configuracao == null)
                 throw new ArgumentNullException();
