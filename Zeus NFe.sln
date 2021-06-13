@@ -160,6 +160,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Utils", "Shared
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Servicos", "Shared.MDFe.Servicos\Shared.MDFe.Servicos.shproj", "{23F4144E-1225-45F3-BE1B-2BC0E27B33D7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Wsdl", "Shared.MDFe.Wsdl\Shared.MDFe.Wsdl.shproj", "{CB6A1782-1A20-4BB4-AA6E-1C6A4824EF0F}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
@@ -182,6 +184,7 @@ Global
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{744d38a4-773e-4ea3-9dab-30394ad65678}*SharedItemsImports = 5
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{7bc87af1-49fc-4822-addf-6b9b461b0adc}*SharedItemsImports = 13
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{80c6093c-47d5-41a1-9fa0-e218e82fa666}*SharedItemsImports = 4
+		Shared.MDFe.Wsdl\Shared.MDFe.Wsdl.projitems*{81b3bc65-a499-4e19-8ab4-09c6d874c540}*SharedItemsImports = 4
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{8a90a3f4-d280-4b2b-b4ff-0dc110411bb6}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{8d5ca088-ef4b-42f5-86e3-52cb6083c9ef}*SharedItemsImports = 5
 		Shared.MDFe.Servicos\Shared.MDFe.Servicos.projitems*{9587937a-a826-4785-9d1e-3a9f4a622b7c}*SharedItemsImports = 4
@@ -196,6 +199,7 @@ Global
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}*SharedItemsImports = 4
 		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}*SharedItemsImports = 4
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}*SharedItemsImports = 4
+		Shared.MDFe.Wsdl\Shared.MDFe.Wsdl.projitems*{cb6a1782-1a20-4bb4-aa6e-1c6a4824ef0f}*SharedItemsImports = 13
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}*SharedItemsImports = 4
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{d4ea4e8b-c0c9-4460-90e6-8cccfc28b005}*SharedItemsImports = 13
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{d4f45208-4a4b-43c0-8640-f338c1da9699}*SharedItemsImports = 5
@@ -673,6 +677,7 @@ Global
 		{1B378E5A-0544-4874-8399-125233EB8F05} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 		{9C3275EC-D063-40B4-A38D-A02CCB9D7991} = {1B378E5A-0544-4874-8399-125233EB8F05}
 		{23F4144E-1225-45F3-BE1B-2BC0E27B33D7} = {1B378E5A-0544-4874-8399-125233EB8F05}
+		{CB6A1782-1A20-4BB4-AA6E-1C6A4824EF0F} = {1B378E5A-0544-4874-8399-125233EB8F05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
