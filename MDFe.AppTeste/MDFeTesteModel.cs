@@ -656,8 +656,8 @@ namespace MDFe.AppTeste
                                 CIOT = "123456789123",
                                 CNPJ = "21025760000123"
                             }
-                        },
-                        valePed = new MDFeValePed
+                        }
+                        /*valePed = new MDFeValePed
                         {
                             Disp = new List<MDFeDisp>
                                     {
@@ -669,7 +669,7 @@ namespace MDFe.AppTeste
                                             vValePed = 100.33m
                                         }
                                     }
-                        }
+                        }*/
                     },
 
                     VeicTracao = new MDFeVeicTracao
@@ -699,7 +699,6 @@ namespace MDFe.AppTeste
                             NLacre = "lacre01"
                         }
                     }
-
                 };
             }
 
@@ -761,6 +760,30 @@ namespace MDFe.AppTeste
                             "aaaaaaaa"
                         }
                 });
+            }
+
+            #endregion
+
+            #region Produto Predominante
+
+            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.InfMDFe.prodPred = new prodPred
+                {
+                    tpCarga = tpCarga.CargaGeral,
+                    xProd = "aaaaaaaaaaaaaaaaaaaaa",
+                    infLotacao = new infLotacao
+                    {
+                        infLocalCarrega = new infLocalCarrega
+                        {
+                            CEP = "75950000"
+                        },
+                        infLocalDescarrega = new infLocalDescarrega
+                        {
+                            CEP = "75950000"
+                        }
+                    }
+                };
             }
 
             #endregion
@@ -1356,16 +1379,17 @@ namespace MDFe.AppTeste
                 ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
             };
 
-            Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            Utils.Configuracoes.MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            Utils.Configuracoes.MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            Utils.Configuracoes.MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.IsAdicionaQrCode = true;
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)
