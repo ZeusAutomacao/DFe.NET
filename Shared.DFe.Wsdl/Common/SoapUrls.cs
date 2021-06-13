@@ -33,6 +33,8 @@ namespace CTe.CTeOSDocumento.Soap
                     return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc";
                 case TipoEvento.MDFeConsulta:
                     return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta";
+                case TipoEvento.MDFeEvento:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
             }
