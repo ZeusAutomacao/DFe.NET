@@ -152,6 +152,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Danfe.Fast", "Sh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.AppTeste.NetCore", "NFe.Danfe.AppTeste.NetCore\NFe.Danfe.AppTeste.NetCore.csproj", "{0999204F-594C-4996-88A2-93D015EBDE33}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Classes", "Shared.MDFe.Classes\Shared.MDFe.Classes.shproj", "{549C1432-C0DA-47DF-A663-6843B9BA69FA}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
@@ -164,6 +166,7 @@ Global
 		Shared.CTe.Classes\Shared.CTe.Classes.projitems*{46314f7c-49d9-4165-b3cf-15741aa14cf1}*SharedItemsImports = 5
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{4cc78350-9e01-465a-ac60-e31a53cefe24}*SharedItemsImports = 13
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{4dfca6f0-9892-42db-a0ae-c833b6071a15}*SharedItemsImports = 5
+		Shared.MDFe.Classes\Shared.MDFe.Classes.projitems*{549c1432-c0da-47df-a663-6843b9ba69fa}*SharedItemsImports = 13
 		Shared.NFe.Servicos\Shared.NFe.Servicos.projitems*{57631341-c61b-49c6-a6ed-317ec42b1581}*SharedItemsImports = 13
 		Shared.NFe.Danfe.Fast\Shared.NFe.Danfe.Fast.projitems*{5794ab8a-ff29-4f55-abc2-9aafe333bd27}*SharedItemsImports = 13
 		Shared.CTe.Servicos\Shared.CTe.Servicos.projitems*{63227402-2b1e-4bc7-a6df-362129923cf6}*SharedItemsImports = 4
@@ -174,6 +177,7 @@ Global
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{80c6093c-47d5-41a1-9fa0-e218e82fa666}*SharedItemsImports = 4
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{8a90a3f4-d280-4b2b-b4ff-0dc110411bb6}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{8d5ca088-ef4b-42f5-86e3-52cb6083c9ef}*SharedItemsImports = 5
+		Shared.MDFe.Classes\Shared.MDFe.Classes.projitems*{9794cb98-4691-4218-a127-c573c2e7ff83}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9984ec15-18e1-4a87-b4db-18ac913dc4e8}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9a3d6d38-3579-472f-b406-4723c9a72e08}*SharedItemsImports = 5
 		Shared.CTe.Wsdl\Shared.CTe.Wsdl.projitems*{9cc914f9-4c3e-43bb-a34b-a12ae4923548}*SharedItemsImports = 4
@@ -655,6 +659,7 @@ Global
 		{637870E1-DF27-43CD-B771-3685E3D0BE01} = {003B008B-F388-4FB5-A081-12C0FBA84B57}
 		{5794AB8A-FF29-4F55-ABC2-9AAFE333BD27} = {F367DB7F-2170-48C6-9966-D6F9DF1808DB}
 		{0999204F-594C-4996-88A2-93D015EBDE33} = {3AC1A3D4-91D0-471A-AF9C-5EF8442F3F27}
+		{549C1432-C0DA-47DF-A663-6843B9BA69FA} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
