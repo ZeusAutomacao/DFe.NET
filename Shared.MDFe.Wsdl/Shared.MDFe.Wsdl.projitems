@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeConsultaProtoloco\MDFeConsulta.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)MDFeEventos\MDFeRecepcaoEventoCore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeSatusServico\MDFeStatusServico.cs" />
