@@ -14,6 +14,7 @@
         MDFeRecepcao,
         MDFeRetRecepcao,
         MDFeNaoEncerrado,
-        MDFeConsulta
+        MDFeConsulta,
+        MDFeEvento
     }
 }
