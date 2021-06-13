@@ -7,7 +7,7 @@ using CTe.CTeOSDocumento.Common;
 
 namespace MDFe.Wsdl.MDFeConsultaProtoloco
 {
-    public class MDFeConsultaCore
+    public class MDFeConsulta
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -15,7 +15,7 @@ namespace MDFe.Wsdl.MDFeConsultaProtoloco
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao WsdlConfiguracao;
 
-        public MDFeConsultaCore(WsdlConfiguracao configuracao)
+        public MDFeConsulta(WsdlConfiguracao configuracao)
         {
             if (configuracao == null)
                 throw new ArgumentNullException();
