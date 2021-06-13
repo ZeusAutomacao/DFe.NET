@@ -29,6 +29,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetEnviMDFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetEventoMDFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtVersaoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeCUnid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeIdentificacaoProcessoEmissao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeRespSeg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTipoEmissao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTipoEmitente.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpCar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpProp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpRod.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpTransp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpUnidCarga.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpUnidCargaVazia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeTpUnidTransp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeVersaoModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\tpNav.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Flags\tpUnidTranspVazia.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
 </Project>

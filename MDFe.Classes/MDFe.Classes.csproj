@@ -38,22 +38,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Flags\MDFeCUnid.cs" />
-    <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
-    <Compile Include="Flags\MDFeModal.cs" />
-    <Compile Include="Flags\MDFeRespSeg.cs" />
-    <Compile Include="Flags\MDFeTipoEmissao.cs" />
-    <Compile Include="Flags\MDFeTipoEmitente.cs" />
-    <Compile Include="Flags\MDFeTpCar.cs" />
-    <Compile Include="Flags\MDFeTpRod.cs" />
-    <Compile Include="Flags\MDFeTpProp.cs" />
-    <Compile Include="Flags\MDFeTpTransp.cs" />
-    <Compile Include="Flags\MDFeTpUnidCarga.cs" />
-    <Compile Include="Flags\MDFeTpUnidCargaVazia.cs" />
-    <Compile Include="Flags\MDFeTpUnidTransp.cs" />
-    <Compile Include="Flags\MDFeVersaoModal.cs" />
-    <Compile Include="Flags\tpNav.cs" />
-    <Compile Include="Flags\tpUnidTranspVazia.cs" />
     <Compile Include="Informacoes\Comp.cs" />
     <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
