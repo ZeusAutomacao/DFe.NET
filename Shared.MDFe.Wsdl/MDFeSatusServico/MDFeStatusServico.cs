@@ -7,7 +7,7 @@ using CTe.CTeOSDocumento.Common;
 
 namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 {
-    public class MDFeStatusServicoCore
+    public class MDFeStatusServico
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -15,7 +15,7 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
         //Configurações do WSDL para estabelecimento da comunicação
         private WsdlConfiguracao WsdlConfiguracao;
 
-        public MDFeStatusServicoCore(WsdlConfiguracao configuracao)
+        public MDFeStatusServico(WsdlConfiguracao configuracao)
         {
             if (configuracao == null)
                 throw new ArgumentNullException();
