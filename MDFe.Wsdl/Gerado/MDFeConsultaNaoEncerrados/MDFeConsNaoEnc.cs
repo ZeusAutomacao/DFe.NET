@@ -39,7 +39,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Wsdl.Configuracao;
+
+using CTe.CTeOSDocumento.Common;
 
 namespace MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados
 { // 

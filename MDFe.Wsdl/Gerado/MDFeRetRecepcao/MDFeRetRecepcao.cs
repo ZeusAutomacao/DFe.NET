@@ -40,7 +40,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Security.Cryptography.X509Certificates;
-using MDFe.Wsdl.Configuracao;
+using CTe.CTeOSDocumento.Common;
 
 namespace MDFe.Wsdl.Gerado.MDFeRetRecepcao
 { // 

@@ -1349,10 +1349,11 @@ namespace MDFe.AppTeste
         {
             var configuracaoCertificado = new ConfiguracaoCertificado
             {
+                TipoCertificado = TipoCertificado.A1Repositorio,
+                Serial = config.CertificadoDigital.NumeroDeSerie,
                 Senha = config.CertificadoDigital.Senha,
-                Arquivo = config.CertificadoDigital.CaminhoArquivo,
+                //Arquivo = config.CertificadoDigital.CaminhoArquivo,
                 ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
-                Serial = config.CertificadoDigital.NumeroDeSerie
             };
 
             Utils.Configuracoes.MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;

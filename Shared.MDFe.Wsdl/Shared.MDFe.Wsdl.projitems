@@ -9,7 +9,6 @@
     <Import_RootNamespace>Shared.MDFe.Wsdl</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Configuracao\WsdlConfiguracao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeSatusServico\MDFeStatusServicoCore.cs" />
   </ItemGroup>
 </Project>
