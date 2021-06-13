@@ -9,6 +9,7 @@
     <Import_RootNamespace>Shared.MDFe.Wsdl</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeSatusServico\MDFeStatusServico.cs" />
