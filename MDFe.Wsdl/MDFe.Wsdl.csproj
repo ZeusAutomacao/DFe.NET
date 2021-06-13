@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
     <Compile Include="Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
