@@ -38,7 +38,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contratos\MDFeModalContainer.cs" />
     <Compile Include="Extensoes\ExtevPagtoOperMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFe.cs" />
     <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />

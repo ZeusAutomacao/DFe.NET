@@ -9,6 +9,7 @@
     <Import_RootNamespace>Shared.MDFe.Classes</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Contratos\MDFeModalContainer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
 </Project>
