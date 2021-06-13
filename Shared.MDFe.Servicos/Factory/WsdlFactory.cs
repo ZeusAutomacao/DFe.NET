@@ -31,11 +31,11 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using CTe.CTeOSDocumento.Common;
 using DFe.Classes.Extensoes;
 using MDFe.Classes.Extencoes;
 using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
-using MDFe.Wsdl.Configuracao;
 using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
 using MDFe.Wsdl.Gerado.MDFeConsultaProtoloco;
 using MDFe.Wsdl.Gerado.MDFeRecepcao;
@@ -96,14 +96,14 @@ namespace MDFe.Servicos.Factory
             return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
+        public static MDFeStatusServicoCore CriaWsdlMDFeStatusServico()
         {
             var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
             var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao);
 
-            return new MDFeStatusServico(configuracaoWsdl);
+            return new MDFeStatusServicoCore(configuracaoWsdl);
         }
 
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)

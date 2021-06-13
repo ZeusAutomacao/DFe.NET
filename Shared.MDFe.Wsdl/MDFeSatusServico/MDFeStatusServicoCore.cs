@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using CTe.CTeOSDocumento.Common;
-using WsdlConfiguracao = MDFe.Wsdl.Configuracao.WsdlConfiguracao;
 
 namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 {
@@ -35,8 +35,28 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
         }
 
+        /// <summary>
+        /// Encapsula os dados da requisição no envelope por meio da serialização das partes e realiza a requisção ao Web Service.
+        /// </summary>
+        /// <param name="mdfeDadosMsg"></param>
+        /// <returns>XmlNode</returns>
+        public async Task<XmlNode> mdfeStatusServicoMDFAsync(XmlNode mdfeDadosMsg)
+        {
+            soapEnvelope.body = new ResponseBody<XmlNode>
+            {
+                mdfeDadosMsg = mdfeDadosMsg
+            };
+            return await RequestBuilderAndSender.ExecuteAsync(soapEnvelope, WsdlConfiguracao, TipoEvento.MDFeStatusServico, "retConsStatServMDFe");
+        }
 
-
+        public XmlNode mdfeStatusServicoMDF(XmlNode mdfeDadosMsg)
+        {
+            soapEnvelope.body = new ResponseBody<XmlNode>
+            {
+                mdfeDadosMsg = mdfeDadosMsg
+            };
+            return RequestBuilderAndSender.Execute(soapEnvelope, WsdlConfiguracao, TipoEvento.MDFeStatusServico, "retConsStatServMDFe");
+        }
 
     }
 
@@ -55,7 +75,7 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
 
     public class ResponseHead<T> : CommonResponseHead
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico")]
         public T mdfeCabecMsg { get; set; }
     }
 
@@ -64,7 +84,7 @@ namespace MDFe.Wsdl.Gerado.MDFeStatusServico
     /// </summary>
     public class ResponseBody<T> : CommonResponseBody
     {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico")]
-        public T cteDadosMsg { get; set; }
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico")]
+        public T mdfeDadosMsg { get; set; }
     }
 }
