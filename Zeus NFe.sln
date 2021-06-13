@@ -158,11 +158,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{1B378E
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Utils", "Shared.MDFe.Utils\Shared.MDFe.Utils.shproj", "{9C3275EC-D063-40B4-A38D-A02CCB9D7991}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.MDFe.Servicos", "Shared.MDFe.Servicos\Shared.MDFe.Servicos.shproj", "{23F4144E-1225-45F3-BE1B-2BC0E27B33D7}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
 		Shared.CTe.Utils\Shared.CTe.Utils.projitems*{21a894ec-b79e-4936-bff3-abead2e5c44f}*SharedItemsImports = 4
 		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}*SharedItemsImports = 4
+		Shared.MDFe.Servicos\Shared.MDFe.Servicos.projitems*{23f4144e-1225-45f3-be1b-2bc0e27b33d7}*SharedItemsImports = 13
 		Shared.NFe.Classes\Shared.NFe.Classes.projitems*{29ca1da2-440d-484b-951a-cf1b2eb27984}*SharedItemsImports = 4
 		Shared.NFe.Utils\Shared.NFe.Utils.projitems*{2cea538f-d827-4fa2-ba16-3e9e08d8e9a1}*SharedItemsImports = 5
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{2ea17efc-7e97-47c3-90c7-3cad286d61ac}*SharedItemsImports = 5
@@ -181,6 +184,7 @@ Global
 		Shared.NFe.Danfe.Base\Shared.NFe.Danfe.Base.projitems*{80c6093c-47d5-41a1-9fa0-e218e82fa666}*SharedItemsImports = 4
 		Shared.DFe.Wsdl\Shared.DFe.Wsdl.projitems*{8a90a3f4-d280-4b2b-b4ff-0dc110411bb6}*SharedItemsImports = 13
 		Shared.DFe.Utils\Shared.DFe.Utils.projitems*{8d5ca088-ef4b-42f5-86e3-52cb6083c9ef}*SharedItemsImports = 5
+		Shared.MDFe.Servicos\Shared.MDFe.Servicos.projitems*{9587937a-a826-4785-9d1e-3a9f4a622b7c}*SharedItemsImports = 4
 		Shared.MDFe.Classes\Shared.MDFe.Classes.projitems*{9794cb98-4691-4218-a127-c573c2e7ff83}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9984ec15-18e1-4a87-b4db-18ac913dc4e8}*SharedItemsImports = 4
 		Shared.DFe.Classes\Shared.DFe.Classes.projitems*{9a3d6d38-3579-472f-b406-4723c9a72e08}*SharedItemsImports = 5
@@ -668,6 +672,7 @@ Global
 		{549C1432-C0DA-47DF-A663-6843B9BA69FA} = {1B378E5A-0544-4874-8399-125233EB8F05}
 		{1B378E5A-0544-4874-8399-125233EB8F05} = {08D2F8D6-1E89-4414-80F5-3607D3174879}
 		{9C3275EC-D063-40B4-A38D-A02CCB9D7991} = {1B378E5A-0544-4874-8399-125233EB8F05}
+		{23F4144E-1225-45F3-BE1B-2BC0E27B33D7} = {1B378E5A-0544-4874-8399-125233EB8F05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
