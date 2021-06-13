@@ -38,25 +38,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensoes\ExtevPagtoOperMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsSitMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsStatServMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
-    <Compile Include="Extensoes\ExtMDFeEnviMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvIncDFeMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsSitMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsStatServ.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetEnviMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetEventoMDFe.cs" />
-    <Compile Include="Extensoes\ExtVersaoServico.cs" />
     <Compile Include="Flags\MDFeCUnid.cs" />
     <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
     <Compile Include="Flags\MDFeModal.cs" />

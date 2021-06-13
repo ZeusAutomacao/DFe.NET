@@ -10,6 +10,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Contratos\MDFeModalContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtevPagtoOperMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeConsReciMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeConsSitMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeConsStatServMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEnviMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEvCancMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEvEncMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEventoMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeEvIncDFeMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetConsMDFeNao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetConsReciMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetConsSitMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetConsStatServ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetEnviMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtMDFeRetEventoMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensoes\ExtVersaoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
 </Project>
