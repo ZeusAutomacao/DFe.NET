@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\CommonResponseHead.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\CommonSOAPEnvelope.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\cteCabecMsg.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\mdfeCabecMsg.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RequestBuilderAndSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SoapUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SoapUtils.cs" />

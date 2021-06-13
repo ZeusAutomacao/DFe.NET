@@ -10,6 +10,7 @@
         CTeRetRecepcao,
         CTeStatusServico,
 
-        MDFeStatusServico
+        MDFeStatusServico,
+        MDFeRecepcao
     }
 }
