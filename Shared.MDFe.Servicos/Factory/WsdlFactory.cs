@@ -96,14 +96,14 @@ namespace MDFe.Servicos.Factory
             return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeStatusServicoCore CriaWsdlMDFeStatusServico()
+        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
         {
             var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
             var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
 
             var configuracaoWsdl = CriaConfiguracao(url, versao);
 
-            return new MDFeStatusServicoCore(configuracaoWsdl);
+            return new MDFeStatusServico(configuracaoWsdl);
         }
 
         private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
