@@ -45,6 +45,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeVersaoModal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\tpNav.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\tpUnidTranspVazia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeEvento\MDFeRetInfEvento.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeProcEventoMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeProcMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeRetRecepcao\MDFeInfProtMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeRetRecepcao\MDFeProtMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeRetRecepcao\MDFeRetConsReciMDFe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Retorno\RetornoBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
 </Project>

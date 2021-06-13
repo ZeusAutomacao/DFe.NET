@@ -108,18 +108,6 @@
     <Compile Include="Informacoes\tpCarga.cs" />
     <Compile Include="Informacoes\tpComp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
-    <Compile Include="Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
-    <Compile Include="Retorno\MDFeEvento\MDFeRetInfEvento.cs" />
-    <Compile Include="Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />
-    <Compile Include="Retorno\MDFeProcEventoMDFe.cs" />
-    <Compile Include="Retorno\MDFeProcMDFe.cs" />
-    <Compile Include="Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeInfProtMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeProtMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeRetConsReciMDFe.cs" />
-    <Compile Include="Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
-    <Compile Include="Retorno\RetornoBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
