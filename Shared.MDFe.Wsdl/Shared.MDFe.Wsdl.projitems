@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MDFeConsultaProtoloco\MDFeConsultaCore.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRecepcao\MDFeRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeRetRecepcao\MDFeRetRecepcao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MDFeSatusServico\MDFeStatusServico.cs" />
