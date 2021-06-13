@@ -156,7 +156,6 @@
     <Compile Include="Retorno\MDFeRetRecepcao\MDFeRetConsReciMDFe.cs" />
     <Compile Include="Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
     <Compile Include="Retorno\RetornoBase.cs" />
-    <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
@@ -173,6 +172,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.MDFe.Classes\Shared.MDFe.Classes.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
