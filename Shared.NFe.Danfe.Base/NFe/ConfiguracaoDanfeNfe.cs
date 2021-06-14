@@ -84,7 +84,9 @@ namespace NFe.Danfe.Base.NFe
         public bool ExibeCampoFatura { get; set; }
 
         public bool ExibirResumoCanhoto { get; set; }
+
         public bool ExibeRetencoes { get; set; }
+
         public string ResumoCanhoto { get; set; }
 
         public string ChaveContingencia { get; set; }
