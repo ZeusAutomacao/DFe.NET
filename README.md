@@ -1,4 +1,4 @@
-###**Biblioteca em C# para geração de NFe**
+**Biblioteca em C# para emissão e impressão de NFe, NFCe, MDF-e e CT-e**
 
 Novo Canal Para Integração da galera , Troca de ideias experiencias etc. => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET varios outros frameworks que são criados no dia a dia.
 
@@ -24,7 +24,7 @@ DFe.NET
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida em C# utilizando Visual Studio Community 2019. Atualmente é compatível com *.NetFramework 4.5* e *.NET5+/.NetCore/.NetStandard 2.0*.
+A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2019. Atualmente é compatível com **.NetFramework 4.5* e *.NET5+/.NetCore/.NetStandard 2.0**.
 
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
@@ -64,6 +64,7 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 
 **Impressão (.NetFramework):**
 ----------
+- Exemplo no Projeto *NFe.Danfe.AppTeste*.
 - A impressão de forma nativa (sem dependências de bibliotecas de terceiros) está disponível somente para a *NFCe*¹.
 - O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
 
@@ -77,6 +78,7 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 **Impressão (.NET5+/.NetCore/.NetStandard):**
 ----------
+- Exemplo no Projeto *NFe.Danfe.AppTeste.NetCore*.
 - Não existe suporte até o momento para impressão de NFCe (utilize a opção ESC/POS em https://github.com/marcosgerene/Gerene.DFe.EscPos).
 - A impressão da NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport), sendo ele instalado automatico ao utilizar o pacote nuget do Zeus.
 - A impressão requer que o arquivo .frx seja indicado, ou seja, ao publicar os binarios de seu projeto os arquivos .frx devem estar juntos e passado o caminho do arquivo para que seja gerado a impressão.
