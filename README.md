@@ -1,6 +1,6 @@
 **Biblioteca em C# para emissão e impressão de NFe, NFCe, MDF-e e CT-e**
 
-Novo Canal Para Integração da galera , Troca de ideias experiencias etc. => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET varios outros frameworks que são criados no dia a dia.
+Novo Canal Para Integração da galera , Troca de ideias experiencias etc. => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia a dia.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
 [![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
@@ -24,7 +24,7 @@ DFe.NET
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2019. Atualmente é compatível com **.NetFramework 4.5* e *.NET5+/.NetCore/.NetStandard 2.0**.
+A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2019. Atualmente é compatível com **.NetFramework 4.5** e **.NET5+/.NetCore/.NetStandard 2.0**.
 
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
