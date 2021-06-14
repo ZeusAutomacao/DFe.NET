@@ -1,7 +1,6 @@
-Biblioteca em C# para geração de NFe
+###**Biblioteca em C# para geração de NFe**
 
-Novo Canal Para Itegração da galera , Troca de ideias experiencias etc. => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET varios outros frameworks
-que são criados no dia a dia.
+Novo Canal Para Integração da galera , Troca de ideias experiencias etc. => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET varios outros frameworks que são criados no dia a dia.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
 [![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
@@ -25,7 +24,7 @@ DFe.NET
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida em C# utilizando como IDE o Visual Studio Community 2013 e é compatível com o Visual Studio Community 2015, 2017 e 2019. Atualmente utiliza o .NetFramework na versão 4.5. Alguns módulos como CTe, NFe já foram migradas para funcionarem em .NetCore/.NetStandard 2.0.
+A biblioteca foi desenvolvida em C# utilizando Visual Studio Community 2019. Atualmente é compatível com *.NetFramework 4.5* e *.NET5+/.NetCore/.NetStandard 2.0*.
 
 Está licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
@@ -54,14 +53,14 @@ Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. 
 
 Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo eles (por ordem alfabética):
 - *CTe.AppTeste:* Projeto em WPF para demonstração de uso do CTe;
-- *CTe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do CTe em .NetCore;
+- *CTe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do CTe em .NET5;
 - *CTe.Dacte.AppTeste:* Projeto em Winforms para demonstração de uso da impressão do CTe (necessita do FastReport.Net¹);
 - *MDFe.AppTeste:* Projeto em WPF para demonstração de uso do MDFe;
 - *MDFe.Damdfe.AppTeste:* Projeto em Winforms para demonstração de uso da impressão do MDFe (necessita do FastReport.Net¹);
 - *NFe.AppTeste:* Projeto em WPF para demonstração de uso do NFe;
-- *NFe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do NFe em .NetCore;
+- *NFe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do NFe em .NET5;
 - *NFe.Danfe.AppTeste:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
-- *NFe.Danfe.AppTeste.NetCore:* Projeto em Console para demonstração de uso da impressão da NFe apenas, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
+- *NFe.Danfe.AppTeste.NetCore:* Projeto em Console em .NET5 para demonstração de uso da impressão da NFe, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
 
 **Impressão (.NetFramework):**
 ----------
@@ -76,7 +75,7 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 >³ Atualmente existe um esforço da comunidade para migrar o projeto para o .NetStandard (https://github.com/ZeusAutomacao/DFe.NET/issues/1001). Entre as mudanças, esta adicionar suporte ao Fast Reports Open Source (https://github.com/FastReports/FastReport). A principal limitação do FastReports nessa versão é não ter acesso à direct print, o que pode ser ruim para NFCe, mas pode ser facilmente contornado para os outros documentos, comentem na issue ideias e opiniões, e se possíve, colaborem com o branch.
 
-**Impressão (.NetCore/.NetStandard):**
+**Impressão (.NET5+/.NetCore/.NetStandard):**
 ----------
 - Não existe suporte até o momento para impressão de NFCe (utilize a opção ESC/POS em https://github.com/marcosgerene/Gerene.DFe.EscPos).
 - A impressão da NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport), sendo ele instalado automatico ao utilizar o pacote nuget do Zeus.
