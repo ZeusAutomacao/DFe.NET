@@ -234,6 +234,7 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("ExibeCampoFatura", configuracaoDanfeNfe.ExibeCampoFatura);
             relatorio.SetParameterValue("Logo", configuracaoDanfeNfe.Logomarca);
             relatorio.SetParameterValue("ExibirTotalTributos", configuracaoDanfeNfe.ExibirTotalTributos);
+            relatorio.SetParameterValue("ExibeRetencoes", configuracaoDanfeNfe.ExibeRetencoes);
             relatorio.SetParameterValue("DecimaisValorUnitario", configuracaoDanfeNfe.DecimaisValorUnitario);
             relatorio.SetParameterValue("DecimaisQuantidadeItem", configuracaoDanfeNfe.DecimaisQuantidadeItem);
             relatorio.SetParameterValue("DataHoraImpressao", configuracaoDanfeNfe.DataHoraImpressao ?? DateTime.Now);
