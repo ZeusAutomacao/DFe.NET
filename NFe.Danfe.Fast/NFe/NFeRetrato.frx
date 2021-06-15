@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="12/22/2020 11:51:10" ReportInfo.CreatorVersion="2017.4.3.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="05/27/2021 19:45:45" ReportInfo.CreatorVersion="2021.3.3.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -42,6 +42,7 @@ namespace FastReport
       BarCodeContigencia.Visible = !string.IsNullOrEmpty(contigenciaId);
       if(BarCodeContigencia.Visible) BarCodeContigencia.Text = contigenciaId;
       DadosISSQN.Visible = !(bool)Report.GetParameterValue(&quot;ImprimirISSQN&quot;);
+      DadosRetencoes.Visible = (bool)Report.GetParameterValue(&quot;ExibeRetencoes&quot;);
       prodRow.AutoSize = (bool)Report.GetParameterValue(&quot;DuasLinhas&quot;);
       if(prodRow.AutoSize == false) prodNomeCell.WordWrap = false;
       
@@ -468,6 +469,9 @@ namespace FastReport
       
       if (DadosISSQN.Visible)
         _Tamanho += DadosISSQN.Height;
+      
+      if (DadosRetencoes.Visible)
+        _Tamanho += DadosRetencoes.Height;
       
       DadosAdicionais.CalcHeight();
       
@@ -1119,6 +1123,7 @@ namespace FastReport
     <Parameter Name="DecimaisValorUnitario" DataType="System.Int32"/>
     <Parameter Name="DecimaisQuantidadeItem" DataType="System.Int32"/>
     <Parameter Name="DataHoraImpressao" DataType="System.DateTime"/>
+    <Parameter Name="ExibeRetencoes" DataType="System.Boolean"/>
   </Dictionary>
   <ReportPage Name="Page1" LeftMargin="6" TopMargin="7" RightMargin="7" BottomMargin="7">
     <ReportTitleBand Name="Canhoto" Width="744.66" Height="79.37">
@@ -1261,7 +1266,7 @@ namespace FastReport
       <TextObject Name="Memo80" Left="597.62" Top="52.02" Width="146.66" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vNF]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt, style=Bold"/>
       <TextObject Name="Text158" Left="490.27" Top="43.47" Width="106.97" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR DO COFINS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text159" Left="597.62" Top="25.35" Width="146.66" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vProd]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text160" Left="490.64" Top="25.35" Width="106.22" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vPIS]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text160" Left="490.64" Top="25.35" Width="106.22" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vPIS]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text161" Left="490.64" Top="52.25" Width="106.22" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vCOFINS]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text162" Left="358.72" Top="25.35" Width="131.54" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vST]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text163" Left="399.55" Top="52.16" Width="90.34" Height="17.01" Text="[NFe.NFe.infNFe.total.ICMSTot.vIPI]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="," Format.GroupSeparator="." Format.NegativePattern="1" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
@@ -1378,6 +1383,21 @@ namespace FastReport
       <TextObject Name="Memo63" Left="396.85" Top="22.57" Width="179.53" Height="17.01" Text="[NFe.NFe.infNFe.total.ISSQNtot.vBC]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
       <TextObject Name="Memo64" Left="576.38" Top="13.12" Width="168.21" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="VALOR TOTAL DO ISSQN" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo65" Left="576.38" Top="22.57" Width="167.08" Height="17.01" Text="[NFe.NFe.infNFe.total.ISSQNtot.vISS]" Padding="5, 1, 5, 1" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+    </DataBand>
+    <DataBand Name="DadosRetencoes" Top="937.9" Width="744.66" Height="40.36">
+      <TextObject Name="Text210" Left="1" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PIS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text220" Left="249.15" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="CSLL" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text221" Left="373.84" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="IRRF" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text222" Left="498.2" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="INSS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text223" Left="622.7" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="ISS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text224" Top="23.35" Width="122.82" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vRetPIS]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text226" Left="245.7" Top="22.35" Width="122.82" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vRetCSLL]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text227" Left="380" Top="22.35" Width="113.37" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vIRRF]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text228" Left="504.85" Top="22.35" Width="113.37" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vRetPrev]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text229" Left="628.7" Top="23.35" Width="113.37" Height="17.01" Text="[NFe.NFe.infNFe.total.ISSQNtot.vISSRet]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text230" Width="430.87" Height="13.23" Text="RETENÇÕES" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
+      <TextObject Name="Text231" Left="125.3" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="COFINS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
+      <TextObject Name="Text232" Left="125.75" Top="23.35" Width="122.82" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vRetCOFINS]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
     </DataBand>
     <PageFooterBand Name="DadosAdicionais" Top="937.9" Width="744.66" Height="60.15" CanGrow="true" PrintOn="FirstPage">
       <TextObject Name="Text155" Top="13.46" Width="470.06" Height="45.36" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
