@@ -57,5 +57,13 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "CNPJIPEF")]
         public string CNPJIPEF { get; set; }
+
+        /// <summary>
+        /// 1 -Informar a chave PIX para recebimento do frete.
+        /// Pode ser email, CPF/ CNPJ (somente numeros), Telefone com a seguinte formatação
+        /// (+5599999999999) ou a chave aleatória gerada pela instituição.
+        /// </summary>
+        [XmlElement(ElementName = "PIX")]
+        public string PIX { get; set; }
     }
 }

@@ -31,48 +31,17 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
 using System.Xml.Serialization;
-using DFe.Classes;
-using MDFe.Classes.Flags;
 
-namespace MDFe.Classes.Informacoes
+namespace MDFe.Classes.Flags
 {
-    [Serializable]
-    public class MDFeDisp
+    public enum MDFeTpValePed
     {
-        private decimal _vValePed;
-
-        /// <summary>
-        /// 3 - CNPJ da empresa fornecedora do ValePedágio
-        /// </summary>
-        [XmlElement(ElementName = "CNPJForn")]
-        public string CNPJForn { get; set; }
-
-        /// <summary>
-        /// 3 - CNPJ do responsável pelo pagamento do Vale-Pedágio
-        /// </summary>
-        [XmlElement(ElementName = "CNPJPg")]
-        public string CNPJPg { get; set; }
-
-        public string CPFPg { get; set; }
-
-        /// <summary>
-        /// 3 - Número do comprovante de compra 
-        /// </summary>
-        [XmlElement(ElementName = "nCompra")]
-        public string NCompra { get; set; }
-
-        public decimal vValePed
-        {
-            get { return _vValePed.Arredondar(2); }
-            set { _vValePed = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        /// Tipo do Vale Pedágio
-        /// </summary>
-        [XmlElement(ElementName = "tpValePed")]
-        public MDFeTpValePed? TpValePed { get; set; }
+        [XmlEnum("01")]
+        TAG = 1,
+        [XmlEnum("02")]
+        Cupom = 2,
+        [XmlEnum("03")]
+        Cartao = 3
     }
 }

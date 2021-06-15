@@ -108,5 +108,11 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "infBanc")]
         public MDFeInfBanc InfBanc { get; set; }
+
+        /// <summary>
+        /// 1 - Informações Bancárias.
+        /// </summary>
+        [XmlElement(ElementName = "indAltoDesemp")]
+        public MDFeIndAltoDesemp IndAltoDesemp { get; set; }
     }
 }

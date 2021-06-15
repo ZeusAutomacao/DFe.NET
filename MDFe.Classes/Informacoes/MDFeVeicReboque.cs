@@ -90,17 +90,29 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "tpCar")]
         public MDFeTpCar TpCar { get; set; }
 
+        /// <summary>
+        /// 3 - UF
+        /// </summary>
         [XmlIgnore]
-        public Estado UF { get; set; }
+        public Estado? UF { get; set; }
 
+        /// <summary>
+        /// Proxy para obter a sigla uf 
+        /// </summary>
         [XmlElement(ElementName = "UF")]
         public string ProxyUF
         {
             get
             {
-                return UF.GetSiglaUfString();
+                return UF.HasValue ? UF.Value.GetSiglaUfString() : null;
             }
-            set { UF = UF.SiglaParaEstado(value); }
+            set
+            {
+                if (value != null || value != String.Empty)
+                    UF = new Estado().SiglaParaEstado(value);
+                else
+                    UF = null;
+            }
         }
     }
 }

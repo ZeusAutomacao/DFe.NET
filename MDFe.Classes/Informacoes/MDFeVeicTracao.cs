@@ -80,7 +80,7 @@ namespace MDFe.Classes.Informacoes
         public int? CapM3 { get; set; }
 
         /// <summary>
-        /// 2 - Proprietários do Veículo. Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e
+        /// 2 - Proprietário ou possuidor do Veículo. Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e
         /// </summary>
         [XmlElement(ElementName = "prop")]
         public MDFeProp Prop { get; set; }
@@ -104,22 +104,28 @@ namespace MDFe.Classes.Informacoes
         public MDFeTpCar TpCar { get; set; }
 
         /// <summary>
-        /// 2 - UF em que veículo está licenciado 
+        /// 3 - UF
         /// </summary>
         [XmlIgnore]
-        public Estado UF { get; set; }
+        public Estado? UF { get; set; }
 
         /// <summary>
-        /// Proxy para obter a sigla uf
+        /// Proxy para obter a sigla uf 
         /// </summary>
         [XmlElement(ElementName = "UF")]
         public string ProxyUF
         {
             get
             {
-                return UF.GetSiglaUfString();
+                return UF.HasValue ? UF.Value.GetSiglaUfString() : null;
             }
-            set { UF = UF.SiglaParaEstado(value); }
+            set
+            {
+                if (value != null || value != String.Empty)
+                    UF = new Estado().SiglaParaEstado(value);
+                else
+                    UF = null;
+            }
         }
 
         public bool CapKGSpecified { get { return CapKG.HasValue; } }

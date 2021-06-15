@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using MDFe.Classes.Flags;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -45,5 +46,12 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "disp")]
         public List<MDFeDisp> Disp { get; set; }
+
+
+        /// <summary>
+        /// Categoria de Combinação Veicular
+        /// </summary>
+        [XmlElement(ElementName = "categCombVeic")]
+        public MDFeCategCombVeic? CategCombVeic { get; set; }
     }
 }

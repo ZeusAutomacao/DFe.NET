@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="02/01/2021 14:49:36" ReportInfo.CreatorVersion="2021.1.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll&#13;&#10;mscorlib.dll" DoublePass="true" SmoothGraphics="true" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="02/10/2021 17:22:30" ReportInfo.CreatorVersion="2021.1.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -134,7 +134,7 @@ namespace FastReport
       //txtCpf.Text = &quot;&quot;;
       //txtNome.Text = &quot;&quot;;
       string rntrc = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Prop.RNTRC&quot;);
-      CellRNTRCVeiculo.Text = !string.IsNullOrEmpty(rntrc) ? &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Prop.RNTRC]&quot; : &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]&quot;;
+      CellRNTRCVeiculo.Text = !string.IsNullOrEmpty(rntrc) ? rntrc : &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]&quot;;
       
       TableVeiculos.PrintRow(0);
       TableVeiculos.PrintColumns();
@@ -143,7 +143,7 @@ namespace FastReport
       while (reboques.HasMoreRows)
       {
         rntrc = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Prop.RNTRC&quot;);
-        CellRNTRCReboque.Text = !string.IsNullOrEmpty(rntrc) ? &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Prop.RNTRC]&quot; : &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]&quot;;
+        CellRNTRCReboque.Text = !string.IsNullOrEmpty(rntrc) ? rntrc : &quot;[MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]&quot;;
         TableVeiculos.PrintRow(1);
         TableVeiculos.PrintColumns();
         //txtCpf.Text += FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF&quot;), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));

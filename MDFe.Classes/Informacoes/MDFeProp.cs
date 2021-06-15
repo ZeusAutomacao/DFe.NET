@@ -92,7 +92,7 @@ namespace MDFe.Classes.Informacoes
         }
 
         /// <summary>
-        /// 3 - Tipo Proprietário 
+        /// 3 - Tipo Proprietário ou possuidor
         /// </summary>
         [XmlElement(ElementName = "tpProp")]
         public MDFeTpProp MDFeTpProp { get; set; }
