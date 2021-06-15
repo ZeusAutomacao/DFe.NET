@@ -66,6 +66,7 @@ namespace NFe.Danfe.Base.NFe
             ResumoCanhoto = string.Empty;
             ChaveContingencia = string.Empty;
             ExibeCampoFatura = false;
+            ExibeRetencoes = false;
             ImprimirISSQN = true;
             ImprimirDescPorc = false;
             ImprimirTotalLiquido = false;
@@ -83,6 +84,8 @@ namespace NFe.Danfe.Base.NFe
         public bool ExibeCampoFatura { get; set; }
 
         public bool ExibirResumoCanhoto { get; set; }
+
+        public bool ExibeRetencoes { get; set; }
 
         public string ResumoCanhoto { get; set; }
 
