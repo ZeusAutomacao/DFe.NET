@@ -97,6 +97,7 @@ namespace NFe.Servicos
         private readonly X509Certificate2 _certificado;
         private readonly ConfiguracaoServico _cFgServico;
         private readonly string _path;
+        private const string DefaultHeaderUTF8 = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 
         /// <summary>
         /// Cria uma instância da Classe responsável pelos serviços relacionados à NFe
@@ -1598,7 +1599,9 @@ namespace NFe.Servicos
             {
                 if (compactarMensagem)
                 {
-                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                    //var xmlCompactado = Convert.ToBase64String(Compressao.Zip(xmlEnvio));
+                    var xmlCompactado = Convert.ToBase64String(Compressao.Zip(DefaultHeaderUTF8 + xmlEnvio));
+
                     retorno = ws.ExecuteZip(xmlCompactado);
 
                     //retorno = ws.ExecuteZip(Compressao.ZipWithToBase64Transform(envio));
