@@ -150,10 +150,10 @@ namespace NFe.Servicos
                     string.Format("O serviço {0} não pode ser criado no método {1}!", servico,
                         MethodBase.GetCurrentMethod().Name));
 
-            if (IsSvanNFe4())
-            {
-                return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-            }
+            //if (IsSvanNFe4())
+            //{
+                //return new NFeAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+            //}
 
             if (_cFgServico.VersaoNFeAutorizacao == VersaoServico.ve400)
                 return new NFeAutorizacao4(url, _certificado, _cFgServico.TimeOut);
@@ -195,10 +195,10 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeConsultaProtocolo:
 
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
                     {
@@ -227,10 +227,10 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
                         return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
@@ -241,10 +241,10 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeInutilizacao:
 
-                    if (IsSvanNFe4())
-                    {
-                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
@@ -340,10 +340,10 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeConsultaProtocolo:
 
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NfeConsulta4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNfeConsultaProtocolo == VersaoServico.ve400)
                     {
@@ -372,10 +372,10 @@ namespace NFe.Servicos
                         MethodBase.GetCurrentMethod().Name));
 
                 case ServicoNFe.NFeRetAutorizacao:
-                    if (IsSvanNFe4())
-                    {
-                        return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NfeRetAutorizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNFeRetAutorizacao == VersaoServico.ve400)
                         return new NfeRetAutorizacao4(url, _certificado, _cFgServico.TimeOut);
@@ -386,10 +386,10 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NfeInutilizacao:
 
-                    if (IsSvanNFe4())
-                    {
-                        return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
-                    }
+                    //if (IsSvanNFe4())
+                    //{
+                    //    return new NFeInutilizacao4SVAN(url, _certificado, _cFgServico.TimeOut);
+                    //}
 
                     if (_cFgServico.VersaoNfeStatusServico == VersaoServico.ve400)
                     {
