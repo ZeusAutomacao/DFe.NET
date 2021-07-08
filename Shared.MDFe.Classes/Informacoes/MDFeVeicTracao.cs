@@ -123,5 +123,6 @@ namespace MDFe.Classes.Informacoes
 
         public bool CapKGSpecified { get { return CapKG.HasValue; } }
         public bool CapM3Specified { get { return CapM3.HasValue; } }
+        public bool TaraSpecified { get { return Tara.HasValue; } }
     }
 }
