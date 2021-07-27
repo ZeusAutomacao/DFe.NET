@@ -44,5 +44,9 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "disp")]
         public List<MDFeDisp> Disp { get; set; }
+
+        public categCombVeic? categCombVeic { get; set; }
+
+        public bool categCombVeicSpecified { get { return categCombVeic.HasValue; } }
     }
 }
