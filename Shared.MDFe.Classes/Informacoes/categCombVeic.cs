@@ -30,5 +30,8 @@ namespace MDFe.Classes.Informacoes
 
         [XmlEnum("13")]
         VeiculoComercial10Eixos = 10,
+
+        [XmlEnum("14")]
+        VeiculoComercialAcimaDe10Eixos = 14
     }
 }
