@@ -198,11 +198,13 @@
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button Name="BtnNfeDanfeA4" Content="DANFE NFe A4" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Margin="5,10,5,0" Click="BtnNfeDanfeA4_Click" />
+                                VerticalAlignment="Top" Width="120" Margin="5,10,5,0" Click="BtnNfeDanfeA4_Click" />
                         <Button x:Name="BtnEventoNFe" Content="Evento NFe" HorizontalAlignment="Left" 
-                            VerticalAlignment="Top" Width="176" Margin="5,10,5,0" Click="btnEventoNFe_Click" />
+                            VerticalAlignment="Top" Width="120" Margin="5,10,5,0" Click="btnEventoNFe_Click" />
                         <Button x:Name="BtnNfceDanfe" Content="DANFE NFCe" HorizontalAlignment="Left"
-                                VerticalAlignment="Top" Width="177" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
+                                VerticalAlignment="Top" Width="120" Click="BtnNfceDanfe_Click" Margin="5,10,5,0" />
+                        <Button x:Name="BtnNFeSimplificado" Content="DANFE Simplificado" HorizontalAlignment="Left"
+                                VerticalAlignment="Top" Width="120" Click="BtnNFeSimplificado_Click" Margin="5,10,5,0" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"/>
                 </StackPanel>
