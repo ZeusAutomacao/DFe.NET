@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="08/16/2021 10:30:54" ReportInfo.CreatorVersion="2021.2.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.Standard.dll&#13;&#10;DFe.Classes.Standard.dll&#13;&#10;MDFe.Utils.Standard.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="08/16/2021 10:31:44" ReportInfo.CreatorVersion="2021.2.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;                
 using System.Windows.Forms;
 using System.Drawing;
-using System.Data;        
+using System.Data;      
 using System.Text.RegularExpressions;
 
 using FastReport;
@@ -644,7 +644,7 @@ namespace FastReport
       <TextObject Name="Text1" Left="387.68" Top="173.95" Width="108.4" Height="10.01" Text="CONTROLE DO FISCO" Font="Arial, 5.25pt, style=Bold"/>
       <TextObject Name="Text2" Left="388.01" Top="235.12" Width="137.75" Height="8.89" Text="Chave de Acesso" Font="Arial, 6pt, style=Bold"/>
       <TextObject Name="Text4" Left="0.88" Top="108.51" Width="63.37" Height="18.68" Text="DAMDFE -" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
-      <PictureObject Name="poEmitLogo" Left="2.45" Top="12.45" Width="116.73" Height="84.82"/>
+      <PictureObject Name="poEmitLogo" Left="2.45" Top="12.45" Width="116.73" Height="84.82" Image=""/>
       <TextObject Name="Text5" Left="116.4" Top="12.9" Width="455.6" Height="25.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
       <TextObject Name="Text6" Left="116.42" Top="49.25" Width="450.6" Height="51.03" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF], CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')] IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] RNTRC: [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]" Font="Arial Narrow, 6.75pt"/>
       <TextObject Name="Text7" Left="3.58" Top="134.19" Width="34.8" Height="10.45" Text="Modelo" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
@@ -715,15 +715,15 @@ namespace FastReport
     </DataBand>
     <DataBand Name="Data1" Top="558.56" Width="748.44" Height="27.38" DataSource="BusinessObjectDataSource9">
       <TextObject Name="Text81" Top="2" Width="745.2" Height="24.35" Border.Lines="Bottom" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Arial, 8.25pt"/>
-      <DataBand Name="Data7" Top="588.23" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfNFe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data7" Top="588.23" Width="372.71" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfNFe" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text82" Left="1" Width="370.55" Height="18.9" Text="NF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter1" Top="610.86" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data6" Top="632.05" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfCTe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data6" Top="632.05" Width="372.71" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfCTe" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text10" Left="1" Top="3.45" Width="370.55" Height="18.9" Text="CT-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter2" Top="658.69" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data8" Top="679.87" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfMdFeTransps" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data8" Top="679.87" Width="372.71" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfMdFeTransps" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text83" Left="1" Width="370.55" Height="18.9" Text="MDF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter3" Top="702.51" Width="748.44" Height="18.9"/>
       </DataBand>
