@@ -75,7 +75,8 @@ namespace Shared.DFe.Danfe.Fast
             if (configuracaoDanfeNfce.SegundaViaContingencia)
             {
 #if Standard
-                    throw new Exception("configuracaoDanfeNfce.SegundaViaContingencia não suportado em .net standard, apenas em .net framework");
+                /*Se a NFe for autorizada, mesmo que seja em contingência, imprime somente uma via - devendo o usuario enviar 2 copias para a impressora*/
+                //throw new Exception("configuracaoDanfeNfce.SegundaViaContingencia não suportado em .net standard, apenas em .net framework");
 
 #else
                 relatorio.PrintSettings.Copies = (proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal | (proc.protNFe != null && proc.protNFe.infProt != null && NfeSituacao.Autorizada(proc.protNFe.infProt.cStat))
