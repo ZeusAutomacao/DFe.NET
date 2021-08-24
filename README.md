@@ -58,9 +58,9 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 - *MDFe.AppTeste:* Projeto em WPF para demonstração de uso do MDFe;
 - *MDFe.Damdfe.AppTeste:* Projeto em Winforms para demonstração de uso da impressão do MDFe (necessita do FastReport.Net¹);
 - *NFe.AppTeste:* Projeto em WPF para demonstração de uso do NFe;
-- *NFe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do NFe em .NET5;
+- *NFe.AppTeste.NetCore:* Projeto em Console para demonstração de uso do NFe e NFCe em .NET5;
 - *NFe.Danfe.AppTeste:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
-- *NFe.Danfe.AppTeste.NetCore:* Projeto em Console em .NET5 para demonstração de uso da impressão da NFe, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
+- *NFe.Danfe.AppTeste.NetCore:* Projeto em Console em .NET5 para demonstração de uso de impressão da NFe, NFCe, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
 
 **Impressão (.NetFramework):**
 ----------
@@ -78,11 +78,11 @@ Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
 **Impressão (.NET5+/.NetCore/.NetStandard):**
 ----------
-- Exemplo no Projeto *NFe.Danfe.AppTeste.NetCore*.
-- Não existe suporte até o momento para impressão de NFCe (utilize a opção ESC/POS em https://github.com/marcosgerene/Gerene.DFe.EscPos).
+- Exemplos no Projeto *NFe.Danfe.AppTeste.NetCore*.
 - A impressão da NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport), sendo ele instalado automatico ao utilizar o pacote nuget do Zeus.
 - A impressão requer que o arquivo .frx seja indicado, ou seja, ao publicar os binarios de seu projeto os arquivos .frx devem estar juntos e passado o caminho do arquivo para que seja gerado a impressão.
-- Até o momento não é suportado a impressão direta na impressora. As saídas suportadas são Stream ou Byte[], sendo elas em PDF, HTML e PNG.
+- As saídas suportadas pelo FastReport.OpenSource são Stream ou Byte[], sendo elas em PDF, HTML e PNG.
+- Para Impressão de NFCe tambem existe a seguinte opção ESC/POS (direto na impressora): https://github.com/marcosgerene/Gerene.DFe.EscPos.
 
 #### Impressão em Linux (Nativo ou Docker)
 
@@ -107,11 +107,16 @@ Tambem foi necessário copiar algumas **fontes**, o relatório de Danfe atual ut
 
 >sudo apt-get install ttf-mscorefonts-installer
 
-- (Exemplo abaixo para DockerFile Ubuntu 18.x, porem diferente do exemploa anterior, copiando fontes ja existentes em uma pasta para a pasta de destino da imagem docker)
+- (Exemplo para Debian 10)
+
+>apt-get install -y ttf-mscorefonts-installer fontconfig
+
+- (Exemplo abaixo para DockerFile Ubuntu 18.x, porem diferente do exemploa anterior, copiando fontes ja existentes em uma pasta para a pasta de destino da imagem docker, não recomendamos essa opção por possíveis problemas porem a imagem de saída fica menor)
 
 >RUN mkdir -p /usr/share/fonts/truetype/times \
 COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 
+O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
 
 **Suporte:**
 ---------
