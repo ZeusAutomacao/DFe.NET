@@ -73,6 +73,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeConsultaDest;
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
+        private string proxy;
 
         public ConfiguracaoServico()
         {
