@@ -218,7 +218,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         [Description("Averbação para Exportação")]
         [XmlEnum("790700")]
-        TeMdAverbacaoparaExportacao = 790700
+        TeMdAverbacaoparaExportacao = 790700,
 
         [Description("Sem Manifestacao")]
         SemManifestacao = 999999,
