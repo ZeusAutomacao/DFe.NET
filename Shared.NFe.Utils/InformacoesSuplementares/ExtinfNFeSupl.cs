@@ -146,7 +146,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SP, versao4, "https://www.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.SE, versao4, "http://www.nfce.se.gov.br/nfce/qrcode?"},
-                {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"}
+                {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"},
+                {Estado.SC, versao4, "https://sat.sef.sc.gov.br/nfce/consulta"}
             };
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
 
@@ -159,7 +160,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AC, versao3E4, "http://www.hml.sefaznet.ac.gov.br/nfce/qrcode?"},
                 {Estado.AL, versao3E4, "http://nfce.sefaz.al.gov.br/QRCode/consultarNFCe.jsp"},
                 {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/nfcehml/nfce.php"},
-                {Estado.AM, versao3E4, "https://homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: homnfce.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
+                {Estado.AM, versao3E4, "https://sistemas.sefaz.am.gov.br/nfceweb-hom/consultarNFCe.jsp?"},
                 {Estado.BA, versao3E4, "http://hnfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
                 {Estado.CE, versao3E4, "http://nfceh.sefaz.ce.gov.br/pages/ShowNFCe.html"},
                 {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},
@@ -195,7 +196,8 @@ namespace NFe.Utils.InformacoesSuplementares
             {
                 {Estado.PR, versao4, "http://www.fazenda.pr.gov.br/nfce/qrcode?"},
                 {Estado.SE, versao4, "http://www.hom.nfe.se.gov.br/nfce/qrcode?"},
-                {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"}
+                {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
+                {Estado.SC, versao4, "https://hom.sat.sef.sc.gov.br/nfce/consulta"},
             };
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
 
@@ -320,7 +322,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.nfce.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "www.sefaz.go.gov.br/nfce/consulta"},
                 {Estado.MG, versao3E4, "http://nfce.fazenda.mg.gov.br/portalnfce"},
-                {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"}
+                {Estado.TO, versao3E4, "www.sefaz.to.gov.br/nfce/consulta"},
+                {Estado.SC, versao3E4, "https://sat.sef.sc.gov.br/nfce/consulta" }
             };
 
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaProducao2);
@@ -338,7 +341,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MG, versao3E4, "http://hnfce.fazenda.mg.gov.br/portalnfce"},
-                {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/consulta.jsf" }
+                {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/consulta.jsf" },
+                {Estado.SC, versao3E4, "https://hom.sat.sef.sc.gov.br/nfce/consulta" }
             };
 
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacao2);
@@ -474,7 +478,7 @@ namespace NFe.Utils.InformacoesSuplementares
             var ambiente = (int)nfe.infNFe.ide.tpAmb;
 
             //Identificador do CSC (Código de Segurança do Contribuinte no Banco de Dados da SEFAZ). Informar sem os zeros não significativos
-            var idCsc = Convert.ToInt16(cIdToken);
+            var idCsc = Convert.ToInt32(cIdToken);
 
             string dadosBase;
 

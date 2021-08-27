@@ -68,7 +68,7 @@ namespace NFe.Danfe.Base.NFCe
         /// <summary>
         /// Construtor sem parâmetros para serialização
         /// </summary>
-        private ConfiguracaoDanfeNfce()
+        public ConfiguracaoDanfeNfce()
         {
             DocumentoCancelado = false;
         }
@@ -88,6 +88,11 @@ namespace NFe.Danfe.Base.NFCe
         /// Determina se o desconto do item será impresso no DANTE, quando houver
         /// </summary>
         public bool ImprimeDescontoItem { get; set; }
+
+        /// <summary>
+        /// Determina se o número de telefone do emitente será impresso no danfe
+        /// </summary>
+        public bool ImprimeFoneEmitente { get; set; }
 
         /// <summary>
         /// Margem esquerda de impressão em milímetros

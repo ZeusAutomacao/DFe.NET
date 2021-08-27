@@ -499,8 +499,13 @@ namespace NFe.Utils
         /// <summary>
         /// Determina se o cerificado do servidor deve ser verificado
         /// </summary>
-        public bool ValidarCertificadoDoServidor { get; set; } 
-        
+        public bool ValidarCertificadoDoServidor { get; set; }
+
+        /// <summary>
+        /// Determina se os schemas devem ser validados antes do envio ao WebService
+        /// O comportamento padrão é true!
+        /// </summary>
+        public bool ValidarSchemas { get; set; } = true;
 
         /// <summary>
         ///     Instância do Singleton de ConfiguracaoServico

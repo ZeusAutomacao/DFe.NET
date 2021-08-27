@@ -32,6 +32,8 @@
 /********************************************************************************/
 
 
+using System;
+
 namespace NFe.Danfe.Base.NFe
 {
     public enum ImprimirUnidQtdeValor
@@ -64,6 +66,7 @@ namespace NFe.Danfe.Base.NFe
             ResumoCanhoto = string.Empty;
             ChaveContingencia = string.Empty;
             ExibeCampoFatura = false;
+            ExibeRetencoes = false;
             ImprimirISSQN = true;
             ImprimirDescPorc = false;
             ImprimirTotalLiquido = false;
@@ -71,6 +74,7 @@ namespace NFe.Danfe.Base.NFe
             ExibirTotalTributos = false;
             DecimaisValorUnitario = 2;
             DecimaisQuantidadeItem = 2;
+            DataHoraImpressao = null;
         }
 
         public bool DuasLinhas { get; set; }
@@ -80,6 +84,8 @@ namespace NFe.Danfe.Base.NFe
         public bool ExibeCampoFatura { get; set; }
 
         public bool ExibirResumoCanhoto { get; set; }
+
+        public bool ExibeRetencoes { get; set; }
 
         public string ResumoCanhoto { get; set; }
 
@@ -94,7 +100,11 @@ namespace NFe.Danfe.Base.NFe
         public ImprimirUnidQtdeValor ImprimirUnidQtdeValor { get; set; }
 
         public bool ExibirTotalTributos { get; set; }
+
         public int DecimaisValorUnitario { get; set; }
+
         public int DecimaisQuantidadeItem { get; set; }
+
+        public DateTime? DataHoraImpressao { get; set; }
     }
 }

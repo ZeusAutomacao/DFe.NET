@@ -23,6 +23,7 @@ namespace Shared.DFe.Danfe.Fast
             Report relatorio = new Report();
             relatorio.RegisterData(new[] { proc }, "NFCe", 20);
             relatorio.GetDataSource("NFCe").Enabled = true;
+            
             if (string.IsNullOrEmpty(arquivoRelatorio))
             {
                 relatorio.Load(new MemoryStream(frx));
@@ -35,6 +36,21 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
             relatorio.SetParameterValue("NfceImprimeDescontoItem", configuracaoDanfeNfce.ImprimeDescontoItem);
+            relatorio.SetParameterValue("NfceImprimeFoneEmitente", configuracaoDanfeNfce.ImprimeFoneEmitente);
+
+            string foneEmitente = null;
+
+            if (proc.NFe.infNFe.emit.enderEmit.fone != null)
+            {
+                foneEmitente = proc.NFe.infNFe.emit.enderEmit.fone.ToString();
+            }
+            
+            if (foneEmitente != null && foneEmitente.Length == 10)
+                foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
+            else if (foneEmitente != null && foneEmitente.Length == 11)
+                foneEmitente = string.Format("{0:(00)00000-0000}", Convert.ToInt64(foneEmitente));
+            
+            relatorio.SetParameterValue("NfceFoneEmitente", foneEmitente);
             relatorio.SetParameterValue("NfceModoImpressao", configuracaoDanfeNfce.ModoImpressao);
             relatorio.SetParameterValue("NfceCancelado", configuracaoDanfeNfce.DocumentoCancelado);
             relatorio.SetParameterValue("NfceLayoutQrCode", configuracaoDanfeNfce.NfceLayoutQrCode);
@@ -59,7 +75,8 @@ namespace Shared.DFe.Danfe.Fast
             if (configuracaoDanfeNfce.SegundaViaContingencia)
             {
 #if Standard
-                    throw new Exception("configuracaoDanfeNfce.SegundaViaContingencia não suportado em .net standard, apenas em .net framework");
+                /*Se a NFe for autorizada, mesmo que seja em contingência, imprime somente uma via - devendo o usuario enviar 2 copias para a impressora*/
+                //throw new Exception("configuracaoDanfeNfce.SegundaViaContingencia não suportado em .net standard, apenas em .net framework");
 
 #else
                 relatorio.PrintSettings.Copies = (proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal | (proc.protNFe != null && proc.protNFe.infProt != null && NfeSituacao.Autorizada(proc.protNFe.infProt.cStat))
@@ -218,8 +235,10 @@ namespace Shared.DFe.Danfe.Fast
             relatorio.SetParameterValue("ExibeCampoFatura", configuracaoDanfeNfe.ExibeCampoFatura);
             relatorio.SetParameterValue("Logo", configuracaoDanfeNfe.Logomarca);
             relatorio.SetParameterValue("ExibirTotalTributos", configuracaoDanfeNfe.ExibirTotalTributos);
+            relatorio.SetParameterValue("ExibeRetencoes", configuracaoDanfeNfe.ExibeRetencoes);
             relatorio.SetParameterValue("DecimaisValorUnitario", configuracaoDanfeNfe.DecimaisValorUnitario);
             relatorio.SetParameterValue("DecimaisQuantidadeItem", configuracaoDanfeNfe.DecimaisQuantidadeItem);
+            relatorio.SetParameterValue("DataHoraImpressao", configuracaoDanfeNfe.DataHoraImpressao ?? DateTime.Now);
 
             return relatorio;
         }

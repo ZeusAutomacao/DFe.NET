@@ -56,10 +56,12 @@ namespace FastReport
     {
       Memo47.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.serie&quot;).ToString().PadLeft(3,'0');
       Memo48.Text = Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.nNF&quot;).ToString().PadLeft(9,'0');
-      Memo49.Text = DateTime.Parse(Report.
-        GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Month.ToString().PadLeft(2, '0')+&quot;/&quot;+
-        DateTime.Parse(Report.
-        GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;).ToString()).Date.Year.ToString().PadLeft(4, '0');
+      try {
+        var value = (DateTimeOffset)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.dhEmi&quot;);
+        Memo49.Text = value.Date.Month.ToString().PadLeft(2, '0')+&quot;/&quot;+value.Date.Year.ToString().PadLeft(4, '0');
+      } catch { 
+      throw new Exception("Erro - dhEmi em formato incorreto.");
+      }
       try { 
         Memo53.Text = DateTime.Parse(Report.GetColumnValue(&quot;procEventoNFe.evento.infEvento.dhEvento&quot;).ToString()).ToString();
       } catch{

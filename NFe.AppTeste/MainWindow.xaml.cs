@@ -230,6 +230,36 @@ namespace NFe.AppTeste
             }
         }
 
+        private void BtnConsultaRecibo_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Consulta Situação NFe
+
+                var recibo = Funcoes.InpuBox(this, "Consultar Recibo", "Número do recibo:");
+                if (string.IsNullOrEmpty(recibo)) throw new Exception("O recibo deve ser informado!");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoConsulta = servicoNFe.NFeRetAutorizacao(recibo);
+                TrataRetorno(retornoConsulta);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -900,8 +930,6 @@ namespace NFe.AppTeste
 
         protected virtual ide GetIdentificacao(int numero, ModeloDocumento modelo, VersaoServico versao)
         {
-            var estado = Estado.SE;
-
             var ide = new ide
             {
                 cUF = _configuracoes.EnderecoEmitente.UF,
@@ -916,7 +944,8 @@ namespace NFe.AppTeste
                 cNF = "1234",
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
-                verProc = "3.000"
+                verProc = "3.000",
+                indIntermed = IndicadorIntermediador.iiSemIntermediador
             };
 
             if (ide.tpEmis != TipoEmissao.teNormal)
@@ -1797,5 +1826,7 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+
+        
     }
 }

@@ -38,112 +38,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contratos\MDFeModalContainer.cs" />
-    <Compile Include="Extensoes\ExtMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsReciMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsSitMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeConsStatServMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeCosMDFeNaoEnc.cs" />
-    <Compile Include="Extensoes\ExtMDFeEnviMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvCancMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvEncMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEventoMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvIncDFeMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeEvIncCondutorMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsMDFeNao.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsReciMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsSitMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetConsStatServ.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetEnviMDFe.cs" />
-    <Compile Include="Extensoes\ExtMDFeRetEventoMDFe.cs" />
-    <Compile Include="Extensoes\ExtVersaoServico.cs" />
-    <Compile Include="Flags\MDFeCUnid.cs" />
-    <Compile Include="Flags\MDFeIdentificacaoProcessoEmissao.cs" />
-    <Compile Include="Flags\MDFeModal.cs" />
-    <Compile Include="Flags\MDFeRespSeg.cs" />
-    <Compile Include="Flags\MDFeTipoEmissao.cs" />
-    <Compile Include="Flags\MDFeTipoEmitente.cs" />
-    <Compile Include="Flags\MDFeTpCar.cs" />
-    <Compile Include="Flags\MDFeTpRod.cs" />
-    <Compile Include="Flags\MDFeTpProp.cs" />
-    <Compile Include="Flags\MDFeTpTransp.cs" />
-    <Compile Include="Flags\MDFeTpUnidCarga.cs" />
-    <Compile Include="Flags\MDFeTpUnidCargaVazia.cs" />
-    <Compile Include="Flags\MDFeTpUnidTransp.cs" />
-    <Compile Include="Flags\MDFeVersaoModal.cs" />
-    <Compile Include="Flags\tpNav.cs" />
-    <Compile Include="Flags\tpUnidTranspVazia.cs" />
-    <Compile Include="Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
-    <Compile Include="Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
-    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvCancMDFe.cs" />
-    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvEncMDFe.cs" />
-    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncDFeMDFe.cs" />
-    <Compile Include="Informacoes\Evento\CorpoEvento\MDFeEvIncCondutorMDFe.cs" />
-    <Compile Include="Informacoes\Evento\Flags\MDFeTipoEvento.cs" />
-    <Compile Include="Informacoes\Evento\MDFeDetEvento.cs" />
-    <Compile Include="Informacoes\Evento\MDFeEventoContainer.cs" />
-    <Compile Include="Informacoes\Evento\MDFeEventoMDFe.cs" />
-    <Compile Include="Informacoes\Evento\MDFeInfEvento.cs" />
-    <Compile Include="Informacoes\infCIOT.cs" />
-    <Compile Include="Informacoes\infContratante.cs" />
-    <Compile Include="Informacoes\infEntregaParcial.cs" />
-    <Compile Include="Informacoes\infMDFeSupl.cs" />
-    <Compile Include="Informacoes\infRespTec.cs" />
-    <Compile Include="Informacoes\infUnidTranspVazia.cs" />
-    <Compile Include="Informacoes\MDFe.cs" />
-    <Compile Include="Informacoes\MDFeAereo.cs" />
-    <Compile Include="Informacoes\MDFeAquav.cs" />
-    <Compile Include="Informacoes\MDFeAutXML.cs" />
-    <Compile Include="Informacoes\MDFeCondutor.cs" />
-    <Compile Include="Informacoes\MDFeDisp.cs" />
-    <Compile Include="Informacoes\MDFeEmit.cs" />
-    <Compile Include="Informacoes\MDFeFerrov.cs" />
-    <Compile Include="Informacoes\MDFeIde.cs" />
-    <Compile Include="Informacoes\MDFeInfAdic.cs" />
-    <Compile Include="Informacoes\MDFeInfCTe.cs" />
-    <Compile Include="Informacoes\MDFeInfDoc.cs" />
-    <Compile Include="Informacoes\MDFeInfEmbComb.cs" />
-    <Compile Include="Informacoes\MDFeInfMDFe.cs" />
-    <Compile Include="Informacoes\MDFeInfMDFeTransp.cs" />
-    <Compile Include="Informacoes\MDFeInfModal.cs" />
-    <Compile Include="Informacoes\MDFeInfMunCarrega.cs" />
-    <Compile Include="Informacoes\MDFeInfMunDescarga.cs" />
-    <Compile Include="Informacoes\MDFeInfNFe.cs" />
-    <Compile Include="Informacoes\MDFeInfPercurso.cs" />
-    <Compile Include="Informacoes\MDFeInfTermCarreg.cs" />
-    <Compile Include="Informacoes\MDFeInfTermDescarreg.cs" />
-    <Compile Include="Informacoes\MDFeInfUnidCarga.cs" />
-    <Compile Include="Informacoes\MDFeInfUnidCargaVazia.cs" />
-    <Compile Include="Informacoes\MDFeInfUnidTransp.cs" />
-    <Compile Include="Informacoes\MDFeLacre.cs" />
-    <Compile Include="Informacoes\MDFeLacUnidCarga.cs" />
-    <Compile Include="Informacoes\MDFeLacUnidTransp.cs" />
-    <Compile Include="Informacoes\MDFePeri.cs" />
-    <Compile Include="Informacoes\MDFeProp.cs" />
-    <Compile Include="Informacoes\MDFeRodo.cs" />
-    <Compile Include="Informacoes\MDFeSeg.cs" />
-    <Compile Include="Informacoes\MDFeTot.cs" />
-    <Compile Include="Informacoes\MDFeTrem.cs" />
-    <Compile Include="Informacoes\MDFeVag.cs" />
-    <Compile Include="Informacoes\MDFeValePed.cs" />
-    <Compile Include="Informacoes\MDFeVeicReboque.cs" />
-    <Compile Include="Informacoes\MDFeVeicTracao.cs" />
-    <Compile Include="Informacoes\RetRecepcao\MDFeConsReciMDFe.cs" />
-    <Compile Include="Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
-    <Compile Include="Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
-    <Compile Include="Retorno\MDFeEvento\MDFeRetInfEvento.cs" />
-    <Compile Include="Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />
-    <Compile Include="Retorno\MDFeProcEventoMDFe.cs" />
-    <Compile Include="Retorno\MDFeProcMDFe.cs" />
-    <Compile Include="Retorno\MDFeRecepcao\MDFeRetEnviMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeInfProtMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeProtMDFe.cs" />
-    <Compile Include="Retorno\MDFeRetRecepcao\MDFeRetConsReciMDFe.cs" />
-    <Compile Include="Retorno\MDFeStatusServico\MDFeRetConsStatServ.cs" />
-    <Compile Include="Retorno\RetornoBase.cs" />
-    <Compile Include="Servicos\Autorizacao\MDFeEnviMDFe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
@@ -160,6 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Shared.MDFe.Classes\Shared.MDFe.Classes.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

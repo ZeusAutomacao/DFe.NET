@@ -241,7 +241,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 AdicionarTexto quantidade = new AdicionarTexto(g, detalhe.prod.qCom.ToString("N3"), 7);
                 AdicionarTexto valorUnitario = new AdicionarTexto(g, detalhe.prod.vUnCom.ToString("N4"), 7);
                 AdicionarTexto vezesX = new AdicionarTexto(g, "x", 7);
-                AdicionarTexto unidadeSigla = new AdicionarTexto(g, detalhe.prod.uCom.Substring(0, 2), 7);
+                AdicionarTexto unidadeSigla = new AdicionarTexto(g, detalhe.prod.uCom.Length <= 2 ? detalhe.prod.uCom : detalhe.prod.uCom.Substring(0, 2), 7);
 
                 decimal detalheTotal = detalhe.prod.vProd;
                 AdicionarTexto valorTotalProduto = new AdicionarTexto(g, detalheTotal.ToString("N2"), 7);

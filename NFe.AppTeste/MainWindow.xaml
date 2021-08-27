@@ -729,80 +729,85 @@
                         </Grid>
                     </TabItem>
                     <TabItem Header="Emitente">
-                        <Grid Background="White">
+                        <Grid Background="White" Margin="0,2,0,-2">
                             <Grid>
                                 <Label Content="CNPJ" HorizontalAlignment="Left" Margin="10,5,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="0.514,1.808" />
                                 <TextBox x:Name="TxtEmitCnpj" HorizontalAlignment="Left" Height="23" Margin="10,31,0,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top" Width="268"
                                          Text="{Binding Emitente.CNPJ, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Incrição Estadual" HorizontalAlignment="Left" Margin="283,10,0,0"
+                                <Label Content="CPF" HorizontalAlignment="Left" Margin="10,54,0,0"
+                                       VerticalAlignment="Top" RenderTransformOrigin="0.514,1.808" />
+                                <TextBox x:Name="TxtEmitCPF" HorizontalAlignment="Left" Height="23" Margin="10,78,0,0"
+                                         TextWrapping="Wrap" VerticalAlignment="Top" Width="268"
+                                         Text="{Binding Emitente.CPF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                <Label Content="Incrição Estadual" HorizontalAlignment="Left" Margin="283,5,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitIe" HorizontalAlignment="Left" Height="23" Margin="283,31,0,0"
                                          TextWrapping="Wrap" VerticalAlignment="Top" Width="191"
                                          Text="{Binding Emitente.IE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Razão Social" HorizontalAlignment="Left" Margin="10,54,0,0"
+                                <Label Content="Razão Social" HorizontalAlignment="Left" Margin="10,108,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="0.556,2.625" />
                                 <TextBox x:Name="TxtEmitRazao" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"
+                                         Margin="10,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"
                                          Text="{Binding Emitente.xNome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Fantasia" HorizontalAlignment="Left" Margin="10,103,0,0"
+                                <Label Content="Fantasia" HorizontalAlignment="Left" Margin="10,168,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="0.556,2.625" />
                                 <TextBox x:Name="TxtEmitFantasia" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"
+                                         Margin="10,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464"
                                          Text="{Binding Emitente.xFant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                             </Grid>
                             <Grid>
-                                <Label Content="Fone" HorizontalAlignment="Left" Margin="10,155,0,0"
+                                <Label Content="Fone" HorizontalAlignment="Left" Margin="10,230,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitFone" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"
+                                         Margin="10,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="322"
                                          Text="{Binding EnderecoEmitente.fone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="CEP" HorizontalAlignment="Left" Margin="349,155,0,0"
+                                <Label Content="CEP" HorizontalAlignment="Left" Margin="350,232,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="0.467,-0.269" />
                                 <TextBox x:Name="TxtEmitCep" HorizontalAlignment="Left" Height="23"
-                                         Margin="349,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"
+                                         Margin="350,257,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="122"
                                          Text="{Binding EnderecoEmitente.CEP, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" />
-                                <Label Content="Logradouro" HorizontalAlignment="Left" Margin="10,204,0,0"
+                                <Label Content="Logradouro" HorizontalAlignment="Left" Margin="8,285,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitLogradouro" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="392"
+                                         Margin="10,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="392"
                                          Text="{Binding EnderecoEmitente.xLgr, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Número" HorizontalAlignment="Left" Margin="420,205,0,0"
+                                <Label Content="Número" HorizontalAlignment="Left" Margin="418,285,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitNumero" HorizontalAlignment="Left" Height="23"
-                                         Margin="422,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52"
+                                         Margin="420,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="52"
                                          Text="{Binding EnderecoEmitente.nro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Complemento" HorizontalAlignment="Left" Margin="10,254,0,0"
+                                <Label Content="Complemento" HorizontalAlignment="Left" Margin="10,330,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitComplemento" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223"
+                                         Margin="10,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="223"
                                          Text="{Binding EnderecoEmitente.xCpl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Bairro" HorizontalAlignment="Left" Margin="248,254,0,0"
+                                <Label Content="Bairro" HorizontalAlignment="Left" Margin="246,330,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitBairro" HorizontalAlignment="Left" Height="23"
-                                         Margin="248,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"
+                                         Margin="247,354,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="226"
                                          Text="{Binding EnderecoEmitente.xBairro, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Cód Cidade" HorizontalAlignment="Left" Margin="10,305,0,0"
+                                <Label Content="Cód Cidade" HorizontalAlignment="Left" Margin="8,373,0,0"
                                        VerticalAlignment="Top" />
                                 <TextBox x:Name="TxtEmitCodCidade" HorizontalAlignment="Left" Height="23"
-                                         Margin="10,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"
+                                         Margin="10,395,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="62"
                                          Text="{Binding EnderecoEmitente.cMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="Cidade" HorizontalAlignment="Left" Margin="77,304,0,0"
+                                <Label Content="Cidade" HorizontalAlignment="Left" Margin="77,373,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="0.574,0.038" />
                                 <TextBox x:Name="TxtEmitCidade" HorizontalAlignment="Left" Height="23"
-                                         Margin="77,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"
+                                         Margin="77,396,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286"
                                          Text="{Binding EnderecoEmitente.xMun, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <Label Content="UF" HorizontalAlignment="Left" Margin="375,305,0,0"
+                                <Label Content="UF" HorizontalAlignment="Left" Margin="375,373,0,0"
                                        VerticalAlignment="Top" RenderTransformOrigin="-0.375,0.423" />
-                                <ComboBox x:Name="CmbEmitUf" Height="23" Margin="375,331,13,318"
+                                <ComboBox x:Name="CmbEmitUf" Height="23" Margin="375,396,13,253"
                                           ItemsSource="{Binding Source={StaticResource EstadoEmitente}}"
                                           SelectedItem="{Binding EnderecoEmitente.UF, Converter={StaticResource EnumParaString}}" />
                             </Grid>
-                            <ComboBox x:Name="CmbCrt" Height="23" Margin="10,383,10,266"
+                            <ComboBox x:Name="CmbCrt" Height="23" Margin="10,437,10,212"
                                       ItemsSource="{Binding Source={StaticResource Crts}}"
                                       SelectedItem="{Binding Emitente.CRT}" />
-                            <Label Content="CRT" HorizontalAlignment="Left" Margin="10,357,0,0"
+                            <Label Content="CRT" HorizontalAlignment="Left" Margin="7,413,0,0"
                                    VerticalAlignment="Top" />
                         </Grid>
                     </TabItem>
@@ -953,6 +958,8 @@
                             RenderTransformOrigin="0.551,2.396" />
                     <Button x:Name="BtnCancelarNFeSubstituicao" Content="Cancelar por substituição" HorizontalAlignment="Left"
                         Margin="374,85,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancelarNFeSubstituicao_OnClick" />
+                    <Button x:Name="BtnConsultaRecibo" Content="Consultar Recibo" HorizontalAlignment="Left"
+                        Margin="375,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaRecibo_Click" />
                 </Grid>
             </TabItem>
 

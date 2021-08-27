@@ -184,11 +184,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlStatus = pedStatus.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico, xmlStatus, cfgServico: _cFgServico);
-            var dadosStatus = new XmlDocument();
-            dadosStatus.LoadXml(xmlStatus);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-sta.xml", xmlStatus);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico, xmlStatus, cfgServico: _cFgServico);
+
+            var dadosStatus = new XmlDocument();
+            dadosStatus.LoadXml(xmlStatus);
 
             XmlNode retorno;
             try
@@ -248,11 +251,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta, cfgServico: _cFgServico);
-            var dadosConsulta = new XmlDocument();
-            dadosConsulta.LoadXml(xmlConsulta);
 
             SalvarArquivoXml(chave + "-ped-sit.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta, cfgServico: _cFgServico);
+
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
 
             XmlNode retorno;
             try
@@ -342,11 +348,14 @@ namespace NFe.Servicos
                 ? pedInutilizacao.ObterXmlString().RemoverAcentos()
                 : pedInutilizacao.ObterXmlString();
 
-            Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
+            SalvarArquivoXml(numId + "-ped-inu.xml", xmlInutilizacao);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
+
             var dadosInutilizacao = new XmlDocument();
             dadosInutilizacao.LoadXml(xmlInutilizacao);
 
-            SalvarArquivoXml(numId + "-ped-inu.xml", xmlInutilizacao);
 
             XmlNode retorno;
             try
@@ -433,13 +442,9 @@ namespace NFe.Servicos
                     ? pedEvento.ObterXmlString().RemoverAcentos()
                     : pedEvento.ObterXmlString();
 
-            if (_cFgServico.cUF != Estado.AC)
-                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
-
+            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
-
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
             XmlNode retorno;
             try
@@ -489,10 +494,10 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, int sequenciaEvento,
-            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamento, idlote, sequenciaEvento,
-                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj);
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, dhEvento: dhEvento);
         }
 
         /// <summary>
@@ -500,15 +505,15 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamentoPorSubstituicao(int idlote, int sequenciaEvento,
-            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, Estado ufAutor, string versaoAplicativo, string chaveNfeSubstituta)
+            string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj, Estado ufAutor, string versaoAplicativo, string chaveNfeSubstituta, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoCancelamento(NFeTipoEvento.TeNfeCancelamentoSubstituicao, idlote, sequenciaEvento,
-                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, ufAutor, TipoAutor.taEmpresaEmitente, versaoAplicativo, chaveNfeSubstituta);
+                protocoloAutorizacao, chaveNFe, justificativa, cpfcnpj, ufAutor, TipoAutor.taEmpresaEmitente, versaoAplicativo, chaveNfeSubstituta, dhEvento: dhEvento);
         }
 
         private RetornoRecepcaoEvento RecepcaoEventoCancelamento(NFeTipoEvento tipoEventoCancelamento, int idlote,
             int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
-            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null)
+            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null, DateTimeOffset? dhEvento = null)
         {
             if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoCancelamento))
                 throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
@@ -535,7 +540,7 @@ namespace NFe.Servicos
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = tipoEventoCancelamento,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -557,7 +562,7 @@ namespace NFe.Servicos
         /// </summary>
         /// <returns>Retorna um objeto da classe <see cref="RetornoRecepcaoEvento"/> com o retorno do serviço <see cref="RecepcaoEvento"/></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, int sequenciaEvento, string chaveNFe,
-            string correcao, string cpfcnpj)
+            string correcao, string cpfcnpj, DateTimeOffset? dhEvento = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCartaCorrecao.VersaoServicoParaString(
@@ -572,16 +577,17 @@ namespace NFe.Servicos
                     "A Carta de Correção é disciplinada pelo § 1º-A do art. 7º do Convênio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularização de erro ocorrido na emissão de documento fiscal, desde que o erro não esteja relacionado com: I - as variáveis que determinam o valor do imposto tais como: base de cálculo, alíquota, diferença de preço, quantidade, valor da operação ou da prestação; II - a correção de dados cadastrais que implique mudança do remetente ou do destinatário; III - a data de emissão ou de saída."
             };
 
-            if (_cFgServico.cUF == Estado.MT || _cFgServico.RemoverAcentos)
+            if (_cFgServico.cUF == Estado.MT || _cFgServico.RemoverAcentos){
+                detEvento.descEvento = "Carta de Correcao";
                 detEvento.xCondUso =
                     "A Carta de Correcao e disciplinada pelo paragrafo 1o-A do art. 7o do Convenio S/N, de 15 de dezembro de 1970 e pode ser utilizada para regularizacao de erro ocorrido na emissao de documento fiscal, desde que o erro nao esteja relacionado com: I - as variaveis que determinam o valor do imposto tais como: base de calculo, aliquota, diferenca de preco, quantidade, valor da operacao ou da prestacao; II - a correcao de dados cadastrais que implique mudanca do remetente ou do destinatario; III - a data de emissao ou de saida.";
-
+            }
             var infEvento = new infEventoEnv
             {
                 cOrgao = _cFgServico.cUF,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = NFeTipoEvento.TeNfeCartaCorrecao,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -600,15 +606,15 @@ namespace NFe.Servicos
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
                     string chaveNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
-                    string justificativa = null)
+                    string justificativa = null, DateTimeOffset? dhEvento = null)
         {
             return RecepcaoEventoManifestacaoDestinatario(idlote, sequenciaEvento, new[] { chaveNFe },
-                nFeTipoEventoManifestacaoDestinatario, cpfcnpj, justificativa);
+                nFeTipoEventoManifestacaoDestinatario, cpfcnpj, justificativa, dhEvento: dhEvento);
         }
 
         public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDestinatario(int idlote, int sequenciaEvento,
             string[] chavesNFe, NFeTipoEvento nFeTipoEventoManifestacaoDestinatario, string cpfcnpj,
-            string justificativa = null)
+            string justificativa = null, DateTimeOffset? dhEvento = null)
         {
             if (!NFeTipoEventoUtils.NFeTipoEventoManifestacaoDestinatario.Contains(nFeTipoEventoManifestacaoDestinatario))
                 throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
@@ -634,7 +640,7 @@ namespace NFe.Servicos
                     //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
                     tpAmb = _cFgServico.tpAmb,
                     chNFe = chaveNFe,
-                    dhEvento = DateTime.Now,
+                    dhEvento = dhEvento ?? DateTime.Now,
                     tpEvento = nFeTipoEventoManifestacaoDestinatario,
                     nSeqEvento = sequenciaEvento,
                     verEvento = versaoServico,
@@ -663,7 +669,7 @@ namespace NFe.Servicos
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, int sequenciaEvento, Classes.NFe nfe,
-            string veraplic)
+            string veraplic, DateTimeOffset? dhEvento = null)
         {
             var versaoServico =
                 ServicoNFe.RecepcaoEventoEpec.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoEpec);
@@ -700,7 +706,7 @@ namespace NFe.Servicos
                 CNPJ = nfe.infNFe.emit.CNPJ,
                 CPF = nfe.infNFe.emit.CPF,
                 chNFe = nfe.infNFe.Id.Substring(3),
-                dhEvento = DateTime.Now,
+                dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = NFeTipoEvento.TeNfceEpec,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
@@ -769,11 +775,15 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta, cfgServico: _cFgServico);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta, cfgServico: _cFgServico);
+
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -856,11 +866,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
-            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
-            var dadosConsulta = new XmlDocument();
-            dadosConsulta.LoadXml(xmlConsulta);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
+
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
 
             XmlNode retorno;
             try
@@ -979,11 +992,14 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas) 
+                Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio, cfgServico: _cFgServico);
+            
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1121,11 +1137,13 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
-
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1184,11 +1202,13 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
-
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1321,9 +1341,6 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlDownload = pedDownload.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF, xmlDownload, cfgServico: _cFgServico);
-            var dadosDownload = new XmlDocument();
-            dadosDownload.LoadXml(xmlDownload);
 
             if (nomeSaida == "")
             {
@@ -1331,6 +1348,12 @@ namespace NFe.Servicos
             }
 
             SalvarArquivoXml(nomeSaida + "-ped-down.xml", xmlDownload);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF, xmlDownload, cfgServico: _cFgServico);
+
+            var dadosDownload = new XmlDocument();
+            dadosDownload.LoadXml(xmlDownload);
 
             XmlNode retorno;
             try

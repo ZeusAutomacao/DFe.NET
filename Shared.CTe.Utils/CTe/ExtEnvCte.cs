@@ -95,7 +95,8 @@ namespace CTe.Utils.CTe
             
             var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            if (instanciaServico.cUF == Estado.PR)
+            if (instanciaServico.cUF == Estado.PR
+                || instanciaServico.cUF == Estado.MT)
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <CTe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/456
                 xml = xml.Replace("<CTe>", "<CTe xmlns=\"http://www.portalfiscal.inf.br/cte\">");
 

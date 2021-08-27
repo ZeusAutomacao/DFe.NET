@@ -44,8 +44,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.docAnteriores
 
         public string serie { get; set; }
 
-        public short? subser { get; set; }
-        public bool subserSpecified { get { return subser.HasValue; } }
+        public string subser { get; set; }
 
         public string nDoc { get; set; }
 

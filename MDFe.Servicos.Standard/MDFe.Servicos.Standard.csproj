@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <Import Project="..\Shared.MDFe.Servicos\Shared.MDFe.Servicos.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Wsdl.Standard\DFe.Wsdl.Standard.csproj" />
+    <ProjectReference Include="..\MDFe.Classes.Standard\MDFe.Classes.Standard.csproj" />
+    <ProjectReference Include="..\MDFe.Utils.Standard\MDFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\MDFe.Wsdl.Standard\MDFe.Wsdl.Standard.csproj" />
+  </ItemGroup>
+
+</Project>

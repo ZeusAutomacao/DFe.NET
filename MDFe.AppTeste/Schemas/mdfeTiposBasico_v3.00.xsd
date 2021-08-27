@@ -331,7 +331,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
-									<xs:element name="infMunDescarga" maxOccurs="100">
+									<xs:element name="infMunDescarga" maxOccurs="1000">
 										<xs:annotation>
 											<xs:documentation>Informações dos Municípios de descarregamento</xs:documentation>
 										</xs:annotation>
@@ -826,6 +826,158 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 												<xs:maxLength value="40"/>
 											</xs:restriction>
 										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="prodPred" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Produto predominante</xs:documentation>
+								<xs:documentation>Informar a descrição do produto predominante</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="tpCarga">
+										<xs:annotation>
+											<xs:documentation>Tipo de Carga</xs:documentation>
+											<xs:documentation>Conforme Resolução ANTT nº.  5.849/2019.
+
+01-Granel sólido;
+02-Granel líquido;
+03-Frigorificada;
+04-Conteinerizada;
+05-Carga Geral;
+06-Neogranel;
+07-Perigosa (granel sólido);
+08-Perigosa (granel líquido);
+09-Perigosa (carga frigorificada);
+10-Perigosa (conteinerizada);
+11-Perigosa (carga geral).</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:enumeration value="01"/>
+												<xs:enumeration value="02"/>
+												<xs:enumeration value="03"/>
+												<xs:enumeration value="04"/>
+												<xs:enumeration value="05"/>
+												<xs:enumeration value="06"/>
+												<xs:enumeration value="07"/>
+												<xs:enumeration value="08"/>
+												<xs:enumeration value="09"/>
+												<xs:enumeration value="10"/>
+												<xs:enumeration value="11"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="xProd">
+										<xs:annotation>
+											<xs:documentation>Descrição do produto </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:maxLength value="120"/>
+												<xs:minLength value="1"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="cEAN" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:pattern value="SEM GTIN|[0-9]{0}|[0-9]{8}|[0-9]{12,14}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="NCM" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Código NCM </xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:whiteSpace value="preserve"/>
+												<xs:pattern value="[0-9]{2}|[0-9]{8}"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="infLotacao" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>Informações da carga lotação. Informar somente quando MDF-e for de carga lotação</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="infLocalCarrega">
+													<xs:annotation>
+														<xs:documentation>Informações da localização de carregamento do MDF-e de carga lotação</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="CEP">
+																<xs:annotation>
+																	<xs:documentation>CEP onde foi carregado o MDF-e</xs:documentation>
+																	<xs:documentation>Informar zeros não significativos</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:whiteSpace value="preserve"/>
+																		<xs:pattern value="[0-9]{8}"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:sequence>
+																<xs:element name="latitude" type="TLatitude">
+																	<xs:annotation>
+																		<xs:documentation>Latitude do ponto geográfico onde foi carregado o MDF-e</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="longitude" type="TLongitude">
+																	<xs:annotation>
+																		<xs:documentation>Latitude do ponto geográfico onde foi carregado o MDF-e</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:choice>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="infLocalDescarrega">
+													<xs:annotation>
+														<xs:documentation>Informações da localização de descarregamento do MDF-e de carga lotação</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:choice>
+															<xs:element name="CEP">
+																<xs:annotation>
+																	<xs:documentation>CEP onde foi descarregado o MDF-e</xs:documentation>
+																	<xs:documentation>Informar zeros não significativos</xs:documentation>
+																</xs:annotation>
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:whiteSpace value="preserve"/>
+																		<xs:pattern value="[0-9]{8}"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:element>
+															<xs:sequence>
+																<xs:element name="latitude" type="TLatitude">
+																	<xs:annotation>
+																		<xs:documentation>Latitude do ponto geográfico onde foi descarregado o MDF-e</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+																<xs:element name="longitude" type="TLongitude">
+																	<xs:annotation>
+																		<xs:documentation>Latitude do ponto geográfico onde foi descarregado o MDF-e</xs:documentation>
+																	</xs:annotation>
+																</xs:element>
+															</xs:sequence>
+														</xs:choice>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
 									</xs:element>
 								</xs:sequence>
 							</xs:complexType>
