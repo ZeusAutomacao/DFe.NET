@@ -255,6 +255,78 @@ namespace NFe.Classes.Informacoes.Pagamento
         [XmlEnum("09")]
         Cabal = 09,
 
+        [Description("Alelo")]
+        [XmlEnum("Alelo")]
+        Alelo = 10,
+
+        [Description("Banes Card")]
+        [XmlEnum("BanesCard")]
+        BanesCard = 11,
+
+        [Description("CalCard")]
+        [XmlEnum("12")]
+        CalCard = 12,
+
+        [Description("Credz")]
+        [XmlEnum("13")]
+        Credz = 13,
+
+        [Description("Discover")]
+        [XmlEnum("14")]
+        Discover = 14,
+
+        [Description("GoodCard")]
+        [XmlEnum("15")]
+        GoodCard = 15,
+
+        [Description("GreenCard")]
+        [XmlEnum("16")]
+        GreenCard = 16,
+
+        [Description("Hiper")]
+        [XmlEnum("17")]
+        Hiper = 17,
+
+        [Description("JcB")]
+        [XmlEnum("18")]
+        JcB = 18,
+
+        [Description("Mais")]
+        [XmlEnum("19")]
+        Mais = 19,
+
+        [Description("MaxVan")]
+        [XmlEnum("20")]
+        MaxVan = 20,
+
+        [Description("Policard")]
+        [XmlEnum("21")]
+        Policard = 21,
+
+        [Description("RedeCompras")]
+        [XmlEnum("22")]
+        RedeCompras = 22,
+
+        [Description("Sodexo")]
+        [XmlEnum("23")]
+        Sodexo = 23,
+
+        [Description("ValeCard")]
+        [XmlEnum("24")]
+        ValeCard = 24,
+
+        [Description("Verocheque")]
+        [XmlEnum("25")]
+        Verocheque = 25,
+
+        [Description("VR")]
+        [XmlEnum("26")]
+        VR = 26,
+
+        [Description("Ticket")]
+        [XmlEnum("27")]
+        Ticket = 27,
+
         /// <summary>
         /// 99 - Outros
         /// </summary>
