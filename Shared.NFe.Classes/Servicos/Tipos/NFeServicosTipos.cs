@@ -197,7 +197,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         [Description("Ciencia da Operacao")]
         [XmlEnum("210210")]
-        TeMdCienciaDaOperacao = 210210,
+        TeMdCienciaDaEmissao = 210210,
 
         /// <summary>
         /// 210220 – Desconhecimento da Operação
@@ -237,7 +237,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         public static ISet<NFeTipoEvento> NFeTipoEventoManifestacaoDestinatario = new HashSet<NFeTipoEvento>()
         {
-            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaOperacao,
+            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaEmissao,
             NFeTipoEvento.TeMdDesconhecimentoDaOperacao, NFeTipoEvento.TeMdOperacaoNaoRealizada
         };
 
