@@ -45,6 +45,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Flags\MDFeVersaoModal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\tpNav.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Flags\tpUnidTranspVazia.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Informacoes\categCombVeic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\Comp.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\ConsultaNaoEncerrados\MDFeCosMDFeNaoEnc.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\ConsultaProtocolo\MDFeConsSitMDFe.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\StatusServico\MDFeConsStatServMDFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\tpCarga.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Informacoes\tpComp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Informacoes\tpValePed.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeConsultaNaoEncerrado\MDFeRetConsMDFeNao.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeConsultaProtocolo\MDFeRetConsSitMDFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Retorno\MDFeEvento\MDFeRetEventoMDFe.cs" />

@@ -2,7 +2,9 @@
 using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Servicos.Consulta;
+using NFe.Danfe.Base.NFCe;
 using NFe.Danfe.Base.NFe;
+using NFe.Danfe.Fast.Standard.NFCe;
 using NFe.Danfe.Fast.Standard.NFe;
 using NFe.Utils.NFe;
 using System;
@@ -51,8 +53,11 @@ namespace NFe.Danfe.AppTeste.NetCore
                     Console.WriteLine("7  - Gerar Danfe(Evento) PDF");
                     Console.WriteLine("8  - Gerar Danfe(Evento) HTML");
                     Console.WriteLine("9  - Gerar Danfe(Evento) Image PNG");
-                    Console.WriteLine("10  - Teste Performance Danfe HTML");
-                    Console.WriteLine("11  - Teste Performance Danfe Simplificado HTML");
+                    Console.WriteLine("10  - Gerar Danfe NFCe PDF");
+                    Console.WriteLine("11  - Gerar Danfe NFCe HTML");
+                    Console.WriteLine("12  - Gerar Danfe NFCe Image PNG");
+                    Console.WriteLine("13  - Teste Performance Danfe HTML");
+                    Console.WriteLine("14  - Teste Performance Danfe Simplificado HTML");
                     Console.WriteLine($"98 - Carrega logo especifica para configuração");
                     Console.WriteLine($"99 - Carrega Configuracoes do arquivo {ArquivoConfiguracao}");
 
@@ -93,9 +98,18 @@ namespace NFe.Danfe.AppTeste.NetCore
                             await GerarDanfeEventoPng();
                             break;
                         case 10:
-                            await TestePerformanceDanfeHtml();
+                            await GerarDanfeNFcePdf();
                             break;
                         case 11:
+                            await GerarDanfeNFceHtml();
+                            break;
+                        case 12:
+                            await GerarDanfeNFcePng();
+                            break;
+                        case 13:
+                            await TestePerformanceDanfeHtml();
+                            break;
+                        case 14:
                             await TestePerformanceDanfeSimplificadoHtml();
                             break;
                         case 98:
@@ -304,6 +318,107 @@ namespace NFe.Danfe.AppTeste.NetCore
             }
         }
 
+        private static DanfeFrNfce GeraClasseDanfeFrNFce(string xml)
+        {
+            var configuracaoDanfeNfe = _configuracoes.ConfiguracaoDanfeNfe;
+            try
+            {
+                #region Carrega um XML com nfeProc para a variável
+                nfeProc proc = null;
+                try
+                {
+                    proc = new nfeProc().CarregarDeXmlString(xml);
+                }
+                catch //Carregar NFCe ainda não transmitida à sefaz, como uma pré-visualização.
+                {
+                    proc = new nfeProc() { NFe = new Classes.NFe().CarregarDeXmlString(xml), protNFe = new Classes.Protocolo.protNFe() };
+                }
+
+                if (proc.NFe.infNFe.ide.mod != ModeloDocumento.NFCe)
+                {
+                    throw new Exception("O XML informado não é um NFCe!");
+                }
+                #endregion
+
+                DanfeFrNfce danfe = new DanfeFrNfce(proc: proc, configuracaoDanfeNfce: new ConfiguracaoDanfeNfce()
+                {
+                    Logomarca = configuracaoDanfeNfe.Logomarca,
+                    DocumentoCancelado = false,
+                },
+                cIdToken: _configuracoes.CIdToken,
+                csc: _configuracoes.Csc,
+                arquivoRelatorio: "C:\\PainelInformatica\\Relatorios\\NFCe.frx"); // string.Empty);
+
+                return danfe;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region NFCe
+        private static async Task GerarDanfeNFcePdf()
+        {
+            Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
+            string caminho = Console.ReadLine();
+
+            //busca arquivo xml
+            string xml = Funcoes.BuscarArquivoXml(caminho);
+
+            try
+            {
+                var report = GeraClasseDanfeFrNFce(xml);
+                byte[] bytes = report.ExportarPdf();
+                Funcoes.SalvaArquivoGerado(caminho, ".pdf", bytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private static async Task GerarDanfeNFceHtml()
+        {
+            Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
+            string caminho = Console.ReadLine();
+
+            //busca arquivo xml
+            string xml = Funcoes.BuscarArquivoXml(caminho);
+
+            try
+            {
+                var report = GeraClasseDanfeFrNFce(xml);
+                byte[] bytes = report.ExportarHtml();
+                Funcoes.SalvaArquivoGerado(caminho, ".html", bytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private static async Task GerarDanfeNFcePng()
+        {
+            Console.WriteLine(@"Digite o caminho do .xml (ex: C:\arquivos\35199227357619000192550010090001111381546999.xml):");
+            string caminho = Console.ReadLine();
+
+            //busca arquivo xml
+            string xml = Funcoes.BuscarArquivoXml(caminho);
+
+            try
+            {
+                var report = GeraClasseDanfeFrNFce(xml);
+                byte[] bytes = report.ExportarPng();
+                Funcoes.SalvaArquivoGerado(caminho, ".png", bytes);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         #endregion
 
         #region NFe Simplificado
