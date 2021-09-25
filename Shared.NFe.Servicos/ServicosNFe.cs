@@ -627,8 +627,7 @@ namespace NFe.Servicos
             {
                 var infEvento = new infEventoEnv
                 {
-                    cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN,
-                    //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
+                    cOrgao = Estado.AN,                    
                     tpAmb = _cFgServico.tpAmb,
                     chNFe = chaveNFe,
                     dhEvento = dhEvento ?? DateTime.Now,
