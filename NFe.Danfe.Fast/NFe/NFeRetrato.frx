@@ -26,6 +26,7 @@ using NFe.Classes.Protocolo;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Utils;
 using NFe.Danfe.Base.NFe;
+using NFe.Classes.Informacoes.Total;
 
 namespace FastReport
 {        
@@ -49,6 +50,12 @@ namespace FastReport
       if (Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;) != null) {
         Text209.Text = FormatarCampo(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;).ToString(), 'f');
       }
+	  
+	  if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
+      {
+        var ipiDevolvido = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vIPIDevol&quot;)) ?? 0M;
+        Text163.Text = FormatNumber(ipiDevolvido,2);
+      }  
       
       //Trato o campo de Frete 
       switch((int)((ModalidadeFrete)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.modFrete&quot;)))
@@ -267,6 +274,14 @@ namespace FastReport
           prodValorUnitarioCell.Text = string.Format(&quot;{0}{2}{1}&quot;, vUnComFormatado, vUnTribFormatado, Environment.NewLine);
           break;
       }
+	  
+      if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
+      {
+        var ipiDevolvidoPercentual = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.pDevol&quot;)) ?? 0M;
+        var ipiDevolvidoValor = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.IPI.vIPIDevol&quot;)) ?? 0M;
+        prodAlqIPICell.Text = FormatNumber(ipiDevolvidoPercentual,2);
+        prodIPICell.Text = FormatNumber(ipiDevolvidoValor,2);
+      }	  
     }
         
     private string FormatarCampo(string valor, char format)
