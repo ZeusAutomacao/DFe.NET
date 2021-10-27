@@ -51,11 +51,15 @@ namespace FastReport
         Text209.Text = FormatarCampo(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;).ToString(), 'f');
       }
 	  
-	  if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
+      if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
       {
-        var ipiDevolvido = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vIPIDevol&quot;)) ?? 0M;
-        Text163.Text = FormatNumber(ipiDevolvido,2);
-      }  
+        var ipi = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vIPI&quot;)) ?? 0M;
+        if (ipi &lt;= 0)
+        {
+          var ipiDevolvido = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vIPIDevol&quot;)) ?? 0M;
+          Text163.Text = FormatNumber(ipiDevolvido,2);
+        }
+      }
       
       //Trato o campo de Frete 
       switch((int)((ModalidadeFrete)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.modFrete&quot;)))
@@ -277,10 +281,13 @@ namespace FastReport
 	  
       if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
       {
-        var ipiDevolvidoPercentual = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.pDevol&quot;)) ?? 0M;
-        var ipiDevolvidoValor = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.IPI.vIPIDevol&quot;)) ?? 0M;
-        prodAlqIPICell.Text = FormatNumber(ipiDevolvidoPercentual,2);
-        prodIPICell.Text = FormatNumber(ipiDevolvidoValor,2);
+        if(ipiBasico == null)
+        {
+          var ipiDevolvidoPercentual = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.pDevol&quot;)) ?? 0M;
+          var ipiDevolvidoValor = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.impostoDevol.IPI.vIPIDevol&quot;)) ?? 0M;
+          prodAlqIPICell.Text = FormatNumber(ipiDevolvidoPercentual,2);
+          prodIPICell.Text = FormatNumber(ipiDevolvidoValor,2);
+        }
       }	  
     }
         
