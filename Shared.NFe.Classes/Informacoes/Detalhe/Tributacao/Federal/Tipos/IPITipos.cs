@@ -58,97 +58,97 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
         /// </summary>
         [Description("Entrada com recuperação de crédito")]
         [XmlEnum("00")]
-        ipi00,
+        ipi00 = 0,
 
         /// <summary>
         /// 49 - Outras entradas
         /// </summary>
         [Description("Outras entradas")]
         [XmlEnum("49")]
-        ipi49,
+        ipi49 = 49,
 
         /// <summary>
         /// 50 - Saída tributada
         /// </summary>
         [Description("Saída tributada")]
         [XmlEnum("50")]
-        ipi50,
+        ipi50 = 50,
 
         /// <summary>
         /// 99 - Outras saídas
         /// </summary>
         [Description("Outras saídas")]
         [XmlEnum("99")]
-        ipi99,
+        ipi99 = 99,
 
         /// <summary>
         /// 01 - Entrada tributada com alíquota zero
         /// </summary>
         [Description("Entrada tributada com alíquota zero")]
         [XmlEnum("01")]
-        ipi01,
+        ipi01 = 1,
 
         /// <summary>
         /// 02 - Entrada isenta
         /// </summary>
         [Description("Entrada isenta")]
         [XmlEnum("02")]
-        ipi02,
+        ipi02 = 2,
 
         /// <summary>
         /// 03 - Entrada não-tributada
         /// </summary>
         [Description("Entrada não-tributada")]
         [XmlEnum("03")]
-        ipi03,
+        ipi03 = 3,
 
         /// <summary>
         /// 04 - Entrada imune
         /// </summary>
         [Description("Entrada imune")]
         [XmlEnum("04")]
-        ipi04,
+        ipi04 = 4,
 
         /// <summary>
         /// 05 - Entrada com suspensão
         /// </summary>
         [Description("Entrada com suspensão")]
         [XmlEnum("05")]
-        ipi05,
+        ipi05 = 5,
 
         /// <summary>
         /// 51 - Saída tributada com alíquota zero
         /// </summary>
         [Description("Saída tributada com alíquota zero")]
         [XmlEnum("51")]
-        ipi51,
+        ipi51 = 51,
 
         /// <summary>
         /// 52 - Saída isenta
         /// </summary>
         [Description("Saída isenta")]
         [XmlEnum("52")]
-        ipi52,
+        ipi52 = 52,
 
         /// <summary>
         /// 53 - Saída não-tributada
         /// </summary>
         [Description("Saída não-tributada")]
         [XmlEnum("53")]
-        ipi53,
+        ipi53 = 53,
 
         /// <summary>
         /// 54 - Saída imune
         /// </summary>
         [Description("Saída imune")]
         [XmlEnum("54")]
-        ipi54,
+        ipi54 = 54,
 
         /// <summary>
         /// 55 - Saída com suspensão
         /// </summary>
         [Description("Saída com suspensão")]
         [XmlEnum("55")]
-        ipi55
+        ipi55 = 55
     }
 }

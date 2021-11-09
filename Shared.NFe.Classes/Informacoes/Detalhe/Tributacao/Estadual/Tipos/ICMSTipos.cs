@@ -139,14 +139,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// </summary>
         [Description("Tributada integralmente")]
         [XmlEnum("00")]
-        Cst00,
+        Cst00 = 0,
 
         /// <summary>
         /// 10 - Tributada e com cobrança do ICMS por substituição tributária
         /// </summary>
         [Description("Tributada e com cobrança do ICMS por substituição tributária")]
         [XmlEnum("10")]
-        Cst10,
+        Cst10 = 10,
 
         /// <summary>
         /// 10 - Tributada e com cobrança do ICMS por substituição tributária
@@ -160,28 +160,28 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// </summary>
         [Description("Com redução de base de cálculo")]
         [XmlEnum("20")]
-        Cst20,
+        Cst20 = 20,
 
         /// <summary>
         /// 30 - Isenta ou não tributada e com cobrança do ICMS por substituição tributária
         /// </summary>
         [Description("Isenta ou não tributada e com cobrança do ICMS por substituição tributária")]
         [XmlEnum("30")]
-        Cst30,
+        Cst30 = 30,
 
         /// <summary>
         /// 40 - Isenta
         /// </summary>
         [Description("Isenta")]
         [XmlEnum("40")]
-        Cst40,
+        Cst40 = 40,
 
         /// <summary>
         /// 41 - Não tributada
         /// </summary>
         [Description("Não tributada")]
         [XmlEnum("41")]
-        Cst41,
+        Cst41 = 41,
 
         /// <summary>
         /// 41 - Não tributada
@@ -195,21 +195,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// </summary>
         [Description("Suspensão")]
         [XmlEnum("50")]
-        Cst50,
+        Cst50 = 50,
 
         /// <summary>
         /// 51 - Diferimento
         /// </summary>
         [Description("Diferimento")]
         [XmlEnum("51")]
-        Cst51,
+        Cst51 = 51,
 
         /// <summary>
         /// 60 - ICMS cobrado anteriormente por substituição tributária
         /// </summary>
         [Description("ICMS cobrado anteriormente por substituição tributária")]
         [XmlEnum("60")]
-        Cst60,
+        Cst60 = 60,
 
         /// <summary>
         /// 60 - ICMS cobrado anteriormente por substituição tributária
@@ -221,14 +221,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// </summary>
         [Description("Com redução de base de cálculo e cobrança do ICMS por substituição tributária")]
         [XmlEnum("70")]
-        Cst70,
+        Cst70 = 70,
 
         /// <summary>
         /// 90 - Outras
         /// </summary>
         [Description("Outras")]
         [XmlEnum("90")]
-        Cst90,
+        Cst90 = 90,
 
         /// <summary>
         /// 90 - Outras
