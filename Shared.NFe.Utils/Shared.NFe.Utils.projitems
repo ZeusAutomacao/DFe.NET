@@ -28,8 +28,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Download\ExtretDownloadNFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Email\ConfiguracaoEmail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Email\EmailBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\CearaUrl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\Enderecador.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\EnderecoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\FactoryUrl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\IZeusEnderecosUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtenvEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\Extevento.cs" />
