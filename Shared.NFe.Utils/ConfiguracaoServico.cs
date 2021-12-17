@@ -73,6 +73,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeConsultaDest;
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
+        public FactoryUrl FactoryUrl { get; set; }
 
         public ConfiguracaoServico()
         {
@@ -82,6 +83,8 @@ namespace NFe.Utils
                     SignatureMethodSignedXml = "http://www.w3.org/2000/09/xmldsig#rsa-sha1",
                     DigestMethodReference = "http://www.w3.org/2000/09/xmldsig#sha1"
                 };
+
+            FactoryUrl = FactoryUrl.CriaFactoryUrl();
 
             cUF = Estado.AC;
         }
