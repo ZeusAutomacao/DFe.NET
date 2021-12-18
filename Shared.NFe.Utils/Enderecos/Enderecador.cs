@@ -43,7 +43,7 @@ namespace NFe.Utils.Enderecos
 {
     public static class Enderecador
     {
-        private static readonly List<EnderecoServico> ListaEnderecos;
+        private static List<EnderecoServico> ListaEnderecos;
 
         /// <summary>
         ///     Adiciona as urls dos webservices de todos os estados
@@ -1599,6 +1599,15 @@ namespace NFe.Utils.Enderecos
             #endregion
 
             return endServico;
+        }
+
+        /// <summary>
+        ///     Adiciona as urls dos webservices de todos os estados
+        ///     Obs: UFs que disponibilizaram urls diferentes para NFCe, até 04/05/2015: SVRS, AM, MT, PR, RS e SP
+        /// </summary>
+        public static void CarregarEnderecos()
+        {
+            ListaEnderecos = CarregarEnderecosServicos();
         }
 
         /// <summary>
