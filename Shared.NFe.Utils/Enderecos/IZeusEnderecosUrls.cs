@@ -18,5 +18,23 @@
         string NfeStatusServicoHomologacao_VersaoQuatro { get; }
         string NFeAutorizacaoHomologacao_VersaoQuatro { get; }
         string NFeRetAutorizacaoHomologacao_VersaoQuatro { get; }
+
+        string CartaCorrecaoCancelamentoProducao_VersaoUm { get; }
+        string NfeRecepcaoProducao_VersaoDois { get; }
+        string NfeRetRecepcaoProducao_VersaoDois { get; }
+        string NfeInutilizacaoProducao_VersaoDoisETres { get; }
+        string NfeConsultaProtocoloProducao_VersaoDoisETres { get; }
+        string NfeStatusServicoProducao_VersaoDoisETres { get; }
+        string NfeConsultaCadastroProducao_VersaoDoisETres { get; }
+        string NfeDownloadNFProducao_VersaoDoisETres { get; }
+        string NFeAutorizacaoProducao_VersaoTres { get; }
+        string NFeRetAutorizacaoProducao_VersaoTres { get; }
+        string NfeInutilizacaoProducao_VersaoQuatro { get; }
+        string NfeConsultaProtocoloProducao_VersaoQuatro { get; }
+        string NfeStatusServicoProducao_VersaoQuatro { get; }
+        string NfeConsultaCadastroProducao_VersaoQuatro { get; }
+        string CartaCorrecaoCancelamentoProducao_VersaoQuatro { get; }
+        string NFeAutorizacaoProducao_VersaoQuatro { get; }
+        string NFeRetAutorizacaoProducao_VersaoQuatro { get; }
     }
 }

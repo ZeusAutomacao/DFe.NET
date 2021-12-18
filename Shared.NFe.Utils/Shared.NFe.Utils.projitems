@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtConsCad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtretConsCad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtconsSitNFe.cs" />
