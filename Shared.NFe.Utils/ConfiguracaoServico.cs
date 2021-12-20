@@ -74,6 +74,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
 
+
         public ConfiguracaoServico()
         {
             Certificado =
