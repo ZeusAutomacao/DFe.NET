@@ -34,6 +34,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\EnderecoServico.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\FactoryUrl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\IZeusEnderecosUrls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\NovasUrlsCeara\CearaSVRS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\NovasUrlsCeara\FactoryUrlCearaMudanca.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtenvEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\Extevento.cs" />
