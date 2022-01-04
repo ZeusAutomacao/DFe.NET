@@ -74,9 +74,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testes", "testes", "{164EF1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Testes", "NFe.Testes\NFe.Testes.csproj", "{3E44EA28-96AE-4FAC-9E38-ADC2E12930F1}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Classes", "Shared.NFe.Classes\Shared.NFe.Classes.shproj", "{4CC78350-9E01-465A-AC60-E31A53CEFE24}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Classes.Standard", "NFe.Classes.Standard\NFe.Classes.Standard.csproj", "{744D38A4-773E-4EA3-9DAB-30394AD65678}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.NFe.Classes", "Shared.NFe.Classes\Shared.NFe.Classes.shproj", "{4CC78350-9E01-465A-AC60-E31A53CEFE24}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared.DFe.Classes", "Shared.DFe.Classes\Shared.DFe.Classes.shproj", "{3108968D-D505-4365-966F-BBE3CBF63C35}"
 EndProject
