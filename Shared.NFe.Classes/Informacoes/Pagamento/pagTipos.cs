@@ -256,11 +256,11 @@ namespace NFe.Classes.Informacoes.Pagamento
         Cabal = 09,
 
         [Description("Alelo")]
-        [XmlEnum("Alelo")]
+        [XmlEnum("10")]
         Alelo = 10,
 
         [Description("Banes Card")]
-        [XmlEnum("BanesCard")]
+        [XmlEnum("11")]
         BanesCard = 11,
 
         [Description("CalCard")]
