@@ -31,11 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
@@ -44,6 +39,11 @@ using MDFe.Classes.Informacoes;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Classes.Extencoes
@@ -59,10 +59,10 @@ namespace MDFe.Classes.Extencoes
             switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlMdfe, "MDFe_v1.00.xsd");
+                    Validador.Valida(xmlMdfe, "mdfe_v1.00.xsd");
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlMdfe, "MDFe_v3.00.xsd");
+                    Validador.Valida(xmlMdfe, "mdfe_v3.00.xsd");
                     break;
             }
 
@@ -75,10 +75,10 @@ namespace MDFe.Classes.Extencoes
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v1.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalRodoviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalRodoviario_v3.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalRodoviario_v3.00.xsd");
                         break;
                 }
             }
@@ -88,10 +88,10 @@ namespace MDFe.Classes.Extencoes
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalAereo_v1.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalAereo_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalAereo_v3.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalAereo_v3.00.xsd");
                         break;
                 }
             }
@@ -101,10 +101,10 @@ namespace MDFe.Classes.Extencoes
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v1.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalAquaviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalAquaviario_v3.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalAquaviario_v3.00.xsd");
                         break;
                 }
             }
@@ -114,10 +114,10 @@ namespace MDFe.Classes.Extencoes
                 switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
-                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v1.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalFerroviario_v1.00.xsd");
                         break;
                     case VersaoServico.Versao300:
-                        Validador.Valida(xmlModal, "MDFeModalFerroviario_v3.00.xsd");
+                        Validador.Valida(xmlModal, "mdfeModalFerroviario_v3.00.xsd");
                         break;
                 }
             }
