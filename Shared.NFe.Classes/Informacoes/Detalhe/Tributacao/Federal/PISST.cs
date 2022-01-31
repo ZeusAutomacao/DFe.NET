@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
@@ -45,6 +46,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     R02 - Valor da Base de Cálculo do PIS
         /// </summary>
+        /// 
+
+        [XmlElement(Order = 1)]
         public decimal? vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -54,6 +58,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     R03 - Alíquota do PIS (em percentual)
         /// </summary>
+        /// 
+        [XmlElement(Order = 2)]
         public decimal? pPIS
         {
             get { return _pPis.Arredondar(4); }
@@ -63,6 +69,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     R04 - Quantidade Vendida
         /// </summary>
+        /// 
+        [XmlElement(Order = 3)]
         public decimal? qBCProd
         {
             get { return _qBcProd.Arredondar(4); }
@@ -72,6 +80,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     R05 - Alíquota do PIS (em reais)
         /// </summary>
+        /// 
+        [XmlElement(Order = 4)]
         public decimal? vAliqProd
         {
             get { return _vAliqProd.Arredondar(4); }
@@ -81,6 +91,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     R06 - Valor do PIS
         /// </summary>
+        /// 
+        [XmlElement(Order = 5)]
         public decimal? vPIS
         {
             get { return _vPis.Arredondar(2); }
