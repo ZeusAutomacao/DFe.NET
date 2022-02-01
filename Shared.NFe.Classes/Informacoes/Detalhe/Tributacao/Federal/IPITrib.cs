@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
@@ -45,11 +46,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O09 - Código da Situação Tributária do IPI:
         /// </summary>
+        /// 
+        [XmlElement(Order = 1)]
         public CSTIPI CST { get; set; }
 
         /// <summary>
         ///     O10 - Valor da BC do IPI
         /// </summary>
+        /// 
+        [XmlElement(Order = 2)]
         public decimal? vBC
         {
             get { return _vBc.Arredondar(2); }
@@ -59,6 +64,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O13 - Alíquota do IPI
         /// </summary>
+        /// 
+        [XmlElement(Order = 3)]
         public decimal? pIPI
         {
             get { return _pIpi.Arredondar(4); }
@@ -68,6 +75,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O11 - Quantidade total na unidade padrão para tributação (somente para os produtos tributados por unidade)
         /// </summary>
+        /// 
+        [XmlElement(Order = 4)]
         public decimal? qUnid
         {
             get { return _qUnid.Arredondar(4); }
@@ -77,6 +86,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O12 - Valor por Unidade Tributável
         /// </summary>
+        /// 
+        [XmlElement(Order = 5)]
         public decimal? vUnid
         {
             get { return _vUnid.Arredondar(4); }
@@ -86,6 +97,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     O14 - Valor do IPI
         /// </summary>
+        /// 
+        [XmlElement(Order = 6)]
         public decimal? vIPI
         {
             get { return _vIpi.Arredondar(2); }
