@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Zeus.Net.MDFe</id>
+        <version>1.0.0</version>
+        <title>Zeus MDFe (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/32456879?s=200&amp;v=4</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Biblioteca para geração de MDF-e.</description>
+        <releaseNotes>Trocado namespace das classes</releaseNotes>
+        <copyright>zeus</copyright>
+        <language>pt-BR</language>
+        <tags>df-e dfe mdfe mdf-e</tags>
+    </metadata>
+    <files>
+        <file src="..\..\DFe.Classes\bin\Release\DFe.Classes.dll" target="lib\net40\DFe.Classes.dll" />
+        <file src="..\..\DFe.Utils\bin\Release\DFe.Utils.dll" target="lib\net40\DFe.Utils.dll" />
+        <file src="..\..\MDFe.Classes\bin\Release\MDFe.Classes.dll" target="lib\net40\MDFe.Classes.dll" />
+        <file src="..\..\MDFe.Servicos\bin\Release\MDFe.Servicos.dll" target="lib\net40\MDFe.Servicos.dll" />
+        <file src="..\..\MDFe.Utils\bin\Release\MDFe.Utils.dll" target="lib\net40\MDFe.Utils.dll" />
+        <file src="..\..\MDFe.Wsdl\bin\Release\MDFe.Wsdl.dll" target="lib\net40\MDFe.Wsdl.dll" />
+
+        <file src="..\..\MDFe.Classes.Standard\bin\Release\netstandard2.0\MDFe.Classes.Standard.dll" target="lib\netstandard2.0\MDFe.Classes.Standard.dll" />
+        <file src="..\..\MDFe.Servicos.Standard\bin\Release\netstandard2.0\MDFe.Servicos.Standard.dll" target="lib\netstandard2.0\MDFe.Servicos.Standard.dll" />
+        <file src="..\..\MDFe.Utils.Standard\bin\Release\netstandard2.0\MDFe.Utils.Standard.dll" target="lib\netstandard2.0\MDFe.Utils.Standard.dll" />
+        <file src="..\..\MDFe.Wsdl.Standard\bin\Release\netstandard2.0\MDFe.Wsdl.Standard.dll" target="lib\netstandard2.0\MDFe.Wsdl.Standard.dll" />
+        <file src="..\..\DFe.Classes.Standard\bin\Release\netstandard2.0\DFe.Classes.Standard.dll" target="lib\netstandard2.0\DFe.Classes.Standard.dll" />
+        <file src="..\..\DFe.Utils.Standard\bin\Release\netstandard2.0\DFe.Utils.Standard.dll" target="lib\netstandard2.0\DFe.Utils.Standard.dll" />
+        <file src="..\..\DFe.Wsdl.Standard\bin\Release\netstandard2.0\DFe.Wsdl.Standard.dll" target="lib\netstandard2.0\DFe.Wsdl.Standard.dll" />
+    </files>
+</package>
