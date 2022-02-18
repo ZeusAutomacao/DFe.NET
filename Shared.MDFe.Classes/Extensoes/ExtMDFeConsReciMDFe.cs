@@ -31,13 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
-using System.Xml;
 using DFe.Utils;
 using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
+using System.IO;
+using System.Xml;
 
 namespace MDFe.Classes.Extencoes
 {
@@ -50,10 +50,10 @@ namespace MDFe.Classes.Extencoes
             switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consReciMdfe_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMDFe_v1.00.xsd");
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consReciMdfe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMDFe_v3.00.xsd");
                     break;
             }
         }
