@@ -43,7 +43,7 @@ namespace NFe.Utils.Enderecos
 {
     public static class Enderecador
     {
-        private static readonly List<EnderecoServico> ListaEnderecos;
+        private static List<EnderecoServico> ListaEnderecos;
 
         /// <summary>
         ///     Adiciona as urls dos webservices de todos os estados
@@ -364,23 +364,23 @@ namespace NFe.Utils.Enderecos
             foreach (var emissao in emissaoComum)
             {
                 if (emissao != TipoEmissao.teEPEC)
-                    addServico(eventoCceCanc, versao1, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl");
-                addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeRetRecepcao }, versao2, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao2E3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao2E3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao2E3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao2E3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl");
-                addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl");
+                    addServico(eventoCceCanc, versao1, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoHomologacao_VersaoUm);
+                addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRecepcaoHomologacao_VersaoDois);
+                addServico(new[] { ServicoNFe.NfeRetRecepcao }, versao2, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRetRecepcaoHomologacao_VersaoDois);
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao2E3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeInutilizacaoHomologacao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao2E3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaProtocoloHomologacao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao2E3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeStatusServicoHomologacao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao2E3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaCadastroHomologacao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeDownloadNFHomologacao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoHomologacao_VersaoTres);
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoHomologacao_VersaoTres);
 
-                addServico(eventoCceCanc, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeInutilizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeConsultaProtocolo4?wsdl");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeStatusServico4?wsdl");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeAutorizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfeh.sefaz.ce.gov.br/nfe4/services/NFeRetAutorizacao4?wsdl");
+                addServico(eventoCceCanc, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoHomologacao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeInutilizacaoHomologacao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaProtocoloHomologacao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeStatusServicoHomologacao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoHomologacao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoHomologacao_VersaoQuatro);
             }
 
             #endregion
@@ -390,24 +390,24 @@ namespace NFe.Utils.Enderecos
             foreach (var emissao in emissaoComum)
             {
                 if (emissao != TipoEmissao.teEPEC)
-                    addServico(eventoCceCanc, versao1, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/RecepcaoEvento?wsdl");
-                addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRecepcao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeRetRecepcao }, versao2, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetRecepcao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao2E3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeInutilizacao2?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao2E3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeConsulta2?wsdl");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao2E3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeStatusServico2?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao2E3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/CadConsultaCadastro2?wsdl");
-                addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeDownloadNF?wsdl");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeAutorizacao?wsdl");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe2/services/NfeRetAutorizacao?wsdl");
+                    addServico(eventoCceCanc, versao1, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoProducao_VersaoUm);
+                addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRecepcaoProducao_VersaoDois);
+                addServico(new[] { ServicoNFe.NfeRetRecepcao }, versao2, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRetRecepcaoProducao_VersaoDois);
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao2E3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeInutilizacaoProducao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao2E3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaProtocoloProducao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao2E3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeStatusServicoProducao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao2E3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaCadastroProducao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeDownloadNFProducao_VersaoDoisETres);
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoProducao_VersaoTres);
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoProducao_VersaoTres);
 
-                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeInutilizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeConsultaProtocolo4?wsdl");
-                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeStatusServico4?wsdl");
-                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/CadConsultaCadastro4?wsdl");
-                addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRecepcaoEvento4?wsdl");
-                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeAutorizacao4?wsdl");
-                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.sefaz.ce.gov.br/nfe4/services/NFeRetAutorizacao4?wsdl");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeInutilizacaoProducao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaProtocoloProducao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeStatusServicoProducao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeConsultaCadastroProducao_VersaoQuatro);
+                addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoProducao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoProducao_VersaoQuatro);
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoProducao_VersaoQuatro);
             }
 
             #endregion
@@ -1599,6 +1599,15 @@ namespace NFe.Utils.Enderecos
             #endregion
 
             return endServico;
+        }
+
+        /// <summary>
+        ///     Adiciona as urls dos webservices de todos os estados
+        ///     Obs: UFs que disponibilizaram urls diferentes para NFCe, até 04/05/2015: SVRS, AM, MT, PR, RS e SP
+        /// </summary>
+        public static void CarregarEnderecos()
+        {
+            ListaEnderecos = CarregarEnderecosServicos();
         }
 
         /// <summary>

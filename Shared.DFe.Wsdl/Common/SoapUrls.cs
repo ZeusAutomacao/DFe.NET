@@ -23,6 +23,18 @@ namespace CTe.CTeOSDocumento.Soap
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteRetRecepcao";
                 case TipoEvento.CTeStatusServico:
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteStatusServico";
+                case TipoEvento.MDFeStatusServico:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico";
+                case TipoEvento.MDFeRecepcao:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao";
+                case TipoEvento.MDFeRetRecepcao:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao";
+                case TipoEvento.MDFeNaoEncerrado:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsNaoEnc";
+                case TipoEvento.MDFeConsulta:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeConsulta";
+                case TipoEvento.MDFeEvento:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoEvento";
                 default:
                     throw new ArgumentOutOfRangeException(nameof(tipoEvento), tipoEvento, null);
             }

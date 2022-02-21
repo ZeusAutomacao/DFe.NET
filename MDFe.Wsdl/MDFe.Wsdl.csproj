@@ -39,15 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuracao\WsdlConfiguracao.cs" />
-    <Compile Include="Gerado\MDFeConsultaNaoEncerrados\MDFeConsNaoEnc.cs" />
-    <Compile Include="Gerado\MDFeConsultaProtoloco\MDFeConsulta.cs" />
-    <Compile Include="Gerado\MDFeEventos\MDFeRecepcaoEvento.cs" />
-    <Compile Include="Gerado\MDFeRecepcao\MDFeRecepcao.cs" />
-    <Compile Include="Gerado\MDFeRetRecepcao\MDFeRetRecepcao.cs" />
-    <Compile Include="Gerado\MDFeStatusServico\MDFeStatusServico.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
+      <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
+      <Name>DFe.Wsdl</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\Shared.MDFe.Wsdl\Shared.MDFe.Wsdl.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

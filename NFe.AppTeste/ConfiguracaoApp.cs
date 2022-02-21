@@ -42,6 +42,7 @@ using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
 using NFe.Utils;
 using NFe.Utils.Email;
+using Shared.NFe.Utils.Enderecos.NovasUrlsCeara;
 
 namespace NFe.AppTeste
 {
@@ -60,6 +61,7 @@ namespace NFe.AppTeste
             ConfiguracaoEmail = new ConfiguracaoEmail("email@dominio.com", "senha", "Envio de NFE", Resources.MensagemHtml, "smtp.dominio.com", 587, true, true);
             ConfiguracaoCsc = new ConfiguracaoCsc("000001", "");
             ConfiguracaoDanfeNfce = new ConfiguracaoDanfeNfce(NfceDetalheVendaNormal.UmaLinha, NfceDetalheVendaContigencia.UmaLinha);
+            // todo ConfiguracaoUrls.FactoryUrl = FactoryUrlCearaMudanca.CriaFactoryUrl();
         }
 
         public ConfiguracaoServico CfgServico
