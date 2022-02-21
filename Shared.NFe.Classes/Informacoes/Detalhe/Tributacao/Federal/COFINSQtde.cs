@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
@@ -43,11 +44,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     S06 - Código de Situação Tributária da COFINS
         /// </summary>
+        /// 
+        [XmlElement(Order = 1)]
         public CSTCOFINS CST { get; set; }
 
         /// <summary>
         ///     S09 - Quantidade Vendida
         /// </summary>
+        /// 
+        [XmlElement(Order = 2)]
         public decimal qBCProd
         {
             get { return _qBcProd; }
@@ -57,6 +62,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     S10 - Alíquota da COFINS (em reais)
         /// </summary>
+        /// 
+        [XmlElement(Order = 3)]
         public decimal vAliqProd
         {
             get { return _vAliqProd; }
@@ -66,6 +73,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     S11 - Valor da COFINS
         /// </summary>
+        /// 
+        [XmlElement(Order = 4)]
         public decimal vCOFINS
         {
             get { return _vCofins; }

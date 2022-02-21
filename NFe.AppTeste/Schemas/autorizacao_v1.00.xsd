@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.fazenda.pr.gov.br/sefaws"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="leiauteLMCAutorizacao_v1.00.xsd"/>
+	<xs:element name="autorizacao" type="LMCAutorizacao">
+		<xs:annotation>
+			<xs:documentation>Solicitacao de autorizacao de um Livro de Movimentacao de Combustivel</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

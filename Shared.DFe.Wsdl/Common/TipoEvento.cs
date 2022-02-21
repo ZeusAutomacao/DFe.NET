@@ -8,6 +8,13 @@
         CTeInutilizacao,
         CTeRecepcao,
         CTeRetRecepcao,
-        CTeStatusServico
+        CTeStatusServico,
+
+        MDFeStatusServico,
+        MDFeRecepcao,
+        MDFeRetRecepcao,
+        MDFeNaoEncerrado,
+        MDFeConsulta,
+        MDFeEvento
     }
 }

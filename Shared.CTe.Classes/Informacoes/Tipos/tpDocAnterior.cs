@@ -62,6 +62,8 @@ namespace CTe.Classes.Informacoes.Tipos
         ConhecimentoAvulso = 11,
         [XmlEnum("12")]
         TIF = 12,
+        [XmlEnum("13")]
+        BL = 13,
         [XmlEnum("99")]
         Outros = 99
     }

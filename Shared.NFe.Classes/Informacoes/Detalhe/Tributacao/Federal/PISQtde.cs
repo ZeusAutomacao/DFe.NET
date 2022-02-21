@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
@@ -43,11 +44,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     Q06 - Código de Situação Tributária do PIS
         /// </summary>
+        /// 
+
+        [XmlElement(Order = 1)]
         public CSTPIS CST { get; set; }
 
         /// <summary>
         ///     Q10 - Quantidade Vendida
         /// </summary>
+        /// 
+
+        [XmlElement(Order = 2)]
         public decimal qBCProd
         {
             get { return _qBcProd; }
@@ -57,6 +64,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     Q11 - Alíquota do PIS (em reais)
         /// </summary>
+        /// 
+        [XmlElement(Order = 3)]
         public decimal vAliqProd
         {
             get { return _vAliqProd; }
@@ -66,6 +75,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         /// <summary>
         ///     Q09 - Valor do PIS
         /// </summary>
+        /// 
+        [XmlElement(Order = 4)]
         public decimal vPIS
         {
             get { return _vPis; }

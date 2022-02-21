@@ -173,11 +173,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlStatus = pedStatus.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico, xmlStatus, cfgServico: _cFgServico);
-            var dadosStatus = new XmlDocument();
-            dadosStatus.LoadXml(xmlStatus);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-sta.xml", xmlStatus);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeStatusServico, _cFgServico.VersaoNfeStatusServico, xmlStatus, cfgServico: _cFgServico);
+
+            var dadosStatus = new XmlDocument();
+            dadosStatus.LoadXml(xmlStatus);
 
             XmlNode retorno;
             try
@@ -237,11 +240,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta, cfgServico: _cFgServico);
-            var dadosConsulta = new XmlDocument();
-            dadosConsulta.LoadXml(xmlConsulta);
 
             SalvarArquivoXml(chave + "-ped-sit.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeConsultaProtocolo, _cFgServico.VersaoNfeConsultaProtocolo, xmlConsulta, cfgServico: _cFgServico);
+
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
 
             XmlNode retorno;
             try
@@ -331,11 +337,14 @@ namespace NFe.Servicos
                 ? pedInutilizacao.ObterXmlString().RemoverAcentos()
                 : pedInutilizacao.ObterXmlString();
 
-            Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
+            SalvarArquivoXml(numId + "-ped-inu.xml", xmlInutilizacao);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeInutilizacao, _cFgServico.VersaoNfeInutilizacao, xmlInutilizacao, cfgServico: _cFgServico);
+
             var dadosInutilizacao = new XmlDocument();
             dadosInutilizacao.LoadXml(xmlInutilizacao);
 
-            SalvarArquivoXml(numId + "-ped-inu.xml", xmlInutilizacao);
 
             XmlNode retorno;
             try
@@ -422,11 +431,13 @@ namespace NFe.Servicos
                     ? pedEvento.ObterXmlString().RemoverAcentos()
                     : pedEvento.ObterXmlString();
 
-            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
+
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
-
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
 
             XmlNode retorno;
             try
@@ -619,8 +630,7 @@ namespace NFe.Servicos
             {
                 var infEvento = new infEventoEnv
                 {
-                    cOrgao = _cFgServico.cUF == Estado.RS ? _cFgServico.cUF : Estado.AN,
-                    //RS possui endereço próprio para manifestação do destinatário. Demais UFs usam o ambiente nacional
+                    cOrgao = Estado.AN,                    
                     tpAmb = _cFgServico.tpAmb,
                     chNFe = chaveNFe,
                     dhEvento = dhEvento ?? DateTime.Now,
@@ -758,11 +768,15 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedConsulta.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta, cfgServico: _cFgServico);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeConsultaCadastro, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta, cfgServico: _cFgServico);
+
             var dadosConsulta = new XmlDocument();
             dadosConsulta.LoadXml(xmlConsulta);
 
-            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-cad.xml", xmlConsulta);
 
             XmlNode retorno;
             try
@@ -845,11 +859,14 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
-            Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
-            var dadosConsulta = new XmlDocument();
-            dadosConsulta.LoadXml(xmlConsulta);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-ped-DistDFeInt.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeDistribuicaoDFe, _cFgServico.VersaoNFeDistribuicaoDFe, xmlConsulta, cfgServico: _cFgServico);
+
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
 
             XmlNode retorno;
             try
@@ -957,11 +974,14 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas) 
+                Validador.Valida(ServicoNFe.NfeRecepcao, _cFgServico.VersaoNfeRecepcao, xmlEnvio, cfgServico: _cFgServico);
+            
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
 
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1099,11 +1119,13 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
-
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1162,11 +1184,13 @@ namespace NFe.Servicos
                 //Caso o lote seja enviado para o PR, colocar o namespace nos elementos <NFe> do lote, pois o serviço do PR o exige, conforme https://github.com/adeniltonbs/Zeus.Net.NFe.NFCe/issues/33
                 xmlEnvio = xmlEnvio.Replace("<NFe>", "<NFe xmlns=\"http://www.portalfiscal.inf.br/nfe\">");
 
-            Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NFeAutorizacao, _cFgServico.VersaoNFeAutorizacao, xmlEnvio, cfgServico: _cFgServico);
+
             var dadosEnvio = new XmlDocument();
             dadosEnvio.LoadXml(xmlEnvio);
-
-            SalvarArquivoXml(idLote + "-env-lot.xml", xmlEnvio);
 
             XmlNode retorno;
             try
@@ -1299,9 +1323,6 @@ namespace NFe.Servicos
             #region Valida, Envia os dados e obtém a resposta
 
             var xmlDownload = pedDownload.ObterXmlString();
-            Validador.Valida(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF, xmlDownload, cfgServico: _cFgServico);
-            var dadosDownload = new XmlDocument();
-            dadosDownload.LoadXml(xmlDownload);
 
             if (nomeSaida == "")
             {
@@ -1309,6 +1330,12 @@ namespace NFe.Servicos
             }
 
             SalvarArquivoXml(nomeSaida + "-ped-down.xml", xmlDownload);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.NfeDownloadNF, _cFgServico.VersaoNfeDownloadNF, xmlDownload, cfgServico: _cFgServico);
+
+            var dadosDownload = new XmlDocument();
+            dadosDownload.LoadXml(xmlDownload);
 
             XmlNode retorno;
             try
