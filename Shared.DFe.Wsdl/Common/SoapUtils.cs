@@ -89,12 +89,12 @@ namespace CTe.CTeOSDocumento.Soap
             streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
             streamWriter.Close();
 
-            var webResponse = httpWr.GetResponse();
-            var respStream = webResponse.GetResponseStream();
-            StreamReader streamReader = new StreamReader(respStream);
-
-            string xmlRetorno = streamReader.ReadToEnd();
-            return await Task.FromResult(xmlRetorno);
+            using (HttpWebResponse httpResponse = (HttpWebResponse)httpWr.GetResponse())
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                string xmlRetorno = streamReader.ReadToEnd();
+                return await Task.FromResult(xmlRetorno);
+            }
         }
 
         public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento? tipoEvento = null, string actionUrn = "")
@@ -125,12 +125,12 @@ namespace CTe.CTeOSDocumento.Soap
             streamWriter.Write(xmlSoap, 0, Encoding.UTF8.GetBytes(xmlSoap).Length);
             streamWriter.Close();
 
-            var webResponse = httpWr.GetResponse();
-            var respStream = webResponse.GetResponseStream();
-            StreamReader streamReader = new StreamReader(respStream);
-
-            string xmlRetorno = streamReader.ReadToEnd();
-            return xmlRetorno;
+            using (HttpWebResponse httpResponse = (HttpWebResponse)httpWr.GetResponse())
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                string xmlRetorno = streamReader.ReadToEnd();
+                return xmlRetorno;
+            }
         }
     }
 

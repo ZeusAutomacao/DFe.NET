@@ -30,11 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using MDFe.Utils.Configuracoes;
 using System;
 using System.IO;
 using System.Xml;
 using System.Xml.Schema;
-using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Utils.Validacao
 {
@@ -47,13 +47,15 @@ namespace MDFe.Utils.Validacao
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
 
-            var arquivoSchema = pathSchema + @"\" + schema;
+            var arquivoSchema = Path.Combine(pathSchema, schema);
 
             // Define o tipo de validação
             var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
 
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
+            schemas.XmlResolver = new XmlUrlResolver();
+
             cfg.Schemas = schemas;
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 

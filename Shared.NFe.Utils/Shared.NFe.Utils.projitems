@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Autorizacao\ExtenviNFe4.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ConfiguracaoUrls.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtConsCad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ConsultaCadastro\ExtretConsCad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Consulta\ExtconsSitNFe.cs" />
@@ -28,8 +29,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Download\ExtretDownloadNFe.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Email\ConfiguracaoEmail.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Email\EmailBuilder.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\CearaUrl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\Enderecador.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enderecos\EnderecoServico.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\FactoryUrl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\IZeusEnderecosUrls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\NovasUrlsCeara\CearaSVRS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enderecos\NovasUrlsCeara\FactoryUrlCearaMudanca.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\ExtenvEvento.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Evento\Extevento.cs" />

@@ -75,6 +75,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfceAministracaoCsc;
         private bool _unZip = true;
 
+
         public ConfiguracaoServico()
         {
             Certificado =
