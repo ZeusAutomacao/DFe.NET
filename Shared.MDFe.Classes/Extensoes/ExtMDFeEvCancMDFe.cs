@@ -41,17 +41,17 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeEvCancMDFe
     {
-        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe)
+        public static void ValidaSchema(this MDFeEvCancMDFe evCancMDFe, VersaoServico versaoLayout, string caminhoSchemas)
         {
             var xmlCancelamento = evCancMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (versaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd",caminhoSchemas);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd");
+                    Validador.Valida(xmlCancelamento, "evCancMDFe_v3.00.xsd",caminhoSchemas);
                     break;
             }
         }

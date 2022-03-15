@@ -34,22 +34,23 @@
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaProtocoloMDFe
 {
     public class ServicoMDFeConsultaProtocolo
     {
-        public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave)
+        public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave, MDFeConfiguracao config)
         {
-            var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave);
-            consSitMdfe.ValidarSchema();
-            consSitMdfe.SalvarXmlEmDisco();
+            var consSitMdfe = ClassesFactory.CriarConsSitMDFe(chave,config.VersaoWebService.TipoAmbiente,config.VersaoWebService.VersaoLayout);
+            consSitMdfe.ValidarSchema(config.VersaoWebService.VersaoLayout, config.CaminhoSchemas);
+            consSitMdfe.SalvarXmlEmDisco(config.NaoSalvarXml(), config.CaminhoSalvarXml);
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsulta();
+            var webService = WsdlFactory.CriaWsdlMDFeConsulta(config);
             var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
 
             var retorno = MDFeRetConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
-            retorno.SalvarXmlEmDisco(chave);
+            retorno.SalvarXmlEmDisco(chave,config);
 
             return retorno;
         }

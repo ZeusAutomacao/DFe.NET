@@ -8,14 +8,14 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtevPagtoOperMDFe
     {
-        public static void ValidaSchema(this evPagtoOperMDFe evIncDFeMDFe)
+        public static void ValidaSchema(this evPagtoOperMDFe evIncDFeMDFe, VersaoServico versaoLayout, string caminhoSchemas)
         {
             var ev = evIncDFeMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (versaoLayout)
             {
                 case VersaoServico.Versao300:
-                    Validador.Valida(ev, "evPagtoOperMDFe_v3.00.xsd");
+                    Validador.Valida(ev, "evPagtoOperMDFe_v3.00.xsd",caminhoSchemas);
                     break;
             }
         }

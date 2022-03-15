@@ -44,23 +44,23 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeEnviMDFe
     {
-        public static void Valida(this MDFeEnviMDFe enviMDFe)
+        public static void Valida(this MDFeEnviMDFe enviMDFe, VersaoServico versaoLayout, string caminhoSchemas)
         {
             if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
 
             var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (versaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
+                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd", caminhoSchemas);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd");
+                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd",caminhoSchemas);
                     break;
             }
 
-            enviMDFe.MDFe.Valida();
+            enviMDFe.MDFe.Valida(versaoLayout,caminhoSchemas);
         }
 
         public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
@@ -78,17 +78,17 @@ namespace MDFe.Classes.Extencoes
             return xmlString;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe)
+        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe,bool naoSalvarXml, string caminhoSalvarXml)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (naoSalvarXml) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = caminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, enviMDFe.MDFe.Chave() + "-completo-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
 
-            enviMDFe.MDFe.SalvarXmlEmDisco();
+            enviMDFe.MDFe.SalvarXmlEmDisco(naoSalvarXml, caminhoSalvarXml);
         }
     }
 }

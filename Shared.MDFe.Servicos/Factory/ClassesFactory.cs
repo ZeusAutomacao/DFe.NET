@@ -43,19 +43,20 @@ using System.Collections.Generic;
 using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
+using DFe.Classes.Flags;
 
 namespace MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf)
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf, TipoAmbiente tpAmb, MDFe.Utils.Flags.VersaoServico versaoLayout)
         {
             var documentoUnico = cnpjCpf;
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = tpAmb,
+                Versao = versaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
@@ -83,12 +84,12 @@ namespace MDFe.Servicos.Factory
             };
         }
 
-        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
+        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave, TipoAmbiente tpAmb, MDFe.Utils.Flags.VersaoServico versaoLayout)
         {
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = versaoLayout,
+                TpAmb = tpAmb,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
             };
@@ -153,36 +154,36 @@ namespace MDFe.Servicos.Factory
             return incluirCodutor;
         }
 
-        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe, MDFe.Utils.Flags.VersaoServico versaoLayout)
         {
             var enviMdfe = new MDFeEnviMDFe
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
+                Versao = versaoLayout
             };
 
             return enviMdfe;
         }
 
-        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo, TipoAmbiente tpAmb, MDFe.Utils.Flags.VersaoServico versaoLayout)
         {
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = versaoLayout,
+                TpAmb = tpAmb,
                 NRec = numeroRecibo
             };
 
             return consReciMDFe;
         }
 
-        public static MDFeConsStatServMDFe CriaConsStatServMDFe()
+        public static MDFeConsStatServMDFe CriaConsStatServMDFe(TipoAmbiente tpAmb, MDFe.Utils.Flags.VersaoServico versaoLayout)
         {
             return new MDFeConsStatServMDFe
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = tpAmb,
+                Versao = versaoLayout,
                 XServ = "STATUS"
             };
         }

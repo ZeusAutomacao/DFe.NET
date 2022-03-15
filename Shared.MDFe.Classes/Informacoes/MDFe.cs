@@ -34,6 +34,7 @@ using System;
 using System.Xml.Serialization;
 using DFe.Classes.Assinatura;
 using DFe.Utils;
+using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -42,9 +43,9 @@ namespace MDFe.Classes.Informacoes
         ElementName = "MDFe")]
     public class MDFe
     {
-        public MDFe()
+        public MDFe(VersaoServico versaoServico)
         {
-            InfMDFe = new MDFeInfMDFe();
+            InfMDFe = new MDFeInfMDFe(versaoServico);
         }
 
         [XmlElement(ElementName = "infMDFe")]

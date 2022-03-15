@@ -43,27 +43,29 @@ namespace MDFe.Utils.Configuracoes
 {
     public class MDFeConfiguracao : IDisposable 
     {
-        private static MDFeVersaoWebService _versaoWebService;
+        public static MDFeConfiguracao SingletonInstance { get; } = new MDFeConfiguracao();
+
+        private MDFeVersaoWebService _versaoWebService;
 
         public MDFeConfiguracao()
         {
             VersaoWebService = new MDFeVersaoWebService();
         }
 
-        public static ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
+        public ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
-        public static bool IsSalvarXml { get; set; }
-        public static string CaminhoSchemas { get; set; }
-        public static string CaminhoSalvarXml { get; set; }
-        public static bool IsAdicionaQrCode { get; set; }
+        public bool IsSalvarXml { get; set; }
+        public string CaminhoSchemas { get; set; }
+        public string CaminhoSalvarXml { get; set; }
+        public bool IsAdicionaQrCode { get; set; }
 
-        public static MDFeVersaoWebService VersaoWebService
+        public MDFeVersaoWebService VersaoWebService
         {
             get { return GetMdfeVersaoWebService(); }
             set { _versaoWebService = value; }
         }
 
-        private static MDFeVersaoWebService GetMdfeVersaoWebService()
+        private MDFeVersaoWebService GetMdfeVersaoWebService()
         {
             if(_versaoWebService == null)
                 _versaoWebService = new MDFeVersaoWebService();
@@ -71,8 +73,8 @@ namespace MDFe.Utils.Configuracoes
             return _versaoWebService;
         }
 
-        private static X509Certificate2 _certificado = null;
-        public static X509Certificate2 X509Certificate2
+        private X509Certificate2 _certificado = null;
+        public X509Certificate2 X509Certificate2
         {
             get
             {
@@ -84,12 +86,12 @@ namespace MDFe.Utils.Configuracoes
             }
         }
 
-        public static bool NaoSalvarXml()
+        public bool NaoSalvarXml()
         {
             return !IsSalvarXml;
         }
 
-        private static X509Certificate2 ObterCertificado()
+        private X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
         }

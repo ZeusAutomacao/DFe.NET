@@ -40,9 +40,9 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeInfMDFe
     {
-        public MDFeInfMDFe()
+        public MDFeInfMDFe(VersaoServico versaoServico)
         {
-            Ide = new MDFeIde();
+            Ide = new MDFeIde(versaoServico);
             Emit = new MDFeEmit();
             InfModal = new MDFeInfModal();
             InfDoc = new MDFeInfDoc();

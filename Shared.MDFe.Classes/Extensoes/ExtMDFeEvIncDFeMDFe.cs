@@ -41,14 +41,14 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeEvIncDFeMDFe
     {
-        public static void ValidaSchema(this MDFeEvIncDFeMDFe evIncDFeMDFe)
+        public static void ValidaSchema(this MDFeEvIncDFeMDFe evIncDFeMDFe, VersaoServico versaoLayout, string caminhoSchemas)
         {
             var xmlIncluirDFe = evIncDFeMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (versaoLayout)
             {
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd");
+                    Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd",caminhoSchemas);
                     break;
             }
         }

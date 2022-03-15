@@ -46,8 +46,10 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeIde
     {
-        public MDFeIde()
+        private readonly VersaoServico _versaoServico;
+        public MDFeIde(VersaoServico versaoServico)
         {
+            _versaoServico = versaoServico;
             InfMunCarrega = new List<MDFeInfMunCarrega>();
             InfPercurso = new List<MDFeInfPercurso>();
         }
@@ -140,7 +142,7 @@ namespace MDFe.Classes.Informacoes
         {
             get
             {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                switch (_versaoServico)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();

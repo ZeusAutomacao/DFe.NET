@@ -34,22 +34,23 @@
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Retorno.MDFeRetRecepcao;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.RetRecepcaoMDFe
 {
     public class ServicoMDFeRetRecepcao
     {
-        public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo)
+        public MDFeRetConsReciMDFe MDFeRetRecepcao(string numeroRecibo, MDFeConfiguracao config)
         {
-            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo);
-            consReciMdfe.ValidaSchema();
-            consReciMdfe.SalvarXmlEmDisco();
+            var consReciMdfe = ClassesFactory.CriaConsReciMDFe(numeroRecibo,config.VersaoWebService.TipoAmbiente, config.VersaoWebService.VersaoLayout);
+            consReciMdfe.ValidaSchema(config.VersaoWebService.VersaoLayout,config.CaminhoSchemas) ;
+            consReciMdfe.SalvarXmlEmDisco(config.NaoSalvarXml(),config.CaminhoSalvarXml);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao();
+            var webService = WsdlFactory.CriaWsdlMDFeRetRecepcao(config);
             var retornoXml = webService.mdfeRetRecepcao(consReciMdfe.CriaRequestWs());
 
             var retorno = MDFeRetConsReciMDFe.LoadXml(retornoXml.OuterXml, consReciMdfe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(config.NaoSalvarXml(),config.CaminhoSalvarXml);
 
             return retorno;
         }

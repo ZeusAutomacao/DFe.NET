@@ -554,7 +554,7 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new MDFeEletronico();
+            var mdfe = new MDFeEletronico(MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout);
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
@@ -612,7 +612,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -640,7 +640,7 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -722,7 +722,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -738,7 +738,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -766,7 +766,7 @@ namespace MDFe.AppTeste
 
             #region Produto Predominante
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.prodPred = new prodPred
                 {
@@ -815,7 +815,7 @@ namespace MDFe.AppTeste
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
-            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
+            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 
@@ -840,7 +840,7 @@ namespace MDFe.AppTeste
         {
             var config = new ConfiguracaoDao().BuscarConfiguracao();
             CarregarConfiguracoesMDFe(config);
-            var mdfe = new MDFeEletronico();
+            var mdfe = new MDFeEletronico(MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout);
 
             #region (ide)
             mdfe.InfMDFe.Ide.CUF = config.ConfigWebService.UfEmitente;
@@ -898,7 +898,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
@@ -927,7 +927,7 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
@@ -1011,7 +1011,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -1027,7 +1027,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -1067,10 +1067,12 @@ namespace MDFe.AppTeste
             };
             #endregion
 
-            mdfe = mdfe.Assina();
-            mdfe = mdfe.Valida();
+            var singletonMDFeConfig = MDFeConfiguracao.SingletonInstance;
 
-            mdfe.SalvarXmlEmDisco();
+            mdfe = mdfe.Assina(singletonMDFeConfig);
+            mdfe = mdfe.Valida(singletonMDFeConfig.VersaoWebService.VersaoLayout, singletonMDFeConfig.CaminhoSchemas);
+
+            mdfe.SalvarXmlEmDisco(singletonMDFeConfig.NaoSalvarXml(), singletonMDFeConfig.CaminhoSalvarXml);
         }
 
         public void BuscarDiretorioSalvarXml()
@@ -1094,7 +1096,7 @@ namespace MDFe.AppTeste
             }
 
             var servicoRecibo = new ServicoMDFeRetRecepcao();
-            var retorno = servicoRecibo.MDFeRetRecepcao(recibo);
+            var retorno = servicoRecibo.MDFeRetRecepcao(recibo,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1125,7 +1127,7 @@ namespace MDFe.AppTeste
             CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaProtocolo = new ServicoMDFeConsultaProtocolo();
-            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave);
+            var retorno = servicoConsultaProtocolo.MDFeConsultaProtocolo(chave,MDFeConfiguracao.SingletonInstance);
 
 
             OnSucessoSync(new RetornoEEnvio(retorno));
@@ -1209,7 +1211,7 @@ namespace MDFe.AppTeste
             CarregarConfiguracoesMDFe(config);
 
             var servicoStatusServico = new ServicoMDFeStatusServico();
-            var retorno = servicoStatusServico.MDFeStatusServico();
+            var retorno = servicoStatusServico.MDFeStatusServico(MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
 
@@ -1221,7 +1223,7 @@ namespace MDFe.AppTeste
             CarregarConfiguracoesMDFe(config);
 
             var servicoConsultaNaoEncerrados = new ServicoMDFeConsultaNaoEncerrados();
-            var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj);
+            var retorno = servicoConsultaNaoEncerrados.MDFeConsultaNaoEncerrados(config.Empresa.Cnpj,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1271,7 +1273,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor);
+            var retorno = evento.MDFeEventoIncluirCondutor(mdfe, 1, nomeCondutor, cpfCondutor,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1313,7 +1315,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo);
+            var retorno = evento.MDFeEventoEncerramentoMDFeEventoEncerramento(mdfe, 1, protocolo,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1363,7 +1365,7 @@ namespace MDFe.AppTeste
                 return;
             }
 
-            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa);
+            var retorno = evento.MDFeEventoCancelar(mdfe, 1, protocolo, justificativa,MDFeConfiguracao.SingletonInstance);
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
@@ -1379,17 +1381,17 @@ namespace MDFe.AppTeste
                 ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
             };
 
-            MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.SingletonInstance.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.SingletonInstance.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.SingletonInstance.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.SingletonInstance.IsSalvarXml = config.IsSalvarXml;
 
-            MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.SingletonInstance.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
-            MDFeConfiguracao.IsAdicionaQrCode = true;
+            MDFeConfiguracao.SingletonInstance.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.SingletonInstance.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.SingletonInstance.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.SingletonInstance.IsAdicionaQrCode = true;
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)
@@ -1464,7 +1466,7 @@ namespace MDFe.AppTeste
                     ChNFe = chNFe
                 }
             };
-            var retorno = evento.MDFeEventoIncluirDFe(mdfe, 1, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
+            var retorno = evento.MDFeEventoIncluirDFe(mdfe, 1, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos, MDFeConfiguracao.SingletonInstance);
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
     }

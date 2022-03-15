@@ -43,17 +43,17 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeConsReciMDFe
     {
-        public static void ValidaSchema(this MDFeConsReciMDFe consReciMDFe)
+        public static void ValidaSchema(this MDFeConsReciMDFe consReciMDFe, VersaoServico versaoLayout, string caminhoSchemas)
         {
             var xmlValidacao = consReciMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (versaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consReciMDFe_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMDFe_v1.00.xsd", caminhoSchemas);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consReciMDFe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consReciMDFe_v3.00.xsd",caminhoSchemas);
                     break;
             }
         }
@@ -71,11 +71,11 @@ namespace MDFe.Classes.Extencoes
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeConsReciMDFe consReciMDFe)
+        public static void SalvarXmlEmDisco(this MDFeConsReciMDFe consReciMDFe, bool naoSalvarXml, string caminhoSalvarXml)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (naoSalvarXml) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = caminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, consReciMDFe.NRec + "-ped-rec.xml");
 

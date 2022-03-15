@@ -40,11 +40,11 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeRetConsMDFeNao
     {
-        public static void SalvarXmlEmDisco(this MDFeRetConsMDFeNao retConsMdFeNao, string cnpj)
+        public static void SalvarXmlEmDisco(this MDFeRetConsMDFeNao retConsMdFeNao, bool naoSalvarXml, string caminhoSalvarXml, string cnpj)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (naoSalvarXml) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = caminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, cnpj + "-sit.xml");
 

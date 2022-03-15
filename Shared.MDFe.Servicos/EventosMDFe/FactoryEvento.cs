@@ -42,20 +42,21 @@ namespace MDFe.Servicos.EventosMDFe
 {
     public static class FactoryEvento
     {
-        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento)
+        public static MDFeEventoMDFe CriaEvento(MDFeEletronico MDFe, MDFeTipoEvento tipoEvento, byte sequenciaEvento, MDFeEventoContainer evento,MDFeConfiguracao config)
         {
             var eventoMDFe = new MDFeEventoMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                InfEvento = new MDFeInfEvento
+                Versao = config.VersaoWebService.VersaoLayout,
+                InfEvento = new MDFeInfEvento(config.VersaoWebService.VersaoLayout)
                 {
+
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                    TpAmb = config.VersaoWebService.TipoAmbiente,
                     COrgao = MDFe.UFEmitente(),
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
                     {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                        VersaoServico = config.VersaoWebService.VersaoLayout,
                         EventoContainer = evento
                     },
                     DhEvento = DateTime.Now,
@@ -72,7 +73,7 @@ namespace MDFe.Servicos.EventosMDFe
                 eventoMDFe.InfEvento.CPF = cpfEmitente;
             }
 
-            eventoMDFe.Assinar();
+            eventoMDFe.Assinar(config.X509Certificate2);
 
             return eventoMDFe;
         }

@@ -34,22 +34,23 @@
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Retorno.MDFeConsultaNaoEncerrado;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
 {
     public class ServicoMDFeConsultaNaoEncerrados
     {
-        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpjCpf)
+        public MDFeRetConsMDFeNao MDFeConsultaNaoEncerrados(string cnpjCpf, MDFeConfiguracao config)
         {
-            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpjCpf);
-            consMDFeNaoEnc.ValidarSchema();
-            consMDFeNaoEnc.SalvarXmlEmDisco();
+            var consMDFeNaoEnc = ClassesFactory.CriarConsMDFeNaoEnc(cnpjCpf,config.VersaoWebService.TipoAmbiente, config.VersaoWebService.VersaoLayout);
+            consMDFeNaoEnc.ValidarSchema(config.VersaoWebService.VersaoLayout,config.CaminhoSchemas);
+            consMDFeNaoEnc.SalvarXmlEmDisco(config.NaoSalvarXml(),config.CaminhoSalvarXml);
 
-            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc();
+            var webService = WsdlFactory.CriaWsdlMDFeConsNaoEnc(config);
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
 
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpjCpf);
+            retorno.SalvarXmlEmDisco(config.NaoSalvarXml(), config.CaminhoSalvarXml,cnpjCpf);
 
             return retorno;
         }

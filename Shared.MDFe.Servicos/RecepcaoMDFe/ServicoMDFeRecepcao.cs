@@ -49,11 +49,11 @@ namespace MDFe.Servicos.RecepcaoMDFe
         public event EventHandler<AntesDeEnviar> AntesDeEnviar;
         public event EventHandler<string> GerouChave; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao config)
         {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe,config.VersaoWebService.VersaoLayout);
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
@@ -65,24 +65,24 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina(GerouChave, this);
+            enviMDFe.MDFe.Assina(config,GerouChave, this);
 
-            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (config.IsAdicionaQrCode && config.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
+                mdfe.infMDFeSupl = mdfe.QrCode(config.X509Certificate2);
             }
 
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
+            enviMDFe.Valida(config.VersaoWebService.VersaoLayout,config.CaminhoSchemas);
+            enviMDFe.SalvarXmlEmDisco(config.NaoSalvarXml(),config.CaminhoSalvarXml);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);
 
             OnAntesDeEnviar(enviMDFe);
 
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(config.NaoSalvarXml(), config.CaminhoSalvarXml);
 
             return retorno;
         }
