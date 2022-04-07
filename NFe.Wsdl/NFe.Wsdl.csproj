@@ -199,14 +199,6 @@
       <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
       <Name>DFe.Wsdl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
-      <Name>NFe.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />

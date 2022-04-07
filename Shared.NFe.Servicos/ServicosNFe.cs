@@ -80,6 +80,10 @@ namespace NFe.Servicos
 {
     public sealed class ServicosNFe : IDisposable
     {
+        public bool HasError;
+        public string Error;
+        public Exception Exception;
+
         private readonly X509Certificate2 _certificado;
         private readonly bool _controlarCertificado;
         private readonly ConfiguracaoServico _cFgServico;
@@ -91,23 +95,33 @@ namespace NFe.Servicos
         /// <param name="cFgServico"></param>
         public ServicosNFe(ConfiguracaoServico cFgServico, X509Certificate2 certificado = null)
         {
-            _cFgServico = cFgServico;
-            _controlarCertificado = certificado == null;
-            if (_controlarCertificado)
-                _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
-            else
-                _certificado = certificado;
+            try
+            {
+                _cFgServico = cFgServico;
+                _controlarCertificado = certificado == null;
+                if (_controlarCertificado)
+                    _certificado = CertificadoDigital.ObterCertificado(cFgServico.Certificado);
+                else
+                    _certificado = certificado;
+                _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-            string path = Assembly.GetExecutingAssembly().Location;
-            _path = string.IsNullOrEmpty(path) ? Directory.GetCurrentDirectory() : Path.GetDirectoryName(path);
+                string path = Assembly.GetExecutingAssembly().Location;
+                _path = string.IsNullOrEmpty(path) ? Directory.GetCurrentDirectory() : Path.GetDirectoryName(path);
 
-            //Define a versão do protocolo de segurança
-            ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
+                //Define a versão do protocolo de segurança
+                ServicePointManager.SecurityProtocol = cFgServico.ProtocoloDeSeguranca;
 
-            if (_cFgServico.ValidarCertificadoDoServidor)
-                ServicePointManager.ServerCertificateValidationCallback = null;
-            else
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                if (_cFgServico.ValidarCertificadoDoServidor)
+                    ServicePointManager.ServerCertificateValidationCallback = null;
+                else
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            }
+            catch (Exception ex)
+            {
+                this.HasError = true;
+                this.Error = ex.ToString();
+                this.Exception = ex;
+            }
         }
 
         private string SalvarArquivoXml(string nomeArquivo, string xmlString)
@@ -431,11 +445,7 @@ namespace NFe.Servicos
                     ? pedEvento.ObterXmlString().RemoverAcentos()
                     : pedEvento.ObterXmlString();
 
-            SalvarArquivoXml(idlote + "-ped-eve.xml", xmlEvento);
-
-            if (_cFgServico.ValidarSchemas)
-                Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
-
+            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento, cfgServico: _cFgServico);
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
 
@@ -885,47 +895,58 @@ namespace NFe.Servicos
 
             #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
-            if (retConsulta.loteDistDFeInt != null)
+            if (retConsulta.loteDistDFeInt != null && _cFgServico.UnZip)
             {
                 foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {
                     var conteudo = Compressao.Unzip(dFeInt.XmlNfe);
-                    var chNFe = string.Empty;
+                    conteudo = conteudo.Trim('\r', '\n');
 
-                    if (conteudo.StartsWith("<resNFe"))
+                    try
                     {
-                        var retConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
-                        chNFe = retConteudo.chNFe;
-                        dFeInt.ResNFe = retConteudo;
-                    }
-                    else if (conteudo.StartsWith("<procEventoNFe"))
-                    {
-                        var procEventoNFeConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
-                        chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
-                        dFeInt.ProcEventoNFe = procEventoNFeConteudo;
-                    }
-                    else if (conteudo.StartsWith("<resEvento"))
-                    {
-                        var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
-                        chNFe = resEventoConteudo.chNFe;
-                        dFeInt.ResEvento = resEventoConteudo;
-                    }
-                    else if (conteudo.StartsWith("<nfeProc"))
-                    {
-                        var resEventoConteudo =
-                            FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
-                        chNFe = resEventoConteudo.protNFe.infProt.chNFe;
-                        dFeInt.NfeProc = resEventoConteudo;
-                    }
+                        var chNFe = string.Empty;
 
-                    var schema = dFeInt.schema.Split('_');
-                    if (chNFe == string.Empty)
-                        chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
+                        if (conteudo.StartsWith("<resNFe"))
+                        {
+                            var retConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resNFe>(conteudo);
+                            chNFe = retConteudo.chNFe;
+                            dFeInt.ResNFe = retConteudo;
+                        }
+                        else if (conteudo.StartsWith("<procEventoNFe"))
+                        {
+                            var procEventoNFeConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoNFe>(conteudo);
+                            chNFe = procEventoNFeConteudo.retEvento.infEvento.chNFe;
+                            dFeInt.ProcEventoNFe = procEventoNFeConteudo;
+                        }
+                        else if (conteudo.StartsWith("<resEvento"))
+                        {
+                            var resEventoConteudo =
+                                FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.resEvento>(conteudo);
+                            chNFe = resEventoConteudo.chNFe;
+                            dFeInt.ResEvento = resEventoConteudo;
+                        }
+                        else if (conteudo.StartsWith("<nfeProc"))
+                        {
+                            var resEventoConteudo =
+                                FuncoesXml.XmlStringParaClasse<nfeProc>(conteudo);
+                            chNFe = resEventoConteudo.protNFe.infProt.chNFe;
+                            dFeInt.NfeProc = resEventoConteudo;
+                        }
 
-                    SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
+                        var schema = dFeInt.schema.Split('_');
+                        if (chNFe == string.Empty)
+                            chNFe = DateTime.Now.ParaDataHoraString() + "_SEMCHAVE";
+
+                        SalvarArquivoXml(chNFe + "-" + schema[0] + ".xml", conteudo);
+                    }
+                    catch (Exception ex)
+                    {
+                        this.HasError = true;
+                        this.Error = conteudo;
+                        this.Exception = ex;
+                    }
                 }
             }
 

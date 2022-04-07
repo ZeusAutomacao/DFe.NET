@@ -36,6 +36,7 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -80,6 +81,16 @@ namespace DFe.Utils
         /// <returns></returns>
         public static T XmlStringParaClasse<T>(string input) where T : class
         {
+            MatchCollection mPesoL = Regex.Matches(input, "<pesoL>(.*?)</pesoL>");
+
+            foreach (Match pesoL in mPesoL)
+                input = input.Replace(pesoL.Groups[1].Value, pesoL.Groups[1].Value.Replace(",", "."));
+
+            MatchCollection mPesoB = Regex.Matches(input, "<pesoB>(.*?)</pesoB>");
+
+            foreach (Match pesoB in mPesoB)
+                input = input.Replace(pesoB.Groups[1].Value, pesoB.Groups[1].Value.Replace(",", "."));
+
             var keyNomeClasseEmUso = typeof(T).FullName;
             var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
 

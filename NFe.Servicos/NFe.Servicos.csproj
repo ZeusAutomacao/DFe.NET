@@ -38,6 +38,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NFe.Classes">
+      <HintPath>..\NFe.Classes\bin\Debug\NFe.Classes.dll</HintPath>
+    </Reference>
+    <Reference Include="NFe.Wsdl">
+      <HintPath>..\NFe.Wsdl\bin\Debug\NFe.Wsdl.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Services" />
@@ -60,17 +66,9 @@
       <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
       <Name>DFe.Wsdl</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
       <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
       <Name>NFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj">
-      <Project>{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}</Project>
-      <Name>NFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

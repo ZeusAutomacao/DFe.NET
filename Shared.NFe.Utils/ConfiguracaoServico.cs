@@ -73,6 +73,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeConsultaDest;
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
+        private bool _unZip = true;
 
 
         public ConfiguracaoServico()
@@ -193,6 +194,19 @@ namespace NFe.Utils
                 _defineVersaoServicosAutomaticamente = value;
                 OnPropertyChanged();
                 AtualizaVersoes();
+            }
+        }
+
+        public bool UnZip
+        {
+            get
+            {
+                return _unZip;
+            }
+            set
+            {
+                _unZip = value;
+                OnPropertyChanged();
             }
         }
 
