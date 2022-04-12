@@ -84,11 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794CB98-4691-4218-A127-C573C2E7FF83}</Project>
+      <Project>{436a0bcb-3866-4969-a129-cfa03c194e1f}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj">

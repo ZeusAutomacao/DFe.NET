@@ -34,7 +34,13 @@
 using System;
 using System.IO;
 using FastReport;
+#if (NETSTANDARD || NETCOREAPP)
+using FastReport.Export.Html;
+using FastReport.Export.Image;
+using FastReport.Export.PdfSimple;
+#else
 using FastReport.Export.Pdf;
+#endif
 using NFe.Danfe.Base;
 
 namespace NFe.Danfe.Fast
@@ -42,6 +48,8 @@ namespace NFe.Danfe.Fast
     public class DanfeBase: IDanfe
     {
         public Report Relatorio { get; protected set; }
+
+#if NETFRAMEWORK
 
         /// <summary>
         /// Abre a janela de visualização do DANFE da NFCe
@@ -74,6 +82,8 @@ namespace NFe.Danfe.Fast
             Relatorio.Print();
         }
 
+#endif
+
         /// <summary>
         /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -81,7 +91,11 @@ namespace NFe.Danfe.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
+#if NETFRAMEWORK
             Relatorio.Export(new PDFExport(), arquivo);
+#else
+            Relatorio.Export(new PDFSimpleExport(), arquivo);
+#endif
         }
 
         /// <summary>
@@ -90,9 +104,20 @@ namespace NFe.Danfe.Fast
         /// <param name="outputStream">Variável do tipo Stream para output</param>
         public void ExportarPdf(Stream outputStream)
         {
-            Relatorio.Prepare();
+            try
+            {
+                Relatorio.Prepare();
+#if NETFRAMEWORK
             Relatorio.Export(new PDFExport(), outputStream);
+#elif (NETSTANDARD || NETCOREAPP)
+            Relatorio.Export(new PDFSimpleExport(), outputStream);
+#endif
             outputStream.Position = 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -123,5 +148,110 @@ namespace NFe.Danfe.Fast
             Relatorio.Export(exportBase, outputStream);
             outputStream.Position = 0;
         }
+
+#if (NETSTANDARD || NETCOREAPP)
+        
+        public byte[] ExportarPdf()
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    Relatorio.Export(new PDFSimpleExport(), stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public byte[] ExportarHtml()
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    HTMLExport html = new HTMLExport
+                    {
+                        SinglePage = true, // Single page report
+                        Navigator = false, // Top navigation bar
+                        EmbedPictures = true // Embeds images into a document
+                    };
+                    Relatorio.Export(html, stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public void ExportarHtml(Stream outputStream)
+        {
+            try
+            {
+                Relatorio.Prepare();
+                HTMLExport html = new HTMLExport
+                {
+                    SinglePage = true, // Single page report
+                    Navigator = false, // Top navigation bar
+                    EmbedPictures = true // Embeds images into a document
+                };
+                Relatorio.Export(html, outputStream);
+                outputStream.Position = 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public byte[] ExportarPng()
+        {
+            using (MemoryStream stream = new MemoryStream()) // Create a stream for the report
+            {
+                try
+                {
+                    Relatorio.Prepare();
+                    ImageExport png = new ImageExport
+                    {
+                        ImageFormat = ImageExportFormat.Png,
+                        SeparateFiles = false
+                    };
+                    Relatorio.Export(png, stream);
+                    return stream.ToArray();
+                }
+                catch (System.Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        public void ExportarPng(Stream outputStream)
+        {
+            try
+            {
+                Relatorio.Prepare();
+                ImageExport png = new ImageExport
+                {
+                    ImageFormat = ImageExportFormat.Png,
+                    SeparateFiles = false
+                };
+                Relatorio.Export(png, outputStream);
+                outputStream.Position = 0;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+#endif
     }
 }

@@ -37,6 +37,8 @@ namespace NFe.Danfe.Base
 {
     public interface IDanfe
     {
+#if NETFRAMEWORK
+
         /// <summary>
         /// Envia a impressão do DANFE da NFCe diretamente para a impressora
         /// </summary>
@@ -44,6 +46,7 @@ namespace NFe.Danfe.Base
         /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
         void Imprimir(bool exibirDialogo = true, string impressora = "");
 
+#endif
         /// <summary>
         /// Converte o DANFE para PDF e salva-o no caminho/arquivo indicado
         /// </summary>

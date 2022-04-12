@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,44 +31,87 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base.NFCe;
-using Shared.DFe.Danfe.Fast;
 using System;
+using System.Xml.Serialization;
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
 
-namespace NFe.Danfe.Fast.Standard.NFCe
+namespace NFe.Classes.Servicos.DistribuicaoDFe
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE da NFCe em Fast Reports
-    /// </summary>
-    public class DanfeFrNfce : DanfeBase
+    [Serializable()]
+    [XmlType(AnonymousType = true, Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot("distDFeInt", Namespace = "http://www.portalfiscal.inf.br/nfe", IsNullable = false)]
+    public class distDFeInt
     {
+        private const string ErroCpfCnpjPreenchidos = "Somente preencher um dos campos: CNPJ ou CPF, para um objeto do tipo dest!";
+        private string _cNPJ;
+        private string _cPF;
+
         /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports
+        /// A02 - Versão do leiaute
         /// </summary>
-        /// <param name="proc">Objeto do tipo nfeProc</param>
-        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
-        /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
-        /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "")
+        [XmlAttribute()]
+        public string versao { get; set; }
+
+        /// <summary>
+        /// A03 - Identificação do Ambiente: 1=Produção /2=Homologação
+        /// </summary>
+        public TipoAmbiente tpAmb { get; set; }
+
+        /// <summary>
+        /// A04 - Código da UF do Autor
+        /// </summary>
+        public Estado cUFAutor { get; set; }
+
+        /// <summary>
+        /// A05 - CNPJ do interessado no DF-e
+        /// </summary>
+        public string CNPJ
         {
-            Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, Standard.Properties.Resources.NFCe, arquivoRelatorio);
-            //A implementacao comentada acima esta funcionado, o relatório ainda não foi testado completamente mas é possivel sua conversão futuramente.
-            //throw new NotImplementedException("NFCE ainda não implementado para .netstandard ou .netcore, apenas disponivel em .net framwork. Crie uma issue no nosso github para mais informações: https://github.com/ZeusAutomacao/DFe.NET");
+            get { return _cNPJ; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cPF))
+                    _cNPJ = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
 
         /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports.
-        /// Use esse construtor apenas para impressão em contingência, já que neste modo ainda não é possível obter o grupo protNFe 
+        /// A06 - CPF do interessado no DF-e
         /// </summary>
-        /// <param name="nfe">Objeto do tipo NFe</param>
-        /// <param name="configuracaoDanfeNfce">Objeto do tipo ConfiguracaoDanfeNfce contendo as definições de impressão</param>
-        /// <param name="cIdToken">Identificador do CSC – Código de Segurança do Contribuinte no Banco de Dados da SEFAZ</param>
-        /// <param name="csc">Código de Segurança do Contribuinte(antigo Token)</param>
-        public DanfeFrNfce(Classes.NFe nfe, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc) :
-            this(new nfeProc() { NFe = nfe }, configuracaoDanfeNfce, cIdToken, csc, string.Empty)
+        public string CPF
         {
+            get { return _cPF; }
+            set
+            {
+                if (string.IsNullOrEmpty(value)) return;
+                if (string.IsNullOrEmpty(_cNPJ))
+                    _cPF = value;
+                else
+                {
+                    throw new ArgumentException(ErroCpfCnpjPreenchidos);
+                }
+            }
         }
+
+        /// <summary>
+        /// A07 - Grupo para distribuir DF-e de interesse
+        /// </summary>
+        public distNSU distNSU { get; set; }
+
+        /// <summary>
+        /// A09 - Grupo para consultar um DF-e a partir de um NSU específico
+        /// </summary>
+        public consNSU consNSU { get; set; }
+
+        /// <summary>
+        /// A11 - Grupo para consultar uma NF-e pela chave de acesso
+        /// </summary>
+        public consChNFe consChNFe { get; set; }
     }
 }
