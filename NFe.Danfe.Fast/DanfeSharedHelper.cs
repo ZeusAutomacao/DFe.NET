@@ -61,7 +61,7 @@ namespace Shared.DFe.Danfe.Fast
             //alteracao necessaria para .netstandard, o código abaixo utiliza um método onde não é compativel para .netstandard:
             //de : //((PictureObject)relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
             //para:
-#if Standard
+#if (NETSTANDARD || NETCOREAPP)
             ((PictureObject)relatorio.FindObject("poEmitLogo")).SetImageData(configuracaoDanfeNfce.Logomarca);
 #else
             ((PictureObject)relatorio.FindObject("poEmitLogo")).Image = configuracaoDanfeNfce.ObterLogo();
@@ -74,7 +74,7 @@ namespace Shared.DFe.Danfe.Fast
             //Segundo o Manual de Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2, página 9, nos casos de emissão em contingência deve ser impresso uma segunda cópia como via do estabelecimento
             if (configuracaoDanfeNfce.SegundaViaContingencia)
             {
-#if Standard
+#if (NETSTANDARD || NETCOREAPP)
                 /*Se a NFe for autorizada, mesmo que seja em contingência, imprime somente uma via - devendo o usuario enviar 2 copias para a impressora*/
                 //throw new Exception("configuracaoDanfeNfce.SegundaViaContingencia não suportado em .net standard, apenas em .net framework");
 

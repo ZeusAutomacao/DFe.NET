@@ -6,12 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Danfe.Base.Standard\NFe.Danfe.Base.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Danfe.Fast.Standard\NFe.Danfe.Fast.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj" />
+    <ProjectReference Include="..\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj" />
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
   </ItemGroup>
 
 </Project>

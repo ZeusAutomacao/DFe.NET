@@ -6,11 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Servicos.Standard\NFe.Servicos.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj" />
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

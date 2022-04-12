@@ -35,11 +35,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using NFe.Danfe.Base.Fontes;
 using NFe.Utils;
-#if Standard
-using NFe.Danfe.Base.Standard.Properties;
-#else
 using NFe.Danfe.Base.Properties;
-#endif
 
 namespace NFe.Danfe.Base.NFCe
 {

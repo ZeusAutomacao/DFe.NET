@@ -119,15 +119,15 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="OpenSans_CondBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Shared.NFe.Danfe.Base\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Fontes\OpenSans-CondBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="OpenSans_CondLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Shared.NFe.Danfe.Base\Fontes\OpenSans-CondLight.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Fontes\OpenSans-CondLight.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="OpenSans_CondLightItalic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Shared.NFe.Danfe.Base\Fontes\OpenSans-CondLightItalic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Fontes\OpenSans-CondLightItalic.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="UbuntuCondensed_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\..\Shared.NFe.Danfe.Base\Fontes\UbuntuCondensed-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\\Fontes\UbuntuCondensed-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
