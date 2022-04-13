@@ -33,10 +33,14 @@
 
 using System.IO;
 using FastReport;
-using FastReport.Export.Pdf;
 using CTe.Dacte.Base;
 using CTe.Classes;
 using System;
+#if(NETSTANDARD || NETCOREAPP)
+using FastReport.Export.PdfSimple;
+#elif (NETFRAMEWORK)
+using FastReport.Export.Pdf;
+#endif
 
 namespace CTe.Dacte.Fast
 {
@@ -70,9 +74,17 @@ namespace CTe.Dacte.Fast
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
+
+#if (NETFRAMEWORK)
             if (Relatorio.FindObject("poEmitLogo") != null)
                 ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+#elif (NETSTANDARD || NETCOREAPP)
+            if (Relatorio.FindObject("poEmitLogo") != null)
+                ((PictureObject)Relatorio.FindObject("poEmitLogo")).SetImageData(config.Logomarca);
+#endif
         }
+
+#if (NETFRAMEWORK)
 
         public DacteFrCte(cteProc proc, ConfiguracaoDacte config, string arquivoRelatorio = "")
         {
@@ -116,6 +128,8 @@ namespace CTe.Dacte.Fast
             Relatorio.Print();
         }
 
+#endif
+
         /// <summary>
         /// Converte o DACTe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -123,7 +137,11 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
+#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), arquivo);
+#elif (NETSTANDARD || NETCOREAPP)
+            Relatorio.Export(new PDFSimpleExport(), arquivo);
+#endif
         }
 
         /// <summary>
@@ -133,7 +151,11 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
+#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), outputStream);
+#elif (NETSTANDARD || NETCOREAPP)
+            Relatorio.Export(new PDFSimpleExport(), outputStream);
+#endif
             outputStream.Position = 0;
         }
 

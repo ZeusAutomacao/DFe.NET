@@ -96,7 +96,7 @@
       <Name>MDFe.Damdfe.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Damdfe.Fast\MDFe.Damdfe.Fast.csproj">
-      <Project>{730D4787-C8CF-4FA1-B9F5-DC814DBEAB7A}</Project>
+      <Project>{b16beabd-ccc2-4779-bcae-3f55c43c98ac}</Project>
       <Name>MDFe.Damdfe.Fast</Name>
     </ProjectReference>
   </ItemGroup>
