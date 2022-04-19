@@ -54,11 +54,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gerais\NFeTestes.cs" />
-    <Compile Include="Impostos\COFINSGeral__Teste.cs" />
-    <Compile Include="Impostos\ICMSGeral_Teste.cs" />
-    <Compile Include="Impostos\IPIGeral_Teste.cs" />
-    <Compile Include="Impostos\PISGeral_Teste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

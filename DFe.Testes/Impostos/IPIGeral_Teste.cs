@@ -1,10 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
 using NFe.Utils.Tributacao.Federal;
-using System;
 
-namespace NFe.Testes.Impostos
+namespace DFe.Testes.Impostos
 {
     [TestClass]
     public class IPIGeral_Teste
