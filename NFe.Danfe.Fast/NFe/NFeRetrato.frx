@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll" ReportInfo.Created="10/11/2017 22:21:42" ReportInfo.Modified="10/25/2021 14:38:32" ReportInfo.CreatorVersion="2017.4.3.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;System.Core.dll&#13;&#10;NFe.Classes.dll&#13;&#10;NFe.Utils.dll&#13;&#10;NFe.Danfe.Base.dll&#13;&#10;NFe.Danfe.Fast.dll&#13;&#10;System.Linq.dll&#13;&#10;System.Text.RegularExpressions.dll" ReportInfo.Created="19/04/2022 14:38:32" ReportInfo.Modified="19/04/2022 14:38:32" ReportInfo.CreatorVersion="2021.3.3.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
