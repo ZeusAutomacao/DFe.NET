@@ -1,11 +1,11 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Utils.Tributacao.Estadual;
-using System;
 
-namespace NFe.Testes.Impostos
+namespace DFe.Testes.Impostos
 {
     [TestClass]
     public class ICMSGeral_Teste

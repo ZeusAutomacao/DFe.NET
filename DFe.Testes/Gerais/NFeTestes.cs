@@ -1,13 +1,13 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using DFe.Classes.Entidades;
-using NFe.Utils;
-using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using DFe.Classes.Entidades;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NFe.Utils;
 
-namespace NFe.Testes.Gerais
+namespace DFe.Testes.Gerais
 {
     [TestClass]
     public class NFeTestes

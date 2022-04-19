@@ -2,10 +2,9 @@
 using System.Security.Cryptography.X509Certificates;
 #if (NETFRAMEWORK || NETCOREAPP)
 using DFe.Utils.Assinatura;
-#elif NETSTANDARD
+#endif
 using System.Security;
 using System.IO;
-#endif
 
 namespace DFe.Utils
 {
@@ -33,7 +32,7 @@ namespace DFe.Utils
             store.Close();
             return scollection[0];
         }
-#elif NETSTANDARD
+#endif
 
         /// <summary>
         /// Retorna o certificado que está no caminho especificado
@@ -141,7 +140,5 @@ namespace DFe.Utils
 
             return caminho;
         }
-
-#endif
     }
 }
