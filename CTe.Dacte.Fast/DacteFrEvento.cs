@@ -33,10 +33,14 @@
 
 using System.IO;
 using FastReport;
-using FastReport.Export.Pdf;
 using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
 using System;
+#if(NETSTANDARD || NETCOREAPP)
+using FastReport.Export.PdfSimple;
+#elif (NETFRAMEWORK)
+using FastReport.Export.Pdf;
+#endif
 
 namespace CTe.Dacte.Fast
 {
@@ -84,6 +88,7 @@ namespace CTe.Dacte.Fast
             Configurar(desenvolvedor: desenvolvedor);
         }
 
+#if(NETFRAMEWORK)
 
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
@@ -116,6 +121,8 @@ namespace CTe.Dacte.Fast
             Relatorio.Print();
         }
 
+#endif
+
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -123,7 +130,11 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
+#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), arquivo);
+#elif (NETSTANDARD || NETCOREAPP)
+            Relatorio.Export(new PDFSimpleExport(), arquivo);
+#endif
         }
 
         /// <summary>
@@ -133,7 +144,11 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
+#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), outputStream);
+#elif (NETSTANDARD || NETCOREAPP)
+            Relatorio.Export(new PDFSimpleExport(), outputStream);
+#endif
             outputStream.Position = 0;
         }
 
