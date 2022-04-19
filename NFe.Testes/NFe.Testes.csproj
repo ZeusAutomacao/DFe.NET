@@ -54,29 +54,24 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gerais\NFeTestes.cs" />
-    <Compile Include="Impostos\COFINSGeral__Teste.cs" />
-    <Compile Include="Impostos\ICMSGeral_Teste.cs" />
-    <Compile Include="Impostos\IPIGeral_Teste.cs" />
-    <Compile Include="Impostos\PISGeral_Teste.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29CA1DA2-440D-484B-951A-CF1B2EB27984}</Project>
+      <Project>{075a79c1-b038-46a8-8895-0a9753273b31}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{E35E7C4A-5690-4979-8B43-002975B48EAA}</Project>
+      <Project>{3e75202b-5aad-4f07-98b5-46b106678ca7}</Project>
       <Name>NFe.Utils</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

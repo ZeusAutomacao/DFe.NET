@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFe.Danfe.AppTeste</RootNamespace>
     <AssemblyName>NFe.Danfe.AppTeste</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -96,27 +96,27 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Project>{075a79c1-b038-46a8-8895-0a9753273b31}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
-      <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
+      <Project>{7696cc7f-83b7-434a-9759-4fcacc2fd483}</Project>
       <Name>NFe.Danfe.Base</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nfe.Danfe.Fast\NFe.Danfe.Fast.csproj">
-      <Project>{b7f6a2ff-fd0e-4b44-82b3-371605cd0510}</Project>
+    <ProjectReference Include="..\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj">
+      <Project>{b2462a15-b00d-4e4f-98e6-f1f7470507e5}</Project>
       <Name>NFe.Danfe.Fast</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
+      <Project>{3e75202b-5aad-4f07-98b5-46b106678ca7}</Project>
       <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>

@@ -1,89 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CCFDB136-3EE3-4AED-AA69-26ABBCB553C6}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NFe.Servicos</RootNamespace>
-    <AssemblyName>NFe.Servicos</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>e448bd94</NuGetPackageImportStamp>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
+	  <TargetFrameworks>netstandard2.0;net48;net6.0</TargetFrameworks>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web.Services" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<ProjectReference Include="..\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+		<Reference Include="System.Web.Services" />
+		<ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+		<ProjectReference Include="..\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+		<ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj">
-      <Project>{DBEE88E7-6003-436E-9810-9ACC662F5851}</Project>
-      <Name>DFe.Wsdl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
-      <Name>NFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
-      <Name>NFe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NFe.Wsdl\NFe.Wsdl.csproj">
-      <Project>{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}</Project>
-      <Name>NFe.Wsdl</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="NFe.Servicos.cd" />
-    <None Include="NFe.Servicos.licenseheader" />
-  </ItemGroup>
-  <Import Project="..\Shared.NFe.Servicos\Shared.NFe.Servicos.projitems" Label="Shared" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
