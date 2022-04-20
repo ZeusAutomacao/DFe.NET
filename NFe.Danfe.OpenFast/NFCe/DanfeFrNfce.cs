@@ -31,20 +31,17 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.IO;
-using System.Reflection;
 using NFe.Classes;
 using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
 using Shared.DFe.Danfe;
 
-namespace NFe.Danfe.Fast.NFCe
+namespace NFe.Danfe.OpenFast.NFCe
 {
     /// <summary>
     /// Classe responsável pela impressão do DANFE da NFCe em Fast Reports
     /// </summary>
-    public class DanfeFrNfce : DanfeFastBase
+    public class DanfeFrNfce : DanfeOpenFastBase
     {
         /// <summary>
         /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports

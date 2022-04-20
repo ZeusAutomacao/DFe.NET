@@ -1,32 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-	  <TargetFrameworks>netstandard2.0;net48;net6.0</TargetFrameworks>
-	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net472;net48</TargetFrameworks>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
-		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.19" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<Reference Include="System.Windows.Forms.dll" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.Windows.Forms.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="Dlls\FastReport.dll" />
 		<Reference Include="Dlls\FastReport.Bars.dll" />
 		<Reference Include="Dlls\FastReport.Editor.dll" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
-		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.19" />
+	<ItemGroup>
+		<ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
-    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
-    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj" />
-    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
-  </ItemGroup>
+	<Import Project="..\Shared.NFe.Danfe\Shared.NFe.Danfe.projitems" Label="Shared" />
 
 </Project>

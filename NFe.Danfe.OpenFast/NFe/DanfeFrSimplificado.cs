@@ -3,9 +3,9 @@ using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFe;
 using Shared.DFe.Danfe;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.OpenFast.NFe
 {
-    public class DanfeFrSimplificado : DanfeFastBase
+    public class DanfeFrSimplificado : DanfeOpenFastBase
     {
         /// <summary>
         /// Construtor da classe responsável pela impressão do DANFE Simplificada da NFe em Fast Reports

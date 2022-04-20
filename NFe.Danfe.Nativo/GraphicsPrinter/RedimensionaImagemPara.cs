@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,36 +31,67 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Nativo.GraphicsPrinter
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
-    /// </summary>
-    public class DanfeFrEvento : DanfeFastBase
+    public class RedimensionaImagemPara
     {
-        /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
-        /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
-        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
+        private readonly AdicionarImagem _adicionarImagem;
+        private readonly int _largura;
+        private readonly int _altura;
+
+        public RedimensionaImagemPara(AdicionarImagem adicionarImagem, int largura, int altura)
         {
-            byte[] frx = null;
-            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            _adicionarImagem = adicionarImagem;
+            _largura = largura;
+            _altura = altura;
+        }
+
+        public void Desenhar()
+        {
+            Image logo = _adicionarImagem.Logo;
+
+            if (logo.Size.Width != 50 || logo.Size.Height != 24)
             {
-                const string caminho = @"NFe\NFeEvento.frx";
-                frx = FrxFileHelper.TryGetFrxFile(caminho);
+                logo = Redimensionar(logo, _largura, _altura);
             }
 
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, null, desenvolvedor, arquivoRelatorio);
+            new AdicionarImagem(_adicionarImagem, logo).Desenhar();
+        }
+
+        /// <summary>
+        /// Redimensione a imagem para a largura e altura especificadas.
+        /// </summary>
+        /// <param name="logo">A imagem para redimensionar.</param>
+        /// <param name="largura">A largura para redimensionar para.</param>
+        /// <param name="altura">A altura para redimensionar para.</param>
+        /// <returns>A imagem redimensionada.</returns>
+        private static Bitmap Redimensionar(Image logo, int largura, int altura)
+        {
+            var destRect = new Rectangle(0, 0, largura, altura);
+            var destImage = new Bitmap(largura, altura);
+
+            destImage.SetResolution(logo.HorizontalResolution, logo.VerticalResolution);
+
+            using (var graphics = Graphics.FromImage(destImage))
+            {
+                graphics.CompositingMode = CompositingMode.SourceCopy;
+                graphics.CompositingQuality = CompositingQuality.HighQuality;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphics.SmoothingMode = SmoothingMode.HighQuality;
+                graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+                using (var wrapMode = new ImageAttributes())
+                {
+                    wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                    graphics.DrawImage(logo, destRect, 0, 0, logo.Width, logo.Height, GraphicsUnit.Pixel, wrapMode);
+                }
+            }
+
+            return destImage;
         }
     }
 }

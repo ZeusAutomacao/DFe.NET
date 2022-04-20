@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,36 +31,74 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe;
+using System.Collections.Generic;
+using System.Drawing;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Nativo.GraphicsPrinter
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
-    /// </summary>
-    public class DanfeFrEvento : DanfeFastBase
+    public class DefineQuebraDeLinha
     {
-        /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
-        /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
-        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
+        private readonly AdicionarTexto _adicionarTexto;
+        private readonly ComprimentoMaximo _comprimentoMaximo;
+        private readonly int _larguraDoTexto;
+
+        public DefineQuebraDeLinha(AdicionarTexto adicionarTexto, ComprimentoMaximo comprimentoMaximo, int larguraDoTexto)
         {
-            byte[] frx = null;
-            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            _adicionarTexto = adicionarTexto;
+            _comprimentoMaximo = comprimentoMaximo;
+            _larguraDoTexto = larguraDoTexto;
+        }
+
+        public AdicionarTexto DesenharComQuebras(Graphics graphics)
+        {
+            if (_larguraDoTexto <= _comprimentoMaximo.GetComprimentoMaximo()) return _adicionarTexto;
+
+            string linha = _adicionarTexto.Texto.Replace("\n", " ").Replace("\r", "");
+            string[] palavras = linha.Split(' ');
+            string linhaFormat = string.Empty;
+
+            Dictionary<int, string> partesDaLinha = new Dictionary<int, string>();
+            string parte = string.Empty;
+
+            int parteContador = 0;
+
+            foreach (string palavra in palavras)
             {
-                const string caminho = @"NFe\NFeEvento.frx";
-                frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Medida medidaParte = MedidasLinha.GetMedidas(parte, _adicionarTexto.Fonte);
+                Medida medidaPalavra = MedidasLinha.GetMedidas(palavra, _adicionarTexto.Fonte);
+                int larguraLinha = medidaParte.Largura + medidaPalavra.Largura;
+
+                if (larguraLinha < _comprimentoMaximo.GetComprimentoMaximo())
+                {
+                    parte += string.IsNullOrEmpty(parte) ? palavra : " " + palavra;
+                }
+                else
+                {
+                    partesDaLinha.Add(parteContador, parte);
+                    parte = palavra;
+                    parteContador++;
+                }
+            }
+            partesDaLinha.Add(parteContador, parte);
+
+            int qtdQuebras = 0;
+            foreach (KeyValuePair<int, string> item in partesDaLinha)
+            {
+                linhaFormat += item.Value;
+                if (qtdQuebras >= partesDaLinha.Count - 1) continue;
+
+                linhaFormat += "\n";
+                qtdQuebras++;
             }
 
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, null, desenvolvedor, arquivoRelatorio);
+            SolidBrush br = CriaSolidBrushParaQuebrarLinhas();
+            return new AdicionarTexto(graphics, linhaFormat, _adicionarTexto.TamanhoFonte, br);
+        }
+
+        private static SolidBrush CriaSolidBrushParaQuebrarLinhas()
+        {
+            SolidBrush br = new SolidBrush(SystemColors.ControlText) {Color = Color.Black};
+            return br;
         }
     }
 }
