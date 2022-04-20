@@ -5,18 +5,20 @@ DFe.NET
 
 Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
 
-A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462,net472,net48,netstandard2.0 e net6.0
+A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, net472, net48, netstandard2.0 e net6.0
 
 **Versões suportadas:**
-- NFe, NFCe, CTe, MDFe - net462;net472;net48;netstandard2.0;net6.0
-- Impressões com OpenFastReport (NFe, NFCe, CTe, MDFe) - net462;net472;net48;netstandard2.0;net6.0
-- Impressões com FastReport(versão paga) (NFe, NFCe, CTe, MDFe) - net462;net472;net48
-Não temos suporte para .NetFramework 4.5 e [![versões que estão sem suporte da microsoft] (https://dotnet.microsoft.com/en-us/learn/dotnet/what-is-dotnet-framework)
-**A Biblioteca irá seguir o ciclo de vida de versões da microsoft, sendo retirado a compatibilidade de versoes específicas e antigas do .Net caso a microsoft retire seu suporte.**
+|  Escopos  |  Frameworks Suportados  |
+| ------------------- | ------------------- |
+| NFe, NFCe, CTe, MDFe | .NET 4.6.2, .NET 4.7.2, NET 4.8, .NetStandard 2.0, .NET 6.0 |
+| Impressões com OpenFastReport (NFe, NFCe, CTe, MDFe) | .NET 4.6.2, .NET 4.7.2, NET 4.8, .NetStandard 2.0, .NET 6.0 |
+| Impressões com FastReport(versão paga) (NFe, NFCe, CTe, MDFe) | .NET 4.6.2, .NET 4.7.2, NET 4.8 |
 
-Licenciada sobre a *LGPL* (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
+***Não temos suporte para .NetFramework 4.5 ou menor. A Biblioteca irá seguir o [ciclo de vida de versões da microsoft](https://dotnet.microsoft.com/en-us/learn/dotnet/what-is-dotnet-framework), sendo retirado a compatibilidade de versoes específicas e antigas do .Net caso a microsoft retire seu suporte.***
 
-**Discord** => https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
+Licenciada sobre a **LGPL** (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
+
+Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
 
 **Pacotes Nugets:**
 ------------------
@@ -82,8 +84,6 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 >² Obs: Visando abranger o maior número possível de impressoras térmicas, a impressão é feita via spooler do windows. A impressão térmica via spooler, dependendo da impressora, pode sair com má qualidade. Para sanar isso, no relatório são utilizadas duas fontes condensadas que possuem boa legibilidade em tamanho pequeno, a saber a OpenSans e UbuntuCondensed, ambas de uso livre podendo ser obtidas em https://www.google.com/fonts;
 As fontes estão anexadas ao projeto em Shared.NFe.Danfe.Base\Fontes_;
 Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
-
->³ Atualmente existe um esforço da comunidade para migrar o projeto para o .NetStandard (https://github.com/ZeusAutomacao/DFe.NET/issues/1001). Entre as mudanças, esta adicionar suporte ao Fast Reports Open Source (https://github.com/FastReports/FastReport). A principal limitação do FastReports nessa versão é não ter acesso à direct print, o que pode ser ruim para NFCe, mas pode ser facilmente contornado para os outros documentos, comentem na issue ideias e opiniões, e se possíve, colaborem com o branch.
 
 **Impressão (OpenFastReport):**
 ----------
