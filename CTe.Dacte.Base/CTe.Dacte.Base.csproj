@@ -17,4 +17,18 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="CTe\CTeEvento.frx" />
+	  <None Remove="CTe\CTeRetrato.frx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="CTe\CTeEvento.frx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="CTe\CTeRetrato.frx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>

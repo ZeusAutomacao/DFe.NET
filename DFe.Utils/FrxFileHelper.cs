@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace NFe.Danfe.Base
+namespace DFe.Utils
 {
     public static class FrxFileHelper
     {

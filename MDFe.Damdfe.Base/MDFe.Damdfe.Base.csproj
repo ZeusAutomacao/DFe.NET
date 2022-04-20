@@ -17,4 +17,14 @@
 		</PackageReference>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="MDFe\MDFeRetrato.frx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="MDFe\MDFeRetrato.frx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
 </Project>

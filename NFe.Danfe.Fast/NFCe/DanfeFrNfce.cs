@@ -31,11 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System;
-using System.IO;
-using System.Reflection;
+using DFe.Utils;
 using NFe.Classes;
-using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFCe;
 using Shared.DFe.Danfe;
 

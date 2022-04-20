@@ -1,31 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net48;net6.0</TargetFrameworks>
+		<TargetFrameworks>net472;net48</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
-		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.19" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+		<Reference Include="System.Windows.Forms.dll" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<Reference Include="System.Windows.Forms" />
+		<Reference Include="System.Windows.Forms.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<Reference Include="Dlls\FastReport.dll" />
 		<Reference Include="Dlls\FastReport.Bars.dll" />
 		<Reference Include="Dlls\FastReport.Editor.dll" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-		<PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
-		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.19" />
-	</ItemGroup>
-
 	<ItemGroup>
 	  <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj" />
 	  <ProjectReference Include="..\CTe.Dacte.Base\CTe.Dacte.Base.csproj" />
-	  <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
-	  <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
 	</ItemGroup>
 </Project>
