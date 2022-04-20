@@ -24,6 +24,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="NFCe\NFCe.frx" />
+    <None Remove="NFe\NFeEvento.frx" />
+    <None Remove="NFe\NFeRetrato.frx" />
+    <None Remove="NFe\NFeSimplificado.frx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NFCe\NFCe.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NFe\NFeEvento.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NFe\NFeRetrato.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NFe\NFeSimplificado.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
   </ItemGroup>
 

@@ -31,11 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Drawing;
-using System.Drawing.Text;
-using NFe.Danfe.Base.Fontes;
 using NFe.Utils;
-using NFe.Danfe.Base.Properties;
 
 namespace NFe.Danfe.Base.NFCe
 {
@@ -56,7 +52,6 @@ namespace NFe.Danfe.Base.NFCe
             MargemDireita = margemDireita;
             ModoImpressao = modoImpressao;
             NfceLayoutQrCode = nfceLayoutQrCode;
-            CarregarFontePadraoNfceNativa();
             VersaoQrCode = versaoQrCode;
             SegundaViaContingencia = true;
         }
@@ -116,23 +111,9 @@ namespace NFe.Danfe.Base.NFCe
         /// </summary>
         public VersaoQrCode VersaoQrCode { get; set; }
 
-        public string FontPadraoNfceNativa { get; set; }
-
+        /// <summary>
+        /// Envia segunda via de contingencia para a impressora (apenas suportado no fastreport clássico)
+        /// </summary>
         public bool SegundaViaContingencia { get; set; }
-
-        public FontFamily CarregarFontePadraoNfceNativa(string font = null)
-        {
-            if (font != null)
-            {
-                FontPadraoNfceNativa = font;
-                return new FontFamily(font);
-            }
-
-
-            PrivateFontCollection colecaoDeFontes; //todo dispose na coleção
-            var openSans = Fonte.CarregarDeByteArray(Resources.OpenSans_CondBold, out colecaoDeFontes);
-
-            return openSans;
-        }
     }
 }

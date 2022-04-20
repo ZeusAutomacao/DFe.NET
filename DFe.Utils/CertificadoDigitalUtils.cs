@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
-#if (NETFRAMEWORK || NETCOREAPP)
+#if (NETFRAMEWORK)
 using DFe.Utils.Assinatura;
 #endif
 using System.Security;
@@ -10,7 +10,7 @@ namespace DFe.Utils
 {
     public class CertificadoDigitalUtils
     {
-#if (NETFRAMEWORK || NETCOREAPP)
+#if (NETFRAMEWORK)
 
         /// <summary>
         /// Exibe a lista de certificados instalados no PC e devolve o certificado selecionado

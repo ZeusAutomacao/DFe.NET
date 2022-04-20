@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,36 +31,32 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe;
+using System.Drawing;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Nativo.GraphicsPrinter
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
-    /// </summary>
-    public class DanfeFrEvento : DanfeFastBase
+    public class LinhaHorizontal
     {
-        /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
-        /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
-        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
-        {
-            byte[] frx = null;
-            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
-            {
-                const string caminho = @"NFe\NFeEvento.frx";
-                frx = FrxFileHelper.TryGetFrxFile(caminho);
-            }
+        private readonly Graphics _graphics;
+        private readonly Pen _cor;
+        private readonly float _x;
+        private readonly float _y;
+        private readonly float _x2;
+        private readonly float _y2;
 
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, null, desenvolvedor, arquivoRelatorio);
+        public LinhaHorizontal(Graphics graphics, Pen cor, float x, float y, float x2, float y2)
+        {
+            _graphics = graphics;
+            _cor = cor;
+            _x = x;
+            _y = y;
+            _x2 = x2;
+            _y2 = y2;
+        }
+
+        public void Desenhar()
+        {
+            _graphics.DrawLine(_cor, _x, _y, _x2, _y2);
         }
     }
 }

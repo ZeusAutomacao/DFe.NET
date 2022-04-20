@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,36 +31,22 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe;
+using System.Drawing;
+using ZXing;
+using ZXing.Common;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Nativo.GraphicsPrinter
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
-    /// </summary>
-    public class DanfeFrEvento : DanfeFastBase
+    public static class QrCode
     {
-        /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
-        /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
-        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
+        public static Image Gerar(string qrCode)
         {
-            byte[] frx = null;
-            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
-            {
-                const string caminho = @"NFe\NFeEvento.frx";
-                frx = FrxFileHelper.TryGetFrxFile(caminho);
-            }
-
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, null, desenvolvedor, arquivoRelatorio);
-        }
+            BarcodeWriter bw = new BarcodeWriter();
+            EncodingOptions encOptions = new EncodingOptions { Width = 130, Height = 130, Margin = 0 };
+            bw.Options = encOptions;
+            bw.Format = BarcodeFormat.QR_CODE;
+            Bitmap imageQrCode = new Bitmap(bw.Write(qrCode));
+            return imageQrCode;
+        } 
     }
 }

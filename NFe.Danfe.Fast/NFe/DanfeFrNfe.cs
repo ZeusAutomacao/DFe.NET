@@ -32,15 +32,16 @@
 /********************************************************************************/
 
 using NFe.Classes;
+using NFe.Danfe.Base;
 using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe.Fast;
+using Shared.DFe.Danfe;
 
 namespace NFe.Danfe.Fast.NFe
 {
     /// <summary>
     /// Classe responsável pela impressão do DANFE da NFe em Fast Reports
     /// </summary>
-    public class DanfeFrNfe : DanfeBase
+    public class DanfeFrNfe : DanfeFastBase
     {
         /// <summary>
         /// Construtor da classe responsável pela impressão do DANFE da NFe em Fast Reports
@@ -50,19 +51,14 @@ namespace NFe.Danfe.Fast.NFe
         /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
         public DanfeFrNfe(nfeProc proc, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
         {
-            byte[] retrato = null;
+            byte[] frx = null;
             if (string.IsNullOrWhiteSpace(arquivoRelatorio))
             {
-                try
-                {
-                    retrato = Properties.Resources.NFeRetrato;
-                }
-                catch (System.Exception ex)
-                {
-                    throw new System.Exception("Não foi possivel o carregamento do Resource NFeRetrato, utilize o parametro arquivoRelatorio e passe o caminho manualmente.", ex);
-                }
+                const string caminho = @"NFe\NFeRetrato.frx";
+                frx = FrxFileHelper.TryGetFrxFile(caminho);
             }
-            this.Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, retrato, desenvolvedor, arquivoRelatorio);
+
+            this.Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, frx, desenvolvedor, arquivoRelatorio);
         }
 
         /// <summary>

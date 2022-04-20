@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,36 +31,55 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes;
-using NFe.Danfe.Base;
-using NFe.Danfe.Base.NFe;
-using Shared.DFe.Danfe;
+using System.Drawing;
 
-namespace NFe.Danfe.Fast.NFe
+namespace NFe.Danfe.Nativo.GraphicsPrinter
 {
-    /// <summary>
-    /// Classe responsável pela impressão do DANFE dos eventos da NFe, em Fast Reports
-    /// </summary>
-    public class DanfeFrEvento : DanfeFastBase
+    public class AdicionarTexto
     {
-        /// <summary>
-        /// Construtor da classe responsável pela impressão do DANFE do evento da NFe, em Fast Reports
-        /// </summary>
-        /// <param name="proc">Objeto do tipo <see cref="nfeProc"/></param>
-        /// <param name="procEventoNFe">Objeto do tipo <see cref="Classes.Servicos.Consulta.procEventoNFe"/></param>
-        /// <param name="configuracaoDanfeNfe">Objeto do tipo <see cref="ConfiguracaoDanfeNfe"/> contendo as definições de impressão</param>
-        /// <param name="desenvolvedor">Texto do desenvolvedor a ser informado no DANFE</param>
-        /// <param name="arquivoRelatorio">Caminho e arquivo frx contendo as definições do relatório personalizado</param>
-        public DanfeFrEvento(nfeProc proc, Classes.Servicos.Consulta.procEventoNFe procEventoNFe, ConfiguracaoDanfeNfe configuracaoDanfeNfe, string desenvolvedor = "", string arquivoRelatorio = "")
+        public static FontFamily FontPadrao { get; set; }
+        private readonly Graphics _graphics;
+        private float _pontoX;
+        private float _pontoY;
+        private readonly SolidBrush _br;
+
+        public AdicionarTexto(Graphics graphics, string texto, int tamanhoFonte, SolidBrush br = null, Font font = null)
         {
-            byte[] frx = null;
-            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            _graphics = graphics;
+            Texto = texto;
+            TamanhoFonte = tamanhoFonte;
+            _br = br;
+
+            if (font != null)
             {
-                const string caminho = @"NFe\NFeEvento.frx";
-                frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Fonte = font;
             }
 
-            Relatorio = DanfeSharedHelper.GenerateDanfeFrEventoReport(proc, procEventoNFe, configuracaoDanfeNfe, null, desenvolvedor, arquivoRelatorio);
+            if (font == null)
+            {
+                Fonte = new Font(FontPadrao, TamanhoFonte);
+            }
+            
+            Medida = MedidasLinha.GetMedidas(this);
         }
+
+        public void Desenhar(float pontoX, float pontoY)
+        {
+            _pontoX = pontoX;
+            _pontoY = pontoY;
+
+            if (_br != null)
+            {
+                _graphics.DrawString(Texto, Fonte, _br, new PointF(_pontoX, _pontoY));
+                return;
+            }
+
+            _graphics.DrawString(Texto, Fonte, Brushes.Black, new PointF(_pontoX, _pontoY));
+        }
+
+        public Medida Medida { get; private set; }
+        public string Texto { get; private set; }
+        public Font Fonte { get; private set; }
+        public int TamanhoFonte { get; private set; }
     }
 }
