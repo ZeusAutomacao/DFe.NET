@@ -34,13 +34,10 @@
 using System.IO;
 using FastReport;
 using MDFe.Damdfe.Base;
-using MDFe.Classes.Retorno;
 using System;
-#if (NETFRAMEWORK)
+using DFe.Utils;
 using FastReport.Export.Pdf;
-#elif(NETSTANDARD || NETCOREAPP)
-using FastReport.Export.PdfSimple;
-#endif
+using MDFe.Classes.Retorno;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -52,11 +49,19 @@ namespace MDFe.Damdfe.Fast
         {
             Relatorio = new Report();
             RegisterData(proc);
-            if (!string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(arquivoRelatorio);
+
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"MDFe\MDFeRetrato.frx";
+                var frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Relatorio.Load(new MemoryStream(frx));
+            }
             else
-                Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
-            Configurar(config);            
+            {
+                Relatorio.Load(arquivoRelatorio);
+            }
+
+            Configurar(config);
         }
 
         public DamdfeFrMDFe()
@@ -76,14 +81,9 @@ namespace MDFe.Damdfe.Fast
             Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
-#if (NETFRAMEWORK)
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
-#elif(NETSTANDARD || NETCOREAPP)
-            ((PictureObject)Relatorio.FindObject("poEmitLogo")).SetImageData(config.Logomarca);
-#endif
         }
-
-#if (NETFRAMEWORK)
+        
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>
@@ -115,8 +115,6 @@ namespace MDFe.Damdfe.Fast
             Relatorio.Print();
         }
 
-#endif
-
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -124,11 +122,7 @@ namespace MDFe.Damdfe.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
-#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), arquivo);
-#elif (NETSTANDARD || NETCOREAPP)
-            Relatorio.Export(new PDFSimpleExport(), arquivo);
-#endif
         }
 
         /// <summary>
@@ -138,11 +132,7 @@ namespace MDFe.Damdfe.Fast
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
-#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), outputStream);
-#elif (NETSTANDARD || NETCOREAPP)
-            Relatorio.Export(new PDFSimpleExport(), outputStream);
-#endif
             outputStream.Position = 0;
         }
 

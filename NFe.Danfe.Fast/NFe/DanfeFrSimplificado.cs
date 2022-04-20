@@ -1,5 +1,5 @@
-﻿using NFe.Classes;
-using NFe.Danfe.Base;
+﻿using DFe.Utils;
+using NFe.Classes;
 using NFe.Danfe.Base.NFe;
 using Shared.DFe.Danfe;
 

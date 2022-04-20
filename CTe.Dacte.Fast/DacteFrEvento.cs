@@ -36,11 +36,8 @@ using FastReport;
 using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
 using System;
-#if(NETSTANDARD || NETCOREAPP)
-using FastReport.Export.PdfSimple;
-#elif (NETFRAMEWORK)
+using DFe.Utils;
 using FastReport.Export.Pdf;
-#endif
 
 namespace CTe.Dacte.Fast
 {
@@ -51,6 +48,23 @@ namespace CTe.Dacte.Fast
         public DacteFrEvento()
         {
             Relatorio = new Report();
+        }
+        public DacteFrEvento(cteProc proc, procEventoCTe procEventoCTe, string desenvolvedor = "", string arquivoRelatorio = "")
+        {
+            Relatorio = new Report();
+
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"CTe\CTeEvento.frx";
+                var frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Relatorio.Load(new MemoryStream(frx));
+            }
+            else
+            {
+                Relatorio.Load(arquivoRelatorio);
+            }
+
+            Configurar(desenvolvedor: desenvolvedor);
         }
 
         public void LoadReport(string arquivoRelatorio)
@@ -77,18 +91,6 @@ namespace CTe.Dacte.Fast
             Relatorio.SetParameterValue("Desenvolvedor", desenvolvedor);
         }
 
-        public DacteFrEvento(cteProc proc, procEventoCTe procEventoCTe, string desenvolvedor = "", string arquivoRelatorio = "")
-        {
-            Relatorio = new Report();
-            RegisterData(proc, procEventoCTe);
-            if (!string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(arquivoRelatorio);
-            else
-                Relatorio.Load(new MemoryStream(Properties.Resources.CTeEvento));
-            Configurar(desenvolvedor: desenvolvedor);
-        }
-
-#if(NETFRAMEWORK)
 
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
@@ -121,8 +123,6 @@ namespace CTe.Dacte.Fast
             Relatorio.Print();
         }
 
-#endif
-
         /// <summary>
         /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
@@ -130,11 +130,7 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
-#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), arquivo);
-#elif (NETSTANDARD || NETCOREAPP)
-            Relatorio.Export(new PDFSimpleExport(), arquivo);
-#endif
         }
 
         /// <summary>
@@ -144,11 +140,7 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
-#if (NETFRAMEWORK)
             Relatorio.Export(new PDFExport(), outputStream);
-#elif (NETSTANDARD || NETCOREAPP)
-            Relatorio.Export(new PDFSimpleExport(), outputStream);
-#endif
             outputStream.Position = 0;
         }
 

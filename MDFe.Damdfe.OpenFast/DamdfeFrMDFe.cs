@@ -31,33 +31,28 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes;
-using CTe.Dacte.Base;
-using FastReport;
-using FastReport.Export.Pdf;
 using System;
 using System.IO;
 using DFe.Utils;
+using FastReport;
+using FastReport.Export.PdfSimple;
+using MDFe.Classes.Retorno;
+using MDFe.Damdfe.Base;
 
-namespace CTe.Dacte.Fast
+namespace MDFe.Damdfe.OpenFast
 {
-    public class DacteFrCte
+    public class DamdfeFrMDFe
     {
         protected Report Relatorio;
 
-        public DacteFrCte()
-        {
-            Relatorio = new Report();
-        }
-
-        public DacteFrCte(cteProc proc, ConfiguracaoDacte config, string arquivoRelatorio = "")
+        public DamdfeFrMDFe(MDFeProcMDFe proc, ConfiguracaoDamdfe config, string arquivoRelatorio = null)
         {
             Relatorio = new Report();
             RegisterData(proc);
 
             if (string.IsNullOrWhiteSpace(arquivoRelatorio))
             {
-                const string caminho = @"CTe\CTeRetrato.frx";
+                const string caminho = @"MDFe\MDFeRetrato.frx";
                 var frx = FrxFileHelper.TryGetFrxFile(caminho);
                 Relatorio.Load(new MemoryStream(frx));
             }
@@ -65,92 +60,55 @@ namespace CTe.Dacte.Fast
             {
                 Relatorio.Load(arquivoRelatorio);
             }
-
-            Configurar(config);
+                
+            Configurar(config);            
         }
 
-        public void LoadReport(string arquivoRelatorio)
+        public DamdfeFrMDFe()
         {
-            Relatorio.Load(arquivoRelatorio);
+            Relatorio = new Report();
         }
 
-        public void LoadReport(MemoryStream stream)
+        public void RegisterData(MDFeProcMDFe proc)
         {
-            Relatorio.Load(stream);
+            Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
+            Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
         }
 
-        public void RegisterData(cteProc proc)
-        {
-            Relatorio.RegisterData(new[] { proc }, "cteProc", 20);
-            Relatorio.GetDataSource("cteProc").Enabled = true;
-        }
-
-        public void Configurar(ConfiguracaoDacte config)
+        public void Configurar(ConfiguracaoDamdfe config)
         {
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
+            Relatorio.SetParameterValue("DocumentoEncerrado", config.DocumentoEncerrado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
-
-            if (Relatorio.FindObject("poEmitLogo") != null)
-                ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
+            ((PictureObject)Relatorio.FindObject("poEmitLogo")).SetImageData(config.Logomarca);
         }
 
         /// <summary>
-        /// Abre a janela de visualização do DACTe
+        /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void Visualizar(bool modal = true)
-        {
-            Relatorio.Show(modal);
-        }
-
-        /// <summary>
-        ///  Abre a janela de visualização do design do DACTe
-        /// Chame esse método se desja fazer alterações no design do DAMDFe em modo run-time
-        /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void ExibirDesign(bool modal = false)
-        {
-            Relatorio.Design(modal);
-        }
-
-        /// <summary>
-        /// Envia a impressão do DACTe diretamente para a impressora
-        /// </summary>
-        /// <param name="exibirDialogo">Se true exibe o diálogo Imprimindo...</param>
-        /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
-        public void Imprimir(bool exibirDialogo = true, string impressora = "")
-        {
-            Relatorio.PrintSettings.ShowDialog = exibirDialogo;
-            Relatorio.PrintSettings.Printer = impressora;
-            Relatorio.Print();
-        }
-
-        /// <summary>
-        /// Converte o DACTe para PDF e salva-o no caminho/arquivo indicado
-        /// </summary>
-        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DACTe</param>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), arquivo);
+            Relatorio.Export(new PDFSimpleExport(), arquivo);
         }
 
         /// <summary>
-        /// Converte o DACTe para PDF e copia para o stream
+        /// Converte o DAMDFe para PDF e copia para o stream
         /// </summary>
         /// <param name="outputStream">Variável do tipo Stream para output</param>
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), outputStream);
+            Relatorio.Export(new PDFSimpleExport(), outputStream);
             outputStream.Position = 0;
         }
 
         /// <summary>
-        /// Converte o DACTe para PDF e salva-o no caminho/arquivo indicado
+        /// Converte o DAMDFe para PDF e salva-o no caminho/arquivo indicado
         /// </summary>
-        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DACTe</param>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o PDF do DAMDFe</param>
         /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>
         public void ExportarPdf(string arquivo, FastReport.Export.ExportBase exportBase)
         {
@@ -162,7 +120,7 @@ namespace CTe.Dacte.Fast
         }
 
         /// <summary>
-        /// Converte o DACTe para PDF e copia para o stream
+        /// Converte o DAMDFe para PDF e copia para o stream
         /// </summary>
         /// <param name="outputStream">Variável do tipo Stream para output</param>
         /// <param name="exportBase">Instancia do tipo de exportacao do FastReport</param>

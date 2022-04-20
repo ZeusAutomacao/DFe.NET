@@ -34,12 +34,12 @@
 using CTe.Classes;
 using CTe.Dacte.Base;
 using FastReport;
-using FastReport.Export.Pdf;
+using FastReport.Export.PdfSimple;
 using System;
 using System.IO;
 using DFe.Utils;
 
-namespace CTe.Dacte.Fast
+namespace CTe.Dacte.OpenFast
 {
     public class DacteFrCte
     {
@@ -92,38 +92,7 @@ namespace CTe.Dacte.Fast
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
 
             if (Relatorio.FindObject("poEmitLogo") != null)
-                ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
-        }
-
-        /// <summary>
-        /// Abre a janela de visualização do DACTe
-        /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void Visualizar(bool modal = true)
-        {
-            Relatorio.Show(modal);
-        }
-
-        /// <summary>
-        ///  Abre a janela de visualização do design do DACTe
-        /// Chame esse método se desja fazer alterações no design do DAMDFe em modo run-time
-        /// </summary>
-        /// <param name="modal">Se true, exibe a visualização em Modal. O modo modal está disponível apenas para WinForms</param>
-        public void ExibirDesign(bool modal = false)
-        {
-            Relatorio.Design(modal);
-        }
-
-        /// <summary>
-        /// Envia a impressão do DACTe diretamente para a impressora
-        /// </summary>
-        /// <param name="exibirDialogo">Se true exibe o diálogo Imprimindo...</param>
-        /// <param name="impressora">Passe a string com o nome da impressora para imprimir diretamente em determinada impressora. Caso contrário, a impressão será feita na impressora que estiver como padrão</param>
-        public void Imprimir(bool exibirDialogo = true, string impressora = "")
-        {
-            Relatorio.PrintSettings.ShowDialog = exibirDialogo;
-            Relatorio.PrintSettings.Printer = impressora;
-            Relatorio.Print();
+                ((PictureObject)Relatorio.FindObject("poEmitLogo")).SetImageData(config.Logomarca);
         }
 
         /// <summary>
@@ -133,7 +102,7 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(string arquivo)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), arquivo);
+            Relatorio.Export(new PDFSimpleExport(), arquivo);
         }
 
         /// <summary>
@@ -143,7 +112,7 @@ namespace CTe.Dacte.Fast
         public void ExportarPdf(Stream outputStream)
         {
             Relatorio.Prepare();
-            Relatorio.Export(new PDFExport(), outputStream);
+            Relatorio.Export(new PDFSimpleExport(), outputStream);
             outputStream.Position = 0;
         }
 
