@@ -1,19 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net472;net48</TargetFrameworks>
+		<TargetFrameworks>net462;net472;net48</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+	<!--Todos que iniciam com 4... -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
 		<Reference Include="System.Windows.Forms.dll" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
-		<Reference Include="System.Windows.Forms.dll" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Reference Include="Dlls\FastReport.dll" />
 		<Reference Include="Dlls\FastReport.Bars.dll" />
 		<Reference Include="Dlls\FastReport.Editor.dll" />
