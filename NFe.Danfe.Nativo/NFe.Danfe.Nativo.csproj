@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFe.Danfe.Nativo</RootNamespace>
     <AssemblyName>NFe.Danfe.Nativo</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -51,38 +51,57 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fontes\Fonte.cs" />
+    <Compile Include="GraphicsPrinter\AdicionarImagem.cs" />
+    <Compile Include="GraphicsPrinter\AdicionarTexto.cs" />
+    <Compile Include="GraphicsPrinter\ComprimentoMaximo.cs" />
+    <Compile Include="GraphicsPrinter\DefineQuebraDeLinha.cs" />
+    <Compile Include="GraphicsPrinter\LinhaHorizontal.cs" />
+    <Compile Include="GraphicsPrinter\MedidasLinha.cs" />
+    <Compile Include="GraphicsPrinter\QrCode.cs" />
+    <Compile Include="GraphicsPrinter\RedimensionaImagemPara.cs" />
     <Compile Include="NFCe\DanfeNativoNfce.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GraphicsPrinter\GraphicsPrinter.csproj">
-      <Project>{3067efcc-91de-48ea-8f7e-e0d95216c6dc}</Project>
-      <Name>GraphicsPrinter</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Project>{075a79c1-b038-46a8-8895-0a9753273b31}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
-      <Project>{80c6093c-47d5-41a1-9fa0-e218e82fa666}</Project>
-      <Name>NFe.Danfe.Base</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
+      <Project>{3e75202b-5aad-4f07-98b5-46b106678ca7}</Project>
       <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dlls\zxing.dll" />
     <Content Include="Dlls\zxing.presentation.dll" />
+    <Content Include="Fontes\LeiaMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Fontes\OpenSans-CondBold.ttf" />
+    <None Include="Fontes\OpenSans-CondLight.ttf" />
+    <None Include="Fontes\OpenSans-CondLightItalic.ttf" />
+    <None Include="Fontes\UbuntuCondensed-Regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
