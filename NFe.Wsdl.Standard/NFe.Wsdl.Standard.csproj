@@ -1,15 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DFe.Classes.Standard\DFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\DFe.Utils.Standard\DFe.Utils.Standard.csproj" />
-    <ProjectReference Include="..\DFe.Wsdl.Standard\DFe.Wsdl.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Classes.Standard\NFe.Classes.Standard.csproj" />
-    <ProjectReference Include="..\NFe.Utils.Standard\NFe.Utils.Standard.csproj" />
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
+    <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj" />
+    <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+    <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
   </ItemGroup>
 
   <Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />

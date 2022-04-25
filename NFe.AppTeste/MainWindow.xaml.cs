@@ -1722,7 +1722,8 @@ namespace NFe.AppTeste
 
 
                 DanfeNativoNfce impr = new DanfeNativoNfce(arquivo,
-                    _configuracoes.ConfiguracaoDanfeNfce,
+                    _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode,
+                    _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
                     _configuracoes.ConfiguracaoCsc.CIdToken,
                     _configuracoes.ConfiguracaoCsc.Csc,
                     0 /*troco*//*, "Arial Black"*/);
