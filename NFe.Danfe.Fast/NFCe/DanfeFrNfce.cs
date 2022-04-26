@@ -31,16 +31,17 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Utils;
 using NFe.Classes;
 using NFe.Danfe.Base.NFCe;
-using Shared.DFe.Danfe.Fast;
+using Shared.DFe.Danfe;
 
 namespace NFe.Danfe.Fast.NFCe
 {
     /// <summary>
     /// Classe responsável pela impressão do DANFE da NFCe em Fast Reports
     /// </summary>
-    public class DanfeFrNfce : DanfeBase
+    public class DanfeFrNfce : DanfeFastBase
     {
         /// <summary>
         /// Construtor da classe responsável pela impressão do DANFE da NFCe em Fast Reports
@@ -53,7 +54,14 @@ namespace NFe.Danfe.Fast.NFCe
         /// <param name="textoRodape">Texto para ser impresso no final do documento</param>
         public DanfeFrNfce(nfeProc proc, ConfiguracaoDanfeNfce configuracaoDanfeNfce, string cIdToken, string csc, string arquivoRelatorio = "", string textoRodape = "")
         {
-            Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, Properties.Resources.NFCe, arquivoRelatorio);
+            byte[] frx = null;
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"NFCe\NFCe.frx";
+                frx = FrxFileHelper.TryGetFrxFile(caminho);
+            }
+
+            Relatorio = DanfeSharedHelper.GenerateDanfeNfceReport(proc, configuracaoDanfeNfce, cIdToken, csc, frx, arquivoRelatorio, textoRodape);
         }
 
         /// <summary>
