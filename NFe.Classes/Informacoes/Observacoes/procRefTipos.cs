@@ -80,4 +80,34 @@ namespace NFe.Classes.Informacoes.Observacoes
         [XmlEnum("9")]
         ipOutros = 9
     }
+
+    /// <summary>
+    ///     Para origem do Processo na SEFAZ (indProc=0), informar o tipo de ato concessório
+    ///     <para>08 - Termo de Acordo</para>
+    ///     <para>10 - Regime Especia</para>
+    ///     <para>12 - Autorização específica</para>
+    /// </summary>
+    public enum TipoAtoConcessorio
+    {
+        /// <summary>
+        /// 08 - Termo de Acordo
+        /// </summary>
+        [Description("Termo de Acordo")]
+        [XmlEnum("08")]
+        tpTermoAcordo = 8,
+
+        /// <summary>
+        /// 10 - Regime Especial
+        /// </summary>
+        [Description("Regime Especial")]
+        [XmlEnum("10")]
+        tpRegimeEspecial= 10,
+
+        /// <summary>
+        /// 08 - Termo de Acordo
+        /// </summary>
+        [Description("Autorização Específica")]
+        [XmlEnum("12")]
+        tpAutorizacaoEspecifica = 12,
+    }
 }
