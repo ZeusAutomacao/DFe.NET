@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Xml.Serialization;
+using NFe.Classes.Informacoes.Detalhe.Observacao;
 using NFe.Classes.Informacoes.Detalhe.Tributacao;
 
 namespace NFe.Classes.Informacoes.Detalhe
@@ -57,6 +58,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     UA01 - Informação do Imposto devolvido
         /// </summary>
         public impostoDevol impostoDevol { get; set; }
+
+        /// <summary>
+        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
+        /// </summary>
+        public obsItem obsItem { get; set; }
 
         /// <summary>
         ///     V01 - Informações Adicionais do Produto
