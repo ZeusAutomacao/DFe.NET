@@ -104,7 +104,7 @@ namespace NFe.Classes.Informacoes.Observacoes
         tpRegimeEspecial= 10,
 
         /// <summary>
-        /// 08 - Termo de Acordo
+        /// 12 - Autorização Específica
         /// </summary>
         [Description("Autorização Específica")]
         [XmlEnum("12")]
