@@ -46,6 +46,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal _vBcst;
         private decimal _pIcmsst;
         private decimal _vIcmsst;
+        private decimal? _vBCFCPST;
+        private decimal? _pFCPST;
+        private decimal? _vFCPST;
         private decimal _pBcOp;
 
         /// <summary>
@@ -163,9 +166,39 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
-        ///     N25 - Percentual da BC operação própria
+        ///     N23.a - Valor da Base de Cálculo do FCP ST
         /// </summary>
         [XmlElement(Order = 14)]
+        public decimal? vBCFCPST
+        {
+            get { return _vBCFCPST; }
+            set { _vBCFCPST = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        ///     N23.b - Percentual do FCP ST
+        /// </summary>
+        [XmlElement(Order = 15)]
+        public decimal? pFCPST
+        {
+            get { return _pFCPST; }
+            set { _pFCPST = value.Arredondar(4); }
+        }
+
+        /// <summary>
+        ///     N23.c - Valor do FCP ST 
+        /// </summary>
+        [XmlElement(Order = 16)]
+        public decimal? vFCPST
+        {
+            get { return _vFCPST; }
+            set { _vFCPST = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        ///     N25 - Percentual da BC operação própria
+        /// </summary>
+        [XmlElement(Order = 17)]
         public decimal pBCOp
         {
             get { return _pBcOp; }
@@ -175,7 +208,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// <summary>
         ///     N24 - UF para qual é devido o ICMS ST
         /// </summary>
-        [XmlElement(Order = 15)]
+        [XmlElement(Order = 18)]
         public string UFST { get; set; }
 
         public bool ShouldSerializepRedBC()
@@ -192,5 +225,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             return pRedBCST.HasValue;
         }
+
+        public bool ShouldSerializevBCFCPST()
+        {
+            return vBCFCPST.HasValue;
+        }
+
+        public bool ShouldSerializepFCPST()
+        {
+            return pFCPST.HasValue;
+        }
+
+        public bool ShouldSerializevFCPST()
+        {
+            return vFCPST.HasValue;
+        }
+
     }
 }

@@ -43,5 +43,15 @@ namespace NFe.Classes.Informacoes.Observacoes
         ///     Z12 - Indicador da origem do processo
         /// </summary>
         public IndicadorProcesso indProc { get; set; }
+
+        /// <summary>
+        ///     Z13 - Tipo do ato concessório
+        /// </summary>
+        public TipoAtoConcessorio? tpAto { get; set; }
+
+        public bool ShouldSerializetpAto()
+        {
+            return tpAto.HasValue;
+        }
     }
 }
