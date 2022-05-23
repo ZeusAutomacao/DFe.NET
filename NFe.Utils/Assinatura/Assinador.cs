@@ -91,10 +91,11 @@ namespace NFe.Utils.Assinatura
             try
             {
                 var documento = new XmlDocument { PreserveWhitespace = true };
-
-                documento.LoadXml(cfgServicoRemoverAcentos
+                var xml = cfgServicoRemoverAcentos
                     ? FuncoesXml.ClasseParaXmlString(objetoLocal).RemoverAcentos()
-                    : FuncoesXml.ClasseParaXmlString(objetoLocal));
+                    : FuncoesXml.ClasseParaXmlString(objetoLocal);
+
+                documento.LoadXml(xml);
 
                 var docXml = new SignedXml(documento) { SigningKey = certificadoDigital.PrivateKey };
 
