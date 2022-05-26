@@ -71,6 +71,6 @@ jobs:
       with:
         name: nupkg
         path: | 
-          NuGet/Zeus.Net.NFe.NFCe/bin/Release/Zeus.Net.NFe.NFCe.nupkg
-          NuGet/Zeus.Net.MDFe/bin/Release/Zeus.Net.MDFe.nupkg
-          NuGet/Zeus.Net.CTe/bin/Release/Zeus.Net.CTe.nupkg
+          NuGet/Zeus.Net.NFe.NFCe/bin/Release/*.nupkg
+          NuGet/Zeus.Net.MDFe/bin/Release/*.nupkg
+          NuGet/Zeus.Net.CTe/bin/Release/*.nupkg
