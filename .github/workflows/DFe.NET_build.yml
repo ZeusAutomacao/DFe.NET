@@ -61,7 +61,7 @@ jobs:
     #  run: dotnet test --no-build --verbosity normal
   
     - name: Pack Zeus.Net.NFe.NFCe
-      run: dotnet pack -v minimal -c Release --no-restore -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+      run: dotnet pack -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
 
     - name: Upload Artifact Zeus.Net.NFe.NFCe
       uses: actions/upload-artifact@v3
