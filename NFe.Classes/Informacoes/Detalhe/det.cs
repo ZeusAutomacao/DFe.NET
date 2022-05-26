@@ -60,13 +60,14 @@ namespace NFe.Classes.Informacoes.Detalhe
         public impostoDevol impostoDevol { get; set; }
 
         /// <summary>
-        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
-        /// </summary>
-        public obsItem obsItem { get; set; }
-
-        /// <summary>
         ///     V01 - Informações Adicionais do Produto
         /// </summary>
-        public string infAdProd { get; set; }
+        public string infAdProd { get; set; }        
+        
+        /// <summary>
+        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
+        /// </summary>
+        [XmlElement(nameof(obsItem))]
+        public obsItem obsItem { get; set; }
     }
 }
