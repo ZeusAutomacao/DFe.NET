@@ -2,13 +2,15 @@ name: DFe.NET_build
 
 on:
   push:
-    branches: [ release ]
+    branches: 
+      - 'master'
   pull_request:
-    branches: [ release ]
+    types: [opened, reopened]
+    branches:    
+      - 'master'
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -59,7 +61,6 @@ jobs:
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
-  
     - name: Pack
       run: | 
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
@@ -71,3 +72,18 @@ jobs:
       with:
         name: nupkg
         path: ${{ github.workspace }}/*.nupkg
+        
+  deploy:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ${{ 'windows-2022' }}
+    steps:
+      - name: Push to NuGet Feed
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_SECRET_DEPLOY
+      - name: Discord notification
+        env:
+          VERSAO: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Lançado ({{ EVENT_PAYLOAD.repository.full_name }}) versão {{ steps.date.outputs.date }}!'
