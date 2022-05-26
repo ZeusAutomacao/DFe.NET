@@ -1,0 +1,108 @@
+name: DFe.NET_build
+
+on:
+  push:
+    branches: [ release)old ]
+  pull_request:
+    branches: [ release_old ]
+
+jobs:
+  build:
+
+    runs-on: windows-2022
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build net48
+      run: | 
+        dotnet build ".\DFe.Classes\DFe.Classes.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\DFe.Utils\DFe.Utils.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\DFe.Wsdl\DFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\NFe.Classes\NFe.Classes.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\NFe.Servicos\NFe.Servicos.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\NFe.Utils\NFe.Utils.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\NFe.Wsdl\NFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\MDFe.Classes\MDFe.Classes.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\MDFe.Utils\MDFe.Utils.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\MDFe.Wsdl\MDFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\MDFe.Servicos\MDFe.Servicos.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\CTe.Classes\CTe.Classes.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\CTe.Utils\CTe.Utils.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\CTe.Wsdl\CTe.Wsdl.csproj" --no-restore -f net48 -c "Release"
+        dotnet build ".\CTe.Servicos\CTe.Servicos.csproj" --no-restore -f net48 -c "Release"
+        
+        
+    - name: Build net6.0
+      run: |
+        dotnet build ".\DFe.Classes\DFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\DFe.Utils\DFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\DFe.Wsdl\DFe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\NFe.Classes\NFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\NFe.Servicos\NFe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\NFe.Utils\NFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\MDFe.Classes\MDFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\MDFe.Utils\MDFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\MDFe.Wsdl\MDFe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\MDFe.Servicos\MDFe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\CTe.Classes\CTe.Classes.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\CTe.Utils\CTe.Utils.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\CTe.Wsdl\CTe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
+        dotnet build ".\CTe.Servicos\CTe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
+        
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
+  
+    - name: Upload Artefato NFe NFCe 
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: NFeNFCe
+        path: |
+          DFe.Classes/bin/*/**/
+          DFe.Utils/bin/*/**/
+          DFe.Wsdl/bin/*/**/
+          NFe.Classes/bin/*/**/
+          NFe.Servicos/bin/*/**/
+          NFe.Utils/bin/*/**/
+          NFe.Wsdl/bin/*/**/
+          NFe.Wsdl.Standard/bin/*/**/
+          NFe.Danfe.Fast/bin/*/**/
+        if-no-files-found: error
+        retention-days: 1
+
+    - name: Upload Artefato MDFe 
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: MDFe
+        path: |
+          DFe.Classes/bin/*/**/
+          DFe.Utils/bin/*/**/
+          DFe.Wsdl/bin/*/**/
+          MDFe.Classes/bin/*/**/
+          MDFe.Utils/bin/*/**/
+          MDFe.Wsdl/bin/*/**/
+          MDFe.Servicos/bin/*/**/
+        if-no-files-found: error
+        retention-days: 1
+        
+    - name: Upload Artefato CTe 
+      uses: actions/upload-artifact@v3.0.0
+      with:
+        name: CTe
+        path: |
+          DFe.Classes/bin/*/**/
+          DFe.Utils/bin/*/**/
+          CTe.Classes/bin/*/**/
+          CTe.Utils/bin/*/**/
+          CTe.Wsdl/bin/*/**/
+          CTe.Servicos/bin/*/**/
+        if-no-files-found: error
+        retention-days: 1
