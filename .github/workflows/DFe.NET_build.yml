@@ -62,15 +62,12 @@ jobs:
   
     - name: Pack
       run: | 
-        dotnet pack -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
-        dotnet pack -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
-        dotnet pack -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: nupkg
-        path: | 
-          NuGet/Zeus.Net.NFe.NFCe/bin/Release/Zeus.Net.NFe.NFCe.${{ steps.date.outputs.date }}.nupkg
-          NuGet/Zeus.Net.MDFe/bin/Release/Zeus.Net.MDFe.${{ steps.date.outputs.date }}.nupkg
-          NuGet/Zeus.Net.CTe/bin/Release/Zeus.Net.CTe.${{ steps.date.outputs.date }}.nupkg
+        path: ${{ github.workspace }}/*.nupkg
