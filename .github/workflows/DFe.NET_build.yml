@@ -32,23 +32,23 @@ jobs:
     
     - name: Build/Restore Base
       run: | 
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\DFe.Classes\DFe.Classes.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\DFe.Utils\DFe.Utils.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\DFe.Wsdl\DFe.Wsdl.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Classes\DFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Utils\DFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Wsdl\DFe.Wsdl.csproj" -c "Release"
     - name: Build/Restore NFe
       run: | 
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\NFe.Classes\NFe.Classes.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\NFe.Servicos\NFe.Servicos.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\NFe.Utils\NFe.Utils.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl\NFe.Wsdl.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Classes\NFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Servicos\NFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Utils\NFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl\NFe.Wsdl.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" -c "Release"
         
     - name: Build/Restore MDFe
       run: | 
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Classes\MDFe.Classes.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Servicos\MDFe.Servicos.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Utils\MDFe.Utils.csproj" -c "Release"
-        dotnet build -p:AssemblyVersion=${{ steps.date.outputs.date }} -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Wsdl\MDFe.Wsdl.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Classes\MDFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Servicos\MDFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Utils\MDFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Wsdl\MDFe.Wsdl.csproj" -c "Release"
         
     - name: Build/Restore MDFe
       run: | 
