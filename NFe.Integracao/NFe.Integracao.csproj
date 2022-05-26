@@ -61,7 +61,6 @@
   <ItemGroup>
     <Compile Include="NFeBuilder.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Enums\TipoXmlNFe.cs" />
     <Compile Include="NFeFacade.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
