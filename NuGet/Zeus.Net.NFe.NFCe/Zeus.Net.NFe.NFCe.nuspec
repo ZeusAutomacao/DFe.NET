@@ -38,6 +38,6 @@
 		<file src="..\..\NFe.Classes\bin\Release\net462\NFe.Classes.dll" target="lib/net462/NFe.Classes.dll" />
 		<file src="..\..\NFe.Servicos\bin\Release\net462\NFe.Servicos.dll" target="lib/net462/NFe.Servicos.dll" />
 		<file src="..\..\NFe.Utils\bin\Release\net462\NFe.Utils.dll" target="lib/net462/NFe.Utils.dll" />
-		<file src="..\..\NFe.Wsdl\bin\Release\net462\NFe.Wsdl.dll" target="lib/net62/NFe.Wsdl.dll" />
+		<file src="..\..\NFe.Wsdl\bin\Release\net462\NFe.Wsdl.dll" target="lib/net462/NFe.Wsdl.dll" />
     </files>
 </package>
