@@ -161,12 +161,6 @@ namespace FastReport
     }
 
 
-    private void rtbTitulo_BeforePrint(object sender, EventArgs e)
-    {
-      rtbTitulo.Visible = (poEmitLogo.Image != null);
-    }
-
-
     private void memMsgFiscal_BeforePrint(object sender, EventArgs e)
     {
       //Conforme Manual de Padrões Padrões Técnicos do DANFE-NFC-e e QR Code, página 8
@@ -196,7 +190,7 @@ namespace FastReport
         return;        
         
       PgNfce.PaperHeight = 
-        (rtbTituloHeight + 
+        (rtbEmitLogoHeight + 
          phbEmitenteHeight + 
          ((Boolean)Report.GetParameterValue(&quot;NfceCancelado&quot;) ? phbCancelado.Height : 0)+
          ghbProdutosUmaLinhaHeight + 
@@ -250,10 +244,10 @@ namespace FastReport
       dbConsultaHeight = (dbConsulta.Visible ? dbConsulta.Height : 0);
     }
 
-    float rtbTituloHeight;
-    private void rtbTitulo_AfterPrint(object sender, EventArgs e)
+    float rtbEmitLogoHeight;
+    private void rtbEmitLogo_AfterPrint(object sender, EventArgs e)
     {
-      rtbTituloHeight = (rtbTitulo.Visible ? rtbTitulo.Height : 0);
+      rtbEmitLogoHeight = (rtbEmitLogo.Visible ? rtbEmitLogo.Height : 0);
     }
 
     float phbEmitenteHeight;
@@ -881,7 +875,7 @@ namespace FastReport
     <Total Name="TotalDetPagamentos" Expression="[NFCe.NFe.infNFe.pag.detPag.vPag]" Evaluator="dbDetPagamento"/>
   </Dictionary>
   <ReportPage Name="PgNfce" PaperWidth="79" LeftMargin="4.5" TopMargin="0" RightMargin="4.5" BottomMargin="1" FirstPageSource="15" OtherPagesSource="15" StartPageEvent="PgNfce_StartPage">
-    <ReportTitleBand Name="rtbTitulo" Width="264.6" Height="85.8" BeforePrintEvent="rtbTitulo_BeforePrint" AfterPrintEvent="rtbTitulo_AfterPrint">
+    <ReportTitleBand Name="rtbEmitLogo" Width="264.6" Height="85.8" AfterPrintEvent="rtbEmitLogo_AfterPrint">
       <PictureObject Name="poEmitLogo" Top="3.78" Width="264.6" Height="79.38" Image=""/>
     </ReportTitleBand>
     <PageHeaderBand Name="phbEmitente" Top="88.47" Width="264.6" Height="122.83" CanGrow="true" PrintOn="FirstPage, SinglePage" AfterPrintEvent="phbEmitente_AfterPrint">
