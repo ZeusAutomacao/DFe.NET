@@ -79,6 +79,7 @@ jobs:
     needs: build
     if: github.event_name == 'push'
     runs-on: ${{ 'windows-2022' }}
+    environment: Deploy Nuget
     steps:
       - name: Push to NuGet Feed
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_KEY
