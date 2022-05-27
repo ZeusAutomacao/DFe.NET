@@ -115,4 +115,4 @@ jobs:
           DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget!'
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusNfeNfce'
