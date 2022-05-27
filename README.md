@@ -24,7 +24,7 @@ Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos n
 ------------------
 A melhor maneira de você ter a última versão do Zeus em seu projeto é utilizando os pacotes Nugets abaixo
 
-[![Build status](https://ci.appveyor.com/api/projects/status/7igb6s48sw2p95o3/branch/master?svg=true)](https://ci.appveyor.com/project/adeniltonbs/zeus-net-nfe-nfce/branch/master) 
+[![Build status](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml/badge.svg?branch=master)](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml)
 [![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
 
 
