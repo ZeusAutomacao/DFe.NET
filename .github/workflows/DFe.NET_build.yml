@@ -8,7 +8,9 @@ on:
     types: [opened, reopened]
     branches:    
       - 'master'
-
+env:
+  NUGET_KEY: ${{ secrets.NUGET_SECRET_DEPLOY }}
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 jobs:
   build:
     runs-on: ${{ matrix.os }}
@@ -79,11 +81,10 @@ jobs:
     runs-on: ${{ 'windows-2022' }}
     steps:
       - name: Push to NuGet Feed
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_SECRET_DEPLOY
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_KEY
+        
       - name: Discord notification
-        env:
-          VERSAO: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        continue-on-error: true
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado ({{ EVENT_PAYLOAD.repository.full_name }}) versão {{ steps.date.outputs.date }}!'
+          args: 'Lançado {{ EVENT_PAYLOAD.repository.full_name }} versão {{ steps.date.outputs.date }} no Nuget!'
