@@ -105,23 +105,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.AppTeste.Fast", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.AppTeste.OpenFast", "NFe.Danfe.AppTeste.OpenFast\NFe.Danfe.AppTeste.OpenFast.csproj", "{81CCEE73-EE9A-4A7D-899D-A55730E4A60B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Damdfe.OpenFast", "MDFe.Damdfe.OpenFast\MDFe.Damdfe.OpenFast.csproj", "{55C00722-DE2E-467C-A9BC-D5BCDC0FCC43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDFe.Damdfe.OpenFast", "MDFe.Damdfe.OpenFast\MDFe.Damdfe.OpenFast.csproj", "{55C00722-DE2E-467C-A9BC-D5BCDC0FCC43}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppTeste", "AppTeste", "{0AFEB550-56BB-449B-BB3A-0625167B4669}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppTeste", "AppTeste", "{97A82A0A-A574-452D-9D89-C6F0840DDDB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTe.Dacte.OpenFast", "CTe.Dacte.OpenFast\CTe.Dacte.OpenFast.csproj", "{2DB1B4DC-ABC2-4B8B-B7AE-8C6EB3EDA210}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTe.Dacte.OpenFast", "CTe.Dacte.OpenFast\CTe.Dacte.OpenFast.csproj", "{2DB1B4DC-ABC2-4B8B-B7AE-8C6EB3EDA210}"
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
-		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}*SharedItemsImports = 5
-		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{5794ab8a-ff29-4f55-abc2-9aafe333bd27}*SharedItemsImports = 13
-		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{b2462a15-b00d-4e4f-98e6-f1f7470507e5}*SharedItemsImports = 5
-		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{d256de50-def8-4076-997d-cb599f9161d3}*SharedItemsImports = 5
-		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{d60fc037-849e-454f-8bed-8b3b349b13d8}*SharedItemsImports = 5
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
@@ -496,5 +488,13 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C8C4D9F7-EF86-49A2-83AF-13FA5D4E8DBB}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{148e0e11-3fe5-4bf7-a64f-b919a0a8d9ba}*SharedItemsImports = 13
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{23ba5fa7-8bd6-4ae1-9895-54f119dd15fa}*SharedItemsImports = 5
+		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{5794ab8a-ff29-4f55-abc2-9aafe333bd27}*SharedItemsImports = 13
+		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{b2462a15-b00d-4e4f-98e6-f1f7470507e5}*SharedItemsImports = 5
+		Shared.NFe.Danfe\Shared.NFe.Danfe.projitems*{d256de50-def8-4076-997d-cb599f9161d3}*SharedItemsImports = 5
+		Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems*{d60fc037-849e-454f-8bed-8b3b349b13d8}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
