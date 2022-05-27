@@ -79,7 +79,6 @@ jobs:
     needs: build
     if: github.event_name == 'push'
     runs-on: ${{ 'windows-2022' }}
-    environment: Deploy Nuget
     steps:
       - name: Push to NuGet Feed
         run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_KEY
@@ -88,4 +87,4 @@ jobs:
         continue-on-error: true
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado {{ EVENT_PAYLOAD.repository.full_name }} versão {{ steps.date.outputs.date }} no Nuget!'
+          args: 'Lançado Zeus DFe.NET versão {{ steps.date.outputs.date }} no Nuget!'
