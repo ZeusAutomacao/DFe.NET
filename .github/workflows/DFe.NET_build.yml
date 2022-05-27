@@ -1,108 +1,117 @@
 name: DFe.NET_build
 
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      nugetdeploy:
+        type: boolean
+        description: 'Deploy Nuget ?'
   push:
-    branches: [ tests ]
+    branches: 
+      - 'master'
   pull_request:
-    branches: [ tests ]
-
+    types: [opened, reopened]
+    branches:    
+      - 'master'
 jobs:
   build:
-
-    runs-on: windows-2022
-
+    runs-on: ${{ matrix.os }}
+    outputs:
+      version: ${{ steps.date.outputs.date }}
+    strategy:
+      matrix:
+    #    os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ windows-2022 ]
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Setando Versao
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      
+    - name: Versao
+      run: echo ${{ steps.date.outputs.date }}
+      
+    - name: Setup .NET 6.0.x
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build net48
+    
+    - name: Build/Restore Base
       run: | 
-        dotnet build ".\DFe.Classes\DFe.Classes.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\DFe.Utils\DFe.Utils.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\DFe.Wsdl\DFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\NFe.Classes\NFe.Classes.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\NFe.Servicos\NFe.Servicos.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\NFe.Utils\NFe.Utils.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\NFe.Wsdl\NFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\MDFe.Classes\MDFe.Classes.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\MDFe.Utils\MDFe.Utils.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\MDFe.Wsdl\MDFe.Wsdl.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\MDFe.Servicos\MDFe.Servicos.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\CTe.Classes\CTe.Classes.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\CTe.Utils\CTe.Utils.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\CTe.Wsdl\CTe.Wsdl.csproj" --no-restore -f net48 -c "Release"
-        dotnet build ".\CTe.Servicos\CTe.Servicos.csproj" --no-restore -f net48 -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Classes\DFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Utils\DFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Wsdl\DFe.Wsdl.csproj" -c "Release"
+    - name: Build/Restore NFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Classes\NFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Servicos\NFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Utils\NFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl\NFe.Wsdl.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" -c "Release"
         
+    - name: Build/Restore MDFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Classes\MDFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Servicos\MDFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Utils\MDFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Wsdl\MDFe.Wsdl.csproj" -c "Release"
         
-    - name: Build net6.0
-      run: |
-        dotnet build ".\DFe.Classes\DFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\DFe.Utils\DFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\DFe.Wsdl\DFe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\NFe.Classes\NFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\NFe.Servicos\NFe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\NFe.Utils\NFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\NFe.Danfe.Fast\NFe.Danfe.Fast.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\MDFe.Classes\MDFe.Classes.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\MDFe.Utils\MDFe.Utils.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\MDFe.Wsdl\MDFe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\MDFe.Servicos\MDFe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\CTe.Classes\CTe.Classes.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\CTe.Utils\CTe.Utils.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\CTe.Wsdl\CTe.Wsdl.csproj" --no-restore -f net6.0 -c "Release"
-        dotnet build ".\CTe.Servicos\CTe.Servicos.csproj" --no-restore -f net6.0 -c "Release"
+    - name: Build/Restore MDFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Classes\CTe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Servicos\CTe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Utils\CTe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Wsdl\CTe.Wsdl.csproj" -c "Release"
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
-  
-    - name: Upload Artefato NFe NFCe 
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: NFeNFCe
-        path: |
-          DFe.Classes/bin/*/**/
-          DFe.Utils/bin/*/**/
-          DFe.Wsdl/bin/*/**/
-          NFe.Classes/bin/*/**/
-          NFe.Servicos/bin/*/**/
-          NFe.Utils/bin/*/**/
-          NFe.Wsdl/bin/*/**/
-          NFe.Wsdl.Standard/bin/*/**/
-          NFe.Danfe.Fast/bin/*/**/
-        if-no-files-found: error
-        retention-days: 1
+    - name: Pack
+      run: | 
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
 
-    - name: Upload Artefato MDFe 
-      uses: actions/upload-artifact@v3.0.0
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
       with:
-        name: MDFe
-        path: |
-          DFe.Classes/bin/*/**/
-          DFe.Utils/bin/*/**/
-          DFe.Wsdl/bin/*/**/
-          MDFe.Classes/bin/*/**/
-          MDFe.Utils/bin/*/**/
-          MDFe.Wsdl/bin/*/**/
-          MDFe.Servicos/bin/*/**/
-        if-no-files-found: error
-        retention-days: 1
+        name: nupkg
+        path: ${{ github.workspace }}/*.nupkg
         
-    - name: Upload Artefato CTe 
-      uses: actions/upload-artifact@v3.0.0
-      with:
-        name: CTe
-        path: |
-          DFe.Classes/bin/*/**/
-          DFe.Utils/bin/*/**/
-          CTe.Classes/bin/*/**/
-          CTe.Utils/bin/*/**/
-          CTe.Wsdl/bin/*/**/
-          CTe.Servicos/bin/*/**/
-        if-no-files-found: error
-        retention-days: 1
+  deploy:
+    needs: build
+    if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
+    runs-on: ${{ 'ubuntu-latest' }}
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nupkg
+          path: ${{ github.workspace }}
+          
+      - name: List Artifacts
+        run: dir
+    
+      - name: Setup Nuget
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+          
+      #- name: Push to NuGet Feed
+      #  run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+      #  env:
+      #    NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+          
+      - name: Discord notification
+        continue-on-error: true
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget!'
