@@ -1,6 +1,12 @@
 name: DFe.NET_build
 
 on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
   push:
     branches: 
       - 'master'
@@ -81,7 +87,7 @@ jobs:
     runs-on: ${{ 'windows-2022' }}
     steps:
       - name: Push to NuGet Feed
-        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key $NUGET_KEY
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${NUGET_KEY}
         
       - name: Discord notification
         continue-on-error: true
