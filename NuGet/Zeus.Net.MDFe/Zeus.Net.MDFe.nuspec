@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Zeus.Net.MDFe</id>
+        <version>$version$</version>
+        <title>Zeus MDFe (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/324626879?s=200&amp;v=4</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Biblioteca para geração de MDF-e.</description>
+        <releaseNotes />
+        <copyright>zeus</copyright>
+        <language>pt-BR</language>
+        <tags>df-e dfe mdfe mdf-e</tags>
+    </metadata>
+    <files>
+		<file src="..\..\DFe.Classes\bin\Release\netstandard2.0\DFe.Classes.dll" target="lib/netstandard2.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\netstandard2.0\DFe.Utils.dll" target="lib/netstandard2.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\netstandard2.0\DFe.Wsdl.dll" target="lib/netstandard2.0/DFe.Wsdl.dll" />
+		<file src="..\..\MDFe.Classes\bin\Release\netstandard2.0\MDFe.Classes.dll" target="lib/netstandard2.0/MDFe.Classes.dll" />
+		<file src="..\..\MDFe.Servicos\bin\Release\netstandard2.0\MDFe.Servicos.dll" target="lib/netstandard2.0/MDFe.Servicos.dll" />
+		<file src="..\..\MDFe.Utils\bin\Release\netstandard2.0\MDFe.Utils.dll" target="lib/netstandard2.0/MDFe.Utils.dll" />
+		<file src="..\..\MDFe.Wsdl\bin\Release\netstandard2.0\MDFe.Wsdl.dll" target="lib/netstandard2.0/MDFe.Wsdl.dll" />
+		
+		<file src="..\..\DFe.Classes\bin\Release\net6.0\DFe.Classes.dll" target="lib/net6.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net6.0\DFe.Utils.dll" target="lib/net6.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net6.0\DFe.Wsdl.dll" target="lib/net6.0/DFe.Wsdl.dll" />
+		<file src="..\..\MDFe.Classes\bin\Release\net6.0\MDFe.Classes.dll" target="lib/net6.0/MDFe.Classes.dll" />
+		<file src="..\..\MDFe.Servicos\bin\Release\net6.0\MDFe.Servicos.dll" target="lib/net6.0/MDFe.Servicos.dll" />
+		<file src="..\..\MDFe.Utils\bin\Release\net6.0\MDFe.Utils.dll" target="lib/net6.0/MDFe.Utils.dll" />
+		<file src="..\..\MDFe.Wsdl\bin\Release\net6.0\MDFe.Wsdl.dll" target="lib/net6.0/MDFe.Wsdl.dll" />
+
+		<file src="..\..\DFe.Classes\bin\Release\net462\DFe.Classes.dll" target="lib/net462/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net462\DFe.Utils.dll" target="lib/net462/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net462\DFe.Wsdl.dll" target="lib/net462/DFe.Wsdl.dll" />
+		<file src="..\..\MDFe.Classes\bin\Release\net462\MDFe.Classes.dll" target="lib/net462/MDFe.Classes.dll" />
+		<file src="..\..\MDFe.Servicos\bin\Release\net462\MDFe.Servicos.dll" target="lib/net462/MDFe.Servicos.dll" />
+		<file src="..\..\MDFe.Utils\bin\Release\net462\MDFe.Utils.dll" target="lib/net462/MDFe.Utils.dll" />
+		<file src="..\..\MDFe.Wsdl\bin\Release\net462\MDFe.Wsdl.dll" target="lib/net462/MDFe.Wsdl.dll" />
+
+    </files>
+</package>

@@ -83,9 +83,6 @@
   <ItemGroup>
     <Compile Include="MDFeTesteModel.cs" />
     <Compile Include="ModelBase\ViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
