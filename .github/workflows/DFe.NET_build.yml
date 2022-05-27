@@ -20,6 +20,8 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    outputs:
+      version: ${{ steps.date.outputs.date }}
     strategy:
       matrix:
     #    os: [ ubuntu-latest, windows-latest, macos-latest ]
@@ -99,19 +101,17 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-       #   source-url: https://api.nuget.org/v3/index.json
-       # env:
-       #   NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
-      - name: Push to NuGet Feed
-        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+      #- name: Push to NuGet Feed
+      #  run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+      #  env:
+      #    NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
       - name: Discord notification
         continue-on-error: true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Zeus DFe.NET versão {{ steps.date.outputs.date }} no Nuget!'
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget!'
