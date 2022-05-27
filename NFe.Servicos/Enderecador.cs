@@ -1567,7 +1567,7 @@ namespace NFe.Servicos
     //                    endServico.AddRange(
     //                        versaoDoisETres.Select(versao => new EnderecoServico(ServicoNFe.NfeDownloadNF, versao, TipoAmbiente.taHomologacao, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx")));
     //                if (modelo != ModeloDocumento.NFCe)
-    //                    endServico.Add(new EnderecoServico(ServicoNFe.NFeDistribuicaoDFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx"));
+    //                    endServico.Add(new EnderecoServico(ServicoNFe.NFeDistribuicaoDFe, VersaoServico.ve100, TipoAmbiente.taHomologacao, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx"));
     //            }
     //        }
 
@@ -3195,20 +3195,20 @@ namespace NFe.Servicos
                     if (!(estado == Estado.SP & modelo == ModeloDocumento.NFCe))
                     {
                         addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao1, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx");
-                        addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao4, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao4, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
 
                     if (modelo != ModeloDocumento.NFCe)
                     {
                         addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx");
-                        addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao4, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao4, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
 
                     //CE e SVAN possuem endereços próprios para o serviço NfeDownloadNF
                     if (estado != Estado.CE & !svanEstados.Contains(estado))
                         addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx");
                     if (modelo != ModeloDocumento.NFCe)
-                        addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
+                        addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
                 }
             }
 
