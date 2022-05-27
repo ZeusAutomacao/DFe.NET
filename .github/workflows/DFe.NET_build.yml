@@ -7,6 +7,9 @@ on:
         description: 'Log level'     
         required: true
         default: 'warning'
+      nugetdeploy:
+        type: boolean
+        description: 'Deploy Nuget ?'
   push:
     branches: 
       - 'master'
@@ -80,7 +83,7 @@ jobs:
         
   deploy:
     needs: build
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
     runs-on: ${{ 'windows-2022' }}
     steps:
       - name: Setup Nuget
