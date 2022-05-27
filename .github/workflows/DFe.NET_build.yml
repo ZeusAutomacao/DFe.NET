@@ -84,7 +84,7 @@ jobs:
   deploy:
     needs: build
     if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
-    runs-on: ${{ 'windows-2022' }}
+    runs-on: ${{ 'ubuntu-latest' }}
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
@@ -94,18 +94,20 @@ jobs:
           
       - name: List Artifacts
         run: dir
-        
+    
       - name: Setup Nuget
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
-          source-url: https://api.nuget.org/v3/index.json
+       #   source-url: https://api.nuget.org/v3/index.json
+       # env:
+       #   NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+          
+      - name: Push to NuGet Feed
+        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
-      - name: Push to NuGet Feed
-        run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate --no-symbols true
-        
       - name: Discord notification
         continue-on-error: true
         env:
