@@ -86,6 +86,15 @@ jobs:
     if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
     runs-on: ${{ 'windows-2022' }}
     steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nupkg
+          path: ${{ github.workspace }}
+          
+      - name: List Artifacts
+        run: dir
+        
       - name: Setup Nuget
         uses: actions/setup-dotnet@v2
         with:
@@ -95,7 +104,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
       - name: Push to NuGet Feed
-        run: dotnet nuget push ./nupkg/*.nupkg --skip-duplicate --no-symbols true
+        run: dotnet nuget push *.nupkg --skip-duplicate --no-symbols true
         
       - name: Discord notification
         continue-on-error: true
