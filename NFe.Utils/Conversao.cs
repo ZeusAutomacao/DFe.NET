@@ -68,6 +68,8 @@ namespace NFe.Utils
                             return "1.01";
                     }
                     return "1.00";
+                case VersaoServico.Versao135:
+                    return "1.35";
                 case VersaoServico.Versao200:
                     switch (servicoNFe)
                     {

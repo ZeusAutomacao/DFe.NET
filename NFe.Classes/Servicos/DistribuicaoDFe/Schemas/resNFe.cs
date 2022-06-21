@@ -124,5 +124,10 @@ namespace NFe.Classes.Servicos.DistribuicaoDFe.Schemas
         /// C14 - Situação da NF-e: 1=Uso autorizado; 2=Uso denegado.
         /// </summary>
         public byte cSitNFe { get; set; }
+
+        /// <summary>
+        /// C15 - 0 = Sem manifestação do destinatário; 1 = Confirma operação; 2 = Desconhecida; 3 = Operação não realizada; 4 = Ciência
+        /// </summary>
+        public byte cSitConf { get; set; }
     }
 }

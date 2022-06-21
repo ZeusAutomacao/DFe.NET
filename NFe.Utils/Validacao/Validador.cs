@@ -111,8 +111,14 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.NfeDownloadNF:
                     return "downloadNFe_v1.00.xsd";
                 case ServicoNFe.NFeDistribuicaoDFe:
-                    return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
-            }
+                    switch (versaoServico)
+                    {
+                        case VersaoServico.Versao135:
+                            return "distDFeInt_v1.35.xsd";
+                        default:
+                            return "distDFeInt_v1.01.xsd";
+                    }
+        }
             return null;
         }
 

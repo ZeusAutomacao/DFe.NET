@@ -40,6 +40,9 @@ namespace DFe.Classes.Flags
         [XmlEnum("1.00")]
         Versao100 = 100,
 
+        [XmlEnum("1.35")]
+        Versao135 = 135,
+
         [XmlEnum("2.00")]
         Versao200 = 200,
 
