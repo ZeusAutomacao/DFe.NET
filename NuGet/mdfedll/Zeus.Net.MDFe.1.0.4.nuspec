@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Zeus.Net.MDFe</id>
+    <version>1.0.4</version>
+    <title>Zeus MDFe (x86/x64)</title>
+    <authors>Zeus</authors>
+    <owners>Zeus</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/lucasmoraes804/DFe.NET</projectUrl>
+    <iconUrl>https://avatars0.githubusercontent.com/u/32456879?s=200&amp;v=4</iconUrl>
+    <description>Biblioteca para geração de MDF-e.</description>
+    <releaseNotes>Trocado namespace das classes</releaseNotes>
+    <copyright>zeus</copyright>
+    <language>pt-BR</language>
+    <tags>df-e dfe mdfe mdf-e</tags>
+  </metadata>
+  <files>
+    <file src="lib\net40\DFe.Classes.dll" target="lib\net40\DFe.Classes.dll" />
+    <file src="lib\net40\DFe.Utils.dll" target="lib\net40\DFe.Utils.dll" />
+    <file src="lib\net40\MDFe.Classes.dll" target="lib\net40\MDFe.Classes.dll" />
+    <file src="lib\net40\MDFe.Servicos.dll" target="lib\net40\MDFe.Servicos.dll" />
+    <file src="lib\net40\MDFe.Utils.dll" target="lib\net40\MDFe.Utils.dll" />
+    <file src="lib\net40\MDFe.Wsdl.dll" target="lib\net40\MDFe.Wsdl.dll" />
+    <file src="lib\netstandard2.0\DFe.Classes.Standard.dll" target="lib\netstandard2.0\DFe.Classes.Standard.dll" />
+    <file src="lib\netstandard2.0\DFe.Utils.Standard.dll" target="lib\netstandard2.0\DFe.Utils.Standard.dll" />
+    <file src="lib\netstandard2.0\DFe.Wsdl.Standard.dll" target="lib\netstandard2.0\DFe.Wsdl.Standard.dll" />
+    <file src="lib\netstandard2.0\MDFe.Classes.Standard.dll" target="lib\netstandard2.0\MDFe.Classes.Standard.dll" />
+    <file src="lib\netstandard2.0\MDFe.Servicos.Standard.dll" target="lib\netstandard2.0\MDFe.Servicos.Standard.dll" />
+    <file src="lib\netstandard2.0\MDFe.Utils.Standard.dll" target="lib\netstandard2.0\MDFe.Utils.Standard.dll" />
+    <file src="lib\netstandard2.0\MDFe.Wsdl.Standard.dll" target="lib\netstandard2.0\MDFe.Wsdl.Standard.dll" />
+  </files>
+</package>
