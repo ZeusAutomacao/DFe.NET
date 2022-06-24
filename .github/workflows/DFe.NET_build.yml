@@ -71,6 +71,7 @@ jobs:
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
+    
     - name: Pack
       run: | 
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
@@ -102,10 +103,10 @@ jobs:
         with:
           dotnet-version: 6.0.x
           
-      #- name: Push to NuGet Feed
-      #  run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-      #  env:
-      #    NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+      - name: Push to NuGet Feed
+        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
       - name: Discord notification
         continue-on-error: true
@@ -114,4 +115,4 @@ jobs:
           DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget!'
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusNfeNfce'
