@@ -363,6 +363,8 @@ namespace NFe.Utils.Enderecos
 
             foreach (var emissao in emissaoComum)
             {
+
+                #region NFe
                 if (emissao != TipoEmissao.teEPEC)
                     addServico(eventoCceCanc, versao1, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoHomologacao_VersaoUm);
                 addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRecepcaoHomologacao_VersaoDois);
@@ -381,14 +383,31 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeStatusServicoHomologacao_VersaoQuatro);
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoHomologacao_VersaoQuatro);
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoHomologacao_VersaoQuatro);
+                #endregion
+
+                #region NFCe
+                
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4?WSDL");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4?WSDL");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4?WSDL");
+                addServico(new[] { ServicoNFe.NfeConsultaCadastro }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/CadConsultaCadastro4?WSDL");
+
+
+                #endregion
             }
 
             #endregion
 
             #region Produção
 
+            
             foreach (var emissao in emissaoComum)
             {
+                #region NFe
+
                 if (emissao != TipoEmissao.teEPEC)
                     addServico(eventoCceCanc, versao1, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoProducao_VersaoUm);
                 addServico(new[] { ServicoNFe.NfeRecepcao }, versao2, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NfeRecepcaoProducao_VersaoDois);
@@ -408,6 +427,20 @@ namespace NFe.Utils.Enderecos
                 addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.CartaCorrecaoCancelamentoProducao_VersaoQuatro);
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeAutorizacaoProducao_VersaoQuatro);
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, ConfiguracaoUrls.FactoryUrl.Ceara.NFeRetAutorizacaoProducao_VersaoQuatro);
+
+                #endregion
+
+                #region NFCe
+
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4?WSDL");
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4?WSDL");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4?WSDL");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4?WSD");
+
+                #endregion
             }
 
             #endregion
@@ -1707,7 +1740,8 @@ namespace NFe.Utils.Enderecos
         public static List<EnderecoServico> ObterEnderecoServicosMaisRecentes(VersaoServico versaoLimite, Estado uf, TipoAmbiente tipoAmbiente,
             ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
         {
-
+            var x = ListaEnderecos.Where(w => w.Estado == Estado.CE).ToList();
+            var xx = ListaEnderecos.Where(w => w.Estado == Estado.CE && w.ModeloDocumento == ModeloDocumento.NFCe).ToList();
             var enderecoServicos = from end in ListaEnderecos
                                    where end.Estado == uf && end.TipoAmbiente == tipoAmbiente && end.ModeloDocumento == modeloDocumento &&
                                          end.TipoEmissao == tipoEmissao && end.VersaoServico <= versaoLimite
