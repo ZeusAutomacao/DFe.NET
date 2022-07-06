@@ -1740,8 +1740,6 @@ namespace NFe.Utils.Enderecos
         public static List<EnderecoServico> ObterEnderecoServicosMaisRecentes(VersaoServico versaoLimite, Estado uf, TipoAmbiente tipoAmbiente,
             ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
         {
-            var x = ListaEnderecos.Where(w => w.Estado == Estado.CE).ToList();
-            var xx = ListaEnderecos.Where(w => w.Estado == Estado.CE && w.ModeloDocumento == ModeloDocumento.NFCe).ToList();
             var enderecoServicos = from end in ListaEnderecos
                                    where end.Estado == uf && end.TipoAmbiente == tipoAmbiente && end.ModeloDocumento == modeloDocumento &&
                                          end.TipoEmissao == tipoEmissao && end.VersaoServico <= versaoLimite
