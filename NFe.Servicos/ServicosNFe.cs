@@ -1611,7 +1611,7 @@ namespace NFe.Servicos
                 {
                     var dadosEnvio = new XmlDocument();
                     dadosEnvio.LoadXml(xmlEnvio);
-                    retorno = ws.Execute(dadosEnvio);
+                    retorno = ws.Execute(dadosEnvio.FirstChild);
                 }
             }
             catch (WebException ex)

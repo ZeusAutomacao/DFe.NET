@@ -43,10 +43,22 @@ namespace NFe.Classes.Informacoes.Observacoes
     /// </summary>
     public enum IndicadorProcesso
     {
-        [XmlEnum("0")] ipSEFAZ,
-        [XmlEnum("1")] ipJusticaFederal,
-        [XmlEnum("2")] ipJusticaEstadual,
-        [XmlEnum("3")] ipSecexRFB,
-        [XmlEnum("9")] ipOutros
+        [XmlEnum("0")] ipSEFAZ = 0,
+        [XmlEnum("1")] ipJusticaFederal = 1,
+        [XmlEnum("2")] ipJusticaEstadual = 2,
+        [XmlEnum("3")] ipSecexRFB = 3,
+        [XmlEnum("9")] ipOutros= 9
+    }
+
+    /// <summary>
+    ///     <para>08=Termo de Acordo;</para>
+    ///     <para>10=Regime Especial;</para>
+    ///     <para>12=Autorização específica;</para>
+    /// </summary>
+    public enum TipoAtoConcessorio
+    {
+        [XmlEnum("8")] termoAcordo = 8,
+        [XmlEnum("10")] regimeEspecial = 10,
+        [XmlEnum("12")] autorizacaoEspecifica = 12
     }
 }
