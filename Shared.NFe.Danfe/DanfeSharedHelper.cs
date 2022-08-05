@@ -26,17 +26,11 @@ namespace Shared.DFe.Danfe
             relatorio.GetDataSource("NFCe").Enabled = true;
 
             if (!string.IsNullOrEmpty(arquivoRelatorio))
-            {
                 relatorio.Load(arquivoRelatorio);
-            }
             else if(frx != null && frx.Length > 0)
-            {
                 relatorio.Load(new MemoryStream(frx));
-            }
             else
-            {
                 throw new Exception("Erro em DanfeSharedHelper.GenerateDanfeNfceReport no Zeus.DFe. Relatório não encontrado, passe os parametros 'frx' com bytes ou 'arquivoRelatorio' com o caminho do arquivo");
-            }
 
             relatorio.SetParameterValue("NfceDetalheVendaNormal", configuracaoDanfeNfce.DetalheVendaNormal);
             relatorio.SetParameterValue("NfceDetalheVendaContigencia", configuracaoDanfeNfce.DetalheVendaContigencia);
@@ -46,9 +40,7 @@ namespace Shared.DFe.Danfe
             string foneEmitente = null;
 
             if (proc.NFe.infNFe.emit.enderEmit.fone != null)
-            {
                 foneEmitente = proc.NFe.infNFe.emit.enderEmit.fone.ToString();
-            }
 
             if (foneEmitente != null && foneEmitente.Length == 10)
                 foneEmitente = string.Format("{0:(00)0000-0000}", Convert.ToInt64(foneEmitente));
@@ -92,24 +84,17 @@ namespace Shared.DFe.Danfe
             //Define as variáveis que serão usadas no relatório (dúvidas a respeito do fast reports consulte a documentação em https://www.fast-report.com/pt/product/fast-report-net/documentation/)
 
             Report relatorio = new Report();
-            relatorio.Load(new MemoryStream(frx));
             relatorio.RegisterData(new[] { proc }, "NFe", 20);
             relatorio.RegisterData(new[] { procEventoNFe }, "procEventoNFe", 20);
             relatorio.GetDataSource("NFe").Enabled = true;
             relatorio.GetDataSource("procEventoNFe").Enabled = true;
             
             if (!string.IsNullOrEmpty(arquivoRelatorio))
-            {
                 relatorio.Load(arquivoRelatorio);
-            }
             else if (frx != null && frx.Length > 0)
-            {
                 relatorio.Load(new MemoryStream(frx));
-            }
             else
-            {
                 throw new Exception("Erro em DanfeSharedHelper.GenerateDanfeFrNfeReport no Zeus.DFe. Relatório não encontrado, passe os parametros 'frx' com bytes ou 'arquivoRelatorio' com o caminho do arquivo");
-            }
 
             relatorio.SetParameterValue("desenvolvedor", desenvolvedor);
 
@@ -125,17 +110,11 @@ namespace Shared.DFe.Danfe
             relatorio.GetDataSource("NFe").Enabled = true;
 
             if (!string.IsNullOrEmpty(arquivoRelatorio))
-            {
                 relatorio.Load(arquivoRelatorio);
-            }
             else if (frx != null && frx.Length > 0)
-            {
                 relatorio.Load(new MemoryStream(frx));
-            }
             else
-            {
                 throw new Exception("Erro em DanfeSharedHelper.GenerateDanfeFrNfeReport no Zeus.DFe. Relatório não encontrado, passe os parametros 'frx' com bytes ou 'arquivoRelatorio' com o caminho do arquivo");
-            }
 
             string mensagem = string.Empty;
             string resumoCanhoto = string.Empty;
