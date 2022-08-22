@@ -33,7 +33,7 @@
 
 using DFe.Classes;
 
-namespace DFe.DocumentosEletronicos.CTe.CTeOS.Informacoes.Impostos
+namespace CTe.Classes.CTeOutrosServicos.Informacoes.Impostos
 {
     public class infTribFed
     {
