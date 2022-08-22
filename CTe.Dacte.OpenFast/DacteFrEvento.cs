@@ -43,7 +43,7 @@ namespace CTe.Dacte.OpenFast
 {
     public class DacteFrEvento
     {
-        protected Report Relatorio;
+        public Report Relatorio;
 
         public DacteFrEvento()
         {

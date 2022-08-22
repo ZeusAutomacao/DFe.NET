@@ -73,7 +73,7 @@ namespace CTe.CTeOSDocumento.Common
             string tes = soapUtils.SendRequest(xmlEnvelop, configuration.CertificadoDigital, configuration.Url, configuration.TimeOut, actionUrn: actionUrn);
             xmlResult.LoadXml(tes);
 
-            return xmlResult.GetElementsByTagName(responseElementName)[0];
+            return xmlResult.SelectSingleNode($"//*[local-name()='{responseElementName}']");
         }
     }
 }
