@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
@@ -17,54 +20,59 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.consultaCadastroAsync(nfeDadosMsg).GetAwaiter().GetResult();
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await consultaCadastroAsync(nfeDadosMsg);
             return result.nfeResultMsg;
         }
     }
 
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class consultaCadastro4Request
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public consultaCadastro4Request()
         {
         }
 
-        public consultaCadastro4Request(System.Xml.XmlNode nfeDadosMsg)
+        public consultaCadastro4Request(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class consultaCadastro4Response
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", Order = 0)]
-        public System.Xml.XmlNode nfeResultMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", Order = 0)]
+        public XmlNode nfeResultMsg;
 
         public consultaCadastro4Response()
         {
         }
 
-        public consultaCadastro4Response(System.Xml.XmlNode nfeResultMsg)
+        public consultaCadastro4Response(XmlNode nfeResultMsg)
         {
             this.nfeResultMsg = nfeResultMsg;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", ConfigurationName = "CadConsultaCadastro4Soap12", SessionMode =System.ServiceModel.SessionMode.Allowed)]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4", ConfigurationName = "CadConsultaCadastro4Soap12", SessionMode =SessionMode.Allowed)]
     public interface CadConsultaCadastro4Soap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<consultaCadastro4Response> consultaCadastroAsync(consultaCadastro4Request request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro4/consultaCadastro", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<consultaCadastro4Response> consultaCadastroAsync(consultaCadastro4Request request);
     }
 
     public partial class CadConsultaCadastro4Soap12Client : SoapBindingClient<CadConsultaCadastro4Soap12>
@@ -75,7 +83,7 @@ namespace NFe.Wsdl.ConsultaCadastro.DEMAIS_UFs
         {
         }
 
-        public System.Threading.Tasks.Task<consultaCadastro4Response> consultaCadastroAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<consultaCadastro4Response> consultaCadastroAsync(XmlNode nfeDadosMsg)
         {
             consultaCadastro4Request inValue = new consultaCadastro4Request();
             inValue.nfeDadosMsg = nfeDadosMsg;

@@ -30,12 +30,13 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.ConsultaProtocolo
 {
@@ -50,61 +51,66 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeConsultaNFAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeConsultaNFAsync(nfeCabecMsg, nfeDadosMsg);
             return result.nfeConsultaNFResult;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeConsultaNFRequest
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeConsultaNFRequest()
         {
         }
 
-        public nfeConsultaNFRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public nfeConsultaNFRequest(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeConsultaNFResponse
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", Order = 0)]
-        public System.Xml.XmlNode nfeConsultaNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", Order = 0)]
+        public XmlNode nfeConsultaNFResult;
 
         public nfeConsultaNFResponse()
         {
         }
 
-        public nfeConsultaNFResponse(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeConsultaNFResult)
+        public nfeConsultaNFResponse(nfeCabecMsg nfeCabecMsg, XmlNode nfeConsultaNFResult)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeConsultaNFResult = nfeConsultaNFResult;
         }
     }
     
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", ConfigurationName = "NfeConsultaSoap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta", ConfigurationName = "NfeConsultaSoap12")]
     public interface NfeConsultaSoap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta/nfeConsultaNF", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeConsultaNFResponse> nfeConsultaNFAsync(nfeConsultaNFRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeConsulta/nfeConsultaNF", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeConsultaNFResponse> nfeConsultaNFAsync(nfeConsultaNFRequest request);
     }
 
     public partial class NfeConsultaSoap12Client : SoapBindingClient<NfeConsultaSoap12>
@@ -113,7 +119,7 @@ namespace NFe.Wsdl.ConsultaProtocolo
         {
         }
 
-        public System.Threading.Tasks.Task<nfeConsultaNFResponse> nfeConsultaNFAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeConsultaNFResponse> nfeConsultaNFAsync(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             nfeConsultaNFRequest inValue = new nfeConsultaNFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;

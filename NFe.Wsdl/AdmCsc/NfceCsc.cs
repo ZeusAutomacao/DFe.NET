@@ -31,15 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
+using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 //using System.Web.Services;
 //using System.Web.Services.Description;
 //using System.Web.Services.Protocols;
-using System.Xml;
-using System.Xml.Serialization;
-using System.ServiceModel.Dispatcher;
 
 namespace NFe.Wsdl.AdmCsc
 {
@@ -71,6 +69,11 @@ namespace NFe.Wsdl.AdmCsc
         {
             //var results = Invoke("admCscNFCe", new object[] { nfeDadosMsg });
             //return ((XmlNode)(results[0]));
+            return null;
+        }
+
+        public Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
             return null;
         }
     }

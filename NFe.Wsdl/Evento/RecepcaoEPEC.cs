@@ -31,12 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Evento
 {
@@ -51,54 +51,59 @@ namespace NFe.Wsdl.Evento
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeRecepcaoEventoAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeRecepcaoEventoAsync(nfeCabecMsg, nfeDadosMsg);
             return result.nfeDownloadNFResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", ConfigurationName = "RecepcaoEPECSoap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", ConfigurationName = "RecepcaoEPECSoap")]
     public interface RecepcaoEPECSoap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(recepcaoEPECRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento/nfeRecepcaoEvento", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(recepcaoEPECRequest request);
     }
     
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class recepcaoEPECRequest
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public recepcaoEPECRequest()
         {
         }
 
-        public recepcaoEPECRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public recepcaoEPECRequest(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class recepcaoEPECResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
-        public System.Xml.XmlNode nfeDownloadNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/RecepcaoEvento", Order = 0)]
+        public XmlNode nfeDownloadNFResult;
 
         public recepcaoEPECResponse()
         {
         }
 
-        public recepcaoEPECResponse(System.Xml.XmlNode nfeDownloadNFResult)
+        public recepcaoEPECResponse(XmlNode nfeDownloadNFResult)
         {
             this.nfeDownloadNFResult = nfeDownloadNFResult;
         }
@@ -110,7 +115,7 @@ namespace NFe.Wsdl.Evento
         {
         }
 
-        public System.Threading.Tasks.Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public Task<recepcaoEPECResponse> nfeRecepcaoEventoAsync(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             recepcaoEPECRequest inValue = new recepcaoEPECRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;

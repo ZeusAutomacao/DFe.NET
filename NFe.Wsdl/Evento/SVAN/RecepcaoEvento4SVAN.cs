@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.Evento.SVAN
@@ -17,54 +20,58 @@ namespace NFe.Wsdl.Evento.SVAN
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeRecepcaoEventoAsync(nfeDadosMsg).Result;
-            return result.nfeRecepcaoEventoResult;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
         }
 
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeRecepcaoEventoAsync(nfeDadosMsg);
+            return result.nfeRecepcaoEventoResult;
+        }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeRecepcaoEventoSVANRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeRecepcaoEventoSVANRequest()
         {
         }
 
-        public nfeRecepcaoEventoSVANRequest(System.Xml.XmlNode nfeDadosMsg)
+        public nfeRecepcaoEventoSVANRequest(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeRecepcaoEventoSVANResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
-        public System.Xml.XmlNode nfeRecepcaoEventoResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
+        public XmlNode nfeRecepcaoEventoResult;
 
         public nfeRecepcaoEventoSVANResponse()
         {
         }
 
-        public nfeRecepcaoEventoSVANResponse(System.Xml.XmlNode nfeRecepcaoEventoResult)
+        public nfeRecepcaoEventoSVANResponse(XmlNode nfeRecepcaoEventoResult)
         {
             this.nfeRecepcaoEventoResult = nfeRecepcaoEventoResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", ConfigurationName = "NFeRecepcaoEvento4Soap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", ConfigurationName = "NFeRecepcaoEvento4Soap")]
     public interface NFeRecepcaoEvento4Soap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeRecepcaoEventoSVANResponse> nfeRecepcaoEventoAsync(nfeRecepcaoEventoSVANRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeRecepcaoEventoSVANResponse> nfeRecepcaoEventoAsync(nfeRecepcaoEventoSVANRequest request);
     }
 
     public partial class NFeRecepcaoEvento4SoapClient : SoapBindingClient<NFeRecepcaoEvento4Soap>
@@ -74,7 +81,7 @@ namespace NFe.Wsdl.Evento.SVAN
         {
         }
 
-        public System.Threading.Tasks.Task<nfeRecepcaoEventoSVANResponse> nfeRecepcaoEventoAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeRecepcaoEventoSVANResponse> nfeRecepcaoEventoAsync(XmlNode nfeDadosMsg)
         {
             nfeRecepcaoEventoSVANRequest inValue = new nfeRecepcaoEventoSVANRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;

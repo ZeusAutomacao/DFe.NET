@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.ConsultaProtocolo.SVAN
@@ -17,54 +20,58 @@ namespace NFe.Wsdl.ConsultaProtocolo.SVAN
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeConsultaNFAsync(nfeDadosMsg).Result;
-            return result.nfeConsultaNFResult;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
         }
 
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeConsultaNFAsync(nfeDadosMsg);
+            return result.nfeConsultaNFResult;
+        }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeConsultaSVANNFRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeConsultaSVANNFRequest()
         {
         }
 
-        public nfeConsultaSVANNFRequest(System.Xml.XmlNode nfeDadosMsg)
+        public nfeConsultaSVANNFRequest(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeConsultaSVANNFResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
-        public System.Xml.XmlNode nfeConsultaNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
+        public XmlNode nfeConsultaNFResult;
 
         public nfeConsultaSVANNFResponse()
         {
         }
 
-        public nfeConsultaSVANNFResponse(System.Xml.XmlNode nfeConsultaNFResult)
+        public nfeConsultaSVANNFResponse(XmlNode nfeConsultaNFResult)
         {
             this.nfeConsultaNFResult = nfeConsultaNFResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", ConfigurationName = "NFeConsultaProtocolo4Soap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", ConfigurationName = "NFeConsultaProtocolo4Soap")]
     public interface NFeConsultaProtocolo4Soap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(nfeConsultaSVANNFRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(nfeConsultaSVANNFRequest request);
     }
 
     public partial class NFeConsultaProtocolo4SoapClient : SoapBindingClient<NFeConsultaProtocolo4Soap>
@@ -74,7 +81,7 @@ namespace NFe.Wsdl.ConsultaProtocolo.SVAN
         {
         }
 
-        public System.Threading.Tasks.Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(XmlNode nfeDadosMsg)
         {
             nfeConsultaSVANNFRequest inValue = new nfeConsultaSVANNFRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;

@@ -1,4 +1,6 @@
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Xml;
@@ -18,59 +20,69 @@ namespace NFe.Wsdl.Autorizacao
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeAutorizacaoLoteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeAutorizacaoLoteAsync(nfeDadosMsg);
             return result.nfeResultMsg;
         }
 
         public XmlNode ExecuteZip(string nfeDadosMsgZip)
         {
-            var result = base.nfeAutorizacaoLoteZipAsync(nfeDadosMsgZip).GetAwaiter().GetResult();
+            return this.ExecuteZipAsync(nfeDadosMsgZip).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteZipAsync(string nfeDadosMsgZip)
+        {
+            var result = await base.nfeAutorizacaoLoteZipAsync(nfeDadosMsgZip);
             return result.nfeResultMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeAutorizacao4LoteRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeAutorizacao4LoteRequest()
         {
         }
 
-        public nfeAutorizacao4LoteRequest(System.Xml.XmlNode nfeDadosMsg)
+        public nfeAutorizacao4LoteRequest(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeAutorizacao4LoteResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
-        public System.Xml.XmlNode nfeResultMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        public XmlNode nfeResultMsg;
 
         public nfeAutorizacao4LoteResponse()
         {
         }
 
-        public nfeAutorizacao4LoteResponse(System.Xml.XmlNode nfeResultMsg)
+        public nfeAutorizacao4LoteResponse(XmlNode nfeResultMsg)
         {
             this.nfeResultMsg = nfeResultMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeAutorizacao4LoteZipRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", Order = 0)]
         public string nfeDadosMsgZip;
 
         public nfeAutorizacao4LoteZipRequest()
@@ -83,38 +95,38 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeAutorizacao4LoteZipResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-        public System.Xml.XmlNode nfeResultMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
+        public XmlNode nfeResultMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
-        public System.Xml.XmlNode nfeResultMsgZip;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4")]
+        public XmlNode nfeResultMsgZip;
 
         public nfeAutorizacao4LoteZipResponse()
         {
         }
 
-        public nfeAutorizacao4LoteZipResponse(System.Xml.XmlNode nfeResultMsg)
+        public nfeAutorizacao4LoteZipResponse(XmlNode nfeResultMsg)
         {
             this.nfeResultMsg = nfeResultMsg;
             this.nfeResultMsgZip = nfeResultMsg;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", ConfigurationName = "NFeAutorizacao4Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4", ConfigurationName = "NFeAutorizacao4Soap12")]
     public interface NFeAutorizacao4Soap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeAutorizacao4LoteResponse> nfeAutorizacaoLoteAsync(nfeAutorizacao4LoteRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLote", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeAutorizacao4LoteResponse> nfeAutorizacaoLoteAsync(nfeAutorizacao4LoteRequest request);
 
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZip", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeAutorizacao4LoteZipResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacao4LoteZipRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeAutorizacao4/nfeAutorizacaoLoteZip", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeAutorizacao4LoteZipResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacao4LoteZipRequest request);
     }
 
     public partial class NFeAutorizacao4Soap12Client : SoapBindingClient<NFeAutorizacao4Soap12>
@@ -125,23 +137,24 @@ namespace NFe.Wsdl.Autorizacao
         {
         }
 
-        public System.Threading.Tasks.Task<nfeAutorizacao4LoteResponse> nfeAutorizacaoLoteAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeAutorizacao4LoteResponse> nfeAutorizacaoLoteAsync(XmlNode nfeDadosMsg)
         {
             nfeAutorizacao4LoteRequest inValue = new nfeAutorizacao4LoteRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;
             return this.Channel.nfeAutorizacaoLoteAsync(inValue);
         }
 
-        public System.Threading.Tasks.Task<nfeAutorizacao4LoteZipResponse> nfeAutorizacaoLoteZipAsync(string nfeDadosMsgZip)
+        public async Task<nfeAutorizacao4LoteZipResponse> nfeAutorizacaoLoteZipAsync(string nfeDadosMsgZip)
         {
             nfeAutorizacao4LoteZipRequest inValue = new nfeAutorizacao4LoteZipRequest();
             inValue.nfeDadosMsgZip = nfeDadosMsgZip;
-            var result = this.Channel.nfeAutorizacaoLoteZipAsync(inValue).GetAwaiter().GetResult();
+            var result = await this.Channel.nfeAutorizacaoLoteZipAsync(inValue);
+            inValue = null;
 
             if (result.nfeResultMsg == null)
                 result.nfeResultMsg = result.nfeResultMsgZip;
 
-            return Task.FromResult(result);
+            return result;
         }
     }
 }

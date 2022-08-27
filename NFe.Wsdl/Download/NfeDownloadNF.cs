@@ -31,12 +31,12 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Download
 {
@@ -52,53 +52,58 @@ namespace NFe.Wsdl.Download
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeDownloadNFAsync(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeDownloadNFAsync(nfeCabecMsg, nfeDadosMsg);
             return result.nfeDownloadNFResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", ConfigurationName = "NfeDownloadNFSoap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", ConfigurationName = "NfeDownloadNFSoap")]
     public interface NfeDownloadNFSoap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF/nfeDownloadNF", ReplyAction = "*")]
-        System.Threading.Tasks.Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeDownloadNFRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF/nfeDownloadNF", ReplyAction = "*")]
+        Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeDownloadNFRequest request);
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeDownloadNFRequest
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeDownloadNFRequest()
         {
         }
 
-        public nfeDownloadNFRequest(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public nfeDownloadNFRequest(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeDownloadNFResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
-        public System.Xml.XmlNode nfeDownloadNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
+        public XmlNode nfeDownloadNFResult;
 
         public nfeDownloadNFResponse()
         {
         }
 
-        public nfeDownloadNFResponse(System.Xml.XmlNode nfeDownloadNFResult)
+        public nfeDownloadNFResponse(XmlNode nfeDownloadNFResult)
         {
             this.nfeDownloadNFResult = nfeDownloadNFResult;
         }
@@ -110,7 +115,7 @@ namespace NFe.Wsdl.Download
         {
         }
 
-        public System.Threading.Tasks.Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             nfeDownloadNFRequest inValue = new nfeDownloadNFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;

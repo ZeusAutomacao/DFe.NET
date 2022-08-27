@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.Status.SVAN
@@ -16,55 +19,58 @@ namespace NFe.Wsdl.Status.SVAN
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeStatusServicoNFAsync(nfeDadosMsg).Result;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeStatusServicoNFAsync(nfeDadosMsg);
             return result.nfeStatusServicoNFResult;
         }
-        
     }
 
-
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeStatusServicoSVANNFRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeStatusServicoSVANNFRequest()
         {
         }
 
-        public nfeStatusServicoSVANNFRequest(System.Xml.XmlNode nfeDadosMsg)
+        public nfeStatusServicoSVANNFRequest(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeStatusServicoSVANNFResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
-        public System.Xml.XmlNode nfeStatusServicoNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", Order = 0)]
+        public XmlNode nfeStatusServicoNFResult;
 
         public nfeStatusServicoSVANNFResponse()
         {
         }
 
-        public nfeStatusServicoSVANNFResponse(System.Xml.XmlNode nfeStatusServicoNFResult)
+        public nfeStatusServicoSVANNFResponse(XmlNode nfeStatusServicoNFResult)
         {
             this.nfeStatusServicoNFResult = nfeStatusServicoNFResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", ConfigurationName = "NFeStatusServico4Soap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4", ConfigurationName = "NFeStatusServico4Soap")]
     public interface NFeStatusServico4Soap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeStatusServicoSVANNFResponse> nfeStatusServicoNFAsync(nfeStatusServicoSVANNFRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeStatusServico4/nfeStatusServicoNF", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeStatusServicoSVANNFResponse> nfeStatusServicoNFAsync(nfeStatusServicoSVANNFRequest request);
     }
 
     public partial class NFeStatusServico4SoapClient : SoapBindingClient<NFeStatusServico4Soap>
@@ -75,7 +81,7 @@ namespace NFe.Wsdl.Status.SVAN
         {
         }
 
-        public System.Threading.Tasks.Task<nfeStatusServicoSVANNFResponse> nfeStatusServicoNFAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeStatusServicoSVANNFResponse> nfeStatusServicoNFAsync(XmlNode nfeDadosMsg)
         {
             nfeStatusServicoSVANNFRequest inValue = new nfeStatusServicoSVANNFRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;

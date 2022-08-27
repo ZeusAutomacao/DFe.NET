@@ -31,12 +31,13 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.ComponentModel;
+using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.DistribuicaoDFe
 {
@@ -49,23 +50,26 @@ namespace NFe.Wsdl.DistribuicaoDFe
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
-       
         public XmlNode Execute(XmlNode nfeDadosMsg)
+        {
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
         {
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(nfeDadosMsg.InnerXml);
-            var result = base.nfeDistDFeInteresseAsync(doc.DocumentElement).Result;
+            var result = await nfeDistDFeInteresseAsync(doc.DocumentElement);
             return result.Body.nfeDistDFeInteresseResult;
         }
-
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeDistDFeInteresseRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Name = "nfeDistDFeInteresse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
+        [MessageBodyMember(Name = "nfeDistDFeInteresse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
         public nfeDistDFeInteresseRequestBody Body;
 
         public nfeDistDFeInteresseRequest()
@@ -78,30 +82,30 @@ namespace NFe.Wsdl.DistribuicaoDFe
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [DataContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
     public partial class nfeDistDFeInteresseRequestBody
     {
 
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 0)]
-        public System.Xml.XmlElement nfeDadosMsg;
+        [DataMember(EmitDefaultValue = false, Order = 0)]
+        public XmlElement nfeDadosMsg;
 
         public nfeDistDFeInteresseRequestBody()
         {
         }
 
-        public nfeDistDFeInteresseRequestBody(System.Xml.XmlElement nfeDadosMsg)
+        public nfeDistDFeInteresseRequestBody(XmlElement nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeDistDFeInteresseResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Name = "nfeDistDFeInteresseResponse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
+        [MessageBodyMember(Name = "nfeDistDFeInteresseResponse", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", Order = 0)]
         public nfeDistDFeInteresseResponseBody Body;
 
         public nfeDistDFeInteresseResponse()
@@ -114,30 +118,30 @@ namespace NFe.Wsdl.DistribuicaoDFe
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.Runtime.Serialization.DataContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [DataContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe")]
     public partial class nfeDistDFeInteresseResponseBody
     {
 
-        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue = false, Order = 0)]
-        public System.Xml.XmlElement nfeDistDFeInteresseResult;
+        [DataMember(EmitDefaultValue = false, Order = 0)]
+        public XmlElement nfeDistDFeInteresseResult;
 
         public nfeDistDFeInteresseResponseBody()
         {
         }
 
-        public nfeDistDFeInteresseResponseBody(System.Xml.XmlElement nfeDistDFeInteresseResult)
+        public nfeDistDFeInteresseResponseBody(XmlElement nfeDistDFeInteresseResult)
         {
             this.nfeDistDFeInteresseResult = nfeDistDFeInteresseResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ConfigurationName = "NFeDistribuicaoDFeSoap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe", ConfigurationName = "NFeDistribuicaoDFeSoap")]
     public interface NFeDistribuicaoDFeSoap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(nfeDistDFeInteresseRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeDistribuicaoDFe/nfeDistDFeInteresse", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(nfeDistDFeInteresseRequest request);
     }
     
 
@@ -147,7 +151,7 @@ namespace NFe.Wsdl.DistribuicaoDFe
         {
         }
 
-        public System.Threading.Tasks.Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(System.Xml.XmlElement nfeDadosMsg)
+        public Task<nfeDistDFeInteresseResponse> nfeDistDFeInteresseAsync(XmlElement nfeDadosMsg)
         {
             nfeDistDFeInteresseRequest inValue = new nfeDistDFeInteresseRequest();
             inValue.Body = new nfeDistDFeInteresseRequestBody();

@@ -30,12 +30,13 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace NFe.Wsdl.Recepcao
 {
@@ -50,57 +51,62 @@ namespace NFe.Wsdl.Recepcao
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeRecepcaoLote2Async(this.nfeCabecMsg, nfeDadosMsg).Result;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
+        }
+
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeRecepcaoLote2Async(nfeCabecMsg, nfeDadosMsg);
             return result.nfeRecepcao2Result;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", ConfigurationName = "NfeRecepcao2Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", ConfigurationName = "NfeRecepcao2Soap12")]
     public interface NfeRecepcao2Soap12 : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2/nfeRecepcaoLote2", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeRecepcao2Response> nfeRecepcaoLote2Async(nfeRecepcao2Request request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2/nfeRecepcaoLote2", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeRecepcao2Response> nfeRecepcaoLote2Async(nfeRecepcao2Request request);
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeRecepcao2Request
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeRecepcao2Request()
         {
         }
 
-        public nfeRecepcao2Request(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public nfeRecepcao2Request(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeRecepcao2Response
     {
 
-        [System.ServiceModel.MessageHeaderAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2")]
+        [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", Order = 0)]
-        public System.Xml.XmlNode nfeRecepcao2Result;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeRecepcao2", Order = 0)]
+        public XmlNode nfeRecepcao2Result;
 
         public nfeRecepcao2Response()
         {
         }
 
-        public nfeRecepcao2Response(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeRecepcao2Result)
+        public nfeRecepcao2Response(nfeCabecMsg nfeCabecMsg, XmlNode nfeRecepcao2Result)
         {
             this.nfeCabecMsg = nfeCabecMsg;
             this.nfeRecepcao2Result = nfeRecepcao2Result;
@@ -113,7 +119,7 @@ namespace NFe.Wsdl.Recepcao
         {
         }
 
-        public System.Threading.Tasks.Task<nfeRecepcao2Response> nfeRecepcaoLote2Async(nfeCabecMsg nfeCabecMsg, System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeRecepcao2Response> nfeRecepcaoLote2Async(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
             nfeRecepcao2Request inValue = new nfeRecepcao2Request();
             inValue.nfeCabecMsg = nfeCabecMsg;

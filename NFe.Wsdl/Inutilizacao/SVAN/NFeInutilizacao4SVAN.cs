@@ -1,5 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.ComponentModel;
+using System.Security.Cryptography.X509Certificates;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace NFe.Wsdl.Inutilizacao.SVAN
@@ -17,53 +20,57 @@ namespace NFe.Wsdl.Inutilizacao.SVAN
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
         {
-            var result = base.nfeInutilizacaoNFAsync(nfeDadosMsg).Result;
-            return result.nfeInutilizacaoNFResult;
+            return ExecuteAsync(nfeDadosMsg).GetAwaiter().GetResult();
         }
 
+        public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
+        {
+            var result = await nfeInutilizacaoNFAsync(nfeDadosMsg);
+            return result.nfeInutilizacaoNFResult;
+        }
     }
 
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeInutilizacaoSVANNFRequest
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
-        public System.Xml.XmlNode nfeDadosMsg;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
+        public XmlNode nfeDadosMsg;
 
         public nfeInutilizacaoSVANNFRequest()
         {
         }
 
-        public nfeInutilizacaoSVANNFRequest(System.Xml.XmlNode nfeDadosMsg)
+        public nfeInutilizacaoSVANNFRequest(XmlNode nfeDadosMsg)
         {
             this.nfeDadosMsg = nfeDadosMsg;
         }
     }
 
-    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped = false)]
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    [MessageContract(IsWrapped = false)]
     public partial class nfeInutilizacaoSVANNFResponse
     {
 
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
-        public System.Xml.XmlNode nfeInutilizacaoNFResult;
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", Order = 0)]
+        public XmlNode nfeInutilizacaoNFResult;
 
         public nfeInutilizacaoSVANNFResponse()
         {
         }
 
-        public nfeInutilizacaoSVANNFResponse(System.Xml.XmlNode nfeInutilizacaoNFResult)
+        public nfeInutilizacaoSVANNFResponse(XmlNode nfeInutilizacaoNFResult)
         {
             this.nfeInutilizacaoNFResult = nfeInutilizacaoNFResult;
         }
     }
 
-    [System.ServiceModel.ServiceContractAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", ConfigurationName = "NFeInutilizacao4Soap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4", ConfigurationName = "NFeInutilizacao4Soap")]
     public interface NFeInutilizacao4Soap : IChannel
     {
-        [System.ServiceModel.OperationContractAttribute(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", ReplyAction = "*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute()]
-        System.Threading.Tasks.Task<nfeInutilizacaoSVANNFResponse> nfeInutilizacaoNFAsync(nfeInutilizacaoSVANNFRequest request);
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeInutilizacao4/nfeInutilizacaoNF", ReplyAction = "*")]
+        [XmlSerializerFormat()]
+        Task<nfeInutilizacaoSVANNFResponse> nfeInutilizacaoNFAsync(nfeInutilizacaoSVANNFRequest request);
     }
 
     public partial class NFeInutilizacao4SoapClient : SoapBindingClient<NFeInutilizacao4Soap>
@@ -73,7 +80,7 @@ namespace NFe.Wsdl.Inutilizacao.SVAN
         {
         }
 
-        public System.Threading.Tasks.Task<nfeInutilizacaoSVANNFResponse> nfeInutilizacaoNFAsync(System.Xml.XmlNode nfeDadosMsg)
+        public Task<nfeInutilizacaoSVANNFResponse> nfeInutilizacaoNFAsync(XmlNode nfeDadosMsg)
         {
             nfeInutilizacaoSVANNFRequest inValue = new nfeInutilizacaoSVANNFRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;
