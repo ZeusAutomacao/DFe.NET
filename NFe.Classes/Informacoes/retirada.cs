@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 
@@ -128,10 +129,7 @@ namespace NFe.Classes.Informacoes
         [XmlElement(ElementName = "CEP")]
         public string ProxyCEP
         {
-            get
-            {
-                return CEP?.ToString("D8");
-            }
+            get { return CEP != null ? CEP.Value.ToString("D8") : null; }
             set { CEP = long.Parse(value); }
         }
 
