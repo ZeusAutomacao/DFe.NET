@@ -30,188 +30,138 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
+using System.Collections.Concurrent;
 using System.IO;
-using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 using NFe.Classes.Servicos.Tipos;
-using NFe.Utils.Excecoes;
 
 namespace NFe.Utils.Validacao
 {
     public static class Validador
     {
-        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico, bool loteNfe = true)
+        private static readonly ConcurrentDictionary<string, XmlSchemaSet> _cache =
+            new ConcurrentDictionary<string, XmlSchemaSet>();
+
+        internal static string ObterArquivoSchema(ServicoNFe servicoNFe, VersaoServico versaoServico,
+            bool loteNfe = true)
         {
             switch (servicoNFe)
             {
-                case ServicoNFe.NfeRecepcao:
-                    return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
-                case ServicoNFe.RecepcaoEventoCancelmento:
-                    return "envEventoCancNFe_v1.00.xsd";
-                case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                    return "envCCe_v1.00.xsd";
-                case ServicoNFe.RecepcaoEventoEpec:
-                    return "envEPEC_v1.00.xsd";
-                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
-                    return "envConfRecebto_v1.00.xsd";
+                case ServicoNFe.NfeRecepcao: return loteNfe ? "enviNFe_v2.00.xsd" : "nfe_v2.00.xsd";
+                case ServicoNFe.RecepcaoEventoCancelmento: return "envEventoCancNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCartaCorrecao: return "envCCe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoEpec: return "envEPEC_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario: return "envConfRecebto_v1.00.xsd";
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
-                            return "inutNFe_v2.00.xsd";
-                        case VersaoServico.ve310:
-                            return "inutNFe_v3.10.xsd";
-                        case VersaoServico.ve400:
-                            return "inutNFe_v4.00.xsd";
+                        case VersaoServico.ve200: return "inutNFe_v2.00.xsd";
+                        case VersaoServico.ve310: return "inutNFe_v3.10.xsd";
+                        case VersaoServico.ve400: return "inutNFe_v4.00.xsd";
+                        case VersaoServico.ve100:
+                        default:
+                            return null;
                     }
-                    break;
                 case ServicoNFe.NfeConsultaProtocolo:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
-                            return "consSitNFe_v2.01.xsd";
-                        case VersaoServico.ve310:
-                            return "consSitNFe_v3.10.xsd";
-                        case VersaoServico.ve400:
-                            return "consSitNFe_v4.00.xsd";
+                        case VersaoServico.ve200: return "consSitNFe_v2.01.xsd";
+                        case VersaoServico.ve310: return "consSitNFe_v3.10.xsd";
+                        case VersaoServico.ve400: return "consSitNFe_v4.00.xsd";
+                        case VersaoServico.ve100:
+                        default:
+                            return null;
                     }
-                    break;
                 case ServicoNFe.NfeStatusServico:
                     switch (versaoServico)
                     {
-                        case VersaoServico.ve200:
-                            return "consStatServ_v2.00.xsd";
-                        case VersaoServico.ve310:
-                            return "consStatServ_v3.10.xsd";
-                        case VersaoServico.ve400:
-                            return "consStatServ_v4.00.xsd";
+                        case VersaoServico.ve200: return "consStatServ_v2.00.xsd";
+                        case VersaoServico.ve310: return "consStatServ_v3.10.xsd";
+                        case VersaoServico.ve400: return "consStatServ_v4.00.xsd";
+                        case VersaoServico.ve100:
+                        default:
+                            return null;
                     }
-                    break;
                 case ServicoNFe.NFeAutorizacao:
-
-                    if (versaoServico != VersaoServico.ve400)
-                    {
-                        return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
-                    }
-
+                    if (versaoServico != VersaoServico.ve400) return loteNfe ? "enviNFe_v3.10.xsd" : "nfe_v3.10.xsd";
                     return loteNfe ? "enviNFe_v4.00.xsd" : "nfe_v4.00.xsd";
-                case ServicoNFe.NfeConsultaCadastro:
-                    return "consCad_v2.00.xsd";
-                case ServicoNFe.NfeDownloadNF:
-                    return "downloadNFe_v1.00.xsd";
-                case ServicoNFe.NFeDistribuicaoDFe:
-                    return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
+                case ServicoNFe.NfeConsultaCadastro: return "consCad_v2.00.xsd";
+                case ServicoNFe.NfeDownloadNF: return "downloadNFe_v1.00.xsd";
+                case ServicoNFe.NFeDistribuicaoDFe: return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
             }
+
             return null;
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, ConfiguracaoServico cfgServico = null)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, XDocument xdoc,
+            bool loteNfe = true, string pathSchema = null)
         {
-            var pathSchema = String.Empty;
-
-            if (cfgServico == null || (cfgServico != null && string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)))
-                pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
-            else
-                pathSchema = cfgServico.DiretorioSchemas;
-
-            Valida(servicoNFe, versaoServico, stringXml, loteNfe, pathSchema);
-        }
-
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, Stream streamXml, bool loteNfe = true, ConfiguracaoServico cfgServico = null)
-        {
-            var pathSchema = String.Empty;
-
-            if (cfgServico == null || (cfgServico != null && string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)))
-                pathSchema = ConfiguracaoServico.Instancia.DiretorioSchemas;
-            else
-                pathSchema = cfgServico.DiretorioSchemas;
-
-            Valida(servicoNFe, versaoServico, streamXml, loteNfe, pathSchema);
-        }
-
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, Stream streamXml, bool loteNfe = true, string pathSchema = null)
-        {
-            if (!Directory.Exists(pathSchema))
-                throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
-
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
+            var arquivoSchema = string.Format("{0}\\{1}", pathSchema,
+                ObterArquivoSchema(servicoNFe, versaoServico, loteNfe));
 
             // Define o tipo de validação
-            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
+            var schemasCached = _cache.GetOrAdd(arquivoSchema, key =>
+            {
+                if (!Directory.Exists(pathSchema))
+                    throw new Exception(string.Format("Diretório de Schemas não encontrado:\n{0}", pathSchema));
 
-            // Carrega o arquivo de esquema
-            var schemas = new XmlSchemaSet();
-            cfg.Schemas = schemas;
-            // Quando carregar o eschema, especificar o namespace que ele valida
-            // e a localização do arquivo 
-            schemas.Add(null, arquivoSchema);
-            // Especifica o tratamento de evento para os erros de validacao
-            cfg.ValidationEventHandler += ValidationEventHandler;
-            // cria um leitor para validação
-            streamXml.Position = 0;
-            var validator = XmlReader.Create(streamXml, cfg);
+                // Carrega o arquivo de esquema
+                var xmlSchemaSet = new XmlSchemaSet();
+                // Quando carregar o eschema, especificar o namespace que ele valida
+                // e a localização do arquivo 
+                xmlSchemaSet.Add(null, arquivoSchema);
+                xmlSchemaSet.Compile();
+
+                return xmlSchemaSet;
+            });
+
             try
             {
-                // Faz a leitura de todos os dados XML
-                while (validator.Read())
-                {
-                }
+                xdoc.Validate(schemasCached, null);
+                //xdoc = null;
             }
-            catch (XmlException err)
+            catch (XmlSchemaValidationException err)
             {
                 // Um erro ocorre se o documento XML inclui caracteres ilegais
                 // ou tags que não estão aninhadas corretamente
-                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message);
-            }
-            finally
-            {
-                validator.Close();
+                throw new Exception(string.Format("Ocorreu o seguinte erro durante a validação XML:\n{0}",
+                    err.Message));
             }
         }
 
-        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml, bool loteNfe = true, string pathSchema = null)
+        private static string GetSchemaPath(ConfiguracaoServico cfgServico)
         {
-            if (!Directory.Exists(pathSchema))
-                throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
-
-            var arquivoSchema = pathSchema + @"\" + ObterArquivoSchema(servicoNFe, versaoServico, loteNfe);
-
-            // Define o tipo de validação
-            var cfg = new XmlReaderSettings { ValidationType = ValidationType.Schema };
-
-            // Carrega o arquivo de esquema
-            var schemas = new XmlSchemaSet();
-            cfg.Schemas = schemas;
-            // Quando carregar o eschema, especificar o namespace que ele valida
-            // e a localização do arquivo 
-            schemas.Add(null, arquivoSchema);
-            // Especifica o tratamento de evento para os erros de validacao
-            cfg.ValidationEventHandler += ValidationEventHandler;
-            // cria um leitor para validação
-            var validator = XmlReader.Create(new StringReader(stringXml), cfg);
-            try
-            {
-                // Faz a leitura de todos os dados XML
-                while (validator.Read())
-                {
-                }
-            }
-            catch (XmlException err)
-            {
-                // Um erro ocorre se o documento XML inclui caracteres ilegais
-                // ou tags que não estão aninhadas corretamente
-                throw new Exception("Ocorreu o seguinte erro durante a validação XML:" + "\n" + err.Message);
-            }
-            finally
-            {
-                validator.Close();
-            }
+            return cfgServico == null || string.IsNullOrWhiteSpace(cfgServico.DiretorioSchemas)
+                ? ConfiguracaoServico.Instancia.DiretorioSchemas
+                : cfgServico.DiretorioSchemas;
         }
 
-        internal static void ValidationEventHandler(object sender, ValidationEventArgs args)
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml,
+            bool loteNfe = true, ConfiguracaoServico cfgServico = null)
         {
-            throw new ValidacaoSchemaException(args.Message);
+            Valida(servicoNFe, versaoServico, stringXml, loteNfe, GetSchemaPath(cfgServico));
+        }
+
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, string stringXml,
+            bool loteNfe = true, string pathSchema = null)
+        {
+            using (var reader = new StringReader(stringXml))
+                Valida(servicoNFe, versaoServico, XDocument.Load(reader), loteNfe, pathSchema);
+        }
+
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, Stream streamXml,
+            bool loteNfe = true, ConfiguracaoServico cfgServico = null)
+        {
+            Valida(servicoNFe, versaoServico, streamXml, loteNfe, GetSchemaPath(cfgServico));
+        }
+
+        public static void Valida(ServicoNFe servicoNFe, VersaoServico versaoServico, Stream streamXml,
+            bool loteNfe = true, string pathSchema = null)
+        {
+            Valida(servicoNFe, versaoServico, XDocument.Load(streamXml), loteNfe, pathSchema);
         }
     }
 }
