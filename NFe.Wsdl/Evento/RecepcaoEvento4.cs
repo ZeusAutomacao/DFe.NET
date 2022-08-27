@@ -7,12 +7,11 @@ using System.Xml;
 
 namespace NFe.Wsdl.Evento
 {
-
     public class RecepcaoEvento4 : NFeRecepcaoEvento4Soap12Client, INfeServico
     {
         public RecepcaoEvento4(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -31,15 +30,12 @@ namespace NFe.Wsdl.Evento
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeRecepcaoEvento4Request
+    public class nfeRecepcaoEvento4Request
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeRecepcaoEvento4Request()
-        {
-        }
+        public nfeRecepcaoEvento4Request() { }
 
         public nfeRecepcaoEvento4Request(XmlNode nfeDadosMsg)
         {
@@ -49,15 +45,12 @@ namespace NFe.Wsdl.Evento
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeRecepcaoEvento4Response
+    public class nfeRecepcaoEvento4Response
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
         public XmlNode nfeResultMsg;
 
-        public nfeRecepcaoEvento4Response()
-        {
-        }
+        public nfeRecepcaoEvento4Response() { }
 
         public nfeRecepcaoEvento4Response(XmlNode nfeResultMsg)
         {
@@ -65,30 +58,25 @@ namespace NFe.Wsdl.Evento
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", ConfigurationName = "NFeRecepcaoEvento4Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4",
+        ConfigurationName = "NFeRecepcaoEvento4Soap12")]
     public interface NFeRecepcaoEvento4Soap12 : IChannel
     {
-
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4/nfeRecepcaoEvento",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeRecepcaoEvento4Response> nfeRecepcaoEventoAsync(nfeRecepcaoEvento4Request request);
     }
 
-    public partial class NFeRecepcaoEvento4Soap12Client : SoapBindingClient<NFeRecepcaoEvento4Soap12>
+    public class NFeRecepcaoEvento4Soap12Client : SoapBindingClient<NFeRecepcaoEvento4Soap12>
     {
-
-        public NFeRecepcaoEvento4Soap12Client(string endpointAddressUri) :
-                base(endpointAddressUri)
-        {
-        }
+        public NFeRecepcaoEvento4Soap12Client(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeRecepcaoEvento4Response> nfeRecepcaoEventoAsync(XmlNode nfeDadosMsg)
         {
-            nfeRecepcaoEvento4Request inValue = new nfeRecepcaoEvento4Request();
+            var inValue = new nfeRecepcaoEvento4Request();
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeRecepcaoEventoAsync(inValue);
+            return Channel.nfeRecepcaoEventoAsync(inValue);
         }
-
     }
-
 }

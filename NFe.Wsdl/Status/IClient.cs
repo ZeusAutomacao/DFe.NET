@@ -8,7 +8,5 @@
 
 namespace NFe.Wsdl.Status
 {
-    public interface IClient
-    {
-    }
+    public interface IClient { }
 }

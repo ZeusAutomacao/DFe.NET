@@ -44,7 +44,7 @@ namespace NFe.Wsdl.ConsultaCadastro.CE
     {
         public CadConsultaCadastro2(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -63,18 +63,15 @@ namespace NFe.Wsdl.ConsultaCadastro.CE
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class consultaCadastro2Request
+    public class consultaCadastro2Request
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public consultaCadastro2Request()
-        {
-        }
+        public consultaCadastro2Request() { }
 
         public consultaCadastro2Request(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
@@ -85,18 +82,15 @@ namespace NFe.Wsdl.ConsultaCadastro.CE
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class consultaCadastro2Response
+    public class consultaCadastro2Response
     {
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", Order = 0)]
+        public XmlNode consultaCadastro2Result;
 
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", Order = 0)]
-        public XmlNode consultaCadastro2Result;
-
-        public consultaCadastro2Response()
-        {
-        }
+        public consultaCadastro2Response() { }
 
         public consultaCadastro2Response(nfeCabecMsg nfeCabecMsg, XmlNode consultaCadastro2Result)
         {
@@ -105,27 +99,26 @@ namespace NFe.Wsdl.ConsultaCadastro.CE
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2", ConfigurationName = "CadConsultaCadastro2Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2",
+        ConfigurationName = "CadConsultaCadastro2Soap12")]
     public interface CadConsultaCadastro2Soap12 : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CadConsultaCadastro2/consultaCadastro2",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<consultaCadastro2Response> consultaCadastro2Async(consultaCadastro2Request request);
     }
 
-
-    public partial class CadConsultaCadastro2Soap12Client : SoapBindingClient<CadConsultaCadastro2Soap12>
+    public class CadConsultaCadastro2Soap12Client : SoapBindingClient<CadConsultaCadastro2Soap12>
     {
-        public CadConsultaCadastro2Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
-        {
-        }
-        
+        public CadConsultaCadastro2Soap12Client(string endpointAddressUri) : base(endpointAddressUri) { }
+
         public Task<consultaCadastro2Response> consultaCadastro2Async(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
-            consultaCadastro2Request inValue = new consultaCadastro2Request();
+            var inValue = new consultaCadastro2Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return ((CadConsultaCadastro2Soap12)(this.Channel)).consultaCadastro2Async(inValue);
+            return Channel.consultaCadastro2Async(inValue);
         }
     }
 }

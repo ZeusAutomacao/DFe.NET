@@ -7,13 +7,11 @@ using System.Xml;
 
 namespace NFe.Wsdl.ConsultaProtocolo.SVAN
 {
-
-    public class NfeConsulta4SVAN : NFeConsultaProtocolo4SoapClient , INfeServico
+    public class NfeConsulta4SVAN : NFeConsultaProtocolo4SoapClient, INfeServico
     {
-        public NfeConsulta4SVAN(string url, X509Certificate certificado, int timeOut)
-           : base(url)
+        public NfeConsulta4SVAN(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -32,15 +30,12 @@ namespace NFe.Wsdl.ConsultaProtocolo.SVAN
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeConsultaSVANNFRequest
+    public class nfeConsultaSVANNFRequest
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeConsultaSVANNFRequest()
-        {
-        }
+        public nfeConsultaSVANNFRequest() { }
 
         public nfeConsultaSVANNFRequest(XmlNode nfeDadosMsg)
         {
@@ -50,15 +45,12 @@ namespace NFe.Wsdl.ConsultaProtocolo.SVAN
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeConsultaSVANNFResponse
+    public class nfeConsultaSVANNFResponse
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
         public XmlNode nfeConsultaNFResult;
 
-        public nfeConsultaSVANNFResponse()
-        {
-        }
+        public nfeConsultaSVANNFResponse() { }
 
         public nfeConsultaSVANNFResponse(XmlNode nfeConsultaNFResult)
         {
@@ -66,28 +58,25 @@ namespace NFe.Wsdl.ConsultaProtocolo.SVAN
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", ConfigurationName = "NFeConsultaProtocolo4Soap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4",
+        ConfigurationName = "NFeConsultaProtocolo4Soap")]
     public interface NFeConsultaProtocolo4Soap : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(nfeConsultaSVANNFRequest request);
     }
 
-    public partial class NFeConsultaProtocolo4SoapClient : SoapBindingClient<NFeConsultaProtocolo4Soap>
+    public class NFeConsultaProtocolo4SoapClient : SoapBindingClient<NFeConsultaProtocolo4Soap>
     {
-        public NFeConsultaProtocolo4SoapClient(string endpointAddressUri) :
-                base(endpointAddressUri)
-        {
-        }
+        public NFeConsultaProtocolo4SoapClient(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeConsultaSVANNFResponse> nfeConsultaNFAsync(XmlNode nfeDadosMsg)
         {
-            nfeConsultaSVANNFRequest inValue = new nfeConsultaSVANNFRequest();
+            var inValue = new nfeConsultaSVANNFRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeConsultaNFAsync(inValue);
+            return Channel.nfeConsultaNFAsync(inValue);
         }
-
     }
-
 }

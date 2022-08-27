@@ -9,12 +9,12 @@ namespace NFe.Wsdl.Autorizacao
 {
     public class NfeRetAutorizacao4 : NFeRetAutorizacao4Soap12Client, INfeServico
     {
-        public NfeRetAutorizacao4(string url, X509Certificate certificado, int timeOut)
-            : base(url)
+        public NfeRetAutorizacao4(string url, X509Certificate certificado, int timeOut) : base(url)
         {
             //Timeout = timeOut;
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
+
         public nfeCabecMsg nfeCabecMsg { get; set; }
 
         public XmlNode Execute(XmlNode nfeDadosMsg)
@@ -24,22 +24,19 @@ namespace NFe.Wsdl.Autorizacao
 
         public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
         {
-            var result = await base.nfeRetAutorizacaoLoteAsync(nfeDadosMsg);
+            var result = await nfeRetAutorizacaoLoteAsync(nfeDadosMsg);
             return result.nfeResultMsg;
         }
     }
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeRetAutorizacao4LoteRequest
+    public class nfeRetAutorizacao4LoteRequest
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeRetAutorizacao4LoteRequest()
-        {
-        }
+        public nfeRetAutorizacao4LoteRequest() { }
 
         public nfeRetAutorizacao4LoteRequest(XmlNode nfeDadosMsg)
         {
@@ -49,15 +46,12 @@ namespace NFe.Wsdl.Autorizacao
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeRetAutorizacao4LoteResponse
+    public class nfeRetAutorizacao4LoteResponse
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4", Order = 0)]
         public XmlNode nfeResultMsg;
 
-        public nfeRetAutorizacao4LoteResponse()
-        {
-        }
+        public nfeRetAutorizacao4LoteResponse() { }
 
         public nfeRetAutorizacao4LoteResponse(XmlNode nfeResultMsg)
         {
@@ -65,26 +59,25 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4", ConfigurationName = "NFeRetAutorizacao4Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4",
+        ConfigurationName = "NFeRetAutorizacao4Soap12")]
     public interface NFeRetAutorizacao4Soap12 : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4/nfeRetAutorizacaoLote", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRetAutorizacao4/nfeRetAutorizacaoLote",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeRetAutorizacao4LoteResponse> nfeRetAutorizacaoLoteAsync(nfeRetAutorizacao4LoteRequest request);
     }
 
-    public partial class NFeRetAutorizacao4Soap12Client : SoapBindingClient<NFeRetAutorizacao4Soap12>
+    public class NFeRetAutorizacao4Soap12Client : SoapBindingClient<NFeRetAutorizacao4Soap12>
     {
-        public NFeRetAutorizacao4Soap12Client(string endpointAddressUri) :
-                base(endpointAddressUri)
-        {
-        }
+        public NFeRetAutorizacao4Soap12Client(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeRetAutorizacao4LoteResponse> nfeRetAutorizacaoLoteAsync(XmlNode nfeDadosMsg)
         {
-            nfeRetAutorizacao4LoteRequest inValue = new nfeRetAutorizacao4LoteRequest();
+            var inValue = new nfeRetAutorizacao4LoteRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeRetAutorizacaoLoteAsync(inValue);
+            return Channel.nfeRetAutorizacaoLoteAsync(inValue);
         }
     }
 }

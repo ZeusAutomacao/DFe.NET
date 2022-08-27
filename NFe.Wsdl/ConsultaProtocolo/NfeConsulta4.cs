@@ -7,12 +7,11 @@ using System.Xml;
 
 namespace NFe.Wsdl.ConsultaProtocolo
 {
-
     public class NfeConsulta4 : NFeConsultaProtocolo4Soap12Client, INfeServico
     {
         public NfeConsulta4(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -31,15 +30,12 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeConsulta4NFRequest
+    public class nfeConsulta4NFRequest
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeConsulta4NFRequest()
-        {
-        }
+        public nfeConsulta4NFRequest() { }
 
         public nfeConsulta4NFRequest(XmlNode nfeDadosMsg)
         {
@@ -49,15 +45,12 @@ namespace NFe.Wsdl.ConsultaProtocolo
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeConsulta4NFResponse
+    public class nfeConsulta4NFResponse
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", Order = 0)]
         public XmlNode nfeResultMsg;
 
-        public nfeConsulta4NFResponse()
-        {
-        }
+        public nfeConsulta4NFResponse() { }
 
         public nfeConsulta4NFResponse(XmlNode nfeResultMsg)
         {
@@ -65,27 +58,25 @@ namespace NFe.Wsdl.ConsultaProtocolo
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4", ConfigurationName = "NFeConsultaProtocolo4Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4",
+        ConfigurationName = "NFeConsultaProtocolo4Soap12")]
     public interface NFeConsultaProtocolo4Soap12 : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeConsultaProtocolo4/nfeConsultaNF",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeConsulta4NFResponse> nfeConsultaNFAsync(nfeConsulta4NFRequest request);
     }
 
-    public partial class NFeConsultaProtocolo4Soap12Client : SoapBindingClient<NFeConsultaProtocolo4Soap12>
+    public class NFeConsultaProtocolo4Soap12Client : SoapBindingClient<NFeConsultaProtocolo4Soap12>
     {
-        public NFeConsultaProtocolo4Soap12Client(string endpointConfigurationName) :
-            base(endpointConfigurationName)
-        {
-        }
+        public NFeConsultaProtocolo4Soap12Client(string endpointConfigurationName) : base(endpointConfigurationName) { }
 
         public Task<nfeConsulta4NFResponse> nfeConsultaNFAsync(XmlNode nfeDadosMsg)
         {
-            nfeConsulta4NFRequest inValue = new nfeConsulta4NFRequest();
+            var inValue = new nfeConsulta4NFRequest();
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return this.Channel.nfeConsultaNFAsync(inValue);
+            return Channel.nfeConsultaNFAsync(inValue);
         }
     }
-
 }

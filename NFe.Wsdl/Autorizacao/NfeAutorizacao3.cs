@@ -44,11 +44,10 @@ namespace NFe.Wsdl.Autorizacao
 {
     public class NfeAutorizacao3 : NfeAutorizacao3Soap12Client, INfeServicoAutorizacao
     {
-        public NfeAutorizacao3(string url, X509Certificate certificado, int timeOut)
-            : base(url)
+        public NfeAutorizacao3(string url, X509Certificate certificado, int timeOut) : base(url)
         {
             //Timeout = timeOut;
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -62,11 +61,6 @@ namespace NFe.Wsdl.Autorizacao
         {
             var result = await nfeAutorizacaoLoteAsync(nfeCabecMsg, nfeDadosMsg);
             return result.nfeAutorizacaoLoteResult;
-        }
-
-        public XmlNode Execute(enviNFe3 nfeDadosMsg)
-        {
-            throw new NotImplementedException();
         }
 
         //[SoapHeader("nfeCabecMsg", Direction = SoapHeaderDirection.InOut)]
@@ -92,8 +86,13 @@ namespace NFe.Wsdl.Autorizacao
 
         public async Task<XmlNode> ExecuteZipAsync(string nfeDadosMsgZip)
         {
-            var result = await base.nfeAutorizacaoLoteZipAsync(this.nfeCabecMsg, nfeDadosMsgZip);
+            var result = await nfeAutorizacaoLoteZipAsync(nfeCabecMsg, nfeDadosMsgZip);
             return result.nfeAutorizacaoLoteResult;
+        }
+
+        public XmlNode Execute(enviNFe3 nfeDadosMsg)
+        {
+            throw new NotImplementedException();
         }
 
         //public XmlNode ExecuteZip_(string nfeDadosMsgZip)
@@ -105,18 +104,15 @@ namespace NFe.Wsdl.Autorizacao
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeAutorizacao3LoteRequest
+    public class nfeAutorizacao3LoteRequest
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeAutorizacao3LoteRequest()
-        {
-        }
+        public nfeAutorizacao3LoteRequest() { }
 
         public nfeAutorizacao3LoteRequest(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
@@ -127,18 +123,15 @@ namespace NFe.Wsdl.Autorizacao
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeAutorizacao3LoteResponse
+    public class nfeAutorizacao3LoteResponse
     {
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3", Order = 0)]
+        public XmlNode nfeAutorizacaoLoteResult;
 
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")]
         public nfeCabecMsg nfeCabecMsg;
 
-        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3", Order = 0)]
-        public XmlNode nfeAutorizacaoLoteResult;
-
-        public nfeAutorizacao3LoteResponse()
-        {
-        }
+        public nfeAutorizacao3LoteResponse() { }
 
         public nfeAutorizacao3LoteResponse(nfeCabecMsg nfeCabecMsg, XmlNode nfeAutorizacaoLoteResult)
         {
@@ -149,18 +142,15 @@ namespace NFe.Wsdl.Autorizacao
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeAutorizacao3LoteZipRequest
+    public class nfeAutorizacao3LoteZipRequest
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3", Order = 0)]
         public string nfeDadosMsgZip;
 
-        public nfeAutorizacao3LoteZipRequest()
-        {
-        }
+        public nfeAutorizacao3LoteZipRequest() { }
 
         public nfeAutorizacao3LoteZipRequest(nfeCabecMsg nfeCabecMsg, string nfeDadosMsgZip)
         {
@@ -169,38 +159,40 @@ namespace NFe.Wsdl.Autorizacao
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3", ConfigurationName = "NfeAutorizacao3Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3",
+        ConfigurationName = "NfeAutorizacao3Soap12")]
     public interface NfeAutorizacao3Soap12 : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3/nfeAutorizacaoLote", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3/nfeAutorizacaoLote",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteAsync(nfeAutorizacao3LoteRequest request);
 
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3/nfeAutorizacaoLoteZip", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeAutorizacao3/nfeAutorizacaoLoteZip",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteZipAsync(nfeAutorizacao3LoteZipRequest request);
     }
 
-    public partial class NfeAutorizacao3Soap12Client : SoapBindingClient<NfeAutorizacao3Soap12>
+    public class NfeAutorizacao3Soap12Client : SoapBindingClient<NfeAutorizacao3Soap12>
     {
-        public NfeAutorizacao3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
-        {
-        }
+        public NfeAutorizacao3Soap12Client(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteAsync(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
-            nfeAutorizacao3LoteRequest inValue = new nfeAutorizacao3LoteRequest();
+            var inValue = new nfeAutorizacao3LoteRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return ((NfeAutorizacao3Soap12)(this.Channel)).nfeAutorizacaoLoteAsync(inValue);
+            return Channel.nfeAutorizacaoLoteAsync(inValue);
         }
 
-        public Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteZipAsync(nfeCabecMsg nfeCabecMsg, string nfeDadosMsgZip)
+        public Task<nfeAutorizacao3LoteResponse> nfeAutorizacaoLoteZipAsync(nfeCabecMsg nfeCabecMsg,
+            string nfeDadosMsgZip)
         {
-            nfeAutorizacao3LoteZipRequest inValue = new nfeAutorizacao3LoteZipRequest();
+            var inValue = new nfeAutorizacao3LoteZipRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsgZip = nfeDadosMsgZip;
-            return ((NfeAutorizacao3Soap12)(this.Channel)).nfeAutorizacaoLoteZipAsync(inValue);
+            return Channel.nfeAutorizacaoLoteZipAsync(inValue);
         }
     }
 }

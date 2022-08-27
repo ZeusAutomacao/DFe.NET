@@ -35,6 +35,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+
 //using System.Web.Services;
 //using System.Web.Services.Description;
 //using System.Web.Services.Protocols;
@@ -65,7 +66,8 @@ namespace NFe.Wsdl.AdmCsc
         //[XmlSerializerFormat(Use = OperationFormatUse.Literal, Style = OperationFormatStyle.Rpc)]
         //  [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe/admCscNFCe")]
         [return: XmlElementAttribute("cscNFCeResult", Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")]
-        public XmlNode Execute([XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")] XmlNode nfeDadosMsg)
+        public XmlNode Execute(
+            [XmlElementAttribute(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/CscNFCe")] XmlNode nfeDadosMsg)
         {
             //var results = Invoke("admCscNFCe", new object[] { nfeDadosMsg });
             //return ((XmlNode)(results[0]));

@@ -44,7 +44,7 @@ namespace NFe.Wsdl.Status
     {
         public NfeStatusServico3(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -61,28 +61,27 @@ namespace NFe.Wsdl.Status
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", ConfigurationName = "NfeStatusServico3Soap12")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3",
+        ConfigurationName = "NfeStatusServico3Soap12")]
     public interface NfeStatusServico3Soap12 : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3/nfeStatusServicoNF", ReplyAction = "*")]
-        [XmlSerializerFormat()]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3/nfeStatusServicoNF",
+            ReplyAction = "*")]
+        [XmlSerializerFormat]
         Task<nfeStatusServicoNF3Response> nfeStatusServicoNF3Async(nfeStatusServicoNF3Request request);
     }
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeStatusServicoNF3Request
+    public class nfeStatusServicoNF3Request
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeStatusServicoNF3Request()
-        {
-        }
+        public nfeStatusServicoNF3Request() { }
 
         public nfeStatusServicoNF3Request(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
@@ -93,18 +92,15 @@ namespace NFe.Wsdl.Status
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeStatusServicoNF3Response
+    public class nfeStatusServicoNF3Response
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeStatusServico3", Order = 0)]
         public XmlNode nfeStatusServicoNF3Result;
 
-        public nfeStatusServicoNF3Response()
-        {
-        }
+        public nfeStatusServicoNF3Response() { }
 
         public nfeStatusServicoNF3Response(nfeCabecMsg nfeCabecMsg, XmlNode nfeStatusServicoNF3Result)
         {
@@ -113,18 +109,16 @@ namespace NFe.Wsdl.Status
         }
     }
 
-    public partial class NfeStatusServico3Soap12Client : SoapBindingClient<NfeStatusServico3Soap12>
+    public class NfeStatusServico3Soap12Client : SoapBindingClient<NfeStatusServico3Soap12>
     {
-        public NfeStatusServico3Soap12Client(string endpointAddressUri) : base(endpointAddressUri)
-        {
-        }
+        public NfeStatusServico3Soap12Client(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeStatusServicoNF3Response> nfeStatusServicoNF3Async(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
-            nfeStatusServicoNF3Request inValue = new nfeStatusServicoNF3Request();
+            var inValue = new nfeStatusServicoNF3Request();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return ((NfeStatusServico3Soap12)(this.Channel)).nfeStatusServicoNF3Async(inValue);
+            return Channel.nfeStatusServicoNF3Async(inValue);
         }
     }
 }

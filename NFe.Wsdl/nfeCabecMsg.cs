@@ -31,18 +31,16 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 //using System.Web.Services.Protocols;
-using DFe.Classes.Entidades;
-using System.Runtime.Serialization;
+
 using System.ServiceModel;
+using DFe.Classes.Entidades;
 
 namespace NFe.Wsdl
 {
     public class nfeCabecMsg //: SoapHeader
     {
-        [MessageHeader(MustUnderstand = true)]
-        public Estado cUF { get; set; }
+        [MessageHeader(MustUnderstand = true)] public Estado cUF { get; set; }
 
-        [MessageHeader(MustUnderstand = true)]
-        public string versaoDados { get; set; }
+        [MessageHeader(MustUnderstand = true)] public string versaoDados { get; set; }
     }
 }

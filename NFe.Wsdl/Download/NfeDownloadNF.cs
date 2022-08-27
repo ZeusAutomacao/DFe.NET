@@ -42,10 +42,9 @@ namespace NFe.Wsdl.Download
 {
     public class NfeDownloadNF : NfeDownloadNFSoapClient, INfeServico
     {
-
         public NfeDownloadNF(string url, X509Certificate certificado, int timeOut) : base(url)
         {
-            base.ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
+            ClientCredentials.ClientCertificate.Certificate = (X509Certificate2)certificado;
         }
 
         public nfeCabecMsg nfeCabecMsg { get; set; }
@@ -62,27 +61,26 @@ namespace NFe.Wsdl.Download
         }
     }
 
-    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", ConfigurationName = "NfeDownloadNFSoap")]
+    [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF",
+        ConfigurationName = "NfeDownloadNFSoap")]
     public interface NfeDownloadNFSoap : IChannel
     {
-        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF/nfeDownloadNF", ReplyAction = "*")]
+        [OperationContract(Action = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF/nfeDownloadNF",
+            ReplyAction = "*")]
         Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeDownloadNFRequest request);
     }
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeDownloadNFRequest
+    public class nfeDownloadNFRequest
     {
-
         [MessageHeader(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF")]
         public nfeCabecMsg nfeCabecMsg;
 
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
         public XmlNode nfeDadosMsg;
 
-        public nfeDownloadNFRequest()
-        {
-        }
+        public nfeDownloadNFRequest() { }
 
         public nfeDownloadNFRequest(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
@@ -93,15 +91,12 @@ namespace NFe.Wsdl.Download
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
-    public partial class nfeDownloadNFResponse
+    public class nfeDownloadNFResponse
     {
-
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NfeDownloadNF", Order = 0)]
         public XmlNode nfeDownloadNFResult;
 
-        public nfeDownloadNFResponse()
-        {
-        }
+        public nfeDownloadNFResponse() { }
 
         public nfeDownloadNFResponse(XmlNode nfeDownloadNFResult)
         {
@@ -109,19 +104,16 @@ namespace NFe.Wsdl.Download
         }
     }
 
-    public partial class NfeDownloadNFSoapClient : SoapBindingClient<NfeDownloadNFSoap>
+    public class NfeDownloadNFSoapClient : SoapBindingClient<NfeDownloadNFSoap>
     {
-        public NfeDownloadNFSoapClient(string endpointAddressUri) : base(endpointAddressUri)
-        {
-        }
+        public NfeDownloadNFSoapClient(string endpointAddressUri) : base(endpointAddressUri) { }
 
         public Task<nfeDownloadNFResponse> nfeDownloadNFAsync(nfeCabecMsg nfeCabecMsg, XmlNode nfeDadosMsg)
         {
-            nfeDownloadNFRequest inValue = new nfeDownloadNFRequest();
+            var inValue = new nfeDownloadNFRequest();
             inValue.nfeCabecMsg = nfeCabecMsg;
             inValue.nfeDadosMsg = nfeDadosMsg;
-            return ((NfeDownloadNFSoap)(this.Channel)).nfeDownloadNFAsync(inValue);
+            return Channel.nfeDownloadNFAsync(inValue);
         }
     }
-
 }
