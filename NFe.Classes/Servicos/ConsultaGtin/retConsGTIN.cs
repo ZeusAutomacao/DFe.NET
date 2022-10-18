@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 
 namespace NFe.Classes.Servicos.ConsultaGtin
 {
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class retConsGTIN : IRetornoServico
     {
         [XmlAttribute]
