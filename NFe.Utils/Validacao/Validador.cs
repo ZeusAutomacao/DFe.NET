@@ -112,6 +112,8 @@ namespace NFe.Utils.Validacao
                     return "downloadNFe_v1.00.xsd";
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
+                case ServicoNFe.ConsultaGtin:
+                    return "consGTIN_v1.00.xsd";
             }
             return null;
         }

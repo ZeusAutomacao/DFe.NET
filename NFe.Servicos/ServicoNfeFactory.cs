@@ -1,9 +1,5 @@
 ﻿using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
-using CTe.CTeOSDocumento.Wsdl;
-using CTe.CTeOSDocumento.Wsdl.Cabecalho;
-using CTe.CTeOSDocumento.Wsdl.Corpo;
-using DFe.Wsdl;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Servicos.Extensoes;
 using NFe.Utils;
@@ -31,6 +27,7 @@ using NFe.Wsdl.Status.SVCAN;
 using System;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using NFe.Wsdl.ConsultaGtin;
 
 namespace NFe.Servicos
 {
@@ -269,6 +266,9 @@ namespace NFe.Servicos
 
                 case ServicoNFe.NFeDistribuicaoDFe:
                     return new NfeDistDFeInteresse(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.ConsultaGtin:
+                    return new ConsultaGTINApi(url, certificado, cfg.TimeOut);
             }
 
             return null;
