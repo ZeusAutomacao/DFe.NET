@@ -28,13 +28,16 @@ namespace NFe.Wsdl.ConsultaGtin
         {
             soapEnvelope = new SoapEnvelope();
 
-            soapEnvelope.body = new ResponseBody<XmlNode>
+            soapEnvelope.body = new ResponseBody
             {
-                nfeDadosMsg = nfeDadosMsg
+                ccgConsGTIN = new ccgConsGTIN
+                {
+                    nfeDadosMsg = nfeDadosMsg
+                }
             };
 
             return RequestBuilderAndSender.Execute(soapEnvelope, configuracao,
-                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/ccgConsGtin",
+                actionUrn: "http://www.portalfiscal.inf.br/nfe/wsdl/ccgConsGtin/ccgConsGTIN",
                 responseElementName: "nfeResultMsg"
             ).FirstChild;
         }
@@ -46,16 +49,21 @@ namespace NFe.Wsdl.ConsultaGtin
         public class SoapEnvelope : CommonSoapEnvelope
         {
             [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-            public ResponseBody<XmlNode> body { get; set; }
+            public ResponseBody body { get; set; }
         }
 
         /// <summary>
         /// Classe para o corpo do Envelope SOAP
         /// </summary>
-        public class ResponseBody<T> : CommonResponseBody
+        public class ResponseBody : CommonResponseBody
         {
             [XmlElement(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/ccgConsGtin")]
-            public T nfeDadosMsg { get; set; }
+            public ccgConsGTIN ccgConsGTIN { get; set; }
+        }
+
+        public class ccgConsGTIN
+        {
+            public XmlNode nfeDadosMsg { get; set; }
         }
 
         [Obsolete("Não utilizar na nfe 4.0")]

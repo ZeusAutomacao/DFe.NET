@@ -2,7 +2,7 @@
 
 namespace NFe.Classes.Servicos.ConsultaGtin
 {
-    [XmlType(Namespace = "http://www.portalfiscal.inf.br/nfe")]
+    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/nfe")]
     public class consGTIN
     {
         [XmlAttribute]
