@@ -119,7 +119,9 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço destinado a administração do CSC.
         /// </summary>
-        NfceAdministracaoCSC
+        NfceAdministracaoCSC,
+
+        ConsultaGtin
     }
 
     /// <summary>

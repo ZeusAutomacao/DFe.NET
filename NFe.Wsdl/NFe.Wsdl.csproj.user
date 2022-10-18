@@ -49,6 +49,9 @@
     <Compile Update="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="ConsultaGtin\ConsultaGTINApi.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
       <SubType>Component</SubType>
     </Compile>

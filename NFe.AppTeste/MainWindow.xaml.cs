@@ -260,6 +260,36 @@ namespace NFe.AppTeste
             }
         }
 
+        private void BtnConsultaGtin_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                #region Consulta Gtin
+
+                var gtin = Funcoes.InpuBox(this, "Consultar Gtin", "Gtin (8/12/13/14) digitos");
+                if (string.IsNullOrEmpty(gtin)) throw new Exception("O gtin deve ser informado!");
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var retornoConsulta = servicoNFe.ConsultaGtin(gtin);
+                TrataRetorno(retornoConsulta);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
             try

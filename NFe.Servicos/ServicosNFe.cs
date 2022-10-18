@@ -75,6 +75,9 @@ using System.Xml;
 using NFe.Classes;
 using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
+using System.Xml.Linq;
+using NFe.Classes.Servicos.ConsultaGtin;
+using NFe.Utils.ConsultaGtin;
 
 namespace NFe.Servicos
 {
@@ -794,6 +797,56 @@ namespace NFe.Servicos
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-cad.xml", retornoXmlString);
 
             return new RetornoNfeConsultaCadastro(pedConsulta.ObterXmlString(), retConsulta.ObterXmlString(),
+                retornoXmlString, retConsulta);
+
+            #endregion
+        }
+
+        public RetornoConsultaGtin ConsultaGtin(string gtin)
+        {
+            #region Cria o objeto wdsl para consulta
+            var ws = CriarServico(ServicoNFe.ConsultaGtin);
+            #endregion
+
+            #region Cria o objeto consGTIN
+
+            var consGtin = new consGTIN
+            {
+                versao = "1.00",
+                GTIN = gtin
+            };
+
+            #endregion
+
+            #region Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = consGtin.ObterXmlString();
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-cons-gtin.xml", xmlConsulta);
+
+            if (_cFgServico.ValidarSchemas)
+                Validador.Valida(ServicoNFe.ConsultaGtin, _cFgServico.VersaoNfeConsultaCadastro, xmlConsulta, cfgServico: _cFgServico);
+
+            var dadosConsulta = new XmlDocument();
+            dadosConsulta.LoadXml(xmlConsulta);
+
+
+            XmlNode retorno;
+            try
+            {
+                retorno = ws.Execute(dadosConsulta);
+            }
+            catch (WebException ex)
+            {
+                throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeConsultaCadastro, ex);
+            }
+
+            var retornoXmlString = retorno.OuterXml;
+            var retConsulta = new retConsGTIN().CarregarDeXmlString(retornoXmlString);
+
+            SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-consGtin.xml", retornoXmlString);
+
+            return new RetornoConsultaGtin(consGtin.ObterXmlString(), retConsulta.ObterXmlString(),
                 retornoXmlString, retConsulta);
 
             #endregion

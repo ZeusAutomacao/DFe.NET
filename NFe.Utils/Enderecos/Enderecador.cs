@@ -1631,6 +1631,22 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
+#region ConsultaGtin
+            foreach (var estado in Enum.GetValues(typeof(Estado))
+                         .Cast<Estado>()
+                         .ToList())
+            {
+                foreach (var emissao in emissaoComum)
+                {
+                    foreach (var modelo in todosOsModelos)
+                    {
+                        addServico(new[] { ServicoNFe.ConsultaGtin }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://dfe-servico.svrs.rs.gov.br/ws/ccgConsGTIN/ccgConsGTIN.asmx");
+                        addServico(new[] { ServicoNFe.ConsultaGtin }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://dfe-servico.svrs.rs.gov.br/ws/ccgConsGTIN/ccgConsGTIN.asmx");
+                    }
+                }
+            }
+#endregion
+
             return endServico;
         }
 
@@ -1685,6 +1701,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoNfeDownloadNF;
                 case ServicoNFe.NfceAdministracaoCSC:
                     return cfgServico.VersaoNfceAministracaoCSC;
+                case ServicoNFe.ConsultaGtin:
+                    return cfgServico.VersaoConsultaGTIN;
             }
             return null;
         }
