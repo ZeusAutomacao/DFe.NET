@@ -73,6 +73,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeConsultaDest;
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
+        private VersaoServico _versaoConsultaGTIN;
 
 
         public ConfiguracaoServico()
@@ -228,6 +229,7 @@ namespace NFe.Utils
                 VersaoNfeConsultaDest = obterVersao(ServicoNFe.NfeConsultaDest);
                 VersaoNfeDownloadNF = obterVersao(ServicoNFe.NfeDownloadNF);
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
+                VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
             }
         }
 
@@ -439,6 +441,17 @@ namespace NFe.Utils
             {
                 if (value == _versaoNfceAministracaoCsc) return;
                 _versaoNfceAministracaoCsc = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public VersaoServico VersaoConsultaGTIN
+        {
+            get { return _versaoConsultaGTIN; }
+            set
+            {
+                if (value == _versaoConsultaGTIN) return;
+                _versaoConsultaGTIN = value;
                 OnPropertyChanged();
             }
         }

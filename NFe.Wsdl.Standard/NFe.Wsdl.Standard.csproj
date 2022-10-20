@@ -13,6 +13,10 @@
 		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="ConsultaGtin\" />
+	</ItemGroup>
+
 	<Import Project="..\Shared.NFe.Wsdl\Shared.NFe.Wsdl.projitems" Label="Shared" />
 
 </Project>
