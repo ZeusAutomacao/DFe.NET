@@ -1579,13 +1579,13 @@ namespace NFe.Utils.Enderecos
                     if (!(estado == Estado.SP & modelo == ModeloDocumento.NFCe))
                     {
                         addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao1, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx");
-                        addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao4, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoEpec }, versao4, hom, TipoEmissao.teEPEC, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
 
                     if (modelo != ModeloDocumento.NFCe)
                     {
                         addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/RecepcaoEvento/RecepcaoEvento.asmx");
-                        addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao4, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoManifestacaoDestinatario }, versao4, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
 
                     //CE e SVAN possuem endereços próprios para o serviço NfeDownloadNF
