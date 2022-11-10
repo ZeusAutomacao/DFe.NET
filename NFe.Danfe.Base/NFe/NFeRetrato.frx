@@ -1355,61 +1355,61 @@ namespace FastReport
       <TextObject Name="Memo113" Left="636.22" Top="69.92" Width="108.35" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="PESO LÍQUIDO" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Memo114" Left="636.22" Top="79.37" Width="108.35" Height="17.01" Text="[NFe.NFe.infNFe.transp.vol.pesoL]" Padding="5, 1, 5, 1" HideValue="0" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Bottom" WordWrap="false" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="DadosProdutos" Top="868.54" Width="744.66" Height="11.34" CanGrow="true" CanShrink="true" BeforePrintEvent="DadosProdutos_BeforePrint" AfterPrintEvent="DadosProdutos_AfterPrint" Guides="0" DataSource="det">
-      <TableObject Name="prodTable" Width="744.66" Height="11.34">
+    <DataBand Name="DadosProdutos" Top="867.84" Width="744.66" Height="11.34" CanGrow="true" CanShrink="true" BeforePrintEvent="DadosProdutos_BeforePrint" AfterPrintEvent="DadosProdutos_AfterPrint" Guides="0" DataSource="det">
+      <TableObject Name="prodTable" Width="745.04" Height="11.34">
         <TableColumn Name="prodCodigo" Width="60.48"/>
-        <TableColumn Name="prodNome" Width="213.57"/>
+        <TableColumn Name="prodNome" Width="211.68"/>
         <TableColumn Name="prodNCM" Width="37.8"/>
-        <TableColumn Name="prodOrigin" Width="35.91"/>
-        <TableColumn Name="prodCFOP" Width="24.95"/>
-        <TableColumn Name="prodUnidade" Width="22.3"/>
+        <TableColumn Name="prodOrigin" Width="32.89"/>
+        <TableColumn Name="prodCFOP" Width="21.92"/>
+        <TableColumn Name="prodUnidade" Width="21.17"/>
         <TableColumn Name="prodQtd" Width="43.47"/>
-        <TableColumn Name="prodValorUnitario" Width="52.92"/>
-        <TableColumn Name="prodDesconto" Width="45.36"/>
-        <TableColumn Name="prodValor" Width="41.58"/>
-        <TableColumn Name="prodBc" Width="41.58"/>
-        <TableColumn Name="prodICMS" Width="41.58"/>
-        <TableColumn Name="prodIPI" Width="41.58"/>
+        <TableColumn Name="prodValorUnitario" Width="45.36"/>
+        <TableColumn Name="prodDesconto" Width="39.69"/>
+        <TableColumn Name="prodValor" Width="49.14"/>
+        <TableColumn Name="prodBc" Width="49.14"/>
+        <TableColumn Name="prodICMS" Width="45.36"/>
+        <TableColumn Name="prodIPI" Width="45.36"/>
         <TableColumn Name="prodAlqICMS" Width="20.79"/>
         <TableColumn Name="prodAlqIPI" Width="20.79"/>
         <TableRow Name="prodRow" Height="11.34" AutoSize="true">
           <TableCell Name="prodCodigoCell" Border.Lines="Left, Right, Bottom" Border.LeftLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Text="[NFe.NFe.infNFe.det.prod.cProd]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
           <TableCell Name="prodNomeCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Text="[NFe.NFe.infNFe.det.prod.xProd][IIf([NFe.NFe.infNFe.det.infAdProd] == null || [NFe.NFe.infNFe.det.infAdProd] == &quot;&quot;, &quot;&quot;, &quot; &quot; + [NFe.NFe.infNFe.det.infAdProd])]" HorzAlign="Justify" Font="Times New Roman, 6pt"/>
           <TableCell Name="prodNCMCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Text="[NFe.NFe.infNFe.det.prod.NCM]" Padding="1, 1, 1, 1" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodOriginCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodCFOPCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Text="[NFe.NFe.infNFe.det.prod.CFOP]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodUnidadeCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodQtdCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodValorUnitarioCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodDescontoCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodValorCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodBcCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodICMSCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
-          <TableCell Name="prodIPICell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodOriginCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodCFOPCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Text="[NFe.NFe.infNFe.det.prod.CFOP]" Padding="1, 1, 1, 1" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodUnidadeCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodQtdCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodValorUnitarioCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodDescontoCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodValorCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodBcCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodICMSCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
+          <TableCell Name="prodIPICell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" HorzAlign="Right" VertAlign="Center" Font="Times New Roman, 6pt"/>
           <TableCell Name="prodAlqICMSCell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" Format="Percent" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5pt"/>
           <TableCell Name="prodAlqIPICell" Border.Lines="Right, Bottom" Border.LeftLine.Width="0.5" Border.TopLine.Width="0.5" Border.RightLine.Width="0.5" Border.BottomLine.Style="Dot" Border.BottomLine.Width="0.5" Padding="1, 1, 1, 1" Format="Percent" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 5pt"/>
         </TableRow>
       </TableObject>
-      <DataHeaderBand Name="DadosProdutosHeader" Top="826.35" Width="744.66" Height="41.25" BeforePrintEvent="DadosProdutosHeader_BeforePrint">
-        <TextObject Name="Memo129" Left="702.99" Top="29.68" Width="20.79" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+      <DataHeaderBand Name="DadosProdutosHeader" Top="825.71" Width="744.66" Height="41.25" BeforePrintEvent="DadosProdutosHeader_BeforePrint">
         <TextObject Name="Memo130" Left="723.78" Top="29.68" Width="20.79" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="IPI" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo116" Top="18.34" Width="60.47" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="CÓDIGO&#13;&#10;PRODUTO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo117" Left="60.47" Top="18.34" Width="213.54" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="DESCRIÇÃO DO PRODUTO / SERVIÇO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo118" Left="274.01" Top="18.34" Width="37.8" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="NCM/SH" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo119" Left="311.81" Top="18.34" Width="35.91" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="O/CST" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo120" Left="347.72" Top="18.34" Width="24.95" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="CFOP" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo121" Left="372.71" Top="18.34" Width="22.3" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="UNID." Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo122" Left="394.96" Top="18.34" Width="43.46" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="QTDE." Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo123" Left="438.43" Top="18.34" Width="52.91" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;UNITÁRIO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo124" Left="491.34" Top="18.34" Width="45.35" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="[IIf([ImprimirDescPorc],&quot;%&quot;, &quot;VALOR&quot;)]&#13;&#10;DESCONTO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo125" Left="536.69" Top="18.34" Width="41.57" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;[IIf([ImprimirTotalLiquido], &quot;LÍQUIDO&quot;, &quot;TOTAL&quot;)]" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo126" Left="578.27" Top="18.34" Width="41.57" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="BASE DE &#13;&#10;CÁLC. ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo127" Left="619.84" Top="18.34" Width="41.57" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo128" Left="661.42" Top="18.34" Width="41.57" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;IPI" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
-        <TextObject Name="Memo189" Left="702.99" Top="18.34" Width="41.57" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ALÍQ. %" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo117" Left="60.47" Top="18.34" Width="211.68" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="DESCRIÇÃO DO PRODUTO / SERVIÇO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo118" Left="272.01" Top="18.34" Width="37.8" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="NCM/SH" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo119" Left="309.81" Top="18.34" Width="32.89" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="O/CST" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo120" Left="342.72" Top="18.34" Width="22.3" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="CFOP" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo121" Left="364.71" Top="18.34" Width="21.55" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="UNID" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo122" Left="385.96" Top="18.34" Width="43.85" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="QTDE." Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo123" Left="429.43" Top="18.34" Width="45.74" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;UNITÁRIO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo124" Left="474.89" Top="18.34" Width="39.69" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="[IIf([ImprimirDescPorc],&quot;%&quot;, &quot;VALOR&quot;)]&#13;&#10;DESCONTO" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo125" Left="514.42" Top="18.34" Width="49.14" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;[IIf([ImprimirTotalLiquido], &quot;LÍQUIDO&quot;, &quot;TOTAL&quot;)]" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo126" Left="563.56" Top="18.34" Width="49.14" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="BASE DE &#13;&#10;CÁLC. ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo127" Left="612.7" Top="18.34" Width="45.74" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo128" Left="658.39" Top="18.34" Width="45.36" Height="22.68" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="VALOR&#13;&#10;IPI" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
+        <TextObject Name="Memo189" Left="703.08" Top="18.34" Width="41.54" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ALÍQ. %" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
         <TextObject Name="Memo115" Top="3.78" Width="430.87" Height="13.23" Text="DADOS DOS PRODUTOS / SERVIÇOS" Padding="0, 1, 0, 1" VertAlign="Bottom" Font="Times New Roman, 7pt, style=Bold"/>
+        <TextObject Name="Memo129" Left="703.08" Top="29.68" Width="20.79" Height="11.34" Border.Lines="All" Border.Width="0.5" Fill.Color="Gainsboro" Text="ICMS" Padding="2, 2, 2, 2" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Times New Roman, 5pt"/>
       </DataHeaderBand>
-      <DataFooterBand Name="DadosProdutosFooter" Top="880.82" Width="744.66" Height="9.45"/>
+      <DataFooterBand Name="DadosProdutosFooter" Top="880.06" Width="744.66" Height="9.45"/>
       <Sort>
         <Sort Expression="[NFe.NFe.infNFe.det.nItem]"/>
       </Sort>
