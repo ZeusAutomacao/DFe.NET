@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NFe.AppTeste</RootNamespace>
     <AssemblyName>NFe.AppTeste</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -92,9 +92,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -161,6 +158,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Schemas\consDPEC_v1.01.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\consGTIN_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -472,6 +473,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteCcgConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\leiauteComprovanteEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -760,6 +765,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\retconsNFeDest_v1.01.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -920,6 +929,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\tiposBasicosCcgConsGTIN_v1.00.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Schemas\tiposBasico_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -959,19 +972,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj">
-      <Project>{29ca1da2-440d-484b-951a-cf1b2eb27984}</Project>
+      <Project>{075a79c1-b038-46a8-8895-0a9753273b31}</Project>
       <Name>NFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj">
-      <Project>{80C6093C-47D5-41A1-9FA0-E218E82FA666}</Project>
+      <Project>{7696cc7f-83b7-434a-9759-4fcacc2fd483}</Project>
       <Name>NFe.Danfe.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj">
@@ -979,11 +992,11 @@
       <Name>NFe.Danfe.Nativo</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Servicos\NFe.Servicos.csproj">
-      <Project>{ccfdb136-3ee3-4aed-aa69-26abbcb553c6}</Project>
+      <Project>{dc9fafbb-206c-4d34-a3f0-968cc95bf5bd}</Project>
       <Name>NFe.Servicos</Name>
     </ProjectReference>
     <ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj">
-      <Project>{e35e7c4a-5690-4979-8b43-002975b48eaa}</Project>
+      <Project>{3e75202b-5aad-4f07-98b5-46b106678ca7}</Project>
       <Name>NFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>

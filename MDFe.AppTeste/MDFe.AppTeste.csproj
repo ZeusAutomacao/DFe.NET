@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MDFe.AppTeste</RootNamespace>
     <AssemblyName>MDFe.AppTeste</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -83,9 +83,6 @@
   <ItemGroup>
     <Compile Include="MDFeTesteModel.cs" />
     <Compile Include="ModelBase\ViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -345,24 +342,28 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984EC15-18E1-4A87-B4DB-18AC913DC4E8}</Project>
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
       <Name>DFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{b4e1a7a6-5d66-4326-8a8d-39338e6fc84c}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj">
-      <Project>{9794cb98-4691-4218-a127-c573c2e7ff83}</Project>
+      <Project>{436a0bcb-3866-4969-a129-cfa03c194e1f}</Project>
       <Name>MDFe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Servicos\MDFe.Servicos.csproj">
-      <Project>{9587937a-a826-4785-9d1e-3a9f4a622b7c}</Project>
+      <Project>{6022bba9-15bf-4ce3-b223-90b167f053d7}</Project>
       <Name>MDFe.Servicos</Name>
     </ProjectReference>
     <ProjectReference Include="..\MDFe.Utils\MDFe.Utils.csproj">
-      <Project>{9c0678eb-78f2-49c6-91bf-38148fc37fbb}</Project>
+      <Project>{657e6e65-a138-416c-9a60-d366e68d9b6d}</Project>
       <Name>MDFe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MDFe.Wsdl\MDFe.Wsdl.csproj">
+      <Project>{6aa98cd9-8e71-4ac4-a3db-aef245e60096}</Project>
+      <Name>MDFe.Wsdl</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>CTe.Dacte.AppTeste</RootNamespace>
     <AssemblyName>CTe.Dacte.AppTeste</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -53,7 +53,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
-      <Project>{C86E3921-F0B8-4BFE-9EF1-0E9084326B13}</Project>
+      <Project>{fc15197f-4f76-47d4-839e-0f442e1d47ce}</Project>
       <Name>CTe.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\CTe.Dacte.Base\CTe.Dacte.Base.csproj">
@@ -94,7 +93,7 @@
       <Name>CTe.Dacte.Fast</Name>
     </ProjectReference>
     <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
       <Name>DFe.Utils</Name>
     </ProjectReference>
   </ItemGroup>

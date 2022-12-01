@@ -33,10 +33,11 @@
 
 using System.IO;
 using FastReport;
-using FastReport.Export.Pdf;
 using MDFe.Damdfe.Base;
-using MDFe.Classes.Retorno;
 using System;
+using DFe.Utils;
+using FastReport.Export.Pdf;
+using MDFe.Classes.Retorno;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -48,11 +49,19 @@ namespace MDFe.Damdfe.Fast
         {
             Relatorio = new Report();
             RegisterData(proc);
-            if (!string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(arquivoRelatorio);
+
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"MDFe\MDFeRetrato.frx";
+                var frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Relatorio.Load(new MemoryStream(frx));
+            }
             else
-                Relatorio.Load(new MemoryStream(Properties.Resources.MDFeRetrato));
-            Configurar(config);            
+            {
+                Relatorio.Load(arquivoRelatorio);
+            }
+
+            Configurar(config);
         }
 
         public DamdfeFrMDFe()
@@ -74,7 +83,7 @@ namespace MDFe.Damdfe.Fast
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
         }
-
+        
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>

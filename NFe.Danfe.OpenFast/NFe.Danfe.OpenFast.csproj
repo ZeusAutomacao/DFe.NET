@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net462;netstandard2.0;net6.0</TargetFrameworks>
+		<DefineConstants>openfastreport</DefineConstants>
+		
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FastReport.OpenSource" Version="2019.3.19" />
+		<PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2019.3.19" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\Shared.NFe.Danfe\Shared.NFe.Danfe.projitems" Label="Shared" />
+</Project>

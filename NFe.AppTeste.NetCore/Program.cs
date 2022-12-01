@@ -1,7 +1,7 @@
 ﻿using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
-using DFe.Utils.Standard;
+using DFe.Utils;
 using NFe.Classes;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Cobranca;
@@ -150,7 +150,7 @@ namespace NFe.AppTeste.NetCore
                 string password = Console.ReadLine();
 
                 Console.Clear();
-                var cert = CertificadoDigitaoUtil.ObterDoCaminho(caminho, password);
+                var cert = CertificadoDigitalUtils.ObterDoCaminho(caminho, password);
                 _configuracoes.CfgServico.Certificado.Serial = cert.SerialNumber;
                 Console.WriteLine("Certificado encontrado e carregado...");
                 Console.WriteLine("Issuer: " + cert.IssuerName);

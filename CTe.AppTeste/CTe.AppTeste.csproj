@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CTe.AppTeste</RootNamespace>
     <AssemblyName>CTe.AppTeste</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -103,9 +103,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModelBase\ViewModel.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -466,28 +463,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
-      <Project>{c86e3921-f0b8-4bfe-9ef1-0e9084326b13}</Project>
-      <Name>CTe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CTe.Servicos\CTe.Servicos.csproj">
-      <Project>{63227402-2B1E-4BC7-A6DF-362129923CF6}</Project>
-      <Name>CTe.Servicos</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CTe.Utils\CTe.Utils.csproj">
-      <Project>{21a894ec-b79e-4936-bff3-abead2e5c44f}</Project>
-      <Name>CTe.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
-      <Project>{9984ec15-18e1-4a87-b4db-18ac913dc4e8}</Project>
-      <Name>DFe.Classes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
-      <Project>{B4E1A7A6-5D66-4326-8A8D-39338E6FC84C}</Project>
-      <Name>DFe.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -498,6 +473,28 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CTe.Classes\CTe.Classes.csproj">
+      <Project>{fc15197f-4f76-47d4-839e-0f442e1d47ce}</Project>
+      <Name>CTe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CTe.Servicos\CTe.Servicos.csproj">
+      <Project>{772ceb28-d73d-4d6f-9cb4-1fef4b96ff60}</Project>
+      <Name>CTe.Servicos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CTe.Utils\CTe.Utils.csproj">
+      <Project>{63c33fd7-81d5-4016-a8e9-656266e922b2}</Project>
+      <Name>CTe.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj">
+      <Project>{a08ce194-9780-493d-a758-d5b3f44bd208}</Project>
+      <Name>DFe.Classes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj">
+      <Project>{97f3c222-fd10-488a-812b-e514c3a8863c}</Project>
+      <Name>DFe.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,22 +31,42 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
+using CTe.Classes;
+using CTe.Dacte.Base;
 using FastReport;
 using FastReport.Export.Pdf;
-using CTe.Dacte.Base;
-using CTe.Classes;
 using System;
+using System.IO;
+using DFe.Utils;
 
 namespace CTe.Dacte.Fast
 {
     public class DacteFrCte
     {
-        protected Report Relatorio;
+        public Report Relatorio;
 
         public DacteFrCte()
         {
             Relatorio = new Report();
+        }
+
+        public DacteFrCte(cteProc proc, ConfiguracaoDacte config, string arquivoRelatorio = "")
+        {
+            Relatorio = new Report();
+            RegisterData(proc);
+
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"CTe\CTeRetrato.frx";
+                var frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Relatorio.Load(new MemoryStream(frx));
+            }
+            else
+            {
+                Relatorio.Load(arquivoRelatorio);
+            }
+
+            Configurar(config);
         }
 
         public void LoadReport(string arquivoRelatorio)
@@ -62,7 +82,7 @@ namespace CTe.Dacte.Fast
         public void RegisterData(cteProc proc)
         {
             Relatorio.RegisterData(new[] { proc }, "cteProc", 20);
-            Relatorio.GetDataSource("cteProc").Enabled = true;            
+            Relatorio.GetDataSource("cteProc").Enabled = true;
         }
 
         public void Configurar(ConfiguracaoDacte config)
@@ -70,19 +90,9 @@ namespace CTe.Dacte.Fast
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
             Relatorio.SetParameterValue("Desenvolvedor", config.Desenvolvedor);
             Relatorio.SetParameterValue("QuebrarLinhasObservacao", config.QuebrarLinhasObservacao);
+
             if (Relatorio.FindObject("poEmitLogo") != null)
                 ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
-        }
-
-        public DacteFrCte(cteProc proc, ConfiguracaoDacte config, string arquivoRelatorio = "")
-        {
-            Relatorio = new Report();
-            RegisterData(proc);
-            if (!string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(arquivoRelatorio);
-            else
-                Relatorio.Load(new MemoryStream(Properties.Resources.CTeRetrato));
-            Configurar(config);
         }
 
         /// <summary>

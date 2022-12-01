@@ -3,4 +3,144 @@
   <PropertyGroup>
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="AdmCsc\NfceCsc.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\AN\NFeAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\AN\NfeRetAutorizacao4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\NfeAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\NfeAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\NfeRetAutorizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\NfeRetAutorizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\NfeRetAutorizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\SVAN\NFeAutorizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\SVAN\NfeRetAutorizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\SVCAN\NFeAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Autorizacao\SVCAN\NfeRetAutorizacao4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaCadastro\CE\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaCadastro\DEMAIS_UFs\CadConsultaCadastro4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\AN\NfeConsultaProtocolo4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\NfeConsultaProtocolo.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\NfeConsultaProtocolo2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\NfeConsultaProtocolo3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\NfeConsultaProtocolo4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\SVAN\NfeConsultaProtocolo4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="ConsultaProtocolo\SVCAN\NfeConsultaProtocolo4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="DistribuicaoDFe\NfeDistDFeInteresse.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Download\NfeDownloadNF.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\AN\RecepcaoEvento4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\AN\RecepcaoEvento4ANSVBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\AN\RecepcaoEventoManifestacaoDestinatario4AN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\RecepcaoEPEC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\RecepcaoEvento.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\RecepcaoEvento4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\SVAN\RecepcaoEvento4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Evento\SVCAN\RecepcaoEvento4SVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Inutilizacao\NfeInutilizacao.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Inutilizacao\NfeInutilizacao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Inutilizacao\NfeInutilizacao3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Inutilizacao\NFeInutilizacao4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Inutilizacao\SVAN\NFeInutilizacao4SVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Recepcao\NfeRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Recepcao\NfeRetRecepcao2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\AN\NfeStatusServico4NFeAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\NfeStatusServico.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\NfeStatusServico2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\NfeStatusServico3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\NfeStatusServico4.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\SVAN\NfeStatusServico4NFeSVAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="Status\SVCAN\NfeStatusServico4NFeSVCAN.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

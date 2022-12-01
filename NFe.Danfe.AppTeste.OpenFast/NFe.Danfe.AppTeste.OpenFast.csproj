@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+		
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
+		<ProjectReference Include="..\DFe.Utils\DFe.Utils.csproj" />
+		<ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
+		<ProjectReference Include="..\NFe.Danfe.OpenFast\NFe.Danfe.OpenFast.csproj" />
+		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
+	</ItemGroup>
+
+</Project>

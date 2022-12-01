@@ -33,20 +33,38 @@
 
 using System.IO;
 using FastReport;
-using FastReport.Export.Pdf;
 using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
 using System;
+using DFe.Utils;
+using FastReport.Export.Pdf;
 
 namespace CTe.Dacte.Fast
 {
     public class DacteFrEvento
     {
-        protected Report Relatorio;
+        public Report Relatorio;
 
         public DacteFrEvento()
         {
             Relatorio = new Report();
+        }
+        public DacteFrEvento(cteProc proc, procEventoCTe procEventoCTe, string desenvolvedor = "", string arquivoRelatorio = "")
+        {
+            Relatorio = new Report();
+
+            if (string.IsNullOrWhiteSpace(arquivoRelatorio))
+            {
+                const string caminho = @"CTe\CTeEvento.frx";
+                var frx = FrxFileHelper.TryGetFrxFile(caminho);
+                Relatorio.Load(new MemoryStream(frx));
+            }
+            else
+            {
+                Relatorio.Load(arquivoRelatorio);
+            }
+
+            Configurar(desenvolvedor: desenvolvedor);
         }
 
         public void LoadReport(string arquivoRelatorio)
@@ -71,17 +89,6 @@ namespace CTe.Dacte.Fast
         public void Configurar(string desenvolvedor = "")
         {
             Relatorio.SetParameterValue("Desenvolvedor", desenvolvedor);
-        }
-
-        public DacteFrEvento(cteProc proc, procEventoCTe procEventoCTe, string desenvolvedor = "", string arquivoRelatorio = "")
-        {
-            Relatorio = new Report();
-            RegisterData(proc, procEventoCTe);
-            if (!string.IsNullOrEmpty(arquivoRelatorio))
-                Relatorio.Load(arquivoRelatorio);
-            else
-                Relatorio.Load(new MemoryStream(Properties.Resources.CTeEvento));
-            Configurar(desenvolvedor: desenvolvedor);
         }
 
 
