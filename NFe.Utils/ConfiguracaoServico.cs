@@ -197,19 +197,6 @@ namespace NFe.Utils
             }
         }
 
-        public bool UnZip
-        {
-            get
-            {
-                return _unZip;
-            }
-            set
-            {
-                _unZip = value;
-                OnPropertyChanged();
-            }
-        }
-
         /// <summary>
         /// Atualiza as versões dos serviços
         /// <para>Obs: As versões do serviços podem variar em função  da UF(<see cref="Estado"/>), do tipo de ambiente(<see cref="TipoAmbiente"/>), do modelo de documento(<see cref="DFe.Classes.Flags.ModeloDocumento"/>) e da forma de emissão(<see cref="TipoEmissao"/>)</para>

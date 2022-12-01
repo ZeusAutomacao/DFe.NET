@@ -948,7 +948,7 @@ namespace NFe.Servicos
 
             #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
-            if (retConsulta.loteDistDFeInt != null && _cFgServico.UnZip)
+            if (retConsulta.loteDistDFeInt != null)
             {
                 foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {
