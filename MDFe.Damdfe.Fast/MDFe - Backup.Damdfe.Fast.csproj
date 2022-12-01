@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net462</TargetFrameworks>
+		
+	</PropertyGroup>
+
+	<!--Todos que iniciam com 4... -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+		<Reference Include="System.Windows.Forms.dll" />
+		<Reference Include="Dlls\FastReport.dll" />
+		<Reference Include="Dlls\FastReport.Bars.dll" />
+		<Reference Include="Dlls\FastReport.Editor.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MDFe.Classes\MDFe.Classes.csproj" />
+	  <ProjectReference Include="..\MDFe.Damdfe.Base\MDFe.Damdfe.Base.csproj" />
+	</ItemGroup>
+</Project>

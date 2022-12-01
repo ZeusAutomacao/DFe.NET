@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>net462;netstandard2.0;net6.0</TargetFrameworks>
+	  
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CTe.Utils\CTe.Utils.csproj" />
+    <ProjectReference Include="..\CTe.Wsdl\CTe.Wsdl.csproj" />
+  </ItemGroup>
+
+</Project>

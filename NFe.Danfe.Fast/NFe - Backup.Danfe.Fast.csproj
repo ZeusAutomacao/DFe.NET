@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net462</TargetFrameworks>
+		
+	</PropertyGroup>
+
+	<!--Todos que iniciam com 4... -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+		<Reference Include="System.Windows.Forms.dll" />
+		<Reference Include="Dlls\FastReport.dll" />
+		<Reference Include="Dlls\FastReport.Bars.dll" />
+		<Reference Include="Dlls\FastReport.Editor.dll" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\NFe.Danfe.Base\NFe.Danfe.Base.csproj" />
+	</ItemGroup>
+
+	<Import Project="..\Shared.NFe.Danfe\Shared.NFe.Danfe.projitems" Label="Shared" />
+
+</Project>
