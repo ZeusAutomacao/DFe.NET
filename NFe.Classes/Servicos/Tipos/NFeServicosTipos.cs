@@ -216,6 +216,97 @@ namespace NFe.Classes.Servicos.Tipos
         TeMdOperacaoNaoRealizada = 210240,
 
         /// <summary>
+        /// 610500 – Registro de Passagem Autorização
+        /// </summary>
+        [Description("Registro de Passagem Autorização")]
+        [XmlEnum("610500")]
+        TeMdRegistroPassagemAutorizacao = 610500,
+        
+        /// <summary>
+        /// 610501 – Registro de Cancelamento de Passagem
+        /// </summary>
+        [Description("Registro de Cancelamento de Passagem")]
+        [XmlEnum("610501")]
+        TeMdRegistroCancelamentoPassagem = 610501,
+        
+        /// <summary>
+        /// 610510 – Registro de Passagem de NF-e MDF-e
+        /// </summary>
+        [Description("Registro de Passagem de NF-e MDF-e")]
+        [XmlEnum("610510")]
+        TeMdRegistroPassagemNFeMDFe = 610510,
+        
+        /// <summary>
+        /// 610514 – Registro de Passagem de NF-e CT-e
+        /// </summary>
+        [Description("Registro de Passagem de NF-e CT-e")]
+        [XmlEnum("610514")]
+        TeMdRegistroPassagemNFeCTe = 610514,
+        
+        /// <summary>
+        /// 610550 – Registro de Passagem Automática
+        /// </summary>
+        [Description("Registro de Passagem Automática")]
+        [XmlEnum("610550")]
+        TeMdRegistroPassagemAutomatica = 610550,
+        
+        /// <summary>
+        /// 610552 – Registro de Passagem Automática MDF-e
+        /// </summary>
+        [Description("Registro de Passagem Automática MDF-e")]
+        [XmlEnum("610552")]
+        TeMdRegistroPassagemAutomaticaMDFe = 610552,
+        
+        /// <summary>
+        /// 610554 – Registro de Passagem Automática MDF-e
+        /// </summary>
+        [Description("Registro de Passagem Automática MDF-e CT-e")]
+        [XmlEnum("610554")]
+        TeMdRegistroPassagemAutomaticaMDFeCTe = 610554,
+        
+        /// <summary>
+        /// 610600 – Registro de Autorização CT-e NF-e
+        /// </summary>
+        [Description("Registro de Autorização CT-e NF-e")]
+        [XmlEnum("610600")]
+        TeMdRegistroAutorizacaoCTeNFe = 610600,
+        
+        /// <summary>
+        /// 610601 – Registro de Cancelamento de CT-e NF-e
+        /// </summary>
+        [Description("Registro de Cancelamento de CT-e NF-e")]
+        [XmlEnum("610601")]
+        TeMdRegistroCancelamentoCTeNFe = 610601,
+        
+        /// <summary>
+        /// 610610 – MDF-e Autorizado
+        /// </summary>
+        [Description("MDF-e Autorizado")]
+        [XmlEnum("610610")]
+        TeMdMDFeAutorizado = 610610,
+        
+        /// <summary>
+        /// 610611 – MDF-e Cancelado
+        /// </summary>
+        [Description("MDF-e Cancelado")]
+        [XmlEnum("610611")]
+        TeMdMDFeCancelado = 610611,
+        
+        /// <summary>
+        /// 610614 – MDF-e Cancelado
+        /// </summary>
+        [Description("MDF-e Autorizado CT-e")]
+        [XmlEnum("610614")]
+        TeMdMDFeAutorizadoCTe = 610614,
+        
+        /// <summary>
+        /// 610615 – Cancelamento de MDF-e CT-e
+        /// </summary>
+        [Description("Cancelamento de MDF-e CT-e")]
+        [XmlEnum("610615")]
+        TeMdCancelamentoMDFeCTe = 610615,
+        
+        /// <summary>
         /// 790700 – Averbação para Exportação
         /// </summary>
         [Description("Averbação para Exportação")]
