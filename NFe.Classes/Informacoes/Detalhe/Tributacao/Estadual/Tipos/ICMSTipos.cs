@@ -332,6 +332,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         /// <summary>
         /// 5 - Pauta (valor)
         /// </summary>
+        [Description("Pauta (valor)")]
         [XmlEnum("5")] DbisPauta = 5,
         
         /// <summary>

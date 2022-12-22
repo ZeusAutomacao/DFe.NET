@@ -136,7 +136,13 @@ namespace NFe.Utils.NFe
             var codigoNumerico = int.Parse(nfeLocal.infNFe.ide.cNF);
             var estado = nfeLocal.infNFe.ide.cUF;
             var dataEHoraEmissao = nfeLocal.infNFe.ide.dhEmi;
-            var cnpj = String.IsNullOrWhiteSpace(nfeLocal.infNFe.emit.CNPJ) ? "000" + nfeLocal.infNFe.emit.CPF : nfeLocal.infNFe.emit.CNPJ;
+            var cnpj = nfeLocal.infNFe.emit.CNPJ;
+
+            if (cnpj == null)
+            {
+                cnpj = nfeLocal.infNFe.emit.CPF.PadLeft(14, '0');
+            }
+
             var numeroDocumento = nfeLocal.infNFe.ide.nNF;
             var serie = nfeLocal.infNFe.ide.serie;
 

@@ -162,7 +162,10 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Todos")]
         Todos = 0,
 
-        [Description("Carta de Correcao")]
+        /// <summary>
+        /// 110110 - Carta de Correção
+        /// </summary>
+        [Description("Carta de Correção")]
         [XmlEnum("110110")]
         TeNfeCartaCorrecao = 110110,
 
@@ -199,7 +202,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         [Description("Ciencia da Operacao")]
         [XmlEnum("210210")]
-        TeMdCienciaDaEmissao = 210210,
+        TeMdCienciaDaOperacao = 210210,
 
         /// <summary>
         /// 210220 – Desconhecimento da Operação
@@ -330,7 +333,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         public static ISet<NFeTipoEvento> NFeTipoEventoManifestacaoDestinatario = new HashSet<NFeTipoEvento>()
         {
-            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaEmissao,
+            NFeTipoEvento.TeMdConfirmacaoDaOperacao, NFeTipoEvento.TeMdCienciaDaOperacao,
             NFeTipoEvento.TeMdDesconhecimentoDaOperacao, NFeTipoEvento.TeMdOperacaoNaoRealizada
         };
 
