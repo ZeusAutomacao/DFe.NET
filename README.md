@@ -11,7 +11,7 @@ A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 
 |  Escopos  |  Frameworks Suportados  |
 | ------------------- | ------------------- |
 | NFe, NFCe, CTe, MDFe | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0 .NET 7.0 |
-| Impressões com OpenFastReport (NFe, NFCe, CTe, MDFe) | ..NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0 .NET 7.0 |
+| Impressões com OpenFastReport (NFe, NFCe, CTe, MDFe) | ..NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0(windows+linux) .NET 7.0(windows) |
 | Impressões com FastReport(versão paga) (NFe, NFCe, CTe, MDFe) | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8 .NetStandard 2.0, .NET 6.0 .NET 7.0(windows) |
 | Impressões com FastReport.Skia(versão paga) (NFe) | .NET 7.0(windows+linux+mobile) |
 
