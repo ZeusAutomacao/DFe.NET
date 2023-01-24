@@ -67,7 +67,7 @@ namespace Shared.DFe.Danfe
             //Segundo o Manual de Padrões Técnicos do DANFE - NFC - e e QR Code, versão 3.2, página 9, nos casos de emissão em contingência deve ser impresso uma segunda cópia como via do estabelecimento
             if (configuracaoDanfeNfce.SegundaViaContingencia)
             {
-#if !openfastreport
+#if !openfastreport && !fastskia
                 /*Se a NFe for autorizada, mesmo que seja em contingência, imprime somente uma via - devendo o usuario enviar 2 copias para a impressora*/
                 relatorio.PrintSettings.Copies = (proc.NFe.infNFe.ide.tpEmis == TipoEmissao.teNormal | (proc.protNFe != null && proc.protNFe.infProt != null && NfeSituacao.Autorizada(proc.protNFe.infProt.cStat))/*Se a NFe for autorizada, mesmo que seja em contingência, imprime somente uma via*/ ) ? 1 : 2;
 #else
