@@ -7,7 +7,6 @@
 
 	<ItemGroup>
 		<Reference Include="Dlls\FastReport.dll" />
-		<Reference Include="Dlls\FastReport.Compat.Skia.dll" />
 	</ItemGroup>
 
 	<ItemGroup>
