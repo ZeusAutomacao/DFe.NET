@@ -96,6 +96,16 @@ namespace NFe.Classes.Protocolo
         ///     PR12 - Descrição literal do status da resposta.
         /// </summary>
         public string xMotivo { get; set; }
+        
+        /// <summary>
+        /// PR14 - Código da Mensagem.
+        /// </summary>
+        public int cMsg { get; set; }
+
+        /// <summary>
+        /// PR15 - Mensagem da SEFAZ para o emissor.
+        /// </summary>
+        public string xMsg { get; set; }
 
         /// <summary>
         ///     PR13 - Assinatura XML do grupo identificado pelo atributo “Id”
