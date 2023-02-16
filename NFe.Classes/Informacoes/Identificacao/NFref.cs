@@ -38,6 +38,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     BA02 - Chave de acesso da NF-e referenciada
         /// </summary>
         public string refNFe { get; set; }
+        
+        /// <summary>
+        ///     BA02a - Chave da NF-e com o código numérico zerado.
+        /// </summary>
+        public string refNFeSig { get; set; }
 
         /// <summary>
         ///     BA03 - Informação da NF modelo 1/1A referenciada
