@@ -235,7 +235,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce/consultarNFCe.jsf"},
                 {Estado.GO, versao4, "http://www.nfce.go.gov.br/post/ver/214344/consulta-nfce"},
                 {Estado.PE, versao4, "http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe"},
-                {Estado.MG, versao3E4, "http://nfce.fazenda.mg.gov.br/portalnfce"}
+                {Estado.MG, versao3E4, "https://portalsped.fazenda.mg.gov.br/portalnfce"}
             };
 
             adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaProducao1);
@@ -271,7 +271,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/consultarNFCe.jsf"},
                 {Estado.GO, versao4, "http://www.nfce.go.gov.br/post/ver/214413/consulta-nfc-e-homologacao?" },
                 {Estado.PE, versao4, "http://nfcehomolog.sefaz.pe.gov.br/nfce-web/consultarNFCe" },
-                {Estado.MG, versao3E4, "http://hnfce.fazenda.mg.gov.br/portalnfce"}
+                {Estado.MG, versao3E4, "https://hportalsped.fazenda.mg.gov.br/portalnfce"}
             };
 
             adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao1 }, urlsConsultaHomologacao1);
