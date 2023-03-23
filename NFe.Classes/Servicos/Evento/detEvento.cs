@@ -190,6 +190,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P26
         /// </summary>
+        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/detEvento")]
         public dest dest { get; set; }
 
         public bool ShouldSerializecOrgaoAutor()
