@@ -1082,7 +1082,7 @@ namespace NFe.Servicos
                 dhEmi = nfe.infNFe.ide.dhEmi,
                 tpNF = nfe.infNFe.ide.tpNF,
                 IE = nfe.infNFe.emit.IE,
-                dest = new dest
+                dest = new detEventoDest
                 {
                     UF = nfe.infNFe.dest.enderDest.UF,
                     CNPJ = nfe.infNFe.dest.CNPJ,
