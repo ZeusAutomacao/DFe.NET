@@ -179,7 +179,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// <summary>
         /// LA18 - Grupo indicador da origem do combustível
         /// </summary>
-        [XmlElement("origComb", typeof(origComb))]
+        [XmlElement("origComb")]
         public List<origComb> origComb { get; set; }
 
         public bool ShouldSerializepMixGN()
