@@ -134,13 +134,22 @@ namespace CTe.Servicos.Factory
             };
         }
 
-        public static evPrestDesacordo CriaEvPrestDesacordo(string indicadorDesacordo, string observacao)
+        public static evPrestDesacordo CriaEvPrestDesacordo(string indicadorDesacordo, string observacao, ConfiguracaoServico configuracaoServico = null)
         {
-            return new evPrestDesacordo
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            var evPrestDesacordo = new evPrestDesacordo
             {
                 indDesacordoOper = indicadorDesacordo,
                 xObs = observacao
             };
+
+            if (configServico.cUF == Estado.MT || configServico.RemoverAcentos)
+            {
+                evPrestDesacordo.descEvento = "Prestacao do Servico em Desacordo";
+            }
+
+            return evPrestDesacordo;
         }
 
         public static enviCTe CriaEnviCTe(int lote, List<CTeEletronica> cteEletronicoList, ConfiguracaoServico configuracaoServico = null)
