@@ -42,6 +42,7 @@ using CTe.Classes.Servicos.Recepcao;
 using CTe.Classes.Servicos.Recepcao.Retorno;
 using CTe.Classes.Servicos.Status;
 using CTe.Servicos.Inutilizacao;
+using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
 using CTeEletronica = CTe.Classes.CTe;
 
@@ -144,7 +145,7 @@ namespace CTe.Servicos.Factory
                 xObs = observacao
             };
 
-            if (configServico.cUF == Estado.MT || configServico.RemoverAcentos)
+            if (configServico.cUF == Estado.MT)//sem acentuação issue #1386
             {
                 evPrestDesacordo.descEvento = "Prestacao do Servico em Desacordo";
             }
