@@ -57,6 +57,9 @@ namespace NFe.Classes.Informacoes.Total
         private decimal? _vFcpst;
         private decimal? _vFcpstRet;
         private decimal? _vIpiDevol;
+        private decimal? _qBCMonoReten;
+        private decimal? _vICMSMonoReten;
+        private decimal? _qBCMonoRet;
 
         /// <summary>
         ///     W03 - Base de Cálculo do ICMS
@@ -191,6 +194,48 @@ namespace NFe.Classes.Informacoes.Total
         }
 
         /// <summary>
+        /// W06c.1 - Valor total da quantidade tributada do ICMS monofásico sujeito a retenção
+        /// </summary>
+        public decimal? qBCMonoReten
+        {
+            get { return _qBCMonoReten.Arredondar(2); }
+            set { _qBCMonoReten = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializeqBCMonoReten()
+        {
+            return qBCMonoReten.HasValue;
+        }
+
+        /// <summary>
+        /// W06d - Valor total do ICMS monofásico sujeito a retenção
+        /// </summary>
+        public decimal? vICMSMonoReten
+        {
+            get { return _vICMSMonoReten.Arredondar(2); }
+            set { _vICMSMonoReten = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSMonoReten()
+        {
+            return vICMSMonoReten.HasValue;
+        }
+
+        /// <summary>
+        /// W06d.1 - Valor total da quantidade tributada do ICMS monofásico retido anteriormente
+        /// </summary>
+        public decimal? qBCMonoRet
+        {
+            get { return _qBCMonoRet.Arredondar(2); }
+            set { _qBCMonoRet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializeqBCMonoRet()
+        {
+            return qBCMonoRet.HasValue;
+        }
+
+        /// <summary>
         ///     W07 - Valor Total dos produtos e serviços
         /// </summary>
         public decimal vProd
@@ -303,6 +348,7 @@ namespace NFe.Classes.Informacoes.Total
             get { return _vTotTrib.Arredondar(2); }
             set { _vTotTrib = value.Arredondar(2); }
         }
+
 
     }
 }
