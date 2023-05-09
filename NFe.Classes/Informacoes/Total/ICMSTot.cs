@@ -57,9 +57,12 @@ namespace NFe.Classes.Informacoes.Total
         private decimal? _vFcpst;
         private decimal? _vFcpstRet;
         private decimal? _vIpiDevol;
+        private decimal? _qBCMono;
+        private decimal? _vICMSMono;
         private decimal? _qBCMonoReten;
         private decimal? _vICMSMonoReten;
         private decimal? _qBCMonoRet;
+        private decimal? _vICMSMonoRet;
 
         /// <summary>
         ///     W03 - Base de Cálculo do ICMS
@@ -192,6 +195,34 @@ namespace NFe.Classes.Informacoes.Total
         {
             get { return vFCPSTRet.HasValue; }
         }
+        
+        /// <summary>
+        /// W06b.1 - Valor total da quantidade tributada do ICMS monofásico próprio
+        /// </summary>
+        public decimal? qBCMono
+        {
+            get { return _qBCMono.Arredondar(2); }
+            set { _qBCMono = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializeqBCMono()
+        {
+            return qBCMono.HasValue;
+        }
+
+        /// <summary>
+        /// W06c - Valor total do ICMS monofásico próprio
+        /// </summary>
+        public decimal? vICMSMono
+        {
+            get { return _vICMSMono.Arredondar(2); }
+            set { _vICMSMono = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSMono()
+        {
+            return vICMSMono.HasValue;
+        }
 
         /// <summary>
         /// W06c.1 - Valor total da quantidade tributada do ICMS monofásico sujeito a retenção
@@ -234,6 +265,31 @@ namespace NFe.Classes.Informacoes.Total
         {
             return qBCMonoRet.HasValue;
         }
+
+        /// <summary>
+        /// W06e - Valor total do ICMS monofásico retido anteriormente
+        /// </summary>
+        public decimal? vICMSMonoRet
+        {
+            get { return _vICMSMonoRet.Arredondar(2); }
+            set { _vICMSMonoRet = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSMonoRet()
+        {
+            return vICMSMonoRet.HasValue;
+        }
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         ///     W07 - Valor Total dos produtos e serviços
@@ -348,7 +404,5 @@ namespace NFe.Classes.Informacoes.Total
             get { return _vTotTrib.Arredondar(2); }
             set { _vTotTrib = value.Arredondar(2); }
         }
-
-
     }
 }
