@@ -175,11 +175,15 @@ namespace NFe.Utils
             {
                 case Csticms.Cst00:
                     return "00";
+                case Csticms.Cst02:
+                    return "02";                 
                 case Csticms.Cst10:
                 case Csticms.CstPart10:
                     return "10";
                 case Csticms.Cst20:
                     return "20";
+                case Csticms.Cst15:
+                    return "15";                    
                 case Csticms.Cst30:
                     return "30";
                 case Csticms.Cst40:
@@ -191,9 +195,13 @@ namespace NFe.Utils
                     return "50";
                 case Csticms.Cst51:
                     return "51";
+                case Csticms.Cst53:
+                    return "53";
                 case Csticms.Cst60:
                 case Csticms.CstRep60:
                     return "60";
+                case Csticms.Cst61:
+                    return "61";
                 case Csticms.Cst70:
                     return "70";
                 case Csticms.Cst90:
