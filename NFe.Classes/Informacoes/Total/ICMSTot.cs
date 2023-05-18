@@ -280,17 +280,6 @@ namespace NFe.Classes.Informacoes.Total
             return vICMSMonoRet.HasValue;
         }
 
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
         ///     W07 - Valor Total dos produtos e serviços
         /// </summary>
