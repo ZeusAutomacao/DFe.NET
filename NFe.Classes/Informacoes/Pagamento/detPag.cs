@@ -16,6 +16,11 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// </summary>
         public FormaPagamento tPag { get; set; }
 
+        /// <summary>
+        ///     YA02a - Descrição do Meio de Pagamento
+        /// </summary>
+        public string xPag { get; set; }
+
         public decimal vPag
         {
             get { return _vPag.Arredondar(2); }

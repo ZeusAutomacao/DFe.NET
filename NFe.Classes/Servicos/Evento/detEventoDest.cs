@@ -34,7 +34,7 @@ using System;
 
 namespace NFe.Classes.Servicos.Evento
 {
-    public class dest
+    public class detEventoDest
     {
         private const string ErroCpfCnpjIdEstrangeiroPreenchidos = "Somente preencher um dos campos: CNPJ, CPF ou idEstrangeiro, para um objeto do tipo dest!";
         private string _cnpj;
