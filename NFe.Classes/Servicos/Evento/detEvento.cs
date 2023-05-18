@@ -190,7 +190,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P26
         /// </summary>
-        public dest dest { get; set; }
+        public detEventoDest dest { get; set; }
 
         public bool ShouldSerializecOrgaoAutor()
         {
