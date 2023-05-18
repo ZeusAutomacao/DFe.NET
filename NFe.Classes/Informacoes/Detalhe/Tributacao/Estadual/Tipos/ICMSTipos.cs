@@ -67,6 +67,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
 
     /// <summary>
     ///     <para>00 - Tributada integralmente</para>
+    ///     <para>02 - Tributação monofásica própria sobre combustíveis</para>
     ///     <para>10 - Tributada e com cobrança do ICMS por substituição tributária</para>
     ///     <para>20 - Com redução de base de cálculo</para>
     ///     <para>30 - Isenta ou não tributada e com cobrança do ICMS por substituição tributária</para>
@@ -81,8 +82,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     public enum Csticms
     {
         [XmlEnum("00")] Cst00,
+        [XmlEnum("02")] Cst02,
         [XmlEnum("10")] Cst10,
         [XmlEnum("10")] CstPart10,
+        [XmlEnum("02")] Cst15,
         [XmlEnum("20")] Cst20,
         [XmlEnum("30")] Cst30,
         [XmlEnum("40")] Cst40,
@@ -90,7 +93,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("41")] CstRep41,
         [XmlEnum("50")] Cst50,
         [XmlEnum("51")] Cst51,
+        [XmlEnum("02")] Cst53,
         [XmlEnum("60")] Cst60,
+        [XmlEnum("02")] Cst61,
         [XmlEnum("70")] Cst70,
         [XmlEnum("90")] Cst90,
         [XmlEnum("90")] CstPart90
@@ -240,6 +245,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("11")] MdiDeficienteNaoCondutor = 11,
         [XmlEnum("16")] MdiOlimpiadasRio2016 = 16,
         [XmlEnum("90")] MdiSolicitadoPeloFisco = 90
+    }
+
+    #endregion
+
+
+    #region Motivo da redução do adrem
+
+    /// <summary>
+    ///     <para>1 – Transporte coletivo de passageiros;</para>
+    ///     <para>9 – Outros;</para>
+    /// </summary>
+    public enum MotivoReducaoOrdem
+    {
+        [XmlEnum("1")] MroTransporteColetivo = 1,
+        [XmlEnum("0")] MroOutros = 9
     }
 
     #endregion

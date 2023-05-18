@@ -55,7 +55,7 @@ namespace NFe.Utils.Tributacao.Estadual
 
         public ICMSGeral()
         {
-            
+
         }
 
         /// <summary>
@@ -106,12 +106,18 @@ namespace NFe.Utils.Tributacao.Estadual
                         case Csticms.Cst00:
                             icmsBasico = new ICMS00();
                             break;
+                        case Csticms.Cst02:
+                            icmsBasico = new ICMS02();
+                            break;
                         case Csticms.Cst10:
                             icmsBasico = new ICMS10();
                             break;
                         case Csticms.CstPart10:
                         case Csticms.CstPart90:
                             icmsBasico = new ICMSPart();
+                            break;
+                        case Csticms.Cst15:
+                            icmsBasico = new ICMS15();
                             break;
                         case Csticms.Cst20:
                             icmsBasico = new ICMS20();
@@ -130,8 +136,14 @@ namespace NFe.Utils.Tributacao.Estadual
                         case Csticms.Cst51:
                             icmsBasico = new ICMS51();
                             break;
+                        case Csticms.Cst53:
+                            icmsBasico = new ICMS53();
+                            break;
                         case Csticms.Cst60:
                             icmsBasico = new ICMS60();
+                            break;
+                        case Csticms.Cst61:
+                            icmsBasico = new ICMS61();
                             break;
                         case Csticms.Cst70:
                             icmsBasico = new ICMS70();
@@ -226,7 +238,7 @@ namespace NFe.Utils.Tributacao.Estadual
         /// </summary>
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
-       /// <summary>
+        /// <summary>
         ///     Valor do ICMS da Operação
         /// </summary>
         public decimal? vICMSOp { get; set; }
@@ -344,5 +356,20 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do FCP retido por Substituição Tributária
         /// </summary>
         public decimal? vFCPSTRet { get; set; }
+
+        /// <summary>
+        ///     Valor total do ICMS monofásico próprio
+        /// </summary>
+        public decimal? vICMSMono { get; set; }
+
+        /// <summary>
+        ///     Valor total do ICMS monofásico sujeito a retenção
+        /// </summary>
+        public decimal? vICMSMonoReten { get; set; }
+
+        /// <summary>
+        ///     Valor total do ICMS monofásico retido anteriormente 
+        /// </summary>
+        public decimal? vICMSMonoRet { get; set; }
     }
 }
