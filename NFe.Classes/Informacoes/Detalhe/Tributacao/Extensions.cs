@@ -68,7 +68,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             return GetPropDecimalValue(cofins, "vCOFINS");
         }
 
-        public static MotivoReducaoAdrem GetIcmsMotRedAdRem(this ICMSBasico icms)
+        public static MotivoReducaoAdRem GetIcmsMotRedAdRem(this ICMSBasico icms)
         {
             return GetPropMotivoReducaoAdremValue(icms, "motRedAdRem");
         }
@@ -131,16 +131,16 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
             }
         }
 
-        private static MotivoReducaoAdrem GetPropMotivoReducaoAdremValue(object instance, string propName)
+        private static MotivoReducaoAdRem GetPropMotivoReducaoAdremValue(object instance, string propName)
         {
             try
             {
                 var property = instance.GetType().GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
-                return (MotivoReducaoAdrem)(property != null ? (MotivoReducaoAdrem?)property.GetValue(instance, null) : MotivoReducaoAdrem.MraOutros);
+                return (MotivoReducaoAdRem)(property != null ? (MotivoReducaoAdRem?)property.GetValue(instance, null) : MotivoReducaoAdRem.MraOutros);
             }
             catch (Exception)
             {
-                return MotivoReducaoAdrem.MraOutros;
+                return MotivoReducaoAdRem.MraOutros;
             }
         }
     }

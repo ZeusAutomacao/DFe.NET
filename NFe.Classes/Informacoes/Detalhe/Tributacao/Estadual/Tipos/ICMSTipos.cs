@@ -256,7 +256,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>1 – Transporte coletivo de passageiros;</para>
     ///     <para>9 – Outros;</para>
     /// </summary>
-    public enum MotivoReducaoAdrem
+    public enum MotivoReducaoAdRem
     {
         [XmlEnum("1")] MraTransporteColetivo = 1,
         [XmlEnum("0")] MraOutros = 9

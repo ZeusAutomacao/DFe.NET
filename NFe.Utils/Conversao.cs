@@ -215,7 +215,7 @@ namespace NFe.Utils
             return ((int)origemMercadoria).ToString();
         }
 
-        public static string MotivoReducaoAdremParaString(this MotivoReducaoAdrem motivoReducaoAdrem)
+        public static string MotivoReducaoAdremParaString(this MotivoReducaoAdRem motivoReducaoAdrem)
         {
             return ((int)motivoReducaoAdrem).ToString();
         }
