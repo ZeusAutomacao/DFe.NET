@@ -371,5 +371,60 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor total do ICMS monofásico retido anteriormente 
         /// </summary>
         public decimal? vICMSMonoRet { get; set; }
+
+        /// <summary>
+        ///     Quantidade tributada  
+        /// </summary>
+        public decimal? qBCMono { get; set; }
+
+        /// <summary>
+        ///     Alíquota ad rem do imposto 
+        /// </summary>
+        public decimal? adRemICMS { get; set; }
+
+        /// <summary>
+        ///     Quantidade tributada sujeita a retenção 
+        /// </summary>
+        public decimal? qBCMonoReten { get; set; }
+
+        /// <summary>
+        ///     Alíquota ad rem do imposto com retenção
+        /// </summary>
+        public decimal? adRemICMSReten { get; set; }
+
+        /// <summary>
+        ///     Percentual de redução do valor da alíquota adrem do ICMS
+        /// </summary>
+        public decimal? pRedAdRem { get; set; }
+
+        /// <summary>
+        ///     Motivo da redução do adrem
+        /// </summary>
+        public decimal? motRedAdRem { get; set; }
+
+        /// <summary>
+        ///     Quantidade tributada diferida
+        /// </summary>
+        public decimal? qBCMonoDif { get; set; }
+
+        /// <summary>
+        ///     Alíquota ad rem do imposto diferido
+        /// </summary>
+        public decimal? adRemICMSDif { get; set; }
+
+        /// <summary>
+        ///     Valor do ICMS diferido
+        /// </summary>
+        public decimal? vICMSMonoDif { get; set; }
+
+        /// <summary>
+        ///     Quantidade tributada retida anteriormente
+        /// </summary>
+        public decimal? qBCMonoRet { get; set; }
+
+        /// <summary>
+        ///     Alíquota ad rem do imposto retido anteriormente
+        /// </summary>
+        public decimal? adRemICMSRet { get; set; }
     }
 }

@@ -85,7 +85,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("02")] Cst02,
         [XmlEnum("10")] Cst10,
         [XmlEnum("10")] CstPart10,
-        [XmlEnum("02")] Cst15,
+        [XmlEnum("15")] Cst15,
         [XmlEnum("20")] Cst20,
         [XmlEnum("30")] Cst30,
         [XmlEnum("40")] Cst40,
@@ -93,9 +93,9 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
         [XmlEnum("41")] CstRep41,
         [XmlEnum("50")] Cst50,
         [XmlEnum("51")] Cst51,
-        [XmlEnum("02")] Cst53,
+        [XmlEnum("53")] Cst53,
         [XmlEnum("60")] Cst60,
-        [XmlEnum("02")] Cst61,
+        [XmlEnum("61")] Cst61,
         [XmlEnum("70")] Cst70,
         [XmlEnum("90")] Cst90,
         [XmlEnum("90")] CstPart90
@@ -256,10 +256,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     ///     <para>1 – Transporte coletivo de passageiros;</para>
     ///     <para>9 – Outros;</para>
     /// </summary>
-    public enum MotivoReducaoOrdem
+    public enum MotivoReducaoAdrem
     {
-        [XmlEnum("1")] MroTransporteColetivo = 1,
-        [XmlEnum("0")] MroOutros = 9
+        [XmlEnum("1")] MraTransporteColetivo = 1,
+        [XmlEnum("0")] MraOutros = 9
     }
 
     #endregion

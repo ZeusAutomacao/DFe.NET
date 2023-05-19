@@ -131,7 +131,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         ///     N48 - Motivo da redução do adrem
         /// </summary>
         [XmlElement(Order = 10)]
-        public MotivoReducaoOrdem? motRedAdRem { get; set; }
+        public MotivoReducaoAdRem? motRedAdRem { get; set; }
 
         public bool ShouldSerializepRedAdRem()
         {
