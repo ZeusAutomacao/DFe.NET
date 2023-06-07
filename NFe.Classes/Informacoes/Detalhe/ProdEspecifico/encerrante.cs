@@ -36,6 +36,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
     {
         private decimal _vEncIni;
         private decimal _vEncFin;
+        private decimal? _pBio;
 
         /// <summary>
         /// LA12 - Número de identificação do bico utilizado no abastecimento
@@ -73,5 +74,19 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
             get { return _vEncFin; }
             set { _vEncFin = value.Arredondar(3); }
         }
+
+        /// <summary>
+        /// LA17 - Percentual do índice de mistura do Biodiesel (B100) no Óleo Diesel B instituído pelo órgão regulamentador
+        /// </summary>
+        public decimal? pBio
+        {
+            get { return _pBio; }
+            set { _pBio = value.HasValue ? value.Arredondar(3) : null; }
+        }
+        public bool ShouldSerializepBio()
+        {
+            return pBio.HasValue;
+        }
+
     }
 }
