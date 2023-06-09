@@ -46,21 +46,12 @@ namespace MDFe.Classes.Extencoes
     {
         public static void Valida(this MDFeEnviMDFe enviMDFe)
         {
-            if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
+            ValidaInternal(enviMDFe, MDFeConfiguracao.VersaoWebService.VersaoLayout);
+        }
 
-            var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
-
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
-            {
-                case VersaoServico.Versao100:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
-                    break;
-                case VersaoServico.Versao300:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd");
-                    break;
-            }
-
-            enviMDFe.MDFe.Valida();
+        public static void Valida(this MDFeEnviMDFe enviMDFe, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            ValidaInternal(enviMDFe, servicoConfiguracao.VersaoWebService.VersaoLayout);
         }
 
         public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
@@ -80,15 +71,42 @@ namespace MDFe.Classes.Extencoes
 
         public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            SalvarXmlEmDiscoInternal(enviMDFe, MDFeConfiguracao.CaminhoSalvarXml, MDFeConfiguracao.IsSalvarXml);
+        }
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            SalvarXmlEmDiscoInternal(enviMDFe, servicoConfiguracao.CaminhoSalvarXml, servicoConfiguracao.IsSalvarXml);
+        }
 
-            var arquivoSalvar = Path.Combine(caminhoXml, enviMDFe.MDFe.Chave() + "-completo-mdfe.xml");
+        private static void ValidaInternal(MDFeEnviMDFe enviMDFe, VersaoServico versaoLayout)
+        {
+            if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
+
+            var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
+
+            switch (versaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
+                    break;
+                case VersaoServico.Versao300:
+                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd");
+                    break;
+            }
+
+            enviMDFe.MDFe.Valida(versaoLayout);
+        }
+
+        private static void SalvarXmlEmDiscoInternal(MDFeEnviMDFe enviMDFe, string caminhoSalvarXml, bool salvarXml)
+        {
+            if (!salvarXml) return;
+
+            var arquivoSalvar = Path.Combine(caminhoSalvarXml, enviMDFe.MDFe.Chave() + "-completo-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
 
-            enviMDFe.MDFe.SalvarXmlEmDisco();
+            enviMDFe.MDFe.SalvarXmlEmDisco(caminhoSalvarXml, salvarXml);
         }
     }
 }

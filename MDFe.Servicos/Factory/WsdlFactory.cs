@@ -42,6 +42,7 @@ using MDFe.Wsdl.MDFeConsultaProtoloco;
 using MDFe.Wsdl.MDFeEventos;
 using MDFe.Wsdl.MDFeRecepcao;
 using MDFe.Wsdl.MDFeRetRecepcao;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MDFe.Servicos.Factory
 {
@@ -49,68 +50,129 @@ namespace MDFe.Servicos.Factory
     {
         public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc()
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsNaoEnc;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            return CriaWsdlMDFeConsNaoEncInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEnc(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeConsNaoEncInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeConsulta CriaWsdlMDFeConsulta()
+        {
+            return CriaWsdlMDFeConsultaInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeConsulta CriaWsdlMDFeConsulta(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeConsultaInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento()
+        {
+            return CriaWsdlMDFeRecepcaoEventoInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeRecepcaoEventoInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeRecepcao CriaWsdlMDFeRecepcao()
+        {
+            return CriaWsdlMDFeRecepcaoInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeRecepcao CriaWsdlMDFeRecepcao(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeRecepcaoInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
+        {
+            return CriaWsdlMDFeRetRecepcaoInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeRetRecepcaoInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
+        {
+            return CriaWsdlMDFeStatusServicoInternal(MDFeConfiguracao.VersaoWebService, MDFeConfiguracao.X509Certificate2);
+        }
+
+        public static MDFeStatusServico CriaWsdlMDFeStatusServico(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaWsdlMDFeStatusServicoInternal(servicoConfiguracao.VersaoWebService, servicoConfiguracao.X509Certificate2);
+        }
+
+        #region Métodos privados
+
+        private static MDFeConsNaoEnc CriaWsdlMDFeConsNaoEncInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
+        {
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeConsNaoEnc;
+            var versao = versaoWebService.VersaoLayout.GetVersaoString();
+            var configuracaoWsdl = CriaConfiguracao(url, versao, versaoWebService, certificado);
 
             var ws = new MDFeConsNaoEnc(configuracaoWsdl);
             return ws;
         }
 
-        public static MDFeConsulta CriaWsdlMDFeConsulta()
+        private static MDFeConsulta CriaWsdlMDFeConsultaInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeConsulta;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeConsulta;
+            var versao = versaoWebService.VersaoLayout.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, versaoWebService, certificado);
 
             return new MDFeConsulta(configuracaoWsdl);
         }
 
-        public static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEvento()
+        private static MDFeRecepcaoEvento CriaWsdlMDFeRecepcaoEventoInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeRecepcaoEvento;
+            var versao = versaoWebService.VersaoLayout.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, versaoWebService, certificado);
 
             return new MDFeRecepcaoEvento(configuracaoWsdl);
         }
 
-        public static MDFeRecepcao CriaWsdlMDFeRecepcao()
+        private static MDFeRecepcao CriaWsdlMDFeRecepcaoInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRecepcao;
-            var versaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeRecepcao;
+            var versaoDoServico = versaoWebService.VersaoLayout.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versaoServico);
+            var configuracaoWsdl = CriaConfiguracao(url, versaoDoServico, versaoWebService, certificado);
 
-            return new MDFeRecepcao(configuracaoWsdl); ;
+            return new MDFeRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeRetRecepcao CriaWsdlMDFeRetRecepcao()
+        private static MDFeRetRecepcao CriaWsdlMDFeRetRecepcaoInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeRetRecepcao;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeRetRecepcao;
+            var versao = versaoWebService.VersaoLayout.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, versaoWebService, certificado);
 
             return new MDFeRetRecepcao(configuracaoWsdl);
         }
 
-        public static MDFeStatusServico CriaWsdlMDFeStatusServico()
+        private static MDFeStatusServico CriaWsdlMDFeStatusServicoInternal(MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var url = UrlHelper.ObterUrlServico(MDFeConfiguracao.VersaoWebService.TipoAmbiente).MDFeStatusServico;
-            var versao = MDFeConfiguracao.VersaoWebService.VersaoLayout.GetVersaoString();
+            var url = UrlHelper.ObterUrlServico(versaoWebService.TipoAmbiente).MDFeStatusServico;
+            var versao = versaoWebService.VersaoLayout.GetVersaoString();
 
-            var configuracaoWsdl = CriaConfiguracao(url, versao);
+            var configuracaoWsdl = CriaConfiguracao(url, versao, versaoWebService, certificado);
 
             return new MDFeStatusServico(configuracaoWsdl);
         }
 
-        private static WsdlConfiguracao CriaConfiguracao(string url, string versao)
+        private static WsdlConfiguracao CriaConfiguracao(string url, string versao, MDFeVersaoWebService versaoWebService, X509Certificate2 certificado)
         {
-            var codigoEstado = MDFeConfiguracao.VersaoWebService.UfEmitente.GetCodigoIbgeEmString();
-            var certificadoDigital = MDFeConfiguracao.X509Certificate2;
+            var codigoEstado = versaoWebService.UfEmitente.GetCodigoIbgeEmString();
+            var certificadoDigital = certificado;
 
             return new WsdlConfiguracao
             {
@@ -118,8 +180,10 @@ namespace MDFe.Servicos.Factory
                 Versao = versao,
                 CodigoIbgeEstado = codigoEstado,
                 Url = url,
-                TimeOut = MDFeConfiguracao.VersaoWebService.TimeOut
+                TimeOut = versaoWebService.TimeOut
             };
         }
+
+        #endregion
     }
 }

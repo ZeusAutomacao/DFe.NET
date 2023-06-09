@@ -50,26 +50,12 @@ namespace MDFe.Servicos.Factory
     {
         public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf)
         {
-            var documentoUnico = cnpjCpf;
+            return CriarConsMDFeNaoEncInternal(cnpjCpf, MDFeConfiguracao.VersaoWebService);
+        }
 
-            var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
-            {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                XServ = "CONSULTAR NÃO ENCERRADOS"
-            };
-
-            if (documentoUnico.Length == 11)
-            {
-                consMDFeNaoEnc.CPF = cnpjCpf;
-            }
-
-            if (documentoUnico.Length == 14)
-            {
-                consMDFeNaoEnc.CNPJ = cnpjCpf;
-            }
-
-            return consMDFeNaoEnc;
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf, MDFeServicoConfiguracao configuracaoServico)
+        {
+            return CriarConsMDFeNaoEncInternal(cnpjCpf, configuracaoServico.VersaoWebService);
         }
 
         public static MDFeEvIncDFeMDFe CriaEvIncDFeMDFe(string protocolo, string codigoMunicipioCarregamento, string nomeMunicipioCarregamento, List<MDFeInfDocInc> informacoesDocumentos)
@@ -85,15 +71,12 @@ namespace MDFe.Servicos.Factory
 
         public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
         {
-            var consSitMdfe = new MDFeConsSitMDFe
-            {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                XServ = "CONSULTAR",
-                ChMDFe = chave
-            };
+            return CriarConsSitMDFeInternal(chave, MDFeConfiguracao.VersaoWebService);
+        }
 
-            return consSitMdfe;
+        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriarConsSitMDFeInternal(chave, servicoConfiguracao.VersaoWebService);
         }
 
         public static MDFeEvCancMDFe CriaEvCancMDFe(string protocolo, string justificativa)
@@ -155,36 +138,32 @@ namespace MDFe.Servicos.Factory
 
         public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
         {
-            var enviMdfe = new MDFeEnviMDFe
-            {
-                MDFe = mdfe,
-                IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
-            };
+            return CriaEnviMDFeInternal(lote, mdfe, MDFeConfiguracao.VersaoWebService.VersaoLayout);
+        }
 
-            return enviMdfe;
+        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaEnviMDFeInternal(lote, mdfe, servicoConfiguracao.VersaoWebService.VersaoLayout);
         }
 
         public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
         {
-            var consReciMDFe = new MDFeConsReciMDFe
-            {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                NRec = numeroRecibo
-            };
+            return CriaConsReciMDFeInternal(numeroRecibo, MDFeConfiguracao.VersaoWebService);
+        }
 
-            return consReciMDFe;
+        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaConsReciMDFeInternal(numeroRecibo, servicoConfiguracao.VersaoWebService);
         }
 
         public static MDFeConsStatServMDFe CriaConsStatServMDFe()
         {
-            return new MDFeConsStatServMDFe
-            {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                XServ = "STATUS"
-            };
+            return CriaConsStatServMDFe(MDFeConfiguracao.VersaoWebService);
+        }
+
+        public static MDFeConsStatServMDFe CriaConsStatServMDFe(MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            return CriaConsStatServMDFe(servicoConfiguracao);
         }
 
         public static evPagtoOperMDFe CriaEvPagtoOperMDFe(string protocolo, infViagens infViagens, List<infPag> infPagamentos)
@@ -196,5 +175,79 @@ namespace MDFe.Servicos.Factory
                 infPag = infPagamentos
             };
         }
+
+        #region Métodos internos
+
+        private static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEncInternal(string cnpjCpf, MDFeVersaoWebService versaoWebService)
+        {
+            var documentoUnico = cnpjCpf;
+
+            var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
+            {
+                TpAmb = versaoWebService.TipoAmbiente,
+                Versao = versaoWebService.VersaoLayout,
+                XServ = "CONSULTAR NÃO ENCERRADOS"
+            };
+
+            if (documentoUnico.Length == 11)
+            {
+                consMDFeNaoEnc.CPF = cnpjCpf;
+            }
+
+            if (documentoUnico.Length == 14)
+            {
+                consMDFeNaoEnc.CNPJ = cnpjCpf;
+            }
+
+            return consMDFeNaoEnc;
+        }
+
+        private static MDFeConsSitMDFe CriarConsSitMDFeInternal(string chave, MDFeVersaoWebService versaoWebService)
+        {
+            var consSitMdfe = new MDFeConsSitMDFe
+            {
+                Versao = versaoWebService.VersaoLayout,
+                TpAmb = versaoWebService.TipoAmbiente,
+                XServ = "CONSULTAR",
+                ChMDFe = chave
+            };
+
+            return consSitMdfe;
+        }
+
+        private static MDFeEnviMDFe CriaEnviMDFeInternal(long lote, MDFeEletronico mdfe, Utils.Flags.VersaoServico versao)
+        {
+            var enviMdfe = new MDFeEnviMDFe
+            {
+                MDFe = mdfe,
+                IdLote = lote.ToString(),
+                Versao = versao,
+            };
+
+            return enviMdfe;
+        }
+
+        private static MDFeConsReciMDFe CriaConsReciMDFeInternal(string numeroRecibo, MDFeVersaoWebService versaoWebService)
+        {
+            var consReciMDFe = new MDFeConsReciMDFe
+            {
+                Versao = versaoWebService.VersaoLayout,
+                TpAmb = versaoWebService.TipoAmbiente,
+                NRec = numeroRecibo
+            };
+
+            return consReciMDFe;
+        }
+        private static MDFeConsStatServMDFe CriaConsStatServMDFe(MDFeVersaoWebService versaoWebService)
+        {
+            return new MDFeConsStatServMDFe
+            {
+                TpAmb = versaoWebService.TipoAmbiente,
+                Versao = versaoWebService.VersaoLayout,
+                XServ = "STATUS"
+            };
+        }
+
+        #endregion
     }
 }

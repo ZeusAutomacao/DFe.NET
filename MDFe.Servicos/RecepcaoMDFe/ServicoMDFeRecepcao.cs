@@ -46,10 +46,68 @@ namespace MDFe.Servicos.RecepcaoMDFe
 {
     public class ServicoMDFeRecepcao
     {
+        private MDFeServicoConfiguracao _mdfeConfiguracao;
+
         public event EventHandler<AntesDeEnviar> AntesDeEnviar;
-        public event EventHandler<string> GerouChave; 
+        public event EventHandler<string> GerouChave;
+
+        public ServicoMDFeRecepcao()
+        {
+
+        }
+
+        public ServicoMDFeRecepcao(MDFeServicoConfiguracao configuracao)
+        {
+            _mdfeConfiguracao = configuracao;
+        }
 
         public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        {
+            if (_mdfeConfiguracao != null)
+                return MDFeRecepcaoInternal(lote, mdfe, _mdfeConfiguracao);
+
+            return MDFeRecepcaoInternal(lote, mdfe);
+        }
+
+        private MDFeRetEnviMDFe MDFeRecepcaoInternal(long lote, MDFeEletronico mdfe, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, servicoConfiguracao);
+
+            switch (servicoConfiguracao.VersaoWebService.VersaoLayout)
+            {
+                case VersaoServico.Versao100:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringSemUtc();
+                    break;
+                case VersaoServico.Versao300:
+                    mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+                    mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
+                    break;
+            }
+
+            enviMDFe.MDFe.Assina(servicoConfiguracao, GerouChave, this);
+
+            if (servicoConfiguracao.IsAdicionaQrCode && servicoConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            {
+                mdfe.infMDFeSupl = mdfe.QrCode(servicoConfiguracao.X509Certificate2);
+            }
+
+            enviMDFe.Valida(servicoConfiguracao);
+            enviMDFe.SalvarXmlEmDisco(servicoConfiguracao);
+
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(servicoConfiguracao);
+
+            OnAntesDeEnviar(enviMDFe);
+
+            var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
+
+            var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
+            retorno.SalvarXmlEmDisco(servicoConfiguracao);
+
+            return retorno;
+        }
+
+        private MDFeRetEnviMDFe MDFeRecepcaoInternal(long lote, MDFeEletronico mdfe)
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 

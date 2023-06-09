@@ -42,11 +42,19 @@ namespace MDFe.Classes.Extencoes
     {
         public static void SalvarXmlEmDisco(this MDFeRetEnviMDFe retEnviMDFe)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            SalvarXmlEmDiscoInternal(retEnviMDFe, MDFeConfiguracao.IsSalvarXml, MDFeConfiguracao.CaminhoSalvarXml);
+        }
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+        public static void SalvarXmlEmDisco(this MDFeRetEnviMDFe retEnviMDFe, MDFeServicoConfiguracao servicoConfiguracao)
+        {
+            SalvarXmlEmDiscoInternal(retEnviMDFe, servicoConfiguracao.IsSalvarXml, servicoConfiguracao.CaminhoSalvarXml);
+        }
 
-            var arquivoSalvar = Path.Combine(caminhoXml, retEnviMDFe.InfRec.NRec + "-rec.xml");
+        private static void SalvarXmlEmDiscoInternal(MDFeRetEnviMDFe retEnviMDFe, bool salvarXml, string caminhoSalvarXml)
+        {
+            if (!salvarXml) return;
+
+            var arquivoSalvar = Path.Combine(caminhoSalvarXml, retEnviMDFe.InfRec.NRec + "-rec.xml");
 
             FuncoesXml.ClasseParaArquivoXml(retEnviMDFe, arquivoSalvar);
         }
