@@ -90,9 +90,9 @@ namespace NFe.Servicos
         /// <param name="cfg">Configuração do serviço</param>
         /// <param name="certificado">Certificado</param>
         /// <returns></returns>        
-        public static INfeServico CriaWsdlOutros(ServicoNFe servico, ConfiguracaoServico cfg, X509Certificate2 certificado)
+        public static INfeServico CriaWsdlOutros(ServicoNFe servico, ConfiguracaoServico cfg, X509Certificate2 certificado, string uf = null)
         {
-            string url = Enderecador.ObterUrlServico(servico, cfg);
+            string url = Enderecador.ObterUrlServico(servico, cfg, uf);
 
             switch (servico)
             {

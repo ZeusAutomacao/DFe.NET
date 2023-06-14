@@ -35,6 +35,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DFe.Classes.Entidades;
+using DFe.Classes.Extensoes;
 using DFe.Classes.Flags;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Tipos;
@@ -384,7 +385,7 @@ namespace NFe.Utils.Enderecos
                 #endregion
 
                 #region NFCe
-                
+
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4?WSDL");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4?WSDL");
                 addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4?WSDL");
@@ -401,7 +402,7 @@ namespace NFe.Utils.Enderecos
 
             #region Produção
 
-            
+
             foreach (var emissao in emissaoComum)
             {
                 #region NFe
@@ -616,7 +617,7 @@ namespace NFe.Utils.Enderecos
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.MG, nfe, "https://nfe.fazenda.mg.gov.br/nfe2/services/NFeRetAutorizacao4");
 
                 // NFC-e
-                 //18/12/2018 - http://www.sped.fazenda.mg.gov.br/spedmg/nfce/web-services/
+                //18/12/2018 - http://www.sped.fazenda.mg.gov.br/spedmg/nfce/web-services/
                 addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeInutilizacao4");
                 addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeConsultaProtocolo4");
                 addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.MG, nfce, "https://nfce.fazenda.mg.gov.br/nfce/services/NFeStatusServico4");
@@ -1629,7 +1630,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-#region ConsultaGtin
+            #region ConsultaGtin
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1643,7 +1644,7 @@ namespace NFe.Utils.Enderecos
                     }
                 }
             }
-#endregion
+            #endregion
 
             return endServico;
         }
@@ -1720,13 +1721,17 @@ namespace NFe.Utils.Enderecos
         ///     Obtém uma url a partir de uma lista armazenada em enderecoServico e povoada dinamicamente no create desta classe
         /// </summary>
         /// <returns></returns>
-        public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico)
+        public static string ObterUrlServico(ServicoNFe servico, ConfiguracaoServico cfgServico, string uf = null)
         {
             var versaoServico = ObterVersaoServico(servico, cfgServico);
             if (versaoServico == null)
                 throw new Exception(string.Format("Não foi possível obter a versão do serviço {0}!", servico));
-            return ObterUrlServico(servico, versaoServico.GetValueOrDefault(), cfgServico.cUF, cfgServico.tpAmb,
-                cfgServico.ModeloDocumento, cfgServico.tpEmis);
+
+            Estado estado = cfgServico.cUF;
+            if (!string.IsNullOrWhiteSpace(uf))
+                estado = estado.SiglaParaEstado(uf);
+
+            return ObterUrlServico(servico, versaoServico.GetValueOrDefault(), estado, cfgServico.tpAmb, cfgServico.ModeloDocumento, cfgServico.tpEmis);
         }
 
         /// <summary>
@@ -1753,8 +1758,7 @@ namespace NFe.Utils.Enderecos
         /// <param name="tipoAmbiente">Tipo de ambiente (produção ou homologação)</param>
         /// <param name="modeloDocumento">Modelo do documento. Ex: NFe, NFCe.</param>
         /// <param name="tipoEmissao">Tipo de emissão da nota</param>
-        public static List<EnderecoServico> ObterEnderecoServicosMaisRecentes(VersaoServico versaoLimite, Estado uf, TipoAmbiente tipoAmbiente,
-            ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
+        public static List<EnderecoServico> ObterEnderecoServicosMaisRecentes(VersaoServico versaoLimite, Estado uf, TipoAmbiente tipoAmbiente, ModeloDocumento modeloDocumento, TipoEmissao tipoEmissao)
         {
             var enderecoServicos = from end in ListaEnderecos
                                    where end.Estado == uf && end.TipoAmbiente == tipoAmbiente && end.ModeloDocumento == modeloDocumento &&
