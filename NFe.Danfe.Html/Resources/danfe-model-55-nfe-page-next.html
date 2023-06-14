@@ -1,0 +1,158 @@
+<div class="page nfeArea">
+    [marca_dagua]
+    <div class="boxFields" style="padding-top: 20px">
+        <table cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td rowspan="3" style="width: 30mm">
+                        <img class="client_logo" src="[url_logo]" alt="" />
+                    </td>
+                    <td rowspan="3"
+                        style="width: 46mm; font-size: 7pt"
+                        class="txt-center">
+                        <span class="mb2 bold block">[ds_company_issuer_name]</span>
+                        <span class="block">[ds_company_address]</span>
+                        <span class="block">
+                            [ds_company_neighborhood] - [nu_company_cep]
+                        </span>
+                        <span class="block">
+                            [ds_company_city_name] - [ds_company_uf]- Fone:
+                            [nl_company_phone_number]
+                        </span>
+                    </td>
+                    <td rowspan="3"
+                        class="txtc txt-upper"
+                        style="width: 34mm; height: 29.5mm">
+                        <h3 class="title">Danfe</h3>
+                        <p class="mb2">Documento auxiliar da Nota Fiscal Eletrônica</p>
+                        <p class="entradaSaida mb2">
+                            <span class="identificacao">
+                                <span>[ds_code_operation_type]</span>
+                            </span>
+                            <span class="legenda">
+                                <span>0 - Entrada</span>
+                                <span>1 - Saída</span>
+                            </span>
+                        </p>
+                        <p>
+                            <span class="block bold">
+                                <span>Nº</span>
+                                <span>[nl_invoice]</span>
+                            </span>
+                            <span class="block bold">
+                                <span>SÉRIE:</span>
+                                <span>[ds_invoice_serie]</span>
+                            </span>
+                            <span class="block">
+                                <span>Página</span>
+                                <span>[actual_page]</span>
+                                <span>de</span>
+                                <span>[total_pages]</span>
+                            </span>
+                        </p>
+                    </td>
+                    <td class="txt-upper" style="width: 85mm">
+                        <span class="nf-label">Controle do Fisco</span>
+                        <span class="codigo">
+                            <img alt="" style="width: 97%; margin: auto; height: 40px; margin: 5px 15px 5px 5px;" src="[BarCode]" />
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="nf-label">CHAVE DE ACESSO</span>
+                        <span class="bold block txt-center info">[ds_danfe]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="txt-center valign-middle">
+                        <span class="block">
+                            Consulta de autenticidade no portal nacional da NF-e
+                        </span>
+                        www.nfe.fazenda.gov.br/portal ou no site da Sefaz Autorizada.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Natureza da Operação -->
+        <table cellpadding="0"
+               cellspacing="0"
+               class="boxNaturezaOperacao no-top border-table">
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="nf-label">NATUREZA DA OPERAÇÃO</span>
+                        <span class="info">[_ds_transaction_nature]</span>
+                    </td>
+                    <td style="width: 84.7mm">
+                        <span class="nf-label">PROTOCOLO DE AUTORIZAÇÃO DE USO</span>
+                        <span class="info">[ds_protocol]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Inscrição -->
+        <table cellpadding="0"
+               cellspacing="0"
+               class="boxInscricao no-top border-table">
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
+                        <span class="info">[nl_company_ie]</span>
+                    </td>
+                    <td style="width: 67.5mm">
+                        <span class="nf-label">INSCRIÇÃO ESTADUAL DO SUBST. TRIB.</span>
+                        <span class="info">[nl_company_ie_st]</span>
+                    </td>
+                    <td style="width: 64.3mm">
+                        <span class="nf-label">CNPJ</span>
+                        <span class="info">[nl_company_cnpj_cpf]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Dados do produto/serviço -->
+        <p class="area-name">Dados do produto/serviço</p>
+        <div class="wrapper-border2">
+            <table cellpadding="0" cellspacing="0" class="boxProdutoServico">
+                <thead class="listProdutoServico" id="table">
+                    <tr class="titles">
+                        <th class="cod" style="width: 15.5mm">CÓDIGO</th>
+                        <th class="descrit" style="width: 66.1mm">
+                            DESCRIÇÃO DO PRODUTO/SERVIÇO
+                        </th>
+                        <th class="ncmsh">NCMSH</th>
+                        <th class="cst">CST</th>
+                        <th class="cfop">CFOP</th>
+                        <th class="un">UN</th>
+                        <th class="amount">QTD.</th>
+                        <th class="valUnit">VLR.UNIT</th>
+                        <th class="valTotal">VLR.TOTAL</th>
+                        <th class="bcIcms">BC ICMS</th>
+                        <th class="valIcms">VLR.ICMS</th>
+                        <th class="valIpi">VLR.IPI</th>
+                        <th class="aliqIcms">ALIQ.ICMS</th>
+                        <th class="aliqIpi">ALIQ.IPI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    [itens_products]
+                </tbody>
+            </table>
+        </div>
+        <footer>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align: right">
+                            <strong>Empresa de Software www.empresa.com</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </footer>
+    </div>
+    [next-page]
+</div>

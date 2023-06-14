@@ -1,0 +1,9 @@
+﻿<Application x:Class="NFe.Danfe.App.Teste.Html.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:NFe.Danfe.App.Teste.Html"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
