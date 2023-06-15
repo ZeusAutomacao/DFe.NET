@@ -41,11 +41,11 @@ namespace NFe.Danfe.Nativo.GraphicsPrinter
     {
         public static Image Gerar(string qrCode)
         {
-            BarcodeWriter bw = new BarcodeWriter();
+            var bw = new ZXing.Windows.Compatibility.BarcodeWriter();
             EncodingOptions encOptions = new EncodingOptions { Width = 130, Height = 130, Margin = 0 };
             bw.Options = encOptions;
             bw.Format = BarcodeFormat.QR_CODE;
-            Bitmap imageQrCode = new Bitmap(bw.Write(qrCode));
+            Bitmap imageQrCode = bw.Write(qrCode);
             return imageQrCode;
         } 
     }
