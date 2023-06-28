@@ -218,7 +218,11 @@ namespace NFe.Danfe.Html
                 cidade = $"{danfeNFe.Transportadora?.Endereco.Cidade}";
                 uf = $"{danfeNFe.Transportadora?.Endereco.Uf}";
                 ie = $"{danfeNFe.Transportadora?.Ie}";
-                var volume = danfeNFe.Volumes?.FirstOrDefault();
+            }
+
+            var volume = danfeNFe.Volumes?.FirstOrDefault();
+            if (volume != null)
+            {
                 quantidade = volume?.Quantidade ?? 0;
                 especie = volume?.Especie ?? "";
                 marca = volume?.Marca ?? "";
@@ -226,8 +230,7 @@ namespace NFe.Danfe.Html
                 pesoBruto = volume?.PesoBruto ?? 0;
                 pesoLiquido = volume?.PesoLiq ?? 0;
             }
-
-            ;
+            
             list.Add("[ds_transport_carrier_name]", danfeNFe?.Transportadora?.Nome);
             list.Add("[ds_transport_code_shipping_type]", tipoFrete);
             list.Add("[ds_transport_rntc]", danfeNFe.Transportadora?.CodAntt);

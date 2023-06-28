@@ -232,22 +232,6 @@ namespace NFe.Danfe.Html.Dominio
                                 nfe.infNFe.transp.transporta.xMun, "", "", nfe.infNFe.transp.transporta.UF, "", ""),
                         doc1, nfe.infNFe.transp.transporta.xNome, placa, rntc, nfe.infNFe.transp.transporta.IE, frete);
 
-
-                #region Volume
-
-                if (nfe.infNFe.transp.vol!=null)
-                {
-                    Volumes = new List<Volume>();
-                    foreach (var item in nfe.infNFe.transp.vol)
-                    {
-                        Volumes.Add(new Volume(item.qVol, item.esp, item.pesoB ?? 0, item.pesoL ?? 0, item.marca,item.nVol) );
-                    }
-
-                }
-
-
-                #endregion
-
                 #region Reboque
 
                 if (nfe.infNFe.transp?.reboque!=null)
@@ -265,7 +249,20 @@ namespace NFe.Danfe.Html.Dominio
                 #endregion
             }
 
+            
+            #region Volume
 
+            if (nfe.infNFe.transp?.vol != null)
+            {
+                Volumes = new List<Volume>();
+                foreach (var item in nfe.infNFe.transp.vol)
+                {
+                    Volumes.Add(
+                        new Volume(item.qVol, item.esp, item.pesoB ?? 0, item.pesoL ?? 0, item.marca, item.nVol));
+                }
+            }
+
+            #endregion
 
             #endregion
 
