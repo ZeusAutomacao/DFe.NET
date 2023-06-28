@@ -254,9 +254,8 @@ namespace MDFe.Classes.Extencoes
         }
 
         private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
-
         {
-            RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)certificado.PrivateKey;
+            var rsa = certificado.GetRSAPrivateKey();
 
             RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
 

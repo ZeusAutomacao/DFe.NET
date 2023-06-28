@@ -42,8 +42,11 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
 {
     public class infOutros
     {
+        [XmlElement(Order = 1)]
         public tpDoc tpDoc { get; set; }
+        [XmlElement(Order = 2)]
         public string descOutros { get; set; }
+        [XmlElement(Order = 3)]
         public string nDoc { get; set; }
 
         [XmlIgnore]
@@ -52,7 +55,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
         /// <summary>
         /// Proxy para dPrev no formato AAAA-MM-DD
         /// </summary>
-        [XmlElement(ElementName = "dEmi")]
+        [XmlElement(ElementName = "dEmi", Order = 4)]
         public string ProxyddEmi
         {
             get
@@ -66,7 +69,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             set { dEmi = DateTime.Parse(value); }
         }
 
-
+        [XmlElement(Order = 5)]
         public decimal? vDocFisc
         {
             get { return _vDocFisc.Arredondar(2); }
@@ -81,7 +84,7 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
         /// <summary>
         /// Proxy para dPrev no formato AAAA-MM-DD
         /// </summary>
-        [XmlElement(ElementName = "dPrev")]
+        [XmlElement(ElementName = "dPrev", Order = 6)]
         public string ProxyddPrev
         {
             get
@@ -95,10 +98,10 @@ namespace CTe.Classes.Informacoes.infCTeNormal.infDocumentos
             set { dPrev = DateTime.Parse(value); }
         }
 
-        [XmlElement("infUnidTransp")]
+        [XmlElement("infUnidTransp", Order = 7)]
         public List<infUnidTransp> infUnidTransp;
 
-        [XmlElement("infUnidCarga")]
+        [XmlElement("infUnidCarga", Order = 8)]
         public List<infUnidCarga> infUnidCarga;
 
         private decimal? _vDocFisc;

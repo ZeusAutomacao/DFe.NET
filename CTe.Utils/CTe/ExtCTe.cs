@@ -263,7 +263,7 @@ namespace CTe.Utils.CTe
 
         private static byte[] CreateSignaturePkcs1(X509Certificate2 certificadoDigital, byte[] Value)
         {
-            RSACryptoServiceProvider rsa = (RSACryptoServiceProvider)certificadoDigital.PrivateKey;
+            var rsa = certificadoDigital.GetRSAPrivateKey();
 
             RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
 
