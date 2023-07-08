@@ -387,18 +387,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoEpec: return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaCadastro:
-                    //        switch (_cFgServico.cUF)
-                    //        {
-                    //            //case Estado.MT:
-                    //            //    return new Wsdl.ConsultaCadastro.CE.CadConsultaCadastro2(url, _certificado,
-                    //            //        _cFgServico.TimeOut);
-                    //}
-
-                    if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
-                        return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
-
-                    return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
-                        _cFgServico.TimeOut);
+                    return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeDownloadNF: return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);
 
@@ -1131,13 +1120,9 @@ namespace NFe.Servicos
         public async Task<RetornoNfeConsultaCadastro> NfeConsultaCadastroAsync(string uf,
             ConsultaCadastroTipoDocumento tipoDocumento, string documento)
         {
-            if (_cFgServico.cUF == Estado.MG) _cFgServico.VersaoNfeConsultaCadastro = VersaoServico.ve200;
-
             var versaoServico =
                 ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro,
                     _cFgServico.cUF);
-
-            // Cria o objeto wdsl para consulta
 
             var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
 

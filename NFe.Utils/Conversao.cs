@@ -69,15 +69,11 @@ namespace NFe.Utils
         // na montagem do xml vai ser 1.00 e a versão do webservice vai ser diferente da montagem exemplo: MT
         public static string VersaoServicoParaString(this ServicoNFe servicoNFe, VersaoServico? versaoServico, Estado? estado)
         {
-            if (servicoNFe == ServicoNFe.NfeConsultaCadastro && versaoServico != VersaoServico.ve100)
-            {
+            if (servicoNFe == ServicoNFe.NfeConsultaCadastro)
                 return "2.00";
-            }
 
             if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao)
-            {
                 return "1.00";
-            }
 
             return VersaoServicoParaString(servicoNFe, versaoServico);
         }
