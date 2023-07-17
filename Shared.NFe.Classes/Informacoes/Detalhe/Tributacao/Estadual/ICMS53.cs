@@ -30,17 +30,73 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using System.Xml.Serialization;
 
-namespace CTe.Classes.Informacoes.Tipos
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
-    public enum versaoModal
+    public class ICMS53 : ICMSBasico
     {
-        [XmlEnum("2.00")]
-        veM200,
-        [XmlEnum("3.00")]
-        veM300,
-        [XmlEnum("4.00")]
-        veM400
+        private decimal? _qBCMonoDif;
+        private decimal? _adRemICMSDif;
+        private decimal? _vICMSMonoDif;
+
+        /// <summary>
+        ///     N11 - Origem da Mercadoria
+        /// </summary>
+        [XmlElement(Order = 1)]
+        public OrigemMercadoria orig { get; set; }
+
+        /// <summary>
+        ///     N12- Situação Tributária
+        /// </summary>
+        [XmlElement(Order = 2)]
+        public Csticms CST { get; set; }
+
+        /// <summary>
+        ///     N41a - Quantidade tributada diferida 
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public decimal? qBCMonoDif
+        {
+            get { return _qBCMonoDif.Arredondar(4); }
+            set { _qBCMonoDif = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializeqBCMonoDif()
+        {
+            return qBCMonoDif.HasValue;
+        }
+
+        /// <summary>
+        ///     N42 - Alíquota ad rem do imposto diferido
+        /// </summary>
+        [XmlElement(Order = 4)]
+        public decimal? adRemICMSDif
+        {
+            get { return _adRemICMSDif.Arredondar(4); }
+            set { _adRemICMSDif = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializeadRemICMSDif()
+        {
+            return adRemICMSDif.HasValue;
+        }
+
+        /// <summary>
+        ///     N43 - Valor do ICMS diferido
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public decimal? vICMSMonoDif
+        {
+            get { return _vICMSMonoDif.Arredondar(2); }
+            set { _vICMSMonoDif = value.Arredondar(2); }
+        }
+
+        public bool ShouldSerializevICMSMonoDif()
+        {
+            return vICMSMonoDif.HasValue;
+        }
+
     }
 }

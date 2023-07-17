@@ -106,8 +106,14 @@ namespace NFe.Utils.Tributacao.Estadual
                         case Csticms.Cst00:
                             icmsBasico = new ICMS00();
                             break;
+                        case Csticms.Cst02:
+                            icmsBasico = new ICMS02();
+                            break;
                         case Csticms.Cst10:
                             icmsBasico = new ICMS10();
+                            break;
+                        case Csticms.Cst15:
+                            icmsBasico = new ICMS15();
                             break;
                         case Csticms.CstPart10:
                         case Csticms.CstPart90:
@@ -130,8 +136,14 @@ namespace NFe.Utils.Tributacao.Estadual
                         case Csticms.Cst51:
                             icmsBasico = new ICMS51();
                             break;
+                        case Csticms.Cst53:
+                            icmsBasico = new ICMS53();
+                            break;
                         case Csticms.Cst60:
                             icmsBasico = new ICMS60();
+                            break;
+                        case Csticms.Cst61:
+                            icmsBasico = new ICMS61();
                             break;
                         case Csticms.Cst70:
                             icmsBasico = new ICMS70();

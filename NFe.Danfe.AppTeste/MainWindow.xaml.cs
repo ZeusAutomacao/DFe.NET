@@ -225,8 +225,8 @@ namespace NFe.Danfe.AppTeste
 
                // danfe.Visualizar();
                 //danfe.Imprimir();
-                //danfe.ExibirDesign();
-                danfe.ExportarPdf(@"C:\Program Files (x86)\Begin ERP\Arquivos\PDF\NF-e\01611823000116\2019\4\15\teste.pdf");
+                danfe.ExibirDesign();
+                //danfe.ExportarPdf(@"C:\Program Files (x86)\Begin ERP\Arquivos\PDF\NF-e\01611823000116\2019\4\15\teste.pdf");
 
                 #endregion
 

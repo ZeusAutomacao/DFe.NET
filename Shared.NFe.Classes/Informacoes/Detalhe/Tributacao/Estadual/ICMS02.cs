@@ -30,17 +30,63 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using System.Xml.Serialization;
 
-namespace CTe.Classes.Informacoes.Tipos
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
-    public enum versaoModal
+    public class ICMS02 : ICMSBasico
     {
-        [XmlEnum("2.00")]
-        veM200,
-        [XmlEnum("3.00")]
-        veM300,
-        [XmlEnum("4.00")]
-        veM400
+        private decimal? _qBCMono;
+        private decimal _adRemICMS;
+        private decimal _vICMSMono;
+
+        /// <summary>
+        ///     N11 - Origem da Mercadoria
+        /// </summary>
+        [XmlElement(Order = 1)]
+        public OrigemMercadoria orig { get; set; }
+
+        /// <summary>
+        ///     N12- Situação Tributária
+        /// </summary>
+        [XmlElement(Order = 2)]
+        public Csticms CST { get; set; }
+
+        /// <summary>
+        ///     N37a - Quantidade tributada
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public decimal? qBCMono
+        {
+            get { return _qBCMono.Arredondar(4); }
+            set { _qBCMono = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializeqBCMono()
+        {
+            return qBCMono.HasValue;
+        }
+
+        /// <summary>
+        ///     N38 - Alíquota ad rem do imposto
+        /// </summary>
+        [XmlElement(Order = 4)]
+        public decimal adRemICMS
+        {
+            get { return _adRemICMS.Arredondar(4); }
+            set { _adRemICMS = value.Arredondar(4); }
+        }
+                
+        /// <summary>
+        ///     N39 - Valor do ICMS próprio
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public decimal vICMSMono
+        {
+            get { return _vICMSMono.Arredondar(2); }
+            set { _vICMSMono = value.Arredondar(2); }
+        }
+
     }
 }

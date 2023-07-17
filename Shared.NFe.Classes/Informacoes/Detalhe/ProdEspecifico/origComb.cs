@@ -30,17 +30,32 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
+using DFe.Classes.Entidades;
 
-namespace CTe.Classes.Informacoes.Tipos
+namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
-    public enum versaoModal
+    public class origComb
     {
-        [XmlEnum("2.00")]
-        veM200,
-        [XmlEnum("3.00")]
-        veM300,
-        [XmlEnum("4.00")]
-        veM400
+        private decimal _pOrig;
+
+        /// <summary>
+        /// LA19 - Indicador de importação
+        /// </summary>
+        public int indImport { get; set; }
+
+        /// <summary>
+        /// LA20 - Código da UF
+        /// </summary>
+        public Estado cUFOrig { get; set; }
+
+        /// <summary>
+        /// LA21 - Percentual originário para a UF
+        /// </summary>
+        public decimal pOrig 
+        { 
+            get { return _pOrig.Arredondar(4); }
+            set { _pOrig = value.Arredondar(4); }
+        }
+
     }
 }

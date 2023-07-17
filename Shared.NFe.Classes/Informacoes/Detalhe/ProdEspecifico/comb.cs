@@ -30,6 +30,9 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
 {
     public class comb : ProdutoEspecifico
@@ -40,6 +43,7 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         private decimal? _pGNn;
         private decimal? _pGNi;
         private decimal? _vPart;
+        private decimal? _pBio;
 
         /// <summary>
         ///     LA02 - Código de produto da ANP
@@ -163,6 +167,21 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         /// </summary>
         public encerrante encerrante { get; set; }
 
+        /// <summary>
+        /// LA17 - Percentual do índice de mistura do Biodiesel (B100) no Óleo Diesel B instituído pelo órgão regulamentador
+        /// </summary>
+        public decimal? pBio
+        {
+            get { return _pBio.Arredondar(4); }
+            set { _pBio = value.Arredondar(4); }
+        }
+
+        /// <summary>
+        /// LA18 - Grupo indicador da origem do combustível
+        /// </summary>
+        [XmlElement("origComb")]
+        public List<origComb> origComb { get; set; }
+
         public bool ShouldSerializepMixGN()
         {
             return pMixGN.HasValue;
@@ -171,6 +190,11 @@ namespace NFe.Classes.Informacoes.Detalhe.ProdEspecifico
         public bool ShouldSerializeqTemp()
         {
             return qTemp.HasValue;
+        }
+
+        public bool ShouldSerializepBio()
+        {
+            return pBio.HasValue;
         }
     }
 }

@@ -30,17 +30,63 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using System.Xml.Serialization;
 
-namespace CTe.Classes.Informacoes.Tipos
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
-    public enum versaoModal
+    public class ICMS61 : ICMSBasico
     {
-        [XmlEnum("2.00")]
-        veM200,
-        [XmlEnum("3.00")]
-        veM300,
-        [XmlEnum("4.00")]
-        veM400
+        private decimal? _qBCMonoRet;
+        private decimal? _adRemICMSRet;
+        private decimal? _vICMSMonoRet;
+
+        /// <summary>
+        ///     N11 - Origem da Mercadoria
+        /// </summary>
+        [XmlElement(Order = 1)]
+        public OrigemMercadoria orig { get; set; }
+
+        /// <summary>
+        ///     N12- Situação Tributária
+        /// </summary>
+        [XmlElement(Order = 2)]
+        public Csticms CST { get; set; }
+
+        /// <summary>
+        ///     N43a - Quantidade tributada retida anteriormente
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public decimal? qBCMonoRet
+        {
+            get { return _qBCMonoRet.Arredondar(4); }
+            set { _qBCMonoRet = value.Arredondar(4); }
+        }
+
+        public bool ShouldSerializeqBCMonoRet()
+        {
+            return qBCMonoRet.HasValue;
+        }
+
+        /// <summary>
+        ///     N44 - Alíquota ad rem do imposto retido anteriormente
+        /// </summary>
+        [XmlElement(Order = 4)]
+        public decimal? adRemICMSRet
+        {
+            get { return _adRemICMSRet.Arredondar(4); }
+            set { _adRemICMSRet = value.Arredondar(4); }
+        }
+
+        /// <summary>
+        ///     N45 - Valor do ICMS retido anteriormente
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public decimal? vICMSMonoRet
+        {
+            get { return _vICMSMonoRet.Arredondar(2); }
+            set { _vICMSMonoRet = value.Arredondar(2); }
+        }
+
     }
 }
