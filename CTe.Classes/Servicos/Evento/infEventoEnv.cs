@@ -76,6 +76,8 @@ namespace CTe.Classes.Servicos.Evento
         /// </summary>
         public string CNPJ { get; set; }
 
+        public string CPF { get; set; }
+
         /// <summary>
         ///     HP12 - Chave de Acesso da NF-e vinculada ao Evento
         /// </summary>
