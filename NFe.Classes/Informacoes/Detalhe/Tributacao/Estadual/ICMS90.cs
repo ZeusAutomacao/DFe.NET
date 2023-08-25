@@ -46,6 +46,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pIcmsst;
         private decimal? _vIcmsst;
         private decimal? _vIcmsDeson;
+        private decimal? _vIcmsstDeson;
         private decimal? _vBcfcp;
         private decimal? _pFcp;
         private decimal? _vFcp;
@@ -254,9 +255,23 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
+        ///     N27a - Valor do ICMS-ST desonerado
+        /// </summary>
+        public decimal? vICMSSTDeson
+        {
+            get { return _vIcmsstDeson.Arredondar(2); }
+            set { _vIcmsstDeson = value.Arredondar(2); }
+        }
+
+        /// <summary>
         ///     N28 - Motivo da desoneração do ICMS
         /// </summary>
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+
+        /// <summary>
+        ///     N33.1 - Motivo da desoneração do ICMS
+        /// </summary>
+        public MotivoDesoneracaoIcms? motDesICMSST { get; set; }
 
         public bool ShouldSerializemodBC()
         {
@@ -321,6 +336,16 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializemotDesICMS()
         {
             return motDesICMS.HasValue;
+        }
+
+        public bool ShouldSerializevICMSSTDeson()
+        {
+            return vICMSSTDeson.HasValue;
+        }
+
+        public bool ShouldSerializemotDesICMSST()
+        {
+            return motDesICMSST.HasValue;
         }
     }
 }

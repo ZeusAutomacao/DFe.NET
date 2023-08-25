@@ -36,6 +36,7 @@ using DFe.Utils;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
+using static System.Net.WebRequestMethods;
 
 namespace NFe.Utils.Tributacao.Estadual
 {
@@ -319,6 +320,21 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do Fundo de Combate à Pobreza (FCP)
         /// </summary>
         public decimal? vFCP { get; set; }
+
+        /// <summary>
+        ///     Percentual do diferimento do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? pFCPDif { get; set; }
+
+        /// <summary>
+        ///    Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) diferido
+        /// </summary>
+        public decimal? vFCPDif { get; set; }
+
+        /// <summary>
+        ///     Valor efetivo do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// </summary>
+        public decimal? vFCPEfet { get; set; }
 
         /// <summary>
         ///     Valor da Base de Cálculo do FCP retido por Substituição Tributária
