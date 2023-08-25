@@ -47,6 +47,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         private decimal? _pFcp;
         private decimal? _vFcp;
 
+        private decimal? _pFcpDif;
+        private decimal? _vFcpDif;
+        private decimal? _vFcpEfet;
+
         /// <summary>
         ///     N11 - Origem da Mercadoria
         /// </summary>
@@ -168,6 +172,54 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool vFCPSpecified
         {
             get { return vFCP.HasValue; }
+        }
+
+
+        //NT2020.005_V1_21
+
+        /// <summary>
+        /// N17d - Percentual do diferimento do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? pFCPDif
+        {
+            get { return _pFcpDif.Arredondar(4); }
+            set { _pFcpDif = value.Arredondar(4); }
+        }
+
+        public bool pFCPDifSpecified
+        {
+            get { return pFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17e - Valor do ICMS relativo ao Fundo de Combate à Pobreza (FCP) diferido
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCPDif
+        {
+            get { return _vFcpDif.Arredondar(2); }
+            set { _vFcpDif = value.Arredondar(2); }
+        }
+
+        public bool vFCPDifSpecified
+        {
+            get { return vFCP.HasValue; }
+        }
+
+        /// <summary>
+        /// N17f - Valor efetivo do ICMS relativo ao Fundo de Combate à Pobreza (FCP)
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vFCPEfet
+        {
+            get { return _vFcpEfet.Arredondar(2); }
+            set { _vFcpEfet = value.Arredondar(2); }
+        }
+
+        public bool vFCPEfetSpecified
+        {
+            get { return _vFcpEfet.HasValue; }
         }
 
         public bool ShouldSerializemodBC()
