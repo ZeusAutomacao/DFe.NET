@@ -42,5 +42,19 @@ namespace CTe.Classes.Servicos.Recepcao
         public string xMotivo { get; set; }
 
         public protCTe protCTe { get; set; }
+
+        public static retCTe LoadXml(string xml)
+        {
+            var retorno = FuncoesXml.XmlStringParaClasse<retCTe>(xml);
+            retorno.RetornoXmlString = xml;
+            return retorno;
+        }
+
+        public static retCTe LoadXml(string xml, CTe enviCte)
+        {
+            var retorno = LoadXml(xml);
+            retorno.EnvioXmlString = FuncoesXml.ClasseParaXmlString(enviCte);
+            return retorno;
+        }
     }
 }

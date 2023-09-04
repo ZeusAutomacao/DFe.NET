@@ -169,7 +169,7 @@ namespace CTe.Servicos.Factory
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             
-            return new enviCTe(configServico.VersaoLayout, lote, cteEletronicoList);
+            return new enviCTe(configServico.ObterVersaoLayoutValida(), lote, cteEletronicoList);
         }
     }
 }

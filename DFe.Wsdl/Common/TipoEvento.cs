@@ -7,6 +7,7 @@
         CTeRecepcaoEvento,
         CTeInutilizacao,
         CTeRecepcao,
+        CTeRecepcaoV4,
         CTeRetRecepcao,
         CTeStatusServico,
         CTeStatusServicoV4,

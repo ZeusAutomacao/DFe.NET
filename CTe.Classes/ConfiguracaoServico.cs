@@ -116,6 +116,21 @@ namespace CTe.Classes
         /// </summary>
         public versao VersaoLayout { get; set; }
 
+        public versao ObterVersaoLayoutValida()
+        {
+            switch (VersaoLayout)
+            {
+                case versao.ve200:
+                    return versao.ve200;
+                case versao.ve300:
+                    return versao.ve300;
+                case versao.ve400:
+                    return versao.ve400;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public bool IsAdicionaQrCode { get; set; }
 
         /// <summary>
