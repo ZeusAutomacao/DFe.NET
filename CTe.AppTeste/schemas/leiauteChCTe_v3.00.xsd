@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
+	<xs:simpleType name="TVer">
+		<xs:annotation>
+			<xs:documentation> Tipo Versão 3.00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="3\.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TVerDoc">
+		<xs:annotation>
+			<xs:documentation> Versão documento</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="[0-9]{1,2}\.[0-9][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TNSU">
+		<xs:annotation>
+			<xs:documentation> Tipo número sequencial único do AN</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="[0-9]{1,15}"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TDistChCTe">
+		<xs:annotation>
+			<xs:documentation>solicitação de distribuição de dados de controle dos DF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>
+Identificação do Ambiente:
+1 - Produção;
+2 - Homologação
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que solicitou a distribuição de DF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="indCompRet">
+				<xs:annotation>
+					<xs:documentation>Indicador de Compactação da Mensagem de retorno:
+0 - sem compactação;
+1 - compactação padrão gZip
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedInt">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Código da UF do autorizador. Utilizar a Tabela do IBGE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ultNSU" type="TNSU">
+				<xs:annotation>
+					<xs:documentation>último NSU (AN) recebido pela SVC. Caso seja informado com zero, o AN tentará localizar o primeiro DF-e.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NSUFin" type="TNSU" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>NSU final desejado. Se informado, a aplicação do AN deverá observar este valor máximo do NSU a ser fornecido.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qNSU">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetDistChCTe">
+		<xs:annotation>
+			<xs:documentation>Lote de dados de controle sobre os DF-e encontrados</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>
+Identificação do Ambiente:
+
+1 - Produção;
+2 - Homologação
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que solicitou a distribuição de DF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cStat" type="TStat">
+				<xs:annotation>
+					<xs:documentation>Código do status da resposta </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descrição literal do status da resposta</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Código da UF do autorizador. Utilizar a Tabela do IBGE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ultNSU" type="TNSU">
+				<xs:annotation>
+					<xs:documentation>Ultimo NSU pesquisado pelo Ambiente Nacional
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NSUFin" type="TNSU" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>NSU final desejado. Se informado, a aplicação do AN deverá observar este valor máximo do NSU a ser fornecido.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="qNSU">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0"/>
+						<xs:maxInclusive value="1000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="NSUMax" type="TNSU">
+				<xs:annotation>
+					<xs:documentation>Maior NSU existente na Base Nacional para a SVC.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:choice minOccurs="0">
+				<xs:element name="loteDistChComp" type="xs:base64Binary"/>
+				<xs:element name="loteDistCh" type="TLoteDistChCTe"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TLoteDistChCTe">
+		<xs:annotation>
+			<xs:documentation>Schema XML dados descompactado</xs:documentation>
+		</xs:annotation>
+		<xs:sequence maxOccurs="1000">
+			<xs:choice>
+				<xs:element name="CTe" type="TCTe">
+					<xs:annotation>
+						<xs:documentation>informações de controle CT-e</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="canc" type="TCancCTe">
+					<xs:annotation>
+						<xs:documentation>informações de controle Cancelamento</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="evento" type="TEventoCTe">
+					<xs:annotation>
+						<xs:documentation>informações de controle Evento</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="inut" type="TInutCTe">
+					<xs:annotation>
+						<xs:documentation>informações de controle Inutilização</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVer" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TCTe">
+		<xs:sequence>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chDFe" type="TChNFe">
+				<xs:annotation>
+					<xs:documentation>Chave de Acesso do DF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hashChDFe" type="THashChDFe">
+				<xs:annotation>
+					<xs:documentation>Hash MD5 da Chave de acesso convertido para base64</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpCTe">
+				<xs:annotation>
+					<xs:documentation>Tipo de CT-e</xs:documentation>
+					<xs:documentation>Preencher com:
+
+0 - CT-e Normal;
+1 - CT-e de Complemento de Valores;
+2 - CT-e de Anulação de Valores;
+3 - CT-e Substituto</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="tpEmis">
+				<xs:annotation>
+					<xs:documentation>Forma de Emiissão do DFe</xs:documentation>
+					<xs:documentation>Preencher com:
+1 - Normal;
+ 4-EPEC pela SVC; 5 - Contingência FSDA;
+	7 - Autorização pela SVC-RS;
+ 8 - Autorização pela SVC-SP</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="7"/>
+						<xs:enumeration value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="indDeneg" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Indicador de denegação do documento: 0 - NÃO denegado; 1 - denegado</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="dhRecbto" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora de autorizacao no formato AAAA-MM-DDTHH:MM:SS TZD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nProt" type="TProt">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização CT-e.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NSU" type="TNSU" use="required">
+			<xs:annotation>
+				<xs:documentation>número sequencial único do Ambiente Nacional</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="versao" type="TVerDoc" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TCancCTe">
+		<xs:sequence>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chDFe" type="TChNFe">
+				<xs:annotation>
+					<xs:documentation>Chave de Acesso do DF-e cancelado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hashChDFe" type="THashChDFe">
+				<xs:annotation>
+					<xs:documentation>Hash MD5 da Chave de Acesso convertido para base64</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpEmis">
+				<xs:annotation>
+					<xs:documentation>Forma de Emiissão do DFe</xs:documentation>
+					<xs:documentation>Preencher com:
+1 - Normal;
+ 4-EPEC pela SVC; 5 - Contingência FSDA;
+	7 - Autorização pela SVC-RS;
+ 8 - Autorização pela SVC-SP</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="7"/>
+						<xs:enumeration value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nProt_CTe" type="TProt">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização do CT-e.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhRecbto" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora de autorizacao do Cancelamento no formato AAAA-MM-DDTHH:MM:SS TZD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nProt" type="TProt">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização do Cancelamento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NSU" type="TNSU" use="required">
+			<xs:annotation>
+				<xs:documentation>número sequencial único do Ambiente Nacional</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="versao" type="TVerDoc" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TInutCTe">
+		<xs:sequence>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Código da UF do emitente do Documento Fiscal. Utilizar a Tabela do IBGE.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ano" type="Tano">
+				<xs:annotation>
+					<xs:documentation>Ano de inutilização da numeração</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="CNPJ" type="TCnpj">
+				<xs:annotation>
+					<xs:documentation>CNPJ do emitente</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serie" type="TSerie">
+				<xs:annotation>
+					<xs:documentation>Série do Documento Fiscal				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modelo" type="TModCT_Carga_OS">
+				<xs:annotation>
+					<xs:documentation>Modelo do Documento Fiscal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nCTIni" type="TNF">
+				<xs:annotation>
+					<xs:documentation>Número da CT-e inicial</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nCTFin" type="TNF">
+				<xs:annotation>
+					<xs:documentation>Número da CT-e final</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhRecbto" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora de autorizacao no formato AAAA-MM-DDTHH:MM:SS TZD</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nProt" type="TProt">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização da Inutilização.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NSU" type="TNSU" use="required">
+			<xs:annotation>
+				<xs:documentation>número sequencial único do Ambiente Nacional</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="versao" type="TVerDoc" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TEventoCTe">
+		<xs:sequence>
+			<xs:element name="cOrgao" type="TCOrgaoIBGE">
+				<xs:annotation>
+					<xs:documentation>Código do Orgao de Recepcao do Evento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chDFe" type="TChNFe">
+				<xs:annotation>
+					<xs:documentation>Chave de Acesso do DF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hashChDFe" type="THashChDFe">
+				<xs:annotation>
+					<xs:documentation>Hash MD5 da Chave de Acesso convertido para base64</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpEmis">
+				<xs:annotation>
+					<xs:documentation>Forma de Emiissão do DFe</xs:documentation>
+					<xs:documentation>Preencher com:
+1 - Normal;
+ 4-EPEC pela SVC; 5 - Contingência FSDA;
+	7 - Autorização pela SVC-RS;
+ 8 - Autorização pela SVC-SP</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="7"/>
+						<xs:enumeration value="8"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CNPJ" type="TCnpj">
+				<xs:annotation>
+					<xs:documentation>CNPJ do Autor do Evento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhEvento" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e Hora do Evento, formato (AAAA-MM-DDThh:mm:ss TZD)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tpEvento">
+				<xs:annotation>
+					<xs:documentation>Tipo do Evento</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]{6}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nSeqEvento">
+				<xs:annotation>
+					<xs:documentation>Seqüencial do evento para o mesmo tipo de evento.  Para maioria dos eventos será 1, nos casos em que possa existir mais de um evento o autor do evento deve numerar de forma seqüencial.</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:whiteSpace value="preserve"/>
+						<xs:pattern value="[1-9][0-9]|0?[1-9]"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="nProt_CTe" type="TProt" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização do CT-e.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhRecbto" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora de autorizacao do Evento no formato AAAA-MM-DDTHH:MM:SS TZD.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nProt" type="TProt">
+				<xs:annotation>
+					<xs:documentation>Número de protocolo de autorização do evento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="NSU" type="TNSU" use="required">
+			<xs:annotation>
+				<xs:documentation>número sequencial único do Ambiente Nacional</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="versao" type="TVerDoc" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="THashChDFe">
+		<xs:restriction base="xs:string">
+			<xs:length value="24"/>
+			<xs:whiteSpace value="preserve"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

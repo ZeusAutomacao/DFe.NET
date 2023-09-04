@@ -9,6 +9,7 @@
         CTeRecepcao,
         CTeRetRecepcao,
         CTeStatusServico,
+        CTeStatusServicoV4,
 
         MDFeStatusServico,
         MDFeRecepcao,

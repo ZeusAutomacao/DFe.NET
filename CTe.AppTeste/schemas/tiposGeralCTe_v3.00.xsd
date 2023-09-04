@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:simpleType name="TDateTimeUTC">
@@ -75,7 +75,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="TCOrgaoIBGE">
 		<xs:annotation>
-			<xs:documentation>Tipo Código de orgão (UF da tabela do IBGE + 90 SUFRAMA + 91 RFB)</xs:documentation>
+			<xs:documentation>Tipo Código de orgão (UF da tabela do IBGE + 90 SUFRAMA + 91 RFB +  94 SVC-RS + 95 SVC-SP + 96  Sinc. Chaves do RS para SVSP </xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
@@ -111,6 +111,7 @@
 			<xs:enumeration value="93"/>
 			<xs:enumeration value="94"/>
 			<xs:enumeration value="95"/>
+			<xs:enumeration value="96"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TChNFe">
@@ -384,6 +385,15 @@
 		<xs:restriction base="xs:string">
 			<xs:whiteSpace value="preserve"/>
 			<xs:enumeration value="67"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TModGTVe">
+		<xs:annotation>
+			<xs:documentation>Tipo Modelo Documento Fiscal</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="64"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="TModCT_Carga_OS">

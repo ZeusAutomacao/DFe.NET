@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="cteTiposBasico_v4.00.xsd"/>
+	<xs:element name="GTVeProc">
+		<xs:annotation>
+			<xs:documentation> GTV-e processada</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GTVe" type="TGTVe"/>
+				<xs:element name="protCTe" type="TProtGTVe"/>
+			</xs:sequence>
+			<xs:attribute name="versao" type="TVerCTe" use="required"/>
+			<xs:attribute name="ipTransmissor" type="TIPv4" use="optional">
+				<xs:annotation>
+					<xs:documentation>IP do transmissor do documento fiscal para o ambiente autorizador</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="nPortaCon" use="optional">
+				<xs:annotation>
+					<xs:documentation>Porta de origem utilizada na conexão (De 0 a 65535)</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value="[0-9]{1,5}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="dhConexao" type="TDateTimeUTC" use="optional">
+				<xs:annotation>
+					<xs:documentation>Data e Hora da Conexão de Origem</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

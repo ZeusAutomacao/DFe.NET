@@ -623,7 +623,7 @@ namespace CTe.AppTeste
             CarregarConfiguracoes(config);
 
             var statusServico = new StatusServico();
-            var retorno = statusServico.ConsultaStatus();
+            var retorno = statusServico.ConsultaStatusV4();
 
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
