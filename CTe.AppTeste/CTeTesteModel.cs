@@ -662,10 +662,18 @@ namespace CTe.AppTeste
             CarregarConfiguracoes(config);
 
             var servicoConsultaProtocolo = new ConsultaProtcoloServico();
-            var retorno = servicoConsultaProtocolo.ConsultaProtocolo(chave);
 
 
-            OnSucessoSync(new RetornoEEnvio(retorno));
+            if (config.ConfigWebService.Versao == versao.ve300 || config.ConfigWebService.Versao == versao.ve200)
+            {
+                var retorno = servicoConsultaProtocolo.ConsultaProtocolo(chave);
+                OnSucessoSync(new RetornoEEnvio(retorno));
+            }
+            else // versao 4.00
+            {
+                var retorno = servicoConsultaProtocolo.ConsultaProtocoloV4(chave);
+                OnSucessoSync(new RetornoEEnvio(retorno));
+            }
 
         }
 

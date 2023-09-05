@@ -43,6 +43,7 @@ using CTe.Wsdl.RetRecepcao;
 using CTe.Wsdl.Status;
 using DFe.Classes.Extensoes;
 using CTe.CTeOSDocumento.Common;
+using CTe.Wsdl.ConsultaProtocolo.V4;
 using CTe.Wsdl.Recepcao.Sincrono;
 
 namespace CTe.Servicos.Factory
@@ -65,6 +66,15 @@ namespace CTe.Servicos.Factory
             var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
 
             return new CteConsulta(configuracaoWsdl);
+        }
+
+        public static CteConsultaV4 CriaWsdlConsultaProtocoloV4(ConfiguracaoServico configuracaoServico = null)
+        {
+            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteConsulta;
+
+            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico);
+
+            return new CteConsultaV4(configuracaoWsdl);
         }
 
         public static CteInutilizacao CriaWsdlCteInutilizacao(ConfiguracaoServico configuracaoServico = null)
