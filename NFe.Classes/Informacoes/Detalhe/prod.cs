@@ -274,12 +274,10 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         /// <summary>
         ///     <para>129 (veicProd) - Detalhamento de Veículos novos</para>
-        ///     <para>K01 (med) - Detalhamento de Medicamentos e de matérias-primas farmacêuticas</para>
         ///     <para>L01 (arma) - Detalhamento de Armamento</para>
         ///     <para>LA01 (comb) - Informações específicas para combustíveis líquidos e lubrificantes</para>
         /// </summary>
         [XmlElement("veicProd", typeof(veicProd))]
-        [XmlElement("med", typeof(med))]
         [XmlElement("arma", typeof(arma))]
         [XmlElement("comb", typeof(comb))]
         public List<ProdutoEspecifico> ProdutoEspecifico
@@ -305,6 +303,13 @@ namespace NFe.Classes.Informacoes.Detalhe
                 _nRecopi = value;
             }
         }
+
+        /// <summary>
+        /// Grupo K. Detalhamento Específico de Medicamento e de matérias-primas farmacêuticas
+        /// Versão 7.00
+        /// </summary>
+        [XmlElement("med")]
+        public med med { get; set; }
 
         public bool ShouldSerializenItemPed()
         {
