@@ -1,14 +1,10 @@
-using System;
-using System.Xml.Serialization;
-using DFe.Utils;
-
 namespace NFe.Classes.Informacoes.Detalhe
 {
     public class med
     {
-		private string _cProdANVISA;
-		private string _xMotivoIsencao;
-		private decimal _vPMC;
+        private string _cProdANVISA;
+        private string _xMotivoIsencao;
+        private decimal _vPMC;
 
         /// <summary>
         /// K01a - Código de Produto da ANVISA
@@ -16,9 +12,9 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         public string cProdANVISA
         {
-			get { return _cProdANVISA; }
-			set { _cProdANVISA = value; }
-		}
+            get { return _cProdANVISA; }
+            set { _cProdANVISA = value; }
+        }
 
         /// <summary>
         /// K01b - Motivo da isenção da ANVISA
