@@ -168,15 +168,45 @@ namespace FastReport
         }
       }
 
-      string infAdicionais = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infCpl&quot;) + Environment.NewLine + (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infAdFisco&quot;);
+      string infAdicionais = String.Empty;
 
+      // Notas referenciadas
+      var nFref = Report.GetDataSource(&quot;NFe.NFe.infNFe.ide.NFref&quot;);
+      nFref.Init();
+      
+      var nFrefs = new List&lt;string&gt;();
+      int nFrefCount = 0;
+      
+      while(nFref.HasMoreRows){
+          nFrefs.Add((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.NFref.refNFe&quot;));
+          nFref.Next();
+      }
+      
+      if(nFrefs.Count &gt; 0){
+          infAdicionais +=  &quot;NFe Ref: (&quot;+ string.Join(&quot;, &quot;,nFrefs.ToArray()) +&quot;);&quot;;
+      }
+      
+      // Observações do Contribuinte
+      var obsCont = Report.GetDataSource(&quot;NFe.NFe.infNFe.infAdic.obsCont&quot;);
+      obsCont.Init();
+      
+      while (obsCont.HasMoreRows)
+      {
+          infAdicionais += ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.obsCont.xCampo&quot;)) + &quot;: &quot; +
+          ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.obsCont.xTexto&quot;)) + &quot;;&quot;  ;
+          
+          obsCont.Next();
+      }
+      
+      infAdicionais += (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infCpl&quot;) + Environment.NewLine + (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.infAdic.infAdFisco&quot;);
+      
       infAdicionais = infAdicionais.Replace(&quot;[&quot;,&quot;[\&quot;[&quot;).Replace(&quot;]&quot;,&quot;]\&quot;]&quot;);
-
+      
       if((bool)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
       {
-        infAdicionais = infAdicionais.Replace(&quot;;&quot;, Environment.NewLine);
+          infAdicionais = infAdicionais.Replace(&quot;;&quot;, Environment.NewLine);
       }
-
+      
       TextInfAdicionais.Text = infAdicionais;
       //memContInfAdicionais.Text = string.Empty;
 
@@ -188,7 +218,7 @@ namespace FastReport
       //  TextInfAdicionais.Text = string.Join(Environment.NewLine, lines.Take(LINHAS_DADOS_ADICIONAIS-1).ToArray());
       //  memContInfAdicionais.Text = string.Join(Environment.NewLine, lines.Skip(LINHAS_DADOS_ADICIONAIS-1).ToArray());
       //}
-      }
+    }
 
 	  private void DadosProdutos_BeforePrint(object sender, EventArgs e)
 	  {
@@ -1440,16 +1470,16 @@ namespace FastReport
       <TextObject Name="Text231" Left="125.3" Top="12.9" Width="123.98" Height="26.46" Border.Lines="All" Border.Width="0.5" Text="COFINS" Padding="2, 2, 2, 2" Font="Times New Roman, 5pt"/>
       <TextObject Name="Text232" Left="125.75" Top="23.35" Width="122.82" Height="17.01" Text="[NFe.NFe.infNFe.total.retTrib.vRetCOFINS]" Padding="5, 1, 5, 1" HorzAlign="Right" VertAlign="Bottom" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <PageFooterBand Name="DadosAdicionais" Top="973.71" Width="744.66" Height="60.15" CanGrow="true" PrintOn="FirstPage">
-      <TextObject Name="Text155" Top="13.46" Width="470.06" Height="45.36" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="TextInfAdicionais" Left="1.45" Top="26.91" Width="468.5" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text156" Left="470.5" Top="13.46" Width="274.06" Height="45.36" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="Text37" Left="472.5" Top="26.91" Width="270.05" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[NFe.protNFe.infProt.cMsg] [NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text157" Left="1.89" Top="1.89" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
-      <ChildBand Name="Rodape" Top="1034.8" Width="744.66" Height="16.9" PrintOn="FirstPage" BeforePrintEvent="Rodape_BeforePrint">
-        <TextObject Name="memDataHora" Top="2" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([DataHoraImpressao], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
-        <TextObject Name="memSistema" Left="453.54" Top="2" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
-      </ChildBand>
+    <PageFooterBand Name="DadosAdicionais" Top="997.09" Width="744.66" Height="88.5" CanGrow="true" PrintOn="FirstPage">
+    	<TextObject Name="Text155" Top="13.46" Width="470.06" Height="73.71" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+    	<TextObject Name="TextInfAdicionais" Left="1.45" Top="26.91" Width="468.5" Height="58.15" CanGrow="true" GrowToBottom="true" CanBreak="false" Font="Times New Roman, 8pt"/>
+    	<TextObject Name="Text156" Left="470.5" Top="13.46" Width="274.06" Height="73.71" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
+    	<TextObject Name="Text37" Left="472.5" Top="26.91" Width="270.05" Height="58.15" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[NFe.protNFe.infProt.cMsg] [NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 8pt"/>
+    	<TextObject Name="Text157" Left="1.89" Top="1.89" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>
+    	<ChildBand Name="Rodape" Top="1088.09" Width="744.66" Height="13.23" PrintOn="FirstPage" BeforePrintEvent="Rodape_BeforePrint">
+    		<TextObject Name="memDataHora" Width="445.98" Height="13.23" Text="DATA E HORA DA IMPRESSÃO: [FormatDateTime([DataHoraImpressao], &quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 1, 2, 1" Font="Times New Roman, 6pt"/>
+    		<TextObject Name="memSistema" Left="453.54" Width="291.02" Height="13.23" Text="[Desenvolvedor]" Padding="2, 1, 2, 1" HorzAlign="Right" Font="Times New Roman, 6pt"/>
+    	</ChildBand>
     </PageFooterBand>
     <OverlayBand Name="MarcaDagua" Top="1052.64" Width="744.66" Height="1122.52">
       <TextObject Name="memWatermark" Width="744.57" Height="1122.52" Text="[Mensagem]" Padding="0, 0, 0, 0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 50pt, style=Bold" TextFill.Color="216, 216, 216"/>
