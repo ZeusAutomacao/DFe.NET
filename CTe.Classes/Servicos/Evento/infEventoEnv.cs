@@ -100,6 +100,7 @@ namespace CTe.Classes.Servicos.Evento
                 {
                     case versao.ve200:
                         return dhEvento.ParaDataHoraStringSemUtc();
+                    case versao.ve400:
                     case versao.ve300:
                         return dhEvento.ParaDataHoraStringUtc();
                     default:
