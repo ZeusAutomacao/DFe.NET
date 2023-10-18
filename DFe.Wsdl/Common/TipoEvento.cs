@@ -21,5 +21,7 @@
         CTeConsultaV4,
         CTeRecepcaoV4,
         CTeStatusServicoV4,
+        CTeDistribuicaoDFeV4,
+        CTeRecepcaoEventoV4,
     }
 }

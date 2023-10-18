@@ -15,6 +15,8 @@ namespace CTe.CTeOSDocumento.Soap
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CTeDistribuicaoDFe/cteDistDFeInteresse";
                 case TipoEvento.CTeRecepcaoEvento:
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteRecepcaoEvento";
+                case TipoEvento.CTeRecepcaoEventoV4:
+                    return "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoEventoV4/cteRecepcaoEvento";
                 case TipoEvento.CTeInutilizacao:
                     return "http://www.portalfiscal.inf.br/cte/wsdl/CteInutilizacao";
                 case TipoEvento.CTeRecepcao:
