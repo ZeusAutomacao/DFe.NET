@@ -99,16 +99,20 @@ namespace CTe.Utils.CTe
 
             var xmlValidacao = cte.ObterXmlString();
 
+            var servicoInstancia = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            if (!servicoInstancia.IsValidaSchemas)
+                return;
+
             switch (cte.infCte.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "cte_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "cte_v2.00.xsd", servicoInstancia);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "cte_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "cte_v3.00.xsd", servicoInstancia);
                     break;
                 case versao.ve400:
-                    Validador.Valida(xmlValidacao, "cte_v4.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "cte_v4.00.xsd", servicoInstancia);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -125,104 +129,104 @@ namespace CTe.Utils.CTe
                     case versaoModal.veM200:
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
                         {
-                            Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAereo_v2.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
                         {
-                            Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v2.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
                         {
-                            Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v2.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
                         {
-                            Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v2.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v2.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
                         {
-                            Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteMultimodal_v2.00.xsd", servicoInstancia);
                         }
                         break;
                     case versaoModal.veM300:
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
                         {
-                            Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAereo_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
                         {
-                            Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
                         {
-                            Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
                         {
-                            Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
                         {
-                            Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteMultimodal_v3.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v3.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v3.00.xsd", servicoInstancia);
                         }
                         break;
                     case versaoModal.veM400:
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aereo))
                         {
-                            Validador.Valida(xmlModal, "cteModalAereo_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAereo_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(aquav))
                         {
-                            Validador.Valida(xmlModal, "cteModalAquaviario_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalAquaviario_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(duto))
                         {
-                            Validador.Valida(xmlModal, "cteModalDutoviario_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalDutoviario_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(ferrov))
                         {
-                            Validador.Valida(xmlModal, "cteModalFerroviario_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalFerroviario_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodo))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviario_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalRodoviario_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(multimodal))
                         {
-                            Validador.Valida(xmlModal, "cteMultimodal_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteMultimodal_v4.00.xsd", servicoInstancia);
                         }
 
                         if (cte.infCte.infCTeNorm.infModal.ContainerModal.GetType() == typeof(rodoOS))
                         {
-                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v4.00.xsd", configuracaoServico);
+                            Validador.Valida(xmlModal, "cteModalRodoviarioOS_v4.00.xsd", servicoInstancia);
                         }
                         break;
                     default:

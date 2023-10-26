@@ -53,6 +53,7 @@ namespace CTe.Classes
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;
+            IsValidaSchemas = true;
         }
 
         /// <summary>
@@ -176,6 +177,8 @@ namespace CTe.Classes
         }
 
         public tpEmis TipoEmissao { get; set; }
+
+        public bool IsValidaSchemas { get; set; }
 
         public bool NaoSalvarXml()
         {
