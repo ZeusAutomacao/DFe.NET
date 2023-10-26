@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v4.00.xsd"/>
+	<xs:element name="evGTV">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento informações da GTV 110170</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “Informações da GTV”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="Informações da GTV"/>
+							<xs:enumeration value="Informacoes da GTV"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="infGTV" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Grupo de Informações das GTV</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="nDoc">
+								<xs:annotation>
+									<xs:documentation>Número da GTV</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="id">
+								<xs:annotation>
+									<xs:documentation>Identificador para diferenciar GTV de mesmo número (Usar número do AIDF ou  identificador interno da empresa),</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="20"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="serie" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Série</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="subserie" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Subsérie</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dEmi" type="TData">
+								<xs:annotation>
+									<xs:documentation>Data de Emissão</xs:documentation>
+									<xs:documentation>Formato AAAA-MM-DD</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="nDV">
+								<xs:annotation>
+									<xs:documentation>Número Dígito Verificador </xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="1"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="qCarga" type="TDec_1104">
+								<xs:annotation>
+									<xs:documentation>Quantidade de volumes/malotes</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="infEspecie" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>Informações das Espécies transportadas</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="tpEspecie">
+											<xs:annotation>
+												<xs:documentation>Tipo da Espécie</xs:documentation>
+												<xs:documentation>1 - Numerário
+2 - Cheque
+3 - Moeda
+4 - Outros</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="xs:string">
+													<xs:whiteSpace value="preserve"/>
+													<xs:enumeration value="1"/>
+													<xs:enumeration value="2"/>
+													<xs:enumeration value="3"/>
+													<xs:enumeration value="4"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="vEspecie" type="TDec_1302" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Valor Transportada em Espécie indicada</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="rem">
+								<xs:annotation>
+									<xs:documentation>Informações do Remetente da GTV</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:choice>
+											<xs:element name="CNPJ" type="TCnpjOpc">
+												<xs:annotation>
+													<xs:documentation>Número do CNPJ</xs:documentation>
+													<xs:documentation>Em caso de empresa não estabelecida no Brasil, será informado o CNPJ com zeros.
+												Informar os zeros não significativos.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="CPF" type="TCpf">
+												<xs:annotation>
+													<xs:documentation>Número do CPF</xs:documentation>
+													<xs:documentation>Informar os zeros não significativos.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:choice>
+										<xs:element name="IE" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Inscrição Estadual</xs:documentation>
+												<xs:documentation>Informar a IE do remetente ou ISENTO se remetente é contribuinte do ICMS isento de inscrição no cadastro de contribuintes do ICMS. Caso o remetente não seja contribuinte do ICMS não informar o conteúdo.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TIeDest"/>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="UF" type="TUf">
+											<xs:annotation>
+												<xs:documentation>Sigla da UF</xs:documentation>
+												<xs:documentation>Informar EX para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="xNome">
+											<xs:annotation>
+												<xs:documentation>Razão social ou nome do remetente</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:maxLength value="60"/>
+													<xs:minLength value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="dest">
+								<xs:annotation>
+									<xs:documentation>Informações do Destinatário da GTV</xs:documentation>
+								</xs:annotation>
+								<xs:complexType>
+									<xs:sequence>
+										<xs:choice>
+											<xs:element name="CNPJ" type="TCnpjOpc">
+												<xs:annotation>
+													<xs:documentation>Número do CNPJ</xs:documentation>
+													<xs:documentation>Em caso de empresa não estabelecida no Brasil, será informado o CNPJ com zeros.
+							Informar os zeros não significativos.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+											<xs:element name="CPF" type="TCpf">
+												<xs:annotation>
+													<xs:documentation>Número do CPF</xs:documentation>
+													<xs:documentation>Informar os zeros não significativos.</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:choice>
+										<xs:element name="IE" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>Inscrição Estadual</xs:documentation>
+												<xs:documentation>Informar a IE do destinatário ou ISENTO se remetente é contribuinte do ICMS isento de inscrição no cadastro de contribuintes do ICMS. Caso o remetente não seja contribuinte do ICMS não informar o conteúdo.</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TIeDest"/>
+											</xs:simpleType>
+										</xs:element>
+										<xs:element name="UF" type="TUf">
+											<xs:annotation>
+												<xs:documentation>Sigla da UF</xs:documentation>
+												<xs:documentation>Informar EX para operações com o exterior.</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="xNome">
+											<xs:annotation>
+												<xs:documentation>Razão social ou nome do destinatário</xs:documentation>
+											</xs:annotation>
+											<xs:simpleType>
+												<xs:restriction base="TString">
+													<xs:maxLength value="60"/>
+													<xs:minLength value="2"/>
+												</xs:restriction>
+											</xs:simpleType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="placa" type="TPlaca" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Placa do veículo </xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="UF" type="TUf" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>UF em que veículo está licenciado</xs:documentation>
+									<xs:documentation>Sigla da UF de licenciamento do veículo.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="RNTRC" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>RNTRC do transportador</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:pattern value="[0-9]{8}|ISENTO"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

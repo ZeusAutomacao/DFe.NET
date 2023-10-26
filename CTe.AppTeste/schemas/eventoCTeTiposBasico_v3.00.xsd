@@ -23,11 +23,21 @@
 2 - Homologação</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="CNPJ" type="TCnpj">
-							<xs:annotation>
-								<xs:documentation>CNPJ do emissor do evento</xs:documentation>
-							</xs:annotation>
-						</xs:element>
+						<xs:choice>
+							<xs:element name="CNPJ" type="TCnpj">
+								<xs:annotation>
+									<xs:documentation>CNPJ do emissor do evento</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CPF" type="TCpf">
+								<xs:annotation>
+									<xs:documentation>CPF do emissor do evento</xs:documentation>
+									<xs:documentation>Informar zeros não significativos.
+
+Usar com série específica 920-969 para emitente pessoa física com inscrição estadual</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
 						<xs:element name="chCTe" type="TChNFe">
 							<xs:annotation>
 								<xs:documentation>Chave de Acesso do CT-e vinculado ao evento</xs:documentation>
@@ -81,6 +91,27 @@ Insira neste local o XML específico do tipo de evento (cancelamento, encerramen
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:attribute>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infSolicNFF" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações do pedido de registro de evento da Nota Fiscal Fácil</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="xSolic">
+										<xs:annotation>
+											<xs:documentation>Solicitação do pedido de registro de evento da NFF.</xs:documentation>
+											<xs:documentation>Será preenchido com a totalidade de campos informados no aplicativo emissor serializado.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="2"/>
+												<xs:maxLength value="2000"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
@@ -211,7 +242,26 @@ Insira neste local o XML específico do tipo de evento (cancelamento, encerramen
 			<xs:element name="retEventoCTe" type="TRetEvento"/>
 		</xs:sequence>
 		<xs:attribute name="versao" type="TVerEvento" use="required"/>
-		<xs:attribute name="ipTransmissor" type="TIPv4" use="optional"/>
+		<xs:attribute name="ipTransmissor" type="TIPv4" use="optional">
+			<xs:annotation>
+				<xs:documentation>IP do transmissor do documento fiscal para o ambiente autorizador</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="nPortaCon" use="optional">
+			<xs:annotation>
+				<xs:documentation>Porta de origem utilizada na conexão (De 0 a 65535)</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[0-9]{1,5}"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dhConexao" type="TDateTimeUTC" use="optional">
+			<xs:annotation>
+				<xs:documentation>Data e Hora da Conexão de Origem</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
 	</xs:complexType>
 	<xs:simpleType name="TVerEvento">
 		<xs:annotation>

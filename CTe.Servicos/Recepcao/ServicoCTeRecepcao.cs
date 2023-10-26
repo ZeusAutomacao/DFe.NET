@@ -37,6 +37,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CTe.Classes;
 using CTe.Classes.Servicos.Recepcao;
+using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.Enderecos.Helpers;
 using CTe.Servicos.Factory;
 using CTe.Utils.CTe;
@@ -78,6 +79,44 @@ namespace CTe.Servicos.Recepcao
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
             retorno.SalvarXmlEmDisco(configuracaoServico);
+
+            return retorno;
+        }
+
+        public retCTe CTeRecepcaoSincronoV4(CTeEletronico cte, ConfiguracaoServico configuracaoServico = null)
+        {
+            var instanciaConfiguracao = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao && instanciaConfiguracao.VersaoLayout == versao.ve300)
+            {
+                const string razaoSocial = "CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+
+                cte.infCte.rem.xNome = razaoSocial;
+                cte.infCte.dest.xNome = razaoSocial;
+            }
+
+            if (instanciaConfiguracao.tpAmb == TipoAmbiente.Homologacao && instanciaConfiguracao.VersaoLayout == versao.ve400)
+            {
+                const string razaoSocial = "CTE EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL";
+
+                cte.infCte.rem.xNome = razaoSocial;
+                cte.infCte.dest.xNome = razaoSocial;
+            }
+
+            cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
+            cte.Assina(instanciaConfiguracao);
+            cte.infCTeSupl = cte.QrCode(instanciaConfiguracao.X509Certificate2, Encoding.UTF8, instanciaConfiguracao.IsAdicionaQrCode, UrlHelper.ObterUrlQrCode(instanciaConfiguracao));
+            cte.ValidaSchema(instanciaConfiguracao);
+            cte.SalvarXmlEmDisco(instanciaConfiguracao);
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcaoSincronoV4(configuracaoServico);
+
+            //OnAntesDeEnviar(enviCte);
+
+            var retornoXml = webService.CTeRecepcaoSincV4(cte.CriaRequestWs(configuracaoServico));
+
+            var retorno = retCTe.LoadXml(retornoXml.OuterXml, cte);
+            retorno.SalvarXmlEmDisco(cte.Chave(), configuracaoServico);
 
             return retorno;
         }

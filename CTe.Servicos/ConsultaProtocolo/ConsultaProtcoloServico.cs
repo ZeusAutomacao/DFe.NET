@@ -56,6 +56,21 @@ namespace CTe.Servicos.ConsultaProtocolo
             return retorno;
         }
 
+        public retConsSitCTe ConsultaProtocoloV4(string chave, ConfiguracaoServico configuracaoServico = null)
+        {
+            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configuracaoServico);
+            consSitCTe.ValidarSchema(configuracaoServico);
+            consSitCTe.SalvarXmlEmDisco(configuracaoServico);
+
+            var webService = WsdlFactory.CriaWsdlConsultaProtocoloV4(configuracaoServico);
+            var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
+
+            var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
+            retorno.SalvarXmlEmDisco(chave, configuracaoServico);
+
+            return retorno;
+        }
+
         public async Task<retConsSitCTe> ConsultaProtocoloAsync(string chave, ConfiguracaoServico configuracaoServico = null)
         {
             var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configuracaoServico);
