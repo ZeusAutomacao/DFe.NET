@@ -56,6 +56,9 @@ namespace CTe.Utils.Extencoes
                 case versao.ve300:
                     Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", configuracaoServico);
                     break;
+                case versao.ve400:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v4.00.xsd", configuracaoServico);
+                    break;
                 default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
                                                         "a versão está inválida, somente é permitido " +
                                                         "versão 2.00 é 3.00");

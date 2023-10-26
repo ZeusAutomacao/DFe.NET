@@ -3,6 +3,7 @@
     public enum TipoEvento
     {
         CTeConsulta,
+        
         CTeDistribuicaoDFe,
         CTeRecepcaoEvento,
         CTeInutilizacao,
@@ -15,6 +16,12 @@
         MDFeRetRecepcao,
         MDFeNaoEncerrado,
         MDFeConsulta,
-        MDFeEvento
+        MDFeEvento,
+
+        CTeConsultaV4,
+        CTeRecepcaoV4,
+        CTeStatusServicoV4,
+        CTeDistribuicaoDFeV4,
+        CTeRecepcaoEventoV4,
     }
 }

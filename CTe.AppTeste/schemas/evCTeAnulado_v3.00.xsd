@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
+	<xs:element name="evCTeAnulado">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento de marcação do CT-e de Anulação  240150</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - "CT-e Anulado"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="CT-e Anulado"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="chCTeAnulacao" type="TChNFe">
+					<xs:annotation>
+						<xs:documentation>Informar a chave de acesso do CT-e de Anulação de Valores que referenciou o CT-e Original</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="dhRecbto" type="TDateTimeUTC">
+					<xs:annotation>
+						<xs:documentation>Data e hora de processamento do CT-e de Anulação, no formato AAAA-MM-DDTHH:MM:SS TZD. Deve ser preenchida com data e hora da gravação no Banco em caso de Confirmação. Em caso de Rejeição, com data e hora do recebimento do Lote de CT-e enviado.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="nProt" type="TProt">
+					<xs:annotation>
+						<xs:documentation>Número do Protocolo de Autorização do CT-e de Anulação. 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual,  3 - SEFAZ Virtual RS, 5 - SEFAZ Virtual SP ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -61,6 +61,18 @@ namespace CTe.Servicos.Factory
             };
         }
 
+        public static consStatServCTe CriaConsStatServCTe(ConfiguracaoServico configuracaoServico = null)
+        {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            return new consStatServCTe
+            {
+                versao = configServico.VersaoLayout,
+                cUF = configServico.cUF,
+                tpAmb = configServico.tpAmb
+            };
+        }
+
         public static consSitCTe CriarconsSitCTe(string chave, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
@@ -157,7 +169,7 @@ namespace CTe.Servicos.Factory
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             
-            return new enviCTe(configServico.VersaoLayout, lote, cteEletronicoList);
+            return new enviCTe(configServico.ObterVersaoLayoutValida(), lote, cteEletronicoList);
         }
     }
 }

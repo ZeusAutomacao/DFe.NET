@@ -62,6 +62,10 @@ namespace CTe.Classes.Informacoes.Emitente
         /// </summary>
         [Description("Regime Normal")]
         [XmlEnum("3")]
-        RegimeNormal = 3
+        RegimeNormal = 3,
+
+        [Description("Simples Nacional MEI")]
+        [XmlEnum("4")]
+        SimplesNacionalMei = 4,
     }
 }

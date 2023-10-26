@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/cte" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:include schemaLocation="tiposGeralCTe_v3.00.xsd"/>
 	<xs:include schemaLocation="cteTiposBasico_v3.00.xsd"/>
@@ -70,7 +70,7 @@
 							</xs:element>
 							<xs:element name="prop" minOccurs="0">
 								<xs:annotation>
-									<xs:documentation>Proprietários do Veículo.
+									<xs:documentation>Proprietário ou possuidor do Veículo.
 Só preenchido quando o veículo não pertencer à empresa emitente do CT-e OS</xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
@@ -131,7 +131,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do CT-e OS</
 										</xs:sequence>
 										<xs:element name="tpProp">
 											<xs:annotation>
-												<xs:documentation>Tipo Proprietário</xs:documentation>
+												<xs:documentation>Tipo Proprietário ou possuidor</xs:documentation>
 												<xs:documentation>Preencher com:
 												0-TAC – Agregado;
 												1-TAC Independente; ou 
@@ -149,7 +149,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do CT-e OS</
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="UF" type="TUf">
+							<xs:element name="UF" type="TUf" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>UF em que veículo está licenciado</xs:documentation>
 									<xs:documentation>Sigla da UF de licenciamento do veículo.</xs:documentation>

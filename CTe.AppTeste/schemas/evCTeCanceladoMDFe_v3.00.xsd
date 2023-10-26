@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
+	<xs:element name="evCTeCanceladoMDFe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento MDF-e Cancelado 310611</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - "MDF-e Cancelado"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="MDF-e Cancelado"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MDFe">
+					<xs:annotation>
+						<xs:documentation>Dados do MDF-e</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="chMDFe" type="TChNFe">
+								<xs:annotation>
+									<xs:documentation>Chave de Acesso do MDF-e</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="nProtCanc" type="TProt">
+								<xs:annotation>
+									<xs:documentation>Número do Protocolo de Cancelamento do MDF-e. 1 posição tipo de autorizador (9- Ambiente Autorizador do MDF-e ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

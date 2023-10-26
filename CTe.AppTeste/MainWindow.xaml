@@ -213,7 +213,7 @@
                 </StackPanel>
 
             </TabItem>
-            <TabItem Header="Exemplos">
+            <TabItem Header="Exemplos" Height="20" VerticalAlignment="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="22*"/>

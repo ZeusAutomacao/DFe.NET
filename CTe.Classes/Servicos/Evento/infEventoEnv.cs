@@ -76,6 +76,8 @@ namespace CTe.Classes.Servicos.Evento
         /// </summary>
         public string CNPJ { get; set; }
 
+        public string CPF { get; set; }
+
         /// <summary>
         ///     HP12 - Chave de Acesso da NF-e vinculada ao Evento
         /// </summary>
@@ -98,6 +100,7 @@ namespace CTe.Classes.Servicos.Evento
                 {
                     case versao.ve200:
                         return dhEvento.ParaDataHoraStringSemUtc();
+                    case versao.ve400:
                     case versao.ve300:
                         return dhEvento.ParaDataHoraStringUtc();
                     default:

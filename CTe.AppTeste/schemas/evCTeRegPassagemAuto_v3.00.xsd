@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
+	<xs:element name="evCTeRegPassagemAuto">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento de Registro de Passagem Automatico do CT-e 510620 </xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “Registro de Passagem Automático”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="Registro de Passagem Automático"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="tpTransm">
+					<xs:annotation>
+						<xs:documentation>Tipo de Transmissão: N – Normal; R – Retransmissão; A - Atraso Processamento</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="N"/>
+							<xs:enumeration value="A"/>
+							<xs:enumeration value="R"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="infPass">
+					<xs:annotation>
+						<xs:documentation>Informações do Registro de Passagem</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="cUFTransito" type="TCodUfIBGE">
+								<xs:annotation>
+									<xs:documentation>Informar o codigo da UF onde foi registrada a passagem. Deverá ser utilizada a tabela do IBGE.</xs:documentation>
+									<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="cIdEquip">
+								<xs:annotation>
+									<xs:documentation>Codigo Identificação do Equipamento (SLD, OCR) ou 99999 para tpEquip=3</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="60"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="xIdEquip">
+								<xs:annotation>
+									<xs:documentation>Nome Identificação do Equiipamento (SLD, OCR) ou Sem Equipamento para tpEquip=3</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="60"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="tpEquip">
+								<xs:annotation>
+									<xs:documentation>Tipo de Equipamento:
+1 – SLD (Antena); 2 – OCR; 3 - Leitura Sen Equipamento</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="placa" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Placa do Veiculo de Tracao</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TPlaca"/>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="tpSentido">
+								<xs:annotation>
+									<xs:documentation>Sentido da Passagem:
+E – Entrada; S – Saída; I - Indeterminado
+</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="E"/>
+										<xs:enumeration value="S"/>
+										<xs:enumeration value="I"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dhPass" type="TDateTimeUTC">
+								<xs:annotation>
+									<xs:documentation>Data e hora do Registro de Passagem</xs:documentation>
+									<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="latitude" type="TLatitude">
+								<xs:annotation>
+									<xs:documentation>Latitude do ponto geográfico onde foi registrada a passagem</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="longitude" type="TLongitude">
+								<xs:annotation>
+									<xs:documentation>Latitude do ponto geográfico onde foi registrada a passagem</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="NSU" type="TNSU">
+								<xs:annotation>
+									<xs:documentation>NSU do registro na base do ONE</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="chMDFe" type="TChNFe">
+					<xs:annotation>
+						<xs:documentation>Chave de Acesso do MDF-e que originou o registro</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="xObs" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Informações complementares do Fisco de Registro de Passagem</xs:documentation>
+						<xs:documentation>Norma referenciada, informações complementares, etc</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="2000"/>
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
