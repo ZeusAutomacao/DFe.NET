@@ -34,6 +34,7 @@
 using System;
 using CTe.Classes;
 using CTe.Classes.Informacoes.Tipos;
+using CTe.Classes.Servicos.Tipos;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 
@@ -50,24 +51,24 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case TipoAmbiente.Homologacao:
                     if (configServico.TipoEmissao == tpEmis.teSVCRS)
                     {
-                        return UrlHomologacaoSvrs();
+                        return UrlHomologacaoSvrs(configServico);
                     }
 
                     if (configServico.TipoEmissao == tpEmis.teSVCSP)
                     {
-                        return UrlHomologacaoSvcsp();
+                        return UrlHomologacaoSvcsp(configServico);
                     }
 
                     return UrlHomologacao(configServico);
                 case TipoAmbiente.Producao:
                     if (configServico.TipoEmissao == tpEmis.teSVCRS)
                     {
-                        return UrlProducaoSvrs();
+                        return UrlProducaoSvrs(configServico);
                     }
 
                     if (configServico.TipoEmissao == tpEmis.teSVCSP)
                     {
-                        return UrlProducaoSvcsp();
+                        return UrlProducaoSvcsp(configServico);
                     }
 
                     return UrlProducao(configServico);
@@ -91,8 +92,21 @@ namespace CTe.Servicos.Enderecos.Helpers
             throw new InvalidOperationException("Tipo Ambiente inválido");
         }
 
-        private static UrlCTe UrlProducaoSvcsp()
+        private static UrlCTe UrlProducaoSvcsp(ConfiguracaoServico configuracaoServico)
         {
+            if (configuracaoServico.VersaoLayout == versao.ve400)
+            {
+                return new UrlCTe
+                {
+                    CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                    CteRecepcaoSinc = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                    CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                    CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                    CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                    CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                };
+            }
+
             return new UrlCTe
             {
                 CteRecepcao = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/cteRecepcao.asmx",
@@ -104,8 +118,21 @@ namespace CTe.Servicos.Enderecos.Helpers
             };
         }
 
-        private static UrlCTe UrlHomologacaoSvcsp()
+        private static UrlCTe UrlHomologacaoSvcsp(ConfiguracaoServico configuracaoServico)
         {
+            if (configuracaoServico.VersaoLayout == versao.ve400)
+            {
+                return new UrlCTe
+                {
+                    CteRecepcaoEvento = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                    CteRecepcaoSinc = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                    CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                    CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                    CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                    CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                };
+            }
+
             return new UrlCTe
             {
                 CteRecepcaoEvento = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteRecepcaoEvento.asmx",
@@ -117,8 +144,21 @@ namespace CTe.Servicos.Enderecos.Helpers
             };
         }
 
-        private static UrlCTe UrlHomologacaoSvrs()
+        private static UrlCTe UrlHomologacaoSvrs(ConfiguracaoServico configuracaoServico)
         {
+            if (configuracaoServico.VersaoLayout == versao.ve400)
+            {
+                return new UrlCTe
+                {
+                    CteRecepcaoEvento = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx",
+                    CteRecepcaoSinc = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx",
+                    CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
+                    CteStatusServico = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
+                    CteRecepcaoOs = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
+                    CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                };
+            }
+
             return new UrlCTe
             {
                 CteRecepcao = @"https://cte-homologacao.svrs.rs.gov.br/ws/cterecepcao/CTeRecepcao.asmx",
@@ -131,8 +171,21 @@ namespace CTe.Servicos.Enderecos.Helpers
             };
         }
 
-        private static UrlCTe UrlProducaoSvrs()
+        private static UrlCTe UrlProducaoSvrs(ConfiguracaoServico configuracaoServico)
         {
+            if (configuracaoServico.VersaoLayout == versao.ve400)
+            {
+                return new UrlCTe
+                {
+                    CteRecepcaoEvento = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx",
+                    CteRecepcaoSinc = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx",
+                    CteConsulta = @"https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
+                    CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
+                    CteRecepcaoOs = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
+                    CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                };
+            }
+
             return new UrlCTe
             {
                 CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CTeRecepcao.asmx",
@@ -150,6 +203,19 @@ namespace CTe.Servicos.Enderecos.Helpers
             switch (configuracaoServico.cUF)
             {
                 case Estado.MT:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4",
+                            CteStatusServico = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://cte.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://cte.sefaz.mt.gov.br/ctews/services/CteStatusServico",
@@ -162,6 +228,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://producao.cte.ms.gov.br/ws/CTeConsultaV4",
+                            CteStatusServico = @"https://producao.cte.ms.gov.br/ws/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://producao.cte.ms.gov.br/ws/CteStatusServico",
@@ -174,6 +253,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CTeConsultaV4",
+                            CteStatusServico = @"https://cte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://cte.fazenda.mg.gov.br/cte/services/CteStatusServico",
@@ -186,6 +278,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://cte.fazenda.pr.gov.br/cte4/CTeConsultaV4",
+                            CteStatusServico = @"https://cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"	https://cte.fazenda.pr.gov.br/cte/CteStatusServico?wsdl",
@@ -213,6 +318,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.SP:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico =
@@ -246,6 +364,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.SC:
                 case Estado.SE:
                 case Estado.TO:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico =
@@ -263,6 +394,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.AP:
                 case Estado.PE:
                 case Estado.RR:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://nfe.fazenda.sp.gov.br/cteWEB/services/CteStatusServico.asmx",
@@ -286,6 +430,19 @@ namespace CTe.Servicos.Enderecos.Helpers
             switch (configuracaoServico.cUF)
             {
                 case Estado.MT:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4",
+                            CteStatusServico = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CteStatusServico",
@@ -299,6 +456,17 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MS:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://homologacao.cte.ms.gov.br/ws/CTeConsultaV4",
+                            CteStatusServico = @"https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://homologacao.cte.ms.gov.br/ws/CteStatusServico",
@@ -311,6 +479,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.MG:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeConsultaV4",
+                            CteStatusServico = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://hcte.fazenda.mg.gov.br/cte/services/CteStatusServico?wsdl",
@@ -323,6 +504,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoEventoV4",
+                            CteRecepcaoSinc = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoSincV4",
+                            CteConsulta = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeConsultaV4",
+                            CteStatusServico = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4",
+                            CteRecepcaoOs = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4",
+                            CteRecepcaoGtve = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://homologacao.cte.fazenda.pr.gov.br/cte/CteStatusServico?wsdl",
@@ -350,6 +544,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CTeDistribuicaoDFe = @"https://hom1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.SP:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/cteStatusServico.asmx",
@@ -379,6 +586,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.SC:
                 case Estado.SE:
                 case Estado.TO:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoEventoV4/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoSincV4/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico =
@@ -396,6 +616,19 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.AP:
                 case Estado.PE:
                 case Estado.RR:
+                    if (configuracaoServico.VersaoLayout == versao.ve400)
+                    {
+                        return new UrlCTe
+                        {
+                            CteRecepcaoEvento = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoEventoV4.asmx",
+                            CteRecepcaoSinc = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoSincV4.asmx",
+                            CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
+                            CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
+                            CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
+                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                        };
+                    }
+
                     return new UrlCTe
                     {
                         CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/cteWEB/services/CteStatusServico.asmx",

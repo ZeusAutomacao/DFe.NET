@@ -54,6 +54,7 @@ namespace CTe.Utils.CTe
                 case versao.ve200:
                     Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd", configuracaoServico);
                     break;
+                case versao.ve400:
                 case versao.ve300:
                     Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", configuracaoServico);
                     break;
