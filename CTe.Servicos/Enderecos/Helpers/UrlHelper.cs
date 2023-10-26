@@ -103,7 +103,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                     CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                     CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                     CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                    CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                    CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                    QrCode = @"https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                 };
             }
 
@@ -129,7 +130,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                     CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                     CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                     CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                    CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                    CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                    QrCode = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                 };
             }
 
@@ -155,7 +157,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                     CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
                     CteStatusServico = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
                     CteRecepcaoOs = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
-                    CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                    CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx",
+                    QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode"
                 };
             }
 
@@ -182,7 +185,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                     CteConsulta = @"https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
                     CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
                     CteRecepcaoOs = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
-                    CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                    CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx",
+                    QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode"
                 };
             }
 
@@ -212,7 +216,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4",
                             CteStatusServico = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://cte.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://cte.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4",
+                            QrCode = @"https://www.sefaz.mt.gov.br/cte/qrcode"
                         };
                     }
 
@@ -237,7 +242,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://producao.cte.ms.gov.br/ws/CTeConsultaV4",
                             CteStatusServico = @"https://producao.cte.ms.gov.br/ws/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://producao.cte.ms.gov.br/ws/CTeRecepcaoGTVeV4",
+                            QrCode = @"http://www.dfe.ms.gov.br/cte/qrcode"
                         };
                     }
 
@@ -262,7 +268,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CTeConsultaV4",
                             CteStatusServico = @"https://cte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4",
+                            QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
                         };
                     }
 
@@ -287,7 +294,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://cte.fazenda.pr.gov.br/cte4/CTeConsultaV4",
                             CteStatusServico = @"https://cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4",
+                            QrCode = @"http://www.fazenda.pr.gov.br/cte/qrcode"
                         };
                     }
 
@@ -327,7 +335,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                         };
                     }
 
@@ -373,7 +382,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://cte.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode"
                         };
                     }
 
@@ -403,7 +413,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                         };
                     }
 
@@ -439,7 +450,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeConsultaV4",
                             CteStatusServico = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://homologacao.sefaz.mt.gov.br/ctews/services/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://homologacao.sefaz.mt.gov.br/ctews2/services/CTeRecepcaoGTVeV4",
+                            QrCode = @"https://homologacao.sefaz.mt.gov.br/cte/qrcode"
                         };
                     }
 
@@ -463,7 +475,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteRecepcaoEvento = @"https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoEventoV4",
                             CteRecepcaoSinc = @"https://homologacao.cte.ms.gov.br/ws/CTeRecepcaoSincV4",
                             CteConsulta = @"https://homologacao.cte.ms.gov.br/ws/CTeConsultaV4",
-                            CteStatusServico = @"https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4"
+                            CteStatusServico = @"https://homologacao.cte.ms.gov.br/ws/CTeStatusServicoV4",
+                            QrCode = @"http://www.dfe.ms.gov.br/cte/qrcode"
                         };
                     }
 
@@ -488,7 +501,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeConsultaV4",
                             CteStatusServico = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4",
+                            QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
                         };
                     }
 
@@ -513,7 +527,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeConsultaV4",
                             CteStatusServico = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoOSV4",
-                            CteRecepcaoGtve = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4"
+                            CteRecepcaoGtve = @"https://homologacao.cte.fazenda.pr.gov.br/cte4/CTeRecepcaoGTVeV4",
+                            QrCode = @"http://www.fazenda.pr.gov.br/cte/qrcode"
                         };
                     }
 
@@ -553,7 +568,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                         };
                     }
 
@@ -595,7 +611,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeConsultaV4/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://cte-homologacao.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode"
                         };
                     }
 
@@ -625,7 +642,8 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteConsulta = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeConsultaV4.asmx",
                             CteStatusServico = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoOSV4.asmx",
-                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx"
+                            CteRecepcaoGtve = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeWS/WS/CTeRecepcaoGTVeV4.asmx",
+                            QrCode = @"https://homologacao.nfe.fazenda.sp.gov.br/CTeConsulta/qrCode"
                         };
                     }
 
