@@ -75,6 +75,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         }
 
         /// <summary>
+        ///     I03a - Código de barras diferente do padrão GTIN
+        /// </summary>
+        public string cBarra { get; set; }
+
+        /// <summary>
         ///     I04 - Descrição do produto ou serviço
         /// </summary>
         public string xProd { get; set; }
@@ -173,6 +178,11 @@ namespace NFe.Classes.Informacoes.Detalhe
             get { return _cEanTrib ?? string.Empty; } //Sempre serializar o campo cEANTrib, mesmo que não tenha valor 
             set { _cEanTrib = value ?? string.Empty; }
         }
+
+        /// <summary>
+        ///     I12a - Código de Barras da unidade tributável que seja diferente do padrão GTIN
+        /// </summary>
+        public string cBarraTrib { get; set; }
 
         /// <summary>
         ///     I13 - Unidade Tributável
