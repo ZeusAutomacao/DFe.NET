@@ -98,6 +98,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
             set { _vCofins = value.Arredondar(2); }
         }
 
+        /// <summary>
+        ///     T07 - Indica se o valor da COFINSST compõe o valor total da NF-e
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public IndSomaCOFINSST? indSomaCOFINSST { get; set; }
+
+        public bool ShouldSerializeindSomaCOFINSST()
+        {
+            return indSomaCOFINSST.HasValue;
+        }
+
         public bool ShouldSerializevBC()
         {
             return vBC.HasValue;

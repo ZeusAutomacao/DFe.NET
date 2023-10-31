@@ -98,6 +98,17 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
             get { return _vPis.Arredondar(2); }
             set { _vPis = value.Arredondar(2); }
         }
+        
+        /// <summary>
+        ///     R07 - Indica se o valor do PISST compõe o valor total da NF-e
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public IndSomaPISST? indSomaPISST { get; set; }
+
+        public bool ShouldSerializeindSomaPISST()
+        {
+            return indSomaPISST.HasValue;
+        }
 
         public bool ShouldSerializevBC()
         {
