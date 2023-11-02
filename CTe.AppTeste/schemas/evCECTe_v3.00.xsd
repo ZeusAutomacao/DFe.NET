@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
+	<xs:element name="evCECTe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento comprovante de entrega eletrônico do CT-e 
+110180</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “Comprovante de Entrega do CT-e”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="Comprovante de Entrega do CT-e"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nProt" type="TProt">
+					<xs:annotation>
+						<xs:documentation>Número do Protocolo de autorização do CT-e</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="dhEntrega">
+					<xs:annotation>
+						<xs:documentation>Data e hora de conclusão da entrega da NF-e</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nDoc">
+					<xs:annotation>
+						<xs:documentation>Número do Documento de identificação da pessoa que recebeu a entrega</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="2"/>
+							<xs:maxLength value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="xNome">
+					<xs:annotation>
+						<xs:documentation>Nome da pessoa que recebeu a entrega</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:maxLength value="60"/>
+							<xs:minLength value="2"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="latitude" type="TLatitude" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Latitude do ponto de entrega</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="longitude" type="TLongitude" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Longitude do ponto de entrega</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="hashEntrega">
+					<xs:annotation>
+						<xs:documentation>Hash (SHA1) no formato Base64 resultante da concatenação: Chave de acesso do CT-e + Base64 da imagem capturada da entrega (Exemplo: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc)</xs:documentation>
+						<xs:documentation>O hashCSRT é o resultado das funções SHA-1 e base64 do token CSRT fornecido pelo fisco + chave de acesso do DF-e. (Implementação em futura NT)
+Observação: 28 caracteres são representados no schema como 20 bytes do tipo base64Binary</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:base64Binary">
+							<xs:length value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dhHashEntrega">
+					<xs:annotation>
+						<xs:documentation>Data e hora de geração do hash entrega</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="infEntrega" minOccurs="0" maxOccurs="2000">
+					<xs:annotation>
+						<xs:documentation>Grupo de informações das NF-e que foram entregues ao Destinatário</xs:documentation>
+						<xs:documentation>Informar o grupo apenas para CT-e com tipo de serviço Normal</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="chNFe" type="TChNFe">
+								<xs:annotation>
+									<xs:documentation>Chave de acesso da NF-e entregue</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

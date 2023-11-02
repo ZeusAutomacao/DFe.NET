@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v3.00.xsd"/>
+	<xs:element name="evCTeAutorizadoMDFe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento MDF-e Autorizado 310610</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - "MDF-e Autorizado"</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="MDF-e Autorizado"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MDFe">
+					<xs:annotation>
+						<xs:documentation>Dados do MDF-e</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="chMDFe" type="TChNFe">
+								<xs:annotation>
+									<xs:documentation>Chave de Acesso do MDF-e</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="modal">
+								<xs:annotation>
+									<xs:documentation>Modal do MDF-e</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="01"/>
+										<xs:enumeration value="02"/>
+										<xs:enumeration value="03"/>
+										<xs:enumeration value="04"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="dhEmi" type="TDateTimeUTC">
+								<xs:annotation>
+									<xs:documentation>Data de Emissão do MDF-e, formato AAAA-MM-DDThh:mm:ss TZD</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="nProt" type="TProt">
+								<xs:annotation>
+									<xs:documentation>Número do Protocolo de Status do MDF-e. 1 posição tipo de autorizador (9- Ambiente Autorizador do MDF-e ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="dhRecbto" type="TDateTimeUTC">
+								<xs:annotation>
+									<xs:documentation>Data e hora de processamento, no formato AAAA-MM-DDTHH:MM:SS TZD. </xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="emit">
+					<xs:annotation>
+						<xs:documentation>Dados do Emitente do MDF-e</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="CNPJ" type="TCnpj">
+								<xs:annotation>
+									<xs:documentation>CNPJ do emitente</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="IE" type="TIe">
+								<xs:annotation>
+									<xs:documentation>IE do emitente</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="xNome">
+								<xs:annotation>
+									<xs:documentation>Razão social ou Nome do Emitente</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="TString">
+										<xs:minLength value="1"/>
+										<xs:maxLength value="60"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -112,6 +112,7 @@ namespace CTe.Classes.Informacoes.Identificacao
                 {
                     case versao.ve200:
                         return dhEmi.ParaDataHoraStringSemUtc();
+                    case versao.ve400:
                     case versao.ve300:
                         return dhEmi.ParaDataHoraStringUtc();
                     default:

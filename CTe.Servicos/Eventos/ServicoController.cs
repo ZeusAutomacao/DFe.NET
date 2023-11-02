@@ -32,9 +32,11 @@
 /********************************************************************************/
 
 using System.Threading.Tasks;
+using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Evento.Flags;
+using CTe.Classes.Servicos.Tipos;
 using CTe.Servicos.Eventos.Contratos;
 using CTe.Servicos.Factory;
 using CTe.Utils.CTe;
@@ -62,8 +64,19 @@ namespace CTe.Servicos.Eventos
             evento.ValidarSchema(configuracaoServico);
             evento.SalvarXmlEmDisco(configuracaoServico);
 
-            var webService = WsdlFactory.CriaWsdlCteEvento(configuracaoServico);
-            var retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
+            XmlNode retornoXml = null;
+
+            if (evento.versao == versao.ve200 || evento.versao == versao.ve300)
+            {
+                var webService = WsdlFactory.CriaWsdlCteEvento(configuracaoServico);
+                retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
+            }
+
+            if (evento.versao == versao.ve400)
+            {
+                var webService = WsdlFactory.CriaWsdlCteEventoV4(configuracaoServico);
+                retornoXml = webService.cteRecepcaoEvento(evento.CriaXmlRequestWs());
+            }
 
             var retorno = retEventoCTe.LoadXml(retornoXml.OuterXml, evento);
             retorno.SalvarXmlEmDisco(configuracaoServico);
