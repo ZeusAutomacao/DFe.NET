@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas.softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ns1="http://www.portalfiscal.inf.br/cte" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v4.00.xsd"/>
+	<xs:element name="evEPECCTe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento de emissão prévia de emissão em contingência 
+110113</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “EPEC”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="EPEC"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="xJust" type="TJust">
+					<xs:annotation>
+						<xs:documentation>Justificativa da Entrada em Contingencia</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vICMS" type="TDec_1302">
+					<xs:annotation>
+						<xs:documentation>Valor do ICMS</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vICMSST" type="TDec_1302" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Valor do ICMS ST</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vTPrest" type="TDec_1302">
+					<xs:annotation>
+						<xs:documentation>Valor Total da Prestação do Serviço</xs:documentation>
+						<xs:documentation>Pode conter zeros quando o CT-e for de complemento de ICMS</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="vCarga" type="TDec_1302">
+					<xs:annotation>
+						<xs:documentation>Valor total da carga</xs:documentation>
+						<xs:documentation>Dever ser informado para todos os modais, com exceção para o Dutoviário.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="toma4">
+					<xs:annotation>
+						<xs:documentation>Indicador do "papel" do tomador do serviço no CT-e</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="toma">
+								<xs:annotation>
+									<xs:documentation>Tomador do Serviço</xs:documentation>
+									<xs:documentation>Preencher com: 
+0-Remetente;
+1-Expedidor;2-Recebedor;3-Destinatário
+;4 - Outros</xs:documentation>
+								</xs:annotation>
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:whiteSpace value="preserve"/>
+										<xs:enumeration value="0"/>
+										<xs:enumeration value="1"/>
+										<xs:enumeration value="2"/>
+										<xs:enumeration value="3"/>
+										<xs:enumeration value="4"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="UF" type="TUf">
+								<xs:annotation>
+									<xs:documentation>UF do tomador do serviço</xs:documentation>
+									<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:choice>
+								<xs:element name="CNPJ" type="TCnpjOpc">
+									<xs:annotation>
+										<xs:documentation>Número do CNPJ</xs:documentation>
+										<xs:documentation>Em caso de empresa não estabelecida no Brasil, será informado o CNPJ com zeros.															
+Informar os zeros não significativos.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="CPF" type="TCpf">
+									<xs:annotation>
+										<xs:documentation>Número do CPF</xs:documentation>
+										<xs:documentation>Informar os zeros não significativos.</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+							</xs:choice>
+							<xs:element name="IE" type="TIeDest" minOccurs="0">
+								<xs:annotation>
+									<xs:documentation>Inscrição Estadual</xs:documentation>
+									<xs:documentation>Informar a IE do tomador ou ISENTO se tomador é contribuinte do ICMS isento de inscrição no cadastro de contribuintes do ICMS. Caso o tomador não seja contribuinte do ICMS não informar o conteúdo.</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="modal" type="TModTransp">
+					<xs:annotation>
+						<xs:documentation>Modal</xs:documentation>
+						<xs:documentation>Preencher com:
+ 
+01-Rodoviário;
+
+02-Aéreo;
+03-Aquaviário;
+
+04-Ferroviário;
+
+05-Dutoviário;
+06-Multimodal;</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="UFIni" type="TUf">
+					<xs:annotation>
+						<xs:documentation>UF do início da prestação</xs:documentation>
+						<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="UFFim" type="TUf">
+					<xs:annotation>
+						<xs:documentation>UF do término da prestação</xs:documentation>
+						<xs:documentation>Informar 'EX' para operações com o exterior.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="tpCTe">
+					<xs:annotation>
+						<xs:documentation>Tipo do CT-e - Aceitar apenas Tipo Normal = 0</xs:documentation>
+						<xs:documentation>Preencher com:
+	0 - CT-e Normal;
+ 1 - CT-e de Complemento de Valores;	2 - CT-e de Anulação;
+ 3 - CT-e Substituto</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:length value="1"/>
+							<xs:enumeration value="0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dhEmi">
+					<xs:annotation>
+						<xs:documentation>Data e hora de emissão do CT-e</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

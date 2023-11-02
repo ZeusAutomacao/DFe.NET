@@ -9,4 +9,8 @@
     <ProjectReference Include="..\DFe.Wsdl\DFe.Wsdl.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Evento\V4\" />
+  </ItemGroup>
+
 </Project>

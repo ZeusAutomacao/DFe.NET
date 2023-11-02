@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2014 rel. 2 (http://www.altova.com) by private (private) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/cte" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/cte" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="eventoCTeTiposBasico_v4.00.xsd"/>
+	<xs:element name="evIECTe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do evento insucesso na entrega eletrônico do CT-e 
+110190</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="descEvento">
+					<xs:annotation>
+						<xs:documentation>Descrição do Evento - “Insucesso na Entrega do CT-e”</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="Insucesso na Entrega do CT-e"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nProt" type="TProt">
+					<xs:annotation>
+						<xs:documentation>Número do Protocolo de autorização do CT-e</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="dhTentativaEntrega">
+					<xs:annotation>
+						<xs:documentation>Data e hora da tentativa da entrega da NF-e</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="nTentativa" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Número da tentativa de entrega que não teve insucesso</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:pattern value="[0-9]{3}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="tpMotivo">
+					<xs:annotation>
+						<xs:documentation>Motivo do insucesso</xs:documentation>
+						<xs:documentation>1- Recebedor não encontrado;
+2- Recusa do recebedor;
+3- Endereço inexistente;
+4- Outros (exige informar justificativa)</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:whiteSpace value="preserve"/>
+							<xs:enumeration value="1"/>
+							<xs:enumeration value="2"/>
+							<xs:enumeration value="3"/>
+							<xs:enumeration value="4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="xJustMotivo" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Justificativa do Motivo de insucesso, informar apenas para tpMotivo = 4</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TString">
+							<xs:minLength value="15"/>
+							<xs:maxLength value="256"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="latitude" type="TLatitude" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Latitude do ponto de entrega</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="longitude" type="TLongitude" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Longitude do ponto de entrega</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="hashTentativaEntrega" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Hash (SHA1) no formato Base64 resultante da concatenação: Chave de acesso do CT-e + Base64 da imagem capturada da tentativa com insucesso da entrega (Exemplo: foto do local que não recebeu a entrega ou do local sem recebedor)</xs:documentation>
+						<xs:documentation>O hashCSRT é o resultado das funções SHA-1 e base64 do token CSRT fornecido pelo fisco + chave de acesso do DF-e. (Implementação em futura NT)
+Observação: 28 caracteres são representados no schema como 20 bytes do tipo base64Binary</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:base64Binary">
+							<xs:length value="20"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="dhHashTentativaEntrega" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Data e hora de geração do hash tentativa entrega</xs:documentation>
+						<xs:documentation>Formato AAAA-MM-DDTHH:MM:DD TZD</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="TDateTimeUTC"/>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="infEntrega" minOccurs="0" maxOccurs="2000">
+					<xs:annotation>
+						<xs:documentation>Grupo de informações das NF-e que não tiveram sucesso na entrega ao Destinatário</xs:documentation>
+						<xs:documentation>Informar o grupo apenas para CT-e com tipo de serviço Normal</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="chNFe" type="TChDFe">
+								<xs:annotation>
+									<xs:documentation>Chave de acesso da NF-e com insucesso na tentativa de entrega</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

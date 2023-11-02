@@ -56,6 +56,21 @@ namespace CTe.Servicos.ConsultaStatus
             return retorno;
         }
 
+        public retConsStatServCTe ConsultaStatusV4(ConfiguracaoServico configuracaoServico = null)
+        {
+            var consStatServCte = ClassesFactory.CriaConsStatServCTe(configuracaoServico);
+            consStatServCte.ValidarSchema(configuracaoServico);
+            consStatServCte.SalvarXmlEmDisco(configuracaoServico);
+
+            var webService = WsdlFactory.CriaWsdlCteStatusServico(configuracaoServico);
+            var retornoXml = webService.cteStatusServicoCT(consStatServCte.CriaRequestWs());
+
+            var retorno = retConsStatServCTe.LoadXml(retornoXml.OuterXml, consStatServCte);
+            retorno.SalvarXmlEmDisco(configuracaoServico);
+
+            return retorno;
+        }
+
         public async Task<retConsStatServCte> ConsultaStatusAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var consStatServCte = ClassesFactory.CriaConsStatServCte(configuracaoServico);

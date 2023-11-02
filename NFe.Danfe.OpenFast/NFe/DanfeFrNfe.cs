@@ -58,7 +58,7 @@ namespace NFe.Danfe.OpenFast.NFe
                 frx = FrxFileHelper.TryGetFrxFile(caminho);
             }
 
-            this.Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, frx, desenvolvedor, arquivoRelatorio);
+            Relatorio = DanfeSharedHelper.GenerateDanfeFrNfeReport(proc, configuracaoDanfeNfe, frx, desenvolvedor, arquivoRelatorio);
         }
 
         /// <summary>

@@ -303,4 +303,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
         [XmlEnum("99")]
         cofins99 = 99
     }
+
+    public enum IndSomaCOFINSST
+    {
+        /// <summary>
+        /// Valor do COFINSST não compõe o valor total da NF-e 
+        /// </summary>
+        [Description("Valor do COFINSST não compõe o valor total da NF-e")]
+        [XmlEnum("0")]
+        NaoCompoe = 0,
+
+        /// <summary>
+        /// N – Produzido em Escala NÃO Relevante
+        /// </summary>
+        [Description("Valor do COFINSST compõe o valor total da NF-e")]
+        [XmlEnum("1")]
+        Compoe = 1
+    }
 }

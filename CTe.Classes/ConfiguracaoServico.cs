@@ -53,6 +53,7 @@ namespace CTe.Classes
         {
             ConfiguracaoCertificado = new ConfiguracaoCertificado();
             TipoEmissao = tpEmis.teNormal;
+            IsValidaSchemas = true;
         }
 
         /// <summary>
@@ -116,6 +117,21 @@ namespace CTe.Classes
         /// </summary>
         public versao VersaoLayout { get; set; }
 
+        public versao ObterVersaoLayoutValida()
+        {
+            switch (VersaoLayout)
+            {
+                case versao.ve200:
+                    return versao.ve200;
+                case versao.ve300:
+                    return versao.ve300;
+                case versao.ve400:
+                    return versao.ve400;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public bool IsAdicionaQrCode { get; set; }
 
         /// <summary>
@@ -161,6 +177,8 @@ namespace CTe.Classes
         }
 
         public tpEmis TipoEmissao { get; set; }
+
+        public bool IsValidaSchemas { get; set; }
 
         public bool NaoSalvarXml()
         {

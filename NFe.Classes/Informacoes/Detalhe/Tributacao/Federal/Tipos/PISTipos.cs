@@ -304,4 +304,21 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
         [XmlEnum("99")]
         pis99 = 99
     }
+
+    public enum IndSomaPISST
+    {
+        /// <summary>
+        /// Valor do PISST não compõe o valor total da NF-e 
+        /// </summary>
+        [Description("Valor do PISST não compõe o valor total da NF-e")]
+        [XmlEnum("0")]
+        NaoCompoe = 0,
+
+        /// <summary>
+        /// N – Produzido em Escala NÃO Relevante
+        /// </summary>
+        [Description("Valor do PISST compõe o valor total da NF-e")]
+        [XmlEnum("1")]
+        Compoe = 1
+    }
 }
