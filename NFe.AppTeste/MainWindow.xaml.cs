@@ -1767,9 +1767,9 @@ namespace NFe.AppTeste
 
 
 
-                //impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
-                var bytes = impr.GerarImagem();
-                var base64 = Convert.ToBase64String(bytes);
+                impr.Imprimir(salvarArquivoPdfEm: fileDialog.FileName.Replace(".pdf", "") + ".pdf");
+                //var bytes = impr.PdfBytes();
+                //var base64 = Convert.ToBase64String(bytes);
             }
             catch (Exception ex)
             {
