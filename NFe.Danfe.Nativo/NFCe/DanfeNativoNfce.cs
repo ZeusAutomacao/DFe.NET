@@ -53,6 +53,8 @@ using NFe.Danfe.Nativo.Properties;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.Danfe.Nativo.NFCe
@@ -165,6 +167,48 @@ namespace NFe.Danfe.Nativo.NFCe
             }
         }
 
+        public Func<Stream> ConverterBytesParaFuncStream(byte[] bytes)
+        {
+            Func<Stream> funcStream = () =>
+            {
+                MemoryStream stream = new MemoryStream(bytes);
+                // Certifique-se de que a posição do stream esteja no início.
+                stream.Position = 0;
+                return stream;
+            };
+
+            return funcStream;
+        }
+
+        public byte[] ConverterImagemParaPdfBytes(byte[] imagemBytes)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                using (PdfDocument pdf = new PdfDocument())
+                {
+                    PdfPage page = pdf.AddPage();
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    XImage image = XImage.FromStream(ConverterBytesParaFuncStream(imagemBytes));
+
+                    page.Width = image.PointWidth;
+                    page.Height = image.PointHeight;
+
+
+                    gfx.DrawImage(image, 0, 0);
+
+                    pdf.Save(stream);
+                }
+
+                return stream.ToArray();
+            }
+        }
+
+        public byte[] PdfBytes()
+        {
+            return ConverterImagemParaPdfBytes(GerarImagem());
+        }
+
         public void GerarJPEG(string filename)
         {
             GerarImagem(filename, ImageFormat.Jpeg);
@@ -262,7 +306,12 @@ namespace NFe.Danfe.Nativo.NFCe
             #region preencher itens
             foreach (det detalhe in det)
             {
-                AdicionarTexto codigo = new AdicionarTexto(g, detalhe.prod.cProd, 7);
+                var codigoXml = detalhe.prod.cProd;
+
+                if (detalhe.prod.cProd.Length > 7)
+                    codigoXml = detalhe.prod.cProd.Remove(7);
+
+                AdicionarTexto codigo = new AdicionarTexto(g, codigoXml, 7);
                 codigo.Desenhar(x, _y);
 
                 AdicionarTexto nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
