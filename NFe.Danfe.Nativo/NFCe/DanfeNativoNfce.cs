@@ -53,6 +53,8 @@ using NFe.Danfe.Nativo.Properties;
 using NFe.Utils;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
+using PdfSharpCore.Drawing;
+using PdfSharpCore.Pdf;
 using NFeZeus = NFe.Classes.NFe;
 
 namespace NFe.Danfe.Nativo.NFCe
@@ -135,6 +137,76 @@ namespace NFe.Danfe.Nativo.NFCe
                     }
                 }
             }
+        }
+
+        public byte[] GerarImagem()
+        {
+            // Feito esse de cima para poder pegar o tamanho real da mesma desenhando
+            using (Bitmap bmp = new Bitmap(300, 70000))
+            {
+                using (Graphics g = Graphics.FromImage(bmp))
+                {
+                    g.Clear(Color.White);
+                    GerarNfCe(g);
+                }
+
+                // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
+                using (Bitmap bmpFinal = new Bitmap(300, _y))   
+                using (var streamer = new MemoryStream())
+                {
+                    using (Graphics g = Graphics.FromImage(bmpFinal))
+                    {
+                        g.Clear(Color.White);
+                        g.DrawImage(bmp, 0, 0);
+
+                        bmpFinal.Save(streamer, ImageFormat.Jpeg);
+                    }
+
+                    return streamer.ToArray();
+                }
+            }
+        }
+
+        public Func<Stream> ConverterBytesParaFuncStream(byte[] bytes)
+        {
+            Func<Stream> funcStream = () =>
+            {
+                MemoryStream stream = new MemoryStream(bytes);
+                // Certifique-se de que a posição do stream esteja no início.
+                stream.Position = 0;
+                return stream;
+            };
+
+            return funcStream;
+        }
+
+        public byte[] ConverterImagemParaPdfBytes(byte[] imagemBytes)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                using (PdfDocument pdf = new PdfDocument())
+                {
+                    PdfPage page = pdf.AddPage();
+                    XGraphics gfx = XGraphics.FromPdfPage(page);
+
+                    XImage image = XImage.FromStream(ConverterBytesParaFuncStream(imagemBytes));
+
+                    page.Width = image.PointWidth;
+                    page.Height = image.PointHeight;
+
+
+                    gfx.DrawImage(image, 0, 0);
+
+                    pdf.Save(stream);
+                }
+
+                return stream.ToArray();
+            }
+        }
+
+        public byte[] PdfBytes()
+        {
+            return ConverterImagemParaPdfBytes(GerarImagem());
         }
 
         public void GerarJPEG(string filename)
@@ -234,7 +306,12 @@ namespace NFe.Danfe.Nativo.NFCe
             #region preencher itens
             foreach (det detalhe in det)
             {
-                AdicionarTexto codigo = new AdicionarTexto(g, detalhe.prod.cProd, 7);
+                var codigoXml = detalhe.prod.cProd;
+
+                if (detalhe.prod.cProd.Length > 7)
+                    codigoXml = detalhe.prod.cProd.Remove(7);
+
+                AdicionarTexto codigo = new AdicionarTexto(g, codigoXml, 7);
                 codigo.Desenhar(x, _y);
 
                 AdicionarTexto nome = new AdicionarTexto(g, detalhe.prod.xProd, 7);
