@@ -200,7 +200,11 @@ namespace FastReport
 	      var orig = icmsBasico.GetIcmsOrig();
 	      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional)
 	      {
-	        prodOriginCell.Text = orig.OrigemMercadoriaParaString()+icmsBasico.GetIcmsCsosn().CsosnicmsParaString();
+             if (icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;02&quot; || icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;15&quot; ||
+                 icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;53&quot; || icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;61&quot;)
+	            prodOriginCell.Text = orig.OrigemMercadoriaParaString() + icmsBasico.GetIcmsCst().CsticmsParaString();
+             else
+                prodOriginCell.Text = orig.OrigemMercadoriaParaString() + icmsBasico.GetIcmsCsosn().CsosnicmsParaString();
 	      }
 	      else
 	      {
