@@ -13,14 +13,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Observacao
         ///     VA02 - Grupo de observações de uso livre do Contribuinte
         ///     <para>Ocorrência: 0-1</para>
         /// </summary>
-        [XmlElement(Namespace = nameof(Observacao))]
         public obsCont obsCont { get; set; }
 
         /// <summary>
         ///     VA05 - Grupo de observações de uso livre do Fisco
         ///     <para>Ocorrência: 0-1</para>
         /// </summary>
-        [XmlElement(Namespace = nameof(Observacao))]
         public obsFisco obsFisco { get; set; }
     }
 }
