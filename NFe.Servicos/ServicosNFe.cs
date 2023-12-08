@@ -162,7 +162,7 @@ namespace NFe.Servicos
             return new NfeAutorizacao(url, _certificado, _cFgServico.TimeOut);
         }
 
-        private INfeServico CriarServico(ServicoNFe servico, string versaoServico)
+        private INfeServico CriarServico(ServicoNFe servico, string versaoServico, string proxyAddress = null)
         {
             var url = Enderecador.ObterUrlServico(servico, _cFgServico);
 
@@ -269,7 +269,7 @@ namespace NFe.Servicos
                     }
 
                     if (_cFgServico.VersaoNfeConsultaCadastro == VersaoServico.ve400)
-                        return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
+                        return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut, proxyAddress);
 
                     return new Wsdl.ConsultaCadastro.DEMAIS_UFs.CadConsultaCadastro2(url, _certificado,
                         _cFgServico.TimeOut);
@@ -287,7 +287,7 @@ namespace NFe.Servicos
             }
         }
 
-        private INfeServico CriarServico(ServicoNFe servico)
+        private INfeServico CriarServico(ServicoNFe servico, string proxyAddress = null)
         {
             var url = Enderecador.ObterUrlServico(servico, _cFgServico);
 
@@ -387,7 +387,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoEpec: return new RecepcaoEPEC(url, _certificado, _cFgServico.TimeOut);
 
                 case ServicoNFe.NfeConsultaCadastro:
-                    return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut);
+                    return new CadConsultaCadastro4(url, _certificado, _cFgServico.TimeOut, proxyAddress);
 
                 case ServicoNFe.NfeDownloadNF: return new NfeDownloadNF(url, _certificado, _cFgServico.TimeOut);
 
@@ -1118,13 +1118,13 @@ namespace NFe.Servicos
         /// <param name="documento">Documento a ser consultado</param>
         /// <returns>Retorna um objeto da classe RetornoNfeConsultaCadastro com o retorno do serviço NfeConsultaCadastro</returns>
         public async Task<RetornoNfeConsultaCadastro> NfeConsultaCadastroAsync(string uf,
-            ConsultaCadastroTipoDocumento tipoDocumento, string documento)
+            ConsultaCadastroTipoDocumento tipoDocumento, string documento, string proxyAddress = null)
         {
             var versaoServico =
                 ServicoNFe.NfeConsultaCadastro.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaCadastro,
                     _cFgServico.cUF);
 
-            var ws = CriarServico(ServicoNFe.NfeConsultaCadastro);
+            var ws = CriarServico(ServicoNFe.NfeConsultaCadastro, proxyAddress);
 
             if (_cFgServico.VersaoNfeConsultaCadastro != VersaoServico.ve400)
                 ws.nfeCabecMsg = new nfeCabecMsg
