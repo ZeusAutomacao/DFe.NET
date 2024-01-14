@@ -145,11 +145,16 @@ namespace CTe.Servicos.Recepcao
                 cte.infCte.ide.tpEmis = instanciaConfiguracao.TipoEmissao;
                 cte.Assina(instanciaConfiguracao);
                 cte.infCTeSupl = cte.QrCode(instanciaConfiguracao.X509Certificate2, Encoding.UTF8, instanciaConfiguracao.IsAdicionaQrCode, UrlHelper.ObterUrlQrCode(instanciaConfiguracao));
-                cte.ValidaSchema(instanciaConfiguracao);
+
+                if (configuracaoServico.IsValidaSchemas)
+                    cte.ValidaSchema(instanciaConfiguracao);
+
                 cte.SalvarXmlEmDisco(instanciaConfiguracao);
             }
 
-            enviCte.ValidaSchema(instanciaConfiguracao);
+            if (configuracaoServico.IsValidaSchemas)
+                enviCte.ValidaSchema(instanciaConfiguracao);
+
             enviCte.SalvarXmlEmDisco(instanciaConfiguracao);
             return enviCte;
         }

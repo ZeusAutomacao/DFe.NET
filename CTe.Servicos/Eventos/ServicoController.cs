@@ -61,7 +61,10 @@ namespace CTe.Servicos.Eventos
         {
             var evento = FactoryEvento.CriaEvento(cTeTipoEvento, sequenciaEvento, chave, cnpj, container, configuracaoServico);
             evento.Assina(configuracaoServico);
-            evento.ValidarSchema(configuracaoServico);
+            
+            if (configuracaoServico.IsValidaSchemas)
+                evento.ValidarSchema(configuracaoServico);
+
             evento.SalvarXmlEmDisco(configuracaoServico);
 
             XmlNode retornoXml = null;
@@ -88,7 +91,10 @@ namespace CTe.Servicos.Eventos
         {
             var evento = FactoryEvento.CriaEvento(cTeTipoEvento, sequenciaEvento, chave, cnpj, container, configuracaoServico);
             evento.Assina(configuracaoServico);
-            evento.ValidarSchema(configuracaoServico);
+            
+            if (configuracaoServico.IsValidaSchemas)
+                evento.ValidarSchema(configuracaoServico);
+            
             evento.SalvarXmlEmDisco(configuracaoServico);
 
             var webService = WsdlFactory.CriaWsdlCteEvento(configuracaoServico);
