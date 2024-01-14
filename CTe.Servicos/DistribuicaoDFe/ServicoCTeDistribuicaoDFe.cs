@@ -33,18 +33,19 @@
 
 
 
-using System;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.DistribuicaoDFe;
 using CTe.Servicos.Factory;
 using CTe.Utils.DistribuicaoDFe;
-using CTe.Utils;
 using CTe.Wsdl.DistribuicaoDFe;
 using DFe.Utils;
+using Shared.DFe.Utils;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
+using System.Xml;
 using Compressao = DFe.Utils.Compressao;
 
 
@@ -52,6 +53,20 @@ namespace CTe.Servicos.DistribuicaoDFe
 {
     public class ServicoCTeDistribuicaoDFe
     {
+        public ServicoCTeDistribuicaoDFe()
+        {
+
+        }
+
+        private readonly ConfiguracaoServico _configuracaoServico;
+        private readonly X509Certificate2 _certificado;
+        public ServicoCTeDistribuicaoDFe(ConfiguracaoServico configuracaoServico, X509Certificate2 certificado = null)
+        {
+            _configuracaoServico = configuracaoServico;
+            _certificado = certificado ?? configuracaoServico.X509Certificate2;
+        }
+
+
         /// <summary>
         /// Serviço destinado à distribuição de informações resumidas e documentos fiscais eletrônicos de interesse de um ator, seja este pessoa física ou jurídica.
         /// </summary>
@@ -63,7 +78,7 @@ namespace CTe.Servicos.DistribuicaoDFe
         /// <returns>Retorna um objeto da classe CTeDistDFeInteresse com os documentos de interesse do CNPJ/CPF pesquisado</returns>
         public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", ConfiguracaoServico configuracaoServico = null)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? _configuracaoServico ?? ConfiguracaoServico.Instancia;
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
             var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta, configServico);
@@ -82,7 +97,7 @@ namespace CTe.Servicos.DistribuicaoDFe
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
+                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe).RemoverDeclaracaoXml();
                     string chCTe = string.Empty;
 
                     if (conteudo.StartsWith("<cteProc"))
@@ -94,6 +109,15 @@ namespace CTe.Servicos.DistribuicaoDFe
                     {
                         var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoCTe>(conteudo);
                         chCTe = procEventoNFeConteudo.eventoCTe.infEvento.chCTe;
+                    }
+                    else if (conteudo.StartsWith("<cteOSProc"))
+                    {
+                        var retConteudo = FuncoesXml.XmlStringParaClasse<CTe.CTeOSDocumento.CTe.CTeOS.Retorno.cteOSProc>(conteudo);
+                        chCTe = retConteudo.protCTe.infProt.chCTe;
+                    }
+                    else
+                    {
+
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
@@ -111,7 +135,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
         public async Task<RetornoCteDistDFeInt> CTeDistDFeInteresseAsync(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", ConfiguracaoServico configuracaoServico = null)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            var configServico = configuracaoServico ?? _configuracaoServico ?? ConfiguracaoServico.Instancia;
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
             var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta, configServico);
@@ -130,7 +154,7 @@ namespace CTe.Servicos.DistribuicaoDFe
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
-                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe);
+                    string conteudo = Compressao.Unzip(retConsulta.loteDistDFeInt[i].XmlNfe).RemoverDeclaracaoXml();
                     string chCTe = string.Empty;
 
                     if (conteudo.StartsWith("<cteProc"))
@@ -142,6 +166,11 @@ namespace CTe.Servicos.DistribuicaoDFe
                     {
                         var procEventoNFeConteudo = FuncoesXml.XmlStringParaClasse<Classes.Servicos.DistribuicaoDFe.Schemas.procEventoCTe>(conteudo);
                         chCTe = procEventoNFeConteudo.eventoCTe.infEvento.chCTe;
+                    }
+                    else if (conteudo.StartsWith("<cteOSProc"))
+                    {
+                        var retConteudo = FuncoesXml.XmlStringParaClasse<CTe.CTeOSDocumento.CTe.CTeOS.Retorno.cteOSProc>(conteudo);
+                        chCTe = retConteudo.protCTe.infProt.chCTe;
                     }
 
                     string[] schema = retConsulta.loteDistDFeInt[i].schema.Split('_');
@@ -164,7 +193,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #region Cria o objeto wdsl para consulta
 
-            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse(configuracaoServico);
+            var ws = WsdlFactory.CriaWsdlCTeDistDFeInteresse(configuracaoServico, _certificado);
 
             #endregion
 
@@ -183,11 +212,11 @@ namespace CTe.Servicos.DistribuicaoDFe
                 pedDistDFeInt.CNPJ = documento;
 
 
-            pedDistDFeInt.distNSU = new distNSU {ultNSU = ultNSU.PadLeft(15, '0')};
+            pedDistDFeInt.distNSU = new distNSU { ultNSU = ultNSU.PadLeft(15, '0') };
 
             if (!nSU.Equals("0"))
             {
-                pedDistDFeInt.consNSU = new consNSU {NSU = nSU.PadLeft(15, '0')};
+                pedDistDFeInt.consNSU = new consNSU { NSU = nSU.PadLeft(15, '0') };
                 pedDistDFeInt.distNSU = null;
             }
 
