@@ -41,7 +41,7 @@ namespace CTe.Wsdl.Recepcao.Sincrono
             {
                 cteDadosMsg = Convert.ToBase64String(Compressao.Zip(cteDadosMsg.OuterXml))
             };
-            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeStatusServicoV4, "retCTe");
+            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeRecepcaoV4, "retCTe");
         }
 
         /*public async Task<XmlNode> cteRecepcaoLoteAsync(XmlNode cteDadosMsg)
