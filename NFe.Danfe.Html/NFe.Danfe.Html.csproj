@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="NetBarcode" Version="1.7.0" />
-    <PackageReference Include="Zeus.Net.NFe.NFCe" Version="2023.6.7.1227" />
+    <PackageReference Include="Zeus.Net.NFe.NFCe" Version="2024.1.15.1723" />
   </ItemGroup>
 
   <ItemGroup>

@@ -90,7 +90,7 @@ namespace DFe.Utils
         /// <param name="bytes">array de byte do certificado</param>
         /// <param name="password">string representando a senha do certificado</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDosBytes(byte[] bytes, string password)
+        public static X509Certificate2 ObterDosBytes(byte[] bytes, string password, X509KeyStorageFlags? keyStorageFlags)
         {
             SecureString stringSegura = null;
             try
@@ -104,7 +104,7 @@ namespace DFe.Utils
                     }
                 }
 
-                return ObterDosBytes(bytes, stringSegura);
+                return ObterDosBytes(bytes, stringSegura, keyStorageFlags);
             }
             catch
             {
@@ -118,9 +118,9 @@ namespace DFe.Utils
         /// <param name="bytes">array de byte do certificado</param>
         /// <param name="password">SecureString senha do certificado</param>
         /// <returns></returns>
-        public static X509Certificate2 ObterDosBytes(byte[] bytes, SecureString password)
+        public static X509Certificate2 ObterDosBytes(byte[] bytes, SecureString password, X509KeyStorageFlags? keyStorageFlags)
         {
-            var cert = new X509Certificate2(bytes, password, X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable);
+            var cert = new X509Certificate2(bytes, password, keyStorageFlags ?? (X509KeyStorageFlags.MachineKeySet | X509KeyStorageFlags.PersistKeySet | X509KeyStorageFlags.Exportable));
             return cert;
         }
 

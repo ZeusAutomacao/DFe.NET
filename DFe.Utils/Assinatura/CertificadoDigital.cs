@@ -67,14 +67,14 @@ namespace DFe.Utils.Assinatura
         /// <param name="arquivo">Arquivo do certificado digital</param>
         /// <param name="senha">Senha do certificado digital</param>
         /// <returns></returns>
-        private static X509Certificate2 ObterDeArquivo(string arquivo, string senha)
+        private static X509Certificate2 ObterDeArquivo(string arquivo, string senha, X509KeyStorageFlags keyStorageFlag)
         {
             if (!File.Exists(arquivo))
             {
                 throw new Exception(string.Format("Certificado digital {0} não encontrado!", arquivo));
             }
 
-            var certificado = new X509Certificate2(arquivo, senha, X509KeyStorageFlags.MachineKeySet);
+            var certificado = new X509Certificate2(arquivo, senha, keyStorageFlag);
             return certificado;
         }
 
@@ -85,11 +85,11 @@ namespace DFe.Utils.Assinatura
         /// <param name="arrayBytes">Array de bytes do certificado digital</param>
         /// <param name="senha">Senha do certificado digital</param>
         /// <returns></returns>
-        private static X509Certificate2 ObterDoArrayBytes(byte[] arrayBytes, string senha)
+        private static X509Certificate2 ObterDoArrayBytes(byte[] arrayBytes, string senha, X509KeyStorageFlags keyStorageFlag)
         {
             try
             {
-                var certificado = new X509Certificate2(arrayBytes, senha, X509KeyStorageFlags.MachineKeySet);
+                var certificado = new X509Certificate2(arrayBytes, senha, keyStorageFlag);
                 return certificado;
             }
             catch (Exception ex)
@@ -148,24 +148,34 @@ namespace DFe.Utils.Assinatura
         /// </summary>
         private static void DefinirPinParaChavePrivada(this X509Certificate2 certificado, string pin)
         {
-            if (certificado == null) throw new ArgumentNullException("certificado");
-            var key = (RSACryptoServiceProvider)certificado.PrivateKey;
+            /// Suprimindo o aviso CA1416 para esta região de código específica
+#pragma warning disable CA1416
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32S)
+            {
+                if (certificado == null) throw new ArgumentNullException("certificado");
+                var key = (RSACryptoServiceProvider)certificado.PrivateKey;
 
-            var providerHandle = IntPtr.Zero;
-            var pinBuffer = Encoding.ASCII.GetBytes(pin);
+                var providerHandle = IntPtr.Zero;
+                var pinBuffer = Encoding.ASCII.GetBytes(pin);
 
-            MetodosNativos.Executar(() => MetodosNativos.CryptAcquireContext(ref providerHandle,
-                key.CspKeyContainerInfo.KeyContainerName,
-                key.CspKeyContainerInfo.ProviderName,
-                key.CspKeyContainerInfo.ProviderType,
-                MetodosNativos.CryptContextFlags.Silent));
-            MetodosNativos.Executar(() => MetodosNativos.CryptSetProvParam(providerHandle,
-                MetodosNativos.CryptParameter.KeyExchangePin,
-                pinBuffer, 0));
-            MetodosNativos.Executar(() => MetodosNativos.CertSetCertificateContextProperty(
-                certificado.Handle,
-                MetodosNativos.CertificateProperty.CryptoProviderHandle,
-                0, providerHandle));
+                MetodosNativos.Executar(() => MetodosNativos.CryptAcquireContext(ref providerHandle,
+                    key.CspKeyContainerInfo.KeyContainerName,
+                    key.CspKeyContainerInfo.ProviderName,
+                    key.CspKeyContainerInfo.ProviderType,
+                    MetodosNativos.CryptContextFlags.Silent));
+                MetodosNativos.Executar(() => MetodosNativos.CryptSetProvParam(providerHandle,
+                    MetodosNativos.CryptParameter.KeyExchangePin,
+                    pinBuffer, 0));
+                MetodosNativos.Executar(() => MetodosNativos.CertSetCertificateContextProperty(
+                    certificado.Handle,
+                    MetodosNativos.CertificateProperty.CryptoProviderHandle,
+                    0, providerHandle));
+            }
+            else
+            {
+                throw new NotSupportedException("Metodo DefinirPinParaChavePrivada com suporte apenas no Windows atualmente!");
+            }
+#pragma warning restore CA1416
         }
 
         /// <summary>
@@ -179,9 +189,9 @@ namespace DFe.Utils.Assinatura
                 case TipoCertificado.A1Repositorio:
                     return ObterDoRepositorio(configuracaoCertificado.Serial, OpenFlags.MaxAllowed);
                 case TipoCertificado.A1ByteArray:
-                    return ObterDoArrayBytes(configuracaoCertificado.ArrayBytesArquivo, configuracaoCertificado.Senha);
+                    return ObterDoArrayBytes(configuracaoCertificado.ArrayBytesArquivo, configuracaoCertificado.Senha, configuracaoCertificado.KeyStorageFlags);
                 case TipoCertificado.A1Arquivo:
-                    return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha);
+                    return ObterDeArquivo(configuracaoCertificado.Arquivo, configuracaoCertificado.Senha, configuracaoCertificado.KeyStorageFlags);
                 case TipoCertificado.A3:
                     return ObterDoRepositorioPassandoPin(configuracaoCertificado.Serial, configuracaoCertificado.Senha);
                 default:
@@ -294,7 +304,7 @@ namespace DFe.Utils.Assinatura
                 throw new ArgumentException("Certificado digital vencido na data => " + dataExpiracao);
             }
         }
-        
+
         /// <summary>
         /// Extensão para retornar o número de dias válidos do certificado
         /// </summary>
@@ -321,22 +331,33 @@ namespace DFe.Utils.Assinatura
 
             bool result = false;
 
-            try
+            /// Suprimindo o aviso CA1416 para esta região de código específica
+#pragma warning disable CA1416
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT || Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32S)
             {
-                RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
 
-                if (service != null)
+                try
                 {
-                    if (service.CspKeyContainerInfo.Removable &&
-                        service.CspKeyContainerInfo.HardwareDevice)
-                        result = true;
+                    RSACryptoServiceProvider service = x509Certificate2.PrivateKey as RSACryptoServiceProvider;
+
+                    if (service != null)
+                    {
+                        if (service.CspKeyContainerInfo.Removable &&
+                            service.CspKeyContainerInfo.HardwareDevice)
+                            result = true;
+                    }
+                }
+                catch
+                {
+                    //assume que é false
+                    result = false;
                 }
             }
-            catch
+            else
             {
-                //assume que é false
-                result = false;
+                throw new NotSupportedException("Metodo IsA3 com suporte apenas no Windows atualmente!");
             }
+#pragma warning restore CA1416
 
             return result;
         }
