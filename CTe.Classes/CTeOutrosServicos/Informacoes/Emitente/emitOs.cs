@@ -51,5 +51,14 @@ namespace CTe.CTeOSDocumento.CTe.Classes.Informacoes.Emitente
         public string xFant { get; set; }
 
         public enderEmit enderEmit { get; set; }
+				
+        /// <summary>
+        /// Versão 4.00 é Obrigatório
+        /// </summary>
+        public CRT? CRT { get; set; }
+        /// <summary>
+        /// Se null, não aparece no xml
+        /// </summary>
+        public bool CRTSpecified { get { return CRT.HasValue; } }
     }
 }
