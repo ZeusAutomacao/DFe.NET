@@ -385,5 +385,19 @@ namespace NFe.Utils.Tributacao.Estadual
         public decimal? vICMSEfet { get; set; }
         #endregion
 
+        /// <summary>
+        ///     Quantidade tributada retida anteriormente
+        /// </summary>
+        public decimal? qBCMonoRet { get; set; }
+
+        /// <summary>
+        ///     Alíquota ad rem do imposto retido anteriormente
+        /// </summary>
+        public decimal? adRemICMSRet { get; set; }
+
+        /// <summary>
+        ///     Valor do ICMS retido anteriormente
+        /// </summary>
+        public decimal? vICMSMonoRet { get; set; }
     }
 }
