@@ -1514,7 +1514,7 @@ namespace NFe.Servicos
         /// <param name="idLote"></param>
         /// <param name="nFes"></param>
         /// <returns>Retorna um objeto da classe RetornoNfeRecepcao com com os dados do resultado da transmissão</returns>
-        public async Task<RetornoNfeRecepcao> NfeRecepcaoAsync(int idLote, List<Classes.NFe> nFes)
+        public async Task<RetornoNfeRecepcao> NfeRecepcaoAsync(long idLote, List<Classes.NFe> nFes)
         {
             var versaoServico = ServicoNFe.NfeRecepcao.VersaoServicoParaString(_cFgServico.VersaoNfeRecepcao);
 
@@ -1651,7 +1651,7 @@ namespace NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public Task<RetornoNFeAutorizacao> NFeAutorizacaoAsync(int idLote, IndicadorSincronizacao indSinc,
+        public Task<RetornoNFeAutorizacao> NFeAutorizacaoAsync(long idLote, IndicadorSincronizacao indSinc,
             List<Classes.NFe> nFes, bool compactarMensagem = true)
         {
             if (_cFgServico.VersaoNFeAutorizacao != VersaoServico.ve400)
@@ -1663,7 +1663,7 @@ namespace NFe.Servicos
             throw new InvalidOperationException("Versão inválida");
         }
 
-        private async Task<RetornoNFeAutorizacao> NFeAutorizacao4Async(int idLote, IndicadorSincronizacao indSinc,
+        private async Task<RetornoNFeAutorizacao> NFeAutorizacao4Async(long idLote, IndicadorSincronizacao indSinc,
             List<Classes.NFe> nFes, bool compactarMensagem)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
@@ -1721,7 +1721,7 @@ namespace NFe.Servicos
                 FuncoesXml.XmlNodeParaClasse<retEnviNFe>(retorno));
         }
 
-        private async Task<RetornoNFeAutorizacao> NFeAutorizacaoVersao310Async(int idLote,
+        private async Task<RetornoNFeAutorizacao> NFeAutorizacaoVersao310Async(long idLote,
             IndicadorSincronizacao indSinc, List<Classes.NFe> nFes, bool compactarMensagem)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
@@ -1800,7 +1800,7 @@ namespace NFe.Servicos
         /// <param name="nFes">Lista de NFes a serem enviadas</param>
         /// <param name="compactarMensagem">Define se a mensagem será enviada para a SEFAZ compactada</param>
         /// <returns>Retorna um objeto da classe RetornoNFeAutorizacao com com os dados do resultado da transmissão</returns>
-        public async Task<RetornoNFeAutorizacao> NFeAutorizacaoComXmlAsync(int idLote, IndicadorSincronizacao indSinc,
+        public async Task<RetornoNFeAutorizacao> NFeAutorizacaoComXmlAsync(long idLote, IndicadorSincronizacao indSinc,
             string nFes, bool compactarMensagem = false)
         {
             var versaoServico = ServicoNFe.NFeAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeAutorizacao);
