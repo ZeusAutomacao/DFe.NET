@@ -57,7 +57,7 @@ namespace CTe.Wsdl.Recepcao.Sincrono
         /// Classe base para a serialização no formato do envelope SOAP.
         /// </summary>
         [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        private class SoapEnvelope : CommonSoapEnvelope
+        public class SoapEnvelope : CommonSoapEnvelope
         {
 
             [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
