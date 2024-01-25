@@ -1436,8 +1436,9 @@ namespace CTe.AppTeste
 
             var cteOS = new CTeOS();
 
+            cteOS.versao = VersaoServico.Versao400;
             cteOS.InfCte = new infCteOS();
-
+            cteOS.InfCte.versao = VersaoServico.Versao400;
 
             #region ide
             cteOS.InfCte.ide = new ideOs();
@@ -1552,15 +1553,26 @@ namespace CTe.AppTeste
 
             cteOS.InfCte.infCTeNorm.infModal = new infModalOs();
 
-            cteOS.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+            cteOS.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM400;
 
-            var rodoviario = new rodoOS();
+            var rodoviario = new CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal.rodoOS();
 
             rodoviario.TAF = "888888888888";
             //rodoviario.NroRegEstadual = "23632667367";
 
 
             cteOS.InfCte.infCTeNorm.infModal.ContainerModal = rodoviario;
+
+            cteOS.InfCte.autXML = new List<autXML>()
+            {
+                new autXML()
+                {
+                    CPF = "04483616048"
+                }
+            };
+
+            var xml = cteOS.ObterXmlString();
+
             #endregion
         }
 
