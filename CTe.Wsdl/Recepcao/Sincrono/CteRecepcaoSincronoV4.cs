@@ -1,10 +1,9 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Xml;
-using System;
-using System.Xml.Serialization;
-using CTe.CTeOSDocumento.Common;
+﻿using CTe.CTeOSDocumento.Common;
 using DFe.Utils;
+using System;
+using System.Net;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CTe.Wsdl.Recepcao.Sincrono
 {
@@ -52,25 +51,26 @@ namespace CTe.Wsdl.Recepcao.Sincrono
             };
             return await RequestBuilderAndSender.ExecuteAsync(soapEnvelope, configuracao, TipoEvento.CTeRecepcao, "retEnviCte");
         }*/
-    }
 
-    /// <summary>
-    /// Classe base para a serialização no formato do envelope SOAP.
-    /// </summary>
-    [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-    public class SoapEnvelope : CommonSoapEnvelope
-    {
 
-        [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
-        public ResponseBody<string> body { get; set; }
-    }
+        /// <summary>
+        /// Classe base para a serialização no formato do envelope SOAP.
+        /// </summary>
+        [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        private class SoapEnvelope : CommonSoapEnvelope
+        {
 
-    /// <summary>
-    /// Classe para o corpo do Envelope SOAP
-    /// </summary>
-    public class ResponseBody<T> : CommonResponseBody
-    {
-        [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoSincV4")]
-        public T cteDadosMsg { get; set; }
+            [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+            public ResponseBody<string> body { get; set; }
+        }
+
+        /// <summary>
+        /// Classe para o corpo do Envelope SOAP
+        /// </summary>
+        public class ResponseBody<T> : CommonResponseBody
+        {
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoSincV4")]
+            public T cteDadosMsg { get; set; }
+        }
     }
 }
