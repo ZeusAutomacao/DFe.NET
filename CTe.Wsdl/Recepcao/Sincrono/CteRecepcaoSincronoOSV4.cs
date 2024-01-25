@@ -3,6 +3,7 @@ using DFe.Utils;
 using System;
 using System.Net;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace CTe.Wsdl.Recepcao.Sincrono
 {
@@ -40,6 +41,28 @@ namespace CTe.Wsdl.Recepcao.Sincrono
                 cteDadosMsg = Convert.ToBase64String(Compressao.Zip(cteDadosMsg.OuterXml))
             };
             return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeRecepcaoOSV4, "retCTeOS");
+        }
+
+
+
+        /// <summary>
+        /// Classe base para a serialização no formato do envelope SOAP.
+        /// </summary>
+        [XmlRoot(ElementName = "Envelope", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+        public class SoapEnvelope : CommonSoapEnvelope
+        {
+
+            [XmlElement(ElementName = "Body", Namespace = "http://www.w3.org/2003/05/soap-envelope")]
+            public ResponseBody<string> body { get; set; }
+        }
+
+        /// <summary>
+        /// Classe para o corpo do Envelope SOAP
+        /// </summary>
+        public class ResponseBody<T> : CommonResponseBody
+        {
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoOSV4")]
+            public T cteDadosMsg { get; set; }
         }
     }
 }
