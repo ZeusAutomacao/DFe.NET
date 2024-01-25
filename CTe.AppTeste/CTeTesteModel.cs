@@ -615,6 +615,8 @@ namespace CTe.AppTeste
             ConfiguracaoServico.Instancia.DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
             ConfiguracaoServico.Instancia.IsSalvarXml = config.IsSalvarXml;
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
+            ConfiguracaoServico.Instancia.IsAdicionaQrCode = true;
+            ConfiguracaoServico.Instancia.IsValidaSchemas = true;
         }
 
         public void ConsultarStatusServico2()
@@ -1548,8 +1550,6 @@ namespace CTe.AppTeste
             {
                 respSeg = respSeg.EmitenteDoCTe
             });
-
-
 
             cteOS.InfCte.infCTeNorm.infModal = new infModalOs();
 
