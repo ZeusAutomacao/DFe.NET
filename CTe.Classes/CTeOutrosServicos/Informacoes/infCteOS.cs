@@ -48,7 +48,8 @@ namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes
 
         public infCteAnu infCteAnu { get; set; }
 
-        public List<autXML> autXml { get; set; }
+        [XmlElement("autXML")]
+        public List<autXML> autXML { get; set; }
 
         [XmlElement(ElementName = "infRespTec")]
         public infRespTec infRespTec { get; set; }
