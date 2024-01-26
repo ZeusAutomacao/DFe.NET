@@ -310,21 +310,6 @@ namespace CTe.Servicos.Enderecos.Helpers
                         QrCode = @"http://www.fazenda.pr.gov.br/cte/qrcode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
-                case Estado.RS:
-                    return new UrlCTe
-                    {
-                        CteStatusServico =
-                            @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",
-                        CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx",
-                        CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
-                        CteInutilizacao =
-                            @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
-                        CteRecepcaoEvento =
-                            @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
-                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
-                        QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
-                        CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
-                    };
                 case Estado.SP:
                     if (configuracaoServico.VersaoLayout == versao.ve400)
                     {
@@ -373,6 +358,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                 case Estado.SC:
                 case Estado.SE:
                 case Estado.TO:
+                case Estado.RS:
                     if (configuracaoServico.VersaoLayout == versao.ve400)
                     {
                         return new UrlCTe
@@ -383,21 +369,21 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteStatusServico = @"https://cte.svrs.rs.gov.br/ws/CTeStatusServicoV4/CTeStatusServicoV4.asmx",
                             CteRecepcaoOs = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoOSV4/CTeRecepcaoOSV4.asmx",
                             CteRecepcaoGtve = @"https://cte.svrs.rs.gov.br/ws/CTeRecepcaoGTVeV4/CTeRecepcaoGTVeV4.asmx",
-                            QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode"
+                            QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",                            
                         };
                     }
 
                     return new UrlCTe
                     {
                         CteStatusServico =
-                            @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",
-                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
+                            @"https://cte.svrs.rs.gov.br/ws/ctestatusservico/CteStatusServico.asmx",                        
                         CteInutilizacao =
                             @"https://cte.svrs.rs.gov.br/ws/cteinutilizacao/cteinutilizacao.asmx",
                         CteRecepcao = @"https://cte.svrs.rs.gov.br/ws/cterecepcao/CteRecepcao.asmx",
                         CteRecepcaoEvento =
                             @"https://cte.svrs.rs.gov.br/ws/cterecepcaoevento/cterecepcaoevento.asmx",
                         CteRetRecepcao = @"https://cte.svrs.rs.gov.br/ws/cteretrecepcao/cteRetRecepcao.asmx",
+                        CteConsulta = @"https://cte.svrs.rs.gov.br/ws/cteconsulta/CteConsulta.asmx",
                         QrCode = @"https://dfe-portal.svrs.rs.gov.br/cte/qrCode",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };

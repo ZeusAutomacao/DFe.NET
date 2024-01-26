@@ -1519,6 +1519,14 @@ namespace CTe.AppTeste
             cteOS.InfCte.vPrest = new vPrestOs();
             cteOS.InfCte.vPrest.vTPrest = 100m;
             cteOS.InfCte.vPrest.vRec = 100m;
+            cteOS.InfCte.vPrest.Comp = new List<Classes.Informacoes.Complemento.Comp>()
+            {
+                new Classes.Informacoes.Complemento.Comp()
+                {
+                    vComp = 1,
+                    xNome = "teste"
+                }
+            };
 
             #endregion
 
