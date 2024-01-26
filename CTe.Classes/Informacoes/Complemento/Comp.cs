@@ -30,14 +30,20 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using DFe.Classes;
+
 namespace CTe.Classes.Informacoes.Complemento
 {
     public class Comp
     {
         private string _xNome;
-        private double _vComp;
+        private decimal _vComp;
 
         public string xNome { get { return _xNome; } set { _xNome = value; } }
-        public double vComp { get { return _vComp; } set { _vComp = value; } }
+        public decimal vComp
+        {
+            get { return _vComp.Arredondar(2); }
+            set { _vComp = value.Arredondar(2); }
+        }
     }
 }
