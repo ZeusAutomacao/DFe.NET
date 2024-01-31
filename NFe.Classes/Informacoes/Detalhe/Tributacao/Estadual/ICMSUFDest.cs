@@ -71,7 +71,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
             get { return _pFcpufDest; }
             set
             {
-                _pFcpufDest = value.Arredondar(4); }
+                _pFcpufDest = value.Arredondar(4);
+            }
+        }
+
+        public bool pFCPUFDestSpecified
+        {
+            get { return pFCPUFDest.HasValue; }
         }
 
         /// <summary>
@@ -108,6 +114,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             get { return _vFcpufDest; }
             set { _vFcpufDest = value.Arredondar(2); }
+        }
+
+        public bool vFCPUFDestSpecified
+        {
+            get { return vFCPUFDest.HasValue; }
         }
 
         /// <summary>
