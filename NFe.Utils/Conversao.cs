@@ -145,6 +145,8 @@ namespace NFe.Utils
                     return "Simples Nacional - sublimite excedido";
                 case CRT.RegimeNormal:
                     return "Normal";
+                case CRT.SimplesNacionalMei:
+                    return "Simples Nacional MEI";
                 default:
                     throw new ArgumentOutOfRangeException("crt", crt, null);
             }
