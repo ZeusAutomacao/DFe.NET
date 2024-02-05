@@ -66,12 +66,12 @@ namespace NFe.Classes.Informacoes.Pagamento
         public string cAut { get; set; }
 
         /// <summary>
-        ///     YA10 - CNPJ do estabelecimento beneficiário do pagamento
+        ///     YA07a - CNPJ do estabelecimento beneficiário do pagamento
         /// </summary>
         public string CNPJReceb { get; set; }
 
         /// <summary>
-        ///     YA11 - Identificador do terminal em que foi realizado o pagamento
+        ///     YA07b - Identificador do terminal em que foi realizado o pagamento
         /// </summary>
         public string idTermPag { get; set; }
     }
