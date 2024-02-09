@@ -48,6 +48,7 @@ namespace CTe.Classes
         private static volatile ConfiguracaoServico _instancia;
         private static readonly object SyncRoot = new object();
         private string _diretorioSchemas;
+        private bool _unZip = true;
 
         public ConfiguracaoServico()
         {
@@ -156,7 +157,23 @@ namespace CTe.Classes
         /// <summary>
         ///     Diretório onde os xmls de envio/retorno devem ser salvos
         /// </summary>
-        public string DiretorioSalvarXml { get; set; }    
+        public string DiretorioSalvarXml { get; set; }
+        
+        /// <summary>
+        /// Valor True, será descompactado os arquivos,
+        /// Valor False, os valor não será descompactado e a classes não serão preenchidas
+        /// </summary>
+        public bool UnZip
+        {
+            get
+            {
+                return _unZip;
+            }
+            set
+            {
+                _unZip = value;
+            }
+        }
 
         /// <summary>
         ///     Instância do Singleton de ConfiguracaoServico
