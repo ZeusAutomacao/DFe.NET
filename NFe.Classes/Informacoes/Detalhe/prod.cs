@@ -59,6 +59,8 @@ namespace NFe.Classes.Informacoes.Detalhe
         private string _cEan;
         private string _cEanTrib;
         private decimal _vUnCom;
+        private decimal? _pCredPresumido;
+        private decimal? _vCredPresumido;
 
         /// <summary>
         ///     I02 - Código do produto ou serviço
@@ -123,10 +125,33 @@ namespace NFe.Classes.Informacoes.Detalhe
 
         /// <summary>
         /// Versão 4.00
-        /// Código de Benefício fiscal utilizado pela UF, aplicado ao item. Obs: Deve ser utilizado o mesmo código adotado na EFD e outras
+        /// I05f Código de Benefício fiscal utilizado pela UF, aplicado ao item. Obs: Deve ser utilizado o mesmo código adotado na EFD e outras
         /// declarações, nas UF que o exigem.
         /// </summary>
         public string cBenef { get; set; }
+        
+        /// <summary>
+        /// I05h - Código de Benefício Fiscal de Crédito Presumido na UF aplicado ao item
+        /// </summary>
+        public string cCredPresumido { get; set; }
+
+        /// <summary>
+        /// I05i - Percentual do Crédito Presumido
+        /// </summary>
+        public decimal? pCredPresumido
+        {
+            get { return _pCredPresumido; }
+            set { _pCredPresumido = value.Arredondar(4); }
+        }
+        
+        /// <summary>
+        /// I05j - Valor do Crédito Presumido
+        /// </summary>
+        public decimal? vCredPresumido 
+        {
+            get { return _vCredPresumido; }
+            set { _vCredPresumido = value.Arredondar(2); }
+        }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
