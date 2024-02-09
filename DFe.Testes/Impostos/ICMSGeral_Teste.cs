@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using DFe.Testes.Impostos.TestData;
+using DFe.Testes.Impostos.DadosDeTeste;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
@@ -157,7 +157,7 @@ namespace DFe.Testes.Impostos
         #region CST 61 - Tributação Monofásica Sobre os Combustíveis
 
         [TestMethod]
-        [DynamicData(nameof(ICMSGeralTestData.ObterRegimesTributariosComOrigemECamposParaCst61), typeof(ICMSGeralTestData), DynamicDataSourceType.Method)]
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributariosParaCst61), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
         [DisplayName("Dado CST 61 quando obter ICMS então ICMS deve conter campos de tributação monofásica sobre combustíveis preenchidos")]
         public void DadoCST61QuandoObterICMSEntaoICMSDeveConterCamposDeTributacaoMonofasicaSobreCombustiveisPreenchidos(CRT crt, OrigemMercadoria origem, object vICMSMonoRet, object adRemICMSRet, object qBCMonoRet)
         {
@@ -188,9 +188,9 @@ namespace DFe.Testes.Impostos
         }
 
         [TestMethod]
-        [DynamicData(nameof(ICMSGeralTestData.ObterRegimesTributariosComOrigemECamposParaCst61), typeof(ICMSGeralTestData), DynamicDataSourceType.Method)]
-        [DisplayName("Não deve preencher campos que não sejam da tributação monofásica sobre combustíves quando dado CST 61")]
-        public void NaoDevePreencherCamposQueNaoSejamDaTributacaoMonofasicaSobreCombustiveisQuandoDadoCst61(CRT crt, OrigemMercadoria origem, object vICMSMonoRet, object adRemICMSRet, object qBCMonoRet)
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributariosParaCst61), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
+        [DisplayName("Dado CST 61 quando obter ICMS então ICMS não deve ter campos que não sejam da tributação monofásica sobre combustíveis preenchidos")]
+        public void DadoCST61QuandoObterIcmsEntaoIcmsNaoDeveTerCamposQueNaoSejamDaTributacaoMonofasicaSobreCombustiveisPreenchidos(CRT crt, OrigemMercadoria origem, object vICMSMonoRet, object adRemICMSRet, object qBCMonoRet)
         {
             /** 1) Preparação **/
             var icmsGeral = new ICMSGeral()
@@ -216,13 +216,13 @@ namespace DFe.Testes.Impostos
             Assert.AreEqual(icmsGeral.vBC, 0);
             Assert.AreEqual(icmsGeral.pICMS, 0);
             Assert.AreEqual(icmsGeral.vICMS, 0);
-            Assert.AreEqual(icmsGeral.pFCP, null);
-            Assert.AreEqual(icmsGeral.vFCP, null);
-            Assert.AreEqual(icmsGeral.vBCFCP, null);
+            Assert.IsNull(icmsGeral.pFCP);
+            Assert.IsNull(icmsGeral.vFCP);
+            Assert.IsNull(icmsGeral.vBCFCP);
         }
 
         [TestMethod]
-        [DynamicData(nameof(ICMSGeralTestData.ObterRegimesTributarios), typeof(ICMSGeralTestData), DynamicDataSourceType.Method)]
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributarios), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
         [DisplayName("Dado CST 61 quando gerar ICMS então ICMS deve ser do tipo ICMS 61 e nenhum outro")]
         public void DadoCST61QuandoGerarICMSEntaoICMSDeveSerDoTipoICMS61ENenhumOutro(CRT crt)
         {
@@ -236,11 +236,13 @@ namespace DFe.Testes.Impostos
             var tagGerada = icmsGeral.ObterICMSBasico(crt);
 
             /** 2) Verificação **/
-            VerificarSeNaoFoiGeradaOutroTipoDeIcmsQueNaoSejaOIcms61(tagGerada);
+            VerificarSeFoiGeradoIcms61(tagGerada);
         }
 
-        private void VerificarSeNaoFoiGeradaOutroTipoDeIcmsQueNaoSejaOIcms61(ICMSBasico tagGerada)
+        private void VerificarSeFoiGeradoIcms61(ICMSBasico tagGerada)
         {
+            Assert.IsInstanceOfType(tagGerada, typeof(ICMS61));
+
             Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS00));
             Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS02));
             Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS10));

@@ -2,11 +2,11 @@
 using NFe.Classes.Informacoes.Emitente;
 using System.Collections.Generic;
 
-namespace DFe.Testes.Impostos.TestData
+namespace DFe.Testes.Impostos.DadosDeTeste
 {
-    public class ICMSGeralTestData
+    public class ICMSGeralDadosDeTeste
     {
-        public static IEnumerable<object[]> ObterRegimesTributariosComOrigemECamposParaCst61()
+        public static IEnumerable<object[]> ObterRegimesTributariosParaCst61()
         {
             yield return new object[] { CRT.RegimeNormal, OrigemMercadoria.OmNacional, 1000, 18, 180 };
             yield return new object[] { CRT.RegimeNormal, OrigemMercadoria.OmEstrangeiraImportacaoDireta, 1001, 180, 18 };
