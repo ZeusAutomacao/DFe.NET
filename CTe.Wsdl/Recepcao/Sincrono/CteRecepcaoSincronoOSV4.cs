@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace CTe.Wsdl.Recepcao.Sincrono
 {
-    public class CteRecepcaoSincronoV4
+    public class CteRecepcaoSincronoOSV4
     {
         //Envelope SOAP para envio
         private SoapEnvelope soapEnvelope;
@@ -19,7 +19,7 @@ namespace CTe.Wsdl.Recepcao.Sincrono
         /// Cria o cabeçalho do envelope a ser enviado e atribui as configurações do WSDL.
         /// </summary>
         /// <param name="configuracao"></param>
-        public CteRecepcaoSincronoV4(WsdlConfiguracao configuracao)
+        public CteRecepcaoSincronoOSV4(WsdlConfiguracao configuracao)
         {
             if (configuracao == null)
                 throw new ArgumentNullException();
@@ -40,17 +40,9 @@ namespace CTe.Wsdl.Recepcao.Sincrono
             {
                 cteDadosMsg = Convert.ToBase64String(Compressao.Zip(cteDadosMsg.OuterXml))
             };
-            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeRecepcaoV4, "retCTe");
+            return RequestBuilderAndSender.Execute(soapEnvelope, configuracao, TipoEvento.CTeRecepcaoOSV4, "retCTeOS");
         }
 
-        /*public async Task<XmlNode> cteRecepcaoLoteAsync(XmlNode cteDadosMsg)
-        {
-            soapEnvelope.body = new ResponseBody<XmlNode>
-            {
-                cteDadosMsg = cteDadosMsg
-            };
-            return await RequestBuilderAndSender.ExecuteAsync(soapEnvelope, configuracao, TipoEvento.CTeRecepcao, "retEnviCte");
-        }*/
 
 
         /// <summary>
@@ -69,7 +61,7 @@ namespace CTe.Wsdl.Recepcao.Sincrono
         /// </summary>
         public class ResponseBody<T> : CommonResponseBody
         {
-            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoSincV4")]
+            [XmlElement(Namespace = "http://www.portalfiscal.inf.br/cte/wsdl/CTeRecepcaoOSV4")]
             public T cteDadosMsg { get; set; }
         }
     }

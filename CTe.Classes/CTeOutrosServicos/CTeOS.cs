@@ -12,7 +12,7 @@ namespace CTe.CTeOSClasses
     {
         public CTeOS()
         {
-            versao = VersaoServico.Versao300;
+            versao = VersaoServico.Versao400;
         }
 
         [XmlAttribute]

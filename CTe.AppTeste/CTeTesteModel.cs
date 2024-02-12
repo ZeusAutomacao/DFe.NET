@@ -615,6 +615,8 @@ namespace CTe.AppTeste
             ConfiguracaoServico.Instancia.DiretorioSchemas = config.ConfigWebService.CaminhoSchemas;
             ConfiguracaoServico.Instancia.IsSalvarXml = config.IsSalvarXml;
             ConfiguracaoServico.Instancia.DiretorioSalvarXml = config.DiretorioSalvarXml;
+            ConfiguracaoServico.Instancia.IsAdicionaQrCode = true;
+            ConfiguracaoServico.Instancia.IsValidaSchemas = true;
         }
 
         public void ConsultarStatusServico2()
@@ -1436,8 +1438,9 @@ namespace CTe.AppTeste
 
             var cteOS = new CTeOS();
 
+            cteOS.versao = VersaoServico.Versao400;
             cteOS.InfCte = new infCteOS();
-
+            cteOS.InfCte.versao = VersaoServico.Versao400;
 
             #region ide
             cteOS.InfCte.ide = new ideOs();
@@ -1516,6 +1519,14 @@ namespace CTe.AppTeste
             cteOS.InfCte.vPrest = new vPrestOs();
             cteOS.InfCte.vPrest.vTPrest = 100m;
             cteOS.InfCte.vPrest.vRec = 100m;
+            cteOS.InfCte.vPrest.Comp = new List<Classes.Informacoes.Complemento.Comp>()
+            {
+                new Classes.Informacoes.Complemento.Comp()
+                {
+                    vComp = 1,
+                    xNome = "teste"
+                }
+            };
 
             #endregion
 
@@ -1548,19 +1559,28 @@ namespace CTe.AppTeste
                 respSeg = respSeg.EmitenteDoCTe
             });
 
-
-
             cteOS.InfCte.infCTeNorm.infModal = new infModalOs();
 
-            cteOS.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM300;
+            cteOS.InfCte.infCTeNorm.infModal.versaoModal = versaoModal.veM400;
 
-            var rodoviario = new rodoOS();
+            var rodoviario = new CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal.rodoOS();
 
             rodoviario.TAF = "888888888888";
             //rodoviario.NroRegEstadual = "23632667367";
 
 
             cteOS.InfCte.infCTeNorm.infModal.ContainerModal = rodoviario;
+
+            cteOS.InfCte.autXML = new List<autXML>()
+            {
+                new autXML()
+                {
+                    CPF = "04483616048"
+                }
+            };
+
+            var xml = cteOS.ObterXmlString();
+
             #endregion
         }
 
