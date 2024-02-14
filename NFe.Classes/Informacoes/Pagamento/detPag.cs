@@ -1,4 +1,5 @@
 ﻿using NFe.Classes.Informacoes.Identificacao.Tipos;
+using System;
 
 namespace NFe.Classes.Informacoes.Pagamento
 {
@@ -31,15 +32,30 @@ namespace NFe.Classes.Informacoes.Pagamento
             get { return _vPag.Arredondar(2); }
             set { _vPag = value.Arredondar(2); }
         }
-        
+
         /// <summary>
-        ///     YA03b - CNPJ transacional do pagamento (NT 2023.004)
+        ///     YA03a - Data do Pagamento  (NT 2023.004)
+        /// </summary>
+        public DateTime? dPag { get; set; }
+
+        /// <summary>
+        ///     YA03c - CNPJ transacional do pagamento (NT 2023.004)
         /// </summary>
         public string CNPJPag { get; set; }
+
+        /// <summary>
+        ///     YA03d - UF do CNPJ do estabelecimento onde o pagamento foi processado/transacionado/recebido(NT 2023.004)
+        /// </summary>
+        public string UFPag { get; set; }
 
         /// <summary>
         ///     YA04 - Grupo de Cartões
         /// </summary>
         public card card { get; set; }
+
+        public bool ShouldSerializedPag()
+        {
+            return dPag.HasValue;
+        }
     }
 }

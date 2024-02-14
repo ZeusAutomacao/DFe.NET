@@ -185,5 +185,10 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         {
             return motDesICMS.HasValue;
         }
+
+        public bool ShouldSerializeindDeduzDeson()
+        {
+            return indDeduzDeson.HasValue;
+        }
     }
 }
