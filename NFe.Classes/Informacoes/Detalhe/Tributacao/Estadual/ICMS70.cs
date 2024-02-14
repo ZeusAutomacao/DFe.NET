@@ -280,12 +280,19 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         [XmlElement(Order = 21)]
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+        
+        /// <summary>
+        /// N28b - Indica se o valor do ICMS desonerado (vICMSDeson) deduz 
+        /// do valor do item (vProd). (NT 2023.004) 
+        /// </summary>
+        [XmlElement(Order = 22)]
+        public DeduzDesoneracaoNoProduto? indDeduzDeson { get; set; }
 
         /// <summary>
         /// N33a - Valor do ICMS- ST desonerado
         /// Versão 4.00
         /// </summary>
-        [XmlElement(Order = 22)]
+        [XmlElement(Order = 23)]
         public decimal? vICMSSTDeson
         {
             get { return _vICMSSTDeson.Arredondar(2); }
@@ -301,7 +308,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// N33b - Motivo da desoneração do ICMS- ST 
         /// Versão 4.00
         /// </summary>
-        [XmlElement(Order = 23)]
+        [XmlElement(Order = 24)]
         public MotivoDesoneracaoIcmsSt? motDesICMSST { get; set; }
 
         public bool ShouldSerializemotDesICMSST()

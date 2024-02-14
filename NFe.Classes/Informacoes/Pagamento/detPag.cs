@@ -31,6 +31,11 @@ namespace NFe.Classes.Informacoes.Pagamento
             get { return _vPag.Arredondar(2); }
             set { _vPag = value.Arredondar(2); }
         }
+        
+        /// <summary>
+        ///     YA03b - CNPJ transacional do pagamento (NT 2023.004)
+        /// </summary>
+        public string CNPJPag { get; set; }
 
         /// <summary>
         ///     YA04 - Grupo de Cartões
