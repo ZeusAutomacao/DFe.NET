@@ -67,6 +67,7 @@ namespace NFe.Classes.Informacoes.Detalhe
     ///     <para>8=Conduto / Rede Transmissão;</para>
     ///     <para>9=Meios Próprios;</para>
     ///     <para>10=Entrada / Saída ficta; 11=Courier; 12=Handcarry. (NT 2013/005 v 1.10).</para>
+    ///     <para>13=Por reboque; (NT 2013/004).</para>
     /// </summary>
     public enum TipoTransporteInternacional
     {
@@ -152,7 +153,14 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         [Description("Handcarry")]
         [XmlEnum("12")]
-        Handcarry = 12
+        Handcarry = 12,
+        
+        /// <summary>
+        /// 13=Handcarry (NT 2013/004)
+        /// </summary>
+        [Description("Por Reboque")]
+        [XmlEnum("13")]
+        PorReboque = 13
     }
 
     /// <summary>
