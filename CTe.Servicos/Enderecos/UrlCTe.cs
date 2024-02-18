@@ -45,5 +45,11 @@ namespace CTe.Servicos.Enderecos
         public string QrCode { get; set; }
         public string CteRecepcaoOs { get; set; }
         public string CteRecepcaoGtve { get; set; }
+
+        public UrlCTe()
+        {
+            //CTe tem como URL de distribuição ambinente nacional
+            CTeDistribuicaoDFe = @"https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx";
+        }
     }
 }
