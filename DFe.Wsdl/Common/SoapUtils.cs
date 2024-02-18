@@ -1,5 +1,6 @@
 ﻿using CTe.CTeOSDocumento.Common;
 using DFe.Http.Ext;
+using DFe.Wsdl.Common;
 using System;
 using System.IO;
 using System.Net;
@@ -78,6 +79,11 @@ namespace CTe.CTeOSDocumento.Soap
             string xmlSoap = xmlEnvelop.InnerXml;
             HttpWebRequest httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
 
+            if (ConfiguracaoServicoWSDL.ValidarCertificadoDoServidorNetCore == false)
+            {
+                httpWr.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
+            }
+
             httpWr.Timeout = timeOut == 0 ? 2000 : timeOut;
             httpWr.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
             httpWr.ClientCertificates.Add(certificadoDigital);
@@ -113,6 +119,11 @@ namespace CTe.CTeOSDocumento.Soap
 
             string xmlSoap = xmlEnvelop.InnerXml;
             HttpWebRequest httpWr = (HttpWebRequest)WebRequest.Create(new Uri(url));
+
+            if (ConfiguracaoServicoWSDL.ValidarCertificadoDoServidorNetCore == false)
+            {
+                httpWr.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
+            }
 
             httpWr.Timeout = timeOut == 0 ? 2000 : timeOut;
             httpWr.ContentLength = Encoding.UTF8.GetBytes(xmlSoap).Length;
