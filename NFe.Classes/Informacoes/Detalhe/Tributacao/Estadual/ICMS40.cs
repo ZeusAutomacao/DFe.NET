@@ -66,6 +66,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         [XmlElement(Order = 4)]
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
+        
+        /// <summary>
+        /// N28b - Indica se o valor do ICMS desonerado (vICMSDeson) deduz 
+        /// do valor do item (vProd). (NT 2023.004) 
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public DeduzDesoneracaoNoProduto? indDeduzDeson { get; set; }
 
         public bool ShouldSerializevICMSDeson()
         {
@@ -75,6 +82,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializemotDesICMS()
         {
             return motDesICMS.HasValue;
+        }
+
+        public bool ShouldSerializeindDeduzDeson()
+        {
+            return indDeduzDeson.HasValue;
         }
     }
 }

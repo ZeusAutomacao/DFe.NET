@@ -41,6 +41,7 @@ namespace NFe.Classes.Informacoes.Observacoes
     ///     <para>1 - Justiça Federal;</para>
     ///     <para>2 - Justiça Estadual;</para>
     ///     <para>3 - Secex/RFB;</para>
+    ///     <para>4 - CONFAZ;</para>
     ///     <para>9 - Outros</para>
     /// </summary>
     public enum IndicadorProcesso
@@ -74,6 +75,13 @@ namespace NFe.Classes.Informacoes.Observacoes
         ipSecexRFB = 3,
 
         /// <summary>
+        /// 4 - CONFAZ
+        /// </summary>
+        [Description("CONFAZ")]
+        [XmlEnum("4")]
+        ipCONFAZ = 4,
+
+        /// <summary>
         /// 9 - Outros
         /// </summary>
         [Description("Outros")]
@@ -86,6 +94,8 @@ namespace NFe.Classes.Informacoes.Observacoes
     ///     <para>08 - Termo de Acordo</para>
     ///     <para>10 - Regime Especia</para>
     ///     <para>12 - Autorização específica</para>
+    ///     <para>14 - Ajuste SINIEF (NT2023.004)</para>
+    ///     <para>15 - Convênio ICMS (NT2023.004)</para>
     /// </summary>
     public enum TipoAtoConcessorio
     {
@@ -109,5 +119,19 @@ namespace NFe.Classes.Informacoes.Observacoes
         [Description("Autorização Específica")]
         [XmlEnum("12")]
         tpAutorizacaoEspecifica = 12,
+
+        /// <summary>
+        /// 14 - Ajuste SINIEF (NT2023.004)
+        /// </summary>
+        [Description("Ajuste SINIEF")]
+        [XmlEnum("14")]
+        tpAjusteSINIEF = 14,
+
+        /// <summary>
+        /// 14 - Convênio ICMS (NT2023.004)
+        /// </summary>
+        [Description("Convênio ICMS")]
+        [XmlEnum("15")]
+        tpConvenioICMS = 15,
     }
 }
