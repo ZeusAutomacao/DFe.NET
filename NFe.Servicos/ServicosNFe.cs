@@ -675,7 +675,7 @@ namespace NFe.Servicos
         ///     RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario
         /// </param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public async Task<RetornoRecepcaoEvento> RecepcaoEventoAsync(int idlote, List<evento> eventos,
+        public async Task<RetornoRecepcaoEvento> RecepcaoEventoAsync(long idlote, List<evento> eventos,
             ServicoNFe servicoEvento)
         {
             var listaEventos = new List<ServicoNFe>
@@ -775,7 +775,7 @@ namespace NFe.Servicos
         ///     RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario
         /// </param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        private async Task<RetornoRecepcaoEvento> RecepcaoEventoEAssinaAsync(int idlote, List<evento> eventos,
+        private async Task<RetornoRecepcaoEvento> RecepcaoEventoEAssinaAsync(long idlote, List<evento> eventos,
             ServicoNFe servicoEvento)
         {
             var listaEventos = new List<ServicoNFe>
@@ -885,7 +885,7 @@ namespace NFe.Servicos
         /// <param name="justificativa"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public Task<RetornoRecepcaoEvento> RecepcaoEventoCancelamentoAsync(int idlote, int sequenciaEvento,
+        public Task<RetornoRecepcaoEvento> RecepcaoEventoCancelamentoAsync(long idlote, int sequenciaEvento,
             string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj)
         {
             var versaoServico =
@@ -937,7 +937,7 @@ namespace NFe.Servicos
         /// <param name="correcao"></param>
         /// <param name="cpfcnpj"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public Task<RetornoRecepcaoEvento> RecepcaoEventoCartaCorrecaoAsync(int idlote, int sequenciaEvento,
+        public Task<RetornoRecepcaoEvento> RecepcaoEventoCartaCorrecaoAsync(long idlote, int sequenciaEvento,
             string chaveNFe, string correcao, string cpfcnpj)
         {
             var versaoServico =
@@ -1054,7 +1054,7 @@ namespace NFe.Servicos
         /// <param name="nfe"></param>
         /// <param name="veraplic"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
-        public Task<RetornoRecepcaoEvento> RecepcaoEventoEpecAsync(int idlote, int sequenciaEvento, Classes.NFe nfe,
+        public Task<RetornoRecepcaoEvento> RecepcaoEventoEpecAsync(long idlote, int sequenciaEvento, Classes.NFe nfe,
             string veraplic)
         {
             var versaoServico =
