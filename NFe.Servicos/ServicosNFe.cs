@@ -696,8 +696,28 @@ namespace NFe.Servicos
                     string.Join("\n • ", listaEventos.ToArray())));
             }
 
+            VersaoServico versaoEvento;
+
+            switch (servicoEvento)
+            {
+                case ServicoNFe.RecepcaoEventoCartaCorrecao:
+                    versaoEvento = _cFgServico.VersaoRecepcaoEventoCceCancelamento;
+                    break;
+                case ServicoNFe.RecepcaoEventoCancelmento:
+                    versaoEvento = _cFgServico.VersaoRecepcaoEventoCceCancelamento;
+                    break;
+                case ServicoNFe.RecepcaoEventoEpec:
+                    versaoEvento = _cFgServico.VersaoRecepcaoEventoEpec;
+                    break;
+                case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
+                    versaoEvento = _cFgServico.VersaoRecepcaoEventoManifestacaoDestinatario;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("servicoEvento", servicoEvento, null);
+            }
+
             var versaoServico =
-                servicoEvento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoCceCancelamento, _cFgServico.cUF);
+                servicoEvento.VersaoServicoParaString(versaoEvento, _cFgServico.cUF);
 
             // Cria o objeto wdsl para consulta
 
@@ -722,8 +742,7 @@ namespace NFe.Servicos
 
             var xmlEvento = pedEvento.ObterXmlString();
 
-            Validador.Valida(servicoEvento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, xmlEvento,
-                cfgServico: _cFgServico);
+            Validador.Valida(servicoEvento, versaoEvento, xmlEvento, cfgServico: _cFgServico);
 
             var dadosEvento = new XmlDocument();
             dadosEvento.LoadXml(xmlEvento);
