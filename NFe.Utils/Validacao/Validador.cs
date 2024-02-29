@@ -34,6 +34,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using NFe.Classes.Servicos.Tipos;
@@ -109,7 +110,8 @@ namespace NFe.Utils.Validacao
                     throw new Exception(string.Format("Diretório de Schemas não encontrado:\n{0}", pathSchema));
 
                 // Carrega o arquivo de esquema
-                var xmlSchemaSet = new XmlSchemaSet();
+                var xmlSchemaSet = new XmlSchemaSet { XmlResolver = new XmlUrlResolver() };
+
                 // Quando carregar o eschema, especificar o namespace que ele valida
                 // e a localização do arquivo 
                 xmlSchemaSet.Add(null, arquivoSchema);
