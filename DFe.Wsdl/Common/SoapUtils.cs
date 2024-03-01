@@ -18,6 +18,13 @@ namespace CTe.CTeOSDocumento.Soap
     /// </summary>
     public class SoapUtils
     {
+        private IRequestSefaz _requestSefaz;
+
+        public SoapUtils()
+        {
+            _requestSefaz = ConfiguracaoServicoWSDL.GetRequestSefaz();
+        }
+
         /// <summary>
         /// Serializa a estrutura do envelope contida no objeto para um XmlDocument.
         /// </summary>
@@ -26,7 +33,7 @@ namespace CTe.CTeOSDocumento.Soap
         /// <returns></returns>
         public XmlDocument SerealizeDocument<T>(T soapEnvelope)
         {
-            return ConfiguracaoServicoWSDL.RequestSefaz.SerealizeDocument(soapEnvelope);
+            return _requestSefaz.SerealizeDocument(soapEnvelope);
         }
 
         /// <summary>
@@ -40,12 +47,12 @@ namespace CTe.CTeOSDocumento.Soap
         /// <returns></returns>
         public async Task<string> SendRequestAsync(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            return await ConfiguracaoServicoWSDL.RequestSefaz.SendRequestAsync(xmlEnvelop, certificadoDigital, url, timeOut, tipoEvento, actionUrn);
+            return await _requestSefaz.SendRequestAsync(xmlEnvelop, certificadoDigital, url, timeOut, tipoEvento, actionUrn);
         }
 
         public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut, TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            return ConfiguracaoServicoWSDL.RequestSefaz.SendRequest(xmlEnvelop, certificadoDigital, url, timeOut, tipoEvento, actionUrn);
+            return _requestSefaz.SendRequest(xmlEnvelop, certificadoDigital, url, timeOut, tipoEvento, actionUrn);
         }
     }
 
