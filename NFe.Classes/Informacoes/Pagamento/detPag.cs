@@ -1,5 +1,7 @@
-﻿using NFe.Classes.Informacoes.Identificacao.Tipos;
+﻿using DFe.Utils;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 using System;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Pagamento
 {
@@ -36,7 +38,18 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// <summary>
         ///     YA03a - Data do Pagamento  (NT 2023.004)
         /// </summary>
+        [XmlIgnore]
         public DateTime? dPag { get; set; }
+
+        /// <summary>
+        /// Proxy para dPag no formato AAAA-MM-DD
+        /// </summary>
+        [XmlElement(ElementName = "dPag")]
+        public string ProxydPag
+        {
+            get { return dPag.ParaDataString(); }
+            set { dPag = DateTime.Parse(value); }
+        }
 
         /// <summary>
         ///     YA03c - CNPJ transacional do pagamento (NT 2023.004)
