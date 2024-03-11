@@ -41,6 +41,7 @@ using DFe.Utils;
 using NFe.Classes.Servicos.Evento;
 using NFe.Classes.Servicos.Tipos;
 using NFe.Utils.Excecoes;
+using Shared.DFe.Utils;
 
 namespace NFe.Utils.Validacao
 {
@@ -153,7 +154,19 @@ namespace NFe.Utils.Validacao
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += delegate (object sender, ValidationEventArgs args)
             {
-                falhas.AppendLine($"[{args.Severity}] - {args.Message} {args.Exception?.Message} na linha {args.Exception.LineNumber} posição {args.Exception.LinePosition} em {args.Exception.SourceUri}".ToString());
+                string message = args.Message;
+
+                if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
+                {
+                    //aqui talvez um aviso?
+                }
+                else
+                {
+                    falhas.AppendLine($"[{args.Severity}] - {message} {args.Exception?.Message} " +
+                                        $"na linha {args.Exception.LineNumber} " +
+                                        $"posição {args.Exception.LinePosition} " +
+                                        $"em {args.Exception.SourceUri}".ToString());
+                }
             };
 
             // cria um leitor para validação
