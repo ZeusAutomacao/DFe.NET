@@ -216,6 +216,20 @@ namespace NFe.Classes.Servicos.Tipos
         TeMdOperacaoNaoRealizada = 210240,
 
         /// <summary>
+        /// 610130 – Comprovante de entrega CTe
+        /// </summary>
+        [Description("Comprovante de entrega CTe")]
+        [XmlEnum("610130")]
+        ComprovanteEntregaCTe = 610130,
+
+        /// <summary>
+        /// 610131 – Cancelamento de Comprovante de entrega CTe
+        /// </summary>
+        [Description("Cancelamento de entrega CTe")]
+        [XmlEnum("610131")]
+        CancelamentoComprovanteEntregaCTe = 610131,
+
+        /// <summary>
         /// 790700 – Averbação para Exportação
         /// </summary>
         [Description("Averbação para Exportação")]
