@@ -31,7 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
-using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
@@ -274,16 +273,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public MotivoDesoneracaoIcms? motDesICMSST { get; set; }
 
-        /// <summary>
-        ///     N28b - Indica se o valor do ICMS desonerado (vICMSDeson) deduz do valor do item(vProd).
-        /// </summary>
-        public DeductExemption? indDeduzDeson { get; set; }
-
-        public bool indDeduzDesonSpecified
-        {
-            get { return indDeduzDeson.HasValue; }
-        }
-
         public bool ShouldSerializepMVAST()
         {
             return pMVAST.HasValue;
@@ -312,11 +301,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public bool ShouldSerializemotDesICMSST()
         {
             return motDesICMSST.HasValue;
-        }
-
-        public bool ShouldSerializeindDeduzDeson()
-        {
-            return indDeduzDeson.HasValue;
         }
     }
 }
