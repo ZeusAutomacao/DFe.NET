@@ -23,8 +23,8 @@ namespace NFe.Wsdl.Evento
 
         public async Task<XmlNode> ExecuteAsync(XmlNode nfeDadosMsg)
         {
-            var result = await nfeRecepcaoEventoAsync(nfeDadosMsg);
-            return result.nfeResultMsg;
+            nfeRecepcaoEvento4Response result = await nfeRecepcaoEventoAsync(nfeDadosMsg);
+            return result.nfeResultMsg ?? result.nfeRecepcaoEventoNFResult;
         }
     }
 
@@ -34,28 +34,17 @@ namespace NFe.Wsdl.Evento
     {
         [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
         public XmlNode nfeDadosMsg;
-
-        public nfeRecepcaoEvento4Request() { }
-
-        public nfeRecepcaoEvento4Request(XmlNode nfeDadosMsg)
-        {
-            this.nfeDadosMsg = nfeDadosMsg;
-        }
     }
 
     [EditorBrowsable(EditorBrowsableState.Advanced)]
     [MessageContract(IsWrapped = false)]
     public class nfeRecepcaoEvento4Response
     {
-        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4", Order = 0)]
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
         public XmlNode nfeResultMsg;
 
-        public nfeRecepcaoEvento4Response() { }
-
-        public nfeRecepcaoEvento4Response(XmlNode nfeResultMsg)
-        {
-            this.nfeResultMsg = nfeResultMsg;
-        }
+        [MessageBodyMember(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4")]
+        public XmlNode nfeRecepcaoEventoNFResult;
     }
 
     [ServiceContract(Namespace = "http://www.portalfiscal.inf.br/nfe/wsdl/NFeRecepcaoEvento4",
@@ -74,8 +63,7 @@ namespace NFe.Wsdl.Evento
 
         public Task<nfeRecepcaoEvento4Response> nfeRecepcaoEventoAsync(XmlNode nfeDadosMsg)
         {
-            var inValue = new nfeRecepcaoEvento4Request();
-            inValue.nfeDadosMsg = nfeDadosMsg;
+            var inValue = new nfeRecepcaoEvento4Request { nfeDadosMsg = nfeDadosMsg };
             return Channel.nfeRecepcaoEventoAsync(inValue);
         }
     }
