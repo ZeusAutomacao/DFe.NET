@@ -114,11 +114,6 @@ namespace NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao
         public string CNPJ { get; set; }
 
         /// <summary>
-        ///     I23d1 - CPF do adquirente ou do encomendante
-        /// </summary>
-        public string CPF { get; set; }
-
-        /// <summary>
         ///     I23e - Sigla da UF do adquirente ou do encomendante
         /// </summary>
         public string UFTerceiro { get; set; }

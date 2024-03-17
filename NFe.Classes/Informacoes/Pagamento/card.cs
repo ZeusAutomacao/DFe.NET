@@ -64,15 +64,5 @@ namespace NFe.Classes.Informacoes.Pagamento
         ///     YA07 - Número de autorização da operação cartão de crédito e/ou débito
         /// </summary>
         public string cAut { get; set; }
-
-        /// <summary>
-        ///     YA07a - CNPJ do beneficiário do pagamento
-        /// </summary>
-        public string CNPJReceb {  get; set; }
-
-        /// <summary>
-        ///     YA07b - Identificador do terminal de pagamento
-        /// </summary>
-        public string idTermPag { get; set; }
     }
 }

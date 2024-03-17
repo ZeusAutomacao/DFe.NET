@@ -264,18 +264,4 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
     }
 
     #endregion
-
-    #region Motivo da redução do adrem
-
-    /// <summary>
-    ///     <para>0 – Valor do ICMS desonerado (vICMSDeson) não deduz do valor do item(vProd) / total da NF-e.;</para>
-    ///     <para>1 – Valor do ICMS desonerado (vICMSDeson) deduz do valor do item(vProd) / total da NF-e.;</para>
-    /// </summary>
-    public enum DeductExemption
-    {
-        [XmlEnum("1")] Deduce = 1,
-        [XmlEnum("0")] NotDeduct = 0
-    }
-
-    #endregion
 }
