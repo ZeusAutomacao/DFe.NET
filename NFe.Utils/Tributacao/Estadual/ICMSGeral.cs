@@ -36,7 +36,6 @@ using DFe.Utils;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
-using static System.Net.WebRequestMethods;
 
 namespace NFe.Utils.Tributacao.Estadual
 {
