@@ -174,7 +174,7 @@ namespace NFe.Danfe.AppTeste
                                     configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
                                     {
                                         Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
-                                        DuasLinhas = RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true ? true : false,
+                                        DuasLinhas = RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true,
                                         DocumentoCancelado = ChbCancelado.IsChecked ?? false,
                                         QuebrarLinhasObservacao = _configuracoes.ConfiguracaoDanfeNfe.QuebrarLinhasObservacao,
                                         ExibirResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ExibirResumoCanhoto,
@@ -228,7 +228,7 @@ namespace NFe.Danfe.AppTeste
 
                 #region Abre a visualização do relatório para impressão
                 var danfe = new DanfeFrEvento(proc, procEvento, new ConfiguracaoDanfeNfe(_configuracoes.ConfiguracaoDanfeNfce.Logomarca,
-                                                                                         RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true ? true : false, 
+                                                                                         RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true, 
                                                                                          ChbCancelado.IsChecked ?? false), 
                                                                                          "NOME DA SOFTWARE HOUSE");
                 danfe.Visualizar();
@@ -327,7 +327,7 @@ namespace NFe.Danfe.AppTeste
                                     configuracaoDanfeNfe: new ConfiguracaoDanfeNfe()
                                     {
                                         Logomarca = _configuracoes.ConfiguracaoDanfeNfce.Logomarca,
-                                        DuasLinhas = RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true ? true : false,
+                                        DuasLinhas = RdbDuasLinhas.IsChecked == true || RdbCompleto.IsChecked == true,
                                         DocumentoCancelado = ChbCancelado.IsChecked ?? false,
                                         QuebrarLinhasObservacao = _configuracoes.ConfiguracaoDanfeNfe.QuebrarLinhasObservacao,
                                         ExibirResumoCanhoto = _configuracoes.ConfiguracaoDanfeNfe.ExibirResumoCanhoto,
