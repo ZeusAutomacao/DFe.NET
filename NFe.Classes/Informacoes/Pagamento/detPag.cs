@@ -44,5 +44,10 @@ namespace NFe.Classes.Informacoes.Pagamento
         ///     YA03a - Data do Pagamento
         /// </summary>
         public string UFPag { get; set; }
+
+        public bool ShouldSerializedPag()
+        {
+            return dPag.HasValue;
+        }
     }
 }
