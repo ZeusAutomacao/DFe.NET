@@ -1,4 +1,5 @@
 ﻿using NFe.Classes.Informacoes.Identificacao.Tipos;
+using System;
 
 namespace NFe.Classes.Informacoes.Pagamento
 {
@@ -29,6 +30,19 @@ namespace NFe.Classes.Informacoes.Pagamento
 
         public card card { get; set; }
 
+        /// <summary>
+        ///     YA03a - Data do Pagamento
+        /// </summary>
+        public DateTimeOffset? dPag { get; set; }
 
+        /// <summary>
+        ///     YA03a - Data do Pagamento
+        /// </summary>
+        public string CNPJPag { get; set; }
+
+        /// <summary>
+        ///     YA03a - Data do Pagamento
+        /// </summary>
+        public string UFPag { get; set; }
     }
 }
