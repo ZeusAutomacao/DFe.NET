@@ -39,7 +39,6 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
-using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
@@ -1633,15 +1632,18 @@ namespace NFe.AppTeste
             {
                 #region NFeDistribuicaoDFe
 
-                var cnpj = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "CNPJ do destinatário da NFe:");
-                if (string.IsNullOrEmpty(cnpj)) throw new Exception("O CNPJ deve ser informado!");
-                if (cnpj.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+                var documento = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "CNPJ/CPF do destinatário da NFe:");
+                if (string.IsNullOrEmpty(documento))
+                    throw new Exception("O CNPJ/CPF deve ser informado!");
+                if (documento.Length != 11 && documento.Length != 14)
+                    throw new Exception("Se for CNPJ deve conter 14 caracteres.\r\nSe for CPF deve conter 11 caracteres.");
 
                 var nsu = Funcoes.InpuBox(this, "Consulta NFeDistribuicaoDFe", "Ultimo NSU Retornado");
                 if (string.IsNullOrEmpty(nsu))
                     nsu = "0";
 
-                if (int.Parse(nsu) < 0) throw new Exception("NSU deve ser maior ou igual a 0");
+                if (int.Parse(nsu) < 0)
+                    throw new Exception("NSU deve ser maior ou igual a 0");
 
                 string chnfe = "";
                 if (string.IsNullOrEmpty(nsu) || int.Parse(nsu) <= 0)
@@ -1651,12 +1653,12 @@ namespace NFe.AppTeste
                     throw new Exception("Último NSU ou Chave Eletrônica devem ser informados");
 
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
-                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.EnderecoEmitente.UF.ToString(), cnpj, ultNSU: nsu, chNFE: chnfe);
+                var retornoNFeDistDFe = servicoNFe.NfeDistDFeInteresse(_configuracoes.EnderecoEmitente.UF.ToString(), documento, ultNSU: nsu, chNFE: chnfe);
 
                 TrataRetorno(retornoNFeDistDFe);
 
-            #endregion
-        }
+                #endregion
+            }
             catch (ComunicacaoException ex)
             {
                 Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
