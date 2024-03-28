@@ -89,4 +89,43 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("9")]
         taOutrosOrgaos = 9
     }
+
+    /// <summary>
+    ///     Motivo de Insucesso.
+    ///     Nota:
+    ///     1 - Recebedor não encontrado;
+    ///     2 - Recusa do recebedor;
+    ///     3 - Endereço inexistente;
+    ///     4 - Outros (exige informar justificativa);
+    /// </summary>
+    public enum MotivoInsucesso
+    {
+        /// <summary>
+        /// 1 - Recebedor não encontrado 
+        /// </summary>
+        [Description("Recebedor não encontrado")]
+        [XmlEnum("1")]
+        RecebedorNaoEncontrado = 1,
+
+        /// <summary>
+        /// 2 - Recusa do recebedor
+        /// </summary>
+        [Description("Recusa do recebedor")]
+        [XmlEnum("2")]
+        RecusaRecebedor = 2,
+
+        /// <summary>
+        /// 3 - Endereço inexistente
+        /// </summary>
+        [Description("Endereço inexistente")]
+        [XmlEnum("3")]
+        EnderecoInexistente = 3,
+
+        /// <summary>
+        /// 4 - Outros
+        /// </summary>
+        [Description("Outros")]
+        [XmlEnum("4")]
+        Outros = 4
+    }
 }
