@@ -230,6 +230,26 @@ namespace NFe.Classes.Servicos.Evento
             set { dhHashTentativaEntrega = DateTimeOffset.Parse(value); }
         }
 
+        public bool ShouldSerializenTentativa()
+        {
+            return nTentativa.HasValue;
+        }
+
+        public bool ShouldSerializetpMotivo()
+        {
+            return tpMotivo.HasValue;
+        }
+
+        public bool ShouldSerializelatGPS()
+        {
+            return latGPS.HasValue;
+        }
+
+        public bool ShouldSerializelongGPS()
+        {
+            return longGPS.HasValue;
+        }
+
         #endregion
 
     }
