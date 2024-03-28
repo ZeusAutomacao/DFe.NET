@@ -37,13 +37,15 @@ namespace NFe.Danfe.Base
     {
         NaoImprimir = 0,
         UmaLinha = 1,
-        DuasLinhas = 2
+        DuasLinhas = 2,
+        Completo = 3
     }
 
     public enum NfceDetalheVendaContigencia
     {
         UmaLinha = 1,
-        DuasLinhas = 2
+        DuasLinhas = 2,
+        Completo = 3
     }
 
     public enum NfceModoImpressao
