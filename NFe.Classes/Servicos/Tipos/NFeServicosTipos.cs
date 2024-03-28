@@ -186,6 +186,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento por substituicao")]
         [XmlEnum("110112")]
         TeNfeCancelamentoSubstituicao = 110112,
+        
+        /// <summary>
+        /// 110192 - Cancelamento por substituição
+        /// </summary>
+        [Description("Insucesso na Entrega da NF-e")]
+        [XmlEnum("110192")]
+        TeNfeInsucessoNaEntregadaNFe = 110192,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
