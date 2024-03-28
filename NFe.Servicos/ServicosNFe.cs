@@ -143,7 +143,7 @@ namespace NFe.Servicos
         ///     Consulta o status do Serviço de NFe
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeStatusServico com os dados status do serviço</returns>
-        public RetornoNfeStatusServico NfeStatusServico()
+        public RetornoNfeStatusServico NfeStatusServico(bool exceptionCompleta = false)
         {
             var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 
@@ -192,6 +192,10 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
+                if (exceptionCompleta)
+                {
+                    throw;
+                }
                 throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeStatusServico, ex);
             }
 

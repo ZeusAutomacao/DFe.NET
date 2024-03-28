@@ -222,7 +222,8 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #endregion
 
-            pedDistDFeInt.ValidaSchema(configuracaoServico);
+            if (configuracaoServico.IsValidaSchemas)
+                pedDistDFeInt.ValidaSchema(configuracaoServico);
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
 
