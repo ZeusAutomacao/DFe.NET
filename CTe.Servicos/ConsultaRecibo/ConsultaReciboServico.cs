@@ -51,7 +51,10 @@ namespace CTe.Servicos.ConsultaRecibo
         public retConsReciCTe Consultar(ConfiguracaoServico configuracaoServico = null)
         {
             var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo, configuracaoServico);
-            consReciCTe.ValidarSchema(configuracaoServico);
+            
+            if (configuracaoServico.IsValidaSchemas)
+                consReciCTe.ValidarSchema(configuracaoServico);
+            
             consReciCTe.SalvarXmlEmDisco(configuracaoServico);
 
             var webService = WsdlFactory.CriaWsdlCteRetRecepcao(configuracaoServico);
@@ -66,7 +69,10 @@ namespace CTe.Servicos.ConsultaRecibo
         public async Task<retConsReciCTe> ConsultarAsync(ConfiguracaoServico configuracaoServico = null)
         {
             var consReciCTe = ClassesFactory.CriaConsReciCTe(_recibo, configuracaoServico);
-            consReciCTe.ValidarSchema(configuracaoServico);
+            
+            if (configuracaoServico.IsValidaSchemas)
+                consReciCTe.ValidarSchema(configuracaoServico);
+            
             consReciCTe.SalvarXmlEmDisco(configuracaoServico);
 
             var webService = WsdlFactory.CriaWsdlCteRetRecepcao(configuracaoServico);
