@@ -53,6 +53,11 @@ namespace NFe.Classes.Servicos.Tipos
         ///     serviço destinado à recepção de mensagem do Evento EPEC da NF-e
         /// </summary>
         RecepcaoEventoEpec,
+        
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Insucesso na Entrega da NFe
+        /// </summary>
+        RecepcaoEventoInsucessoEntregaNFe,
 
         /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
