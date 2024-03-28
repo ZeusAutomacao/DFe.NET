@@ -517,7 +517,7 @@ namespace NFe.Servicos
         /// Envia eventos do tipo "Cancelamento" já assinado.
         /// </summary>
         /// <param name="idlote"></param>
-        /// <param name="evento"></param>
+        /// <param name="eventos"></param>
         /// <returns></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancelamento(int idlote, List<evento> eventos)
         {
@@ -634,7 +634,7 @@ namespace NFe.Servicos
         /// Envia eventos do tipo "Carta de correção" já assinado.
         /// </summary>
         /// <param name="idlote"></param>
-        /// <param name="evento"></param>
+        /// <param name="eventos"></param>
         /// <returns></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCartaCorrecao(int idlote, List<evento> eventos)
         {
@@ -760,14 +760,58 @@ namespace NFe.Servicos
         /// Envia eventos do tipo "EPEC" já assinado
         /// </summary>
         /// <param name="idlote"></param>
-        /// <param name="sequenciaEvento"></param>
-        /// <param name="nfe"></param>
-        /// <param name="veraplic"></param>
+        /// <param name="eventos"></param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoEpec(int idlote, List<evento> eventos)
         {
             var retorno = RecepcaoEvento(idlote, eventos, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento, false);
             return retorno;
+        }
+        
+        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(NFeTipoEvento tipoEventoCancelamento, int idlote,
+            int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
+            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null, DateTimeOffset? dhEvento = null)
+        {
+            /*if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoCancelamento))
+                throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
+                    string.Join(", ",
+                        NFeTipoEventoUtils.NFeTipoEventoCancelamento.Select(n => n.Descricao()))));
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+
+            var detEvento = new detEvento
+            {
+                nProt = protocoloAutorizacao,
+                versao = versaoServico,
+                xJust = justificativa,
+                descEvento = tipoEventoCancelamento.Descricao(),
+                cOrgaoAutor = ufAutor,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo,
+                chNFeRef = chaveNfeSubstituta
+            };
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = _cFgServico.cUF,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = tipoEventoCancelamento,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, true);
+            return retorno;*/
         }
 
         /// <summary>
