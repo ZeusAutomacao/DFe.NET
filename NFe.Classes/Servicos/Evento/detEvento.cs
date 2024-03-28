@@ -169,16 +169,6 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso NFe
-        
-        /// <summary>
-        ///     P22 - Informar o número do Protocolo de Autorização do 
-        ///           Evento da NF-e a que se refere este cancelamento. 
-        /// </summary>
-        public string nProtEvento { get; set; }
-
-        #endregion
-        
         #region Insucesso NFe
         [XmlIgnore]
         public DateTimeOffset? dhTentativaEntrega { get; set; }
@@ -186,7 +176,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         /// Proxy para dhTentativaEntrega no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
         /// </summary>
-        [XmlElement(ElementName = "dhTentativaEntrega")]
+        [XmlElement(ElementName = "dhEmi")]
         public string ProxyDhTentativaEntrega
         {
             get { return dhTentativaEntrega.ParaDataHoraStringUtc(); }
@@ -238,26 +228,6 @@ namespace NFe.Classes.Servicos.Evento
         {
             get { return dhHashTentativaEntrega.ParaDataHoraStringUtc(); }
             set { dhHashTentativaEntrega = DateTimeOffset.Parse(value); }
-        }
-
-        public bool ShouldSerializenTentativa()
-        {
-            return nTentativa.HasValue;
-        }
-
-        public bool ShouldSerializetpMotivo()
-        {
-            return tpMotivo.HasValue;
-        }
-
-        public bool ShouldSerializelatGPS()
-        {
-            return latGPS.HasValue;
-        }
-
-        public bool ShouldSerializelongGPS()
-        {
-            return longGPS.HasValue;
         }
 
         #endregion
