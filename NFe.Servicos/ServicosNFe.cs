@@ -772,11 +772,11 @@ namespace NFe.Servicos
             return retorno;
         }
         
-        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(NFeTipoEvento tipoEventoCancelamento, int idlote,
+        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(NFeTipoEvento tipoEventoInsucesso, int idlote,
             int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
             Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null, DateTimeOffset? dhEvento = null)
         {
-            /*if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoCancelamento))
+            /*if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoInsucesso))
                 throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
                     string.Join(", ",
                         NFeTipoEventoUtils.NFeTipoEventoCancelamento.Select(n => n.Descricao()))));
@@ -790,7 +790,7 @@ namespace NFe.Servicos
                 nProt = protocoloAutorizacao,
                 versao = versaoServico,
                 xJust = justificativa,
-                descEvento = tipoEventoCancelamento.Descricao(),
+                descEvento = tipoEventoInsucesso.Descricao(),
                 cOrgaoAutor = ufAutor,
                 tpAutor = tipoAutor,
                 verAplic = versaoAplicativo,
@@ -802,7 +802,7 @@ namespace NFe.Servicos
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
-                tpEvento = tipoEventoCancelamento,
+                tpEvento = tipoEventoInsucesso,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
