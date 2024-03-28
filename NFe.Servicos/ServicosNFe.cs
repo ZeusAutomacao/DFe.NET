@@ -772,14 +772,11 @@ namespace NFe.Servicos
             return retorno;
         }
         
-        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(NFeTipoEvento tipoEventoInsucesso, int idlote,
-            int sequenciaEvento, string protocoloAutorizacao, string chaveNFe, string justificativa, string cpfcnpj,
-            Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, string chaveNfeSubstituta = null, DateTimeOffset? dhEvento = null)
+        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, DateTimeOffset dhTentativaEntrega, MotivoInsucesso motivo, string hashTentativaEntrega, 
+            int? nTentativa = null, DateTimeOffset? dhHashTentativaEntrega = null,  decimal? latGps = null, decimal? longGps = null,
+            string justificativa = null, Estado? ufAutor = null, TipoAutor? tipoAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
         {
-            /*if (!NFeTipoEventoUtils.NFeTipoEventoCancelamento.Contains(tipoEventoInsucesso))
-                throw new Exception(string.Format("Informe um dos seguintes tipos de eventos: {0}",
-                    string.Join(", ",
-                        NFeTipoEventoUtils.NFeTipoEventoCancelamento.Select(n => n.Descricao()))));
 
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
@@ -787,14 +784,18 @@ namespace NFe.Servicos
 
             var detEvento = new detEvento
             {
-                nProt = protocoloAutorizacao,
                 versao = versaoServico,
-                xJust = justificativa,
-                descEvento = tipoEventoInsucesso.Descricao(),
+                descEvento = NFeTipoEvento.TeNfeInsucessoNaEntregadaNFe.Descricao(),
                 cOrgaoAutor = ufAutor,
-                tpAutor = tipoAutor,
                 verAplic = versaoAplicativo,
-                chNFeRef = chaveNfeSubstituta
+                dhTentativaEntrega = dhTentativaEntrega,
+                nTentativa = nTentativa,
+                tpMotivo = motivo,
+                xJustMotivo = justificativa,
+                latGPS = latGps,
+                longGPS = longGps,
+                hashTentativaEntrega = hashTentativaEntrega,
+                dhHashTentativaEntrega = dhHashTentativaEntrega
             };
             var infEvento = new infEventoEnv
             {
@@ -802,7 +803,7 @@ namespace NFe.Servicos
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
-                tpEvento = tipoEventoInsucesso,
+                tpEvento = NFeTipoEvento.TeNfeInsucessoNaEntregadaNFe,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
                 detEvento = detEvento
@@ -815,7 +816,7 @@ namespace NFe.Servicos
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, true);
-            return retorno;*/
+            return retorno;
         }
 
         /// <summary>
