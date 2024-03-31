@@ -289,6 +289,11 @@ namespace NFe.AppTeste
             }
         }
 
+        private void BtnInsucessoEntrega_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
             try

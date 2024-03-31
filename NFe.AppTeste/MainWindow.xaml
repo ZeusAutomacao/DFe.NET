@@ -962,6 +962,8 @@
                         Margin="375,185,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaRecibo_Click" />
                     <Button x:Name="BtnConsultaGtin" Content="Consultar Gtin" HorizontalAlignment="Left"
                             Margin="10,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnConsultaGtin_Click" />
+                    <Button x:Name="BtnInsucessoEntrega" Content="Insucesso Entrega NFe" HorizontalAlignment="Left"
+                        Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnInsucessoEntrega_Click" />
                 </Grid>
             </TabItem>
 
