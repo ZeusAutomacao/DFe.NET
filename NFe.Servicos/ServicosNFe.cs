@@ -403,7 +403,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCartaCorrecao,
                 ServicoNFe.RecepcaoEventoCancelmento,
                 ServicoNFe.RecepcaoEventoEpec,
-                ServicoNFe.RecepcaoEventoManifestacaoDestinatario
+                ServicoNFe.RecepcaoEventoManifestacaoDestinatario,
+                ServicoNFe.RecepcaoEventoInsucessoEntregaNFe
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -771,8 +772,8 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, eventos, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento, false);
             return retorno;
         }
-        
-        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(int idlote,
+
+        public RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(int idlote,
             int sequenciaEvento, string cpfcnpj, string chaveNFe, DateTimeOffset dhTentativaEntrega, MotivoInsucesso motivo, string hashTentativaEntrega, 
             int? nTentativa = null, DateTimeOffset? dhHashTentativaEntrega = null,  decimal? latGps = null, decimal? longGps = null,
             string justificativa = null, Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
