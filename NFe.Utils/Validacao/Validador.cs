@@ -62,6 +62,8 @@ namespace NFe.Utils.Validacao
                         : "envEventoCancNFe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                     return "envCCe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
+                    return "envEventoInsucessoNFe_v9.99.xsd";
                 case ServicoNFe.RecepcaoEventoEpec:
                     return "envEPEC_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
