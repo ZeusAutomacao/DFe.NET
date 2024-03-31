@@ -63,9 +63,7 @@ namespace NFe.Utils.Validacao
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                     return "envCCe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
-                    return "envEventoInsucessoNFe_v1.00.xsd";
-                case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
-                    return "envEventoCancInsucessoNFe_v1.00.xsd";
+                    return "envEventoInsucessoNFe_v9.99.xsd";
                 case ServicoNFe.RecepcaoEventoEpec:
                     return "envEPEC_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
@@ -158,18 +156,13 @@ namespace NFe.Utils.Validacao
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += delegate (object sender, ValidationEventArgs args)
             {
-                string message = args.Message.ToLower().RemoverAcentos();
+                string message = args.Message;
 
-                if (!(
-                    
-                    //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
-                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) || 
-
-                    //erro de orgaoibge que duplicou em alguns xsds porem a receita federal veio a arrumar posteriormente, mesmo assim alguns não atualizam os xsds
-                    (message.Contains("tcorgaoibge") && message.Contains("ja foi declarado"))
-
-                    //no futuro adicionar novos aqui...
-                ))
+                if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
+                {
+                    //aqui talvez um aviso?
+                }
+                else
                 {
                     falhas.AppendLine($"[{args.Severity}] - {message} {args.Exception?.Message} " +
                                         $"na linha {args.Exception.LineNumber} " +

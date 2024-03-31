@@ -176,7 +176,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         /// Proxy para dhTentativaEntrega no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
         /// </summary>
-        [XmlElement(ElementName = "dhEmi")]
+        [XmlElement(ElementName = "dhTentativaEntrega")]
         public string ProxyDhTentativaEntrega
         {
             get { return dhTentativaEntrega.ParaDataHoraStringUtc(); }
