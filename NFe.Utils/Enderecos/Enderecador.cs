@@ -151,7 +151,7 @@ namespace NFe.Utils.Enderecos
 
             var todosOsAmbientes = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
 
-            var eventoCceCanc = new[] { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe };
+            var eventoCceCanc = new[] { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento };
 
             var hom = TipoAmbiente.Homologacao;
 
@@ -1630,7 +1630,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-            #region ConsultaGtin
+            #region ConsultaGtin e Insucesso na entrega
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1639,8 +1639,13 @@ namespace NFe.Utils.Enderecos
                 {
                     foreach (var modelo in todosOsModelos)
                     {
+                        //GTIN
                         addServico(new[] { ServicoNFe.ConsultaGtin }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://dfe-servico.svrs.rs.gov.br/ws/ccgConsGTIN/ccgConsGTIN.asmx");
                         addServico(new[] { ServicoNFe.ConsultaGtin }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://dfe-servico.svrs.rs.gov.br/ws/ccgConsGTIN/ccgConsGTIN.asmx");
+
+                        //Insucesso Entrega NFe
+                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
                 }
             }
@@ -1669,10 +1674,11 @@ namespace NFe.Utils.Enderecos
         {
             switch (servico)
             {
-                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     return cfgServico.VersaoRecepcaoEventoCceCancelamento;
+                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
+                    return cfgServico.VersaoRecepcaoEventoInsucessoEntrega;
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
