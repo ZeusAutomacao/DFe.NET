@@ -782,14 +782,14 @@ namespace NFe.Servicos
 
             var versaoServico =
                 ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoCceCancelamento);
+                    _cFgServico.VersaoRecepcaoEventoInsucessoEntrega);
 
             var detEvento = new detEvento
             {
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeInsucessoNaEntregadaNFe.Descricao(),
-                cOrgaoAutor = ufAutor,
-                verAplic = versaoAplicativo,
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                verAplic = versaoAplicativo ?? "1.0",
                 dhTentativaEntrega = dhTentativaEntrega,
                 nTentativa = nTentativa,
                 tpMotivo = motivo,
@@ -817,7 +817,7 @@ namespace NFe.Servicos
 
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoCceCancelamento, true);
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoInsucessoEntrega, true);
             return retorno;
         }
 
