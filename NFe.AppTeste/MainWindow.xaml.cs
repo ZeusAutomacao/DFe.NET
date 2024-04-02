@@ -75,6 +75,9 @@ using NFe.Utils;
 using NFe.Utils.Excecoes;
 using NFe.Utils.Tributacao.Federal;
 using Image = System.Drawing.Image;
+using static System.Net.Mime.MediaTypeNames;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace NFe.AppTeste
 {
@@ -295,26 +298,26 @@ namespace NFe.AppTeste
 
             try
             {
-                #region Cancelar NFe
+                #region Insucesso Entrega NFe
 
-                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:");
+                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
                 if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
 
-                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:");
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
                 if (string.IsNullOrEmpty(sequenciaEvento))
                     throw new Exception("O número sequencial deve ser informado!");
 
-                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:");
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
-                var dhTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data da tentativa da entrega da NFe");
+                var dhTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data da tentativa da entrega da NFe", DateTimeOffset.Now.ToString("dd/MM/yyyy"));
                 if (string.IsNullOrEmpty(dhTentativaEntregaStr)) throw new Exception("A Data deve ser informada!");
 
                 if (!DateTimeOffset.TryParse(dhTentativaEntregaStr, out DateTimeOffset dhTentativaEntrega))
                     throw new Exception("A Data inválida!");
 
-                var motivoInsucessoStr = Funcoes.InpuBox(this, titulo, "Motivo do Insucesso da entrega da NFe");
+                var motivoInsucessoStr = Funcoes.InpuBox(this, titulo, "Motivo do Insucesso da entrega da NFe", "1");
                 if (!Enum.TryParse(motivoInsucessoStr, out NFe.Classes.Servicos.Evento.MotivoInsucesso motivoInsucesso)) throw new Exception("Motivo deve ser informada!");
 
                 string justificativa = null;
@@ -323,14 +326,23 @@ namespace NFe.AppTeste
                     justificativa = Funcoes.InpuBox(this, titulo, "Justificativa do cancelamento");
 
                 var imagemExemploBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAADUlEQVR42gECAP3/AP8BAQEATamDVwAAAABJRU5ErkJggg==";
-                var hashTentativaEntrega = chave + imagemExemploBase64;
+                var concatenacao = chave + imagemExemploBase64;
+
+                var hashTentativaEntrega = string.Empty;
+                using (SHA1 sha1 = SHA1.Create())
+                {
+                    byte[] inputBytes = Encoding.UTF8.GetBytes(concatenacao);
+                    byte[] hashBytes = sha1.ComputeHash(inputBytes);
+                    // O hash SHA-1 terá 20 bytes
+                    hashTentativaEntrega = Convert.ToBase64String(hashBytes).Trim();
+                }
 
                 int? nTentativa = null;
-                var nTentativaStr = Funcoes.InpuBox(this, titulo, "Número tentativas de entrega:");
+                var nTentativaStr = Funcoes.InpuBox(this, titulo, "Número tentativas de entrega:", "1");
                 if (!string.IsNullOrEmpty(nTentativaStr)) nTentativa = Convert.ToInt32(nTentativaStr);
 
                 DateTimeOffset? dhHashTentativaEntrega = null;
-                var dhHashTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data geração do Hash Tentativa na Entrega:");
+                var dhHashTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data geração do Hash Tentativa na Entrega:", DateTimeOffset.Now.ToString("dd/MM/yyyy"));
                 if (!string.IsNullOrEmpty(dhHashTentativaEntregaStr)) dhHashTentativaEntrega = Convert.ToDateTime(dhHashTentativaEntregaStr);
 
                 decimal? latGps = null;

@@ -212,7 +212,6 @@ namespace NFe.Servicos
 
                 case ServicoNFe.RecepcaoEventoCancelmento:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
-                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                     if (cfg.UsaSvanNFe4(cfg.VersaoRecepcaoEventoCceCancelamento))
                     {
                         return new RecepcaoEvento4SVAN(url, certificado, cfg.TimeOut);
@@ -229,6 +228,9 @@ namespace NFe.Servicos
                     }
 
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
+                    return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
