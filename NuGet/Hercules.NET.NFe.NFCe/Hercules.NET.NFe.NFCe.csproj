@@ -6,7 +6,7 @@
     <Configurations>Release</Configurations>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NuspecFile>Zeus.Net.NFe.NFCe.nuspec</NuspecFile>
+    <NuspecFile>Hercules.NET.NFe.NFCe.nuspec</NuspecFile>
   </PropertyGroup>
 
 </Project>
