@@ -1,9 +1,10 @@
-**Biblioteca em C# para emissão e impressão de NFe, NFCe, MDF-e e CT-e**
+# ZeusFiscal
+### A Principal Biblioteca em C# para Emissão e Impressão de NFe, NFCe, MDF-e e CT-e
+**![Fork e Continuação do DFe.NET ("Zeus") - SAIBA MAIS SOBRE A DECLARAÇÃO DOS MANTENEDORES NESSE LINK!](https://google.com.br)**
 
-DFe.NET
-==================
+**Entre no nosso **Discord** https://discord.gg/EE4TGKAkkG**
 
-Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0/4.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
+##  Versões suportadas:
 
 A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, netstandard2.0 e net6.0 instalados.
 
@@ -20,27 +21,27 @@ A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 
 
 Licenciada sobre a **LGPL** (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
-Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
+## Pacotes Nugets:
 
 ## Pacotes Nugets
 ------------------
 A melhor maneira de você ter a última versão do Zeus em seu projeto é utilizando os pacotes Nugets abaixo
 
-[![Build status](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml/badge.svg?branch=master)](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml)
-[![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
+[![Build status](https://github.com/Hercules-NET/ZeusFiscal/actions/workflows/ZeusFiscal.NET_build.yml/badge.svg?branch=master)](https://github.com/Hercules-NET/ZeusFiscal/actions/workflows/ZeusFiscal_build.yml)
+[![Issues](https://img.shields.io/github/issues/Hercules-NET/ZeusFiscal.svg?style=flat-square)](https://github.com/Hercules-NET/ZeusFiscal/issues)
 
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
- Zeus.NFe.NFCe
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.Nfe.Nfce.svg)](http://www.nuget.org/packages/Hercules.NET.Nfe.Nfce/)
+[![Nuget count](http://img.shields.io/nuget/v/Hercules.NET.Nfe.Nfce.svg)](http://www.nuget.org/packages/Hercules.NET.Nfe.Nfce/)
+ Hercules.NET.Nfe.Nfce
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
- Zeus.MDFe  
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.MDFe.svg)](http://www.nuget.org/packages/ZHercules.NET.MDFe/)
+[![Nuget count](https://img.shields.io/nuget/v/Hercules.NET.MDFe.svg)](http://www.nuget.org/packages/Hercules.NET.MDFe/)
+ Hercules.NET.MDFe
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
- Zeus.CTe  
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.CTe.svg)](http://www.nuget.org/packages/Hercules.NET.CTe/)
+[![Nuget count](https://img.shields.io/nuget/v/Hercules.NET.CTe.svg)](http://www.nuget.org/packages/Hercules.NET.CTe/)
+ Hercules.NET.CTe
  
 ## O que a biblioteca faz:
 ------------------
