@@ -1,6 +1,6 @@
 # ZeusFiscal
 ### A Principal Biblioteca em C# para Emissão e Impressão de NFe, NFCe, MDF-e e CT-e
-**![(Este é o Fork e Continuação do DFe.NET ("Zeus") SAIBA MAIS SOBRE A 'DECLARAÇÃO A COMUNIDADE' NESSE LINK!)](https://google.com.br)**
+**![(Este é o Fork e Continuação do DFe.NET ("Zeus") SAIBA MAIS SOBRE A 'DECLARAÇÃO OFICIAL A COMUNIDADE "ZEUS"' NESSE LINK!)](https://google.com.br)**
 
 **Entre no nosso **Discord** https://discord.gg/EE4TGKAkkG**
 
