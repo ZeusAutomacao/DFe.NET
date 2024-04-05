@@ -107,7 +107,7 @@ jobs:
       - name: Push to NuGet Feed
         run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_AUTH_TOKEN}}
           
       - name: Discord notification
         continue-on-error: true
