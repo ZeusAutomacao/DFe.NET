@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Hercules.NET.Net.MDFe</id>
+        <id>Hercules.NET.MDFe</id>
         <version>$version$</version>
         <title>Hercules.NET MDFe</title>
         <authors>Hercules.NET</authors>
