@@ -1,14 +1,12 @@
-**Biblioteca em C# para emissão e impressão de NFe, NFCe, MDF-e e CT-e**
+# ZeusFiscal
+### A Principal Biblioteca em C# para Emissão e Impressão de NFe, NFCe, MDF-e e CT-e
+**![Fork e Continuação do DFe.NET ("Zeus") - SAIBA MAIS SOBRE A DECLARAÇÃO DOS MANTENEDORES NESSE LINK!](https://google.com.br)**
 
-DFe.NET
-==================
+**Entre no nosso **Discord** https://discord.gg/EE4TGKAkkG**
 
-Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e CT-e 3.0/4.0 e consumo dos serviços necessários à sua manutenção, conforme descritos em http://www.nfe.fazenda.gov.br/portal/principal.aspx, https://mdfe-portal.sefaz.rs.gov.br e www.cte.fazenda.gov.br/portal.
+##  Versões suportadas:
 
 A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, netstandard2.0 e net6.0 instalados.
-
-
-## Versões suportadas:
 |  Escopos  |  Frameworks Suportados  |
 | ------------------- | ------------------- |
 | NFe, NFCe, CTe, MDFe | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0 .NET 7.0 .NET 8.0 |
@@ -20,30 +18,28 @@ A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 
 
 Licenciada sobre a **LGPL** (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
-Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
+## Pacotes Nugets:
 
-## Pacotes Nugets
-------------------
-A melhor maneira de você ter a última versão do Zeus em seu projeto é utilizando os pacotes Nugets abaixo
+A melhor maneira de você ter a última versão do ZeusFiscal em seu projeto é utilizando os pacotes Nugets abaixo
 
-[![Build status](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml/badge.svg?branch=master)](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml)
-[![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
+[![Build status](https://github.com/Hercules-NET/ZeusFiscal/actions/workflows/ZeusFiscal.NET_build.yml/badge.svg?branch=master)](https://github.com/Hercules-NET/ZeusFiscal/actions/workflows/ZeusFiscal_build.yml)
+[![Issues](https://img.shields.io/github/issues/Hercules-NET/ZeusFiscal.svg?style=flat-square)](https://github.com/Hercules-NET/ZeusFiscal/issues)
 
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
- Zeus.NFe.NFCe
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.Nfe.Nfce.svg)](http://www.nuget.org/packages/Hercules.NET.Nfe.Nfce/)
+[![Nuget count](http://img.shields.io/nuget/v/Hercules.NET.Nfe.Nfce.svg)](http://www.nuget.org/packages/Hercules.NET.Nfe.Nfce/)
+ Hercules.NET.Nfe.Nfce
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
- Zeus.MDFe  
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.MDFe.svg)](http://www.nuget.org/packages/ZHercules.NET.MDFe/)
+[![Nuget count](https://img.shields.io/nuget/v/Hercules.NET.MDFe.svg)](http://www.nuget.org/packages/Hercules.NET.MDFe/)
+ Hercules.NET.MDFe
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
-[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
- Zeus.CTe  
+[![Nuget downloads](https://img.shields.io/nuget/dt/Hercules.NET.CTe.svg)](http://www.nuget.org/packages/Hercules.NET.CTe/)
+[![Nuget count](https://img.shields.io/nuget/v/Hercules.NET.CTe.svg)](http://www.nuget.org/packages/Hercules.NET.CTe/)
+ Hercules.NET.CTe
  
 ## O que a biblioteca faz:
-------------------
+
 O projeto traz classes construídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutura exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
 Além da serialização e desserialização, o projeto também conta com os métodos de consumo dos webservices (consultar, transmitir, cancelar, inutilizar, etc.), ou seja, com a biblioteca você preenche um objeto nativo em .NET e transmite o seu DFe de forma totalmente transparente, sem se preocupar coma serialização e consumo do webservice.
@@ -59,7 +55,7 @@ danfe.Visualizar();
 //danfe.ExibirDesign();
 ```
 ## Como usar a ferramenta:
------------
+
 Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
 
 Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. A linguagem utilizada é C#, logo um conhecimento basico da linguagem pode te ajudar bastante, mesmo que você use apenas as dlls com VB.Net ou outra linguagem compatível.
@@ -139,7 +135,7 @@ O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamo
 
 ## Suporte:
 
-O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github.
+O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo **Discord** => https://discord.gg/EE4TGKAkkG.
 
 ## Colaborando:
 
@@ -148,7 +144,3 @@ Mantenha seu projeto atualizado para evitar issues desnecessárias, reporte bugs
 Ao enviar um PR explique brevemente o que foi alterado e o motivo. Teste amplamente as alterações antes de submeter, não remova funcionalidades ou mude regras de métodos já existentes sem aviso prévio e com tempo para adaptações.
 
 Colabore, a bibloteca é open source e seu sucesso depende unicamente de sua comunidade.
-
-## Reconhecimento de código
-
-Este projeto incorpora código e melhorias do projeto [ZeusFiscal](https://github.com/Hercules-NET/ZeusFiscal). Agradecemos a todos os contribuidores por suas valiosas contribuições. Para detalhes específicos sobre as mudanças e os autores, consulte o [histórico de commits](https://github.com/ZeusAutomacao/DFe.NET/commits/master/).
