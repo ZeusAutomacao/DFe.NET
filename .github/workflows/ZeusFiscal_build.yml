@@ -1,4 +1,4 @@
-name: DFe.NET_build
+name: ZeusFiscal_build
 
 on:
   workflow_dispatch:
@@ -32,7 +32,8 @@ jobs:
     
     - name: Setando Versao
       id: date
-      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.$(printf "%02d" $(date +'%H'))$(printf "%02d" $(date +'%M'))')"
+      #run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
       
     - name: Versao
       run: echo ${{ steps.date.outputs.date }}
@@ -115,4 +116,4 @@ jobs:
           DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusNfeNfce'
+          args: 'Lançado ZeusFiscal versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/Hercules.NET'
