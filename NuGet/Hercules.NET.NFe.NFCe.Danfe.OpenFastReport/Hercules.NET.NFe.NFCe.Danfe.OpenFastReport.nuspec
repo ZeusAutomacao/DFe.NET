@@ -6,7 +6,7 @@
         <title>Hercules.NET DANFE NF-e e NFC-e</title>
         <authors>Hercules.NET</authors>
         <owners>Hercules.NET</owners>
-        <projectUrl>https://github.com/Hercules.NET/ZeusFiscal</projectUrl>
+        <projectUrl>https://github.com/Hercules-NET/ZeusFiscal</projectUrl>
         <iconUrl>https://avatars.githubusercontent.com/u/165974473</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Biblioteca para impressão nf-e e nfc-e.</description>
