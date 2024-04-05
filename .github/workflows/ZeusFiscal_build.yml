@@ -32,8 +32,8 @@ jobs:
     
     - name: Setando Versao
       id: date
-      run: echo "::set-output name=date::$(date +'%Y.%m.%d.$(printf "%02d" $(date +'%H'))$(printf "%02d" $(date +'%M'))')"
-      #run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      #run: echo "::set-output name=date::$(date +'%Y.%m.%d.$(printf "%02d" $(date +'%H'))$(printf "%02d" $(date +'%M'))')"
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
       
     - name: Versao
       run: echo ${{ steps.date.outputs.date }}
