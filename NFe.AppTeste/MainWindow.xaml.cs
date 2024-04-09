@@ -359,11 +359,11 @@ namespace NFe.AppTeste
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
 
-                var retornoCancelamento = servicoNFe.RecepcaoEventoInsucessoEntrega(Convert.ToInt32(idlote),
+                var retornoInsucesso = servicoNFe.RecepcaoEventoInsucessoEntrega(Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhTentativaEntrega, motivoInsucesso, hashTentativaEntrega, nTentativa,
                     dhHashTentativaEntrega, latGps, longGps, justificativa);
 
-                TrataRetorno(retornoCancelamento);
+                TrataRetorno(retornoInsucesso);
 
                 #endregion
             }
