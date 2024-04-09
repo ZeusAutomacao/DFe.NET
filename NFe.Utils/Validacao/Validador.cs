@@ -157,8 +157,11 @@ namespace NFe.Utils.Validacao
             cfg.ValidationEventHandler += delegate (object sender, ValidationEventArgs args)
             {
                 string message = args.Message;
-
-                if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
+                
+                if (message.ToLower().Contains("hashtentativaentrega") && message.ToLower().RemoverAcentos().Contains("o comprimento atual nao e igual"))
+                {
+                    //aqui talvez um aviso?
+                }else if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
                 {
                     //aqui talvez um aviso?
                 }
