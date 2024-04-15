@@ -36,7 +36,7 @@ using System.Drawing;
 using System.IO;
 
 #endif
-#if NET45
+#if NET48
 using System;
 using System.Drawing;
 using System.IO;

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.0;net452</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.0;net48</TargetFrameworks>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -46,7 +46,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net452'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
     <PackageReference Include="Moq" Version="4.10.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -330,7 +330,7 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net452'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net48'">
     <PackageReference Include="xunit">
       <Version>2.4.1</Version>
     </PackageReference>
@@ -355,22 +355,22 @@
       <HintPath>..\DFe.Utils\bin\Debug\DFe.Utils.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Classes">
-      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Classes.dll</HintPath>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net48\MDFe.Classes.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Damdfe.Base">
-      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Damdfe.Base.dll</HintPath>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net48\MDFe.Damdfe.Base.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Damdfe.Fast">
-      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Damdfe.Fast.dll</HintPath>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net48\MDFe.Damdfe.Fast.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Servicos">
-      <HintPath>..\MDFe.Servicos\bin\Debug\net45\MDFe.Servicos.dll</HintPath>
+      <HintPath>..\MDFe.Servicos\bin\Debug\net48\MDFe.Servicos.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Utils">
-      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net45\MDFe.Utils.dll</HintPath>
+      <HintPath>..\MDFe.Damdfe.Fast\bin\Debug\net48\MDFe.Utils.dll</HintPath>
     </Reference>
     <Reference Include="MDFe.Wsdl">
-      <HintPath>..\MDFe.Wsdl\bin\Debug\net45\MDFe.Wsdl.dll</HintPath>
+      <HintPath>..\MDFe.Wsdl\bin\Debug\net48\MDFe.Wsdl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

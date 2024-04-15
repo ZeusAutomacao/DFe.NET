@@ -68,7 +68,7 @@ namespace SOAP.Handler.Requisicao
                 clientHandler.ClientCertificates.Add(config.Certificado);
 #endif
                 //Meio de inclusão do certificado para o Target .NET FRAMEWORK 4.5.
-#if NET45
+#if NET48
                 clientHandler = new WebRequestHandler();
                 ((WebRequestHandler)clientHandler).ClientCertificates.Add(config.Certificado);
 

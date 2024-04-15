@@ -80,7 +80,7 @@ namespace MDFe.Damdfe.Fast
 #if NETSTANDARD2_0
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
 #endif
-#if NET45
+#if NET48
             ((PictureObject)Relatorio.FindObject("poEmitLogo")).Image = config.ObterLogo();
 #endif
             ((ReportPage)Relatorio.FindObject("Page1")).LeftMargin = config.MargemEsquerda;
@@ -89,7 +89,7 @@ namespace MDFe.Damdfe.Fast
             ((ReportPage)Relatorio.FindObject("Page1")).BottomMargin = config.MargemInferior;
         }
 
-#if NET45
+#if NET48
         /// <summary>
         /// Abre a janela de visualização do DAMDFe
         /// </summary>

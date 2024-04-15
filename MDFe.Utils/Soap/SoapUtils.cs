@@ -108,7 +108,7 @@ namespace MDFe.Utils.Soap
                 clientHandler = new HttpClientHandler();
                 clientHandler.ClientCertificates.Add(certificadoDigital);
 #endif
-#if NET45
+#if NET48
                 clientHandler = new WebRequestHandler();
                 ((WebRequestHandler)clientHandler).ClientCertificates.Add(certificadoDigital);
 
