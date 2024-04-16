@@ -381,6 +381,96 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
+        
+         private void BtnCancInsucessoEntrega_Click(object sender, RoutedEventArgs e)
+        {
+            const string titulo = "Insucesso Entrega NFe";
+
+            try
+            {
+                #region Insucesso Entrega NFe
+
+                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
+                if (string.IsNullOrEmpty(sequenciaEvento))
+                    throw new Exception("O número sequencial deve ser informado!");
+
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var dhTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data da tentativa da entrega da NFe", DateTimeOffset.Now.ToString("dd/MM/yyyy"));
+                if (string.IsNullOrEmpty(dhTentativaEntregaStr)) throw new Exception("A Data deve ser informada!");
+
+                if (!DateTimeOffset.TryParse(dhTentativaEntregaStr, out DateTimeOffset dhTentativaEntrega))
+                    throw new Exception("A Data inválida!");
+
+                var motivoInsucessoStr = Funcoes.InpuBox(this, titulo, "Motivo do Insucesso da entrega da NFe", "1");
+                if (!Enum.TryParse(motivoInsucessoStr, out NFe.Classes.Servicos.Evento.MotivoInsucesso motivoInsucesso)) throw new Exception("Motivo deve ser informada!");
+
+                string justificativa = null;
+
+                if (motivoInsucesso == Classes.Servicos.Evento.MotivoInsucesso.Outros)
+                    justificativa = Funcoes.InpuBox(this, titulo, "Justificativa do cancelamento");
+
+                var imagemExemploBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAADUlEQVR42gECAP3/AP8BAQEATamDVwAAAABJRU5ErkJggg==";
+                var concatenacao = chave + imagemExemploBase64;
+
+                var hashTentativaEntrega = string.Empty;
+                using (SHA1 sha1 = SHA1.Create())
+                {
+                    byte[] inputBytes = Encoding.UTF8.GetBytes(concatenacao);
+                    byte[] hashBytes = sha1.ComputeHash(inputBytes);
+                    // O hash SHA-1 terá 20 bytes
+                    hashTentativaEntrega = Convert.ToBase64String(hashBytes).Trim();
+                }
+
+                int? nTentativa = null;
+                var nTentativaStr = Funcoes.InpuBox(this, titulo, "Número tentativas de entrega:", "1");
+                if (!string.IsNullOrEmpty(nTentativaStr)) nTentativa = Convert.ToInt32(nTentativaStr);
+
+                DateTimeOffset? dhHashTentativaEntrega = null;
+                var dhHashTentativaEntregaStr = Funcoes.InpuBox(this, titulo, "Data geração do Hash Tentativa na Entrega:", DateTimeOffset.Now.ToString("dd/MM/yyyy"));
+                if (!string.IsNullOrEmpty(dhHashTentativaEntregaStr)) dhHashTentativaEntrega = Convert.ToDateTime(dhHashTentativaEntregaStr);
+
+                decimal? latGps = null;
+                var latGpsStr = Funcoes.InpuBox(this, titulo, "Latitude GPS:");
+                if (!string.IsNullOrEmpty(latGpsStr)) latGps = Convert.ToDecimal(latGpsStr);
+
+                decimal? longGps = null;
+                var longGpsStr = Funcoes.InpuBox(this, titulo, "Latitude GPS:");
+                if (!string.IsNullOrEmpty(longGpsStr)) longGps = Convert.ToDecimal(longGpsStr);
+
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
+                    ? _configuracoes.Emitente.CPF
+                    : _configuracoes.Emitente.CNPJ;
+
+                var retornoInsucesso = servicoNFe.RecepcaoEventoInsucessoEntrega(Convert.ToInt32(idlote),
+                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhTentativaEntrega, motivoInsucesso, hashTentativaEntrega, nTentativa,
+                    dhHashTentativaEntrega, latGps, longGps, justificativa);
+
+                TrataRetorno(retornoInsucesso);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
 
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
