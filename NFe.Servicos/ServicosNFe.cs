@@ -404,7 +404,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancelmento,
                 ServicoNFe.RecepcaoEventoEpec,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario,
-                ServicoNFe.RecepcaoEventoInsucessoEntregaNFe
+                ServicoNFe.RecepcaoEventoInsucessoEntregaNFe,
+                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -773,6 +774,25 @@ namespace NFe.Servicos
             return retorno;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="idlote"></param>
+        /// <param name="sequenciaEvento"></param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="dhTentativaEntrega"></param>
+        /// <param name="motivo"></param>
+        /// <param name="hashTentativaEntrega"></param>
+        /// <param name="nTentativa"></param>
+        /// <param name="dhHashTentativaEntrega"></param>
+        /// <param name="latGps"></param>
+        /// <param name="longGps"></param>
+        /// <param name="justificativa"></param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
         public RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(int idlote,
             int sequenciaEvento, string cpfcnpj, string chaveNFe, DateTimeOffset dhTentativaEntrega, MotivoInsucesso motivo, string hashTentativaEntrega, 
             int? nTentativa = null, DateTimeOffset? dhHashTentativaEntrega = null,  decimal? latGps = null, decimal? longGps = null,
@@ -817,6 +837,46 @@ namespace NFe.Servicos
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoInsucessoEntrega, true);
+            return retorno;
+        }
+
+        public RetornoRecepcaoEvento RecepcaoEventoCancInsucessoEntrega(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, string nProtEvento, 
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+
+            var versaoServico =
+                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                    _cFgServico.VersaoRecepcaoEventoInsucessoEntrega);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeCancInsucessoNaEntregadaNFe.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                verAplic = versaoAplicativo ?? "1.0",
+                nProtEvento = nProtEvento
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = _cFgServico.cUF,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeCancInsucessoNaEntregadaNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoInsucessoEntrega, true);
             return retorno;
         }
 

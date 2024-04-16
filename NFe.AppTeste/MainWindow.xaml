@@ -965,7 +965,7 @@
                     <Button x:Name="BtnInsucessoEntrega" Content="Insucesso Entrega NFe" HorizontalAlignment="Left"
                         Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnInsucessoEntrega_Click" />
                     <Button x:Name="BtnCancInsucessoEntrega" Content="Canc. Insucesso Entrega NFe" HorizontalAlignment="Left"
-                            Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancInsucessoEntrega_Click" />
+                            Margin="375,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancInsucessoEntrega_Click" />
                 </Grid>
             </TabItem>
 

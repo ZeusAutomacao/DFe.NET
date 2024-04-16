@@ -1644,8 +1644,8 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.ConsultaGtin }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://dfe-servico.svrs.rs.gov.br/ws/ccgConsGTIN/ccgConsGTIN.asmx");
 
                         //Insucesso Entrega NFe
-                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                     }
                 }
             }
@@ -1678,6 +1678,7 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     return cfgServico.VersaoRecepcaoEventoCceCancelamento;
                 case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
+                case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
                     return cfgServico.VersaoRecepcaoEventoInsucessoEntrega;
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
