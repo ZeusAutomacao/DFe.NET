@@ -323,7 +323,7 @@ namespace NFe.AppTeste
                 string justificativa = null;
 
                 if (motivoInsucesso == Classes.Servicos.Evento.MotivoInsucesso.Outros)
-                    justificativa = Funcoes.InpuBox(this, titulo, "Justificativa");
+                    justificativa = Funcoes.InpuBox(this, titulo, "Motivo");
 
                 var imagemExemploBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAADUlEQVR42gECAP3/AP8BAQEATamDVwAAAABJRU5ErkJggg==";
                 var concatenacao = chave + imagemExemploBase64;

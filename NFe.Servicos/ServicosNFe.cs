@@ -775,20 +775,24 @@ namespace NFe.Servicos
         }
 
         /// <summary>
-        /// 
+        /// Recepção do Evento de Insucesso na Entrega
         /// </summary>
-        /// <param name="idlote"></param>
-        /// <param name="sequenciaEvento"></param>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfcnpj"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="dhTentativaEntrega"></param>
-        /// <param name="motivo"></param>
-        /// <param name="hashTentativaEntrega"></param>
+        /// <param name="motivo">preencher com Enum MotivoInsucesso<see cref="MotivoInsucesso"/></param>
+        /// <param name="hashTentativaEntrega">Hash SHA-1, no formato Base64, resultante da 
+        /// concatenação de: Chave de Acesso da NF-e + Base64
+        /// da imagem capturada na tentativa da entrega(ex: 
+        /// imagem capturada da assinatura eletrônica, digital do 
+        /// recebedor, foto, etc).</param>
         /// <param name="nTentativa"></param>
         /// <param name="dhHashTentativaEntrega"></param>
-        /// <param name="latGps"></param>
-        /// <param name="longGps"></param>
-        /// <param name="justificativa"></param>
+        /// <param name="latGps">Latitude do ponto de entrega (não obrigatório) </param>
+        /// <param name="longGps">Longitude do ponto de entrega (não obrigatório)</param>
+        /// <param name="justificativa">Preencher apenas se o motivo for outros <see cref="MotivoInsucesso.Outros"/> </param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dhEvento"></param>
@@ -840,6 +844,18 @@ namespace NFe.Servicos
             return retorno;
         }
 
+        /// <summary>
+        /// Serviço para cancelamento insucesso na entrega
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="nProtEvento">Protocolo do eveento de insucesso na entrega que deseja cancelar</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
         public RetornoRecepcaoEvento RecepcaoEventoCancInsucessoEntrega(int idlote,
             int sequenciaEvento, string cpfcnpj, string chaveNFe, string nProtEvento, 
             Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
