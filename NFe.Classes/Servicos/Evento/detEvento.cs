@@ -169,6 +169,16 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
+        #region Cancelamento Insucesso NFe
+        
+        /// <summary>
+        ///     P22 - Informar o número do Protocolo de Autorização do 
+        ///           Evento da NF-e a que se refere este cancelamento. 
+        /// </summary>
+        public string nProtEvento { get; set; }
+
+        #endregion
+        
         #region Insucesso NFe
         [XmlIgnore]
         public DateTimeOffset? dhTentativaEntrega { get; set; }
