@@ -158,6 +158,7 @@ namespace NFe.Utils.Validacao
             {
                 string message = args.Message;
                 
+                //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
                 if (message.ToLower().Contains("hashtentativaentrega") && message.ToLower().RemoverAcentos().Contains("o comprimento atual nao e igual"))
                 {
                     //aqui talvez um aviso?
