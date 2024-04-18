@@ -100,7 +100,7 @@ namespace NFe.Classes.Protocolo
         /// <summary>
         /// PR14 - Código da Mensagem.
         /// </summary>
-        public int cMsg { get; set; }
+        public int? cMsg { get; set; }
 
         /// <summary>
         /// PR15 - Mensagem da SEFAZ para o emissor.
@@ -112,5 +112,10 @@ namespace NFe.Classes.Protocolo
         ///     A decisão de assinar a mensagem fica a critério da UF interessada.
         /// </summary>
         public Signature Signature { get; set; }
+
+        public bool ShouldSerializecMsg()
+        {
+            return cMsg.HasValue;
+        }
     }
 }
