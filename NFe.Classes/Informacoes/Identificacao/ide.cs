@@ -37,6 +37,7 @@ using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
+using DFe.Utils.Attributes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Identificacao
@@ -56,6 +57,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B04 - Descrição da Natureza da Operação
         /// </summary>
+        [TString]
         public string natOp { get; set; }
 
         /// <summary>
@@ -220,6 +222,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B27 - versão do aplicativo utilizado no processo de emissão
         /// </summary>
+        [TString]
         public string verProc { get; set; }
 
         /// <summary>
@@ -244,6 +247,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B29 - Informar a Justificativa da entrada
         /// </summary>
+        [TString]
         public string xJust { get; set; }
 
         /// <summary>

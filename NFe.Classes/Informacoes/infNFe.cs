@@ -47,7 +47,7 @@ using Shared.NFe.Classes.Informacoes.Intermediador;
 
 namespace NFe.Classes.Informacoes
 {
-    public class infNFe
+    public class infNFe: _baseNFe
     {
         public infNFe()
         {
