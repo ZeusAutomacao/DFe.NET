@@ -158,17 +158,18 @@ namespace NFe.Utils.Validacao
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += delegate (object sender, ValidationEventArgs args)
             {
-                string message = args.Message;
-                
-                //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
-                if (message.ToLower().Contains("hashtentativaentrega") && message.ToLower().RemoverAcentos().Contains("o comprimento atual nao e igual"))
-                {
-                    //aqui talvez um aviso?
-                }else if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
-                {
-                    //aqui talvez um aviso?
-                }
-                else
+                string message = args.Message.ToLower().RemoverAcentos();
+
+                if (!(
+                    
+                    //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
+                    (message.Contains("hashtentativaentrega") && message.Contains("o comprimento atual nao e igual")) || 
+
+                    //erro de orgaoibge que duplicou em alguns xsds porem a receita federal veio a arrumar posteriormente, mesmo assim alguns não atualizam os xsds
+                    (message.Contains("tcorgaoibge") && message.Contains("ja foi declarado"))
+
+                    //no futuro adicionar novos aqui...
+                ))
                 {
                     falhas.AppendLine($"[{args.Severity}] - {message} {args.Exception?.Message} " +
                                         $"na linha {args.Exception.LineNumber} " +
