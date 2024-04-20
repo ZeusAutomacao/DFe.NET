@@ -62,6 +62,10 @@ namespace NFe.Utils.Validacao
                         : "envEventoCancNFe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                     return "envCCe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
+                    return "envEventoInsucessoNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
+                    return "envEventoCancInsucessoNFe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoEpec:
                     return "envEPEC_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
@@ -155,8 +159,12 @@ namespace NFe.Utils.Validacao
             cfg.ValidationEventHandler += delegate (object sender, ValidationEventArgs args)
             {
                 string message = args.Message;
-
-                if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
+                
+                //Está errado o schema. Pois o certo é ser 20 o length e não 28 como está no schema envIECTE_v4.00xsd
+                if (message.ToLower().Contains("hashtentativaentrega") && message.ToLower().RemoverAcentos().Contains("o comprimento atual nao e igual"))
+                {
+                    //aqui talvez um aviso?
+                }else if (message.ToLower().Contains("tcorgaoibge") && message.ToLower().RemoverAcentos().Contains("ja foi declarado"))
                 {
                     //aqui talvez um aviso?
                 }
