@@ -71,6 +71,172 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 - *NFe.Danfe.AppTeste.Fast:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
 - *NFe.Danfe.AppTeste.OpenFast:* Projeto em Console em .NET6 para demonstração de uso de impressão da NFe, NFCe, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
 
+## Impressão (QuestPdf):
+ 
+
+
+Código que eu Roberto utilizo para imprimir 
+
+
+```cs
+QuestPDF.Settings.License = LicenseType.Community;
+// adicionar isso em algum local da sua aplicação ou licença equivalente para mais informações sobre licenças  https://www.questpdf.com/
+```
+
+NFC-e 
+
+```cs
+[HttpPost("danfe")]
+[Produces("application/json")]
+[ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+[ProducesResponseType(200)]
+public Task<IActionResult> GerarDanfeNfce([FromBody] CupomFiscalImprimirModel model)
+{
+    if (string.IsNullOrEmpty(model.Xml))
+    {
+        AddError("Selecione um XML de NFC-e");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+    var stringXml = model.Xml;
+
+    try
+    {
+        FuncoesXml.XmlStringParaClasse<nfeProc>(stringXml);
+    }
+    catch
+    {
+        AddError("Verifiquei que seu XML esta inválido");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+    var documento = new DanfeNfceDocument(model.Xml, model.LogoBytes);
+    documento.TamanhoImpressao(model.TamanhoImpressao);
+
+    var documentoBytes = documento.GeneratePdf();
+
+    var base64Pdf = Convert.ToBase64String(documentoBytes);
+
+    return Task.FromResult<IActionResult>(CustomResponse(new RetornaPdfBase64(base64Pdf)));
+}
+```
+
+Carta Correção ou eventos
+
+```cs
+[HttpPost("carta-correcao")]
+[Produces("application/json")]
+[ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+[ProducesResponseType(200)]
+public Task<IActionResult> GerarDanfeCce([FromBody] NotaFiscalCartaCorrecaoImprimirModel model)
+{
+    if (string.IsNullOrEmpty(model.XmlNfe))
+    {
+        AddError("Selecione um XML de NF-e");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+    if (string.IsNullOrEmpty(model.XmlCartaCorrecao))
+    {
+        AddError("Selecione um XML de Carta Correção de NF-e");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+
+    var documento = new EventoNfeDocument(model.XmlNfe, model.XmlCartaCorrecao, model.LogoBytes);
+
+    var documentoBytes = documento.GeneratePdf();
+
+    var base64Pdf = Convert.ToBase64String(documentoBytes);
+
+    return Task.FromResult<IActionResult>(CustomResponse(new RetornaPdfBase64(base64Pdf)));
+}
+```
+
+
+## Impressão (PDFClown):
+
+a base foi obtida daqui https://github.com/Laranjeiras/Zion.NFe.Danfe?tab=readme-ov-file esse por sua vez foi obtido daqui https://github.com/SilverCard/DanfeSharp
+funciona apenas em .net 6 core por hora
+
+```cs
+[namespace Fiscal.Impressao.API.Controllers
+{
+    public record DanfeViewModel(string Base64Pdf);
+
+    public static class ImprimirDanfeService
+    {
+        public static byte[] GerarZionPdf(string xmlNfeProc, byte[]? logoMarca)
+        {
+            xmlNfeProc = xmlNfeProc.Replace("\u00a0", " ");
+            var model = DanfeViewModelCreator.CriarDeStringXml(xmlNfeProc);
+
+            using var pdfStream = new MemoryStream();
+            using (var danfe = new DanfeDoc(model))
+            {
+                if (logoMarca != null)
+                {
+                    using var logo = new MemoryStream(logoMarca);
+                    {
+                        danfe.AdicionarLogoImagem(logo);
+                    }
+                }
+                danfe.Gerar();
+                return danfe.ObterPdfBytes(pdfStream);
+            }
+        }
+    }
+
+    public class XmlDto
+    {
+        public string Xml { get; set; }
+        public byte[]? LogoBytes { get; set; }
+    }
+
+    [ApiController]
+    [Route("imprimir-danfe")]
+    public class ImprimirController : ApiController
+    {
+        [HttpPost("")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GerarDanfe([FromBody] XmlDto xml)
+        {
+            if (string.IsNullOrEmpty(xml.Xml))
+            {
+                AddError("Selecione um XML de NF-e");
+                return CustomResponse();
+            }
+
+            var stringXml = xml.Xml;
+
+            nfeProc nfeProc;
+
+            try
+            {
+                nfeProc = FuncoesXml.XmlStringParaClasse<nfeProc>(stringXml);
+            }
+            catch
+            {
+                AddError("Verifiquei que seu XML esta inválido");
+                return CustomResponse();
+            }
+
+
+            var pdfStream = ImprimirDanfeService.GerarZionPdf(nfeProc.ObterXmlString(), xml.LogoBytes);
+
+
+            var base64Pdf = Convert.ToBase64String(pdfStream);
+
+            return CustomResponse(new DanfeViewModel(base64Pdf));
+        }
+    }
+}
+```
+
+
+
 ## Impressão (FastReport):
 
 - Exemplo no Projeto *NFe.Danfe.AppTeste.Fast*.
