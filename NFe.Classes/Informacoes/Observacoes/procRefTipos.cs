@@ -54,11 +54,15 @@ namespace NFe.Classes.Informacoes.Observacoes
     ///     <para>08=Termo de Acordo;</para>
     ///     <para>10=Regime Especial;</para>
     ///     <para>12=Autorização específica;</para>
+    ///     <para>13=Ajuste SINIEF;</para>
+    ///     <para>14=Convênio ICMS;</para>
     /// </summary>
     public enum TipoAtoConcessorio
     {
         [XmlEnum("8")] termoAcordo = 8,
         [XmlEnum("10")] regimeEspecial = 10,
-        [XmlEnum("12")] autorizacaoEspecifica = 12
+        [XmlEnum("12")] autorizacaoEspecifica = 12,
+        [XmlEnum("13")] ajusteSINIEF = 13,
+        [XmlEnum("14")] convenioICMS = 14
     }
 }
