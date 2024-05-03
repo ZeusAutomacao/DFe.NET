@@ -28,12 +28,12 @@
 /*                                                                              */
 /* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
 /* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco José da Cunha, 111 - Itabaiana - SE - 49500-000     */
+/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
 using System;
 using DFe.Utils;
-using MDFe.Classes.Extensoes;
+using MDFe.Classes.Extencoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Classes.Retorno.MDFeRetRecepcao.Sincrono;
@@ -50,13 +50,11 @@ namespace MDFe.Servicos.RecepcaoMDFe
         public event EventHandler<AntesDeEnviar> AntesDeEnviar;
         public event EventHandler<string> GerouChave; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
+        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, config);
-
-            switch (config.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
@@ -68,45 +66,43 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina(GerouChave, this, config);
+            enviMDFe.MDFe.Assina(GerouChave, this);
 
-            if (config.IsAdicionaQrCode && config.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFeSupl = mdfe.QrCode(config.X509Certificate2);
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
             }
 
-            enviMDFe.Valida(config);
-            enviMDFe.SalvarXmlEmDisco(config);
+            enviMDFe.Valida();
+            enviMDFe.SalvarXmlEmDisco();
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
 
             OnAntesDeEnviar(enviMDFe);
 
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco(config);
+            retorno.SalvarXmlEmDisco();
 
             return retorno;
         }
 
-        public MDFeRetMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
+        public MDFeRetMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe)
         {
-            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
-
             mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
             mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
-            mdfe.Assina(GerouChave, this, config);
+            mdfe.Assina(GerouChave, this);
 
-            if (config.IsAdicionaQrCode)
+            if (MDFeConfiguracao.IsAdicionaQrCode)
             {
-                mdfe.InfMDFeSupl = mdfe.QrCode(config.X509Certificate2);
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
             }
 
-            mdfe.Valida(config);
-            mdfe.SalvarXmlEmDisco(null, config);
+            mdfe.Valida();
+            mdfe.SalvarXmlEmDisco();
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc(config);
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc();
             var retornoXml = webService.mdfeRecepcao(mdfe.CriaXmlRequestWs());
 
             var retorno = MDFeRetMDFe.LoadXml(retornoXml.OuterXml, mdfe);
