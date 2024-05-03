@@ -37,9 +37,12 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
 {
     public class ICMS53 : ICMSBasico
     {
-        private decimal _adRemICMSDif;
+        private decimal _adRemICMS;
         private decimal _vICMSMonoDif;
-        private decimal _qBCMonoDif;
+        private decimal _vICMSMonoOp;
+        private decimal _pDif;
+        private decimal _qBCMono;
+        private decimal _vICMSMono;
 
         /// <summary>
         ///     N11 - Origem da Mercadoria
@@ -54,33 +57,63 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         public Csticms CST { get; set; }
 
         /// <summary>
-        ///     N41a - Quantidade tributada diferida
+        ///     N37a - Quantidade tributada diferida (qBCMono)
         /// </summary>
         [XmlElement(Order = 3)]
-        public decimal qBCMonoDif
+        public decimal qBCMono
         {
-            get { return _qBCMonoDif; }
-            set { _qBCMonoDif = value.Arredondar(4); }
+            get { return _qBCMono; }
+            set { _qBCMono = value.Arredondar(4); }
         }
 
         /// <summary>
-        ///     N42 - Alíquota ad rem do imposto diferido
+        ///     N38 - Alíquota ad rem do imposto diferido (adRemICMS)
         /// </summary>
         [XmlElement(Order = 4)]
-        public decimal adRemICMSDif
+        public decimal adRemICMS
         {
-            get { return _adRemICMSDif; }
-            set { _adRemICMSDif = value.Arredondar(4); }
+            get { return _adRemICMS; }
+            set { _adRemICMS = value.Arredondar(4); }
+        }
+
+        /// <summary>
+        ///     N41a - Valor do ICMS da operação 
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public decimal vICMSMonoOp
+        {
+            get { return _vICMSMonoOp.Arredondar(2); }
+            set { _vICMSMonoOp = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        ///     N42 - Percentual do diferimento 
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public decimal pDif
+        {
+            get { return _pDif.Arredondar(2); }
+            set { _pDif = value.Arredondar(4); }
         }
 
         /// <summary>
         ///     N43 - Valor do ICMS diferido 
         /// </summary>
-        [XmlElement(Order = 5)]
+        [XmlElement(Order = 7)]
         public decimal vICMSMonoDif
         {
             get { return _vICMSMonoDif.Arredondar(2); }
             set { _vICMSMonoDif = value.Arredondar(2); }
+        }
+
+        /// <summary>
+        ///     N39 - Valor do ICMS próprio devido
+        /// </summary>
+        [XmlElement(Order = 8)]
+        public decimal vICMSMono
+        {
+            get { return _vICMSMono.Arredondar(2); }
+            set { _vICMSMono = value.Arredondar(2); }
         }
     }
 }
