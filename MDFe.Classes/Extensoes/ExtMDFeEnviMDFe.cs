@@ -71,6 +71,14 @@ namespace MDFe.Classes.Extencoes
             return dadosEnvio;
         }
 
+        public static XmlDocument CriaXmlRequestWs(this Informacoes.MDFe mdfe)
+        {
+            var dadosEnvio = new XmlDocument();
+            dadosEnvio.LoadXml(mdfe.XmlString());
+
+            return dadosEnvio;
+        }
+
         public static string XmlString(this MDFeEnviMDFe enviMDFe)
         {
             var xmlString = FuncoesXml.ClasseParaXmlString(enviMDFe);

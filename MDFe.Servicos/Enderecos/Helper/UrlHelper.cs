@@ -49,7 +49,8 @@ namespace MDFe.Servicos.Enderecos.Helper
                             MDFeRetRecepcao = "https://mdfe.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx",
                             MDFeConsulta = "https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx",
                             MDFeRecepcaoEvento = "https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx",
-                            MDFeRecepcao = "https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx"
+                            MDFeRecepcao = "https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx",
+                            MDFeRecepcaoSinc = "https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx"
                         };
                     case TipoAmbiente.Homologacao:
                         return new UrlMDFe
@@ -59,7 +60,8 @@ namespace MDFe.Servicos.Enderecos.Helper
                             MDFeRecepcao = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx",
                             MDFeRecepcaoEvento = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx",
                             MDFeRetRecepcao = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx",
-                            MDFeStatusServico = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx"
+                            MDFeStatusServico = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx",
+                            MDFeRecepcaoSinc = "https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx"
                         };
             }
 
