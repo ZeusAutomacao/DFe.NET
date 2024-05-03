@@ -93,7 +93,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
-            if (retConsulta.loteDistDFeInt != null)
+            if (retConsulta.loteDistDFeInt != null && configServico.UnZip)
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
@@ -150,7 +150,7 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #region Obtém um retDistDFeInt de cada evento e salva em arquivo
 
-            if (retConsulta.loteDistDFeInt != null)
+            if (retConsulta.loteDistDFeInt != null && configServico.UnZip)
             {
                 for (int i = 0; i < retConsulta.loteDistDFeInt.Length; i++)
                 {
@@ -222,7 +222,8 @@ namespace CTe.Servicos.DistribuicaoDFe
 
             #endregion
 
-            pedDistDFeInt.ValidaSchema(configuracaoServico);
+            if (configuracaoServico.IsValidaSchemas)
+                pedDistDFeInt.ValidaSchema(configuracaoServico);
 
             var xmlConsulta = pedDistDFeInt.ObterXmlString();
 

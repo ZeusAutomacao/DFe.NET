@@ -143,7 +143,7 @@ namespace NFe.Servicos
         ///     Consulta o status do Serviço de NFe
         /// </summary>
         /// <returns>Retorna um objeto da classe RetornoNfeStatusServico com os dados status do serviço</returns>
-        public RetornoNfeStatusServico NfeStatusServico()
+        public RetornoNfeStatusServico NfeStatusServico(bool exceptionCompleta = false)
         {
             var versaoServico = ServicoNFe.NfeStatusServico.VersaoServicoParaString(_cFgServico.VersaoNfeStatusServico);
 
@@ -192,6 +192,10 @@ namespace NFe.Servicos
             }
             catch (WebException ex)
             {
+                if (exceptionCompleta)
+                {
+                    throw;
+                }
                 throw FabricaComunicacaoException.ObterException(ServicoNFe.NfeStatusServico, ex);
             }
 
@@ -992,7 +996,7 @@ namespace NFe.Servicos
 
             #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
-            if (retConsulta.loteDistDFeInt != null)
+            if (retConsulta.loteDistDFeInt != null && _cFgServico.UnZip)
             {
                 foreach (var dFeInt in retConsulta.loteDistDFeInt)
                 {

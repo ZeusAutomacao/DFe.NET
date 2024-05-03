@@ -38,6 +38,10 @@
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="190,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
+                                    <RadioButton x:Name="RdbCompleto" Content="Completo"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                     Margin="280,5,0,0"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaNormal, ConverterParameter={x:Static base:NfceDetalheVendaNormal.Completo}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
 
@@ -51,6 +55,10 @@
                                                      HorizontalAlignment="Left" VerticalAlignment="Top"
                                                      Margin="108,5,0,0"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static base:NfceDetalheVendaContigencia.DuasLinhas}, Converter={StaticResource EnumParaBool}}" />
+                                    <RadioButton Content="Completo"
+                                                     HorizontalAlignment="Left" VerticalAlignment="Top"
+                                                     Margin="200,5,0,0"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.DetalheVendaContigencia, ConverterParameter={x:Static base:NfceDetalheVendaContigencia.Completo}, Converter={StaticResource EnumParaBool}}" />
                                 </Grid>
                             </GroupBox>
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using DFe.Testes.Impostos.DadosDeTeste;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
@@ -147,9 +149,121 @@ namespace DFe.Testes.Impostos
             Assert.AreEqual(Convert.ToDecimal(pCredSN), tagICMSGerada.pCredSN);
             Assert.AreEqual(Convert.ToDecimal(vCredICMSSN), tagICMSGerada.vCredICMSSN);
         }
-        
+
         //TODO: Falta criar os métodos de testes dos demais CSOSNs do ICMS (CTR = Simples)
 
+        #endregion
+
+        #region CST 61 - Tributação Monofásica Sobre os Combustíveis
+
+        [TestMethod]
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributariosParaCst61), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
+        [DisplayName("Dado CST 61 quando obter ICMS então ICMS deve conter campos de tributação monofásica sobre combustíveis preenchidos")]
+        public void DadoCST61QuandoObterICMSEntaoICMSDeveConterCamposDeTributacaoMonofasicaSobreCombustiveisPreenchidos(CRT crt, OrigemMercadoria origem, object vICMSMonoRet, object adRemICMSRet, object qBCMonoRet)
+        {
+            /** 1) Preparação **/
+            var icmsGeral = new ICMSGeral()
+            {
+                orig = origem,
+                CST = Csticms.Cst61,
+                vICMSMonoRet = Convert.ToDecimal(vICMSMonoRet),
+                adRemICMSRet = Convert.ToDecimal(adRemICMSRet),
+                qBCMonoRet = Convert.ToDecimal(qBCMonoRet)
+            };
+
+            /** 2) Execução **/
+            var tagGerada = icmsGeral.ObterICMSBasico(crt);
+
+            /** 2) Veerificação **/
+            /** 2.1) Garante que o tipo da classe gerada foi correta**/
+            Assert.IsInstanceOfType(tagGerada, typeof(ICMS61));
+
+            /** 2.2) Garante que o conteúdo repassado para as propriedades estejam corretos **/
+            var tagICMSGerada = (tagGerada as ICMS61);
+            Assert.AreEqual(origem, tagICMSGerada.orig);
+            Assert.AreEqual(Csticms.Cst61, tagICMSGerada.CST);
+            Assert.AreEqual(Convert.ToDecimal(vICMSMonoRet), tagICMSGerada.vICMSMonoRet);
+            Assert.AreEqual(Convert.ToDecimal(adRemICMSRet), tagICMSGerada.adRemICMSRet);
+            Assert.AreEqual(Convert.ToDecimal(qBCMonoRet), tagICMSGerada.qBCMonoRet);
+        }
+
+        [TestMethod]
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributariosParaCst61), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
+        [DisplayName("Dado CST 61 quando obter ICMS então ICMS não deve ter campos que não sejam da tributação monofásica sobre combustíveis preenchidos")]
+        public void DadoCST61QuandoObterIcmsEntaoIcmsNaoDeveTerCamposQueNaoSejamDaTributacaoMonofasicaSobreCombustiveisPreenchidos(CRT crt, OrigemMercadoria origem, object vICMSMonoRet, object adRemICMSRet, object qBCMonoRet)
+        {
+            /** 1) Preparação **/
+            var icmsGeral = new ICMSGeral()
+            {
+                orig = origem,
+                CST = Csticms.Cst61,
+                vICMSMonoRet = Convert.ToDecimal(vICMSMonoRet),
+                adRemICMSRet = Convert.ToDecimal(adRemICMSRet),
+                qBCMonoRet = Convert.ToDecimal(qBCMonoRet)
+            };
+
+            /** 2) Execução **/
+            icmsGeral.ObterICMSBasico(crt);
+
+            /** 2) Verificação **/
+            VerificarSeNaoFoiPreenchidaOutroCampoQueNaoSejaCamposDaCst61(icmsGeral);
+        }
+
+        private void VerificarSeNaoFoiPreenchidaOutroCampoQueNaoSejaCamposDaCst61(ICMSGeral icmsGeral)
+        {
+            Assert.AreEqual(icmsGeral.pCredSN, 0);
+            Assert.AreEqual(icmsGeral.vCredICMSSN, 0);
+            Assert.AreEqual(icmsGeral.vBC, 0);
+            Assert.AreEqual(icmsGeral.pICMS, 0);
+            Assert.AreEqual(icmsGeral.vICMS, 0);
+            Assert.IsNull(icmsGeral.pFCP);
+            Assert.IsNull(icmsGeral.vFCP);
+            Assert.IsNull(icmsGeral.vBCFCP);
+        }
+
+        [TestMethod]
+        [DynamicData(nameof(ICMSGeralDadosDeTeste.ObterRegimesTributarios), typeof(ICMSGeralDadosDeTeste), DynamicDataSourceType.Method)]
+        [DisplayName("Dado CST 61 quando gerar ICMS então ICMS deve ser do tipo ICMS 61 e nenhum outro")]
+        public void DadoCST61QuandoGerarICMSEntaoICMSDeveSerDoTipoICMS61ENenhumOutro(CRT crt)
+        {
+            /** 1) Preparação **/
+            var icmsGeral = new ICMSGeral()
+            {
+                CST = Csticms.Cst61
+            };
+
+            /** 2) Execução **/
+            var tagGerada = icmsGeral.ObterICMSBasico(crt);
+
+            /** 2) Verificação **/
+            VerificarSeFoiGeradoIcms61(tagGerada);
+        }
+
+        private void VerificarSeFoiGeradoIcms61(ICMSBasico tagGerada)
+        {
+            Assert.IsInstanceOfType(tagGerada, typeof(ICMS61));
+
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS00));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS02));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS10));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS15));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS20));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS30));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS40));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS51));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS53));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS51));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS60));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS70));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMS90));
+
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN101));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN102));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN201));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN202));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN500));
+            Assert.IsNotInstanceOfType(tagGerada, typeof(ICMSSN900));
+        }
         #endregion
     }
 }

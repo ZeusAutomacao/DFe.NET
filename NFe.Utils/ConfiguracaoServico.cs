@@ -58,6 +58,7 @@ namespace NFe.Utils
         private TipoEmissao _tpEmis;
         private ModeloDocumento _modeloDocumento;
         private bool _defineVersaoServicosAutomaticamente = true;
+        private bool _unZip = true;
         private VersaoServico _versaoRecepcaoEventoCceCancelamento;
         private VersaoServico _versaoRecepcaoEventoEpec;
         private VersaoServico _versaoRecepcaoEventoManifestacaoDestinatario;
@@ -196,6 +197,24 @@ namespace NFe.Utils
                 AtualizaVersoes();
             }
         }
+        
+        /// <summary>
+        /// Valor True, será descompactado os arquivos,
+        /// Valor False, os valor não será descompactado e a classes não serão preenchidas
+        /// </summary>
+        public bool UnZip
+        {
+            get
+            {
+                return _unZip;
+            }
+            set
+            {
+                _unZip = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         /// <summary>
         /// Atualiza as versões dos serviços
