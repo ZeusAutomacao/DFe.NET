@@ -61,7 +61,7 @@ namespace NFe.Utils.Enderecos
         /// <returns></returns>
         public static List<Estado> EstadosQueUsamSvcAnParaNfe()
         {
-            return new List<Estado> { Estado.AC, Estado.AL, Estado.AP, Estado.DF, Estado.ES, Estado.MG, Estado.PB, Estado.RJ, Estado.RN, Estado.RO, Estado.RR, Estado.RS, Estado.SC, Estado.SE, Estado.SP, Estado.TO };
+            return new List<Estado> { Estado.AC, Estado.AL, Estado.AP, Estado.CE, Estado.DF, Estado.ES, Estado.MG, Estado.PA, Estado.PB, Estado.PI, Estado.RJ, Estado.RN, Estado.RO, Estado.RR, Estado.RS, Estado.SC, Estado.SE, Estado.SP, Estado.TO };
         }
 
         /// <summary>
