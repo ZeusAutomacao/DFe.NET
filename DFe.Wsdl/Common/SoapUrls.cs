@@ -33,6 +33,8 @@ namespace CTe.CTeOSDocumento.Soap
                     return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeStatusServico";
                 case TipoEvento.MDFeRecepcao:
                     return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcao";
+                case TipoEvento.MDFeRecepcaoSinc:
+                    return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRecepcaoSinc";
                 case TipoEvento.MDFeRetRecepcao:
                     return "http://www.portalfiscal.inf.br/mdfe/wsdl/MDFeRetRecepcao";
                 case TipoEvento.MDFeNaoEncerrado:

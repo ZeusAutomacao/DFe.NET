@@ -815,7 +815,7 @@ namespace MDFe.AppTeste
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
-            var retornoEnvio = servicoRecepcao.MDFeRecepcao(1, mdfe);
+            var retornoEnvio = servicoRecepcao.MDFeRecepcaoSinc(mdfe);
 
             OnSucessoSync(new RetornoEEnvio(retornoEnvio));
 

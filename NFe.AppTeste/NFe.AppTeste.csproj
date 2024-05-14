@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -999,6 +1001,20 @@
       <Project>{3e75202b-5aad-4f07-98b5-46b106678ca7}</Project>
       <Name>NFe.Utils</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Schemas\e110192_v1.00.xsd" />
+    <Content Include="Schemas\e110193_v1.00.xsd" />
+    <Content Include="Schemas\envEventoCancInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\envEventoInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\EventoCancInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\EventoInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\leiauteEventoCancInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\leiauteEventoInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\procEventoCancInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\procEventoInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\retEventoCancInsucessoNFe_v1.00.xsd" />
+    <Content Include="Schemas\retEventoInsucessoNFe_v1.00.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

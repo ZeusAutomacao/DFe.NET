@@ -36,6 +36,7 @@ using DFe.Utils;
 using MDFe.Classes.Extencoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
+using MDFe.Classes.Retorno.MDFeRetRecepcao.Sincrono;
 using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Servicos.Factory;
 using MDFe.Utils.Configuracoes;
@@ -85,6 +86,27 @@ namespace MDFe.Servicos.RecepcaoMDFe
             retorno.SalvarXmlEmDisco();
 
             return retorno;
+        }
+
+        public MDFeRetMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe)
+        {
+            mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
+            mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
+            mdfe.Assina(GerouChave, this);
+
+            if (MDFeConfiguracao.IsAdicionaQrCode)
+            {
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
+            }
+
+            mdfe.Valida();
+            mdfe.SalvarXmlEmDisco();
+
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc();
+            var retornoXml = webService.mdfeRecepcao(mdfe.CriaXmlRequestWs());
+
+            var retorno = MDFeRetMDFe.LoadXml(retornoXml.OuterXml, mdfe);
+            return retorno;           
         }
 
         protected virtual void OnAntesDeEnviar(MDFeEnviMDFe enviMdfe)
