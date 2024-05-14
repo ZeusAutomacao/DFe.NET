@@ -46,16 +46,16 @@ namespace MDFe.Servicos.EventosMDFe
         {
             var eventoMDFe = new MDFeEventoMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
                 InfEvento = new MDFeInfEvento
                 {
                     Id = "ID" + (long)tipoEvento + MDFe.Chave() + sequenciaEvento.ToString("D2"),
-                    TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                    TpAmb = MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente,
                     COrgao = MDFe.UFEmitente(),
                     ChMDFe = MDFe.Chave(),
                     DetEvento = new MDFeDetEvento
                     {
-                        VersaoServico = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                        VersaoServico = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
                         EventoContainer = evento
                     },
                     DhEvento = DateTime.Now,

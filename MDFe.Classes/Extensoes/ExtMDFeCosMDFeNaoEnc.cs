@@ -52,7 +52,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlValidacao = consMdFeNaoEnc.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     Validador.Valida(xmlValidacao, "consMDFeNaoEnc_v1.00.xsd");
@@ -73,9 +73,9 @@ namespace MDFe.Classes.Extensoes
 
         public static void SalvarXmlEmDisco(this MDFeCosMDFeNaoEnc cosMdFeNaoEnc)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, cosMdFeNaoEnc.CNPJ + "-ped-sit.xml");
 

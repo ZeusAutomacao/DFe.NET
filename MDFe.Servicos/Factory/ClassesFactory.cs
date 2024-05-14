@@ -54,8 +54,8 @@ namespace MDFe.Servicos.Factory
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente,
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
@@ -87,8 +87,8 @@ namespace MDFe.Servicos.Factory
         {
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
+                TpAmb = MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
             };
@@ -159,7 +159,7 @@ namespace MDFe.Servicos.Factory
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout
             };
 
             return enviMdfe;
@@ -169,8 +169,8 @@ namespace MDFe.Servicos.Factory
         {
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
+                TpAmb = MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente,
                 NRec = numeroRecibo
             };
 
@@ -181,8 +181,8 @@ namespace MDFe.Servicos.Factory
         {
             return new MDFeConsStatServMDFe
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente,
+                Versao = MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
             };
         }

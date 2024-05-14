@@ -12,7 +12,7 @@ namespace MDFe.Classes.Extensoes
         {
             var ev = evIncDFeMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao300:
                     Validador.Valida(ev, "evPagtoOperMDFe_v3.00.xsd");

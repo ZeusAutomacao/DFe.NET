@@ -42,9 +42,9 @@ namespace MDFe.Classes.Extensoes
     {
         public static void SalvarXmlEmDisco(this MDFeRetConsSitMDFe retConsSitMdFe, string chave)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml,  chave + "-sit.xml");
 

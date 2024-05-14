@@ -42,7 +42,7 @@ namespace MDFe.Utils.Validacao
     {
         public static void Valida(string xml, string schema)
         {
-            var pathSchema = MDFeConfiguracao.CaminhoSchemas;
+            var pathSchema = MDFeConfiguracao.Instancia.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);

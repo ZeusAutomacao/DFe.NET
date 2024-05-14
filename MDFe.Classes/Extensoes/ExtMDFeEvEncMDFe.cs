@@ -45,7 +45,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlEncerramento = evEncMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     Validador.Valida(xmlEncerramento, "evEncMDFe_v1.00.xsd");

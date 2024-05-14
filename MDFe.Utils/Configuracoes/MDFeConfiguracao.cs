@@ -41,38 +41,47 @@ using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 
 namespace MDFe.Utils.Configuracoes
 {
-    public class MDFeConfiguracao : IDisposable 
+    public class MDFeConfiguracao : IDisposable
     {
-        private static MDFeVersaoWebService _versaoWebService;
+        private static volatile MDFeConfiguracao _instancia;
+        private static readonly object SyncRoot = new object();
+
+        private MDFeVersaoWebService _versaoWebService;
 
         public MDFeConfiguracao()
         {
             VersaoWebService = new MDFeVersaoWebService();
+            ConfiguracaoCertificado = new ConfiguracaoCertificado();
         }
 
-        public static ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
+        static MDFeConfiguracao()
+        {
+        }
 
-        public static bool IsSalvarXml { get; set; }
-        public static string CaminhoSchemas { get; set; }
-        public static string CaminhoSalvarXml { get; set; }
-        public static bool IsAdicionaQrCode { get; set; }
+        public ConfiguracaoCertificado ConfiguracaoCertificado { get; set; }
 
-        public static MDFeVersaoWebService VersaoWebService
+        public bool IsSalvarXml { get; set; }
+        public string CaminhoSchemas { get; set; }
+        public string CaminhoSalvarXml { get; set; }
+        public bool IsAdicionaQrCode { get; set; }
+
+        public MDFeVersaoWebService VersaoWebService
         {
             get { return GetMdfeVersaoWebService(); }
             set { _versaoWebService = value; }
         }
 
-        private static MDFeVersaoWebService GetMdfeVersaoWebService()
+        private MDFeVersaoWebService GetMdfeVersaoWebService()
         {
-            if(_versaoWebService == null)
+            if (_versaoWebService == null)
                 _versaoWebService = new MDFeVersaoWebService();
 
             return _versaoWebService;
         }
 
-        private static X509Certificate2 _certificado = null;
-        public static X509Certificate2 X509Certificate2
+        private X509Certificate2 _certificado = null;
+
+        public X509Certificate2 X509Certificate2
         {
             get
             {
@@ -84,12 +93,12 @@ namespace MDFe.Utils.Configuracoes
             }
         }
 
-        public static bool NaoSalvarXml()
+        public bool NaoSalvarXml()
         {
             return !IsSalvarXml;
         }
 
-        private static X509Certificate2 ObterCertificado()
+        private X509Certificate2 ObterCertificado()
         {
             return CertificadoDigital.ObterCertificado(ConfiguracaoCertificado);
         }
@@ -110,6 +119,32 @@ namespace MDFe.Utils.Configuracoes
                 _certificado.Reset();
                 _certificado = null;
             }
+        }
+
+        /// <summary>
+        ///     Instância do Singleton de MDFeConfiguracao
+        /// </summary>
+        public static MDFeConfiguracao Instancia
+        {
+            get
+            {
+                if (_instancia != null) return _instancia;
+                lock (SyncRoot)
+                {
+                    if (_instancia != null) return _instancia;
+                    _instancia = new MDFeConfiguracao();
+                }
+
+                return _instancia;
+            }
+        }
+
+        /// <summary>
+        ///     Limpa a instancia atual caso exista
+        /// </summary>
+        public static void LimparIntancia()
+        {
+            _instancia = null;
         }
     }
 

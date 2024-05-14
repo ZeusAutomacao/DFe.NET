@@ -54,7 +54,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
         {
             var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
@@ -68,9 +68,9 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             enviMDFe.MDFe.Assina(GerouChave, this);
 
-            if (MDFeConfiguracao.IsAdicionaQrCode && MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.IsAdicionaQrCode && MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
             }
 
             enviMDFe.Valida();
@@ -94,9 +94,9 @@ namespace MDFe.Servicos.RecepcaoMDFe
             mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
             mdfe.Assina(GerouChave, this);
 
-            if (MDFeConfiguracao.IsAdicionaQrCode)
+            if (MDFeConfiguracao.Instancia.IsAdicionaQrCode)
             {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.X509Certificate2);
+                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
             }
 
             mdfe.Valida();
