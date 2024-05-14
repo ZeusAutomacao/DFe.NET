@@ -1,0 +1,118 @@
+name: DFe.NET_build
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+      nugetdeploy:
+        type: boolean
+        description: 'Deploy Nuget ?'
+  push:
+    branches: 
+      - 'master'
+  pull_request:
+    types: [opened, reopened]
+    branches:    
+      - 'master'
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    outputs:
+      version: ${{ steps.date.outputs.date }}
+    strategy:
+      matrix:
+    #    os: [ ubuntu-latest, windows-latest, macos-latest ]
+        os: [ windows-2022 ]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Setando Versao
+      id: date
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      
+    - name: Versao
+      run: echo ${{ steps.date.outputs.date }}
+      
+    - name: Setup .NET 6.0.x
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    
+    - name: Build/Restore Base
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Classes\DFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Utils\DFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\DFe.Wsdl\DFe.Wsdl.csproj" -c "Release"
+    - name: Build/Restore NFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Classes\NFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Servicos\NFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Utils\NFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl\NFe.Wsdl.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Wsdl.Standard\NFe.Wsdl.Standard.csproj" -c "Release"
+        
+    - name: Build/Restore MDFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Classes\MDFe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Servicos\MDFe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Utils\MDFe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\MDFe.Wsdl\MDFe.Wsdl.csproj" -c "Release"
+        
+    - name: Build/Restore MDFe
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Classes\CTe.Classes.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Servicos\CTe.Servicos.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Utils\CTe.Utils.csproj" -c "Release"
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Wsdl\CTe.Wsdl.csproj" -c "Release"
+        
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
+    
+    - name: Pack
+      run: | 
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: nupkg
+        path: ${{ github.workspace }}/*.nupkg
+        
+  deploy:
+    needs: build
+    if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
+    runs-on: ${{ 'ubuntu-latest' }}
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: nupkg
+          path: ${{ github.workspace }}
+          
+      - name: List Artifacts
+        run: dir
+    
+      - name: Setup Nuget
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0.x
+          
+      - name: Push to NuGet Feed
+        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
+          
+      - name: Discord notification
+        continue-on-error: true
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusNfeNfce'
