@@ -35,7 +35,7 @@ using System.Threading.Tasks;
 using CTe.Classes;
 using CTe.Classes.Servicos.Consulta;
 using CTe.Servicos.Factory;
-using CTe.Utils.Extencoes;
+using CTe.Utils.Extensoes;
 
 namespace CTe.Servicos.ConsultaProtocolo
 {

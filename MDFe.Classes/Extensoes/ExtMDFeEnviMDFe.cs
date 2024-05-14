@@ -40,7 +40,7 @@ using MDFe.Utils.Configuracoes;
 using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeEnviMDFe
     {

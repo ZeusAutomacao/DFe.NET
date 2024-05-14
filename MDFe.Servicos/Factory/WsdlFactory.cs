@@ -33,7 +33,7 @@
 
 using CTe.CTeOSDocumento.Common;
 using DFe.Classes.Extensoes;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Servicos.Enderecos.Helper;
 using MDFe.Utils.Configuracoes;
 using MDFe.Wsdl.Gerado.MDFeStatusServico;
