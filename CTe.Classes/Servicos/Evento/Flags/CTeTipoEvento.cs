@@ -58,6 +58,8 @@ namespace CTe.Classes.Servicos.Evento.Flags
         RegistrodePassagem = 310620,
         [XmlEnum("510620")]
         RegistrodePassagemAutomatico = 510620,
+        [XmlEnum("510630")]
+        RegistrodePassagemAutomatico2 = 510630,
         [XmlEnum("310610")]
         MDFeAutorizado = 310610,
         [XmlEnum("310611")]
