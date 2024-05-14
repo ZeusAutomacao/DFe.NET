@@ -36,6 +36,7 @@ namespace MDFe.Servicos.Enderecos
     {
         public string MDFeRecepcao { get; set; }
         public string MDFeRetRecepcao { get; set; }
+        public string MDFeRecepcaoSinc { get; set; }
         public string MDFeRecepcaoEvento { get; set; }
         public string MDFeConsulta { get; set; }
         public string MDFeStatusServico { get; set; }

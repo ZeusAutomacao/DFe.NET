@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDFe.Damdfe.Base", "MDFe.Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDFe.Damdfe.AppTeste", "MDFe.Damdfe.AppTeste\MDFe.Damdfe.AppTeste.csproj", "{E34320D9-C822-41CF-B11D-C4B64001748B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Nativo", "NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj", "{BA27D218-484B-4F08-BAB9-38C02181BDED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.Nativo", "NFe.Danfe.Nativo\NFe.Danfe.Nativo.csproj", "{BA27D218-484B-4F08-BAB9-38C02181BDED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CTe", "CTe", "{FE769B0F-5C0F-4A54-81F6-CF878ACCAB3D}"
 EndProject
@@ -115,9 +115,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTe.Dacte.OpenFast", "CTe.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.Fast.Skia", "NFe.Danfe.Fast.Skia\NFe.Danfe.Fast.Skia.csproj", "{7F95E157-C567-451F-A250-9645BE3F9497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.Html", "NFe.Danfe.Html\NFe.Danfe.Html.csproj", "{3CDB91BD-EEF4-4808-83AC-E45B1FE7570C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.Html", "NFe.Danfe.Html\NFe.Danfe.Html.csproj", "{3CDB91BD-EEF4-4808-83AC-E45B1FE7570C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFe.Danfe.App.Teste.Html", "NFe.Danfe.App.Teste.Html\NFe.Danfe.App.Teste.Html.csproj", "{18429710-19E2-480F-8B3A-39FB6FC7AF19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NFe.Danfe.App.Teste.Html", "NFe.Danfe.App.Teste.Html\NFe.Danfe.App.Teste.Html.csproj", "{18429710-19E2-480F-8B3A-39FB6FC7AF19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
