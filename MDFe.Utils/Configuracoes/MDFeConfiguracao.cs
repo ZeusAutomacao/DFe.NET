@@ -137,6 +137,14 @@ namespace MDFe.Utils.Configuracoes
 
                 return _instancia;
             }
+            set
+            {
+                lock (SyncRoot)
+                {
+                    if (value != null)
+                        _instancia = value;
+                }
+            }
         }
 
         /// <summary>
