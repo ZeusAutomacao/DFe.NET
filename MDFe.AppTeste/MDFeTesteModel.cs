@@ -612,7 +612,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -640,7 +640,7 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -722,7 +722,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -738,7 +738,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -766,7 +766,7 @@ namespace MDFe.AppTeste
 
             #region Produto Predominante
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.prodPred = new prodPred
                 {
@@ -898,7 +898,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
@@ -927,7 +927,7 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
@@ -1011,7 +1011,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -1027,7 +1027,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -1379,17 +1379,17 @@ namespace MDFe.AppTeste
                 ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
             };
 
-            MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.Instancia.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.Instancia.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.Instancia.IsSalvarXml = config.IsSalvarXml;
 
-            MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
-            MDFeConfiguracao.IsAdicionaQrCode = true;
+            MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.Instancia.IsAdicionaQrCode = true;
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)
