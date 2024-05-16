@@ -30,43 +30,33 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.IO;
-using CTe.Classes;
+
 using CTe.Classes.Servicos.Status;
 using DFe.Utils;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
-    public static class ExtretConsStatServCte
+    public static class ExtretConsStatServ
     {
-        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Carrega um objeto do tipo retConsStatServ a partir de uma string no formato XML
+        /// </summary>
+        /// <param name="retConsStatServ"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto retConsStatServ com as informações da string XML</returns>
+        public static retConsStatServCte CarregarDeXmlString(this retConsStatServCte retConsStatServ, string xmlString)
         {
-            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, DateTime.Now.ParaDataHoraString() + "-sta.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
+            return FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xmlString);
         }
-    }
 
-    public static class ExtretConsStatServCTe
-    {
-        public static void SalvarXmlEmDisco(this retConsStatServCTe retConsStatServCte, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Converte um objeto do tipo retConsStatServ para uma string no formato XML com os dados do objeto
+        /// </summary>
+        /// <param name="retConsStatServ"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsStatServ</returns>
+        public static string ObterXmlString(this retConsStatServCte retConsStatServ)
         {
-            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, DateTime.Now.ParaDataHoraString() + "-sta.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
+            return FuncoesXml.ClasseParaXmlString(retConsStatServ);
         }
     }
 }

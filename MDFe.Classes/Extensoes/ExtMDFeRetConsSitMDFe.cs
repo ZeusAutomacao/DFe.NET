@@ -36,7 +36,7 @@ using DFe.Utils;
 using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using MDFe.Utils.Configuracoes;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeRetConsSitMDFe
     {

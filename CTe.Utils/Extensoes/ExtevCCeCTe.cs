@@ -34,18 +34,18 @@
 using CTe.Classes.Servicos.Evento;
 using DFe.Utils;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
-    public static class ExtevPrestDesacordo
+    public static class ExtevCCeCTe
     {
         /// <summary>
         ///     Converte o objeto evento para uma string no formato XML
         /// </summary>
-        /// <param name="eventoDesacordoOperacao"></param>
+        /// <param name="eventoCancelamento"></param>
         /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
-        public static string ObterXmlString(this evPrestDesacordo evPrestDesacordo)
+        public static string ObterXmlString(this evCCeCTe evCCeCTe)
         {
-            return FuncoesXml.ClasseParaXmlString(evPrestDesacordo);
+            return FuncoesXml.ClasseParaXmlString(evCCeCTe);
         }
     }
 }
