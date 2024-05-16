@@ -45,7 +45,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlIncluirCondutor = evIncCondutorMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     Validador.Valida(xmlIncluirCondutor, "evIncCondutorMDFe_v1.00.xsd");

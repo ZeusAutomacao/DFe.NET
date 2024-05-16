@@ -47,7 +47,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlValidacao = consReciMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     Validador.Valida(xmlValidacao, "consReciMDFe_v1.00.xsd");
@@ -73,9 +73,9 @@ namespace MDFe.Classes.Extensoes
 
         public static void SalvarXmlEmDisco(this MDFeConsReciMDFe consReciMDFe)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, consReciMDFe.NRec + "-ped-rec.xml");
 

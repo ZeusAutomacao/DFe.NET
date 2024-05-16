@@ -45,7 +45,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlIncluirDFe = evIncDFeMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao300:
                     Validador.Valida(xmlIncluirDFe, "evInclusaoDFeMDFe_v3.00.xsd");

@@ -45,7 +45,7 @@ namespace MDFe.Classes.Extensoes
         {
             var xmlCancelamento = evCancMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     Validador.Valida(xmlCancelamento, "evCancMDFe_v1.00.xsd");
