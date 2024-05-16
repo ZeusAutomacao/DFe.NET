@@ -46,7 +46,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFe
     {

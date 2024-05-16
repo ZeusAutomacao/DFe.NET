@@ -30,78 +30,48 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
-using System.IO;
-using System.Xml;
-using CTe.Classes;
-using CTe.Classes.Servicos.Inutilizacao;
-using CTe.Classes.Servicos.Tipos;
-using CTe.Utils.Validacao;
-using DFe.Utils;
-using DFe.Utils.Assinatura;
 
-namespace CTe.Utils.Extencoes
+using System.IO;
+using CTe.Classes;
+using CTe.Classes.Servicos.Consulta;
+using DFe.Utils;
+
+namespace CTe.Utils.Extensoes
 {
-    public static class ExtinutCTe
+    public static class ExtretConsSitCTe
     {
-        public static void Assinar(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Coverte uma string XML no formato CTe para um objeto retConsSitCTe
+        /// </summary>
+        /// <param name="retConsSitCTe"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo retConsSitNFe</returns>
+        public static retConsSitCTe CarregarDeXmlString(this retConsSitCTe retConsSitCTe, string xmlString)
+        {
+            return FuncoesXml.XmlStringParaClasse<retConsSitCTe>(xmlString);
+        }
+
+        /// <summary>
+        ///     Converte o objeto retConsSitCTe para uma string no formato XML
+        /// </summary>
+        /// <param name="retConsSitCTe"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsSitCTe</returns>
+        public static string ObterXmlString(this retConsSitCTe retConsSitCTe)
+        {
+            return FuncoesXml.ClasseParaXmlString(retConsSitCTe);
+        }
+
+        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                configServico.X509Certificate2);
-        }
+            if (configServico.NaoSalvarXml()) return;
 
+            var caminhoXml = configServico.DiretorioSalvarXml;
 
-        /// <summary>
-        ///     Converte o objeto inutCTe para uma string no formato XML
-        /// </summary>
-        /// <param name="pedInutilizacao"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto inutCTe</returns>
-        public static string ObterXmlString(this inutCTe pedInutilizacao)
-        {
-            return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
-        }
+            var arquivoSalvar = Path.Combine(caminhoXml, chave + "-sit.xml");
 
-        public static void ValidarShcema(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
-        {
-
-            var xmlValidacao = inutCTe.ObterXmlString();
-
-            switch (inutCTe.versao)
-            {
-                case versao.ve200:
-                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", configuracaoServico);
-                    break;
-                case versao.ve300:
-                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", configuracaoServico);
-                    break;
-                default:
-                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
-                                                   "a versão está inválida, somente é permitido " +
-                                                   "versão 2.00 é 3.00");
-            }
-        }
-
-        public static void SalvarXmlEmDisco(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
-        {
-            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, inutCTe.infInut.Id+ "-ped-inu.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(inutCTe, arquivoSalvar);
-        }
-
-        public static XmlDocument CriaRequestWs(this inutCTe inutCTe)
-        {
-            var request = new XmlDocument();
-            request.LoadXml(inutCTe.ObterXmlString());
-
-            return request;
+            FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
         }
     }
 }

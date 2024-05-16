@@ -41,7 +41,7 @@ using MDFe.Utils.Validacao;
 using System.IO;
 using System.Xml;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeEventoMDFe
     {

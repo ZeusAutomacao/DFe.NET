@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Shared.DFe.Utils
 {
-    public static class StringExtencoes
+    public static class StringExtensoes
     {
         public static string RemoverAcentos(this string valor)
         {

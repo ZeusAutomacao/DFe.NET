@@ -33,7 +33,7 @@
 
 using MDFe.Utils.Flags;
 
-namespace MDFe.Classes.Extencoes
+namespace MDFe.Classes.Extensoes
 {
     public static class ExtVersaoServico
     {

@@ -32,7 +32,7 @@
 /********************************************************************************/
 
 using System;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Utils.Configuracoes;

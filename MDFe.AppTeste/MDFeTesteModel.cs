@@ -37,7 +37,7 @@ using DFe.Utils;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;

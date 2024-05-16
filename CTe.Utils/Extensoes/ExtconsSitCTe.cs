@@ -30,33 +30,70 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-
-using CTe.Classes.Servicos.Status;
+using System;
+using System.IO;
+using System.Xml;
+using CTe.Classes;
+using CTe.Classes.Servicos.Consulta;
+using CTe.Classes.Servicos.Tipos;
+using CTe.Utils.Validacao;
 using DFe.Utils;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
-    public static class ExtretConsStatServ
+    public static class ExtconsSitCTe
     {
-        /// <summary>
-        ///     Carrega um objeto do tipo retConsStatServ a partir de uma string no formato XML
-        /// </summary>
-        /// <param name="retConsStatServ"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto retConsStatServ com as informações da string XML</returns>
-        public static retConsStatServCte CarregarDeXmlString(this retConsStatServCte retConsStatServ, string xmlString)
+
+        public static void ValidarSchema(this consSitCTe consSitCTe, ConfiguracaoServico configuracaoServico = null)
         {
-            return FuncoesXml.XmlStringParaClasse<retConsStatServCte>(xmlString);
+            var xmlValidacao = consSitCTe.ObterXmlString();
+
+            switch (consSitCTe.versao)
+            {
+                case versao.ve200:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd", configuracaoServico);
+                    break;
+                case versao.ve300:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", configuracaoServico);
+                    break;
+                case versao.ve400:
+                    Validador.Valida(xmlValidacao, "consSitCTe_v4.00.xsd", configuracaoServico);
+                    break;
+                default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                                                        "a versão está inválida, somente é permitido " +
+                                                        "versão 2.00 é 3.00");
+            }
         }
 
         /// <summary>
-        ///     Converte um objeto do tipo retConsStatServ para uma string no formato XML com os dados do objeto
+        ///     Converte o objeto consSitCTe para uma string no formato XML
         /// </summary>
-        /// <param name="retConsStatServ"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsStatServ</returns>
-        public static string ObterXmlString(this retConsStatServCte retConsStatServ)
+        /// <param name="pedConsulta"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto consSitCTe</returns>
+        public static string ObterXmlString(this consSitCTe pedConsulta)
         {
-            return FuncoesXml.ClasseParaXmlString(retConsStatServ);
+            return FuncoesXml.ClasseParaXmlString(pedConsulta);
+        }
+
+        public static void SalvarXmlEmDisco(this consSitCTe statuServCte, ConfiguracaoServico configuracaoServico = null)
+        {
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = Path.Combine(caminhoXml, "-ped-sit.xml");
+
+            FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
+        }
+
+        public static XmlDocument CriaRequestWs(this consSitCTe consStatServMdFe)
+        {
+            var request = new XmlDocument();
+            request.LoadXml(consStatServMdFe.ObterXmlString());
+
+            return request;
         }
     }
 }

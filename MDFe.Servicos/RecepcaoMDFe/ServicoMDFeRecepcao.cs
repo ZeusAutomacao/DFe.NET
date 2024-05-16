@@ -33,7 +33,7 @@
 
 using System;
 using DFe.Utils;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Retorno.MDFeRecepcao;
 using MDFe.Classes.Retorno.MDFeRetRecepcao.Sincrono;
