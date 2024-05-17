@@ -70,7 +70,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             if (MDFeConfiguracao.Instancia.IsAdicionaQrCode && MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
+                mdfe.InfMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
             }
 
             enviMDFe.Valida();
@@ -96,7 +96,7 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             if (MDFeConfiguracao.Instancia.IsAdicionaQrCode)
             {
-                mdfe.infMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
+                mdfe.InfMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
             }
 
             mdfe.Valida();
