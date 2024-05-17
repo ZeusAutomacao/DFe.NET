@@ -44,23 +44,25 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeEnviMDFe
     {
-        public static void Valida(this MDFeEnviMDFe enviMDFe)
+        public static void Valida(this MDFeEnviMDFe enviMDFe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             if (enviMDFe == null) throw new ArgumentException("Erro de assinatura, EnviMDFe esta null");
 
             var xmlMdfe = FuncoesXml.ClasseParaXmlString(enviMDFe);
 
-            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd");
+                    Validador.Valida(xmlMdfe, "enviMDFe_v1.00.xsd", config);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd");
+                    Validador.Valida(xmlMdfe, "enviMDFe_v3.00.xsd", config);
                     break;
             }
 
-            enviMDFe.MDFe.Valida();
+            enviMDFe.MDFe.Valida(config);
         }
 
         public static XmlDocument CriaXmlRequestWs(this MDFeEnviMDFe enviMDFe)
@@ -86,17 +88,19 @@ namespace MDFe.Classes.Extensoes
             return xmlString;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe)
+        public static void SalvarXmlEmDisco(this MDFeEnviMDFe enviMDFe, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
+
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, enviMDFe.MDFe.Chave() + "-completo-mdfe.xml");
 
             FuncoesXml.ClasseParaArquivoXml(enviMDFe, arquivoSalvar);
 
-            enviMDFe.MDFe.SalvarXmlEmDisco();
+            enviMDFe.MDFe.SalvarXmlEmDisco(null, config);
         }
     }
 }

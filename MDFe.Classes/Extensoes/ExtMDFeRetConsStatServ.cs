@@ -40,11 +40,13 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeRetConsStatServ
     {
-        public static void SalvarXmlEmDisco(this MDFeRetConsStatServ retConsStatServ)
+        public static void SalvarXmlEmDisco(this MDFeRetConsStatServ retConsStatServ, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
+
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, "-retorno-status-servico.xml");
 
