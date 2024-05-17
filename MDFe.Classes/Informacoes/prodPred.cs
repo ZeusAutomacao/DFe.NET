@@ -13,6 +13,6 @@ namespace MDFe.Classes.Informacoes
 
         public string NCM { get; set; }
 
-        public infLotacao infLotacao { get; set; }
+        public MDFeInfLotacao infLotacao { get; set; }
     }
 }

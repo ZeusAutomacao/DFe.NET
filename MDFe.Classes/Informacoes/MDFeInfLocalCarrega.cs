@@ -37,18 +37,46 @@ using System.Xml.Serialization;
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeInfEmbComb
+    public class MDFeInfLocalCarrega
     {
         /// <summary>
-        /// 2 - Código da embarcação do comboio 
+        /// 1 - Cep onde foi carregado o MDF-e.
         /// </summary>
-        [XmlElement(ElementName = "cEmbComb")]
-        public string CEmbComb { get; set; }
+        [XmlElement(ElementName = "CEP")]
+        public string CEP { get; set; }
+
+        [XmlIgnore]
+        private decimal? _latitude { get; set; }
 
         /// <summary>
-        /// 2 - Código da embarcação do comboio 
+        /// 1- Latitude do ponto geográfico onde foi carregado o MDF-e.
         /// </summary>
-        [XmlElement(ElementName = "xBalsa")]
-        public string XBalsa { get; set; }
+        [XmlElement("latitude")]
+        public string latitudeProxy
+        {
+            get
+            {
+                if (_latitude == null) return null;
+                    return _latitude.ToString();
+            }
+            set { _latitude = decimal.Parse(value); }
+        }
+
+        [XmlIgnore]
+        private decimal? _longitude { get; set; }
+
+        /// <summary>
+        /// 1 - Longitude do ponto geográfico onde foi carregado o MDF-e.
+        /// </summary>
+        [XmlElement("Longitude")]
+        public string LongitudeProxy
+        {
+            get
+            {
+                if (_longitude == null) return null;
+                return _longitude.ToString();
+            }
+            set { _longitude = decimal.Parse(value); }
+        }
     }
 }

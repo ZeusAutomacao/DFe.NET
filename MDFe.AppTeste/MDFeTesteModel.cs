@@ -772,13 +772,13 @@ namespace MDFe.AppTeste
                 {
                     tpCarga = tpCarga.CargaGeral,
                     xProd = "aaaaaaaaaaaaaaaaaaaaa",
-                    infLotacao = new infLotacao
+                    infLotacao = new MDFeInfLotacao
                     {
-                        infLocalCarrega = new infLocalCarrega
+                        InfLocalCarrega = new MDFeInfLocalCarrega
                         {
                             CEP = "75950000"
                         },
-                        infLocalDescarrega = new infLocalDescarrega
+                        InfLocalDescarrega = new MDFeInfLocalDescarrega
                         {
                             CEP = "75950000"
                         }
