@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace MDFe.Classes.Informacoes
+namespace MDFe.Classes.Flags
 {
-    public enum tpComp
+    public enum MDFeTpComp
     {
         [XmlEnum("01")]
         ValePedagio = 01,
