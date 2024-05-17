@@ -231,7 +231,7 @@ namespace MDFe.Classes.Extensoes
             return codigo;
         }
 
-        public static infMDFeSupl QrCode(this MDFEletronico mdfe, X509Certificate2 certificadoDigital,
+        public static MdfeInfMDFeSupl QrCode(this MDFEletronico mdfe, X509Certificate2 certificadoDigital,
             Encoding encoding = null)
         {
             if (encoding == null) 
@@ -252,9 +252,9 @@ namespace MDFe.Classes.Extensoes
                     break;
             }
 
-            return new infMDFeSupl
+            return new MdfeInfMDFeSupl
             {
-                qrCodMDFe = qrCode.ToString()
+                QrCodMDFe = qrCode.ToString()
             };
         }
 

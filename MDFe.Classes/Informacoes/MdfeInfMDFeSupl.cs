@@ -30,40 +30,25 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System;
+
+using System.Text;
 using System.Xml.Serialization;
-using DFe.Classes.Assinatura;
-using DFe.Utils;
+using DFe.Classes.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
-    [Serializable]
-    [XmlRoot(Namespace = "http://www.portalfiscal.inf.br/mdfe",
-        ElementName = "MDFe")]
-    public class MDFe
+    public class MdfeInfMDFeSupl
     {
-        public MDFe()
+        /// <summary>
+        /// 1 -  Texto com o QR-Code para consulta do MDF-e
+        /// </summary>
+        [XmlElement(ElementName = "qrCodMDFe")]
+        public string QrCodMDFe { get; set; }
+
+        public static string GerarQrCode(string chave, TipoAmbiente tipoAmbiente)
         {
-            InfMDFe = new MDFeInfMDFe();
-        }
-
-        [XmlElement(ElementName = "infMDFe")]
-        public MDFeInfMDFe InfMDFe { get; set; }
-
-        [XmlElement(ElementName = "infMDFeSupl")]
-        public MdfeInfMDFeSupl InfMDFeSupl { get; set; }
-
-        [XmlElement(ElementName = "Signature", Namespace = "http://www.w3.org/2000/09/xmldsig#")]
-        public Signature Signature { get; set; }
-
-        public static MDFe LoadXmlString(string xml)
-        {
-            return FuncoesXml.XmlStringParaClasse<MDFe>(xml);
-        }
-
-        public static MDFe LoadXmlArquivo(string caminhoArquivoXml)
-        {
-            return FuncoesXml.ArquivoXmlParaClasse<MDFe>(caminhoArquivoXml);
+            var qrCode = new StringBuilder(@"https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode");
+            return qrCode.Append("?").Append("chMDFe=").Append(chave).Append("&").Append("tpAmb=").Append((int)tipoAmbiente).ToString();
         }
     }
 }
