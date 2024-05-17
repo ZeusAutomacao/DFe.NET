@@ -37,18 +37,27 @@ using System.Xml.Serialization;
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeInfEmbComb
+    public class MDFeInfLotacao
     {
-        /// <summary>
-        /// 2 - Código da embarcação do comboio 
-        /// </summary>
-        [XmlElement(ElementName = "cEmbComb")]
-        public string CEmbComb { get; set; }
+        public MDFeInfLotacao()
+        {
+            InfLocalCarrega = new MDFeInfLocalCarrega();
+            InfLocalDescarrega = new MDFeInfLocalDescarrega();
+        }
 
         /// <summary>
-        /// 2 - Código da embarcação do comboio 
+        /// 1 - Informações da localização do
+        /// carregamento do MDF-e de carga lotação
         /// </summary>
-        [XmlElement(ElementName = "xBalsa")]
-        public string XBalsa { get; set; }
+        [XmlElement(ElementName = "infLocalCarrega")]
+        public MDFeInfLocalCarrega InfLocalCarrega { get; set; }
+
+        /// <summary>
+        /// 1 - Informações da localização do
+        /// descarregamento do MDF-e de carga
+        /// lotação
+        /// </summary>
+        [XmlElement(ElementName = "infLocalDescarrega")]
+        public MDFeInfLocalDescarrega InfLocalDescarrega { get; set; }
     }
 }
