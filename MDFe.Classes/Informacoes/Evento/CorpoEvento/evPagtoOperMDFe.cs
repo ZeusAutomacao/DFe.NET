@@ -19,7 +19,7 @@ namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
         public infViagens infViagens { get; set; }
 
         [XmlElement(ElementName = "infPag")]
-        public List<infPag> infPag { get; set; }
+        public List<MDFeInfPag> infPag { get; set; }
     }
 
     [Serializable]

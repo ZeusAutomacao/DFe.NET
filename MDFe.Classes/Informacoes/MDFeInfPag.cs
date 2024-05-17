@@ -30,151 +30,88 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using DFe.Classes;
+using MDFe.Classes.Flags;
 using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using DFe.Classes.Entidades;
-using DFe.Classes.Extensoes;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeEmit
+    public class MDFeInfPag
     {
-        public MDFeEmit()
+        public MDFeInfPag()
         {
-            EnderEmit = new MDFeEnderEmit();
+            InfPrazo = new List<MDFeInfPrazo>();
         }
 
         /// <summary>
-        /// 2 - CNPJ do emitente 
-        /// </summary>
-        [XmlElement(ElementName = "CNPJ")]
-        public string CNPJ { get; set; }
-
-        /// <summary>
-        /// 2 - CPF do emitente 
-        /// </summary>
-        [XmlElement(ElementName = "CPF")]
-        public string CPF { get; set; }
-
-        /// <summary>
-        /// 2 - Inscrição Estadual do emitemte
-        /// </summary>
-        [XmlElement(ElementName = "IE")]
-        public string IE { get; set; }
-
-        /// <summary>
-        /// 2 - Razão social ou Nome do emitente 
+        /// 3 - Nome do responsável pelo pagamento.
         /// </summary>
         [XmlElement(ElementName = "xNome")]
         public string XNome { get; set; }
 
         /// <summary>
-        /// 2 - Nome fantasia do emitente 
+        /// 3 - Número do CPF do responsável pelo pagamento.
         /// </summary>
-        [XmlElement(ElementName = "xFant")]
-        public string XFant { get; set; }
+        [XmlElement(ElementName = "CPF")]
+        public string CPF { get; set; }
 
         /// <summary>
-        /// 2 - Endereço do emitente 
+        /// 3 - Número do CNPJ do responsável pelo pagamento.
         /// </summary>
-        [XmlElement(ElementName = "enderEmit")]
-        public MDFeEnderEmit EnderEmit { get; set; }
-    }
-
-    [Serializable]
-    public class MDFeEnderEmit
-    {
-        /// <summary>
-        /// 3 - Logradouro
-        /// </summary>
-        [XmlElement(ElementName = "xLgr")]
-        public string XLgr { get; set; }
+        [XmlElement(ElementName = "CNPJ")]
+        public string CNPJ { get; set; }
 
         /// <summary>
-        /// 3 - Número 
+        /// 3 - Componentes do Pagamento do Frete.
         /// </summary>
-        [XmlElement(ElementName = "nro")]
-        public string Nro { get; set; }
+        [XmlElement(ElementName = "idEstrangeiro")]
+        public string IdEstrangeiro { get; set; }
 
         /// <summary>
-        /// 3 - Complemento
+        /// 3 - Componentes do pagamento do frete.
         /// </summary>
-        [XmlElement(ElementName = "xCpl")]
-        public string XCpl { get; set; }
+        [XmlElement(ElementName = "Comp")]
+        public List<MDFeComp> Comp { get; set; }
 
-        /// <summary>
-        /// 3 - Bairro
-        /// </summary>
-        [XmlElement(ElementName = "xBairro")]
-        public string XBairro { get; set; }
-
-        /// <summary>
-        /// 3 - Código do município (utilizar a tabela do IBGE), informar 9999999 para operações com o exterior.
-        /// </summary>
-        [XmlElement(ElementName = "cMun")]
-        public long CMun { get; set; }
-
-        /// <summary>
-        /// 3 - Nome do município, , informar EXTERIOR para operações com o exterior
-        /// </summary>
-        [XmlElement(ElementName = "xMun")]
-        public string XMun { get; set; }
-
-        /// <summary>
-        /// 3 - CEP
-        /// </summary>
         [XmlIgnore]
-        public long CEP { get; set; }
+        private decimal _vContrato { get; set; }
 
         /// <summary>
-        /// Proxy para colocar zeros a esquerda no CEP 
+        /// 3 - Valor total do Contrato.
         /// </summary>
-        [XmlElement(ElementName = "CEP")]
-        public string ProxyCEP
+        [XmlElement("vContrato")]
+        public decimal vContratoProxy
         {
-            get { return CEP.ToString("D8"); }
-            set { CEP = long.Parse(value); }
+            get { return _vContrato.Arredondar(2); }
+            set { _vContrato = value.Arredondar(2); }
         }
 
         /// <summary>
-        /// 3 - Sigla da UF, , informar EX para operações com o exterior.
+        /// 3 - Indicador da forma de pagamento.
         /// </summary>
-        [XmlIgnore]
-        public Estado UF { get; set; }
+        [XmlElement(ElementName = "indPag")]
+        public MDFeIndPag IndPag { get; set; }
 
         /// <summary>
-        /// Proxy para pegar SiglaUF do estado
+        /// 3 - Informações do pagamento a prazo. Informar somente se indPag for à Prazo.
         /// </summary>
-        [XmlElement(ElementName = "UF")]
-        public string ProxyUF
-        {
-            get { return UF.GetSiglaUfString(); }
-            set { UF = UF.SiglaParaEstado(value); }
-        }
+        [XmlElement(ElementName = "infPrazo")]
+        public List<MDFeInfPrazo> InfPrazo { get; set; }
 
         /// <summary>
-        /// 3 - Telefone
+        /// 3 - Informações Bancárias.
         /// </summary>
-        [XmlElement(ElementName = "fone")]
-        public string Fone { get; set; }
+        [XmlElement(ElementName = "infBanc")]
+        public MDFeInfBanc InfBanc { get; set; }
 
         /// <summary>
-        /// 3 - Endereço de E-mail 
+        /// 3 - Informações Bancárias.
         /// </summary>
-        [XmlElement(ElementName = "email")]
-        public string Email { get; set; }
-
-        public bool ShouldSerializeEmail()
-        {
-            if (!string.IsNullOrEmpty(Email))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        [XmlElement(ElementName = "indAltoDesemp")]
+        public MDFeIndAltoDesemp IndAltoDesemp { get; set; }
     }
 }

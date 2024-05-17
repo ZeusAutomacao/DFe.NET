@@ -30,74 +30,54 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Classes.Contratos;
+using DFe.Classes;
+using DFe.Utils;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeRodo : MDFeModalContainer
+    public class MDFeInfPrazo
     {
-        [XmlElement(ElementName = "infANTT")]
-        public MDFeInfANTT infANTT { get; set; }
+        [XmlIgnore]
+        private short _nParcela { get; set; }
 
         /// <summary>
-        /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
+        /// 1 - Número da parcela.
         /// </summary>
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
+        [XmlElement("nParcela")]
+        public string nParcelaProxy
+        {
+            get { return _nParcela.ToString("D3"); }
+            set { _nParcela = short.Parse(value); }
+        }
+
+        [XmlIgnore]
+        private DateTime _dVenc { get; set; }
 
         /// <summary>
-        /// 1 - Código Identificador da Operação de Transporte
+        /// Proxy para Data de Vencimento da parcela.
         /// </summary>
-        [XmlElement(ElementName = "CIOT")]
-        public string CIOT { get; set; }
+        [XmlElement("dVenc")]
+        public string DVencProxy
+        {
+            get { return _dVenc.ParaDataString(); }
+            set { _dVenc = DateTime.Parse(value); }
+        }
+
+        [XmlIgnore]
+        private decimal _vParcela { get; set; }
 
         /// <summary>
-        /// 1 - Dados do Veículo com a Tração
+        /// 1 - Valor da parcela.
         /// </summary>
-        [XmlElement(ElementName = "veicTracao")]
-        public MDFeVeicTracao VeicTracao { get; set; }
-
-        /// <summary>
-        /// 1 - Dados dos reboques
-        /// </summary>
-        [XmlElement(ElementName = "veicReboque")]
-        public List<MDFeVeicReboque> VeicReboque { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Vale Pedágio
-        /// </summary>
-        [XmlElement(ElementName = "valePed")]
-        public MDFeValePed ValePed { get; set; }
-
-        /// <summary>
-        /// 1 - Código de Agendamento no porto 
-        /// </summary>
-        [XmlElement(ElementName = "codAgPorto")]
-        public string CodAgPorto { get; set; }
-
-        [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
-    }
-
-    [Serializable]
-    public class MDFeInfANTT
-    {
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
-
-        [XmlElement(ElementName = "infCIOT")]
-        public List<infCIOT> infCIOT { get; set; }
-
-        public MDFeValePed valePed { get; set; }
-
-        [XmlElement(ElementName = "infContratante")]
-        public List<infContratante> infContratante { get; set; }
-
-        [XmlElement(ElementName = "infPag")]
-        public List<MDFeInfPag> infPag { get; set; }
+        [XmlElement("vParcela")]
+        public decimal vParcelaProxy
+        {
+            get { return _vParcela.Arredondar(2); }
+            set { _vParcela = value.Arredondar(2); }
+        }
     }
 }

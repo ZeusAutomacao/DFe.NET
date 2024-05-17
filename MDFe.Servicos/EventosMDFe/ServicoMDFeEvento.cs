@@ -82,7 +82,7 @@ namespace MDFe.Servicos.EventosMDFe
         }
 
         public MDFeRetEventoMDFe MDFeEventoPagamentoOperacaoTransporte(MDFeEletronica mdfe, byte sequenciaEvneto,
-            string protocolo, infViagens infViagens, List<infPag> infPagamentos)
+            string protocolo, infViagens infViagens, List<MDFeInfPag> infPagamentos)
         {
             var eventoPagamentoOperacao = new EventoPagamentoOperacao();
 
