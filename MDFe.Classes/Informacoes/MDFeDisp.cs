@@ -43,30 +43,30 @@ namespace MDFe.Classes.Informacoes
         private decimal _vValePed;
 
         /// <summary>
-        /// 10 - CNPJ da empresa fornecedora do ValePedágio
+        /// 4 - CNPJ da empresa fornecedora do ValePedágio
         /// </summary>
         [XmlElement(ElementName = "CNPJForn")]
         public string CNPJForn { get; set; }
 
         /// <summary>
-        /// 11 - CNPJ do responsável pelo pagamento do Vale-Pedágio
+        /// 4 - CNPJ do responsável pelo pagamento do Vale-Pedágio
         /// </summary>
         [XmlElement(ElementName = "CNPJPg")]
         public string CNPJPg { get; set; }
 
         /// <summary>
-        /// 12 - CNPJ do responsável pelo pagamento do Vale-Pedágio
+        /// 4 - CNPJ do responsável pelo pagamento do Vale-Pedágio
         /// </summary>
         public string CPFPg { get; set; }
 
         /// <summary>
-        /// 13 - Número do comprovante de compra 
+        /// 4 - Número do comprovante de compra 
         /// </summary>
         [XmlElement(ElementName = "nCompra")]
         public string NCompra { get; set; }
 
         /// <summary>
-        /// 14 - Valor do Vale-Pedagio 
+        /// 4 - Valor do Vale-Pedagio 
         /// </summary>
         public decimal vValePed
         {
