@@ -167,7 +167,7 @@ namespace MDFe.Utils.Configuracoes
         /// <summary>
         ///     Limpa a instancia atual caso exista
         /// </summary>
-        public static void LimparIntancia()
+        public static void LimparInstancia()
         {
             _instancia = null;
         }

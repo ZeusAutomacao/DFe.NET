@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes;
@@ -42,33 +43,43 @@ namespace MDFe.Classes.Informacoes
         private decimal _vValePed;
 
         /// <summary>
-        /// 3 - CNPJ da empresa fornecedora do ValePedágio
+        /// 10 - CNPJ da empresa fornecedora do ValePedágio
         /// </summary>
         [XmlElement(ElementName = "CNPJForn")]
         public string CNPJForn { get; set; }
 
         /// <summary>
-        /// 3 - CNPJ do responsável pelo pagamento do Vale-Pedágio
+        /// 11 - CNPJ do responsável pelo pagamento do Vale-Pedágio
         /// </summary>
         [XmlElement(ElementName = "CNPJPg")]
         public string CNPJPg { get; set; }
 
+        /// <summary>
+        /// 12 - CNPJ do responsável pelo pagamento do Vale-Pedágio
+        /// </summary>
         public string CPFPg { get; set; }
 
         /// <summary>
-        /// 3 - Número do comprovante de compra 
+        /// 13 - Número do comprovante de compra 
         /// </summary>
         [XmlElement(ElementName = "nCompra")]
         public string NCompra { get; set; }
 
+        /// <summary>
+        /// 14 - Valor do Vale-Pedagio 
+        /// </summary>
         public decimal vValePed
         {
             get { return _vValePed.Arredondar(2); }
             set { _vValePed = value.Arredondar(2); }
         }
 
-        public tpValePed? tpValePed { get; set; }
+        /// <summary>
+        /// Tipo do Vale Pedágio
+        /// </summary>
+        [XmlElement(ElementName = "tpValePed")]
+        public MDFeTpValePed? TpValePed { get; set; }
 
-        public bool tpValePedSpecified { get { return tpValePed.HasValue; } }
+        public bool TpValePedSpecified { get { return TpValePed.HasValue; } }
     }
 }
