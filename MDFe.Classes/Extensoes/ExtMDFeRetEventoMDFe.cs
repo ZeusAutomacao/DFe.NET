@@ -40,11 +40,13 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtMDFeRetEventoMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetEventoMDFe retEvento, string chave)
+        public static void SalvarXmlEmDisco(this MDFeRetEventoMDFe retEvento, string chave, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var caminhoXml = MDFeConfiguracao.Instancia.CaminhoSalvarXml;
+            if (config.NaoSalvarXml()) return;
+
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, chave + "-env.xml");
 
