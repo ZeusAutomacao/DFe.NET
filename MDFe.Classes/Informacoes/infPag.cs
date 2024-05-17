@@ -14,7 +14,7 @@ namespace MDFe.Classes.Informacoes
         public string idEstrangeiro { get; set; }
 
         [XmlElement(ElementName = "Comp")]
-        public List<Comp> Comp { get; set; }
+        public List<MDFeComp> Comp { get; set; }
 
         [XmlIgnore]
         public decimal vContrato { get; set; }
