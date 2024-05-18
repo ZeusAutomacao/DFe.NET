@@ -18,6 +18,7 @@
 /*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
 /* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
 /* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
+/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
 /* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
 /*                                                                              */
 /*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/
@@ -30,105 +31,49 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeInfMDFe
+    public class MDFeProdPred
     {
-        public MDFeInfMDFe()
+        public MDFeProdPred()
         {
-            Ide = new MDFeIde();
-            Emit = new MDFeEmit();
-            InfModal = new MDFeInfModal();
-            InfDoc = new MDFeInfDoc();
-            Tot = new MDFeTot();
-            ProdPred = new MDFeProdPred();
-            Versao = VersaoServico.Versao100;
+            InfLotacao = new MDFeInfLotacao();
         }
-        /// <summary>
-        /// 1 - Versão do leiaute 
-        /// </summary>
-        [XmlAttribute(AttributeName = "versao")]
-        public VersaoServico Versao { get; set; }
 
         /// <summary>
-        /// 1 - Identificador da tag a ser assinada. 
-        /// Informar a chave de acesso do MDF-e e
-        /// precedida do literal "MDFe" 
+        /// 1 - Tipo da Carga.
+        /// Conforme Rosulação ANTT
         /// </summary>
-        [XmlAttribute(AttributeName = "Id")]
-        public string Id { get; set; }
+        [XmlElement(ElementName = "tpCarga")]
+        public tpCarga tpCarga { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do MDF-e
+        /// 1 - Descrição do produto predominante.
         /// </summary>
-        [XmlElement(ElementName = "ide")]
-        public MDFeIde Ide { get; set; }
+        [XmlElement(ElementName = "xProd")]
+        public string XProd { get; set; }
 
         /// <summary>
-        /// 1 - Identificação do Emitente do Manifesto
+        /// 1- GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras.
         /// </summary>
-        [XmlElement(ElementName = "emit")]
-        public MDFeEmit Emit { get; set; }
+        [XmlElement(ElementName = "cEAN")]
+        public string CEan { get; set; }
 
         /// <summary>
-        /// 1 - Informações do modal
+        /// 1 - Código NCM
         /// </summary>
-        [XmlElement(ElementName = "infModal")]
-        public MDFeInfModal InfModal { get; set; }
+        [XmlElement(ElementName = "NCM")]
+        public string Ncm { get; set; }
 
         /// <summary>
-        /// 1 - Informações dos Documentos fiscais vinculados ao manifesto
+        /// 1 - Informações da carga lotação. Informar somente quando MDF-e for de carga lotação
         /// </summary>
-        [XmlElement(ElementName = "infDoc")]
-        public MDFeInfDoc InfDoc { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Seguro da carga
-        /// MDF-e 3.0
-        /// </summary>
-        [XmlElement(ElementName = "seg")]
-        public List<MDFeSeg> Seg { get; set; }
-
-        /// <summary>
-        /// 1 - Grupo de informações do Produto predominante da carga do MDF-e
-        /// </summary>
-        [XmlElement(ElementName = "prodPred")]
-        public MDFeProdPred ProdPred { get; set; }
-
-        /// <summary>
-        /// 1 - Totalizadores da carga transportada e seus documentos fiscais
-        /// </summary>
-        [XmlElement(ElementName = "tot")]
-        public MDFeTot Tot { get; set; }
-
-        /// <summary>
-        /// 1 - Lacres do MDF-e
-        /// </summary>
-        [XmlElement(ElementName = "lacres")]
-        public List<MDFeLacre> Lacres { get; set; }
-
-        /// <summary>
-        /// 1 - Autorizados para download do XML do DF-e
-        /// </summary>
-        [XmlElement(ElementName = "autXML")]
-        public List<MDFeAutXML> AutXml { get; set; }
-
-        /// <summary>
-        /// 1 - Informações Adicionais
-        /// </summary>
-        [XmlElement(ElementName = "infAdic")]
-        public MDFeInfAdic InfAdic { get; set; }
-
-        /// <summary>
-        /// Informações do Responsável Técnico pela emissão do DF-e.
-        /// </summary>
-        [XmlElement(ElementName = "infRespTec")]
-        public MDFeInfRespTec InfRespTec { get; set; }
+        [XmlElement(ElementName = "infLotacao")]
+        public MDFeInfLotacao InfLotacao { get; set; }
     }
 }
