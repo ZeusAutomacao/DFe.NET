@@ -31,6 +31,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -768,11 +769,11 @@ namespace MDFe.AppTeste
 
             if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.prodPred = new prodPred
+                mdfe.InfMDFe.ProdPred = new MDFeProdPred
                 {
                     tpCarga = tpCarga.CargaGeral,
-                    xProd = "aaaaaaaaaaaaaaaaaaaaa",
-                    infLotacao = new MDFeInfLotacao
+                    XProd = "aaaaaaaaaaaaaaaaaaaaa",
+                    InfLotacao = new MDFeInfLotacao
                     {
                         InfLocalCarrega = new MDFeInfLocalCarrega
                         {
@@ -804,7 +805,7 @@ namespace MDFe.AppTeste
 
             #region dados responsavel tecnico 
 
-            mdfe.InfMDFe.infRespTec = new infRespTec
+            mdfe.InfMDFe.InfRespTec = new MDFeInfRespTec
             {
                 CNPJ = "21025760000123",
                 email = "robertoalvespereira18@gmail.com",
