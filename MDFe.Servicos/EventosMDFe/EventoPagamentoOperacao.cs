@@ -10,7 +10,7 @@ namespace MDFe.Servicos.EventosMDFe
     public class EventoPagamentoOperacao
     {
         public MDFeRetEventoMDFe MDFeEventoPagamentoOperacao(Classes.Informacoes.MDFe mdfe, byte sequencia,
-            string protocolo, infViagens infViagens, List<MDFeInfPag> infPagamentos)
+            string protocolo, MDFeInfViagens infViagens, List<MDFeInfPag> infPagamentos)
         {
             var eventoPagamento = ClassesFactory.CriaEvPagtoOperMDFe(
                 protocolo

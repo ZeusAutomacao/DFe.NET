@@ -32,22 +32,37 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using MDFe.Classes.Flags;
+using System;
 
 namespace MDFe.Classes.Informacoes
 {
-    public class MDFeInfUnidCargaVazia
+    [Serializable]
+    public class MDFeInfViagens
     {
-        /// <summary>
-        /// 2 - Identificação da unidades de carga vazia
-        /// </summary>
-        [XmlElement(ElementName = "idUnidCargaVazia")]
-        public string IdUnidCargaVazia { get; set; }
+        [XmlIgnore]
+        private int _qtdViagens { get; set; }
 
         /// <summary>
-        /// 2 - Tipo da unidade de carga vazia 
+        /// 2 - Proxy para quantidade total de viagens realizadas com o pagamento do frete.
         /// </summary>
-        [XmlElement(ElementName = "tpUnidCargaVazia")]
-        public MDFeTpUnidCargaVazia TpUnidCargaVazia { get; set; }
+        [XmlElement("qtdViagens")]
+        public string QtdViagensProxy
+        {
+            get { return _qtdViagens.ToString("D5"); }
+            set { _qtdViagens = int.Parse(value); }
+        }
+
+        [XmlIgnore]
+        private int _nroViagem { get; set; }
+
+        /// <summary>
+        /// 2 - Proxy para número de referência da viagem do MDF-e referenciado.
+        /// </summary>
+        [XmlElement("nroViagem")]
+        public string NroViagemProxy
+        {
+            get { return _nroViagem.ToString("D5"); }
+            set { _nroViagem = int.Parse(value); }
+        }
     }
 }

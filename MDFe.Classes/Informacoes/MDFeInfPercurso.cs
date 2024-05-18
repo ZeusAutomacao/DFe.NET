@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Extensoes;
@@ -45,14 +46,12 @@ namespace MDFe.Classes.Informacoes
         public Estado UFPer { get; set; }
 
         /// <summary>
-        /// Proxy para UFPer
+        /// Proxy para sigla das Unidades da Federação do percurso do veículo
         /// </summary>
         [XmlElement(ElementName = "UFPer")]
         public string ProxyUFPer {
             get { return UFPer.GetSiglaUfString(); }
             set { UFPer = UFPer.SiglaParaEstado(value); }
         }
-
-
     }
 }
