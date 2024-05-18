@@ -808,9 +808,9 @@ namespace MDFe.AppTeste
             mdfe.InfMDFe.InfRespTec = new MDFeInfRespTec
             {
                 CNPJ = "21025760000123",
-                email = "robertoalvespereira18@gmail.com",
-                fone = "64981081602",
-                xContato = "roberto alves"
+                Email = "robertoalvespereira18@gmail.com",
+                Fone = "64981081602",
+                XContato = "roberto alves"
             };
             #endregion  
 

@@ -126,7 +126,7 @@ namespace MDFe.Classes.Informacoes
         public MDFeInfAdic InfAdic { get; set; }
 
         /// <summary>
-        /// Informações do Responsável Técnico pela emissão do DF-e.
+        /// 1 - Informações do Responsável Técnico pela emissão do DF-e.
         /// </summary>
         [XmlElement(ElementName = "infRespTec")]
         public MDFeInfRespTec InfRespTec { get; set; }
