@@ -38,26 +38,53 @@ namespace MDFe.Classes.Informacoes
 {
     public class MDFeInfRespTec
     {
+        /// <summary>
+        /// 2 - CNPJ da pessoa jurídica responsável técnica pelo sistema
+        /// utilizado na emissão do documento fiscal eletrônico
+        /// </summary>
+        [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
-        public string xContato { get; set; }
-        public string email { get; set; }
-        public string fone { get; set; }
+
+        /// <summary>
+        /// 2 - Nome da pessoa a ser contatada 
+        /// </summary>
+        [XmlElement(ElementName = "xContato")]
+        public string XContato { get; set; }
+
+        /// <summary>
+        /// 2 - E-mail da pessoa jurídica a ser contatada
+        /// </summary>
+        [XmlElement(ElementName = "email")]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// 2 - Telefone da pessoa jurídica a ser contatada
+        /// </summary>
+        [XmlElement(ElementName = "fone")]
+        public string Fone { get; set; }
 
         [XmlIgnore]
-        public int? idCSRT { get; set; }
+        private int? idCSRT { get; set; }
+
         public bool idCSRTSpecified
         {
             get { return idCSRT.HasValue; }
         }
 
-
+        /// <summary>
+        /// 2 - Identificador do código de segurança do responsável técnico
+        /// </summary>
         [XmlElement(ElementName = "idCSRT")]
-        public string ProxyidCSRT
+        public string ProxyIdCSRT
         {
             get { return idCSRT != null ? idCSRT.Value.ToString("D3") : null; }
             set { idCSRT = int.Parse(value); }
         }
 
-        public string hashCSRT { get; set; }
+        /// <summary>
+        /// 2 - Hash do token do código de segurança do responsável técnico
+        /// </summary>
+        [XmlElement(ElementName = "hashCSRT")]
+        public string HashCSRT { get; set; }
     }
 }
