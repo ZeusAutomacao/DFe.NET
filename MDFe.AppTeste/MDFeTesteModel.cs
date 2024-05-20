@@ -650,7 +650,7 @@ namespace MDFe.AppTeste
                         RNTRC = config.Empresa.RNTRC,
 
                         // não é obrigatorio
-                        infCIOT = new List<infCIOT>
+                        InfCIOT = new List<infCIOT>
                         {
                             new infCIOT
                             {
@@ -693,7 +693,7 @@ namespace MDFe.AppTeste
                         TpCar = MDFeTpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<MDFeLacre>
+                    LacRodo = new List<MDFeLacre>
                     {
                         new MDFeLacre
                         {
@@ -938,7 +938,7 @@ namespace MDFe.AppTeste
                         RNTRC = config.Empresa.RNTRC,
 
                         // não é obrigatorio
-                        infCIOT = new List<infCIOT>
+                        InfCIOT = new List<infCIOT>
                         {
                             new infCIOT
                             {
@@ -946,7 +946,7 @@ namespace MDFe.AppTeste
                                 CNPJ = "21025760000123"
                             }
                         },
-                        valePed = new MDFeValePed
+                        ValePed = new MDFeValePed
                         {
                             Disp = new List<MDFeDisp>
                                     {
@@ -981,7 +981,7 @@ namespace MDFe.AppTeste
                         TpCar = MDFeTpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<MDFeLacre>
+                    LacRodo = new List<MDFeLacre>
                     {
                         new MDFeLacre
                         {
