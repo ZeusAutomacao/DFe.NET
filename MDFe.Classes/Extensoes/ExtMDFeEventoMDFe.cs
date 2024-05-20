@@ -90,9 +90,9 @@ namespace MDFe.Classes.Extensoes
                 objetoXml.ValidaSchema(config);
             }
 
-            if (tipoEvento == typeof(evPagtoOperMDFe))
+            if (tipoEvento == typeof(MDFeEvPagtoOperMDFe))
             {
-                var objetoXml = (evPagtoOperMDFe)evento.InfEvento.DetEvento.EventoContainer;
+                var objetoXml = (MDFeEvPagtoOperMDFe)evento.InfEvento.DetEvento.EventoContainer;
 
                 objetoXml.ValidaSchema(config);
             }

@@ -52,7 +52,7 @@ namespace MDFe.Classes.Informacoes.Evento
         [XmlElement("evEncMDFe", typeof(MDFeEvEncMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
         [XmlElement("evIncCondutorMDFe", typeof(MDFeEvIncCondutorMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
         [XmlElement("evIncDFeMDFe", typeof(MDFeEvIncDFeMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
-        [XmlElement("evPagtoOperMDFe", typeof(evPagtoOperMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
+        [XmlElement("evPagtoOperMDFe", typeof(MDFeEvPagtoOperMDFe), Namespace = "http://www.portalfiscal.inf.br/mdfe")]
         public MDFeEventoContainer EventoContainer { get; set; }
     }
 }

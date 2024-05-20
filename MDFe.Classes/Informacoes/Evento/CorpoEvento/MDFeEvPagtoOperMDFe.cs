@@ -38,9 +38,9 @@ using System.Xml.Serialization;
 namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
     [Serializable]
-    public class evPagtoOperMDFe : MDFeEventoContainer
+    public class MDFeEvPagtoOperMDFe : MDFeEventoContainer
     {
-        public evPagtoOperMDFe()
+        public MDFeEvPagtoOperMDFe()
         {
             DescEvento = "Pagamento Operacao MDF-e";
         }
