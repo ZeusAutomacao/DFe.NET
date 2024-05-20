@@ -8,7 +8,7 @@ namespace MDFe.Classes.Extensoes
 {
     public static class ExtevPagtoOperMDFe
     {
-        public static void ValidaSchema(this evPagtoOperMDFe evIncDFeMDFe, MDFeConfiguracao cfgMdfe = null)
+        public static void ValidaSchema(this MDFeEvPagtoOperMDFe evIncDFeMDFe, MDFeConfiguracao cfgMdfe = null)
         {
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
@@ -22,7 +22,7 @@ namespace MDFe.Classes.Extensoes
             }
         }
 
-        public static string XmlString(this evPagtoOperMDFe evIncDFeMDFe)
+        public static string XmlString(this MDFeEvPagtoOperMDFe evIncDFeMDFe)
         {
             return FuncoesXml.ClasseParaXmlString(evIncDFeMDFe);
         }
