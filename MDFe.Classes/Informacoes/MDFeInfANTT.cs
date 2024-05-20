@@ -62,7 +62,7 @@ namespace MDFe.Classes.Informacoes
         /// 2 - Grupo de informações dos contratantes do serviço de transporte
         /// </summary>
         [XmlElement(ElementName = "infContratante")]
-        public List<infContratante> InfContratante { get; set; }
+        public List<MDFeInfContratante> InfContratante { get; set; }
 
         /// <summary>
         /// 2 - Informações do Pagamento do Frete
