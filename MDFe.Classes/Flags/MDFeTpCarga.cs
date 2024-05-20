@@ -6,27 +6,38 @@ namespace MDFe.Classes.Flags
     {
         [XmlEnum("0")]
         Indefinido = 0,
+
         [XmlEnum("01")]
-        GranelSolido = 1,
+        GranelSolido = 01,
+
         [XmlEnum("02")]
-        GranelLiquido = 2,
+        GranelLiquido = 02,
+
         [XmlEnum("03")]
-        Frigorificada = 3,
+        Frigorificada = 03,
+
         [XmlEnum("04")]
-        Conteinerizada = 4,
+        Conteinerizada = 04,
+
         [XmlEnum("05")]
-        CargaGeral = 5,
+        CargaGeral = 05,
+
         [XmlEnum("06")]
-        Neogranel = 6,
+        Neogranel = 06,
+
         [XmlEnum("07")]
-        PerigosaGranelSolido = 7,
+        PerigosaGranelSolido = 07,
+
         [XmlEnum("08")]
-        PerigosaGranelLiquido = 8,
+        PerigosaGranelLiquido = 08,
+
         [XmlEnum("09")]
-        PerigosaCargaFrigorificada = 9,
+        PerigosaCargaFrigorificada = 09,
+
         [XmlEnum("10")]
-        PerigosaConteinerizada = 10,
+        PerigosaCargaConteinerizada = 10,
+
         [XmlEnum("11")]
-        PerigosaCargaGeral = 11
+        PerigosaCargaGeral = 11,
     }
 }

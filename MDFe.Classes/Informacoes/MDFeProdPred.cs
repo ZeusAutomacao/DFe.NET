@@ -34,6 +34,7 @@
 
 using System;
 using System.Xml.Serialization;
+using MDFe.Classes.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -50,7 +51,7 @@ namespace MDFe.Classes.Informacoes
         /// Conforme Rosulação ANTT
         /// </summary>
         [XmlElement(ElementName = "tpCarga")]
-        public tpCarga tpCarga { get; set; }
+        public MDFeTpCarga tpCarga { get; set; }
 
         /// <summary>
         /// 1 - Descrição do produto predominante.
