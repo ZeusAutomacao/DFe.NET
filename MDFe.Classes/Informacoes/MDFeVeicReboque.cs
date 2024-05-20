@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
@@ -87,16 +88,22 @@ namespace MDFe.Classes.Informacoes
         public MDFeTpCar TpCar { get; set; }
 
         [XmlIgnore]
-        public Estado UF { get; set; }
+        public Estado? UF { get; set; }
 
         [XmlElement(ElementName = "UF")]
         public string ProxyUF
         {
             get
             {
-                return UF.GetSiglaUfString();
+                return UF.HasValue ? UF.Value.GetSiglaUfString() : null;
             }
-            set { UF = UF.SiglaParaEstado(value); }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    UF = new Estado().SiglaParaEstado(value);
+                else
+                    UF = null;
+            }
         }
 
         public bool TaraSpecified { get { return Tara.HasValue; } }
