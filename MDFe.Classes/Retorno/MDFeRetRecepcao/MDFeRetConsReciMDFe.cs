@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
@@ -77,7 +78,7 @@ namespace MDFe.Classes.Retorno.MDFeRetRecepcao
         }
 
         [XmlElement(ElementName = "protMDFe")]
-        public MDFeProtMDFe ProtMdFe { get; set; }
+        public MDFeProtMDFe ProtMDFe { get; set; }
 
         public static MDFeRetConsReciMDFe LoadXml(string xml)
         {
