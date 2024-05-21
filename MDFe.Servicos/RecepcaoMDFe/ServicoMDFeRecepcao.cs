@@ -28,7 +28,7 @@
 /*                                                                              */
 /* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
 /* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
+/* Rua Comendador Francisco José da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
 using System;
@@ -50,11 +50,13 @@ namespace MDFe.Servicos.RecepcaoMDFe
         public event EventHandler<AntesDeEnviar> AntesDeEnviar;
         public event EventHandler<string> GerouChave; 
 
-        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe)
+        public MDFeRetEnviMDFe MDFeRecepcao(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
-            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe);
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
+            var enviMDFe = ClassesFactory.CriaEnviMDFe(lote, mdfe, config);
+
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
                     mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
@@ -66,43 +68,45 @@ namespace MDFe.Servicos.RecepcaoMDFe
                     break;
             }
 
-            enviMDFe.MDFe.Assina(GerouChave, this);
+            enviMDFe.MDFe.Assina(GerouChave, this, config);
 
-            if (MDFeConfiguracao.Instancia.IsAdicionaQrCode && MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (config.IsAdicionaQrCode && config.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
+                mdfe.InfMDFeSupl = mdfe.QrCode(config.X509Certificate2);
             }
 
-            enviMDFe.Valida();
-            enviMDFe.SalvarXmlEmDisco();
+            enviMDFe.Valida(config);
+            enviMDFe.SalvarXmlEmDisco(config);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcao();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcao(config);
 
             OnAntesDeEnviar(enviMDFe);
 
             var retornoXml = webService.mdfeRecepcaoLote(enviMDFe.CriaXmlRequestWs());
 
             var retorno = MDFeRetEnviMDFe.LoadXml(retornoXml.OuterXml, enviMDFe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(config);
 
             return retorno;
         }
 
-        public MDFeRetMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe)
+        public MDFeRetMDFe MDFeRecepcaoSinc(MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
             mdfe.InfMDFe.Ide.ProxyDhIniViagem = mdfe.InfMDFe.Ide.DhIniViagem.ParaDataHoraStringUtc();
-            mdfe.Assina(GerouChave, this);
+            mdfe.Assina(GerouChave, this, config);
 
-            if (MDFeConfiguracao.Instancia.IsAdicionaQrCode)
+            if (config.IsAdicionaQrCode)
             {
-                mdfe.InfMDFeSupl = mdfe.QrCode(MDFeConfiguracao.Instancia.X509Certificate2);
+                mdfe.InfMDFeSupl = mdfe.QrCode(config.X509Certificate2);
             }
 
-            mdfe.Valida();
-            mdfe.SalvarXmlEmDisco();
+            mdfe.Valida(config);
+            mdfe.SalvarXmlEmDisco(null, config);
 
-            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc();
+            var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc(config);
             var retornoXml = webService.mdfeRecepcao(mdfe.CriaXmlRequestWs());
 
             var retorno = MDFeRetMDFe.LoadXml(retornoXml.OuterXml, mdfe);
