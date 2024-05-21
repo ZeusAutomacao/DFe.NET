@@ -28,28 +28,31 @@
 /*                                                                              */
 /* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
 /* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
+/* Rua Comendador Francisco José da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeStatusServico;
 using MDFe.Servicos.Factory;
+using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.StatusServicoMDFe
 {
     public class ServicoMDFeStatusServico
     {
-        public MDFeRetConsStatServ MDFeStatusServico()
+        public MDFeRetConsStatServ MDFeStatusServico(MDFeConfiguracao cfgMdfe = null)
         {
-            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe();
-            consStatServMDFe.ValidarSchema();
-            consStatServMDFe.SalvarXmlEmDisco();
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlMDFeStatusServico();
+            var consStatServMDFe = ClassesFactory.CriaConsStatServMDFe(config);
+            consStatServMDFe.ValidarSchema(config);
+            consStatServMDFe.SalvarXmlEmDisco(config);
+
+            var webService = WsdlFactory.CriaWsdlMDFeStatusServico(config);
             var retornoXml = webService.mdfeStatusServicoMDF(consStatServMDFe.CriaRequestWs());
 
             var retorno = MDFeRetConsStatServ.LoadXml(retornoXml.OuterXml, consStatServMDFe);
-            retorno.SalvarXmlEmDisco();
+            retorno.SalvarXmlEmDisco(config);
 
             return retorno;
 
