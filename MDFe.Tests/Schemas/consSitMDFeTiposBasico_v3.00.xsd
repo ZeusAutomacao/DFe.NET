@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
+	<xs:complexType name="TConsSitMDFe">
+		<xs:annotation>
+			<xs:documentation>Tipo Pedido de Consulta da Situação Atual do MDF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xServ" type="TServ" fixed="CONSULTAR">
+				<xs:annotation>
+					<xs:documentation>Serviço Solicitado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="chMDFe" type="TChNFe">
+				<xs:annotation>
+					<xs:documentation>Chaves de acesso do MDF-e, compostas por: UF do emitente, AAMM da emissão do MDF-e, CNPJ do emitente, modelo, série, tipo de emissão e número do MDF-e e código numérico + DV.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" use="required">
+			<xs:simpleType>
+				<xs:restriction base="TVerConsSitMDFe"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TRetConsSitMDFe">
+		<xs:annotation>
+			<xs:documentation>Tipo Retorno de Pedido de Consulta da Situação Atual do MDF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que processou o MDF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cStat" type="TStat">
+				<xs:annotation>
+					<xs:documentation>Código do status da mensagem enviada.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descrição literal do status do serviço solicitado.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>código da UF de atendimento</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protMDFe" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any processContents="skip">
+							<xs:annotation>
+								<xs:documentation>Retornar protMDFe da versão correspondente do MDF-e autorizado</xs:documentation>
+							</xs:annotation>
+						</xs:any>
+					</xs:sequence>
+					<xs:attribute name="versao" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:whiteSpace value="preserve"/>
+								<xs:enumeration value="1.00"/>
+								<xs:enumeration value="3.00"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="procEventoMDFe" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:any processContents="skip">
+							<xs:annotation>
+								<xs:documentation>Retornar procEventoMDFe da versão correspondente do evento MDF-e autorizado</xs:documentation>
+							</xs:annotation>
+						</xs:any>
+					</xs:sequence>
+					<xs:attribute name="versao" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:whiteSpace value="preserve"/>
+								<xs:enumeration value="1.00"/>
+								<xs:enumeration value="3.00"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerConsSitMDFe" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="TVerConsSitMDFe">
+		<xs:annotation>
+			<xs:documentation> Tipo Versão do Consulta situação de MDF-e - 1.00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="3\.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
