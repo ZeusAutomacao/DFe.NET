@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="consReciMDFeTiposBasico_v1.00.xsd"/>
+	<xs:element name="retConsReciMDFe" type="TRetConsReciMDFe">
+		<xs:annotation>
+			<xs:documentation>Schema XML de validação do retorno do Pedido de Consulta do MDF-e</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

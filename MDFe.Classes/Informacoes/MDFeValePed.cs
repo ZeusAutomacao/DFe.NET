@@ -50,9 +50,12 @@ namespace MDFe.Classes.Informacoes
         /// <summary>
         /// 3 - Categoria de Combinação Veicular
         /// </summary>
-        [XmlElement(ElementName = "categCombVeic")]
+        [XmlElement(ElementName = "categCombVeic", IsNullable = true)]
         public MDFeCategCombVeic? CategCombVeic { get; set; }
 
-        public bool CategCombVeicSpecified { get { return CategCombVeic.HasValue; } }
+        public bool CategCombVeicSpecified => CategCombVeic.HasValue; 
+
+        public bool ShouldSerializeCategCombVeic() => CategCombVeicSpecified;
+
     }
 }

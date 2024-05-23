@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by Administrador (.) -->
+<xs:schema xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
+	<xs:include schemaLocation="tiposGeralMDFe_v1.00.xsd"/>
+	<xs:complexType name="TProtMDFe">
+		<xs:annotation>
+			<xs:documentation>Tipo Protocolo de status resultado do processamento do MDF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="infProt">
+				<xs:annotation>
+					<xs:documentation>Dados do protocolo de status</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="tpAmb" type="TAmb">
+							<xs:annotation>
+								<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="verAplic" type="TVerAplic">
+							<xs:annotation>
+								<xs:documentation>Versão do Aplicativo que processou o MDF-e</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="chMDFe" type="TChMDFe">
+							<xs:annotation>
+								<xs:documentation>Chaves de acesso do MDF-e, compostas por: UF do emitente, AAMM da emissão do MDFe, CNPJ do emitente, modelo, série, número do MDF-e, Forma de Emissão e código numérico+DV.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dhRecbto" type="xs:dateTime">
+							<xs:annotation>
+								<xs:documentation>Data e hora de processamento, no formato AAAA-MM-DDTHH:MM:SS. Deve ser preenchida com data e hora da gravação no Banco em caso de Confirmação. Em caso de Rejeição, com data e hora do recebimento do Arquivo de MDF-e enviado.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="nProt" type="TProt" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Número do Protocolo de Status do MDF-e. 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual,  7 - Sefaz Nacional ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="digVal" type="ds:DigestValueType" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Digest Value do MDF-e processado. Utilizado para conferir a integridade do CT-e original.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cStat">
+							<xs:annotation>
+								<xs:documentation>Código do status do MDF-e.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TStat"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="xMotivo" type="TMotivo">
+							<xs:annotation>
+								<xs:documentation>Descrição literal do status do MDF-e.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute name="Id" type="xs:ID" use="optional"/>
+				</xs:complexType>
+			</xs:element>
+			<xs:element ref="ds:Signature" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerConsReciMDFe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TConsReciMDFe">
+		<xs:annotation>
+			<xs:documentation>Tipo Pedido de Consulta do Recibo do MDF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nRec" type="TRec">
+				<xs:annotation>
+					<xs:documentation>Número do Recibo do arquivo a ser consultado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerConsReciMDFe" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetConsReciMDFe">
+		<xs:annotation>
+			<xs:documentation>Tipo Retorno do Pedido de  Consulta do Recibo do MDF-e</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que processou o MDF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="nRec" type="TRec">
+				<xs:annotation>
+					<xs:documentation>Número do Recibo Consultado</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cStat" type="TStat">
+				<xs:annotation>
+					<xs:documentation>código do status do retorno da consulta.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descrição literal do status do do retorno da consulta.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cUF" type="TCodUfIBGE">
+				<xs:annotation>
+					<xs:documentation>Idntificação da UF</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="protMDFe" type="TProtMDFe" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Resultado do processamento do MDF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerConsReciMDFe" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="TVerConsReciMDFe">
+		<xs:annotation>
+			<xs:documentation> Tipo Versão do Consulta de MDF-e - 1.00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="1\.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

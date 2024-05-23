@@ -77,9 +77,11 @@ namespace MDFe.Classes.Informacoes
         /// <summary>
         /// Tipo do Vale Pedágio
         /// </summary>
-        [XmlElement(ElementName = "tpValePed")]
+        [XmlElement(ElementName = "tpValePed", IsNullable = true)]
         public MDFeTpValePed? TpValePed { get; set; }
 
-        public bool TpValePedSpecified { get { return TpValePed.HasValue; } }
+        public bool TpValePedSpecified => TpValePed.HasValue;
+
+        public bool ShouldSerializeTpValePed() => TpValePedSpecified;
     }
 }
