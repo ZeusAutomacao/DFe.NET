@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -53,6 +53,8 @@ namespace CTe.Classes.Servicos.Evento.Flags
         ComprovantedeEntrega = 110180,
         [XmlEnum("110181")]
         CancelamentodoComprovantedeEntrega = 110181,
+        [XmlEnum("110190")]
+        InsucessoNaEntregaDoCte = 110190,
         //Evento: Fisco
         [XmlEnum("310620")]
         RegistrodePassagem = 310620,
