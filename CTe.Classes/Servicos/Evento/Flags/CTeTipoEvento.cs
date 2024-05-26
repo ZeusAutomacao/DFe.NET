@@ -55,6 +55,8 @@ namespace CTe.Classes.Servicos.Evento.Flags
         CancelamentodoComprovantedeEntrega = 110181,
         [XmlEnum("110190")]
         InsucessoNaEntregaDoCte = 110190,
+        [XmlEnum("110191")]
+        CancelamentodoInsucessoNaEntregaDoCte = 110191,
         //Evento: Fisco
         [XmlEnum("310620")]
         RegistrodePassagem = 310620,
