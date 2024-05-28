@@ -38,6 +38,7 @@ using System;
 using DFe.Utils;
 using FastReport.Export.Pdf;
 using MDFe.Classes.Retorno;
+using FastReport.Export.Html;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -163,6 +164,30 @@ namespace MDFe.Damdfe.Fast
             Relatorio.Prepare();
             Relatorio.Export(exportBase, outputStream);
             outputStream.Position = 0;
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        /// <param name="arquivo">Caminho/arquivo onde deve ser salvo o HTML do DAMDFe</param>
+        public void ExportarHTML(string arquivo)
+        {
+            Relatorio.Prepare();
+
+            var html = new HTMLExport
+            {
+                EmbedPictures = true,
+                SinglePage = true,
+                EnableVectorObjects = true,
+                Wysiwyg = true,
+                SubFolder = false,
+                Layers = true,
+                Navigator = false,
+                Pictures = true,
+                EnableMargins = true
+            };
+
+            Relatorio.Export(html, arquivo);
         }
     }
 }

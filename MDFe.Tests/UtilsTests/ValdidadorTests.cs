@@ -911,7 +911,6 @@ namespace MDFe.Tests.UtilsTests
         [Fact] 
         public void Deve_Validar_O_Xml_Com_Nome_E_Schema_Corretos_Para_Encerrar_Evento()
         {
-
             //Arrange
             if (_mdfe != null) Dispose();
             var encerramento = new MDFeEvEncMDFe

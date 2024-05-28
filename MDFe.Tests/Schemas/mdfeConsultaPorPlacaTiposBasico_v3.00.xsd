@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-softwares@procergs.rs.gov.br (PROCERGS) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.portalfiscal.inf.br/mdfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" targetNamespace="http://www.portalfiscal.inf.br/mdfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:include schemaLocation="tiposGeralMDFe_v3.00.xsd"/>
+	<xs:complexType name="TMDFeConsultaPorPlaca">
+		<xs:annotation>
+			<xs:documentation>Tipo Pedido de Consulta por Placa</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placa" type="TPlaca">
+				<xs:annotation>
+					<xs:documentation>Placa do veículo de tração indicado no MDF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dhConsulta" type="TDateTimeUTC">
+				<xs:annotation>
+					<xs:documentation>Data e hora de referência para a consulta</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerMDFeConsultaPorPlaca" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="TRetMDFeConsultaPorPlaca">
+		<xs:annotation>
+			<xs:documentation>Tipo Retorno de Pedido de Consulta por Placa</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="tpAmb" type="TAmb">
+				<xs:annotation>
+					<xs:documentation>Identificação do Ambiente:
+1 - Produção
+2 - Homologação</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="verAplic" type="TVerAplic">
+				<xs:annotation>
+					<xs:documentation>Versão do Aplicativo que processou a consulta do MDF-e</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cStat" type="TStat">
+				<xs:annotation>
+					<xs:documentation>Código do status da consulta MDF-e por placa</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xMotivo" type="TMotivo">
+				<xs:annotation>
+					<xs:documentation>Descrição literal do status da consulta MDF-e por Placa</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="infMDFe" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Grupo de informações dos MDF-e autorizados para a placa indicada</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="MDFe" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="chMDFe" type="TChMDFe">
+										<xs:annotation>
+											<xs:documentation>Chave de Acesso do MDF-e</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="nProt" type="TProt">
+										<xs:annotation>
+											<xs:documentation>Número do Protocolo de Status do MDF-e. 1 posição tipo de autorizador (1 – Secretaria de Fazenda Estadual,  7 - Sefaz Nacional ); 2 posições ano; 10 seqüencial no ano.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UFIni" type="TUf">
+										<xs:annotation>
+											<xs:documentation>Sigla da UF de carregamento</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UFFim" type="TUf">
+										<xs:annotation>
+											<xs:documentation>Sigla da UF de descarregamento</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="infPercurso" minOccurs="0" maxOccurs="25">
+										<xs:annotation>
+											<xs:documentation>Grupo de informações do percurso do MDF-e</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="UFPer" type="TUf">
+													<xs:annotation>
+														<xs:documentation>Sigla da UF de Percurso</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="infVeiculo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Grupo de informações dos dados do veículo (integração base RNTRC)</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RNTRC">
+							<xs:annotation>
+								<xs:documentation>Registro Nacional de Transportador Rodoviário de Cargas</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[0-9]{8}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="xNome">
+							<xs:annotation>
+								<xs:documentation>Nome do Transportador</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:choice>
+							<xs:element name="CNPJ" type="TCnpj">
+								<xs:annotation>
+									<xs:documentation>CNPJ da matriz do Transportador</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="CPF" type="TCpf">
+								<xs:annotation>
+									<xs:documentation>CPF do transportador autônomo</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:choice>
+						<xs:element name="exigeCIOT">
+							<xs:annotation>
+								<xs:documentation>Indicador se há exigência de CIOT
+1- Sim / 0 - Não</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="0"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="tpCateg">
+							<xs:annotation>
+								<xs:documentation>Tipo da categoria do transportador:
+1-ETC
+2-CTC
+3-TAC</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+									<xs:enumeration value="3"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="marca">
+							<xs:annotation>
+								<xs:documentation>Marca do veículo</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:minLength value="2"/>
+									<xs:maxLength value="50"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="RENAVAM">
+							<xs:annotation>
+								<xs:documentation>RENAVAM do veículo</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="TString">
+									<xs:minLength value="9"/>
+									<xs:maxLength value="11"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="tpVeiculo">
+							<xs:annotation>
+								<xs:documentation>Tipo do veículo
+1-Tração
+2-Rebocável</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ano">
+							<xs:annotation>
+								<xs:documentation>Ano de fabricação do veículo</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[0-9]{4}"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="tara">
+							<xs:annotation>
+								<xs:documentation>Tara do veículo (t)</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="[0-9]{1,3}(\.[0-9]{2,3})?"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="nroEixos">
+							<xs:annotation>
+								<xs:documentation>Número de Eixos</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:whiteSpace value="preserve"/>
+									<xs:pattern value="10|[1-9]"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="versao" type="TVerMDFeConsultaPorPlaca" use="required"/>
+	</xs:complexType>
+	<xs:simpleType name="TVerMDFeConsultaPorPlaca">
+		<xs:annotation>
+			<xs:documentation> Tipo Versão da Consulta Por Placa - 3.00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="3\.00"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

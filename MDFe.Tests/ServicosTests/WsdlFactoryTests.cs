@@ -1,12 +1,12 @@
 ﻿using MDFe.Servicos.Factory;
 using MDFe.Tests.Dao;
 using MDFe.Tests.Entidades;
-using MDFe.Wsdl.Gerado.MDFeConsultaNaoEncerrados;
-using MDFe.Wsdl.Gerado.MDFeConsultaProtocolo;
-using MDFe.Wsdl.Gerado.MDFeEventos;
-using MDFe.Wsdl.Gerado.MDFeRecepcao;
-using MDFe.Wsdl.Gerado.MDFeRetRecepcao;
 using MDFe.Wsdl.Gerado.MDFeStatusServico;
+using MDFe.Wsdl.MDFeConsultaNaoEncerrados;
+using MDFe.Wsdl.MDFeConsultaProtoloco;
+using MDFe.Wsdl.MDFeEventos;
+using MDFe.Wsdl.MDFeRecepcao;
+using MDFe.Wsdl.MDFeRetRecepcao;
 using Xunit;
 
 namespace MDFe.Tests.ServicosTests
