@@ -95,7 +95,7 @@ namespace MDFe.Tests.Dao
                 {
 
                     // não é obrigatorio
-                    infCIOT = new List<infCIOT>
+                    InfCIOT = new List<infCIOT>
                         {
                             new infCIOT
                             {
@@ -103,7 +103,7 @@ namespace MDFe.Tests.Dao
                                 CNPJ = "00000000000000"
                             }
                         },
-                    valePed = new MDFeValePed
+                    ValePed = new MDFeValePed
                     {
                         Disp = new List<MDFeDisp>
                                     {
@@ -112,9 +112,11 @@ namespace MDFe.Tests.Dao
                                             CNPJForn = "00000000000000",
                                             CNPJPg = "00000000000000",
                                             NCompra = "000000000",
-                                            vValePed = 100.00m
+                                            vValePed = 100.00m,
+                                            TpValePed = MDFeTpValePed.Cartao
                                         }
-                                    }
+                                    },
+                        CategCombVeic = MDFeCategCombVeic.VeiculoComercial2Eixos
                     }
                 },
 
@@ -137,8 +139,7 @@ namespace MDFe.Tests.Dao
                     TpRod = MDFeTpRod.Outros,
                     TpCar = MDFeTpCar.NaoAplicavel
                 },
-
-                lacRodo = new List<MDFeLacre>
+                LacRodo = new List<MDFeLacre>
                     {
                         new MDFeLacre
                         {
