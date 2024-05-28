@@ -42,7 +42,7 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>02 - Cheque</para>
     ///     <para>03 - Cartão de Crédito</para>
     ///     <para>04 - Cartão de Débito</para>
-    ///     <para>05 - Crédito Loja</para>
+    ///     <para>05 - Cartão da Loja</para>
     ///     <para>10 - Vale Alimentação</para>
     ///     <para>11 - Vale Refeição</para>
     ///     <para>12 - Vale Presente</para>
@@ -50,9 +50,12 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>14 - Duplicata Mercantil (versão 4.00)</para>
     ///     <para>15 - Boleto Bancário (versão 4.00)</para>
     ///     <para>16 - Depósito Bancário (versão 4.00)</para>
-    ///     <para>17 - Pagamento Instantâneo (PIX) (versão 4.00)</para>
+    ///     <para>17 - Pagamento Instantâneo (PIX) dinâmico (versão 4.00)</para>
     ///     <para>18 - Transferência bancária, Carteira Digital (versão 4.00)</para>
     ///     <para>19 - Programa de fidelidade, Cashback, Crédito Virtual (versão 4.00)</para>
+    ///     <para>20 - Pagamento Instantâneo (PIX) estático</para>
+    ///     <para>21 - Crédito em loja</para>
+    ///     <para>22 - Pagamento eletrônico não informado - falha de hardware do sistema emissor</para>
     ///     <para>90 - Sem pagamento (versão 4.00)</para>
     ///     <para>99 - Outros</para>
     /// </summary>
@@ -87,11 +90,11 @@ namespace NFe.Classes.Informacoes.Pagamento
         fpCartaoDebito = 04,
 
         /// <summary>
-        /// 05 - Crédito Loja
+        /// 05 - Cartão da Loja
         /// </summary>
-        [Description("Crédito Loja")]
+        [Description("Cartão da Loja")]
         [XmlEnum("05")]
-        fpCreditoLoja = 05,
+        fpCartaoDaLoja = 05,
 
         /// <summary>
         /// 10 - Vale Alimentação
@@ -136,31 +139,48 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// </summary>
         [Description("Boleto Bancário")]
         [XmlEnum("15")] fpBoletoBancario = 15,
-        
+
         /// <summary>
         /// 16 - Depósito Bancário
         /// </summary>
         [Description("=Depósito Bancário")]
-        [XmlEnum("16")] fpDepositoBancario= 16,
-        
+        [XmlEnum("16")] fpDepositoBancario = 16,
+
         /// <summary>
-        /// 17 - Pagamento Instantâneo (PIX)
+        /// 17 - Pagamento Instantâneo (PIX) dinâmico
         /// </summary>
-        [Description("Pagamento Instantâneo (PIX)")]
-        [XmlEnum("17")] fpPagamentoInstantaneoPIX = 17,
-        
-         /// <summary>
+        [Description("Pagamento Instantâneo (PIX) dinâmico")]
+        [XmlEnum("17")] fpPagamentoInstantaneoPIXDinamico = 17,
+
+        /// <summary>
         /// 18 - Transferência bancária, Carteira Digital
         /// </summary>
         [Description("Transferência bancária, Carteira Digital")]
         [XmlEnum("18")] fpTransferenciabancaria = 18,
-        
-         /// <summary>
+
+        /// <summary>
         /// 19 - Programa de fidelidade, Cashback, Crédito Virtual
         /// </summary>
         [Description("Programa de fidelidade, Cashback, Crédito Virtual")]
         [XmlEnum("19")] fpProgramadefidelidade = 19,
-        
+
+        /// <summary>
+        /// 20 - Pagamento Instantâneo (PIX) estático
+        /// </summary>
+        [Description("Pagamento Instantâneo (PIX) estático")]
+        [XmlEnum("20")] fpPagamentoInstantaneoPIXEstatico = 20,
+
+        /// <summary>
+        /// 21 - Crédito em loja
+        /// </summary>
+        [Description("Crédito em loja")]
+        [XmlEnum("21")] fpCreditoEmLoja = 21,
+
+        /// <summary>
+        /// 22 - Pagamento eletrônico não informado - falha de hardware do sistema emissor
+        /// </summary>
+        [Description("Pagamento eletrônico não informado")]
+        [XmlEnum("22")] fpPagamentoEletronicoNaoInformado = 22,
 
         /// <summary>
         /// 90 - Sem pagamento
