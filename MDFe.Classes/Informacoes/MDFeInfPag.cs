@@ -84,7 +84,7 @@ namespace MDFe.Classes.Informacoes
         /// 3 - Valor total do Contrato.
         /// </summary>
         [XmlElement("vContrato")]
-        public decimal vContratoProxy
+        public decimal VContratoProxy
         {
             get { return _vContrato.Arredondar(2); }
             set { _vContrato = value.Arredondar(2); }

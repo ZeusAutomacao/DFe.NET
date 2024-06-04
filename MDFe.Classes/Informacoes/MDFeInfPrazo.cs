@@ -48,7 +48,7 @@ namespace MDFe.Classes.Informacoes
         /// 1 - Número da parcela.
         /// </summary>
         [XmlElement("nParcela")]
-        public string nParcelaProxy
+        public string NParcelaProxy
         {
             get { return _nParcela.ToString("D3"); }
             set { _nParcela = short.Parse(value); }
@@ -74,7 +74,7 @@ namespace MDFe.Classes.Informacoes
         /// 1 - Valor da parcela.
         /// </summary>
         [XmlElement("vParcela")]
-        public decimal vParcelaProxy
+        public decimal VParcelaProxy
         {
             get { return _vParcela.Arredondar(2); }
             set { _vParcela = value.Arredondar(2); }

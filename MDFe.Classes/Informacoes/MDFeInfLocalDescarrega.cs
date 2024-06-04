@@ -52,7 +52,7 @@ namespace MDFe.Classes.Informacoes
         /// carregado o MDF-e.
         /// </summary>
         [XmlElement("latitude")]
-        public string latitudeProxy
+        public string LatitudeProxy
         {
             get
             {

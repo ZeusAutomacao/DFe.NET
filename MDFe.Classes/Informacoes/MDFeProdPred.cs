@@ -51,7 +51,7 @@ namespace MDFe.Classes.Informacoes
         /// Conforme Rosulação ANTT
         /// </summary>
         [XmlElement(ElementName = "tpCarga")]
-        public MDFeTpCarga tpCarga { get; set; }
+        public MDFeTpCarga TpCarga { get; set; }
 
         /// <summary>
         /// 1 - Descrição do produto predominante.
