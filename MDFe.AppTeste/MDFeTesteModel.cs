@@ -771,7 +771,7 @@ namespace MDFe.AppTeste
             {
                 mdfe.InfMDFe.ProdPred = new MDFeProdPred
                 {
-                    tpCarga = MDFeTpCarga.CargaGeral,
+                    TpCarga = MDFeTpCarga.CargaGeral,
                     XProd = "aaaaaaaaaaaaaaaaaaaaa",
                     InfLotacao = new MDFeInfLotacao
                     {

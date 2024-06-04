@@ -32,13 +32,13 @@
 /********************************************************************************/
 
 using System.IO;
-using FastReport;
-using MDFe.Damdfe.Base;
 using System;
 using DFe.Utils;
+using FastReport;
+using FastReport.Export.Html;
 using FastReport.Export.Pdf;
 using MDFe.Classes.Retorno;
-using FastReport.Export.Html;
+using MDFe.Damdfe.Base;
 
 namespace MDFe.Damdfe.Fast
 {
@@ -164,6 +164,58 @@ namespace MDFe.Damdfe.Fast
             Relatorio.Prepare();
             Relatorio.Export(exportBase, outputStream);
             outputStream.Position = 0;
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        public MemoryStream ExportarPdf()
+        {
+            Relatorio.DoublePass = true;
+            Relatorio.SmoothGraphics = false;
+            FastReport.Utils.Config.WebMode = true;
+            Relatorio.Prepare();
+
+            var pdfExport = new PDFExport();
+
+            var stream = new MemoryStream();
+            Relatorio.Report.Export(pdfExport, stream);
+            //pdfExport.Export(Relatorio, stream);
+            Relatorio.Dispose();
+            pdfExport.Dispose();
+
+            stream.Position = 0;
+
+            return stream;
+
+        }
+
+        /// <summary>
+        /// Converte o DAMDFe para HTML e salva-o no caminho/arquivo indicado
+        /// </summary>
+        public Stream ObterHTML()
+        {
+            Relatorio.DoublePass = true;
+            Relatorio.SmoothGraphics = false;
+            Relatorio.Prepare();
+
+            using (var html = new HTMLExport())
+            {
+                html.EmbedPictures = true;
+                html.SinglePage = false;
+                html.SubFolder = false;
+                html.Layers = true;
+                html.Navigator = false;
+                html.Pictures = true;
+                html.EnableMargins = true;
+                html.SaveStreams = true;
+                html.Wysiwyg = true;
+
+                var stream = new MemoryStream();
+                Relatorio.Export(html, stream);
+
+                return stream;
+            }
         }
 
         /// <summary>

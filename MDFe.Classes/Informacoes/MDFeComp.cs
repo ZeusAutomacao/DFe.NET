@@ -45,7 +45,7 @@ namespace MDFe.Classes.Informacoes
         /// 1 - Tipo do Componente.
         /// </summary>
         [XmlElement(ElementName = "tpComp")]
-        public MDFeTpComp MdFeTpComp { get; set; }
+        public MDFeTpComp TpComp { get; set; }
 
         [XmlIgnore]
         private decimal _vComp { get; set; }
