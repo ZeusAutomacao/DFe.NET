@@ -77,13 +77,12 @@
 				</xs:element>
 				<xs:element name="hashTentativaEntrega">
 					<xs:annotation>
-						<xs:documentation>Hash (SHA1) no formato Base64 resultante da concatenação: Chave de acesso da NFe + Base64 da imagem capturada da entrega (Exemplo: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc)</xs:documentation>
-						<xs:documentation>O hashCSRT é o resultado das funções SHA-1 e base64 do token CSRT fornecido pelo fisco + chave de acesso do DF-e. (Implementação em futura NT)
+						<xs:documentation>Hash (SHA1) no formato Base64 resultante da concatenação: Chave de acesso da NFe + Base64 da imagem capturada da entrega (Exemplo: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc)
 Observação: 28 caracteres são representados no schema como 20 bytes do tipo base64Binary</xs:documentation>
 					</xs:annotation>
 					<xs:simpleType>
 						<xs:restriction base="xs:base64Binary">
-							<xs:length value="28"/>
+							<xs:length value="20"/>
 						</xs:restriction>
 					</xs:simpleType>
 				</xs:element>
