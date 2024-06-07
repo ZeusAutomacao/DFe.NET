@@ -157,6 +157,15 @@ namespace MDFe.Classes.Extensoes
             mdfe.InfMDFe.Versao = config.VersaoWebService.VersaoLayout;
             mdfe.InfMDFe.Ide.CDV = dadosChave.DigitoVerificador;
 
+            mdfe.InfMDFeSupl = new MdfeInfMDFeSupl();
+            mdfe.InfMDFeSupl.QrCodMDFe = MdfeInfMDFeSupl.GerarQrCode(dadosChave.Chave, mdfe.InfMDFe.Ide.TpAmb);
+            if (mdfe.InfMDFe.Ide.TpEmis == MDFeTipoEmissao.Contingencia)
+            {
+                var encoding = Encoding.UTF8;
+                var sign = Convert.ToBase64String(CreateSignaturePkcs1(config.X509Certificate2, encoding.GetBytes(mdfe.Chave())));
+                mdfe.InfMDFeSupl.QrCodMDFe += "&sign=" + sign;
+            }
+
             var assinatura = AssinaturaDigital.Assina(mdfe, mdfe.InfMDFe.Id, config.X509Certificate2);
 
             mdfe.Signature = assinatura;
