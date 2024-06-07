@@ -63,6 +63,11 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "IE")]
         public string IE { get; set; }
 
+        public bool ShouldSerializeIE()
+        {
+            return !string.IsNullOrEmpty(IE);
+        }
+
         /// <summary>
         /// 2 - Razão social ou Nome do emitente 
         /// </summary>

@@ -251,7 +251,13 @@ namespace MDFe.Classes.Informacoes
                 }
 
             }
-            set { DhIniViagem = DateTime.Parse(value); }
+            set
+            {
+                if (value is null)
+                    DhIniViagem = null;
+                else
+                    DhIniViagem = DateTime.Parse(value);
+            }
         }
 
         /// <summary>
