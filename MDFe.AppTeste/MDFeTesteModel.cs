@@ -645,7 +645,7 @@ namespace MDFe.AppTeste
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    infANTT = new MDFeInfANTT
+                    InfANTT = new MDFeInfANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
@@ -933,7 +933,7 @@ namespace MDFe.AppTeste
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    infANTT = new MDFeInfANTT
+                    InfANTT = new MDFeInfANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
