@@ -50,9 +50,12 @@ namespace NFe.Classes.Informacoes.Pagamento
     ///     <para>14 - Duplicata Mercantil (versão 4.00)</para>
     ///     <para>15 - Boleto Bancário (versão 4.00)</para>
     ///     <para>16 - Depósito Bancário (versão 4.00)</para>
-    ///     <para>17 - Pagamento Instantâneo (PIX) (versão 4.00)</para>
+    ///     <para>17 - Pagamento Instantâneo (PIX) - Dinâmico (versão 4.00)</para>
     ///     <para>18 - Transferência bancária, Carteira Digital (versão 4.00)</para>
     ///     <para>19 - Programa de fidelidade, Cashback, Crédito Virtual (versão 4.00)</para>
+    ///     <para>20 - Pagamento Instantâneo (PIX) – Estático (IT 2024.002)</para>
+    ///     <para>21 - Crédito em Loja - Devolução Mercadoria (IT 2024.002)</para>
+    ///     <para>22 - Pagamento Eletrônico não informado - Falha de Hardware (IT 2024.002)</para>
     ///     <para>90 - Sem pagamento (versão 4.00)</para>
     ///     <para>99 - Outros</para>
     /// </summary>
@@ -146,7 +149,7 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// <summary>
         /// 17 - Pagamento Instantâneo (PIX)
         /// </summary>
-        [Description("Pagamento Instantâneo (PIX)")]
+        [Description("Pagamento Instantâneo (PIX) - Dinâmico")]
         [XmlEnum("17")] fpPagamentoInstantaneoPIX = 17,
         
          /// <summary>
@@ -160,7 +163,24 @@ namespace NFe.Classes.Informacoes.Pagamento
         /// </summary>
         [Description("Programa de fidelidade, Cashback, Crédito Virtual")]
         [XmlEnum("19")] fpProgramadefidelidade = 19,
-        
+
+        /// <summary>
+        /// 20 - Pagamento Instantâneo (PIX) - Estático
+        /// </summary>
+        [Description("Pagamento Instantâneo (PIX) - Estático")]
+        [XmlEnum("20")] fpPagamentoInstantaneoPIXEstatico = 20,
+
+        /// <summary>
+        /// 21 - Crédito Loja - Devolução Mercadoria
+        /// </summary>
+        [Description("Crédito Loja - Devolução Mercadoria")]
+        [XmlEnum("21")] fpCreditoLojaDevolucaoMercadoria = 21,
+
+        /// <summary>
+        /// 22 - Pagamento Eletrônico não informado - Falha de Hardware
+        /// </summary>
+        [Description("Pagamento Eletrônico não informado - Falha de Hardware")]
+        [XmlEnum("22")] fpPagamentoEletronicoNaoInformado = 22,
 
         /// <summary>
         /// 90 - Sem pagamento
