@@ -113,5 +113,10 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "indAltoDesemp")]
         public MDFeIndAltoDesemp IndAltoDesemp { get; set; }
+
+        public bool ShouldSerializeIndAltoDesemp()
+        {
+            return IndAltoDesemp == MDFeIndAltoDesemp.AltoDesempenho;
+        }
     }
 }
