@@ -180,9 +180,9 @@ namespace MDFe.Classes.Extensoes
 
         public static void SalvarXmlEmDisco(this MDFEletronico mdfe, string nomeArquivo = null, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.Instancia.NaoSalvarXml()) return;
-
             var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
+            if (config.NaoSalvarXml()) return;
 
             if (string.IsNullOrEmpty(nomeArquivo))
                 nomeArquivo = Path.Combine(config.CaminhoSalvarXml, mdfe.Chave() + "-mdfe.xml");
