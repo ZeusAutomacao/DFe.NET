@@ -50,7 +50,7 @@ namespace MDFe.Servicos.ConsultaNaoEncerradosMDFe
             var retornoXml = webService.mdfeConsNaoEnc(consMDFeNaoEnc.CriaRequestWs());
 
             var retorno = MDFeRetConsMDFeNao.LoadXmlString(retornoXml.OuterXml, consMDFeNaoEnc);
-            retorno.SalvarXmlEmDisco(cnpjCpf);
+            retorno.SalvarXmlEmDisco(cnpjCpf, cfgMdfe);
 
             return retorno;
         }

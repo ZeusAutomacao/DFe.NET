@@ -32,12 +32,9 @@
 /********************************************************************************/
 
 using System.Security.Cryptography.X509Certificates;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
 using DFe.Utils;
 using DFe.Utils.Assinatura;
 using System;
-using VersaoServico = MDFe.Utils.Flags.VersaoServico;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;

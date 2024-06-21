@@ -64,11 +64,11 @@ namespace MDFe.Classes.Informacoes
         public string Fone { get; set; }
 
         [XmlIgnore]
-        private int? idCSRT { get; set; }
+        private int? IdCSRT { get; set; }
 
-        public bool idCSRTSpecified
+        public bool IdCSRTSpecified
         {
-            get { return idCSRT.HasValue; }
+            get { return IdCSRT.HasValue; }
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "idCSRT")]
         public string ProxyIdCSRT
         {
-            get { return idCSRT != null ? idCSRT.Value.ToString("D3") : null; }
-            set { idCSRT = int.Parse(value); }
+            get { return IdCSRT != null ? IdCSRT.Value.ToString("D3") : null; }
+            set { IdCSRT = int.Parse(value); }
         }
 
         /// <summary>
