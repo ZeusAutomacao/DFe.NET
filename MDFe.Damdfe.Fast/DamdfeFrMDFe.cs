@@ -74,8 +74,8 @@ namespace MDFe.Damdfe.Fast
         {
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
-        }
-
+        } 
+        
         public void Configurar(ConfiguracaoDamdfe config)
         {
             Relatorio.SetParameterValue("DoocumentoCancelado", config.DocumentoCancelado);
@@ -187,7 +187,6 @@ namespace MDFe.Damdfe.Fast
             stream.Position = 0;
 
             return stream;
-
         }
 
         /// <summary>

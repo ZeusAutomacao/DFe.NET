@@ -74,9 +74,9 @@ namespace MDFe.Damdfe.OpenFast
         {
             Relatorio.RegisterData(new[] { proc }, "MDFeProcMDFe", 20);
             Relatorio.GetDataSource("MDFeProcMDFe").Enabled = true;            
-        }
-
-       public void Configurar(ConfiguracaoDamdfe config)
+        } 
+        
+        public void Configurar(ConfiguracaoDamdfe config)
         {
             Relatorio.SetParameterValue("NewLine", Environment.NewLine);
             Relatorio.SetParameterValue("Tabulation", "\t");

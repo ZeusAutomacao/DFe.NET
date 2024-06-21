@@ -33,7 +33,6 @@
 
 using System.Collections.Generic;
 using MDFe.Classes.Informacoes;
-using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Informacoes.Evento.Flags;
 using MDFe.Classes.Retorno.MDFeEvento;
 using MDFe.Servicos.Factory;

@@ -50,7 +50,7 @@ namespace MDFe.Servicos.ConsultaProtocoloMDFe
             var retornoXml = webService.mdfeConsultaMDF(consSitMdfe.CriaRequestWs());
 
             var retorno = MDFeRetConsSitMDFe.LoadXml(retornoXml.OuterXml, consSitMdfe);
-            retorno.SalvarXmlEmDisco(chave);
+            retorno.SalvarXmlEmDisco(chave, cfgMdfe);
 
             return retorno;
         }
