@@ -180,16 +180,20 @@ namespace MDFe.Utils.Configuracoes
 
         public void Dispose()
         {
-            if (!ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
-            {
-                _certificado.Reset();
-                _certificado = null;
-            }
+            LimparCertificado();
         }
 
         ~MDFeConfiguracao()
         {
-            if (!ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null)
+            LimparCertificado();
+        }
+
+        private void LimparCertificado()
+        {
+            var naoDeveManterCertificadoEmCache =
+                !ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null;
+
+            if (naoDeveManterCertificadoEmCache)
             {
                 _certificado.Reset();
                 _certificado = null;
