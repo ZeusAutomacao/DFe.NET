@@ -11,7 +11,7 @@ namespace MDFe.Classes.Flags
         ImpostosTaxasEContribuicoes = 02,
 
         [XmlEnum("03")]
-        DespesasBancariasEmiosDePagamentoOutras = 03,
+        DespesasBancariasEMeiosDePagamentoOutras = 03,
 
         [XmlEnum("99")]
         Outros = 99

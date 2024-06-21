@@ -68,7 +68,8 @@ namespace MDFe.Classes.Informacoes
         /// <summary>
         /// 4 - Valor do Vale-Pedagio 
         /// </summary>
-        public decimal vValePed
+        [XmlElement(ElementName = "vValePed")]
+        public decimal VValePed
         {
             get { return _vValePed.Arredondar(2); }
             set { _vValePed = value.Arredondar(2); }

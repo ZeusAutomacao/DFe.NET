@@ -955,7 +955,7 @@ namespace MDFe.AppTeste
                                             CNPJForn = "21025760000123",
                                             CNPJPg = "21025760000123",
                                             NCompra = "838388383",
-                                            vValePed = 100.33m
+                                            VValePed = 100.33m
                                         }
                                     }
                         }
