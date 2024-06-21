@@ -71,7 +71,6 @@ namespace MDFe.Classes.Extensoes
             var tipoModal = mdfe.InfMDFe.InfModal.Modal.GetType();
             var xmlModal = FuncoesXml.ClasseParaXmlString(mdfe.InfMDFe.InfModal);
 
-
             if (tipoModal == typeof (MDFeRodo))
             {
                 switch (config.VersaoWebService.VersaoLayout)

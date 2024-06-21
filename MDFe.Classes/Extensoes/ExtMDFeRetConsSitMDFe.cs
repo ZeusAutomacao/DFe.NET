@@ -48,7 +48,7 @@ namespace MDFe.Classes.Extensoes
 
             var caminhoXml = config.CaminhoSalvarXml;
 
-            var arquivoSalvar = Path.Combine(caminhoXml,  chave + "-sit.xml");
+            var arquivoSalvar = Path.Combine(caminhoXml, chave + "-sit.xml");
 
             FuncoesXml.ClasseParaArquivoXml(retConsSitMdFe, arquivoSalvar);
         }
