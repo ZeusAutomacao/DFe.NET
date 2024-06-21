@@ -50,6 +50,7 @@ namespace MDFe.Classes.Informacoes
             ProdPred = new MDFeProdPred();
             Versao = VersaoServico.Versao100;
         }
+
         /// <summary>
         /// 1 - Versão do leiaute 
         /// </summary>

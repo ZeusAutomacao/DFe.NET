@@ -40,7 +40,7 @@ namespace MDFe.Classes.Informacoes
     public class MDFeInfLocalDescarrega
     {
         /// <summary>
-        /// 1 - Cep onde foi carregado o MDF-e.
+        /// 1 - Cep onde foi descarregado o MDF-e.
         /// </summary>
         public string CEP { get; set; }
 
@@ -49,7 +49,7 @@ namespace MDFe.Classes.Informacoes
 
         /// <summary>
         /// 1- Latitude do ponto geográfico onde foi
-        /// carregado o MDF-e.
+        /// descarregado o MDF-e.
         /// </summary>
         [XmlElement("latitude")]
         public string LatitudeProxy
@@ -67,9 +67,9 @@ namespace MDFe.Classes.Informacoes
 
         /// <summary>
         /// 1 - Longitude do ponto geográfico onde foi
-        /// carregado o MDF-e.
+        /// descarregado o MDF-e.
         /// </summary>
-        [XmlElement("Longitude")]
+        [XmlElement("longitude")]
         public string LongitudeProxy
         {
             get

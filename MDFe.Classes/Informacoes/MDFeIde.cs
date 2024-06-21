@@ -235,7 +235,8 @@ namespace MDFe.Classes.Informacoes
         /// Proxy para dhIniViagem
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
-        public string ProxyDhIniViagem {
+        public string ProxyDhIniViagem 
+        {
             get
             {
                 var versaoLayout = _versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
@@ -249,7 +250,6 @@ namespace MDFe.Classes.Informacoes
                     default:
                         throw new InvalidOperationException("Versão Inválida para MDF-e");
                 }
-
             }
             set
             {

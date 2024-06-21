@@ -49,7 +49,8 @@ namespace MDFe.Classes.Informacoes
         /// Proxy para sigla das Unidades da Federação do percurso do veículo
         /// </summary>
         [XmlElement(ElementName = "UFPer")]
-        public string ProxyUFPer {
+        public string ProxyUFPer 
+        {
             get { return UFPer.GetSiglaUfString(); }
             set { UFPer = UFPer.SiglaParaEstado(value); }
         }

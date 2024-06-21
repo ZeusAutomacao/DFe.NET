@@ -123,6 +123,8 @@ namespace MDFe.Classes.Informacoes
             {
                 if (!string.IsNullOrEmpty(value))
                     UF = new Estado().SiglaParaEstado(value);
+                else
+                    UF = null;
             }
         }
 
