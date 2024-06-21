@@ -57,7 +57,7 @@ namespace MDFe.Classes.Informacoes
             get
             {
                 if (_latitude == null) return null;
-                    return _latitude.ToString();
+                return _latitude.ToString();
             }
             set { _latitude = decimal.Parse(value); }
         }
@@ -68,7 +68,7 @@ namespace MDFe.Classes.Informacoes
         /// <summary>
         /// 1 - Longitude do ponto geográfico onde foi carregado o MDF-e.
         /// </summary>
-        [XmlElement("Longitude")]
+        [XmlElement("longitude")]
         public string LongitudeProxy
         {
             get

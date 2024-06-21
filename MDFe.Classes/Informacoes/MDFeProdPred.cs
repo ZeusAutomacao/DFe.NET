@@ -18,7 +18,6 @@
 /*  Esta biblioteca é distribuída na expectativa de que seja útil, porém, SEM   */
 /* NENHUMA GARANTIA; nem mesmo a garantia implícita de COMERCIABILIDADE OU      */
 /* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
-/* ADEQUAÇÃO A UMA FINALIDADE ESPECÍFICA. Consulte a Licença Pública Geral Menor*/
 /* do GNU para mais detalhes. (Arquivo LICENÇA.TXT ou LICENSE.TXT)              */
 /*                                                                              */
 /*  Você deve ter recebido uma cópia da Licença Pública Geral Menor do GNU junto*/

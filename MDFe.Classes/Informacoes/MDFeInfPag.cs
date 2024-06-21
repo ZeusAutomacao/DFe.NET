@@ -66,7 +66,8 @@ namespace MDFe.Classes.Informacoes
         public string CNPJ { get; set; }
 
         /// <summary>
-        /// 3 - Componentes do Pagamento do Frete.
+        /// 3 - Identificador do responsável pelo pagamento 
+        /// em caso de ser estrangeiro.
         /// </summary>
         [XmlElement(ElementName = "idEstrangeiro")]
         public string IdEstrangeiro { get; set; }
@@ -109,7 +110,8 @@ namespace MDFe.Classes.Informacoes
         public MDFeInfBanc InfBanc { get; set; }
 
         /// <summary>
-        /// 3 - Informações Bancárias.
+        /// 3 - Indicador de operação de transporte de 
+        /// alto desempenho
         /// </summary>
         [XmlElement(ElementName = "indAltoDesemp")]
         public MDFeIndAltoDesemp IndAltoDesemp { get; set; }
