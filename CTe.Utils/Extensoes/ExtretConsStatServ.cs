@@ -34,7 +34,7 @@
 using CTe.Classes.Servicos.Status;
 using DFe.Utils;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
     public static class ExtretConsStatServ
     {

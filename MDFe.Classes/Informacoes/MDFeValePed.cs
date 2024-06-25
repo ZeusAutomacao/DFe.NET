@@ -30,9 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using MDFe.Classes.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -45,8 +47,15 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "disp")]
         public List<MDFeDisp> Disp { get; set; }
 
-        public categCombVeic? categCombVeic { get; set; }
+        /// <summary>
+        /// 3 - Categoria de Combinação Veicular
+        /// </summary>
+        [XmlElement(ElementName = "categCombVeic", IsNullable = true)]
+        public MDFeCategCombVeic? CategCombVeic { get; set; }
 
-        public bool categCombVeicSpecified { get { return categCombVeic.HasValue; } }
+        public bool CategCombVeicSpecified => CategCombVeic.HasValue; 
+
+        public bool ShouldSerializeCategCombVeic() => CategCombVeicSpecified;
+
     }
 }

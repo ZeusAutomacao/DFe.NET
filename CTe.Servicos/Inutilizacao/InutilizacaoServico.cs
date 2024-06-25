@@ -36,7 +36,7 @@ using System.Threading.Tasks;
 using CTe.Classes;
 using CTe.Classes.Servicos.Inutilizacao;
 using CTe.Servicos.Factory;
-using CTe.Utils.Extencoes;
+using CTe.Utils.Extensoes;
 using CTe.Utils.Inutilizacao;
 using DFe.Classes.Flags;
 

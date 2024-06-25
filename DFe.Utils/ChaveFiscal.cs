@@ -59,14 +59,19 @@ namespace DFe.Utils
         {
             var chave = new StringBuilder();
 
+            if (cnpjEmitente.Length < 14)
+            {
+                cnpjEmitente = cnpjEmitente.PadLeft(14, '0');
+            }
+
             chave.Append(((int)ufEmitente).ToString("D2"))
-                .Append(dataEmissao.ToString("yyMM"))
-                .Append(cnpjEmitente)
-                .Append(((int)modelo).ToString("D2"))
-                .Append(serie.ToString("D3"))
-                .Append(numero.ToString("D9"))
-                .Append(tipoEmissao.ToString())
-                .Append(cNf.ToString("D8"));
+                 .Append(dataEmissao.ToString("yyMM"))
+                 .Append(cnpjEmitente)
+                 .Append(((int)modelo).ToString("D2"))
+                 .Append(serie.ToString("D3"))
+                 .Append(numero.ToString("D9"))
+                 .Append(tipoEmissao.ToString())
+                 .Append(cNf.ToString("D8"));
 
             var digitoVerificador = ObterDigitoVerificador(chave.ToString());
 

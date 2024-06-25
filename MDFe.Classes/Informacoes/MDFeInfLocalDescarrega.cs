@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -31,47 +31,53 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.IO;
-using CTe.Classes;
-using CTe.Classes.Servicos.Consulta;
-using DFe.Utils;
+using System;
+using System.Xml.Serialization;
 
-namespace CTe.Utils.Extencoes
+namespace MDFe.Classes.Informacoes
 {
-    public static class ExtretConsSitCTe
+    [Serializable]
+    public class MDFeInfLocalDescarrega
     {
         /// <summary>
-        ///     Coverte uma string XML no formato CTe para um objeto retConsSitCTe
+        /// 1 - Cep onde foi descarregado o MDF-e.
         /// </summary>
-        /// <param name="retConsSitCTe"></param>
-        /// <param name="xmlString"></param>
-        /// <returns>Retorna um objeto do tipo retConsSitNFe</returns>
-        public static retConsSitCTe CarregarDeXmlString(this retConsSitCTe retConsSitCTe, string xmlString)
-        {
-            return FuncoesXml.XmlStringParaClasse<retConsSitCTe>(xmlString);
-        }
+        public string CEP { get; set; }
+
+        [XmlIgnore]
+        private decimal? _latitude { get; set; }
 
         /// <summary>
-        ///     Converte o objeto retConsSitCTe para uma string no formato XML
+        /// 1- Latitude do ponto geográfico onde foi
+        /// descarregado o MDF-e.
         /// </summary>
-        /// <param name="retConsSitCTe"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto retConsSitCTe</returns>
-        public static string ObterXmlString(this retConsSitCTe retConsSitCTe)
+        [XmlElement("latitude")]
+        public string LatitudeProxy
         {
-            return FuncoesXml.ClasseParaXmlString(retConsSitCTe);
+            get
+            {
+                if (_latitude == null) return null;
+                return _latitude.ToString();
+            }
+            set { _latitude = decimal.Parse(value); }
         }
 
-        public static void SalvarXmlEmDisco(this retConsSitCTe retConsSitCTe, string chave, ConfiguracaoServico configuracaoServico = null)
+        [XmlIgnore]
+        private decimal? _longitude { get; set; }
+
+        /// <summary>
+        /// 1 - Longitude do ponto geográfico onde foi
+        /// descarregado o MDF-e.
+        /// </summary>
+        [XmlElement("longitude")]
+        public string LongitudeProxy
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            if (configServico.NaoSalvarXml()) return;
-
-            var caminhoXml = configServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, chave + "-sit.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(retConsSitCTe, arquivoSalvar);
+            get
+            {
+                if (_longitude == null) return null;
+                return _longitude.ToString();
+            }
+            set { _longitude = decimal.Parse(value); }
         }
     }
 }

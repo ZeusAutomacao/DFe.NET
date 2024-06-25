@@ -39,6 +39,8 @@ namespace MDFe.Classes.Flags
         [XmlEnum("1")]
         Normal = 1,
         [XmlEnum("2")]
-        Contingencia = 2
+        Contingencia = 2,
+        [XmlEnum("3")]
+        RegimeEspecialNFF = 3
     }
 }

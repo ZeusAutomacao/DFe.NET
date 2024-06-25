@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="08/16/2021 10:30:54" ReportInfo.CreatorVersion="2021.2.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="06/17/2024 10:54:28" ReportInfo.CreatorVersion="2024.2.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -86,7 +86,7 @@ namespace FastReport
       
       if (versao300) 
       {
-        var infSupl = ((infMDFeSupl)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.infMDFeSupl&quot;));
+        var infSupl = ((MdfeInfMDFeSupl)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFeSupl&quot;));
         Barcode1.Visible = false;
         
         if (infSupl != null) 
@@ -113,15 +113,16 @@ namespace FastReport
       veic.Init();
       while (veic.HasMoreRows)
       {
-        txtPlaca.Text += Environment.NewLine + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));        
+        //txtPlaca.Text += Environment.NewLine + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));     
+        txtPlaca.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;)) + ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Placa&quot;));        
         string rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicReboque.Prop.RNTRC&quot;));
         if ( string.IsNullOrEmpty(rntrc) )
           rntrc = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.RNTRC&quot;));
-        txtRntrc.Text += Environment.NewLine + rntrc;
+        txtRntrc.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;)) + rntrc;
        
         veic.Next();
       }
-      
+       
       //Condutores
       txtCpf.Text = &quot;&quot;;
       txtNome.Text = &quot;&quot;;      
@@ -129,10 +130,10 @@ namespace FastReport
       moto.Init();
       while (moto.HasMoreRows)
       {
-        txtCpf.Text += FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF&quot;), 'd') + Environment.NewLine;
-        txtNome.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome&quot;)) + Environment.NewLine;        
+        txtCpf.Text += FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF&quot;), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        txtNome.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome&quot;)) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));        
         moto.Next();        
-      }
+      }          
       
       //Vales Pedágio
       txtCnpjResp.Text = &quot;&quot;;
@@ -142,9 +143,9 @@ namespace FastReport
       vale.Init();
       while (vale.HasMoreRows)
       {
-        txtCnpjResp.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJPg&quot;)), 'd') + Environment.NewLine;
-        txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJForn&quot;)), 'd') + Environment.NewLine;
-        txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.NCompra&quot;)) + Environment.NewLine;
+        txtCnpjResp.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJPg&quot;)), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.CNPJForn&quot;)), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.ValePed.Disp.NCompra&quot;)) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
         vale.Next();
       }
       
@@ -161,9 +162,9 @@ namespace FastReport
           var cnpj = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CNPJPg&quot;));
           var cpf = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CPFPg&quot;));
           
-          txtCnpjResp.Text += FormatarCampo(cpf != null &amp;&amp; cpf != string.Empty ? cpf : cnpj, 'd') + Environment.NewLine;
-          txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CNPJForn&quot;)), 'd') + Environment.NewLine;
-          txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.NCompra&quot;)) + Environment.NewLine;
+          txtCnpjResp.Text += FormatarCampo(cpf != null &amp;&amp; cpf != string.Empty ? cpf : cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          txtCnpjFornec.Text += FormatarCampo(((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.CNPJForn&quot;)), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          txtNumComprovante.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.valePed.Disp.NCompra&quot;)) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
           valePed.Next();
         }
       }
@@ -183,26 +184,26 @@ namespace FastReport
           if (apolice.Length &gt; 20)
             apolice = apolice.Substring(0,20);
 
-          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + Environment.NewLine;            
-          txtSeguroSeguradora.Text += seguradora + Environment.NewLine;
-          txtSeguroApolice.Text += apolice + Environment.NewLine;
+          txtSeguroResponsavel.Text += ((MDFeRespSeg)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg.InfResp.RespSeg&quot;) == MDFeRespSeg.EmitenteDoMDFe ? &quot;1 - EMITENTE&quot; :&quot;2 - CONTRATANTE&quot;)  + ((String)Report.GetParameterValue(&quot;NewLine&quot;));            
+          txtSeguroSeguradora.Text += seguradora + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          txtSeguroApolice.Text += apolice + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
           
           seguros.Next();
         }
         
-        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante&quot;);
+        var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante&quot;);
         contratantes.Init();
         while (contratantes.HasMoreRows)
         {
-          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;)) ? 
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CPF&quot;)) :
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.infContratante.CNPJ&quot;));
+          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CNPJ&quot;)) ? 
+                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CPF&quot;)) :
+                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CNPJ&quot;));
           
-          txtContratantes.Text = FormatarCampo(cnpj, 'd') + Environment.NewLine;         
+          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
           contratantes.Next();
         }        
       }      
-      
+          
       //Totais
       qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
       qtdeCTe = qtdeCTe ?? 0;
@@ -211,71 +212,71 @@ namespace FastReport
       qtdeNFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QNFe&quot;));
       qtdeNFe = qtdeNFe ?? 0;
       Text39.Text = qtdeNFe.ToString();
-      
+       
       qtdeMDFe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe&quot;));
       qtdeMDFe = qtdeMDFe ?? 0;
       Text40.Text = qtdeMDFe.ToString();
       
-      DataDocumentoCancelado.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)); 
+      DataDocumentoCancelado.Visible = ((Boolean)Report.GetParameterValue(&quot;DocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)); 
       Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
       Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
       
       if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
-        Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,Environment.NewLine);
+        Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));     
     }
 
   }
 }
 </ScriptText>
   <Dictionary>
-    <BusinessObjectDataSource Name="MDFeProcMDFe" ReferenceName="MDFeProcMDFe" DataType="null" Enabled="true">
-      <Column Name="Versao" DataType="null"/>
-      <Column Name="MDFe" DataType="null">
-        <Column Name="InfMDFe" DataType="null">
-          <Column Name="Versao" DataType="null"/>
+    <BusinessObjectDataSource Name="MDFeProcMDFe" ReferenceName="MDFeProcMDFe" DataType="System.Int32" Enabled="true">
+      <Column Name="Versao" DataType="System.Int32"/>
+      <Column Name="MDFe" DataType="System.Int32">
+        <Column Name="InfMDFe" DataType="System.Int32">
+          <Column Name="Versao" DataType="System.Int32"/>
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="Ide" DataType="null">
-            <Column Name="CUF" DataType="null"/>
-            <Column Name="TpAmb" DataType="null"/>
-            <Column Name="TpEmit" DataType="null"/>
-            <Column Name="TpTransp" DataType="null"/>
+          <Column Name="Ide" DataType="System.Int32">
+            <Column Name="CUF" DataType="System.Int32"/>
+            <Column Name="TpAmb" DataType="System.Int32"/>
+            <Column Name="TpEmit" DataType="System.Int32"/>
+            <Column Name="TpTransp" DataType="System.Int32"/>
             <Column Name="TpTranspSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-            <Column Name="Mod" DataType="null"/>
+            <Column Name="Mod" DataType="System.Int32"/>
             <Column Name="Serie" DataType="System.Int16"/>
             <Column Name="NMDF" DataType="System.Int64"/>
             <Column Name="CMDF" DataType="System.Int32"/>
             <Column Name="ProxyCMDF" DataType="System.String"/>
             <Column Name="CDV" DataType="System.Byte"/>
-            <Column Name="Modal" DataType="null"/>
+            <Column Name="Modal" DataType="System.Int32"/>
             <Column Name="DhEmi" DataType="System.DateTime"/>
             <Column Name="ProxyDhEmi" DataType="System.String"/>
-            <Column Name="TpEmis" DataType="null"/>
-            <Column Name="ProcEmi" DataType="null"/>
+            <Column Name="TpEmis" DataType="System.Int32"/>
+            <Column Name="ProcEmi" DataType="System.Int32"/>
             <Column Name="VerProc" DataType="System.String"/>
-            <Column Name="UFIni" DataType="null"/>
+            <Column Name="UFIni" DataType="System.Int32"/>
             <Column Name="ProxyUFIni" DataType="System.String"/>
-            <Column Name="UFFim" DataType="null"/>
+            <Column Name="UFFim" DataType="System.Int32"/>
             <Column Name="ProxyUFFim" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="InfMunCarrega" DataType="null" PropName="InfMunCarrega" Enabled="true">
+            <BusinessObjectDataSource Name="BusinessObjectDataSource1" Alias="InfMunCarrega" DataType="System.Int32" PropName="InfMunCarrega" Enabled="true">
               <Column Name="CMunCarrega" DataType="System.String"/>
               <Column Name="XMunCarrega" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="InfPercurso" DataType="null" PropName="InfPercurso" Enabled="true">
-              <Column Name="UFPer" DataType="null"/>
+            <BusinessObjectDataSource Name="BusinessObjectDataSource2" Alias="InfPercurso" DataType="System.Int32" PropName="InfPercurso" Enabled="true">
+              <Column Name="UFPer" DataType="System.Int32"/>
               <Column Name="ProxyUFPer" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <Column Name="DhIniViagem" DataType="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="DhIniViagem" DataType="System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
             <Column Name="ProxyDhIniViagem" DataType="System.String"/>
             <Column Name="IndCanalVerde" DataType="System.String"/>
             <Column Name="IndCarregaPosterior" DataType="System.String"/>
           </Column>
-          <Column Name="Emit" DataType="null">
+          <Column Name="Emit" DataType="System.Int32">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
             <Column Name="IE" DataType="System.String"/>
             <Column Name="XNome" DataType="System.String"/>
             <Column Name="XFant" DataType="System.String"/>
-            <Column Name="EnderEmit" DataType="null">
+            <Column Name="EnderEmit" DataType="System.Int32">
               <Column Name="XLgr" DataType="System.String"/>
               <Column Name="Nro" DataType="System.String"/>
               <Column Name="XCpl" DataType="System.String"/>
@@ -284,314 +285,303 @@ namespace FastReport
               <Column Name="XMun" DataType="System.String"/>
               <Column Name="CEP" DataType="System.Int64"/>
               <Column Name="ProxyCEP" DataType="System.String"/>
-              <Column Name="UF" DataType="null"/>
+              <Column Name="UF" DataType="System.Int32"/>
               <Column Name="ProxyUF" DataType="System.String"/>
               <Column Name="Fone" DataType="System.String"/>
               <Column Name="Email" DataType="System.String"/>
             </Column>
           </Column>
-          <Column Name="InfModal" DataType="null">
-            <Column Name="VersaoModal" DataType="null"/>
-            <Column Name="Modal" DataType="null">
-              <Column Name="infANTT" DataType="null">
+          <Column Name="InfModal" DataType="System.Int32">
+            <Column Name="VersaoModal" DataType="System.Int32"/>
+            <Column Name="Modal" DataType="System.Int32">
+              <Column Name="InfANTT" DataType="System.Int32">
                 <Column Name="RNTRC" DataType="System.String"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource24" Alias="infCIOT" DataType="null" PropName="infCIOT" Enabled="true">
-                  <Column Name="CIOT" DataType="System.String"/>
-                  <Column Name="CPF" DataType="System.String"/>
-                  <Column Name="CNPJ" DataType="System.String"/>
-                </BusinessObjectDataSource>
-                <Column Name="valePed" DataType="null">
-                  <BusinessObjectDataSource Name="BusinessObjectDataSource25" Alias="Disp" DataType="null" PropName="Disp" Enabled="true">
-                    <Column Name="CNPJForn" DataType="System.String"/>
-                    <Column Name="CNPJPg" DataType="System.String"/>
-                    <Column Name="CPFPg" DataType="System.String"/>
-                    <Column Name="NCompra" DataType="System.String"/>
-                    <Column Name="vValePed" DataType="System.Decimal"/>
-                  </BusinessObjectDataSource>
+                <Column Name="ValePed" DataType="System.Int32">
+                  <Column Name="CategCombVeic" DataType="System.Int32"/>
+                  <Column Name="CategCombVeicSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                  <BusinessObjectDataSource Name="BusinessObjectDataSource21" Alias="Disp" Enabled="false" DataType="System.Int32" PropName="Disp"/>
                 </Column>
-                <BusinessObjectDataSource Name="infContratante" DataType="null" Enabled="true">
-                  <Column Name="xNome" DataType="System.String"/>
-                  <Column Name="CPF" DataType="System.String"/>
-                  <Column Name="CNPJ" DataType="System.String"/>
-                  <Column Name="idEstrangeiro" DataType="System.String"/>
-                </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource32" Alias="infPag" DataType="null" PropName="infPag" Enabled="true">
-                  <Column Name="xNome" DataType="System.String"/>
-                  <Column Name="CPF" DataType="System.String"/>
-                  <Column Name="CNPJ" DataType="System.String"/>
-                  <Column Name="idEstrangeiro" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="Comp" DataType="null" Enabled="true">
-                    <Column Name="tpComp" DataType="null"/>
-                    <Column Name="vComp" DataType="System.Decimal"/>
-                    <Column Name="vCompProxy" DataType="System.Decimal"/>
-                    <Column Name="xComp" DataType="System.String"/>
-                  </BusinessObjectDataSource>
-                  <Column Name="vContrato" DataType="System.Decimal"/>
-                  <Column Name="vContratoProxy" DataType="System.Decimal"/>
-                  <Column Name="indPag" DataType="null"/>
-                  <BusinessObjectDataSource Name="infPrazo" DataType="null" Enabled="true">
-                    <Column Name="nParcela" DataType="System.Int16"/>
-                    <Column Name="nParcelaProxy" DataType="System.String"/>
-                    <Column Name="dVenc" DataType="System.DateTime"/>
-                    <Column Name="dVencProxy" DataType="System.String"/>
-                    <Column Name="vParcela" DataType="System.Decimal"/>
-                    <Column Name="vParcelaProxy" DataType="System.Decimal"/>
-                  </BusinessObjectDataSource>
-                  <Column Name="infBanc" DataType="null">
-                    <Column Name="codBanco" DataType="System.String"/>
-                    <Column Name="codAgencia" DataType="System.String"/>
-                    <Column Name="CNPJIPEF" DataType="System.String"/>
-                  </Column>
-                </BusinessObjectDataSource>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource20" Alias="InfCIOT" Enabled="false" DataType="System.Int32" PropName="InfCIOT"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource22" Alias="InfContratante" Enabled="false" DataType="System.Int32" PropName="InfContratante"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource23" Alias="InfPag" Enabled="false" DataType="System.Int32" PropName="InfPag"/>
               </Column>
               <Column Name="RNTRC" DataType="System.String"/>
               <Column Name="CIOT" DataType="System.String"/>
-              <Column Name="VeicTracao" DataType="null">
+              <Column Name="VeicTracao" DataType="System.Int32">
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
-                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="Prop" DataType="null">
+                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="Prop" DataType="System.Int32">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
                   <Column Name="RNTRC" DataType="System.String"/>
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="IE" DataType="System.String"/>
-                  <Column Name="UF" DataType="null"/>
+                  <Column Name="UF" DataType="System.Int32"/>
                   <Column Name="ProxyUF" DataType="System.String"/>
-                  <Column Name="MDFeTpProp" DataType="null"/>
+                  <Column Name="MDFeTpProp" DataType="System.Int32"/>
                 </Column>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource3" Alias="Condutor" DataType="null" PropName="Condutor" Enabled="true">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource19" Alias="Condutor" DataType="System.Int32" PropName="Condutor" Enabled="true">
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="CPF" DataType="System.String"/>
                 </BusinessObjectDataSource>
-                <Column Name="TpRod" DataType="null"/>
-                <Column Name="TpCar" DataType="null"/>
-                <Column Name="UF" DataType="null"/>
+                <Column Name="TpRod" DataType="System.Int32"/>
+                <Column Name="TpCar" DataType="System.Int32"/>
+                <Column Name="UF" DataType="System.Int32"/>
                 <Column Name="ProxyUF" DataType="System.String"/>
                 <Column Name="CapKGSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <Column Name="CapM3Specified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="TaraSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
               </Column>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource4" Alias="VeicReboque" DataType="null" PropName="VeicReboque" Enabled="true">
+              <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="VeicReboque" DataType="System.Int32" PropName="VeicReboque" Enabled="true">
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
-                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="Prop" DataType="null">
+                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="Prop" DataType="System.Int32">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
                   <Column Name="RNTRC" DataType="System.String"/>
                   <Column Name="XNome" DataType="System.String"/>
                   <Column Name="IE" DataType="System.String"/>
-                  <Column Name="UF" DataType="null"/>
+                  <Column Name="UF" DataType="System.Int32"/>
                   <Column Name="ProxyUF" DataType="System.String"/>
-                  <Column Name="MDFeTpProp" DataType="null"/>
+                  <Column Name="MDFeTpProp" DataType="System.Int32"/>
                 </Column>
-                <Column Name="TpCar" DataType="null"/>
-                <Column Name="UF" DataType="null"/>
+                <Column Name="TpCar" DataType="System.Int32"/>
+                <Column Name="UF" DataType="System.Int32"/>
                 <Column Name="ProxyUF" DataType="System.String"/>
+                <Column Name="TaraSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="CapKGSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
+                <Column Name="CapM3Specified" DataType="System.Boolean" BindableControl="CheckBox"/>
               </BusinessObjectDataSource>
-              <Column Name="ValePed" DataType="null">
-                <BusinessObjectDataSource Name="BusinessObjectDataSource5" Alias="Disp" DataType="null" PropName="Disp" Enabled="true">
+              <Column Name="ValePed" DataType="System.Int32">
+                <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="Disp" DataType="System.Int32" PropName="Disp" Enabled="true">
                   <Column Name="CNPJForn" DataType="System.String"/>
                   <Column Name="CNPJPg" DataType="System.String"/>
                   <Column Name="CPFPg" DataType="System.String"/>
                   <Column Name="NCompra" DataType="System.String"/>
                   <Column Name="vValePed" DataType="System.Decimal"/>
+                  <Column Name="TpValePed" DataType="System.Int32"/>
+                  <Column Name="TpValePedSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
+                <Column Name="CategCombVeic" DataType="System.Int32"/>
+                <Column Name="CategCombVeicSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
               </Column>
               <Column Name="CodAgPorto" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource33" Alias="lacRodo" Enabled="false" DataType="null" PropName="lacRodo"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource10" Alias="LacRodo" DataType="System.Int32" PropName="LacRodo" Enabled="true">
+                <Column Name="NLacre" DataType="System.String"/>
+              </BusinessObjectDataSource>
             </Column>
           </Column>
-          <Column Name="InfDoc" DataType="null">
-            <BusinessObjectDataSource Name="BusinessObjectDataSource9" Alias="InfMunDescarga" DataType="null" PropName="InfMunDescarga" Enabled="true">
+          <Column Name="InfDoc" DataType="System.Int32">
+            <BusinessObjectDataSource Name="BusinessObjectDataSource11" Alias="InfMunDescarga" DataType="System.Int32" PropName="InfMunDescarga" Enabled="true">
               <Column Name="CMunDescarga" DataType="System.String"/>
               <Column Name="XMunDescarga" DataType="System.String"/>
-              <BusinessObjectDataSource Name="InfCTe" DataType="null" Enabled="true">
+              <BusinessObjectDataSource Name="InfCTe" DataType="System.Int32" Enabled="true">
                 <Column Name="ChCTe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransps" DataType="null" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="null"/>
+                <BusinessObjectDataSource Name="InfUnidTransps" DataType="System.Int32" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="System.Int32"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps" DataType="null" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps" DataType="System.Int32" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas" DataType="null" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas" DataType="System.Int32" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="System.Int32"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas" DataType="null" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas" DataType="System.Int32" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <Column Name="infEntregaParcial" Enabled="false" DataType="null"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource34" Alias="Peri" Enabled="false" DataType="null" PropName="Peri"/>
+                <BusinessObjectDataSource Name="Peri" DataType="System.Int32" Enabled="true">
+                  <Column Name="NONU" DataType="System.String"/>
+                  <Column Name="XNomeAE" DataType="System.String"/>
+                  <Column Name="XClaRisco" DataType="System.String"/>
+                  <Column Name="GrEmb" DataType="System.String"/>
+                  <Column Name="QTotProd" DataType="System.String"/>
+                  <Column Name="QVolTipo" DataType="System.String"/>
+                </BusinessObjectDataSource>
+                <Column Name="InfEntregaParcial" DataType="System.Int32">
+                  <Column Name="QtdTotal" DataType="System.Decimal"/>
+                  <Column Name="QtdParcial" DataType="System.Decimal"/>
+                </Column>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="InfNFe" DataType="null" Enabled="true">
+              <BusinessObjectDataSource Name="InfNFe" DataType="System.Int32" Enabled="true">
                 <Column Name="ChNFe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="null" PropName="InfUnidTransps" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="null"/>
+                <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="System.Int32" PropName="InfUnidTransps" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="System.Int32"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps1" Alias="LacUnidTransps" DataType="null" PropName="LacUnidTransps" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps1" Alias="LacUnidTransps" DataType="System.Int32" PropName="LacUnidTransps" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas1" Alias="InfUnidCargas" DataType="null" PropName="InfUnidCargas" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas1" Alias="InfUnidCargas" DataType="System.Int32" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="System.Int32"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="null" PropName="LacUnidCargas" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="System.Int32" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource35" Alias="Peri" Enabled="false" DataType="null" PropName="Peri"/>
+                <BusinessObjectDataSource Name="Peri1" Alias="Peri" DataType="System.Int32" PropName="Peri" Enabled="true">
+                  <Column Name="NONU" DataType="System.String"/>
+                  <Column Name="XNomeAE" DataType="System.String"/>
+                  <Column Name="XClaRisco" DataType="System.String"/>
+                  <Column Name="GrEmb" DataType="System.String"/>
+                  <Column Name="QTotProd" DataType="System.String"/>
+                  <Column Name="QVolTipo" DataType="System.String"/>
+                </BusinessObjectDataSource>
               </BusinessObjectDataSource>
-              <BusinessObjectDataSource Name="InfMdFeTransps" DataType="null" Enabled="true">
+              <BusinessObjectDataSource Name="InfMdFeTransps" DataType="System.Int32" Enabled="true">
                 <Column Name="ChMDFe" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-                <BusinessObjectDataSource Name="InfUnidTransp" DataType="null" Enabled="true">
-                  <Column Name="TpUnidTransp" DataType="null"/>
+                <BusinessObjectDataSource Name="InfUnidTransp" DataType="System.Int32" Enabled="true">
+                  <Column Name="TpUnidTransp" DataType="System.Int32"/>
                   <Column Name="IdUnidTransp" DataType="System.String"/>
-                  <BusinessObjectDataSource Name="LacUnidTransps2" Alias="LacUnidTransps" DataType="null" PropName="LacUnidTransps" Enabled="true">
+                  <BusinessObjectDataSource Name="LacUnidTransps2" Alias="LacUnidTransps" DataType="System.Int32" PropName="LacUnidTransps" Enabled="true">
                     <Column Name="NLacre" DataType="System.String"/>
                   </BusinessObjectDataSource>
-                  <BusinessObjectDataSource Name="InfUnidCargas2" Alias="InfUnidCargas" DataType="null" PropName="InfUnidCargas" Enabled="true">
-                    <Column Name="TpUnidCarga" DataType="null"/>
+                  <BusinessObjectDataSource Name="InfUnidCargas2" Alias="InfUnidCargas" DataType="System.Int32" PropName="InfUnidCargas" Enabled="true">
+                    <Column Name="TpUnidCarga" DataType="System.Int32"/>
                     <Column Name="IdUnidCarga" DataType="System.String"/>
-                    <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="null" PropName="LacUnidCargas" Enabled="true">
+                    <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="System.Int32" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource36" Alias="Peri" Enabled="false" DataType="null" PropName="Peri"/>
+                <BusinessObjectDataSource Name="Peri2" Alias="Peri" DataType="System.Int32" PropName="Peri" Enabled="true">
+                  <Column Name="NONU" DataType="System.String"/>
+                  <Column Name="XNomeAE" DataType="System.String"/>
+                  <Column Name="XClaRisco" DataType="System.String"/>
+                  <Column Name="GrEmb" DataType="System.String"/>
+                  <Column Name="QTotProd" DataType="System.String"/>
+                  <Column Name="QVolTipo" DataType="System.String"/>
+                </BusinessObjectDataSource>
               </BusinessObjectDataSource>
             </BusinessObjectDataSource>
           </Column>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource16" Alias="Seg" DataType="null" PropName="Seg" Enabled="true">
-            <Column Name="InfResp" DataType="null">
-              <Column Name="RespSeg" DataType="null"/>
+          <BusinessObjectDataSource Name="BusinessObjectDataSource12" Alias="Seg" DataType="System.Int32" PropName="Seg" Enabled="true">
+            <Column Name="InfResp" DataType="System.Int32">
+              <Column Name="RespSeg" DataType="System.Int32"/>
               <Column Name="CNPJ" DataType="System.String"/>
               <Column Name="CPF" DataType="System.String"/>
             </Column>
-            <Column Name="InfSeg" DataType="null">
+            <Column Name="InfSeg" DataType="System.Int32">
               <Column Name="XSeg" DataType="System.String"/>
               <Column Name="CNPJ" DataType="System.String"/>
             </Column>
             <Column Name="NApol" DataType="System.String"/>
-            <BusinessObjectDataSource Name="BusinessObjectDataSource23" Alias="NAver" DataType="System.Collections.Generic.List`1[[System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" PropName="NAver" Enabled="true">
+            <BusinessObjectDataSource Name="NAver" DataType="System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]" Enabled="true">
               <Column Name="Length" DataType="System.Int32"/>
             </BusinessObjectDataSource>
           </BusinessObjectDataSource>
-          <Column Name="prodPred" DataType="null">
-            <Column Name="tpCarga" DataType="null"/>
-            <Column Name="xProd" DataType="System.String"/>
-            <Column Name="cEAN" DataType="System.String"/>
-            <Column Name="NCM" DataType="System.String"/>
-            <Column Name="infLotacao" DataType="null">
-              <Column Name="infLocalCarrega" DataType="null">
+          <Column Name="ProdPred" DataType="System.Int32">
+            <Column Name="TpCarga" DataType="System.Int32"/>
+            <Column Name="XProd" DataType="System.String"/>
+            <Column Name="CEan" DataType="System.String"/>
+            <Column Name="Ncm" DataType="System.String"/>
+            <Column Name="InfLotacao" DataType="System.Int32">
+              <Column Name="InfLocalCarrega" DataType="System.Int32">
                 <Column Name="CEP" DataType="System.String"/>
-                <Column Name="latitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="latitudeProxy" DataType="System.String"/>
-                <Column Name="Longitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="LatitudeProxy" DataType="System.String"/>
                 <Column Name="LongitudeProxy" DataType="System.String"/>
               </Column>
-              <Column Name="infLocalDescarrega" DataType="null">
+              <Column Name="InfLocalDescarrega" DataType="System.Int32">
                 <Column Name="CEP" DataType="System.String"/>
-                <Column Name="latitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-                <Column Name="latitudeProxy" DataType="System.String"/>
-                <Column Name="Longitude" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+                <Column Name="LatitudeProxy" DataType="System.String"/>
                 <Column Name="LongitudeProxy" DataType="System.String"/>
               </Column>
             </Column>
           </Column>
-          <Column Name="Tot" DataType="null">
-            <Column Name="QCTe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-            <Column Name="QNFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
-            <Column Name="QMDFe" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+          <Column Name="Tot" DataType="System.Int32">
+            <Column Name="QCTe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+            <Column Name="QNFe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+            <Column Name="QMDFe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
             <Column Name="vCarga" DataType="System.Decimal"/>
-            <Column Name="CUnid" DataType="null"/>
+            <Column Name="CUnid" DataType="System.Int32"/>
             <Column Name="QCarga" DataType="System.Decimal"/>
             <Column Name="QCTeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="QNFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
             <Column Name="QMDFeSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
           </Column>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource7" Alias="Lacres" DataType="null" PropName="Lacres" Enabled="true">
+          <BusinessObjectDataSource Name="BusinessObjectDataSource13" Alias="Lacres" DataType="System.Int32" PropName="Lacres" Enabled="true">
             <Column Name="NLacre" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <BusinessObjectDataSource Name="BusinessObjectDataSource8" Alias="AutXml" DataType="null" PropName="AutXml" Enabled="true">
+          <BusinessObjectDataSource Name="BusinessObjectDataSource14" Alias="AutXml" DataType="System.Int32" PropName="AutXml" Enabled="true">
             <Column Name="CNPJ" DataType="System.String"/>
             <Column Name="CPF" DataType="System.String"/>
           </BusinessObjectDataSource>
-          <Column Name="InfAdic" DataType="null">
+          <Column Name="InfAdic" DataType="System.Int32">
             <Column Name="InfAdFisco" DataType="System.String"/>
             <Column Name="InfCpl" DataType="System.String"/>
           </Column>
-          <Column Name="infRespTec" DataType="null">
+          <Column Name="InfRespTec" DataType="System.Int32">
             <Column Name="CNPJ" DataType="System.String"/>
-            <Column Name="xContato" DataType="System.String"/>
-            <Column Name="email" DataType="System.String"/>
-            <Column Name="fone" DataType="System.String"/>
-            <Column Name="idCSRT" DataType="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+            <Column Name="XContato" DataType="System.String"/>
+            <Column Name="Email" DataType="System.String"/>
+            <Column Name="Fone" DataType="System.String"/>
             <Column Name="idCSRTSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
-            <Column Name="ProxyidCSRT" DataType="System.String"/>
-            <Column Name="hashCSRT" DataType="System.String"/>
+            <Column Name="ProxyIdCSRT" DataType="System.String"/>
+            <Column Name="HashCSRT" DataType="System.String"/>
           </Column>
         </Column>
-        <Column Name="infMDFeSupl" DataType="null">
-          <Column Name="qrCodMDFe" DataType="System.String"/>
+        <Column Name="InfMDFeSupl" DataType="System.Int32">
+          <Column Name="QrCodMDFe" DataType="System.String"/>
         </Column>
-        <Column Name="Signature" DataType="null">
-          <Column Name="SignedInfo" DataType="null">
-            <Column Name="CanonicalizationMethod" DataType="null">
+        <Column Name="Signature" DataType="System.Int32">
+          <Column Name="SignedInfo" DataType="System.Int32">
+            <Column Name="CanonicalizationMethod" DataType="System.Int32">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="SignatureMethod" DataType="null">
+            <Column Name="SignatureMethod" DataType="System.Int32">
               <Column Name="Algorithm" DataType="System.String"/>
             </Column>
-            <Column Name="Reference" DataType="null">
+            <Column Name="Reference" DataType="System.Int32">
               <Column Name="URI" DataType="System.String"/>
-              <Column Name="DigestMethod" DataType="null">
+              <Column Name="DigestMethod" DataType="System.Int32">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
               <Column Name="DigestValue" DataType="System.String"/>
-              <BusinessObjectDataSource Name="BusinessObjectDataSource37" Alias="Transforms" Enabled="false" DataType="null" PropName="Transforms"/>
+              <BusinessObjectDataSource Name="BusinessObjectDataSource24" Alias="Transforms" Enabled="false" DataType="System.Int32" PropName="Transforms"/>
             </Column>
           </Column>
           <Column Name="SignatureValue" DataType="System.String"/>
-          <Column Name="KeyInfo" DataType="null">
-            <Column Name="X509Data" DataType="null">
+          <Column Name="KeyInfo" DataType="System.Int32">
+            <Column Name="X509Data" DataType="System.Int32">
               <Column Name="X509Certificate" DataType="System.String"/>
             </Column>
           </Column>
         </Column>
       </Column>
-      <Column Name="ProtMDFe" DataType="null">
+      <Column Name="ProtMDFe" DataType="System.Int32">
         <Column Name="Versao" DataType="System.String"/>
-        <Column Name="InfProt" DataType="null">
+        <Column Name="InfProt" DataType="System.Int32">
           <Column Name="Id" DataType="System.String"/>
-          <Column Name="TpAmb" DataType="null"/>
+          <Column Name="TpAmb" DataType="System.Int32"/>
           <Column Name="VerAplic" DataType="System.String"/>
           <Column Name="ChMDFe" DataType="System.String"/>
           <Column Name="DhRecbto" DataType="System.DateTime"/>
@@ -599,26 +589,26 @@ namespace FastReport
           <Column Name="DigVal" DataType="System.String"/>
           <Column Name="CStat" DataType="System.Int16"/>
           <Column Name="XMotivo" DataType="System.String"/>
-          <Column Name="Signature" DataType="null">
-            <Column Name="SignedInfo" DataType="null">
-              <Column Name="CanonicalizationMethod" DataType="null">
+          <Column Name="Signature" DataType="System.Int32">
+            <Column Name="SignedInfo" DataType="System.Int32">
+              <Column Name="CanonicalizationMethod" DataType="System.Int32">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="SignatureMethod" DataType="null">
+              <Column Name="SignatureMethod" DataType="System.Int32">
                 <Column Name="Algorithm" DataType="System.String"/>
               </Column>
-              <Column Name="Reference" DataType="null">
+              <Column Name="Reference" DataType="System.Int32">
                 <Column Name="URI" DataType="System.String"/>
-                <Column Name="DigestMethod" DataType="null">
+                <Column Name="DigestMethod" DataType="System.Int32">
                   <Column Name="Algorithm" DataType="System.String"/>
                 </Column>
                 <Column Name="DigestValue" DataType="System.String"/>
-                <BusinessObjectDataSource Name="BusinessObjectDataSource38" Alias="Transforms" Enabled="false" DataType="null" PropName="Transforms"/>
+                <BusinessObjectDataSource Name="BusinessObjectDataSource25" Alias="Transforms" Enabled="false" DataType="System.Int32" PropName="Transforms"/>
               </Column>
             </Column>
             <Column Name="SignatureValue" DataType="System.String"/>
-            <Column Name="KeyInfo" DataType="null">
-              <Column Name="X509Data" DataType="null">
+            <Column Name="KeyInfo" DataType="System.Int32">
+              <Column Name="X509Data" DataType="System.Int32">
                 <Column Name="X509Certificate" DataType="System.String"/>
               </Column>
             </Column>
@@ -626,12 +616,15 @@ namespace FastReport
         </Column>
       </Column>
     </BusinessObjectDataSource>
-    <Parameter Name="DoocumentoCancelado" DataType="System.Boolean"/>
-    <Parameter Name="DocumentoEncerrado" DataType="System.Boolean"/>
-    <Parameter Name="Desenvolvedor" DataType="System.String"/>
-    <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean"/>
+    <Parameter Name="DoocumentoCancelado" DataType="System.Boolean" AsString=""/>
+    <Parameter Name="DocumentoEncerrado" DataType="System.Boolean" AsString=""/>
+    <Parameter Name="Desenvolvedor" DataType="System.String" AsString=""/>
+    <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean" AsString=""/>
+    <Parameter Name="NewLine" DataType="System.String" AsString=""/>
+    <Parameter Name="Tabulation" DataType="System.String" AsString=""/>
+    <Parameter Name="DocumentoCancelado" DataType="System.Boolean" AsString=""/>
   </Dictionary>
-  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" OtherPagesSource="261" Watermark.Font="Arial, 60pt">
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" Watermark.Font="Arial, 60pt" FirstPageSource="261">
     <PageHeaderBand Name="PageHeader1" Width="748.44" Height="280.61" BeforePrintEvent="PageHeader1_BeforePrint">
       <TextObject Name="txtChaveMDFe" Left="387.7" Top="248.35" Width="349.1" Height="15.12" BeforePrintEvent="txtChaveMDFe_BeforePrint" Padding="2, 0, 2, 4" VertAlign="Bottom" Font="Arial, 6pt"/>
       <TextObject Name="Text68" Left="2.78" Top="248.39" Width="256.38" Height="15.12" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 0, 2, 4" VertAlign="Bottom" WordWrap="false" Font="Arial, 6pt"/>
@@ -639,14 +632,14 @@ namespace FastReport
       <TextObject Name="Text73" Left="158.1" Top="133.3" Width="36.35" Height="30.24" Fill.Color="192, 224, 247" Text="[Page#]/[TotalPages#]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text71" Left="39.25" Top="133.3" Width="36.35" Height="30.24" Fill.Color="192, 224, 247" Text="[Format(&quot;{0:000}&quot;, [MDFeProcMDFe.MDFe.InfMDFe.Ide.Serie] )]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text8" Left="2.79" Top="133.3" Width="36.8" Height="30.24" Fill.Color="192, 224, 247" Text="58" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
-      <BarcodeObject Name="Barcode1" Left="565.09" Top="20.35" Width="141.52" Height="141.37" AutoSize="false" Text="[MDFeProcMDFe.MDFe.infMDFeSupl.qrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true"/>
+      <BarcodeObject Name="Barcode1" Left="565.09" Top="20.35" Width="141.52" Height="141.37" AutoSize="false" Text="[MDFeProcMDFe.MDFe.InfMDFeSupl.QrCodMDFe]" ShowText="false" AllowExpressions="true" Barcode="QR Code" Barcode.ErrorCorrection="L" Barcode.Encoding="UTF8" Barcode.QuietZone="true" Barcode.ShowMarker="true"/>
       <BarcodeObject Name="BarcodeChave" Left="388.01" Top="190.45" Width="346.25" Height="39.8" Text="12345678901234567890123456789012345678901234" ShowText="false" AllowExpressions="true" Barcode="Code128" Barcode.AutoEncode="true"/>
       <TextObject Name="Text1" Left="387.68" Top="173.95" Width="108.4" Height="10.01" Text="CONTROLE DO FISCO" Font="Arial, 5.25pt, style=Bold"/>
       <TextObject Name="Text2" Left="388.01" Top="235.12" Width="137.75" Height="8.89" Text="Chave de Acesso" Font="Arial, 6pt, style=Bold"/>
       <TextObject Name="Text4" Left="0.88" Top="108.51" Width="63.37" Height="18.68" Text="DAMDFE -" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
       <PictureObject Name="poEmitLogo" Left="2.45" Top="12.45" Width="116.73" Height="84.82"/>
       <TextObject Name="Text5" Left="116.4" Top="12.9" Width="455.6" Height="25.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="Text6" Left="116.42" Top="49.25" Width="450.6" Height="51.03" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF], CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')] IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] RNTRC: [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.infANTT.RNTRC]" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text6" Left="116.42" Top="49.25" Width="450.6" Height="51.03" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF], CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')] IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] RNTRC: [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.RNTRC]" Font="Arial Narrow, 6.75pt"/>
       <TextObject Name="Text7" Left="3.58" Top="134.19" Width="34.8" Height="10.45" Text="Modelo" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text9" Left="40.14" Top="134.19" Width="34.8" Height="10.45" Text="Série" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text13" Left="160.09" Top="134.19" Width="30.35" Height="10.45" Text="Folha" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
@@ -713,17 +706,17 @@ namespace FastReport
     <DataBand Name="Data5" Top="525.93" Width="748.44" Height="30.35">
       <TextObject Name="Text42" Top="10.35" Width="745.2" Height="14.9" Border.Lines="Bottom" Text="Informações da Composição da Carga" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="Data1" Top="558.56" Width="748.44" Height="27.38" DataSource="BusinessObjectDataSource9">
+    <DataBand Name="Data1" Top="558.56" Width="748.44" Height="27.38">
       <TextObject Name="Text81" Top="2" Width="745.2" Height="24.35" Border.Lines="Bottom" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Arial, 8.25pt"/>
-      <DataBand Name="Data7" Top="588.23" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfNFe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data7" Top="588.23" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text82" Left="1" Width="370.55" Height="18.9" Text="NF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter1" Top="610.86" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data6" Top="632.05" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfCTe" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data6" Top="632.05" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text10" Left="1" Top="3.45" Width="370.55" Height="18.9" Text="CT-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter2" Top="658.69" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data8" Top="679.87" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" DataSource="InfMdFeTransps" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data8" Top="679.87" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text83" Left="1" Width="370.55" Height="18.9" Text="MDF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
         <DataFooterBand Name="DataFooter3" Top="702.51" Width="748.44" Height="18.9"/>
       </DataBand>

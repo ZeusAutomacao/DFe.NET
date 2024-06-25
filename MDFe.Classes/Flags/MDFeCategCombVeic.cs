@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace MDFe.Classes.Informacoes
+namespace MDFe.Classes.Flags
 {
-    public enum categCombVeic
+    public enum MDFeCategCombVeic
     {
         [XmlEnum("02")]
         VeiculoComercial2Eixos = 02,

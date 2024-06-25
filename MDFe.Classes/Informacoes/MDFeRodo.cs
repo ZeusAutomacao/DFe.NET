@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
@@ -41,7 +42,7 @@ namespace MDFe.Classes.Informacoes
     public class MDFeRodo : MDFeModalContainer
     {
         [XmlElement(ElementName = "infANTT")]
-        public MDFeInfANTT infANTT { get; set; }
+        public MDFeInfANTT InfANTT { get; set; }
 
         /// <summary>
         /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
@@ -79,25 +80,10 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "codAgPorto")]
         public string CodAgPorto { get; set; }
 
+        /// <summary>
+        /// 1 - Lacres 
+        /// </summary>
         [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
-    }
-
-    [Serializable]
-    public class MDFeInfANTT
-    {
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
-
-        [XmlElement(ElementName = "infCIOT")]
-        public List<infCIOT> infCIOT { get; set; }
-
-        public MDFeValePed valePed { get; set; }
-
-        [XmlElement(ElementName = "infContratante")]
-        public List<infContratante> infContratante { get; set; }
-
-        [XmlElement(ElementName = "infPag")]
-        public List<infPag> infPag { get; set; }
+        public List<MDFeLacre> LacRodo { get; set; }
     }
 }

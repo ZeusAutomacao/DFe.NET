@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace MDFe.Classes.Informacoes
+namespace MDFe.Classes.Flags
 {
-    public enum tpComp
+    public enum MDFeTpComp
     {
         [XmlEnum("01")]
         ValePedagio = 01,
@@ -11,7 +11,7 @@ namespace MDFe.Classes.Informacoes
         ImpostosTaxasEContribuicoes = 02,
 
         [XmlEnum("03")]
-        DespesasBancariasEmiosDePagamentoOutras = 03,
+        DespesasBancariasEMeiosDePagamentoOutras = 03,
 
         [XmlEnum("99")]
         Outros = 99
