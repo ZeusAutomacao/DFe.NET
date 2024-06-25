@@ -4,6 +4,9 @@ namespace MDFe.Classes.Flags
 {
     public enum MDFeTpCarga
     {
+        [XmlEnum("0")]
+        Indefinido = 0,
+
         [XmlEnum("01")]
         GranelSolido = 01,
 
