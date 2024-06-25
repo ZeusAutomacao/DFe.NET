@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -31,21 +31,19 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes.Servicos.Evento;
-using DFe.Utils;
+using System.Xml.Serialization;
 
-namespace CTe.Utils.Extencoes
+namespace MDFe.Classes.Informacoes
 {
-    public static class ExtevCancCTe
+    public enum MDFeTpValePed
     {
-        /// <summary>
-        ///     Converte o objeto evento para uma string no formato XML
-        /// </summary>
-        /// <param name="eventoCancelamento"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
-        public static string ObterXmlString(this evCancCTe eventoCancelamento)
-        {
-            return FuncoesXml.ClasseParaXmlString(eventoCancelamento);
-        }
+        [XmlEnum("01")]
+        Tag = 01,
+
+        [XmlEnum("02")]
+        Cupom = 02,
+
+        [XmlEnum("03")]
+        Cartao = 03
     }
 }

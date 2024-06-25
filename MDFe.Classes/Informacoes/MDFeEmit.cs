@@ -51,6 +51,10 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "CNPJ")]
         public string CNPJ { get; set; }
 
+        /// <summary>
+        /// 2 - CPF do emitente 
+        /// </summary>
+        [XmlElement(ElementName = "CPF")]
         public string CPF { get; set; }
 
         /// <summary>
@@ -58,6 +62,11 @@ namespace MDFe.Classes.Informacoes
         /// </summary>
         [XmlElement(ElementName = "IE")]
         public string IE { get; set; }
+
+        public bool ShouldSerializeIE()
+        {
+            return !string.IsNullOrEmpty(IE);
+        }
 
         /// <summary>
         /// 2 - Razão social ou Nome do emitente 
