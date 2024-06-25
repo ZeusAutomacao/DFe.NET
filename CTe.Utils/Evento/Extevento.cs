@@ -37,7 +37,7 @@ using System.Xml;
 using CTe.Classes;
 using CTe.Classes.Servicos.Evento;
 using CTe.Classes.Servicos.Tipos;
-using CTe.Utils.Extencoes;
+using CTe.Utils.Extensoes;
 using CTe.Utils.Validacao;
 using DFe.Utils;
 using DFe.Utils.Assinatura;

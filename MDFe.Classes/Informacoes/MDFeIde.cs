@@ -46,11 +46,19 @@ namespace MDFe.Classes.Informacoes
     [Serializable]
     public class MDFeIde
     {
-        public MDFeIde()
+        private MDFeIde()
         {
             InfMunCarrega = new List<MDFeInfMunCarrega>();
             InfPercurso = new List<MDFeInfPercurso>();
         }
+
+        public MDFeIde(VersaoServico? versaoServico = null) : this()
+        {
+            _versaoServico = versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
+        }
+
+        [XmlIgnore]
+        private readonly VersaoServico? _versaoServico;
 
         /// <summary>
         /// 2 - Código da UF do emitente do MDF-e. 
@@ -140,7 +148,8 @@ namespace MDFe.Classes.Informacoes
         {
             get
             {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                var versaoLayout = _versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
+                switch (versaoLayout)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();
@@ -226,11 +235,41 @@ namespace MDFe.Classes.Informacoes
         /// Proxy para dhIniViagem
         /// </summary>
         [XmlElement(ElementName = "dhIniViagem")]
-        public string ProxyDhIniViagem { get; set; }
+        public string ProxyDhIniViagem 
+        {
+            get
+            {
+                var versaoLayout = _versaoServico ?? MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout;
 
+                switch (versaoLayout)
+                {
+                    case VersaoServico.Versao100:
+                        return DhIniViagem.ParaDataHoraStringSemUtc();
+                    case VersaoServico.Versao300:
+                        return DhIniViagem.ParaDataHoraStringUtc();
+                    default:
+                        throw new InvalidOperationException("Versão Inválida para MDF-e");
+                }
+            }
+            set
+            {
+                if (value is null)
+                    DhIniViagem = null;
+                else
+                    DhIniViagem = DateTime.Parse(value);
+            }
+        }
+
+        /// <summary>
+        /// Indicador de participação do Canal Verde.
+        /// </summary>
         [XmlElement(ElementName = "indCanalVerde")]
         public string IndCanalVerde { get; set; }
 
+        /// <summary>
+        /// Indicador de MDF-e com inclusão da Carga posterior
+        /// a emissão por evento de inclusão de DF-e.
+        /// </summary>
         [XmlElement(ElementName = "indCarregaPosterior")]
         public string IndCarregaPosterior { get; set; }
     }

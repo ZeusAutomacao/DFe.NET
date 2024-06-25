@@ -30,7 +30,8 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Extencoes;
+
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
@@ -48,25 +49,25 @@ namespace MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf)
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string documento, MDFeConfiguracao cfgMdfe = null)
         {
-            var documentoUnico = cnpjCpf;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
-            if (documentoUnico.Length == 11)
+            if (documento.Length == 11)
             {
-                consMDFeNaoEnc.CPF = cnpjCpf;
+                consMDFeNaoEnc.CPF = documento;
             }
 
-            if (documentoUnico.Length == 14)
+            if (documento.Length == 14)
             {
-                consMDFeNaoEnc.CNPJ = cnpjCpf;
+                consMDFeNaoEnc.CNPJ = documento;
             }
 
             return consMDFeNaoEnc;
@@ -83,12 +84,14 @@ namespace MDFe.Servicos.Factory
             };
         }
 
-        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
+        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
             };
@@ -153,47 +156,53 @@ namespace MDFe.Servicos.Factory
             return incluirCodutor;
         }
 
-        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var enviMdfe = new MDFeEnviMDFe
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
+                Versao = config.VersaoWebService.VersaoLayout
             };
 
             return enviMdfe;
         }
 
-        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
                 NRec = numeroRecibo
             };
 
             return consReciMDFe;
         }
 
-        public static MDFeConsStatServMDFe CriaConsStatServMDFe()
+        public static MDFeConsStatServMDFe CriaConsStatServMDFe(MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+
             return new MDFeConsStatServMDFe
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
             };
         }
 
-        public static evPagtoOperMDFe CriaEvPagtoOperMDFe(string protocolo, infViagens infViagens, List<infPag> infPagamentos)
+        public static MDFeEvPagtoOperMDFe CriaEvPagtoOperMDFe(string protocolo, MDFeInfViagens infViagens, List<MDFeInfPag> infPagamentos)
         {
-            return new evPagtoOperMDFe
+            return new MDFeEvPagtoOperMDFe
             {
-                infViagens = infViagens,
-                nProt = protocolo,
-                infPag = infPagamentos
+                InfViagens = infViagens,
+                NProt = protocolo,
+                InfPag = infPagamentos
             };
         }
     }

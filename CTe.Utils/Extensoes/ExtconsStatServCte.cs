@@ -39,7 +39,7 @@ using CTe.Classes.Servicos.Tipos;
 using CTe.Utils.Validacao;
 using DFe.Utils;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
     public static class ExtconsStatServCte
     {

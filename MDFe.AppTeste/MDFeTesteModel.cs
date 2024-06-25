@@ -31,13 +31,14 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using MDFe.AppTeste.Dao;
 using MDFe.AppTeste.Entidades;
 using MDFe.AppTeste.ModelBase;
-using MDFe.Classes.Extencoes;
+using MDFe.Classes.Extensoes;
 using MDFe.Classes.Flags;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
@@ -612,7 +613,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
@@ -640,16 +641,16 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    infANTT = new MDFeInfANTT
+                    InfANTT = new MDFeInfANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
                         // não é obrigatorio
-                        infCIOT = new List<infCIOT>
+                        InfCIOT = new List<infCIOT>
                         {
                             new infCIOT
                             {
@@ -692,7 +693,7 @@ namespace MDFe.AppTeste
                         TpCar = MDFeTpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<MDFeLacre>
+                    LacRodo = new List<MDFeLacre>
                     {
                         new MDFeLacre
                         {
@@ -722,7 +723,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -738,7 +739,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -766,19 +767,19 @@ namespace MDFe.AppTeste
 
             #region Produto Predominante
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
-                mdfe.InfMDFe.prodPred = new prodPred
+                mdfe.InfMDFe.ProdPred = new MDFeProdPred
                 {
-                    tpCarga = tpCarga.CargaGeral,
-                    xProd = "aaaaaaaaaaaaaaaaaaaaa",
-                    infLotacao = new infLotacao
+                    TpCarga = MDFeTpCarga.CargaGeral,
+                    XProd = "aaaaaaaaaaaaaaaaaaaaa",
+                    InfLotacao = new MDFeInfLotacao
                     {
-                        infLocalCarrega = new infLocalCarrega
+                        InfLocalCarrega = new MDFeInfLocalCarrega
                         {
                             CEP = "75950000"
                         },
-                        infLocalDescarrega = new infLocalDescarrega
+                        InfLocalDescarrega = new MDFeInfLocalDescarrega
                         {
                             CEP = "75950000"
                         }
@@ -804,12 +805,12 @@ namespace MDFe.AppTeste
 
             #region dados responsavel tecnico 
 
-            mdfe.InfMDFe.infRespTec = new infRespTec
+            mdfe.InfMDFe.InfRespTec = new MDFeInfRespTec
             {
                 CNPJ = "21025760000123",
-                email = "robertoalvespereira18@gmail.com",
-                fone = "64981081602",
-                xContato = "roberto alves"
+                Email = "robertoalvespereira18@gmail.com",
+                Fone = "64981081602",
+                XContato = "roberto alves"
             };
             #endregion  
 
@@ -898,7 +899,7 @@ namespace MDFe.AppTeste
             #endregion dados emitente (emit)
 
             #region modal
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao100)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao100;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
@@ -927,17 +928,17 @@ namespace MDFe.AppTeste
             }
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfModal.VersaoModal = MDFeVersaoModal.Versao300;
                 mdfe.InfMDFe.InfModal.Modal = new MDFeRodo
                 {
-                    infANTT = new MDFeInfANTT
+                    InfANTT = new MDFeInfANTT
                     {
                         RNTRC = config.Empresa.RNTRC,
 
                         // não é obrigatorio
-                        infCIOT = new List<infCIOT>
+                        InfCIOT = new List<infCIOT>
                         {
                             new infCIOT
                             {
@@ -945,7 +946,7 @@ namespace MDFe.AppTeste
                                 CNPJ = "21025760000123"
                             }
                         },
-                        valePed = new MDFeValePed
+                        ValePed = new MDFeValePed
                         {
                             Disp = new List<MDFeDisp>
                                     {
@@ -954,7 +955,7 @@ namespace MDFe.AppTeste
                                             CNPJForn = "21025760000123",
                                             CNPJPg = "21025760000123",
                                             NCompra = "838388383",
-                                            vValePed = 100.33m
+                                            VValePed = 100.33m
                                         }
                                     }
                         }
@@ -980,7 +981,7 @@ namespace MDFe.AppTeste
                         TpCar = MDFeTpCar.NaoAplicavel
                     },
 
-                    lacRodo = new List<MDFeLacre>
+                    LacRodo = new List<MDFeLacre>
                     {
                         new MDFeLacre
                         {
@@ -1011,7 +1012,7 @@ namespace MDFe.AppTeste
             };
 
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.InfDoc.InfMunDescarga[0].InfCTe[0].Peri = new List<MDFePeri>
                 {
@@ -1027,7 +1028,7 @@ namespace MDFe.AppTeste
 
             #region seg
 
-            if (MDFeConfiguracao.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
+            if (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout == VersaoServico.Versao300)
             {
                 mdfe.InfMDFe.Seg = new List<MDFeSeg>();
 
@@ -1379,17 +1380,17 @@ namespace MDFe.AppTeste
                 ManterDadosEmCache = config.CertificadoDigital.ManterEmCache,
             };
 
-            MDFeConfiguracao.ConfiguracaoCertificado = configuracaoCertificado;
-            MDFeConfiguracao.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
-            MDFeConfiguracao.CaminhoSalvarXml = config.DiretorioSalvarXml;
-            MDFeConfiguracao.IsSalvarXml = config.IsSalvarXml;
+            MDFeConfiguracao.Instancia.ConfiguracaoCertificado = configuracaoCertificado;
+            MDFeConfiguracao.Instancia.CaminhoSchemas = config.ConfigWebService.CaminhoSchemas;
+            MDFeConfiguracao.Instancia.CaminhoSalvarXml = config.DiretorioSalvarXml;
+            MDFeConfiguracao.Instancia.IsSalvarXml = config.IsSalvarXml;
 
-            MDFeConfiguracao.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
+            MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout = config.ConfigWebService.VersaoLayout;
 
-            MDFeConfiguracao.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
-            MDFeConfiguracao.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
-            MDFeConfiguracao.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
-            MDFeConfiguracao.IsAdicionaQrCode = true;
+            MDFeConfiguracao.Instancia.VersaoWebService.TipoAmbiente = config.ConfigWebService.Ambiente;
+            MDFeConfiguracao.Instancia.VersaoWebService.UfEmitente = config.ConfigWebService.UfEmitente;
+            MDFeConfiguracao.Instancia.VersaoWebService.TimeOut = config.ConfigWebService.TimeOut;
+            MDFeConfiguracao.Instancia.IsAdicionaQrCode = true;
         }
 
         protected virtual void OnSucessoSync(RetornoEEnvio e)

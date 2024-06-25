@@ -47,8 +47,10 @@ namespace MDFe.Classes.Informacoes
             InfModal = new MDFeInfModal();
             InfDoc = new MDFeInfDoc();
             Tot = new MDFeTot();
+            ProdPred = new MDFeProdPred();
             Versao = VersaoServico.Versao100;
         }
+
         /// <summary>
         /// 1 - Versão do leiaute 
         /// </summary>
@@ -94,8 +96,11 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "seg")]
         public List<MDFeSeg> Seg { get; set; }
 
+        /// <summary>
+        /// 1 - Grupo de informações do Produto predominante da carga do MDF-e
+        /// </summary>
         [XmlElement(ElementName = "prodPred")]
-        public prodPred prodPred { get; set; }
+        public MDFeProdPred ProdPred { get; set; }
 
         /// <summary>
         /// 1 - Totalizadores da carga transportada e seus documentos fiscais
@@ -121,7 +126,10 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "infAdic")]
         public MDFeInfAdic InfAdic { get; set; }
 
+        /// <summary>
+        /// 1 - Informações do Responsável Técnico pela emissão do DF-e.
+        /// </summary>
         [XmlElement(ElementName = "infRespTec")]
-        public infRespTec infRespTec { get; set; }
+        public MDFeInfRespTec InfRespTec { get; set; }
     }
 }

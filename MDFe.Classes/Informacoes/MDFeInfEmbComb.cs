@@ -30,6 +30,7 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
 using System.Xml.Serialization;
 
@@ -44,6 +45,10 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "cEmbComb")]
         public string CEmbComb { get; set; }
 
-        public string xBalsa { get; set; }
+        /// <summary>
+        /// 2 - Código da embarcação do comboio 
+        /// </summary>
+        [XmlElement(ElementName = "xBalsa")]
+        public string XBalsa { get; set; }
     }
 }
