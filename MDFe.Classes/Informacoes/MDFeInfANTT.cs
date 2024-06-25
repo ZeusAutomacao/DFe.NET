@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -31,21 +31,43 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using CTe.Classes.Servicos.Evento;
-using DFe.Utils;
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace CTe.Utils.Extencoes
+namespace MDFe.Classes.Informacoes
 {
-    public static class ExtevPrestDesacordo
+    [Serializable]
+    public class MDFeInfANTT
     {
         /// <summary>
-        ///     Converte o objeto evento para uma string no formato XML
+        /// 2 - Registro Nacional de Transportadores Rodoviários de Carga
         /// </summary>
-        /// <param name="eventoDesacordoOperacao"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto evento</returns>
-        public static string ObterXmlString(this evPrestDesacordo evPrestDesacordo)
-        {
-            return FuncoesXml.ClasseParaXmlString(evPrestDesacordo);
-        }
+        [XmlElement(ElementName = "RNTRC")]
+        public string RNTRC { get; set; }
+
+        /// <summary>
+        /// 2 - Dados do CIOT
+        /// </summary>
+        [XmlElement(ElementName = "infCIOT")]
+        public List<infCIOT> InfCIOT { get; set; }
+
+        /// <summary>
+        /// 2 - Informações de Vale Pedágio
+        /// </summary>
+        [XmlElement(ElementName = "valePed")]
+        public MDFeValePed ValePed { get; set; }
+
+        /// <summary>
+        /// 2 - Grupo de informações dos contratantes do serviço de transporte
+        /// </summary>
+        [XmlElement(ElementName = "infContratante")]
+        public List<MDFeInfContratante> InfContratante { get; set; }
+
+        /// <summary>
+        /// 2 - Informações do Pagamento do Frete
+        /// </summary>
+        [XmlElement(ElementName = "infPag")]
+        public List<MDFeInfPag> InfPag { get; set; }
     }
 }
