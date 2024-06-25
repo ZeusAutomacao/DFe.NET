@@ -28,8 +28,9 @@
 /*                                                                              */
 /* Zeusdev Tecnologia LTDA ME - adenilton@zeusautomacao.com.br                  */
 /* http://www.zeusautomacao.com.br/                                             */
-/* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
+/* Rua Comendador Francisco José da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using MDFe.Utils.Configuracoes;
 using System;
 using System.IO;
@@ -40,9 +41,10 @@ namespace MDFe.Utils.Validacao
 {
     public class Validador
     {
-        public static void Valida(string xml, string schema)
+        public static void Valida(string xml, string schema, MDFeConfiguracao cfgMdfe = null)
         {
-            var pathSchema = MDFeConfiguracao.CaminhoSchemas;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var pathSchema = config.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);
@@ -55,14 +57,16 @@ namespace MDFe.Utils.Validacao
             // Carrega o arquivo de esquema
             var schemas = new XmlSchemaSet();
             schemas.XmlResolver = new XmlUrlResolver();
-
             cfg.Schemas = schemas;
+
             // Quando carregar o eschema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
+
             // Especifica o tratamento de evento para os erros de validacao
             cfg.ValidationEventHandler += ValidationEventHandler;
-            // cria um leitor para validação
+
+            // Cria um leitor para validação
             var validator = XmlReader.Create(new StringReader(xml), cfg);
             try
             {

@@ -1,7 +1,7 @@
 ﻿/********************************************************************************/
-/* Projeto: Biblioteca ZeusNFe                                                  */
-/* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
-/* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
+/* Projeto: Biblioteca ZeusMDFe                                                 */
+/* Biblioteca C# para emissão de Manifesto Eletrônico Fiscal de Documentos      */
+/* (https://mdfe-portal.sefaz.rs.gov.br/                                        */
 /*                                                                              */
 /* Direitos Autorais Reservados (c) 2014 Adenilton Batista da Silva             */
 /*                                       Zeusdev Tecnologia LTDA ME             */
@@ -30,43 +30,43 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
 using System;
-using System.IO;
-using CTe.Classes;
-using CTe.Classes.Servicos.Status;
-using DFe.Utils;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace CTe.Utils.Extencoes
+namespace MDFe.Classes.Informacoes.Evento.CorpoEvento
 {
-    public static class ExtretConsStatServCte
+    [Serializable]
+    public class MDFeEvPagtoOperMDFe : MDFeEventoContainer
     {
-        public static void SalvarXmlEmDisco(this retConsStatServCte retConsStatServCte, ConfiguracaoServico configuracaoServico = null)
+        public MDFeEvPagtoOperMDFe()
         {
-            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            if (instanciaServico.NaoSalvarXml()) return;
-
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
-
-            var arquivoSalvar = Path.Combine(caminhoXml, DateTime.Now.ParaDataHoraString() + "-sta.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
+            DescEvento = "Pagamento Operacao MDF-e";
         }
-    }
 
-    public static class ExtretConsStatServCTe
-    {
-        public static void SalvarXmlEmDisco(this retConsStatServCTe retConsStatServCte, ConfiguracaoServico configuracaoServico = null)
-        {
-            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+        /// <summary>
+        /// 1 - Descrição do evento
+        /// </summary>
+        [XmlElement("descEvento")]
+        public string DescEvento { get; set; }
 
-            if (instanciaServico.NaoSalvarXml()) return;
+        /// <summary>
+        /// 1 - Número do protocolo de autorização do MDF-e
+        /// </summary>
+        [XmlElement("nProt")]
+        public string NProt { get; set; }
 
-            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+        /// <summary>
+        /// 1 - Informações do total de viagens acobertadas pelo Evento “pagamento do frete” 
+        /// </summary>
+        [XmlElement("infViagens")]
+        public MDFeInfViagens InfViagens { get; set; }
 
-            var arquivoSalvar = Path.Combine(caminhoXml, DateTime.Now.ParaDataHoraString() + "-sta.xml");
-
-            FuncoesXml.ClasseParaArquivoXml(retConsStatServCte, arquivoSalvar);
-        }
+        /// <summary>
+        /// 1 - Grupo de Informações dos pgto do MDF-e
+        /// </summary>
+        [XmlElement(ElementName = "infPag")]
+        public List<MDFeInfPag> InfPag { get; set; }
     }
 }

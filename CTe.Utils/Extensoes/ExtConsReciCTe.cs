@@ -34,47 +34,26 @@ using System;
 using System.IO;
 using System.Xml;
 using CTe.Classes;
-using CTe.Classes.Servicos.Inutilizacao;
+using CTe.Classes.Servicos.Recepcao.Retorno;
 using CTe.Classes.Servicos.Tipos;
 using CTe.Utils.Validacao;
 using DFe.Utils;
-using DFe.Utils.Assinatura;
 
-namespace CTe.Utils.Extencoes
+namespace CTe.Utils.Extensoes
 {
-    public static class ExtinutCTe
+    public static class ExtConsReciCTe
     {
-        public static void Assinar(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
+        public static void ValidarSchema(this consReciCTe consReciCTe, ConfiguracaoServico configuracaoServico = null)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            var xmlValidacao = consReciCTe.ObterXmlString();
 
-            inutCTe.Signature = AssinaturaDigital.Assina(inutCTe, inutCTe.infInut.Id,
-                configServico.X509Certificate2);
-        }
-
-
-        /// <summary>
-        ///     Converte o objeto inutCTe para uma string no formato XML
-        /// </summary>
-        /// <param name="pedInutilizacao"></param>
-        /// <returns>Retorna uma string no formato XML com os dados do objeto inutCTe</returns>
-        public static string ObterXmlString(this inutCTe pedInutilizacao)
-        {
-            return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
-        }
-
-        public static void ValidarShcema(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
-        {
-
-            var xmlValidacao = inutCTe.ObterXmlString();
-
-            switch (inutCTe.versao)
+            switch (consReciCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consReciCTe_v2.00.xsd", configuracaoServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consReciCTe_v3.00.xsd", configuracaoServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -83,7 +62,17 @@ namespace CTe.Utils.Extencoes
             }
         }
 
-        public static void SalvarXmlEmDisco(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Converte o objeto retconsReciCTe para uma string no formato XML
+        /// </summary>
+        /// <param name="consReciCTe"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do objeto retconsReciCTe</returns>
+        public static string ObterXmlString(this consReciCTe consReciCTe)
+        {
+            return FuncoesXml.ClasseParaXmlString(consReciCTe);
+        }
+
+        public static void SalvarXmlEmDisco(this consReciCTe consReciCTe, ConfiguracaoServico configuracaoServico = null)
         {
             var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
@@ -91,17 +80,32 @@ namespace CTe.Utils.Extencoes
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = Path.Combine(caminhoXml, inutCTe.infInut.Id+ "-ped-inu.xml");
+            var arquivoSalvar = Path.Combine(caminhoXml, consReciCTe.nRec + "-ped-rec.xml");
 
-            FuncoesXml.ClasseParaArquivoXml(inutCTe, arquivoSalvar);
+            FuncoesXml.ClasseParaArquivoXml(consReciCTe, arquivoSalvar);
         }
 
-        public static XmlDocument CriaRequestWs(this inutCTe inutCTe)
+        public static XmlDocument CriaRequestWs(this consReciCTe consReciCTe)
         {
             var request = new XmlDocument();
-            request.LoadXml(inutCTe.ObterXmlString());
+            request.LoadXml(consReciCTe.ObterXmlString());
 
             return request;
+        }
+
+
+        // Salvar Retorno de Envio de Recibo
+        public static void SalvarXmlEmDisco(this retConsReciCTe retConsReciCTe, ConfiguracaoServico configuracaoServico = null)
+        {
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
+            if (instanciaServico.NaoSalvarXml()) return;
+
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
+
+            var arquivoSalvar = Path.Combine(caminhoXml, retConsReciCTe.nRec + "-rec.xml");
+
+            FuncoesXml.ClasseParaArquivoXml(retConsReciCTe, arquivoSalvar);
         }
     }
 }

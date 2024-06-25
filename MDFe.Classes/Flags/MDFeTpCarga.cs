@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace MDFe.Classes.Informacoes
+namespace MDFe.Classes.Flags
 {
-    public enum tpCarga
+    public enum MDFeTpCarga
     {
         [XmlEnum("01")]
         GranelSolido = 01,

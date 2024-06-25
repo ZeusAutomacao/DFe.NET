@@ -72,6 +72,11 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "peri")]
         public List<MDFePeri> Peri { get; set; }
 
-        public infEntregaParcial infEntregaParcial { get; set; }
+        /// <summary>
+        /// Grupo de informações da Entrega Parcial (Corte de Voo).
+        /// MDF-e 3.0
+        /// </summary>
+        [XmlElement(ElementName = "infEntregaParcial")]
+        public MDFeInfEntregaParcial InfEntregaParcial { get; set; }
     }
 }
