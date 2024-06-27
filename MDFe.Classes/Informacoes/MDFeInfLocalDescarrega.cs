@@ -59,7 +59,15 @@ namespace MDFe.Classes.Informacoes
                 if (_latitude == null) return null;
                 return _latitude.ToString();
             }
-            set { _latitude = decimal.Parse(value); }
+            set
+            {
+                if (value == null)
+                {
+                    _latitude = null;
+                    return;
+                }
+                _latitude = decimal.Parse(value);
+            }
         }
 
         [XmlIgnore]
@@ -77,7 +85,15 @@ namespace MDFe.Classes.Informacoes
                 if (_longitude == null) return null;
                 return _longitude.ToString();
             }
-            set { _longitude = decimal.Parse(value); }
+            set
+            {
+                if (value == null)
+                {
+                    _longitude = null;
+                    return;
+                }
+                _longitude = decimal.Parse(value);
+            }
         }
     }
 }
