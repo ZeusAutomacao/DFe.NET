@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="06/17/2024 10:54:28" ReportInfo.CreatorVersion="2024.2.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="06/26/2024 16:03:40" ReportInfo.CreatorVersion="2024.2.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -35,6 +35,8 @@ namespace FastReport
     
     private string FormatarCampo(string valor, char format)
     {
+      if (valor == null) return string.Empty;
+      
       switch (format)
       {
         case 'c':  //CEP
@@ -94,8 +96,8 @@ namespace FastReport
           Barcode1.Visible = true;          
         }
       }
-      
-      BarcodeChave.Text = &quot;[Substring( [MDFeProcMDFe.MDFe.InfMDFe.Id], 4)]&quot;;   
+                                                                         
+      BarcodeChave.Text = chave;
       
       //Veiculos e Reboques
       txtPlaca.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Placa&quot;));
@@ -265,7 +267,7 @@ namespace FastReport
               <Column Name="UFPer" DataType="System.Int32"/>
               <Column Name="ProxyUFPer" DataType="System.String"/>
             </BusinessObjectDataSource>
-            <Column Name="DhIniViagem" DataType="System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+            <Column Name="DhIniViagem" DataType="System.Int32"/>
             <Column Name="ProxyDhIniViagem" DataType="System.String"/>
             <Column Name="IndCanalVerde" DataType="System.String"/>
             <Column Name="IndCarregaPosterior" DataType="System.String"/>
@@ -311,9 +313,9 @@ namespace FastReport
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
-                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="Tara" DataType="System.Int32"/>
+                <Column Name="CapKG" DataType="System.Int32"/>
+                <Column Name="CapM3" DataType="System.Int32"/>
                 <Column Name="Prop" DataType="System.Int32">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
@@ -340,9 +342,9 @@ namespace FastReport
                 <Column Name="CInt" DataType="System.String"/>
                 <Column Name="Placa" DataType="System.String"/>
                 <Column Name="RENAVAM" DataType="System.String"/>
-                <Column Name="Tara" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-                <Column Name="CapKG" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-                <Column Name="CapM3" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="Tara" DataType="System.Int32"/>
+                <Column Name="CapKG" DataType="System.Int32"/>
+                <Column Name="CapM3" DataType="System.Int32"/>
                 <Column Name="Prop" DataType="System.Int32">
                   <Column Name="CPF" DataType="System.String"/>
                   <Column Name="CNPJ" DataType="System.String"/>
@@ -386,7 +388,7 @@ namespace FastReport
               <BusinessObjectDataSource Name="InfCTe" DataType="System.Int32" Enabled="true">
                 <Column Name="ChCTe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="IndReentrega" DataType="System.Int32"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <BusinessObjectDataSource Name="InfUnidTransps" DataType="System.Int32" Enabled="true">
                   <Column Name="TpUnidTransp" DataType="System.Int32"/>
@@ -400,10 +402,10 @@ namespace FastReport
                     <BusinessObjectDataSource Name="LacUnidCargas" DataType="System.Int32" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                    <Column Name="QtdRat" DataType="System.Int32"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                  <Column Name="QtdRat" DataType="System.Int32"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
                 <BusinessObjectDataSource Name="Peri" DataType="System.Int32" Enabled="true">
@@ -422,7 +424,7 @@ namespace FastReport
               <BusinessObjectDataSource Name="InfNFe" DataType="System.Int32" Enabled="true">
                 <Column Name="ChNFe" DataType="System.String"/>
                 <Column Name="SegCodBarra" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="IndReentrega" DataType="System.Int32"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <BusinessObjectDataSource Name="InfUnidTransps1" Alias="InfUnidTransps" DataType="System.Int32" PropName="InfUnidTransps" Enabled="true">
                   <Column Name="TpUnidTransp" DataType="System.Int32"/>
@@ -436,10 +438,10 @@ namespace FastReport
                     <BusinessObjectDataSource Name="LacUnidCargas1" Alias="LacUnidCargas" DataType="System.Int32" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                    <Column Name="QtdRat" DataType="System.Int32"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                  <Column Name="QtdRat" DataType="System.Int32"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
                 <BusinessObjectDataSource Name="Peri1" Alias="Peri" DataType="System.Int32" PropName="Peri" Enabled="true">
@@ -453,7 +455,7 @@ namespace FastReport
               </BusinessObjectDataSource>
               <BusinessObjectDataSource Name="InfMdFeTransps" DataType="System.Int32" Enabled="true">
                 <Column Name="ChMDFe" DataType="System.String"/>
-                <Column Name="IndReentrega" DataType="System.Nullable`1[[System.Byte, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                <Column Name="IndReentrega" DataType="System.Int32"/>
                 <Column Name="IndReentregaSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 <BusinessObjectDataSource Name="InfUnidTransp" DataType="System.Int32" Enabled="true">
                   <Column Name="TpUnidTransp" DataType="System.Int32"/>
@@ -467,10 +469,10 @@ namespace FastReport
                     <BusinessObjectDataSource Name="LacUnidCargas2" Alias="LacUnidCargas" DataType="System.Int32" PropName="LacUnidCargas" Enabled="true">
                       <Column Name="NLacre" DataType="System.String"/>
                     </BusinessObjectDataSource>
-                    <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                    <Column Name="QtdRat" DataType="System.Int32"/>
                     <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                   </BusinessObjectDataSource>
-                  <Column Name="QtdRat" DataType="System.Nullable`1[[System.Decimal, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+                  <Column Name="QtdRat" DataType="System.Int32"/>
                   <Column Name="QtdRatSpecified" DataType="System.Boolean" BindableControl="CheckBox"/>
                 </BusinessObjectDataSource>
                 <BusinessObjectDataSource Name="Peri2" Alias="Peri" DataType="System.Int32" PropName="Peri" Enabled="true">
@@ -495,7 +497,7 @@ namespace FastReport
               <Column Name="CNPJ" DataType="System.String"/>
             </Column>
             <Column Name="NApol" DataType="System.String"/>
-            <BusinessObjectDataSource Name="NAver" DataType="System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]" Enabled="true">
+            <BusinessObjectDataSource Name="NAver" DataType="System.Int32" Enabled="true">
               <Column Name="Length" DataType="System.Int32"/>
             </BusinessObjectDataSource>
           </BusinessObjectDataSource>
@@ -518,9 +520,9 @@ namespace FastReport
             </Column>
           </Column>
           <Column Name="Tot" DataType="System.Int32">
-            <Column Name="QCTe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-            <Column Name="QNFe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
-            <Column Name="QMDFe" DataType="System.Nullable`1[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]"/>
+            <Column Name="QCTe" DataType="System.Int32"/>
+            <Column Name="QNFe" DataType="System.Int32"/>
+            <Column Name="QMDFe" DataType="System.Int32"/>
             <Column Name="vCarga" DataType="System.Decimal"/>
             <Column Name="CUnid" DataType="System.Int32"/>
             <Column Name="QCarga" DataType="System.Decimal"/>
@@ -626,7 +628,7 @@ namespace FastReport
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" Watermark.Font="Arial, 60pt" FirstPageSource="261">
     <PageHeaderBand Name="PageHeader1" Width="748.44" Height="280.61" BeforePrintEvent="PageHeader1_BeforePrint">
-      <TextObject Name="txtChaveMDFe" Left="387.7" Top="248.35" Width="349.1" Height="15.12" BeforePrintEvent="txtChaveMDFe_BeforePrint" Padding="2, 0, 2, 4" VertAlign="Bottom" Font="Arial, 6pt"/>
+      <TextObject Name="txtChaveMDFe" Left="387.7" Top="248.35" Width="349.1" Height="15.12" Padding="2, 0, 2, 4" VertAlign="Bottom" Font="Arial, 6pt"/>
       <TextObject Name="Text68" Left="2.78" Top="248.39" Width="256.38" Height="15.12" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 0, 2, 4" VertAlign="Bottom" WordWrap="false" Font="Arial, 6pt"/>
       <TextObject Name="Text78" Left="196.99" Top="133.85" Width="125.12" Height="30.24" Fill.Color="192, 224, 247" Text="[MDFeProcMDFe.MDFe.InfMDFe.Ide.DhEmi]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text73" Left="158.1" Top="133.3" Width="36.35" Height="30.24" Fill.Color="192, 224, 247" Text="[Page#]/[TotalPages#]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
@@ -660,16 +662,16 @@ namespace FastReport
       <TextObject Name="Text40" Left="81.05" Top="190.51" Width="36.35" Height="30.24" Fill.Color="224, 224, 224" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QMDFe]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text90" Left="82.05" Top="190.89" Width="34.8" Height="10.45" Text="Qtd MDFe" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text91" Left="119.85" Top="191" Width="83.6" Height="30.24" Fill.Color="224, 224, 224" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.QCarga]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
-      <TextObject Name="Text92" Left="120.85" Top="191.38" Width="82.05" Height="10.45" Text="Peso total (Kg)" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
+      <TextObject Name="Text92" Left="120.85" Top="191.38" Width="82.05" Height="10.45" Text="Peso total ([MDFeProcMDFe.MDFe.InfMDFe.Tot.CUnid])" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text93" Left="205.9" Top="191" Width="83.6" Height="30.24" Fill.Color="224, 224, 224" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.vCarga]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text94" Left="206.9" Top="191.38" Width="82.05" Height="10.45" Text="Valor Total da Carga" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text95" Left="387.45" Top="264.6" Width="52.7" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
       <TextObject Name="Text96" Left="426.15" Top="264.6" Width="288.95" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
     </PageHeaderBand>
-    <DataBand Name="DataDocumentoCancelado" Top="282.9" Width="748.44" Height="28.35">
+    <DataBand Name="DataDocumentoCancelado" Top="283.28" Width="748.44" Height="28.35">
       <TextObject Name="Text60" Top="4.56" Width="747.1" Height="16.25" Fill.Color="Gray" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Arial Narrow, 11.25pt, style=Bold" TextFill.Color="White"/>
     </DataBand>
-    <DataBand Name="DataModalRodoviario" Top="313.53" Width="748.44" Height="210.11">
+    <DataBand Name="DataModalRodoviario" Top="314.29" Width="748.44" Height="210.11">
       <TextObject Name="Text25" Left="2" Top="88.7" Width="309.95" Height="11.9" Text="Vale Pedágio" Font="Arial, 8.25pt, style=Bold"/>
       <LineObject Name="Line19" Top="34.02" Width="309.96"/>
       <TextObject Name="Text26" Left="2.45" Top="20.12" Width="127.3" Height="11.9" Text="Placa" Font="Arial, 6.75pt"/>
@@ -703,29 +705,29 @@ namespace FastReport
       <LineObject Name="Line37" Left="316.3" Top="118.85" Width="86.94"/>
       <LineObject Name="Line38" Left="411.8" Top="118.69" Width="332.64"/>
     </DataBand>
-    <DataBand Name="Data5" Top="525.93" Width="748.44" Height="30.35">
+    <DataBand Name="Data5" Top="527.07" Width="748.44" Height="30.35">
       <TextObject Name="Text42" Top="10.35" Width="745.2" Height="14.9" Border.Lines="Bottom" Text="Informações da Composição da Carga" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="Data1" Top="558.56" Width="748.44" Height="27.38">
+    <DataBand Name="Data1" Top="560.09" Width="748.44" Height="27.38">
       <TextObject Name="Text81" Top="2" Width="745.2" Height="24.35" Border.Lines="Bottom" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Arial, 8.25pt"/>
-      <DataBand Name="Data7" Top="588.23" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data7" Top="590.13" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text82" Left="1" Width="370.55" Height="18.9" Text="NF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter1" Top="610.86" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter1" Top="613.15" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data6" Top="632.05" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data6" Top="634.72" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text10" Left="1" Top="3.45" Width="370.55" Height="18.9" Text="CT-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter2" Top="658.69" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter2" Top="661.73" Width="748.44" Height="18.9"/>
       </DataBand>
-      <DataBand Name="Data8" Top="679.87" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
+      <DataBand Name="Data8" Top="683.3" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
         <TextObject Name="Text83" Left="1" Width="370.55" Height="18.9" Text="MDF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter3" Top="702.51" Width="748.44" Height="18.9"/>
+        <DataFooterBand Name="DataFooter3" Top="706.32" Width="748.44" Height="18.9"/>
       </DataBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="723.69" Width="748.44" Height="96.6" CanGrow="true">
-      <TextObject Name="Text61" Left="4.45" Top="3.45" Width="738.55" Height="88.5" BeforePrintEvent="txtChaveMDFe_BeforePrint" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
+    <PageFooterBand Name="PageFooter1" Top="727.88" Width="748.44" Height="96.6" CanGrow="true">
+      <TextObject Name="Text61" Left="4.45" Top="3.45" Width="738.55" Height="88.5" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
       <TextObject Name="Text57" Left="1" Top="4" Width="745.75" Height="92.6" CanGrow="true" Text="&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="2, 4, 2, 2" Font="Arial, 8.25pt"/>
       <TextObject Name="Text56" Top="3.45" Width="745.04" Height="14.45" Border.Lines="Bottom" Text="Observações" Padding="4, 0, 2, 0" Font="Arial, 8.25pt, style=Bold"/>
-      <ChildBand Name="Child1" Top="822.58" Width="748.44" Height="12.45">
+      <ChildBand Name="Child1" Top="827.15" Width="748.44" Height="12.45">
         <TextObject Name="Text58" Left="1" Top="3" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Arial, 5.25pt"/>
         <TextObject Name="Text59" Left="437.05" Top="3" Width="309.2" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial, 5.25pt"/>
       </ChildBand>
