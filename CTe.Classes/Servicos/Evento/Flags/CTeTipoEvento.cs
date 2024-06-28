@@ -92,6 +92,8 @@ namespace CTe.Classes.Servicos.Evento.Flags
         AutorizadoServicoVinculadoMultimodal = 440160,
         // Evento: Tomador 
         [XmlEnum("610110")]
-        Desacordo = 610110
+        Desacordo = 610110,
+        [XmlEnum("610111")]
+        CancelamentoPrestacaodoServicoemDesacordo = 610111        
     }
 }
