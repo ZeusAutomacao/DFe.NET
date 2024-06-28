@@ -173,7 +173,10 @@ namespace FastReport
       
       //Seguros
       if (versao300)
-      {   
+      {
+        txtSeguroResponsavel.Text = &quot;&quot;;
+        txtSeguroSeguradora.Text = &quot;&quot;;
+        txtSeguroApolice.Text = &quot;&quot;;
         var seguros = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.Seg&quot;);
         seguros.Init();
         while (seguros.HasMoreRows)
