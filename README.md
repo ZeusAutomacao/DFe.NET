@@ -149,5 +149,3 @@ Ao enviar um PR explique brevemente o que foi alterado e o motivo. Teste amplame
 Colabore, a bibloteca é open source e seu sucesso depende unicamente de sua comunidade.
 
 **Discord** => https://discord.gg/EE4TGKAkkG
-
-Teste
