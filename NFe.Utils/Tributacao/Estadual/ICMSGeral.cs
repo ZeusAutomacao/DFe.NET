@@ -70,6 +70,7 @@ namespace NFe.Utils.Tributacao.Estadual
 
             switch (crt)
             {
+                case CRT.SimplesNacionalMei:
                 case CRT.SimplesNacional:
                     switch (CST)
                     {
