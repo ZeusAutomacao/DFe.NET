@@ -33,6 +33,7 @@
 using System;
 using System.Xml.Serialization;
 using DFe.Classes.Flags;
+using DFe.Utils.Attributes;
 using NFe.Classes.Servicos.Tipos;
 
 namespace NFe.Classes.Informacoes.Destinatario
@@ -102,6 +103,7 @@ namespace NFe.Classes.Informacoes.Destinatario
         /// <summary>
         ///     E04 - Razão Social ou nome do destinatário
         /// </summary>
+        [TString]
         public string xNome { get; set; }
 
         /// <summary>

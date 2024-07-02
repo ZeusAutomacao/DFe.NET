@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using DFe.Utils.Attributes;
 using System;
 using System.Linq;
 
@@ -43,21 +44,25 @@ namespace NFe.Classes.Informacoes.Destinatario
         /// <summary>
         ///     E06 - Logradouro
         /// </summary>
+        [TString]
         public string xLgr { get; set; }
 
         /// <summary>
         ///     E07 - Número
         /// </summary>
+        [TString]
         public string nro { get; set; }
 
         /// <summary>
         ///     E08 - Complemento
         /// </summary>
+        [TString]
         public string xCpl { get; set; }
 
         /// <summary>
         ///     E09 - Bairro
         /// </summary>
+        [TString]
         public string xBairro { get; set; }
 
         /// <summary>
@@ -69,6 +74,7 @@ namespace NFe.Classes.Informacoes.Destinatario
         /// <summary>
         ///     E11 - Nome do município, informar EXTERIOR para operações com o exterior.
         /// </summary>
+        [TString]
         public string xMun { get; set; }
 
         /// <summary>
@@ -107,6 +113,7 @@ namespace NFe.Classes.Informacoes.Destinatario
         ///     E15 - Nome do País
         ///     <para>Brasil ou BRASIL</para>
         /// </summary>
+        [TString]
         public string xPais { get; set; }
 
         /// <summary>
