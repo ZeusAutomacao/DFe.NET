@@ -7,7 +7,9 @@ Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e
 
 A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, netstandard2.0 e net6.0 instalados.
 
-**Versões suportadas:**
+---
+
+## Versões suportadas:
 |  Escopos  |  Frameworks Suportados  |
 | ------------------- | ------------------- |
 | NFe, NFCe, CTe, MDFe | .NET 4.6.2, .NET 4.7, .NET 4.7.1, .NET 4.7.2, .NET 4.8, .NetStandard 2.0, .NET 6.0 .NET 7.0 .NET 8.0 |
@@ -21,7 +23,7 @@ Licenciada sobre a **LGPL** (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Pu
 
 Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
 
-**Pacotes Nugets:**
+## Pacotes Nugets
 ------------------
 A melhor maneira de você ter a última versão do Zeus em seu projeto é utilizando os pacotes Nugets abaixo
 
@@ -41,7 +43,7 @@ A melhor maneira de você ter a última versão do Zeus em seu projeto é utiliz
 [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
  Zeus.CTe  
  
-**O que a biblioteca faz:**
+## O que a biblioteca faz:
 ------------------
 O projeto traz classes construídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutura exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
 
@@ -57,7 +59,7 @@ danfe.Visualizar();
 //danfe.Imprimir();
 //danfe.ExibirDesign();
 ```
-**Como usar a ferramenta:**
+## Como usar a ferramenta:
 -----------
 Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
 
@@ -74,8 +76,8 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 - *NFe.Danfe.AppTeste.Fast:* Projeto em WPF para demonstração de uso da impressão da NFe e NFCe (A NFe e NFCe estão disponíveis em FastReport.Net¹. A NFC-e também está disponível de forma nativa, entretanto para O DEMO é necessária as DLLs do FastReport.Net¹. *A utilização do DANFe da NFCe de forma nativa fora do DEMO não depende do FastReports.Net*);
 - *NFe.Danfe.AppTeste.OpenFast:* Projeto em Console em .NET6 para demonstração de uso de impressão da NFe, NFCe, como DANFE de xml não registrado e registrado ou Eventos como carta de correção e cancelamento.(A NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport). Não é necessário nenhuma DLL externa, tudo está incluído no pacote nuget.);
 
-**Impressão (FastReport):**
-----------
+## Impressão (FastReport):
+
 - Exemplo no Projeto *NFe.Danfe.AppTeste.Fast*.
 - A impressão de forma nativa (sem dependências de bibliotecas de terceiros) está disponível somente para a *NFCe*¹.
 - O projeto conta também com a impressão em FastReport.Net¹ (https://www.fast-report.com/pt/product/fast-report-net/) para *NFe*, *NFCe²* _(térmica)_, *CTe* _(modal rodoviário)_ e *MDFe*.
@@ -86,8 +88,8 @@ Para facilitar o seus estudos a biblioteca oferece projetos do tipo DEMO, sendo 
 As fontes estão anexadas ao projeto em Shared.NFe.Danfe.Base\Fontes_;
 Instale as fontes informadas no PC que for imprimir o DANFE da NFCe_;
 
-**Impressão (OpenFastReport):**
-----------
+## Impressão (OpenFastReport):
+
 - Exemplos no Projeto *NFe.Danfe.AppTeste.OpenFast*.
 - A impressão da NFe utiliza o FastReport.OpenSource (https://github.com/FastReports/FastReport), sendo ele instalado automatico ao utilizar o pacote nuget do Zeus.
 - A impressão requer que o arquivo .frx seja indicado, ou seja, ao publicar os binarios de seu projeto os arquivos .frx devem estar juntos e passado o caminho do arquivo para que seja gerado a impressão.
@@ -136,16 +138,18 @@ COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 
 O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
 
-**Suporte:**
----------
-O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github ou pergunte no grupo **Discord** => https://discord.gg/EE4TGKAkkG.
+## Suporte:
 
-**Colaborando:**
----------
+O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github.
+
+## Colaborando:
+
 Mantenha seu projeto atualizado para evitar issues desnecessárias, reporte bugs e soluções para problemas comuns, compartilhe suas ideias de melhorias, se tiver condições ajude enviando um pull request ou responda issues de outros colegas.
 
 Ao enviar um PR explique brevemente o que foi alterado e o motivo. Teste amplamente as alterações antes de submeter, não remova funcionalidades ou mude regras de métodos já existentes sem aviso prévio e com tempo para adaptações.
 
 Colabore, a bibloteca é open source e seu sucesso depende unicamente de sua comunidade.
 
-**Discord** => https://discord.gg/EE4TGKAkkG
+## Reconhecimento de código
+
+Este projeto incorpora código e melhorias do projeto ZeusFiscal. Agradecemos a todos os contribuidores por suas valiosas contribuições. Para detalhes específicos sobre as mudanças e os autores, consulte o [histórico de commits](https://github.com/ZeusAutomacao/DFe.NET/commits/master/).
