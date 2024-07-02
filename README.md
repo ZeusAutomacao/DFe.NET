@@ -7,7 +7,6 @@ Biblioteca gratuita para Geração de NFe 3.10/4.00, NFCe 3.10/4.00, MDF-e 3.0 e
 
 A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, netstandard2.0 e net6.0 instalados.
 
----
 
 ## Versões suportadas:
 |  Escopos  |  Frameworks Suportados  |
@@ -152,4 +151,4 @@ Colabore, a bibloteca é open source e seu sucesso depende unicamente de sua com
 
 ## Reconhecimento de código
 
-Este projeto incorpora código e melhorias do projeto ZeusFiscal. Agradecemos a todos os contribuidores por suas valiosas contribuições. Para detalhes específicos sobre as mudanças e os autores, consulte o [histórico de commits](https://github.com/ZeusAutomacao/DFe.NET/commits/master/).
+Este projeto incorpora código e melhorias do projeto [ZeusFiscal](https://github.com/Hercules-NET/ZeusFiscal). Agradecemos a todos os contribuidores por suas valiosas contribuições. Para detalhes específicos sobre as mudanças e os autores, consulte o [histórico de commits](https://github.com/ZeusAutomacao/DFe.NET/commits/master/).
