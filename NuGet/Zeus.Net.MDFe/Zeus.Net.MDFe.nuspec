@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Hercules.NET.MDFe</id>
+        <id>Zeus.Net.MDFe</id>
         <version>$version$</version>
-        <title>Hercules.NET MDFe</title>
-        <authors>Hercules.NET</authors>
-        <owners>Hercules.NET</owners>
-        <projectUrl>https://github.com/Hercules-NET/ZeusFiscal</projectUrl>
-        <iconUrl>https://avatars.githubusercontent.com/u/165974473</iconUrl>
+        <title>Zeus MDFe (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/324626879?s=200&amp;v=4</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Biblioteca para geração de MDF-e.</description>
         <releaseNotes />
-        <copyright>Hercules.NET</copyright>
+        <copyright>zeus</copyright>
         <language>pt-BR</language>
         <tags>df-e dfe mdfe mdf-e</tags>
     </metadata>
