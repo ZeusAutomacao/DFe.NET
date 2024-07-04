@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/01/2024 11:23:29" ReportInfo.CreatorVersion="2024.2.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/03/2024 08:52:36" ReportInfo.CreatorVersion="2023.3.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -151,34 +151,45 @@ namespace FastReport
       while(infMunDescargas.HasMoreRows){
         var uf = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga&quot;);
         uf = ObterSiglaDeUFDoCodigo(uf.Substring(0, 2));
-        txtDocumentosFiscais.Text += (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga&quot;) +
-          &quot;/&quot; + uf +
-          &quot; - &quot; + (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga&quot;) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        
         var infNfes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe&quot;);
-        infNfes.Init();
-        while(infNfes.HasMoreRows){
-          var chNfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe&quot;), 'z');
-          if(chNfe != null)
-            txtDocumentosFiscais.Text += &quot;NFe - &quot; + chNfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-          infNfes.Next();
-        }
         var infCtes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe&quot;);
-        infCtes.Init();
-        while(infCtes.HasMoreRows){
-          var chCte = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe&quot;), 'z');
-          if(chCte != null)
-            txtDocumentosFiscais.Text += &quot;CTe - &quot; + chCte + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-          infCtes.Next();
-        }
         var infMdfes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps&quot;);
-        infMdfes.Init();
-        while(infMdfes.HasMoreRows){
-          var chMdfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe&quot;), 'z');
-          if(chMdfe != null)
-            txtDocumentosFiscais.Text += &quot;MDFe - &quot; + chMdfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
-          infMdfes.Next();
-        }
-        txtDocumentosFiscais.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        
+        infNfes.Init();
+        infCtes.Init();
+        infMdfes.Init();  
+        
+        if (infNfes.RowCount &gt; 0 || infCtes.RowCount &gt; 0 || infMdfes.RowCount &gt; 0) 
+        {
+          txtDocumentosFiscais.Text += (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga&quot;) +
+            &quot;/&quot; + uf +
+            &quot; - &quot; + (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga&quot;) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          
+          while(infNfes.HasMoreRows){
+            var chNfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe&quot;), 'z');
+            if(chNfe != null)
+              txtDocumentosFiscais.Text += &quot;NFe - &quot; + chNfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+            infNfes.Next();
+          }
+                   
+          while(infCtes.HasMoreRows){
+            var chCte = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe&quot;), 'z');
+            if(chCte != null)
+              txtDocumentosFiscais.Text += &quot;CTe - &quot; + chCte + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+            infCtes.Next();
+          }
+                  
+          while(infMdfes.HasMoreRows){
+            var chMdfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe&quot;), 'z');
+            if(chMdfe != null)
+              txtDocumentosFiscais.Text += &quot;MDFe - &quot; + chMdfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+            infMdfes.Next();
+          }
+          
+          txtDocumentosFiscais.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        }        
+                
         infMunDescargas.Next();
       }
       
