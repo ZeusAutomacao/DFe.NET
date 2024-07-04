@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="06/26/2024 16:03:40" ReportInfo.CreatorVersion="2024.2.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/01/2024 11:23:29" ReportInfo.CreatorVersion="2024.2.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -18,6 +18,7 @@ using FastReport.Table;
 using FastReport.Utils;
 
 using DFe.Classes.Flags;
+using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes;
 using MDFe.Classes.Flags;
 using MDFe.Utils.Flags;
@@ -28,6 +29,12 @@ namespace FastReport
 {
   public class ReportScript
   {
+    private string ObterSiglaDeUFDoCodigo(string codigoUF)
+    { 
+      Estado estado = (Estado)System.Enum.Parse(typeof(Estado), codigoUF);
+      return estado.ToString();
+    }
+    
     private string FormatarCampo(long valor, char format)
     {
       return FormatarCampo(valor.ToString(), format);
@@ -135,7 +142,45 @@ namespace FastReport
         txtCpf.Text += FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.CPF&quot;), 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
         txtNome.Text += ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.VeicTracao.Condutor.XNome&quot;)) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));        
         moto.Next();        
-      }          
+      }
+      
+      //Documentos Fiscais
+      txtDocumentosFiscais.Text = &quot;&quot;;
+      var infMunDescargas = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga&quot;);
+      infMunDescargas.Init();
+      while(infMunDescargas.HasMoreRows){
+        var uf = (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga&quot;);
+        uf = ObterSiglaDeUFDoCodigo(uf.Substring(0, 2));
+        txtDocumentosFiscais.Text += (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga&quot;) +
+          &quot;/&quot; + uf +
+          &quot; - &quot; + (String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga&quot;) + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        var infNfes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe&quot;);
+        infNfes.Init();
+        while(infNfes.HasMoreRows){
+          var chNfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe&quot;), 'z');
+          if(chNfe != null)
+            txtDocumentosFiscais.Text += &quot;NFe - &quot; + chNfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          infNfes.Next();
+        }
+        var infCtes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe&quot;);
+        infCtes.Init();
+        while(infCtes.HasMoreRows){
+          var chCte = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe&quot;), 'z');
+          if(chCte != null)
+            txtDocumentosFiscais.Text += &quot;CTe - &quot; + chCte + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          infCtes.Next();
+        }
+        var infMdfes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps&quot;);
+        infMdfes.Init();
+        while(infMdfes.HasMoreRows){
+          var chMdfe = FormatarCampo((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe&quot;), 'z');
+          if(chMdfe != null)
+            txtDocumentosFiscais.Text += &quot;MDFe - &quot; + chMdfe + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+          infMdfes.Next();
+        }
+        txtDocumentosFiscais.Text += ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+        infMunDescargas.Next();
+      }
       
       //Vales Pedágio
       txtCnpjResp.Text = &quot;&quot;;
@@ -196,18 +241,20 @@ namespace FastReport
           seguros.Next();
         }
         
+        txtContratantes.Text = &quot;&quot;;
         var contratantes = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante&quot;);
         contratantes.Init();
         while (contratantes.HasMoreRows)
         {
-          string cnpj = string.IsNullOrEmpty((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CNPJ&quot;)) ? 
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CPF&quot;)) :
-                        ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.InfContratante.CNPJ&quot;));
-          
-          txtContratantes.Text = FormatarCampo(cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));         
+          var infContratante = (MDFeInfContratante)contratantes.CurrentRow;
+          string cnpj = infContratante.CNPJ;
+          string cpf = infContratante.CPF;
+
+          txtContratantes.Text += FormatarCampo(cpf != null &amp;&amp; cpf != string.Empty ? cpf : cnpj, 'd') + ((String)Report.GetParameterValue(&quot;NewLine&quot;));
+
           contratantes.Next();
         }        
-      }      
+      }        
           
       //Totais
       qtdeCTe = ((Nullable&lt;Int32&gt;)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Tot.QCTe&quot;));
@@ -642,7 +689,7 @@ namespace FastReport
       <TextObject Name="Text1" Left="387.68" Top="173.95" Width="108.4" Height="10.01" Text="CONTROLE DO FISCO" Font="Arial, 5.25pt, style=Bold"/>
       <TextObject Name="Text2" Left="388.01" Top="235.12" Width="137.75" Height="8.89" Text="Chave de Acesso" Font="Arial, 6pt, style=Bold"/>
       <TextObject Name="Text4" Left="0.88" Top="108.51" Width="63.37" Height="18.68" Text="DAMDFE -" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
-      <PictureObject Name="poEmitLogo" Left="2.45" Top="12.45" Width="116.73" Height="84.82"/>
+      <PictureObject Name="poEmitLogo" Left="2.45" Top="12.45" Width="116.73" Height="84.82" Image=""/>
       <TextObject Name="Text5" Left="116.4" Top="12.9" Width="455.6" Height="25.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.XNome]" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
       <TextObject Name="Text6" Left="116.42" Top="49.25" Width="450.6" Height="51.03" Text="[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XLgr], [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.Nro] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XCpl] [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XBairro]&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.XMun] - [MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.ProxyUF], CEP: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.EnderEmit.CEP], 'c')]&#13;&#10;CNPJ: [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.Emit.CNPJ],'d')] IE: [MDFeProcMDFe.MDFe.InfMDFe.Emit.IE] RNTRC: [MDFeProcMDFe.MDFe.InfMDFe.InfModal.Modal.InfANTT.RNTRC]" Font="Arial Narrow, 6.75pt"/>
       <TextObject Name="Text7" Left="3.58" Top="134.19" Width="34.8" Height="10.45" Text="Modelo" HorzAlign="Center" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
@@ -670,67 +717,59 @@ namespace FastReport
       <TextObject Name="Text94" Left="206.9" Top="191.38" Width="82.05" Height="10.45" Text="Valor Total da Carga" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text95" Left="387.45" Top="264.6" Width="52.7" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
       <TextObject Name="Text96" Left="426.15" Top="264.6" Width="288.95" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
+      <TextObject Name="Text97" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Font="Arial, 10pt"/>
+      <TextObject Name="Text98" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
+      <TextObject Name="Text99" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
+      <TextObject Name="Text100" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
+      <TextObject Name="Text101" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga" Font="Arial, 10pt"/>
     </PageHeaderBand>
     <DataBand Name="DataDocumentoCancelado" Top="283.28" Width="748.44" Height="28.35">
       <TextObject Name="Text60" Top="4.56" Width="747.1" Height="16.25" Fill.Color="Gray" Text="DOCUMENTO CANCELADO" HorzAlign="Center" Font="Arial Narrow, 11.25pt, style=Bold" TextFill.Color="White"/>
     </DataBand>
-    <DataBand Name="DataModalRodoviario" Top="314.29" Width="748.44" Height="210.11">
-      <TextObject Name="Text25" Left="2" Top="88.7" Width="309.95" Height="11.9" Text="Vale Pedágio" Font="Arial, 8.25pt, style=Bold"/>
-      <LineObject Name="Line19" Top="34.02" Width="309.96"/>
-      <TextObject Name="Text26" Left="2.45" Top="20.12" Width="127.3" Height="11.9" Text="Placa" Font="Arial, 6.75pt"/>
+    <DataBand Name="DataModalRodoviario" Top="314.29" Width="748.44" Height="89.82" CanGrow="true">
+      <TextObject Name="Text26" Top="20.12" Width="127.3" Height="11.9" Text="Placa" Font="Arial, 6.75pt"/>
       <TextObject Name="Text27" Left="135.3" Top="20.03" Width="175.55" Height="11.9" Text="RNTRC" Font="Arial, 6.75pt"/>
-      <TextObject Name="Text28" Left="1" Top="104.17" Width="95.5" Height="11.9" Text="Resp. CPF/CNPJ" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="Text29" Left="94.5" Top="104.17" Width="95.5" Height="11.9" Text="Fornecedor CNPJ" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="Text30" Left="189" Top="104.17" Width="123.85" Height="11.9" Text="N. Comprovante" VertAlign="Center" Font="Arial, 6.75pt"/>
       <TextObject Name="Text31" Left="317.3" Top="20.03" Width="123.3" Height="11.9" Text="CPF" Font="Arial, 6.75pt"/>
       <TextObject Name="Text32" Left="446.15" Top="20.03" Width="297.4" Height="11.9" Text="Nome" Font="Arial, 6.75pt"/>
-      <TextObject Name="txtPlaca" Left="2.45" Top="37.02" Width="127.5" Height="52.8" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="txtRntrc" Left="133.75" Top="37.02" Width="177.75" Height="52.8" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="txtCpf" Left="316.3" Top="37.02" Width="124.5" Height="51.8" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="txtNome" Left="444.15" Top="37.02" Width="298.6" Height="51.8" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="txtCnpjResp" Left="2" Top="121.07" Width="90.7" Height="86.15" Font="Arial, 6pt"/>
-      <TextObject Name="txtCnpjFornec" Left="95.5" Top="121.07" Width="92.7" Height="86.15" Font="Arial, 6pt"/>
-      <TextObject Name="txtNumComprovante" Left="191" Top="121.07" Width="121.05" Height="86.15" Font="Arial, 6pt"/>
-      <TextObject Name="Text62" Left="407.8" Top="88.72" Width="335.85" Height="11.9" Text="Seguro" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="Text63" Left="407.35" Top="104.17" Width="81.05" Height="11.9" Text="Responsável" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="Text64" Left="491.85" Top="104.17" Width="157.2" Height="11.9" Text="Seguradora" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="Text65" Left="647.6" Top="104.17" Width="95.5" Height="11.9" Text="Apólice" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="txtSeguroResponsavel" Left="407.8" Top="121.07" Width="81.15" Height="87.15" Font="Arial, 6pt"/>
-      <TextObject Name="txtSeguroSeguradora" Left="491.85" Top="121.07" Width="157.4" Height="87.15" Font="Arial, 6pt"/>
-      <TextObject Name="txtSeguroApolice" Left="647.6" Top="121.07" Width="96.7" Height="87.15" Font="Arial, 6pt"/>
-      <TextObject Name="Text66" Left="314.85" Top="88.72" Width="88.7" Height="11.9" Text="Contratante(s)" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="Text67" Left="314.85" Top="104.17" Width="88.05" Height="11.9" Text="CNPJs" VertAlign="Center" Font="Arial, 6.75pt"/>
-      <TextObject Name="txtContratantes" Left="313.85" Top="121.07" Width="89.7" Height="87.15" Font="Arial, 6pt"/>
-      <TextObject Name="Text23" Left="3.7" Top="3.67" Width="51.8" Height="11.9" Text="Veículo" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="txtPlaca" Left="2.45" Top="37.02" Width="127.5" Height="52.8" CanGrow="true" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="txtRntrc" Left="133.75" Top="37.02" Width="177.75" Height="52.8" CanGrow="true" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="txtCpf" Left="316.3" Top="37.02" Width="124.5" Height="51.8" CanGrow="true" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="txtNome" Left="444.15" Top="37.02" Width="298.6" Height="51.8" CanGrow="true" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="Text23" Top="3.67" Width="51.8" Height="11.9" Text="Veículo" Font="Arial, 8.25pt, style=Bold"/>
       <TextObject Name="Text24" Left="316.3" Top="3.67" Width="426.35" Height="11.9" Text="Condutor" Font="Arial, 8.25pt, style=Bold"/>
       <LineObject Name="Line35" Left="321.3" Top="34.02" Width="423.36"/>
-      <LineObject Name="Line36" Top="118.85" Width="309.96"/>
-      <LineObject Name="Line37" Left="316.3" Top="118.85" Width="86.94"/>
-      <LineObject Name="Line38" Left="411.8" Top="118.69" Width="332.64"/>
     </DataBand>
-    <DataBand Name="Data5" Top="527.07" Width="748.44" Height="30.35">
-      <TextObject Name="Text42" Top="10.35" Width="745.2" Height="14.9" Border.Lines="Bottom" Text="Informações da Composição da Carga" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
+    <DataBand Name="Data2" Top="406.78" Width="748.44" Height="66.47" CanGrow="true">
+      <TextObject Name="txtCnpjResp" Left="2" Top="45.47" Width="90.7" Height="20" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtCnpjFornec" Left="95.5" Top="45.47" Width="92.7" Height="20" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtNumComprovante" Left="191" Top="45.47" Width="121.05" Height="20" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtSeguroResponsavel" Left="407.8" Top="45.47" Width="81.15" Height="21" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtSeguroSeguradora" Left="491.85" Top="45.47" Width="157.4" Height="21" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtSeguroApolice" Left="647.6" Top="45.47" Width="96.7" Height="21" CanGrow="true" Font="Arial, 6pt"/>
+      <TextObject Name="txtContratantes" Left="313.85" Top="45.47" Width="89.7" Height="21" CanGrow="true" Font="Arial, 6pt"/>
+      <LineObject Name="Line36" Top="43.25" Width="309.96"/>
+      <LineObject Name="Line37" Left="316.3" Top="43.25" Width="86.94"/>
+      <LineObject Name="Line38" Left="411.8" Top="43.09" Width="332.64"/>
+      <TextObject Name="Text28" Top="19.12" Width="95.5" Height="11.9" Text="Resp. CPF/CNPJ" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text29" Left="94.5" Top="19.12" Width="95.5" Height="11.9" Text="Fornecedor CNPJ" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text30" Left="189" Top="19.12" Width="123.85" Height="11.9" Text="N. Comprovante" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text63" Left="407.35" Top="19.12" Width="81.05" Height="11.9" Text="Responsável" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text64" Left="491.85" Top="19.12" Width="157.2" Height="11.9" Text="Seguradora" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text65" Left="647.6" Top="19.12" Width="95.5" Height="11.9" Text="Apólice" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text67" Left="314.85" Top="19.12" Width="88.05" Height="11.9" Text="CNPJs" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text25" Top="3.65" Width="309.95" Height="11.9" Text="Vale Pedágio" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="Text62" Left="407.8" Top="3.67" Width="335.85" Height="11.9" Text="Seguro" Font="Arial, 8.25pt, style=Bold"/>
+      <TextObject Name="Text66" Left="314.85" Top="3.67" Width="88.7" Height="11.9" Text="Contratante(s)" Font="Arial, 8.25pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="Data1" Top="560.09" Width="748.44" Height="27.38">
-      <TextObject Name="Text81" Top="2" Width="745.2" Height="24.35" Border.Lines="Bottom" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" VertAlign="Center" Font="Arial, 8.25pt"/>
-      <DataBand Name="Data7" Top="590.13" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
-        <TextObject Name="Text82" Left="1" Width="370.55" Height="18.9" Text="NF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfNFe.ChNFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter1" Top="613.15" Width="748.44" Height="18.9"/>
-      </DataBand>
-      <DataBand Name="Data6" Top="634.72" Width="748.44" Height="24.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
-        <TextObject Name="Text10" Left="1" Top="3.45" Width="370.55" Height="18.9" Text="CT-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfCTe.ChCTe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter2" Top="661.73" Width="748.44" Height="18.9"/>
-      </DataBand>
-      <DataBand Name="Data8" Top="683.3" Width="748.44" Height="20.35" Border.Lines="Bottom" Border.BottomLine.Style="Dash" Columns.Count="2" Columns.Width="372.71">
-        <TextObject Name="Text83" Left="1" Width="370.55" Height="18.9" Text="MDF-e  [FormatarCampo([MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.InfMdFeTransps.ChMDFe], 'z')]" VertAlign="Center" WordWrap="false" Font="Arial, 6.75pt"/>
-        <DataFooterBand Name="DataFooter3" Top="706.32" Width="748.44" Height="18.9"/>
-      </DataBand>
+    <DataBand Name="Data3" Top="475.92" Width="748.44" Height="47.25">
+      <TextObject Name="txtDocumentosFiscais" Top="19.28" Width="378" Height="18.9" CanGrow="true" Font="Arial, 7.5pt"/>
+      <TextObject Name="Text181" Top="3.78" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="727.88" Width="748.44" Height="96.6" CanGrow="true">
+    <PageFooterBand Name="PageFooter1" Top="525.83" Width="748.44" Height="96.6" CanGrow="true">
       <TextObject Name="Text61" Left="4.45" Top="3.45" Width="738.55" Height="88.5" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
-      <TextObject Name="Text57" Left="1" Top="4" Width="745.75" Height="92.6" CanGrow="true" Text="&#13;&#10;[MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl]" Padding="2, 4, 2, 2" Font="Arial, 8.25pt"/>
+      <TextObject Name="Text57" Left="1" Top="22.9" Width="745.75" Height="73.7" CanGrow="true" Text="&#13;&#10;" Padding="2, 4, 2, 2" Font="Arial, 8.25pt"/>
       <TextObject Name="Text56" Top="3.45" Width="745.04" Height="14.45" Border.Lines="Bottom" Text="Observações" Padding="4, 0, 2, 0" Font="Arial, 8.25pt, style=Bold"/>
-      <ChildBand Name="Child1" Top="827.15" Width="748.44" Height="12.45">
+      <ChildBand Name="Child1" Top="625.1" Width="748.44" Height="12.45">
         <TextObject Name="Text58" Left="1" Top="3" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Arial, 5.25pt"/>
         <TextObject Name="Text59" Left="437.05" Top="3" Width="309.2" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial, 5.25pt"/>
       </ChildBand>
