@@ -1,4 +1,4 @@
-name: ZeusFiscal_build
+name: DFe.NET_build
 
 on:
   workflow_dispatch:
@@ -32,7 +32,6 @@ jobs:
     
     - name: Setando Versao
       id: date
-      #run: echo "::set-output name=date::$(date +'%Y.%m.%d.$(printf "%02d" $(date +'%H'))$(printf "%02d" $(date +'%M'))')"
       run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
       
     - name: Versao
@@ -75,9 +74,9 @@ jobs:
     
     - name: Pack
       run: | 
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.NFe.NFCe\Hercules.NET.NFe.NFCe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.MDFe\Hercules.NET.MDFe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.CTe\Hercules.NET.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
@@ -107,7 +106,7 @@ jobs:
       - name: Push to NuGet Feed
         run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.NUGET_AUTH_TOKEN}}
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
           
       - name: Discord notification
         continue-on-error: true
@@ -116,4 +115,4 @@ jobs:
           DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Hercules.NET/ZeusFiscal versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/Hercules.NET'
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/Zeus.Net'
