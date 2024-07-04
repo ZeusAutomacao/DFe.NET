@@ -773,53 +773,6 @@ namespace NFe.Servicos
             var retorno = RecepcaoEvento(idlote, eventos, ServicoNFe.RecepcaoEventoCartaCorrecao, _cFgServico.VersaoRecepcaoEventoCceCancelamento, false);
             return retorno;
         }
-        
-        private RetornoRecepcaoEvento RecepcaoEventoInsucessoEntrega(int idlote,
-            int sequenciaEvento, string cpfcnpj, string chaveNFe, DateTimeOffset dhTentativaEntrega, MotivoInsucesso motivo, string hashTentativaEntrega, 
-            int? nTentativa = null, DateTimeOffset? dhHashTentativaEntrega = null,  decimal? latGps = null, decimal? longGps = null,
-            string justificativa = null, Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
-        {
-
-            var versaoServico =
-                ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
-                    _cFgServico.VersaoRecepcaoEventoInsucessoEntrega);
-
-            var detEvento = new detEvento
-            {
-                versao = versaoServico,
-                descEvento = NFeTipoEvento.TeNfeInsucessoNaEntregadaNFe.Descricao(),
-                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
-                verAplic = versaoAplicativo ?? "1.0",
-                dhTentativaEntrega = dhTentativaEntrega,
-                nTentativa = nTentativa,
-                tpMotivo = motivo,
-                xJustMotivo = justificativa,
-                latGPS = latGps,
-                longGPS = longGps,
-                hashTentativaEntrega = hashTentativaEntrega,
-                dhHashTentativaEntrega = dhHashTentativaEntrega
-            };
-            var infEvento = new infEventoEnv
-            {
-                cOrgao = _cFgServico.cUF,
-                tpAmb = _cFgServico.tpAmb,
-                chNFe = chaveNFe,
-                dhEvento = dhEvento ?? DateTime.Now,
-                tpEvento = NFeTipoEvento.TeNfeInsucessoNaEntregadaNFe,
-                nSeqEvento = sequenciaEvento,
-                verEvento = versaoServico,
-                detEvento = detEvento
-            };
-            if (cpfcnpj.Length == 11)
-                infEvento.CPF = cpfcnpj;
-            else
-                infEvento.CNPJ = cpfcnpj;
-
-            var evento = new evento { versao = versaoServico, infEvento = infEvento };
-
-            var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, _cFgServico.VersaoRecepcaoEventoInsucessoEntrega, true);
-            return retorno;
-        }
 
         /// <summary>
         /// Recepção do Evento de Insucesso na Entrega

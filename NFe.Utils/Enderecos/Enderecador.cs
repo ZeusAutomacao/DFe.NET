@@ -151,7 +151,7 @@ namespace NFe.Utils.Enderecos
 
             var todosOsAmbientes = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
 
-            var eventoCceCanc = new[] { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento, ServicoNFe.RecepcaoEventoInsucessoEntregaNFe };
+            var eventoCceCanc = new[] { ServicoNFe.RecepcaoEventoCartaCorrecao, ServicoNFe.RecepcaoEventoCancelmento };
 
             var hom = TipoAmbiente.Homologacao;
 
@@ -1674,7 +1674,6 @@ namespace NFe.Utils.Enderecos
         {
             switch (servico)
             {
-                case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCartaCorrecao:
                 case ServicoNFe.RecepcaoEventoCancelmento:
                     return cfgServico.VersaoRecepcaoEventoCceCancelamento;
