@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/04/2024 15:14:43" ReportInfo.CreatorVersion="2023.3.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/04/2024 15:52:38" ReportInfo.CreatorVersion="2023.3.0.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -144,7 +144,7 @@ namespace FastReport
         moto.Next();        
       }        
       
-      ImprimirDocumentosFiscais();
+      DefinirDocumentosFiscais();
       
       //Vales Pedágio
       txtCnpjResp.Text = &quot;&quot;;
@@ -241,7 +241,7 @@ namespace FastReport
         Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));     
     }
 
-    private void ImprimirDocumentosFiscais() 
+    private void DefinirDocumentosFiscais() 
     {  
       txtDocumentosFiscais.Text = &quot;&quot;;
       var infMunDescargas = Report.GetDataSource(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga&quot;);
