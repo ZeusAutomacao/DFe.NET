@@ -32,7 +32,6 @@
 /********************************************************************************/
 
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
@@ -45,9 +44,8 @@ namespace DFe.Utils
 {
     public static class FuncoesXml
     {
-
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
-        private static readonly Hashtable CacheSerializers = new Hashtable();
+        private static readonly ConcurrentDictionary<string, XmlSerializer> CacheSerializers = new ConcurrentDictionary<string, XmlSerializer>();
 
         /// <summary>
         ///     Serializa a classe passada para uma string no form
@@ -259,14 +257,16 @@ namespace DFe.Utils
         // https://github.com/ZeusAutomacao/DFe.NET/issues/610
         private static XmlSerializer BuscarNoCache(string chave, Type type)
         {
-            if (CacheSerializers.Contains(chave))
+            XmlSerializer ser;
+
+            if (CacheSerializers.TryGetValue(chave, out ser))
             {
-                return (XmlSerializer)CacheSerializers[chave];
+                return ser;
             }
 
-            var ser = XmlSerializer.FromTypes(new[] { type })[0];
+            ser = XmlSerializer.FromTypes(new[] { type })[0];
 
-            CacheSerializers.Add(chave, ser);
+            CacheSerializers.TryAdd(chave, ser);
 
             return ser;
         }
