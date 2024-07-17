@@ -78,32 +78,36 @@ namespace CTe.Servicos.Inutilizacao
 
         public retInutCTe Inutilizar(ConfiguracaoServico configuracaoServico = null)
         {
-            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza, configuracaoServico);
-            inutCte.Assinar(configuracaoServico);
-            inutCte.ValidarShcema(configuracaoServico);
-            inutCte.SalvarXmlEmDisco(configuracaoServico);
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlCteInutilizacao(configuracaoServico);
+            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza, configServico);
+            inutCte.Assinar(configServico);
+            inutCte.ValidarSchema(configServico);
+            inutCte.SalvarXmlEmDisco(configServico);
+
+            var webService = WsdlFactory.CriaWsdlCteInutilizacao(configServico);
             var retornoXml = webService.cteInutilizacaoCT(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
-            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), configuracaoServico);
+            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), configServico);
 
             return retorno;
         }
 
         public async Task<retInutCTe> InutilizarAsync(ConfiguracaoServico configuracaoServico = null)
         {
-            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza, configuracaoServico);
-            inutCte.Assinar(configuracaoServico);
-            inutCte.ValidarShcema(configuracaoServico);
-            inutCte.SalvarXmlEmDisco(configuracaoServico);
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlCteInutilizacao(configuracaoServico);
+            var inutCte = ClassesFactory.CriaInutCTe(_configInutiliza, configServico);
+            inutCte.Assinar(configServico);
+            inutCte.ValidarSchema(configServico);
+            inutCte.SalvarXmlEmDisco(configServico);
+
+            var webService = WsdlFactory.CriaWsdlCteInutilizacao(configServico);
             var retornoXml = await webService.cteInutilizacaoCTAsync(inutCte.CriaRequestWs());
 
             var retorno = retInutCTe.LoadXml(retornoXml.OuterXml, inutCte);
-            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), configuracaoServico);
+            retorno.SalvarXmlEmDisco(inutCte.infInut.Id.Substring(2), configServico);
 
             return retorno;
         }

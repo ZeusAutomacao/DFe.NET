@@ -79,6 +79,7 @@ namespace CTe.Servicos.DistribuicaoDFe
         public RetornoCteDistDFeInt CTeDistDFeInteresse(string ufAutor, string documento, string ultNSU = "0", string nSU = "0", ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? _configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             distDFeInt pedDistDFeInt;
             XmlDocument dadosConsulta;
             var ws = InicializaCTeDistDFeInteresse(documento, ultNSU, nSU, out pedDistDFeInt, out dadosConsulta, configServico);
