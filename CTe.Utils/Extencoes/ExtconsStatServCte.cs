@@ -45,18 +45,20 @@ namespace CTe.Utils.Extencoes
     {
         public static void ValidarSchema(this consStatServCte consStatServCte, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             var xmlValidacao = consStatServCte.ObterXmlString();
 
             switch (consStatServCte.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", configServico);
                     break;
                 case versao.ve400:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v4.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v4.00.xsd", configServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -82,8 +84,8 @@ namespace CTe.Utils.Extencoes
             if (instanciaServico.NaoSalvarXml()) return;
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
-            
-            var arquivoSalvar = Path.Combine(caminhoXml,  DateTime.Now.ParaDataHoraString() + "-ped-sta.xml");
+
+            var arquivoSalvar = Path.Combine(caminhoXml, DateTime.Now.ParaDataHoraString() + "-ped-sta.xml");
 
             FuncoesXml.ClasseParaArquivoXml(statuServCte, arquivoSalvar);
         }
@@ -101,18 +103,20 @@ namespace CTe.Utils.Extencoes
     {
         public static void ValidarSchema(this consStatServCTe consStatServCte, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             var xmlValidacao = consStatServCte.ObterXmlString();
 
             switch (consStatServCte.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v3.00.xsd", configServico);
                     break;
                 case versao.ve400:
-                    Validador.Valida(xmlValidacao, "consStatServCTe_v4.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consStatServCTe_v4.00.xsd", configServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
