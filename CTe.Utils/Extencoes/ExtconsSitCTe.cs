@@ -46,20 +46,23 @@ namespace CTe.Utils.Extencoes
 
         public static void ValidarSchema(this consSitCTe consSitCTe, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             var xmlValidacao = consSitCTe.ObterXmlString();
 
             switch (consSitCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consSitCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consSitCTe_v3.00.xsd", configServico);
                     break;
                 case versao.ve400:
-                    Validador.Valida(xmlValidacao, "consSitCTe_v4.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consSitCTe_v4.00.xsd", configServico);
                     break;
-                default: throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
+                default:
+                    throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
                                                         "a versão está inválida, somente é permitido " +
                                                         "versão 2.00 é 3.00");
             }
