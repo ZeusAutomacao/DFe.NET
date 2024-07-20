@@ -1,4 +1,4 @@
-# ZeusFiscal
+# Hercules-NET / ZeusFiscal
 ### A Principal Biblioteca em C# para Emissão e Impressão de NFe, NFCe, MDF-e e CT-e
 **![(Este é o Fork e Continuação do DFe.NET ("Zeus") SAIBA MAIS SOBRE A 'DECLARAÇÃO OFICIAL A COMUNIDADE "ZEUS"' NESSE LINK!)](https://github.com/Hercules-NET/ZeusFiscal/issues/1)**
 
