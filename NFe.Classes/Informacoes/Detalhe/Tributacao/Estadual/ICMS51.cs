@@ -76,6 +76,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         }
 
         /// <summary>
+        ///     N14a - digo de Benefício Fiscal na UF aplicado ao item quando houver RBC.
+        /// </summary>
+        public string cBenefRBC { get; set; }
+
+        /// <summary>
         ///     N15 - Valor da BC do ICMS
         /// </summary>
         public decimal? vBC
