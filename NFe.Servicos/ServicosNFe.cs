@@ -1814,6 +1814,47 @@ namespace NFe.Servicos
             return new RetornoNFeRetAutorizacao(xmlRecibo, retornoXmlString, retornoXmlString, retRecibo);
         }
 
+        public async Task<XmlDocument> NFeGetXmlAutorizacaoAsync(string recibo)
+        {
+            var versaoServico =
+                ServicoNFe.NFeRetAutorizacao.VersaoServicoParaString(_cFgServico.VersaoNFeRetAutorizacao);
+
+            // Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NFeRetAutorizacao);
+
+            if (_cFgServico.VersaoNFeRetAutorizacao != VersaoServico.ve400)
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+
+            // Cria o objeto consReciNFe
+
+            var pedRecibo = new consReciNFe
+            {
+                versao = versaoServico,
+                tpAmb = _cFgServico.tpAmb,
+                nRec = recibo
+            };
+
+            // Envia os dados e obtém a resposta
+
+            var xmlRecibo = pedRecibo.ObterXmlString();
+            var dadosRecibo = new XmlDocument();
+            dadosRecibo.LoadXml(xmlRecibo);
+
+            return dadosRecibo;
+        }
+
+        public async Task<RetornoNFeRetAutorizacao> NFeGetXmlRetornoAsync(string xmlRecibo, string retornoXmlString)
+        {
+            var retRecibo = new retConsReciNFe().CarregarDeXmlString(retornoXmlString);
+
+            return new RetornoNFeRetAutorizacao(xmlRecibo, retornoXmlString, retornoXmlString, retRecibo);
+        }
+
         #endregion
 
         #region Implementação do padrão Dispose
