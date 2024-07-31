@@ -682,7 +682,6 @@ namespace FastReport
         </Column>
       </Column>
     </BusinessObjectDataSource>
-    <Parameter Name="DoocumentoCancelado" DataType="System.Boolean" AsString=""/>
     <Parameter Name="DocumentoEncerrado" DataType="System.Boolean" AsString=""/>
     <Parameter Name="Desenvolvedor" DataType="System.String" AsString=""/>
     <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean" AsString=""/>
