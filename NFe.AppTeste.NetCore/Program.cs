@@ -537,6 +537,8 @@ namespace NFe.AppTeste.NetCore
                 infNFe.infAdic = new infAdic() { infCpl = "Troco: 10,00" }; //Susgestão para impressão do troco em NFCe
             }
 
+            infNFe.ExecutarCorrecaoDeDados(infNFe);
+
             return infNFe;
         }
 
@@ -545,7 +547,7 @@ namespace NFe.AppTeste.NetCore
             ide ide = new ide
             {
                 cUF = _configuracoes.EnderecoEmitente.UF,
-                natOp = "VENDA",
+                natOp = " VENDA ",
                 mod = modelo,
                 serie = 1,
                 nNF = numero,
@@ -556,7 +558,7 @@ namespace NFe.AppTeste.NetCore
                 cNF = "1234",
                 tpAmb = _configuracoes.CfgServico.tpAmb,
                 finNFe = FinalidadeNFe.fnNormal,
-                verProc = "3.000"
+                verProc = " 3.000 "
             };
 
             if (ide.tpEmis != TipoEmissao.teNormal)
@@ -649,7 +651,7 @@ namespace NFe.AppTeste.NetCore
                 CNPJ = "99999999000191",
                 //CPF = "99999999999",
             };
-            dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"; //Obrigatório para NFe e opcional para NFCe
+            dest.xNome = " NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL "; //Obrigatório para NFe e opcional para NFCe
             dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
 
             //if (versao == VersaoServico.Versao200)
@@ -668,15 +670,15 @@ namespace NFe.AppTeste.NetCore
         {
             enderDest enderDest = new enderDest
             {
-                xLgr = "RUA ...",
+                xLgr = " RUA ...",
                 nro = "S/N",
-                xBairro = "CENTRO",
+                xBairro = " CENTRO ",
                 cMun = 2802908,
-                xMun = "ITABAIANA",
+                xMun = " ITABAIANA ",
                 UF = "SE",
                 CEP = "49500000",
                 cPais = 1058,
-                xPais = "BRASIL"
+                xPais = " BRASIL "
             };
             return enderDest;
         }
