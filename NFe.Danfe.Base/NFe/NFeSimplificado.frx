@@ -16,7 +16,6 @@ using FastReport.Dialog;
 using FastReport.Barcode;
 using FastReport.Table;
 using FastReport.Utils;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Informacoes.Detalhe.Tributacao;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
