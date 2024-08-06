@@ -314,8 +314,6 @@ namespace FastReport
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
           else if (valor.Length == 11)
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);     
-          else 
-            valor = valor;
           break;
         
         case 'd': //cpf / cnpj
