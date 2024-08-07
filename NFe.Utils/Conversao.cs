@@ -146,6 +146,8 @@ namespace NFe.Utils
                     return "Simples Nacional - sublimite excedido";
                 case CRT.RegimeNormal:
                     return "Normal";
+                case CRT.MicroempreendedorIndividual:
+                    return "Simples Nacional - Microempreendedor Individual - MEI";
                 default:
                     throw new ArgumentOutOfRangeException("crt", crt, null);
             }

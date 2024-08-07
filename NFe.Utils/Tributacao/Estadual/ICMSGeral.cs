@@ -71,6 +71,7 @@ namespace NFe.Utils.Tributacao.Estadual
             switch (crt)
             {
                 case CRT.SimplesNacional:
+                case CRT.MicroempreendedorIndividual:
                     switch (CSOSN)
                     {
                         case Csosnicms.Csosn101:
