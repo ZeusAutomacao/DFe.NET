@@ -252,7 +252,12 @@ namespace NFe.Utils.Tributacao.Estadual
         /// </summary>
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
-       /// <summary>
+        /// <summary>
+        ///     Indicador do valor de desoneracao é deduzido do total da NF-e
+        /// </summary>
+        public IndicadorDeduzDesoneracao? indDeduzDeson { get; set; }
+
+        /// <summary>
         ///     Valor do ICMS da Operação
         /// </summary>
         public decimal? vICMSOp { get; set; }

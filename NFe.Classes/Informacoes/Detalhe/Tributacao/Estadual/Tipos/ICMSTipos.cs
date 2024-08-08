@@ -588,6 +588,31 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos
 
     #endregion
 
+    #region Indicador valor da desoneração deduz total NF
+
+    /// <summary>
+    ///     <para>0 – O valor desonerado não é deduzido do total da nota fiscal;</para>
+    ///     <para>1 – O valor desonerado é deduzido do total da nota fiscal;</para>
+    /// </summary>
+    public enum IndicadorDeduzDesoneracao
+    {
+        /// <summary>
+        /// 1 – Táxi
+        /// </summary>
+        [Description("O valor desonerado não é deduzido do total da NF-e")]
+        [XmlEnum("0")]
+        ValorDesoneradoNaoEDeduzidoDoTotalNF = 0,
+
+        /// <summary>
+        /// 2 – Deficiente Físico
+        /// </summary>
+        [Description("O valor desonerado é deduzido do total da NF-e")]
+        [XmlEnum("1")]
+        ValorDesoneradoEDeduzidoDoTotalNF = 1
+    }
+
+    #endregion
+
     #region Indicação do valor do ICMS desonerado deduz ou não no produto NT 2023.004
 
     /// <summary>
