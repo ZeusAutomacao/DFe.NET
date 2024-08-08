@@ -1112,9 +1112,10 @@ namespace NFe.Servicos
             }
 
             var retornoXmlString = retorno.OuterXml;
-            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
             SalvarArquivoXml(DateTime.Now.ParaDataHoraString() + "-distDFeInt.xml", retornoXmlString);
+
+            var retConsulta = new retDistDFeInt().CarregarDeXmlString(retornoXmlString);
 
             #region Obtém um retDistDFeInt de cada evento, adiciona os documentos ao resultado e salva-os em arquivo
 
