@@ -255,7 +255,7 @@ namespace NFe.Utils.Tributacao.Estadual
         /// <summary>
         ///     Indicador do valor de desoneracao é deduzido do total da NF-e
         /// </summary>
-        public IndicadorDeduzDesoneracao? indDeduzDeson { get; set; }
+        public DeduzDesoneracaoNoProduto? indDeduzDeson { get; set; }
 
         /// <summary>
         ///     Valor do ICMS da Operação
