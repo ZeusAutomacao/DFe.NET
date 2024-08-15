@@ -87,7 +87,7 @@ namespace NFe.Classes.Informacoes.Destinatario
             {
                 if (!string.IsNullOrEmpty(value))
                 {
-                    value = value.Replace("-", "");
+                    value = value.Replace("-", "").Replace(".", "");
                     if (!value.All(char.IsDigit))
                         throw new Exception(@"enderDest\CEP deve receber somente números!");
                     if (value.Length != 8)
