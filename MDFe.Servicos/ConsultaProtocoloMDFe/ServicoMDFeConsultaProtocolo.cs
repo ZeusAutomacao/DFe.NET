@@ -34,11 +34,12 @@
 using MDFe.Classes.Extensoes;
 using MDFe.Classes.Retorno.MDFeConsultaProtocolo;
 using MDFe.Servicos.Factory;
+using MDFe.Servicos.Interfaces;
 using MDFe.Utils.Configuracoes;
 
 namespace MDFe.Servicos.ConsultaProtocoloMDFe
 {
-    public class ServicoMDFeConsultaProtocolo
+    public class ServicoMDFeConsultaProtocolo : IServicoMDFeConsultaProtocolo
     {
         public MDFeRetConsSitMDFe MDFeConsultaProtocolo(string chave, MDFeConfiguracao cfgMdfe = null)
         {
