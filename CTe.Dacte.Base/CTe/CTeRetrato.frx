@@ -493,7 +493,7 @@ namespace FastReport
         if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
           Text168.Text = ((String)Report.GetColumnValue(&quot;cteProc.CTe.infCte.compl.xObs&quot;)).Replace(&quot;;&quot;, Environment.NewLine);;         
         
-        Text185.Visible = ((Boolean)Report.GetParameterValue(&quot;DoocumentoCancelado&quot;));
+        Text185.Visible = ((Boolean)Report.GetParameterValue(&quot;DocumentoCancelado&quot;));
         Text186.Visible = Convert.ToInt32((TipoAmbiente)Report.GetColumnValue(&quot;cteProc.CTe.infCte.ide.tpAmb&quot;)) == 2;
       }
       #endregion
@@ -1220,7 +1220,7 @@ namespace FastReport
         </Column>
       </Column>
     </BusinessObjectDataSource>
-    <Parameter Name="DoocumentoCancelado" DataType="System.Boolean"/>
+    <Parameter Name="DocumentoCancelado" DataType="System.Boolean"/>
     <Parameter Name="Desenvolvedor" DataType="System.String"/>
     <Parameter Name="QuebrarLinhasObservacao" DataType="System.Boolean"/>
   </Dictionary>
