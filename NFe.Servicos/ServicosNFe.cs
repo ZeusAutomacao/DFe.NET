@@ -405,7 +405,9 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoEpec,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario,
                 ServicoNFe.RecepcaoEventoInsucessoEntregaNFe,
-                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe
+                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe,
+                ServicoNFe.RecepcaoEventoComprovanteEntregaNFe,
+                ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe
             };
             if (
                 !listaEventos.Contains(servicoEvento))
