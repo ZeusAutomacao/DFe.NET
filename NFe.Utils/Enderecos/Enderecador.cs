@@ -1596,7 +1596,7 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
 
                     // Comprovante de Entrega
-                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao4, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1628,7 +1628,7 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
 
                     // Comprovante de Entrega
-                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao4, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1686,6 +1686,9 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
                     return cfgServico.VersaoRecepcaoEventoInsucessoEntrega;
+                case ServicoNFe.RecepcaoEventoComprovanteEntregaNFe:
+                case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
+                    return cfgServico.VersaoRecepcaoEventoComprovanteEntrega;
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:

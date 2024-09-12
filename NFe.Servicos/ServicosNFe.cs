@@ -935,6 +935,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeComprovanteDeEntregadaNFe.Descricao(),
                 cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = versaoAplicativo ?? "1.0",
                 dhEntrega = dhEntrega,
                 nDoc = nDoc,
@@ -992,6 +993,7 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeCancComprovanteDeEntregadaNFe.Descricao(),
                 cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = versaoAplicativo ?? "1.0",
                 nProtEvento = nProtEvento
             };
