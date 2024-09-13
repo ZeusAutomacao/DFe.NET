@@ -904,7 +904,7 @@
                 </TabControl>
             </StackPanel>
         </GroupBox>
-        <TabControl Name="TabSuperior" Height="266" Margin="510,10,-0,0" VerticalAlignment="Top">
+        <TabControl Name="TabSuperior" Height="291" Margin="510,10,-0,0" VerticalAlignment="Top">
             <TabItem Header="NF-e/NFC-e">
                 <Grid Background="White">
                     <Button x:Name="BtnStatusServico" Content="Status do Serviço" HorizontalAlignment="Left"
@@ -966,11 +966,15 @@
                         Margin="192,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnInsucessoEntrega_Click" />
                     <Button x:Name="BtnCancInsucessoEntrega" Content="Canc. Insucesso Entrega NFe" HorizontalAlignment="Left"
                             Margin="375,210,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancInsucessoEntrega_Click" />
+                    <Button x:Name="BtnComprovanteEntrega" Content="Comprovante Entrega NFe" HorizontalAlignment="Left"
+                        Margin="10,235,0,0" VerticalAlignment="Top" Width="177" Click="BtnComprovanteEntrega_Click" />
+                    <Button x:Name="BtnCancComprovanteEntrega" Content="Canc. Comprovante Entrega NFe" HorizontalAlignment="Left"
+                            Margin="192,235,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancComprovanteEntrega_Click" />
                 </Grid>
             </TabItem>
 
         </TabControl>
-        <TabControl Name="TabInferior" Margin="509,281,0,0">
+        <TabControl Name="TabInferior" Margin="509,306,0,0">
             <TabItem Header="Envio">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
