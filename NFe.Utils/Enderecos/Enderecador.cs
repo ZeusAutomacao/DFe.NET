@@ -1594,6 +1594,9 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx");
                     if (modelo != ModeloDocumento.NFCe)
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
+
+                    // Comprovante de Entrega
+                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1623,6 +1626,9 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx");
                     if (modelo != ModeloDocumento.NFCe)
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
+
+                    // Comprovante de Entrega
+                    addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1630,7 +1636,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-            #region ConsultaGtin e Insucesso na entrega
+            #region ConsultaGtin / Insucesso na entrega / Comprovante de Entrega
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1680,6 +1686,9 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
                     return cfgServico.VersaoRecepcaoEventoInsucessoEntrega;
+                case ServicoNFe.RecepcaoEventoComprovanteEntregaNFe:
+                case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
+                    return cfgServico.VersaoRecepcaoEventoComprovanteEntrega;
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:

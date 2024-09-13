@@ -169,7 +169,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -178,7 +178,7 @@ namespace NFe.Classes.Servicos.Evento
         public string nProtEvento { get; set; }
 
         #endregion
-        
+
         #region Insucesso NFe
         [XmlIgnore]
         public DateTimeOffset? dhTentativaEntrega { get; set; }
@@ -258,6 +258,58 @@ namespace NFe.Classes.Servicos.Evento
         public bool ShouldSerializelongGPS()
         {
             return longGPS.HasValue;
+        }
+
+        #endregion
+
+        #region Comprovante Entrega NFe
+
+        /// <summary>
+        /// P30 - Data e hora do final da entrega
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhEntrega { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEntrega no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEntrega")]
+        public string ProxyDhEntrega
+        {
+            get { return dhEntrega.ParaDataHoraStringUtc(); }
+            set { dhEntrega = DateTimeOffset.Parse(value); }
+        }
+
+        /// <summary>
+        /// P31 - Número do documento de identificação da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string nDoc { get; set; }
+
+        /// <summary>
+        /// P32 - Nome da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string xNome { get; set; }
+
+        /// <summary>
+        /// P35 - Hash SHA-1, no formato Base64, resultante da concatenação de: Chave de Acesso da NF-e + Base64
+        /// da imagem capturada do Comprovante de Entrega da NFe (ex: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc).
+        /// </summary>
+        public string hashComprovante { get; set; }
+
+        /// <summary>
+        /// P36 - Data e hora da geração do hash da tentativa de entrega. Formato AAAA-MMDDThh:mm:ssTZD.
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhHashComprovante { get; set; }
+
+        /// <summary>
+        /// Proxy para dhHashComprovante no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhHashComprovante")]
+        public string ProxyDhHashComprovante
+        {
+            get { return dhHashComprovante.ParaDataHoraStringUtc(); }
+            set { dhHashComprovante = DateTimeOffset.Parse(value); }
         }
 
         #endregion

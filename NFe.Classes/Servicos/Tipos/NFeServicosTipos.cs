@@ -65,6 +65,16 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoCancInsucessoEntregaNFe,
 
         /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Comprovante de Entrega da NFe
+        /// </summary>
+        RecepcaoEventoComprovanteEntregaNFe,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Cancelamento do Comprovante de Entrega da NFe
+        /// </summary>
+        RecepcaoEventoCancComprovanteEntregaNFe,
+
+        /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
         /// </summary>
         RecepcaoEventoManifestacaoDestinatario,
@@ -210,6 +220,20 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento Insucesso na Entrega da NF-e")]
         [XmlEnum("110193")]
         TeNfeCancInsucessoNaEntregadaNFe = 110193,
+
+        /// <summary>
+        /// 110130 - Comprovante de Entrega da NF-e
+        /// </summary>
+        [Description("Comprovante de Entrega da NF-e")]
+        [XmlEnum("110130")]
+        TeNfeComprovanteDeEntregadaNFe = 110130,
+
+        /// <summary>
+        /// 110131 - Cancelamento Comprovante de Entrega da NF-e
+        /// </summary>
+        [Description("Cancelamento Comprovante de Entrega da NF-e")]
+        [XmlEnum("110131")]
+        TeNfeCancComprovanteDeEntregadaNFe = 110131,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
