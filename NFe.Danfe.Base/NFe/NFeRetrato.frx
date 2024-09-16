@@ -463,8 +463,7 @@ namespace FastReport
     private void DadosProdutosHeader_BeforePrint(object sender, EventArgs e)
     {
       
-      if (((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional || ((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacionalMei) 
-	  {
+      if (((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional || ((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacionalMei) {
 	    Memo119.Text = &quot;O/CSOSN&quot;;
       }
       
