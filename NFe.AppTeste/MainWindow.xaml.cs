@@ -1388,7 +1388,7 @@ namespace NFe.AppTeste
 
                         //Caso você resolva utilizar método ObterIcmsBasico(), comente esta proxima linha
                         TipoICMS =
-                            crt == CRT.SimplesNacional
+                            crt == CRT.SimplesNacional || crt == CRT.SimplesNacionalMei
                                 ? InformarCSOSN(Csosnicms.Csosn102)
                                 : InformarICMS(Csticms.Cst00, VersaoServico.Versao310)
                     },
