@@ -104,7 +104,12 @@ namespace MDFe.Servicos.RecepcaoMDFe
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc();
 
-            OnAntesDeEnviar(enviMDFe);
+            OnAntesDeEnviar(new MDFeEnviMDFe
+            {
+                IdLote = "1",
+                MDFe = mdfe,
+                Versao = VersaoServico.Versao300
+            });
 
             var retornoXml = webService.mdfeRecepcao(mdfe.CriaXmlRequestWs());
 
