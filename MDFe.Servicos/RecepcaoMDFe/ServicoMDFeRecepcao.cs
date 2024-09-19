@@ -103,6 +103,9 @@ namespace MDFe.Servicos.RecepcaoMDFe
             mdfe.SalvarXmlEmDisco();
 
             var webService = WsdlFactory.CriaWsdlMDFeRecepcaoSinc();
+
+            OnAntesDeEnviar(enviMDFe);
+
             var retornoXml = webService.mdfeRecepcao(mdfe.CriaXmlRequestWs());
 
             var retorno = MDFeRetMDFe.LoadXml(retornoXml.OuterXml, mdfe);
