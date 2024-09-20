@@ -79,7 +79,7 @@ jobs:
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v4.1.7
+      uses: actions/upload-artifact@v4
       with:
         name: nupkg
         path: ${{ github.workspace }}/*.nupkg
@@ -90,7 +90,7 @@ jobs:
     runs-on: ${{ 'ubuntu-latest' }}
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4.1.7
+        uses: actions/download-artifact@v4
         with:
           name: nupkg
           path: ${{ github.workspace }}
