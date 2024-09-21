@@ -6,7 +6,7 @@
     <Configurations>Release</Configurations>
     <NoBuild>true</NoBuild>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NuspecFile>Hercules.NET.CTe.nuspec</NuspecFile>
+    <NuspecFile>Hercules.NET.Impressao.NFCe.QuestPdf</NuspecFile>
   </PropertyGroup>
 
 </Project>
