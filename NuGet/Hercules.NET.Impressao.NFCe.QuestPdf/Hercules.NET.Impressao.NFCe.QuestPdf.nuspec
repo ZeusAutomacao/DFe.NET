@@ -15,6 +15,6 @@
     <tags>danfe nfce</tags>
   </metadata>
   <files>
-    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net8.0\NFe.Danfe.QuestPdf.dll" target="src\NFe.Danfe.QuestPdf.dll" />
+    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net6.0\NFe.Danfe.QuestPdf.dll" target="src\NFe.Danfe.QuestPdf.dll" />
   </files>
 </package>
