@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BarcodeLib" Version="3.0.3" />
+    <PackageReference Include="BarcodeLib" Version="3.1.4" />
     <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />
-    <PackageReference Include="Hercules.NET.NFe.NFCe" Version="2024.4.5.1942" />
-    <PackageReference Include="QuestPDF" Version="2023.12.6" />
+    <PackageReference Include="Hercules.NET.NFe.NFCe" Version="2024.9.19.1844" />
+    <PackageReference Include="QuestPDF" Version="2024.7.3" />
     <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
     <PackageReference Include="SkiaSharp.QrCode" Version="0.7.0" />
   </ItemGroup>

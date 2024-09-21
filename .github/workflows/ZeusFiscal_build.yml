@@ -69,6 +69,10 @@ jobs:
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Servicos\CTe.Servicos.csproj" -c "Release"
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Utils\CTe.Utils.csproj" -c "Release"
         dotnet build -p:Version=${{ steps.date.outputs.date }} ".\CTe.Wsdl\CTe.Wsdl.csproj" -c "Release"
+
+    - name: Build/Restore Impressao QuestPdf
+      run: | 
+        dotnet build -p:Version=${{ steps.date.outputs.date }} ".\NFe.Danfe.QuestPdf\NFe.Danfe.QuestPdf.csproj" -c "Release"
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
@@ -78,6 +82,7 @@ jobs:
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.NFe.NFCe\Hercules.NET.NFe.NFCe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.MDFe\Hercules.NET.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.CTe\Hercules.NET.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Hercules.NET.Impressao.NFCe.QuestPdf\Hercules.NET.Impressao.NFCe.QuestPdf.csproj
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v3
