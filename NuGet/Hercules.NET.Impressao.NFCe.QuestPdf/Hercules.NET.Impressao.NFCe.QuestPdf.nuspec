@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Hercules.NET.Impressao.NFCe.QuestPdf</id>
+    <version>$version$</version>
+    <title>Hercules.NET Impressao NFCe QuestPdf</title>
+    <authors>Hercules.NET</authors>
+    <owners>Hercules.NET</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Hercules-NET/ZeusFiscal</projectUrl>
+    <iconUrl>https://avatars.githubusercontent.com/u/165974473</iconUrl>
+    <description>Biblioteca para geração de Impressão de NFC-e utilizando QuestPdf</description>
+    <copyright>Hercules.NET</copyright>
+    <language>pt-BR</language>
+    <tags>danfe nfce</tags>
+  </metadata>
+  <files>
+    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net8.0\NFe.Danfe.QuestPdf.dll" target="src\NFe.Danfe.QuestPdf.dll" />
+  </files>
+</package>
