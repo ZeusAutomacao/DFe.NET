@@ -162,6 +162,23 @@ namespace NFe.Classes.Informacoes.Pagamento
         [Description("Programa de fidelidade, Cashback, Crédito Virtual")]
         [XmlEnum("19")] fpProgramadefidelidade = 19,
 
+        /// <summary>
+        /// 20 - Pagamento Instantâneo (PIX) estático
+        /// </summary>
+        [Description("Pagamento Instantâneo (PIX) estático")]
+        [XmlEnum("20")] fpPagamentoInstantaneoPIXEstatico = 20,
+
+        /// <summary>
+        /// 21 - Crédito em loja
+        /// </summary>
+        [Description("Crédito em loja")]
+        [XmlEnum("21")] fpCreditoEmLoja = 21,
+
+        /// <summary>
+        /// 22 - Pagamento eletrônico não informado - falha de hardware do sistema emissor
+        /// </summary>
+        [Description("Pagamento eletrônico não informado")]
+        [XmlEnum("22")] fpPagamentoEletronicoNaoInformado = 22,
 
         /// <summary>
         /// 90 - Sem pagamento
