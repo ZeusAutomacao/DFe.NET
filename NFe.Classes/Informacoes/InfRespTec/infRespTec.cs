@@ -25,7 +25,7 @@ namespace NFe.Classes.Informacoes.InfRespTec
             {
                 if (idCSRT == null) return null;
 
-                return string.Format("D2", idCSRT);/* idCSRT.ToString("D2");*/
+                return idCSRT.PadLeft(2, '0');//string.Format("D2", idCSRT);/* idCSRT.ToString("D2");*/
             }
             set
             {
