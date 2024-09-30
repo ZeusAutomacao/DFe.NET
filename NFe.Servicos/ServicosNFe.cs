@@ -1053,7 +1053,7 @@ namespace NFe.Servicos
             };
             var infEvento = new infEventoEnv
             {
-                cOrgao = Estado.SVRS,
+                cOrgao = (_cFgServico.ModeloDocumento == ModeloDocumento.NFCe ? _cFgServico.cUF : Estado.SVRS),
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
@@ -1104,7 +1104,7 @@ namespace NFe.Servicos
 
             var infEvento = new infEventoEnv
             {
-                cOrgao = Estado.SVRS,
+                cOrgao = (_cFgServico.ModeloDocumento == ModeloDocumento.NFCe ? _cFgServico.cUF : Estado.SVRS),
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
