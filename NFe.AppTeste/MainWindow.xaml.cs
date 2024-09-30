@@ -601,7 +601,7 @@ namespace NFe.AppTeste
                     throw new Exception("Data inválida!");
 
                 decimal? valorPagamento = null;
-                var valorPagamentoStr = Funcoes.InpuBox(this, titulo, "Valor do Pagamento:");
+                var valorPagamentoStr = Funcoes.InpuBox(this, titulo, "Valor do Pagamento:", "1");
                 if (string.IsNullOrEmpty(valorPagamentoStr)) throw new Exception("Valor do pagamento deve ser informado!");
                 if (!string.IsNullOrEmpty(valorPagamentoStr)) valorPagamento = Convert.ToDecimal(valorPagamentoStr);
 

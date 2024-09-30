@@ -263,6 +263,12 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\e110750_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Schemas\e110751_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\e111500_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -363,6 +369,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\envEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\envEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -374,6 +383,9 @@
     <None Include="Schemas\envEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\envEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\envEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -423,6 +435,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\EventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\eventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -434,6 +449,9 @@
     <None Include="Schemas\eventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\EventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\eventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -547,6 +565,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\leiauteEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\leiauteEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -558,6 +579,9 @@
     <None Include="Schemas\leiauteEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\leiauteEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\leiauteEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -679,6 +703,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\procEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\procEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -690,6 +717,9 @@
     <None Include="Schemas\procEventoCancSubst_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\procEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\procEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
@@ -895,9 +925,15 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Schemas\retEventoCancEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Schemas\retEventoCancEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Schemas\retEventoEConf_v1.00.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Schemas\retEventoEntregaNFe_v1.00.xsd">
       <SubType>Designer</SubType>

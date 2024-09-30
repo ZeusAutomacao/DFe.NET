@@ -1636,7 +1636,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-            #region ConsultaGtin / Insucesso na entrega / Comprovante de Entrega
+            #region ConsultaGtin / Insucesso na entrega / Conciliação Financeira
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1652,6 +1652,10 @@ namespace NFe.Utils.Enderecos
                         //Insucesso Entrega NFe
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+
+                        //Conciliação Financeira NFe
+                        addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                        addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                     }
                 }
             }
@@ -1689,6 +1693,9 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoComprovanteEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
                     return cfgServico.VersaoRecepcaoEventoComprovanteEntrega;
+                case ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe:
+                case ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe:
+                    return cfgServico.VersaoRecepcaoEventoConciliacaoFinanceira;
                 case ServicoNFe.RecepcaoEventoEpec:
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
