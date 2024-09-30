@@ -407,7 +407,9 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoInsucessoEntregaNFe,
                 ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe,
                 ServicoNFe.RecepcaoEventoComprovanteEntregaNFe,
-                ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe
+                ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
+                ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
+                ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1046,14 +1048,12 @@ namespace NFe.Servicos
             {
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeConciliacaoFinanceiraNFe.Descricao(),
-                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
-                tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = versaoAplicativo ?? "1.0",
                 detPag = pagamentos
             };
             var infEvento = new infEventoEnv
             {
-                cOrgao = Estado.AN,
+                cOrgao = Estado.SVRS,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
@@ -1098,15 +1098,13 @@ namespace NFe.Servicos
             {
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeCancConciliacaoFinanceiraNFe.Descricao(),
-                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
-                tpAutor = TipoAutor.taEmpresaEmitente,
                 verAplic = versaoAplicativo ?? "1.0",
                 nProtEvento = nProtEvento
             };
 
             var infEvento = new infEventoEnv
             {
-                cOrgao = Estado.AN,
+                cOrgao = Estado.SVRS,
                 tpAmb = _cFgServico.tpAmb,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,

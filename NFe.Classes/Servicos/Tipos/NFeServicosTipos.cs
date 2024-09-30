@@ -182,6 +182,12 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110140 - EPEC
     ///     110111 - Cancelamento
     ///     110112 - Cancelamento por substituição
+    ///     110130 - Comprovante de Entrega da NF-e
+    ///     110131 - Cancelamento Comprovante de Entrega da NF-e
+    ///     110192 - Insucesso na Entrega da NF-e
+    ///     110193 - Cancelamento Insucesso na Entrega da NF-e
+    ///     110750 - Conciliação Financeira da NF-e
+    ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -248,14 +254,14 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         /// 110750 - Conciliação Financeira da NF-e
         /// </summary>
-        [Description("Conciliação Financeira da NF-e")]
+        [Description("ECONF")]
         [XmlEnum("110750")]
         TeNfeConciliacaoFinanceiraNFe = 110750,
 
         /// <summary>
         /// 110751 - Cancelamento Conciliação Financeira da NF-e
         /// </summary>
-        [Description("Cancelamento Conciliação Financeira da NF-e")]
+        [Description("Cancelamento Conciliação Financeira")]
         [XmlEnum("110751")]
         TeNfeCancConciliacaoFinanceiraNFe = 110751,
 
