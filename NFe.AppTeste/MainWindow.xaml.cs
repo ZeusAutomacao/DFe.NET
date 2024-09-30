@@ -572,6 +572,126 @@ namespace NFe.AppTeste
             }
         }
 
+        private void BtnConciliacaoFinanceira_Click(object sender, RoutedEventArgs e)
+        {
+            const string titulo = "Conciliação Financeira NFe";
+
+            try
+            {
+                #region Conciliação Financeira NFe
+
+                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
+                if (string.IsNullOrEmpty(sequenciaEvento))
+                    throw new Exception("O número sequencial deve ser informado!");
+
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var meioPagamento = Funcoes.InpuBox(this, titulo, "Meio de Pagamento:", "17");
+                if (string.IsNullOrEmpty(meioPagamento)) throw new Exception("Código do Meio de pagamento deve ser informado!");
+
+                var dhPagamentoStr = Funcoes.InpuBox(this, titulo, "Data de Pagamento:", DateTime.Now.ToString("dd/MM/yyyy"));
+                if (string.IsNullOrEmpty(dhPagamentoStr)) throw new Exception("A data de pagamento deve ser informada!");
+
+                if (!DateTime.TryParse(dhPagamentoStr, out DateTime dhPagamento))
+                    throw new Exception("Data inválida!");
+
+                decimal? valorPagamento = null;
+                var valorPagamentoStr = Funcoes.InpuBox(this, titulo, "Valor do Pagamento:");
+                if (string.IsNullOrEmpty(valorPagamentoStr)) throw new Exception("Valor do pagamento deve ser informado!");
+                if (!string.IsNullOrEmpty(valorPagamentoStr)) valorPagamento = Convert.ToDecimal(valorPagamentoStr);
+
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
+                    ? _configuracoes.Emitente.CPF
+                    : _configuracoes.Emitente.CNPJ;
+
+                var _pagamento = new Classes.Servicos.Evento.detPagEvento()
+                {
+                    tPag = (FormaPagamento)Convert.ToInt32(meioPagamento),
+                    dPag = dhPagamento,
+                    vPag = valorPagamento.GetValueOrDefault()
+                };
+                var retornoConciliacao = servicoNFe.RecepcaoEventoConciliacaoFinanceira(Convert.ToInt32(idlote),
+                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, new List<Classes.Servicos.Evento.detPagEvento>() { _pagamento }, DFe.Classes.Entidades.Estado.SP);
+
+                TrataRetorno(retornoConciliacao);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
+        private void BtnCancConciliacaoFinanceira_Click(object sender, RoutedEventArgs e)
+        {
+            const string titulo = "Cancelar Conciliação Financeira NFe";
+
+            try
+            {
+                #region Cancelar Conciliação Financeira NFe
+
+                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
+                if (string.IsNullOrEmpty(sequenciaEvento))
+                    throw new Exception("O número sequencial deve ser informado!");
+
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var nProtEvento = Funcoes.InpuBox(this, titulo, "Nº Prot Evento:");
+
+                if (string.IsNullOrEmpty(nProtEvento))
+                    throw new Exception("O nº Prot Evento deve ser informado!");
+
+
+
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
+                    ? _configuracoes.Emitente.CPF
+                    : _configuracoes.Emitente.CNPJ;
+
+                var retornoConciliacao = servicoNFe.RecepcaoEventoCancConciliacaoFinanceira(Convert.ToInt32(idlote),
+                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, nProtEvento);
+
+                TrataRetorno(retornoConciliacao);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
         private void BtnConsultaXml_Click(object sender, RoutedEventArgs e)
         {
             try

@@ -75,6 +75,16 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoCancComprovanteEntregaNFe,
 
         /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Conciliação Financeira da NFe
+        /// </summary>
+        RecepcaoEventoConciliacaoFinanceiraNFe,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Cancelamento de Conciliação Financeira da NFe
+        /// </summary>
+        RecepcaoEventoCancConciliacaoFinanceiraNFe,
+
+        /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
         /// </summary>
         RecepcaoEventoManifestacaoDestinatario,
@@ -234,6 +244,20 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento Comprovante de Entrega da NF-e")]
         [XmlEnum("110131")]
         TeNfeCancComprovanteDeEntregadaNFe = 110131,
+
+        /// <summary>
+        /// 110750 - Conciliação Financeira da NF-e
+        /// </summary>
+        [Description("Conciliação Financeira da NF-e")]
+        [XmlEnum("110750")]
+        TeNfeConciliacaoFinanceiraNFe = 110750,
+
+        /// <summary>
+        /// 110751 - Cancelamento Conciliação Financeira da NF-e
+        /// </summary>
+        [Description("Cancelamento Conciliação Financeira da NF-e")]
+        [XmlEnum("110751")]
+        TeNfeCancConciliacaoFinanceiraNFe = 110751,
 
         /// <summary>
         /// 210200 – Confirmação da Operação

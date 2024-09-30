@@ -314,5 +314,19 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Conciliação Financeira
+
+        /// <summary>
+        /// P21 - Grupo de detalhamento do pagamento
+        /// </summary>
+        [XmlElement("detPag")]
+        public List<detPagEvento> detPag { get; set; }
+
+        public bool ShouldSerializedetPag()
+        {
+            return detPag != null;
+        }
+
+        #endregion
     }
 }
