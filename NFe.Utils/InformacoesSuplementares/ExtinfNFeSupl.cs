@@ -111,7 +111,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AP, versao3E4, "https://www.sefaz.ap.gov.br/nfce/nfcep.php"},
                 {Estado.AM, versao3E4, "sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
                 {Estado.BA, versao3E4, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
-                {Estado.CE, versao3E4, "www.sefaz.ce.gov.br/nfce/consulta"},
+                {Estado.CE, versao3E4, "http://nfce.sefaz.ce.gov.br/pages/ShowNFCe.html"},
                 {Estado.GO, versao3E4, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MA, versao3E4, "nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
@@ -281,7 +281,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AL, versao3E4, "www.sefaz.al.gov.br/nfce/consulta"},
                 {Estado.AP, versao3E4, "www.sefaz.ap.gov.br/nfce/consulta"},
                 {Estado.AM, versao3E4, "www.sefaz.am.gov.br/nfce/consulta"},
-                {Estado.CE, versao3E4, "www.sefaz.ce.gov.br/nfce/consulta"},
+                {Estado.CE, versao3E4, "http://nfce.sefaz.ce.gov.br/pages/ShowNFCe.html"},
                 {Estado.DF, versao3E4, "www.fazenda.df.gov.br/nfce/consulta"},
                 {Estado.ES, versao3E4, "www.sefaz.es.gov.br/nfce/consulta"},
                 {Estado.GO, versao3E4, "www.sefaz.go.gov.br/nfce/consulta"},
