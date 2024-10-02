@@ -237,6 +237,10 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
                     return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
 
+                case ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe:
+                case ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe:
+                    return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
+
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
                     {
