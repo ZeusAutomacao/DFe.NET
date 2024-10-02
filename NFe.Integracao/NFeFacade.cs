@@ -188,6 +188,7 @@ namespace NFe.Integracao
             ConfiguracaoServico.Instancia.VersaoRecepcaoEventoCceCancelamento = versaoNFe;
             ConfiguracaoServico.Instancia.VersaoRecepcaoEventoInsucessoEntrega = versaoNFe;
             ConfiguracaoServico.Instancia.VersaoRecepcaoEventoComprovanteEntrega = versaoNFe;
+            ConfiguracaoServico.Instancia.VersaoRecepcaoEventoConciliacaoFinanceira = versaoNFe;
 
             #endregion
 
