@@ -406,6 +406,17 @@ namespace NFe.Servicos
                 addServico(eventoCceCanc, versao4, hom, emissao, Estado.CE, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfe, "https://nfe-homologacao.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
+
+                #region NFCe
+
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4?WSDL");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4?WSDL");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, hom, emissao, Estado.CE, nfce, "https://nfceh.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4?WSDL");
+
+                #endregion
             }
 
             #endregion
@@ -432,6 +443,17 @@ namespace NFe.Servicos
                 addServico(eventoCceCanc, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                 addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeAutorizacao/NFeAutorizacao4.asmx");
                 addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfe, "https://nfe.svrs.rs.gov.br/ws/NfeRetAutorizacao/NFeRetAutorizacao4.asmx");
+
+                #region NFCe
+
+                addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRetAutorizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeInutilizacao }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeInutilizacao4?WSDL");
+                addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeConsultaProtocolo4?WSDL");
+                addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeStatusServico4?WSDL");
+                addServico(new[] { ServicoNFe.RecepcaoEventoCancelmento }, versao4, prod, emissao, Estado.CE, nfce, "https://nfce.sefaz.ce.gov.br/nfce4/services/NFeRecepcaoEvento4?WSDL");
+
+                #endregion
             }
 
             #endregion
