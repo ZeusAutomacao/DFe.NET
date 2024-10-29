@@ -198,7 +198,7 @@ namespace FastReport
 	  if (icmsBasico != null)
 	  {
 	      var orig = icmsBasico.GetIcmsOrig();
-	      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional)
+	      if ((CRT)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional || ((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacionalMei)
 	      {
              if (icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;02&quot; || icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;15&quot; ||
                  icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;53&quot; || icmsBasico.GetIcmsCst().CsticmsParaString() == &quot;61&quot;)
@@ -314,8 +314,6 @@ namespace FastReport
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
           else if (valor.Length == 11)
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);     
-          else 
-            valor = valor;
           break;
         
         case 'd': //cpf / cnpj
@@ -465,8 +463,8 @@ namespace FastReport
     private void DadosProdutosHeader_BeforePrint(object sender, EventArgs e)
     {
       
-      if (((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional) {
-        Memo119.Text = &quot;O/CSOSN&quot;;
+      if (((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional || ((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacionalMei) {
+	    Memo119.Text = &quot;O/CSOSN&quot;;
       }
       
       _Tamanho = 0;
