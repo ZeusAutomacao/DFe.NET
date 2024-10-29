@@ -45,15 +45,16 @@ namespace CTe.Utils.Extensoes
     {
         public static void ValidarSchema(this consReciCTe consReciCTe, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
             var xmlValidacao = consReciCTe.ObterXmlString();
 
             switch (consReciCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "consReciCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consReciCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "consReciCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "consReciCTe_v3.00.xsd", configServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +

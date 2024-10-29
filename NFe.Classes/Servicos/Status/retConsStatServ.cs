@@ -30,9 +30,11 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using System;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
+using DFe.Utils;
 
 namespace NFe.Classes.Servicos.Status
 {
@@ -70,5 +72,45 @@ namespace NFe.Classes.Servicos.Status
         ///     FR07 - Código da UF que atendeu a solicitação
         /// </summary>
         public Estado cUF { get; set; }
+
+        /// <summary>
+        ///     FR08 - Data e hora de recebimento
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset dhRecbto { get; set; }
+
+        [XmlElement(ElementName = "dhRecbto")]
+        public string ProxyDhRecbto
+        {
+            get { return dhRecbto.ParaDataHoraStringUtc(); }
+            set { dhRecbto = DateTimeOffset.Parse(value); }
+        }
+
+        /// <summary>
+        ///     FR09 - Tempo médio de resposta do serviço
+        /// </summary>
+        public int? tMed { get; set; }
+
+        /// <summary>
+        ///     FR10 - Data e hora de retorno do Web Service
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhRetorno { get; set; }
+
+        [XmlElement(ElementName = "dhRetorno")]
+        public string ProxydhRetorno
+        {
+            get { return dhRetorno.ParaDataHoraStringUtc(); }
+            set { dhRetorno = DateTimeOffset.Parse(value); }
+        }
+
+        /// <summary>
+        ///     FR11 - Informações adicionais para o Contribuinte
+        /// </summary>
+#if NET5_0_OR_GREATER//o uso de tipos de referência anuláveis não é permitido até o C# 8.0.
+        public string? xObs { get; set; }
+#else
+        public string xObs { get; set; }
+#endif
     }
 }
