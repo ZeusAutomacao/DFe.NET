@@ -32,9 +32,11 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
+using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using Shared.NFe.Classes.Servicos.Evento;
 
@@ -259,6 +261,24 @@ namespace NFe.Classes.Servicos.Evento
         {
             return longGPS.HasValue;
         }
+
+        #endregion
+
+        #region Ator Interessado NFe
+        /// <summary>
+        ///     P23 - Pessoas autorizadas a acessar o XML da NF-e
+        /// </summary>
+        [XmlElement("autXML")]
+        public List<autXML> autXML { get; set; }
+
+        /// <summary>
+        ///     P26 - 0 = Não permite;
+        ///     1 = Permite o transportador autorizado pelo
+        ///     emitente ou destinatário autorizar outros
+        ///     transportadores para ter acesso ao download da
+        ///     NF-e
+        /// </summary>
+        public TipoAutorizacao? tpAutorizacao { get; set; }
 
         #endregion
 
