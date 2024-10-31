@@ -28,6 +28,9 @@ namespace NFe.Utils.Testes
             todosOsEstados.Remove(Estado.AN);
             todosOsEstados.Remove(Estado.EX);
 
+            // UF autorizadora
+            todosOsEstados.Remove(Estado.SVRS);
+
             //Não divulgaram as urls para homologação e produção no ENCAT
             todosOsEstados.Remove(Estado.CE);
             todosOsEstados.Remove(Estado.ES);

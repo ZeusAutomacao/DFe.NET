@@ -55,7 +55,7 @@ namespace NFe.Utils.Tributacao.Estadual
 
         public ICMSGeral()
         {
-            
+
         }
 
         /// <summary>
@@ -248,11 +248,29 @@ namespace NFe.Utils.Tributacao.Estadual
         public decimal? vICMSDeson { get; set; }
 
         /// <summary>
+        /// N28b - Indica se o valor do ICMS desonerado (vICMSDeson) deduz 
+        /// do valor do item (vProd). (NT 2023.004) 
+        /// </summary>
+        public DeduzDesoneracaoNoProduto? indDeduzDeson { get; set; }
+
+        // <summary>
+        /// N33a - Valor do ICMS- ST desonerado
+        /// Versão 4.00
+        /// </summary>
+        public decimal? vICMSSTDeson { get; set; }
+
+        /// <summary>
+        /// N33b - Motivo da desoneração do ICMS- ST 
+        /// Versão 4.00
+        /// </summary>
+        public MotivoDesoneracaoIcmsSt? motDesICMSST { get; set; }
+
+        /// <summary>
         ///     Motivo da desoneração do ICMS
         /// </summary>
         public MotivoDesoneracaoIcms? motDesICMS { get; set; }
 
-       /// <summary>
+        /// <summary>
         ///     Valor do ICMS da Operação
         /// </summary>
         public decimal? vICMSOp { get; set; }
@@ -271,7 +289,7 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor da BC do ICMS ST retido
         /// </summary>
         public decimal? vBCSTRet { get; set; }
-        
+
         /// <summary>
         ///     Valor do ICMS ST retido
         /// </summary>
@@ -370,8 +388,8 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do FCP retido por Substituição Tributária
         /// </summary>
         public decimal? vFCPSTRet { get; set; }
-		
-		/// <summary>
+
+        /// <summary>
         ///     Valor do ICMS próprio do Substituto (tag: vICMSSubstituto)
         /// </summary>
         public decimal? vICMSSubstituto { get; set; }
@@ -412,5 +430,6 @@ namespace NFe.Utils.Tributacao.Estadual
         ///     Valor do ICMS retido anteriormente
         /// </summary>
         public decimal? vICMSMonoRet { get; set; }
+
     }
 }

@@ -54,16 +54,17 @@ namespace CTe.Utils.DistribuicaoDFe
 
         public static void ValidaSchema(this distDFeInt pedDistDFeInt, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             var xmlValidacao = pedDistDFeInt.ObterXmlString();
-            
 
             if (pedDistDFeInt.versao.Equals("1.00"))
             {
-                Validador.Valida(xmlValidacao, "distDFeInt_v1.00.xsd", configuracaoServico);
+                Validador.Valida(xmlValidacao, "distDFeInt_v1.00.xsd", configServico);
             }
             else if (pedDistDFeInt.versao.Equals("1.10"))
             {
-                Validador.Valida(xmlValidacao, "distDFeInt_v1.10.xsd", configuracaoServico);
+                Validador.Valida(xmlValidacao, "distDFeInt_v1.10.xsd", configServico);
             }
             else
             {

@@ -60,8 +60,6 @@ namespace CTe.Utils.Inutilizacao
         {
             return FuncoesXml.ClasseParaXmlString(retInutCTe);
         }
-
-        
         public static void SalvarXmlEmDisco(this retInutCTe retInutCTe, string chaveNome, ConfiguracaoServico configuracaoServico = null)
         {
             var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
@@ -69,11 +67,10 @@ namespace CTe.Utils.Inutilizacao
             if (instanciaServico.NaoSalvarXml()) return;
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
-            
+
             var arquivoSalvar = Path.Combine(caminhoXml, chaveNome + "-inu.xml");
 
             FuncoesXml.ClasseParaArquivoXml(retInutCTe, arquivoSalvar);
         }
-
     }
 }

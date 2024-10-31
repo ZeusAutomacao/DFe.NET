@@ -47,16 +47,18 @@ namespace CTe.Utils.CTe
     {
         public static void ValidaSchema(this enviCTe enviCTe, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             var xmlValidacao = enviCTe.ObterXmlString();
 
             switch (enviCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "enviCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve400:
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "enviCTe_v3.00.xsd", configServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -93,7 +95,7 @@ namespace CTe.Utils.CTe
             var request = new XmlDocument();
 
             var xml = enviCTe.ObterXmlString();
-            
+
             var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             if (instanciaServico.cUF == Estado.PR
