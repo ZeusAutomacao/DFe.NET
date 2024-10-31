@@ -63,6 +63,7 @@ namespace NFe.Utils
         private VersaoServico _versaoRecepcaoEventoInsucessoEntrega;
         private VersaoServico _versaoRecepcaoEventoEpec;
         private VersaoServico _versaoRecepcaoEventoManifestacaoDestinatario;
+        private VersaoServico _versaoRecepcaoEventoAtorInteressado;
         private VersaoServico _versaoNfeRecepcao;
         private VersaoServico _versaoNfeRetRecepcao;
         private VersaoServico _versaoNfeConsultaCadastro;
@@ -238,6 +239,7 @@ namespace NFe.Utils
                 VersaoRecepcaoEventoInsucessoEntrega = obterVersao(ServicoNFe.RecepcaoEventoInsucessoEntregaNFe);
                 VersaoRecepcaoEventoEpec = obterVersao(ServicoNFe.RecepcaoEventoEpec);
                 VersaoRecepcaoEventoManifestacaoDestinatario = obterVersao(ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+                VersaoRecepcaoEventoAtorInteressado = obterVersao(ServicoNFe.RecepcaoEventoAtorInteressado);
                 VersaoNfeRecepcao = obterVersao(ServicoNFe.NfeRecepcao);
                 VersaoNfeRetRecepcao = obterVersao(ServicoNFe.NfeRetRecepcao);
                 VersaoNfeConsultaCadastro = obterVersao(ServicoNFe.NfeConsultaCadastro);
@@ -309,6 +311,20 @@ namespace NFe.Utils
             {
                 if (value == _versaoRecepcaoEventoManifestacaoDestinatario) return;
                 _versaoRecepcaoEventoManifestacaoDestinatario = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Ator interessado
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoAtorInteressado
+        {
+            get { return _versaoRecepcaoEventoAtorInteressado; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoAtorInteressado) return;
+                _versaoRecepcaoEventoAtorInteressado = value;
                 OnPropertyChanged();
             }
         }
