@@ -128,7 +128,7 @@ namespace NFe.Classes.Informacoes.Observacoes
         tpAjusteSINIEF = 14,
 
         /// <summary>
-        /// 14 - Convênio ICMS (NT2023.004)
+        /// 15 - Convênio ICMS (NT2023.004)
         /// </summary>
         [Description("Convênio ICMS")]
         [XmlEnum("15")]

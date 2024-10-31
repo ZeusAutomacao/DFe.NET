@@ -205,6 +205,12 @@ namespace DFe.Classes.Entidades
         AN = 91,
 
         /// <summary>
+        /// SVRS
+        /// </summary>
+        [XmlEnum("92")]
+        SVRS = 92,
+
+        /// <summary>
         /// Exterior
         /// </summary>
         [XmlEnum("99")]
