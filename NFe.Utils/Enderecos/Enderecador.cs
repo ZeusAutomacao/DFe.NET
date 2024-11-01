@@ -1594,6 +1594,9 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, hom, TipoEmissao.teNormal, estado, modelo, "https://hom.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx");
                     if (modelo != ModeloDocumento.NFCe)
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
+
+                    // Ator Interessado
+                    addServico(new[] { ServicoNFe.RecepcaoEventoAtorInteressado }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1623,6 +1626,9 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.NfeDownloadNF }, versao2E3, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NfeDownloadNF/NfeDownloadNF.asmx");
                     if (modelo != ModeloDocumento.NFCe)
                         addServico(new[] { ServicoNFe.NFeDistribuicaoDFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www1.nfe.fazenda.gov.br/NFeDistribuicaoDFe/NFeDistribuicaoDFe.asmx");
+
+                    // Ator Interessado
+                    addServico(new[] { ServicoNFe.RecepcaoEventoAtorInteressado }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1684,6 +1690,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return cfgServico.VersaoRecepcaoEventoManifestacaoDestinatario;
+                case ServicoNFe.RecepcaoEventoAtorInteressado:
+                    return cfgServico.VersaoRecepcaoEventoAtorInteressado;
                 case ServicoNFe.NfeRecepcao:
                     return cfgServico.VersaoNfeRecepcao;
                 case ServicoNFe.NfeRetRecepcao:
