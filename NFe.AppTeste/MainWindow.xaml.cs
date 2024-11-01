@@ -382,7 +382,7 @@ namespace NFe.AppTeste
             }
         }
         
-         private void BtnCancInsucessoEntrega_Click(object sender, RoutedEventArgs e)
+        private void BtnCancInsucessoEntrega_Click(object sender, RoutedEventArgs e)
         {
             const string titulo = "Cancelar Insucesso Entrega NFe";
 
@@ -2006,6 +2006,63 @@ namespace NFe.AppTeste
             }
         }
 
-        
+        private void BtnAtorInteressado_Click(object sender, RoutedEventArgs e)
+        {
+            const string titulo = "Evento Ator Interessado na NF-e";
+
+            try
+            {
+                #region Evento Ator Interessado na NF-e
+
+                var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
+                if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
+
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
+                if (string.IsNullOrEmpty(sequenciaEvento))
+                    throw new Exception("O número sequencial deve ser informado!");
+
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
+                if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
+                if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
+
+                var cnpjTransportador = Funcoes.InpuBox(this, titulo, "CNPJ do Transportador:", "12345678000195");
+                if (string.IsNullOrEmpty(cnpjTransportador)) throw new Exception("O CNPJ do Transportador deve ser informado!");
+                if (cnpjTransportador.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+
+                // Inicializando o serviço de NF-e com as configurações atuais
+                var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
+                var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
+                    ? _configuracoes.Emitente.CPF
+                    : _configuracoes.Emitente.CNPJ;
+
+                // Chamando o método para registrar o evento "Ator Interessado"
+                var retornoAtorInteressado = servicoNFe.RecepcaoEventoAtorInteressado(
+                    Convert.ToInt32(idlote),
+                    Convert.ToInt16(sequenciaEvento),
+                    cpfcnpj,
+                    chave,
+                    cnpjTransportador,
+                    DFe.Classes.Entidades.Estado.SP);
+
+                // Tratamento do retorno
+                TrataRetorno(retornoAtorInteressado);
+
+                #endregion
+            }
+            catch (ComunicacaoException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (ValidacaoSchemaException ex)
+            {
+                Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrEmpty(ex.Message))
+                    Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
+            }
+        }
+
     }
 }

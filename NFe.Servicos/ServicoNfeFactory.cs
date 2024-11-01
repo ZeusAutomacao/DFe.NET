@@ -241,6 +241,9 @@ namespace NFe.Servicos
 
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
 
+                case ServicoNFe.RecepcaoEventoAtorInteressado:
+                    return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
+
                 case ServicoNFe.RecepcaoEventoEpec:
                     if (cfg.VersaoRecepcaoEventoEpec == VersaoServico.Versao400)
                     {

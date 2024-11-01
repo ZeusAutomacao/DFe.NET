@@ -78,6 +78,7 @@ using FuncoesXml = DFe.Utils.FuncoesXml;
 using System.Xml.Linq;
 using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
+using NFe.Classes.Informacoes;
 
 namespace NFe.Servicos
 {
@@ -405,7 +406,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoEpec,
                 ServicoNFe.RecepcaoEventoManifestacaoDestinatario,
                 ServicoNFe.RecepcaoEventoInsucessoEntregaNFe,
-                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe
+                ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe,
+                ServicoNFe.RecepcaoEventoAtorInteressado
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -585,6 +587,70 @@ namespace NFe.Servicos
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, true);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Recepção do Evento "Ator Interessado na NF-e - Transportador"
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">Sequência do evento</param>
+        /// <param name="cpfcnpj">CNPJ ou CPF do autor do evento</param>
+        /// <param name="chaveNFe">Chave da NFe</param>
+        /// <param name="cnpjTransportador">CNPJ do transportador interessado</param>
+        /// <param name="ufAutor">Unidade federativa do autor</param>
+        /// <param name="versaoAplicativo">Versão do aplicativo do autor do evento</param>
+        /// <param name="dhEvento">Data e hora do evento</param>
+        /// <returns>Retorno da recepção do evento</returns>
+        public RetornoRecepcaoEvento RecepcaoEventoAtorInteressado(int idlote,
+            int sequenciaEvento, string cpfcnpj, string chaveNFe, string cnpjTransportador,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+            // Definindo a versão do serviço para o evento "Ator Interessado na NF-e"
+            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                _cFgServico.VersaoRecepcaoEventoAtorInteressado);
+
+            // Configuração do Detalhe do Evento (detEvento)
+            var versao = versaoServico;
+            var descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao();
+            var cOrgaoAutor = ufAutor ?? _cFgServico.cUF;
+            var tpAutor = TipoAutor.taEmpresaEmitente;
+            var verAplic = versaoAplicativo ?? "1.0";
+            List<autXML> autXML = new List<autXML> { new autXML { CPF = cnpjTransportador } };
+            var detEvento = new detEvento
+            {
+                versao = versao,
+                descEvento = descEvento,
+                cOrgaoAutor = cOrgaoAutor,
+                tpAutor = tpAutor,
+                verAplic = verAplic,
+                autXML = autXML
+            };
+
+            // Configuração das Informações do Evento (infEvento)
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.AN,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+
+            // Definindo CNPJ ou CPF do autor conforme o tamanho do campo
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            // Criando o evento e configurando o retorno
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento },
+                ServicoNFe.RecepcaoEventoAtorInteressado, _cFgServico.VersaoRecepcaoEventoAtorInteressado, true);
+
             return retorno;
         }
 
