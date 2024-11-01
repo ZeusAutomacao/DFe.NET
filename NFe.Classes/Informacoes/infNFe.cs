@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using NFe.Classes.Informacoes.Agropecuario;
 using NFe.Classes.Informacoes.Cana;
 using NFe.Classes.Informacoes.Cobranca;
 using NFe.Classes.Informacoes.Destinatario;
@@ -126,6 +127,14 @@ namespace NFe.Classes.Informacoes
         /// </summary>
         public cana cana { get; set; }
 
+        /// <summary>
+        ///     ZD01 - Grupo do Responsável Técnico
+        /// </summary>
         public infRespTec infRespTec { get; set; }
+
+        /// <summary>
+        ///     ZF01 - Grupo de produtos da agricultura, pecuária e produção Florestal
+        /// </summary>
+        public agropecuario agropecuario { get; set; }
     }
 }
