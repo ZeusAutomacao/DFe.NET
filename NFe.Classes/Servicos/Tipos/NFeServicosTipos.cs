@@ -204,9 +204,9 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeCancelamentoSubstituicao = 110112,
 
         /// <summary>
-        /// 110150 - Ator Interessado na NF-e
+        /// 110150 - Ator interessado na NF-e
         /// </summary>
-        [Description("Ator Interessado na NF-e")]
+        [Description("Ator interessado na NF-e")]
         [XmlEnum("110150")]
         TeNfeAtorInteressadoNFe = 110150,
         

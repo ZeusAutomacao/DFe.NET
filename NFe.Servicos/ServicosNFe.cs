@@ -616,7 +616,7 @@ namespace NFe.Servicos
             var cOrgaoAutor = ufAutor ?? _cFgServico.cUF;
             var tpAutor = TipoAutor.taEmpresaEmitente;
             var verAplic = versaoAplicativo ?? "1.0";
-            List<autXML> autXML = new List<autXML> { new autXML { CPF = cnpjTransportador } };
+            List<autXML> autXML = new List<autXML> { new autXML { CNPJ = cnpjTransportador } };
             var detEvento = new detEvento
             {
                 versao = versao,
@@ -624,7 +624,8 @@ namespace NFe.Servicos
                 cOrgaoAutor = cOrgaoAutor,
                 tpAutor = tpAutor,
                 verAplic = verAplic,
-                autXML = autXML
+                autXML = autXML,
+                tpAutorizacao = TipoAutorizacao.Permite
             };
 
             // Configuração das Informações do Evento (infEvento)
