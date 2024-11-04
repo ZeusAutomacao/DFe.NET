@@ -144,7 +144,7 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         [Description("Não permite")]
         [XmlEnum("0")]
-        taEmpresaDestinataria = 0,
+        NaoPermite = 0,
 
         /// <summary>
         ///  1 – Permite o transportador autorizado pelo
@@ -154,6 +154,6 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         [Description("Permite")]
         [XmlEnum("1")]
-        taEmpresaEmitente = 1
+        Permite = 1
     }
 }
