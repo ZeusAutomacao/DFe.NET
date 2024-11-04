@@ -606,29 +606,21 @@ namespace NFe.Servicos
             int sequenciaEvento, string cpfcnpj, string chaveNFe, string cnpjTransportador,
             Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
         {
-            // Definindo a versão do serviço para o evento "Ator Interessado na NF-e"
             var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
                 _cFgServico.VersaoRecepcaoEventoAtorInteressado);
 
-            // Configuração do Detalhe do Evento (detEvento)
-            var versao = versaoServico;
-            var descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao();
-            var cOrgaoAutor = ufAutor ?? _cFgServico.cUF;
-            var tpAutor = TipoAutor.taEmpresaEmitente;
-            var verAplic = versaoAplicativo ?? "1.0";
-            List<autXML> autXML = new List<autXML> { new autXML { CNPJ = cnpjTransportador } };
             var detEvento = new detEvento
             {
-                versao = versao,
-                descEvento = descEvento,
-                cOrgaoAutor = cOrgaoAutor,
-                tpAutor = tpAutor,
-                verAplic = verAplic,
-                autXML = autXML,
-                tpAutorizacao = TipoAutorizacao.Permite
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
+                verAplic = versaoAplicativo ?? "1.0",
+                autXML = new List<autXML> { new autXML { CNPJ = cnpjTransportador } },
+                tpAutorizacao = TipoAutorizacao.Permite,
+                xCondUso = "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
             };
 
-            // Configuração das Informações do Evento (infEvento)
             var infEvento = new infEventoEnv
             {
                 cOrgao = Estado.AN,
@@ -641,13 +633,11 @@ namespace NFe.Servicos
                 detEvento = detEvento
             };
 
-            // Definindo CNPJ ou CPF do autor conforme o tamanho do campo
             if (cpfcnpj.Length == 11)
                 infEvento.CPF = cpfcnpj;
             else
                 infEvento.CNPJ = cpfcnpj;
 
-            // Criando o evento e configurando o retorno
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento },
                 ServicoNFe.RecepcaoEventoAtorInteressado, _cFgServico.VersaoRecepcaoEventoAtorInteressado, true);

@@ -56,20 +56,6 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public string descEvento { get; set; }
 
-        #region Carta de Correção
-
-        /// <summary>
-        ///     HP20 - Correção a ser considerada, texto livre. A correção mais recente substitui as anteriores.
-        /// </summary>
-        public string xCorrecao { get; set; }
-
-        /// <summary>
-        ///     HP20a - Condições de uso da Carta de Correção
-        /// </summary>
-        public string xCondUso { get; set; }
-
-        #endregion
-
         #region EPEC
 
         /// <summary>
@@ -266,19 +252,34 @@ namespace NFe.Classes.Servicos.Evento
 
         #region Ator Interessado NFe
         /// <summary>
-        ///     P23 - Pessoas autorizadas a acessar o XML da NF-e
+        /// P23 - Pessoas autorizadas a acessar o XML da NF-e
         /// </summary>
         [XmlElement("autXML")]
         public List<autXML> autXML { get; set; }
 
         /// <summary>
-        ///     P26 - 0 = Não permite;
-        ///     1 = Permite o transportador autorizado pelo
-        ///     emitente ou destinatário autorizar outros
-        ///     transportadores para ter acesso ao download da
-        ///     NF-e
+        /// P26 - 0 = Não permite;
+        /// 1 = Permite o transportador autorizado pelo
+        /// emitente ou destinatário autorizar outros
+        /// transportadores para ter acesso ao download da
+        /// NF-e
         /// </summary>
         public TipoAutorizacao? tpAutorizacao { get; set; }
+
+        #endregion
+
+        #region Carta de Correção
+
+        /// <summary>
+        /// HP20 - Correção a ser considerada, texto livre. A correção mais recente substitui as anteriores.
+        /// </summary>
+        public string xCorrecao { get; set; }
+
+        /// <summary>
+        /// HP20a - Condições de uso da Carta de Correção.
+        /// P27 - Condição de uso do tipo de autorização para o transportador.
+        /// </summary>
+        public string xCondUso { get; set; }
 
         #endregion
 
