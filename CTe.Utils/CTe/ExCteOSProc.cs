@@ -31,74 +31,71 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Threading.Tasks;
+using System.IO;
 using CTe.Classes;
-using CTe.Classes.Servicos.Consulta;
-using CTe.Servicos.Factory;
-using CTe.Utils.Extensoes;
+using DFe.Utils;
+using cteOSProc = CTe.Classes.cteOSProc;
 
-namespace CTe.Servicos.ConsultaProtocolo
+namespace CTe.Utils.CTe
 {
-    public class ConsultaProtcoloServico
+    public static class ExtCteOSProc
     {
-        public retConsSitCTe ConsultaProtocolo(string chave, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Carrega um arquivo XML para um objeto da classe cteOSProc
+        /// </summary>
+        /// <param name="cteOSProc"></param>
+        /// <param name="arquivoXml">arquivo XML</param>
+        /// <returns>Retorna um cteOSProc carregada com os dados do XML</returns>
+        public static cteOSProc CarregarDeArquivoXml(this cteOSProc cteOSProc, string arquivoXml)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configServico);
-
-            if (configServico.IsValidaSchemas)
-                consSitCTe.ValidarSchema(configServico);
-
-            consSitCTe.SalvarXmlEmDisco(configServico);
-
-            var webService = WsdlFactory.CriaWsdlConsultaProtocolo(configServico);
-            var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
-
-            var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave, configServico);
-
-            return retorno;
+            return FuncoesXml.ArquivoXmlParaClasse<cteOSProc>(arquivoXml);
         }
 
-        public retConsSitCTe ConsultaProtocoloV4(string chave, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Converte o objeto cteOSProc para uma string no formato XML
+        /// </summary>
+        /// <param name="cteOSProc"></param>
+        /// <returns>Retorna uma string no formato XML com os dados do cteOSProc</returns>
+        public static string ObterXmlString(this cteOSProc cteOSProc)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configServico);
-
-            if (configServico.IsValidaSchemas)
-                consSitCTe.ValidarSchema(configServico);
-
-            consSitCTe.SalvarXmlEmDisco(configServico);
-
-            var webService = WsdlFactory.CriaWsdlConsultaProtocoloV4(configServico);
-            var retornoXml = webService.cteConsultaCT(consSitCTe.CriaRequestWs());
-
-            var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave, configServico);
-
-            return retorno;
+            return FuncoesXml.ClasseParaXmlString(cteOSProc);
         }
 
-        public async Task<retConsSitCTe> ConsultaProtocoloAsync(string chave, ConfiguracaoServico configuracaoServico = null)
+        /// <summary>
+        ///     Coverte uma string XML no formato cteOSProc para um objeto cteOSProc
+        /// </summary>
+        /// <param name="cteOSProc"></param>
+        /// <param name="xmlString"></param>
+        /// <returns>Retorna um objeto do tipo cteOSProc</returns>
+        public static cteOSProc CarregarDeXmlString(this cteOSProc cteOSProc, string xmlString)
         {
-            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+            var s = FuncoesXml.ObterNodeDeStringXml(typeof(cteOSProc).Name, xmlString);
+            return FuncoesXml.XmlStringParaClasse<cteOSProc>(s);
+        }
 
-            var consSitCTe = ClassesFactory.CriarconsSitCTe(chave, configServico);
+        /// <summary>
+        ///     Grava os dados do objeto cteOSProc em um arquivo XML
+        /// </summary>
+        /// <param name="cteOSProc">Objeto cteOSProc</param>
+        /// <param name="arquivoXml">Diretório com nome do arquivo a ser gravado</param>
+        public static void SalvarArquivoXml(this cteOSProc cteOSProc, string arquivoXml)
+        {
+            FuncoesXml.ClasseParaArquivoXml(cteOSProc, arquivoXml);
+        }
 
-            if (configServico.IsValidaSchemas)
-                consSitCTe.ValidarSchema(configServico);
+        public static void SalvarXmlEmDisco(this cteOSProc cteOSProc, ConfiguracaoServico configuracaoServico = null)
+        {
+            if (cteOSProc == null) return;
 
-            consSitCTe.SalvarXmlEmDisco(configServico);
+            var instanciaServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlConsultaProtocolo(configServico);
-            var retornoXml = await webService.cteConsultaCTAsync(consSitCTe.CriaRequestWs());
+            if (instanciaServico.NaoSalvarXml()) return;
 
-            var retorno = retConsSitCTe.LoadXml(retornoXml.OuterXml, consSitCTe);
-            retorno.SalvarXmlEmDisco(chave, configServico);
+            var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            return retorno;
+            var arquivoSalvar = Path.Combine(caminhoXml, cteOSProc.CTeOS.Chave() + "-cteOSProc.xml");
+
+            FuncoesXml.ClasseParaArquivoXml(cteOSProc, arquivoSalvar);
         }
     }
 }

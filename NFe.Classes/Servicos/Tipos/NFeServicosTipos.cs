@@ -65,6 +65,26 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoCancInsucessoEntregaNFe,
 
         /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Comprovante de Entrega da NFe
+        /// </summary>
+        RecepcaoEventoComprovanteEntregaNFe,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Cancelamento do Comprovante de Entrega da NFe
+        /// </summary>
+        RecepcaoEventoCancComprovanteEntregaNFe,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Conciliação Financeira da NFe
+        /// </summary>
+        RecepcaoEventoConciliacaoFinanceiraNFe,
+
+        /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento Cancelamento de Conciliação Financeira da NFe
+        /// </summary>
+        RecepcaoEventoCancConciliacaoFinanceiraNFe,
+
+        /// <summary>
         ///     serviço destinado à recepção de mensagem do Evento de Manifestação do destinatário da NF-e
         /// </summary>
         RecepcaoEventoManifestacaoDestinatario,
@@ -167,7 +187,13 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110140 - EPEC
     ///     110111 - Cancelamento
     ///     110112 - Cancelamento por substituição
+    ///     110130 - Comprovante de Entrega da NF-e
+    ///     110131 - Cancelamento Comprovante de Entrega da NF-e
     ///     110150 - Ator Interessado na NF-e
+    ///     110192 - Insucesso na Entrega da NF-e
+    ///     110193 - Cancelamento Insucesso na Entrega da NF-e
+    ///     110750 - Conciliação Financeira da NF-e
+    ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -223,6 +249,34 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento Insucesso na Entrega da NF-e")]
         [XmlEnum("110193")]
         TeNfeCancInsucessoNaEntregadaNFe = 110193,
+
+        /// <summary>
+        /// 110130 - Comprovante de Entrega da NF-e
+        /// </summary>
+        [Description("Comprovante de Entrega da NF-e")]
+        [XmlEnum("110130")]
+        TeNfeComprovanteDeEntregadaNFe = 110130,
+
+        /// <summary>
+        /// 110131 - Cancelamento Comprovante de Entrega da NF-e
+        /// </summary>
+        [Description("Cancelamento Comprovante de Entrega da NF-e")]
+        [XmlEnum("110131")]
+        TeNfeCancComprovanteDeEntregadaNFe = 110131,
+
+        /// <summary>
+        /// 110750 - Conciliação Financeira da NF-e
+        /// </summary>
+        [Description("ECONF")]
+        [XmlEnum("110750")]
+        TeNfeConciliacaoFinanceiraNFe = 110750,
+
+        /// <summary>
+        /// 110751 - Cancelamento Conciliação Financeira da NF-e
+        /// </summary>
+        [Description("Cancelamento Conciliação Financeira")]
+        [XmlEnum("110751")]
+        TeNfeCancConciliacaoFinanceiraNFe = 110751,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
