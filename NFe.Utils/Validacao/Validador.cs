@@ -66,6 +66,14 @@ namespace NFe.Utils.Validacao
                     return "envEventoInsucessoNFe_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
                     return "envEventoCancInsucessoNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoComprovanteEntregaNFe:
+                    return "envEventoEntregaNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
+                    return "envEventoCancEntregaNFe_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe:
+                    return "envEventoEConf_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe:
+                    return "envEventoCancEConf_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoEpec:
                     return "envEPEC_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:

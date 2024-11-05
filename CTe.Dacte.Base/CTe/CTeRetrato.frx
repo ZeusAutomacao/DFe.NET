@@ -1491,7 +1491,7 @@ namespace FastReport
     </DataBand>
     <DataBand Name="dataBandObservacao" Top="953.9" Width="737.1" Height="82.05" CanGrow="true" CanShrink="true" CanBreak="true">
       <ShapeObject Name="Shape9" Width="737.1" Height="82.05" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
-      <TextObject Name="Text168" Left="4" Top="15.45" Width="727.65" Height="65.15" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[cteProc.CTe.infCte.compl.xObs]" Font="Times New Roman, 8.25pt"/>
+      <TextObject Name="Text168" Left="4" Top="15.45" Width="727.65" Height="65.15" CanGrow="true" CanShrink="true" AllowExpressions="False" GrowToBottom="true" Text="[cteProc.CTe.infCte.compl.xObs]" Font="Times New Roman, 8.25pt"/>
       <TextObject Name="Text186" Left="-9.45" Top="26.9" Width="765.45" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="DOCUMENTO EMITIDO EM AMBIENTE DE HOMOLOGAÇÃO, SEM VALOR FISCAL" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text163" Left="1" Top="1.55" Width="734.1" Height="11.45" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="OBSERVAÇÕES" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       <LineObject Name="Line45" Left="1" Top="13" Width="734.55" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
@@ -1584,8 +1584,8 @@ namespace FastReport
       <LineObject Name="Line46" Left="1" Top="14.45" Width="734.55"/>
       <TextObject Name="Text173" Left="1" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt"/>
       <TextObject Name="Text207" Left="94.5" Top="14.74" Width="348.65" Height="39.8" Font="Arial Narrow, 6.75pt"/>
-      <TextObject Name="Text208" Left="445.15" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt"/>
-      <TextObject Name="Text209" Left="538.1" Top="14.9" Width="198.45" Height="39.8" Text="123456789012345678901234567890123456789012345" Font="Arial Narrow, 6.75pt"/>
+      <TextObject Name="Text208" Left="445.15" Top="14.9" Width="94.5" Height="39.8" Font="Arial Narrow, 6.75pt" AllowExpressions="False"/>
+      <TextObject Name="Text209" Left="538.1" Top="14.9" Width="198.45" Height="39.8" Text="123456789012345678901234567890123456789012345" Font="Arial Narrow, 6.75pt" AllowExpressions="False"/>
       <TextObject Name="Text165" Left="1" Top="2" Width="442.15" Height="11.45" Text="USO EXCLUSIVO DO EMISSOR DO CTE" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
       <LineObject Name="Line47" Left="444.15" Top="1" Height="54.7"/>
       <TextObject Name="Text166" Left="444.15" Top="2" Width="290.95" Height="11.45" Text="RESERVADO AO FISCO" HorzAlign="Center" Font="Times New Roman, 6.75pt"/>
