@@ -591,19 +591,19 @@ namespace NFe.Servicos
         }
 
         /// <summary>
-        /// Recepção do Evento "Ator Interessado na NF-e - Transportador"
+        /// Processa a recepção do evento "Ator Interessado na NF-e - Transportador"
         /// </summary>
-        /// <param name="idlote">Nº do lote</param>
+        /// <param name="idlote">Número do lote</param>
         /// <param name="sequenciaEvento">Sequência do evento</param>
-        /// <param name="cpfcnpj">CNPJ ou CPF do autor do evento</param>
+        /// <param name="cpfCnpjAtorEvento">CNPJ ou CPF do autor do evento</param>
         /// <param name="chaveNFe">Chave da NFe</param>
-        /// <param name="cnpjTransportador">CNPJ do transportador interessado</param>
+        /// <param name="cnpfCnpjAtorInteressado">CNPJ ou CPF do ator interessado</param>
         /// <param name="ufAutor">Unidade federativa do autor</param>
         /// <param name="versaoAplicativo">Versão do aplicativo do autor do evento</param>
         /// <param name="dhEvento">Data e hora do evento</param>
-        /// <returns>Retorno da recepção do evento</returns>
+        /// <returns>Resultado da recepção do evento</returns>
         public RetornoRecepcaoEvento RecepcaoEventoAtorInteressado(int idlote,
-            int sequenciaEvento, string cpfcnpj, string chaveNFe, string cnpjTransportador,
+            int sequenciaEvento, string cpfCnpjAtorEvento, string chaveNFe, string cnpfCnpjAtorInteressado,
             Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
         {
             var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
@@ -614,9 +614,9 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao(),
                 cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
-                tpAutor = TipoAutor.taEmpresaEmitente,
+                tpAutor = TipoAutor.taEmpresaDestinataria,
                 verAplic = versaoAplicativo ?? "1.0",
-                autXML = new List<autXML> { new autXML { CNPJ = cnpjTransportador } },
+                autXML = new List<autXML> { new autXML { CNPJ = cnpfCnpjAtorInteressado } },
                 tpAutorizacao = TipoAutorizacao.Permite,
                 xCondUso = "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
             };
@@ -630,15 +630,17 @@ namespace NFe.Servicos
                 tpEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
-                detEvento = detEvento
+                detEvento = detEvento,
+                CPF = cpfCnpjAtorEvento.Length == 11 ? cpfCnpjAtorEvento : null,
+                CNPJ = cpfCnpjAtorEvento.Length == 11 ? null : cpfCnpjAtorEvento
             };
 
-            if (cpfcnpj.Length == 11)
-                infEvento.CPF = cpfcnpj;
-            else
-                infEvento.CNPJ = cpfcnpj;
+            var evento = new evento
+            {
+                versao = versaoServico,
+                infEvento = infEvento
+            };
 
-            var evento = new evento { versao = versaoServico, infEvento = infEvento };
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento },
                 ServicoNFe.RecepcaoEventoAtorInteressado, _cFgServico.VersaoRecepcaoEventoAtorInteressado, true);
 
