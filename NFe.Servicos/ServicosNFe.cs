@@ -601,15 +601,19 @@ namespace NFe.Servicos
         /// <param name="sequenciaEvento">Sequência do evento</param>
         /// <param name="cpfCnpjAtorEvento">CNPJ ou CPF do autor do evento</param>
         /// <param name="chaveNFe">Chave da NFe</param>
-        /// <param name="cnpfCnpjAtorInteressado">CNPJ ou CPF do ator interessado</param>
+        /// <param name="cnpfCnpjAtorInteressado">CNPJ ou CPF do ator interessado emitente de CT-e</param>
+        /// <param name="tipoAutor">Tipo do autor gerador do evento</param>
+        /// <param name="tipoAutorizacao">Tipo de autorização do ator interessado</param>
         /// <param name="ufAutor">Unidade federativa do autor</param>
         /// <param name="versaoAplicativo">Versão do aplicativo do autor do evento</param>
         /// <param name="dhEvento">Data e hora do evento</param>
         /// <returns>Resultado da recepção do evento</returns>
-        public RetornoRecepcaoEvento RecepcaoEventoAtorInteressado(int idlote,
-            int sequenciaEvento, string cpfCnpjAtorEvento, string chaveNFe, string cnpfCnpjAtorInteressado,
+        public RetornoRecepcaoEvento RecepcaoEventoAtorInteressado(int idlote, int sequenciaEvento, string cpfCnpjAtorEvento,
+            string chaveNFe, string cnpfCnpjAtorInteressado, TipoAutor? tipoAutor = null, TipoAutorizacao? tipoAutorizacao = null,
             Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
         {
+            var tipoAutorEmitenteOuDestinataria = tipoAutor == TipoAutor.taEmpresaEmitente || tipoAutor == TipoAutor.taEmpresaDestinataria;
+
             var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
                 _cFgServico.VersaoRecepcaoEventoAtorInteressado);
 
@@ -618,11 +622,20 @@ namespace NFe.Servicos
                 versao = versaoServico,
                 descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao(),
                 cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
-                tpAutor = TipoAutor.taEmpresaDestinataria,
+                tpAutor = tipoAutor,
                 verAplic = versaoAplicativo ?? "1.0",
-                autXML = new List<autXML> { new autXML { CNPJ = cnpfCnpjAtorInteressado } },
-                tpAutorizacao = TipoAutorizacao.Permite,
-                xCondUso = "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
+                autXML = new List<autXML>
+                {
+                    new autXML
+                        {
+                            CPF = cnpfCnpjAtorInteressado.Length == 11 ? cnpfCnpjAtorInteressado : null,
+                            CNPJ = cnpfCnpjAtorInteressado.Length == 11 ? null : cnpfCnpjAtorInteressado
+                        }
+                },
+                tpAutorizacao = tipoAutorEmitenteOuDestinataria ? tipoAutorizacao : null,
+                xCondUso = tipoAutorEmitenteOuDestinataria
+                    ? "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
+                    : null
             };
 
             var infEvento = new infEventoEnv

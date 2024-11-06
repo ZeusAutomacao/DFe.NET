@@ -2282,26 +2282,25 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 
-                var cnpjTransportador = Funcoes.InpuBox(this, titulo, "CNPJ do Transportador:", "12345678000195");
-                if (string.IsNullOrEmpty(cnpjTransportador)) throw new Exception("O CNPJ do Transportador deve ser informado!");
-                if (cnpjTransportador.Length != 14) throw new Exception("O CNPJ deve conter 14 caracteres!");
+                var cnpjTransportador = Funcoes.InpuBox(this, titulo, "CPF/CNPJ do Ator Interessado:", "10526704000156");
+                if (string.IsNullOrEmpty(cnpjTransportador)) throw new Exception("O CPF/CNPJ do Ator Interessado deve ser informado!");
+                if (cnpjTransportador.Length != 14 && cnpjTransportador.Length != 11) throw new Exception("O CPF/CNPJ deve conter 11 ou 14 caracteres!");
 
-                // Inicializando o serviço de NF-e com as configurações atuais
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var cpfcnpj = string.IsNullOrEmpty(_configuracoes.Emitente.CNPJ)
                     ? _configuracoes.Emitente.CPF
                     : _configuracoes.Emitente.CNPJ;
 
-                // Chamando o método para registrar o evento "Ator Interessado"
                 var retornoAtorInteressado = servicoNFe.RecepcaoEventoAtorInteressado(
                     Convert.ToInt32(idlote),
                     Convert.ToInt16(sequenciaEvento),
                     cpfcnpj,
                     chave,
                     cnpjTransportador,
-                    DFe.Classes.Entidades.Estado.SP);
+                    Classes.Servicos.Evento.TipoAutor.taEmpresaEmitente,
+                    Classes.Servicos.Evento.TipoAutorizacao.Permite,
+                    DFe.Classes.Entidades.Estado.SE);
 
-                // Tratamento do retorno
                 TrataRetorno(retornoAtorInteressado);
 
                 #endregion
