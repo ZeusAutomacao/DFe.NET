@@ -332,6 +332,11 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public TipoAutorizacao? tpAutorizacao { get; set; }
 
+        public bool ShouldSerializetpAutorizacao()
+        {
+            return tpAutorizacao != null;
+        }
+
         #endregion
 
         #region Carta de Correção

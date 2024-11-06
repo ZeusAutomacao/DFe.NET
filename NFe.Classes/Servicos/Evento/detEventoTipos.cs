@@ -129,6 +129,7 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("4")]
         Outros = 4
     }
+
     /// <summary>
     ///  0 – Não permite;
     ///  1 – Permite o transportador autorizado pelo
@@ -138,7 +139,6 @@ namespace NFe.Classes.Servicos.Evento
     /// </summary>
     public enum TipoAutorizacao
     {
-
         /// <summary>
         /// 0 – Não permite
         /// </summary>
