@@ -90,6 +90,11 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoManifestacaoDestinatario,
 
         /// <summary>
+        ///     serviço destinado à recepção de mensagem do Evento de Ator Interessado da NF-e
+        /// </summary>
+        RecepcaoEventoAtorInteressado,
+
+        /// <summary>
         ///     serviço destinado à recepção de mensagens de lote de NF-e versão 2.0
         /// </summary>
         NfeRecepcao,
@@ -184,6 +189,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110112 - Cancelamento por substituição
     ///     110130 - Comprovante de Entrega da NF-e
     ///     110131 - Cancelamento Comprovante de Entrega da NF-e
+    ///     110150 - Ator Interessado na NF-e
     ///     110192 - Insucesso na Entrega da NF-e
     ///     110193 - Cancelamento Insucesso na Entrega da NF-e
     ///     110750 - Conciliação Financeira da NF-e
@@ -222,6 +228,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento por substituicao")]
         [XmlEnum("110112")]
         TeNfeCancelamentoSubstituicao = 110112,
+
+        /// <summary>
+        /// 110150 - Ator interessado na NF-e
+        /// </summary>
+        [Description("Ator interessado na NF-e")]
+        [XmlEnum("110150")]
+        TeNfeAtorInteressadoNFe = 110150,
         
         /// <summary>
         /// 110192 - Insucesso na Entrega da NF-e

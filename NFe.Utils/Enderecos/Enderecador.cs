@@ -1613,6 +1613,9 @@ namespace NFe.Utils.Enderecos
 
                     // Comprovante de Entrega
                     addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+
+                    // Ator Interessado
+                    addServico(new[] { ServicoNFe.RecepcaoEventoAtorInteressado }, versao1, hom, TipoEmissao.teNormal, estado, modelo, "https://hom1.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1645,6 +1648,9 @@ namespace NFe.Utils.Enderecos
 
                     // Comprovante de Entrega
                     addServico(new[] { ServicoNFe.RecepcaoEventoComprovanteEntregaNFe, ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+
+                    // Ator Interessado
+                    addServico(new[] { ServicoNFe.RecepcaoEventoAtorInteressado }, versao1, prod, TipoEmissao.teNormal, estado, modelo, "https://www.nfe.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
                 }
             }
 
@@ -1720,6 +1726,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoRecepcaoEventoEpec;
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return cfgServico.VersaoRecepcaoEventoManifestacaoDestinatario;
+                case ServicoNFe.RecepcaoEventoAtorInteressado:
+                    return cfgServico.VersaoRecepcaoEventoAtorInteressado;
                 case ServicoNFe.NfeRecepcao:
                     return cfgServico.VersaoNfeRecepcao;
                 case ServicoNFe.NfeRetRecepcao:

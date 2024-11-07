@@ -78,6 +78,8 @@ namespace NFe.Utils.Validacao
                     return "envEPEC_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     return "envConfRecebto_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoAtorInteressado:
+                    return "envEventoAtorInteressado_v1.00.xsd";
                 case ServicoNFe.NfeInutilizacao:
                     switch (versaoServico)
                     {

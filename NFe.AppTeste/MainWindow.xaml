@@ -974,6 +974,8 @@
                         Margin="10,260,0,0" VerticalAlignment="Top" Width="177" Click="BtnConciliacaoFinanceira_Click" />
                     <Button x:Name="BtnCancConciliacaoFinanceira" Content="Canc. Conciliação Financeira NFe" HorizontalAlignment="Left"
                             Margin="192,260,0,0" VerticalAlignment="Top" Width="177" Click="BtnCancConciliacaoFinanceira_Click" />
+                    <Button x:Name="BtnAtorInteressado" Content="Ator Interessado NFe" HorizontalAlignment="Left"
+                            Margin="375,235,0,0" VerticalAlignment="Top" Width="177" Click="BtnAtorInteressado_Click" />
                 </Grid>
             </TabItem>
 
