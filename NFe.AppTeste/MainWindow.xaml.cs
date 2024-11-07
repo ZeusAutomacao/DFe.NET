@@ -2274,11 +2274,10 @@ namespace NFe.AppTeste
                 var idlote = Funcoes.InpuBox(this, titulo, "Identificador de controle do Lote de envio:", "1");
                 if (string.IsNullOrEmpty(idlote)) throw new Exception("A Id do Lote deve ser informada!");
 
-                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "1");
-                if (string.IsNullOrEmpty(sequenciaEvento))
-                    throw new Exception("O número sequencial deve ser informado!");
+                var sequenciaEvento = Funcoes.InpuBox(this, titulo, "Número sequencial do evento:", "2");
+                if (string.IsNullOrEmpty(sequenciaEvento)) throw new Exception("O número sequencial deve ser informado!");
 
-                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "35240311656919000154550750000008281647961399");
+                var chave = Funcoes.InpuBox(this, titulo, "Chave da NFe:", "28241132876302000114550010000090041001283454");
                 if (string.IsNullOrEmpty(chave)) throw new Exception("A Chave deve ser informada!");
                 if (chave.Length != 44) throw new Exception("Chave deve conter 44 caracteres!");
 

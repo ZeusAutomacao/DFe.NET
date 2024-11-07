@@ -642,14 +642,14 @@ namespace NFe.Servicos
             {
                 cOrgao = Estado.AN,
                 tpAmb = _cFgServico.tpAmb,
+                CNPJ = cpfCnpjAtorEvento.Length == 11 ? null : cpfCnpjAtorEvento,
+                CPF = cpfCnpjAtorEvento.Length == 11 ? cpfCnpjAtorEvento : null,
                 chNFe = chaveNFe,
                 dhEvento = dhEvento ?? DateTime.Now,
                 tpEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe,
                 nSeqEvento = sequenciaEvento,
                 verEvento = versaoServico,
-                detEvento = detEvento,
-                CPF = cpfCnpjAtorEvento.Length == 11 ? cpfCnpjAtorEvento : null,
-                CNPJ = cpfCnpjAtorEvento.Length == 11 ? null : cpfCnpjAtorEvento
+                detEvento = detEvento
             };
 
             var evento = new evento

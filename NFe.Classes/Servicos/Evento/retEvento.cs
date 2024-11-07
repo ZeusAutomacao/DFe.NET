@@ -50,7 +50,7 @@ namespace NFe.Classes.Servicos.Evento
         public infEventoRet infEvento { get; set; }
 
         /// <summary>
-        ///     HP22 - Assinatura Digital do documento XML, a assinatura deverá ser aplicada no elemento infEvento.
+        ///     HR91 - Assinatura Digital do documento XML, a assinatura deverá ser aplicada no elemento infEvento.
         ///     A decisão de assinar a mensagem fica da critério da UF.
         /// </summary>
         [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
