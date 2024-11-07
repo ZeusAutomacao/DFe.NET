@@ -136,7 +136,7 @@ Tambem foi necessário copiar algumas **fontes**, o relatório de Danfe atual ut
 >RUN mkdir -p /usr/share/fonts/truetype/times \
 COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 
-O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
+O FastReport.OpenSource é pesado na geração de PDF, por isso recomendamos a versão paga do mesmo e utilizando a geração via SkiaSharp, que é apenas possível na versão paga. 
 
 ## Impressão (QuestPdf):
 Código que eu Roberto utilizo para imprimir 
