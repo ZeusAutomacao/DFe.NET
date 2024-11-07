@@ -78,6 +78,7 @@ using FuncoesXml = DFe.Utils.FuncoesXml;
 using System.Xml.Linq;
 using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
+using NFe.Classes.Informacoes;
 
 namespace NFe.Servicos
 {
@@ -409,7 +410,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoComprovanteEntregaNFe,
                 ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
                 ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
-                ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe
+                ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
+                ServicoNFe.RecepcaoEventoAtorInteressado
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -589,6 +591,76 @@ namespace NFe.Servicos
             var evento = new evento { versao = versaoServico, infEvento = infEvento };
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancelmento, _cFgServico.VersaoRecepcaoEventoCceCancelamento, true);
+            return retorno;
+        }
+
+        /// <summary>
+        /// Processa a recepção do evento "Ator Interessado na NF-e - Transportador"
+        /// </summary>
+        /// <param name="idlote">Número do lote</param>
+        /// <param name="sequenciaEvento">Sequência do evento</param>
+        /// <param name="cpfCnpjAtorEvento">CNPJ ou CPF do autor do evento</param>
+        /// <param name="chaveNFe">Chave da NFe</param>
+        /// <param name="cnpfCnpjAtorInteressado">CNPJ ou CPF do ator interessado emitente de CT-e</param>
+        /// <param name="tipoAutor">Tipo do autor gerador do evento</param>
+        /// <param name="tipoAutorizacao">Tipo de autorização do ator interessado</param>
+        /// <param name="ufAutor">Unidade federativa do autor</param>
+        /// <param name="versaoAplicativo">Versão do aplicativo do autor do evento</param>
+        /// <param name="dhEvento">Data e hora do evento</param>
+        /// <returns>Resultado da recepção do evento</returns>
+        public RetornoRecepcaoEvento RecepcaoEventoAtorInteressado(int idlote, int sequenciaEvento, string cpfCnpjAtorEvento,
+            string chaveNFe, string cnpfCnpjAtorInteressado, TipoAutor? tipoAutor = null, TipoAutorizacao? tipoAutorizacao = null,
+            Estado? ufAutor = null, string versaoAplicativo = null, DateTimeOffset? dhEvento = null)
+        {
+            var tipoAutorEmitenteOuDestinataria = tipoAutor == TipoAutor.taEmpresaEmitente || tipoAutor == TipoAutor.taEmpresaDestinataria;
+
+            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(
+                _cFgServico.VersaoRecepcaoEventoAtorInteressado);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo ?? "1.0",
+                autXML = new List<autXML>
+                {
+                    new autXML
+                        {
+                            CPF = cnpfCnpjAtorInteressado.Length == 11 ? cnpfCnpjAtorInteressado : null,
+                            CNPJ = cnpfCnpjAtorInteressado.Length == 11 ? null : cnpfCnpjAtorInteressado
+                        }
+                },
+                tpAutorizacao = tipoAutorEmitenteOuDestinataria ? tipoAutorizacao : null,
+                xCondUso = tipoAutorEmitenteOuDestinataria
+                    ? "O emitente ou destinatário da NF-e, declara que permite o transportador declarado no campo CNPJ/CPF deste evento a autorizar os transportadores subcontratados ou redespachados a terem acesso ao download da NF-e"
+                    : null
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.AN,
+                tpAmb = _cFgServico.tpAmb,
+                CNPJ = cpfCnpjAtorEvento.Length == 11 ? null : cpfCnpjAtorEvento,
+                CPF = cpfCnpjAtorEvento.Length == 11 ? cpfCnpjAtorEvento : null,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeAtorInteressadoNFe,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+
+            var evento = new evento
+            {
+                versao = versaoServico,
+                infEvento = infEvento
+            };
+
+            var retorno = RecepcaoEvento(idlote, new List<evento> { evento },
+                ServicoNFe.RecepcaoEventoAtorInteressado, _cFgServico.VersaoRecepcaoEventoAtorInteressado, true);
+
             return retorno;
         }
 
