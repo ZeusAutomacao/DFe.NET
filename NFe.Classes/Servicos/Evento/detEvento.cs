@@ -316,6 +316,7 @@ namespace NFe.Classes.Servicos.Evento
         }
 
         #endregion
+
         #region Ator Interessado NFe
         /// <summary>
         /// P23 - Pessoas autorizadas a acessar o XML da NF-e
