@@ -28,12 +28,12 @@ namespace NFe.Classes.Informacoes.Pagamento
             set { _vPag = value.Arredondar(2); }
         }
 
-        public card card { get; set; }
-
         /// <summary>
         ///     YA03a - Data do Pagamento
         /// </summary>
         public DateTimeOffset? dPag { get; set; }
+
+        public card card { get; set; }
 
         /// <summary>
         ///     YA03a - Data do Pagamento
