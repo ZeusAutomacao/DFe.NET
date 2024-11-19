@@ -77,12 +77,22 @@ jobs:
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
+        
+        zip -r ${{ github.workspace }}/CteArtefato.zip .\path\to\CTeArtefato
+        zip -r ${{ github.workspace }}/MdfeArtefato.zip .\path\to\MdfeArtefato
+        zip -r ${{ github.workspace }}/NfeArtefato.zip .\path\to\NfeArtefato
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
       with:
         name: nupkg
         path: ${{ github.workspace }}/*.nupkg
+
+    - name: Upload ZIP Files as Assets
+      uses: actions/upload-artifact@v4
+      with:
+        name: zip-artefatos
+        path: ${{ github.workspace }}/*.zip
         
   deploy:
     needs: build
@@ -136,6 +146,16 @@ jobs:
                 "prerelease": false
               }' \
           https://api.github.com/repos/${{ github.repository }}/releases
+  
+      - name: Attach ZIP Files as Assets to Release
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -F "file=@${{ github.workspace }}/CteArtefato.zip" \
+          -F "file=@${{ github.workspace }}/MdfeArtefato.zip" \
+          -F "file=@${{ github.workspace }}/NfeArtefato.zip" \
+          -F "file=@${{ github.workspace }}/*.nupkg" \
+          https://uploads.github.com/repos/${{ github.repository }}/releases/${{ steps.create_release.outputs.id }}/assets?name=CteArtefato.zip
 
       - name: Discord notification
         continue-on-error: true
