@@ -107,7 +107,36 @@ jobs:
         run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
-          
+
+      - name: Criar Tag
+        id: create_tag
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "tag": "${{ needs.build.outputs.version }}",
+                "message": "Release versão ${{ needs.build.outputs.version }}",
+                "object": "${{ github.sha }}",
+                "type": "commit"
+              }' \
+          https://api.github.com/repos/${{ github.repository }}/git/tags
+
+      - name: Criar Release
+        id: create_release
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "tag_name": "${{ needs.build.outputs.version }}",
+                "name": "${{ needs.build.outputs.version }}",
+                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.",
+                "draft": false,
+                "prerelease": false
+              }' \
+          https://api.github.com/repos/${{ github.repository }}/releases
+
       - name: Discord notification
         continue-on-error: true
         env:
