@@ -71,6 +71,11 @@ jobs:
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
+
+    - name: Listar arquivos para debug
+      run: |
+        echo "Arquivos e pastas no workspace:"
+        dir ${{ github.workspace }} -Recurse
     
     - name: Pack
       run: | 
