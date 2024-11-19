@@ -78,9 +78,9 @@ jobs:
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
         
-        zip -r ${{ github.workspace }}/CteArtefato.zip .\path\to\CTeArtefato
-        zip -r ${{ github.workspace }}/MdfeArtefato.zip .\path\to\MdfeArtefato
-        zip -r ${{ github.workspace }}/NfeArtefato.zip .\path\to\NfeArtefato
+        Compress-Archive -Path .\path\to\CTeArtefato -DestinationPath ${{ github.workspace }}\CteArtefato.zip
+        Compress-Archive -Path .\path\to\MdfeArtefato -DestinationPath ${{ github.workspace }}\MdfeArtefato.zip
+        Compress-Archive -Path .\path\to\NfeArtefato -DestinationPath ${{ github.workspace }}\NfeArtefato.zip
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
