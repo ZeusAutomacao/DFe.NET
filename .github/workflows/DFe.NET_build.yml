@@ -71,21 +71,52 @@ jobs:
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
-
-    - name: Listar arquivos para debug
-      run: |
-        echo "Arquivos e pastas no workspace:"
-        dir ${{ github.workspace }} -Recurse
     
-    - name: Pack
+    - name: Organizar arquivos de artefatos
+      run: |
+        mkdir -p CTeArtefato
+        mkdir -p MdfeArtefato
+        mkdir -p NfeArtefato
+
+        # Organizar arquivos para NFeArtefato
+        cp NuGet/Zeus.Net.NFe.NFCe/Zeus.Net.NFe.NFCe.nuspec NfeArtefato/
+        cp ${{ github.workspace }}/*.nupkg NfeArtefato/
+        mkdir -p NfeArtefato/lib/net40
+        cp NFe.Wsdl/bin/Release/net40/NFe.Wsdl.dll NfeArtefato/lib/net40/
+        cp NFe.Utils/bin/Release/net40/NFe.Utils.dll NfeArtefato/lib/net40/
+        cp NFe.Servicos/bin/Release/net40/NFe.Servicos.dll NfeArtefato/lib/net40/
+        cp NFe.Classes/bin/Release/net40/NFe.Classes.dll NfeArtefato/lib/net40/
+        cp DFe.Classes/bin/Release/net40/DFe.Classes.dll NfeArtefato/lib/net40/
+
+        # Organizar arquivos para MDFeArtefato
+        cp NuGet/Zeus.Net.MDFe/Zeus.Net.MDFe.nuspec MdfeArtefato/
+        cp ${{ github.workspace }}/*.nupkg MdfeArtefato/
+        mkdir -p MdfeArtefato/lib/net40
+        cp MDFe.Wsdl/bin/Release/net40/MDFe.Wsdl.dll MdfeArtefato/lib/net40/
+        cp MDFe.Utils/bin/Release/net40/MDFe.Utils.dll MdfeArtefato/lib/net40/
+        cp MDFe.Servicos/bin/Release/net40/MDFe.Servicos.dll MdfeArtefato/lib/net40/
+        cp MDFe.Classes/bin/Release/net40/MDFe.Classes.dll MdfeArtefato/lib/net40/
+        cp DFe.Classes/bin/Release/net40/DFe.Classes.dll MdfeArtefato/lib/net40/
+
+        # Organizar arquivos para CTeArtefato
+        cp NuGet/Zeus.Net.CTe/Zeus.Net.CTe.nuspec CTeArtefato/
+        cp ${{ github.workspace }}/*.nupkg CTeArtefato/
+        mkdir -p CTeArtefato/lib/net40
+        cp CTe.Wsdl/bin/Release/net40/CTe.Wsdl.dll CTeArtefato/lib/net40/
+        cp CTe.Utils/bin/Release/net40/CTe.Utils.dll CTeArtefato/lib/net40/
+        cp CTe.Servicos/bin/Release/net40/CTe.Servicos.dll CTeArtefato/lib/net40/
+        cp CTe.Classes/bin/Release/net40/CTe.Classes.dll CTeArtefato/lib/net40/
+        cp DFe.Classes/bin/Release/net40/DFe.Classes.dll CTeArtefato/lib/net40/
+
+    - name: Packe e compactar artefatos
       run: | 
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
         
-        Compress-Archive -Path .\path\to\CTeArtefato -DestinationPath ${{ github.workspace }}\CteArtefato.zip
-        Compress-Archive -Path .\path\to\MdfeArtefato -DestinationPath ${{ github.workspace }}\MdfeArtefato.zip
-        Compress-Archive -Path .\path\to\NfeArtefato -DestinationPath ${{ github.workspace }}\NfeArtefato.zip
+        Compress-Archive -Path ./CTeArtefato -DestinationPath ${{ github.workspace }}/CTeArtefato.zip
+        Compress-Archive -Path ./MdfeArtefato -DestinationPath ${{ github.workspace }}/MdfeArtefato.zip
+        Compress-Archive -Path ./NfeArtefato -DestinationPath ${{ github.workspace }}/NfeArtefato.zip
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
