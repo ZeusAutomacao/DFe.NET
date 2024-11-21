@@ -131,7 +131,7 @@ jobs:
           -d '{
                 "tag_name": "${{ needs.build.outputs.version }}",
                 "name": "${{ needs.build.outputs.version }}",
-                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/)\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/)",
+                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/${{ needs.build.outputs.version }})\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/${{ needs.build.outputs.version }})\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/${{ needs.build.outputs.version }})",
                 "draft": false,
                 "prerelease": false
               }' \
