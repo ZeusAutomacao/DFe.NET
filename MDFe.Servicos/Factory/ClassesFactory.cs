@@ -16,14 +16,15 @@ namespace MDFe.Servicos.Factory
 {
     public static class ClassesFactory
     {
-        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf)
+        public static MDFeCosMDFeNaoEnc CriarConsMDFeNaoEnc(string cnpjCpf, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var documentoUnico = cnpjCpf;
 
             var consMDFeNaoEnc = new MDFeCosMDFeNaoEnc
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
                 XServ = "CONSULTAR NÃO ENCERRADOS"
             };
 
@@ -51,12 +52,13 @@ namespace MDFe.Servicos.Factory
             };
         }
 
-        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave)
+        public static MDFeConsSitMDFe CriarConsSitMDFe(string chave, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var consSitMdfe = new MDFeConsSitMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
                 XServ = "CONSULTAR",
                 ChMDFe = chave
             };
@@ -121,36 +123,39 @@ namespace MDFe.Servicos.Factory
             return incluirCodutor;
         }
 
-        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe)
+        public static MDFeEnviMDFe CriaEnviMDFe(long lote, MDFeEletronico mdfe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var enviMdfe = new MDFeEnviMDFe
             {
                 MDFe = mdfe,
                 IdLote = lote.ToString(),
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout
+                Versao = config.VersaoWebService.VersaoLayout
             };
 
             return enviMdfe;
         }
 
-        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo)
+        public static MDFeConsReciMDFe CriaConsReciMDFe(string numeroRecibo, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var consReciMDFe = new MDFeConsReciMDFe
             {
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
                 NRec = numeroRecibo
             };
 
             return consReciMDFe;
         }
 
-        public static MDFeConsStatServMDFe CriaConsStatServMDFe()
+        public static MDFeConsStatServMDFe CriaConsStatServMDFe(MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             return new MDFeConsStatServMDFe
             {
-                TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
-                Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
+                TpAmb = config.VersaoWebService.TipoAmbiente,
+                Versao = config.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
             };
         }

@@ -8,9 +8,10 @@ namespace MDFe.Utils.Validacao
 {
     public class Validador
     {
-        public static void Valida(string xml, string schema)
+        public static void Valida(string xml, string schema, MDFeConfiguracao cfgMdfe = null)
         {
-            var pathSchema = MDFeConfiguracao.CaminhoSchemas;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            var pathSchema = config.CaminhoSchemas;
 
             if (!Directory.Exists(pathSchema))
                 throw new Exception("Diretório de Schemas não encontrado: \n" + pathSchema);

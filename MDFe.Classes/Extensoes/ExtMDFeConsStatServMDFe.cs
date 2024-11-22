@@ -10,17 +10,18 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeConsStatServMDFe
     {
-        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe)
+        public static void ValidarSchema(this MDFeConsStatServMDFe consStatServMDFe, MDFeConfiguracao cfgMdfe = null)
         {
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
             var xmlValidacao = consStatServMDFe.XmlString();
 
-            switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+            switch (config.VersaoWebService.VersaoLayout)
             {
                 case VersaoServico.Versao100:
-                    Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v1.00.xsd", config);
                     break;
                 case VersaoServico.Versao300:
-                    Validador.Valida(xmlValidacao, "consStatServMDFe_v3.00.xsd");
+                    Validador.Valida(xmlValidacao, "consStatServMDFe_v3.00.xsd", config);
                     break;
             }
         }
@@ -38,11 +39,12 @@ namespace MDFe.Classes.Extencoes
             return request;
         }
 
-        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe)
+        public static void SalvarXmlEmDisco(this MDFeConsStatServMDFe consStatServMdFe, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, "-pedido-status-servico.xml");
 
