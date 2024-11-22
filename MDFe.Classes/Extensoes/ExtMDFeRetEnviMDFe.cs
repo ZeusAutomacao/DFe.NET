@@ -7,11 +7,12 @@ namespace MDFe.Classes.Extencoes
 {
     public static class ExtMDFeRetEnviMDFe
     {
-        public static void SalvarXmlEmDisco(this MDFeRetEnviMDFe retEnviMDFe)
+        public static void SalvarXmlEmDisco(this MDFeRetEnviMDFe retEnviMDFe, MDFeConfiguracao cfgMdfe = null)
         {
-            if (MDFeConfiguracao.NaoSalvarXml()) return;
+            var config = cfgMdfe ?? MDFeConfiguracao.Instancia;
+            if (config.NaoSalvarXml()) return;
 
-            var caminhoXml = MDFeConfiguracao.CaminhoSalvarXml;
+            var caminhoXml = config.CaminhoSalvarXml;
 
             var arquivoSalvar = Path.Combine(caminhoXml, retEnviMDFe.InfRec.NRec + "-rec.xml");
 

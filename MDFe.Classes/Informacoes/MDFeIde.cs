@@ -108,7 +108,7 @@ namespace MDFe.Classes.Informacoes
         {
             get
             {
-                switch (MDFeConfiguracao.VersaoWebService.VersaoLayout)
+                switch (MDFeConfiguracao.Instancia.VersaoWebService.VersaoLayout)
                 {
                     case VersaoServico.Versao100:
                         return DhEmi.ParaDataHoraStringSemUtc();
