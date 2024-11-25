@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="07/04/2024 15:52:38" ReportInfo.CreatorVersion="2023.3.0.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="11/25/2024 15:15:33" ReportInfo.CreatorVersion="2018.4.16.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -728,8 +728,8 @@ namespace FastReport
       <TextObject Name="Text92" Left="120.85" Top="191.38" Width="82.05" Height="10.45" Text="Peso total ([MDFeProcMDFe.MDFe.InfMDFe.Tot.CUnid])" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text93" Left="205.9" Top="191" Width="83.6" Height="30.24" Fill.Color="224, 224, 224" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.vCarga]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text94" Left="206.9" Top="191.38" Width="82.05" Height="10.45" Text="Valor Total da Carga" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
-      <TextObject Name="Text95" Left="387.45" Top="264.6" Width="52.7" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
-      <TextObject Name="Text96" Left="426.15" Top="264.6" Width="288.95" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
+      <TextObject Name="Text95" Left="387.45" Top="264.6" Width="45.36" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
+      <TextObject Name="Text96" Left="433.6" Top="264.6" Width="302.4" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
       <TextObject Name="Text97" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Font="Arial, 10pt"/>
       <TextObject Name="Text98" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
       <TextObject Name="Text99" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
