@@ -728,8 +728,8 @@ namespace FastReport
       <TextObject Name="Text92" Left="120.85" Top="191.38" Width="82.05" Height="10.45" Text="Peso total ([MDFeProcMDFe.MDFe.InfMDFe.Tot.CUnid])" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
       <TextObject Name="Text93" Left="205.9" Top="191" Width="83.6" Height="30.24" Fill.Color="224, 224, 224" Text="[MDFeProcMDFe.MDFe.InfMDFe.Tot.vCarga]" Padding="2, 0, 2, 2" HorzAlign="Center" VertAlign="Bottom" WordWrap="false" Font="Arial, 9pt, style=Bold"/>
       <TextObject Name="Text94" Left="206.9" Top="191.38" Width="82.05" Height="10.45" Text="Valor Total da Carga" VertAlign="Center" WordWrap="false" Font="Arial, 5.25pt"/>
-      <TextObject Name="Text95" Left="387.45" Top="264.6" Width="51.41" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
-      <TextObject Name="Text96" Left="439.05" Top="264.6" Width="297.4" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
+      <TextObject Name="Text95" Left="387.45" Top="264.6" Width="52.92" Height="8.89" Text="Consulte em" Font="Arial Narrow, 6pt"/>
+      <TextObject Name="Text96" Left="441.05" Top="264.6" Width="297.4" Height="8.89" Text="https://dfe-portal.sefazvirtual.rs.gov.br/MDFe/consulta" Font="Arial Narrow, 6pt, style=Bold"/>
       <TextObject Name="Text97" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="Município: [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.XMunDescarga] - [MDFeProcMDFe.MDFe.InfMDFe.InfDoc.InfMunDescarga.CMunDescarga]" Font="Arial, 10pt"/>
       <TextObject Name="Text98" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
       <TextObject Name="Text99" Left="-9450" Top="-9450" Width="94.5" Height="18.9" Text="[MDFeProcMDFe.MDFe.InfMDFe.InfDoc]" Font="Arial, 10pt"/>
