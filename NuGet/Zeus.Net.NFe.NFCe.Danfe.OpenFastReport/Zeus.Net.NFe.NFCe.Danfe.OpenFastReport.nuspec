@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Zeus.Net.NFe.NFCe.OpenFastReport</id>
+        <id>Cosmospro.Net.NFe.NFCe.OpenFastReport</id>
         <version>1.0.1</version>
         <title>Zeus NF-e e NFC-e (x86/x64)</title>
         <authors>Zeus</authors>
