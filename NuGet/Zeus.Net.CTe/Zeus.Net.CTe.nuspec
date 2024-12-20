@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
-        <id>Zeus.Net.CTe</id> 
+        <id>Cosmospro.Net.CTe</id> 
         <version>$version$</version>
         <title>Zeus CT-e (x86/x64)</title>
         <authors>Zeus</authors>
