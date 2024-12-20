@@ -32,9 +32,7 @@ jobs:
     
     - name: Setando Versao
       id: date
-      run: |
-        $date = Get-Date -Format "yyyy.MM.dd.HHmm"
-        echo "date=$date" >> $env:GITHUB_OUTPUT
+      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
       
     - name: Versao
       run: echo ${{ steps.date.outputs.date }}
@@ -76,9 +74,9 @@ jobs:
 
     - name: Pack
       run: | 
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.NFe.NFCe\Cosmospro.Net.NFe.NFCe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.MDFe\Cosmospro.Net.MDFe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.CTe\Cosmospro.Net.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -108,5 +106,42 @@ jobs:
       - name: Push to NuGet Feed
         run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.API_NUGET}}
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}
 
+      - name: Criar Tag
+        id: create_tag
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "tag": "${{ needs.build.outputs.version }}",
+                "message": "Release versão ${{ needs.build.outputs.version }}",
+                "object": "${{ github.sha }}",
+                "type": "commit"
+              }' \
+          https://api.github.com/repos/${{ github.repository }}/git/tags
+
+      - name: Criar Release
+        id: create_release
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+                "tag_name": "${{ needs.build.outputs.version }}",
+                "name": "${{ needs.build.outputs.version }}",
+                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/${{ needs.build.outputs.version }})\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/${{ needs.build.outputs.version }})\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/${{ needs.build.outputs.version }})",
+                "draft": false,
+                "prerelease": false
+              }' \
+          https://api.github.com/repos/${{ github.repository }}/releases
+
+      - name: Discord notification
+        continue-on-error: true
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
+        uses: Ilshidur/action-discord@master
+        with:
+          args: 'Lançado Zeus DFe.NET versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/ZeusAutomacao'

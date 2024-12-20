@@ -29,16 +29,16 @@ using NFe.Danfe.Base.NFe;
 using NFe.Classes.Informacoes.Total;
 
 namespace FastReport
-{
+{        
   public class ReportScript
-  {
+  {    
     private void Emitente_BeforePrint(object sender, EventArgs e)
     {
       var chave = Substring(((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.Id&quot;)), 3);
-      TextChaveAcesso.Text = Regex.Replace(chave, &quot;.{4}&quot;, &quot;$0 &quot;);
+      TextChaveAcesso.Text = Regex.Replace(chave, &quot;.{4}&quot;, &quot;$0 &quot;); 
       BarcodeChave.Text = chave;
       poEmitLogo.Image = ObterLogo();
-
+      
       var contigenciaId = (string)Report.GetParameterValue(&quot;ContingenciaID&quot;);
       BarCodeContigencia.Visible = !string.IsNullOrEmpty(contigenciaId);
       if(BarCodeContigencia.Visible) BarCodeContigencia.Text = contigenciaId;
@@ -46,11 +46,11 @@ namespace FastReport
       DadosRetencoes.Visible = (bool)Report.GetParameterValue(&quot;ExibeRetencoes&quot;);
       prodRow.AutoSize = (bool)Report.GetParameterValue(&quot;DuasLinhas&quot;);
       if(prodRow.AutoSize == false) prodNomeCell.WordWrap = false;
-
+      
       if (Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;) != null) {
         Text209.Text = FormatarCampo(Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.enderEmit.fone&quot;).ToString(), 'f');
       }
-
+	  
       if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
       {
         var ipi = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ICMSTot.vIPI&quot;)) ?? 0M;
@@ -60,8 +60,8 @@ namespace FastReport
           Text163.Text = FormatNumber(ipiDevolvido,2);
         }
       }
-
-      //Trato o campo de Frete
+      
+      //Trato o campo de Frete 
       switch((int)((ModalidadeFrete)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.modFrete&quot;)))
       {
         case 0: Memo92.Text = &quot;0 - Emit/Remet&quot;; break;
@@ -70,28 +70,28 @@ namespace FastReport
         case 3: Memo92.Text = &quot;3 - Prop Remetente&quot;; break;
         case 4: Memo92.Text = &quot;4 - Prop Destinatário&quot;; break;
         case 9: Memo92.Text = &quot;9 - Sem Frete&quot;; break;
-      }
-
+      } 
+      
       var vol = Report.GetDataSource(&quot;NFe.NFe.infNFe.transp.vol&quot;);
       vol.Init();
-      int qtdeVol = 0;
-
+      int qtdeVol = 0; 
+       
       int volumes = 0;
       decimal pesoL = 0;
       decimal pesoB = 0;
       while (vol.HasMoreRows)
-      {
+      {      
         Memo106.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.esp&quot;));
         Memo108.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.marca&quot;));
         Memo110.Text = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.nVol&quot;));
-
+                                                                                              
         volumes += ((Nullable&lt;int&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.qVol&quot;)) ?? 0;
         pesoL += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoL&quot;)) ?? 0M;
-        pesoB += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoB&quot;)) ?? 0M;
-        qtdeVol++;
+        pesoB += ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.transp.vol.pesoB&quot;)) ?? 0M;   
+        qtdeVol++; 
         vol.Next();
       }
-
+           
       if (qtdeVol &gt;= 1)
       {
         if (qtdeVol &gt; 1)
@@ -100,20 +100,20 @@ namespace FastReport
           Memo108.Text = &quot;&quot;;
           Memo110.Text = &quot;&quot;;
         }
-
+        
         Memo104.Text = volumes.ToString();
         Memo112.Text = FormatNumber(pesoB,3) + &quot; KG&quot;;
         Memo114.Text = FormatNumber(pesoL,3) + &quot; KG&quot;;
-      }
-
+      }  
+           
       if(Engine.FinalPass)
-      {
+      { 
         var vBC = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ISSQNtot.vBC&quot;)) ?? 0;
         var vISS = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ISSQNtot.vISS&quot;)) ?? 0;
         var vServ = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.total.ISSQNtot.vServ&quot;)) ?? 0;
-
+             
         DadosISSQN.Visible = !(vBC == 0 &amp;&amp; vISS == 0 &amp;&amp; vServ == 0);
-
+        
         var retiradaCPF = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.CPF&quot;);
         var retiradaCNPJ = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.CNPJ&quot;);
         var retiradaEndereco = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.xLgr&quot;);
@@ -121,12 +121,12 @@ namespace FastReport
         var retiradaBairro = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.xBairro&quot;);
         var retiradaMunicipio = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.xMun&quot;);
         var retiradaUf = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.retirada.UF&quot;);
-
+        
         LocalRetirada.Visible = !string.IsNullOrEmpty(retiradaCPF) || !string.IsNullOrEmpty(retiradaCNPJ) ||
           !string.IsNullOrEmpty(retiradaEndereco) || !string.IsNullOrEmpty(retiradaNro) ||
           !string.IsNullOrEmpty(retiradaBairro) || !string.IsNullOrEmpty(retiradaMunicipio) ||
           !string.IsNullOrEmpty(retiradaUf);
-
+        
         var entregaCPF = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.CPF&quot;);
         var entregaCNPJ = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.CNPJ&quot;);
         var entregaEndereco = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.xLgr&quot;);
@@ -134,34 +134,34 @@ namespace FastReport
         var entregaBairro = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.xBairro&quot;);
         var entregaMunicipio = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.xMun&quot;);
         var entregaUf = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.entrega.UF&quot;);
-
+        
         LocalEntrega.Visible = !string.IsNullOrEmpty(entregaCPF) || !string.IsNullOrEmpty(entregaCNPJ) ||
           !string.IsNullOrEmpty(entregaEndereco) || !string.IsNullOrEmpty(entregaNro) ||
           !string.IsNullOrEmpty(entregaBairro) || !string.IsNullOrEmpty(entregaMunicipio) ||
           !string.IsNullOrEmpty(entregaUf);
-
-
+        
+        
         var indPagto =   (IndicadorPagamento?)Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.indPag&quot;);
-        var fatnFat = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.nFat&quot;);
+        var fatnFat = (string)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.nFat&quot;); 
         var fatvOrig = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vOrig&quot;)) ?? 0M;
         var fatvDesc = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vDesc&quot;)) ?? 0M;
         var fatvLiq = ((Nullable&lt;decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.cobr.fat.vLiq&quot;)) ?? 0M;
-
-        Fatura.Visible = (bool)Report.GetParameterValue(&quot;ExibeCampoFatura&quot;);
+        
+        Fatura.Visible = (bool)Report.GetParameterValue(&quot;ExibeCampoFatura&quot;);   
         MemoFatura.Visible  = !string.IsNullOrEmpty(fatnFat);
         if(MemoFatura.Visible) MemoFatura.Text = string.Format(&quot;Número: {0} - Valor Original: {1:c} - Valor Desconto: {2:c} - ValorLíquido: {3:c}&quot;,
             fatnFat, fatvOrig, fatvDesc, fatvLiq);
-
+        
         switch(indPagto)
         {
           case IndicadorPagamento.ipVista:
             Memo146.Text = &quot;PAGAMENTO À VISTA&quot;;
             break;
-
+          
           case IndicadorPagamento.ipPrazo:
             Memo146.Text = &quot;PAGAMENTO A PRAZO&quot;;
             break;
-
+          
           case IndicadorPagamento.ipOutras:
             Memo146.Text = &quot;OUTROS&quot;;
             break;
@@ -227,35 +227,35 @@ namespace FastReport
 	    prodIPICell.Text = &quot;0,00&quot;;
         prodAlqIPICell.Text = &quot;0,00&quot;;
       }
-
+      
       var imprimirUnidQtdeValor = (ImprimirUnidQtdeValor)Report.GetParameterValue(&quot;ImprimirUnidQtdeValor&quot;);
-      var imprimirDescPorc = (bool)Report.GetParameterValue(&quot;ImprimirDescPorc&quot;);
+      var imprimirDescPorc = (bool)Report.GetParameterValue(&quot;ImprimirDescPorc&quot;);              
       var imprimirTotalLiquido = (bool)Report.GetParameterValue(&quot;ImprimirTotalLiquido&quot;);
-
+      
       var uCom = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.uCom&quot;));
       var uTrib = ((String)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.uTrib&quot;));
-
+      
       var qCom = ((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.qCom&quot;));
       var qTrib = ((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.qTrib&quot;));
-
+      
       var vUnCom = ((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.vUnCom&quot;));
       var vUnTrib = ((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.vUnTrib&quot;));
-
+      
       var vProd = ((Decimal)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.vProd&quot;));
       var vDesc = (((Nullable&lt;Decimal&gt;)Report.GetColumnValue(&quot;NFe.NFe.infNFe.det.prod.vDesc&quot;)) ?? 0);
-
-      if(imprimirTotalLiquido) vProd = vProd - vDesc;
+      
+      if(imprimirTotalLiquido) vProd = vProd - vDesc;      
       if(vDesc &gt; 0 &amp;&amp; imprimirDescPorc)
       {
         vDesc = ((vDesc*100)/(vUnCom*qCom));
-      }
-
+      }    
+      
       prodValorCell.Text = FormatNumber(vProd,2);
       prodDescontoCell.Text = FormatNumber(vDesc, 2);
-
+      
       var decimaisQuantidadeItem = (int)Report.GetParameterValue(&quot;DecimaisQuantidadeItem&quot;);
       var decimaisValorUnitario = (int)Report.GetParameterValue(&quot;DecimaisValorUnitario&quot;);
-
+      
       switch(imprimirUnidQtdeValor)
       {
         case ImprimirUnidQtdeValor.Comercial:
@@ -263,26 +263,26 @@ namespace FastReport
           prodQtdCell.Text = FormatNumber(qCom, decimaisQuantidadeItem);
           prodValorUnitarioCell.Text = FormatNumber(vUnCom, decimaisValorUnitario);
           break;
-
+        
         case ImprimirUnidQtdeValor.Tributavel:
           prodUnidadeCell.Text = uTrib;
           prodQtdCell.Text = FormatNumber(qTrib, decimaisQuantidadeItem);
           prodValorUnitarioCell.Text = FormatNumber(vUnTrib, decimaisValorUnitario);
           break;
-
+        
         case ImprimirUnidQtdeValor.Ambos:
-
+          
           var qTribFormatado = FormatNumber(qTrib, decimaisQuantidadeItem);
           var qComFormatado = FormatNumber(qCom, decimaisQuantidadeItem);
           var vUnComFormatado = FormatNumber(vUnCom, decimaisValorUnitario);
           var vUnTribFormatado = FormatNumber(vUnTrib, decimaisValorUnitario);
-
+          
           prodUnidadeCell.Text = string.Format(&quot;{0}{2}{1}&quot;, uCom, uTrib, Environment.NewLine);
           prodQtdCell.Text = string.Format(&quot;{0}{2}{1}&quot;, qComFormatado, qTribFormatado, Environment.NewLine);
           prodValorUnitarioCell.Text = string.Format(&quot;{0}{2}{1}&quot;, vUnComFormatado, vUnTribFormatado, Environment.NewLine);
           break;
       }
-
+	  
       if ((FinalidadeNFe)(Report.GetColumnValue(&quot;NFe.NFe.infNFe.ide.finNFe&quot;)) == FinalidadeNFe.fnDevolucao)
       {
         if(ipiBasico == null)
@@ -295,242 +295,242 @@ namespace FastReport
             prodAlqIPICell.Text = FormatNumber(DevolvidoPercentual,2);
 	  }
         }
-      }
+      }	  
     }
-
+        
     private string FormatarCampo(string valor, char format)
     {
       if (valor == null) return string.Empty;
-
+      
       switch (format)
       {
         case 'c':  //CEP
           if (valor.Length == 8)
-            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);
+            valor = valor.Substring(0,2) + &quot;.&quot; + valor.Substring(2,3) + &quot;-&quot; + valor.Substring(5,3);          
           break;
-
-        case 'f':  //Telefone /celular
+        
+        case 'f':  //Telefone /celular         
           if (valor.Length == 10)
             valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,4) + &quot;-&quot; + valor.Substring(6,4);
           else if (valor.Length == 11)
-            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);
+            valor = &quot;(&quot; +valor.Substring(0,2) + &quot;) &quot; + valor.Substring(2,5) + &quot;-&quot; + valor.Substring(7,4);     
           break;
-
+        
         case 'd': //cpf / cnpj
           if (valor.Length == 11)
             valor = valor.Substring(0,3)+&quot;.&quot;+valor.Substring(3,3)+&quot;.&quot;+valor.Substring(6,3)+&quot;-&quot;+valor.Substring(9,2);
           else if (valor.Length == 14)
             valor = valor.Substring(0,2)+&quot;.&quot;+valor.Substring(2,3)+&quot;.&quot;+valor.Substring(5,3)+&quot;/&quot;+valor.Substring(8,4)+&quot;-&quot;+valor.Substring(12,2);
-          break;
-
+          break;  
+        
         case 'p':
           if (valor.Length == 7)
             valor = valor.Substring(0,3)+&quot;-&quot;+valor.Substring(3,4);
           break;
-      }
+      }                               
       return valor;
     }
-
+    
     public Image ObterLogo()
     {
       byte[] logomarca = Report.GetParameterValue(&quot;Logo&quot;) as byte[];
-
+      
       if (logomarca == null) return null;
-
+      
       using(var ms = new MemoryStream(logomarca))
       {
         var image = Image.FromStream(ms);
         return image;
       }
-    }
+    }       
 
     private void Imposto_BeforePrint(object sender, EventArgs e)
     {
       bool exibirIbpt = ((Boolean?)Report.GetParameterValue(&quot;ExibirTotalTributos&quot;)) ?? false;
-
+      
       QuadroVTOTTRIB.Visible = exibirIbpt;
       txtIbptValor.Visible = exibirIbpt;
-
+      
       if (exibirIbpt)
-      {
+      { 
         //Base ICMS
         QuadroVBC.Width = 100f;
         Text170.Width = QuadroVBC.Width;
-
+        
         //Valor ICMS
         QuadroVICMS.Width = 100f;
         QuadroVICMS.Left = 100f;
         Text169.Width = QuadroVICMS.Width;
         Text169.Left = QuadroVICMS.Left;
-
+        
         //Base Calc ICMS ST
         QuadroVBCST.Text = &quot;BASE CÁLC. ICMS SUBST.&quot;;
         QuadroVBCST.Width = 100f;
         QuadroVBCST.Left = 200f;
         Text168.Width = QuadroVBCST.Width;
-        Text168.Left = QuadroVBCST.Left;
-
+        Text168.Left = QuadroVBCST.Left;                   
+        
         //ICMS ST
         QuadrovST.Width = 100f;
         QuadrovST.Left = 300f;
         Text162.Width = QuadrovST.Width;
         Text162.Left = QuadrovST.Left;
-
+                
         //PIS
         QuadroPIS.Width = 100f;
         QuadroPIS.Left = 400f;
         Text160.Width = QuadroPIS.Width;
         Text160.Left = QuadroPIS.Left;
-
+ 
         //TOTAL TRIBUTOS
         QuadroVTOTTRIB.Width = 100f;
         QuadroVTOTTRIB.Left = 500f;
         txtIbptValor.Width = QuadroVTOTTRIB.Width;
         txtIbptValor.Left = QuadroVTOTTRIB.Left;
-
+        
         //Total produtos
         Memo67.Left = 600f;
         Memo67.Width = 144.5f;
         Text159.Width = Memo67.Width;
-        Text159.Left = Memo67.Left;
-
+        Text159.Left = Memo67.Left;              
+        
         //Frete
         Memo77.Left = 0f;
         Memo77.Width = 100f;
         Text167.Width = Memo77.Width;
-        Text167.Left = Memo77.Left;
-
+        Text167.Left = Memo77.Left;  
+        
         //Seguro
         Memo75.Left = 100f;
         Memo75.Width = 100f;
         Text166.Width = Memo75.Width;
-        Text166.Left = Memo75.Left;
-
+        Text166.Left = Memo75.Left; 
+        
         //Desconto
         Memo73.Left = 200f;
         Memo73.Width = 100f;
         Text165.Width = Memo73.Width;
-        Text165.Left = Memo73.Left;
-
+        Text165.Left = Memo73.Left; 
+        
         //Despesas
         Memo71.Left = 300f;
         Memo71.Width = 100f;
         Text164.Width = Memo71.Width;
-        Text164.Left = Memo71.Left;
-
+        Text164.Left = Memo71.Left; 
+        
         //IPI
         Memo69.Left = 400f;
         Memo69.Width = 100f;
         Text163.Width = Memo69.Width;
-        Text163.Left = Memo69.Left;
-
+        Text163.Left = Memo69.Left; 
+        
         //Valor Cofins
         Text158.Left = 500f;
         Text158.Width = 100f;
         Text161.Width = Text158.Width;
-        Text161.Left = Text158.Left;
-
+        Text161.Left = Text158.Left; 
+        
         //Total Contábil
         Memo79.Left = 600f;
         Memo79.Width = 144.5f;
         Memo80.Width = Memo79.Width;
         Memo80.Left = Memo79.Left;
-      }
+      }     
     }
-
-    private int contadorDuplicatas =0;
+            
+    private int contadorDuplicatas =0;    
     private float _TamanhoDuplicatas = 0;
 
     private void DuplicatasHeader_BeforePrint(object sender, EventArgs e)
     {
       contadorDuplicatas = 0;
       _TamanhoDuplicatas = 0;
-    }
-
+    }   
+    
     private void Duplicatas_BeforePrint(object sender, EventArgs e)
     {
       contadorDuplicatas++;
       if (contadorDuplicatas == 6)
-      {
+      {       
         _TamanhoDuplicatas += Duplicatas.Height;
         contadorDuplicatas = 0;
       }
     }
-
+  
     private float _Tamanho = 0;
     private float _TamanhoItens = 0;
-
+    
     private void DadosProdutosHeader_BeforePrint(object sender, EventArgs e)
     {
-
+      
       if (((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacional || ((CRT)Report.GetColumnValue(&quot;NFe.NFe.infNFe.emit.CRT&quot;)) == CRT.SimplesNacionalMei) {
 	    Memo119.Text = &quot;O/CSOSN&quot;;
       }
-
+      
       _Tamanho = 0;
-      _TamanhoItens = 0;
-
+      _TamanhoItens = 0;  
+      
       if (Canhoto.Visible)
         _Tamanho += Canhoto.Height;
-
+      
       if (Emitente.Visible)
         _Tamanho += Emitente.Height;
-
+      
       if (Destinatario.Visible)
         _Tamanho += Destinatario.Height;
-
+      
       if (LocalRetirada.Visible)
         _Tamanho += LocalRetirada.Height;
-
+      
       if (LocalEntrega.Visible)
         _Tamanho += LocalEntrega.Height;
-
+      
       if (Fatura.Visible)
         _Tamanho += Fatura.Height;
-
+      
       if (DuplicatasHeader.Visible)
         _Tamanho += DuplicatasHeader.Height;
-
+      
       _Tamanho += _TamanhoDuplicatas;
-
+      
       if (Imposto.Visible)
         _Tamanho += Imposto.Height;
-
+      
       if (TransportadorVolumes.Visible)
         _Tamanho += TransportadorVolumes.Height;
-
+      
       if (DadosProdutosHeader.Visible)
         _Tamanho += DadosProdutosHeader.Height;
-
+      
       //_Tamanho += _TamanhoItens;
-
+      
       if (DadosProdutosFooter.Visible)
         _Tamanho += DadosProdutosFooter.Height;
-
+      
       if (DadosISSQN.Visible)
         _Tamanho += DadosISSQN.Height;
-
+      
       if (DadosRetencoes.Visible)
         _Tamanho += DadosRetencoes.Height;
-
+      
       DadosAdicionais.CalcHeight();
-
+      
       if (DadosAdicionais.Visible)
         _Tamanho += DadosAdicionais.Height;
-
+      
       if (Rodape.Visible)
-        _Tamanho += Rodape.Height;
-
+        _Tamanho += Rodape.Height;     
+          
     }
-
+    
     private void DadosProdutos_AfterPrint(object sender, EventArgs e)
-    {
+    {           
       DadosProdutos.StartNewPage = false;
-
+      
       if (Engine.PageNo == 1)
       {
         _TamanhoItens += DadosProdutos.Height;
-
+        
         if (_Tamanho + _TamanhoItens &gt;= Engine.PageHeight)
         {
           DadosProdutos.StartNewPage = true;
@@ -538,9 +538,9 @@ namespace FastReport
         }
       }
     }
+    
 
-
-
+    
   }
 }     </ScriptText>
   <Dictionary>
@@ -913,7 +913,7 @@ namespace FastReport
               <Column Name="vCOFINS" DataType="System.Decimal"/>
               <Column Name="vOutro" DataType="System.Decimal"/>
               <Column Name="vNF" DataType="System.Decimal"/>
-              <Column Name="vTotTrib" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
+              <Column Name="vTotTrib" DataType="System.Decimal"/>
               <Column Name="vFCPUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFDest" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
               <Column Name="vICMSUFRemet" DataType="System.Nullable`1[[System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]"/>
@@ -1444,7 +1444,7 @@ namespace FastReport
     </DataBand>
     <PageFooterBand Name="DadosAdicionais" Top="973.71" Width="744.66" Height="60.15" CanGrow="true" PrintOn="FirstPage">
       <TextObject Name="Text155" Top="13.46" Width="470.06" Height="45.36" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="INFORMAÇÕES COMPLEMENTARES" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
-      <TextObject Name="TextInfAdicionais" Left="1.45" Top="26.91" Width="468.5" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Font="Times New Roman, 8pt" AllowExpressions="False" />
+      <TextObject Name="TextInfAdicionais" Left="1.45" Top="26.91" Width="468.5" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text156" Left="470.5" Top="13.46" Width="274.06" Height="45.36" Border.Lines="All" Border.Width="0.5" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="RESERVADO AO FISCO" Padding="2, 2, 2, 0" Font="Times New Roman, 5pt, style=Bold"/>
       <TextObject Name="Text37" Left="472.5" Top="26.91" Width="270.05" Height="29.8" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="[NFe.protNFe.infProt.cMsg] [NFe.protNFe.infProt.xMsg]" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text157" Left="1.89" Top="1.89" Width="124.65" Height="9.35" Text="DADOS ADICIONAIS" Padding="0, 0, 0, 0" VertAlign="Center" Font="Times New Roman, 8pt, style=Bold"/>

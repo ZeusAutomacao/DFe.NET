@@ -30,12 +30,12 @@
 
         public bool ShouldSerializepCredPresumido()
         {
-            return _pCredPresumido.HasValue;
+            return _pCredPresumido.HasValue && _pCredPresumido > 0;
         }
 
         public bool ShouldSerializevCredPresumido()
         {
-            return _vCredPresumido.HasValue;
+            return _vCredPresumido.HasValue && _vCredPresumido > 0;
         }
     }
 }

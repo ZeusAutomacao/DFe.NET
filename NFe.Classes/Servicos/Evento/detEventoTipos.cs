@@ -82,13 +82,6 @@ namespace NFe.Classes.Servicos.Evento
         [Description("RFB")]
         [XmlEnum("6")]
         taRFB = 6,
-        
-        /// <summary>
-        /// 8 - Empresa sucessora
-        /// </summary>
-        [Description("Empresa sucessora")]
-        [XmlEnum("8")]
-        taEmpresaSucessora = 8,
 
         /// <summary>
         /// 9 - Outros Órgãos
@@ -162,62 +155,5 @@ namespace NFe.Classes.Servicos.Evento
         [Description("Permite")]
         [XmlEnum("1")]
         Permite = 1
-    }
-    
-    /// <summary>
-    ///     Indicador de efetiva quitação do pagamento integral referente a NFe referenciada.
-    /// </summary>
-    public enum IndicadorDeQuitacaoDoPagamento
-    {
-        /// <summary>
-        ///     1 – Quitado
-        ///     Observação: Outros valores ainda não foram publicados. Revisado: 17/07/2025. Nota técnica base: NT_2025.002_v1.10_RTC_NF-e_IBS_CBS_IS
-        /// </summary>
-        [Description("Quitado")]
-        [XmlEnum("1")]
-        Quitado = 1
-    }
-
-    /// <summary>
-    ///     Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida.
-    ///     0 - Não aceite
-    ///     1 - Aceite
-    /// </summary>
-    public enum IndicadorAceitacao
-    {
-        [Description("Não aceite")]
-        [XmlEnum("0")]
-        NaoAceite = 0,
-        
-        [Description("Aceite")]
-        [XmlEnum("1")]
-        Aceite = 1
-    }
-    
-    /// <summary>
-    ///     Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.
-    ///     0 - Não aceite
-    ///     1 - Aceite
-    /// </summary>
-    public enum IndicadorDeferimento
-    {
-        [Description("Não aceite")]
-        [XmlEnum("0")]
-        NaoAceite = 0,
-        
-        [Description("Aceite")]
-        [XmlEnum("1")]
-        Aceite = 1
-    }
-
-    public enum MotivoDeferimento
-    {
-        [Description("Falta de manifestação de todas as sucessoras")]
-        [XmlEnum("1")]
-        FaltaDeManifestacaoDeTodasSucessoras,
-        
-        [Description("Outros.")]
-        [XmlEnum("2")]
-        Outros
     }
 }

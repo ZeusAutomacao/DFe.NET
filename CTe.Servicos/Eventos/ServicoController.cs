@@ -72,7 +72,7 @@ namespace CTe.Servicos.Eventos
             var evento = FactoryEvento.CriaEvento(cTeTipoEvento, sequenciaEvento, chave, cnpj, container, configServico);
             evento.Assina(configServico);
 
-            if (configServico.IsValidaSchemas)
+            if (configuracaoServico.IsValidaSchemas)
                 evento.ValidarSchema(configServico);
 
             evento.SalvarXmlEmDisco(configServico);

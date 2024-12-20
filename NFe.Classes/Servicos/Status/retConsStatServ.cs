@@ -108,12 +108,7 @@ namespace NFe.Classes.Servicos.Status
         ///     FR11 - Informações adicionais para o Contribuinte
         /// </summary>
 #if NET5_0_OR_GREATER//o uso de tipos de referência anuláveis não é permitido até o C# 8.0.
-
-        #nullable enable
-
         public string? xObs { get; set; }
-        
-        #nullable disable
 #else
         public string xObs { get; set; }
 #endif
