@@ -20,8 +20,6 @@ A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 
 
 Licenciada sobre a **LGPL** (https://pt.wikipedia.org/wiki/GNU_Lesser_General_Public_License).
 
-Entre no nosso **Discord** -> https://discord.gg/EE4TGKAkkG no grupo falaremos não somente do Zeus.NET, mas também de varios outros frameworks que são criados no dia-a-dia.
-
 ## Pacotes Nugets
 ------------------
 A melhor maneira de você ter a última versão do Zeus em seu projeto é utilizando os pacotes Nugets abaixo

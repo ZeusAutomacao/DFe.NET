@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Zeus.Net.CTe</id> 
+        <version>$version$</version>
+        <title>Zeus CT-e (x86/x64)</title>
+        <authors>Zeus</authors>
+        <owners>Zeus</owners>
+        <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
+        <iconUrl>https://avatars0.githubusercontent.com/u/324626879?s=200&amp;v=4</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Biblioteca para geração de CT-e.</description>
+        <releaseNotes />
+        <copyright>zeus</copyright>
+        <language>pt-BR</language>
+        <tags>df-e dfe cte ct-e</tags>
+    </metadata>
+    <files>
+        <file src="..\..\DFe.Classes\bin\Release\netstandard2.0\DFe.Classes.dll" target="lib/netstandard2.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\netstandard2.0\DFe.Utils.dll" target="lib/netstandard2.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\netstandard2.0\DFe.Wsdl.dll" target="lib/netstandard2.0/DFe.Wsdl.dll" />
+		<file src="..\..\CTe.Classes\bin\Release\netstandard2.0\CTe.Classes.dll" target="lib/netstandard2.0/CTe.Classes.dll" />
+		<file src="..\..\CTe.Servicos\bin\Release\netstandard2.0\CTe.Servicos.dll" target="lib/netstandard2.0/CTe.Servicos.dll" />
+		<file src="..\..\CTe.Utils\bin\Release\netstandard2.0\CTe.Utils.dll" target="lib/netstandard2.0/CTe.Utils.dll" />
+		<file src="..\..\CTe.Wsdl\bin\Release\netstandard2.0\CTe.Wsdl.dll" target="lib/netstandard2.0/CTe.Wsdl.dll" />
+
+		<file src="..\..\DFe.Classes\bin\Release\net6.0\DFe.Classes.dll" target="lib/net6.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net6.0\DFe.Utils.dll" target="lib/net6.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net6.0\DFe.Wsdl.dll" target="lib/net6.0/DFe.Wsdl.dll" />
+		<file src="..\..\CTe.Classes\bin\Release\net6.0\CTe.Classes.dll" target="lib/net6.0/CTe.Classes.dll" />
+		<file src="..\..\CTe.Servicos\bin\Release\net6.0\CTe.Servicos.dll" target="lib/net6.0/CTe.Servicos.dll" />
+		<file src="..\..\CTe.Utils\bin\Release\net6.0\CTe.Utils.dll" target="lib/net6.0/CTe.Utils.dll" />
+		<file src="..\..\CTe.Wsdl\bin\Release\net6.0\CTe.Wsdl.dll" target="lib/net6.0/CTe.Wsdl.dll" />
+		
+		<file src="..\..\DFe.Classes\bin\Release\net462\DFe.Classes.dll" target="lib/net462/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net462\DFe.Utils.dll" target="lib/net462/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net462\DFe.Wsdl.dll" target="lib/net462/DFe.Wsdl.dll" />
+		<file src="..\..\CTe.Classes\bin\Release\net462\CTe.Classes.dll" target="lib/net462/CTe.Classes.dll" />
+		<file src="..\..\CTe.Servicos\bin\Release\net462\CTe.Servicos.dll" target="lib/net462/CTe.Servicos.dll" />
+		<file src="..\..\CTe.Utils\bin\Release\net462\CTe.Utils.dll" target="lib/net462/CTe.Utils.dll" />
+		<file src="..\..\CTe.Wsdl\bin\Release\net462\CTe.Wsdl.dll" target="lib/net462/CTe.Wsdl.dll" />
+
+    </files>
+</package>

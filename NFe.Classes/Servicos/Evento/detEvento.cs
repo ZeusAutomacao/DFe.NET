@@ -32,9 +32,11 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
+using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using Shared.NFe.Classes.Servicos.Evento;
 
@@ -53,20 +55,6 @@ namespace NFe.Classes.Servicos.Evento
         ///     HP19 - "Cancelamento", "Carta de Correção", "Carta de Correcao" ou "EPEC"
         /// </summary>
         public string descEvento { get; set; }
-
-        #region Carta de Correção
-
-        /// <summary>
-        ///     HP20 - Correção a ser considerada, texto livre. A correção mais recente substitui as anteriores.
-        /// </summary>
-        public string xCorrecao { get; set; }
-
-        /// <summary>
-        ///     HP20a - Condições de uso da Carta de Correção
-        /// </summary>
-        public string xCondUso { get; set; }
-
-        #endregion
 
         #region EPEC
 
@@ -169,7 +157,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -178,7 +166,7 @@ namespace NFe.Classes.Servicos.Evento
         public string nProtEvento { get; set; }
 
         #endregion
-        
+
         #region Insucesso NFe
         [XmlIgnore]
         public DateTimeOffset? dhTentativaEntrega { get; set; }
@@ -259,6 +247,111 @@ namespace NFe.Classes.Servicos.Evento
         {
             return longGPS.HasValue;
         }
+
+        #endregion
+
+        #region Comprovante Entrega NFe
+
+        /// <summary>
+        /// P30 - Data e hora do final da entrega
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhEntrega { get; set; }
+
+        /// <summary>
+        /// Proxy para dhEntrega no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhEntrega")]
+        public string ProxyDhEntrega
+        {
+            get { return dhEntrega.ParaDataHoraStringUtc(); }
+            set { dhEntrega = DateTimeOffset.Parse(value); }
+        }
+
+        /// <summary>
+        /// P31 - Número do documento de identificação da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string nDoc { get; set; }
+
+        /// <summary>
+        /// P32 - Nome da pessoa que assinou o Comprovante de Entrega da NF-e/>
+        /// </summary>
+        public string xNome { get; set; }
+
+        /// <summary>
+        /// P35 - Hash SHA-1, no formato Base64, resultante da concatenação de: Chave de Acesso da NF-e + Base64
+        /// da imagem capturada do Comprovante de Entrega da NFe (ex: imagem capturada da assinatura eletrônica, digital do recebedor, foto, etc).
+        /// </summary>
+        public string hashComprovante { get; set; }
+
+        /// <summary>
+        /// P36 - Data e hora da geração do hash da tentativa de entrega. Formato AAAA-MMDDThh:mm:ssTZD.
+        /// </summary>
+        [XmlIgnore]
+        public DateTimeOffset? dhHashComprovante { get; set; }
+
+        /// <summary>
+        /// Proxy para dhHashComprovante no formato AAAA-MM-DDThh:mm:ssTZD (UTC - Universal Coordinated Time)
+        /// </summary>
+        [XmlElement(ElementName = "dhHashComprovante")]
+        public string ProxyDhHashComprovante
+        {
+            get { return dhHashComprovante.ParaDataHoraStringUtc(); }
+            set { dhHashComprovante = DateTimeOffset.Parse(value); }
+        }
+
+        #endregion
+
+        #region Conciliação Financeira
+
+        /// <summary>
+        /// P21 - Grupo de detalhamento do pagamento
+        /// </summary>
+        [XmlElement("detPag")]
+        public List<detPagEvento> detPag { get; set; }
+
+        public bool ShouldSerializedetPag()
+        {
+            return detPag != null;
+        }
+
+        #endregion
+
+        #region Ator Interessado NFe
+        /// <summary>
+        /// P23 - Pessoas autorizadas a acessar o XML da NF-e
+        /// </summary>
+        [XmlElement("autXML")]
+        public List<autXML> autXML { get; set; }
+
+        /// <summary>
+        /// P26 - 0 = Não permite;
+        /// 1 = Permite o transportador autorizado pelo
+        /// emitente ou destinatário autorizar outros
+        /// transportadores para ter acesso ao download da
+        /// NF-e
+        /// </summary>
+        public TipoAutorizacao? tpAutorizacao { get; set; }
+
+        public bool ShouldSerializetpAutorizacao()
+        {
+            return tpAutorizacao != null;
+        }
+
+        #endregion
+
+        #region Carta de Correção
+
+        /// <summary>
+        /// HP20 - Correção a ser considerada, texto livre. A correção mais recente substitui as anteriores.
+        /// </summary>
+        public string xCorrecao { get; set; }
+
+        /// <summary>
+        /// HP20a - Condições de uso da Carta de Correção.
+        /// P27 - Condição de uso do tipo de autorização para o transportador.
+        /// </summary>
+        public string xCondUso { get; set; }
 
         #endregion
 

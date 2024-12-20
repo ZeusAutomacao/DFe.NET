@@ -14,10 +14,10 @@ namespace CTe.Servicos.EnviarCte
         public RetornoEnviarCte Enviar(int lote, Classes.CTe cte, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
-            
+
             ServicoCTeRecepcao servicoRecepcao = new ServicoCTeRecepcao();
 
-            retEnviCte retEnviCte = servicoRecepcao.CTeRecepcao(lote, new List<Classes.CTe> {cte}, configServico);
+            retEnviCte retEnviCte = servicoRecepcao.CTeRecepcao(lote, new List<Classes.CTe> { cte }, configServico);
 
             if (retEnviCte.cStat != 103)
             {
@@ -27,7 +27,6 @@ namespace CTe.Servicos.EnviarCte
             ConsultaReciboServico servicoConsultaRecibo = new ConsultaReciboServico(retEnviCte.infRec.nRec);
 
             retConsReciCTe retConsReciCTe = servicoConsultaRecibo.Consultar(configServico);
-
 
             cteProc cteProc = null;
             if (retConsReciCTe.cStat == 104)
@@ -54,6 +53,7 @@ namespace CTe.Servicos.EnviarCte
         public async Task<RetornoEnviarCte> EnviarAsync(int lote, Classes.CTe cte, ConfiguracaoServico configuracaoServico = null)
         {
             var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             ServicoCTeRecepcao servicoRecepcao = new ServicoCTeRecepcao();
 
             retEnviCte retEnviCte = await servicoRecepcao.CTeRecepcaoAsync(lote, new List<Classes.CTe> { cte }, configServico);

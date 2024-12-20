@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System.Xml.Serialization;
+using DFe.Classes.Assinatura;
 
 namespace NFe.Classes.Servicos.Evento
 {
@@ -47,5 +48,12 @@ namespace NFe.Classes.Servicos.Evento
         ///     HR11 - Grupo de informações do registro do Evento
         /// </summary>
         public infEventoRet infEvento { get; set; }
+
+        /// <summary>
+        ///     HR91 - Assinatura Digital do documento XML, a assinatura deverá ser aplicada no elemento infEvento.
+        ///     A decisão de assinar a mensagem fica da critério da UF.
+        /// </summary>
+        [XmlElement(Namespace = "http://www.w3.org/2000/09/xmldsig#")]
+        public Signature Signature { get; set; }
     }
 }

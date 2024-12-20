@@ -61,8 +61,11 @@ namespace NFe.Utils
         private bool _unZip = true;
         private VersaoServico _versaoRecepcaoEventoCceCancelamento;
         private VersaoServico _versaoRecepcaoEventoInsucessoEntrega;
+        private VersaoServico _versaoRecepcaoEventoComprovanteEntrega;
+        private VersaoServico _versaoRecepcaoEventoConciliacaoFinanceira;
         private VersaoServico _versaoRecepcaoEventoEpec;
         private VersaoServico _versaoRecepcaoEventoManifestacaoDestinatario;
+        private VersaoServico _versaoRecepcaoEventoAtorInteressado;
         private VersaoServico _versaoNfeRecepcao;
         private VersaoServico _versaoNfeRetRecepcao;
         private VersaoServico _versaoNfeConsultaCadastro;
@@ -236,8 +239,11 @@ namespace NFe.Utils
             {
                 VersaoRecepcaoEventoCceCancelamento = obterVersao(ServicoNFe.RecepcaoEventoCancelmento);
                 VersaoRecepcaoEventoInsucessoEntrega = obterVersao(ServicoNFe.RecepcaoEventoInsucessoEntregaNFe);
+                VersaoRecepcaoEventoComprovanteEntrega = obterVersao(ServicoNFe.RecepcaoEventoComprovanteEntregaNFe);
+                VersaoRecepcaoEventoConciliacaoFinanceira = obterVersao(ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe);
                 VersaoRecepcaoEventoEpec = obterVersao(ServicoNFe.RecepcaoEventoEpec);
                 VersaoRecepcaoEventoManifestacaoDestinatario = obterVersao(ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+                VersaoRecepcaoEventoAtorInteressado = obterVersao(ServicoNFe.RecepcaoEventoAtorInteressado);
                 VersaoNfeRecepcao = obterVersao(ServicoNFe.NfeRecepcao);
                 VersaoNfeRetRecepcao = obterVersao(ServicoNFe.NfeRetRecepcao);
                 VersaoNfeConsultaCadastro = obterVersao(ServicoNFe.NfeConsultaCadastro);
@@ -300,6 +306,34 @@ namespace NFe.Utils
         }
 
         /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Comprovante de Entrega da NFe
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoComprovanteEntrega
+        {
+            get { return _versaoRecepcaoEventoComprovanteEntrega; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoComprovanteEntrega) return;
+                _versaoRecepcaoEventoComprovanteEntrega = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Conciliação Financeira da NFe
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoConciliacaoFinanceira
+        {
+            get { return _versaoRecepcaoEventoConciliacaoFinanceira; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoConciliacaoFinanceira) return;
+                _versaoRecepcaoEventoConciliacaoFinanceira = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         ///     Versão do serviço RecepcaoEvento para Manifestação do destinatário
         /// </summary>
         public VersaoServico VersaoRecepcaoEventoManifestacaoDestinatario
@@ -309,6 +343,20 @@ namespace NFe.Utils
             {
                 if (value == _versaoRecepcaoEventoManifestacaoDestinatario) return;
                 _versaoRecepcaoEventoManifestacaoDestinatario = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Ator interessado
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoAtorInteressado
+        {
+            get { return _versaoRecepcaoEventoAtorInteressado; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoAtorInteressado) return;
+                _versaoRecepcaoEventoAtorInteressado = value;
                 OnPropertyChanged();
             }
         }

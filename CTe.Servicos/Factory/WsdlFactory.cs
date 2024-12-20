@@ -134,9 +134,11 @@ namespace CTe.Servicos.Factory
 
         public static CteRecepcaoEventoV4 CriaWsdlCteEventoV4(ConfiguracaoServico configuracaoServico = null, X509Certificate2 certificado = null)
         {
-            var url = UrlHelper.ObterUrlServico(configuracaoServico).CteRecepcaoEvento;
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var configuracaoWsdl = CriaConfiguracao(url, configuracaoServico, certificado);
+            var url = UrlHelper.ObterUrlServico(configServico).CteRecepcaoEvento;
+
+            var configuracaoWsdl = CriaConfiguracao(url, configServico, certificado);
 
             return new CteRecepcaoEventoV4(configuracaoWsdl);
         }
