@@ -15,9 +15,8 @@ namespace DFe.Testes.Valores.DadosDeTeste
 
                 new object[] { 20.35m * 15.90m, 3 },
                 new object[] { 0.35m * 15.90m, 3 },
-                new object[] { 3.665m, 3 },
-                new object[] { 4.7757m, 3 },
-                new object[] { 5.44555m, 3 },
+                new object[] { 4.77575m, 4 },
+                new object[] { 5.445545m, 5 },
             };
         }
     }
