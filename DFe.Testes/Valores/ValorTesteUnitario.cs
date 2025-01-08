@@ -7,14 +7,14 @@ namespace DFe.Testes.Valores
     [TestClass]
     public class ValorTesteUnitario
     {
-        [TestMethod]
+        [TestMethod(displayName: "Dado um valor e uma quantidade de casas decimais, quando o arredondamento for feito utilizando os métodos da DFe e NFe, então o valor arredondado deve ser igual em ambos os casos")]
         [DynamicData(nameof(ValorDadosDeTeste.ObterValoresDecimaisParaArredondar), typeof(ValorDadosDeTeste), DynamicDataSourceType.Method)]
-        public void Teste(decimal valor, int casasDecimais)
+        public void DadoUmValorEUmaQuantidadeDeCasasDecimaisQuandoOArredondamentoForFeitoUtilizandoOsMetodosDaDfeENfeEntaoOValorArredondadoDeveSerIgualEmAmbosOsCasos(decimal valor, int casasDecimais)
         {
-            var valorArredondadoNfe = Classes.Valor.Arredondar(valor, casasDecimais);
-            var valorArredondadoDfe = Valor.Arredondar(valor, casasDecimais);
+            var valorArredondadoDfe = Classes.Valor.Arredondar(valor, casasDecimais);
+            var valorArredondadoNfe = Valor.Arredondar(valor, casasDecimais);
 
-            Assert.AreEqual(valorArredondadoNfe, valorArredondadoDfe);
+            Assert.AreEqual(valorArredondadoDfe, valorArredondadoNfe);
         }
     }
 }
