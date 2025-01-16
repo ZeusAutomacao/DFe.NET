@@ -44,14 +44,21 @@ namespace DFe.Utils
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="input"></param>
+        /// <param name="ignorarOrdenacaoElementos">true caso o XML possa conter elementos fora de ordem</param>
         /// <returns></returns>
-        public static T XmlStringParaClasse<T>(string input) where T : class
+        public static T XmlStringParaClasse<T>(string input, bool ignorarOrdenacaoElementos = false) where T : class
         {
             var keyNomeClasseEmUso = typeof(T).FullName;
-            var ser = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
+
+            XmlSerializer serializador;
+            if(ignorarOrdenacaoElementos) {
+                serializador = XmlOrderFreeSerializerFactory.GetSerializer(typeof(T));
+            } else {
+                serializador = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
+            }
 
             using (var sr = new StringReader(input))
-                return (T)ser.Deserialize(sr);
+                return (T)serializador.Deserialize(sr);
         }
 
         /// <summary>
@@ -61,7 +68,7 @@ namespace DFe.Utils
         /// <typeparam name="T">Classe</typeparam>
         /// <param name="arquivo">Arquivo XML</param>
         /// <returns>Retorna a classe</returns>
-        public static T ArquivoXmlParaClasse<T>(string arquivo) where T : class
+        public static T ArquivoXmlParaClasse<T>(string arquivo, bool ignorarOrdenacaoElementos = false) where T : class
         {
             if (!File.Exists(arquivo))
             {
@@ -69,7 +76,14 @@ namespace DFe.Utils
             }
 
             var keyNomeClasseEmUso = typeof(T).FullName;
-            var serializador = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
+
+            XmlSerializer serializador;
+            if (ignorarOrdenacaoElementos) {
+                serializador = XmlOrderFreeSerializerFactory.GetSerializer(typeof(T));
+            } else {
+                serializador = BuscarNoCache(keyNomeClasseEmUso, typeof(T));
+            }
+
             var stream = new FileStream(arquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
             try
             {
