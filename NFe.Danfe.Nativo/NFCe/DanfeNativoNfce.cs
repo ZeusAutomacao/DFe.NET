@@ -568,6 +568,22 @@ namespace NFe.Danfe.Nativo.NFCe
                 int dataAutorizacaoX = (larguraLinha - dataAutorizacao.Medida.Largura) / 2;
                 dataAutorizacao.Desenhar(dataAutorizacaoX, _y);
                 _y += dataAutorizacao.Medida.Altura;
+
+                if (_proc.protNFe.infProt.xMsg != null)
+                {
+                    var dezenas = new AdicionarTexto(g, _proc.protNFe.infProt.xMsg.ToString(), 7);
+                    var quebraLinhaDezenas = new DefineQuebraDeLinha(
+                        dezenas,
+                        new ComprimentoMaximo(larguraLinhaMargemDireita),
+                        dezenas.Medida.Largura
+                    );
+
+                    dezenas = quebraLinhaDezenas.DesenharComQuebras(g);
+
+                    int dezenasX = (larguraLinha - dezenas.Medida.Largura) / 2;
+                    dezenas.Desenhar(dezenasX, _y);
+                    _y += dezenas.Medida.Altura;
+                }
             }
 
             if (_nfe.infNFe.ide.tpEmis != TipoEmissao.teNormal)
