@@ -74,7 +74,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
         public DanfeNativoNfce(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null, bool viaEstabelecimento = false)
         {
-            Inicializa(xml, versaoQrCode, logo, cIdToken, csc, troco, totalPago, font);
+            Inicializa(xml, versaoQrCode, logo, cIdToken, csc, troco, totalPago, font, viaEstabelecimento);
         }
 
         private void Inicializa(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null, bool viaEstabelecimento = false, string fontPadrao = "")
