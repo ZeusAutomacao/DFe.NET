@@ -1457,11 +1457,11 @@ namespace NFe.Utils.Enderecos
                     addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx");
                     addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx");
 
-                    addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
-                    addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(eventoCceCanc, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
-                    addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.svc.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
+                    addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.sefazvirtual.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
+                    addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.sefazvirtual.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
+                    addServico(eventoCceCanc, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.sefazvirtual.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
+                    addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, hom, TipoEmissao.teSVCAN, estado, modelo, "https://hom.sefazvirtual.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
             }
 
@@ -1480,11 +1480,11 @@ namespace NFe.Utils.Enderecos
                     addServico(new[] { ServicoNFe.NFeAutorizacao }, versao3, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NfeAutorizacao/NfeAutorizacao.asmx");
                     addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao3, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NfeRetAutorizacao/NfeRetAutorizacao.asmx");
 
-                    addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
-                    addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
-                    addServico(eventoCceCanc, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
-                    addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
-                    addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.svc.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
+                    addServico(new[] { ServicoNFe.NfeConsultaProtocolo }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.sefazvirtual.fazenda.gov.br/NFeConsultaProtocolo4/NFeConsultaProtocolo4.asmx");
+                    addServico(new[] { ServicoNFe.NfeStatusServico }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.sefazvirtual.fazenda.gov.br/NFeStatusServico4/NFeStatusServico4.asmx");
+                    addServico(eventoCceCanc, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.sefazvirtual.fazenda.gov.br/NFeRecepcaoEvento4/NFeRecepcaoEvento4.asmx");
+                    addServico(new[] { ServicoNFe.NFeAutorizacao }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.sefazvirtual.fazenda.gov.br/NFeAutorizacao4/NFeAutorizacao4.asmx");
+                    addServico(new[] { ServicoNFe.NFeRetAutorizacao }, versao4, prod, TipoEmissao.teSVCAN, estado, modelo, "https://www.sefazvirtual.fazenda.gov.br/NFeRetAutorizacao4/NFeRetAutorizacao4.asmx");
                 }
             }
 
