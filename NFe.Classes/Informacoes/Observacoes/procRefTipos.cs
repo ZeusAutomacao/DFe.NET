@@ -59,7 +59,7 @@ namespace NFe.Classes.Informacoes.Observacoes
     /// </summary>
     public enum TipoAtoConcessorio
     {
-        [XmlEnum("8")] termoAcordo = 8,
+        [XmlEnum("08")] termoAcordo = 8,
         [XmlEnum("10")] regimeEspecial = 10,
         [XmlEnum("12")] autorizacaoEspecifica = 12,
         [XmlEnum("13")] ajusteSINIEF = 13,
