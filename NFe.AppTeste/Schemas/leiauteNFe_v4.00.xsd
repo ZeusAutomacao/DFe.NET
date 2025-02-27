@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2008 (http://www.altova.com) by sas-software@procergs.rs.gov.br (PROCERGS) -->
+<!-- edited with XMLSpy v2011 sp1 (http://www.altova.com) by End User (free.org) -->
 <!-- PL_009  alterações de esquema decorrentes da - NT2016.002 v1.20 - 31/05/2017 13:14hs-->
 <!-- PL_008g  alterações de esquema decorrentes da - NT2015.002  - 15/07/2015 -->
 <!-- PL_008h  alterações de esquema decorrentes da - NT2015.003 - 17/09/2015 -->
@@ -17,6 +17,7 @@
 <!-- PL_009l_NT2023_002_v100 - Alteração de Schema para evitar caracteres inválidos  -->
 <!-- PL_009m_NT2019_001_v155 - Inclusão de campos para Crédito Presumido e Redução da base de cálculo -->
 <!-- PL_009m_NT2023_004_v101 - Informações de Pagamentos e Outros -->
+<!-- PL_009p_NT2024_003_v101 - Produtos agropecuários -->
 <xs:schema xmlns="http://www.portalfiscal.inf.br/nfe" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:editix="http://www.portalfiscal.inf.br/nfe" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.portalfiscal.inf.br/nfe" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema_v1.01.xsd"/>
 	<xs:include schemaLocation="tiposBasico_v4.00.xsd"/>
@@ -6283,6 +6284,88 @@ tipo de ato concessório:
 										</xs:simpleType>
 									</xs:element>
 								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="agropecuario" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Produtos Agropecurários Animais, Vegetais e Florestais</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:choice>
+									<xs:element name="defensivo">
+										<xs:annotation>
+											<xs:documentation>Defensivo Agrícola / Agrotóxico</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="nReceituario">
+													<xs:annotation>
+														<xs:documentation>Número do Receituário ou Receita do Defensivo / Agrotóxico</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:maxLength value="20"/>
+															<xs:minLength value="1"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="CPFRespTec" type="TCpf">
+													<xs:annotation>
+														<xs:documentation>CPF do Responsável Técnico pelo receituário</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="guiaTransito">
+										<xs:annotation>
+											<xs:documentation>Guias De Trânsito de produtos agropecurários animais, vegetais e de origem florestal.</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="tpGuia">
+													<xs:annotation>
+														<xs:documentation>Tipo da Guia: 1 - GTA; 2 - TTA; 3 - DTA; 4 - ATV; 5 - PTV; 6 - GTV; 7 - Guia Florestal (DOF, SisFlora - PA e MT, SIAM - MG)</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:whiteSpace value="preserve"/>
+															<xs:enumeration value="1"/>
+															<xs:enumeration value="2"/>
+															<xs:enumeration value="3"/>
+															<xs:enumeration value="4"/>
+															<xs:enumeration value="5"/>
+															<xs:enumeration value="6"/>
+															<xs:enumeration value="7"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="UFGuia" type="TUfEmi" minOccurs="0"/>
+												<xs:element name="serieGuia" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>Série da Guia</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="TString">
+															<xs:minLength value="1"/>
+															<xs:maxLength value="9"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+												<xs:element name="nGuia">
+													<xs:annotation>
+														<xs:documentation>Número da Guia</xs:documentation>
+													</xs:annotation>
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:pattern value="[0-9]{1,9}"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:choice>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>
