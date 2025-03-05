@@ -71,10 +71,12 @@ namespace NFe.Danfe.Nativo.NFCe
         private decimal _totalPago;
         private int _y;
         private VersaoQrCode _versaoQrCode;
+        private string creditos = String.Empty;
 
-        public DanfeNativoNfce(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null, bool viaEstabelecimento = false)
+        public DanfeNativoNfce(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco = decimal.Zero, decimal totalPago = decimal.Zero, string font = null, bool viaEstabelecimento = false, string creditos = null)
         {
             Inicializa(xml, versaoQrCode, logo, cIdToken, csc, troco, totalPago, font, viaEstabelecimento);
+            this.creditos = creditos;
         }
 
         private void Inicializa(string xml, VersaoQrCode versaoQrCode, byte[] logo, string cIdToken, string csc, decimal troco, decimal totalPago, string font = null, bool viaEstabelecimento = false, string fontPadrao = "")
@@ -644,6 +646,20 @@ namespace NFe.Danfe.Nativo.NFCe
                 observacao.Desenhar(x, _y);
 
                 _y += observacao.Medida.Altura;
+            }
+
+
+            if (!string.IsNullOrEmpty(this.creditos))
+            {
+                LinhaHorizontal(g, x, _y, larguraLinha);
+
+                var creditos = new AdicionarTexto(g, this.creditos, 7);
+                var quebraCredito = new DefineQuebraDeLinha(creditos,
+                    new ComprimentoMaximo(larguraLinhaMargemDireita), creditos.Medida.Largura);
+                creditos = quebraCredito.DesenharComQuebras(g);
+                creditos.Desenhar(x, _y);
+
+                _y += creditos.Medida.Altura;
             }
         }
 
