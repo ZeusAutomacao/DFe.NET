@@ -17,8 +17,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DadosDeTestes\DadosDeTestes.csproj" />
 		<ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
 		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Valores\DadosDeTeste\" />
 	</ItemGroup>
 
 </Project>
