@@ -571,18 +571,18 @@ namespace NFe.Danfe.Nativo.NFCe
 
                 if (_proc.protNFe.infProt.xMsg != null)
                 {
-                    var dezenas = new AdicionarTexto(g, _proc.protNFe.infProt.xMsg.ToString(), 7);
+                    var mensagemAdicional = new AdicionarTexto(g, _proc.protNFe.infProt.xMsg.ToString(), 7);
                     var quebraLinhaDezenas = new DefineQuebraDeLinha(
-                        dezenas,
+                        mensagemAdicional,
                         new ComprimentoMaximo(larguraLinhaMargemDireita),
-                        dezenas.Medida.Largura
+                        mensagemAdicional.Medida.Largura
                     );
 
-                    dezenas = quebraLinhaDezenas.DesenharComQuebras(g);
+                    mensagemAdicional = quebraLinhaDezenas.DesenharComQuebras(g);
 
-                    int dezenasX = (larguraLinha - dezenas.Medida.Largura) / 2;
-                    dezenas.Desenhar(dezenasX, _y);
-                    _y += dezenas.Medida.Altura;
+                    int dezenasX = (larguraLinha - mensagemAdicional.Medida.Largura) / 2;
+                    mensagemAdicional.Desenhar(dezenasX, _y);
+                    _y += mensagemAdicional.Medida.Altura;
                 }
             }
 
