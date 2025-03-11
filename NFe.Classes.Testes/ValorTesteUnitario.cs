@@ -2,7 +2,6 @@ using DadosDeTestes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DFeArredondar = DFe.Classes.Valor;
 
-
 namespace NFe.Classes.Testes;
 
 [TestClass]
