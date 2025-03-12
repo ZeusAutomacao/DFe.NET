@@ -569,7 +569,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 dataAutorizacao.Desenhar(dataAutorizacaoX, _y);
                 _y += dataAutorizacao.Medida.Altura;
 
-                if (_proc.protNFe.infProt.xMsg != null)
+                if (!string.IsNullOrEmpty(_proc.protNFe.infProt.xMsg))
                 {
                     var mensagemAdicional = new AdicionarTexto(g, _proc.protNFe.infProt.xMsg.ToString(), 7);
                     var quebraLinhaDezenas = new DefineQuebraDeLinha(
