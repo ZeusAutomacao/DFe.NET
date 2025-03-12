@@ -24,13 +24,21 @@
 		<file src="..\..\CTe.Utils\bin\Release\netstandard2.0\CTe.Utils.dll" target="lib/netstandard2.0/CTe.Utils.dll" />
 		<file src="..\..\CTe.Wsdl\bin\Release\netstandard2.0\CTe.Wsdl.dll" target="lib/netstandard2.0/CTe.Wsdl.dll" />
 
-		<file src="..\..\DFe.Classes\bin\Release\net6.0\DFe.Classes.dll" target="lib/net6.0/DFe.Classes.dll" />
-		<file src="..\..\DFe.Utils\bin\Release\net6.0\DFe.Utils.dll" target="lib/net6.0/DFe.Utils.dll" />
-		<file src="..\..\DFe.Wsdl\bin\Release\net6.0\DFe.Wsdl.dll" target="lib/net6.0/DFe.Wsdl.dll" />
-		<file src="..\..\CTe.Classes\bin\Release\net6.0\CTe.Classes.dll" target="lib/net6.0/CTe.Classes.dll" />
-		<file src="..\..\CTe.Servicos\bin\Release\net6.0\CTe.Servicos.dll" target="lib/net6.0/CTe.Servicos.dll" />
-		<file src="..\..\CTe.Utils\bin\Release\net6.0\CTe.Utils.dll" target="lib/net6.0/CTe.Utils.dll" />
-		<file src="..\..\CTe.Wsdl\bin\Release\net6.0\CTe.Wsdl.dll" target="lib/net6.0/CTe.Wsdl.dll" />
+		<file src="..\..\DFe.Classes\bin\Release\net8.0\DFe.Classes.dll" target="lib/net8.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net8.0\DFe.Utils.dll" target="lib/net8.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net8.0\DFe.Wsdl.dll" target="lib/net8.0/DFe.Wsdl.dll" />
+		<file src="..\..\CTe.Classes\bin\Release\net8.0\CTe.Classes.dll" target="lib/net8.0/CTe.Classes.dll" />
+		<file src="..\..\CTe.Servicos\bin\Release\net8.0\CTe.Servicos.dll" target="lib/net8.0/CTe.Servicos.dll" />
+		<file src="..\..\CTe.Utils\bin\Release\net8.0\CTe.Utils.dll" target="lib/net8.0/CTe.Utils.dll" />
+		<file src="..\..\CTe.Wsdl\bin\Release\net8.0\CTe.Wsdl.dll" target="lib/net8.0/CTe.Wsdl.dll" />
+
+		<file src="..\..\DFe.Classes\bin\Release\net9.0\DFe.Classes.dll" target="lib/net9.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net9.0\DFe.Utils.dll" target="lib/net9.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net9.0\DFe.Wsdl.dll" target="lib/net9.0/DFe.Wsdl.dll" />
+		<file src="..\..\CTe.Classes\bin\Release\net9.0\CTe.Classes.dll" target="lib/net9.0/CTe.Classes.dll" />
+		<file src="..\..\CTe.Servicos\bin\Release\net9.0\CTe.Servicos.dll" target="lib/net9.0/CTe.Servicos.dll" />
+		<file src="..\..\CTe.Utils\bin\Release\net9.0\CTe.Utils.dll" target="lib/net9.0/CTe.Utils.dll" />
+		<file src="..\..\CTe.Wsdl\bin\Release\net9.0\CTe.Wsdl.dll" target="lib/net9.0/CTe.Wsdl.dll" />
 		
 		<file src="..\..\DFe.Classes\bin\Release\net462\DFe.Classes.dll" target="lib/net462/DFe.Classes.dll" />
 		<file src="..\..\DFe.Utils\bin\Release\net462\DFe.Utils.dll" target="lib/net462/DFe.Utils.dll" />

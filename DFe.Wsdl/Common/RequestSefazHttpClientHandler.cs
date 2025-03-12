@@ -47,7 +47,6 @@ namespace DFe.Wsdl.Common
             string url, int timeOut,
             TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
             {
                 throw new ArgumentNullException(
@@ -63,6 +62,7 @@ namespace DFe.Wsdl.Common
 
             using (HttpClientHandler handler = new HttpClientHandler())
             {
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
                 handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
                 handler.ClientCertificates.Add(certificadoDigital);
 
@@ -87,7 +87,6 @@ namespace DFe.Wsdl.Common
         public string SendRequest(XmlDocument xmlEnvelop, X509Certificate2 certificadoDigital, string url, int timeOut,
             TipoEvento? tipoEvento = null, string actionUrn = "")
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             if (!tipoEvento.HasValue && string.IsNullOrWhiteSpace(actionUrn))
             {
                 throw new ArgumentNullException(
@@ -103,6 +102,7 @@ namespace DFe.Wsdl.Common
 
             using (HttpClientHandler handler = new HttpClientHandler())
             {
+                handler.SslProtocols = System.Security.Authentication.SslProtocols.Tls12;
                 handler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
                 handler.ClientCertificates.Add(certificadoDigital);
 
