@@ -1,20 +1,30 @@
-﻿using DFe.Testes.Valores.DadosDeTeste;
+﻿using DadosDeTestes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NFe.Classes;
+using Valor = DFe.Classes.Valor;
 
 namespace DFe.Testes.Valores
 {
     [TestClass]
     public class ValorTesteUnitario
     {
-        [TestMethod(displayName: "Dado um valor e uma quantidade de casas decimais, quando o arredondamento for feito utilizando os métodos da DFe e NFe, então o valor arredondado deve ser igual em ambos os casos")]
-        [DynamicData(nameof(ValorDadosDeTeste.ObterValoresDecimaisParaArredondar), typeof(ValorDadosDeTeste), DynamicDataSourceType.Method)]
-        public void DadoUmValorEUmaQuantidadeDeCasasDecimaisQuandoOArredondamentoForFeitoUtilizandoOsMetodosDaDfeENfeEntaoOValorArredondadoDeveSerIgualEmAmbosOsCasos(decimal valor, int casasDecimais)
+        // Normativa ABNT NBR5891
+        [TestMethod(displayName: "Dado valor para arredondamento, quando o arredondar, então deve retornar o valor arredondado seguindo as normas da ABNT.")]
+        [DynamicData(nameof(ValorDadosDeTeste.ObterValoresParaArredondamentoSegundoNormativaAbnt), typeof(ValorDadosDeTeste), DynamicDataSourceType.Method)]
+        public void DadoValorParaArredondamentoQuandoArredondarEntaoDeveRetornarOValorArredondadoSeguindoAsNormasDaAbnt(decimal valor, decimal valorEsperado)
         {
-            var valorArredondadoDfe = Classes.Valor.Arredondar(valor, casasDecimais);
-            var valorArredondadoNfe = Valor.Arredondar(valor, casasDecimais);
+            var casasDecimaisParaArredondamento = 2;
+            var valorArredondadoDfe = Valor.Arredondar(valor,casasDecimaisParaArredondamento);
 
-            Assert.AreEqual(valorArredondadoDfe, valorArredondadoNfe);
+            Assert.AreEqual(valorArredondadoDfe, valorEsperado);
+        }
+        
+        [TestMethod(displayName: "Dado valor para arredondamento nulo, quando o arredondar, então deve retornar nulo.")]
+        public void DadoValorParaArredondamentoQuandoArredondarEntaoOValorArredondadoDeveSeguirAsNormasDaAbnt()
+        {
+            var casasDecimaisParaArredondamento = 2;
+            var valorArredondadoDfe = Valor.Arredondar(null,casasDecimaisParaArredondamento);
+
+            Assert.IsNull(valorArredondadoDfe);
         }
     }
 }
