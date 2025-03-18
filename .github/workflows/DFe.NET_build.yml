@@ -77,6 +77,7 @@ jobs:
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.NFe.NFCe\Zeus.Net.NFe.NFCe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.MDFe\Zeus.Net.MDFe.csproj
         dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Zeus.Net.CTe\Zeus.Net.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NFe.Danfe.Html\NFe.Danfe.Html.csproj
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
@@ -131,12 +132,12 @@ jobs:
           -d '{
                 "tag_name": "${{ needs.build.outputs.version }}",
                 "name": "${{ needs.build.outputs.version }}",
-                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/${{ needs.build.outputs.version }})\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/${{ needs.build.outputs.version }})\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/${{ needs.build.outputs.version }})",
+                "body": "Esta é a release da versão ${{ needs.build.outputs.version }} do Zeus DFe.NET.\n\n### Links dos pacotes no NuGet:\n- [Zeus.NFe.NFCe](https://www.nuget.org/packages/Zeus.Net.NFe.NFCe/${{ needs.build.outputs.version }})\n- [Zeus.MDFe](https://www.nuget.org/packages/Zeus.Net.MDFe/${{ needs.build.outputs.version }})\n- [Zeus.CTe](https://www.nuget.org/packages/Zeus.Net.CTe/${{ needs.build.outputs.version }})\n- [Zeus.NFe.Danfe.Html](https://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/${{ needs.build.outputs.version }})",
                 "draft": false,
                 "prerelease": false
               }' \
           https://api.github.com/repos/${{ github.repository }}/releases
-
+  
       - name: Discord notification
         continue-on-error: true
         env:
