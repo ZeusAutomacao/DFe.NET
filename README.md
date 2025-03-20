@@ -27,7 +27,6 @@ A melhor maneira de você ter a última versão do Zeus em seu projeto é utiliz
 [![Build status](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml/badge.svg?branch=master)](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml)
 [![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
 
-
 [![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
  Zeus.NFe.NFCe
@@ -39,7 +38,11 @@ A melhor maneira de você ter a última versão do Zeus em seu projeto é utiliz
 [![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
  Zeus.CTe  
- 
+
+[![Nuget downloads](https://img.shields.io/nuget/dt/NFe.Danfe.Html.svg)](http://www.nuget.org/packages/NFe.Danfe.Html/)
+[![Nuget count](https://img.shields.io/nuget/v/NFe.Danfe.Html.svg)](http://www.nuget.org/packages/NFe.Danfe.Html/)
+NFe.Danfe.Html
+
 ## O que a biblioteca faz:
 ------------------
 O projeto traz classes construídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutura exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
@@ -135,6 +138,44 @@ COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 
 O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
 
+## DANFE em HTML Gerado a partir de NFe
+Este projeto é uma aplicação WPF em C# que gera um DANFE (Documento Auxiliar da Nota Fiscal Eletrônica) em formato HTML a partir de um arquivo XML de NFe. O arquivo gerado é salvo como .html e aberto automaticamente no navegador.
+
+- **Funcionalidades**:
+  - **Seleção de Arquivo XML**: O usuário escolhe o arquivo XML da NFe.
+  - **Validação e Carregamento**: O XML é validado. Se for uma NFe não transmitida, tenta-se carregá-la como pré-visualizada.
+  - **Geração do DANFE**: A biblioteca `NFe.Danfe.Html` gera o DANFE em HTML.
+  - **Abertura do Arquivo**: O arquivo HTML gerado é automaticamente aberto no navegador.
+
+- **Tecnologias Usadas**:
+  - **WPF (Windows Presentation Foundation)**: Para a interface gráfica.
+  - **NFe.Danfe.Html**: Para gerar o DANFE em HTML.
+  - **System.IO e System.Diagnostics**: Para manipulação de arquivos e abertura do arquivo gerado.
+
+- **Como Usar**:
+  1. Compile e execute a aplicação.
+  2. Clique no botão para gerar o DANFE.
+  3. Selecione o arquivo XML da NFe.
+  4. O arquivo HTML será gerado e aberto automaticamente.
+
+### Exemplo de Código em C#:
+```cs
+try{
+    // Carregar NFe transmitida
+    proc = new nfeProc().CarregarDeArquivoXml(arquivoXml);
+}
+catch{
+    // Carregar NFe não transmitida (pré-visualizada)
+    proc = new nfeProc()
+    {
+        NFe = new Classes.NFe().CarregarDeArquivoXml(arquivoXml),
+        protNFe = new Classes.Protocolo.protNFe()
+    };
+} 
+DanfeNFe danfe = new DanfeNFe(proc.NFe, Status.Autorizada, "55512121121211", "Emissor Fiscal DSBR Brasil - www.dsbrbrasil.com.br");
+IDanfeHtml2 d1 = new DanfeNfeHtml2(danfe);
+Documento doc = d1.ObterDocHtmlAsync().Result;   
+```
 ## Suporte:
 
 O uso dessa biblioteca não lhe dá quaisquer garantias de suporte. No entanto se tiver dúvidas a respeito do uso desta biblioteca, abra um novo Issue aqui mesmo no github.
