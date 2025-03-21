@@ -1,7 +1,7 @@
 ﻿<Window x:Class="NFe.Danfe.AppTeste.QuestPdf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Gerador de DANFE NFC-e" Height="250" Width="400">
+        Title="Gerador de DANFE NFC-e" Height="400" Width="400">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -10,6 +10,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
             <ComboBox x:Name="ComboBox_TamanhoImpressao"
                       Margin="0,0,0,15"
                       Width="250"
@@ -19,6 +20,18 @@
                 <ComboBoxItem Content="Impressão 50mm" Tag="3"/>
             </ComboBox>
 
+            <GroupBox Header="Logomarca" Margin="0,0,0,15">
+                <StackPanel Orientation="Horizontal">
+                    <Border BorderThickness="1" BorderBrush="Gray" Width="100" Height="100" Margin="5">
+                        <Image x:Name="LogoEmitente" Stretch="Uniform"/>
+                    </Border>
+                    <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                        <Button Content="Carregar Logo" Width="120" Click="BtnCarregarLogo_Click" Margin="0,0,0,5"/>
+                        <Button Content="Remover Logo" Width="120" Click="BtnRemoverLogo_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+
             <Button Width="250"
                     Padding="10"
                     Click="Button_GerarDanfe_Click">
@@ -26,6 +39,7 @@
                            TextAlignment="Center"
                            Text="Selecionar XML e gerar DANFE NFC-e"/>
             </Button>
+
         </StackPanel>
     </Grid>
 </Window>
