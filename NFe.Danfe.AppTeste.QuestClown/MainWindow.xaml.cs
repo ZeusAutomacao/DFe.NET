@@ -57,6 +57,5 @@ namespace NFe.Danfe.AppTeste.QuestPdf
                 MessageBox.Show($"Erro ao gerar DANFE NFC-e: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }
