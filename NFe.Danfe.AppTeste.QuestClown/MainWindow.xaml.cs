@@ -3,13 +3,17 @@ using NFe.Classes;
 using NFe.Danfe.QuestPdf.ImpressaoNfce;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace NFe.Danfe.AppTeste.QuestPdf
 {
     public partial class MainWindow : Window
     {
+        private byte[]? _logoMarcaBytes;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -41,14 +45,49 @@ namespace NFe.Danfe.AppTeste.QuestPdf
             }
         }
 
-        private static void GerarDanfeNfce(string caminhoXml, TamanhoImpressao tamanho)
+        private void BtnCarregarLogo_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Imagens (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+                Title = "Selecione uma imagem para a logomarca"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    var bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                    LogoEmitente.Source = bitmap;
+
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+                    using var stream = new MemoryStream();
+                    encoder.Save(stream);
+                    _logoMarcaBytes = stream.ToArray();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao carregar logomarca: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void BtnRemoverLogo_Click(object sender, RoutedEventArgs e)
+        {
+            _logoMarcaBytes = null;
+            LogoEmitente.Source = null;
+        }
+
+        private void GerarDanfeNfce(string caminhoXml, TamanhoImpressao tamanho)
         {
             try
             {
                 var proc = new nfeProc().CarregarDeArquivoXml(caminhoXml);
                 var xml = proc.ObterXmlString();
 
-                var documento = new DanfeNfceDocument(xml, null);
+                var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
                 documento.TamanhoImpressao(tamanho);
                 documento.GeneratePdfAndShow();
             }
