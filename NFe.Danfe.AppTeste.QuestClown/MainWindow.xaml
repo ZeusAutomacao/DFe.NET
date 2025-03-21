@@ -24,7 +24,7 @@
                     Click="Button_GerarDanfe_Click">
                 <TextBlock TextWrapping="Wrap"
                            TextAlignment="Center"
-                           Text="Selecionar XML e gerar DANFE"/>
+                           Text="Selecionar XML e gerar DANFE NFC-e"/>
             </Button>
         </StackPanel>
     </Grid>
