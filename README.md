@@ -139,24 +139,7 @@ COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
 
 ## DANFE em HTML Gerado a partir de NFe
-Este projeto é uma aplicação WPF em C# que gera um DANFE (Documento Auxiliar da Nota Fiscal Eletrônica) em formato HTML a partir de um arquivo XML de NFe. O arquivo gerado é salvo como .html e aberto automaticamente no navegador.
-
-- **Funcionalidades**:
-  - **Seleção de Arquivo XML**: O usuário escolhe o arquivo XML da NFe.
-  - **Validação e Carregamento**: O XML é validado. Se for uma NFe não transmitida, tenta-se carregá-la como pré-visualizada.
-  - **Geração do DANFE**: A biblioteca `NFe.Danfe.Html` gera o DANFE em HTML.
-  - **Abertura do Arquivo**: O arquivo HTML gerado é automaticamente aberto no navegador.
-
-- **Tecnologias Usadas**:
-  - **WPF (Windows Presentation Foundation)**: Para a interface gráfica.
-  - **NFe.Danfe.Html**: Para gerar o DANFE em HTML.
-  - **System.IO e System.Diagnostics**: Para manipulação de arquivos e abertura do arquivo gerado.
-
-- **Como Usar**:
-  1. Compile e execute a aplicação.
-  2. Clique no botão para gerar o DANFE.
-  3. Selecione o arquivo XML da NFe.
-  4. O arquivo HTML será gerado e aberto automaticamente.
+Há uma aplicação demostrativa(NFe.Danfe.App.Teste.Html) em WPF em C# que gera um DANFE (Documento Auxiliar da Nota Fiscal Eletrônica) em formato HTML a partir de um arquivo XML de NFe. O arquivo gerado é salvo como .html e aberto automaticamente no navegador.
 
 ### Exemplo de Código em C#:
 ```cs
@@ -175,6 +158,86 @@ catch{
 DanfeNFe danfe = new DanfeNFe(proc.NFe, Status.Autorizada, "55512121121211", "Emissor Fiscal DSBR Brasil - www.dsbrbrasil.com.br");
 IDanfeHtml2 d1 = new DanfeNfeHtml2(danfe);
 Documento doc = d1.ObterDocHtmlAsync().Result;   
+```
+## Impressão (QuestPDF):
+
+Esta aplicação utiliza a biblioteca **[QuestPDF](https://www.questpdf.com/)** para geração de documentos PDF como DANFE NFC-e, eventos e carta de correção de forma moderna e customizável.
+
+> ⚠️ É necessário definir a licença da biblioteca em algum ponto da aplicação:
+```cs
+QuestPDF.Settings.License = LicenseType.Community;
+// adicionar isso em algum local da sua aplicação ou licença equivalente para mais informações sobre licenças  https://www.questpdf.com/
+```
+
+NFC-e 
+
+```cs
+private void GerarDanfeNfce(string caminhoXml, TamanhoImpressao tamanho)
+{
+    var proc = new nfeProc().CarregarDeArquivoXml(caminhoXml);
+    var xml = proc.ObterXmlString();
+
+    var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
+    documento.TamanhoImpressao(tamanho);
+    documento.GeneratePdfAndShow();
+}
+```
+
+Carta Correção ou eventos
+
+```cs
+[HttpPost("carta-correcao")]
+[Produces("application/json")]
+[ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
+[ProducesResponseType(200)]
+public Task<IActionResult> GerarDanfeCce([FromBody] NotaFiscalCartaCorrecaoImprimirModel model)
+{
+    if (string.IsNullOrEmpty(model.XmlNfe))
+    {
+        AddError("Selecione um XML de NF-e");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+    if (string.IsNullOrEmpty(model.XmlCartaCorrecao))
+    {
+        AddError("Selecione um XML de Carta Correção de NF-e");
+        return Task.FromResult<IActionResult>(CustomResponse());
+    }
+
+
+    var documento = new EventoNfeDocument(model.XmlNfe, model.XmlCartaCorrecao, model.LogoBytes);
+
+    var documentoBytes = documento.GeneratePdf();
+
+    var base64Pdf = Convert.ToBase64String(documentoBytes);
+
+    return Task.FromResult<IActionResult>(CustomResponse(new RetornaPdfBase64(base64Pdf)));
+}
+```
+
+## Impressão (PDFClown):
+
+Há uma aplicação de exemplo(NFe.Danfe.AppTeste.PdfClown) demonstra como gerar o DANFE de uma NF-e em PDF utilizando a biblioteca **PDFClown**.  
+Abaixo, você encontra um exemplo de código que realiza a geração do PDF a partir de um XML da NF-e, com suporte opcional à logomarca do emitente:
+
+```cs
+private static byte[] GerarDanfeZion(string xmlNfeProc, byte[]? logoMarca)
+{
+    xmlNfeProc = xmlNfeProc.Replace("\u00a0", " ");
+    var model = DanfeViewModelCreator.CriarDeStringXml(xmlNfeProc);
+
+    using var pdfStream = new MemoryStream();
+    using var danfe = new DanfeDoc(model);
+
+    if (logoMarca != null)
+    {
+        using var logo = new MemoryStream(logoMarca);
+        danfe.AdicionarLogoImagem(logo);
+    }
+
+    danfe.Gerar();
+    return danfe.ObterPdfBytes(pdfStream);
+}
 ```
 ## Suporte:
 
