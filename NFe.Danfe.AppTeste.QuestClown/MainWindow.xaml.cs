@@ -22,55 +22,42 @@ namespace NFe.Danfe.AppTeste.QuestPdf
 
         private void Button_GerarDanfe_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog
-            {
-                Filter = "Arquivos XML (*.xml)|*.xml",
-                Title = "Selecione um arquivo XML da NFC-e"
-            };
+            var caminhoXml = SelecionarArquivoXml();
+            if (string.IsNullOrEmpty(caminhoXml))
+                return;
 
-            if (openFileDialog.ShowDialog() == true)
+            var tamanho = ObterTamanhoImpressaoSelecionado();
+            if (tamanho == null)
             {
-                var selectedItem = ComboBox_TamanhoImpressao.SelectedItem as ComboBoxItem;
-                var tagValue = selectedItem?.Tag?.ToString();
+                MessageBox.Show("Selecione um tamanho de impressão válido.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
-                if (int.TryParse(tagValue, out int tamanhoEnumValue))
-                {
-                    var tamanho = (TamanhoImpressao)tamanhoEnumValue;
-                    GerarDanfeNfce(openFileDialog.FileName, tamanho);
-                }
-                else
-                {
-                    MessageBox.Show("Selecione um tamanho de impressão válido.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+            try
+            {
+                GerarDanfeNfce(caminhoXml, tamanho.Value);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar DANFE NFC-e: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void BtnCarregarLogo_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog
+            var caminhoImagem = SelecionarImagem();
+            if (string.IsNullOrEmpty(caminhoImagem))
+                return;
+
+            try
             {
-                Filter = "Imagens (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
-                Title = "Selecione uma imagem para a logomarca"
-            };
-
-            if (openFileDialog.ShowDialog() == true)
+                var bitmap = CarregarImagem(caminhoImagem);
+                LogoEmitente.Source = bitmap;
+                _logoMarcaBytes = ConverterParaPngBytes(bitmap);
+            }
+            catch (Exception ex)
             {
-                try
-                {
-                    var bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
-                    LogoEmitente.Source = bitmap;
-
-                    var encoder = new PngBitmapEncoder();
-                    encoder.Frames.Add(BitmapFrame.Create(bitmap));
-
-                    using var stream = new MemoryStream();
-                    encoder.Save(stream);
-                    _logoMarcaBytes = stream.ToArray();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Erro ao carregar logomarca: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show($"Erro ao carregar logomarca: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -80,21 +67,67 @@ namespace NFe.Danfe.AppTeste.QuestPdf
             LogoEmitente.Source = null;
         }
 
+        private static string? SelecionarArquivoXml()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Arquivos XML (*.xml)|*.xml",
+                Title = "Selecione um arquivo XML da NFC-e"
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
+        }
+
+        private static string? SelecionarImagem()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Imagens (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg",
+                Title = "Selecione uma imagem para a logomarca"
+            };
+
+            return dialog.ShowDialog() == true ? dialog.FileName : null;
+        }
+
+        private static BitmapImage CarregarImagem(string caminho)
+        {
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.UriSource = new Uri(caminho);
+            bitmap.EndInit();
+            return bitmap;
+        }
+
+        private static byte[] ConverterParaPngBytes(BitmapImage bitmap)
+        {
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using var stream = new MemoryStream();
+            encoder.Save(stream);
+            return stream.ToArray();
+        }
+
+        private TamanhoImpressao? ObterTamanhoImpressaoSelecionado()
+        {
+            var selectedItem = ComboBox_TamanhoImpressao.SelectedItem as ComboBoxItem;
+            var tagValue = selectedItem?.Tag?.ToString();
+
+            if (int.TryParse(tagValue, out int enumValue))
+                return (TamanhoImpressao)enumValue;
+
+            return null;
+        }
+
         private void GerarDanfeNfce(string caminhoXml, TamanhoImpressao tamanho)
         {
-            try
-            {
-                var proc = new nfeProc().CarregarDeArquivoXml(caminhoXml);
-                var xml = proc.ObterXmlString();
+            var proc = new nfeProc().CarregarDeArquivoXml(caminhoXml);
+            var xml = proc.ObterXmlString();
 
-                var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
-                documento.TamanhoImpressao(tamanho);
-                documento.GeneratePdfAndShow();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao gerar DANFE NFC-e: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            var documento = new DanfeNfceDocument(xml, _logoMarcaBytes);
+            documento.TamanhoImpressao(tamanho);
+            documento.GeneratePdfAndShow();
         }
     }
 }
