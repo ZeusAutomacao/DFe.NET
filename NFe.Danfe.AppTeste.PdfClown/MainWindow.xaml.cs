@@ -68,7 +68,8 @@ namespace NFe.Danfe.AppTeste.PdfClown
                 Title = "Selecione uma imagem para a logomarca"
             };
 
-            return dialog.ShowDialog() == true ? dialog.FileName : null;
+            var result = dialog.ShowDialog() == true ? dialog.FileName : null;
+            return result;
         }
 
         private static string? SelecionarXml()
@@ -135,9 +136,9 @@ namespace NFe.Danfe.AppTeste.PdfClown
 
         private static void AbrirPdfTemporario(byte[] pdfBytes)
         {
-            var tempFile = Path.Combine(Path.GetTempPath(), "danfe-nfe.pdf");
-            File.WriteAllBytes(tempFile, pdfBytes);
-            Process.Start(new ProcessStartInfo(tempFile) { UseShellExecute = true });
+            var caminhoTemporario = Path.Combine(Path.GetTempPath(), "danfe-nfe.pdf");
+            File.WriteAllBytes(caminhoTemporario, pdfBytes);
+            Process.Start(new ProcessStartInfo(caminhoTemporario) { UseShellExecute = true });
         }
     }
 }

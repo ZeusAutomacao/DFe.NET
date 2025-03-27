@@ -24,7 +24,7 @@
 
             <Button Width="250"
                     Padding="10"
-                    Click="Button_GerarDanfe_Click">
+                    Click="Btn_GerarDanfe_Click">
                 <TextBlock TextWrapping="Wrap"
                            TextAlignment="Center"
                            Text="Selecionar XML e gerar DANFE NF-e"/>

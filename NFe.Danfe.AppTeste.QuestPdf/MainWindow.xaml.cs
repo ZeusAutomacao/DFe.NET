@@ -75,7 +75,8 @@ namespace NFe.Danfe.AppTeste.QuestPdf
                 Title = "Selecione um arquivo XML da NFC-e"
             };
 
-            return dialog.ShowDialog() == true ? dialog.FileName : null;
+            var result = dialog.ShowDialog() == true ? dialog.FileName : null;
+            return result;
         }
 
         private static string? SelecionarImagem()
