@@ -1,28 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PackageId>Zeus.Net.NFe.Danfe.QuestPdf</PackageId>
+		<Title>Zeus.Net.NFe.Danfe.QuestPdf</Title>
+		<Authors>ZeusAutomacao</Authors>
+		<Company>Zeus Automacao</Company>
+		<Description>Biblioteca para geração de DANFE em PDF usando QuestPDF.</Description>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Fontes\Arial.ttf" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Fontes\Arial.ttf" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Fontes\Arial.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Fontes\Arial.ttf">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</EmbeddedResource>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BarcodeLib" Version="3.1.4" />
-    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />
-    <PackageReference Include="Hercules.NET.NFe.NFCe" Version="2024.9.19.1844" />
-    <PackageReference Include="QuestPDF" Version="2024.7.3" />
-    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
-    <PackageReference Include="SkiaSharp.QrCode" Version="0.7.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BarcodeLib" Version="3.1.4" />
+		<PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" Version="7.3.0.2" />
+		<PackageReference Include="QuestPDF" Version="2024.7.3" />
+		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.8" />
+		<PackageReference Include="SkiaSharp.QrCode" Version="0.7.0" />
+		<PackageReference Include="Zeus.Net.NFe.NFCe" Version="2025.3.28.1516" />
+	</ItemGroup>
 
 </Project>
