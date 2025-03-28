@@ -39,17 +39,17 @@ A melhor maneira de você ter a última versão do Zeus em seu projeto é utiliz
 [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
  Zeus.CTe
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/NFe.Danfe.Html.svg)](http://www.nuget.org/packages/NFe.Danfe.Html/)
-[![Nuget count](https://img.shields.io/nuget/v/NFe.Danfe.Html.svg)](http://www.nuget.org/packages/NFe.Danfe.Html/)
-NFe.Danfe.Html
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.Html.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.Html.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/)
+Zeus.Net.NFe.Danfe.Html
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/NFe.Danfe.PdfClown/)
-[![Nuget count](https://img.shields.io/nuget/v/NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/NFe.Danfe.PdfClown/)
-NFe.Danfe.PdfClown
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.PdfClown/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.PdfClown/)
+Zeus.Net.NFe.Danfe.PdfClown
 
-[![Nuget downloads](https://img.shields.io/nuget/dt/NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/NFe.Danfe.QuestPdf/)
-[![Nuget count](https://img.shields.io/nuget/v/NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/NFe.Danfe.QuestPdf/)
-NFe.Danfe.NFe.Danfe.QuestPdf
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.QuestPdf/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.QuestPdf/)
+Zeus.Net.NFe.Danfe.QuestPdf
 
 ## O que a biblioteca faz:
 ------------------
