@@ -142,7 +142,7 @@ O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamo
 O repositório contém uma aplicação demonstrativa chamada NFe.Danfe.App.Teste.Html, desenvolvida em WPF (C#), que permite gerar o DANFE (Documento Auxiliar da Nota Fiscal Eletrônica) em formato HTML a partir de um arquivo XML de NF-e. O HTML gerado é salvo como um arquivo .html e aberto automaticamente no navegador padrão do sistema.
 
 ## Impressão (QuestPDF):
-A aplicação também utiliza a biblioteca QuestPDF para gerar documentos em PDF de forma moderna e customizável, também possuindo uma aplicação de testes demonstrativa chamada NFe.Danfe.AppTeste.QuestPDF:
+A aplicação também utiliza a biblioteca QuestPDF para gerar documentos em PDF de forma moderna e customizável, incluindo a geração de NFCe. Ela também possui uma aplicação de testes demonstrativa chamada NFe.Danfe.AppTeste.QuestPDF:
 
 > ⚠️ É necessário definir a licença da biblioteca em algum ponto da aplicação:
 ```cs
