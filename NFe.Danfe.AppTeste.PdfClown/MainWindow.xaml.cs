@@ -75,7 +75,7 @@ namespace NFe.Danfe.AppTeste.PdfClown
             LogoEmitente.Source = null;
         }
 
-        private void Button_GerarDanfe_Click(object sender, RoutedEventArgs e)
+        private void Btn_GerarDanfe_Click(object sender, RoutedEventArgs e)
         {
             var caminhoXml = SelecionarXml();
             if (string.IsNullOrEmpty(caminhoXml))
