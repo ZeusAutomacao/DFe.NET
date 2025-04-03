@@ -67,6 +67,11 @@ danfe.Visualizar();
 //danfe.Imprimir();
 //danfe.ExibirDesign();
 ```
+
+## Contribuindo com a biblioteca
+
+Para saber como contribuir com o projeto, consulte as [Diretrizes de Contribuição](CONTRIBUTING.md). Desde já agradecemos sua contribuição e esperamos que você aproveite e colabore com o desenvolvimento do projeto DFe.NET!
+
 ## Como usar a ferramenta:
 -----------
 Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
