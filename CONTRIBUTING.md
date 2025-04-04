@@ -57,7 +57,7 @@ O sistema exibe a exceção "System.NullReferenceException".
 
 ### Solicitação de recursos ou melhorias
 
-Antes de criar a issue solicitando algum recursos ou melhoria, verifique se a solicitação já não foi proposta ou discutida anteriormente para evitar duplicidade. Caso já exista uma discussão, contribua nela em vez de abrir uma nova issue. Se não houver nenhuma issue aberta sobre o assunto, descreva claramente o novo recurso, os benefícios que ele traria e, quando possível, o que seria necessário para viabilizar sua implementação.
+Antes de criar a issue solicitando algum recurso ou melhoria, verifique se a solicitação já não foi proposta ou discutida anteriormente para evitar duplicidade. Caso já exista uma discussão, contribua nela em vez de abrir uma nova issue. Se não houver nenhuma issue aberta sobre o assunto, descreva claramente o novo recurso, os benefícios que ele traria e, quando possível, o que seria necessário para viabilizar sua implementação.
 
 **Modelo para solicitar recursos ou melhorias:**
 
@@ -120,7 +120,7 @@ Os commits devem ser atômicos e lógicos, garantindo que cada um contenha apena
 
 Se as alterações no código fizerem com que os testes falhem, os testes devem ser corrigidos no mesmo commit.  
 
-Para mudanças significativas, divida seu trabalho em commits separados para facilitar a revisão. Isso ajuda a manter o histórico organizado e torna mais fácil identificar e entender cada alteração individualmente. (Verificar a possibilidade de sugerir, como opcional, aplicar a técnica de squash commit)  
+Para mudanças significativas, divida seu trabalho em commits separados para facilitar a revisão. Isso ajuda a manter o histórico organizado e torna mais fácil identificar e entender cada alteração individualmente. De maneira opcional, caso ache interessante, utilize a estratégia de *squash commit* para mesclar commits relacionados e manter o histórico coerente e simplificado. Link de apoio para aplicar o squash commit: [Git Squash Commits – Squashing the Last N Commits into One Commit](https://www.freecodecamp.org/news/git-squash-commits/)
 
 A mensagem do commit deve descrever claramente como o comportamento está mudando e o motivo da alteração. Evite descrições vagas como "corrige bug" ou "ajuste", bem como commits sem descrição. Orientamos utilizar o formato [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0/) para garantir uniformidade e facilitar a compreensão do histórico de alterações.
 
@@ -135,7 +135,7 @@ Após concluir as alterações na sua branch, abra um Pull Request (PR) da branc
 4. Em seu PR, forneça uma descrição clara e objetiva sobre quais mudanças foram feitas e o motivo da alteração
 5. Se houver uma issue vinculada à implementação do seu PR, faça a associação para facilitar o rastreamento
 6. Caso haja alguma pendência, resolva-a antes de abrir o PR. Corrija conflitos, erros no pipeline e outras pendências antes de enviar a solicitação
-7. Após a abertura do PR, aguarde a revisão. Verifique periodicamente se solicitações foram adicionadas pelos revisores. Caso hajam, realize as correções necessárias e atualize o PR.
+7. Após a abertura do PR, aguarde a revisão. Verifique periodicamente se solicitações foram adicionadas pelos revisores. Caso haja, realize as correções necessárias e atualize o PR.
 
 
 ### Convenções de código, padrões e boas práticas
@@ -154,7 +154,7 @@ Para garantir clareza, consistência e qualidade, adote as seguintes diretrizes:
   - Aberto/Fechado: projete o sistema para permitir novas funcionalidades sem alterar o comportamento existente.
   - Substituição de Liskov: componentes derivados devem substituir os genéricos sem comprometer a integridade.
   - Segregação de Interfaces: mantenha interfaces focadas e específicas.
-  - Inversão de Dependência: baseie dependências em abstrações, não em implementações concretas.
+  - Inversão de Dependência: estruture dependências em abstrações, não em implementações concretas.
 - [KISS](https://dev.to/suspir0n/kiss-mantenha-a-simplicidade-estupido-24lh) (Keep It Simple, Stupid): opte por soluções simples e diretas, evitando complexidade desnecessária.
 - [DRY](https://medium.com/@rafaelsouzaim/n%C3%A3o-se-repita-dry-dont-repeat-yourself-40da33289bcf) (Don't Repeat Yourself): centralize a lógica repetitiva para um código mais sustentável e menos propenso a erros.
 - Outras boas práticas:

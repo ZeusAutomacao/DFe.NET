@@ -74,7 +74,7 @@ Para saber como contribuir com o projeto, consulte as [Diretrizes de Contribuiç
 
 ## Como usar a ferramenta:
 -----------
-Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
+Antes de qualquer coisa leia os manuais e conheça a fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
 
 Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. A linguagem utilizada é C#, logo um conhecimento basico da linguagem pode te ajudar bastante, mesmo que você use apenas as dlls com VB.Net ou outra linguagem compatível.
 
