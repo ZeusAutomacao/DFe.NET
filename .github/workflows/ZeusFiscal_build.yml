@@ -98,9 +98,9 @@ jobs:
   deploy:
     needs: build
     if: github.event_name == 'push' || github.event.inputs.nugetdeploy == 'true'
-    runs-on: windows-2022
-
-    steps:
+    runs-on: ${{ 'ubuntu-latest' }}
+    
+    steps:    
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -120,12 +120,46 @@ jobs:
         run: dotnet nuget push *.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
-          
+
+      - name: Generate Release Notes
+        id: release_notes
+        run: |
+          git fetch --tags
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            echo "notes=$(git log --oneline)" >> $GITHUB_OUTPUT
+          else
+            echo "notes=$(git log --oneline $PREV_TAG..HEAD)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ needs.build.outputs.version }}
+          name: "Release ${{ needs.build.outputs.version }}"
+          body: |
+            🚀 Nova versão Hercules/ZeusFiscal publicada: **${{ needs.build.outputs.version }}**
+
+            ### Commits desde a última versão:
+            ${{ steps.release_notes.outputs.notes }}
+
+            ### Pacotes NuGet publicados:
+            - Hercules.NET.NFe.NFCe
+            - Hercules.NET.MDFe
+            - Hercules.NET.CTe
+            - Hercules.NET.Impressao.NFCe.QuestPdf
+
+          files: |
+            ${{ github.workspace }}/*.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Discord notification
         continue-on-error: true
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          DISCORD_MENSAGEM: ${{ needs.build.outputs.version }}
+          DISCORD_MENSAGEM: "🚀 Lançado Hercules.NET/ZeusFiscal versão ${{ needs.build.outputs.version }} no NuGet!\n\nVeja a release: https://github.com/${{ github.repository }}/releases/tag/${{ needs.build.outputs.version }}"
         uses: Ilshidur/action-discord@master
         with:
-          args: 'Lançado Hercules.NET/ZeusFiscal versão {{ DISCORD_MENSAGEM }} no Nuget! Acesse: https://www.nuget.org/profiles/Hercules.NET'
+          args: '{{ DISCORD_MENSAGEM }}'
+           
