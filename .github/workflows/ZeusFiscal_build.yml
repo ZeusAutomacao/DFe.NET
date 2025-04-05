@@ -33,7 +33,9 @@ jobs:
 
       - name: Setando Versão
         id: date
-        run: echo "date=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+        run: |
+          $date = Get-Date -Format "yyyy.MM.dd.HHmm"
+          echo "date=$date" >> $env:GITHUB_OUTPUT
 
       - name: Mostrar Versão
         run: echo ${{ steps.date.outputs.date }}
