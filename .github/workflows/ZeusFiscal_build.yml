@@ -113,12 +113,14 @@ jobs:
       - name: Setup NuGet
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 6.0.x
-
-      - name: Push NuGet packages
+          dotnet-version: 9.0.x
+          
+      - name: Push to NuGet Feed
+        working-directory: ${{ github.workspace }}
         run: dotnet nuget push *.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
-        working-directory: ./ZeusFiscal
-        
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
+          
       - name: Discord notification
         continue-on-error: true
         env:
