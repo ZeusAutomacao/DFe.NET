@@ -175,7 +175,7 @@ namespace NFe.AppTeste.NetCore
                 #region Status do serviço
                 using (ServicosNFe servicoNFe = new ServicosNFe(_configuracoes.CfgServico))
                 {
-                    var retornoStatus = servicoNFe.NfeStatusServico();
+                    var retornoStatus = servicoNFe.NfeStatusServico(exceptionCompleta: true);
                     OnSucessoSync(retornoStatus);
                 }
                 #endregion
