@@ -115,11 +115,10 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
-      - name: Push to NuGet Feed
-        run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_AUTH_TOKEN }}
-
+      - name: Push NuGet packages
+        run: dotnet nuget push *.nupkg --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
+        working-directory: ./ZeusFiscal
+        
       - name: Discord notification
         continue-on-error: true
         env:
