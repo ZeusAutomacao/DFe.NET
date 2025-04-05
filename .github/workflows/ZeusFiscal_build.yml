@@ -1,5 +1,8 @@
 name: ZeusFiscal_build
 
+permissions:
+  contents: write  # necessário para criar releases
+  
 on:
   workflow_dispatch:
     inputs:
