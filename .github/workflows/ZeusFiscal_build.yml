@@ -44,8 +44,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: |
+            9.0.x
             6.0.x
-            4.6.2
 
       - name: Build/Restore Base
         run: |
