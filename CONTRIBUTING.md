@@ -140,26 +140,47 @@ Após concluir as alterações na sua branch, abra um Pull Request (PR) da branc
 
 ### Convenções de código, padrões e boas práticas
 
-Para garantir clareza, consistência e qualidade, adote as seguintes diretrizes: (Adicionar links para as documentações dos conceitos)
+Para garantir clareza, consistência e qualidade no código, adote as seguintes diretrizes:
 
+- Os nomes de métodos, atributos e classes auxiliares devem ser escritos em português;
+- Os nomes das classes e atributos constantes no Manual de Orientação do Contribuinte devem ser escritos exatamente como constam na documentação, respeitando a diferenciação entre maiúsculas e minúsculas (case sensitive). Exemplo: se o atributo ou classe começar com letra minúscula, ele deve ser mantido dessa forma no código C#.
+- Todas as classes devem conter um cabeçalho com a licença e os direitos de uso;
+- Ao referenciar objetos ou métodos na documentação XML, utilize `<see cref="">`. Exemplo:
+```csharp
+/// <summary>
+/// Obtém o certificado digital.
+/// <para>
+/// Se <see cref="ConfiguracaoCertificado.Arquivo"/> for informado, será usado o método <see cref="ObterDeArquivo(string,string)"/>.
+/// Caso contrário, será usado <see cref="ObterDoRepositorio()"/>.
+/// </para>
+/// <para>Após o uso, invoque <see cref="X509Certificate2.Reset()"/>.</para>
+/// </summary>
+```
+- Todas as classes, atributos e métodos devem ser documentados no formato XML. A documentação dos atributos e classes do projeto `*.Classes` deve incluir o código e a descrição conforme especificado no Manual de Orientação do Contribuinte, seguindo o padrão adotado no projeto `NFe.Classes`. Exemplo:
+```csharp
+/// <summary>
+///     PR06 - Versão do Aplicativo que processou a consulta.
+/// </summary>
+public string verAplic { get; set; }
+```
 - Siga as convenções da Microsoft, conforme definido em:
   - [Regras e Convenções de Nomenclatura do Identificador C#](https://learn.microsoft.com/pt-br/dotnet/csharp/fundamentals/coding-style/identifier-names)
   - [Convenções Comuns de Código C#](https://learn.microsoft.com/pt-br/dotnet/csharp/fundamentals/coding-style/coding-conventions)
 - Testes automatizados:
-  - Implemente testes automatizados para validar fluxos positivos e cenários de falha.
-  - Organize os testes de forma a refletir a estrutura do código, garantindo isolamento e reprodutibilidade.
+  - Implemente testes automatizados para validar fluxos positivos e cenários de falha;
+  - Organize os testes de forma a refletir a estrutura do código, garantindo isolamento e reprodutibilidade;
   - Utilize o padrão de nomenclatura [Given-When-Then](https://martinfowler.com/bliki/GivenWhenThen.html).
 - Princípios [S.O.L.I.D.](https://medium.com/desenvolvendo-com-paixao/o-que-%C3%A9-solid-o-guia-completo-para-voc%C3%AA-entender-os-5-princ%C3%ADpios-da-poo-2b937b3fc530):
-  - Responsabilidade Única: cada classe ou método deve ter uma responsabilidade clara.
-  - Aberto/Fechado: projete o sistema para permitir novas funcionalidades sem alterar o comportamento existente.
-  - Substituição de Liskov: componentes derivados devem substituir os genéricos sem comprometer a integridade.
-  - Segregação de Interfaces: mantenha interfaces focadas e específicas.
-  - Inversão de Dependência: estruture dependências em abstrações, não em implementações concretas.
-- [KISS](https://dev.to/suspir0n/kiss-mantenha-a-simplicidade-estupido-24lh) (Keep It Simple, Stupid): opte por soluções simples e diretas, evitando complexidade desnecessária.
-- [DRY](https://medium.com/@rafaelsouzaim/n%C3%A3o-se-repita-dry-dont-repeat-yourself-40da33289bcf) (Don't Repeat Yourself): centralize a lógica repetitiva para um código mais sustentável e menos propenso a erros.
+  - Responsabilidade Única: cada classe ou método deve ter uma responsabilidade clara;
+  - Aberto/Fechado: projete o sistema para permitir novas funcionalidades sem alterar o comportamento existente;
+  - Substituição de Liskov: componentes derivados devem substituir os genéricos sem comprometer a integridade;
+  - Segregação de Interfaces: mantenha interfaces focadas e específicas;
+  - Inversão de Dependência: estruture dependências em abstrações, não em implementações concretas;
+- [KISS](https://dev.to/suspir0n/kiss-mantenha-a-simplicidade-estupido-24lh) (Keep It Simple, Stupid): opte por soluções simples e diretas, evitando complexidade desnecessária;
+- [DRY](https://medium.com/@rafaelsouzaim/n%C3%A3o-se-repita-dry-dont-repeat-yourself-40da33289bcf) (Don't Repeat Yourself): centralize a lógica repetitiva para um código mais sustentável e menos propenso a erros;
 - Outras boas práticas:
-  - Use nomes autoexplicativos.
-  - Mantenha responsabilidades bem definidas em métodos e classes.
+  - Use nomes autoexplicativos;
+  - Mantenha responsabilidades bem definidas em métodos e classes;
   - Escreva código de fácil leitura e manutenção, minimizando a necessidade de comentários para esclarecer a intenção.
 
 
