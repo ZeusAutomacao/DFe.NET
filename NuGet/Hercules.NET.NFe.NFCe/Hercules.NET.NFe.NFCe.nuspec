@@ -24,13 +24,21 @@
 		<file src="..\..\NFe.Utils\bin\Release\netstandard2.0\NFe.Utils.dll" target="lib/netstandard2.0/NFe.Utils.dll" />
 		<file src="..\..\NFe.Wsdl.Standard\bin\Release\netstandard2.0\NFe.Wsdl.Standard.dll" target="lib/netstandard2.0/NFe.Wsdl.Standard.dll" />
 		
-		<file src="..\..\DFe.Classes\bin\Release\net6.0\DFe.Classes.dll" target="lib/net6.0/DFe.Classes.dll" />
-		<file src="..\..\DFe.Utils\bin\Release\net6.0\DFe.Utils.dll" target="lib/net6.0/DFe.Utils.dll" />
-		<file src="..\..\DFe.Wsdl\bin\Release\net6.0\DFe.Wsdl.dll" target="lib/net6.0/DFe.Wsdl.dll" />
-		<file src="..\..\NFe.Classes\bin\Release\net6.0\NFe.Classes.dll" target="lib/net6.0/NFe.Classes.dll" />
-		<file src="..\..\NFe.Servicos\bin\Release\net6.0\NFe.Servicos.dll" target="lib/net6.0/NFe.Servicos.dll" />
-		<file src="..\..\NFe.Utils\bin\Release\net6.0\NFe.Utils.dll" target="lib/net6.0/NFe.Utils.dll" />
-		<file src="..\..\NFe.Wsdl.Standard\bin\Release\net6.0\NFe.Wsdl.Standard.dll" target="lib/net6.0/NFe.Wsdl.Standard.dll" />
+		<file src="..\..\DFe.Classes\bin\Release\net8.0\DFe.Classes.dll" target="lib/net8.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net8.0\DFe.Utils.dll" target="lib/net8.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net8.0\DFe.Wsdl.dll" target="lib/net8.0/DFe.Wsdl.dll" />
+		<file src="..\..\NFe.Classes\bin\Release\net8.0\NFe.Classes.dll" target="lib/net8.0/NFe.Classes.dll" />
+		<file src="..\..\NFe.Servicos\bin\Release\net8.0\NFe.Servicos.dll" target="lib/net8.0/NFe.Servicos.dll" />
+		<file src="..\..\NFe.Utils\bin\Release\net8.0\NFe.Utils.dll" target="lib/net8.0/NFe.Utils.dll" />
+		<file src="..\..\NFe.Wsdl.Standard\bin\Release\net8.0\NFe.Wsdl.Standard.dll" target="lib/net8.0/NFe.Wsdl.Standard.dll" />
+
+		<file src="..\..\DFe.Classes\bin\Release\net9.0\DFe.Classes.dll" target="lib/net9.0/DFe.Classes.dll" />
+		<file src="..\..\DFe.Utils\bin\Release\net9.0\DFe.Utils.dll" target="lib/net9.0/DFe.Utils.dll" />
+		<file src="..\..\DFe.Wsdl\bin\Release\net9.0\DFe.Wsdl.dll" target="lib/net9.0/DFe.Wsdl.dll" />
+		<file src="..\..\NFe.Classes\bin\Release\net9.0\NFe.Classes.dll" target="lib/net9.0/NFe.Classes.dll" />
+		<file src="..\..\NFe.Servicos\bin\Release\net9.0\NFe.Servicos.dll" target="lib/net9.0/NFe.Servicos.dll" />
+		<file src="..\..\NFe.Utils\bin\Release\net9.0\NFe.Utils.dll" target="lib/net9.0/NFe.Utils.dll" />
+		<file src="..\..\NFe.Wsdl.Standard\bin\Release\net9.0\NFe.Wsdl.Standard.dll" target="lib/net9.0/NFe.Wsdl.Standard.dll" />
 		
 		<file src="..\..\DFe.Classes\bin\Release\net462\DFe.Classes.dll" target="lib/net462/DFe.Classes.dll" />
 		<file src="..\..\DFe.Utils\bin\Release\net462\DFe.Utils.dll" target="lib/net462/DFe.Utils.dll" />
