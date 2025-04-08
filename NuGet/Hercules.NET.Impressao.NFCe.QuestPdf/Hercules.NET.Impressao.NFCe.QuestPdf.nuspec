@@ -14,10 +14,18 @@
     <copyright>Hercules.NET</copyright>
     <language>pt-BR</language>
     <tags>df-e dfe cte ct-e</tags>
-  </metadata>
-  <dependencies>
+    <dependencies>
 
-		  <group targetFramework="net6.0">
+		  <group targetFramework="net8.0">
+			<dependency id="BarcodeLib" version="3.1.4" />
+			<dependency id="HarfBuzzSharp.NativeAssets.Linux" version="7.3.0.2" />
+			<dependency id="Hercules.NET.NFe.NFCe" version="2024.9.19.1844" />
+			<dependency id="QuestPDF" version="2024.7.3" />
+			<dependency id="SkiaSharp.NativeAssets.Linux.NoDependencies" version="2.88.8" />
+			<dependency id="SkiaSharp.QrCode" version="0.7.0" />
+		  </group>
+
+		  <group targetFramework="net9.0">
 			<dependency id="BarcodeLib" version="3.1.4" />
 			<dependency id="HarfBuzzSharp.NativeAssets.Linux" version="7.3.0.2" />
 			<dependency id="Hercules.NET.NFe.NFCe" version="2024.9.19.1844" />
@@ -27,8 +35,10 @@
 		  </group>
 
 		</dependencies>
+  </metadata>
 
   <files>
-    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net6.0\NFe.Danfe.QuestPdf.dll" target="src\NFe.Danfe.QuestPdf.dll" />
+    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net8.0\NFe.Danfe.QuestPdf.dll" target="src\net8.0\NFe.Danfe.QuestPdf.dll" />
+    <file src="..\..\NFe.Danfe.QuestPdf\bin\Release\net9.0\NFe.Danfe.QuestPdf.dll" target="src\net9.0\NFe.Danfe.QuestPdf.dll" />
   </files>
 </package>
