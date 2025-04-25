@@ -236,7 +236,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteStatusServico = @"https://cte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
                             CteRecepcaoGtve = @"https://cte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4",
-                            QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
+                            QrCode = @"https://portalcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
                         };
                     }
 
@@ -248,7 +248,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                         CteInutilizacao = @"https://cte.fazenda.mg.gov.br/cte/services/CteInutilizacao",
                         CteRecepcaoEvento = @"https://cte.fazenda.mg.gov.br/cte/services/RecepcaoEvento",
                         CteConsulta = @"https://cte.fazenda.mg.gov.br/cte/services/CteConsulta",
-                        QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
+                        QrCode = @"https://portalcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml",
                         CTeDistribuicaoDFe = "https://www1.cte.fazenda.gov.br/CTeDistribuicaoDFe/CTeDistribuicaoDFe.asmx"
                     };
                 case Estado.PR:
@@ -455,7 +455,7 @@ namespace CTe.Servicos.Enderecos.Helpers
                             CteStatusServico = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeStatusServicoV4",
                             CteRecepcaoOs = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoOSV4",
                             CteRecepcaoGtve = @"https://hcte.fazenda.mg.gov.br/cte/services/CTeRecepcaoGTVeV4",
-                            QrCode = @"https://cte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
+                            QrCode = @"https://portalcte.fazenda.mg.gov.br/portalcte/sistema/qrcode.xhtml"
                         };
                     }
 
