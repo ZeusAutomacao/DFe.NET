@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="04/28/2025 16:02:23" ReportInfo.CreatorVersion="2022.2.9.0">
+<Report ScriptLanguage="CSharp" ReferencedAssemblies="System.dll&#13;&#10;System.Drawing.dll&#13;&#10;System.Windows.Forms.dll&#13;&#10;System.Data.dll&#13;&#10;System.Xml.dll&#13;&#10;MDFe.Classes.dll&#13;&#10;DFe.Classes.dll&#13;&#10;MDFe.Utils.dll" ReportInfo.Created="01/12/2017 09:00:32" ReportInfo.Modified="04/29/2025 15:20:33" ReportInfo.CreatorVersion="2022.2.9.0">
   <ScriptText>using System;
 using System.IO;
 using System.Collections;
@@ -29,6 +29,11 @@ namespace FastReport
 {
   public class ReportScript
   {
+    private void Page1_StartPage(object sender, EventArgs e)
+    {
+      Overlay1.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
+    }
+    
     private string ObterSiglaDeUF(string codigoUF)
     { 
       Estado estado = (Estado)System.Enum.Parse(typeof(Estado), codigoUF);
@@ -81,7 +86,7 @@ namespace FastReport
     private int? qtdeMDFe = 0;
 
     private void PageHeader1_BeforePrint(object sender, EventArgs e)
-    { 
+    {                                    
       var chave = Substring((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Id&quot;), 4);
       if (!string.IsNullOrEmpty(chave) &amp; chave.Length == 44)
       {
@@ -234,8 +239,7 @@ namespace FastReport
       Text40.Text = qtdeMDFe.ToString();
       
       DataDocumentoCancelado.Visible = ((Boolean)Report.GetParameterValue(&quot;DocumentoCancelado&quot;)) || ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)); 
-      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;;
-      Text61.Visible = ((TipoAmbiente)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.Ide.TpAmb&quot;)) == TipoAmbiente.Homologacao;
+      Text60.Text = ((Boolean)Report.GetParameterValue(&quot;DocumentoEncerrado&quot;)) ? &quot;DOCUMENTO ENCERRADO&quot; : &quot;DOCUMENTO CANCELADO&quot;; 
       
       if ((Boolean)Report.GetParameterValue(&quot;QuebrarLinhasObservacao&quot;))
         Text57.Text = ((String)Report.GetColumnValue(&quot;MDFeProcMDFe.MDFe.InfMDFe.InfAdic.InfCpl&quot;)).Replace(&quot;;&quot;,((String)Report.GetParameterValue(&quot;NewLine&quot;)));     
@@ -689,7 +693,7 @@ namespace FastReport
     <Parameter Name="Tabulation" DataType="System.String" AsString=""/>
     <Parameter Name="DocumentoCancelado" DataType="System.Boolean" AsString=""/>
   </Dictionary>
-  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" Watermark.Font="Arial, 60pt" FirstPageSource="261">
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="6" TopMargin="8" RightMargin="6" BottomMargin="8" FirstPageSource="261" Watermark.Font="Arial, 60pt" StartPageEvent="Page1_StartPage">
     <PageHeaderBand Name="PageHeader1" Width="748.44" Height="280.61" BeforePrintEvent="PageHeader1_BeforePrint">
       <TextObject Name="txtChaveMDFe" Left="387.7" Top="248.35" Width="349.1" Height="15.12" Padding="2, 0, 2, 4" VertAlign="Bottom" Font="Arial, 6pt"/>
       <TextObject Name="Text68" Left="2.78" Top="248.39" Width="256.38" Height="15.12" Text="[MDFeProcMDFe.ProtMDFe.InfProt.NProt] - [FormatDateTime([MDFeProcMDFe.ProtMDFe.InfProt.DhRecbto],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Padding="2, 0, 2, 4" VertAlign="Bottom" WordWrap="false" Font="Arial, 6pt"/>
@@ -778,14 +782,18 @@ namespace FastReport
       <TextObject Name="txtDocumentosFiscais" Top="19.28" Width="378" Height="18.9" CanGrow="true" Font="Arial, 7.5pt"/>
       <TextObject Name="Text181" Top="3.78" Width="122.85" Height="11.9" Text="Documentos Fiscais" Padding="0, 0, 2, 0" VertAlign="Center" Font="Times New Roman, 9.75pt, style=Bold"/>
     </DataBand>
-    <DataBand Name="DataInformacaoComplementar" Top="532.5" Width="748.44" Height="96.77" CanGrow="true" CanBreak="true" PrintOnBottom="true">
-      <TextObject Name="Text56" Top="3.45" Width="745.04" Height="14.45" Border.Lines="Bottom" Text="Observações" Padding="4, 0, 2, 0" Font="Arial, 8.25pt, style=Bold"/>
-      <TextObject Name="Text57" Left="1" Top="20.9" Width="745.75" Height="73.7" CanGrow="true" Text="&#13;&#10;" Padding="2, 4, 2, 2" Font="Arial, 8.25pt"/>
-      <TextObject Name="Text61" Left="4.45" Top="3.95" Width="738.55" Height="88.5" Text="MDF-e EMITIDO EM  AMIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 12pt, style=Bold" TextFill.Color="DarkGray"/>
+    <DataBand Name="DataInformacaoComplementar" Top="559.18" Width="748.44" Height="77.87" CanGrow="true" CanBreak="true">
+      <TextObject Name="Text57" Left="1" Top="2" Width="745.75" Height="73.7" CanGrow="true" Text="&#13;&#10;" Padding="2, 4, 2, 2" Font="Arial, 8.25pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="532.5" Width="748.44" Height="22.68" RepeatOnEveryPage="true">
+        <TextObject Name="Text56" Top="7.45" Width="745.04" Height="14.45" Border.Lines="Bottom" Text="Observações" Padding="4, 0, 2, 0" Font="Arial, 8.25pt, style=Bold"/>
+      </DataHeaderBand>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="633.27" Width="748.44" Height="12.47" CanGrow="true">
+    <PageFooterBand Name="PageFooter1" Top="641.05" Width="748.44" Height="11" CanGrow="true">
       <TextObject Name="Text58" Left="1" Top="2" Width="299.75" Height="9" Text="Data e Hora da impressão: [FormatDateTime([Date],&quot;dd/MM/yyyy HH:mm:ss&quot;)]" Font="Arial, 5.25pt"/>
       <TextObject Name="Text59" Left="437.05" Top="2" Width="309.2" Height="9" Text="Desenvolvido por: [Desenvolvedor]" HorzAlign="Right" Font="Arial, 5.25pt"/>
     </PageFooterBand>
+    <OverlayBand Name="Overlay1" Top="656.05" Width="748.44" Height="945">
+      <TextObject Name="Text61" Left="4.45" Top="873.35" Width="738.55" Height="69.6" Anchor="Bottom, Left, Right" Text="MDF-e EMITIDO EM AMBIENTE DE HOMOLOGAÇÃO&#13;&#10;SEM VALOR FISCAL" HorzAlign="Center" VertAlign="Bottom" Font="Arial Black, 20pt, style=Bold" TextFill.Color="DarkGray"/>
+    </OverlayBand>
   </ReportPage>
 </Report>
