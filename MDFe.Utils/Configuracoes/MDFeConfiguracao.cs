@@ -190,14 +190,15 @@ namespace MDFe.Utils.Configuracoes
 
         private void LimparCertificado()
         {
-            var naoDeveManterCertificadoEmCache =
-                !ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null;
+            var deveManterCertificadoEmCache = _certificado == null ||
+                                               ConfiguracaoCertificado == null ||
+                                               ConfiguracaoCertificado.ManterDadosEmCache;
 
-            if (naoDeveManterCertificadoEmCache)
-            {
-                _certificado.Reset();
-                _certificado = null;
-            }
+            if (deveManterCertificadoEmCache)
+                return;
+
+            _certificado.Reset();
+            _certificado = null;
         }
     }
 }
