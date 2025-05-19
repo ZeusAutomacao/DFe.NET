@@ -32,7 +32,7 @@ jobs:
     
     - name: Setando Versao
       id: date
-      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      run: echo "date=$(date +'%Y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
       
     - name: Versao
       run: echo ${{ steps.date.outputs.date }}
