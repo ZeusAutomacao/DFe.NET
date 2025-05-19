@@ -32,7 +32,9 @@ jobs:
     
     - name: Setando Versao
       id: date
-      run: echo "::set-output name=date::$(date +'%Y.%m.%d.%H%M')"
+      run: |
+        $date = Get-Date -Format "yyyy.MM.dd.HHmm"
+        echo "date=$date" >> $env:GITHUB_OUTPUT
       
     - name: Versao
       run: echo ${{ steps.date.outputs.date }}
