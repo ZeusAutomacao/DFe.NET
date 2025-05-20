@@ -8,6 +8,8 @@
         /// </summary>
         public TipoGuia tpGuia { get; set; }
 
+        #nullable enable
+
         /// <summary>
         /// ZF06 - UF de emissão
         /// </summary>
@@ -17,6 +19,8 @@
         /// ZF07 - Série da Guia
         /// </summary>
         public string? serieGuia { get; set; }
+
+        #nullable disable
 
         /// <summary>
         /// ZF08 - Número da Guia
