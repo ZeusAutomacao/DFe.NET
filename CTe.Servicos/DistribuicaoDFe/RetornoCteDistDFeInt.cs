@@ -31,8 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-
-
 using CTe.Classes.Servicos.DistribuicaoDFe;
 
 namespace CTe.Servicos.DistribuicaoDFe
@@ -46,12 +44,11 @@ namespace CTe.Servicos.DistribuicaoDFe
             RetornoCompletoStr = retornoCompletaStr;
             Retorno = retorno;
         }
-
-
+        
         public string EnvioStr { get; protected set; }
         public string RetornoStr { get; protected set; }
         public string RetornoCompletoStr { get; protected set; }
 
-        public new retDistDFeInt Retorno { get; set; }
+        public retDistDFeInt Retorno { get; set; }
     }
 }

@@ -19,7 +19,7 @@ namespace DFe.Utils
                 var bytes = File.ReadAllBytes(path);
                 return bytes.Length == 0 ? null : bytes;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
