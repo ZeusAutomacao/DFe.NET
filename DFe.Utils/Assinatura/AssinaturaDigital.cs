@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
@@ -81,6 +82,39 @@ namespace DFe.Utils.Assinatura
             var xmlDigitalSignature = docXml.GetXml();
             var assinatura = FuncoesXml.XmlStringParaClasse<Classes.Assinatura.Signature>(xmlDigitalSignature.OuterXml);
             return assinatura;
+        }
+        
+        /// <summary>
+        /// Gera uma assinatura digital no formato PKCS1 utilizando o algoritmo RSA com SHA-1.
+        /// </summary>
+        /// <param name="certificado">Certificado digital com chave privada usada para assinar.</param>
+        /// <param name="valor">Dados a serem assinados em formato de array de bytes.</param>
+        /// <returns>Assinatura digital como um array de bytes.</returns>
+        public static byte[] CriarAssinaturaPkcs1(X509Certificate2 certificado, byte[] valor)
+        {
+            var rsa = certificado.GetRSAPrivateKey();
+
+            var rsaFormatter = new RSAPKCS1SignatureFormatter(rsa);
+            rsaFormatter.SetHashAlgorithm("SHA1");
+
+            var hashSha1Bytes = ObterHashSha1Bytes(valor);
+            
+            var assinatura = rsaFormatter.CreateSignature(hashSha1Bytes);
+
+            return assinatura;
+        }
+        
+        /// <summary>
+        /// Obtém o hash SHA-1 em formato byte array a partir de um array de bytes informado.
+        /// </summary>
+        public static byte[] ObterHashSha1Bytes(byte[] dados)
+        {
+            using (var sha1 = SHA1.Create())
+            {
+                var sha1HashBytes = sha1.ComputeHash(dados);
+                
+                return sha1HashBytes;
+            }
         }
     }
 }
