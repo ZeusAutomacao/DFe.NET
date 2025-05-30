@@ -41,7 +41,6 @@ using MDFe.Utils.Flags;
 using MDFe.Utils.Validacao;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using MDFEletronico = MDFe.Classes.Informacoes.MDFe;
@@ -161,7 +160,7 @@ namespace MDFe.Classes.Extensoes
             if (mdfe.InfMDFe.Ide.TpEmis == MDFeTipoEmissao.Contingencia)
             {
                 var encoding = Encoding.UTF8;
-                var sign = Convert.ToBase64String(CreateSignaturePkcs1(config.X509Certificate2, encoding.GetBytes(mdfe.Chave())));
+                var sign = Convert.ToBase64String(AssinaturaDigital.CriarAssinaturaPkcs1(config.X509Certificate2, encoding.GetBytes(mdfe.Chave())));
                 mdfe.InfMDFeSupl.QrCodMDFe += "&sign=" + sign;
             }
 
@@ -254,7 +253,7 @@ namespace MDFe.Classes.Extensoes
             switch (mdfe.InfMDFe.Ide.TpEmis)
             {
                 case MDFeTipoEmissao.Contingencia:
-                    var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(mdfe.Chave())));
+                    var assinatura = Convert.ToBase64String(AssinaturaDigital.CriarAssinaturaPkcs1(certificadoDigital, encoding.GetBytes(mdfe.Chave())));
                     qrCode.Append("&sign=");
                     qrCode.Append(assinatura);
                     break;
@@ -264,24 +263,6 @@ namespace MDFe.Classes.Extensoes
             {
                 QrCodMDFe = qrCode.ToString()
             };
-        }
-
-        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
-        {
-            var rsa = certificado.GetRSAPrivateKey();
-
-            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
-
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-
-            byte[] hash = null;
-
-            hash = sha1.ComputeHash(Value);
-
-            rsaF.SetHashAlgorithm("SHA1");
-
-            return rsaF.CreateSignature(hash);
-
         }
     }
 }
