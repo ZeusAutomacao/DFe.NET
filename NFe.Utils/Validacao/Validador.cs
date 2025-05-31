@@ -172,7 +172,7 @@ namespace NFe.Utils.Validacao
             }
 
             if (falhas.Length > 0)
-                throw new ValidacaoSchemaException($"Ocorreu o seguinte erro durante a validação XML: {Environment.NewLine}{falhas}");
+                throw new ValidacaoSchemaException($"Ocorreu o seguinte erro durante a validação XML: {Environment.NewLine}{falhas}", stringXml);
 
             return falhas.ToString().Trim().Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
         }
