@@ -15,7 +15,21 @@ public class AssinaturaDigitalTesteUnitario
     {
         // Arrange
         var dadosEmBytes = Encoding.UTF8.GetBytes(dadosEmString);
-        var bytesEsperados = ObterHashSha1StringUsandoSha1CryptoServiceProvider(dadosEmBytes);
+        var bytesEsperados = ObterHashSha1BytesUsandoSha1CryptoServiceProvider(dadosEmBytes);
+
+        // Act
+        var bytesRetornado = AssinaturaDigital.ObterHashSha1Bytes(dadosEmBytes);
+
+        // Assert
+        CollectionAssert.AreEqual(bytesEsperados, bytesRetornado);
+    }
+    
+    [TestMethod(displayName: "Dado dados para geração do hash sha1 bytes, quando obter hash sha1 bytes, então deve obter hash sha1 em bytes.")]
+    [DynamicData(nameof(AssinaturaDigitalTesteDados.ObterDadosParaGeracaoDoHashSha1BytesEValorEsperado), typeof(AssinaturaDigitalTesteDados), DynamicDataSourceType.Method)]
+    public void DadoDadosParaGeracaoDoHashSha1BytesQuandoObterHashSha1BytesEntaoDeveObterHashSha1EmBytes(string dadosEmString, byte[] bytesEsperados)
+    {
+        // Arrange
+        var dadosEmBytes = Encoding.UTF8.GetBytes(dadosEmString);
 
         // Act
         var bytesRetornado = AssinaturaDigital.ObterHashSha1Bytes(dadosEmBytes);
@@ -24,7 +38,7 @@ public class AssinaturaDigitalTesteUnitario
         CollectionAssert.AreEqual(bytesEsperados, bytesRetornado);
     }
 
-    private byte[] ObterHashSha1StringUsandoSha1CryptoServiceProvider(byte[] dados)
+    private byte[] ObterHashSha1BytesUsandoSha1CryptoServiceProvider(byte[] dados)
     {
         var sha1 = new SHA1CryptoServiceProvider();
         var hashSha1Bytes = sha1.ComputeHash(dados);
