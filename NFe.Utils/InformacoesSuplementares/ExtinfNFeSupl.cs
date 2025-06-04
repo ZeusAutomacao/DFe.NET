@@ -496,8 +496,11 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         /// Obtém a URL para uso no QR-Code, versão 3.0 - leiaute 4.00+
         /// </summary>
-        public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado _cfgCertificado, Encoding encoding = null)
+        public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado cfgCertificado, Encoding encoding = null)
         {
+            if (cfgCertificado == null || string.IsNullOrWhiteSpace(cfgCertificado.Serial))
+                throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
+
             const string pipe = "|";
 
             string chave = nfe.infNFe.Id.Substring(3);
@@ -535,26 +538,12 @@ namespace NFe.Utils.InformacoesSuplementares
                 if (encoding == null)
                     encoding = Encoding.UTF8;
 
-                if (_cfgCertificado == null || string.IsNullOrWhiteSpace(_cfgCertificado.Serial))
-                    throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
-
-                X509Certificate2 certificadoDigital = CertificadoDigital.ObterCertificado(_cfgCertificado);
-                string assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(dadosBase)));
+                string assinatura = Convert.ToBase64String(CertificadoDigital.ObterAssinaturaPkcs1(cfgCertificado, encoding.GetBytes(dadosBase)));
                 dadosBase = string.Concat(dadosBase, pipe, assinatura);
             }
 
             string url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
             return string.Concat(url, dadosBase);
-        }
-
-        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
-        {
-            RSA rsa = certificado.GetRSAPrivateKey();
-            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-            byte[] hash = sha1.ComputeHash(Value);
-            rsaF.SetHashAlgorithm("SHA1");
-            return rsaF.CreateSignature(hash);
         }
     }
 }
