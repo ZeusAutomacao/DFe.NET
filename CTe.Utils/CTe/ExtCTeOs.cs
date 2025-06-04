@@ -9,7 +9,6 @@ using DFe.Utils;
 using DFe.Utils.Assinatura;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -72,7 +71,7 @@ namespace CTe.Utils.CTe
                 && cte.InfCte.ide.tpEmis != tpEmis.teSVCSP
                 )
             {
-                var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(chave)));
+                var assinatura = Convert.ToBase64String(AssinaturaDigital.CriarAssinaturaPkcs1(certificadoDigital, encoding.GetBytes(chave)));
                 qrCode.Append("&sign=");
                 qrCode.Append(assinatura);
             }
@@ -81,23 +80,6 @@ namespace CTe.Utils.CTe
             {
                 qrCodCTe = qrCode.ToString()
             };
-        }
-
-        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificadoDigital, byte[] Value)
-        {
-            var rsa = certificadoDigital.GetRSAPrivateKey();
-
-            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
-
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-
-            byte[] hash = null;
-
-            hash = sha1.ComputeHash(Value);
-
-            rsaF.SetHashAlgorithm("SHA1");
-
-            return rsaF.CreateSignature(hash);
         }
 
         public static string Chave(this CteEletronica cte)

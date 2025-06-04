@@ -22,8 +22,4 @@
 		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Valores\DadosDeTeste\" />
-	</ItemGroup>
-
 </Project>
