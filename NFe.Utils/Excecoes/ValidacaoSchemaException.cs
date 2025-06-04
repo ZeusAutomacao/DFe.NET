@@ -15,6 +15,12 @@ namespace NFe.Utils.Excecoes
         /// Houve erros de validação de schema XSD
         /// </summary>
         /// <param name="message"></param>
-        public ValidacaoSchemaException(string message) : base(string.Format("Erros na validação:\n {0}", message)) {}
+        public ValidacaoSchemaException(string message, string xmlString) : base(
+            $"Erros na validação:\n {message}")
+        {
+            XmlString = xmlString;
+        }
+
+        public string XmlString { get; private set; }
     }
 }
