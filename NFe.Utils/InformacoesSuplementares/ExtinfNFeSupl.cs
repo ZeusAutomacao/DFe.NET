@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
@@ -373,7 +376,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 case VersaoQrCode.QrCodeVersao2:
                     return ObterUrlQrCode2(infNFeSupl, nfe, cIdToken, csc, versaoServico);
                 case VersaoQrCode.QrCodeVersao3:
-                    return ObterUrlQrCode3(infNFeSupl, nfe, versaoServico);
+                    throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, "Para versão 3.0 do QR-Code utilize a função ObterUrlQrCode3");
                 default:
                     throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
             }
@@ -492,7 +495,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         /// Obtém a URL para uso no QR-Code, versão 3.0 - leiaute 4.00+
         /// </summary>
-        private static string ObterUrlQrCode3(infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico)
+        public static string ObterUrlQrCode3(infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, X509Certificate2 certificadoDigital, Encoding encoding = null)
         {
             const string pipe = "|";
 
@@ -547,15 +550,36 @@ namespace NFe.Utils.InformacoesSuplementares
                   idDest
                 );
 
-                // Assinatura SHA-1 dos parâmetros + CSC
-                var assinatura = Conversao.ObterHexSha1DeString(dadosBase);
+                if (encoding == null)
+                    encoding = Encoding.UTF8;
+
+                if (certificadoDigital == null)
+                    throw new ArgumentNullException(nameof(certificadoDigital), "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e.");
+
+                // Assinatura SHA-1 dos parâmetros COM uso do certificado digital
+                var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(dadosBase)));
                 dadosBase = string.Concat(dadosBase, pipe, assinatura);
             }
 
+            // Monta a URL base (ja com ?p= ao final)
             var url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
 
-            // Monta a URL base
-            return string.Concat(url, "?p=", dadosBase);
+            return string.Concat(url, dadosBase);
+        }
+
+        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
+        {
+            var rsa = certificado.GetRSAPrivateKey();
+
+            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
+
+            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] hash = sha1.ComputeHash(Value);
+
+            rsaF.SetHashAlgorithm("SHA1");
+
+            return rsaF.CreateSignature(hash);
         }
     }
 }
