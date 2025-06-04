@@ -45,6 +45,7 @@ using Image = System.Drawing.Image;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 using System.Security.Cryptography;
+using DFe.Utils.Assinatura;
 
 namespace NFe.AppTeste
 {
@@ -348,7 +349,7 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
-        
+
         private void BtnCancInsucessoEntrega_Click(object sender, RoutedEventArgs e)
         {
             const string titulo = "Cancelar Insucesso Entrega NFe";
@@ -464,7 +465,7 @@ namespace NFe.AppTeste
                     : _configuracoes.Emitente.CNPJ;
 
                 var retornoComprovante = servicoNFe.RecepcaoEventoComprovanteEntrega(Convert.ToInt32(idlote),
-                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhEntrega, nDoc, xNome, hashComprovante, 
+                    Convert.ToInt16(sequenciaEvento), cpfcnpj, chave, dhEntrega, nDoc, xNome, hashComprovante,
                     dhHashComprovante, latGps, longGps, DFe.Classes.Entidades.Estado.SP);
 
                 TrataRetorno(retornoComprovante);
@@ -736,7 +737,7 @@ namespace NFe.AppTeste
                 nfe.infNFeSupl = new infNFeSupl();
                 if (versaoServico == VersaoServico.Versao400)
                     nfe.infNFeSupl.urlChave = nfe.infNFeSupl.ObterUrlConsulta(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode);
-                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc);
+                nfe.infNFeSupl.qrCode = nfe.infNFeSupl.ObterUrlQrCode(nfe, _configuracoes.ConfiguracaoDanfeNfce.VersaoQrCode, configuracaoCsc.CIdToken, configuracaoCsc.Csc, _configuracoes.CfgServico.Certificado);
             }
 
             nfe.Valida();
@@ -1431,7 +1432,7 @@ namespace NFe.AppTeste
             };
             dest.xNome = "NF-E EMITIDA EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL"; //Obrigatório para NFe e opcional para NFCe
             dest.enderDest = GetEnderecoDestinatario(); //Obrigatório para NFe e opcional para NFCe
-            
+
             //if (versao == VersaoServico.Versao200)
             //    dest.IE = "ISENTO";
             if (versao == VersaoServico.Versao200) return dest;
@@ -1803,8 +1804,8 @@ namespace NFe.AppTeste
                 {
                     detPag = new List<detPag>
                     {
-                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = valorPagto},
-                        new detPag {tPag = FormaPagamento.fpCreditoEmLoja, vPag = icmsTot.vNF - valorPagto}
+                        new detPag {tPag = FormaPagamento.fpDinheiro, vPag = valorPagto},
+                        new detPag {tPag = FormaPagamento.fpCheque, vPag = icmsTot.vNF - valorPagto}
                     }
                 }
             };
@@ -2230,6 +2231,6 @@ namespace NFe.AppTeste
             }
         }
 
-        
+
     }
 }
