@@ -1,14 +1,15 @@
+using DFe.Classes.Entidades;
+using DFe.Classes.Flags;
+using DFe.Utils;
+using DFe.Utils.Assinatura;
+using NFe.Classes;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using DFe.Classes.Entidades;
-using DFe.Classes.Flags;
-using DFe.Utils;
-using NFe.Classes;
-using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Utils.InformacoesSuplementares
 {
@@ -358,7 +359,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         ///     Obtém a URL para montagem do QR-Code
         /// </summary>
-        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc)
+        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc, ConfiguracaoCertificado _cfgCertificado = null)
         {
             Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
 
@@ -376,7 +377,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 case VersaoQrCode.QrCodeVersao2:
                     return ObterUrlQrCode2(infNFeSupl, nfe, cIdToken, csc, versaoServico);
                 case VersaoQrCode.QrCodeVersao3:
-                    throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, "Para versão 3.0 do QR-Code utilize a função ObterUrlQrCode3");
+                    return ObterUrlQrCode3(infNFeSupl, nfe, versaoServico, _cfgCertificado);
                 default:
                     throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
             }
@@ -495,32 +496,19 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         /// Obtém a URL para uso no QR-Code, versão 3.0 - leiaute 4.00+
         /// </summary>
-        public static string ObterUrlQrCode3(infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, X509Certificate2 certificadoDigital, Encoding encoding = null)
+        public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado _cfgCertificado, Encoding encoding = null)
         {
             const string pipe = "|";
 
-            // Chave de Acesso da NFC-e
-            var chave = nfe.infNFe.Id.Substring(3);
-            // Versão do QR-Code
-            var versaoQrCode = 3;
-            // Identificação do Ambiente (1 – Produção, 2 – Homologação)
-            var ambiente = (int)nfe.infNFe.ide.tpAmb;
-
-            // Monta os parâmetros base
-            var dadosBase = string.Concat(
-                chave, pipe,
-                versaoQrCode, pipe,
-                ambiente
-            );
+            string chave = nfe.infNFe.Id.Substring(3);
+            int versaoQrCode = 3;
+            int ambiente = (int)nfe.infNFe.ide.tpAmb;
+            string dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente);
 
             if (nfe.infNFe.ide.tpEmis == TipoEmissao.teOffLine)
             {
-                // Dia da emissão
-                var diaEmi = nfe.infNFe.ide.dhEmi.Day.ToString("D2");
-                // Valor total da NFC-e
-                var valorNfce = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
-
-                // tp_idDest e idDest
+                string diaEmi = nfe.infNFe.ide.dhEmi.Day.ToString("D2");
+                string valorNfce = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
                 string tp_idDest = string.Empty;
                 string idDest = string.Empty;
                 if (nfe.infNFe.dest != null)
@@ -542,43 +530,30 @@ namespace NFe.Utils.InformacoesSuplementares
                     }
                 }
 
-                // Monta os parâmetros base
-                dadosBase = string.Concat(dadosBase, pipe,
-                  diaEmi, pipe,
-                  valorNfce, pipe,
-                  tp_idDest, pipe,
-                  idDest
-                );
+                dadosBase = string.Concat(dadosBase, pipe, diaEmi, pipe, valorNfce, pipe, tp_idDest, pipe, idDest);
 
                 if (encoding == null)
                     encoding = Encoding.UTF8;
 
-                if (certificadoDigital == null)
-                    throw new ArgumentNullException(nameof(certificadoDigital), "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e.");
+                if (_cfgCertificado == null || string.IsNullOrWhiteSpace(_cfgCertificado.Serial))
+                    throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
 
-                // Assinatura SHA-1 dos parâmetros COM uso do certificado digital
-                var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(dadosBase)));
+                X509Certificate2 certificadoDigital = CertificadoDigital.ObterCertificado(_cfgCertificado);
+                string assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(dadosBase)));
                 dadosBase = string.Concat(dadosBase, pipe, assinatura);
             }
 
-            // Monta a URL base (ja com ?p= ao final)
-            var url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
-
+            string url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
             return string.Concat(url, dadosBase);
         }
 
         private static byte[] CreateSignaturePkcs1(X509Certificate2 certificado, byte[] Value)
         {
-            var rsa = certificado.GetRSAPrivateKey();
-
+            RSA rsa = certificado.GetRSAPrivateKey();
             RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
-
             SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-
             byte[] hash = sha1.ComputeHash(Value);
-
             rsaF.SetHashAlgorithm("SHA1");
-
             return rsaF.CreateSignature(hash);
         }
     }

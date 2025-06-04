@@ -122,12 +122,16 @@
                                 <Grid>
                                     <RadioButton Content="Versão 1"
                                         HorizontalAlignment="Left" VerticalAlignment="Top"
-                                        Margin="8,5,0,0"
-                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao1}, Converter={StaticResource EnumParaBool}}" />
+                                        Margin="10,5,0,0"
+                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao1}, Converter={StaticResource EnumParaBool}}" Width="90" />
                                     <RadioButton Content="Versão 2"
                                         HorizontalAlignment="Left" VerticalAlignment="Top"
-                                        Margin="138,5,0,0"
-                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" />
+                                        Margin="110,5,0,0"
+                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" Width="90"/>
+                                    <RadioButton Content="Versão 3"
+                                        HorizontalAlignment="Left" VerticalAlignment="Top"
+                                        Margin="210,5,0,0" 
+                                        IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao3}, Converter={StaticResource EnumParaBool}}" Width="90"/>
                                 </Grid>
                             </GroupBox>
                         </StackPanel>
