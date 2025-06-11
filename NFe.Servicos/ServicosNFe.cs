@@ -344,6 +344,38 @@ namespace NFe.Servicos
                 retornoXmlString, retConsStatServ);
         }
 
+        public async Task<string> NfeConsultaProtocoloXmlAsync(string chave)
+        {
+            var versaoServico =
+                ServicoNFe.NfeConsultaProtocolo.VersaoServicoParaString(_cFgServico.VersaoNfeConsultaProtocolo);
+
+            // Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NfeConsultaProtocolo);
+
+            if (_cFgServico.VersaoNfeConsultaProtocolo != VersaoServico.ve400)
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+
+            // Cria o objeto consSitNFe
+
+            var pedConsulta = new consSitNFe
+            {
+                versao = versaoServico,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chave
+            };
+
+            // Valida, Envia os dados e obtém a resposta
+
+            var xmlConsulta = pedConsulta.ObterXmlString();
+
+            return xmlConsulta;
+        }
+
         /// <summary>
         ///     Consulta a Situação da NFe
         /// </summary>
@@ -538,6 +570,68 @@ namespace NFe.Servicos
 
             return new RetornoNfeInutilizacao(pedInutilizacao.ObterXmlString(), retInutNFe.ObterXmlString(),
                 retornoXmlString, retInutNFe);
+        }
+
+        /// <summary>
+        ///     Inutiliza uma faixa de números e assina
+        /// </summary>
+        /// <param name="cnpj"></param>
+        /// <param name="ano"></param>
+        /// <param name="modelo"></param>
+        /// <param name="serie"></param>
+        /// <param name="numeroInicial"></param>
+        /// <param name="numeroFinal"></param>
+        /// <param name="justificativa"></param>
+        /// <returns>Retorna um objeto da classe RetornoNfeInutilizacao com o retorno do serviço NfeInutilizacao</returns>
+        public async Task<string> NfeInutilizacaoXmlAsync(string cnpj, int ano, ModeloDocumento modelo,
+            int serie, int numeroInicial, int numeroFinal, string justificativa)
+        {
+            var versaoServico = ServicoNFe.NfeInutilizacao.VersaoServicoParaString(_cFgServico.VersaoNfeInutilizacao);
+
+            // Cria o objeto wdsl para consulta
+
+            var ws = CriarServico(ServicoNFe.NfeInutilizacao);
+
+            if (_cFgServico.VersaoNfeStatusServico != VersaoServico.ve400)
+                ws.nfeCabecMsg = new nfeCabecMsg
+                {
+                    cUF = _cFgServico.cUF,
+                    versaoDados = versaoServico
+                };
+
+            // Cria o objeto inutNFe
+
+            var pedInutilizacao = new inutNFe
+            {
+                versao = versaoServico,
+                infInut = new infInutEnv
+                {
+                    tpAmb = _cFgServico.tpAmb,
+                    cUF = _cFgServico.cUF,
+                    ano = ano,
+                    CNPJ = cnpj,
+                    mod = modelo,
+                    serie = serie,
+                    nNFIni = numeroInicial,
+                    nNFFin = numeroFinal,
+                    xJust = justificativa
+                }
+            };
+
+            var numId = string.Concat((int)pedInutilizacao.infInut.cUF, pedInutilizacao.infInut.ano,
+                pedInutilizacao.infInut.CNPJ, (int)pedInutilizacao.infInut.mod,
+                pedInutilizacao.infInut.serie.ToString().PadLeft(3, '0'),
+                pedInutilizacao.infInut.nNFIni.ToString().PadLeft(9, '0'),
+                pedInutilizacao.infInut.nNFFin.ToString().PadLeft(9, '0'));
+
+            pedInutilizacao.infInut.Id = "ID" + numId;
+
+            pedInutilizacao.Assina(_certificado, _cFgServico.Certificado.SignatureMethodSignedXml,
+                _cFgServico.Certificado.DigestMethodReference);
+
+            // Valida, Envia os dados e obtém a resposta
+
+            return pedInutilizacao.ObterXmlString();
         }
 
         /// <summary>
@@ -1853,6 +1947,21 @@ namespace NFe.Servicos
             var retRecibo = new retConsReciNFe().CarregarDeXmlString(retornoXmlString);
 
             return new RetornoNFeRetAutorizacao(xmlRecibo, retornoXmlString, retornoXmlString, retRecibo);
+        }
+
+        public async Task<RetornoNfeInutilizacao> NFeGetXmlRetornoInutilizacaoAsync(string xmlRecibo, string retornoXmlString)
+        {
+            //var retRecibo = new retConsReciNFe().CarregarDeXmlString(retornoXmlString);
+            //return new RetornoNFeRetAutorizacao(xmlRecibo, retornoXmlString, retornoXmlString, retRecibo);
+            var retInutNFe = new retInutNFe().CarregarDeXmlString(retornoXmlString);
+            return new RetornoNfeInutilizacao(xmlRecibo, retornoXmlString, retornoXmlString, retInutNFe);
+        }
+
+        public async Task<RetornoNfeConsultaProtocolo> NFeGetXmlProtocolRetornoAsync(string envioXmlString, string retornoXmlString)
+        {
+            var retRecibo = new retConsSitNFe().CarregarDeXmlString(retornoXmlString);
+
+            return new RetornoNfeConsultaProtocolo(envioXmlString, retornoXmlString, retornoXmlString, retRecibo);
         }
 
         #endregion
