@@ -83,7 +83,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.AM, versao3E4, "http://sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?"}, //No portal do ENCAT está: sistemas.sefaz.am.gov.br/nfceweb/consultarNFCe.jsp?chNFe=1315….
                 {Estado.BA, versao3E4, "http://nfe.sefaz.ba.gov.br/servicos/nfce/modulos/geral/NFCEC_consulta_chave_acesso.aspx"},
                 {Estado.CE, versao3E4, "http://nfce.sefaz.ce.gov.br/pages/ShowNFCe.html"},
-                {Estado.GO, versao3E4, "http://nfe.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
+                {Estado.GO, versao3E4, "https://nfeweb.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MA, versao3E4, "http://nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://www.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
@@ -136,7 +136,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.CE, versao3E4, "http://nfceh.sefaz.ce.gov.br/pages/ShowNFCe.html"},
                 {Estado.DF, versao3E4, "http://dec.fazenda.df.gov.br/ConsultarNFCe.aspx"},
                 {Estado.ES, versao3E4, "http://homologacao.sefaz.es.gov.br/ConsultaNFCe/qrcode.aspx?"},
-                {Estado.GO, versao3E4, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
+                {Estado.GO, versao3E4, "https://nfewebhomolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MA, versao3E4, "http://www.hom.nfce.sefaz.ma.gov.br/portal/consultarNFCe.jsp"},
                 {Estado.MT, versao3E4, "http://homologacao.sefaz.mt.gov.br/nfce/consultanfce"},
                 {Estado.MS, versao3E4, "http://www.dfe.ms.gov.br/nfce/qrcode?"},
@@ -310,7 +310,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.PB, versao3E4, "www.receita.pb.gov.br/nfcehom"},
                 {Estado.SP, versao3E4, "https://www.homologacao.nfce.fazenda.sp.gov.br/consulta"},
                 {Estado.SE, versao3E4, "http://www.hom.nfe.se.gov.br/nfce/consulta"},
-                {Estado.GO, versao3E4, "http://homolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
+                {Estado.GO, versao3E4, "https://nfewebhomolog.sefaz.go.gov.br/nfeweb/sites/nfce/danfeNFCe"},
                 {Estado.MG, versao3E4, "https://hportalsped.fazenda.mg.gov.br/portalnfce"},
                 {Estado.TO, versao3E4, "http://homologacao.sefaz.to.gov.br/nfce/consulta.jsf" },
                 {Estado.SC, versao3E4, "https://hom.sat.sef.sc.gov.br/nfce/consulta" }
