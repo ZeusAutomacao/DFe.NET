@@ -78,7 +78,6 @@ using Image = System.Drawing.Image;
 using static System.Net.Mime.MediaTypeNames;
 using System.Text;
 using System.Security.Cryptography;
-using DFe.Utils.Assinatura;
 
 namespace NFe.AppTeste
 {

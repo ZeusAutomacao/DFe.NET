@@ -40,11 +40,6 @@ using DFe.Utils;
 using DFe.Utils.Assinatura;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace NFe.Utils.InformacoesSuplementares
@@ -574,7 +569,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 if (encoding == null)
                     encoding = Encoding.UTF8;
 
-                string assinatura = Convert.ToBase64String(CertificadoDigital.ObterAssinaturaPkcs1(cfgCertificado, encoding.GetBytes(dadosBase)));
+                string assinatura = Convert.ToBase64String(AssinaturaDigital.ObterAssinaturaPkcs1(cfgCertificado, encoding.GetBytes(dadosBase)));
                 dadosBase = string.Concat(dadosBase, pipe, assinatura);
             }
 
