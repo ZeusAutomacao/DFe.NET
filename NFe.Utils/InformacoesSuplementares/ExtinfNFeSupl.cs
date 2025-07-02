@@ -37,8 +37,10 @@ using System.Linq;
 using DFe.Classes.Entidades;
 using DFe.Classes.Flags;
 using DFe.Utils;
+using DFe.Utils.Assinatura;
 using NFe.Classes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using System.Text;
 
 namespace NFe.Utils.InformacoesSuplementares
 {
@@ -127,7 +129,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RR, versao3E4, "https://www.sefaz.rr.gov.br/nfce/servlet/qrcode"},
                 {Estado.MG, versao3E4, "https://portalsped.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml"}
             };
-            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode1E2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsQrCodeProducaoQrCode1E2);
 
             var urlsQrCodeProducaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
             {
@@ -149,7 +151,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao4, "http://apps.sefaz.to.gov.br/portal-nfce/qrcodeNFCe"},
                 {Estado.SC, versao4, "https://sat.sef.sc.gov.br/nfce/consulta"}
             };
-            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeProducaoQrCode2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsQrCodeProducaoQrCode2);
 
             #endregion
 
@@ -181,7 +183,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.TO, versao3E4, "http://apps.sefaz.to.gov.br/portal-nfce-homologacao/qrcodeNFCe"},
                 {Estado.MG, versao3E4, "https://portalsped.fazenda.mg.gov.br/portalnfce/sistema/qrcode.xhtml"}
             };
-            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode1E2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao1, VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsQrCodeHomologacaoQrCode1E2);
 
             var urlsQrCodeHomologacaoQrCode1 = new TupleList<Estado, VersaoServico[], string>
             {
@@ -199,7 +201,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SP, versao4, "https://www.homologacao.nfce.fazenda.sp.gov.br/qrcode"},
                 {Estado.SC, versao4, "https://hom.sat.sef.sc.gov.br/nfce/consulta"},
             };
-            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2 }, urlsQrCodeHomologacaoQrCode2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlQrCode, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsQrCodeHomologacaoQrCode2);
 
             #endregion
 
@@ -306,8 +308,8 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.RR, versao3E4, "www.sefaz.rr.gov.br/nfce/consulta"}
             };
 
-            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacaoEProducao2);
-            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacaoEProducao2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsConsultaHomologacaoEProducao2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsConsultaHomologacaoEProducao2);
 
             #endregion
 
@@ -326,7 +328,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SC, versao3E4, "https://sat.sef.sc.gov.br/nfce/consulta" }
             };
 
-            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaProducao2);
+            adicionarUrls(TipoAmbiente.Producao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsConsultaProducao2);
 
             #endregion
 
@@ -345,7 +347,7 @@ namespace NFe.Utils.InformacoesSuplementares
                 {Estado.SC, versao3E4, "https://hom.sat.sef.sc.gov.br/nfce/consulta" }
             };
 
-            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2 }, urlsConsultaHomologacao2);
+            adicionarUrls(TipoAmbiente.Homologacao, TipoUrlConsultaPublica.UrlConsulta, new[] { VersaoQrCode.QrCodeVersao2, VersaoQrCode.QrCodeVersao3 }, urlsConsultaHomologacao2);
 
             #endregion
 
@@ -388,7 +390,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// <summary>
         ///     Obtém a URL para montagem do QR-Code
         /// </summary>
-        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc)
+        public static string ObterUrlQrCode(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoQrCode versaoQrCode, string cIdToken, string csc, ConfiguracaoCertificado _cfgCertificado = null)
         {
             Func<string, string> msgErro = parametro => $"O {parametro} não foi informado!";
 
@@ -405,6 +407,8 @@ namespace NFe.Utils.InformacoesSuplementares
                     return ObterUrlQrCode1(infNFeSupl, nfe, cIdToken, csc, versaoServico);
                 case VersaoQrCode.QrCodeVersao2:
                     return ObterUrlQrCode2(infNFeSupl, nfe, cIdToken, csc, versaoServico);
+                case VersaoQrCode.QrCodeVersao3:
+                    return ObterUrlQrCode3(infNFeSupl, nfe, versaoServico, _cfgCertificado);
                 default:
                     throw new ArgumentOutOfRangeException("versaoQrCode", versaoQrCode, null);
             }
@@ -430,7 +434,7 @@ namespace NFe.Utils.InformacoesSuplementares
             if (nfe.infNFe.dest != null)
                 cDest = "&cDest=" + nfe.infNFe.dest.CPF + nfe.infNFe.dest.CNPJ + nfe.infNFe.dest.idEstrangeiro;
 
-            //Passo 3: Substituir os valores (“dhEmi” e “digVal”) nos parâmetros;
+            //Passo 3: Substituir os valores ("dhEmi" e "digVal") nos parâmetros;
             var dadosBase =
                 "chNFe=" + nfe.infNFe.Id.Substring(3) +
                 "&nVersao=100" +
@@ -518,6 +522,59 @@ namespace NFe.Utils.InformacoesSuplementares
             if (!url.EndsWith(parametro))
                 url += parametro;
             return url;
+        }
+
+        /// <summary>
+        /// Obtém a URL para uso no QR-Code, versão 3.0 - leiaute 4.00+
+        /// </summary>
+        public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado cfgCertificado, Encoding encoding = null)
+        {
+            if (cfgCertificado == null || string.IsNullOrWhiteSpace(cfgCertificado.Serial))
+                throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
+
+            const string pipe = "|";
+
+            string chave = nfe.infNFe.Id.Substring(3);
+            int versaoQrCode = 3;
+            int ambiente = (int)nfe.infNFe.ide.tpAmb;
+            string dadosBase = string.Concat(chave, pipe, versaoQrCode, pipe, ambiente);
+
+            if (nfe.infNFe.ide.tpEmis == TipoEmissao.teOffLine)
+            {
+                string diaEmi = nfe.infNFe.ide.dhEmi.Day.ToString("D2");
+                string valorNfce = nfe.infNFe.total.ICMSTot.vNF.ToString("0.00").Replace(',', '.');
+                string tp_idDest = string.Empty;
+                string idDest = string.Empty;
+                if (nfe.infNFe.dest != null)
+                {
+                    if (!string.IsNullOrEmpty(nfe.infNFe.dest.idEstrangeiro))
+                    {
+                        tp_idDest = "3";
+                        idDest = nfe.infNFe.dest.idEstrangeiro.Trim();
+                    }
+                    else if (!string.IsNullOrEmpty(nfe.infNFe.dest.CPF) && nfe.infNFe.dest.CPF.Length == 11)
+                    {
+                        tp_idDest = "2";
+                        idDest = nfe.infNFe.dest.CPF.Replace(".", "").Replace("/", "").Replace("-", "").Trim();
+                    }
+                    else if (!string.IsNullOrEmpty(nfe.infNFe.dest.CNPJ) && nfe.infNFe.dest.CNPJ.Length == 14)
+                    {
+                        tp_idDest = "1";
+                        idDest = nfe.infNFe.dest.CNPJ.Replace(".", "").Replace("/", "").Replace("-", "").Trim();
+                    }
+                }
+
+                dadosBase = string.Concat(dadosBase, pipe, diaEmi, pipe, valorNfce, pipe, tp_idDest, pipe, idDest);
+
+                if (encoding == null)
+                    encoding = Encoding.UTF8;
+
+                string assinatura = Convert.ToBase64String(AssinaturaDigital.ObterAssinaturaPkcs1(cfgCertificado, encoding.GetBytes(dadosBase)));
+                dadosBase = string.Concat(dadosBase, pipe, assinatura);
+            }
+
+            string url = ObterUrlQrCode2ComParametro(infNFeSupl, nfe.infNFe.ide.tpAmb, nfe.infNFe.ide.cUF, versaoServico);
+            return string.Concat(url, dadosBase);
         }
     }
 }
