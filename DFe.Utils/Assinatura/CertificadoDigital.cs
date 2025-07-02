@@ -229,19 +229,6 @@ namespace DFe.Utils.Assinatura
             return CacheCertificado[keyCertificado];
         }
 
-        /// <summary>
-        /// Obtém a assinatura do certificado digital no formato PKCS#1, baseado em um array de bytes passado como Argumento [value].
-        /// </summary>
-        /// <param name="configuracaoCertificado"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static byte[] ObterAssinaturaPkcs1(ConfiguracaoCertificado configuracaoCertificado, byte[] value)
-        {
-            X509Certificate2 certificado = ObterCertificado(configuracaoCertificado);
-            using (RSA rsa = certificado.GetRSAPrivateKey())
-                return rsa.SignData(value, HashAlgorithmName.SHA1, RSASignaturePadding.Pkcs1);
-        }
-
         public static void ClearCache()
         {
             CacheCertificado.Clear();
