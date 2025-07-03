@@ -272,6 +272,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// </summary>
         public gCompraGov GCompraGov { get; set; }
         
+        /// <summary>
+        ///     BB01 - Grupo de notas de antecipação de pagamento
+        /// </summary>
+        public gPagAntecipado gPagAntecipado { get; set; }
+        
         public bool ShouldSerializeidDest()
         {
             return idDest.HasValue;
