@@ -168,6 +168,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         public long cMunFG { get; set; }
 
         /// <summary>
+        ///     B12a - Código do Município de consumo, fato gerador do IBS / CBS
+        /// </summary>
+        public long? cMunFGIBS { get; set; }
+        
+        /// <summary>
         ///     B21 - Formato de impressão do DANFE
         /// </summary>
         public TipoImpressao tpImp { get; set; }
@@ -188,14 +193,24 @@ namespace NFe.Classes.Informacoes.Identificacao
         public TipoAmbiente tpAmb { get; set; }
 
         /// <summary>
-        ///     B25a - Finalidade da emissão da NF-e
+        ///     B25 - Finalidade da emissão da NF-e
         /// </summary>
         public FinalidadeNFe finNFe { get; set; }
 
         /// <summary>
+        ///     B25.1 - Tipo de Nota de Débito
+        /// </summary>
+        public TpNotaDebito? tpNFDebito { get; set; }
+        
+        /// <summary>
+        ///     B25.2 - Tipo de Nota de Crédito
+        /// </summary>
+        public TpNotaCredito? tpNFCredito { get; set; }
+        
+        /// <summary>
         ///     B25a - Indica operação com consumidor final
         /// </summary>
-        public ConsumidorFinal? indFinal { get; set; } //Nulable por conta da v2.00
+        public ConsumidorFinal? indFinal { get; set; } //Nullable por conta da v2.00
 
         /// <summary>
         ///     B25b - Indicador de presença do comprador no estabelecimento comercial no momento da operação
@@ -252,6 +267,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement("NFref")]
         public List<NFref> NFref { get; set; }
 
+        /// <summary>
+        ///     B31 - Grupo de Compra Governamental
+        /// </summary>
+        public gCompraGov GCompraGov { get; set; }
+        
         public bool ShouldSerializeidDest()
         {
             return idDest.HasValue;
