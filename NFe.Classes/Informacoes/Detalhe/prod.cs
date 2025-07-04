@@ -256,6 +256,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         public IndicadorTotal indTot { get; set; }
 
         /// <summary>
+        ///     I17c - Indicador de fornecimento de bem móvel usado
+        /// </summary>
+        public IndBemMovelUsado? indBemMovelUsado { get; set; }
+        
+        /// <summary>
         ///     I18 - Declaração de Importação
         /// </summary>
         [XmlElement("DI")]
