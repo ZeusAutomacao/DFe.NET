@@ -43,7 +43,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos
     public enum CSTIS
     {
         /// <summary>
-        /// 000 - Tributada integralmente
+        ///     000 - Tributada integralmente
         /// </summary>
         [Description("Tributada integralmente")]
         [XmlEnum("000")]

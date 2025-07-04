@@ -31,84 +31,130 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
 {
-    public class imposto
+    public enum CST
     {
-        private decimal? _vTotTrib;
-
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     000 - Tributação integral
         /// </summary>
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
-        /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
+        [Description("Tributação integral")]
+        [XmlEnum("000")]
+        Cst000,
         
         /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
+        ///     010 - Tributação com alíquotas uniformes
         /// </summary>
-        public IS IS { get; set; }
+        [Description("Tributação com alíquotas uniformes")]
+        [XmlEnum("010")]
+        Cst010,
         
         /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
+        ///     011 - Tributação com alíquotas uniformes reduzidas
         /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
-        {
-            return vTotTrib.HasValue;
-        }
+        [Description("Tributação com alíquotas uniformes reduzidas")]
+        [XmlEnum("011")]
+        Cst011,
+        
+        /// <summary>
+        ///     200 - Alíquota reduzida
+        /// </summary>
+        [Description("Alíquota reduzida")]
+        [XmlEnum("200")]
+        Cst200,
+        
+        /// <summary>
+        ///     210 - Redução de alíquota com redutor de base de cálculo
+        /// </summary>
+        [Description("Redução de alíquota com redutor de base de cálculo")]
+        [XmlEnum("210")]
+        Cst210,
+        
+        /// <summary>
+        ///     220 - Alíquota fixa
+        /// </summary>
+        [Description("Alíquota fixa")]
+        [XmlEnum("220")]
+        Cst220,
+        
+        /// <summary>
+        ///     221 - Alíquota fixa rateada
+        /// </summary>
+        [Description("Alíquota fixa rateada")]
+        [XmlEnum("221")]
+        Cst221,
+        
+        /// <summary>
+        ///     222 - Redução de Base de Cálculo
+        /// </summary>
+        [Description("Redução de Base de Cálculo")]
+        [XmlEnum("222")]
+        Cst222,
+        
+        /// <summary>
+        ///     400 - Isenção
+        /// </summary>
+        [Description("Isenção")]
+        [XmlEnum("400")]
+        Cst400,
+        
+        /// <summary>
+        ///     410 - Imunidade e não incidência
+        /// </summary>
+        [Description("Imunidade e não incidência")]
+        [XmlEnum("410")]
+        Cst410,
+        
+        /// <summary>
+        ///     510 - Diferimento
+        /// </summary>
+        [Description("Diferimento")]
+        [XmlEnum("510")]
+        Cst510,
+        
+        /// <summary>
+        ///     550 - Suspensão
+        /// </summary>
+        [Description("Suspensão")]
+        [XmlEnum("550")]
+        Cst550,
+        
+        /// <summary>
+        ///     620 - Tributação Monofásica
+        /// </summary>
+        [Description("Tributação Monofásica")]
+        [XmlEnum("620")]
+        Cst620,
+        
+        /// <summary>
+        ///     800 - Transferência de crédito
+        /// </summary>
+        [Description("Transferência de crédito")]
+        [XmlEnum("800")]
+        Cst800,
+        
+        /// <summary>
+        ///     810 - Ajustes
+        /// </summary>
+        [Description("Ajustes")]
+        [XmlEnum("810")]
+        Cst810,
+        
+        /// <summary>
+        ///     820 - Tributação em declaração de regime específico
+        /// </summary>
+        [Description("Tributação em declaração de regime específico")]
+        [XmlEnum("820")]
+        Cst820,
+        
+        /// <summary>
+        ///     830 - Exclusão da Base de Cálculo
+        /// </summary>
+        [Description("Exclusão da Base de Cálculo")]
+        [XmlEnum("830")]
+        Cst830
     }
 }
