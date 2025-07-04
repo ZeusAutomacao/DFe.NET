@@ -30,78 +30,86 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+using System.Xml.Serialization;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal.Tipos;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
-    public class imposto
+    public class IS
     {
-        private decimal? _vTotTrib;
+        private decimal _vBcIs;
+        private decimal _pIs;
+        private decimal _pIsEspec;
+        private decimal _qTrib;
+        private decimal _vIs;
+        
+        /// <summary>
+        ///     UB02 - Código de Situação Tributária do Imposto Seletivo
+        /// </summary>
+        [XmlElement(Order = 1)]
+        public CSTIS CSTIS { get; set; }
 
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
         /// </summary>
-        public decimal? vTotTrib
+        [XmlElement(Order = 2)]
+        public int cClassTribIS { get; set; }
+
+        /// <summary>
+        ///     UB05 - Valor da Base de Cálculo do Imposto Seletivo 
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public decimal vBCIS
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get => _vBcIs.Arredondar(2);
+            set => _vBcIs = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB06 - Alíquota do Imposto Seletivo
+        /// </summary>
+        [XmlElement(Order = 4)]
+        public decimal pIS
+        {
+            get => _pIs.Arredondar(4);
+            set => _pIs = value.Arredondar(4);
         }
 
         /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
+        ///     UB07 - Alíquota específica por unidade de medida apropriada
         /// </summary>
-        public ICMS ICMS { get; set; }
+        [XmlElement(Order = 5)]
+        public decimal pISEspec
+        {
+            get => _pIsEspec.Arredondar(4);
+            set => _pIsEspec = value.Arredondar(4);
+        }
 
         /// <summary>
-        ///     U01 - Grupo ISSQN
+        ///     UB09 - Unidade de Medida Tributável
         /// </summary>
-        public ISSQN ISSQN { get; set; }
+        [XmlElement(Order = 6)]
+        public string uTrib { get; set; }
 
         /// <summary>
-        ///     O01 - Grupo IPI
+        ///     UB10 - Quantidade Tributável
         /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
+        [XmlElement(Order = 7)]
+        public decimal qTrib
+        {
+            get => _qTrib.Arredondar(4);
+            set => _qTrib = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
+        ///     UB11 - Valor do Imposto Seletivo
         /// </summary>
-        public IS IS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        [XmlElement(Order = 8)]
+        public decimal vIS
         {
-            return vTotTrib.HasValue;
+            get => _vIs.Arredondar(2);
+            set => _vIs = value.Arredondar(2);
         }
     }
 }
