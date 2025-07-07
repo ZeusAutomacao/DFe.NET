@@ -31,41 +31,81 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCBS
+    public class gTribRegular
     {
-        private decimal _vBc;
+        private decimal _pAliqEfetRegIbsUf;
+        private decimal _vTribRegIbsUf;
+        private decimal _pAliqEfetRegIbsMun;
+        private decimal _vTribRegIbsMun;
+        private decimal _pAliqEfetRegCbs;
+        private decimal _vTribRegCbs;
         
         /// <summary>
-        ///     UB16 - Base de cálculo do IBS e CBS
+        ///     UB69 - Código de Situação Tributária do IBS e CBS
         /// </summary>
-        public decimal vBC
+        public CST CSTReg { get; set; }
+        
+        /// <summary>
+        ///     UB70 - Código de Classificação Tributária do IBS e CBS
+        /// </summary>
+        public int cClassTribReg { get; set; }
+
+        /// <summary>
+        ///     UB71 - Valor da alíquota do IBS da UF
+        /// </summary>
+        public decimal pAliqEfetRegIBSUF
         {
-            get => _vBc.Arredondar(2);
-            set => _vBc = value.Arredondar(2);
+            get => _pAliqEfetRegIbsUf.Arredondar(4);
+            set => _pAliqEfetRegIbsUf = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     UB17 - Grupo de Informações do IBS para a UF
+        ///     UB72 - Valor do Tributo do IBS da UF
         /// </summary>
-        public gIBSUF gIBSUF { get; set; }
+        public decimal vTribRegIBSUF
+        {
+            get => _vTribRegIbsUf.Arredondar(2);
+            set => _vTribRegIbsUf = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB36 - Grupo de Informações do IBS para o município
+        ///     UB72a - Valor da alíquota do IBS do Município
         /// </summary>
-        public gIBSMun gIBSMun { get; set; }
+        public decimal pAliqEfetRegIBSMun
+        {
+            get => _pAliqEfetRegIbsMun.Arredondar(4);
+            set => _pAliqEfetRegIbsMun = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB55 - Grupo de Informações da CBS
+        ///     UB72b - Valor do Tributo do IBS do Município
         /// </summary>
-        public gCBS gCBS { get; set; }
-        
+        public decimal vTribRegIBSMun
+        {
+            get => _vTribRegIbsMun.Arredondar(2);
+            set => _vTribRegIbsMun = value.Arredondar(2);
+        }
+
         /// <summary>
-        ///     UB68 - Grupo de informações da Tributação Regular
+        ///     UB72c - Valor da alíquota da CBS
         /// </summary>
-        public gTribRegular gTribRegular { get; set; }
+        public decimal pAliqEfetRegCBS
+        {
+            get => _pAliqEfetRegCbs.Arredondar(4);
+            set => _pAliqEfetRegCbs = value.Arredondar(4);
+        }
+
+        /// <summary>
+        ///     UB72d - Valor do Tributo da CBS
+        /// </summary>
+        public decimal vTribRegCBS
+        {
+            get => _vTribRegCbs.Arredondar(2);
+            set => _vTribRegCbs = value.Arredondar(2);
+        }
     }
 }
