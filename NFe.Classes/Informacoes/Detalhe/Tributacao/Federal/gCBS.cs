@@ -31,36 +31,46 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
 {
-    public class gIBSCBS
+    public class gCBS
     {
-        private decimal _vBc;
-        
+        private decimal _pCbs;
+        private decimal _vCbs;
+
         /// <summary>
-        ///     UB16 - Base de cálculo do IBS e CBS
+        ///     UB56 - Alíquota da CBS
         /// </summary>
-        public decimal vBC
+        public decimal pCBS
         {
-            get => _vBc.Arredondar(2);
-            set => _vBc = value.Arredondar(2);
+            get => _pCbs.Arredondar(4);
+            set => _pCbs = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     UB17 - Grupo de Informações do IBS para a UF
+        ///     UB67 - Valor da CBS
         /// </summary>
-        public gIBSUF gIBSUF { get; set; }
+        public decimal vCBS
+        {
+            get => _vCbs.Arredondar(2);
+            set => _vCbs = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB36 - Grupo de Informações do IBS para o município
+        ///     UB59 - Grupo de Informações do Diferimento
         /// </summary>
-        public gIBSMun gIBSMun { get; set; }
+        public gDif gDif { get; set; }
         
         /// <summary>
-        ///     UB55 - Grupo de Informações da CBS
+        ///     UB62 - Grupo de Informações da devolução de tributos
         /// </summary>
-        public gCBS gCBS { get; set; }
+        public gDevTrib gDevTrib { get; set; }
+        
+        /// <summary>
+        ///     UB64 - Grupo de informações da redução da alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
     }
 }
