@@ -31,56 +31,69 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCBS
+    public class gTribCompraGov
     {
-        private decimal _vBc;
+        private decimal _pIbsUf;
+        private decimal _vIbsUf;
+        private decimal _pIbsMun;
+        private decimal _vIbsMun;
+        private decimal _pCbs;
+        private decimal _vCbs;
         
         /// <summary>
-        ///     UB16 - Base de cálculo do IBS e CBS
+        ///     UB82b - Alíquota do IBS de competência do Estado
         /// </summary>
-        public decimal vBC
+        public decimal pIBSUF
         {
-            get => _vBc.Arredondar(2);
-            set => _vBc = value.Arredondar(2);
+            get => _pIbsUf.Arredondar(4);
+            set => _pIbsUf = value.Arredondar(4);
+        }
+
+        /// <summary>
+        ///     UB82c - Valor do Tributo do IBS da UF calculado
+        /// </summary>
+        public decimal vIBSUF
+        {
+            get => _vIbsUf.Arredondar(2);
+            set => _vIbsUf = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     UB17 - Grupo de Informações do IBS para a UF
+        ///     UB82d - Alíquota do IBS de competência do Município
         /// </summary>
-        public gIBSUF gIBSUF { get; set; }
+        public decimal pIBSMun
+        {
+            get => _pIbsMun.Arredondar(4);
+            set => _pIbsMun = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB36 - Grupo de Informações do IBS para o município
+        ///     UB82e - Valor do Tributo do IBS do Município calculado
         /// </summary>
-        public gIBSMun gIBSMun { get; set; }
+        public decimal vIBSMun
+        {
+            get => _vIbsMun.Arredondar(2);
+            set => _vIbsMun = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB55 - Grupo de Informações da CBS
+        ///     UB82f - Alíquota da CBS
         /// </summary>
-        public gCBS gCBS { get; set; }
+        public decimal pCBS
+        {
+            get => _pCbs.Arredondar(4);
+            set => _pCbs = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB68 - Grupo de informações da Tributação Regular
+        ///     UB82g - Valor do Tributo da CBS calculado
         /// </summary>
-        public gTribRegular gTribRegular { get; set; }
-        
-        /// <summary>
-        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
-        /// </summary>
-        public gIBSCredPres gIBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
-        /// </summary>
-        public gCBSCredPres gCBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
-        /// </summary>
-        public gTribCompraGov gTribCompraGov { get; set; }
+        public decimal vCBS
+        {
+            get => _vCbs.Arredondar(2);
+            set => _vCbs = value.Arredondar(2);
+        }
     }
 }
