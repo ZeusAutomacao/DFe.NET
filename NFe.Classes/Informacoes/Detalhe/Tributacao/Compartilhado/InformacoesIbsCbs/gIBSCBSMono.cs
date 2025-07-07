@@ -32,35 +32,76 @@
 /********************************************************************************/
 
 using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gIBSCBSMono
     {
+        private decimal _qBcMono;
+        private decimal _adRemIbs;
+        private decimal _adRemCbs;
+        private decimal _vIbsMono;
+        private decimal _vCbsMono;
+        private decimal _qBcMonoReten;
+
         /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
+        ///     UB85 - Quantidade tributada na monofasia
         /// </summary>
         [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        public decimal qBCMono
+        {
+            get => _qBcMono.Arredondar(4);
+            set => _qBcMono = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB86 - Alíquota ad rem do IBS
         /// </summary>
         [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
+        public decimal adRemIBS
+        {
+            get => _adRemIbs.Arredondar(4);
+            set => _adRemIbs = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15 - Grupo de Informações do IBS e da CBS
+        ///     UB87 - Alíquota ad rem da CBS
         /// </summary>
         [XmlElement(Order = 3)]
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal adRemCBS
+        {
+            get => _adRemCbs.Arredondar(4);
+            set => _adRemCbs = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
+        ///     UB88 - Valor do IBS monofásico
         /// </summary>
         [XmlElement(Order = 4)]
-        public gIBSCBSMono gIBSCBSMono { get; set; }
+        public decimal vIBSMono
+        {
+            get => _vIbsMono.Arredondar(2);
+            set => _vIbsMono = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB89 - Valor da CBS monofásica
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public decimal vCBSMono
+        {
+            get => _vCbsMono.Arredondar(2);
+            set => _vCbsMono = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB91 - Quantidade tributada sujeita à retenção na monofasia
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public decimal qBCMonoReten
+        {
+            get => _qBcMonoReten.Arredondar(4);
+            set => _qBcMonoReten = value.Arredondar(4);
+        }
     }
 }
