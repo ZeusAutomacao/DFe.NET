@@ -31,51 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSCBS
+    public class gIBSCredPres
     {
-        private decimal _vBc;
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
         
         /// <summary>
-        ///     UB16 - Base de cálculo do IBS e CBS
+        ///     UB74 - Código de Classificação do Crédito Presumido
         /// </summary>
-        public decimal vBC
+        public int cCredPres { get; set; }
+
+        /// <summary>
+        ///     UB75 - Percentual do Crédito Presumido
+        /// </summary>
+        public decimal pCredPres
         {
-            get => _vBc.Arredondar(2);
-            set => _vBc = value.Arredondar(2);
+            get => _pCredPres.Arredondar(4);
+            set => _pCredPres = value.Arredondar(4);
         }
-        
+
         /// <summary>
-        ///     UB17 - Grupo de Informações do IBS para a UF
+        ///     UB76 - Valor do Crédito Presumido
         /// </summary>
-        public gIBSUF gIBSUF { get; set; }
-        
+        public decimal vCredPres
+        {
+            get => _vCredPres.Arredondar(2);
+            set => _vCredPres = value.Arredondar(2);
+        }
+
         /// <summary>
-        ///     UB36 - Grupo de Informações do IBS para o município
+        ///     UB77 - Valor do Crédito Presumido em condição suspensiva
         /// </summary>
-        public gIBSMun gIBSMun { get; set; }
-        
-        /// <summary>
-        ///     UB55 - Grupo de Informações da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
-        
-        /// <summary>
-        ///     UB68 - Grupo de informações da Tributação Regular
-        /// </summary>
-        public gTribRegular gTribRegular { get; set; }
-        
-        /// <summary>
-        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
-        /// </summary>
-        public gIBSCredPres gIBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
-        /// </summary>
-        public gCBSCredPres gCBSCredPres { get; set; }
+        public decimal vCredPresCondSus
+        {
+            get => _vCredPresCondSus.Arredondar(2);
+            set => _vCredPresCondSus = value.Arredondar(2);
+        }
     }
 }
