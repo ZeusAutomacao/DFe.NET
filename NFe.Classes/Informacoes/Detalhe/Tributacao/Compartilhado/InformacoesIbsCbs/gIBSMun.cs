@@ -31,29 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gIBSMun
     {
+        private decimal _pIbsMun;
+        private decimal _vIbsMun;
+
         /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
+        ///     UB37 - Alíquota do IBS de competência do Município
         /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        public decimal pIBSMun
+        {
+            get => _pIbsMun.Arredondar(4);
+            set => _pIbsMun = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB54 - Valor do IBS de competência do Município
         /// </summary>
-        [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
+        public decimal vIBSMun
+        {
+            get => _vIbsMun.Arredondar(4);
+            set => _vIbsMun = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15  - Grupo de Informações do IBS e da CBS
+        ///     UB40 - Grupo de Informações do Diferimento
         /// </summary>
-        public gIBSCBS gIBSCBS { get; set; }
+        public gDif gDif { get; set; }
+        
+        /// <summary>
+        ///     UB43 - Grupo de Informações da devolução de tributos
+        /// </summary>
+        public gDevTrib gDevTrib { get; set; }
+        
+        /// <summary>
+        ///     UB45 - Grupo de informações da redução da alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
     }
 }

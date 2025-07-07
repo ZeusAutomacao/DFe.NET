@@ -31,29 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gRed
     {
+        private decimal _pRedAliq;
+        private decimal _pAliqEfet;
+
         /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
+        ///     Percentual da redução de alíquota do cClassTrib
         /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        public decimal pRedAliq
+        {
+            get => _pRedAliq.Arredondar(4);
+            set => _pRedAliq = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     Alíquota Efetiva do IBS que será aplicada a Base de Cálculo
         /// </summary>
-        [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
-        
-        /// <summary>
-        ///     UB15  - Grupo de Informações do IBS e da CBS
-        /// </summary>
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal pAliqEfet
+        {
+            get => _pAliqEfet.Arredondar(4);
+            set => _pAliqEfet = value.Arredondar(4);
+        }
     }
 }
