@@ -31,29 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gIBSCBS
     {
-        /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        private decimal _vBc;
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB16 - Base de cálculo do IBS e CBS
         /// </summary>
-        [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
+        public decimal vBC
+        {
+            get => _vBc.Arredondar(2);
+            set => _vBc = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB15  - Grupo de Informações do IBS e da CBS
+        ///     UB17 - Grupo de Informações do IBS para a UF
         /// </summary>
-        public gIBSCBS gIBSCBS { get; set; }
+        public gIBSUF gIBSUF { get; set; }
+        
+        /// <summary>
+        ///     UB36 - Grupo de Informações do IBS para o município
+        /// </summary>
+        public gIBSMun gIBSMun { get; set; }
     }
 }

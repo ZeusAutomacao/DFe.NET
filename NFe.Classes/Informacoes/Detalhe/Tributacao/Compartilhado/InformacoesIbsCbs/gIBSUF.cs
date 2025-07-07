@@ -31,29 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gIBSUF
     {
-        /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        private decimal _pIbsUf;
+        private decimal _vIbsUf;
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB18 - Alíquota do IBS de competência das UF
         /// </summary>
-        [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
+        public decimal pIBSUF
+        {
+            get => _pIbsUf.Arredondar(4);
+            set => _pIbsUf = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15  - Grupo de Informações do IBS e da CBS
+        ///     UB35 - Valor do IBS de competência da UF
         /// </summary>
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal vIBSUF
+        {
+            get => _vIbsUf.Arredondar(4);
+            set => _vIbsUf = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB21 - Grupo de Informações do Diferimento
+        /// </summary>
+        public gDif gDif { get; set; }
+        
+        /// <summary>
+        ///     UB24 - Grupo de Informações da devolução de tributos
+        /// </summary>
+        public gDevTrib gDevTrib { get; set; }
+        
+        /// <summary>
+        ///     UB26 - Grupo de informações da redução da alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
     }
 }
