@@ -52,8 +52,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// </summary>
         public decimal vIBSMun
         {
-            get => _vIbsMun.Arredondar(4);
-            set => _vIbsMun = value.Arredondar(4);
+            get => _vIbsMun.Arredondar(2);
+            set => _vIbsMun = value.Arredondar(2);
         }
         
         /// <summary>

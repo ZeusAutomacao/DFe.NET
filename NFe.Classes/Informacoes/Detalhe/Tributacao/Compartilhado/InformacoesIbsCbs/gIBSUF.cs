@@ -52,8 +52,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// </summary>
         public decimal vIBSUF
         {
-            get => _vIbsUf.Arredondar(4);
-            set => _vIbsUf = value.Arredondar(4);
+            get => _vIbsUf.Arredondar(2);
+            set => _vIbsUf = value.Arredondar(2);
         }
         
         /// <summary>
