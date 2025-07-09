@@ -31,46 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
-    public class gCBS
+    public class gIBSCredPres
     {
-        private decimal _pCbs;
-        private decimal _vCbs;
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
+        
+        /// <summary>
+        ///     UB74 - Código de Classificação do Crédito Presumido
+        /// </summary>
+        public int cCredPres { get; set; }
 
         /// <summary>
-        ///     UB56 - Alíquota da CBS
+        ///     UB75 - Percentual do Crédito Presumido
         /// </summary>
-        public decimal pCBS
+        public decimal pCredPres
         {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
+            get => _pCredPres.Arredondar(4);
+            set => _pCredPres = value.Arredondar(4);
         }
-        
+
         /// <summary>
-        ///     UB67 - Valor da CBS
+        ///     UB76 - Valor do Crédito Presumido
         /// </summary>
-        public decimal vCBS
+        public decimal vCredPres
         {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
+            get => _vCredPres.Arredondar(2);
+            set => _vCredPres = value.Arredondar(2);
         }
-        
+
         /// <summary>
-        ///     UB59 - Grupo de Informações do Diferimento
+        ///     UB77 - Valor do Crédito Presumido em condição suspensiva
         /// </summary>
-        public gDif gDif { get; set; }
-        
-        /// <summary>
-        ///     UB62 - Grupo de Informações da devolução de tributos
-        /// </summary>
-        public gDevTrib gDevTrib { get; set; }
-        
-        /// <summary>
-        ///     UB64 - Grupo de informações da redução da alíquota
-        /// </summary>
-        public gRed gRed { get; set; }
+        public decimal vCredPresCondSus
+        {
+            get => _vCredPresCondSus.Arredondar(2);
+            set => _vCredPresCondSus = value.Arredondar(2);
+        }
     }
 }

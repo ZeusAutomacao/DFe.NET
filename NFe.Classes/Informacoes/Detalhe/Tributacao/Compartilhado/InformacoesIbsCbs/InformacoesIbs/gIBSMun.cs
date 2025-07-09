@@ -31,43 +31,43 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
-    public class gIBSUF
+    public class gIBSMun
     {
-        private decimal _pIbsUf;
-        private decimal _vIbsUf;
-        
+        private decimal _pIbsMun;
+        private decimal _vIbsMun;
+
         /// <summary>
-        ///     UB18 - Alíquota do IBS de competência das UF
+        ///     UB37 - Alíquota do IBS de competência do Município
         /// </summary>
-        public decimal pIBSUF
+        public decimal pIBSMun
         {
-            get => _pIbsUf.Arredondar(4);
-            set => _pIbsUf = value.Arredondar(4);
+            get => _pIbsMun.Arredondar(4);
+            set => _pIbsMun = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     UB35 - Valor do IBS de competência da UF
+        ///     UB54 - Valor do IBS de competência do Município
         /// </summary>
-        public decimal vIBSUF
+        public decimal vIBSMun
         {
-            get => _vIbsUf.Arredondar(2);
-            set => _vIbsUf = value.Arredondar(2);
+            get => _vIbsMun.Arredondar(2);
+            set => _vIbsMun = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     UB21 - Grupo de Informações do Diferimento
+        ///     UB40 - Grupo de Informações do Diferimento
         /// </summary>
         public gDif gDif { get; set; }
         
         /// <summary>
-        ///     UB24 - Grupo de Informações da devolução de tributos
+        ///     UB43 - Grupo de Informações da devolução de tributos
         /// </summary>
         public gDevTrib gDevTrib { get; set; }
         
         /// <summary>
-        ///     UB26 - Grupo de informações da redução da alíquota
+        ///     UB45 - Grupo de informações da redução da alíquota
         /// </summary>
         public gRed gRed { get; set; }
     }

@@ -31,26 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
-    public class gCredPresIBSZFM
+    public class gIBSUF
     {
-        private decimal _vCredPresIbsZfm;
-
-        /// <summary>
-        ///     UB110 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
-        /// </summary>
-        public ClassificacaoCreditoPresumidoIbsZfmTipos tpCredPresIBSZFM { get; set; }
+        private decimal _pIbsUf;
+        private decimal _vIbsUf;
         
         /// <summary>
-        ///     UB111 - Valor do crédito presumido calculado sobre o saldo devedor apurado
+        ///     UB18 - Alíquota do IBS de competência das UF
         /// </summary>
-        public decimal vCredPresIBSZFM
+        public decimal pIBSUF
         {
-            get => _vCredPresIbsZfm.Arredondar(2);
-            set => _vCredPresIbsZfm = value.Arredondar(2);
+            get => _pIbsUf.Arredondar(4);
+            set => _pIbsUf = value.Arredondar(4);
         }
+        
+        /// <summary>
+        ///     UB35 - Valor do IBS de competência da UF
+        /// </summary>
+        public decimal vIBSUF
+        {
+            get => _vIbsUf.Arredondar(2);
+            set => _vIbsUf = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB21 - Grupo de Informações do Diferimento
+        /// </summary>
+        public gDif gDif { get; set; }
+        
+        /// <summary>
+        ///     UB24 - Grupo de Informações da devolução de tributos
+        /// </summary>
+        public gDevTrib gDevTrib { get; set; }
+        
+        /// <summary>
+        ///     UB26 - Grupo de informações da redução da alíquota
+        /// </summary>
+        public gRed gRed { get; set; }
     }
 }

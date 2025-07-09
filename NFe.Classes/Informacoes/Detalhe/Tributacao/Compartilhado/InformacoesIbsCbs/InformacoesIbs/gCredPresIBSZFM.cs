@@ -31,44 +31,26 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
-    public class gIBSCredPres
+    public class gCredPresIBSZFM
     {
-        private decimal _pCredPres;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
+        private decimal _vCredPresIbsZfm;
+
+        /// <summary>
+        ///     UB110 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
+        /// </summary>
+        public ClassificacaoCreditoPresumidoIbsZfmTipos tpCredPresIBSZFM { get; set; }
         
         /// <summary>
-        ///     UB74 - Código de Classificação do Crédito Presumido
+        ///     UB111 - Valor do crédito presumido calculado sobre o saldo devedor apurado
         /// </summary>
-        public int cCredPres { get; set; }
-
-        /// <summary>
-        ///     UB75 - Percentual do Crédito Presumido
-        /// </summary>
-        public decimal pCredPres
+        public decimal vCredPresIBSZFM
         {
-            get => _pCredPres.Arredondar(4);
-            set => _pCredPres = value.Arredondar(4);
-        }
-
-        /// <summary>
-        ///     UB76 - Valor do Crédito Presumido
-        /// </summary>
-        public decimal vCredPres
-        {
-            get => _vCredPres.Arredondar(2);
-            set => _vCredPres = value.Arredondar(2);
-        }
-
-        /// <summary>
-        ///     UB77 - Valor do Crédito Presumido em condição suspensiva
-        /// </summary>
-        public decimal vCredPresCondSus
-        {
-            get => _vCredPresCondSus.Arredondar(2);
-            set => _vCredPresCondSus = value.Arredondar(2);
+            get => _vCredPresIbsZfm.Arredondar(2);
+            set => _vCredPresIbsZfm = value.Arredondar(2);
         }
     }
 }
