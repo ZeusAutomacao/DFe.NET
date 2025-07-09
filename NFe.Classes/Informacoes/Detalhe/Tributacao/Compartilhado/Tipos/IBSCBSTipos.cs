@@ -36,6 +36,25 @@ using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
 {
+    /// <summary>
+    ///     <para>000 - Tributação integral</para>
+    ///     <para>010 - Tributação com alíquotas uniformes</para>
+    ///     <para>011 - Tributação com alíquotas uniformes reduzidas</para>
+    ///     <para>200 - Alíquota reduzida</para>
+    ///     <para>210 - Redução de alíquota com redutor de base de cálculo</para>
+    ///     <para>220 - Alíquota fixa</para>
+    ///     <para>221 - Alíquota fixa rateada</para>
+    ///     <para>222 - Redução de Base de Cálculo</para>
+    ///     <para>400 - Isenção</para>
+    ///     <para>410 - Imunidade e não incidência</para>
+    ///     <para>510 - Diferimento</para>
+    ///     <para>550 - Suspensão</para>
+    ///     <para>620 - Tributação Monofásica</para>
+    ///     <para>800 - Transferência de crédito</para>
+    ///     <para>810 - Ajustes</para>
+    ///     <para>820 - Tributação em declaração de regime específico</para>
+    ///     <para>830 - Exclusão da Base de Cálculo</para>
+    /// </summary>
     public enum CST
     {
         /// <summary>
@@ -158,6 +177,13 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         Cst830
     }
 
+    /// <summary>
+    ///     <para>0 - Sem Crédito Presumido</para>
+    ///     <para>1 - Bens de consumo final (55%)</para>
+    ///     <para>2 - Bens de capital (75%)</para>
+    ///     <para>3 - Bens intermediários (90,25%)</para>
+    ///     <para>4 - Bens de informática e outros definidos em legislação (100%)</para>
+    /// </summary>
     public enum ClassificacaoCreditoPresumidoIbsZfmTipos
     {
         /// <summary>
