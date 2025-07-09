@@ -157,4 +157,42 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos
         [XmlEnum("830")]
         Cst830
     }
+
+    public enum ClassificacaoCreditoPresumidoIbsZfmTipos
+    {
+        /// <summary>
+        ///     0 - Sem Crédito Presumido
+        /// </summary>
+        [Description("Sem Crédito Presumido")]
+        [XmlEnum("0")]
+        tpCredPresIbsZfm0,
+        
+        /// <summary>
+        ///     1 - Bens de consumo final (55%)
+        /// </summary>
+        [Description("Bens de consumo final (55%)")]
+        [XmlEnum("1")]
+        tpCredPresIbsZfm1,
+        
+        /// <summary>
+        ///     2 - Bens de capital (75%)
+        /// </summary>
+        [Description("Bens de capital (75%)")]
+        [XmlEnum("2")]
+        tpCredPresIbsZfm2,
+        
+        /// <summary>
+        ///     3 - Bens intermediários (90,25%)
+        /// </summary>
+        [Description("Bens intermediários (90,25%)")]
+        [XmlEnum("3")]
+        tpCredPresIbsZfm3,
+        
+        /// <summary>
+        ///     4 - Bens de informática e outros definidos em legislação (100%)
+        /// </summary>
+        [Description("Bens de informática e outros definidos em legislação (100%)")]
+        [XmlEnum("4")]
+        tpCredPresIbsZfm4
+    }
 }
