@@ -33,6 +33,7 @@
 
 using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado

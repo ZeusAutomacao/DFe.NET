@@ -31,43 +31,43 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
 {
-    public class gIBSMun
+    public class gCBS
     {
-        private decimal _pIbsMun;
-        private decimal _vIbsMun;
+        private decimal _pCbs;
+        private decimal _vCbs;
 
         /// <summary>
-        ///     UB37 - Alíquota do IBS de competência do Município
+        ///     UB56 - Alíquota da CBS
         /// </summary>
-        public decimal pIBSMun
+        public decimal pCBS
         {
-            get => _pIbsMun.Arredondar(4);
-            set => _pIbsMun = value.Arredondar(4);
+            get => _pCbs.Arredondar(4);
+            set => _pCbs = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     UB54 - Valor do IBS de competência do Município
+        ///     UB67 - Valor da CBS
         /// </summary>
-        public decimal vIBSMun
+        public decimal vCBS
         {
-            get => _vIbsMun.Arredondar(2);
-            set => _vIbsMun = value.Arredondar(2);
+            get => _vCbs.Arredondar(2);
+            set => _vCbs = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     UB40 - Grupo de Informações do Diferimento
+        ///     UB59 - Grupo de Informações do Diferimento
         /// </summary>
         public gDif gDif { get; set; }
         
         /// <summary>
-        ///     UB43 - Grupo de Informações da devolução de tributos
+        ///     UB62 - Grupo de Informações da devolução de tributos
         /// </summary>
         public gDevTrib gDevTrib { get; set; }
         
         /// <summary>
-        ///     UB45 - Grupo de informações da redução da alíquota
+        ///     UB64 - Grupo de informações da redução da alíquota
         /// </summary>
         public gRed gRed { get; set; }
     }
