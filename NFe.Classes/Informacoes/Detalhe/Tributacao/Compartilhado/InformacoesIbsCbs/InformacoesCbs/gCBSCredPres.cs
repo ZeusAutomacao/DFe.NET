@@ -31,84 +31,44 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs
 {
-    public class imposto
+    public class gCBSCredPres
     {
-        private decimal? _vTotTrib;
+        private decimal _pCredPres;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
+        
+        /// <summary>
+        ///     UB79 - Código de Classificação do Crédito Presumido
+        /// </summary>
+        public int cCredPres { get; set; }
 
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     UB80 - Percentual do Crédito Presumido
         /// </summary>
-        public decimal? vTotTrib
+        public decimal pCredPres
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get => _pCredPres.Arredondar(4);
+            set => _pCredPres = value.Arredondar(4);
         }
 
         /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
+        ///     UB81 - Valor do Crédito Presumido
         /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
-        
-        /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
-        /// </summary>
-        public IS IS { get; set; }
-        
-        /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
-        /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        public decimal vCredPres
         {
-            return vTotTrib.HasValue;
+            get => _vCredPres.Arredondar(2);
+            set => _vCredPres = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     UB82 - Valor do Crédito Presumido em condição suspensiva
+        /// </summary>
+        public decimal vCredPresCondSus
+        {
+            get => _vCredPresCondSus.Arredondar(2);
+            set => _vCredPresCondSus = value.Arredondar(2);
         }
     }
 }

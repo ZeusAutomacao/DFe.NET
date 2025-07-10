@@ -31,84 +31,69 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class imposto
+    public class gTribCompraGov
     {
-        private decimal? _vTotTrib;
-
+        private decimal _pIbsUf;
+        private decimal _vIbsUf;
+        private decimal _pIbsMun;
+        private decimal _vIbsMun;
+        private decimal _pCbs;
+        private decimal _vCbs;
+        
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     UB82b - Alíquota do IBS de competência do Estado
         /// </summary>
-        public decimal? vTotTrib
+        public decimal pIBSUF
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get => _pIbsUf.Arredondar(4);
+            set => _pIbsUf = value.Arredondar(4);
         }
 
         /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
+        ///     UB82c - Valor do Tributo do IBS da UF calculado
         /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
-        
-        /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
-        /// </summary>
-        public IS IS { get; set; }
-        
-        /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
-        /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        public decimal vIBSUF
         {
-            return vTotTrib.HasValue;
+            get => _vIbsUf.Arredondar(2);
+            set => _vIbsUf = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB82d - Alíquota do IBS de competência do Município
+        /// </summary>
+        public decimal pIBSMun
+        {
+            get => _pIbsMun.Arredondar(4);
+            set => _pIbsMun = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB82e - Valor do Tributo do IBS do Município calculado
+        /// </summary>
+        public decimal vIBSMun
+        {
+            get => _vIbsMun.Arredondar(2);
+            set => _vIbsMun = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB82f - Alíquota da CBS
+        /// </summary>
+        public decimal pCBS
+        {
+            get => _pCbs.Arredondar(4);
+            set => _pCbs = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB82g - Valor do Tributo da CBS calculado
+        /// </summary>
+        public decimal vCBS
+        {
+            get => _vCbs.Arredondar(2);
+            set => _vCbs = value.Arredondar(2);
         }
     }
 }

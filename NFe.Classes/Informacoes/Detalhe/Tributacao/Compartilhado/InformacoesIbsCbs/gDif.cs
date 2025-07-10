@@ -31,84 +31,29 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class imposto
+    public class gDif
     {
-        private decimal? _vTotTrib;
-
+        private decimal _pDif;
+        private decimal _vDif;
+        
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     Percentual do diferimento
         /// </summary>
-        public decimal? vTotTrib
+        public decimal pDif
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get => _pDif.Arredondar(4);
+            set => _pDif = value.Arredondar(4);
         }
-
-        /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
-        /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
         
         /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
+        ///     Valor do Diferimento
         /// </summary>
-        public IS IS { get; set; }
-        
-        /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
-        /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        public decimal vDif
         {
-            return vTotTrib.HasValue;
+            get => _vDif.Arredondar(2);
+            set => _vDif = value.Arredondar(2);
         }
     }
 }
