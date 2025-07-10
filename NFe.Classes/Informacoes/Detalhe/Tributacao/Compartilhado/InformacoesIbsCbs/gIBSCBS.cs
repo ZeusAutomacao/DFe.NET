@@ -31,84 +31,57 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class imposto
+    public class gIBSCBS
     {
-        private decimal? _vTotTrib;
-
-        /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
-        /// </summary>
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
-        /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
+        private decimal _vBc;
         
         /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
+        ///     UB16 - Base de cálculo do IBS e CBS
         /// </summary>
-        public IS IS { get; set; }
+        public decimal vBC
+        {
+            get => _vBc.Arredondar(2);
+            set => _vBc = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
+        ///     UB17 - Grupo de Informações do IBS para a UF
         /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
-        {
-            return vTotTrib.HasValue;
-        }
+        public gIBSUF gIBSUF { get; set; }
+        
+        /// <summary>
+        ///     UB36 - Grupo de Informações do IBS para o município
+        /// </summary>
+        public gIBSMun gIBSMun { get; set; }
+        
+        /// <summary>
+        ///     UB55 - Grupo de Informações da CBS
+        /// </summary>
+        public gCBS gCBS { get; set; }
+        
+        /// <summary>
+        ///     UB68 - Grupo de informações da Tributação Regular
+        /// </summary>
+        public gTribRegular gTribRegular { get; set; }
+        
+        /// <summary>
+        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
+        /// </summary>
+        public gIBSCredPres gIBSCredPres { get; set; }
+        
+        /// <summary>
+        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
+        /// </summary>
+        public gCBSCredPres gCBSCredPres { get; set; }
+        
+        /// <summary>
+        ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
+        /// </summary>
+        public gTribCompraGov gTribCompraGov { get; set; }
     }
 }

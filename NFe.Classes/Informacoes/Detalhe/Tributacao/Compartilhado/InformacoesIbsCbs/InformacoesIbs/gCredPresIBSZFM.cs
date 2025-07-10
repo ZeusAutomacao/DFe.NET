@@ -31,84 +31,26 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs
 {
-    public class imposto
+    public class gCredPresIBSZFM
     {
-        private decimal? _vTotTrib;
+        private decimal? _vCredPresIbsZfm;
 
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     UB110 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
         /// </summary>
-        public decimal? vTotTrib
-        {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
-        }
-
-        /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
-        /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
+        public ClassificacaoCreditoPresumidoIbsZfmTipos tpCredPresIBSZFM { get; set; }
         
         /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
+        ///     UB111 - Valor do crédito presumido calculado sobre o saldo devedor apurado
         /// </summary>
-        public IS IS { get; set; }
-        
-        /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
-        /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        public decimal? vCredPresIBSZFM
         {
-            return vTotTrib.HasValue;
+            get => _vCredPresIbsZfm.Arredondar(2);
+            set => _vCredPresIbsZfm = value.Arredondar(2);
         }
     }
 }

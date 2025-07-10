@@ -31,84 +31,81 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Federal;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Municipal;
+using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
 
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class imposto
+    public class gTribRegular
     {
-        private decimal? _vTotTrib;
+        private decimal _pAliqEfetRegIbsUf;
+        private decimal _vTribRegIbsUf;
+        private decimal _pAliqEfetRegIbsMun;
+        private decimal _vTribRegIbsMun;
+        private decimal _pAliqEfetRegCbs;
+        private decimal _vTribRegCbs;
+        
+        /// <summary>
+        ///     UB69 - Código de Situação Tributária do IBS e CBS
+        /// </summary>
+        public CST CSTReg { get; set; }
+        
+        /// <summary>
+        ///     UB70 - Código de Classificação Tributária do IBS e CBS
+        /// </summary>
+        public int cClassTribReg { get; set; }
 
         /// <summary>
-        ///     M02 - Valor estimado total de impostos federais, estaduais e municipais
+        ///     UB71 - Valor da alíquota do IBS da UF
         /// </summary>
-        public decimal? vTotTrib
+        public decimal pAliqEfetRegIBSUF
         {
-            get { return _vTotTrib.Arredondar(2); }
-            set { _vTotTrib = value.Arredondar(2); }
+            get => _pAliqEfetRegIbsUf.Arredondar(4);
+            set => _pAliqEfetRegIbsUf = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB72 - Valor do Tributo do IBS da UF
+        /// </summary>
+        public decimal vTribRegIBSUF
+        {
+            get => _vTribRegIbsUf.Arredondar(2);
+            set => _vTribRegIbsUf = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     UB72a - Valor da alíquota do IBS do Município
+        /// </summary>
+        public decimal pAliqEfetRegIBSMun
+        {
+            get => _pAliqEfetRegIbsMun.Arredondar(4);
+            set => _pAliqEfetRegIbsMun = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB72b - Valor do Tributo do IBS do Município
+        /// </summary>
+        public decimal vTribRegIBSMun
+        {
+            get => _vTribRegIbsMun.Arredondar(2);
+            set => _vTribRegIbsMun = value.Arredondar(2);
         }
 
         /// <summary>
-        ///     N01 - Dados do ICMS Normal e ST
+        ///     UB72c - Valor da alíquota da CBS
         /// </summary>
-        public ICMS ICMS { get; set; }
-
-        /// <summary>
-        ///     U01 - Grupo ISSQN
-        /// </summary>
-        public ISSQN ISSQN { get; set; }
-
-        /// <summary>
-        ///     O01 - Grupo IPI
-        /// </summary>
-        public IPI IPI { get; set; }
-
-        /// <summary>
-        ///     P01 - Grupo Imposto de Importação
-        /// </summary>
-        public II II { get; set; }
-
-        /// <summary>
-        ///     Q01 - Grupo PIS
-        /// </summary>
-        public PIS PIS { get; set; }
-
-        /// <summary>
-        ///     R01 - Grupo PIS Substituição Tributária
-        /// </summary>
-        public PISST PISST { get; set; }
-
-        /// <summary>
-        ///     S01 - Grupo COFINS
-        /// </summary>
-        public COFINS COFINS { get; set; }
-
-        /// <summary>
-        ///     T01 - Grupo COFINS Substituição Tributária
-        /// </summary>
-        public COFINSST COFINSST { get; set; }
-
-        /// <summary>
-        ///     NA01 - Informação do ICMS Interestadua
-        /// </summary>
-        public ICMSUFDest ICMSUFDest { get; set; }
-        
-        /// <summary>
-        ///     UB01 - Informações do Imposto Seletivo
-        /// </summary>
-        public IS IS { get; set; }
-        
-        /// <summary>
-        ///     UB12 - Informações do Imposto de Bens e Serviços - IBS e da Contribuição de Bens e Serviços - CBS 
-        /// </summary>
-        public IBSCBS IBSCBS { get; set; }
-
-        public bool ShouldSerializevTotTrib()
+        public decimal pAliqEfetRegCBS
         {
-            return vTotTrib.HasValue;
+            get => _pAliqEfetRegCbs.Arredondar(4);
+            set => _pAliqEfetRegCbs = value.Arredondar(4);
+        }
+
+        /// <summary>
+        ///     UB72d - Valor do Tributo da CBS
+        /// </summary>
+        public decimal vTribRegCBS
+        {
+            get => _vTribRegCbs.Arredondar(2);
+            set => _vTribRegCbs = value.Arredondar(2);
         }
     }
 }
