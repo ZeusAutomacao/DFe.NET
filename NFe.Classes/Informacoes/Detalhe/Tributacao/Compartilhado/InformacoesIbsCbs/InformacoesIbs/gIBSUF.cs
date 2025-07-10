@@ -48,15 +48,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         }
         
         /// <summary>
-        ///     UB35 - Valor do IBS de competência da UF
-        /// </summary>
-        public decimal vIBSUF
-        {
-            get => _vIbsUf.Arredondar(2);
-            set => _vIbsUf = value.Arredondar(2);
-        }
-        
-        /// <summary>
         ///     UB21 - Grupo de Informações do Diferimento
         /// </summary>
         public gDif gDif { get; set; }
@@ -70,5 +61,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB26 - Grupo de informações da redução da alíquota
         /// </summary>
         public gRed gRed { get; set; }
+        
+        /// <summary>
+        ///     UB35 - Valor do IBS de competência da UF
+        /// </summary>
+        public decimal vIBSUF
+        {
+            get => _vIbsUf.Arredondar(2);
+            set => _vIbsUf = value.Arredondar(2);
+        }
     }
 }
