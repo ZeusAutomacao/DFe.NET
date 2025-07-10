@@ -40,7 +40,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
     {
         private decimal _vBcIs;
         private decimal _pIs;
-        private decimal _pIsEspec;
+        private decimal? _pIsEspec;
         private decimal _qTrib;
         private decimal _vIs;
         
@@ -80,7 +80,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         ///     UB07 - Alíquota específica por unidade de medida apropriada
         /// </summary>
         [XmlElement(Order = 5)]
-        public decimal pISEspec
+        public decimal? pISEspec
         {
             get => _pIsEspec.Arredondar(4);
             set => _pIsEspec = value.Arredondar(4);

@@ -37,7 +37,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
 {
     public class gCredPresIBSZFM
     {
-        private decimal _vCredPresIbsZfm;
+        private decimal? _vCredPresIbsZfm;
 
         /// <summary>
         ///     UB110 - Tipo de classificação de acordo com o art. 450, § 1º, da LC 214/25 para o cálculo do crédito presumido na ZFM
@@ -47,7 +47,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB111 - Valor do crédito presumido calculado sobre o saldo devedor apurado
         /// </summary>
-        public decimal vCredPresIBSZFM
+        public decimal? vCredPresIBSZFM
         {
             get => _vCredPresIbsZfm.Arredondar(2);
             set => _vCredPresIbsZfm = value.Arredondar(2);
