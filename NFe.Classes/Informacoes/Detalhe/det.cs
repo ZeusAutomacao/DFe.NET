@@ -73,7 +73,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         public obsItem obsItem { get; set; }
         
         /// <summary>
-        ///  VB01 - Valor Total do Item da NF-e
+        ///     VB01 - Valor Total do Item da NF-e
         /// </summary>
         public decimal? vItem
         {
@@ -82,7 +82,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         }
         
         /// <summary>
-        ///  VC01 - Documento Fiscal Eletrônico Referenciado
+        ///     VC01 - Documento Fiscal Eletrônico Referenciado
         /// </summary>
         public DFeReferenciado DFeReferenciado { get; set; }
     }

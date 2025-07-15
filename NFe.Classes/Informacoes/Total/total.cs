@@ -30,10 +30,15 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+
+using NFe.Classes.Informacoes.Total.IbsCbs;
+
 namespace NFe.Classes.Informacoes.Total
 {
     public class total
     {
+        private decimal _vNFTot;
+        
         /// <summary>
         ///     W02 - Grupo Totais referentes ao ICMS
         /// </summary>
@@ -48,5 +53,24 @@ namespace NFe.Classes.Informacoes.Total
         ///     W23 - Grupo Retenções de Tributos
         /// </summary>
         public retTrib retTrib { get; set; }
+        
+        /// <summary>
+        ///     W31 - Grupo total do imposto seletivo
+        /// </summary>
+        public ISTot ISTot { get; set; }
+        
+        /// <summary>
+        ///     W34 - Totais da NF-e com IBS e CBS
+        /// </summary>
+        public IBSCBSTot IBSCBSTot {get; set;}
+
+        /// <summary>
+        ///     W60 - Valor total da NF-e com IBS / CBS / IS
+        /// </summary>
+        public decimal vNFTot
+        {
+            get => _vNFTot;
+            set => _vNFTot = value.Arredondar(2);
+        }
     }
 }
