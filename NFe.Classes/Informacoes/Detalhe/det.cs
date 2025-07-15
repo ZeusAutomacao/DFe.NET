@@ -38,6 +38,8 @@ namespace NFe.Classes.Informacoes.Detalhe
 {
     public class det
     {
+        private decimal _vItem;
+        
         /// <summary>
         ///     H02 - Número do item do NF
         /// </summary>
@@ -69,5 +71,14 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// </summary>
         [XmlElement(nameof(obsItem))]
         public obsItem obsItem { get; set; }
+        
+        /// <summary>
+        ///  VB01 - Valor Total do Item da NF-e
+        /// </summary>
+        public decimal vItem
+        {
+            get => _vItem; 
+            set => _vItem = value.Arredondar(2); 
+        }
     }
 }
