@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,60 +30,60 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Observacao;
-using NFe.Classes.Informacoes.Detalhe.Tributacao;
 
-namespace NFe.Classes.Informacoes.Detalhe
+namespace NFe.Classes.Informacoes.Total.IbsCbs.Cbs
 {
-    public class det
+    public class gCBS
     {
-        private decimal? _vItem;
+        private decimal _vDif;
+        private decimal _vDevTrib;
+        private decimal _vCBS;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
         
         /// <summary>
-        ///     H02 - Número do item do NF
+        ///     W53 - Valor total do diferimento
         /// </summary>
-        [XmlAttribute]
-        public int nItem { get; set; }
-
-        /// <summary>
-        ///     I01 - Detalhamento de Produtos e Serviços
-        /// </summary>
-        public prod prod { get; set; }
-
-        /// <summary>
-        ///     M01 - Tributos incidentes no Produto ou Serviço
-        /// </summary>
-        public imposto imposto { get; set; }
-
-        /// <summary>
-        ///     UA01 - Informação do Imposto devolvido
-        /// </summary>
-        public impostoDevol impostoDevol { get; set; }
-
-        /// <summary>
-        ///     V01 - Informações Adicionais do Produto
-        /// </summary>
-        public string infAdProd { get; set; }        
-        
-        /// <summary>
-        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
-        /// </summary>
-        [XmlElement(nameof(obsItem))]
-        public obsItem obsItem { get; set; }
-        
-        /// <summary>
-        ///     VB01 - Valor Total do Item da NF-e
-        /// </summary>
-        public decimal? vItem
+        public decimal vDif
         {
-            get => _vItem; 
-            set => _vItem = value.Arredondar(2); 
+            get => _vDif;
+            set => _vDif = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     VC01 - Documento Fiscal Eletrônico Referenciado
+        ///     W54 - Valor total de devolução de tributos
         /// </summary>
-        public DFeReferenciado DFeReferenciado { get; set; }
+        public decimal vDevTrib
+        {
+            get => _vDevTrib;
+            set => _vDevTrib = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     W56 - Valor total do CBS
+        /// </summary>
+        public decimal vCBS
+        {
+            get => _vCBS;
+            set => _vCBS = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W56a - Valor total do crédito presumido
+        /// </summary>
+        public decimal vCredPres
+        {
+            get => _vCredPres;
+            set => _vCredPres = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W56b - Valor total do crédito presumido em condição suspensiva
+        /// </summary>
+        public decimal vCredPresCondSus
+        {
+            get => _vCredPresCondSus;
+            set => _vCredPresCondSus = value.Arredondar(2);
+        }
     }
 }

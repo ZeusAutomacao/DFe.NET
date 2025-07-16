@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,60 +30,70 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Observacao;
-using NFe.Classes.Informacoes.Detalhe.Tributacao;
 
-namespace NFe.Classes.Informacoes.Detalhe
+namespace NFe.Classes.Informacoes.Total.IbsCbs.Monofasica
 {
-    public class det
+    public class gMono
     {
-        private decimal? _vItem;
-        
-        /// <summary>
-        ///     H02 - Número do item do NF
-        /// </summary>
-        [XmlAttribute]
-        public int nItem { get; set; }
+        private decimal _vIBSMono;
+        private decimal _vCBSMono;
+        private decimal _vIBSMonoReten;
+        private decimal _vCBSMonoReten;
+        private decimal _vIBSMonoRet;
+        private decimal _vCBSMonoRet;
 
         /// <summary>
-        ///     I01 - Detalhamento de Produtos e Serviços
+        ///     W58 - Total do IBS monofásico
         /// </summary>
-        public prod prod { get; set; }
-
-        /// <summary>
-        ///     M01 - Tributos incidentes no Produto ou Serviço
-        /// </summary>
-        public imposto imposto { get; set; }
-
-        /// <summary>
-        ///     UA01 - Informação do Imposto devolvido
-        /// </summary>
-        public impostoDevol impostoDevol { get; set; }
-
-        /// <summary>
-        ///     V01 - Informações Adicionais do Produto
-        /// </summary>
-        public string infAdProd { get; set; }        
-        
-        /// <summary>
-        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
-        /// </summary>
-        [XmlElement(nameof(obsItem))]
-        public obsItem obsItem { get; set; }
-        
-        /// <summary>
-        ///     VB01 - Valor Total do Item da NF-e
-        /// </summary>
-        public decimal? vItem
+        public decimal vIBSMono
         {
-            get => _vItem; 
-            set => _vItem = value.Arredondar(2); 
+            get => _vIBSMono;
+            set => _vIBSMono = value.Arredondar(2);
         }
-        
+
         /// <summary>
-        ///     VC01 - Documento Fiscal Eletrônico Referenciado
+        ///     W59 - Total da CBS monofásica
         /// </summary>
-        public DFeReferenciado DFeReferenciado { get; set; }
+        public decimal vCBSMono
+        {
+            get => _vCBSMono;
+            set => _vCBSMono = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W59a - Total do IBS monofásico sujeito a retenção
+        /// </summary>
+        public decimal vIBSMonoReten
+        {
+            get => _vIBSMonoReten;
+            set => _vIBSMonoReten = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W59b - Total da CBS monofásica sujeita a retenção
+        /// </summary>
+        public decimal vCBSMonoReten
+        {
+            get => _vCBSMonoReten;
+            set => _vCBSMonoReten = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W59c - Total do IBS monofásico retido anteriormente
+        /// </summary>
+        public decimal vIBSMonoRet
+        {
+            get => _vIBSMonoRet;
+            set => _vIBSMonoRet = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W59d - Total da CBS monofásica retida anteriormente
+        /// </summary>
+        public decimal vCBSMonoRet
+        {
+            get => _vCBSMonoRet;
+            set => _vCBSMonoRet = value.Arredondar(2);
+        }
     }
 }

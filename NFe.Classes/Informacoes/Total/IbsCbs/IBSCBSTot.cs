@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -30,60 +30,39 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Observacao;
-using NFe.Classes.Informacoes.Detalhe.Tributacao;
 
-namespace NFe.Classes.Informacoes.Detalhe
+using NFe.Classes.Informacoes.Total.IbsCbs.Cbs;
+using NFe.Classes.Informacoes.Total.IbsCbs.Ibs;
+using NFe.Classes.Informacoes.Total.IbsCbs.Monofasica;
+
+namespace NFe.Classes.Informacoes.Total.IbsCbs
 {
-    public class det
+    public class IBSCBSTot
     {
-        private decimal? _vItem;
-        
-        /// <summary>
-        ///     H02 - Número do item do NF
-        /// </summary>
-        [XmlAttribute]
-        public int nItem { get; set; }
+        private decimal _vBCIBSCBS;
 
         /// <summary>
-        ///     I01 - Detalhamento de Produtos e Serviços
+        ///     W35 - Valor total da BC do IBS e da CBS
         /// </summary>
-        public prod prod { get; set; }
-
-        /// <summary>
-        ///     M01 - Tributos incidentes no Produto ou Serviço
-        /// </summary>
-        public imposto imposto { get; set; }
-
-        /// <summary>
-        ///     UA01 - Informação do Imposto devolvido
-        /// </summary>
-        public impostoDevol impostoDevol { get; set; }
-
-        /// <summary>
-        ///     V01 - Informações Adicionais do Produto
-        /// </summary>
-        public string infAdProd { get; set; }        
-        
-        /// <summary>
-        ///     VA01 - Grupo de observações de uso livre (para o item da NF-e)
-        /// </summary>
-        [XmlElement(nameof(obsItem))]
-        public obsItem obsItem { get; set; }
-        
-        /// <summary>
-        ///     VB01 - Valor Total do Item da NF-e
-        /// </summary>
-        public decimal? vItem
+        public decimal vBCIBSCBS
         {
-            get => _vItem; 
-            set => _vItem = value.Arredondar(2); 
+            get => _vBCIBSCBS;
+            set => _vBCIBSCBS = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     VC01 - Documento Fiscal Eletrônico Referenciado
+        ///     W36 - Grupo total do IBS
         /// </summary>
-        public DFeReferenciado DFeReferenciado { get; set; }
+        public gIBS gIBS  { get; set; }
+        
+        /// <summary>
+        ///     W50 - Grupo total do CBS
+        /// </summary>
+        public gCBS gCBS { get; set; }
+        
+        /// <summary>
+        ///     W57 - Grupo total da Monofasia
+        /// </summary>
+        public gMono gMono { get; set; }
     }
 }
