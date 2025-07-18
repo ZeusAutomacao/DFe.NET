@@ -411,7 +411,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
                 ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
-                ServicoNFe.RecepcaoEventoAtorInteressado
+                ServicoNFe.RecepcaoEventoAtorInteressado,
+                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
             };
             if (
                 !listaEventos.Contains(servicoEvento))
