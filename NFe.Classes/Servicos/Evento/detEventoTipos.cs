@@ -156,4 +156,18 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("1")]
         Permite = 1
     }
+    
+    /// <summary>
+    ///     Indicador de efetiva quitação do pagamento integral referente a NFe referenciada.
+    /// </summary>
+    public enum IndicadorDeQuitacaoDoPagamento
+    {
+        /// <summary>
+        ///     1 – Quitado
+        ///     Observação: Outros valores ainda não foram publicados. Revisado: 17/07/2025. Nota técnica base: NT_2025.002_v1.10_RTC_NF-e_IBS_CBS_IS
+        /// </summary>
+        [Description("Quitado")]
+        [XmlEnum("1")]
+        Quitado = 1
+    }
 }
