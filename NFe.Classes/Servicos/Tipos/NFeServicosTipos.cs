@@ -156,7 +156,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         NfceAdministracaoCSC,
 
-        ConsultaGtin
+        ConsultaGtin,
+        
+        /// <summary>
+        ///     Serviço destinado a permitir que o emitente da NFe informe o efetivo pagamento integral a fim de liberar crédito presumido do adquirente
+        /// </summary>
+        RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
     }
 
     /// <summary>
@@ -194,6 +199,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110193 - Cancelamento Insucesso na Entrega da NF-e
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
+    ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -277,6 +283,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento Conciliação Financeira")]
         [XmlEnum("110751")]
         TeNfeCancConciliacaoFinanceiraNFe = 110751,
+        
+        /// <summary>
+        /// 112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        [Description("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente")]
+        [XmlEnum("112110")]
+        TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = 112110,
 
         /// <summary>
         /// 210200 – Confirmação da Operação

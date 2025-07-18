@@ -1658,6 +1658,8 @@ namespace NFe.Utils.Enderecos
                             //Conciliação Financeira NFe
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                            
+                            AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(addServico, versao4, emissao, estado, modelo);
                         }
                     }
                 }
@@ -1666,7 +1668,26 @@ namespace NFe.Utils.Enderecos
 
             return endServico;
         }
+        
+        private static void AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                       VersaoServico[] versaoServico, 
+                                                                                       TipoEmissao tipoEmissao, 
+                                                                                       Estado estado, 
+                                                                                       ModeloDocumento modeloDocumento)
+        {
+            AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
+        }
 
+        private static void AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                                                                           VersaoServico[] versaoServico, 
+                                                                                                                                           TipoEmissao tipoEmissao, 
+                                                                                                                                           Estado estado, 
+                                                                                                                                           ModeloDocumento modeloDocumento)
+        {
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+        }
+        
         /// <summary>
         ///     Adiciona as urls dos webservices de todos os estados
         ///     Obs: UFs que disponibilizaram urls diferentes para NFCe, até 04/05/2015: SVRS, AM, MT, PR, RS e SP
@@ -1731,6 +1752,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoNfceAministracaoCSC;
                 case ServicoNFe.ConsultaGtin:
                     return cfgServico.VersaoConsultaGTIN;
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                    return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
             }
             return null;
         }
