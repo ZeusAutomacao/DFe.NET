@@ -411,7 +411,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
                 ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
-                ServicoNFe.RecepcaoEventoAtorInteressado
+                ServicoNFe.RecepcaoEventoAtorInteressado,
+                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1194,6 +1195,67 @@ namespace NFe.Servicos
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe, _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira, true);
             return retorno;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorDeQuitacaoDoPagamento">Indicador de efetiva quitação do pagamento integral referente a NFe referenciada</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(int idlote,
+                                                                                                                               int sequenciaEvento, 
+                                                                                                                               string cpfcnpj, 
+                                                                                                                               string chaveNFe, 
+                                                                                                                               IndicadorDeQuitacaoDoPagamento indicadorDeQuitacaoDoPagamento,
+                                                                                                                               Estado? ufAutor = null, 
+                                                                                                                               string versaoAplicativo = null, 
+                                                                                                                               DateTimeOffset? dhEvento = null)
+        {
+            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = TipoAutor.taEmpresaEmitente,
+                verAplic = versaoAplicativo ?? "1.0",
+                indQuitacao = indicadorDeQuitacaoDoPagamento
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.SVRS,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
+                                                       eventos: new List<evento> { evento }, 
+                                                       ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente, 
+                                                       _cFgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente, 
+                                                       assinar: true);
+            
+            return retornoRecepcaoEvento;
         }
 
         /// <summary>

@@ -79,7 +79,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
         private VersaoServico _versaoConsultaGTIN;
-
+        private VersaoServico _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente; 
 
         public ConfiguracaoServico()
         {
@@ -257,6 +257,7 @@ namespace NFe.Utils
                 VersaoNfeDownloadNF = obterVersao(ServicoNFe.NfeDownloadNF);
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
+                VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
             }
         }
 
@@ -536,6 +537,21 @@ namespace NFe.Utils
             {
                 if (value == _versaoConsultaGTIN) return;
                 _versaoConsultaGTIN = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+        {
+            get => _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
+            set
+            {
+                if (value == _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente) return;
+                
+                _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = value;
                 OnPropertyChanged();
             }
         }

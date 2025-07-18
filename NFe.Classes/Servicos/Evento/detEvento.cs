@@ -355,5 +355,22 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Eventos para a apuração do IBS e da CBSIBS e CBS
+
+        #region Informação de efetivo pagamento integral para liberar crédito presumido do adquirente 
+
+        /// <summary>
+        ///     P23 - Indicador de efetiva quitação do pagamento integral referente a NFe referenciada
+        /// </summary>
+        public IndicadorDeQuitacaoDoPagamento? indQuitacao { get; set; }
+        
+        public bool ShouldSerializeindQuitacao()
+        {
+            return indQuitacao.HasValue;
+        }
+
+        #endregion
+
+        #endregion
     }
 }
