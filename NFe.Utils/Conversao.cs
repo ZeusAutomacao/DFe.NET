@@ -55,7 +55,8 @@ namespace NFe.Utils
                 || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
                 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
                 || servicoNFe == ServicoNFe.RecepcaoEventoEpec
-                || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente)
+                || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido)
             {
                 return "1.00";
             }

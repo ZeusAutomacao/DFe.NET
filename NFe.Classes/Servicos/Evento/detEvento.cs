@@ -38,6 +38,7 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -367,6 +368,20 @@ namespace NFe.Classes.Servicos.Evento
         public bool ShouldSerializeindQuitacao()
         {
             return indQuitacao.HasValue;
+        }
+
+        #endregion
+
+        #region Solicitação de Apropriação de crédito presumido
+
+        /// <summary>
+        ///     P23 - Informações de crédito presumido por item
+        /// </summary>
+        public List<gCredPres> gCredPres { get; set; }
+        
+        public bool ShouldSerializegCredPres()
+        {
+            return gCredPres != null;
         }
 
         #endregion

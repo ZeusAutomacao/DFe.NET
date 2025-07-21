@@ -131,6 +131,8 @@ namespace NFe.Utils.Validacao
                     return "consGTIN_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
                     return "e112110_v1.00.xsd";
+                case ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                    return "e211110_v1.00.xsd";
             }
             return null;
         }
