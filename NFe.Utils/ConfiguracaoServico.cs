@@ -80,6 +80,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfceAministracaoCsc;
         private VersaoServico _versaoConsultaGTIN;
         private VersaoServico _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente; 
+        private VersaoServico _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido; 
 
         public ConfiguracaoServico()
         {
@@ -258,6 +259,7 @@ namespace NFe.Utils
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
                 VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
+                VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
             }
         }
 
@@ -552,6 +554,21 @@ namespace NFe.Utils
                 if (value == _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente) return;
                 
                 _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para solicitação de apropriação de crédito presumido
+        /// </summary>
+        public VersaoServico VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido
+        {
+            get => _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
+            set
+            {
+                if (value == _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido) return;
+                
+                _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = value;
                 OnPropertyChanged();
             }
         }
