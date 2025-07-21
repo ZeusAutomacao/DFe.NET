@@ -79,6 +79,7 @@ using System.Xml.Linq;
 using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
 using NFe.Classes.Informacoes;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 
 namespace NFe.Servicos
 {
@@ -412,7 +413,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoAtorInteressado,
-                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+                ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1218,7 +1220,7 @@ namespace NFe.Servicos
                                                                                                                                string versaoAplicativo = null, 
                                                                                                                                DateTimeOffset? dhEvento = null)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoCancelmento.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
+            var versaoServico = ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
 
             var detEvento = new detEvento
             {
@@ -1253,6 +1255,69 @@ namespace NFe.Servicos
                                                        eventos: new List<evento> { evento }, 
                                                        ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente, 
                                                        _cFgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente, 
+                                                       assinar: true);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesDeCreditoPresumidoPorItem">Lista de informações de crédito presumido por item</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(int idlote,
+                                                                                              int sequenciaEvento, 
+                                                                                              string cpfcnpj, 
+                                                                                              TipoAutor tipoAutor,
+                                                                                              string chaveNFe, 
+                                                                                              List<gCredPres> informacoesDeCreditoPresumidoPorItem,
+                                                                                              Estado? ufAutor = null, 
+                                                                                              string versaoAplicativo = null, 
+                                                                                              DateTimeOffset? dhEvento = null)
+        {
+            var versaoServico = ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido.VersaoServicoParaString(_cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo ?? "1.0",
+                gCredPres = informacoesDeCreditoPresumidoPorItem
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.SVRS,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
+                                                       eventos: new List<evento> { evento }, 
+                                                       ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
+                                                       _cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
                                                        assinar: true);
             
             return retornoRecepcaoEvento;

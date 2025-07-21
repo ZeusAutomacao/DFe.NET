@@ -1659,7 +1659,7 @@ namespace NFe.Utils.Enderecos
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                             
-                            AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(addServico, versao4, emissao, estado, modelo);
+                            AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(addServico, versao1, emissao, estado, modelo);
                         }
                     }
                 }
@@ -1676,6 +1676,7 @@ namespace NFe.Utils.Enderecos
                                                                                        ModeloDocumento modeloDocumento)
         {
             AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
+            AdicionarEnderecosDoServicoDoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
         }
 
         private static void AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
@@ -1686,6 +1687,16 @@ namespace NFe.Utils.Enderecos
         {
             adicionarServico(new[] { ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
             adicionarServico(new[] { ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+        }
+
+        private static void AdicionarEnderecosDoServicoDoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                                          VersaoServico[] versaoServico, 
+                                                                                                          TipoEmissao tipoEmissao, 
+                                                                                                          Estado estado, 
+                                                                                                          ModeloDocumento modeloDocumento)
+        {
+            adicionarServico(new[] { ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
         }
         
         /// <summary>
@@ -1754,6 +1765,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoConsultaGTIN;
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
                     return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
+                case ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                    return cfgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
             }
             return null;
         }
