@@ -161,7 +161,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço destinado a permitir que o emitente da NFe informe o efetivo pagamento integral a fim de liberar crédito presumido do adquirente
         /// </summary>
-        RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+        RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+        
+        /// <summary>
+        ///     Serviço destinado a evento a ser gerado pelo adquirente em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido
+        /// </summary>
+        RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido
     }
 
     /// <summary>
@@ -200,6 +205,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+    ///     211110 - Solicitação de Apropriação de crédito presumido
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -290,6 +296,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente")]
         [XmlEnum("112110")]
         TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = 112110,
+        
+        /// <summary>
+        /// 211110 - Solicitação de Apropriação de crédito presumido
+        /// </summary>
+        [Description("Solicitação de Apropriação de crédito presumido")]
+        [XmlEnum("211110")]
+        TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido = 211110,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
