@@ -400,6 +400,26 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Aceite de débito na apuração por emissão de nota de crédito
+
+        /// <summary>
+        ///     P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
+        /// </summary>
+        [XmlIgnore]
+        public IndicadorAceitacao? indAceitacao { get; set; }
+
+        [XmlAttribute("indAceitacao")]
+        public int ProxyIndicadorAceitacao
+        {
+            get => (int)(indAceitacao ?? 0);
+            set => indAceitacao = (IndicadorAceitacao?)value;
+        }
+
+        [XmlIgnore]
+        public bool ProxyIndicadorAceitacaoSpecified => indAceitacao != null;
+
+        #endregion
+
         #endregion
     }
 }

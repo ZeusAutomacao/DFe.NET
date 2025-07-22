@@ -169,11 +169,17 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
         
         /// <summary>
-        ///     Permitir ao adquirente informar quando uma aquisição for destinada para o consumo de pessoa física, hipótese em que não haverá direito à 
+        ///     Serviço para permitir ao adquirente informar quando uma aquisição for destinada para o consumo de pessoa física, hipótese em que não haverá direito à 
         ///     apropriação de crédito. Evento a ser registrado após a emissão da nota de bens destinados para uso e consumo pessoal. 
         ///     Uma mesma NFe de aquisição pode receber vários Eventos desse tipo, com nSeqEvento diferentes (eventos cumulativos).
         /// </summary>
-        RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
+        RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
+        
+        /// <summary>
+        ///     Serviço para Permitir ao destinatário informar que concorda com os valores constantes em nota de crédito emitida pelo fornecedor ou pelo adquirente que
+        ///     serão lançados a débito na apuração assistida de IBS e CBS
+        /// </summary>
+        RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
     }
 
     /// <summary>
@@ -313,11 +319,18 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido = 211110,
         
         /// <summary>
-        /// 211120 -  Destinação de item para consumo pessoal
+        /// 211120 - Destinação de item para consumo pessoal
         /// </summary>
         [Description("Destinação de item para consumo pessoal")]
         [XmlEnum("211120")]
         TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
+        
+        /// <summary>
+        /// 211128 - Aceite de débito na apuração por emissão de nota de crédito
+        /// </summary>
+        [Description("Aceite de débito na apuração por emissão de nota de crédito")]
+        [XmlEnum("211128")]
+        TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = 211128,
 
         /// <summary>
         /// 210200 – Confirmação da Operação

@@ -1678,6 +1678,7 @@ namespace NFe.Utils.Enderecos
             AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
             AdicionarEnderecosDoServicoDoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
             AdicionarEnderecosDoServicoDoEventoDestinacaoDeItemParaConsumoPessoal(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
+            AdicionarEnderecosDoServicoDoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
         }
 
         private static void AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
@@ -1708,6 +1709,16 @@ namespace NFe.Utils.Enderecos
         {
             adicionarServico(new[] { ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
             adicionarServico(new[] { ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+        }
+        
+        private static void AdicionarEnderecosDoServicoDoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                                                 VersaoServico[] versaoServico, 
+                                                                                                                 TipoEmissao tipoEmissao, 
+                                                                                                                 Estado estado, 
+                                                                                                                 ModeloDocumento modeloDocumento)
+        {
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
         }
         
         /// <summary>
@@ -1780,6 +1791,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
                 case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
                     return cfgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                    return cfgServico.VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
             }
             return null;
         }
