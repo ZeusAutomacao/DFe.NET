@@ -79,10 +79,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
         private VersaoServico _versaoConsultaGTIN;
-        private VersaoServico _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente; 
-        private VersaoServico _versaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido; 
-        private VersaoServico _versaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal;
-        private VersaoServico _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
+        private VersaoServico _versaoRecepcaoEventosDeApuracaoDoIbsECbs;
 
         public ConfiguracaoServico()
         {
@@ -231,14 +228,14 @@ namespace NFe.Utils
         {
             if (!_defineVersaoServicosAutomaticamente) return;
 
-                var enderecosMaisecentes =
-                Enderecador.ObterEnderecoServicosMaisRecentes(VersaoLayout, cUF, tpAmb, ModeloDocumento, tpEmis);
+            var enderecosMaisRecentes = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoLayout, cUF, tpAmb, ModeloDocumento, tpEmis);
 
-            var obterVersao = new Func<ServicoNFe, VersaoServico>(servico =>
-                enderecosMaisecentes.Where(n => n.ServicoNFe == servico).Select(n => n.VersaoServico).DefaultIfEmpty(VersaoServico.Versao100).FirstOrDefault());
-
-
-            if (enderecosMaisecentes.Any())
+            var obterVersao = new Func<ServicoNFe, VersaoServico>(servico => enderecosMaisRecentes.Where(n => n.ServicoNFe == servico)
+                                                                                                  .Select(n => n.VersaoServico)
+                                                                                                  .DefaultIfEmpty(VersaoServico.Versao100)
+                                                                                                  .FirstOrDefault());
+            
+            if (enderecosMaisRecentes.Any())
             {
                 VersaoRecepcaoEventoCceCancelamento = obterVersao(ServicoNFe.RecepcaoEventoCancelmento);
                 VersaoRecepcaoEventoInsucessoEntrega = obterVersao(ServicoNFe.RecepcaoEventoInsucessoEntregaNFe);
@@ -260,10 +257,7 @@ namespace NFe.Utils
                 VersaoNfeDownloadNF = obterVersao(ServicoNFe.NfeDownloadNF);
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
-                VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
-                VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido);
-                VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal = obterVersao(ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
-                VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = obterVersao(ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito);
+                VersaoRecepcaoEventosDeApuracaoDoIbsECbs = obterVersao(ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
             }
         }
 
@@ -548,61 +542,16 @@ namespace NFe.Utils
         }
         
         /// <summary>
-        ///     Versão do serviço RecepcaoEvento para informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        ///     Versão do serviço RecepcaoEvento para os eventos de apuração do IBS e da CBS
         /// </summary>
-        public VersaoServico VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+        public VersaoServico VersaoRecepcaoEventosDeApuracaoDoIbsECbs
         {
-            get => _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
+            get => _versaoRecepcaoEventosDeApuracaoDoIbsECbs;
             set
             {
-                if (value == _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente) return;
+                if (value == _versaoRecepcaoEventosDeApuracaoDoIbsECbs) return;
                 
-                _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        /// <summary>
-        ///     Versão do serviço RecepcaoEvento para solicitação de apropriação de crédito presumido
-        /// </summary>
-        public VersaoServico VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
-        {
-            get => _versaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido;
-            set
-            {
-                if (value == _versaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido) return;
-                
-                _versaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        /// <summary>
-        ///     Versão do serviço RecepcaoEvento para destinação de item para consumo pessoal
-        /// </summary>
-        public VersaoServico VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal 
-        {
-            get => _versaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal;
-            set
-            {
-                if (value == _versaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal) return;
-                
-                _versaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        /// <summary>
-        ///     Versão do serviço RecepcaoEvento para aceite de débito na apuração por emissão de nota de crédito 
-        /// </summary>
-        public VersaoServico VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
-        {
-            get => _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
-            set
-            {
-                if (value == _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito) return;
-                
-                _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = value;
+                _versaoRecepcaoEventosDeApuracaoDoIbsECbs = value;
                 OnPropertyChanged();
             }
         }
