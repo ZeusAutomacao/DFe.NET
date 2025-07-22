@@ -59,7 +59,7 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         /// <summary>
         ///     P26 - Valor da CBS na nota de aquisição correspondente à quantidade destinada a uso e consumo pessoal
         /// </summary>
-        [XmlAttribute("vIBS")]
+        [XmlAttribute("vCBS")]
         public decimal vCBS
         {
             get => _vCbs.Arredondar(2);
