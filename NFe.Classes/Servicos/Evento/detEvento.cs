@@ -39,6 +39,7 @@ using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -356,7 +357,7 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
-        #region Eventos para a apuração do IBS e da CBSIBS e CBS
+        #region Eventos para a apuração do IBS e da CBS
 
         #region Informação de efetivo pagamento integral para liberar crédito presumido do adquirente 
 
@@ -382,6 +383,20 @@ namespace NFe.Classes.Servicos.Evento
         public bool ShouldSerializegCredPres()
         {
             return gCredPres != null;
+        }
+
+        #endregion
+
+        #region Destinação de item para consumo pessoal
+
+        /// <summary>
+        ///     P23 - Informações por item da NF-e de Aquisição. Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
+        /// </summary>
+        public List<gConsumo> gConsumo { get; set; }
+        
+        public bool ShouldSerializegConsumo()
+        {
+            return gConsumo != null;
         }
 
         #endregion

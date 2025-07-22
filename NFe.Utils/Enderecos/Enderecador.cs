@@ -1677,6 +1677,7 @@ namespace NFe.Utils.Enderecos
         {
             AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
             AdicionarEnderecosDoServicoDoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
+            AdicionarEnderecosDoServicoDoEventoDestinacaoDeItemParaConsumoPessoal(adicionarServico, versaoServico, tipoEmissao, estado, modeloDocumento);
         }
 
         private static void AdicionarEnderecosDoServicoDoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
@@ -1695,8 +1696,18 @@ namespace NFe.Utils.Enderecos
                                                                                                           Estado estado, 
                                                                                                           ModeloDocumento modeloDocumento)
         {
-            adicionarServico(new[] { ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-            adicionarServico(new[] { ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+        }
+        
+        private static void AdicionarEnderecosDoServicoDoEventoDestinacaoDeItemParaConsumoPessoal(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                                  VersaoServico[] versaoServico, 
+                                                                                                  TipoEmissao tipoEmissao, 
+                                                                                                  Estado estado, 
+                                                                                                  ModeloDocumento modeloDocumento)
+        {
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal }, versaoServico, TipoAmbiente.Producao, tipoEmissao, estado, modeloDocumento, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+            adicionarServico(new[] { ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal }, versaoServico, TipoAmbiente.Homologacao, tipoEmissao, estado, modeloDocumento, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
         }
         
         /// <summary>
@@ -1765,7 +1776,7 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoConsultaGTIN;
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
                     return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
-                case ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
                     return cfgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
             }
             return null;

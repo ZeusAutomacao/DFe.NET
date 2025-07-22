@@ -166,7 +166,14 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço destinado a evento a ser gerado pelo adquirente em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido
         /// </summary>
-        RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido
+        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
+        
+        /// <summary>
+        ///     Permitir ao adquirente informar quando uma aquisição for destinada para o consumo de pessoa física, hipótese em que não haverá direito à 
+        ///     apropriação de crédito. Evento a ser registrado após a emissão da nota de bens destinados para uso e consumo pessoal. 
+        ///     Uma mesma NFe de aquisição pode receber vários Eventos desse tipo, com nSeqEvento diferentes (eventos cumulativos).
+        /// </summary>
+        RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
     }
 
     /// <summary>
@@ -206,6 +213,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
     ///     211110 - Solicitação de Apropriação de crédito presumido
+    ///     211120 - Destinação de item para consumo pessoal
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -303,6 +311,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Solicitação de Apropriação de crédito presumido")]
         [XmlEnum("211110")]
         TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido = 211110,
+        
+        /// <summary>
+        /// 211120 -  Destinação de item para consumo pessoal
+        /// </summary>
+        [Description(" Destinação de item para consumo pessoal")]
+        [XmlEnum("211120")]
+        TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
