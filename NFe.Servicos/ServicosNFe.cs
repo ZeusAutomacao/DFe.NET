@@ -80,6 +80,7 @@ using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
 
 namespace NFe.Servicos
 {
@@ -414,7 +415,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoAtorInteressado,
                 ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
-                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
+                ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1318,6 +1320,69 @@ namespace NFe.Servicos
                                                        eventos: new List<evento> { evento }, 
                                                        ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido, 
                                                        _cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
+                                                       assinar: true);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento destinação de item para consumo pessoal
+        /// </summary>
+        /// <param name="idlote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfcnpj"></param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesDeItensParaConsumoPessoal">Lista de informações de itens para consumo pessoal</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dhEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoDestinacaoDeItemParaConsumoPessoal(int idlote,
+                                                                                      int sequenciaEvento, 
+                                                                                      string cpfcnpj, 
+                                                                                      TipoAutor tipoAutor,
+                                                                                      string chaveNFe, 
+                                                                                      List<gConsumo> informacoesDeItensParaConsumoPessoal,
+                                                                                      Estado? ufAutor = null, 
+                                                                                      string versaoAplicativo = null, 
+                                                                                      DateTimeOffset? dhEvento = null)
+        {
+            var versaoServico = ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal.VersaoServicoParaString(_cFgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal);
+
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal.Descricao(),
+                cOrgaoAutor = ufAutor ?? _cFgServico.cUF,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo ?? "1.0",
+                gConsumo = informacoesDeItensParaConsumoPessoal
+            };
+
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = Estado.SVRS,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detEvento
+            };
+            
+            if (cpfcnpj.Length == 11)
+                infEvento.CPF = cpfcnpj;
+            else
+                infEvento.CNPJ = cpfcnpj;
+
+            var evento = new evento { versao = versaoServico, infEvento = infEvento };
+
+            var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
+                                                       eventos: new List<evento> { evento }, 
+                                                       ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal, 
+                                                       _cFgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal, 
                                                        assinar: true);
             
             return retornoRecepcaoEvento;
