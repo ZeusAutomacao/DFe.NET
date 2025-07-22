@@ -1395,7 +1395,6 @@ namespace NFe.Servicos
         /// <param name="idlote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfcnpj"></param>
-        /// <param name="tipoAutor"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="indicadorAceitacao">Indicador de aceitação de débito na apuração por emissão de nota de crédito</param>
         /// <param name="ufAutor"></param>
