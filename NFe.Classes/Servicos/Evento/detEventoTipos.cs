@@ -170,4 +170,20 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("1")]
         Quitado = 1
     }
+
+    /// <summary>
+    ///     Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida.
+    ///     0 - Não aceite
+    ///     1 - Aceite
+    /// </summary>
+    public enum IndicadorAceitacao
+    {
+        [Description("Não aceite")]
+        [XmlEnum("0")]
+        NaoAceite = 0,
+        
+        [Description("Aceite")]
+        [XmlEnum("1")]
+        Aceite = 1
+    }
 }

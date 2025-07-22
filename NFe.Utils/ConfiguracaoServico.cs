@@ -82,6 +82,7 @@ namespace NFe.Utils
         private VersaoServico _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente; 
         private VersaoServico _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido; 
         private VersaoServico _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
+        private VersaoServico _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
 
         public ConfiguracaoServico()
         {
@@ -262,6 +263,7 @@ namespace NFe.Utils
                 VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
                 VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido);
                 VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal = obterVersao(ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
+                VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = obterVersao(ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito);
             }
         }
 
@@ -586,6 +588,21 @@ namespace NFe.Utils
                 if (value == _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal) return;
                 
                 _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para aceite de débito na apuração por emissão de nota de crédito 
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+        {
+            get => _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
+            set
+            {
+                if (value == _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito) return;
+                
+                _versaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = value;
                 OnPropertyChanged();
             }
         }
