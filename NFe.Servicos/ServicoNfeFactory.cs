@@ -286,7 +286,8 @@ namespace NFe.Servicos
                     return new ConsultaGTINApi(url, certificado, cfg.TimeOut);
                 
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
-                case ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
                     return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 

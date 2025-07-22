@@ -414,7 +414,7 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoAtorInteressado,
                 ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
-                ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1283,7 +1283,7 @@ namespace NFe.Servicos
                                                                                               string versaoAplicativo = null, 
                                                                                               DateTimeOffset? dhEvento = null)
         {
-            var versaoServico = ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido.VersaoServicoParaString(_cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
+            var versaoServico = ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido.VersaoServicoParaString(_cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
 
             var detEvento = new detEvento
             {
@@ -1316,7 +1316,7 @@ namespace NFe.Servicos
 
             var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
                                                        eventos: new List<evento> { evento }, 
-                                                       ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
+                                                       ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido, 
                                                        _cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
                                                        assinar: true);
             

@@ -259,7 +259,7 @@ namespace NFe.Utils
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
                 VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
-                VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
+                VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido);
             }
         }
 
