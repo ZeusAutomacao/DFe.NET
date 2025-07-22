@@ -315,7 +315,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         /// 211120 -  Destinação de item para consumo pessoal
         /// </summary>
-        [Description(" Destinação de item para consumo pessoal")]
+        [Description("Destinação de item para consumo pessoal")]
         [XmlEnum("211120")]
         TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
 

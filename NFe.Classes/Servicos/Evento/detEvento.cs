@@ -32,7 +32,6 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
