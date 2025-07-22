@@ -1786,13 +1786,10 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.ConsultaGtin:
                     return cfgServico.VersaoConsultaGTIN;
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
-                    return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
-                    return cfgServico.VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido;
                 case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
-                    return cfgServico.VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal;
                 case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
-                    return cfgServico.VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
+                    return cfgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
             }
             return null;
         }
