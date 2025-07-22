@@ -81,6 +81,7 @@ namespace NFe.Utils
         private VersaoServico _versaoConsultaGTIN;
         private VersaoServico _versaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente; 
         private VersaoServico _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido; 
+        private VersaoServico _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
 
         public ConfiguracaoServico()
         {
@@ -260,6 +261,7 @@ namespace NFe.Utils
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
                 VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = obterVersao(ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente);
                 VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = obterVersao(ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido);
+                VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal = obterVersao(ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
             }
         }
 
@@ -569,6 +571,21 @@ namespace NFe.Utils
                 if (value == _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido) return;
                 
                 _versaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para destinação de item para consumo pessoal
+        /// </summary>
+        public VersaoServico VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal 
+        {
+            get => _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
+            set
+            {
+                if (value == _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal) return;
+                
+                _versaoRecepcaoDestinacaoDeItemParaConsumoPessoal = value;
                 OnPropertyChanged();
             }
         }

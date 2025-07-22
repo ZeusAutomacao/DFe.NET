@@ -1778,6 +1778,8 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
                     return cfgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                    return cfgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
             }
             return null;
         }
