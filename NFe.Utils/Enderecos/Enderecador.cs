@@ -1788,9 +1788,9 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
                     return cfgServico.VersaoRecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
                 case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
-                    return cfgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido;
+                    return cfgServico.VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido;
                 case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
-                    return cfgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal;
+                    return cfgServico.VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal;
                 case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
                     return cfgServico.VersaoRecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
             }
