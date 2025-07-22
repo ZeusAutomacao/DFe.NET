@@ -1286,7 +1286,7 @@ namespace NFe.Servicos
                                                                                               string versaoAplicativo = null, 
                                                                                               DateTimeOffset? dhEvento = null)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido.VersaoServicoParaString(_cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido);
+            var versaoServico = ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido);
 
             var detEvento = new detEvento
             {
@@ -1320,7 +1320,7 @@ namespace NFe.Servicos
             var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
                                                        eventos: new List<evento> { evento }, 
                                                        ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido, 
-                                                       _cFgServico.VersaoRecepcaoSolicitacaoDeApropriacaoDeCreditoPresumido, 
+                                                       _cFgServico.VersaoRecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido, 
                                                        assinar: true);
             
             return retornoRecepcaoEvento;
@@ -1349,7 +1349,7 @@ namespace NFe.Servicos
                                                                                       string versaoAplicativo = null, 
                                                                                       DateTimeOffset? dhEvento = null)
         {
-            var versaoServico = ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal.VersaoServicoParaString(_cFgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal);
+            var versaoServico = ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal.VersaoServicoParaString(_cFgServico.VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
 
             var detEvento = new detEvento
             {
@@ -1383,7 +1383,7 @@ namespace NFe.Servicos
             var retornoRecepcaoEvento = RecepcaoEvento(idlote, 
                                                        eventos: new List<evento> { evento }, 
                                                        ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal, 
-                                                       _cFgServico.VersaoRecepcaoDestinacaoDeItemParaConsumoPessoal, 
+                                                       _cFgServico.VersaoRecepcaoEventoDestinacaoDeItemParaConsumoPessoal, 
                                                        assinar: true);
             
             return retornoRecepcaoEvento;
