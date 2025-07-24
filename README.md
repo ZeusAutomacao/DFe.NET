@@ -4,6 +4,8 @@
 
 **Entre no nosso **Discord** https://discord.gg/EE4TGKAkkG**
 
+**Confira nosso exemplo de uso de emissao de NFe + Impressão de DANFE em  (https://github.com/Hercules-NET/DemoNFe)**
+
 ##  Versões suportadas:
 
 A biblioteca foi desenvolvida em **C#** utilizando Visual Studio Community 2022 com os SDKs net462, netstandard2.0 e net6.0 instalados.
