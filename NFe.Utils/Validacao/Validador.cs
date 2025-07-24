@@ -129,6 +129,14 @@ namespace NFe.Utils.Validacao
                     return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
                 case ServicoNFe.ConsultaGtin:
                     return "consGTIN_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                    return "e112110_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                    return "e211110_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                    return "e211120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                    return "e211128_v1.00.xsd";
             }
             return null;
         }

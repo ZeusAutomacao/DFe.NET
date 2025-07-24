@@ -156,7 +156,30 @@ namespace NFe.Classes.Servicos.Tipos
         /// </summary>
         NfceAdministracaoCSC,
 
-        ConsultaGtin
+        ConsultaGtin,
+        
+        /// <summary>
+        ///     Serviço destinado a permitir que o emitente da NFe informe o efetivo pagamento integral a fim de liberar crédito presumido do adquirente
+        /// </summary>
+        RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+        
+        /// <summary>
+        ///     Serviço destinado a evento a ser gerado pelo adquirente em relação às notas fiscais de aquisição de emissão de terceiros e que lhe gerem o direito à apropriação de crédito presumido
+        /// </summary>
+        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
+        
+        /// <summary>
+        ///     Serviço para permitir ao adquirente informar quando uma aquisição for destinada para o consumo de pessoa física, hipótese em que não haverá direito à 
+        ///     apropriação de crédito. Evento a ser registrado após a emissão da nota de bens destinados para uso e consumo pessoal. 
+        ///     Uma mesma NFe de aquisição pode receber vários Eventos desse tipo, com nSeqEvento diferentes (eventos cumulativos).
+        /// </summary>
+        RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
+        
+        /// <summary>
+        ///     Serviço para Permitir ao destinatário informar que concorda com os valores constantes em nota de crédito emitida pelo fornecedor ou pelo adquirente que
+        ///     serão lançados a débito na apuração assistida de IBS e CBS
+        /// </summary>
+        RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
     }
 
     /// <summary>
@@ -194,6 +217,9 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110193 - Cancelamento Insucesso na Entrega da NF-e
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
+    ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+    ///     211110 - Solicitação de Apropriação de crédito presumido
+    ///     211120 - Destinação de item para consumo pessoal
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -277,6 +303,34 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Cancelamento Conciliação Financeira")]
         [XmlEnum("110751")]
         TeNfeCancConciliacaoFinanceiraNFe = 110751,
+        
+        /// <summary>
+        /// 112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        [Description("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente")]
+        [XmlEnum("112110")]
+        TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = 112110,
+        
+        /// <summary>
+        /// 211110 - Solicitação de Apropriação de crédito presumido
+        /// </summary>
+        [Description("Solicitação de Apropriação de crédito presumido")]
+        [XmlEnum("211110")]
+        TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido = 211110,
+        
+        /// <summary>
+        /// 211120 - Destinação de item para consumo pessoal
+        /// </summary>
+        [Description("Destinação de item para consumo pessoal")]
+        [XmlEnum("211120")]
+        TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
+        
+        /// <summary>
+        /// 211128 - Aceite de débito na apuração por emissão de nota de crédito
+        /// </summary>
+        [Description("Aceite de débito na apuração por emissão de nota de crédito")]
+        [XmlEnum("211128")]
+        TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = 211128,
 
         /// <summary>
         /// 210200 – Confirmação da Operação

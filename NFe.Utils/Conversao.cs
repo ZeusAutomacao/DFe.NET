@@ -54,7 +54,11 @@ namespace NFe.Utils
             if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento
                 || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
                 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
-                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec
+                || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
+                || servicoNFe == ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
+                || servicoNFe == ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito)
             {
                 return "1.00";
             }
