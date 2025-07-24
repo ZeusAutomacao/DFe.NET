@@ -75,10 +75,11 @@ using System.Xml;
 using NFe.Classes;
 using Shared.DFe.Utils;
 using FuncoesXml = DFe.Utils.FuncoesXml;
-using System.Xml.Linq;
 using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
 using NFe.Classes.Informacoes;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
 
 namespace NFe.Servicos
 {
@@ -394,7 +395,7 @@ namespace NFe.Servicos
         /// </summary>
         /// <param name="idlote"></param>
         /// <param name="eventos"></param>
-        /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec e RecepcaoEventoManifestacaoDestinatario</param>
+        /// <param name="servicoEvento">Tipo de serviço do evento: valores válidos: RecepcaoEventoCancelmento, RecepcaoEventoCartaCorrecao, RecepcaoEventoEpec, RecepcaoEventoManifestacaoDestinatario, etc...</param>
         /// <param name="versaoEvento">Versão do serviço para o evento</param>
         /// <returns>Retorna um objeto da classe RetornoRecepcaoEvento com o retorno do serviço RecepcaoEvento</returns>
         private RetornoRecepcaoEvento RecepcaoEvento(int idlote, List<evento> eventos, ServicoNFe servicoEvento, VersaoServico versaoEvento, bool assinar)
@@ -411,7 +412,11 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe,
                 ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe,
                 ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe,
-                ServicoNFe.RecepcaoEventoAtorInteressado
+                ServicoNFe.RecepcaoEventoAtorInteressado,
+                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
+                ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
+                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1194,6 +1199,227 @@ namespace NFe.Servicos
 
             var retorno = RecepcaoEvento(idlote, new List<evento> { evento }, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe, _cFgServico.VersaoRecepcaoEventoConciliacaoFinanceira, true);
             return retorno;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorDeQuitacaoDoPagamento">Indicador de efetiva quitação do pagamento integral referente a NFe referenciada</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente(int idLote,
+                                                                                                                               int sequenciaEvento, 
+                                                                                                                               string cpfCnpj, 
+                                                                                                                               string chaveNFe, 
+                                                                                                                               IndicadorDeQuitacaoDoPagamento indicadorDeQuitacaoDoPagamento,
+                                                                                                                               Estado? ufAutor = null, 
+                                                                                                                               string versaoAplicativo = null, 
+                                                                                                                               DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.indQuitacao = indicadorDeQuitacaoDoPagamento;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+            
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesDeCreditoPresumidoPorItem">Lista de informações de crédito presumido por item</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido(int idLote,
+                                                                                              int sequenciaEvento, 
+                                                                                              string cpfCnpj, 
+                                                                                              TipoAutor tipoAutor,
+                                                                                              string chaveNFe, 
+                                                                                              List<gCredPres> informacoesDeCreditoPresumidoPorItem,
+                                                                                              Estado? ufAutor = null, 
+                                                                                              string versaoAplicativo = null, 
+                                                                                              DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeSolicitacaoDeApropriacaoDeCreditoPresumido;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
+            detalhesEvento.gCredPres = informacoesDeCreditoPresumidoPorItem;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento destinação de item para consumo pessoal
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesDeItensParaConsumoPessoal">Lista de informações de itens para consumo pessoal</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoDestinacaoDeItemParaConsumoPessoal(int idLote,
+                                                                                      int sequenciaEvento, 
+                                                                                      string cpfCnpj, 
+                                                                                      TipoAutor tipoAutor,
+                                                                                      string chaveNFe, 
+                                                                                      List<gConsumo> informacoesDeItensParaConsumoPessoal,
+                                                                                      Estado? ufAutor = null, 
+                                                                                      string versaoAplicativo = null, 
+                                                                                      DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
+            detalhesEvento.gConsumo = informacoesDeItensParaConsumoPessoal;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento aceite de débito na apuração por emissão de nota de crédito 
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorAceitacao">Indicador de aceitação de débito na apuração por emissão de nota de crédito</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito(int idLote,
+                                                                                                     int sequenciaEvento, 
+                                                                                                     string cpfCnpj, 
+                                                                                                     string chaveNFe, 
+                                                                                                     IndicadorAceitacao indicadorAceitacao,
+                                                                                                     Estado? ufAutor = null, 
+                                                                                                     string versaoAplicativo = null, 
+                                                                                                     DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaDestinataria);
+            detalheEvento.indAceitacao = indicadorAceitacao;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        private detEvento ObterDetalhesEvento(string versaoServico, string versaoAplicativo, NFeTipoEvento nfeTipoEvento, Estado? cOrgaoAutor, TipoAutor tipoAutor)
+        {
+            var detEvento = new detEvento
+            {
+                versao = versaoServico,
+                descEvento = nfeTipoEvento.Descricao(),
+                cOrgaoAutor = cOrgaoAutor ?? _cFgServico.cUF,
+                tpAutor = tipoAutor,
+                verAplic = versaoAplicativo ?? "1.0"
+            };
+
+            return detEvento;
+        }
+        
+        private infEventoEnv ObterInformacoesEventoEnv(int sequenciaEvento, 
+                                                       string chaveNFe, 
+                                                       string cpfCnpj, 
+                                                       string versaoServico, 
+                                                       Estado cOrgao,
+                                                       DateTimeOffset? dhEvento, 
+                                                       NFeTipoEvento nfeTipoEvento, 
+                                                       detEvento detalheEvento)
+        {
+            var infEvento = new infEventoEnv
+            {
+                cOrgao = cOrgao,
+                tpAmb = _cFgServico.tpAmb,
+                chNFe = chaveNFe,
+                dhEvento = dhEvento ?? DateTime.Now,
+                tpEvento = nfeTipoEvento,
+                nSeqEvento = sequenciaEvento,
+                verEvento = versaoServico,
+                detEvento = detalheEvento
+            };
+
+            if (cpfCnpj.Length == 11)
+                infEvento.CPF = cpfCnpj;
+            else
+                infEvento.CNPJ = cpfCnpj;
+
+            return infEvento;
+        }
+
+        private evento ObterEvento(string versaoServico, infEventoEnv informacoesEventoEnv)
+        {
+            var evento = new evento
+            {
+                versao = versaoServico, 
+                infEvento = informacoesEventoEnv
+            };
+
+            return evento;
+        }
+        
+        private RetornoRecepcaoEvento EnviarEObterRetornoRecepcaoEvento(int idLote, ServicoNFe servicoNfe, VersaoServico versaoServico, bool deveAssinar, params evento[] eventos)
+        {
+            var retornoRecepcaoEvento = RecepcaoEvento(idLote, 
+                                                       eventos.ToList(), 
+                                                       servicoNfe, 
+                                                       versaoServico, 
+                                                       assinar: deveAssinar);
+
+            return retornoRecepcaoEvento;
         }
 
         /// <summary>

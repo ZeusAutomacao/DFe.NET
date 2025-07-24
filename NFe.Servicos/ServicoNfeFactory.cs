@@ -284,6 +284,12 @@ namespace NFe.Servicos
 
                 case ServicoNFe.ConsultaGtin:
                     return new ConsultaGTINApi(url, certificado, cfg.TimeOut);
+                
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                    return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 
             return null;

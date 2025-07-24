@@ -32,12 +32,13 @@
 /********************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using System.Xml.Serialization;
 using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -355,5 +356,70 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
+        #region Eventos para a apuração do IBS e da CBS
+
+        #region Informação de efetivo pagamento integral para liberar crédito presumido do adquirente 
+
+        /// <summary>
+        ///     P23 - Indicador de efetiva quitação do pagamento integral referente a NFe referenciada
+        /// </summary>
+        public IndicadorDeQuitacaoDoPagamento? indQuitacao { get; set; }
+        
+        public bool ShouldSerializeindQuitacao()
+        {
+            return indQuitacao.HasValue;
+        }
+
+        #endregion
+
+        #region Solicitação de Apropriação de crédito presumido
+
+        /// <summary>
+        ///     P23 - Informações de crédito presumido por item
+        /// </summary>
+        public List<gCredPres> gCredPres { get; set; }
+        
+        public bool ShouldSerializegCredPres()
+        {
+            return gCredPres != null;
+        }
+
+        #endregion
+
+        #region Destinação de item para consumo pessoal
+
+        /// <summary>
+        ///     P23 - Informações por item da NF-e de Aquisição. Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
+        /// </summary>
+        public List<gConsumo> gConsumo { get; set; }
+        
+        public bool ShouldSerializegConsumo()
+        {
+            return gConsumo != null;
+        }
+
+        #endregion
+
+        #region Aceite de débito na apuração por emissão de nota de crédito
+
+        /// <summary>
+        ///     P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
+        /// </summary>
+        [XmlIgnore]
+        public IndicadorAceitacao? indAceitacao { get; set; }
+
+        [XmlAttribute("indAceitacao")]
+        public int ProxyIndicadorAceitacao
+        {
+            get => (int)(indAceitacao ?? 0);
+            set => indAceitacao = (IndicadorAceitacao?)value;
+        }
+
+        [XmlIgnore]
+        public bool ProxyIndicadorAceitacaoSpecified => indAceitacao != null;
+
+        #endregion
+
+        #endregion
     }
 }
