@@ -529,7 +529,7 @@ namespace NFe.Utils.InformacoesSuplementares
         /// </summary>
         public static string ObterUrlQrCode3(this infNFeSupl infNFeSupl, Classes.NFe nfe, VersaoServico versaoServico, ConfiguracaoCertificado cfgCertificado, Encoding encoding = null)
         {
-            if (cfgCertificado == null || string.IsNullOrWhiteSpace(cfgCertificado.Serial))
+            if (cfgCertificado == null || (string.IsNullOrWhiteSpace(cfgCertificado.Serial) && cfgCertificado.TipoCertificado != TipoCertificado.A1Arquivo))
                 throw new ArgumentNullException("CertificadoDigital", "Para gerar a assinatura do QR-Code versão 3.0 EM CONTINGENCIA é necessário informar o certificado digital utilizado na assinatura da NFC-e, verificar Número de Série e Senha.");
 
             const string pipe = "|";
