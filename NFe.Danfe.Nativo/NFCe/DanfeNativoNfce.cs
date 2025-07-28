@@ -119,7 +119,7 @@ namespace NFe.Danfe.Nativo.NFCe
                 }
 
                 // Obtive o tamanho real na posição y agora vou fazer um com tamanho exato
-                using (Bitmap bmpFinal = new Bitmap(300, _y))   
+                using (Bitmap bmpFinal = new Bitmap(300, _y))
                 using (var streamer = new MemoryStream())
                 {
                     using (Graphics g = Graphics.FromImage(bmpFinal))
@@ -559,7 +559,7 @@ namespace NFe.Danfe.Nativo.NFCe
 
             _y += 5;
 
-            var tributosIncidentes = _nfe.infNFe.total.ICMSTot.vTotTrib;
+            var tributosIncidentes = _nfe.infNFe.total.ICMSTot.vTotTrib ?? 0;
 
             if (tributosIncidentes != 0)
             {
