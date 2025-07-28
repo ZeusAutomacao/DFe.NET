@@ -17,7 +17,7 @@ namespace NFe.Classes.Informacoes.Total
         private decimal _vCofins;
         private decimal _vOutro;
         private decimal _vNf;
-        private decimal _vTotTrib;
+        private decimal? _vTotTrib;
         private decimal? _vFcpufDest;
         private decimal? _vIcmsufDest;
         private decimal? _vIcmsufRemet;
@@ -361,11 +361,15 @@ namespace NFe.Classes.Informacoes.Total
         /// <summary>
         ///     W16a - Valor aproximado total de tributos federais, estaduais e municipais.
         /// </summary>
-        public decimal vTotTrib
+        public decimal? vTotTrib
         {
             get { return _vTotTrib.Arredondar(2); }
             set { _vTotTrib = value.Arredondar(2); }
         }
 
+        public bool ShouldSerializevTotTrib()
+        {
+            return vTotTrib.HasValue;
+        }
     }
 }
