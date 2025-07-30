@@ -54,7 +54,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
         ///     UB03 - Código de Classificação Tributária do Imposto Seletivo
         /// </summary>
         [XmlElement(Order = 2)]
-        public int cClassTribIS { get; set; }
+        public string cClassTribIS { get; set; }
 
         /// <summary>
         ///     UB05 - Valor da Base de Cálculo do Imposto Seletivo 
