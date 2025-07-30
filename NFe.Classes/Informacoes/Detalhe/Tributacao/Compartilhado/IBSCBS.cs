@@ -50,7 +50,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
         ///     UB14 - Código de Classificação Tributária do IBS e CBS
         /// </summary>
         [XmlElement(Order = 2)]
-        public int cClassTrib { get; set; }
+        public string cClassTrib { get; set; }
         
         /// <summary>
         ///     UB15 - Grupo de Informações do IBS e da CBS
