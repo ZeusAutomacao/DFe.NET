@@ -31,39 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
+namespace NFe.Classes.Informacoes.Total.IbsCbs.Cbs
 {
-    public class gIBSMun
+    public class gCBSTotal
     {
         private decimal _vDif;
         private decimal _vDevTrib;
-        private decimal _vIBSMun;
-
+        private decimal _vCBS;
+        private decimal _vCredPres;
+        private decimal _vCredPresCondSus;
+        
         /// <summary>
-        ///     W43 - Valor total do diferimento
+        ///     W53 - Valor total do diferimento
         /// </summary>
         public decimal vDif
         {
             get => _vDif;
             set => _vDif = value.Arredondar(2);
         }
-
+        
         /// <summary>
-        ///     W44 - Valor total de devolução de tributos
+        ///     W54 - Valor total de devolução de tributos
         /// </summary>
         public decimal vDevTrib
         {
             get => _vDevTrib;
             set => _vDevTrib = value.Arredondar(2);
         }
+        
+        /// <summary>
+        ///     W56 - Valor total do CBS
+        /// </summary>
+        public decimal vCBS
+        {
+            get => _vCBS;
+            set => _vCBS = value.Arredondar(2);
+        }
 
         /// <summary>
-        ///     W46 - Valor total do IBS do Município
+        ///     W56a - Valor total do crédito presumido
         /// </summary>
-        public decimal vIBSMun
+        public decimal vCredPres
         {
-            get => _vIBSMun;
-            set => _vIBSMun = value.Arredondar(2);
+            get => _vCredPres;
+            set => _vCredPres = value.Arredondar(2);
+        }
+
+        /// <summary>
+        ///     W56b - Valor total do crédito presumido em condição suspensiva
+        /// </summary>
+        public decimal vCredPresCondSus
+        {
+            get => _vCredPresCondSus;
+            set => _vCredPresCondSus = value.Arredondar(2);
         }
     }
 }

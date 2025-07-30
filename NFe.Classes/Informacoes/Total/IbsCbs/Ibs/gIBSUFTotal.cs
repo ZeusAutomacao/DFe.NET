@@ -33,7 +33,7 @@
 
 namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
 {
-    public class gIBSUF
+    public class gIBSUFTotal
     {
         private decimal _vDif;
         private decimal _vDevTrib;

@@ -31,59 +31,39 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Total.IbsCbs.Cbs
+namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
 {
-    public class gCBS
+    public class gIBSMunTotal
     {
         private decimal _vDif;
         private decimal _vDevTrib;
-        private decimal _vCBS;
-        private decimal _vCredPres;
-        private decimal _vCredPresCondSus;
-        
+        private decimal _vIBSMun;
+
         /// <summary>
-        ///     W53 - Valor total do diferimento
+        ///     W43 - Valor total do diferimento
         /// </summary>
         public decimal vDif
         {
             get => _vDif;
             set => _vDif = value.Arredondar(2);
         }
-        
+
         /// <summary>
-        ///     W54 - Valor total de devolução de tributos
+        ///     W44 - Valor total de devolução de tributos
         /// </summary>
         public decimal vDevTrib
         {
             get => _vDevTrib;
             set => _vDevTrib = value.Arredondar(2);
         }
-        
-        /// <summary>
-        ///     W56 - Valor total do CBS
-        /// </summary>
-        public decimal vCBS
-        {
-            get => _vCBS;
-            set => _vCBS = value.Arredondar(2);
-        }
 
         /// <summary>
-        ///     W56a - Valor total do crédito presumido
+        ///     W46 - Valor total do IBS do Município
         /// </summary>
-        public decimal vCredPres
+        public decimal vIBSMun
         {
-            get => _vCredPres;
-            set => _vCredPres = value.Arredondar(2);
-        }
-
-        /// <summary>
-        ///     W56b - Valor total do crédito presumido em condição suspensiva
-        /// </summary>
-        public decimal vCredPresCondSus
-        {
-            get => _vCredPresCondSus;
-            set => _vCredPresCondSus = value.Arredondar(2);
+            get => _vIBSMun;
+            set => _vIBSMun = value.Arredondar(2);
         }
     }
 }

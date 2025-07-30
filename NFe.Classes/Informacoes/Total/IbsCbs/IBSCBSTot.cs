@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Total.IbsCbs.Cbs;
 using NFe.Classes.Informacoes.Total.IbsCbs.Ibs;
 using NFe.Classes.Informacoes.Total.IbsCbs.Monofasica;
@@ -58,7 +59,8 @@ namespace NFe.Classes.Informacoes.Total.IbsCbs
         /// <summary>
         ///     W50 - Grupo total do CBS
         /// </summary>
-        public gCBS gCBS { get; set; }
+        [XmlElement("gCBS")]
+        public gCBSTotal gCBS { get; set; }
         
         /// <summary>
         ///     W57 - Grupo total da Monofasia
