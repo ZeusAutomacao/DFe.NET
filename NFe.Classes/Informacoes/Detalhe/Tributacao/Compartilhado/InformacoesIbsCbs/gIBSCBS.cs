@@ -39,6 +39,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
     public class gIBSCBS
     {
         private decimal _vBc;
+        private decimal _vIbs;
         
         /// <summary>
         ///     UB16 - Base de cálculo do IBS e CBS
@@ -83,5 +84,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
         /// </summary>
         public gTribCompraGov gTribCompraGov { get; set; }
+
+        /// <summary>
+        ///     UB54a - Valor do IBS
+        /// </summary>
+        public decimal vIBS
+        {
+            get => _vIbs.Arredondar(2);
+            set => _vIbs = value.Arredondar(2);
+        }
     }
 }
