@@ -137,6 +137,8 @@ namespace NFe.Utils.Validacao
                     return "e211120_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
                     return "e211128_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                    return "e211130_v1.00.xsd ";
             }
             return null;
         }

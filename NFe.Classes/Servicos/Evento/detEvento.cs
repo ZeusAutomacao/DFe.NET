@@ -38,6 +38,7 @@ using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
+using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
 using Shared.NFe.Classes.Servicos.Evento;
 
@@ -405,19 +406,27 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
         /// </summary>
-        [XmlIgnore]
         public IndicadorAceitacao? indAceitacao { get; set; }
 
-        [XmlAttribute("indAceitacao")]
-        public int ProxyIndicadorAceitacao
+        public bool ShouldSerializeindAceitacao()
         {
-            get => (int)(indAceitacao ?? 0);
-            set => indAceitacao = (IndicadorAceitacao?)value;
+            return indAceitacao != null;
         }
 
-        [XmlIgnore]
-        public bool ProxyIndicadorAceitacaoSpecified => indAceitacao != null;
+        #endregion
 
+        #region Imobilização de Item
+
+        /// <summary>
+        ///     P23 - Informações de itens integrados ao ativo imobilizado
+        /// </summary>
+        public List<gImobilizacao> gImobilizacao { get; set; }
+
+        public bool ShouldSerializegImobilizacao()
+        {
+            return gImobilizacao != null;
+        }
+        
         #endregion
 
         #endregion

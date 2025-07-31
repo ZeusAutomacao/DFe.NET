@@ -1635,7 +1635,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-            #region ConsultaGtin / Insucesso na entrega / Conciliação Financeira
+            #region ConsultaGtin / Insucesso na entrega / Conciliação Financeira / Apuração IBS e CBS
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1651,7 +1651,6 @@ namespace NFe.Utils.Enderecos
                         //Insucesso Entrega NFe
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
-
 
                         if (modelo == ModeloDocumento.NFe)
                         {
@@ -1680,7 +1679,8 @@ namespace NFe.Utils.Enderecos
                 ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
                 ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
                 ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
-                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
+                ServicoNFe.RecepcaoEventoImobilizacaoDeItem
             };
             
             var urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs = new Dictionary<TipoAmbiente, string>
