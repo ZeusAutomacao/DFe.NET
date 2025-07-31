@@ -85,5 +85,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     VC01 - Documento Fiscal Eletrônico Referenciado
         /// </summary>
         public DFeReferenciado DFeReferenciado { get; set; }
+
+        public bool ShouldSerializevItem() => vItem.HasValue;
     }
 }
