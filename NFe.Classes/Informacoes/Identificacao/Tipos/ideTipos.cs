@@ -590,7 +590,11 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         
         [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
         [XmlEnum("2")]
-        ApropriacaoDeCredito
+        ApropriacaoDeCredito,
+        
+        [Description("Retorno")]
+        [XmlEnum("3")]
+        Retorno
     }
 
     /// <summary>
