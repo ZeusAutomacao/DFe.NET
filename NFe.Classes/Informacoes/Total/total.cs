@@ -66,7 +66,6 @@ namespace NFe.Classes.Informacoes.Total
 
         /// <summary>
         ///     W60 - Valor total da NF-e com IBS / CBS / IS
-        ///     Campo obrigatório quando for informado valores do IBS, CBS e IS.
         /// </summary>
         public decimal? vNFTot
         {
