@@ -35,65 +35,65 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
 {
     public class gTribCompraGov
     {
-        private decimal _pIbsUf;
-        private decimal _vIbsUf;
-        private decimal _pIbsMun;
-        private decimal _vIbsMun;
-        private decimal _pCbs;
-        private decimal _vCbs;
+        private decimal _pAliqIbsUf;
+        private decimal _vTribIbsUf;
+        private decimal _pAliqIbsMun;
+        private decimal _vTribIbsMun;
+        private decimal _pAliqCbs;
+        private decimal _vTribCbs;
         
         /// <summary>
         ///     UB82b - Alíquota do IBS de competência do Estado
         /// </summary>
-        public decimal pIBSUF
+        public decimal pAliqIBSUF
         {
-            get => _pIbsUf.Arredondar(4);
-            set => _pIbsUf = value.Arredondar(4);
+            get => _pAliqIbsUf.Arredondar(4);
+            set => _pAliqIbsUf = value.Arredondar(4);
         }
 
         /// <summary>
         ///     UB82c - Valor do Tributo do IBS da UF calculado
         /// </summary>
-        public decimal vIBSUF
+        public decimal vTribIBSUF
         {
-            get => _vIbsUf.Arredondar(2);
-            set => _vIbsUf = value.Arredondar(2);
+            get => _vTribIbsUf.Arredondar(2);
+            set => _vTribIbsUf = value.Arredondar(2);
         }
         
         /// <summary>
         ///     UB82d - Alíquota do IBS de competência do Município
         /// </summary>
-        public decimal pIBSMun
+        public decimal pAliqIBSMun
         {
-            get => _pIbsMun.Arredondar(4);
-            set => _pIbsMun = value.Arredondar(4);
+            get => _pAliqIbsMun.Arredondar(4);
+            set => _pAliqIbsMun = value.Arredondar(4);
         }
         
         /// <summary>
         ///     UB82e - Valor do Tributo do IBS do Município calculado
         /// </summary>
-        public decimal vIBSMun
+        public decimal vTribIBSMun
         {
-            get => _vIbsMun.Arredondar(2);
-            set => _vIbsMun = value.Arredondar(2);
+            get => _vTribIbsMun.Arredondar(2);
+            set => _vTribIbsMun = value.Arredondar(2);
         }
         
         /// <summary>
         ///     UB82f - Alíquota da CBS
         /// </summary>
-        public decimal pCBS
+        public decimal pAliqCBS
         {
-            get => _pCbs.Arredondar(4);
-            set => _pCbs = value.Arredondar(4);
+            get => _pAliqCbs.Arredondar(4);
+            set => _pAliqCbs = value.Arredondar(4);
         }
         
         /// <summary>
         ///     UB82g - Valor do Tributo da CBS calculado
         /// </summary>
-        public decimal vCBS
+        public decimal vTribCBS
         {
-            get => _vCbs.Arredondar(2);
-            set => _vCbs = value.Arredondar(2);
+            get => _vTribCbs.Arredondar(2);
+            set => _vTribCbs = value.Arredondar(2);
         }
     }
 }
