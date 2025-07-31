@@ -179,7 +179,14 @@ namespace NFe.Classes.Servicos.Tipos
         ///     Serviço para Permitir ao destinatário informar que concorda com os valores constantes em nota de crédito emitida pelo fornecedor ou pelo adquirente que
         ///     serão lançados a débito na apuração assistida de IBS e CBS
         /// </summary>
-        RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+        RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pelo adquirente de bem, quando este for integrado ao seu ativo imobilizado, a fim de viabilizar a adequada identificação, 
+        ///     pelos sistemas da administração tributária, de prazo-limite para apreciação de eventuais pedidos de ressarcimento do respectivo créditoo, nos termos
+        ///     do art. 40, I da LC 214/2025.
+        /// </summary>
+        RecepcaoEventoImobilizacaoDeItem
     }
 
     /// <summary>
@@ -218,12 +225,13 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
-    ///     211110 - Solicitação de Apropriação de crédito presumido
-    ///     211120 - Destinação de item para consumo pessoal
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
     ///     210240 – Operação não Realizada
+    ///     211110 - Solicitação de Apropriação de crédito presumido
+    ///     211120 - Destinação de item para consumo pessoal
+    ///     211130 -  Imobilização de Item
     /// </summary>
     public enum NFeTipoEvento
     {
@@ -331,6 +339,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Aceite de débito na apuração por emissão de nota de crédito")]
         [XmlEnum("211128")]
         TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = 211128,
+        
+        /// <summary>
+        /// 211130 -  Imobilização de Item
+        /// </summary>
+        [Description("Imobilização de Item")]
+        [XmlEnum("211130")]
+        TeNfeImobilizacaoDeItem = 211130,
 
         /// <summary>
         /// 210200 – Confirmação da Operação
