@@ -31,8 +31,6 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
 namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
     public class gMonoPadrao
@@ -46,7 +44,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB85 - Quantidade tributada na monofasia
         /// </summary>
-        [XmlElement(Order = 1)]
         public decimal qBCMono
         {
             get => _qBcMono.Arredondar(4);
@@ -56,7 +53,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB86 - Alíquota ad rem do IBS
         /// </summary>
-        [XmlElement(Order = 2)]
         public decimal adRemIBS
         {
             get => _adRemIbs.Arredondar(4);
@@ -66,7 +62,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB87 - Alíquota ad rem da CBS
         /// </summary>
-        [XmlElement(Order = 3)]
         public decimal adRemCBS
         {
             get => _adRemCbs.Arredondar(4);
@@ -76,7 +71,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB88 - Valor do IBS monofásico
         /// </summary>
-        [XmlElement(Order = 4)]
         public decimal vIBSMono
         {
             get => _vIbsMono.Arredondar(2);
@@ -86,7 +80,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB89 - Valor da CBS monofásica
         /// </summary>
-        [XmlElement(Order = 5)]
         public decimal vCBSMono
         {
             get => _vCbsMono.Arredondar(2);
