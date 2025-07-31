@@ -37,11 +37,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
 {
     public class gIBSCBSMono
     {
-        private decimal _qBcMono;
-        private decimal _adRemIbs;
-        private decimal _adRemCbs;
-        private decimal _vIbsMono;
-        private decimal _vCbsMono;
         private decimal _qBcMonoReten;
         private decimal _adRemIbsReten;
         private decimal _vIbsMonoReten;
@@ -58,56 +53,6 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         private decimal _vCbsMonoDif;
         private decimal _vTotIbsMonoItem;
         private decimal _vTotCbsMonoItem;
-
-        /// <summary>
-        ///     UB85 - Quantidade tributada na monofasia
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public decimal qBCMono
-        {
-            get => _qBcMono.Arredondar(4);
-            set => _qBcMono = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB86 - Alíquota ad rem do IBS
-        /// </summary>
-        [XmlElement(Order = 2)]
-        public decimal adRemIBS
-        {
-            get => _adRemIbs.Arredondar(4);
-            set => _adRemIbs = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB87 - Alíquota ad rem da CBS
-        /// </summary>
-        [XmlElement(Order = 3)]
-        public decimal adRemCBS
-        {
-            get => _adRemCbs.Arredondar(4);
-            set => _adRemCbs = value.Arredondar(4);
-        }
-        
-        /// <summary>
-        ///     UB88 - Valor do IBS monofásico
-        /// </summary>
-        [XmlElement(Order = 4)]
-        public decimal vIBSMono
-        {
-            get => _vIbsMono.Arredondar(2);
-            set => _vIbsMono = value.Arredondar(2);
-        }
-        
-        /// <summary>
-        ///     UB89 - Valor da CBS monofásica
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public decimal vCBSMono
-        {
-            get => _vCbsMono.Arredondar(2);
-            set => _vCbsMono = value.Arredondar(2);
-        }
         
         /// <summary>
         ///     UB91 - Quantidade tributada sujeita à retenção na monofasia
