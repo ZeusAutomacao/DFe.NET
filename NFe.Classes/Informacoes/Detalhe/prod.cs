@@ -353,5 +353,6 @@ namespace NFe.Classes.Informacoes.Detalhe
             return vOutro.HasValue && vOutro > 0;
         }
         
+        public bool ShouldSerializeindBemMovelUsado() => indBemMovelUsado.HasValue;
     }
 }

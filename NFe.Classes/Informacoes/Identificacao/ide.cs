@@ -291,5 +291,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         {
             return indPres.HasValue;
         }
+        
+        public bool ShouldSerializetpNFDebito() => tpNFDebito.HasValue;
+        
+        public bool ShouldSerializetpNFCredito() => tpNFCredito.HasValue;
+        
+        public bool ShouldSerializecMunFGIBS() => cMunFGIBS.HasValue;
     }
 }
