@@ -37,7 +37,7 @@ namespace NFe.Classes.Informacoes.Total
 {
     public class total
     {
-        private decimal _vNFTot;
+        private decimal? _vNFTot;
 
         /// <summary>
         ///     W02 - Grupo Totais referentes ao ICMS
@@ -66,11 +66,14 @@ namespace NFe.Classes.Informacoes.Total
 
         /// <summary>
         ///     W60 - Valor total da NF-e com IBS / CBS / IS
+        ///     Campo obrigatório quando for informado valores do IBS, CBS e IS.
         /// </summary>
-        public decimal vNFTot
+        public decimal? vNFTot
         {
             get => _vNFTot;
             set => _vNFTot = value.Arredondar(2);
         }
+        
+        public bool ShouldSerializevNFTot() => vNFTot.HasValue;
     }
 }
