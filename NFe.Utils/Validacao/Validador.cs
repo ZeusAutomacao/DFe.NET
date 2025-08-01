@@ -139,6 +139,8 @@ namespace NFe.Utils.Validacao
                     return "e211128_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
                     return "e211130_v1.00.xsd ";
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                    return "e211140_v1.00.xsd";
             }
             return null;
         }

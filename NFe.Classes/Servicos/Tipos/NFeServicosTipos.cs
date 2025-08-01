@@ -186,7 +186,13 @@ namespace NFe.Classes.Servicos.Tipos
         ///     pelos sistemas da administração tributária, de prazo-limite para apreciação de eventuais pedidos de ressarcimento do respectivo créditoo, nos termos
         ///     do art. 40, I da LC 214/2025.
         /// </summary>
-        RecepcaoEventoImobilizacaoDeItem
+        RecepcaoEventoImobilizacaoDeItem,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pelo adquirente de combustível listado no art. 172 da LC 214/2025 e que pertença à cadeia produtiva desses combustíveis,
+        ///     para solicitar a apropriação de crédito referente à parcela que for consumida em sua atividade comercial.
+        /// </summary>
+        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
     }
 
     /// <summary>
@@ -232,6 +238,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     211110 - Solicitação de Apropriação de crédito presumido
     ///     211120 - Destinação de item para consumo pessoal
     ///     211130 -  Imobilização de Item
+    ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
     /// </summary>
     public enum NFeTipoEvento
     {
@@ -339,14 +346,21 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Aceite de débito na apuração por emissão de nota de crédito")]
         [XmlEnum("211128")]
         TeNfeAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito = 211128,
-        
+
         /// <summary>
         /// 211130 -  Imobilização de Item
         /// </summary>
         [Description("Imobilização de Item")]
         [XmlEnum("211130")]
         TeNfeImobilizacaoDeItem = 211130,
-
+        
+        /// <summary>
+        /// 211140 -  Solicitação de Apropriação de Crédito de Combustível
+        /// </summary>
+        [Description("Solicitação de Apropriação de Crédito de Combustível")]
+        [XmlEnum("211140")]
+        TeNfeSolicitacaoApropriacaoCreditoCombustivel = 211140,
+        
         /// <summary>
         /// 210200 – Confirmação da Operação
         /// </summary>

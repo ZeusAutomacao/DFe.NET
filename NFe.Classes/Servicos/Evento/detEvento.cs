@@ -37,6 +37,7 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
@@ -427,6 +428,20 @@ namespace NFe.Classes.Servicos.Evento
             return gImobilizacao != null;
         }
         
+        #endregion
+
+        #region Solicitação de Apropriação de Crédito de Combustível
+
+        /// <summary>
+        ///     P23 - Informações de consumo de combustíveis
+        /// </summary>
+        public List<gConsumoComb> gConsumoComb { get; set; }
+        
+        public bool ShouldSerializegConsumoComb()
+        {
+            return gConsumoComb != null;
+        }
+
         #endregion
 
         #endregion

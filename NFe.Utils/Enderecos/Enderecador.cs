@@ -1680,7 +1680,8 @@ namespace NFe.Utils.Enderecos
                 ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
                 ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
                 ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
-                ServicoNFe.RecepcaoEventoImobilizacaoDeItem
+                ServicoNFe.RecepcaoEventoImobilizacaoDeItem,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
             };
             
             var urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs = new Dictionary<TipoAmbiente, string>

@@ -290,6 +290,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
                 case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
                 case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
                     return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 
