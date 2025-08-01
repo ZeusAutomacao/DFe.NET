@@ -78,6 +78,7 @@ using FuncoesXml = DFe.Utils.FuncoesXml;
 using NFe.Classes.Servicos.ConsultaGtin;
 using NFe.Utils.ConsultaGtin;
 using NFe.Classes.Informacoes;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
@@ -1361,11 +1362,11 @@ namespace NFe.Servicos
         /// <summary>
         ///     Serviço para evento de imobilização de item
         /// </summary>
-        /// <param name="idLote"></param>
-        /// <param name="sequenciaEvento"></param>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
-        /// <param name="imobilizacoesItens"></param>
+        /// <param name="imobilizacoesItens"> Lista de itens da nota fiscal a serem imobilizados</param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dataHoraEvento"></param>
@@ -1386,6 +1387,48 @@ namespace NFe.Servicos
             
             var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaDestinataria);
             detalheEvento.gImobilizacao = imobilizacoesItens;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+
+        /// <summary>
+        ///     Serviço para evento de solicitação de apropriação de crédito de combustível
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="gConsumoComb"> Itens de combustível da nota fiscal</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoSolicitacaApropriacaoCreditoCombustivel(int idLote,
+                                                                                           int sequenciaEvento,
+                                                                                           string cpfCnpj,
+                                                                                           string chaveNFe,
+                                                                                           List<gConsumoComb> gConsumoComb,
+                                                                                           Estado? ufAutor = null,
+                                                                                           string versaoAplicativo = null,
+                                                                                           DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeSolicitacaoApropriacaoCreditoCombustivel;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaDestinataria);
+            detalheEvento.gConsumoComb = gConsumoComb;
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
