@@ -31,49 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gMonoReten
     {
-        /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        private decimal _qBcMonoReten;
+        private decimal _adRemIbsReten;
+        private decimal _vIbsMonoReten;
+        private decimal _adRemCbsReten;
+        private decimal _vCbsMonoReten;
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB91 - Quantidade tributada sujeita à retenção na monofasia
         /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTrib { get; set; }
+        public decimal qBCMonoReten
+        {
+            get => _qBcMonoReten.Arredondar(4);
+            set => _qBcMonoReten = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15 - Grupo de Informações do IBS e da CBS
+        ///     UB92 - Alíquota ad rem do IBS sujeito a retenção
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal adRemIBSReten
+        {
+            get => _adRemIbsReten.Arredondar(4);
+            set => _adRemIbsReten = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
+        ///     UB93 - Valor do IBS monofásico sujeito a retenção
         /// </summary>
-        [XmlElement(Order = 4)]
-        public gIBSCBSMono gIBSCBSMono { get; set; }
+        public decimal vIBSMonoReten
+        {
+            get => _vIbsMonoReten.Arredondar(2);
+            set => _vIbsMonoReten = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB106 - Transferências de Crédito
+        ///     UB93a - Alíquota ad rem da CBS sujeito a retenção
         /// </summary>
-        [XmlElement(Order = 5)]
-        public gTransfCred gTransfCred { get; set; }
+        public decimal adRemCBSReten
+        {
+            get => _adRemCbsReten.Arredondar(4);
+            set => _adRemCbsReten = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM 
+        ///     UB93b - Valor da CBS monofásica sujeita a retenção
         /// </summary>
-        [XmlElement(Order = 6)]
-        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+        public decimal vCBSMonoReten
+        {
+            get => _vCbsMonoReten.Arredondar(2);
+            set => _vCbsMonoReten = value.Arredondar(2);
+        }
     }
 }

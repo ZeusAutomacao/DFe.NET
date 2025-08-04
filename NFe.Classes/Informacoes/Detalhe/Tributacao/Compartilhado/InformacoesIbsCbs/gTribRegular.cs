@@ -52,7 +52,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB70 - Código de Classificação Tributária do IBS e CBS
         /// </summary>
-        public int cClassTribReg { get; set; }
+        public string cClassTribReg { get; set; }
 
         /// <summary>
         ///     UB71 - Valor da alíquota do IBS da UF
