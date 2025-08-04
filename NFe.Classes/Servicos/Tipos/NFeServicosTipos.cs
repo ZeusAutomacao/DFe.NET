@@ -192,7 +192,17 @@ namespace NFe.Classes.Servicos.Tipos
         ///     Serviço para permitir ser gerado pelo adquirente de combustível listado no art. 172 da LC 214/2025 e que pertença à cadeia produtiva desses combustíveis,
         ///     para solicitar a apropriação de crédito referente à parcela que for consumida em sua atividade comercial.
         /// </summary>
-        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
+        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pelo adquirente para apropriação de crédito de bens e serviços que dependam da sua atividade
+        /// </summary>
+        RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pela sucessora em relação às notas fiscais de transferência de crédito de outra sucessora da mesma empresa sucedida para informar aceite da transferência de crédito de IBS.
+        /// </summary>
+        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
     }
 
     /// <summary>
@@ -239,6 +249,8 @@ namespace NFe.Classes.Servicos.Tipos
     ///     211120 - Destinação de item para consumo pessoal
     ///     211130 -  Imobilização de Item
     ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
+    ///     211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
+    ///     212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
     /// </summary>
     public enum NFeTipoEvento
     {
@@ -360,6 +372,20 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Solicitação de Apropriação de Crédito de Combustível")]
         [XmlEnum("211140")]
         TeNfeSolicitacaoApropriacaoCreditoCombustivel = 211140,
+        
+        /// <summary>
+        /// 211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
+        /// </summary>
+        [Description("Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente")]
+        [XmlEnum("211150")]
+        TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente = 211150,
+        
+        /// <summary>
+        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// </summary>
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [XmlEnum("212120")]
+        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212120,
         
         /// <summary>
         /// 210200 – Confirmação da Operação

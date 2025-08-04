@@ -37,6 +37,7 @@ using DFe.Classes.Entidades;
 using DFe.Utils;
 using NFe.Classes.Informacoes;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
+using NFe.Classes.Servicos.Evento.Informacoes.CreditoBensServicos;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
@@ -402,10 +403,12 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
-        #region Aceite de débito na apuração por emissão de nota de crédito
+        #region Aceite de débito na apuração por emissão de nota de crédito | Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
 
         /// <summary>
-        ///     P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
+        ///     Informação utilizada nos eventos "Aceite de débito na apuração por emissão de nota de crédito" e "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão"
+        ///     Para evento "Aceite de débito na apuração por emissão de nota de crédito": P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
+        ///     Para evento "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão": P23 - Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
         /// </summary>
         public IndicadorAceitacao? indAceitacao { get; set; }
 
@@ -442,6 +445,20 @@ namespace NFe.Classes.Servicos.Evento
             return gConsumoComb != null;
         }
 
+        #endregion
+
+        #region Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
+
+        /// <summary>
+        ///     P23 - Informações de crédito
+        /// </summary>
+        public List<gCredito> gCredito { get; set; }
+
+        public bool ShouldSerializegCredito()
+        {
+            return gCredito != null;
+        }
+        
         #endregion
 
         #endregion

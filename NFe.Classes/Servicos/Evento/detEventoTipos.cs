@@ -82,6 +82,12 @@ namespace NFe.Classes.Servicos.Evento
         [Description("RFB")]
         [XmlEnum("6")]
         taRFB = 6,
+        
+        /// <summary>
+        /// 8 - Empresa sucessora
+        /// </summary>
+        [Description("Empresa sucessora")]
+        taEmpresaSucessora = 8,
 
         /// <summary>
         /// 9 - Outros Órgãos
