@@ -44,5 +44,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         ///     VC03 - Número do item do documento referenciado.
         /// </summary>
         public int? nItem { get; set; }
+        
+        public bool ShouldSerializenItem() => nItem.HasValue;
     }
 }
