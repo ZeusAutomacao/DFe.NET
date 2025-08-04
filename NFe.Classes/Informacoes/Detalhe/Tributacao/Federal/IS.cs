@@ -111,5 +111,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Federal
             get => _vIs.Arredondar(2);
             set => _vIs = value.Arredondar(2);
         }
+        
+        public bool ShouldSerializepISEspec() => pISEspec.HasValue;
     }
 }
