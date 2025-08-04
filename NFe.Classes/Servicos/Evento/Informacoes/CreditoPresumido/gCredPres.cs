@@ -46,7 +46,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
         /// <summary>
         ///     P25 - Valor do base de cálculo do item
         /// </summary>
-        [XmlAttribute("vBC")]
         public int vBC { get; set; }
         
         /// <summary>
