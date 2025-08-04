@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,29 +33,35 @@
 
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
+namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoBensServicos
 {
-    public class gCredPres
+    public class gCredito
     {
+        private decimal _vCredIBS;
+        private decimal _vCredCBS;
+
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
+        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado.
         /// </summary>
-        [XmlAttribute("nitem")]
+        [XmlAttribute]
         public int nitem { get; set; }
-        
+
         /// <summary>
-        ///     P25 - Valor do base de cálculo do item
+        ///     P25 - Valor da solicitação de crédito a ser apropriado de IBS
         /// </summary>
-        public int vBC { get; set; }
-        
+        public decimal vCredIBS
+        {
+            get => _vCredIBS;
+            set => _vCredIBS = value.Arredondar(2);
+        }
+
         /// <summary>
-        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
+        ///     P26 - Valor da solicitação de crédito a ser apropriado de CBS
         /// </summary>
-        public gIBS gIBS { get; set; }
-        
-        /// <summary>
-        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
+        public decimal vCredCBS
+        {
+            get => _vCredCBS;
+            set => _vCredCBS = value.Arredondar(2);
+        }
     }
 }
