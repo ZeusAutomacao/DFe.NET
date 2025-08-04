@@ -33,7 +33,7 @@
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
-    public class gControleEstoque
+    public class gControleEstoqueItemConsumo
     {
         private decimal _qConsumo;
         

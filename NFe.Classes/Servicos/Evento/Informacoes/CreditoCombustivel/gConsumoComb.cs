@@ -67,6 +67,7 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel
         /// <summary>
         ///     P27 - Informações de quantidade por item
         /// </summary>
-        public gControleEstoque gControleEstoque { get; set; }
+        [XmlElement(ElementName = "gControleEstoque")]
+        public gControleEstoqueCredComb gControleEstoqueCredComb { get; set; }
     }
 }
