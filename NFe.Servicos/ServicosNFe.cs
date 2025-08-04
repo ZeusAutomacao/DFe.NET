@@ -419,7 +419,11 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
                 ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
                 ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
-                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
+                ServicoNFe.RecepcaoEventoImobilizacaoDeItem,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente,
+                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
             };
             if (
                 !listaEventos.Contains(servicoEvento))
