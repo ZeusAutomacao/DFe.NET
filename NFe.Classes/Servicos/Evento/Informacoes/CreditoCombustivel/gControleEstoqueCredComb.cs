@@ -33,7 +33,7 @@
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel
 {
-    public class gControleEstoque
+    public class gControleEstoqueCredComb
     {
         private decimal _qComb;
         
@@ -49,6 +49,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel
         /// <summary>
         ///     P29 - Informar a unidade relativa ao campo qComb
         /// </summary>
-        public decimal uComb { get; set; }
+        public string uComb { get; set; }
     }
 }
