@@ -32,6 +32,7 @@
 /********************************************************************************/
 
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace NFe.Classes.Informacoes.Identificacao
 {
@@ -43,6 +44,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     BB02 - Chave de acesso da NF-e de antecipação de pagamento
         /// </summary>
-        private List<string> refNFe { get; set; }
+        [XmlElement("refNFe")]
+        public List<string> refNFe { get; set; }
     }
 }

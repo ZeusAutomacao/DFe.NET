@@ -33,37 +33,37 @@
 
 namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
 {
-    public class gIBSUF
+    public class gIBSMunTotal
     {
         private decimal _vDif;
         private decimal _vDevTrib;
-        private decimal _vIBSUF;
+        private decimal _vIBSMun;
 
         /// <summary>
-        ///     W38 - Valor total do diferimento
+        ///     W43 - Valor total do diferimento
         /// </summary>
         public decimal vDif
         {
             get => _vDif;
             set => _vDif = value.Arredondar(2);
         }
-        
+
         /// <summary>
-        ///     W39 - Valor total de devolução de tributos
+        ///     W44 - Valor total de devolução de tributos
         /// </summary>
         public decimal vDevTrib
         {
             get => _vDevTrib;
             set => _vDevTrib = value.Arredondar(2);
         }
-        
+
         /// <summary>
-        ///     W41 - Valor total do IBS da UF
+        ///     W46 - Valor total do IBS do Município
         /// </summary>
-        public decimal vIBSUF
+        public decimal vIBSMun
         {
-            get => _vIBSUF;
-            set => _vIBSUF = value.Arredondar(2);
+            get => _vIBSMun;
+            set => _vIBSMun = value.Arredondar(2);
         }
     }
 }

@@ -52,5 +52,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
             get => _vCredPresIbsZfm.Arredondar(2);
             set => _vCredPresIbsZfm = value.Arredondar(2);
         }
+        
+        public bool ShouldSerializevCredPresIBSZFM() => vCredPresIBSZFM.HasValue;
     }
 }

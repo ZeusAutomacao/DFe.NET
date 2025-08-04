@@ -33,7 +33,7 @@
 
 namespace NFe.Classes.Informacoes.Total.IbsCbs.Cbs
 {
-    public class gCBS
+    public class gCBSTotal
     {
         private decimal _vDif;
         private decimal _vDevTrib;

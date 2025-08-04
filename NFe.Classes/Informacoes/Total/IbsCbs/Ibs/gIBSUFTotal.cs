@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,49 +31,39 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
 {
-    public class IBSCBS
+    public class gIBSUFTotal
     {
+        private decimal _vDif;
+        private decimal _vDevTrib;
+        private decimal _vIBSUF;
+
         /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
+        ///     W38 - Valor total do diferimento
         /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        public decimal vDif
+        {
+            get => _vDif;
+            set => _vDif = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     W39 - Valor total de devolução de tributos
         /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTrib { get; set; }
+        public decimal vDevTrib
+        {
+            get => _vDevTrib;
+            set => _vDevTrib = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB15 - Grupo de Informações do IBS e da CBS
+        ///     W41 - Valor total do IBS da UF
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gIBSCBS gIBSCBS { get; set; }
-        
-        /// <summary>
-        ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
-        /// </summary>
-        [XmlElement(Order = 4)]
-        public gIBSCBSMono gIBSCBSMono { get; set; }
-        
-        /// <summary>
-        ///     UB106 - Transferências de Crédito
-        /// </summary>
-        [XmlElement(Order = 5)]
-        public gTransfCred gTransfCred { get; set; }
-        
-        /// <summary>
-        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM 
-        /// </summary>
-        [XmlElement(Order = 6)]
-        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+        public decimal vIBSUF
+        {
+            get => _vIBSUF;
+            set => _vIBSUF = value.Arredondar(2);
+        }
     }
 }

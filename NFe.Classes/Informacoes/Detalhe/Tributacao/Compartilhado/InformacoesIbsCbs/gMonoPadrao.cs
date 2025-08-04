@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,39 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Informacoes.Total.IbsCbs.Ibs
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class gIBSMun
+    public class gMonoPadrao
     {
-        private decimal _vDif;
-        private decimal _vDevTrib;
-        private decimal _vIBSMun;
-
+        private decimal _qBcMono;
+        private decimal _adRemIbs;
+        private decimal _adRemCbs;
+        private decimal _vIbsMono;
+        private decimal _vCbsMono;
+        
         /// <summary>
-        ///     W43 - Valor total do diferimento
+        ///     UB85 - Quantidade tributada na monofasia
         /// </summary>
-        public decimal vDif
+        public decimal qBCMono
         {
-            get => _vDif;
-            set => _vDif = value.Arredondar(2);
+            get => _qBcMono.Arredondar(4);
+            set => _qBcMono = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB86 - Alíquota ad rem do IBS
+        /// </summary>
+        public decimal adRemIBS
+        {
+            get => _adRemIbs.Arredondar(4);
+            set => _adRemIbs = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     UB87 - Alíquota ad rem da CBS
+        /// </summary>
+        public decimal adRemCBS
+        {
+            get => _adRemCbs.Arredondar(4);
+            set => _adRemCbs = value.Arredondar(4);
         }
 
         /// <summary>
-        ///     W44 - Valor total de devolução de tributos
+        ///     UB88 - Valor do IBS monofásico
         /// </summary>
-        public decimal vDevTrib
+        public decimal vIBSMono
         {
-            get => _vDevTrib;
-            set => _vDevTrib = value.Arredondar(2);
+            get => _vIbsMono.Arredondar(2);
+            set => _vIbsMono = value.Arredondar(2);
         }
-
+        
         /// <summary>
-        ///     W46 - Valor total do IBS do Município
+        ///     UB89 - Valor da CBS monofásica
         /// </summary>
-        public decimal vIBSMun
+        public decimal vCBSMono
         {
-            get => _vIBSMun;
-            set => _vIBSMun = value.Arredondar(2);
+            get => _vCbsMono.Arredondar(2);
+            set => _vCbsMono = value.Arredondar(2);
         }
     }
 }

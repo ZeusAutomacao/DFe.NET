@@ -31,49 +31,59 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gMonoRet
     {
-        /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        private decimal _qBcMonoRet;
+        private decimal _adRemIbsRet;
+        private decimal _vIbsMonoRet;
+        private decimal _adRemCbsRet;
+        private decimal _vCbsMonoRet;
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB95 - Quantidade tributada retida anteriormente
         /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTrib { get; set; }
+        public decimal qBCMonoRet
+        {
+            get => _qBcMonoRet.Arredondar(4);
+            set => _qBcMonoRet = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15 - Grupo de Informações do IBS e da CBS
+        ///     UB96 - Alíquota ad rem do IBS retido anteriormente
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal adRemIBSRet
+        {
+            get => _adRemIbsRet.Arredondar(4);
+            set => _adRemIbsRet = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
+        ///     UB97 - Valor do IBS retido anteriormente
         /// </summary>
-        [XmlElement(Order = 4)]
-        public gIBSCBSMono gIBSCBSMono { get; set; }
+        public decimal vIBSMonoRet
+        {
+            get => _vIbsMonoRet.Arredondar(2);
+            set => _vIbsMonoRet = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB106 - Transferências de Crédito
+        ///     UB98 - Alíquota ad rem da CBS retida anteriormente
         /// </summary>
-        [XmlElement(Order = 5)]
-        public gTransfCred gTransfCred { get; set; }
+        public decimal adRemCBSRet
+        {
+            get => _adRemCbsRet.Arredondar(4);
+            set => _adRemCbsRet = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM 
+        ///     UB98a - Valor da CBS retida anteriormente
         /// </summary>
-        [XmlElement(Order = 6)]
-        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+        public decimal vCBSMonoRet
+        {
+            get => _vCbsMonoRet.Arredondar(2);
+            set => _vCbsMonoRet = value.Arredondar(2);
+        }
     }
 }

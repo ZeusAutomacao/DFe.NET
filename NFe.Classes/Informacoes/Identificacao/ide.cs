@@ -270,7 +270,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// <summary>
         ///     B31 - Grupo de Compra Governamental
         /// </summary>
-        public gCompraGov GCompraGov { get; set; }
+        public gCompraGov gCompraGov { get; set; }
         
         /// <summary>
         ///     BB01 - Grupo de notas de antecipação de pagamento
@@ -291,5 +291,11 @@ namespace NFe.Classes.Informacoes.Identificacao
         {
             return indPres.HasValue;
         }
+        
+        public bool ShouldSerializetpNFDebito() => tpNFDebito.HasValue;
+        
+        public bool ShouldSerializetpNFCredito() => tpNFCredito.HasValue;
+        
+        public bool ShouldSerializecMunFGIBS() => cMunFGIBS.HasValue;
     }
 }

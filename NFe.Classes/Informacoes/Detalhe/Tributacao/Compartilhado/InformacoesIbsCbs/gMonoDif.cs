@@ -31,49 +31,49 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
-using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.Tipos;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs
 {
-    public class IBSCBS
+    public class gMonoDif
     {
-        /// <summary>
-        ///     UB13 - Código de Situação Tributária do IBS e CBS
-        /// </summary>
-        [XmlElement(Order = 1)]
-        public CST CST { get; set; }
+        private decimal _pDifIbs;
+        private decimal _vIbsMonoDif;
+        private decimal _pDifCbs;
+        private decimal _vCbsMonoDif;
         
         /// <summary>
-        ///     UB14 - Código de Classificação Tributária do IBS e CBS
+        ///     UB100 - Percentual do diferimento do imposto monofásico
         /// </summary>
-        [XmlElement(Order = 2)]
-        public string cClassTrib { get; set; }
+        public decimal pDifIBS
+        {
+            get => _pDifIbs.Arredondar(4);
+            set => _pDifIbs = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB15 - Grupo de Informações do IBS e da CBS
+        ///     UB101 - Valor do IBS monofásico diferido
         /// </summary>
-        [XmlElement(Order = 3)]
-        public gIBSCBS gIBSCBS { get; set; }
+        public decimal vIBSMonoDif
+        {
+            get => _vIbsMonoDif.Arredondar(2);
+            set => _vIbsMonoDif = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     UB84 - Grupo de Informações do IBS e CBS em operações com imposto monofásico
+        ///     UB102 - Percentual do diferimento do imposto monofásico
         /// </summary>
-        [XmlElement(Order = 4)]
-        public gIBSCBSMono gIBSCBSMono { get; set; }
+        public decimal pDifCBS
+        {
+            get => _pDifCbs.Arredondar(4);
+            set => _pDifCbs = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     UB106 - Transferências de Crédito
+        ///     UB103 - Valor da CBS Monofásica diferida
         /// </summary>
-        [XmlElement(Order = 5)]
-        public gTransfCred gTransfCred { get; set; }
-        
-        /// <summary>
-        ///     UB109 - Informações do crédito presumido de IBS para fornecimentos a partir da ZFM 
-        /// </summary>
-        [XmlElement(Order = 6)]
-        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
+        public decimal vCBSMonoDif
+        {
+            get => _vCbsMonoDif.Arredondar(2);
+            set => _vCbsMonoDif = value.Arredondar(2);
+        }
     }
 }
