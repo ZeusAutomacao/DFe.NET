@@ -31,6 +31,7 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesCbs;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIbsCbs.InformacoesIbs;
 
@@ -44,6 +45,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB16 - Base de cálculo do IBS e CBS
         /// </summary>
+        [XmlElement(Order = 1)]
         public decimal vBC
         {
             get => _vBc.Arredondar(2);
@@ -53,45 +55,53 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Compartilhado.InformacoesIb
         /// <summary>
         ///     UB17 - Grupo de Informações do IBS para a UF
         /// </summary>
+        [XmlElement(Order = 2)]
         public gIBSUF gIBSUF { get; set; }
         
         /// <summary>
         ///     UB36 - Grupo de Informações do IBS para o município
         /// </summary>
+        [XmlElement(Order = 3)]
         public gIBSMun gIBSMun { get; set; }
         
         /// <summary>
-        ///     UB55 - Grupo de Informações da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
-        
-        /// <summary>
-        ///     UB68 - Grupo de informações da Tributação Regular
-        /// </summary>
-        public gTribRegular gTribRegular { get; set; }
-        
-        /// <summary>
-        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
-        /// </summary>
-        public gIBSCredPres gIBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
-        /// </summary>
-        public gCBSCredPres gCBSCredPres { get; set; }
-        
-        /// <summary>
-        ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
-        /// </summary>
-        public gTribCompraGov gTribCompraGov { get; set; }
-
-        /// <summary>
         ///     UB54a - Valor do IBS
         /// </summary>
+        [XmlElement(Order = 4)]
         public decimal vIBS
         {
             get => _vIbs.Arredondar(2);
             set => _vIbs = value.Arredondar(2);
         }
+        
+        /// <summary>
+        ///     UB55 - Grupo de Informações da CBS
+        /// </summary>
+        [XmlElement(Order = 5)]
+        public gCBS gCBS { get; set; }
+        
+        /// <summary>
+        ///     UB68 - Grupo de informações da Tributação Regular
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public gTribRegular gTribRegular { get; set; }
+        
+        /// <summary>
+        ///     UB73 - Grupo de Informações do Crédito Presumido referente ao IBS
+        /// </summary>
+        [XmlElement(Order = 7)]
+        public gIBSCredPres gIBSCredPres { get; set; }
+        
+        /// <summary>
+        ///     UB78 - Grupo de Informações do Crédito Presumido referente a CBS
+        /// </summary>
+        [XmlElement(Order = 8)]
+        public gCBSCredPres gCBSCredPres { get; set; }
+        
+        /// <summary>
+        ///     UB82a - Grupo de informações da composição do valor do IBS e da CBS em compras governamentais
+        /// </summary>
+        [XmlElement(Order = 9)]
+        public gTribCompraGov gTribCompraGov { get; set; }
     }
 }
