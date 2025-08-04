@@ -70,7 +70,7 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         ///     P27 - Informações de quantidade de estoque influenciadas pelo evento
         /// </summary>
         [XmlElement(ElementName = "gControleEstoque")]
-        public gControleEstoqueItemConsumo gControleEstoqueItemConsumo { get; set; }
+        public gControleEstoqueItemConsumo gControleEstoque { get; set; }
         
         /// <summary>
         ///     P30 - Informações por item da NF-e de Uso e Consumo Pessoal
