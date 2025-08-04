@@ -51,6 +51,7 @@ namespace NFe.AppTeste
 {
     /// <summary>
     ///     Interação lógica para MainWindow.xam
+    /// apenas para iniciar um pull da reforma tributária
     /// </summary>
     public partial class MainWindow
     {
