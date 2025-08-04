@@ -31,24 +31,24 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
+namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
 {
     public class gControleEstoque
     {
-        private decimal _qConsumo;
+        private decimal _qImobilizado;
         
         /// <summary>
-        ///     P28 - Informar a quantidade para consumo de pessoa física
+        ///     P28 - Informar a quantidade do item a ser imobilizado
         /// </summary>
-        public decimal qConsumo
+        public decimal qImobilizado
         {
-            get => _qConsumo.Arredondar(4);
-            set => _qConsumo = value.Arredondar(4);
+            get => _qImobilizado.Arredondar(4);
+            set => _qImobilizado = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     P29 - Informar a unidade relativa ao campo gConsumo
+        ///     P29 - Informar a unidade relativa ao campo qImobilizado
         /// </summary>
-        public string uConsumo { get; set; }
+        public string uImobilizado { get; set; }
     }
 }

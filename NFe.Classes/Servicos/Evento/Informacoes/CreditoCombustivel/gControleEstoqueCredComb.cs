@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,31 +31,24 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
-namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
+namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel
 {
-    public class gCredPres
+    public class gControleEstoqueCredComb
     {
-        /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
-        /// </summary>
-        [XmlAttribute("nitem")]
-        public int nitem { get; set; }
+        private decimal _qComb;
         
         /// <summary>
-        ///     P25 - Valor do base de cálculo do item
+        ///     P28 - Informar a quantidade de consumo do item
         /// </summary>
-        public int vBC { get; set; }
-        
+        public decimal qComb
+        {
+            get => _qComb;
+            set => _qComb = value.Arredondar(4);
+        }
+
         /// <summary>
-        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
+        ///     P29 - Informar a unidade relativa ao campo qComb
         /// </summary>
-        public gIBS gIBS { get; set; }
-        
-        /// <summary>
-        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
+        public string uComb { get; set; }
     }
 }

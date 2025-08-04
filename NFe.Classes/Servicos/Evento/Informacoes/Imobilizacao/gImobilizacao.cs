@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,29 +33,40 @@
 
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
+namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
 {
-    public class gCredPres
+    public class gImobilizacao
     {
+        private decimal _vIBS;
+        private decimal _vCBS;
+        
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
+        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado.
         /// </summary>
-        [XmlAttribute("nitem")]
+        [XmlAttribute]
         public int nitem { get; set; }
         
         /// <summary>
-        ///     P25 - Valor do base de cálculo do item
+        ///     P25 - Valor do IBS relativo à imobilização
         /// </summary>
-        public int vBC { get; set; }
+        public decimal vIBS
+        {
+            get => _vIBS; 
+            set => _vIBS = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
+        ///     P26 - Valor da CBS relativo à imobilização
         /// </summary>
-        public gIBS gIBS { get; set; }
+        public decimal vCBS
+        {
+            get => _vCBS;
+            set => _vCBS = value.Arredondar(2);
+        }
         
         /// <summary>
-        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
+        ///     P27 - Informações de crédito presumido por item
         /// </summary>
-        public gCBS gCBS { get; set; }
+        public gControleEstoque gControleEstoque { get; set; }
     }
 }

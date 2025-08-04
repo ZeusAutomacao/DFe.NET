@@ -58,7 +58,11 @@ namespace NFe.Utils
                 || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
                 || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
                 || servicoNFe == ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
-                || servicoNFe == ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito)
+                || servicoNFe == ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+                || servicoNFe == ServicoNFe.RecepcaoEventoImobilizacaoDeItem
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao)
             {
                 return "1.00";
             }

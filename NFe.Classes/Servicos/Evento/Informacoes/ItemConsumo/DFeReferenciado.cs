@@ -1,4 +1,4 @@
-﻿/********************************************************************************/
+/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,31 +31,18 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
-namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
+namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
-    public class gCredPres
+    public class DFeReferenciado
     {
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
+        ///     P31 - Informa a chave da nota (NFe ou NFCe) emitida para o fornecimento nos casos em que a legislação obriga a emissão de documento fiscal.
         /// </summary>
-        [XmlAttribute("nitem")]
-        public int nitem { get; set; }
+        public string chaveAcesso { get; set; }
         
         /// <summary>
-        ///     P25 - Valor do base de cálculo do item
+        ///     P32 - Corresponde ao “nItem” do DFeReferenciado
         /// </summary>
-        public int vBC { get; set; }
-        
-        /// <summary>
-        ///     P26 - Grupo de Informações do Crédito Presumido do IBS
-        /// </summary>
-        public gIBS gIBS { get; set; }
-        
-        /// <summary>
-        ///     P30 - Grupo de Informações do Crédito Presumido da CBS
-        /// </summary>
-        public gCBS gCBS { get; set; }
+        public int nItem { get; set; }
     }
 }

@@ -69,16 +69,12 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
         /// <summary>
         ///     P27 - Informações de quantidade de estoque influenciadas pelo evento
         /// </summary>
-        public gControleEstoque gControleEstoque { get; set; }
+        [XmlElement(ElementName = "gControleEstoque")]
+        public gControleEstoqueItemConsumo gControleEstoque { get; set; }
         
         /// <summary>
-        ///     P31 - Informar a chave da nota (NFe ou NFCe) emitida para o fornecimento nos casos em que a legislação obriga a emissão de documento fiscal
+        ///     P30 - Informações por item da NF-e de Uso e Consumo Pessoal
         /// </summary>
-        public string refNF { get; set; }
-        
-        /// <summary>
-        ///     P32 - Corresponde ao “nItem” da refNFe 
-        /// </summary>
-        public int nItemRefNFe { get; set; }
+        public DFeReferenciado DFeReferenciado { get; set; }
     }
 }
