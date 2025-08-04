@@ -183,7 +183,7 @@ namespace NFe.Classes.Servicos.Tipos
         
         /// <summary>
         ///     Serviço para permitir ser gerado pelo adquirente de bem, quando este for integrado ao seu ativo imobilizado, a fim de viabilizar a adequada identificação, 
-        ///     pelos sistemas da administração tributária, de prazo-limite para apreciação de eventuais pedidos de ressarcimento do respectivo créditoo, nos termos
+        ///     pelos sistemas da administração tributária, de prazo-limite para apreciação de eventuais pedidos de ressarcimento do respectivo crédito, nos termos
         ///     do art. 40, I da LC 214/2025.
         /// </summary>
         RecepcaoEventoImobilizacaoDeItem,
