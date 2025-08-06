@@ -232,6 +232,34 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         teOffLine = 9
     }
 
+    public enum TipoNFeCredito
+    {
+        // a definir NT_2025.002_v1.00_RTC_NF-e_IBS_CBS_IS%20(1).pdf pagina 9
+    }
+
+    public enum TipoNFeDebito
+    {
+        [Description("Transferência de créditos para Cooperativas;")]
+        [XmlEnum("01")]
+        tdTransferenciaCreditoCooperativa = 01,
+
+        [Description("Anulação de Crédito por Saídas Imunes/Isentas;")]
+        [XmlEnum("02")]
+        tdAnulacao = 02,
+
+        [Description("Débitos de notas fiscais não processadas na apuração;")]
+        [XmlEnum("03")]
+        tdDebitosNaoProcessadas = 03,
+
+        [Description("Multa e juros;")]
+        [XmlEnum("04")]
+        tdMultaJuros = 04,
+
+        [Description("Transferência de crédito de sucessão;")]
+        [XmlEnum("05")]
+        tdTransferenciaCreditoSucessao = 05
+    }
+
     /// <summary>
     ///     Finalidade da emissão da NF-e
     ///     <para>1 - NFe normal</para>
@@ -267,7 +295,15 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         /// </summary>
         [Description("Devolução de mercadoria")]
         [XmlEnum("4")]
-        fnDevolucao = 4
+        fnDevolucao = 4,
+
+        [Description("Nota de Crédito")]
+        [XmlEnum("5")]
+        fnNotaCredito = 5,
+
+        [Description("Nota de Débito")]
+        [XmlEnum("6")]
+        fnNotaDebito = 6,
     }
 
     /// <summary>
@@ -464,5 +500,36 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [Description("Modelo 02")]
         [XmlEnum("02")]
         modelo2 = 2
+    }
+
+    
+    public enum TipoEnteGov
+    {
+        [Description("União")]
+        [XmlEnum("1")]
+        Uniao = 1,
+
+        [Description("Estado")]
+        [XmlEnum("2")]
+        Estado = 2,
+
+        [Description("Distrito Federal")]
+        [XmlEnum("3")]
+        DistritoFederal = 3,
+
+        [Description("Município")]
+        [XmlEnum("4")]
+        Municipio = 4
+    }
+
+    public enum TipoOperGov
+    {
+        [Description("Fornecimento")]
+        [XmlEnum("1")]
+        Fornecimento = 1,
+
+        [Description("Recebimento do pagamento, conforme fato gerador do IBS/CBS definido no Art. 10 § 2º")]
+        [XmlEnum("2")]
+        RecebimentoPagamento = 2
     }
 }
