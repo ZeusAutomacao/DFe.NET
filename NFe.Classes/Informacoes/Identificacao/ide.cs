@@ -8,6 +8,7 @@ using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Identificacao
 {
+    // B01
     public class ide
     {
         /// <summary>
@@ -134,6 +135,14 @@ namespace NFe.Classes.Informacoes.Identificacao
         /// </summary>
         public long cMunFG { get; set; }
 
+        // B12a
+        public long? cMunFGIBS { get; set; }
+
+        public bool cMunFGIBSSpecified
+        {
+            get { return cMunFGIBS.HasValue; }
+        }
+
         /// <summary>
         ///     B21 - Formato de impressão do DANFE
         /// </summary>
@@ -158,6 +167,22 @@ namespace NFe.Classes.Informacoes.Identificacao
         ///     B25a - Finalidade da emissão da NF-e
         /// </summary>
         public FinalidadeNFe finNFe { get; set; }
+
+        // B25.1
+        public TipoNFeDebito? tpNFDebito { get; set; }
+
+        public bool tpNFDebitoSpecified
+        {
+            get { return tpNFDebito.HasValue; }
+        }
+
+        // B25.2 
+        public TipoNFeCredito? tpNFCredito { get; set; }
+
+        public bool tpNFCreditoSpecified
+        {
+            get { return tpNFCredito.HasValue; }
+        }
 
         /// <summary>
         ///     B25a - Indica operação com consumidor final
@@ -219,6 +244,12 @@ namespace NFe.Classes.Informacoes.Identificacao
         [XmlElement("NFref")]
         public List<NFref> NFref { get; set; }
 
+        // B31
+        public gCompraGov gCompraGov { get; set; }
+
+        // BB01
+        public gPagAntecipado gPagAntecipado { get; set; }
+
         public bool ShouldSerializeidDest()
         {
             return idDest.HasValue;
@@ -228,6 +259,8 @@ namespace NFe.Classes.Informacoes.Identificacao
         {
             return indFinal.HasValue;
         }
+
+        
 
         public bool ShouldSerializeindPres()
         {
