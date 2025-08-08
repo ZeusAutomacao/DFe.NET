@@ -1655,6 +1655,49 @@ namespace NFe.Servicos
             return retornoRecepcaoEvento;
         }
 
+        /// <summary>
+        ///     Serviço para evento permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="tpEventoAut"> Código do evento autorizado a ser cancelado</param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamentoDeEvento(int idLote,
+                                                                        int sequenciaEvento,
+                                                                        string cpfCnpj,
+                                                                        string chaveNFe,
+                                                                        string tpEventoAut,
+                                                                        TipoAutor tipoAutor,
+                                                                        Estado? ufAutor = null,
+                                                                        string versaoAplicativo = null,
+                                                                        DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoCancelamentoDeEvento;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeCancelamentoDeEvento;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
+            detalheEvento.tpEventoAut = tpEventoAut;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+    
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+
         private detEvento ObterDetalhesEvento(string versaoServico, string versaoAplicativo, NFeTipoEvento nfeTipoEvento, Estado? cOrgaoAutor, TipoAutor tipoAutor)
         {
             var detEvento = new detEvento
