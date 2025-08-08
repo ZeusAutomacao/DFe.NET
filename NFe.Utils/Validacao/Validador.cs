@@ -145,6 +145,8 @@ namespace NFe.Utils.Validacao
                     return "e211150_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
                     return "e212110.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                    return "e212120_v1.00.xsd";
             }
             return null;
         }
