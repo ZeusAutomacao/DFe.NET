@@ -234,9 +234,13 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
 
     public enum TipoNFeCredito
     {
-        // todo a definir NT_2025.002_v1.00_RTC_NF-e_IBS_CBS_IS%20(1).pdf pagina 9
-        [XmlEnum("1")]
-        Procurar = 1
+        [Description("Multa e juros")]
+        [XmlEnum("01")]
+        tcMultaEJuros = 01,
+
+        [Description("Apropriação de crédito presumido de IBS sobre o saldo devedor na ZFM (art. 450, § 1º, LC 214/25)")]
+        [XmlEnum("02")]
+        tcApropiacaoCreditoPresumido = 02
     }
 
     public enum TipoNFeDebito
@@ -259,7 +263,15 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
 
         [Description("Transferência de crédito de sucessão;")]
         [XmlEnum("05")]
-        tdTransferenciaCreditoSucessao = 05
+        tdTransferenciaCreditoSucessao = 05,
+
+        [Description("Pagamento antecipado")]
+        [XmlEnum("06")]
+        tdPagamentoAntecipado = 06,
+
+        [Description("Perda em estoque")]
+        [XmlEnum("07")]
+        tdPerdaEmEstoque = 07
     }
 
     /// <summary>
