@@ -192,4 +192,20 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("1")]
         Aceite = 1
     }
+    
+    /// <summary>
+    ///     Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.
+    ///     0 - Não aceite
+    ///     1 - Aceite
+    /// </summary>
+    public enum IndicadorDeferimento
+    {
+        [Description("Não aceite")]
+        [XmlEnum("0")]
+        NaoAceite = 0,
+        
+        [Description("Aceite")]
+        [XmlEnum("1")]
+        Aceite = 1
+    }
 }
