@@ -202,7 +202,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ser gerado pela sucessora em relação às notas fiscais de transferência de crédito de outra sucessora da mesma empresa sucedida para informar aceite da transferência de crédito de IBS.
         /// </summary>
-        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pela sucessora em relação às notas fiscais de transferência de crédito de outra sucessora da mesma empresa sucedida para informar aceite da transferência de crédito de CBS.
+        /// </summary>
+        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
     }
 
     /// <summary>
@@ -250,7 +255,8 @@ namespace NFe.Classes.Servicos.Tipos
     ///     211130 -  Imobilização de Item
     ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
     ///     211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
-    ///     212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+    ///     212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+    ///     212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
     /// </summary>
     public enum NFeTipoEvento
     {
@@ -381,11 +387,18 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente = 211150,
         
         /// <summary>
-        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// </summary>
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [XmlEnum("212110")]
+        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212110,
+        
+        /// <summary>
+        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
         /// </summary>
         [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
         [XmlEnum("212120")]
-        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212120,
+        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 212120,
         
         /// <summary>
         /// 210200 – Confirmação da Operação
