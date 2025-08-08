@@ -161,7 +161,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso/Comprovante de Entrega NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe/ Cancelamento Evento
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -475,6 +475,15 @@ namespace NFe.Classes.Servicos.Evento
         {
             return indDeferimento != null;
         }
+        
+        #endregion
+        
+        #region Cancelamento Evento
+
+        /// <summary>
+        ///     P23 - Código do evento autorizado a ser cancelado
+        /// </summary>
+        public string tpEventoAut {get; set;}
         
         #endregion
 

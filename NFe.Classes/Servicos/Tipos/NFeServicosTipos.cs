@@ -217,7 +217,12 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ser gerado pelo fisco em relação às notas fiscais de transferência de crédito para informar aceite ou não aceite da transferência de crédito de CBS.
         /// </summary>
-        RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+        RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado para permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento.
+        /// </summary>
+        RecepcaoEventoCancelamentoDeEvento
     }
 
     /// <summary>
@@ -244,6 +249,7 @@ namespace NFe.Classes.Servicos.Tipos
 
     /// <summary>
     ///     Código do Tipo do Evento.
+    ///     110001 -  Cancelamento de Evento
     ///     110110 - Carta de Correção
     ///     110140 - EPEC
     ///     110111 - Cancelamento
@@ -272,6 +278,13 @@ namespace NFe.Classes.Servicos.Tipos
     /// </summary>
     public enum NFeTipoEvento
     {
+        /// <summary>
+        /// 110001 - Cancelamento de Evento
+        /// </summary>
+        [Description("Cancelamento de Evento")]
+        [XmlEnum("110001")]
+        TeNfeCancelamentoDeEvento = 110001,
+        
         /// <summary>
         /// 110110 - Carta de Correção
         /// </summary>
