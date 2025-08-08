@@ -234,7 +234,9 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
 
     public enum TipoNFeCredito
     {
-        // a definir NT_2025.002_v1.00_RTC_NF-e_IBS_CBS_IS%20(1).pdf pagina 9
+        // todo a definir NT_2025.002_v1.00_RTC_NF-e_IBS_CBS_IS%20(1).pdf pagina 9
+        [XmlEnum("1")]
+        Procurar = 1
     }
 
     public enum TipoNFeDebito
