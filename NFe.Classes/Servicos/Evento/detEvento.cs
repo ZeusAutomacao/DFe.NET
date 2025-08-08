@@ -462,6 +462,22 @@ namespace NFe.Classes.Servicos.Evento
         
         #endregion
 
+        #region Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão | Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+
+        /// <summary>
+        ///     Para ambos os eventos "Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão"
+        ///     e "Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão" o campo representa:
+        ///     Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        /// </summary>
+        public IndicadorDeferimento? indDeferimento { get; set; }
+
+        public bool ShouldSerializeindDeferimento()
+        {
+            return indDeferimento != null;
+        }
+        
+        #endregion
+
         #endregion
     }
 }
