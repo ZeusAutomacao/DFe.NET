@@ -171,18 +171,8 @@ namespace NFe.Classes.Informacoes.Identificacao
         // B25.1
         public TipoNFeDebito? tpNFDebito { get; set; }
 
-        public bool tpNFDebitoSpecified
-        {
-            get { return tpNFDebito.HasValue; }
-        }
-
         // B25.2 
         public TipoNFeCredito? tpNFCredito { get; set; }
-
-        public bool tpNFCreditoSpecified
-        {
-            get { return tpNFCredito.HasValue; }
-        }
 
         /// <summary>
         ///     B25a - Indica operação com consumidor final
@@ -245,10 +235,10 @@ namespace NFe.Classes.Informacoes.Identificacao
         public List<NFref> NFref { get; set; }
 
         // B31
-        public gCompraGov gCompraGov { get; set; }
+        //public gCompraGov gCompraGov { get; set; }
 
         // BB01
-        public gPagAntecipado gPagAntecipado { get; set; }
+        //public gPagAntecipado gPagAntecipado { get; set; }
 
         public bool ShouldSerializeidDest()
         {
@@ -260,11 +250,19 @@ namespace NFe.Classes.Informacoes.Identificacao
             return indFinal.HasValue;
         }
 
-        
-
         public bool ShouldSerializeindPres()
         {
             return indPres.HasValue;
+        }
+
+        public bool ShouldSerializetpNFDebito()
+        {
+            return tpNFDebito.HasValue;
+        }
+
+        public bool ShouldSerializetpNFCredito()
+        {
+            return tpNFCredito.HasValue;
         }
     }
 }
