@@ -546,4 +546,11 @@ namespace NFe.Classes.Informacoes.Identificacao.Tipos
         [XmlEnum("2")]
         RecebimentoPagamento = 2
     }
+
+    public enum indBemMovelUsado
+    {
+        [Description("Bem Móvel Usado")]
+        [XmlEnum("1")]
+        BemMovelUsado = 1,
+    }
 }

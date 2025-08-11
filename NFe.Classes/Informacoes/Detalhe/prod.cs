@@ -3,6 +3,7 @@ using System.Xml.Serialization;
 using NFe.Classes.Informacoes.Detalhe.DeclaracaoImportacao;
 using NFe.Classes.Informacoes.Detalhe.Exportacao;
 using NFe.Classes.Informacoes.Detalhe.ProdEspecifico;
+using NFe.Classes.Informacoes.Identificacao.Tipos;
 
 namespace NFe.Classes.Informacoes.Detalhe
 {
@@ -290,6 +291,9 @@ namespace NFe.Classes.Informacoes.Detalhe
             }
         }
 
+        // l117c
+        public indBemMovelUsado? indBemMovelUsado { get; set; }
+
         public bool ShouldSerializenItemPed()
         {
             return nItemPed.HasValue;
@@ -314,6 +318,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         {
             return vOutro.HasValue && vOutro > 0;
         }
-        
+
+        public bool ShouldSerializeindBemMovelUsado()
+        {
+            return indBemMovelUsado.HasValue;
+        }
+
     }
 }
