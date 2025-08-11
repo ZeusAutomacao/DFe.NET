@@ -1,6 +1,4 @@
-﻿using System.Xml.Serialization;
-
-namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+﻿namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 {
     public class IBSCBS
     {
@@ -12,5 +10,14 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 
         // UB15
         public gIBSCBS gIBSCBS { get; set; }
+
+        // UB84
+        public gIBSCBSMono gIBSCBSMono { get; set; }
+
+        // UB106
+        public gTransfCred gTransfCred { get; set; }
+
+        // UB109
+        public gCredPresIBSZFM gCredPresIBSZFM { get; set; }
     }
 }
