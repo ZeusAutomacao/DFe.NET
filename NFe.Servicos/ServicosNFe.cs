@@ -426,7 +426,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
-                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoCancelamentoDeEvento
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1549,7 +1550,7 @@ namespace NFe.Servicos
                                                                                                                              string cpfCnpj,
                                                                                                                              string chaveNFe,
                                                                                                                              IndicadorAceitacao indicadorAceitacao,
-                                                                                                                             Estado? ufAutor = null,
+                                                                                                                             Estado? ufAutor,
                                                                                                                              string versaoAplicativo = null,
                                                                                                                              DateTimeOffset? dataHoraEvento = null)
         {
@@ -1663,6 +1664,7 @@ namespace NFe.Servicos
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="tpEventoAut"> Código do evento autorizado a ser cancelado</param>
+        /// <param name="nProtEvento"> Número do Protocolo de Autorização do Evento a ser cancelado</param>
         /// <param name="tipoAutor"></param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
@@ -1673,6 +1675,7 @@ namespace NFe.Servicos
                                                                         string cpfCnpj,
                                                                         string chaveNFe,
                                                                         string tpEventoAut,
+                                                                        string nProtEvento,
                                                                         TipoAutor tipoAutor,
                                                                         Estado? ufAutor = null,
                                                                         string versaoAplicativo = null,
@@ -1685,6 +1688,7 @@ namespace NFe.Servicos
             
             var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
             detalheEvento.tpEventoAut = tpEventoAut;
+            detalheEvento.nProtEvento = nProtEvento;
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);

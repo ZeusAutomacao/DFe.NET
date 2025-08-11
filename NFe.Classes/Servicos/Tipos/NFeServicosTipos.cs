@@ -421,7 +421,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
         /// </summary>
-        [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
         [XmlEnum("212120")]
         TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 212120,
         
@@ -435,7 +435,7 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         /// 412130 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
         /// </summary>
-        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
         [XmlEnum("412130")]
         TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 412130,
         
