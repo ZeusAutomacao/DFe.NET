@@ -202,7 +202,27 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ser gerado pela sucessora em relação às notas fiscais de transferência de crédito de outra sucessora da mesma empresa sucedida para informar aceite da transferência de crédito de IBS.
         /// </summary>
-        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pela sucessora em relação às notas fiscais de transferência de crédito de outra sucessora da mesma empresa sucedida para informar aceite da transferência de crédito de CBS.
+        /// </summary>
+        RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pelo fisco em relação às notas fiscais de transferência de crédito para informar aceite ou não aceite da transferência de crédito de IBS.
+        /// </summary>
+        RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado pelo fisco em relação às notas fiscais de transferência de crédito para informar aceite ou não aceite da transferência de crédito de CBS.
+        /// </summary>
+        RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+        
+        /// <summary>
+        ///     Serviço para permitir ser gerado para permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento.
+        /// </summary>
+        RecepcaoEventoCancelamentoDeEvento
     }
 
     /// <summary>
@@ -229,6 +249,7 @@ namespace NFe.Classes.Servicos.Tipos
 
     /// <summary>
     ///     Código do Tipo do Evento.
+    ///     110001 -  Cancelamento de Evento
     ///     110110 - Carta de Correção
     ///     110140 - EPEC
     ///     110111 - Cancelamento
@@ -250,10 +271,20 @@ namespace NFe.Classes.Servicos.Tipos
     ///     211130 -  Imobilização de Item
     ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
     ///     211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
-    ///     212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+    ///     212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+    ///     212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+    ///     412120 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+    ///     412130 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
     /// </summary>
     public enum NFeTipoEvento
     {
+        /// <summary>
+        /// 110001 - Cancelamento de Evento
+        /// </summary>
+        [Description("Cancelamento de Evento")]
+        [XmlEnum("110001")]
+        TeNfeCancelamentoDeEvento = 110001,
+        
         /// <summary>
         /// 110110 - Carta de Correção
         /// </summary>
@@ -381,11 +412,32 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente = 211150,
         
         /// <summary>
-        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// 212110 -  Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
         /// </summary>
         [Description("Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [XmlEnum("212110")]
+        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212110,
+        
+        /// <summary>
+        /// 212120 -  Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// </summary>
+        [Description("Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
         [XmlEnum("212120")]
-        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 212120,
+        TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 212120,
+        
+        /// <summary>
+        /// 412120 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// </summary>
+        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão")]
+        [XmlEnum("412120")]
+        TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao = 412120,
+        
+        /// <summary>
+        /// 412130 -  Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// </summary>
+        [Description("Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão")]
+        [XmlEnum("412130")]
+        TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao = 412130,
         
         /// <summary>
         /// 210200 – Confirmação da Operação

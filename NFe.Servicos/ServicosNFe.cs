@@ -423,7 +423,11 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoImobilizacaoDeItem,
                 ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel,
                 ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente,
-                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoCancelamentoDeEvento
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1495,7 +1499,7 @@ namespace NFe.Servicos
         /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
-        /// <param name="indicadorAceitacao"> Informações de crédito</param>
+        /// <param name="indicadorAceitacao"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada</param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dataHoraEvento"></param>
@@ -1520,6 +1524,187 @@ namespace NFe.Servicos
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
 
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento de Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorAceitacao"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao(int idLote,
+                                                                                                                             int sequenciaEvento,
+                                                                                                                             string cpfCnpj,
+                                                                                                                             string chaveNFe,
+                                                                                                                             IndicadorAceitacao indicadorAceitacao,
+                                                                                                                             Estado? ufAutor,
+                                                                                                                             string versaoAplicativo = null,
+                                                                                                                             DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaSucessora);
+            detalheEvento.indAceitacao = indicadorAceitacao;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+
+        /// <summary>
+        ///     Serviço para evento de Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorDeferimento"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.</param>
+        /// <param name="motivoDeferimento">Motivo do deferimento</param>
+        /// <param name="descricaoDeferimento">Descrição do deferimento</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao(int idLote,
+                                                                                                                                    int sequenciaEvento,
+                                                                                                                                    string cpfCnpj,
+                                                                                                                                    string chaveNFe,
+                                                                                                                                    IndicadorDeferimento indicadorDeferimento,
+                                                                                                                                    MotivoDeferimento motivoDeferimento,
+                                                                                                                                    string descricaoDeferimento,
+                                                                                                                                    Estado? ufAutor = null,
+                                                                                                                                    string versaoAplicativo = null,
+                                                                                                                                    DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taFisco);
+            detalheEvento.indDeferimento = indicadorDeferimento;
+            detalheEvento.cMotivo = motivoDeferimento;
+            detalheEvento.xMotivo = descricaoDeferimento;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento de Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="indicadorDeferimento"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.</param>
+        /// <param name="motivoDeferimento">Motivo do deferimento</param>
+        /// <param name="descricaoDeferimento">Descrição do deferimento</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao(int idLote,
+                                                                                                                                    int sequenciaEvento,
+                                                                                                                                    string cpfCnpj,
+                                                                                                                                    string chaveNFe,
+                                                                                                                                    IndicadorDeferimento indicadorDeferimento,
+                                                                                                                                    MotivoDeferimento motivoDeferimento,
+                                                                                                                                    string descricaoDeferimento,
+                                                                                                                                    Estado? ufAutor = null,
+                                                                                                                                    string versaoAplicativo = null,
+                                                                                                                                    DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taFisco);
+            detalheEvento.indDeferimento = indicadorDeferimento;
+            detalheEvento.cMotivo = motivoDeferimento;
+            detalheEvento.xMotivo = descricaoDeferimento;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+    
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
+                                                                          servicoNfe, 
+                                                                          versaoServicoRecepcao, 
+                                                                          deveAssinar: true,
+                                                                          evento);
+            
+            return retornoRecepcaoEvento;
+        }
+
+        /// <summary>
+        ///     Serviço para evento permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="tpEventoAut"> Código do evento autorizado a ser cancelado</param>
+        /// <param name="nProtEvento"> Número do Protocolo de Autorização do Evento a ser cancelado</param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoCancelamentoDeEvento(int idLote,
+                                                                        int sequenciaEvento,
+                                                                        string cpfCnpj,
+                                                                        string chaveNFe,
+                                                                        string tpEventoAut,
+                                                                        string nProtEvento,
+                                                                        TipoAutor tipoAutor,
+                                                                        Estado? ufAutor = null,
+                                                                        string versaoAplicativo = null,
+                                                                        DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoCancelamentoDeEvento;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeCancelamentoDeEvento;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+            
+            var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, tipoAutor);
+            detalheEvento.tpEventoAut = tpEventoAut;
+            detalheEvento.nProtEvento = nProtEvento;
+            
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+    
             var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, 
                                                                           servicoNfe, 
                                                                           versaoServicoRecepcao, 
