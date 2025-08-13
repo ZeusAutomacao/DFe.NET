@@ -476,6 +476,21 @@ namespace NFe.Classes.Servicos.Evento
             return indDeferimento != null;
         }
         
+        /// <summary>
+        ///     P24 - Motivo deferimento
+        /// </summary>
+        public MotivoDeferimento? cMotivo { get; set; }
+        
+        public bool ShouldSerializecMotivo()
+        {
+            return cMotivo != null;
+        }
+        
+        /// <summary>
+        ///     P24 - Descrição deferimento
+        /// </summary>
+        public string xMotivo { get; set; }
+        
         #endregion
         
         #region Cancelamento Evento
