@@ -161,7 +161,7 @@ namespace NFe.Classes.Servicos.Evento
         }
         #endregion
 
-        #region Cancelamento Insucesso/Comprovante de Entrega NFe
+        #region Cancelamento Insucesso/Comprovante de Entrega NFe/ Cancelamento Evento
         
         /// <summary>
         ///     P22 - Informar o número do Protocolo de Autorização do 
@@ -403,12 +403,13 @@ namespace NFe.Classes.Servicos.Evento
 
         #endregion
 
-        #region Aceite de débito na apuração por emissão de nota de crédito | Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
+        #region Aceite de débito na apuração por emissão de nota de crédito | Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão | Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
 
         /// <summary>
         ///     Informação utilizada nos eventos "Aceite de débito na apuração por emissão de nota de crédito" e "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão"
         ///     Para evento "Aceite de débito na apuração por emissão de nota de crédito": P23 - Indicador de concordância com o valor da nota de crédito que lançaram IBS e CBS na apuração assistida
         ///     Para evento "Manifestação sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão": P23 - Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        ///     Para evento "Manifestação sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão": P23 - Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
         /// </summary>
         public IndicadorAceitacao? indAceitacao { get; set; }
 
@@ -458,6 +459,46 @@ namespace NFe.Classes.Servicos.Evento
         {
             return gCredito != null;
         }
+        
+        #endregion
+
+        #region Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão | Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão
+
+        /// <summary>
+        ///     Para ambos os eventos "Manifestação do Fisco sobre Pedido de Transferência de Crédito de CBS em Operações de Sucessão"
+        ///     e "Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão" o campo representa:
+        ///     Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada
+        /// </summary>
+        public IndicadorDeferimento? indDeferimento { get; set; }
+
+        public bool ShouldSerializeindDeferimento()
+        {
+            return indDeferimento != null;
+        }
+        
+        /// <summary>
+        ///     P24 - Motivo deferimento
+        /// </summary>
+        public MotivoDeferimento? cMotivo { get; set; }
+        
+        public bool ShouldSerializecMotivo()
+        {
+            return cMotivo != null;
+        }
+        
+        /// <summary>
+        ///     P24 - Descrição deferimento
+        /// </summary>
+        public string xMotivo { get; set; }
+        
+        #endregion
+        
+        #region Cancelamento Evento
+
+        /// <summary>
+        ///     P23 - Código do evento autorizado a ser cancelado
+        /// </summary>
+        public string tpEventoAut {get; set;}
         
         #endregion
 
