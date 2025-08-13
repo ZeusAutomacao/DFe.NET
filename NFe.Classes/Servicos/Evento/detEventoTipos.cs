@@ -208,4 +208,15 @@ namespace NFe.Classes.Servicos.Evento
         [XmlEnum("1")]
         Aceite = 1
     }
+
+    public enum MotivoDeferimento
+    {
+        [Description("Falta de manifestação de todas as sucessoras")]
+        [XmlEnum("1")]
+        FaltaDeManifestacaoDeTodasSucessoras,
+        
+        [Description("Outros.")]
+        [XmlEnum("2")]
+        Outros
+    }
 }

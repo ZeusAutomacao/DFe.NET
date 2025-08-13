@@ -1573,7 +1573,7 @@ namespace NFe.Servicos
             
             return retornoRecepcaoEvento;
         }
-        
+
         /// <summary>
         ///     Serviço para evento de Manifestação do Fisco sobre Pedido de Transferência de Crédito de IBS em Operações de Sucessão
         /// </summary>
@@ -1582,6 +1582,8 @@ namespace NFe.Servicos
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="indicadorDeferimento"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.</param>
+        /// <param name="motivoDeferimento">Motivo do deferimento</param>
+        /// <param name="descricaoDeferimento">Descrição do deferimento</param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dataHoraEvento"></param>
@@ -1591,6 +1593,8 @@ namespace NFe.Servicos
                                                                                                                                     string cpfCnpj,
                                                                                                                                     string chaveNFe,
                                                                                                                                     IndicadorDeferimento indicadorDeferimento,
+                                                                                                                                    MotivoDeferimento motivoDeferimento,
+                                                                                                                                    string descricaoDeferimento,
                                                                                                                                     Estado? ufAutor = null,
                                                                                                                                     string versaoAplicativo = null,
                                                                                                                                     DateTimeOffset? dataHoraEvento = null)
@@ -1602,6 +1606,8 @@ namespace NFe.Servicos
             
             var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taFisco);
             detalheEvento.indDeferimento = indicadorDeferimento;
+            detalheEvento.cMotivo = motivoDeferimento;
+            detalheEvento.xMotivo = descricaoDeferimento;
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
@@ -1623,6 +1629,8 @@ namespace NFe.Servicos
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="indicadorDeferimento"> Indicador de aceitação do valor de transferência para a empresa que emitiu a nota referenciada.</param>
+        /// <param name="motivoDeferimento">Motivo do deferimento</param>
+        /// <param name="descricaoDeferimento">Descrição do deferimento</param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dataHoraEvento"></param>
@@ -1632,6 +1640,8 @@ namespace NFe.Servicos
                                                                                                                                     string cpfCnpj,
                                                                                                                                     string chaveNFe,
                                                                                                                                     IndicadorDeferimento indicadorDeferimento,
+                                                                                                                                    MotivoDeferimento motivoDeferimento,
+                                                                                                                                    string descricaoDeferimento,
                                                                                                                                     Estado? ufAutor = null,
                                                                                                                                     string versaoAplicativo = null,
                                                                                                                                     DateTimeOffset? dataHoraEvento = null)
@@ -1643,6 +1653,8 @@ namespace NFe.Servicos
             
             var detalheEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taFisco);
             detalheEvento.indDeferimento = indicadorDeferimento;
+            detalheEvento.cMotivo = motivoDeferimento;
+            detalheEvento.xMotivo = descricaoDeferimento;
             
             var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalheEvento);
             var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
