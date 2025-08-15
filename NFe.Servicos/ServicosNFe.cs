@@ -428,7 +428,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoCancelamentoDeEvento,
-                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
+                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1721,7 +1722,6 @@ namespace NFe.Servicos
         /// <param name="idLote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfCnpj"></param>
-        /// <param name="tipoAutor"></param>
         /// <param name="chaveNFe"></param>
         /// <param name="informacoesPorItemDeImportacao">Lista de informações de itens para consumo pessoal</param>
         /// <param name="ufAutor"></param>

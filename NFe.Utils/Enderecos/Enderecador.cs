@@ -1688,7 +1688,8 @@ namespace NFe.Utils.Enderecos
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoCancelamentoDeEvento,
-                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
+                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
             };
             
             var urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs = new Dictionary<TipoAmbiente, string>
@@ -1783,6 +1784,7 @@ namespace NFe.Utils.Enderecos
                 case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
                 case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
                 case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
                     return cfgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
             }
             return null;
