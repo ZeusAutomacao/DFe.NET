@@ -427,7 +427,8 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
-                ServicoNFe.RecepcaoEventoCancelamentoDeEvento
+                ServicoNFe.RecepcaoEventoCancelamentoDeEvento,
+                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1710,6 +1711,44 @@ namespace NFe.Servicos
                                                                           versaoServicoRecepcao, 
                                                                           deveAssinar: true,
                                                                           evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento destinação de item para consumo pessoal
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="tipoAutor"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesPorItemDeImportacao">Lista de informações de itens para consumo pessoal</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao(int idLote,
+                                                                                            int sequenciaEvento, 
+                                                                                            string cpfCnpj, 
+                                                                                            string chaveNFe, 
+                                                                                            List<gConsumo> informacoesPorItemDeImportacao,
+                                                                                            Estado? ufAutor = null, 
+                                                                                            string versaoAplicativo = null, 
+                                                                                            DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.gConsumo = informacoesPorItemDeImportacao;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
             
             return retornoRecepcaoEvento;
         }

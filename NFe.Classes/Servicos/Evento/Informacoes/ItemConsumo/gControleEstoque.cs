@@ -33,22 +33,45 @@
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 {
-    public class gControleEstoqueItemConsumo
+    public class gControleEstoque
     {
-        private decimal _qConsumo;
-        
+        private decimal? _qConsumo;
+        private decimal? _qtde;
+
         /// <summary>
-        ///     P28 - Informar a quantidade para consumo de pessoa física
+        ///     P28 - Informar a quantidade para consumo de pessoa física.
+        ///     Use para o evento do tipo "Destinação de item para consumo pessoal".
         /// </summary>
-        public decimal qConsumo
+        public decimal? qConsumo
         {
             get => _qConsumo.Arredondar(4);
             set => _qConsumo = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     P29 - Informar a unidade relativa ao campo gConsumo
+        ///     P28 - Informar a quantidade que não atendeu os requisitos para a conversão em isenção.
+        ///     Use para o evento do tipo "Importação em ALC/ZFM não convertida em isenção".
+        /// </summary>
+        public decimal? qtde
+        {
+            get => _qtde.Arredondar(4);
+            set => _qtde = value.Arredondar(4);
+        }
+        
+        /// <summary>
+        ///     P29 - Informar a unidade relativa ao campo gConsumo.
+        ///     Use para o evento do tipo "Destinação de item para consumo pessoal".
         /// </summary>
         public string uConsumo { get; set; }
+        
+        /// <summary>
+        ///     P29 - Informar a unidade relativa ao campo gConsumo.
+        ///     Use para o evento do tipo "Importação em ALC/ZFM não convertida em isenção".
+        /// </summary>
+        public string unidade { get; set; }
+        
+        public bool ShouldSerializeqConsumo() => qConsumo.HasValue;
+        
+        public bool ShouldSerializeqtde() => qtde.HasValue;
     }
 }

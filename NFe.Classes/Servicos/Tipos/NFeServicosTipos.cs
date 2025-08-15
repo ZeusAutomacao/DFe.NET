@@ -222,7 +222,13 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ser gerado para permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento.
         /// </summary>
-        RecepcaoEventoCancelamentoDeEvento
+        RecepcaoEventoCancelamentoDeEvento,
+        
+        /// <summary>
+        ///     Serviço para permitir  que o adquirente das regiões incentivadas (ALC/ZFM) informe que a tributação na importação não se converteu em isenção de um
+        ///     determinado item por não atender as condições da legislação
+        /// </summary>
+        RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
     }
 
     /// <summary>
@@ -262,6 +268,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+    ///     112120 - Importação em ALC/ZFM não convertida em isenção
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -368,6 +375,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Informação de efetivo pagamento integral para liberar crédito presumido do adquirente")]
         [XmlEnum("112110")]
         TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = 112110,
+        
+        /// <summary>
+        /// 112120 - Importação em ALC/ZFM não convertida em isenção
+        /// </summary>
+        [Description("Importação em ALC/ZFM não convertida em isenção")]
+        [XmlEnum("112120")]
+        TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao = 112120,
         
         /// <summary>
         /// 211110 - Solicitação de Apropriação de crédito presumido

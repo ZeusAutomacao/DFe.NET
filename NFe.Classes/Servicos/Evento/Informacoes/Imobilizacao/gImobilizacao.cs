@@ -67,6 +67,6 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
         /// <summary>
         ///     P27 - Informações de crédito presumido por item
         /// </summary>
-        public gControleEstoque gControleEstoque { get; set; }
+        public gControleEstoqueImobilizacao gControleEstoque { get; set; }
     }
 }
