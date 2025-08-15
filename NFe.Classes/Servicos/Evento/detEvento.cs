@@ -396,10 +396,7 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public List<gConsumo> gConsumo { get; set; }
         
-        public bool ShouldSerializegConsumo()
-        {
-            return gConsumo != null;
-        }
+        public bool ShouldSerializegConsumo() => gConsumo != null;
 
         #endregion
 
