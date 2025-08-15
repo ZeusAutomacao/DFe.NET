@@ -155,6 +155,8 @@ namespace NFe.Utils.Validacao
                     return "e110001_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
                     return "e112120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                    return "e211124_v1.00.xsd";
             }
             return null;
         }

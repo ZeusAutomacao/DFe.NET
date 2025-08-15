@@ -228,7 +228,13 @@ namespace NFe.Classes.Servicos.Tipos
         ///     Serviço para permitir  que o adquirente das regiões incentivadas (ALC/ZFM) informe que a tributação na importação não se converteu em isenção de um
         ///     determinado item por não atender as condições da legislação
         /// </summary>
-        RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
+        RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+        
+        /// <summary>
+        ///     Serviço para permitir ao adquirente informar quando uma aquisição for objeto de roubo, perda, furto ou perecimento
+        ///     Observação: O evento atual está relacionado aos bens que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete FOB
+        /// </summary>
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
     }
 
     /// <summary>
@@ -396,6 +402,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Destinação de item para consumo pessoal")]
         [XmlEnum("211120")]
         TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
+        
+        /// <summary>
+        /// 211124 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+        /// </summary>
+        [Description("Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente")]
+        [XmlEnum("211124")]
+        TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente = 211124,
         
         /// <summary>
         /// 211128 - Aceite de débito na apuração por emissão de nota de crédito
