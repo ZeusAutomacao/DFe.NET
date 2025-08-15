@@ -31,6 +31,8 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System;
+using System.Linq;
 using System.Xml.Serialization;
 using NFe.Classes.Servicos.Tipos;
 
@@ -43,6 +45,15 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo
 
         public gConsumo(NFeTipoEvento nFeTipoEvento)
         {
+            var eventosPermitidos = new[]
+            {
+                NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal,
+                NFeTipoEvento.TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao
+            };
+
+            if (!eventosPermitidos.Contains(nFeTipoEvento))
+                throw new ArgumentException($"Não é permitido instanciar gConsumo com o evento {nFeTipoEvento}.", nameof(nFeTipoEvento));
+                
             if (nFeTipoEvento == NFeTipoEvento.TeNfeDestinacaoDeItemParaConsumoPessoal) 
                 _serializarValorIbsECbsComoAtributo = true;
         }
