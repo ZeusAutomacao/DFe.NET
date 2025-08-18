@@ -31,15 +31,20 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
+using System.Xml.Serialization;
+
 namespace NFe.Classes.Servicos.Evento.Informacoes.Perecimento
 {
     public class gControleEstoquePerecimento
     {
         private decimal _qPerecimento;
+        private decimal? _vIBS;
+        private decimal? _vCBS;
 
         /// <summary>
         ///     P28 - Informar a quantidade que foi objeto de roubo, perda, furto ou perecimento
         /// </summary>
+        [XmlElement(Order = 1)]
         public decimal qPerecimento
         {
             get => _qPerecimento.Arredondar(4);
@@ -49,6 +54,33 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.Perecimento
         /// <summary>
         ///     P29 - Informar a unidade relativa ao campo qPerecimento
         /// </summary>
+        [XmlElement(Order = 2)]
         public string uPerecimento { get; set; }
+        
+        /// <summary>
+        ///     P31 - Valor do crédito IBS referente às aquisições a ser estornado correspondente à quantidade que foi objeto de roubo, perda, furto ou perecimento
+        ///     <para>Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor</para>
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public decimal? vIBS
+        {
+            get => _vIBS; 
+            set => _vIBS = value.Arredondar(2);
+        }
+        
+        /// <summary>
+        ///     P32 - Valor do crédito CBS referente às aquisições a ser estornado correspondente à quantidade que foi objeto de roubo, perda, furto ou perecimento
+        ///     <para>Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor</para>
+        /// </summary>
+        [XmlElement(Order = 4)]
+        public decimal? vCBS
+        {
+            get => _vCBS;
+            set => _vCBS = value.Arredondar(2);
+        }
+
+        public bool ShouldSerializevIBS() => vIBS.HasValue;
+        
+        public bool ShouldSerializevCBS() => vCBS.HasValue;
     }
 }

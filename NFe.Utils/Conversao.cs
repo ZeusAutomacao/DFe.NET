@@ -68,7 +68,8 @@ namespace NFe.Utils
                 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
                 || servicoNFe == ServicoNFe.RecepcaoEventoCancelamentoDeEvento
                 || servicoNFe == ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
-                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente)
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor)
             {
                 return "1.00";
             }

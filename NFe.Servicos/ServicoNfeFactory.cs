@@ -299,6 +299,7 @@ namespace NFe.Servicos
                 case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
                 case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
                     return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 

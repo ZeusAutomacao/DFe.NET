@@ -505,7 +505,10 @@ namespace NFe.Classes.Servicos.Evento
         #region Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
 
         /// <summary>
-        ///     P23 - Informações por item da Nota de Aquisição
+        ///     P23 - Informações por item da Nota de Aquisição 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente).</para>
+        ///     P23 - Informações por item da Nota de Fornecimento 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor).</para>
         /// </summary>
         public List<gPerecimento> gPerecimento { get; set; }
 
