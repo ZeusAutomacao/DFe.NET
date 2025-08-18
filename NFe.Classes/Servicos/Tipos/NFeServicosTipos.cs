@@ -240,7 +240,12 @@ namespace NFe.Classes.Servicos.Tipos
         ///     Serviço para permitir ao fornecedor informar quando um bem for objeto de roubo, perda, furto ou perecimento antes da entrega, durante o transporte contratado pelo fornecedor.
         ///     Observação: O evento atual está relacionado aos bens móveis materiais que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete CIF.
         /// </summary>
-        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
+        
+        /// <summary>
+        ///     Serviço para permitir ao fornecedor informar que um pagamento antecipado não teve o respectivo fornecimento realizado
+        /// </summary>
+        RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado
     }
 
     /// <summary>
@@ -281,6 +286,7 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
     ///     112120 - Importação em ALC/ZFM não convertida em isenção
+    ///     112140 - Fornecimento não realizado com pagamento antecipado
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
@@ -397,6 +403,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Importação em ALC/ZFM não convertida em isenção")]
         [XmlEnum("112120")]
         TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao = 112120,
+        
+        /// <summary>
+        /// 112140 - Fornecimento não realizado com pagamento antecipado
+        /// </summary>
+        [Description("Fornecimento não realizado com pagamento antecipado")]
+        [XmlEnum("112140")]
+        TeNfeFornecimentoNaoRealizadoComPagamentoAntecipado = 112140,
         
         /// <summary>
         /// 211110 - Solicitação de Apropriação de crédito presumido
