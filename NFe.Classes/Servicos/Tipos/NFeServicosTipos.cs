@@ -231,10 +231,16 @@ namespace NFe.Classes.Servicos.Tipos
         RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
         
         /// <summary>
-        ///     Serviço para permitir ao adquirente informar quando uma aquisição for objeto de roubo, perda, furto ou perecimento
-        ///     Observação: O evento atual está relacionado aos bens que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete FOB
+        ///     Serviço para permitir ao adquirente informar quando uma aquisição for objeto de roubo, perda, furto ou perecimento.
+        ///     Observação: O evento atual está relacionado aos bens que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete FOB.
         /// </summary>
-        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
+        
+        /// <summary>
+        ///     Serviço para permitir ao fornecedor informar quando um bem for objeto de roubo, perda, furto ou perecimento antes da entrega, durante o transporte contratado pelo fornecedor.
+        ///     Observação: O evento atual está relacionado aos bens móveis materiais que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete CIF.
+        /// </summary>
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor
     }
 
     /// <summary>
@@ -281,6 +287,9 @@ namespace NFe.Classes.Servicos.Tipos
     ///     210240 – Operação não Realizada
     ///     211110 - Solicitação de Apropriação de crédito presumido
     ///     211120 - Destinação de item para consumo pessoal
+    ///     211124 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+    ///     112130 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor
+    ///     211128 - Aceite de débito na apuração por emissão de nota de crédito
     ///     211130 -  Imobilização de Item
     ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
     ///     211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
@@ -409,6 +418,13 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente")]
         [XmlEnum("211124")]
         TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente = 211124,
+        
+        /// <summary>
+        /// 112130 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor
+        /// </summary>
+        [Description("Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor")]
+        [XmlEnum("112130")]
+        TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor = 112130,
         
         /// <summary>
         /// 211128 - Aceite de débito na apuração por emissão de nota de crédito
