@@ -394,8 +394,10 @@ namespace NFe.Classes.Servicos.Evento
         #region Destinação de item para consumo pessoal
 
         /// <summary>
-        ///     P23 - Informações por item da NF-e de Aquisição (Use no evento: Destinação de item para consumo pessoal)
-        ///     P23 - Informações por item da NF-e de importação (Use no evento: Importação em ALC/ZFM não convertida em isenção)
+        ///     P23 - Informações por item da NF-e de Aquisição
+        ///         <para>Evento: Destinação de item para consumo pessoal</para>
+        ///     P23 - Informações por item da NF-e de importação
+        ///         <para>Evento: Importação em ALC/ZFM não convertida em isenção</para>
         ///     Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
         /// </summary>
         public List<gConsumo> gConsumo { get; set; }
