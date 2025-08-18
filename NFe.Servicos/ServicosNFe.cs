@@ -1717,13 +1717,13 @@ namespace NFe.Servicos
         }
         
         /// <summary>
-        ///     Serviço para evento destinação de item para consumo pessoal
+        ///     Serviço para evento importação em ALC/ZFM não convertida em isenção
         /// </summary>
         /// <param name="idLote">Nº do lote</param>
         /// <param name="sequenciaEvento">sequencia do evento</param>
         /// <param name="cpfCnpj"></param>
         /// <param name="chaveNFe"></param>
-        /// <param name="informacoesPorItemDeImportacao">Lista de informações de itens para consumo pessoal</param>
+        /// <param name="informacoesPorItemDeImportacao">Lista de informações por item da NF-e de importação</param>
         /// <param name="ufAutor"></param>
         /// <param name="versaoAplicativo"></param>
         /// <param name="dataHoraEvento"></param>
