@@ -1518,6 +1518,16 @@ namespace NFe.AppTeste
                         TipoPIS = new PISOutr { CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0 }
                     },
 
+                    IS = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IS
+                    {
+                        cClassTribIS = cClassTribIS.ctis000001,
+                        uTrib = "UN",
+                        qTrib = 1,
+                        CSTIS = CSTIS.Is000,
+                        pIS = 0,
+                        vIS = 0
+                    } : null,
+
                     IBSCBS = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IBSCBS
                     {
                         CST = CSTIBSCBS.cst000,
