@@ -51,6 +51,7 @@ namespace NFe.AppTeste
 {
     /// <summary>
     ///     Interação lógica para MainWindow.xam
+    /// apenas para iniciar um pull da reforma tributária
     /// </summary>
     public partial class MainWindow
     {
@@ -130,6 +131,7 @@ namespace NFe.AppTeste
         {
             try
             {
+                _configuracoes.EnviarTributacaoIbsCbs = CbxEnviarTributacaoIbsCBS.IsChecked ?? false;
                 _configuracoes.SalvarParaAqruivo(_path + ArquivoConfiguracao);
             }
             catch (Exception ex)
@@ -159,6 +161,9 @@ namespace NFe.AppTeste
                     {
                         LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     }
+
+
+                CbxEnviarTributacaoIbsCBS.IsChecked = _configuracoes.EnviarTributacaoIbsCbs;
 
                 #endregion
             }
@@ -758,7 +763,7 @@ namespace NFe.AppTeste
                 if (string.IsNullOrEmpty(lote)) throw new Exception("A Id do lote deve ser informada!");
 
                 _nfe = ObterNfeValidada(_configuracoes.CfgServico.VersaoNFeAutorizacao, _configuracoes.CfgServico.ModeloDocumento, Convert.ToInt32(numero), _configuracoes.ConfiguracaoCsc);
-
+                
                 var servicoNFe = new ServicosNFe(_configuracoes.CfgServico);
                 var retornoEnvio = servicoNFe.NFeAutorizacao(Convert.ToInt32(lote), IndicadorSincronizacao.Sincrono, new List<Classes.NFe> { _nfe }, false/*Envia a mensagem compactada para a SEFAZ*/);
                 //Para consumir o serviço de forma síncrona, use a linha abaixo:
@@ -1461,10 +1466,12 @@ namespace NFe.AppTeste
 
         protected virtual det GetDetalhe(int i, CRT crt, ModeloDocumento modelo)
         {
+            var produto = GetProduto(i + 1);
+
             var det = new det
             {
                 nItem = i + 1,
-                prod = GetProduto(i + 1),
+                prod = produto,
                 imposto = new imposto
                 {
                     vTotTrib = 0.17m,
@@ -1509,7 +1516,42 @@ namespace NFe.AppTeste
 
                         //Caso você resolva utilizar método ObterPisBasico(), comente esta proxima linha
                         TipoPIS = new PISOutr { CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0 }
-                    }
+                    },
+
+                    IS = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IS
+                    {
+                        cClassTribIS = cClassTribIS.ctis000001,
+                        uTrib = "UN",
+                        qTrib = 1,
+                        CSTIS = CSTIS.Is000,
+                        pIS = 0,
+                        vIS = 0
+                    } : null,
+
+                    IBSCBS = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IBSCBS
+                    {
+                        CST = CSTIBSCBS.cst000,
+                        cClassTrib = cClassTrib.ct000001,
+                        gIBSCBS = new gIBSCBS
+                        {
+                            vBC = 0,
+                            gIBSUF = new gIBSUF
+                            {
+                                pIBSUF = 0.10m,
+                                vIBSUF = 0,
+                            },
+                            gIBSMun = new gIBSMun
+                            {
+                                pIBSMun = 0,
+                                vIBSMun = 0,
+                            },
+                            gCBS = new gCBS
+                            {
+                                pCBS = 0.90m,
+                                vCBS = 0,
+                            },
+                        }
+                    } : null
                 }
             };
 
@@ -1736,7 +1778,40 @@ namespace NFe.AppTeste
                 + icmsTot.vIPI
                 + icmsTot.vIPIDevol.GetValueOrDefault();
 
-            var t = new total { ICMSTot = icmsTot };
+            var t = new total
+            {
+                ICMSTot = icmsTot,
+                IBSCBSTot = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IBSCBSTot
+                {
+                    vBCIBSCBS = 0,
+                    gIBS = new gIBS
+                    {
+                       gIBSUF = new gIBSUFTotal
+                       {
+                           vDif = 0,
+                           vDevTrib = 0,
+                           vIBSUF = 0
+                       },
+                       gIBSMun = new gIBSMunTotal
+                       {
+                           vDif = 0,
+                           vDevTrib = 0,
+                           vIBSMun = 0
+                       },
+                       vIBS = 0,
+                       vCredPres = 0,
+                       vCredPresCondSus = 0
+                    },
+                    gCBS = new gCBSTotal
+                    {
+                        vDif = 0,
+                        vDevTrib = 0,
+                        vCBS = 0,
+                        vCredPres = 0,
+                        vCredPresCondSus = 0
+                    }
+                } : null,
+            };
             return t;
         }
 
