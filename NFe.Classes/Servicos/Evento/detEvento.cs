@@ -42,6 +42,7 @@ using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemNaoFornecido;
 using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 using Shared.NFe.Classes.Servicos.Evento;
 
@@ -513,6 +514,17 @@ namespace NFe.Classes.Servicos.Evento
         public List<gPerecimento> gPerecimento { get; set; }
 
         public bool ShouldSerializegPerecimento() => gPerecimento != null;
+
+        #endregion
+
+        #region Fornecimento não realizado com pagamento antecipado
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Pagamento antecipado
+        /// </summary>
+        public List<gItemNaoFornecido> gItemNaoFornecido { get; set; }
+        
+        public bool ShouldSerializegItemNaoFornecido() => gItemNaoFornecido != null;
 
         #endregion
 

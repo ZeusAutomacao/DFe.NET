@@ -159,6 +159,8 @@ namespace NFe.Utils.Validacao
                     return "e211124_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
                     return "e112130_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                    return "e112140_v1.00.xsd";
             }
             return null;
         }
