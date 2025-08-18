@@ -42,6 +42,7 @@ using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
+using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -392,7 +393,9 @@ namespace NFe.Classes.Servicos.Evento
         #region Destinação de item para consumo pessoal
 
         /// <summary>
-        ///     P23 - Informações por item da NF-e de Aquisição. Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
+        ///     P23 - Informações por item da NF-e de Aquisição (Use no evento: Destinação de item para consumo pessoal)
+        ///     P23 - Informações por item da NF-e de importação (Use no evento: Importação em ALC/ZFM não convertida em isenção)
+        ///     Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
         /// </summary>
         public List<gConsumo> gConsumo { get; set; }
         
@@ -497,6 +500,17 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public string tpEventoAut {get; set;}
         
+        #endregion
+
+        #region Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Aquisição
+        /// </summary>
+        public List<gPerecimento> gPerecimento { get; set; }
+
+        public bool ShouldSerializegPerecimento() => gPerecimento != null;
+
         #endregion
 
         #endregion
