@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -31,42 +31,24 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 
-using System.Xml.Serialization;
-
-namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
+namespace NFe.Classes.Servicos.Evento.Informacoes.ItemNaoFornecido
 {
-    public class gImobilizacao
+    public class gControleEstoqueItemNaoFornecido
     {
-        private decimal _vIBS;
-        private decimal _vCBS;
+        private decimal _qNaoFornecida;
         
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado.
+        ///     P28 - Informar a quantidade que não foi fornecida e teve o imposto antecipado 
         /// </summary>
-        [XmlAttribute]
-        public int nitem { get; set; }
-        
-        /// <summary>
-        ///     P25 - Valor do IBS relativo à imobilização
-        /// </summary>
-        public decimal vIBS
+        public decimal qNaoFornecida 
         {
-            get => _vIBS; 
-            set => _vIBS = value.Arredondar(2);
+            get => _qNaoFornecida.Arredondar(4);
+            set => _qNaoFornecida = value.Arredondar(4);
         }
         
         /// <summary>
-        ///     P26 - Valor da CBS relativo à imobilização
+        ///     P29 - Informar a unidade relativa ao campo qNaoFornecida
         /// </summary>
-        public decimal vCBS
-        {
-            get => _vCBS;
-            set => _vCBS = value.Arredondar(2);
-        }
-        
-        /// <summary>
-        ///     P27 - Informações de crédito presumido por item
-        /// </summary>
-        public gControleEstoqueImobilizacao gControleEstoque { get; set; }
+        public string uNaoFornecida { get; set; }
     }
 }

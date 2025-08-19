@@ -153,6 +153,14 @@ namespace NFe.Utils.Validacao
                     return "e412130_v1.00.xsd";
                 case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
                     return "e110001_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                    return "e112120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                    return "e211124_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                    return "e112130_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                    return "e112140_v1.00.xsd";
             }
             return null;
         }
