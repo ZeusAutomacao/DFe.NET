@@ -83,6 +83,8 @@ using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemNaoFornecido;
+using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 
 namespace NFe.Servicos
 {
@@ -427,7 +429,11 @@ namespace NFe.Servicos
                 ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
                 ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
-                ServicoNFe.RecepcaoEventoCancelamentoDeEvento
+                ServicoNFe.RecepcaoEventoCancelamentoDeEvento,
+                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
+                ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado,
             };
             if (
                 !listaEventos.Contains(servicoEvento))
@@ -1710,6 +1716,154 @@ namespace NFe.Servicos
                                                                           versaoServicoRecepcao, 
                                                                           deveAssinar: true,
                                                                           evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento importação em ALC/ZFM não convertida em isenção
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesPorItemDeImportacao">Lista de informações por item da NF-e de importação</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao(int idLote,
+                                                                                            int sequenciaEvento, 
+                                                                                            string cpfCnpj, 
+                                                                                            string chaveNFe, 
+                                                                                            List<gConsumo> informacoesPorItemDeImportacao,
+                                                                                            Estado? ufAutor = null, 
+                                                                                            string versaoAplicativo = null, 
+                                                                                            DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.gConsumo = informacoesPorItemDeImportacao;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesPorItemDaNotaDeAquisicao">Lista de informações por item da Nota de Aquisição</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente(int idLote,
+                                                                                                                          int sequenciaEvento, 
+                                                                                                                          string cpfCnpj, 
+                                                                                                                          string chaveNFe, 
+                                                                                                                          List<gPerecimento> informacoesPorItemDaNotaDeAquisicao,
+                                                                                                                          Estado? ufAutor = null, 
+                                                                                                                          string versaoAplicativo = null, 
+                                                                                                                          DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaDestinataria);
+            detalhesEvento.gPerecimento = informacoesPorItemDaNotaDeAquisicao;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesPorItemDaNotaDeFornecimento">Lista de informações por item da Nota de Fornecimento</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor(int idLote,
+                                                                                                                          int sequenciaEvento, 
+                                                                                                                          string cpfCnpj, 
+                                                                                                                          string chaveNFe, 
+                                                                                                                          List<gPerecimento> informacoesPorItemDaNotaDeFornecimento,
+                                                                                                                          Estado? ufAutor = null, 
+                                                                                                                          string versaoAplicativo = null, 
+                                                                                                                          DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.gPerecimento = informacoesPorItemDaNotaDeFornecimento;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
+            
+            return retornoRecepcaoEvento;
+        }
+        
+        /// <summary>
+        ///     Serviço para evento fornecimento não realizado com pagamento antecipado
+        /// </summary>
+        /// <param name="idLote">Nº do lote</param>
+        /// <param name="sequenciaEvento">sequencia do evento</param>
+        /// <param name="cpfCnpj"></param>
+        /// <param name="chaveNFe"></param>
+        /// <param name="informacoesPorItemDaNotaDePagamentoAntecipado">Lista de informações por item da Nota de Pagamento antecipado</param>
+        /// <param name="ufAutor"></param>
+        /// <param name="versaoAplicativo"></param>
+        /// <param name="dataHoraEvento"></param>
+        /// <returns></returns>
+        public RetornoRecepcaoEvento RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado(int idLote,
+                                                                                                  int sequenciaEvento, 
+                                                                                                  string cpfCnpj, 
+                                                                                                  string chaveNFe, 
+                                                                                                  List<gItemNaoFornecido> informacoesPorItemDaNotaDePagamentoAntecipado,
+                                                                                                  Estado? ufAutor = null, 
+                                                                                                  string versaoAplicativo = null, 
+                                                                                                  DateTimeOffset? dataHoraEvento = null)
+        {
+            const ServicoNFe servicoNfe = ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado;
+            const NFeTipoEvento nfeTipoEvento = NFeTipoEvento.TeNfeFornecimentoNaoRealizadoComPagamentoAntecipado;
+            var versaoServicoRecepcao = _cFgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            var versaoServicoRecepcaoString = servicoNfe.VersaoServicoParaString(versaoServicoRecepcao);
+
+            var detalhesEvento = ObterDetalhesEvento(versaoServicoRecepcaoString, versaoAplicativo, nfeTipoEvento, ufAutor, TipoAutor.taEmpresaEmitente);
+            detalhesEvento.gItemNaoFornecido = informacoesPorItemDaNotaDePagamentoAntecipado;
+
+            var informacoesEventoEnv = ObterInformacoesEventoEnv(sequenciaEvento, chaveNFe, cpfCnpj, versaoServicoRecepcaoString, cOrgao: Estado.SVRS, dataHoraEvento, nfeTipoEvento, detalhesEvento);
+            var evento = ObterEvento(versaoServicoRecepcaoString, informacoesEventoEnv);
+
+            var retornoRecepcaoEvento = EnviarEObterRetornoRecepcaoEvento(idLote, servicoNfe, versaoServicoRecepcao, deveAssinar: true, evento);
             
             return retornoRecepcaoEvento;
         }

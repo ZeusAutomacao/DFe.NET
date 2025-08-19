@@ -42,6 +42,8 @@ using NFe.Classes.Servicos.Evento.Informacoes.CreditoCombustivel;
 using NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido;
 using NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao;
 using NFe.Classes.Servicos.Evento.Informacoes.ItemConsumo;
+using NFe.Classes.Servicos.Evento.Informacoes.ItemNaoFornecido;
+using NFe.Classes.Servicos.Evento.Informacoes.Perecimento;
 using Shared.NFe.Classes.Servicos.Evento;
 
 namespace NFe.Classes.Servicos.Evento
@@ -392,14 +394,15 @@ namespace NFe.Classes.Servicos.Evento
         #region Destinação de item para consumo pessoal
 
         /// <summary>
-        ///     P23 - Informações por item da NF-e de Aquisição. Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
+        ///     P23 - Informações por item da NF-e de Aquisição
+        ///         <para>Evento: Destinação de item para consumo pessoal</para>
+        ///     P23 - Informações por item da NF-e de importação
+        ///         <para>Evento: Importação em ALC/ZFM não convertida em isenção</para>
+        ///     Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
         /// </summary>
         public List<gConsumo> gConsumo { get; set; }
         
-        public bool ShouldSerializegConsumo()
-        {
-            return gConsumo != null;
-        }
+        public bool ShouldSerializegConsumo() => gConsumo != null;
 
         #endregion
 
@@ -500,6 +503,31 @@ namespace NFe.Classes.Servicos.Evento
         /// </summary>
         public string tpEventoAut {get; set;}
         
+        #endregion
+
+        #region Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Aquisição 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente).</para>
+        ///     P23 - Informações por item da Nota de Fornecimento 
+        ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor).</para>
+        /// </summary>
+        public List<gPerecimento> gPerecimento { get; set; }
+
+        public bool ShouldSerializegPerecimento() => gPerecimento != null;
+
+        #endregion
+
+        #region Fornecimento não realizado com pagamento antecipado
+
+        /// <summary>
+        ///     P23 - Informações por item da Nota de Pagamento antecipado
+        /// </summary>
+        public List<gItemNaoFornecido> gItemNaoFornecido { get; set; }
+        
+        public bool ShouldSerializegItemNaoFornecido() => gItemNaoFornecido != null;
+
         #endregion
 
         #endregion

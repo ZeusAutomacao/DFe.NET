@@ -1,4 +1,4 @@
-/********************************************************************************/
+﻿/********************************************************************************/
 /* Projeto: Biblioteca ZeusNFe                                                  */
 /* Biblioteca C# para emissão de Nota Fiscal Eletrônica - NFe e Nota Fiscal de  */
 /* Consumidor Eletrônica - NFC-e (http://www.nfe.fazenda.gov.br)                */
@@ -33,40 +33,54 @@
 
 using System.Xml.Serialization;
 
-namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
+namespace NFe.Classes.Servicos.Evento.Informacoes.Perecimento
 {
-    public class gImobilizacao
+    public class gControleEstoquePerecimento
     {
-        private decimal _vIBS;
-        private decimal _vCBS;
+        private decimal _qPerecimento;
+        private decimal? _vIBS;
+        private decimal? _vCBS;
+
+        /// <summary>
+        ///     P28 - Informar a quantidade que foi objeto de roubo, perda, furto ou perecimento
+        /// </summary>
+        [XmlElement(Order = 1)]
+        public decimal qPerecimento
+        {
+            get => _qPerecimento.Arredondar(4);
+            set => _qPerecimento = value.Arredondar(4);
+        }
         
         /// <summary>
-        ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado.
+        ///     P29 - Informar a unidade relativa ao campo qPerecimento
         /// </summary>
-        [XmlAttribute]
-        public int nitem { get; set; }
+        [XmlElement(Order = 2)]
+        public string uPerecimento { get; set; }
         
         /// <summary>
-        ///     P25 - Valor do IBS relativo à imobilização
+        ///     P31 - Valor do crédito IBS referente às aquisições a ser estornado correspondente à quantidade que foi objeto de roubo, perda, furto ou perecimento
+        ///     <para>Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor</para>
         /// </summary>
-        public decimal vIBS
+        [XmlElement(Order = 3)]
+        public decimal? vIBS
         {
             get => _vIBS; 
             set => _vIBS = value.Arredondar(2);
         }
         
         /// <summary>
-        ///     P26 - Valor da CBS relativo à imobilização
+        ///     P32 - Valor do crédito CBS referente às aquisições a ser estornado correspondente à quantidade que foi objeto de roubo, perda, furto ou perecimento
+        ///     <para>Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor</para>
         /// </summary>
-        public decimal vCBS
+        [XmlElement(Order = 4)]
+        public decimal? vCBS
         {
             get => _vCBS;
             set => _vCBS = value.Arredondar(2);
         }
+
+        public bool ShouldSerializevIBS() => vIBS.HasValue;
         
-        /// <summary>
-        ///     P27 - Informações de crédito presumido por item
-        /// </summary>
-        public gControleEstoqueImobilizacao gControleEstoque { get; set; }
+        public bool ShouldSerializevCBS() => vCBS.HasValue;
     }
 }

@@ -33,7 +33,7 @@
 
 namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
 {
-    public class gControleEstoque
+    public class gControleEstoqueImobilizacao
     {
         private decimal _qImobilizado;
         

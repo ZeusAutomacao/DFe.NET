@@ -222,7 +222,30 @@ namespace NFe.Classes.Servicos.Tipos
         /// <summary>
         ///     Serviço para permitir ser gerado para permitir que o autor de um Evento já autorizado possa proceder o seu cancelamento.
         /// </summary>
-        RecepcaoEventoCancelamentoDeEvento
+        RecepcaoEventoCancelamentoDeEvento,
+        
+        /// <summary>
+        ///     Serviço para permitir  que o adquirente das regiões incentivadas (ALC/ZFM) informe que a tributação na importação não se converteu em isenção de um
+        ///     determinado item por não atender as condições da legislação
+        /// </summary>
+        RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+        
+        /// <summary>
+        ///     Serviço para permitir ao adquirente informar quando uma aquisição for objeto de roubo, perda, furto ou perecimento.
+        ///     Observação: O evento atual está relacionado aos bens que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete FOB.
+        /// </summary>
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
+        
+        /// <summary>
+        ///     Serviço para permitir ao fornecedor informar quando um bem for objeto de roubo, perda, furto ou perecimento antes da entrega, durante o transporte contratado pelo fornecedor.
+        ///     Observação: O evento atual está relacionado aos bens móveis materiais que foram objeto de perecimento, perda, roubo ou furto em trânsito, em fornecimentos com frete CIF.
+        /// </summary>
+        RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
+        
+        /// <summary>
+        ///     Serviço para permitir ao fornecedor informar que um pagamento antecipado não teve o respectivo fornecimento realizado
+        /// </summary>
+        RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado
     }
 
     /// <summary>
@@ -262,12 +285,17 @@ namespace NFe.Classes.Servicos.Tipos
     ///     110750 - Conciliação Financeira da NF-e
     ///     110751 - Cancelamento Conciliação Financeira da NF-e
     ///     112110 - Informação de efetivo pagamento integral para liberar crédito presumido do adquirente
+    ///     112120 - Importação em ALC/ZFM não convertida em isenção
+    ///     112140 - Fornecimento não realizado com pagamento antecipado
     ///     210200 – Confirmação da Operação
     ///     210210 – Ciência da Emissão
     ///     210220 – Desconhecimento da Operação
     ///     210240 – Operação não Realizada
     ///     211110 - Solicitação de Apropriação de crédito presumido
     ///     211120 - Destinação de item para consumo pessoal
+    ///     211124 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+    ///     112130 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor
+    ///     211128 - Aceite de débito na apuração por emissão de nota de crédito
     ///     211130 -  Imobilização de Item
     ///     211140 -  Solicitação de Apropriação de Crédito de Combustível
     ///     211150 -  Solicitação de Apropriação de Crédito para bens e serviços que dependem de atividade do adquirente
@@ -370,6 +398,20 @@ namespace NFe.Classes.Servicos.Tipos
         TeNfeInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente = 112110,
         
         /// <summary>
+        /// 112120 - Importação em ALC/ZFM não convertida em isenção
+        /// </summary>
+        [Description("Importação em ALC/ZFM não convertida em isenção")]
+        [XmlEnum("112120")]
+        TeNfeImportacaoEmAlcZfmNaoConvertidaEmIsencao = 112120,
+        
+        /// <summary>
+        /// 112140 - Fornecimento não realizado com pagamento antecipado
+        /// </summary>
+        [Description("Fornecimento não realizado com pagamento antecipado")]
+        [XmlEnum("112140")]
+        TeNfeFornecimentoNaoRealizadoComPagamentoAntecipado = 112140,
+        
+        /// <summary>
         /// 211110 - Solicitação de Apropriação de crédito presumido
         /// </summary>
         [Description("Solicitação de Apropriação de crédito presumido")]
@@ -382,6 +424,20 @@ namespace NFe.Classes.Servicos.Tipos
         [Description("Destinação de item para consumo pessoal")]
         [XmlEnum("211120")]
         TeNfeDestinacaoDeItemParaConsumoPessoal = 211120,
+        
+        /// <summary>
+        /// 211124 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente
+        /// </summary>
+        [Description("Perecimento, perda, roubo ou furto durante o transporte contratado pelo adquirente")]
+        [XmlEnum("211124")]
+        TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente = 211124,
+        
+        /// <summary>
+        /// 112130 - Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor
+        /// </summary>
+        [Description("Perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor")]
+        [XmlEnum("112130")]
+        TeNfePerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor = 112130,
         
         /// <summary>
         /// 211128 - Aceite de débito na apuração por emissão de nota de crédito
