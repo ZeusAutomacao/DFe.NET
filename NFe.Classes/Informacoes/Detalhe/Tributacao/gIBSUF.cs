@@ -1,4 +1,6 @@
-﻿namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 {
     public class gIBSUF
     {
@@ -6,6 +8,7 @@
         private decimal _vIbsUf;
 
         // UB18
+        [XmlElement(Order = 1)]
         public decimal pIBSUF
         {
             get => _pIbsUf.Arredondar(4);
@@ -13,15 +16,19 @@
         }
 
         // UB21
+        [XmlElement(Order = 2)]
         public gDif gDif { get; set; }
 
         // UB24
+        [XmlElement(Order = 3)]
         public gDevTrib gDevTrib { get; set; }
 
         // UB26
+        [XmlElement(Order = 4)]
         public gRed gRed { get; set; }
 
         // UB35
+        [XmlElement(Order = 5)]
         public decimal vIBSUF
         {
             get => _vIbsUf.Arredondar(2);

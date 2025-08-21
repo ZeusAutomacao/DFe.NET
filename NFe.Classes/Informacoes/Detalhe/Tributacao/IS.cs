@@ -11,12 +11,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         private decimal _vIs;
 
         // UB02
+        [XmlElement(Order = 1)]
         public CSTIS CSTIS { get; set; }
 
         // UB03
+        [XmlElement(Order = 2)]
         public cClassTribIS cClassTribIS { get; set; }
 
         // UB05
+        [XmlElement(Order = 3)]
         public decimal vBCIS
         {
             get => _vBcIs.Arredondar(2);
@@ -24,6 +27,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         }
 
         // UB06
+        [XmlElement(Order = 4)]
         public decimal pIS
         {
             get => _pIs.Arredondar(4);
@@ -31,6 +35,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         }
 
         // UB07
+        [XmlElement(Order = 5)]
         public decimal? pISEspec
         {
             get => _pIsEspec.Arredondar(4);
@@ -42,9 +47,11 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         }
 
         // UB09
+        [XmlElement(Order = 6)]
         public string uTrib { get; set; }
 
         // UB10
+        [XmlElement(Order = 7)]
         public decimal qTrib
         {
             get => _qTrib.Arredondar(4);
@@ -52,6 +59,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
         }
 
         // UB11
+        [XmlElement(Order = 8)]
         public decimal vIS
         {
             get => _vIs.Arredondar(2);

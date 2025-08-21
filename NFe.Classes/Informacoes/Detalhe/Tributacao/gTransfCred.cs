@@ -1,4 +1,6 @@
-﻿namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 {
     public class gTransfCred
     {
@@ -6,6 +8,7 @@
         private decimal _vCbs;
 
         // UB107
+        [XmlElement(Order = 1)]
         public decimal vIBS
         {
             get => _vIbs.Arredondar(2);
@@ -13,6 +16,7 @@
         }
 
         // UB108
+        [XmlElement(Order = 2)]
         public decimal vCBS
         {
             get => _vCbs.Arredondar(2);
