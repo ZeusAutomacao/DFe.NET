@@ -1,13 +1,17 @@
-﻿namespace NFe.Classes.Informacoes.Detalhe.Tributacao
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 {
     public class gCredPresIBSZFM
     {
         private decimal? _vCredPresIbsZfm;
 
         // UB110
+        [XmlElement(Order = 1)]
         public tpCredPresIBSZFM tpCredPresIBSZFM { get; set; }
 
         // UB111
+        [XmlElement(Order = 2)]
         public decimal? vCredPresIBSZFM
         {
             get => _vCredPresIbsZfm.Arredondar(2);
