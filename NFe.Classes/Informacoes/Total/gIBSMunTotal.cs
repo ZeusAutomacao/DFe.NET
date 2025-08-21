@@ -1,4 +1,6 @@
-﻿namespace NFe.Classes.Informacoes.Total
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Total
 {
     public class gIBSMunTotal
     {
@@ -7,6 +9,7 @@
         private decimal _vIBSMun;
 
         // W43
+        [XmlElement(Order = 1)]
         public decimal vDif
         {
             get => _vDif;
@@ -14,6 +17,7 @@
         }
 
         // W44
+        [XmlElement(Order = 2)]
         public decimal vDevTrib
         {
             get => _vDevTrib;
@@ -21,6 +25,7 @@
         }
 
         // W46
+        [XmlElement(Order = 3)]
         public decimal vIBSMun
         {
             get => _vIBSMun;
