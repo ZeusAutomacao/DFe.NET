@@ -1,4 +1,6 @@
-﻿namespace NFe.Classes.Informacoes.Total
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Total
 {
     public class gCBSTotal
     {
@@ -9,6 +11,7 @@
         private decimal _vCredPresCondSus;
 
         // W53
+        [XmlElement(Order = 1)]
         public decimal vDif
         {
             get => _vDif;
@@ -16,6 +19,7 @@
         }
 
         // W54
+        [XmlElement(Order = 2)]
         public decimal vDevTrib
         {
             get => _vDevTrib;
@@ -23,6 +27,7 @@
         }
 
         // W56
+        [XmlElement(Order = 3)]
         public decimal vCBS
         {
             get => _vCBS;
@@ -30,6 +35,7 @@
         }
 
         // W56a
+        [XmlElement(Order = 4)]
         public decimal vCredPres
         {
             get => _vCredPres;
@@ -37,6 +43,7 @@
         }
 
         // W56b
+        [XmlElement(Order = 5)]
         public decimal vCredPresCondSus
         {
             get => _vCredPresCondSus;
