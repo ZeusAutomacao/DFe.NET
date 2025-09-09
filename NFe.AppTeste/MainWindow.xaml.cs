@@ -1550,6 +1550,7 @@ namespace NFe.AppTeste
                                 pCBS = 0.90m,
                                 vCBS = 0,
                             },
+                            // vIBS = 0 opcional
                         }
                     } : null
                 }
