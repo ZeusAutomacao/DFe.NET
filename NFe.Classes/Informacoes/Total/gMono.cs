@@ -1,4 +1,6 @@
-﻿namespace NFe.Classes.Informacoes.Total
+﻿using System.Xml.Serialization;
+
+namespace NFe.Classes.Informacoes.Total
 {
     public class gMono
     {
@@ -10,6 +12,7 @@
         private decimal _vCBSMonoRet;
 
         // W58
+        [XmlElement(Order = 1)]
         public decimal vIBSMono
         {
             get => _vIBSMono;
@@ -17,6 +20,7 @@
         }
 
         // W59
+        [XmlElement(Order = 2)]
         public decimal vCBSMono
         {
             get => _vCBSMono;
@@ -24,6 +28,7 @@
         }
 
         // W59a
+        [XmlElement(Order = 3)]
         public decimal vIBSMonoReten
         {
             get => _vIBSMonoReten;
@@ -31,6 +36,7 @@
         }
 
         // W59b
+        [XmlElement(Order = 4)]
         public decimal vCBSMonoReten
         {
             get => _vCBSMonoReten;
@@ -38,6 +44,7 @@
         }
 
         // W59c
+        [XmlElement(Order = 5)]
         public decimal vIBSMonoRet
         {
             get => _vIBSMonoRet;
@@ -45,6 +52,7 @@
         }
 
         // W59d
+        [XmlElement(Order = 6)]
         public decimal vCBSMonoRet
         {
             get => _vCBSMonoRet;
