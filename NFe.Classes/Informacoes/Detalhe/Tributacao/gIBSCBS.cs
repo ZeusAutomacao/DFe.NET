@@ -5,7 +5,7 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
     public class gIBSCBS
     {
         private decimal _vBc;
-        private decimal _vIbs;
+        private decimal? _vIbs;
 
         // UB16
         [XmlElement(Order = 1)]
@@ -25,10 +25,15 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao
 
         // UB54a
         [XmlElement(Order = 4)]
-        public decimal vIBS
+        public decimal? vIBS
         {
             get => _vIbs.Arredondar(2);
             set => _vIbs = value.Arredondar(2);
+        }
+
+        public bool vIBSSpecified
+        {
+            get { return vIBS.HasValue; }
         }
 
         // UB55
