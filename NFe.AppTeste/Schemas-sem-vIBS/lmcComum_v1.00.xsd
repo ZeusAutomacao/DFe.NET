@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:ws="http://www.fazenda.pr.gov.br/sefaws"
+			targetNamespace="http://www.fazenda.pr.gov.br/sefaws"
+			elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:simpleType name="TNRProduto">
+		<xs:annotation>
+			<xs:documentation>
+			1 - Etanol Hidratado Aditivado
+			2 - Etanol Hidratado Comum
+			3 - Gasolina C Aditivada
+			4 - Gasolina C Comum
+			5 - Gasolina C Premium
+			6 - Óleo Diesel A Marítimo
+			7 - Óleo Diesel B
+			8 - Óleo Diesel B Aditivado
+			9 - Óleo Diesel B S10
+			10 - Óleo Diesel B S10 Aditivado
+			11 - Querosene Iluminante
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="5"/>
+			<xs:enumeration value="6"/>
+			<xs:enumeration value="7"/>
+			<xs:enumeration value="8"/>
+			<xs:enumeration value="9"/>
+			<xs:enumeration value="10"/>
+			<xs:enumeration value="11"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TVerLMC">
+		<xs:annotation>
+			<xs:documentation>Tipo versao do leiaute do LMC 1.00</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:token">
+			<xs:pattern value="1\.00" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TLMCId">
+		<xs:annotation>
+			<xs:documentation>ID  Composicao: LMCYYYYMMDD CNPJ14 COD4 DIG</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:ID">
+			<xs:pattern value="LMC[0-9]{28}" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TStringVazia">
+		<xs:annotation>
+			<xs:documentation> Tipo string genérico</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:pattern value="[!-ÿ]{0,}[ -ÿ]{0,}[!-ÿ]{0,}|[!-ÿ]{0,}"/>
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="TCodUfIBGE">
+		<xs:annotation>
+			<xs:documentation>Tipo Código da UF da tabela do IBGE</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:whiteSpace value="preserve"/>
+			<xs:enumeration value="11"/>
+			<xs:enumeration value="12"/>
+			<xs:enumeration value="13"/>
+			<xs:enumeration value="14"/>
+			<xs:enumeration value="15"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="17"/>
+			<xs:enumeration value="21"/>
+			<xs:enumeration value="22"/>
+			<xs:enumeration value="23"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="25"/>
+			<xs:enumeration value="26"/>
+			<xs:enumeration value="27"/>
+			<xs:enumeration value="28"/>
+			<xs:enumeration value="29"/>
+			<xs:enumeration value="31"/>
+			<xs:enumeration value="32"/>
+			<xs:enumeration value="33"/>
+			<xs:enumeration value="35"/>
+			<xs:enumeration value="41"/>
+			<xs:enumeration value="42"/>
+			<xs:enumeration value="43"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="51"/>
+			<xs:enumeration value="52"/>
+			<xs:enumeration value="53"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
