@@ -1,11 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Forms;
 using DFe.Classes.Flags;
 using DFe.Utils;
 using NFe.Classes;
@@ -27,25 +19,31 @@ using NFe.Classes.Informacoes.Total;
 using NFe.Classes.Informacoes.Transporte;
 using NFe.Classes.Servicos.ConsultaCadastro;
 using NFe.Classes.Servicos.Tipos;
+using NFe.Danfe.Nativo.NFCe;
 using NFe.Servicos;
 using NFe.Servicos.Retorno;
+using NFe.Utils;
 using NFe.Utils.Email;
+using NFe.Utils.Excecoes;
 using NFe.Utils.InformacoesSuplementares;
 using NFe.Utils.NFe;
 using NFe.Utils.Tributacao.Estadual;
+using NFe.Utils.Tributacao.Federal;
+using System;
+using System.Collections.Generic;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
+using System.Windows;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using Image = System.Drawing.Image;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using WebBrowser = System.Windows.Controls.WebBrowser;
-using System.Windows.Media.Imaging;
-using NFe.Danfe.Nativo.NFCe;
-using NFe.Utils;
-using NFe.Utils.Excecoes;
-using NFe.Utils.Tributacao.Federal;
-using Image = System.Drawing.Image;
-using static System.Net.Mime.MediaTypeNames;
-using System.Text;
-using System.Security.Cryptography;
-using DFe.Utils.Assinatura;
 
 namespace NFe.AppTeste
 {
@@ -132,6 +130,7 @@ namespace NFe.AppTeste
             try
             {
                 _configuracoes.EnviarTributacaoIbsCbs = CbxEnviarTributacaoIbsCBS.IsChecked ?? false;
+                _configuracoes.EnviarTributacaoIS = CbxEnviarTributacaoIS.IsChecked ?? false;
                 _configuracoes.SalvarParaAqruivo(_path + ArquivoConfiguracao);
             }
             catch (Exception ex)
@@ -162,8 +161,8 @@ namespace NFe.AppTeste
                         LogoEmitente.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
                     }
 
-
                 CbxEnviarTributacaoIbsCBS.IsChecked = _configuracoes.EnviarTributacaoIbsCbs;
+                CbxEnviarTributacaoIS.IsChecked = _configuracoes.EnviarTributacaoIS;
 
                 #endregion
             }
@@ -1518,7 +1517,7 @@ namespace NFe.AppTeste
                         TipoPIS = new PISOutr { CST = CSTPIS.pis99, pPIS = 0, vBC = 0, vPIS = 0 }
                     },
 
-                    IS = CbxEnviarTributacaoIbsCBS.IsChecked == true ? new IS
+                    IS = CbxEnviarTributacaoIS.IsChecked == true ? new IS
                     {
                         cClassTribIS = cClassTribIS.ctis000001,
                         uTrib = "UN",
@@ -1550,7 +1549,7 @@ namespace NFe.AppTeste
                                 pCBS = 0.90m,
                                 vCBS = 0,
                             },
-                            // vIBS = 0 opcional
+                            vIBS = 0// opcional
                         }
                     } : null
                 }
@@ -1810,8 +1809,12 @@ namespace NFe.AppTeste
                         vCBS = 0,
                         vCredPres = 0,
                         vCredPresCondSus = 0
-                    }
+                    }                    
                 } : null,
+                ISTot = CbxEnviarTributacaoIS.IsChecked == true ? new ISTot()
+                {
+                    vIS = 0
+                } : null
             };
             return t;
         }
@@ -2306,7 +2309,5 @@ namespace NFe.AppTeste
                     Funcoes.Mensagem(ex.Message, "Erro", MessageBoxButton.OK);
             }
         }
-
-
     }
 }
