@@ -87,6 +87,7 @@ namespace NFe.Classes.Servicos.Evento
         /// 8 - Empresa sucessora
         /// </summary>
         [Description("Empresa sucessora")]
+        [XmlEnum("8")]
         taEmpresaSucessora = 8,
 
         /// <summary>
