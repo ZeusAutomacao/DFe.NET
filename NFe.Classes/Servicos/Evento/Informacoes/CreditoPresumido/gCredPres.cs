@@ -40,8 +40,8 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.CreditoPresumido
         /// <summary>
         ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado
         /// </summary>
-        [XmlAttribute("nitem")]
-        public int nitem { get; set; }
+        [XmlAttribute("nItem")]
+        public int nItem { get; set; }
         
         /// <summary>
         ///     P25 - Valor do base de cálculo do item

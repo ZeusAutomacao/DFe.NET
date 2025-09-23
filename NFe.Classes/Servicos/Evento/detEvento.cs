@@ -382,6 +382,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações de crédito presumido por item
         /// </summary>
+        [XmlElement("gCredPres")]
         public List<gCredPres> gCredPres { get; set; }
         
         public bool ShouldSerializegCredPres()
@@ -400,6 +401,7 @@ namespace NFe.Classes.Servicos.Evento
         ///         <para>Evento: Importação em ALC/ZFM não convertida em isenção</para>
         ///     Nota: a quantidade de ocorrências não pode ser maior que a quantidade de itens da NF-e de aquisição
         /// </summary>
+        [XmlElement("gConsumo")]
         public List<gConsumo> gConsumo { get; set; }
         
         public bool ShouldSerializegConsumo() => gConsumo != null;
@@ -428,6 +430,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações de itens integrados ao ativo imobilizado
         /// </summary>
+        [XmlElement("gImobilizacao")]
         public List<gImobilizacao> gImobilizacao { get; set; }
 
         public bool ShouldSerializegImobilizacao()
@@ -442,6 +445,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações de consumo de combustíveis
         /// </summary>
+        [XmlElement("gConsumoComb")]
         public List<gConsumoComb> gConsumoComb { get; set; }
         
         public bool ShouldSerializegConsumoComb()
@@ -456,6 +460,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações de crédito
         /// </summary>
+        [XmlElement("gCredito")]
         public List<gCredito> gCredito { get; set; }
 
         public bool ShouldSerializegCredito()
@@ -513,6 +518,7 @@ namespace NFe.Classes.Servicos.Evento
         ///     P23 - Informações por item da Nota de Fornecimento 
         ///         <para>(Evento: perecimento, perda, roubo ou furto durante o transporte contratado pelo fornecedor).</para>
         /// </summary>
+        [XmlElement("gPerecimento")]
         public List<gPerecimento> gPerecimento { get; set; }
 
         public bool ShouldSerializegPerecimento() => gPerecimento != null;
@@ -524,6 +530,7 @@ namespace NFe.Classes.Servicos.Evento
         /// <summary>
         ///     P23 - Informações por item da Nota de Pagamento antecipado
         /// </summary>
+        [XmlElement("gItemNaoFornecido")]
         public List<gItemNaoFornecido> gItemNaoFornecido { get; set; }
         
         public bool ShouldSerializegItemNaoFornecido() => gItemNaoFornecido != null;
