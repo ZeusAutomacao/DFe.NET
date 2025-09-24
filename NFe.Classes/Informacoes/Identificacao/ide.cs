@@ -235,10 +235,7 @@ namespace NFe.Classes.Informacoes.Identificacao
         public List<NFref> NFref { get; set; }
 
         // B31
-        public gCompraGov gCompraGov { get; set; }
-
-        // B32
-        public TipoOperGov? tpOperGov { get; set; }
+        public gCompraGov gCompraGov { get; set; }    
 
         // BB01
         public gPagAntecipado gPagAntecipado { get; set; }
@@ -266,11 +263,6 @@ namespace NFe.Classes.Informacoes.Identificacao
         public bool ShouldSerializetpNFCredito()
         {
             return tpNFCredito.HasValue;
-        }
-
-        public bool ShouldSerializetpOperGov()
-        {
-            return tpOperGov.HasValue;
-        }
+        }       
     }
 }
