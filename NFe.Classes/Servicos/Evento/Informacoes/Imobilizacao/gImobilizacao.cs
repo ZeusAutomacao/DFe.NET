@@ -44,7 +44,7 @@ namespace NFe.Classes.Servicos.Evento.Informacoes.Imobilizacao
         ///     P24 - Corresponde ao atributo “nItem” do elemento “det” do documento referenciado.
         /// </summary>
         [XmlAttribute]
-        public int nitem { get; set; }
+        public int nItem { get; set; }
         
         /// <summary>
         ///     P25 - Valor do IBS relativo à imobilização
