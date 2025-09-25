@@ -17,10 +17,10 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="arquivoXml">arquivo XML</param>
         /// <returns>Retorna uma NFe carregada com os dados do XML</returns>
-        public static Classes.NFe CarregarDeArquivoXml(this Classes.NFe nfe, string arquivoXml)
+        public static Classes.NFe CarregarDeArquivoXml(this Classes.NFe nfe, string arquivoXml, bool ignorarOrdenacaoElementos = false)
         {
             var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (Classes.NFe).Name, arquivoXml);
-            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
+            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s, ignorarOrdenacaoElementos);
         }
 
         /// <summary>
@@ -39,10 +39,10 @@ namespace NFe.Utils.NFe
         /// <param name="nfe"></param>
         /// <param name="xmlString"></param>
         /// <returns>Retorna um objeto do tipo NFe</returns>
-        public static Classes.NFe CarregarDeXmlString(this Classes.NFe nfe, string xmlString)
+        public static Classes.NFe CarregarDeXmlString(this Classes.NFe nfe, string xmlString, bool ignorarOrdenacaoElementos = false)
         {
             var s = FuncoesXml.ObterNodeDeStringXml(typeof (Classes.NFe).Name, xmlString);
-            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s);
+            return FuncoesXml.XmlStringParaClasse<Classes.NFe>(s, ignorarOrdenacaoElementos);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace NFe.Utils.NFe
         {
             if (nfe == null) throw new ArgumentNullException("nfe");
 
-            var versao = (Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture));
+            var versao = Decimal.Parse(nfe.infNFe.versao, CultureInfo.InvariantCulture);
 
             var xmlNfe = nfe.ObterXmlString();
             var config = cfgServico ?? ConfiguracaoServico.Instancia;
@@ -93,7 +93,7 @@ namespace NFe.Utils.NFe
             #region Define cNF
 
             var tamanhocNf = 9;
-            var versao = (decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture));
+            var versao = decimal.Parse(nfeLocal.infNFe.versao, CultureInfo.InvariantCulture);
             if (versao >= 2) tamanhocNf = 8;
             nfeLocal.infNFe.ide.cNF = Convert.ToInt32(nfeLocal.infNFe.ide.cNF).ToString().PadLeft(tamanhocNf, '0');
 
