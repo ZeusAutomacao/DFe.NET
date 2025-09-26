@@ -2,6 +2,6 @@
 
 public class PeriodoModel
 {
-    public DateOnly DataInicial { get; set; }
-    public DateOnly DataFinal { get; set; }
+    public DateTime DataInicial { get; set; }
+    public DateTime DataFinal { get; set; }
 }
