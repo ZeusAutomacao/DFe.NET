@@ -63,18 +63,19 @@ namespace CTe.Utils.Extensoes
             return FuncoesXml.ClasseParaXmlString(pedInutilizacao);
         }
 
-        public static void ValidarShcema(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
+        public static void ValidarSchema(this inutCTe inutCTe, ConfiguracaoServico configuracaoServico = null)
         {
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
             var xmlValidacao = inutCTe.ObterXmlString();
 
             switch (inutCTe.versao)
             {
                 case versao.ve200:
-                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "inutCTe_v2.00.xsd", configServico);
                     break;
                 case versao.ve300:
-                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", configuracaoServico);
+                    Validador.Valida(xmlValidacao, "inutCTe_v3.00.xsd", configServico);
                     break;
                 default:
                     throw new InvalidOperationException("Nos achamos um erro na hora de validar o schema, " +
@@ -91,7 +92,7 @@ namespace CTe.Utils.Extensoes
 
             var caminhoXml = instanciaServico.DiretorioSalvarXml;
 
-            var arquivoSalvar = Path.Combine(caminhoXml, inutCTe.infInut.Id+ "-ped-inu.xml");
+            var arquivoSalvar = Path.Combine(caminhoXml, inutCTe.infInut.Id + "-ped-inu.xml");
 
             FuncoesXml.ClasseParaArquivoXml(inutCTe, arquivoSalvar);
         }

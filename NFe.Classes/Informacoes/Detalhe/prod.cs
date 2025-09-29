@@ -59,8 +59,6 @@ namespace NFe.Classes.Informacoes.Detalhe
         private string _cEan;
         private string _cEanTrib;
         private decimal _vUnCom;
-        private decimal? _pCredPresumido;
-        private decimal? _vCredPresumido;
 
         /// <summary>
         ///     I02 - Código do produto ou serviço
@@ -129,29 +127,13 @@ namespace NFe.Classes.Informacoes.Detalhe
         /// declarações, nas UF que o exigem.
         /// </summary>
         public string cBenef { get; set; }
-        
-        /// <summary>
-        /// I05h - Código de Benefício Fiscal de Crédito Presumido na UF aplicado ao item
-        /// </summary>
-        public string cCredPresumido { get; set; }
 
         /// <summary>
-        /// I05i - Percentual do Crédito Presumido
+        /// I05G - Grupo de Informações sobre o Crédito Presumido
+        /// Versão 4.00 - NT 2019.001
         /// </summary>
-        public decimal? pCredPresumido
-        {
-            get { return _pCredPresumido; }
-            set { _pCredPresumido = value.Arredondar(4); }
-        }
-        
-        /// <summary>
-        /// I05j - Valor do Crédito Presumido
-        /// </summary>
-        public decimal? vCredPresumido 
-        {
-            get { return _vCredPresumido; }
-            set { _vCredPresumido = value.Arredondar(2); }
-        }
+        [XmlElement("gCred")]
+        public List<gCred> gCred { get; set; }
 
         /// <summary>
         ///     I06 - Código EX TIPI (3 posições)
@@ -274,6 +256,11 @@ namespace NFe.Classes.Informacoes.Detalhe
         public IndicadorTotal indTot { get; set; }
 
         /// <summary>
+        ///     I17c - Indicador de fornecimento de bem móvel usado
+        /// </summary>
+        public IndBemMovelUsado? indBemMovelUsado { get; set; }
+        
+        /// <summary>
         ///     I18 - Declaração de Importação
         /// </summary>
         [XmlElement("DI")]
@@ -365,16 +352,7 @@ namespace NFe.Classes.Informacoes.Detalhe
         {
             return vOutro.HasValue && vOutro > 0;
         }
-
-        public bool ShouldSerializepCredPresumido()
-        {
-            return _pCredPresumido.HasValue && _pCredPresumido > 0;
-        }
-
-        public bool ShouldSerializevCredPresumido()
-        {
-            return _vCredPresumido.HasValue && _vCredPresumido > 0;
-        }
         
+        public bool ShouldSerializeindBemMovelUsado() => indBemMovelUsado.HasValue;
     }
 }

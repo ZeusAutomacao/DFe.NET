@@ -71,15 +71,15 @@ jobs:
         
     #- name: Test
     #  run: dotnet test --no-build --verbosity normal
-    
+
     - name: Pack
       run: | 
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.NFe.NFCe\Cosmospro.Net.NFe.NFCe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.MDFe\Cosmospro.Net.MDFe.csproj
-        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }} NuGet\Cosmospro.Net.CTe\Cosmospro.Net.CTe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }}-beta NuGet\Cosmospro.Net.NFe.NFCe\Cosmospro.Net.NFe.NFCe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }}-beta NuGet\Cosmospro.Net.MDFe\Cosmospro.Net.MDFe.csproj
+        dotnet pack -o ${{ github.workspace }} -v minimal -c Release -p:NuspecProperties=version=${{ steps.date.outputs.date }} -p:PackageVersion=${{ steps.date.outputs.date }}-beta NuGet\Cosmospro.Net.CTe\Cosmospro.Net.CTe.csproj
 
     - name: Upload Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: nupkg
         path: ${{ github.workspace }}/*.nupkg
@@ -90,7 +90,7 @@ jobs:
     runs-on: ${{ 'ubuntu-latest' }}
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: nupkg
           path: ${{ github.workspace }}
@@ -106,5 +106,4 @@ jobs:
       - name: Push to NuGet Feed
         run: dotnet nuget push *.nupkg -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.API_NUGET}}
-      
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_SECRET_DEPLOY}}

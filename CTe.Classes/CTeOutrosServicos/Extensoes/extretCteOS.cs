@@ -35,23 +35,10 @@ namespace CTe.CTeOSDocumento.CTe.CTeOS.Extensoes
         {
             if (config.NaoSalvarXml()) return;
 
-            var dataEnvio = DateTimeOffset.Now;
-
-            if (retEnviCte != null && retEnviCte.protCTe != null 
-                && retEnviCte.protCTe.infProt != null
-                && retEnviCte.protCTe.infProt.dhRecbto != null)
-            {
-                dataEnvio = retEnviCte.protCTe.infProt.dhRecbto;
-            }
-
             var caminhoXml = config.DiretorioSalvarXml;
-
             var protocolo = "000000";
-
-
-            if (retEnviCte != null && retEnviCte.protCTe != null
-                                   && retEnviCte.protCTe.infProt != null
-                                   && retEnviCte.protCTe.infProt.nProt != null)
+            
+            if (retEnviCte?.protCTe?.infProt?.nProt != null)
             {
                 protocolo = retEnviCte.protCTe.infProt.nProt;
             }

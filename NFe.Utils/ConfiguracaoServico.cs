@@ -61,8 +61,11 @@ namespace NFe.Utils
         private bool _unZip = true;
         private VersaoServico _versaoRecepcaoEventoCceCancelamento;
         private VersaoServico _versaoRecepcaoEventoInsucessoEntrega;
+        private VersaoServico _versaoRecepcaoEventoComprovanteEntrega;
+        private VersaoServico _versaoRecepcaoEventoConciliacaoFinanceira;
         private VersaoServico _versaoRecepcaoEventoEpec;
         private VersaoServico _versaoRecepcaoEventoManifestacaoDestinatario;
+        private VersaoServico _versaoRecepcaoEventoAtorInteressado;
         private VersaoServico _versaoNfeRecepcao;
         private VersaoServico _versaoNfeRetRecepcao;
         private VersaoServico _versaoNfeConsultaCadastro;
@@ -76,7 +79,7 @@ namespace NFe.Utils
         private VersaoServico _versaoNfeDownloadNf;
         private VersaoServico _versaoNfceAministracaoCsc;
         private VersaoServico _versaoConsultaGTIN;
-
+        private VersaoServico _versaoRecepcaoEventosDeApuracaoDoIbsECbs;
 
         public ConfiguracaoServico()
         {
@@ -225,19 +228,22 @@ namespace NFe.Utils
         {
             if (!_defineVersaoServicosAutomaticamente) return;
 
-                var enderecosMaisecentes =
-                Enderecador.ObterEnderecoServicosMaisRecentes(VersaoLayout, cUF, tpAmb, ModeloDocumento, tpEmis);
+            var enderecosMaisRecentes = Enderecador.ObterEnderecoServicosMaisRecentes(VersaoLayout, cUF, tpAmb, ModeloDocumento, tpEmis);
 
-            var obterVersao = new Func<ServicoNFe, VersaoServico>(servico =>
-                enderecosMaisecentes.Where(n => n.ServicoNFe == servico).Select(n => n.VersaoServico).DefaultIfEmpty(VersaoServico.Versao100).FirstOrDefault());
-
-
-            if (enderecosMaisecentes.Any())
+            var obterVersao = new Func<ServicoNFe, VersaoServico>(servico => enderecosMaisRecentes.Where(n => n.ServicoNFe == servico)
+                                                                                                  .Select(n => n.VersaoServico)
+                                                                                                  .DefaultIfEmpty(VersaoServico.Versao100)
+                                                                                                  .FirstOrDefault());
+            
+            if (enderecosMaisRecentes.Any())
             {
                 VersaoRecepcaoEventoCceCancelamento = obterVersao(ServicoNFe.RecepcaoEventoCancelmento);
                 VersaoRecepcaoEventoInsucessoEntrega = obterVersao(ServicoNFe.RecepcaoEventoInsucessoEntregaNFe);
+                VersaoRecepcaoEventoComprovanteEntrega = obterVersao(ServicoNFe.RecepcaoEventoComprovanteEntregaNFe);
+                VersaoRecepcaoEventoConciliacaoFinanceira = obterVersao(ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe);
                 VersaoRecepcaoEventoEpec = obterVersao(ServicoNFe.RecepcaoEventoEpec);
                 VersaoRecepcaoEventoManifestacaoDestinatario = obterVersao(ServicoNFe.RecepcaoEventoManifestacaoDestinatario);
+                VersaoRecepcaoEventoAtorInteressado = obterVersao(ServicoNFe.RecepcaoEventoAtorInteressado);
                 VersaoNfeRecepcao = obterVersao(ServicoNFe.NfeRecepcao);
                 VersaoNfeRetRecepcao = obterVersao(ServicoNFe.NfeRetRecepcao);
                 VersaoNfeConsultaCadastro = obterVersao(ServicoNFe.NfeConsultaCadastro);
@@ -251,6 +257,7 @@ namespace NFe.Utils
                 VersaoNfeDownloadNF = obterVersao(ServicoNFe.NfeDownloadNF);
                 VersaoNfceAministracaoCSC = obterVersao(ServicoNFe.NfceAdministracaoCSC);
                 VersaoConsultaGTIN = obterVersao(ServicoNFe.ConsultaGtin);
+                VersaoRecepcaoEventosDeApuracaoDoIbsECbs = obterVersao(ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal);
             }
         }
 
@@ -300,6 +307,34 @@ namespace NFe.Utils
         }
 
         /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Comprovante de Entrega da NFe
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoComprovanteEntrega
+        {
+            get { return _versaoRecepcaoEventoComprovanteEntrega; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoComprovanteEntrega) return;
+                _versaoRecepcaoEventoComprovanteEntrega = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Conciliação Financeira da NFe
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoConciliacaoFinanceira
+        {
+            get { return _versaoRecepcaoEventoConciliacaoFinanceira; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoConciliacaoFinanceira) return;
+                _versaoRecepcaoEventoConciliacaoFinanceira = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         ///     Versão do serviço RecepcaoEvento para Manifestação do destinatário
         /// </summary>
         public VersaoServico VersaoRecepcaoEventoManifestacaoDestinatario
@@ -309,6 +344,20 @@ namespace NFe.Utils
             {
                 if (value == _versaoRecepcaoEventoManifestacaoDestinatario) return;
                 _versaoRecepcaoEventoManifestacaoDestinatario = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para Ator interessado
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventoAtorInteressado
+        {
+            get { return _versaoRecepcaoEventoAtorInteressado; }
+            set
+            {
+                if (value == _versaoRecepcaoEventoAtorInteressado) return;
+                _versaoRecepcaoEventoAtorInteressado = value;
                 OnPropertyChanged();
             }
         }
@@ -488,6 +537,21 @@ namespace NFe.Utils
             {
                 if (value == _versaoConsultaGTIN) return;
                 _versaoConsultaGTIN = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        /// <summary>
+        ///     Versão do serviço RecepcaoEvento para os eventos de apuração do IBS e da CBS
+        /// </summary>
+        public VersaoServico VersaoRecepcaoEventosDeApuracaoDoIbsECbs
+        {
+            get => _versaoRecepcaoEventosDeApuracaoDoIbsECbs;
+            set
+            {
+                if (value == _versaoRecepcaoEventosDeApuracaoDoIbsECbs) return;
+                
+                _versaoRecepcaoEventosDeApuracaoDoIbsECbs = value;
                 OnPropertyChanged();
             }
         }

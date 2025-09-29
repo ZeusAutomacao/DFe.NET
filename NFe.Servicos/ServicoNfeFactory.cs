@@ -231,7 +231,15 @@ namespace NFe.Servicos
 
                 case ServicoNFe.RecepcaoEventoInsucessoEntregaNFe:
                 case ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe:
+                    return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoComprovanteEntregaNFe:
+                case ServicoNFe.RecepcaoEventoCancComprovanteEntregaNFe:
                     return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe:
+                case ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe:
+                    return new RecepcaoEvento4SVCAN(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoManifestacaoDestinatario:
                     if (cfg.VersaoRecepcaoEventoManifestacaoDestinatario == VersaoServico.Versao400)
@@ -240,6 +248,9 @@ namespace NFe.Servicos
                     }
 
                     return new RecepcaoEvento(url, certificado, cfg.TimeOut);
+
+                case ServicoNFe.RecepcaoEventoAtorInteressado:
+                    return new RecepcaoEvento4AN(url, certificado, cfg.TimeOut);
 
                 case ServicoNFe.RecepcaoEventoEpec:
                     if (cfg.VersaoRecepcaoEventoEpec == VersaoServico.Versao400)
@@ -273,6 +284,24 @@ namespace NFe.Servicos
 
                 case ServicoNFe.ConsultaGtin:
                     return new ConsultaGTINApi(url, certificado, cfg.TimeOut);
+                
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                    return new RecepcaoEvento4(url, certificado, cfg.TimeOut);
             }
 
             return null;

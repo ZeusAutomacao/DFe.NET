@@ -60,7 +60,7 @@ namespace CTe.Utils.Validacao
             schemas.XmlResolver = new XmlUrlResolver();
 
             cfg.Schemas = schemas;
-            // Quando carregar o eschema, especificar o namespace que ele valida
+            // Quando carregar o schema, especificar o namespace que ele valida
             // e a localização do arquivo 
             schemas.Add(null, arquivoSchema);
             // Especifica o tratamento de evento para os erros de validacao

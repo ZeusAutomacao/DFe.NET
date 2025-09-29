@@ -69,6 +69,9 @@ namespace NFe.Utils.Testes
             todosOsEstados.Remove(Estado.EX);
             todosOsEstados.Remove(Estado.PA);
 
+            // UF autorizadora
+            todosOsEstados.Remove(Estado.SVRS);
+
             var tiposAmbiente = Enum.GetValues(typeof(TipoAmbiente)).Cast<TipoAmbiente>().ToList();
             var servicosAutorizacao = new[] {ServicoNFe.NFeAutorizacao, ServicoNFe.NFeRetAutorizacao};
 

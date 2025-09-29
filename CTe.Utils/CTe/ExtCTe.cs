@@ -33,7 +33,6 @@
 
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml;
@@ -61,7 +60,7 @@ namespace CTe.Utils.CTe
         /// <returns>Retorna uma NFe carregada com os dados do XML</returns>
         public static CteEletronica CarregarDeArquivoXml(this CteEletronica cte, string arquivoXml)
         {
-            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof (CteEletronica).Name, arquivoXml);
+            var s = FuncoesXml.ObterNodeDeArquivoXml(typeof(CteEletronica).Name, arquivoXml);
             return FuncoesXml.XmlStringParaClasse<CteEletronica>(s);
         }
 
@@ -83,7 +82,7 @@ namespace CTe.Utils.CTe
         /// <returns>Retorna um objeto do tipo CTe</returns>
         public static CteEletronica CarregarDeXmlString(this CteEletronica cte, string xmlString)
         {
-            var s = FuncoesXml.ObterNodeDeStringXml(typeof (CteEletronica).Name, xmlString);
+            var s = FuncoesXml.ObterNodeDeStringXml(typeof(CteEletronica).Name, xmlString);
             return FuncoesXml.XmlStringParaClasse<CteEletronica>(s);
         }
 
@@ -100,6 +99,7 @@ namespace CTe.Utils.CTe
             var xmlValidacao = cte.ObterXmlString();
 
             var servicoInstancia = configuracaoServico ?? ConfiguracaoServico.Instancia;
+
             if (!servicoInstancia.IsValidaSchemas)
                 return;
 
@@ -120,7 +120,7 @@ namespace CTe.Utils.CTe
                                                         "versão 2.00 é 3.00");
             }
 
-            if (cte.infCte.ide.tpCTe != tpCTe.Anulacao  && cte.infCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
+            if (cte.infCte.ide.tpCTe != tpCTe.Anulacao && cte.infCte.ide.tpCTe != tpCTe.Complemento) // Ct-e do Tipo Anulação/Complemento não tem Informações do Modal
             {
                 var xmlModal = FuncoesXml.ClasseParaXmlString(cte.infCte.infCTeNorm.infModal);
 
@@ -291,12 +291,12 @@ namespace CTe.Utils.CTe
             qrCode.Append("&");
             qrCode.Append("tpAmb=").Append((int)cte.infCte.ide.tpAmb);
 
-            if (cte.infCte.ide.tpEmis != tpEmis.teNormal 
+            if (cte.infCte.ide.tpEmis != tpEmis.teNormal
                 && cte.infCte.ide.tpEmis != tpEmis.teSVCRS
                 && cte.infCte.ide.tpEmis != tpEmis.teSVCSP
                 )
             {
-                var assinatura = Convert.ToBase64String(CreateSignaturePkcs1(certificadoDigital, encoding.GetBytes(chave)));
+                var assinatura = Convert.ToBase64String(AssinaturaDigital.CriarAssinaturaPkcs1(certificadoDigital, encoding.GetBytes(chave)));
                 qrCode.Append("&sign=");
                 qrCode.Append(assinatura);
             }
@@ -305,23 +305,6 @@ namespace CTe.Utils.CTe
             {
                 qrCodCTe = qrCode.ToString()
             };
-        }
-
-        private static byte[] CreateSignaturePkcs1(X509Certificate2 certificadoDigital, byte[] Value)
-        {
-            var rsa = certificadoDigital.GetRSAPrivateKey();
-
-            RSAPKCS1SignatureFormatter rsaF = new RSAPKCS1SignatureFormatter(rsa);
-
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-
-            byte[] hash = null;
-
-            hash = sha1.ComputeHash(Value);
-
-            rsaF.SetHashAlgorithm("SHA1");
-
-            return rsaF.CreateSignature(hash);
         }
 
         public static void SalvarXmlEmDisco(this CteEletronica cte, ConfiguracaoServico configuracaoServico = null)

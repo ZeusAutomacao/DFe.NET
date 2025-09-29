@@ -31,9 +31,9 @@
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
 using System;
-using System.Security.Cryptography;
 using System.Text;
 using DFe.Classes.Flags;
+using DFe.Utils.Assinatura;
 using NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual.Tipos;
 using NFe.Classes.Informacoes.Emitente;
 using NFe.Classes.Informacoes.Identificacao.Tipos;
@@ -54,7 +54,23 @@ namespace NFe.Utils
             if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento
                 || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
                 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
-                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec
+                || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
+                || servicoNFe == ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
+                || servicoNFe == ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+                || servicoNFe == ServicoNFe.RecepcaoEventoImobilizacaoDeItem
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoCancelamentoDeEvento
+                || servicoNFe == ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor
+                || servicoNFe == ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado)
             {
                 return "1.00";
             }
@@ -231,10 +247,10 @@ namespace NFe.Utils
         {
             var bytes = Encoding.UTF8.GetBytes(s);
 
-            var sha1 = SHA1.Create();
-            var hashBytes = sha1.ComputeHash(bytes);
+            var hashSha1Bytes = AssinaturaDigital.ObterHashSha1Bytes(bytes);
+            var hexSha1DeString = ObterHexDeByteArray(hashSha1Bytes);
 
-            return ObterHexDeByteArray(hashBytes);
+            return hexSha1DeString;
         }
 
         /// <summary>

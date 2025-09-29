@@ -53,32 +53,36 @@ namespace CTe.Servicos.Recepcao
 
         public retEnviCte CTeRecepcao(int lote, List<CTeEletronico> cteEletronicosList, ConfiguracaoServico configuracaoServico = null)
         {
-            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configuracaoServico);
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcao(configuracaoServico);
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configServico);
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcao(configServico);
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(configuracaoServico));
+            var retornoXml = webService.cteRecepcaoLote(enviCte.CriaRequestWs(configServico));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco(configuracaoServico);
+            retorno.SalvarXmlEmDisco(configServico);
 
             return retorno;
         }
 
         public async Task<retEnviCte> CTeRecepcaoAsync(int lote, List<CTeEletronico> cteEletronicosList, ConfiguracaoServico configuracaoServico = null)
         {
-            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configuracaoServico);
+            var configServico = configuracaoServico ?? ConfiguracaoServico.Instancia;
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcao(configuracaoServico);
+            var enviCte = PreparaEnvioCTe(lote, cteEletronicosList, configServico);
+
+            var webService = WsdlFactory.CriaWsdlCteRecepcao(configServico);
 
             OnAntesDeEnviar(enviCte);
 
-            var retornoXml = await webService.cteRecepcaoLoteAsync(enviCte.CriaRequestWs(configuracaoServico));
+            var retornoXml = await webService.cteRecepcaoLoteAsync(enviCte.CriaRequestWs(configServico));
 
             var retorno = retEnviCte.LoadXml(retornoXml.OuterXml, enviCte);
-            retorno.SalvarXmlEmDisco(configuracaoServico);
+            retorno.SalvarXmlEmDisco(configServico);
 
             return retorno;
         }
@@ -110,14 +114,14 @@ namespace CTe.Servicos.Recepcao
             cte.ValidaSchema(instanciaConfiguracao);
             cte.SalvarXmlEmDisco(instanciaConfiguracao);
 
-            var webService = WsdlFactory.CriaWsdlCteRecepcaoSincronoV4(configuracaoServico);
+            var webService = WsdlFactory.CriaWsdlCteRecepcaoSincronoV4(instanciaConfiguracao);
 
             //OnAntesDeEnviar(enviCte);
 
-            var retornoXml = webService.CTeRecepcaoSincV4(cte.CriaRequestWs(configuracaoServico));
+            var retornoXml = webService.CTeRecepcaoSincV4(cte.CriaRequestWs(instanciaConfiguracao));
 
             var retorno = retCTe.LoadXml(retornoXml.OuterXml, cte);
-            retorno.SalvarXmlEmDisco(cte.Chave(), configuracaoServico);
+            retorno.SalvarXmlEmDisco(cte.Chave(), instanciaConfiguracao);
 
             return retorno;
         }
