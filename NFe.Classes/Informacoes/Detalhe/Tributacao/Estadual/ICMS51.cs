@@ -112,8 +112,8 @@ namespace NFe.Classes.Informacoes.Detalhe.Tributacao.Estadual
         /// </summary>
         public decimal? pDif
         {
-            get { return _pDif.Arredondar(2); }
-            set { _pDif = value.Arredondar(2); }
+            get { return _pDif.Arredondar(4); }
+            set { _pDif = value.Arredondar(4); }
         }
 
         /// <summary>
