@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>Zeus.Net.CTe</id> 
+    <id>Cosmospro.Net.CTe</id> 
     <version>$version$</version>
-    <title>Zeus CT-e (x86/x64)</title>
-    <authors>Zeus</authors>
-    <owners>Zeus</owners>
+    <title>Cosmospro CT-e (x86/x64)</title>
+    <authors>Cosmospro</authors>
+    <owners>Cosmospro</owners>
     <projectUrl>https://github.com/ZeusAutomacao/DFe.NET</projectUrl>
     <icon>icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Biblioteca para geração de CT-e.</description>
     <releaseNotes />
-    <copyright>zeus</copyright>
+    <copyright>Cosmospro</copyright>
     <language>pt-BR</language>
     <tags>df-e dfe cte ct-e</tags>
     <dependencies>
