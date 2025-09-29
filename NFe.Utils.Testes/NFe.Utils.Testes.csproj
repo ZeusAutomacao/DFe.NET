@@ -17,6 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\DadosDeTestes\DadosDeTestes.csproj" />
 		<ProjectReference Include="..\DFe.Classes\DFe.Classes.csproj" />
 		<ProjectReference Include="..\NFe.Classes\NFe.Classes.csproj" />
 		<ProjectReference Include="..\NFe.Utils\NFe.Utils.csproj" />

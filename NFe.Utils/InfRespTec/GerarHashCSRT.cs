@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
+using DFe.Utils.Assinatura;
 
 namespace Shared.NFe.Utils.InfRespTec
 {
@@ -22,13 +22,8 @@ namespace Shared.NFe.Utils.InfRespTec
 
             var data = encoding.GetBytes(csrtChave);
 
-            string chaveBase64;
-
-            using (SHA1CryptoServiceProvider cryptoTransformSha1 = new SHA1CryptoServiceProvider())
-            {
-                var hash = cryptoTransformSha1.ComputeHash(data);
-                chaveBase64 = Convert.ToBase64String(hash);
-            }
+            var sha1HashBytes = AssinaturaDigital.ObterHashSha1Bytes(data);
+            var chaveBase64 = Convert.ToBase64String(sha1HashBytes);
 
             return chaveBase64;
         }

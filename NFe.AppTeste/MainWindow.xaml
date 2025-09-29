@@ -233,8 +233,9 @@
                                           IsEnabled="{Binding CfgServico.ModeloDocumento, ConverterParameter={x:Static flags:ModeloDocumento.NFCe}, Converter={StaticResource EnumParaBool}}">
                                     <Grid Margin="0,5,0,0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="150" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100"/>
+                                            <ColumnDefinition Width="100"/>
                                         </Grid.ColumnDefinitions>
                                         <RadioButton Grid.Column="0" Content="Versão 1.0"
                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -242,6 +243,9 @@
                                         <RadioButton Grid.Column="1" Content="Versão 2.0"
                                                      HorizontalAlignment="Left" VerticalAlignment="Center"
                                                      IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao2}, Converter={StaticResource EnumParaBool}}" />
+                                        <RadioButton Grid.Column="2" Content="Versão 3.0"
+                                                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                     IsChecked="{Binding ConfiguracaoDanfeNfce.VersaoQrCode, ConverterParameter={x:Static nfeUtils:VersaoQrCode.QrCodeVersao3}, Converter={StaticResource EnumParaBool}}" />
                                     </Grid>
                                 </GroupBox>
 

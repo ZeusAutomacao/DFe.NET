@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace NFe.Classes
 {
@@ -7,9 +6,8 @@ namespace NFe.Classes
     {
         public static decimal Arredondar(this decimal valor, int casasDecimais)
         {
-            var valorNovo = decimal.Round(valor, casasDecimais, MidpointRounding.AwayFromZero);
-            var valorNovoStr = valorNovo.ToString("F" + casasDecimais, CultureInfo.CurrentCulture);
-            return decimal.Parse(valorNovoStr);
+            var valorArredondado = DFe.Classes.Valor.Arredondar(valor, casasDecimais);
+            return valorArredondado;
         }
 
         public static decimal? Arredondar(this decimal? valor, int casasDecimais)

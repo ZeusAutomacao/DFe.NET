@@ -4,7 +4,6 @@ using CTe.CTeOSDocumento.CTe.CTeOS.Servicos.Autorizacao;
 using CTe.Servicos.Enderecos.Helpers;
 using CTe.Servicos.Factory;
 using CTe.Utils.CTe;
-using System;
 using System.Text;
 using CTeEletronico = CTe.CTeOSClasses.CTeOS;
 
@@ -12,8 +11,6 @@ namespace CTe.Servicos.Recepcao
 {
     public class ServicoCTeOSRecepcao
     {
-        public event EventHandler<AntesEnviarRecepcao> AntesDeEnviar;
-
         public retCTeOS CTeRecepcaoSincronoV4(CTeEletronico cte, ConfiguracaoServico configuracaoServico = null)
         {
             var instanciaConfiguracao = configuracaoServico ?? ConfiguracaoServico.Instancia;
@@ -27,8 +24,6 @@ namespace CTe.Servicos.Recepcao
 
             var webService = WsdlFactory.CriaWsdlCteRecepcaoSincronoOSV4(configuracaoServico);
 
-            //OnAntesDeEnviar(enviCte);
-
             var retornoXml = webService.CTeRecepcaoSincV4(cte.CriaRequestWs(configuracaoServico));
 
             var retorno = retCTeOS.LoadXml(retornoXml.OuterXml, cte);
@@ -37,7 +32,5 @@ namespace CTe.Servicos.Recepcao
 
             return retorno;
         }
-
-
     }
 }

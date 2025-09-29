@@ -27,19 +27,30 @@ A melhor maneira de você ter a última versão do Zeus em seu projeto é utiliz
 [![Build status](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml/badge.svg?branch=master)](https://github.com/ZeusAutomacao/DFe.NET/actions/workflows/DFe.NET_build.yml)
 [![Issues](https://img.shields.io/github/issues/ZeusAutomacao/DFe.NET.svg?style=flat-square)](https://github.com/ZeusAutomacao/DFe.NET/issues)
 
-
 [![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 [![Nuget count](http://img.shields.io/nuget/v/Zeus.Net.NFe.NFCe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
  Zeus.NFe.NFCe
 
 [![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.MDFe.svg)](http://www.nuget.org/packages/Zeus.Net.MDFe/)
- Zeus.MDFe  
+ Zeus.MDFe
 
 [![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.NFCe/)
 [![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.CTe.svg)](http://www.nuget.org/packages/Zeus.Net.CTe/)
- Zeus.CTe  
- 
+ Zeus.CTe
+
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.Html.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.Html.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.Html/)
+Zeus.Net.NFe.Danfe.Html
+
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.PdfClown/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.PdfClown.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.PdfClown/)
+Zeus.Net.NFe.Danfe.PdfClown
+
+[![Nuget downloads](https://img.shields.io/nuget/dt/Zeus.Net.NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.QuestPdf/)
+[![Nuget count](https://img.shields.io/nuget/v/Zeus.Net.NFe.Danfe.QuestPdf.svg)](http://www.nuget.org/packages/Zeus.Net.NFe.Danfe.QuestPdf/)
+Zeus.Net.NFe.Danfe.QuestPdf
+
 ## O que a biblioteca faz:
 ------------------
 O projeto traz classes construídas de forma manual que extraem a complexidade dos XSDs. Com isso é possível preencher objetos nativos em .NET e gerar o XML na estrutura exigida para seu DFe, assim como o processo inverso de ler um XML de um DFe e obter objetos nativos em .NET.
@@ -56,9 +67,14 @@ danfe.Visualizar();
 //danfe.Imprimir();
 //danfe.ExibirDesign();
 ```
+
+## Contribuindo com a biblioteca
+
+Para saber como contribuir com o projeto, consulte as [Diretrizes de Contribuição](CONTRIBUTING.md). Desde já agradecemos sua contribuição e esperamos que você aproveite e colabore com o desenvolvimento do projeto DFe.NET!
+
 ## Como usar a ferramenta:
 -----------
-Antes de qualquer coisa leia os manuais e conheça à fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
+Antes de qualquer coisa leia os manuais e conheça a fundo o(s) projetos que pretende usar, entenda o que é um DFe (documento fiscal eletrônico), o que é um certificado, como funciona um webservice, o que é obrigatório ser informado no DFe que pretende emitir, entre outras informações. Isso vai ajudar na construção do seu software e na integração com a biblioteca.
 
 Com o conhecimento prévio adquirido, agora você precisa estudar a biblioteca. A linguagem utilizada é C#, logo um conhecimento basico da linguagem pode te ajudar bastante, mesmo que você use apenas as dlls com VB.Net ou outra linguagem compatível.
 
@@ -134,6 +150,22 @@ Tambem foi necessário copiar algumas **fontes**, o relatório de Danfe atual ut
 COPY suapastadasfontes/* /usr/share/fonts/truetype/times/
 
 O FastReport.OpenSource é pesado na geração de PDF, por isso não recomendamos o mesmo. Para melhor utilização de memoria/cpu, utilize o FastReport.OpenSource para geração em HTML. Na conversão de HTML para PDF, recomendamos o uso do projeto https://github.com/fpanaccia/Wkhtmltopdf.NetCore 
+
+## DANFE em HTML Gerado a partir de NFe
+O repositório contém uma aplicação demonstrativa chamada NFe.Danfe.App.Teste.Html, desenvolvida em WPF (C#), que permite gerar o DANFE (Documento Auxiliar da Nota Fiscal Eletrônica) em formato HTML a partir de um arquivo XML de NF-e. O HTML gerado é salvo como um arquivo .html e aberto automaticamente no navegador padrão do sistema.
+
+## Impressão (QuestPDF):
+A aplicação também utiliza a biblioteca QuestPDF para gerar documentos em PDF de forma moderna e customizável, incluindo a geração de NFCe. Ela também possui uma aplicação de testes demonstrativa chamada NFe.Danfe.AppTeste.QuestPDF:
+
+> ⚠️ É necessário definir a licença da biblioteca em algum ponto da aplicação:
+```cs
+// adicionar isso em algum local da sua aplicação ou licença equivalente para mais informações sobre licenças  https://www.questpdf.com/
+QuestPDF.Settings.License = LicenseType.Community;
+```
+
+## Impressão (PDFClown):
+
+Além disso, há uma aplicação de exemplo chamada NFe.Danfe.AppTeste.PdfClown que demonstra como gerar o DANFE da NF-e em PDF utilizando a biblioteca PDFClown, com suporte opcional para inclusão da logomarca do emitente.
 
 ## Suporte:
 

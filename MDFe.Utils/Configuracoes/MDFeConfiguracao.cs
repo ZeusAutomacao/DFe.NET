@@ -117,9 +117,9 @@ namespace MDFe.Utils.Configuracoes
         {
             get
             {
-                if (_certificado != null)
-                    if (!ConfiguracaoCertificado.ManterDadosEmCache)
-                        _certificado.Reset();
+                if (_certificado != null && !DeveManterCertificadoEmCache())
+                    _certificado.Reset();
+
                 _certificado = ObterCertificado();
                 return _certificado;
             }
@@ -190,14 +190,20 @@ namespace MDFe.Utils.Configuracoes
 
         private void LimparCertificado()
         {
-            var naoDeveManterCertificadoEmCache =
-                !ConfiguracaoCertificado.ManterDadosEmCache && _certificado != null;
+            if (DeveManterCertificadoEmCache())
+                return;
 
-            if (naoDeveManterCertificadoEmCache)
-            {
-                _certificado.Reset();
-                _certificado = null;
-            }
+            _certificado.Reset();
+            _certificado = null;
+        }
+
+        private bool DeveManterCertificadoEmCache()
+        {
+            var deveManterCertificadoEmCache = _certificado == null ||
+                                               ConfiguracaoCertificado == null ||
+                                               ConfiguracaoCertificado.ManterDadosEmCache;
+
+            return deveManterCertificadoEmCache;
         }
     }
 }
