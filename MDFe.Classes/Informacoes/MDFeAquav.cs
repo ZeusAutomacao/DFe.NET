@@ -115,13 +115,6 @@ namespace MDFe.Classes.Informacoes
         [XmlElement(ElementName = "infUnidCargaVazia")]
         public List<MDFeInfUnidCargaVazia> InfUnidCargaVazias { get; set; }
 
-        /// <summary>
-        /// 1 - Informações das Undades de Transporte vazias
-        /// </summary>
         public List<infUnidTranspVazia> infUnidTranspVazia { get; set; }
-
-        /// <summary>
-        /// 1 - Maritime Mobile Service Identify
-        /// </summary>
-        public string MMSI { get; set; }     }
+    }
 }
