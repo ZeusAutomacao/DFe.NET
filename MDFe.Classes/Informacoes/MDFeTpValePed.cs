@@ -44,9 +44,6 @@ namespace MDFe.Classes.Informacoes
         Cupom = 02,
 
         [XmlEnum("03")]
-        Cartao = 03,
-
-        [XmlEnum("04")]
-        LeituraDePlaca = 04
+        Cartao = 03
     }
 }
