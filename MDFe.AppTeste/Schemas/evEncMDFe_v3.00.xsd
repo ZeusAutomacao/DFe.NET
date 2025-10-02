@@ -42,6 +42,17 @@
 						<xs:documentation>Código do Município de Encerramento do manifesto</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+				<xs:element name="indEncPorTerceiro" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Indicador que deve ser informado quando o encerramento for registrado pelo transportador terceiro</xs:documentation>
+						<xs:documentation>Informar valor 1 quando o MDFe for encerrado pelo transportador terceiro, este sendo diferente do emitente do MDFe</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

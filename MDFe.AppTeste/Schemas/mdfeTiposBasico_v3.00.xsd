@@ -112,15 +112,16 @@ Série na faixa [920-969]: Reservada para emissão por contribuinte pessoa físi
 									</xs:element>
 									<xs:element name="tpEmis">
 										<xs:annotation>
-											<xs:documentation>Forma de emissão do Manifesto (Normal ou Contingência)</xs:documentation>
+											<xs:documentation>Forma de emissão do Manifesto</xs:documentation>
 											<xs:documentation>1 - Normal
-; 2 - Contingência</xs:documentation>
+; 2 - Contingência; 3-Regime Especial NFF</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
 												<xs:whiteSpace value="preserve"/>
 												<xs:enumeration value="1"/>
 												<xs:enumeration value="2"/>
+												<xs:enumeration value="3"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -246,11 +247,12 @@ Informar 'EX' para operações com o exterior.</xs:documentation>
 												<xs:documentation>CPF do emitente</xs:documentation>
 												<xs:documentation>Informar zeros não significativos.
 
-Usar com série específica 920-969 para emitente pessoa física com inscrição estadual</xs:documentation>
+Usar com série específica 920-969 para emitente pessoa física com inscrição estadual.
+Poderá ser usado também para emissão do Regime Especial da Nota Fiscal Fácil</xs:documentation>
 											</xs:annotation>
 										</xs:element>
 									</xs:choice>
-									<xs:element name="IE">
+									<xs:element name="IE" minOccurs="0">
 										<xs:annotation>
 											<xs:documentation>Inscrição Estadual do emitemte</xs:documentation>
 										</xs:annotation>
@@ -353,7 +355,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 														</xs:restriction>
 													</xs:simpleType>
 												</xs:element>
-												<xs:element name="infCTe" minOccurs="0" maxOccurs="10000">
+												<xs:element name="infCTe" minOccurs="0" maxOccurs="20000">
 													<xs:annotation>
 														<xs:documentation>Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de transporte</xs:documentation>
 													</xs:annotation>
@@ -487,10 +489,37 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 																	</xs:sequence>
 																</xs:complexType>
 															</xs:element>
+															<xs:sequence minOccurs="0">
+																<xs:element name="indPrestacaoParcial">
+																	<xs:annotation>
+																		<xs:documentation>Indicador de Prestação parcial</xs:documentation>
+																	</xs:annotation>
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:whiteSpace value="preserve"/>
+																			<xs:enumeration value="1"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:element>
+																<xs:element name="infNFePrestParcial" maxOccurs="unbounded">
+																	<xs:annotation>
+																		<xs:documentation>Grupo de informações das NFe que foram entregues do CTe relacionado</xs:documentation>
+																	</xs:annotation>
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="chNFe" type="TChCTe">
+																				<xs:annotation>
+																					<xs:documentation>Nota Fiscal Eletrônica</xs:documentation>
+																				</xs:annotation>
+																			</xs:element>
+																		</xs:sequence>
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
-												<xs:element name="infNFe" minOccurs="0" maxOccurs="10000">
+												<xs:element name="infNFe" minOccurs="0" maxOccurs="20000">
 													<xs:annotation>
 														<xs:documentation>Nota Fiscal Eletronica</xs:documentation>
 													</xs:annotation>
@@ -608,7 +637,7 @@ Por exemplo, o arquivo para o schema do modal Rodoviário na versão 1.00 será 
 														</xs:sequence>
 													</xs:complexType>
 												</xs:element>
-												<xs:element name="infMDFeTransp" minOccurs="0" maxOccurs="10000">
+												<xs:element name="infMDFeTransp" minOccurs="0" maxOccurs="20000">
 													<xs:annotation>
 														<xs:documentation>Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário (vide regras MOC)</xs:documentation>
 													</xs:annotation>
@@ -833,7 +862,7 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 						<xs:element name="prodPred" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Produto predominante</xs:documentation>
-								<xs:documentation>Informar a descrição do produto predominante</xs:documentation>
+								<xs:documentation>Informar a descrição do produto predominante, conforme o item de maior valor financeiro conforme Resolução ANTT n° 5.867 de 2020).</xs:documentation>
 							</xs:annotation>
 							<xs:complexType>
 								<xs:sequence>
@@ -852,7 +881,8 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 08-Perigosa (granel líquido);
 09-Perigosa (carga frigorificada);
 10-Perigosa (conteinerizada);
-11-Perigosa (carga geral).</xs:documentation>
+11-Perigosa (carga geral).
+12-Granel pressurizada</xs:documentation>
 										</xs:annotation>
 										<xs:simpleType>
 											<xs:restriction base="xs:string">
@@ -868,6 +898,7 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 												<xs:enumeration value="09"/>
 												<xs:enumeration value="10"/>
 												<xs:enumeration value="11"/>
+												<xs:enumeration value="12"/>
 											</xs:restriction>
 										</xs:simpleType>
 									</xs:element>
@@ -1126,6 +1157,61 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 								<xs:documentation>Informações do Responsável Técnico pela emissão do DF-e</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:element name="infSolicNFF" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de informações do pedido de emissão da Nota Fiscal Fácil</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="xSolic">
+										<xs:annotation>
+											<xs:documentation>Solicitação do pedido de emissão da NFF.</xs:documentation>
+											<xs:documentation>Será preenchido com a totalidade de campos informados no aplicativo emissor serializado.</xs:documentation>
+										</xs:annotation>
+										<xs:simpleType>
+											<xs:restriction base="TString">
+												<xs:minLength value="2"/>
+												<xs:maxLength value="8000"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="infPAA" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Grupo de Informação do Provedor de Assinatura e Autorização</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="CNPJPAA" type="TCnpj">
+										<xs:annotation>
+											<xs:documentation>CNPJ do Provedor de Assinatura e Autorização</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PAASignature">
+										<xs:annotation>
+											<xs:documentation>Assinatura RSA do Emitente para DFe gerados por PAA</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="SignatureValue" type="xs:base64Binary">
+													<xs:annotation>
+														<xs:documentation>Assinatura digital padrão RSA</xs:documentation>
+														<xs:documentation>Converter o atributo Id do DFe para array de bytes e assinar com a chave privada do RSA com algoritmo SHA1 gerando um valor no formato base64.</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="RSAKeyValue" type="TRSAKeyValueType">
+													<xs:annotation>
+														<xs:documentation>Chave Publica no padrão XML RSA Key</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
 					</xs:sequence>
 					<xs:attribute name="versao" type="TVerMDe" use="required">
 						<xs:annotation>
@@ -1161,7 +1247,7 @@ Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para o
 									<xs:whiteSpace value="preserve"/>
 									<xs:minLength value="50"/>
 									<xs:maxLength value="1000"/>
-									<xs:pattern value="((HTTPS?|https?)://.*\?chMDFe=[0-9]{44}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
+									<xs:pattern value="((HTTPS?|https?)://.*\?chMDFe=[0-9]{6}[A-Z0-9]{12}[0-9]{26}&amp;tpAmb=[1-2](&amp;sign=[!-ÿ]{1}[ -ÿ]{0,}[!-ÿ]{1}|[!-ÿ]{1})?)"/>
 								</xs:restriction>
 							</xs:simpleType>
 						</xs:element>
