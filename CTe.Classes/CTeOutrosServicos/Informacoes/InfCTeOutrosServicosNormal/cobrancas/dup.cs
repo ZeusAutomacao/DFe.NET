@@ -14,14 +14,16 @@ namespace CTe.CTeOSDocumento.CTe.CTeOS.Informacoes.InfCTeNormal.cobrancas
         public DateTime? dVenc { get; set; }
 
         [XmlElement(ElementName = "dVenc")]
-        public string ProxydVenc {
+        public string ProxydVenc
+        {
             get
             {
                 if (dVenc == null) return null;
 
                 return dVenc.Value.ParaDataString();
             }
-            set { dVenc = Convert.ToDateTime(value); } }
+            set { dVenc = Convert.ToDateTime(value); }
+        }
 
         public decimal? vDup
         {
