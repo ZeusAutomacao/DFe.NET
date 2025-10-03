@@ -129,6 +129,38 @@ namespace NFe.Utils.Validacao
                     return "distDFeInt_v1.01.xsd"; // "distDFeInt_v1.00.xsd";
                 case ServicoNFe.ConsultaGtin:
                     return "consGTIN_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                    return "e112110_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                    return "e211110_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                    return "e211120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                    return "e211128_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                    return "e211130_v1.00.xsd ";
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                    return "e211140_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
+                    return "e211150_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                    return "e212110.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                    return "e212120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                    return "e412120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                    return "e412130_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
+                    return "e110001_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                    return "e112120_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                    return "e211124_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                    return "e112130_v1.00.xsd";
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                    return "e112140_v1.00.xsd";
             }
             return null;
         }

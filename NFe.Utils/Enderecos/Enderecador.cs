@@ -1635,7 +1635,7 @@ namespace NFe.Utils.Enderecos
 
             #endregion
 
-            #region ConsultaGtin / Insucesso na entrega / Conciliação Financeira
+            #region ConsultaGtin / Insucesso na entrega / Conciliação Financeira / Apuração IBS e CBS
             foreach (var estado in Enum.GetValues(typeof(Estado))
                          .Cast<Estado>()
                          .ToList())
@@ -1652,12 +1652,13 @@ namespace NFe.Utils.Enderecos
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                         addServico(new[] { ServicoNFe.RecepcaoEventoInsucessoEntregaNFe, ServicoNFe.RecepcaoEventoCancInsucessoEntregaNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
 
-
                         if (modelo == ModeloDocumento.NFe)
                         {
                             //Conciliação Financeira NFe
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Producao, emissao, estado, modelo, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
                             addServico(new[] { ServicoNFe.RecepcaoEventoConciliacaoFinanceiraNFe, ServicoNFe.RecepcaoEventoCancConciliacaoFinanceiraNFe }, versao1, TipoAmbiente.Homologacao, emissao, estado, modelo, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx");
+                            
+                            AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(addServico, versao1, emissao, estado, modelo);
                         }
                     }
                 }
@@ -1666,7 +1667,48 @@ namespace NFe.Utils.Enderecos
 
             return endServico;
         }
-
+        
+        private static void AdicionarEnderecosDosServicosDosEventosDeApuracaoDoIbsECbs(Action<ServicoNFe[], VersaoServico[], TipoAmbiente, TipoEmissao, Estado, ModeloDocumento, string> adicionarServico, 
+                                                                                       VersaoServico[] versaoServico, 
+                                                                                       TipoEmissao tipoEmissao, 
+                                                                                       Estado estado, 
+                                                                                       ModeloDocumento modeloDocumento)
+        {
+            var servicosRecepcaoEventoApuracaoDoIbsCbs = new[]
+            {
+                ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido,
+                ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal,
+                ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito,
+                ServicoNFe.RecepcaoEventoImobilizacaoDeItem,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel,
+                ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente,
+                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao,
+                ServicoNFe.RecepcaoEventoCancelamentoDeEvento,
+                ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente,
+                ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor,
+                ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado
+            };
+            
+            var urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs = new Dictionary<TipoAmbiente, string>
+            {
+                { TipoAmbiente.Producao, "https://nfe.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx" },
+                { TipoAmbiente.Homologacao, "https://nfe-homologacao.svrs.rs.gov.br/ws/recepcaoevento/recepcaoevento4.asmx" }
+            };
+            
+            foreach (var evento in servicosRecepcaoEventoApuracaoDoIbsCbs)
+            {
+                foreach (var ambiente in urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs.Keys)
+                {
+                    adicionarServico(new[] { evento }, versaoServico, ambiente, tipoEmissao, estado, modeloDocumento, urlsParaOsServicosDosEventosDeApuracaoDoIbsECbs[ambiente]);
+                }
+            }
+        }
+        
         /// <summary>
         ///     Adiciona as urls dos webservices de todos os estados
         ///     Obs: UFs que disponibilizaram urls diferentes para NFCe, até 04/05/2015: SVRS, AM, MT, PR, RS e SP
@@ -1731,6 +1773,23 @@ namespace NFe.Utils.Enderecos
                     return cfgServico.VersaoNfceAministracaoCSC;
                 case ServicoNFe.ConsultaGtin:
                     return cfgServico.VersaoConsultaGTIN;
+                case ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido:
+                case ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal:
+                case ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito:
+                case ServicoNFe.RecepcaoEventoImobilizacaoDeItem:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel:
+                case ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao:
+                case ServicoNFe.RecepcaoEventoCancelamentoDeEvento:
+                case ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente:
+                case ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor:
+                case ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado:
+                    return cfgServico.VersaoRecepcaoEventosDeApuracaoDoIbsECbs;
             }
             return null;
         }

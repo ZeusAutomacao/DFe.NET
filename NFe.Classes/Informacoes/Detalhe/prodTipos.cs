@@ -376,4 +376,15 @@ namespace NFe.Classes.Informacoes.Detalhe
         [XmlEnum("N")]
         N = 'N'
     }
+
+    /// <summary>
+    ///     Indicador de fornecimento de bem móvel usado
+    ///     <para>1 - Bem Móvel Usado</para>
+    /// </summary>
+    public enum IndBemMovelUsado
+    {
+        [Description("Bem Móvel Usado")]
+        [XmlEnum("1")]
+        BemMovelUsado
+    }
 }
