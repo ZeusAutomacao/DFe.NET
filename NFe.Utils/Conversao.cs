@@ -54,7 +54,23 @@ namespace NFe.Utils
             if (servicoNFe == ServicoNFe.RecepcaoEventoCancelmento
                 || servicoNFe == ServicoNFe.RecepcaoEventoCartaCorrecao
                 || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDestinatario
-                || servicoNFe == ServicoNFe.RecepcaoEventoEpec)
+                || servicoNFe == ServicoNFe.RecepcaoEventoEpec
+                || servicoNFe == ServicoNFe.RecepcaoEventoInformacaoDeEfetivoPagamentoIntegralParaLiberarCreditoPresumidoDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoPresumido
+                || servicoNFe == ServicoNFe.RecepcaoEventoDestinacaoDeItemParaConsumoPessoal
+                || servicoNFe == ServicoNFe.RecepcaoEventoAceiteDeDebitoNaApuracaoPorEmissaoDeNotaDeCredito
+                || servicoNFe == ServicoNFe.RecepcaoEventoImobilizacaoDeItem
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoDeCombustivel
+                || servicoNFe == ServicoNFe.RecepcaoEventoSolicitacaoDeApropriacaoDeCreditoParaBensEServicosQueDependemDeAtividadeDoAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeIbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoManifestacaoDoFiscoSobrePedidoDeTransferenciaDeCreditoDeCbsEmOperacoesDeSucessao
+                || servicoNFe == ServicoNFe.RecepcaoEventoCancelamentoDeEvento
+                || servicoNFe == ServicoNFe.RecepcaoEventoImportacaoEmAlcZfmNaoConvertidaEmIsencao
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloAdquirente
+                || servicoNFe == ServicoNFe.RecepcaoEventoPerecimentoPerdaRouboOuFurtoDuranteOTransporteContratadoPeloFornecedor
+                || servicoNFe == ServicoNFe.RecepcaoEventoFornecimentoNaoRealizadoComPagamentoAntecipado)
             {
                 return "1.00";
             }
